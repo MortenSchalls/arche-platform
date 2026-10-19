@@ -17,3 +17,5 @@ apps/academy/build/t_*.html
 apps/academy/build/arche-broker-academy.html
 apps/academy/build/charter-broker-academy.html
 __pycache__/
+apps/portal/t_*.html
+apps/portal/lib

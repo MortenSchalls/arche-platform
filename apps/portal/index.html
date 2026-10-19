@@ -2,6 +2,9 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Inter:wght@300;400;500;600&family=Cinzel:wght@600&family=Hanken+Grotesk:ital,wght@0,400;0,600;1,400&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="platform.js"></script>
 <script>(function(){var t="light";try{t=localStorage.getItem("arche.theme")||"light";}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
 <style>
 /* Layout: the Archē Executive website's look, carried into the work tool. One dark charcoal theme (as the website), hairline dividers, square corners, Prata headings, uppercase tracked labels, silver primary buttons, steel-blue accent. Lists left, open file right. */
@@ -504,7 +507,7 @@ async function boot(){
   S.uid = await user.id(); S.isOwner = await user.isOwner(); S.canEdit = await user.canEdit();
   if (S.uid) watchCol(`train/${S.uid}/runs`, snap => { S.trRuns = {}; snap.docs.forEach(d => S.trRuns[d.id] = d.data()); render(); });
   if (S.uid) watchCol(`asks/${S.uid}/items`, snap => { S.myAsks = {}; snap.docs.forEach(d => S.myAsks[d.id] = d.data()); render(); });
-  if (!S.uid) { bootFail("Sign in to claude.ai to use the portal."); return; }
+  if (!S.uid) { bootFail("Sign in to use the portal."); return; }
   const me = await user.me(); S.myName = me.name || "";
   watermark(`ARCHĒ EXECUTIVE · CONFIDENTIAL · ${S.myName || "Signed-in user"}`);
   watchDoc("config/company", snap => { S.company = snap.exists ? snap.data() : {}; render(); });
@@ -536,7 +539,7 @@ async function boot(){
   }
   decideRole(); render();
 }
-function bootFail(msg){ $("main").innerHTML = `<div class="panel empty"><p><b>The portal could not open here.</b></p><p class="small">${esc(msg || "Open it from claude.ai while signed in, using the link you were given.")}</p></div>`; }
+function bootFail(msg){ $("main").innerHTML = `<div class="panel empty"><p><b>The portal could not open here.</b></p><p class="small">${esc(msg || "Sign in again, or ask the owner to approve your access.")}</p></div>`; }
 function decideRole(){
   const me = S.isOwner ? null : (S.roster[S.uid] || S.myRoster);
   if (S.isOwner) S.role = "owner";
