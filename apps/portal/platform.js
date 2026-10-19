@@ -30,10 +30,9 @@
       #archeLogin .msg{min-height:20px;font-size:13px;color:#a9bdd4}</style>
       <div class="card" role="dialog" aria-labelledby="alh"><h1 id="alh">ARCHĒ</h1><p style="text-align:center;letter-spacing:.3em;font-size:11px;margin-top:0">EXECUTIVE · BROKER PORTAL</p>
       <button type="button" id="alMs">Sign in with Microsoft</button>
-      <p style="margin:18px 0 0">Or get a one-time code by email:</p>
+      <p style="margin:18px 0 0">Or get a sign-in link by email:</p>
       <input id="alEm" type="email" autocomplete="email" placeholder="you@archeaviation.com" aria-label="Email">
-      <button type="button" class="alt" id="alSend">Email me a code</button>
-      <div id="alCodeBox" hidden><input id="alCode" inputmode="numeric" autocomplete="one-time-code" placeholder="Code from the email" aria-label="Code"><button type="button" id="alVerify">Sign in</button></div>
+      <button type="button" class="alt" id="alSend">Email me a sign-in link</button>
       <p class="msg" id="alMsg" aria-live="polite"></p>
       <p style="font-size:12px;color:#a8adb3">Access is for approved Archē Executive staff and brokers. After your first sign-in, the owner approves you.</p></div>`;
     (document.body ? Promise.resolve() : new Promise(r => addEventListener("DOMContentLoaded", r))).then(() => document.body.appendChild(box));
@@ -41,18 +40,14 @@
     box.addEventListener("click", async e => {
       if (e.target.id === "alMs") {
         const { error } = await sb.auth.signInWithOAuth({ provider: "azure", options: { scopes: "email", redirectTo: location.origin + location.pathname } });
-        if (error) msg("Microsoft sign-in is not switched on yet. Use the email code.");
+        if (error) msg("Microsoft sign-in is not switched on yet. Use the email link.");
       }
       if (e.target.id === "alSend") {
         const em = document.getElementById("alEm").value.trim();
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { msg("Enter your email address."); return; }
-        const { error } = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: true } });
-        if (error) { msg(error.message); return; }
-        document.getElementById("alCodeBox").hidden = false; msg("Code sent. Check your email (and spam).");
-      }
-      if (e.target.id === "alVerify") {
-        const { error } = await sb.auth.verifyOtp({ email: document.getElementById("alEm").value.trim(), token: document.getElementById("alCode").value.trim(), type: "email" });
-        if (error) msg("That code did not work. Ask for a new one.");
+        const { error } = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: true, emailRedirectTo: location.origin + location.pathname } });
+        if (error) { msg(/rate/i.test(error.message) ? "Too many emails just now. Wait a few minutes and try again." : error.message); return; }
+        msg("Link sent. Open the email (check spam) and click the link on this device.");
       }
     });
   }
