@@ -1,0 +1,80 @@
+{
+ "cat_tp": {
+  "what": "Pilatus PC-12NG",
+  "page": "https://commons.wikimedia.org/wiki/File:Pilatus_PC-12NG_N834NG_FDK_MD2.jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Acroterion"
+ },
+ "cat_light": {
+  "what": "Embraer Phenom 300",
+  "page": "https://commons.wikimedia.org/wiki/File:Embraer_Phenom_300_N235EE_FDK_MD2.jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Acroterion"
+ },
+ "cat_mid": {
+  "what": "Learjet 60",
+  "page": "https://commons.wikimedia.org/wiki/File:Learjet_60_D-CKKK.jpg",
+  "lic": "Public domain",
+  "artist": "Lars Henseleit"
+ },
+ "cat_smid": {
+  "what": "Bombardier Challenger 350",
+  "page": "https://commons.wikimedia.org/wiki/File:Bombardier_Challenger_350_N1980Z.jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Acroterion"
+ },
+ "cat_heavy": {
+  "what": "Dassault Falcon 900LX",
+  "page": "https://commons.wikimedia.org/wiki/File:EGLF_-_Dassault_Falcon_900LX_-_F-HDOR_(44058572331).jpg",
+  "lic": "CC BY 2.0",
+  "artist": "Steve Lynes"
+ },
+ "cat_ulr": {
+  "what": "Bombardier Global 7500",
+  "page": "https://commons.wikimedia.org/wiki/File:Bombardier_Global_7500_CS-ESS_BWI_MD1.jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Acroterion"
+ },
+ "cat_vip": {
+  "what": "Boeing Business Jet",
+  "page": "https://commons.wikimedia.org/wiki/File:Boeing_Business_Jet_take_off_at_McCarran_Airport_2008_(3023202347).jpg",
+  "lic": "CC BY-SA 2.0",
+  "artist": "Eddie Maloney"
+ },
+ "fam_g650": {
+  "what": "Gulfstream G650ER",
+  "page": "https://commons.wikimedia.org/wiki/File:Gulfstream_G650ER_-_N1895T_-_Serial_6346_-_VGHS.jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Md Shaifuzzaman Ayon"
+ },
+ "fam_f8x": {
+  "what": "Dassault Falcon 8X",
+  "page": "https://commons.wikimedia.org/wiki/File:Dassault_Falcon_8X,_Paris_Air_Show_2019,_Le_Bourget_(SIAE8623).jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Matti Blume"
+ },
+ "cabin_lg": {
+  "what": "Hawker 4000 cabin",
+  "page": "https://commons.wikimedia.org/wiki/File:Hawker_4000_cabin_interior_facing_forward.jpg",
+  "lic": "CC BY-SA 3.0",
+  "artist": "JetRequest.com"
+ },
+ "cabin_lt": {
+  "what": "Embraer Phenom 300 cabin",
+  "page": "https://commons.wikimedia.org/wiki/File:Embraer_Phenom_300_cabin,_EBACE_2019_(EB190435,_cropped).jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Matti Blume"
+ },
+ "deice": {
+  "what": "De-icing a wing",
+  "page": "https://commons.wikimedia.org/wiki/File:2008_wing_deicing_01.jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Nicholas Hartmann"
+ },
+ "cabin_ulr": {
+  "what": "Bombardier Global 7500 cabin",
+  "page": "https://commons.wikimedia.org/wiki/File:Bombardier_Global_7500,_Paris_Air_Show_2019,_Le_Bourget_(SIAE8909).jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "Matti Blume"
+ }
+}

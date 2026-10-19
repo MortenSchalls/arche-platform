@@ -1,0 +1,1126 @@
+<title>Arche Broker Academy</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=DM+Mono:wght@500&display=swap">
+<script>(function(){var t="light";try{t=localStorage.getItem("arche.theme")||"light";}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
+<style>
+/* Layout: a training desk. Course map on the left like a flight plan, one lesson at a time on the right. Arche charcoal and steel, same faces as the charter confirmation form. */
+:root{
+  --ground:#f2f0eb; --panel:#fbfaf7; --ink:#1b1e23; --muted:#5f656d; --line:#dedad1; --field:#fffefb;
+  --accent:#1f5fae; --accent-ink:#FFFFFF; --steel:#1f5fae; --steel-soft:#dde9fb;
+  --ok:#147a3c; --ok-bg:#dcf2e3; --warn:#985a00; --warn-bg:#fdebc6; --err:#c0281d; --err-bg:#fddfdb;
+  --green:#147a3c; --amber:#985a00; --red:#c0281d;
+  --bar:#2c2f34; --bar-ink:#e9eef3; --bar-sub:#7fb0ff; --bar-line:#5A6170;
+  --series-1:#2a78d6; --kpi-1:#2a78d6; --kpi-2:#eb6834; --kpi-3:#1baf7a; --kpi-4:#6250d6; --kpi-5:#e87ba4;
+  --display:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+  --body:"Nunito Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+:root[data-theme="dark"]{
+  --ground:#2c2f34; --panel:#34373d; --ink:#eef1f5; --muted:#a5abb2; --line:#474a50; --field:#2a2d32;
+  --accent:#7fb0ff; --accent-ink:#10233d; --steel:#7fb0ff; --steel-soft:#25374f;
+  --ok:#6fdc9e; --ok-bg:#243f33; --warn:#f5c35c; --warn-bg:#45391f; --err:#ff8f84; --err-bg:#4d2c29;
+  --green:#6fdc9e; --amber:#f5c35c; --red:#ff8f84;
+  --bar:#26292e; --bar-ink:#e9eef3; --bar-sub:#7fb0ff; --bar-line:#5A6170;
+  --series-1:#3987e5; --kpi-1:#3987e5; --kpi-2:#d95926; --kpi-3:#199e70; --kpi-4:#9085e9; --kpi-5:#d55181; color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){ :root[data-theme="system"]{
+  --ground:#2c2f34; --panel:#34373d; --ink:#eef1f5; --muted:#a5abb2; --line:#474a50; --field:#2a2d32;
+  --accent:#7fb0ff; --accent-ink:#10233d; --steel:#7fb0ff; --steel-soft:#25374f;
+  --ok:#6fdc9e; --ok-bg:#243f33; --warn:#f5c35c; --warn-bg:#45391f; --err:#ff8f84; --err-bg:#4d2c29;
+  --green:#6fdc9e; --amber:#f5c35c; --red:#ff8f84;
+  --bar:#26292e; --bar-ink:#e9eef3; --bar-sub:#7fb0ff; --bar-line:#5A6170;
+  --series-1:#3987e5; --kpi-1:#3987e5; --kpi-2:#d95926; --kpi-3:#199e70; --kpi-4:#9085e9; --kpi-5:#d55181; color-scheme:dark;
+}}
+*{box-sizing:border-box}
+/* colour layer, shared with the broker portal */
+.tiles > .tile{border-top:3px solid var(--kpi-1)}
+.tiles > .tile:nth-child(5n+2){border-top-color:var(--kpi-2)}.tiles > .tile:nth-child(5n+3){border-top-color:var(--kpi-3)}.tiles > .tile:nth-child(5n+4){border-top-color:var(--kpi-4)}.tiles > .tile:nth-child(5n+5){border-top-color:var(--kpi-5)}
+.card > h2:first-child::before,.card > .row:first-child > h2::before{content:"";display:inline-block;width:4px;height:.85em;background:var(--steel);margin-right:10px;border-radius:2px;vertical-align:-1px}
+.btn.primary{box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 30%,transparent)}
+.bar .themesel{width:auto;max-width:150px;flex:none;background:transparent;color:var(--bar-ink);border:1px solid var(--bar-line);border-radius:6px;padding:4px 8px;font-size:13px;height:32px}
+.themesel option{color:#1b1e23;background:#fff}
+
+html,body{min-height:100%}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.62}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bar)}
+a{color:var(--steel);text-underline-offset:2px}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--steel);outline-offset:2px}
+h1,h2,h3{text-wrap:balance}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bar);color:var(--bar-ink);display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar img{height:34px;width:auto;display:block}
+.bar .sub{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--bar-sub);font-weight:600}
+.bar .sp{flex:1}
+.chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap;border:1px solid transparent}
+.chip.sync{background:var(--ok-bg);color:var(--ok)}
+.chip.local{background:var(--warn-bg);color:var(--warn)}
+.chip.none{background:transparent;color:var(--bar-sub);border-color:var(--bar-line)}
+.barbtn{background:transparent;color:var(--bar-ink);border:1px solid var(--bar-line);border-radius:6px;padding:5px 11px;font-size:13px;font-weight:500}
+.barbtn:hover{border-color:var(--bar-sub)}
+.mapbtn{display:none}
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);gap:0;max-width:1320px;margin:0 auto;align-items:start}
+nav.map{position:sticky;top:calc(env(safe-area-inset-top,0px) + 52px);max-height:calc(100vh - 60px);overflow:auto;padding:18px 14px 24px max(16px,env(safe-area-inset-left,0px));border-right:1px solid var(--line)}
+.who{font-size:13px;color:var(--muted);margin:0 6px 12px}
+.who b{color:var(--ink);font-weight:600}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:6px 6px 16px}
+.prog i{display:block;height:100%;background:var(--series-1);width:0}
+.map ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.map li button{width:100%;display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:6px;text-align:left;background:none;border:none;border-radius:6px;padding:7px 6px;font-size:13.5px;color:var(--ink)}
+.map li button:hover:not(:disabled){background:var(--steel-soft)}
+.map li button[aria-current="true"]{background:var(--steel-soft);font-weight:600}
+.map li button:disabled{color:var(--muted);cursor:default}
+.code{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.st{font-size:11px;font-weight:600;padding:1px 7px;border-radius:999px;white-space:nowrap}
+.st.done{background:var(--ok-bg);color:var(--ok)}
+.st.open{background:var(--steel-soft);color:var(--steel)}
+.st.soon{color:var(--muted)}
+.map .group{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:14px 6px 4px}
+.map .extra{margin-top:14px;display:flex;flex-direction:column;gap:2px}
+main{min-width:0;padding-block:24px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.page{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);font-weight:600}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(25px,3.2vw,33px);letter-spacing:-.01em;line-height:1.2;margin:2px 0 0}
+h2{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.005em;margin:0}
+h3{font-size:15px;font-weight:700;margin:0}
+p{margin:0}
+.lede{color:var(--muted);font-size:16px;max-width:68ch}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card.flat{background:transparent;border-style:dashed}
+.steps{display:flex;gap:4px;flex-wrap:wrap}
+.steps span{height:5px;flex:1;min-width:14px;border-radius:3px;background:var(--line)}
+.steps span.on{background:var(--steel)}
+.steps span.cur{background:var(--accent)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px 10px;background:var(--field);border-bottom:1px solid var(--line)}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.mono{font-family:var(--mono);font-size:12.5px}
+.rag td:nth-child(2){border-left:4px solid var(--amber)}
+.rag td:nth-child(3){border-left:4px solid var(--red)}
+ul.l,ol.l{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.links{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:12px}
+.links .lab{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.links a{font-size:14px;display:inline-flex;gap:6px;align-items:baseline}
+.links a::after{content:"↗";font-size:12px;color:var(--muted)}
+.box{background:var(--steel-soft);border-radius:8px;padding:12px 16px;display:flex;flex-direction:column;gap:4px}
+.box b{font-weight:700}
+.regions{display:flex;flex-direction:column;gap:8px}
+.reg{border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.reg summary{cursor:pointer;padding:10px 14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.reg summary::after{content:"+";color:var(--muted);font-weight:500}
+.reg[open] summary::after{content:"−"}
+.reg .in{padding:0 14px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.reg .in .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px}
+.reg .in .lk{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px}
+.try{border:1px solid var(--line);border-left:4px solid var(--steel);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;background:var(--panel)}
+.try .tq{font-weight:600}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--field);border-radius:8px;padding:10px 12px;font-size:14.5px;width:100%}
+.opt:hover:not(:disabled){border-color:var(--steel)}
+.opt .k{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:2px;min-width:14px}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--err);background:var(--err-bg)}
+.opt:disabled{cursor:default}
+.fb{border-radius:8px;padding:10px 14px;font-size:14px}
+.fb.ok{background:var(--ok-bg);color:var(--ok)}
+.fb.no{background:var(--err-bg);color:var(--err)}
+.fb b{font-weight:700}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:9px 16px;font-weight:600;font-size:14px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.5;cursor:default}
+.sp{flex:1}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tile{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--panel);display:flex;flex-direction:column;gap:6px;text-align:left;min-width:0}
+button.tile:hover{border-color:var(--steel)}
+.tile .code{font-size:12px}
+.tile .tt{font-weight:600;font-size:14.5px;line-height:1.3}
+.score{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted);font-weight:500;min-width:0}
+input,select{font:inherit;font-size:14.5px;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;min-width:0}
+input[type=checkbox]{width:auto;accent-color:var(--steel)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}
+.full{grid-column:1/-1}
+.check{display:flex;gap:9px;align-items:flex-start;font-size:14px;color:var(--ink)}
+.check input{margin-top:4px}
+.labcard{display:flex;flex-direction:column;gap:10px}
+.labcard .trip{font-weight:600;font-size:15px}
+.rag3{display:flex;gap:6px;flex-wrap:wrap}
+.ragb{border:1px solid var(--line);background:var(--field);border-radius:999px;padding:6px 14px;font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:7px}
+.ragb i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.ragb[aria-pressed="true"]{border-color:var(--ink);background:var(--panel);box-shadow:inset 0 0 0 1px var(--ink)}
+.dot-green{background:var(--green)} .dot-amber{background:var(--amber)} .dot-red{background:var(--red)}
+.brief{display:flex;flex-direction:column;gap:10px}
+.brief .doc{border:1px solid var(--line);background:var(--field);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.brief .doc .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.leg{display:grid;grid-template-columns:1.3fr .9fr .9fr .9fr .7fr auto;gap:8px;align-items:end;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--field)}
+.leg input{background:var(--panel)}
+.leg .pos{flex-direction:row;align-items:center;gap:6px;padding-bottom:9px;white-space:nowrap}
+.auto{display:flex;flex-direction:column;gap:6px}
+.issue{font-size:13.5px;border-radius:6px;padding:8px 11px}
+.issue.err{background:var(--err-bg);color:var(--err)}
+.issue.warn{background:var(--warn-bg);color:var(--warn)}
+.issue.okk{background:var(--ok-bg);color:var(--ok)}
+.calc{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px;background:var(--field);border-radius:8px;padding:10px 12px;font-variant-numeric:tabular-nums}
+.calc span:nth-child(even){text-align:right;font-weight:600}
+.res{display:flex;flex-direction:column;gap:6px}
+.res .it{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;padding:8px 10px;border-radius:6px;background:var(--field)}
+.res .it .m{font-weight:700;font-size:12px;padding-top:2px}
+.res .it.pass .m{color:var(--ok)} .res .it.fail .m{color:var(--err)}
+.tag{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:1px 6px;border-radius:4px;background:var(--err-bg);color:var(--err);margin-left:6px}
+.tag.min{background:var(--warn-bg);color:var(--warn)}
+.cert{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:28px;display:flex;flex-direction:column;gap:14px;text-align:center;align-items:center}
+.cert .nm{font-family:var(--display);font-size:26px;letter-spacing:.04em}
+.codebox{font-family:var(--mono);font-size:12.5px;background:var(--field);border:1px solid var(--line);border-radius:8px;padding:10px 12px;word-break:break-all;text-align:left;width:100%;user-select:all}
+.note{font-size:13px;color:var(--muted)}
+.empty{color:var(--muted);font-size:14px;padding:12px 0}
+.wmark{position:fixed;inset:0;pointer-events:none;z-index:4;background-repeat:repeat}
+.legal{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:8px}
+.lrow{display:flex;flex-direction:column;gap:1px}
+.lrow .why{font-size:12.5px;color:var(--muted)}
+.reveal{border:1px dashed var(--line);border-radius:8px;padding:10px 14px;background:var(--field)}
+.reveal summary{cursor:pointer;font-weight:600;color:var(--steel)}
+.reveal .rv{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.card h3{margin-top:6px}
+.opt.picked{border-color:var(--steel);background:var(--steel-soft);box-shadow:inset 0 0 0 1px var(--steel)}
+.fig{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.fig .cv{border:1px solid var(--line);border-radius:10px;background:var(--field);padding:14px;overflow-x:auto}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.fig .src{font-size:11.5px;font-style:italic}
+.fig text{font-family:var(--body);fill:var(--ink);font-size:14px}
+.fig .t-s{font-size:13px}.fig .t-b{font-weight:700}.fig .t-m{fill:var(--muted)}.fig .t-h{font-family:var(--display);font-size:22px;font-weight:600}
+.fig .t-x{fill:var(--accent-ink);font-size:11px;font-weight:700}.fig .t-x2{fill:#fff;font-size:17px;font-weight:700;letter-spacing:1px}.fig .t-x3{font-size:12px;font-weight:700}.fig .t-inv{fill:var(--accent-ink)}
+.fig .f-panel{fill:var(--panel)}.fig .f-soft{fill:var(--steel-soft)}.fig .f-acc{fill:var(--steel)}.fig .f-ink{fill:var(--accent)}
+.fig .f-ok{fill:var(--green)}.fig .f-amb{fill:var(--amber)}.fig .f-red{fill:var(--red)}.fig .f-red-soft{fill:var(--err-bg)}
+.fig .s-line{stroke:var(--line)}.fig .s-acc{stroke:var(--steel)}.fig .s-ink{stroke:var(--ink)}.fig .s-ok{stroke:var(--green)}.fig .s-amb{stroke:var(--amber)}.fig .s-red{stroke:var(--red)}
+.hero{border-radius:12px;background:linear-gradient(135deg,var(--steel-soft),var(--field));padding:8px 14px}
+.hero svg{display:block;width:100%;height:auto;max-height:140px}
+.hero text{font-family:var(--body);fill:var(--ink)}.hero .t-h{font-family:var(--display);font-size:24px;font-weight:600}.hero .t-s{font-size:13px}.hero .t-m{fill:var(--muted)}.hero .f-acc{fill:var(--steel)}.hero .f-panel{fill:var(--panel)}.hero .f-soft{fill:var(--steel-soft)}.hero .s-line{stroke:var(--line)}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.meta span{font-size:12.5px;font-weight:600;color:var(--steel);background:var(--steel-soft);border-radius:999px;padding:3px 10px}
+.objs{counter-reset:o;list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.objs li{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:start}
+.objs li::before{counter-increment:o;content:counter(o);width:24px;height:24px;border-radius:50%;background:var(--steel);color:var(--accent-ink);font-size:12.5px;font-weight:700;display:grid;place-items:center}
+.take li::before{content:"✓";background:var(--green)}
+@media (max-width: 560px){ .fig .cv svg{min-width:560px} .fig .cv::after{content:"Swipe to see the whole figure";display:block;font-size:11.5px;color:var(--muted);margin-top:6px;position:sticky;left:0} }
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.gallery.one{grid-template-columns:minmax(0,1fr)}
+.ph{margin:0;display:flex;flex-direction:column;gap:5px;min-width:0}
+.ph img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:8px;background:var(--field);display:block}
+.gallery.one .ph img{aspect-ratio:16/7}
+.ph figcaption{font-size:13px;font-weight:600;color:var(--ink)}
+.ph .cr{font-size:11px;font-weight:400;color:var(--muted)}
+.ph .cr a{color:var(--muted)}
+@media (max-width: 560px){ .gallery{grid-template-columns:1fr 1fr;gap:10px} .gallery.one{grid-template-columns:minmax(0,1fr)} .ph figcaption{font-size:12px} }
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* audio */
+.audiobtn[aria-pressed="true"]{background:var(--bar-ink);color:var(--bar);border-color:var(--bar-ink);font-weight:600}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--panel);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(10,20,30,.10);padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.dock .in{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.dock .ctl{display:flex;gap:6px}
+.dock .ctl button{border:1px solid var(--line);background:var(--field);border-radius:999px;min-width:40px;height:40px;padding:0 12px;font-weight:600;font-size:14px}
+.dock .ctl button.main{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);min-width:92px}
+.dock .now{flex:1;min-width:160px;font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dock select{width:auto;max-width:220px;font-size:13px;padding:6px 8px}
+.dock label.check{font-size:13px;color:var(--muted)}
+.dock #aName{border:1px solid var(--line);background:var(--field);border-radius:999px;height:34px;padding:0 12px;font-size:13px;font-weight:600}
+body.audio-on main{padding-bottom:150px}
+.reading{outline:2px solid var(--steel);outline-offset:4px;border-radius:4px;background:var(--steel-soft)}
+tr.reading{outline-offset:-2px}
+@media (max-width: 900px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  nav.map{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);padding:14px max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px))}
+  nav.map.closed{display:none}
+  .mapbtn{display:inline-block}
+}
+@media (max-width: 560px){
+  .grid2,.reg .in{grid-template-columns:minmax(0,1fr)}
+  .leg{grid-template-columns:1fr 1fr}
+  .card{padding:16px}
+  .bar img{height:28px}
+  .dock .now{display:none}
+  .dock .in{gap:8px}
+  .dock select{max-width:150px;font-size:12.5px;padding:5px 6px}
+  .dock label.f,.dock label.check{font-size:12px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="bar">
+  <img src="__LOGO__" alt="Arche Executive">
+  <span class="sub">Broker Academy</span>
+  <span class="sp"></span>
+  <select class="themesel" id="themeSel" aria-label="Colour theme" title="Day for daylight and long sessions; Night for low light"><option value="light">Day</option><option value="dark">Night</option><option value="system">Follow device</option></select>
+  <span class="chip none" id="sync">Not signed in</span>
+  <button class="barbtn audiobtn" id="audioBtn" type="button" aria-pressed="false" title="Read the training aloud">Audio off</button>
+  <button class="barbtn mapbtn" id="mapBtn" type="button" aria-expanded="false">Course map</button>
+</header>
+
+<div class="dock" id="dock" hidden><div class="in">
+  <div class="ctl"><button type="button" id="aPrev" aria-label="Previous paragraph">‹‹</button><button type="button" class="main" id="aPlay">Play</button><button type="button" id="aNext" aria-label="Next paragraph">››</button></div>
+  <span class="now" id="aNow" aria-live="polite">Press Play to listen to this screen.</span>
+  <label class="f" for="aRate" style="flex-direction:row;align-items:center;gap:6px">Speed<select id="aRate"><option value="0.8">0.8×</option><option value="0.9">0.9×</option><option value="1" selected>1×</option><option value="1.15">1.15×</option><option value="1.3">1.3×</option></select></label>
+  <label class="f" for="aVoice" style="flex-direction:row;align-items:center;gap:6px">Voice<select id="aVoice"><option value="">Best available</option></select></label>
+  <button type="button" id="aName" class="ghost" title="Check how this voice says our name">Hear the name</button>
+  <label class="check" for="aAuto"><input type="checkbox" id="aAuto" checked> Read each new screen</label>
+  <span class="note" id="aTip" hidden style="flex-basis:100%">For a more natural voice, open the academy in Microsoft Edge (natural voices) or add an Enhanced or Premium English voice in your device's speech settings.</span>
+</div></div>
+
+<div class="wmark" id="wmark" aria-hidden="true"></div>
+<div class="shell">
+  <nav class="map closed" id="map" aria-label="Course map"></nav>
+  <main><div class="page" id="view"></div></main>
+</div>
+
+<script>
+__CONTENT__
+</script>
+<script>
+(() => {
+"use strict";
+const ED = "__ED__";                          // "int" = Arche internal academy, "ext" = edition sold to external brokers
+let HIDDEN = [];                               // steps the course owner has deselected (external edition)
+const KEY = ED === "ext" ? "charter-broker-academy-v1" : "arche-cbt-v1", SALT = "ARCHE-CBT-2026-10", PASS = 0.8, QK = "AX-7Q2-2026-10";
+/* answer keys are not stored in the page; answers are matched against check values */
+(function unseal(){
+  const q1 = q => { if (q.a === undefined && q.h) q.a = q.o.findIndex((_,i) => fnv(QK + q.q + "|" + i) === q.h); };
+  Object.values(MODS).forEach(m => { m.quiz.forEach(q1); m.secs.forEach(s => s.b.forEach(b => b.tryq && q1(b.tryq))); });
+  LAB.forEach(x => { if (x.hc) { x.c = ["green","amber","red"].find(c => fnv(QK + x.t + "|c|" + c) === x.hc); x.i = x.o.find(i => fnv(QK + x.t + "|i|" + i) === x.hi); x.d = x.o.filter(i => i !== x.i); } });
+})();
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const todayISO = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset()*6e4).toISOString().slice(0,10); };
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const fmtD = iso => { if(!iso) return ""; const [y,m,d] = String(iso).slice(0,10).split("-"); return `${+d} ${MON[+m-1]} ${y}`; };
+const usd = n => "USD " + Math.round(n).toLocaleString("en-US");
+const num = v => { const n = parseFloat(String(v).replace(/[, ]/g,"")); return isFinite(n) ? n : NaN; };
+
+/* ---------- state ---------- */
+let ST = null;
+try { ST = JSON.parse(localStorage.getItem(KEY)); } catch(e) { ST = null; }
+if (!ST || ST.v !== 1) ST = {v:1, name:"", role:"broker", started:"", mods:{}, updated:""};
+const saveLocal = () => { try { localStorage.setItem(KEY, JSON.stringify(ST)); } catch(e) {} };
+
+/* ---------- platform: tracking ---------- */
+const P = {db:null, user:null, uid:null, owner:false, ref:null, mode:"none", chain:Promise.resolve()};
+function setSync(mode){
+  P.mode = mode; const el = $("sync");
+  el.className = "chip " + (mode === "sync" ? "sync" : mode === "local" ? "local" : "none");
+  el.textContent = mode === "sync" ? "Progress recorded" : mode === "local" ? "Saved on this device" : "Saved on this device";
+  el.title = mode === "sync" ? "Your progress is saved to the Arche training records." : "Progress is kept in this browser. When you finish, send your completion code to the director.";
+}
+function pushRemote(){
+  if (!P.ref) return;
+  const body = JSON.parse(JSON.stringify(ST)); body.updated = new Date().toISOString();
+  P.chain = P.chain.then(() => P.ref.set(body)).then(() => setSync("sync")).catch(() => { P.ref = null; setSync("local"); });
+}
+function save(){ ST.updated = new Date().toISOString(); saveLocal(); pushRemote(); }
+function mergeRemote(r){
+  if (!r) return;
+  if (r.resetAt && (!ST.resetSeen || ST.resetSeen < r.resetAt)) {      // the director reset this trainee
+    ST = {v:1, name:r.name || ST.name, role:r.role || ST.role, started:new Date().toISOString(), mods:{}, updated:"", resetSeen:r.resetAt};
+    return;
+  }
+  if (!ST.name && r.name) { ST.name = r.name; ST.role = r.role || ST.role; ST.started = r.started || ST.started; }
+  Object.entries(r.mods || {}).forEach(([k,v]) => { const m = ST.mods[k]; if (!m || (v.passed && !m.passed) || (v.best||0) > (m.best||0)) ST.mods[k] = v; });
+}
+async function initPlatform(){
+  const c = window.claude;
+  if (!c || typeof c.use !== "function") { setSync("local"); return; }
+  try {
+    const [user, db] = await Promise.all([c.use("user"), c.use("db")]);
+    P.user = user; P.db = db;
+    if (user) { P.owner = await user.isOwner(); P.uid = await user.id(); }
+    if (db && ED === "ext") { try { const c = await db.doc("config/course").get(); if (c.exists) HIDDEN = (c.data().hidden || []).filter(id => !["m0","m2","exam"].includes(id)); } catch(e) {} }
+    if (db && P.uid) {
+      P.ref = db.doc("progress/" + P.uid);
+      try { const s = await P.ref.get(); if (s.exists) { mergeRemote(s.data()); saveLocal(); } setSync("sync"); if (ST.name) pushRemote(); }
+      catch(e) { P.ref = null; setSync("local"); }
+    } else setSync("local");
+  } catch(e) { setSync("local"); }
+  renderMap(); route();
+}
+
+/* ---------- helpers ---------- */
+const PATH = () => (PATHS[ST.role] || PATHS.broker).filter(id => !HIDDEN.includes(id));
+/* spaced review: questions answered wrongly come back as quick recall at the start of later modules */
+const qKey = (m, q) => m + "|" + fnv(q.q);
+function addReview(m, q){ ST.review = ST.review || []; const k = qKey(m, q); if (!ST.review.includes(k)) ST.review.push(k); }
+function dropReview(k){ ST.review = (ST.review || []).filter(x => x !== k); }
+function reviewItems(except, n){
+  return (ST.review || []).map(k => { const [m, h] = k.split("|"), M = MODS[m]; const q = M && M.quiz.find(x => fnv(x.q) === h); return q && m !== except ? {k, m, q} : null; }).filter(Boolean).slice(0, n);
+}
+const inPath = id => PATH().includes(id);
+const modState = id => ST.mods[id] || null;
+const isDone = id => !!(ST.mods[id] && ST.mods[id].passed);
+const courseItem = id => COURSE.find(c => c.id === id);
+function unlocked(id){ const order = PATH(), i = order.indexOf(id); if (i < 0) return false; return i === 0 || isDone(order[i-1]); }
+const nextInPath = id => { const o = PATH(); return o[o.indexOf(id) + 1]; };
+function record(id, score, total, passed){
+  const m = ST.mods[id] || {attempts:0, best:0};
+  m.attempts = (m.attempts||0) + 1; m.score = score; m.total = total; m.pct = Math.round(score/total*100);
+  m.best = Math.max(m.best||0, m.pct); m.passed = !!(m.passed || passed); m.at = new Date().toISOString();
+  if (passed && !m.passedAt) m.passedAt = m.at;
+  ST.mods[id] = m;
+  if (PATH().every(isDone) && !ST.completedAt) ST.completedAt = new Date().toISOString();
+  save(); renderMap();
+}
+function fnv(s){ let h = 0x811c9dc5; for (let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8,"0"); }
+const b64e = s => btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const b64d = s => decodeURIComponent(escape(atob(s.replace(/-/g,"+").replace(/_/g,"/"))));
+function makeCode(){
+  const p = JSON.stringify([ST.name, ST.role, (ST.completedAt||"").slice(0,10), PATH().map(k => [k, (ST.mods[k]||{}).best||0])]);
+  return "AE2." + b64e(p) + "." + fnv(p + SALT);
+}
+function readCode(code){
+  const m = String(code).trim().replace(/\s+/g,"").match(/^AE2\.([A-Za-z0-9_-]+)\.([0-9a-f]{8})$/);
+  if (!m) return {ok:false, msg:"This is not an Arche completion code. Ask the trainee to copy the whole code."};
+  let p; try { p = b64d(m[1]); } catch(e) { return {ok:false, msg:"The code is damaged. Ask the trainee to copy it again."}; }
+  if (fnv(p + SALT) !== m[2]) return {ok:false, msg:"The check digits do not match. The code was changed or copied incompletely."};
+  const a = JSON.parse(p); return {ok:true, name:a[0], role:a[1], date:a[2], items:a[3] || []};
+}
+const roleName = r => r === "consultant" ? "Charter consultant" : "Broker";
+
+/* ---------- map ---------- */
+function renderMap(){
+  const path = PATH(), done = path.filter(isDone).length;
+  const items = COURSE.map(c => {
+    const ip = inPath(c.id);
+    const st = !ip ? `<span class="st soon">Not in path</span>` : isDone(c.id) ? `<span class="st done">Passed</span>` : unlocked(c.id) ? `<span class="st open">Open</span>` : `<span class="st soon">Locked</span>`;
+    return `<li><button type="button" data-go="${c.id}" ${ip && unlocked(c.id) ? "" : "disabled"} aria-current="${VIEW.id===c.id}"><span class="code">${esc(c.n)}</span><span>${esc(c.t)}</span>${st}</button></li>`;
+  }).join("");
+  const refs = Object.entries(REF).map(([id,r]) => `<li><button type="button" data-go="${id}" ${ST.name ? "" : "disabled"} aria-current="${VIEW.id===id}"><span class="code">REF</span><span>${esc(r.t)}</span><span></span></button></li>`).join("");
+  $("map").innerHTML = `
+    <p class="who">${ST.name ? `Trainee <b>${esc(ST.name)}</b> · ${roleName(ST.role)}` : "Not started"}</p>
+    <div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${path.length}" aria-valuenow="${done}" aria-label="Course progress"><i style="width:${done/path.length*100}%"></i></div>
+    <div class="map-l"><button type="button" class="btn" data-go="home" style="width:100%;margin-bottom:10px">Overview</button></div>
+    <p class="group">Course</p><ol>${items}</ol>
+    <p class="group">Reference</p><ol>${refs}</ol>
+    <div class="extra">
+      ${ST.completedAt ? `<button type="button" class="btn" data-go="cert">My completion record</button>` : ""}
+      ${P.owner ? `<button type="button" class="btn" data-go="records">Training records (director)</button>` : ""}
+      ${P.owner && ED === "ext" ? `<button type="button" class="btn" data-go="settings">Course settings</button>` : ""}
+      ${ED === "ext" ? `<button type="button" class="btn" data-go="verify">Verify a certificate</button>` : ""}
+    </div>`;
+}
+(function(){ const sel = document.getElementById("themeSel"); if (!sel) return; sel.value = document.documentElement.getAttribute("data-theme") || "light";
+  sel.addEventListener("change", () => { document.documentElement.setAttribute("data-theme", sel.value); try { localStorage.setItem("arche.theme", sel.value); } catch(e){} }); })();
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]"); if (!g) return;
+  go(g.dataset.go);
+});
+$("mapBtn").addEventListener("click", () => { const m = $("map"); const c = m.classList.toggle("closed"); $("mapBtn").setAttribute("aria-expanded", String(!c)); });
+
+/* ---------- routing ---------- */
+let VIEW = {id:"home"};
+function go(id){
+  if (!ST.name && !["records","verify","settings"].includes(id)) id = "start";
+  VIEW = {id, step:0};
+  try { history.replaceState(null, "", "#" + id); } catch(e) {}
+  if (window.innerWidth <= 900) { $("map").classList.add("closed"); $("mapBtn").setAttribute("aria-expanded","false"); }
+  renderMap(); render(); window.scrollTo({top:0});
+}
+function route(){ const h = (location.hash||"").slice(1); go(h && /^[a-z0-9]+$/.test(h) ? h : (ST.name ? "home" : "start")); }
+function render(opt){ renderView(); legal(); if (!(opt && opt.quiet)) AUDIO.screen(); }
+function renderView(){
+  const v = $("view"), id = VIEW.id;
+  if (id === "start") return vStart(v);
+  if (id === "records") return P.owner ? vRecords(v) : vHome(v);
+  if (id === "verify" && ED === "ext") return vVerify(v);
+  if (id === "settings" && ED === "ext") return P.owner ? vSettings(v) : vHome(v);
+  if (id === "cert") return vCert(v);
+  if (REF[id]) return vRef(v, id);
+  if (MODS[id] && unlocked(id)) return vModule(v, id);
+  if (id === "lab" && unlocked("lab")) return vLab(v);
+  if (id === "book" && unlocked("book")) return vBook(v);
+  if (id === "exam" && unlocked("exam")) return vExam(v);
+  return vHome(v);
+}
+function legal(){
+  const v = $("view"); if (!v.querySelector(".legal")) v.insertAdjacentHTML("beforeend", `<p class="legal" data-nosay>© ${new Date().getFullYear()} Arche Executive. Confidential training material${ST.name ? `, issued to ${esc(ST.name)} for personal study` : ""}. Do not copy, record, forward or share. Results are reported to the director.</p>`);
+  const txt = ED === "ext" ? (ST.name ? `LICENSED TO ${ST.name} · ARCHE EXECUTIVE` : "CHARTER BROKER ACADEMY · ARCHE EXECUTIVE") : (ST.name ? `CONFIDENTIAL · ${ST.name} · ARCHE EXECUTIVE` : "CONFIDENTIAL · ARCHE EXECUTIVE");
+  if (legal.last === txt) return; legal.last = txt;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="520" height="260"><text x="20" y="150" transform="rotate(-22 260 130)" font-family="Arial, sans-serif" font-size="15" letter-spacing="2" fill="rgb(120,130,145)" fill-opacity="0.09">${esc(txt)}</text></svg>`;
+  $("wmark").style.backgroundImage = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+}
+
+/* ---------- views ---------- */
+function vStart(v){
+  v.innerHTML = `
+    <div><p class="eyebrow">Arche Executive · Charter brokerage</p><h1>Broker Academy</h1></div>
+    <p class="lede">The interactive version of the Master Training Manual. You learn the rules, practise them on real-world trips and on our booking form, and your results go to the director.</p>
+    <div class="card">
+      <h2>Start your training</h2>
+      <div class="grid2">
+        <label class="f full" for="nm">Your full name, as on your employment contract<input id="nm" autocomplete="name" value="${esc(ST.name)}"></label>
+        <label class="f full" for="rl">Training path
+          <select id="rl"><option value="broker">Broker: every module, both practicals and the written exam</option><option value="consultant">Charter consultant: Modules 0 to 5, 12, case studies and the written exam</option></select></label>
+      </div>
+      <label class="check" for="nda"><input type="checkbox" id="nda"> I will keep this training material confidential. I will not copy, record, forward or share it, and I understand my progress and results are reported to the director.</label>
+      <p class="note" id="nmMsg"></p>
+      <div class="row"><button class="btn primary" type="button" id="begin">Begin</button></div>
+    </div>
+    <div class="card flat">
+      <h3>How it works</h3>
+      <ul class="l">
+        <li>Each module is short screens, then a module check. You need 80% to pass; you can retry.</li>
+        <li>Links to official sources sit where you need them. They open in a new tab.</li>
+        <li>Two practicals use real-world situations: the trip risk screen lab and the booking form, with the same checks as our charter confirmation form.</li>
+        <li>The written exam at the end needs 80%, and every question on a critical rule must be right.</li>
+        <li>Prefer to listen? Switch on Audio at the top. Every screen, question and answer is read aloud.</li>
+      </ul>
+    </div>`;
+  $("rl").value = ST.role || "broker";
+  $("begin").onclick = () => {
+    const n = $("nm").value.trim();
+    if (n.length < 3) { $("nmMsg").textContent = "Enter your full name. It appears on your training record."; $("nm").focus(); return; }
+    if (!$("nda").checked) { $("nmMsg").textContent = "Confirm that you will keep the training material confidential."; $("nda").focus(); return; }
+    ST.name = n; ST.role = $("rl").value; ST.ndaAt = new Date().toISOString(); ST.started = ST.started || new Date().toISOString(); legal.last = ""; save(); go("home");
+  };
+}
+
+function vHome(v){
+  const path = PATH(), done = path.filter(isDone).length;
+  const tiles = path.map(id => {
+    const c = courseItem(id), m = modState(id), ok = unlocked(id);
+    return `<button type="button" class="tile" data-go="${id}" ${ok ? "" : "disabled"}><span class="code">${id === "exam" ? "Exam" : c.lab ? "Practical" : "Module " + esc(c.n)}</span><span class="tt">${esc(c.t)}</span><span class="score">${m && m.passed ? `Passed${m.total > 1 ? ` · best ${m.best}%` : ""}` : m ? `Best ${m.best}% · try again` : ok ? `Ready to start${MODS[id] ? ` · about ${MODS[id].min} min` : ""}` : "Opens after the previous step"}</span></button>`;
+  }).join("");
+  v.innerHTML = `
+    <div><p class="eyebrow">Overview · ${esc(roleName(ST.role))} path</p><h1>Welcome, ${esc(ST.name.split(" ")[0])}</h1></div>
+    <p class="lede">${done === path.length ? "You have completed the academy. Your completion record is ready." : `You have completed ${done} of ${path.length} steps. Work through them in order.`}</p>
+    <div class="tiles">${tiles}</div>
+    ${done === path.length ? `<div class="row"><button class="btn primary" type="button" data-go="cert">View completion record</button></div>` : ""}
+    <div class="card flat">
+      <h3>Three rules that apply to every module</h3>
+      <ol class="l"><li>Never state a number, time or rule you cannot show a source for. If you do not know, say you will confirm, and confirm in writing.</li><li>Nothing is promised to a client until the operator has confirmed it in writing.</li><li>When in doubt, stop and escalate to the director. A lost booking costs less than a wrong one.</li></ol>
+    </div>
+    <p class="note">${P.mode === "sync" ? "Your progress is recorded for the director as you go." : "Your progress is saved in this browser. When you finish, your completion record gives you a code to send to the director."}</p>
+    ${P.owner || P.mode !== "sync" ? `<div class="card flat" id="restart"><h3>Start over</h3><p class="note">${P.owner ? "Clears your own test run, including your name, so you can go through the academy again as a new trainee." : "Clears your name and all progress in this browser so the academy starts from the beginning."}</p><div class="row" id="rsRow"><button class="btn" type="button" id="rsAsk">Start over</button></div></div>` : ""}`;
+  const ask = $("rsAsk"); if (ask) ask.onclick = () => {
+    $("rsRow").innerHTML = `<span>Clear all progress${P.owner ? "" : " in this browser"}? This cannot be undone.</span><button class="btn primary" type="button" id="rsYes">Yes, start over</button><button class="btn" type="button" id="rsNo">Keep my progress</button>`;
+    $("rsNo").onclick = () => render({quiet:true});
+    $("rsYes").onclick = async () => {
+      const now = new Date().toISOString();
+      if (P.ref) { try { await P.chain; await P.ref.set({v:1, name:"", role:"broker", mods:{}, resetAt:now, updated:now}); } catch(e) {} }
+      ST = {v:1, name:"", role:"broker", started:"", mods:{}, updated:"", resetSeen:now}; saveLocal(); legal.last = ""; go("start");
+    };
+  };
+}
+
+/* blocks */
+function linksHTML(ls){ return `<div class="links"><span class="lab">Read more: official and industry sources</span>${ls.map(l => `<span class="lrow"><a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])}</a>${l[2] ? `<span class="why">${esc(l[2])}</span>` : ""}</span>`).join("")}</div>`; }
+function blockHTML(b, k){
+  if (b.p) return `<p>${esc(b.p)}</p>`;
+  if (b.h3) return `<h3>${esc(b.h3)}</h3>`;
+  if (b.list) return `<ul class="l">${b.list.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  if (b.olist) return `<ol class="l">${b.olist.map(x => `<li>${esc(x)}</li>`).join("")}</ol>`;
+  if (b.table) return `<div class="tw"><table class="${b.rag ? "rag" : ""}"><thead><tr>${b.table.cols.map(c => `<th scope="col">${esc(c)}</th>`).join("")}</tr></thead><tbody>${b.table.rows.map(r => `<tr>${r.map((c,i) => `<td class="${(b.mono||[]).includes(i) ? "mono" : ""}">${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  if (b.links) return linksHTML(b.links);
+  if (b.box) return `<div class="box"><b>${esc(b.box.t)}</b>${b.box.l.map(x => `<span>${esc(x)}</span>`).join("")}</div>`;
+  if (b.fig) return FIGS(b.fig);
+  if (b.photos) { const ps = b.photos.filter(k => PHOTOS[k]); return `<div class="gallery ${ps.length === 1 ? "one" : ""}" data-say="${esc("Photos: " + ps.map(k => PHOTOS[k].cap).join("; ") + ".")}">${ps.map(k => { const p = PHOTOS[k]; return `<figure class="ph"><img src="${p.src}" alt="${esc(p.cap)}" loading="lazy" decoding="async"><figcaption>${esc(p.cap)}<span class="cr"> · Photo: ${esc(p.artist)}, <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.lic)}</a></span></figcaption></figure>`; }).join("")}</div>`; }
+  if (b.reveal) return `<details class="reveal"><summary>${esc(b.reveal.t)}</summary><div class="rv">${b.reveal.b.map(blockHTML).join("")}</div></details>`;
+  if (b.regions) return `<div class="regions">${b.regions.map((r,i) => `<details class="reg" ${i===0?"open":""}><summary>${esc(r[0])}</summary><div class="in"><div><p class="k">What applies to Arche</p><p>${esc(r[1])}</p></div><div><p class="k">What applies to the flight</p><p>${esc(r[2])}</p></div>${r[3].length ? `<div class="lk">${r[3].map(l => `<a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])} ↗</a>`).join("")}</div>` : ""}</div></details>`).join("")}</div>`;
+  if (b.tryq) return `<div class="try" data-try="${k}"><span class="eyebrow">Try it</span><p class="tq">${esc(b.tryq.q)}</p><div class="opts">${b.tryq.o.map((o,i) => `<button type="button" class="opt" data-t="${i}"><span class="k">${"abcd"[i]}</span><span>${esc(o)}</span></button>`).join("")}</div><div class="fbx"></div></div>`;
+  return "";
+}
+function wireTries(root, blocks, cb){
+  root.querySelectorAll("[data-try]").forEach(el => {
+    const b = blocks[+el.dataset.try].tryq;
+    el.querySelectorAll(".opt").forEach(btn => btn.onclick = () => {
+      const i = +btn.dataset.t, ok = i === b.a;
+      el.querySelectorAll(".opt").forEach((x,j) => { x.disabled = true; if (j === b.a) x.classList.add("right"); else if (j === i) x.classList.add("wrong"); });
+      el.querySelector(".fbx").innerHTML = `<div class="fb ${ok ? "ok" : "no"}"><b>${ok ? "Right." : "Not quite."}</b> ${esc(b.why)}</div>`;
+      if (cb) cb(blocks[+el.dataset.try], ok);
+      AUDIO.focus(el.querySelector(".fb"));
+    });
+  });
+  root.querySelectorAll("details.reveal").forEach(d => d.addEventListener("toggle", () => { if (d.open) AUDIO.focus(d.querySelector(".rv").firstElementChild); }));
+}
+
+function vModule(v, id){
+  const M = MODS[id], C = courseItem(id), n = M.secs.length, hasQ = M.quiz.length > 0;
+  const pages = ["intro", ...M.secs.map((_,i) => i), "take"].concat(hasQ ? ["check"] : []);
+  const s = Math.min(VIEW.step, pages.length - 1), pg = pages[s], total = pages.length;
+  const dots = Array.from({length:total}, (_,i) => `<span class="${i < s ? "on" : i === s ? "cur" : ""}"></span>`).join("");
+  const head = (sub) => `<div><p class="eyebrow">Module ${esc(C.n)} · ${sub}</p><h1>${esc(C.t)}</h1></div><div class="steps" aria-hidden="true">${dots}</div>`;
+  const nav = (label) => `<div class="row"><button class="btn" type="button" id="prev" ${s===0?"disabled":""}>Back</button><span class="sp"></span><button class="btn primary" type="button" id="next">${label}</button></div>`;
+  const wire = () => {
+    $("prev").onclick = () => { VIEW.step = s - 1; render(); window.scrollTo({top:0}); };
+    $("next").onclick = () => {
+      if (pg === "take" && !hasQ) { record(id, 1, 1, true); const nx = nextInPath(id); go(nx || "home"); return; }
+      VIEW.step = s + 1; render(); window.scrollTo({top:0});
+    };
+  };
+  if (pg === "intro") {
+    const rec = reviewItems(id, 2), warm = M.quiz.length ? M.quiz[0] : null;
+    const blocks = rec.map(r => ({tryq:{q:r.q.q, o:r.q.o, a:r.q.a, why:r.q.why}, rk:r.k}));
+    if (warm) blocks.push({tryq:{q:warm.q, o:warm.o, a:warm.a, why:"You will meet this in the module. " + warm.why}, warm:true});
+    v.innerHTML = `${head(`1 of ${total}`)}
+      <div class="hero" aria-hidden="true">${FIGS.hero()}</div>
+      ${M.intro ? `<p class="lede">${esc(M.intro)}</p>` : ""}
+      <div class="meta"><span>About ${M.min} minutes</span><span>${n} short screen${n===1?"":"s"}</span>${hasQ ? `<span>Module check: ${M.quiz.length} questions</span>` : ""}</div>
+      ${M.obj.length ? `<section class="card"><h2>What you will be able to do</h2><ol class="objs">${M.obj.map(o => `<li><span>${esc(o)}</span></li>`).join("")}</ol></section>` : ""}
+      ${rec.length ? `<section class="card"><h2>Quick recall</h2><p class="note">Questions you missed earlier. Answer them now: remembering is what makes it stick.</p>${blocks.filter(b => b.rk).map((b,i) => blockHTML(b, i)).join("")}</section>` : ""}
+      ${warm ? `<section class="card"><h2>Warm-up</h2><p class="note">Take a guess before you start. Guessing first helps you notice the answer when you read it.</p>${blockHTML(blocks[blocks.length-1], blocks.length-1)}</section>` : ""}
+      ${nav("Start")}`;
+    wireTries(v, blocks, (b, ok) => { if (b.rk && ok) { dropReview(b.rk); save(); } });
+    wire(); return;
+  }
+  if (pg === "take") {
+    v.innerHTML = `${head(`${s+1} of ${total}`)}
+      <section class="card"><h2>Key points</h2><p class="note">Before the module check, try to say each point in your own words.</p><ol class="objs take">${M.take.map(t => `<li><span>${esc(t)}</span></li>`).join("")}</ol></section>
+      ${nav(hasQ ? "Go to module check" : "Mark module complete")}`;
+    wire(); return;
+  }
+  if (pg === "check") {
+    v.innerHTML = `${head("module check")}<div id="qz"></div>`;
+    runQuiz($("qz"), M.quiz, (sc, tot) => { const passed = sc/tot >= PASS; record(id, sc, tot, passed); return passed; }, () => { VIEW.step = s - 1; render(); });
+    return;
+  }
+  const sec = M.secs[pg];
+  v.innerHTML = `${head(`${s+1} of ${total}`)}
+    <section class="card" aria-labelledby="sh"><h2 id="sh">${esc(sec.h)}</h2>${sec.b.map(blockHTML).join("")}</section>
+    ${nav("Next")}`;
+  wireTries(v, sec.b); wire();
+}
+
+function runQuiz(root, Q, onDone, onBack, opt){
+  const exam = !!(opt && opt.exam);
+  let i = 0, got = 0, wrong = [], critMiss = 0, pick = -1;
+  const step = () => {
+    if (i >= Q.length) {
+      const passed = onDone(got, Q.length, critMiss), pct = Math.round(got/Q.length*100);
+      const nx = nextInPath(VIEW.id);
+      root.innerHTML = `<div class="card"><h2>${passed ? (exam ? "Exam passed" : "Module passed") : "Not passed yet"}</h2>
+        <p class="score">${got} of ${Q.length} correct · ${pct}% · pass mark 80%${exam ? ` · critical-rule questions missed: ${critMiss}` : ""}</p>
+        ${exam && critMiss ? `<p class="fb no">Every question on a critical rule must be right. Review the rules below, then sit the exam again.</p>` : ""}
+        ${wrong.length ? `<div class="res">${wrong.map(w => `<div class="it fail"><span class="m">Review</span><span><b>${esc(w.q)}</b>${w.crit && exam ? `<span class="tag">Critical rule</span>` : ""}<br>${esc(w.o[w.a])}. ${esc(w.why)}</span></div>`).join("")}</div>` : `<p>Every answer correct.</p>`}
+        <p class="note">${passed ? "Go through anything you got wrong with your mentor." : exam ? "Read the modules again, then retake the exam. Each attempt draws a new set of questions." : "Read the module again, then retry the check."}</p>
+        <div class="row"><button class="btn" type="button" id="again">${exam ? "Retake exam" : "Retry check"}</button>${exam ? "" : `<button class="btn" type="button" id="reread">Read module again</button>`}<span class="sp"></span>${passed ? `<button class="btn primary" type="button" data-go="${nx || (ST.completedAt ? "cert" : "home")}">${nx ? "Continue" : ST.completedAt ? "View completion record" : "Overview"}</button>` : ""}</div></div>`;
+      AUDIO.screen();
+      $("again").onclick = () => exam ? render() : runQuiz(root, Q, onDone, onBack, opt);
+      if ($("reread")) $("reread").onclick = () => { VIEW.step = 0; render(); window.scrollTo({top:0}); };
+      return;
+    }
+    const q = Q[i]; pick = -1;
+    root.innerHTML = `<div class="card"><p class="eyebrow">Question ${i+1} of ${Q.length}${exam && q.mod ? ` · Module ${esc(q.mod)}` : ""}</p><p class="tq" style="font-weight:600;font-size:16px">${esc(q.q)}</p>
+      <div class="opts">${q.o.map((o,j) => `<button type="button" class="opt" data-j="${j}" aria-pressed="false"><span class="k">${"abcd"[j]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+      <div id="qfb"></div>
+      <div class="row">${i===0 && onBack ? `<button class="btn" type="button" id="qback">Back to module</button>` : ""}<span class="sp"></span><button class="btn primary" type="button" id="qnext" disabled>${i === Q.length-1 ? (exam ? "Finish exam" : "See result") : "Next question"}</button></div></div>`;
+    if ($("qback")) $("qback").onclick = onBack;
+    AUDIO.screen();
+    root.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+      const j = +b.dataset.j;
+      if (exam) { pick = j; root.querySelectorAll(".opt").forEach((x,k) => { x.classList.toggle("picked", k === j); x.setAttribute("aria-pressed", String(k === j)); }); $("qnext").disabled = false; return; }
+      const ok = j === q.a; if (ok) got++; else { wrong.push(q); addReview(VIEW.id, q); saveLocal(); }
+      root.querySelectorAll(".opt").forEach((x,k) => { x.disabled = true; if (k === q.a) x.classList.add("right"); else if (k === j) x.classList.add("wrong"); });
+      $("qfb").innerHTML = `<div class="fb ${ok ? "ok" : "no"}"><b>${ok ? "Right." : "Not quite."}</b> ${esc(q.why)}</div>`;
+      $("qnext").disabled = false; $("qnext").focus();
+      AUDIO.focus($("qfb").firstElementChild);
+    });
+    $("qnext").onclick = () => {
+      if (exam) { if (pick === q.a) got++; else { wrong.push(q); if (q.crit) critMiss++; if (q.mid) addReview(q.mid, q); } }
+      i++; step();
+    };
+  };
+  step();
+}
+
+/* ---------- written exam ---------- */
+const EXAM_SIZE = 30;
+function vExam(v){
+  const bank = [];
+  PATH().forEach(id => { const M = MODS[id]; if (M) M.quiz.forEach(q => bank.push(Object.assign({mod:courseItem(id).n, mid:id}, q))); });
+  const crit = bank.filter(q => q.crit), rest = seeded(bank.filter(q => !q.crit), Date.now() % 233280);
+  const set = seeded(crit.concat(rest).slice(0, Math.max(crit.length, Math.min(EXAM_SIZE, bank.length))), (Date.now() >> 3) % 233280);
+  v.innerHTML = `
+    <div><p class="eyebrow">Stage 2 · written exam</p><h1>Written exam</h1></div>
+    <p class="lede">${set.length} questions from every module in your path, in random order. Answers are not shown until the end. To pass you need 80% or more, and every question on a critical rule must be right.</p>
+    <div id="qz"><div class="card"><ul class="l"><li>Work alone and do not use the manual.</li><li>You can change an answer until you press Next.</li><li>If you do not pass, review the modules and retake the exam. Each attempt draws a new set of questions.</li></ul><div class="row"><span class="sp"></span><button class="btn primary" type="button" id="exStart">Start exam</button></div></div></div>`;
+  $("exStart").onclick = () => runQuiz($("qz"), set, (sc, tot, cm) => { const passed = sc/tot >= PASS && cm === 0; record("exam", sc, tot, passed); return passed; }, null, {exam:true});
+}
+
+/* ---------- reference pages ---------- */
+function vRef(v, id){
+  const R = REF[id];
+  v.innerHTML = `<div><p class="eyebrow">Reference</p><h1>${esc(R.t)}</h1></div><section class="card">${R.b.map(blockHTML).join("")}</section>`;
+  wireTries(v, R.b);
+}
+
+/* ---------- lab ---------- */
+function seeded(arr, seed){ const a = arr.slice(); let s = seed; for (let i=a.length-1;i>0;i--){ s = (s*9301+49297)%233280; const j = Math.floor(s/233280*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+function vLab(v){
+  const ans = VIEW.lab || (VIEW.lab = LAB.map(() => ({c:null, i:null, checked:false})));
+  const cards = LAB.map((x,k) => {
+    const a = ans[k], opts = x.o || seeded([x.i, ...x.d], k+3);
+    const right = a.checked && a.c === x.c && a.i === x.i;
+    return `<div class="card labcard" data-k="${k}">
+      <p class="eyebrow">Trip ${k+1} of ${LAB.length}</p><p class="trip">${esc(x.t)}</p>
+      <div><p class="note" style="margin-bottom:6px" data-say="Is this green, amber or red?">Screen result</p><div class="rag3" role="group" aria-label="Screen result">
+        ${["green","amber","red"].map(c => `<button type="button" class="ragb" data-c="${c}" aria-pressed="${a.c===c}" ${a.checked?"disabled":""}><i class="dot-${c}"></i>${c[0].toUpperCase()+c.slice(1)}</button>`).join("")}</div></div>
+      <div><p class="note" style="margin-bottom:6px" data-say="And what is the main issue?">Main issue</p><div class="opts">${opts.map(o => `<button type="button" class="opt ${a.checked && o===x.i ? "right" : a.checked && o===a.i ? "wrong" : ""}" data-i="${o}" aria-pressed="${a.i===o}" ${a.checked?"disabled":""} style="${!a.checked && a.i===o ? "border-color:var(--steel);background:var(--steel-soft)" : ""}"><span>${esc(ISSUES[o])}</span></button>`).join("")}</div></div>
+      ${a.checked ? `<div class="fb ${right ? "ok" : "no"}"><b>${right ? "Right." : `Answer: ${x.c[0].toUpperCase()+x.c.slice(1)}, ${ISSUES[x.i].toLowerCase()}.`}</b> ${esc(x.why)}</div>` : `<div class="row"><button class="btn" type="button" data-check="${k}" ${a.c && a.i ? "" : "disabled"}>Check</button></div>`}
+    </div>`;
+  }).join("");
+  const checked = ans.filter(a => a.checked).length, score = LAB.filter((x,k) => ans[k].checked && ans[k].c === x.c && ans[k].i === x.i).length;
+  const need = Math.ceil(LAB.length*PASS);
+  v.innerHTML = `
+    <div><p class="eyebrow">Practical lab · Module 2.9 and 13.7</p><h1>The trip risk screen</h1></div>
+    <p class="lede">Screen each enquiry as you would before sourcing. Pick the colour and the main issue, then check. Green: proceed. Amber: the operator or trip support confirms in writing before we quote. Red: stop and escalate to the director.</p>
+    <div class="card flat"><p class="score">${checked} of ${LAB.length} screened · ${score} correct · pass mark ${need} of ${LAB.length}</p></div>
+    ${cards}
+    ${checked === LAB.length ? `<div class="card"><h2>${score >= need ? "Lab passed" : "Not passed yet"}</h2><p class="score">${score} of ${LAB.length} correct</p><div class="row"><button class="btn" type="button" id="labAgain">Try the lab again</button><span class="sp"></span>${score >= need ? `<button class="btn primary" type="button" data-go="book">Continue to the booking practical</button>` : ""}</div></div>` : ""}`;
+  v.querySelectorAll(".labcard").forEach(card => {
+    const k = +card.dataset.k, a = ans[k];
+    card.querySelectorAll("[data-c]").forEach(b => b.onclick = () => { a.c = b.dataset.c; keep(); });
+    card.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { a.i = b.dataset.i; keep(); });
+    const ck = card.querySelector("[data-check]"); if (ck) ck.onclick = () => {
+      a.checked = true;
+      if (ans.every(z => z.checked)) { const sc = LAB.filter((x,j) => ans[j].c === x.c && ans[j].i === x.i).length; record("lab", sc, LAB.length, sc >= need); }
+      keep(true);
+    };
+    function keep(say){ const y = card.getBoundingClientRect().top; render({quiet:true}); const c2 = v.querySelector(`[data-k="${k}"]`); if (c2) { window.scrollBy(0, c2.getBoundingClientRect().top - y); if (say) AUDIO.focus(c2.querySelector(".fb")); } }
+  });
+  const ag = $("labAgain"); if (ag) ag.onclick = () => { VIEW.lab = null; render(); window.scrollTo({top:0}); };
+}
+
+/* ---------- booking practical ---------- */
+const ICAO2 = {VT:"Thailand",WS:"Singapore",WM:"Malaysia",LS:"Switzerland",EG:"United Kingdom",LF:"France",OM:"United Arab Emirates",VH:"Hong Kong",RJ:"Japan"};
+const icaoC = c => { c = String(c||"").toUpperCase(); if (c.length !== 4) return ""; return ICAO2[c.slice(0,2)] || ({K:"United States",C:"Canada",Y:"Australia",Z:"China"})[c[0]] || ""; };
+const regC = r => { r = String(r||"").toUpperCase(); return r.startsWith("HB") ? "Switzerland" : r.startsWith("HS") ? "Thailand" : r.startsWith("9V") ? "Singapore" : r.startsWith("N") ? "United States" : ""; };
+function blankBook(){ return {risk:"", cName:"", kyc:"", lead:"", opName:"", aoc:"", aocState:"", acType:"", reg:"", yom:"", seats:"", audit:"", legs:[{d:"",t:"",f:"",to:"",p:""},{d:"",t:"",f:"",to:"",p:""},{d:"",t:"",f:"",to:"",p:""}], opNet:"", price:"", vd:"", vt:"", pay:"", ck:{kyc:false,aoc:false,ins:false,audit:false,route:false,terms:false,disc:false}}; }
+function vBook(v){
+  const B = VIEW.b || (VIEW.b = blankBook());
+  v.innerHTML = `
+    <div><p class="eyebrow">Practical · Modules 9 and 10</p><h1>The booking form</h1></div>
+    <p class="lede">Build the charter confirmation for this enquiry using the same fields and checks as the Arche charter confirmation form. Then submit it for marking. To pass: no critical error and no more than 3 minor errors, as in the practical exam.</p>
+    <div class="card"><h2>The file</h2><div class="brief">${BOOK.brief.map(d => `<div class="doc"><span class="k">${esc(d[0])}</span><span>${esc(d[1])}</span></div>`).join("")}</div><p class="note">${esc(BOOK.note)}</p></div>
+    <form class="card" id="bf" autocomplete="off" novalidate>
+      <h2>Charter confirmation</h2>
+      <div class="grid2">
+        <label class="f full" for="b_risk">Trip risk screen result (Module 2.9)<select id="b_risk" data-k="risk"><option value="">Choose</option><option value="green">Green</option><option value="amber">Amber</option><option value="red">Red</option></select></label>
+      </div>
+      <h3>Charterer</h3>
+      <div class="grid2">
+        <label class="f full" for="b_cName">Name or company<input id="b_cName" data-k="cName"></label>
+        <label class="f" for="b_kyc">KYC reference<input id="b_kyc" data-k="kyc"></label>
+        <label class="f" for="b_lead">Lead passenger<input id="b_lead" data-k="lead"></label>
+      </div>
+      <h3>Aircraft and operator</h3>
+      <div class="grid2">
+        <label class="f full" for="b_opName">Operator (legal name, as on the AOC)<input id="b_opName" data-k="opName"></label>
+        <label class="f" for="b_aoc">AOC number<input id="b_aoc" data-k="aoc"></label>
+        <label class="f" for="b_aocState">AOC state<input id="b_aocState" data-k="aocState"></label>
+        <label class="f" for="b_acType">Aircraft type<input id="b_acType" data-k="acType"></label>
+        <label class="f" for="b_reg">Registration (tail)<input id="b_reg" data-k="reg"></label>
+        <label class="f" for="b_yom">Year of manufacture<input id="b_yom" data-k="yom" inputmode="numeric"></label>
+        <label class="f" for="b_seats">Passenger seats<input id="b_seats" data-k="seats" inputmode="numeric"></label>
+        <label class="f full" for="b_audit">Safety audit<input id="b_audit" data-k="audit" placeholder="e.g. ARGUS Gold Plus"></label>
+      </div>
+      <h3>Itinerary (local times, ICAO codes)</h3>
+      <div id="legs" class="auto"></div>
+      <h3>Price and payment</h3>
+      <div class="grid2">
+        <label class="f" for="b_opNet">Operator price, all-in (internal, USD)<input id="b_opNet" data-k="opNet" inputmode="numeric"></label>
+        <label class="f" for="b_price">Client price (USD)<input id="b_price" data-k="price" inputmode="numeric"></label>
+        <div class="calc full" id="calc"></div>
+        <label class="f" for="b_vd">Offer valid until (date)<input id="b_vd" type="date" data-k="vd"></label>
+        <label class="f" for="b_vt">Offer valid until (time, Bangkok)<input id="b_vt" type="time" data-k="vt"></label>
+        <label class="f full" for="b_pay">Payment method<select id="b_pay" data-k="pay"><option value="">Choose</option><option value="wire">Bank transfer to Arche's account</option><option value="paynode">Paynode payment request from Avinode</option><option value="card">Card</option></select></label>
+      </div>
+      <h3>Before issuing</h3>
+      <div class="auto">
+        ${[["kyc","Charterer KYC and sanctions screening done"],["aoc","Operator AOC and operations specifications on file, aircraft listed on them"],["ins","Operator insurance certificate on file, including commercial passenger liability"],["audit","Safety audit checked (ARGUS Gold Plus or higher, or Wyvern Wingman)"],["route","Routing, permits and continuous journey confirmed by the operator in writing"],["terms","Operator's terms back to back with Part A"],["disc","Client disclosures included (broker status, operator legal name, aircraft, full price, insurance)"]].map(c => `<label class="check" for="ck_${c[0]}"><input type="checkbox" id="ck_${c[0]}" data-ck="${c[0]}"> ${esc(c[1])}</label>`).join("")}
+      </div>
+      <h3>Automatic checks</h3>
+      <div class="auto" id="autoc"></div>
+      <div class="row"><button class="btn" type="button" id="bReset">Clear form</button><span class="sp"></span><button class="btn primary" type="submit">Submit for marking</button></div>
+    </form>
+    <div id="bres"></div>
+    <div class="card flat"><h3>On the desk</h3><p>On live bookings you use the Arche charter confirmation form. It produces the client PDF with Part A and Part B. Your director will give you access.</p></div>`;
+  // fill
+  v.querySelectorAll("[data-k]").forEach(el => { el.value = B[el.dataset.k] || ""; el.addEventListener("input", () => { B[el.dataset.k] = el.value; live(); }); el.addEventListener("change", () => { B[el.dataset.k] = el.value; live(); }); });
+  v.querySelectorAll("[data-ck]").forEach(el => { el.checked = !!B.ck[el.dataset.ck]; el.addEventListener("change", () => { B.ck[el.dataset.ck] = el.checked; live(); }); });
+  const legsEl = $("legs");
+  function drawLegs(){
+    legsEl.innerHTML = B.legs.map((l,i) => `<div class="leg" data-l="${i}">
+      <label class="f" for="l${i}d">Leg ${i+1} date<input type="date" id="l${i}d" data-lk="d" value="${esc(l.d)}"></label>
+      <label class="f" for="l${i}t">Departs<input type="time" id="l${i}t" data-lk="t" value="${esc(l.t)}"></label>
+      <label class="f" for="l${i}f">From<input id="l${i}f" data-lk="f" maxlength="4" value="${esc(l.f)}" placeholder="ICAO"></label>
+      <label class="f" for="l${i}o">To<input id="l${i}o" data-lk="to" maxlength="4" value="${esc(l.to)}" placeholder="ICAO"></label>
+      <label class="f" for="l${i}p">Pax<input id="l${i}p" data-lk="p" inputmode="numeric" value="${esc(l.p)}"></label>
+      <button type="button" class="btn" data-rm="${i}" ${B.legs.length < 2 ? "disabled" : ""} aria-label="Remove leg ${i+1}">✕</button></div>`).join("") + `<div><button type="button" class="btn" id="addLeg">Add leg</button></div>`;
+    legsEl.querySelectorAll("[data-lk]").forEach(el => el.addEventListener("input", () => { const i = +el.closest("[data-l]").dataset.l; let val = el.value; if (el.dataset.lk === "f" || el.dataset.lk === "to") { val = val.toUpperCase(); el.value = val; } B.legs[i][el.dataset.lk] = val; live(); }));
+    legsEl.querySelectorAll("[data-rm]").forEach(b => b.onclick = () => { B.legs.splice(+b.dataset.rm,1); drawLegs(); live(); });
+    $("addLeg").onclick = () => { B.legs.push({d:"",t:"",f:"",to:"",p:""}); drawLegs(); live(); };
+  }
+  drawLegs();
+  $("b_reg").addEventListener("input", e => { e.target.value = e.target.value.toUpperCase(); B.reg = e.target.value; });
+  function live(){
+    const op = num(B.opNet), pr = num(B.price);
+    const tgt = isFinite(op) ? Math.ceil(op/0.93) : NaN, mg = isFinite(op)&&isFinite(pr) ? pr-op : NaN;
+    $("calc").innerHTML = `<span>Price at 7% (operator price ÷ 0.93, rounded up)</span><span>${isFinite(tgt) ? usd(tgt) : "–"}</span><span>Your margin</span><span>${isFinite(mg) ? usd(mg) + (pr>0 ? ` · ${(mg/pr*100).toFixed(2)}%` : "") : "–"}</span>`;
+    const out = [];
+    const rc = regC(B.reg);
+    B.legs.forEach((l,i) => { const a = icaoC(l.f), b = icaoC(l.to); if (a && b && a === b && rc && rc !== a) out.push(["err", `Leg ${i+1} (${l.f}–${l.to}) is a domestic passenger sector in ${a} on a ${rc}-registered aircraft. Allowed only as one continuous international journey confirmed by the operator in writing.`]); });
+    for (let i=1;i<B.legs.length;i++){ const a = B.legs[i-1], b = B.legs[i]; if (a.to && b.f && a.to !== b.f) out.push(["warn", `Leg ${i+1} departs ${b.f}, but leg ${i} arrives ${a.to}.`]); if (a.d && b.d && b.d < a.d) out.push(["err", `Leg ${i+1} is dated before leg ${i}.`]); }
+    const seats = num(B.seats); B.legs.forEach((l,i) => { if (isFinite(seats) && num(l.p) > seats) out.push(["err", `Leg ${i+1}: more passengers than seats.`]); });
+    if (isFinite(mg) && pr > 0 && mg < pr*0.07 - 0.005) out.push(["err", `Margin ${(mg/pr*100).toFixed(2)}% is below 7%. Needs director approval.`]);
+    if (B.pay && B.pay !== "paynode") out.push(["err", "All client payments go through a Paynode payment request from Avinode."]);
+    $("autoc").innerHTML = out.length ? out.map(o => `<div class="issue ${o[0]}">${esc(o[1])}</div>`).join("") : `<div class="issue okk">No automatic warnings.</div>`;
+  }
+  live();
+  $("bReset").onclick = () => { VIEW.b = blankBook(); render(); };
+  $("bf").addEventListener("submit", e => { e.preventDefault(); markBook(B); });
+}
+function markBook(B){
+  const R = []; const add = (ok, crit, t, why) => R.push({ok, crit, t, why});
+  const norm = s => String(s||"").trim().toLowerCase().replace(/\s+/g," ");
+  add(!!B.risk, true, "Trip risk screen recorded", "Quoting without a trip risk screen is a critical error.");
+  if (B.risk) add(B.risk === "amber", false, "Trip risk screen colour", "Amber: Bangkok – Phuket is a domestic leg on a Swiss aircraft, so the operator must confirm in writing before we quote. It did.");
+  add(norm(B.kyc) === "kyc-2026-0147" && B.ck.kyc, true, "KYC reference recorded and screening confirmed", "A contract without KYC and sanctions screening is a critical error. The reference is KYC-2026-0147.");
+  add(norm(B.cName).includes("meridian family office"), false, "Charterer name", "Meridian Family Office Pte Ltd.");
+  add(norm(B.lead).includes("daniel tan"), false, "Lead passenger", "Daniel Tan.");
+  add(norm(B.opName) === "alpine jet services ag", true, "Operator legal name as on the AOC", "Disclose the legal name, Alpine Jet Services AG, not the trading name AlpineJets. Missing disclosures are a critical error.");
+  add(B.ck.aoc && B.ck.ins && B.ck.audit && norm(B.aoc) === "ch.aoc.1042", true, "AOC, insurance and safety standard checked", "AOC CH.AOC.1042 with HB-JXA listed, insurance covering commercial passengers, ARGUS Platinum: all must be on file and ticked.");
+  add(norm(B.aocState) === "switzerland", false, "AOC state", "Switzerland.");
+  add(String(B.reg).trim().toUpperCase() === "HB-JXA" && /6000/.test(B.acType) && String(B.yom).trim() === "2014" && String(B.seats).trim() === "13", false, "Aircraft type, registration, year and seats", "Bombardier Global 6000, HB-JXA, 2014, 13 seats.");
+  add(/platinum/i.test(B.audit), false, "Safety audit recorded", "ARGUS Platinum.");
+  const legs = B.legs.filter(l => l.f || l.to || l.d);
+  const want = [["2026-11-12","10:00","WSSS","VTBD"],["2026-11-14","11:00","VTBD","VTSP"],["2026-11-17","16:00","VTSP","WSSS"]];
+  const legsOk = legs.length === 3 && want.every((w,i) => legs[i].d === w[0] && legs[i].t === w[1] && legs[i].f === w[2] && legs[i].to === w[3] && String(legs[i].p).trim() === "6");
+  add(legsOk, false, "Itinerary", "WSSS–VTBD 12 Nov 10:00; VTBD–VTSP 14 Nov 11:00; VTSP–WSSS 17 Nov 16:00; 6 passengers on each leg. Positioning is inside the operator's all-in price.");
+  add(B.ck.route, true, "Continuous journey confirmed for the domestic leg", "Bangkok – Phuket on a Swiss aircraft is allowed only as one continuous international journey, confirmed by the operator in writing. Without it this is a cabotage breach: a critical error.");
+  const op = num(B.opNet), pr = num(B.price);
+  add(op === 171000, false, "Operator price recorded", "USD 171,000 all-in.");
+  const okPrice = isFinite(pr) && pr >= 183871;
+  add(okPrice, true, "Margin at least 7%", "171,000 ÷ 0.93 = 183,870.97, so the client price is at least USD 183,871. Below that the margin is under 7%: a critical error without approval.");
+  if (okPrice) add(pr <= 183900, false, "Price follows the 7% rule", "Quote USD 183,871 (or rounded to USD 183,900). A higher price is a number we cannot justify.");
+  const exp = B.vd && B.vt ? B.vd + "T" + B.vt : "";
+  add(!!exp && exp <= "2026-10-20T18:00", false, "Offer expiry no later than the operator's quote", "The operator's quote expires 20 October, 18:00 Bangkok time; our offer must not outlive it.");
+  add(B.pay === "paynode", true, "Payment by Paynode payment request", "The assistant asked for bank details by WhatsApp. We never send bank details by email or chat: the client pays through a Paynode payment request from Avinode.");
+  add(B.ck.terms, false, "Operator terms back to back", "Tick only once the operator's terms are checked against Part A.");
+  add(B.ck.disc, true, "Client disclosures included", "Broker status, operator legal name, aircraft, full price and insurance go to every client in writing.");
+  const crit = R.filter(r => !r.ok && r.crit).length, minor = R.filter(r => !r.ok && !r.crit).length;
+  const passed = crit === 0 && minor <= 3, sc = R.filter(r => r.ok).length;
+  record("book", sc, R.length, passed);
+  $("bres").innerHTML = `<div class="card" id="bresc"><h2>${passed ? "Practical passed" : "Not passed yet"}</h2>
+    <p class="score">${crit} critical error${crit===1?"":"s"} · ${minor} minor error${minor===1?"":"s"} · pass: no critical and at most 3 minor</p>
+    <div class="res">${R.map(r => `<div class="it ${r.ok ? "pass" : "fail"}"><span class="m">${r.ok ? "OK" : "Fix"}</span><span><b>${esc(r.t)}</b>${r.ok ? "" : `<span class="tag ${r.crit ? "" : "min"}">${r.crit ? "Critical" : "Minor"}</span><br>${esc(r.why)}`}</span></div>`).join("")}</div>
+    <div class="row"><span class="sp"></span>${passed ? `<button class="btn primary" type="button" data-go="${nextInPath("book") || "home"}">Continue</button>` : `<span class="note">Correct the form and submit again.</span>`}</div></div>`;
+  $("bresc").scrollIntoView({behavior:"smooth", block:"start"});
+  AUDIO.screen($("bresc"));
+}
+
+/* ---------- certificate ---------- */
+function vCert(v){
+  if (!ST.completedAt) return vHome(v);
+  const code = makeCode();
+  v.innerHTML = `
+    <div><p class="eyebrow">Completion record</p><h1>Self-study and written exam complete</h1></div>
+    <div class="cert">
+      <p class="eyebrow">Arche Executive Broker Academy</p>
+      <p class="nm">${esc(ST.name)}</p>
+      <p>has completed the ${esc(roleName(ST.role).toLowerCase())} path: every module, the practicals in the path and the written exam.</p>
+      <div class="tw" style="width:100%"><table><thead><tr><th>Step</th><th>Best score</th><th>Passed</th></tr></thead><tbody>${PATH().map(k => { const c = courseItem(k), m = ST.mods[k] || {}; return `<tr><td>${esc(c.n)} ${esc(c.t)}</td><td>${m.total > 1 ? m.best + "%" : "Completed"}</td><td>${fmtD(m.passedAt)}</td></tr>`; }).join("")}</tbody></table></div>
+      <p class="note">Completed ${fmtD(ST.completedAt)}</p>
+    </div>
+    <div class="card">
+      <h2>Send your completion code</h2>
+      <p>${P.mode === "sync" ? "Your result is already in the Arche training records. Send the code as well if the director asks for it." : "Copy this code and email it to the director. The director checks it in the training records."}</p>
+      <div class="codebox" id="code">${esc(code)}</div>
+      <div class="row"><button class="btn primary" type="button" id="copy">Copy code</button><span class="note" id="cmsg" role="status"></span></div>
+      <p class="note">Next: Avinode and Paynode training, shadowing, the practical exam with the director and supervised bookings. The director signs your training record when all stages are complete.</p>
+    </div>`;
+  $("copy").onclick = () => {
+    const done = () => $("cmsg").textContent = "Copied.";
+    try { navigator.clipboard.writeText(code).then(done, sel); } catch(e) { sel(); }
+    function sel(){ const r = document.createRange(); r.selectNodeContents($("code")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $("cmsg").textContent = "Selected. Press Ctrl+C or ⌘C to copy."; }
+  };
+}
+
+/* ---------- certificate register and settings (external edition) ---------- */
+const certId = r => "c" + fnv(QK + "|" + r.name + "|" + r.date + "|" + (r.scores || r.items || []).join(","));
+function vVerify(v){
+  v.innerHTML = `<div><p class="eyebrow">Certificate register</p><h1>Verify a certificate</h1></div>
+    <p class="lede">Employers can check that a Charter Broker Academy certificate was issued by Arche Executive. Paste the completion code from the certificate.</p>
+    <div class="card"><label class="f" for="vin">Completion code<input id="vin" placeholder="AE2.…"></label><div class="row"><button class="btn primary" type="button" id="vchk">Verify</button></div><div id="vout"></div></div>
+    <p class="note">A certificate is valid only when it appears in the register. A code that is not in the register has not been issued.</p>`;
+  $("vchk").onclick = async () => {
+    const r = readCode($("vin").value), out = $("vout");
+    if (!r.ok) { out.innerHTML = `<div class="fb no">${esc(r.msg)}</div>`; return; }
+    if (!P.db) { out.innerHTML = `<div class="fb no">The register can only be checked in the online academy. Open the academy link and sign in.</div>`; return; }
+    try { const d = await P.db.doc("certs/" + certId(r)).get();
+      out.innerHTML = d.exists ? `<div class="fb ok"><b>Registered certificate.</b> ${esc(r.name)} · ${esc(roleName(r.role))} · completed ${esc(fmtD(r.date))}.</div>` : `<div class="fb no"><b>Not in the register.</b> This code has not been issued as a certificate. Ask the holder to contact Arche Executive.</div>`; }
+    catch(e) { out.innerHTML = `<div class="fb no">The register could not be reached. Try again.</div>`; }
+  };
+}
+function vSettings(v){
+  const core = ["m0","m2","exam"], items = COURSE.filter(c => PATHS.broker.includes(c.id));
+  v.innerHTML = `<div><p class="eyebrow">Course owner</p><h1>Course settings</h1></div>
+    <p class="lede">Choose which modules and practicals this edition includes. Deselected steps disappear for every trainee. Modules 0 and 2 and the written exam are always included, and the exam draws only from the steps that are switched on.</p>
+    <div class="card"><div class="auto">${items.map(c => `<label class="check" for="cs_${c.id}"><input type="checkbox" id="cs_${c.id}" data-cs="${c.id}" ${HIDDEN.includes(c.id) ? "" : "checked"} ${core.includes(c.id) ? "disabled" : ""}> <span><b>${esc(c.n)}</b> ${esc(c.t)}${core.includes(c.id) ? " (always included)" : ""}</span></label>`).join("")}</div>
+    <div class="row"><span class="note" id="csm" role="status"></span><span class="sp"></span><button class="btn primary" type="button" id="csSave">Save settings</button></div></div>`;
+  $("csSave").onclick = async () => {
+    const hidden = [...v.querySelectorAll("[data-cs]")].filter(x => !x.checked && !x.disabled).map(x => x.dataset.cs);
+    if (!P.db) { $("csm").textContent = "Settings can only be saved in the online academy."; return; }
+    try { await P.db.doc("config/course").set({hidden, updated:new Date().toISOString()}); HIDDEN = hidden; renderMap(); $("csm").textContent = "Saved. Trainees see the new course the next time they open it."; }
+    catch(e) { $("csm").textContent = "Could not save. Try again."; }
+  };
+}
+
+/* ---------- director records ---------- */
+let unsubP = null, unsubR = null, ROWS = [], RECS = [];
+function vRecords(v){
+  v.innerHTML = `
+    <div><p class="eyebrow">Director</p><h1>Training records</h1></div>
+    <p class="lede">Trainees who open the academy with write access appear here automatically. Others send you a completion code; check it below and add it to the records.</p>
+    <div class="card"><h2>Trainees</h2><div id="rt" class="empty">Loading records…</div></div>
+    <div class="card"><h2>Check a completion code</h2>
+      <label class="f" for="cin">Paste the code from the trainee's email<input id="cin" placeholder="AE2.…"></label>
+      <div class="row"><button class="btn primary" type="button" id="cchk">Check code</button></div>
+      <div id="cout"></div></div>
+    <div class="card"><h2>Codes added to the records</h2><div id="rc" class="empty">None yet.</div></div>`;
+  drawRows(); drawRecs();
+  if (P.db && !unsubP) {
+    unsubP = P.db.collection("progress").onSnapshot(s => { ROWS = s.docs.map(d => Object.assign({_id:d.id}, d.data())); drawRows(); }, () => { $("rt") && ($("rt").textContent = "Records could not be loaded. Reload the page."); });
+    unsubR = P.db.collection("records").onSnapshot(s => { RECS = s.docs.map(d => Object.assign({id:d.id}, d.data())); drawRecs(); }, () => {});
+  }
+  $("cchk").onclick = () => {
+    const r = readCode($("cin").value);
+    if (!r.ok) { $("cout").innerHTML = `<div class="fb no">${esc(r.msg)}</div>`; return; }
+    const ex = (r.items.find(x => x[0] === "exam") || [])[1];
+    $("cout").innerHTML = `<div class="fb ok"><b>Valid code.</b> ${esc(r.name)} · ${esc(roleName(r.role))} · completed ${esc(fmtD(r.date))} · ${r.items.length} steps passed${ex != null ? ` · written exam ${esc(ex)}%` : ""}</div>
+      <div class="row"><button class="btn" type="button" id="cadd">Add to records</button><span class="note" id="caddm" role="status"></span></div>`;
+    $("cadd").onclick = async () => {
+      if (!P.db) { $("caddm").textContent = "Records are not available in this view."; return; }
+      const id = fnv(r.name + "|" + r.date + "|" + JSON.stringify(r.items));
+      try { const rec = {name:r.name, role:r.role, date:r.date, items:r.items, added:new Date().toISOString()}; await P.db.doc("records/" + id).set(rec); if (ED === "ext") await P.db.doc("certs/" + certId(r)).set({name:r.name, role:r.role, date:r.date, issued:rec.added}); $("caddm").textContent = ED === "ext" ? "Added and entered in the certificate register." : "Added."; }
+      catch(e) { $("caddm").textContent = "Could not save. Try again."; }
+    };
+  };
+}
+function drawRows(){
+  const el = $("rt"); if (!el) return;
+  if (!P.db) { el.textContent = "Records are available when the academy is opened from its Claude link."; return; }
+  const rows = ROWS.filter(r => r && r.name).sort((a,b) => String(b.updated||"").localeCompare(String(a.updated||"")));
+  if (!rows.length) { el.className = "empty"; el.textContent = "No trainee has started yet. Share the academy link; trainees appear here once they begin."; return; }
+  el.className = "";
+  const cell = (r,k) => { const m = (r.mods||{})[k]; return m ? (m.passed ? `<span class="st done">${m.best}%</span>` : `<span class="st open">${m.best}%</span>`) : `<span class="st soon">–</span>`; };
+  const prog = r => { const p = PATHS[r.role] || PATHS.broker; return `${p.filter(k => (r.mods||{})[k] && r.mods[k].passed).length} of ${p.length}`; };
+  el.innerHTML = `<div class="tw"><table><thead><tr><th>Trainee</th><th>Path</th><th>Steps passed</th><th>Lab</th><th>Practical</th><th>Exam</th><th>Status</th><th>Confidentiality</th><th>Last activity</th><th><span class="sr">Actions</span></th></tr></thead><tbody>${rows.map(r => `<tr><td>${esc(r.name)}</td><td>${r.role === "consultant" ? "Consultant" : "Broker"}</td><td>${prog(r)}</td><td>${cell(r,"lab")}</td><td>${r.role === "consultant" ? "n/a" : cell(r,"book")}</td><td>${cell(r,"exam")}</td><td>${r.completedAt ? `<span class="st done">Completed ${esc(fmtD(r.completedAt))}</span>` : "In progress"}</td><td>${r.ndaAt ? "Accepted " + esc(fmtD(r.ndaAt)) : "–"}</td><td>${esc(fmtD(r.updated))}</td><td><button class="btn" type="button" data-reset="${esc(r._id)}" style="padding:4px 10px;font-size:12.5px">Reset</button></td></tr>`).join("")}</tbody></table></div>
+    <p class="note" style="margin-top:8px">Green means passed; the figure is the best score. Reset clears a trainee's progress; they start again from Module 0 the next time they open the academy. Self-study scores are saved by the trainee's own browser, so treat them as a guide: certification rests on the written exam, the practical exam with you and supervised bookings.</p>`;
+  el.querySelectorAll("[data-reset]").forEach(b => b.onclick = () => {
+    const id = b.dataset.reset, td = b.parentElement, r = ROWS.find(x => x._id === id);
+    td.innerHTML = `<button class="btn primary" type="button" style="padding:4px 10px;font-size:12.5px">Confirm reset</button> <button class="btn" type="button" style="padding:4px 10px;font-size:12.5px">Cancel</button>`;
+    const [yes, no] = td.querySelectorAll("button");
+    no.onclick = drawRows;
+    yes.onclick = async () => {
+      const now = new Date().toISOString();
+      try { await P.db.doc("progress/" + id).set({v:1, name:r.name, role:r.role || "broker", mods:{}, resetAt:now, updated:now}); }
+      catch(e) { td.textContent = "Could not reset. Try again."; }
+    };
+  });
+}
+function drawRecs(){
+  const el = $("rc"); if (!el) return;
+  if (!RECS.length) { el.className = "empty"; el.textContent = "None yet."; return; }
+  el.className = "";
+  el.innerHTML = `<div class="tw"><table><thead><tr><th>Trainee</th><th>Path</th><th>Completed</th><th>Steps passed</th><th>Exam</th></tr></thead><tbody>${RECS.map(r => { const ex = ((r.items||[]).find(x => x[0] === "exam") || [])[1]; return `<tr><td>${esc(r.name)}</td><td>${r.role === "consultant" ? "Consultant" : "Broker"}</td><td>${esc(fmtD(r.date))}</td><td>${(r.items||[]).length}</td><td>${ex != null ? esc(ex) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table></div>`;
+}
+
+/* ---------- audio: reads any screen aloud with the device's own voice, written out as natural speech ---------- */
+const AUDIO = (() => {
+  const AKEY = "arche-cbt-audio-v2";
+  const synth = window.speechSynthesis, can = !!(synth && window.SpeechSynthesisUtterance);
+  let cfg = {on:false, rate:1, voice:"", auto:true};
+  try { cfg = Object.assign(cfg, JSON.parse(localStorage.getItem(AKEY)) || {}); } catch(e) {}
+  const keep = () => { try { localStorage.setItem(AKEY, JSON.stringify(cfg)); } catch(e) {} };
+  let items = [], idx = 0, playing = false, single = false, token = 0, cur = null;
+  const btn = $("audioBtn"), dock = $("dock");
+  const SEL = "#view h1, #view h2, #view h3, #view p:not(.eyebrow):not(.code), #view li, #view tbody tr, #view .doc, #view .opt, #view .fb, #view .issue, #view .res .it, #view .box, #view .reg summary, #view .reveal summary, #view [data-say]";
+
+  /* words a voice already says well; other 3-5 letter capitals are spelled out */
+  /* "ar Kay": lower-case "ar" is never spelled out as letters, and "Kay" is read as a stressed name, so Apple, Microsoft and Google voices all say ar-KAY */
+  const BRAND = "ar Kay";
+  const SAYABLE = new Set("EASA ATOL ICAO IATA SIAC ARGUS OFAC NOTAM OPSGROUP".split(" "));
+  const spell = w => w.split("").join(" ");
+  function speakable(raw, kind){
+    let t = " " + String(raw||"").replace(/\s+/g," ") + " ";
+    if (kind === "h") t = t.replace(/^\s*(?:[A-Z]\.)?\d+(\.\d+)*[A-Z]?\s+/, " ").replace(/^\s*(?:Module|Appendix|Case)\s+[A-Z0-9]+\b\s*/, m => m);                 // "2.4 Flights…" -> "Flights…"
+    t = t.replace(/[↗›‹✕"“”]/g, "").replace(/…/g, ".");
+    t = t.replace(/\b(?:AR-kay|ar-KAY|Ar-Kay|Ar-KAY)\b/g, "Archē").replace(/(?<![A-Za-z])(?:Arch[eē]|ARCH[EĒ])(?![A-Za-zēĒ])/g, BRAND).replace(/(?<![A-Za-z])arch[eē](?![A-Za-zēĒ])/g, BRAND.toLowerCase());   // brand: ar-KAY on every voice (Apple, Microsoft, Google)
+    t = t.replace(/\b(Module|Modules|module|Appendix|Appendices)\s+([0-9A-G]{1,2})\.(\d{1,2})\b/g, "$1 $2, section $3").replace(/\b([A-G])\.(\d{1,2})\b/g, "$1, section $2").replace(/\b(\d{1,2})\.(\d{1,2})(?=\s|,|\)|$)(?!\s*(percent|%|x|×|US|USD|hours|days|nm|tonnes))/g, (m,a,b) => +a <= 14 && +b <= 12 ? a + ", section " + b : m);
+    t = t.replace(/\be\.g\.,?/gi, "for example").replace(/\bi\.e\.,?/gi, "that is").replace(/\betc\./gi, "and so on").replace(/\bvs\.?\b/gi, "versus");
+    t = t.replace(/\bUSD\s?([\d,]+(\.\d+)?)/g, "$1 US dollars").replace(/\bUSD\b/g, "US dollars");
+    t = t.replace(/(\d)\s?%/g, "$1 percent").replace(/÷/g, " divided by ").replace(/(\d)\s?×/g, "$1 times").replace(/×/g, " times ");
+    t = t.replace(/UTC\s?\+\s?(\d+)/g, "UTC plus $1").replace(/(\d\d:\d\d)Z\b/g, "$1 Zulu").replace(/\+/g, " plus ").replace(/&/g, " and ");
+    t = t.replace(/\b([A-Z0-9]{1,2})-([A-Z0-9]{3,5})\b/g, (m,a,b) => /^\d+$/.test(a+b) ? m : spell(a) + ", " + spell(b));   // HB-JXA
+    t = t.replace(/\b([A-Za-z]+)[.-](\w+)[.-](\d+)\b/g, (m,a,b,c) => a + " " + b + " " + spell(c));                       // CH.AOC.1042, KYC-2026-0147
+    t = t.replace(/\b[A-Z]{2,5}s?\b/g, w => { const pl = /[A-Z]s$/.test(w), b = pl ? w.slice(0,-1) : w; return SAYABLE.has(b) || b === "I" || b === "A" ? w : spell(b) + (pl ? "s" : ""); });
+    t = t.replace(/\b(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g, (m,d,mo) => d + " " + {Jan:"January",Feb:"February",Mar:"March",Apr:"April",May:"May",Jun:"June",Jul:"July",Aug:"August",Sep:"September",Oct:"October",Nov:"November",Dec:"December"}[mo]);
+    t = t.replace(/\(([^()]*)\)/g, ", $1,");                                            // brackets become a short pause
+    t = t.replace(/([A-Za-z0-9])[,\s]*[–—]\s?([A-Za-z0-9])/g, (m,a,b) => a + " to " + b);   // WSSS–VTBD, Bangkok – Phuket
+    t = t.replace(/\s*[–—]\s*/g, ", ");
+    t = t.replace(/\s\/\s|\//g, " or ").replace(/·/g, ", ").replace(/;/g, ",").replace(/(\D):|:(\D)/g, "$1,$2").replace(/[()]/g, ", ");
+    t = t.replace(/\s+,/g, ",").replace(/,(\s*,)+/g, ",").replace(/,\s*\./g, ".").replace(/\.\s*\./g, ".").replace(/\s+/g, " ").trim().replace(/^,\s*/, "");
+    t = t.replace(/[,\s]+$/, "").replace(/([?!])\s*\./g, "$1").replace(/,\s*([.?!])/g, "$1");
+    if (t && !/[.!?]$/.test(t)) t += ".";
+    return t;
+  }
+  function textOf(el){
+    if (el.dataset && el.dataset.say) return speakable(el.dataset.say);
+    const tag = el.tagName;
+    if (/^H[1-3]$/.test(tag) || tag === "SUMMARY") return speakable(el.textContent, "h");
+    if (tag === "TR") {
+      const tb = el.closest("table"), hs = tb ? [...tb.querySelectorAll("thead th")].map(h => { const x = h.textContent.trim(); return x === x.toUpperCase() ? x : x.toLowerCase(); }) : [];
+      const cells = [...el.children].map(c => c.textContent.trim());
+      if (cells.length <= 2) return speakable(cells.filter(Boolean).join(". "));
+      if (cells.slice(1).every(c => c.length <= 24)) return speakable(cells[0] + ". " + cells.slice(1).filter(Boolean).join(", "));
+      const [first, ...rest] = cells;
+      return speakable(first + ". " + rest.map((c,i) => c ? (hs[i+1] ? hs[i+1] + ", " + c : c) : "").filter(Boolean).join(". "));
+    }
+    if (el.classList.contains("opt")) {
+      const k = el.querySelector(".k"), body = [...el.children].filter(n => n !== k).map(n => n.textContent).join(" ") || el.textContent;
+      return (k ? k.textContent.trim().toUpperCase() + ". " : "") + speakable(body);
+    }
+    if (el.classList.contains("it")) {
+      const ok = el.classList.contains("pass"), b = el.querySelector("b"), tag2 = el.querySelector(".tag"), rest = el.lastElementChild;
+      if (ok) return speakable(b.textContent) .replace(/\.$/, "") + ", correct.";
+      const why = rest ? [...rest.childNodes].filter(n => n !== b && n !== tag2).map(n => n.textContent).join(" ") : "";
+      return "To fix, " + (tag2 ? tag2.textContent.toLowerCase() + ". " : "") + speakable(b.textContent + ". " + why);
+    }
+    if (el.classList.contains("box") || el.classList.contains("doc")) return speakable([...el.children].map(c => c.textContent.trim().replace(/[.:]?$/, ".")).join(" "));
+    return speakable(el.textContent);
+  }
+  function collect(root){
+    const all = [...document.querySelectorAll(SEL)].filter(el => !el.closest(".links") && !el.closest("[data-nosay]") && !(el.closest("details.reveal:not([open])") && el.tagName !== "SUMMARY") && !el.closest("[hidden]") && !el.closest("button.tile") && (!root || root.contains(el)));
+    const top = all.filter(el => !all.some(o => o !== el && o.contains(el) && !o.matches("[data-say]")) || el.matches("[data-say]"));
+    return top.filter(el => !top.some(o => o !== el && o.matches("[data-say]") && o.contains(el))).map(el => ({el, t:textOf(el)})).filter(x => x.t.replace(/[.,\s]/g,"").length > 1);
+  }
+
+  /* curated voices: only natural-sounding English voices, at most 3 female and 3 male */
+  const NAMES = {f:["sonia","libby","maisie","jenny","aria","ava","emma","michelle","natasha","clara","zoe","serena","samantha","karen","kate","moira","tessa","nicky","allison","susan","martha","stephanie","catherine","google uk english female","google us english"],
+                 m:["ryan","thomas","guy","andrew","brian","christopher","eric","william","liam","aaron","evan","nathan","daniel","arthur","oliver","tom","alex","lee","gordon","google uk english male"]};
+  const RUBBISH = /compact|espeak|robot|novelty|bad news|bells|whisper|zarvox|trinoids|albert|bubbles|cellos|fred|junior|ralph|kathy|boing|bahh|hysterical|organ|superstar|wobble|jester|good news|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley|desktop|\bdavid\b|\bzira\b|\bmark\b|\bhazel\b|\bgeorge\b/i;
+  const ACCENT = {GB:"British",US:"American",AU:"Australian",IE:"Irish",IN:"Indian",ZA:"South African",NZ:"New Zealand",CA:"Canadian",SG:"Singaporean"};
+  const gender = v => { const n = v.name.toLowerCase(); for (const g of ["f","m"]) if (NAMES[g].some(k => n.includes(k))) return g; return ""; };
+  const quality = v => {
+    if (RUBBISH.test(v.name)) return -99;
+    let q = 0;
+    if (/natural|neural|online|premium|enhanced|siri/i.test(v.name)) q += 10;
+    if (/^(aaron|nicky)\b/i.test(v.name)) q += 11;                         // Apple's Siri-quality voices
+    if (/^english\b|^en-[a-z]{2}-x-/i.test(v.name)) q += 6;                // Android's Google voices
+    if (/google/i.test(v.name)) q += 6;
+    if (gender(v)) q += 3;
+    if (/^en[-_](GB|US)/i.test(v.lang)) q += 1;
+    return q;
+  };
+  const rank = v => -quality(v);
+  let LIST = [];
+  function curate(){
+    if (!can) return [];
+    const en = synth.getVoices().filter(v => /^en/i.test(v.lang) && quality(v) > -99);
+    const good = en.filter(v => quality(v) >= 6).sort((a,b) => quality(b) - quality(a) || a.name.localeCompare(b.name));
+    const pool = good.length ? good : en.filter(v => gender(v)).sort((a,b) => quality(b) - quality(a)).slice(0, 2);
+    const f = pool.filter(v => gender(v) === "f"), m = pool.filter(v => gender(v) === "m"), u = pool.filter(v => !gender(v));
+    const pick = f.slice(0,3).concat(m.slice(0,3));
+    for (const v of [...f.slice(3), ...m.slice(3), ...u]) { if (pick.length >= 6) break; pick.push(v); }
+    const seen = new Set();
+    return pick.filter(v => { const k = v.name.replace(/\s*\(.*$/,"").replace(/^(Microsoft|Google)\s+/,""); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, 6);
+  }
+  const label = v => {
+    const nm = v.name.replace(/^Microsoft\s+/,"").replace(/\s+Online\s+\(Natural\).*$/,"").replace(/\s*\((Premium|Enhanced)\)/i,"").replace(/^Google\s+(UK|US)\s+English(\s+(Female|Male))?$/i, "Google").replace(/^English\b.*$|^en-[a-z]{2}-x-.*$/i, "Google voice").replace(/\s+-\s+English.*$/,"");
+    const acc = ACCENT[(v.lang.split(/[-_]/)[1] || "").toUpperCase()] || "";
+    const g = gender(v) === "f" ? "female" : gender(v) === "m" ? "male" : "";
+    return nm + (acc || g ? ` (${[acc, g].filter(Boolean).join(", ")})` : "");
+  };
+  function voices(){ return LIST.length ? LIST : (LIST = curate()); }
+  function thaiVoice(){ if (!can) return null; const th = synth.getVoices().filter(v => /^th/i.test(v.lang) && !RUBBISH.test(v.name)); return th.sort((a,b) => quality(b) - quality(a))[0] || null; }
+  function pickVoice(){ const vs = voices(); return vs.find(v => v.voiceURI === cfg.voice) || vs[0] || null; }
+  function fillVoices(){
+    LIST = curate(); const sel = $("aVoice");
+    if (!LIST.length) { sel.innerHTML = `<option value="">Device voice</option>`; $("aTip").hidden = false; return; }
+    sel.innerHTML = LIST.map(v => `<option value="${esc(v.voiceURI)}">${esc(label(v))}</option>`).join("");
+    if (!cfg.voice || !LIST.some(v => v.voiceURI === cfg.voice)) { cfg.voice = LIST[0].voiceURI; keep(); }
+    sel.value = cfg.voice;
+    const mac = /Mac|iPhone|iPad/.test(navigator.userAgent), win = /Windows/.test(navigator.userAgent);
+    $("aTip").textContent = mac ? "More natural voices: System Settings, Accessibility, Spoken Content, System voice, Manage Voices. Download for example Ava (Premium), Zoe (Premium), Evan (Enhanced), then reopen the browser."
+      : win ? "More natural voices: open the academy in Microsoft Edge, which includes natural voices such as Sonia, Ryan, Jenny and Guy."
+      : "More natural voices can be added in your device's text-to-speech settings.";
+    $("aTip").hidden = LIST.length >= 4 && quality(LIST[0]) >= 6;
+  }
+  function mark(el){ if (cur) cur.classList.remove("reading"); cur = el; if (el) { el.classList.add("reading"); const r = el.getBoundingClientRect(); if (r.top < 70 || r.bottom > window.innerHeight - 130) el.scrollIntoView({block:"center", behavior:"smooth"}); } }
+  function setUI(){
+    btn.setAttribute("aria-pressed", String(cfg.on)); btn.textContent = cfg.on ? "Audio on" : "Audio off";
+    dock.hidden = !cfg.on; document.body.classList.toggle("audio-on", cfg.on);
+    $("aPlay").textContent = playing ? "Pause" : "Play";
+  }
+  function stop(){ token++; playing = false; if (can) synth.cancel(); setUI(); }
+  /* one utterance per paragraph; very long ones split at sentence ends into chunks of about 230 characters */
+  function chunks(t){
+    if (t.length <= 260) return [t];
+    const out = []; let buf = "";
+    (t.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g) || [t]).forEach(s => { if ((buf + s).length > 230 && buf) { out.push(buf.trim()); buf = ""; } buf += s; });
+    if (buf.trim()) out.push(buf.trim()); return out;
+  }
+  function speakFrom(i, one){
+    if (!can) return; token++; const my = token; synth.cancel();
+    if (one !== undefined) single = one;
+    if (i >= items.length || (single && i !== idx && playing)) { playing = false; mark(null); $("aNow").textContent = single ? "Paused." : "End of this screen."; single = false; setUI(); return; }
+    idx = Math.max(0, i); playing = true; setUI();
+    const it = items[idx]; mark(it.el); $("aNow").textContent = it.el.textContent.replace(/\s+/g," ").trim();
+    const parts = chunks(it.t); let p = 0;
+    const next = () => {
+      if (my !== token) return;
+      if (p >= parts.length) { if (single) { playing = false; single = false; mark(null); $("aNow").textContent = "Press Play to continue."; setUI(); return; } setTimeout(() => { if (my === token) speakFrom(idx + 1); }, 220); return; }
+      const part = parts[p++], thai = /[\u0E00-\u0E7F]/.test(part);
+      const u = new SpeechSynthesisUtterance(part); const v = thai ? thaiVoice() : pickVoice();
+      if (thai && !v) { next(); return; }                       // no Thai voice on this device: skip Thai text rather than mispronounce it
+      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = thai ? "th-TH" : "en-GB";
+      u.rate = +cfg.rate || 1; u.pitch = 1;
+      u.onend = next; u.onerror = e => { if (my === token && e.error !== "interrupted" && e.error !== "canceled") next(); };
+      synth.speak(u);
+    };
+    next();
+  }
+  function screen(root){
+    if (!cfg.on) return;
+    stop(); mark(null); items = collect(root); idx = 0; single = false;
+    clearTimeout(screen.t);
+    if (cfg.auto) screen.t = setTimeout(() => speakFrom(0, false), 250); else { stop(); $("aNow").textContent = "Press Play to listen to this screen."; }
+  }
+  function focus(el){
+    if (!cfg.on || !el) return;
+    const all = collect(); const k = all.findIndex(x => x.el === el || el.contains(x.el));
+    items = all; idx = k < 0 ? 0 : k; speakFrom(idx, true);
+  }
+  if (!can) { btn.disabled = true; btn.textContent = "Audio unavailable"; btn.title = "This browser has no built-in voice. Try Chrome, Edge or Safari."; return {screen(){}, focus(){}, speakable}; }
+  fillVoices(); if (synth.addEventListener) synth.addEventListener("voiceschanged", fillVoices); else synth.onvoiceschanged = fillVoices;
+  $("aRate").value = String(cfg.rate); $("aAuto").checked = cfg.auto !== false;
+  btn.onclick = () => { cfg.on = !cfg.on; keep(); setUI(); if (cfg.on) { fillVoices(); items = collect(); speakFrom(0, false); } else { stop(); mark(null); } };
+  $("aPlay").onclick = () => { if (playing) { stop(); $("aNow").textContent = "Paused."; } else { if (!items.length) items = collect(); speakFrom(idx, false); } };
+  $("aNext").onclick = () => { if (!items.length) items = collect(); speakFrom(Math.min(items.length - 1, idx + 1), false); };
+  $("aPrev").onclick = () => { if (!items.length) items = collect(); speakFrom(Math.max(0, idx - 1), false); };
+  $("aRate").onchange = e => { cfg.rate = +e.target.value; keep(); if (playing) speakFrom(idx); };
+  $("aVoice").onchange = e => { cfg.voice = e.target.value; keep(); if (playing) speakFrom(idx); };
+  $("aName").onclick = () => { if (!can) return; stop(); const u = new SpeechSynthesisUtterance(speakable("Archē Executive. Archē is said ar-KAY.")); const v = pickVoice(); if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-GB"; u.rate = +cfg.rate || 1; synth.speak(u); };
+  $("aAuto").onchange = e => { cfg.auto = e.target.checked; keep(); };
+  document.addEventListener("visibilitychange", () => { if (document.hidden && playing) stop(); });
+  setUI();
+  return {screen, focus, speakable};
+})();
+
+/* ---------- boot ---------- */
+setSync("local");
+renderMap(); route();
+initPlatform();
+})();
+</script>

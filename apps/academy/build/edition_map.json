@@ -1,0 +1,28 @@
+{
+ "removed": [
+  "Module 1.1 Who we are (Arche company profile)",
+  "Module 1.5 The booking ramp and booking units",
+  "Navoryx fleet-hours rule (Module 1.2 and its question)",
+  "Booking-unit question (Module 1)",
+  "Arche policy: no US domestic flights until US counsel confirms",
+  "Arche desk plan (on-call rota months 1 to 8, four-person desk from month 9)",
+  "Appendix F Thai summary of Arche's critical rules",
+  "Module 1.8 The Arche portal (leads, prospects, booking rights) and its questions",
+  "Booking-rights question (Module 1)",
+  "Module 10.7 How to book in the Arche portal"
+ ],
+ "rewritten": 75,
+ "log": [
+  "removed m1 1.1",
+  "removed m1 1.5",
+  "removed question: A client asks to charter an aircraft owned by Navoryx",
+  "removed question: A trip billed at USD 135,000",
+  "removed reference rthai",
+  "removed m1 1.8",
+  "removed question: You have not contacted a new lead",
+  "removed question: A broker with booking rights sells a trip",
+  "removed m10 10.7",
+  "removed Arche sponsorship of external courses",
+  "added Module 15 Building a charter brokerage"
+ ]
+}

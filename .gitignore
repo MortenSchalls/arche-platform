@@ -1,0 +1,19 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+.vercel/
+supabase/.temp/
+# real data never goes in the repository
+data/backups/
+# academy build output (copy the two release files to apps/academy/dist)
+apps/academy/build/content.full.js
+apps/academy/build/content.ext.full.js
+apps/academy/build/content.sealed.js
+apps/academy/build/content.ext.sealed.js
+apps/academy/build/t_*.html
+apps/academy/build/arche-broker-academy.html
+apps/academy/build/charter-broker-academy.html
+__pycache__/
