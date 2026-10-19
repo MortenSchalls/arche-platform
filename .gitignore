@@ -19,3 +19,5 @@ apps/academy/build/charter-broker-academy.html
 __pycache__/
 apps/portal/t_*.html
 apps/portal/lib
+# generated imports hold real data
+import*.sql
