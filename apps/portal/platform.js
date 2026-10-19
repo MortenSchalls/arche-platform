@@ -68,6 +68,7 @@
     if (p[0] === "roster") return { kind: "profile", table: "profiles", id: p[1] };
     if (p[0] === "join") return { kind: "join", table: "join_requests", id: p[1] };
     if (p[0] === "access") return { kind: "access", table: "access_log", id: p[1] };
+    if (p[0] === "enquiries") return { kind: "enq", table: "website_enquiries", id: p[1] };
     if (OWNED[p[0]] && p[2] === OWNED[p[0]][1]) return { kind: "owned", table: OWNED[p[0]][0], owner: p[1], id: p[3] };
     if (p[0] === "train" && TRAIN[p[2]]) return { kind: "owned", table: TRAIN[p[2]], owner: p[1], id: p[3] };
     throw Object.assign(new Error("Unknown path " + path), { code: "unknown_path" });
@@ -83,6 +84,7 @@
       case "join": return { id: r.user_id, data: r.data };
       case "access": return { id: r.owner_id, data: r.data };
       case "owned": return { id: r.id, data: r.data };
+      case "enq": return { id: r.id, data: { ...r.data, at: r.at, consent: r.consent, handled: r.handled } };
     }
   }
   function where(q, rt, withId) {
@@ -94,6 +96,7 @@
       case "join": return withId ? q.eq("user_id", rt.id) : q;
       case "access": return withId ? q.eq("owner_id", rt.id).eq("id", "last") : q.eq("id", "last");
       case "owned": q = q.eq("owner_id", rt.owner); return withId ? q.eq("id", rt.id) : q;
+      case "enq": return withId ? q.eq("id", rt.id) : q.order("at", { ascending: false }).limit(300);
     }
   }
   function toRow(rt, data) {
@@ -132,6 +135,7 @@
       async set(data) {
         if (rt.kind === "audit") { const { error } = await sb.from(rt.table).insert(toRow(rt, data)); if (error) throw fail(error); return; }
         if (rt.kind === "profile") { const { error } = await sb.from(rt.table).update(toRow(rt, data)).eq("id", rt.id); if (error) throw fail(error); return; }
+        if (rt.kind === "enq") { const { error } = await sb.from(rt.table).update({ handled: !!data.handled, data: Object.fromEntries(Object.entries(data).filter(([k]) => !["at","consent","handled"].includes(k))) }).eq("id", rt.id); if (error) throw fail(error); return; }
         const { error } = await sb.from(rt.table).upsert(toRow(rt, data), { onConflict: conflictKey(rt) });
         if (error) throw fail(error);
       },

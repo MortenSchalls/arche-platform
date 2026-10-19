@@ -1,0 +1,11 @@
+/* Live-site fixes on top of the Claude Design layout (inline styles need !important). */
+html { overflow-x: clip; }
+@media (max-width: 760px) {
+  header > div { grid-template-columns: auto 1fr !important; padding: 16px !important; gap: 10px 12px !important; }
+  header > div > a[href="#top"] { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
+  header > div > a[href="#top"] svg { width: 130px !important; height: auto !important; }
+  header > div > a[href="#top"] span:first-of-type { font-size: 34px !important; }
+  header > div > div { gap: 10px !important; }
+  header > div > div > div { gap: 8px !important; }
+  header a[href^="tel:"] { display: none !important; }
+}

@@ -4,7 +4,8 @@ const OWN='00000000-0000-0000-0000-00000000000a', BRK='00000000-0000-0000-0000-0
 const T={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:BRK,role:'broker',active:true,contract_name:'Example Broker',book:false,data:{roster:true}}],
  config:[{key:'terms',value:{margin:0.07,unit:45000,threshold:8,rate1:0.27,rate2:0.35}}],
  trips:[{owner_id:BRK,id:'t1',data:{stage:'submitted',submittedAt:'2026-10-18T10:00:00Z',client:{name:'Example client',company:'Example Co',email:'c@example.com'},trip:{legs:[{from:'WSSS',to:'VTBS',date:'2026-12-01',time:'10:00',pax:'4'}],category:'Midsize jet'},quote:{operator:'Example Ops',aircraft:'Example jet',opPrice:20000,direct:0},checks:{}}}],
- trip_status:[]};
+ trip_status:[],
+ website_enquiries:[{id:'e1',at:'2026-10-20T01:00:00Z',consent:true,handled:false,data:{type:'quote',legs:[{from:'Singapore',to:'Bangkok',date:'2026-11-02',time:'09:00'}],pax:3,name:'Example Visitor',reach:'+65 0000 0001',reply:'WhatsApp',lang:'en'}}]};
 const page=(uid)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
  .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`)
  .replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
@@ -25,4 +26,9 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await k.goto('http://localhost:8765/t_sb_broker.html');await k.waitForTimeout(3000);
  ok('broker role decided from profile', await k.evaluate(()=>S.role==='broker'));
  ok('broker sees own trip', await k.evaluate(()=>allTrips().length===1));
+ await o.evaluate(()=>{S.view='today';render();});await o.waitForTimeout(400);
+ ok('owner sees the website enquiry on Today', /Website enquiries \(1\)/.test(await o.textContent('#main')));
+ await o.click('[data-enq="e1"]');await o.waitForTimeout(400);
+ ok('enquiry marked handled', await o.evaluate(()=>window.__T.website_enquiries[0].handled===true));
+ ok('broker does not see enquiries', !(await k.evaluate(()=>/Website enquiries/.test(document.body.innerText))));
  console.log('ERRORS', JSON.stringify(errs.slice(0,6)));await b.close();})();

@@ -4,8 +4,8 @@ One project for everything Archē Executive runs online. Archē is said ar-KAY.
 
 | Part | Folder | Address after the move | Status today |
 |---|---|---|---|
-| Public website | `apps/website` | archeaviation.com | Claude Design source (v7), to be converted to a normal web page |
-| Broker portal | `apps/portal` | portal.archeaviation.com | Working page that still runs inside claude.ai (Beta 21) |
+| Public website | `apps/website` | archeaviation.com | Built from the Claude Design v7 file into `apps/website/site`; forms feed the portal |
+| Broker portal | `apps/portal` | portal.archeaviation.com | Runs on Supabase + Vercel (arche-platform-sandy.vercel.app); claude.ai copy kept as fallback |
 | Academies | `apps/academy` | academy.archeaviation.com | Internal and external editions, built from the manual |
 | Charter confirmation | `apps/charter-confirmation` | inside the portal | Offline form v6; the portal has its own built-in version |
 | Master Training Manual | `apps/manual` | (Word/PDF, not online) | v3.8; the Word file is the master, the academies are built from it |
