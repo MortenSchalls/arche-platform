@@ -16,7 +16,7 @@ import os, shutil, re, json
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "design-source")
 OUT = os.path.join(HERE, "site")
-PORTAL = "https://portal.archeaviation.com"
+PORTAL = "https://arche-platform-sandy.vercel.app"  # change to https://portal.archeaviation.com at go-live
 
 def build():
     os.makedirs(OUT, exist_ok=True)
