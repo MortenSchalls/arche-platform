@@ -16,4 +16,4 @@ end $$;
 revoke all on function public.submit_enquiry(jsonb) from public;
 grant execute on function public.submit_enquiry(jsonb) to anon, authenticated;
 
-alter publication supabase_realtime add table public.website_enquiries;
+-- (website_enquiries already receives live updates in Supabase; no publication change needed)
