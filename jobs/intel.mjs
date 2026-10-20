@@ -34,10 +34,10 @@ const normUrl = u => { try { const x = new URL(u); return (x.hostname.replace(/^
 const host = u => { try { return new URL(u).hostname.replace(/^www\./, "").toLowerCase(); } catch { return ""; } };
 
 // one research call: returns {data, seen:Set of URLs from search results}
-export async function ask(prompt, call = callApi) {
+export async function ask(prompt, call = callApi, maxTokens = 8000) {
   let res, lastErr;
   for (const t of SEARCH_TYPES) {
-    try { res = await call({ model: MODEL, max_tokens: 8000, tools: [searchTool(t)], messages: [{ role: "user", content: prompt }] }); break; }
+    try { res = await call({ model: MODEL, max_tokens: maxTokens, tools: [searchTool(t)], messages: [{ role: "user", content: prompt }] }); break; }
     catch (e) { lastErr = e; if (!/ 400/.test(e.message)) throw e; }
   }
   if (!res) throw lastErr;
@@ -48,7 +48,7 @@ export async function ask(prompt, call = callApi) {
     else if (/result/.test(b.type || "")) collect(b.content);       // web_search_tool_result and newer result blocks
   }
   const m = text.match(/```json\s*([\s\S]*?)```/) || text.match(/(\[[\s\S]*\]|\{[\s\S]*\})\s*$/);
-  if (!m) throw new Error("No JSON in the research answer");
+  if (!m) throw new Error("No JSON in the research answer" + (res.stop_reason === "max_tokens" ? " (answer cut off at the length limit)" : ""));
   return { data: JSON.parse(m[1]), seen };
 }
 async function callApi(body) {

@@ -84,13 +84,13 @@ export async function enrich(db, call, log = () => {}, max = 16) {
 ${batch.map(r => `- id ${r.id}: ${r.data.org}${r.data.website ? " (" + r.data.website + ")" : ""}, ${r.data.country || ""}`).join("\n")}
 Reply with JSON only, in a \`\`\`json block: an object mapping id to {${PROFILE_FIELDS}, evidence (array of {summary, url}: relevant investments, financings or partnerships)}.`;
     try {
-      const { data, seen } = await ask(p, call);
+      const { data, seen } = await ask(p, call, 16000);
       for (const r of batch) {
         const o = (data || {})[r.id]; if (!o) continue;
         const evidence = [...(r.data.evidence || []), ...(Array.isArray(o.evidence) ? o.evidence : []).map(x => ({ summary: clean(x && x.summary, 300), url: clean(x && x.url, 400) })).filter(x => x.summary && seen.has(normUrl(x.url)))].slice(0, 5);
         await db.set("owner/" + r.id, withFit({ ...r.data, evidence, profile: vetProfile(o, seen), aiReviewed: new Date().toISOString() })); done++;
       }
-    } catch (e) { log("  owner profile batch failed: " + String(e.message || e).slice(0, 200)); }
+    } catch (e) { const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log("  owner profile batch failed: " + m); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Owner profile batch failed::${m}`); }
   }
   return done;
 }
@@ -101,7 +101,7 @@ export async function run(db, call, log = () => {}, lists = null, areas = Number
   const out = { added: [], rejected: [] };
   for (let i = 0; i < Math.min(areas, INV_FOCUS.length); i++) {
     try { const r = await runOne(db, call, log, lists, optSet); out.added.push(...r.added); out.rejected.push(...r.rejected); }
-    catch (e) { log("  owner research area failed: " + String(e.message || e).slice(0, 200)); }
+    catch (e) { const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log("  owner research area failed: " + m); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Owner research area failed::${m}`); }
   }
   out.profiled = await enrich(db, call, log, Number(process.env.INVESTOR_PROFILES || 16));
   return out;
@@ -117,12 +117,12 @@ async function runOne(db, call, log, lists, optSet) {
   const nowIso = new Date().toISOString(), today = nowIso.slice(0, 10);
   const prompt = `You research INVESTORS and STRATEGIC PARTNERS for a Singapore private aviation group: (1) Navoryx, which plans a fleet of long-range business jets held one per special-purpose company and funded by fixed-return investor notes secured on each aircraft; (2) Archē Executive, a private jet charter broker. Both are early stage.
 Focus today: ${focus}.
-Find up to 15 ORGANISATIONS that plausibly invest in, finance, distribute or partner with this kind of business. Prefer organisations with public evidence of relevant activity (aviation, real assets, asset-backed or private credit, notes distribution, private aviation partnerships). Use web search; every organisation must come from a page you actually found in search results.
+Find up to 12 ORGANISATIONS that plausibly invest in, finance, distribute or partner with this kind of business. Prefer organisations with public evidence of relevant activity (aviation, real assets, asset-backed or private credit, notes distribution, private aviation partnerships). Use web search; every organisation must come from a page you actually found in search results.
 Strict rules: organisations only; no personal data about private individuals (no names of people, no personal phone numbers, emails or profiles); a person may appear only as a role, for example "Head of Aviation Finance". Never guess contact details. Nothing based in or controlled from Russia, Belarus, Iran, North Korea, Syria, Cuba, Venezuela, Myanmar or Afghanistan. Family offices: approach only through introductions or their published channels.
 Already known (skip these): ${[...mine, ...other].map(r => r.data.org).join("; ").slice(0, 5000)}
 Reply with JSON only, in a \`\`\`json block: an array of objects with fields
 org, track (one of ${TRACKS.join(", ")}), for (one of ${FOR.join(", ")}), type (short description), region, country, city, website (official site, only if found), source (URL of the public page where you found it), evidence (array of {summary, url}: public evidence of relevant investments, financings or partnerships), ${PROFILE_FIELDS}, why (one sentence), approach (one or two sentences, by role or introduction route), contacts (array of up to 3 {name, role, email, phone, url}: named BUSINESS contacts only as published on the organisation's OWN website, with the page url; work email on the organisation's own domain; never personal emails or phones, never guessed; empty if none published), avenues (array of {type, label, url, note}; official business routes only; types: website, contact, linkedin, event, association, introducer, other).`;
-  const { data, seen } = await ask(prompt, call);
+  const { data, seen } = await ask(prompt, call, 20000);
   const added = [], rejected = [];
   let next = maxId;
   for (const o of Array.isArray(data) ? data.slice(0, 18) : []) {
