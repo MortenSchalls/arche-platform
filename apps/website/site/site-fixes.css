@@ -11,5 +11,5 @@ html { overflow-x: clip; }
 }
 @media (max-width: 760px) {
   /* hero drawing on phones: nearly full width */
-  section#top > div[aria-hidden="true"] { width: calc(100vw - 24px) !important; }
+  section#top > div[aria-hidden="true"] { width: calc(100vw - 24px) !important; top: 190px !important; }
 }
