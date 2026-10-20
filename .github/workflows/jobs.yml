@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -29,8 +29,8 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       JOB: ${{ github.event_name == 'workflow_dispatch' && inputs.job || (github.event.schedule == '58 22 * * *' && 'intel') || (github.event.schedule == '17 19 * * *' && 'backup') || 'rotation' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with: { node-version: "22" }
       - name: Install
         working-directory: jobs
@@ -51,7 +51,7 @@ jobs:
           rm backup.json
       - name: Keep backup for 90 days
         if: env.JOB == 'backup'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: portal-backup-${{ github.run_id }}
           path: jobs/backup.json.enc

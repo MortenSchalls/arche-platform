@@ -124,4 +124,4 @@ Reply with JSON only, in a \`\`\`json block: an object mapping id to an array of
   log(note); rejected.forEach(x => log("  rejected:", x));
   return { added, updated, rejected };
 }
-if (import.meta.url === `file://${process.argv[1]}`) run().catch(e => { console.error(e.message); process.exit(1); });
+if (import.meta.url === `file://${process.argv[1]}`) { const { main } = await import("./lib/main.mjs"); await main("Daily research", ["SUPABASE_URL","SUPABASE_SECRET_KEY","ANTHROPIC_API_KEY"], () => run()); }

@@ -16,4 +16,4 @@ export async function run(db = connect(), out = "backup.json", log = console.log
   log("Backup written:", JSON.stringify(counts));
   return counts;
 }
-if (import.meta.url === `file://${process.argv[1]}`) run().catch(e => { console.error(e.message); process.exit(1); });
+if (import.meta.url === `file://${process.argv[1]}`) { const { main } = await import("./lib/main.mjs"); await main("Backup", ["SUPABASE_URL","SUPABASE_SECRET_KEY"], () => run()); }

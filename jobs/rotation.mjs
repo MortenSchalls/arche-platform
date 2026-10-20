@@ -24,4 +24,4 @@ export async function run(db = connect(), log = console.log) {
     return { writes: n, report: res.report };
   } finally { await db.unlock("scheduled"); }
 }
-if (import.meta.url === `file://${process.argv[1]}`) run().catch(e => { console.error(e.message); process.exit(1); });
+if (import.meta.url === `file://${process.argv[1]}`) { const { main } = await import("./lib/main.mjs"); await main("Prospect rotation", ["SUPABASE_URL","SUPABASE_SECRET_KEY"], () => run()); }
