@@ -16,6 +16,7 @@ import os, shutil, re, json
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "design-source")
 OUT = os.path.join(HERE, "site")
+SHOW_ACCREDITATIONS = False   # Morten 20 Oct 2026: hide until Archē holds accreditations; set True to bring the section back
 PORTAL = "https://arche-platform-sandy.vercel.app"  # change to https://portal.archeaviation.com at go-live
 
 def build():
@@ -62,6 +63,10 @@ def build():
     assert s.count("</footer>") == 1
     s = s.replace("</footer>", login + "</footer>")
 
+    # accreditations strip (CERT. 01-04): kept in the Design file, left out of the live site until there is something to show
+    if not SHOW_ACCREDITATIONS:
+        i = s.index('<section id="standards"'); j = s.index("</section>", i) + len("</section>")
+        s = s[:i] + s[j:]
     # 4. sender (plain script, after the page)
     s = s.replace("</body>", """<script>
 window.archeSend = function (data) {

@@ -9,7 +9,7 @@ Work top to bottom. Nothing goes live on archeaviation.com until every P1 line i
   - Journey 2, 4, 5: replace (text baked into the image).
   - Check AI-made images (advisor, journey 1 and 3, advisory, fleet, office) against the terms of the tool that made them.
 - [ ] **Placeholders filled:** phone and WhatsApp, advisor name and title, office addresses (Singapore, Bangkok), legal entity and registration number, contact email on archeaviation.com (site still shows charter@archeexecutive.com).
-- [ ] **Certificates CERT 01–04:** real accreditations or remove the strip.
+- [x] **Certificates CERT 01–04:** strip hidden on the live site (20 Oct); kept in the Design file. Set SHOW_ACCREDITATIONS = True in apps/website/build.py when there are real accreditations.
 - [ ] **Legal wording:** jurisdiction notices (CAAS, CAAT), broker disclosure, privacy notice and terms of business reviewed by counsel.
 - [ ] **Sign-in for staff:** Microsoft 365 sign-in on; sign-in and system emails sent from archeaviation.com (custom SMTP), not Supabase's test mail.
 - [ ] **Full run-through** on desktop and phone: every section, link, language, form; quote and call-back reach Today.
