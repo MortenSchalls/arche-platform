@@ -78,6 +78,13 @@ def build():
     assert s.count(old_h1) == 1
     s = s.replace(old_h1, 'Private aviation,<br>handled with <em style="font-family:inherit;font-style:normal;font-weight:400;'
                   'background:linear-gradient(176deg,#dbe5f0 0%,#a9bdd4 45%,#7d96b4 100%);-webkit-background-clip:text;background-clip:text;color:transparent">care and precision.</em>')
+    # hero text: sits just under the aircraft when the screen is tall enough, otherwise moves up over the
+    # aircraft's faded lower part so the quote form is always visible without scrolling (Morten 20 Oct 2026)
+    old_pad = 'padding:calc(190px + min(600px,46vw) * 0.8) 40px 40px;display:flex;flex-direction:column;align-items:center;gap:56px'
+    assert s.count(old_pad) == 1
+    s = s.replace('<div style="position:relative;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;' + old_pad,
+                  '<div class="hero-content" style="position:relative;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;'
+                  'padding:clamp(230px, calc(100vh - 455px), calc(166px + (100vw - 118px) * 0.28)) 40px 32px;display:flex;flex-direction:column;align-items:center;gap:40px')
     # 4. sender (plain script, after the page)
     s = s.replace("</body>", """<script>
 window.archeSend = function (data) {

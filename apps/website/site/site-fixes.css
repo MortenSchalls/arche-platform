@@ -16,3 +16,7 @@ html { overflow-x: clip; }
 @media (max-width: 760px) {
   section#top > .arche-rose { top: 172px !important; }
 }
+@media (max-width: 760px) {
+  /* phones: keep the original spacing under the aircraft */
+  section#top > .hero-content { padding: calc(190px + 46vw * 0.8) 16px 32px !important; gap: 40px !important; }
+}
