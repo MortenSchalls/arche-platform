@@ -40,6 +40,7 @@ def build():
         shutil.copy(os.path.join(img_dir, f), os.path.join(OUT, "img", f))
         slots[slot] = {"u": "img/" + f, "s": 1, "x": 0, "y": 0}
         print("  picture replaced:", slot)
+    slots.pop("advisor-portrait", None)   # no advisor photo on the site (see contact panel below)
     json.dump(slots, open(os.path.join(OUT, "image-slots.state.json"), "w", encoding="utf-8"))
     slot = open(os.path.join(SRC, "image-slot.js"), encoding="utf-8").read()
     assert "const STATE_FILE = '.image-slots.state.json';" in slot
@@ -97,6 +98,18 @@ def build():
     s = s.replace('<div style="position:relative;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;' + old_pad,
                   '<div class="hero-content" style="position:relative;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;'
                   'padding:calc(221px + 0.302 * clamp(420px, min(calc((100vw - 118px) * 0.803), calc((100vh - 626px) * 3.31)), 1930px)) 40px 32px;display:flex;flex-direction:column;align-items:center;gap:28px')
+    # contact: no advisor portrait (Morten 20 Oct 2026: a stock face shown as "your advisor" would mislead), a plain contact panel instead
+    i = s.index('<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px', s.index('<section id="contact"'))
+    j = s.index('<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))', i)
+    card = s[i:j]
+    assert 'advisor-portrait' in card
+    btns = card[card.index('<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px">'):card.rindex('</div>', 0, card.rindex('</div>', 0, card.rindex('</div>')))]
+    s = s[:i] + ('<div class="contact-panel" style="display:flex;justify-content:space-between;align-items:center;gap:32px 56px;flex-wrap:wrap;padding:40px;'
+                 'border:1px solid rgba(169,189,212,0.35);background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))">'
+                 '<div style="display:flex;flex-direction:column;gap:14px;max-width:620px">'
+                 '<span style="font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;color:#a9bdd4">Private client desk</span>'
+                 '<p style="margin:0;font-size:17px;line-height:1.7;color:#c6cbd2">One team that knows your preferences, your people and your schedule. Call or message at any hour.</p>'
+                 '</div>' + btns.rstrip() + '</div></div>\n    ') + s[j:]
     # 4. sender (plain script, after the page)
     s = s.replace("</body>", """<script>
 window.archeSend = function (data) {

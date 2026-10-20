@@ -27,7 +27,7 @@ Every picture on archeaviation.com, where it came from and on what terms. Nothin
 | journey-3 | Step 3: You confirm | 1600 × 1200 | Jet at sunset | ✅ | iStock 1085767446, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | journey-4 | Step 4: We handle the details | 1600 × 1200 | Car to the aircraft, bags carried | ✅ | iStock 2277753697, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | journey-5 | Step 5: You fly | 1600 × 1200 | Passengers boarding | ✅ | iStock 888729764, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
-| advisor-portrait | Contact: your private client advisor | 1200 × 1500 (4:5) | Man on phone at desk | ❌ | Must be the real advisor, or no photo. A stock or AI face presented as "your advisor" misleads clients. |
+| advisor-portrait | Contact (removed) | — | No photo: plain contact panel instead | ✅ | Removed 20 Oct 2026 (Morten). Slot kept in the Design file only. |
 | office-singapore | Contact: Singapore office | 1920 × 1080 | Marina Bay and Merlion at dusk | ✅ | iStock 495760087, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | office-bangkok | Contact: Bangkok office | 1920 × 1080 | Bangkok skyline at dusk | ✅ | iStock 871569534, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 
