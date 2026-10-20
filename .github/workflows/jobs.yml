@@ -5,7 +5,8 @@ name: Portal jobs
 on:
   schedule:
     - cron: "11 */3 * * *"   # prospect rotation, every 3 hours
-    - cron: "58 22 * * *"    # daily intelligence, 05:58 Bangkok
+    # daily research (cron "58 22 * * *", 05:58 Bangkok) paused until go-live (Morten, 21 Oct 2026): we have a base to start from.
+    # To turn it back on, restore that line. Manual runs from the Actions tab still work, within the spend limits.
     - cron: "17 19 * * *"    # daily backup, 02:17 Bangkok
   workflow_dispatch:
     inputs:
