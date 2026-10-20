@@ -43,7 +43,16 @@ export function vetInvestor(o, seen, existing) {
     avenues: vetAvenues(o.avenues, seen, o.website), status: "new" } };
 }
 
-export async function run(db, call, log = () => {}, lists = null) {
+// one research call per focus area; the daily run covers PER_DAY areas, a manual run can cover them all
+export async function run(db, call, log = () => {}, lists = null, areas = Number(process.env.INVESTOR_AREAS || 3)) {
+  const out = { added: [], rejected: [] };
+  for (let i = 0; i < Math.min(areas, INV_FOCUS.length); i++) {
+    try { const r = await runOne(db, call, log, lists); out.added.push(...r.added); out.rejected.push(...r.rejected); }
+    catch (e) { log("  owner research area failed: " + String(e.message || e).slice(0, 200)); }
+  }
+  return out;
+}
+async function runOne(db, call, log, lists) {
   const status = (await db.get("owner/_status")) || {};
   const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0;
   const focus = INV_FOCUS[fi % INV_FOCUS.length];
@@ -54,7 +63,7 @@ export async function run(db, call, log = () => {}, lists = null) {
   const nowIso = new Date().toISOString(), today = nowIso.slice(0, 10);
   const prompt = `You research INVESTORS and STRATEGIC PARTNERS for a Singapore private aviation group: (1) Navoryx, which plans a fleet of long-range business jets held one per special-purpose company and funded by fixed-return investor notes secured on each aircraft; (2) Archē Executive, a private jet charter broker. Both are early stage.
 Focus today: ${focus}.
-Find up to 8 ORGANISATIONS that plausibly invest in, finance, distribute or partner with this kind of business. Prefer organisations with public evidence of relevant activity (aviation, real assets, asset-backed or private credit, notes distribution, private aviation partnerships). Use web search; every organisation must come from a page you actually found in search results.
+Find up to 15 ORGANISATIONS that plausibly invest in, finance, distribute or partner with this kind of business. Prefer organisations with public evidence of relevant activity (aviation, real assets, asset-backed or private credit, notes distribution, private aviation partnerships). Use web search; every organisation must come from a page you actually found in search results.
 Strict rules: organisations only; no personal data about private individuals (no names of people, no personal phone numbers, emails or profiles); a person may appear only as a role, for example "Head of Aviation Finance". Never guess contact details. Nothing based in or controlled from Russia, Belarus, Iran, North Korea, Syria, Cuba, Venezuela, Myanmar or Afghanistan. Family offices: approach only through introductions or their published channels.
 Already known (skip these): ${[...mine, ...other].map(r => r.data.org).join("; ").slice(0, 5000)}
 Reply with JSON only, in a \`\`\`json block: an array of objects with fields
@@ -62,7 +71,7 @@ org, track (one of ${TRACKS.join(", ")}), for (one of ${FOR.join(", ")}), type (
   const { data, seen } = await ask(prompt, call);
   const added = [], rejected = [];
   let next = maxId;
-  for (const o of Array.isArray(data) ? data.slice(0, 10) : []) {
+  for (const o of Array.isArray(data) ? data.slice(0, 18) : []) {
     const v = vetInvestor(o, seen, existing); if (v.why) { rejected.push(`${clean(o && o.org, 60)}: ${v.why}`); continue; }
     const rec = { ...v.rec, added: nowIso, batch: `Investor review ${today}`, aiReviewed: nowIso };
     if (lists && lists.names.size) {
@@ -81,7 +90,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const { main } = await import("./lib/main.mjs"); const { connect } = await import("./lib/db.mjs"); const { loadLists } = await import("./lib/sanctions.mjs");
   await main("Owner research", ["SUPABASE_URL", "SUPABASE_SECRET_KEY", "ANTHROPIC_API_KEY"], async () => {
     const lists = await loadLists(fetch, console.log);
-    const r = await run(connect(), undefined, console.log, lists);
+    const r = await run(connect(), undefined, console.log, lists, Number(process.env.INVESTOR_AREAS || INV_FOCUS.length));
     return { note: `Added ${r.added.length}; ${r.rejected.length} rejected by the rules. Details only in the portal.` };
   });
 }
