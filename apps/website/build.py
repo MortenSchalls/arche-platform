@@ -54,8 +54,6 @@ def build():
 
     # 1. React from our own site
     head_add = """<script>window.__resources={"https://unpkg.com/react@18.3.1/umd/react.production.min.js":"/vendor/react.production.min.js","https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js":"/vendor/react-dom.production.min.js"};</script>
-<title>Archē Executive · Private jet charter · Singapore and Bangkok</title>
-<meta name="description" content="Private jet charter from Singapore and Bangkok. We find the right aircraft, check the operator behind it, and stay with you until you land.">
 <link rel="icon" href="/assets/arche-executive-logo.png">
 <link rel="stylesheet" href="/site-fixes.css">
 """
@@ -126,6 +124,9 @@ window.archeSend = function (data) {
             'opacity:0.14;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 45%,transparent 92%);mask-image:linear-gradient(180deg,#000 0%,#000 45%,transparent 92%)">'
             '<img src="assets/compass-rose.svg" alt="" style="display:block;width:100%;height:auto"></div>')
     s = s.replace(jet_div, rose + jet_div)
+    # search and speed basics (seo.py): title, description, link previews, business description, fonts, images, robots, sitemap
+    import seo
+    s = seo.apply(s, OUT, HERE)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
     print("built", os.path.join(OUT, "index.html"), len(s))
 
