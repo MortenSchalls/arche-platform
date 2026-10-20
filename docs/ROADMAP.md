@@ -43,7 +43,6 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Accreditations strip | Hidden until Archē holds real accreditations (`SHOW_ACCREDITATIONS` in build.py). |
 | ☐ | Rotation of website enquiries to the broker on duty | |
 | ☐ | 7%/9% margin split | Only once Morten defines it. |
-| ☐ | Cancellation scale A9: consider a lower first tier for bookings far ahead (we charge 25% from signature; ACM 5%, Stratos 10%, JetSmarter 0% beyond 21 days; FXAIR 50%) | Must stay no softer than the operator's own terms. |
 | ☐ | Replacement aircraft B11: let the client refuse a replacement and get a refund (less costs) when it differs materially, instead of counting refusal as cancellation | FXAIR refunds in that case. |
 | ☐ | Gulfstream source for the G650 cabin figures | Now from GlobalSecurity.org. |
 
@@ -58,6 +57,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 - ☑ Archē spelling, typo fixes, translations completed for all changed text.
 - ☑ No "who is behind Archē" content on the site (Morten's choice).
 - ☑ One address per language (/th, /zh, /ja) and a ready-made page copy that search engines can read straight away.
+- ☑ Cancellation scale kept; client pays the higher of our scale or the operator's charge plus our brokerage fee (A9, in contract, portal and terms page).
 - ☑ Terms of business compared with five peers (project doc terms-vs-peers-2026-10-20).
 - ☑ Owner can change a prospect's type and undo Do not contact.
 - ☑ Portal Day theme neutral grey.
