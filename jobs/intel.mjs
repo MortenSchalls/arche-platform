@@ -48,10 +48,34 @@ export async function ask(prompt, call = callApi) {
   return { data: JSON.parse(m[1]), seen };
 }
 async function callApi(body) {
+  // streamed, so a long research answer never hits a "no response for 5 minutes" timeout
   const r = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST", headers: { "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify(body) });
+    method: "POST", headers: { "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+    body: JSON.stringify({ ...body, stream: true }) });
   if (!r.ok) throw new Error("Anthropic API " + r.status + ": " + (await r.text()).slice(0, 300));
-  return r.json();
+  return readStream(r.body);
+}
+// rebuild the message from server-sent events: blocks start whole, text and citations arrive as deltas
+export async function readStream(stream) {
+  const content = []; let buf = "", stop = null;
+  const dec = new TextDecoder();
+  for await (const chunk of stream) {
+    buf += dec.decode(chunk, { stream: true });
+    let k;
+    while ((k = buf.indexOf("\n\n")) >= 0) {
+      const evt = buf.slice(0, k); buf = buf.slice(k + 2);
+      const line = evt.split("\n").find(l => l.startsWith("data: ")); if (!line) continue;
+      let e; try { e = JSON.parse(line.slice(6)); } catch { continue; }
+      if (e.type === "content_block_start") content[e.index] = structuredClone(e.content_block);
+      else if (e.type === "content_block_delta") {
+        const b = content[e.index]; if (!b) continue;
+        if (e.delta.type === "text_delta") b.text = (b.text || "") + e.delta.text;
+        else if (e.delta.type === "citations_delta") (b.citations = b.citations || []).push(e.delta.citation);
+      } else if (e.type === "message_delta") stop = e.delta && e.delta.stop_reason;
+      else if (e.type === "error") throw new Error("Anthropic API stream: " + JSON.stringify(e.error).slice(0, 300));
+    }
+  }
+  return { content: content.filter(Boolean), stop_reason: stop };
 }
 
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);

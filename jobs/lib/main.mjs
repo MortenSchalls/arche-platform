@@ -13,7 +13,8 @@ export async function main(name, needs, fn) {
     console.log(`::notice title=${name}::Finished.`);
     return out;
   } catch (e) {
-    const msg = String(e && e.message || e).replace(/sb_secret_[A-Za-z0-9_-]+|sk-ant-[A-Za-z0-9_-]+/g, "[key]").replace(/\n/g, " ").slice(0, 500);
+    const cause = e && e.cause ? " (cause: " + (e.cause.code || "") + " " + (e.cause.message || "") + ")" : "";
+    const msg = (String(e && e.message || e) + cause).replace(/sb_secret_[A-Za-z0-9_-]+|sk-ant-[A-Za-z0-9_-]+/g, "[key]").replace(/\n/g, " ").slice(0, 500);
     console.log(`::error title=${name} failed::${msg}`);
     console.error(e);
     process.exit(1);
