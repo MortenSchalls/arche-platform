@@ -145,7 +145,8 @@ assert.deepStrictEqual(fbo.airports, ["WSSL", "WSSS", "VTBD"]); pass("same compa
 assert(fbo.kind === "service" && fbo.isbah && fbo.isbah.level === "Stage 2" && !fbo.flags.length && fbo.contacts.length === 1); pass("IS-BAH evidence and business contact kept");
 assert(fbo.screen && fbo.screen.auto && fbo.screen.auto.result === "no match"); pass("service partners are sanctions pre-screened");
 assert(res.rejected.some(x => /Directory Handler.*directory/.test(x)) && res.rejected.some(x => /Limo Example.*categories/.test(x))); pass("directory sources and later categories (limousine) rejected for now");
-assert.equal(T.intel.find(i => i.key === "services").value.index, 3); pass("airport rotation moves on three airports per run");
+{ const sv = T.intel.find(i => i.key === "services").value; assert.deepStrictEqual(sv.covered, ["WSSL", "WSSS", "VTBD"]); assert(sv.airportsLeft === 27 && !sv.pausedUntil); }
+pass("three airports covered per run; only successful searches count, no pause before all are covered");
 
 // operators
 assert.deepStrictEqual(res.operators, ["Good Air Charter", "Clean Air Jets"]); pass("only vetted operators are added");

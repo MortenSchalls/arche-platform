@@ -41,17 +41,18 @@ export function vetService(o, seen, icao, optSet) {
 }
 
 // a few airports per run until all are covered, then a full refresh every 30 days
-export async function run(db, call, log = () => {}, optSet = new Set(), perRun = Number(process.env.SERVICE_AIRPORTS || 3)) {
+// an airport counts as covered only when its search succeeded; a manual run (force) ignores the 30-day pause
+export async function run(db, call, log = () => {}, optSet = new Set(), perRun = Number(process.env.SERVICE_AIRPORTS || 3), force = false) {
   const status = (await db.get("intel/services")) || {};
-  if (status.pausedUntil && Date.parse(status.pausedUntil) > Date.now()) return { added: [], merged: 0, rejected: [], airports: [] };
-  let idx = Number.isInteger(status.index) ? status.index : 0;
+  if (!force && status.pausedUntil && Date.parse(status.pausedUntil) > Date.now()) return { added: [], merged: 0, rejected: [], airports: [] };
+  const covered = new Set(status.covered || []);
+  const todo = AIRPORTS.filter(([icao]) => !covered.has(icao)).slice(0, perRun);
   const rows = await db.all("prospects");
   const byName = new Map(rows.map(r => [normName(r.data.org), r]));
   const maxId = rows.reduce((m, r) => Math.max(m, parseInt(String(r.id).replace(/\D/g, ""), 10) || 0), 0);
   let next = maxId; const nowIso = new Date().toISOString(), today = nowIso.slice(0, 10);
   const added = [], rejected = [], done = []; let merged = 0;
-  for (let k = 0; k < perRun && idx < AIRPORTS.length; k++, idx++) {
-    const [icao, name] = AIRPORTS[idx];
+  for (const [icao, name] of todo) {
     const prompt = `You research BUSINESS-JET SUPPLIERS at ${name} airport (${icao}) for Archē Executive, a Singapore private jet charter broker.
 Find up to 8 organisations serving business jets at this airport in these categories: ${CATEGORIES.join("; ")}. Prefer FBOs and handlers dedicated to business aviation, trip-support companies with 24/7 operations, and caterers specialised in business-jet catering.
 Scrutinise quality from public sources: the company's own website, the airport's official site, IS-BAH (International Standard for Business Aircraft Handling) registry or announcements, reputable aviation press. Never use charter marketplaces, booking platforms or airport directories such as AirNav, Avinode or AC-U-KWIK as the source.
@@ -72,13 +73,14 @@ org, category (one of ${CATEGORIES.join(", ")}), region, country, city, website,
         const rec = { ...v.rec, added: nowIso, batch: `Service partner review ${today}`, aiReviewed: nowIso };
         await db.set("prospects/" + id, rec); byName.set(normName(rec.org), { id, data: rec }); added.push(rec.org);
       }
-      done.push(icao);
-      await db.set("intel/services", { ...status, lastRun: nowIso, index: idx + 1, nextAirport: (AIRPORTS[idx + 1] || ["", "refresh"])[1], airportsDone: done, lastAdded: added.length, lastMerged: merged });   // progress saved per airport
+      done.push(icao); covered.add(icao);
+      await db.set("intel/services", { ...status, lastRun: nowIso, covered: [...covered], pausedUntil: null, airportsDone: done, lastAdded: added.length, lastMerged: merged });   // progress saved per airport
     } catch (e) { if (e.fatal) throw e; const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log(`  service partners ${icao} failed: ${m}`); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Service partners ${icao} failed::${m}`); }
   }
-  const finished = idx >= AIRPORTS.length;
-  await db.set("intel/services", { lastRun: nowIso, index: finished ? 0 : idx, pausedUntil: finished ? new Date(Date.now() + 30 * 864e5).toISOString() : null,
-    nextAirport: finished ? "refresh in 30 days" : AIRPORTS[idx][1], lastAdded: added.length, lastMerged: merged, airportsDone: done, rejected: rejected.slice(0, 20) });
+  const finished = covered.size >= AIRPORTS.length;
+  const left = AIRPORTS.filter(([icao]) => !covered.has(icao));
+  await db.set("intel/services", { lastRun: nowIso, covered: finished ? [] : [...covered], pausedUntil: finished ? new Date(Date.now() + 30 * 864e5).toISOString() : null,
+    nextAirport: finished ? "refresh in 30 days" : left[0][1], airportsLeft: finished ? 0 : left.length, lastAdded: added.length, lastMerged: merged, airportsDone: done, rejected: rejected.slice(0, 20) });
   return { added, merged, rejected, airports: done };
 }
 
@@ -87,7 +89,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const { main } = await import("./lib/main.mjs"); const { connect } = await import("./lib/db.mjs");
   await main("Service partners", ["SUPABASE_URL", "SUPABASE_SECRET_KEY", "ANTHROPIC_API_KEY"], async () => {
     const db = connect(); const opt = new Set((await db.all("optouts")).map(r => r.id));
-    const r = await run(db, undefined, console.log, opt, Number(process.env.SERVICE_AIRPORTS || AIRPORTS.length));
+    const r = await run(db, undefined, console.log, opt, Number(process.env.SERVICE_AIRPORTS || AIRPORTS.length), true);
     return { note: `Airports covered: ${r.airports.length} (${r.airports.join(", ")}). Added ${r.added.length}, linked to more airports ${r.merged}, rejected ${r.rejected.length}. The next morning review runs the sanctions pre-screen.` };
   });
 }
