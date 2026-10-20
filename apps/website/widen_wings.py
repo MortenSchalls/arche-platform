@@ -2,7 +2,8 @@
 """Give the hero line drawing the true front-view proportions of the Bombardier Global 7500:
 wingspan 31.7 m to overall height 8.2 m (Bombardier factsheet), i.e. span = 3.866 x height.
 Only the outer wing sections are lengthened; fuselage, engines, tail, winglets and the fairings
-under the wing keep their drawn shape. Writes site/assets/jet-line-watermark-wide.png."""
+under the wing keep their drawn shape. The tailplane tip pods, which the real aircraft does not
+have, are removed. Writes site/assets/jet-line-watermark-wide.png."""
 import numpy as np, sys
 from PIL import Image
 
@@ -50,7 +51,24 @@ def widen_left(a):
         i = j
     return out.clip(0, 255).astype(np.uint8), add
 
+
+def square_tail_tips(a):
+    """The real Global 7500 tailplane ends in plain tips: remove the drawn teardrop pods
+    (x 440-457 and 1316-1333, rows 120-200) and close each end with a short straight edge."""
+    a = a.copy()
+    a[120:200, 430:458] = 0
+    a[120:200, 1316:1345] = 0
+    for x in (458, 1315):
+        col = a[120:200, x, 3]
+        ys = np.nonzero(col > 40)[0] + 120
+        top, bot = ys.min(), ys.max()
+        for xx in (x, x + (1 if x < 900 else -1)):
+            a[top:bot + 1, xx, :3] = 255
+            a[top:bot + 1, xx, 3] = np.maximum(a[top:bot + 1, xx, 3], 235 if xx == x else 120)
+    return a
+
 im = Image.open(SRC).convert("RGBA"); a = np.array(im)
+a = square_tail_tips(a)
 ys, xs = np.nonzero(a[:, :, 3] > 20)
 span, height = xs.max() - xs.min(), ys.max() - ys.min()
 ADD = int(round((height * SPAN_M / HEIGHT_M - span) / 2))   # pixels to add to each wing
