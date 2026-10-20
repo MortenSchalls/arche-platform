@@ -101,7 +101,7 @@ export async function run(db, call, log = () => {}, lists = null, areas = Number
   const out = { added: [], rejected: [] };
   for (let i = 0; i < Math.min(areas, INV_FOCUS.length); i++) {
     try { const r = await runOne(db, call, log, lists, optSet); out.added.push(...r.added); out.rejected.push(...r.rejected); }
-    catch (e) { const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log("  owner research area failed: " + m); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Owner research area failed::${m}`); }
+    catch (e) { if (e.fatal) throw e; const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log("  owner research area failed: " + m); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Owner research area failed::${m}`); }
   }
   out.profiled = await enrich(db, call, log, Number(process.env.INVESTOR_PROFILES || 16));
   return out;

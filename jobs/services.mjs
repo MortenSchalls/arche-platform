@@ -74,7 +74,7 @@ org, category (one of ${CATEGORIES.join(", ")}), region, country, city, website,
       }
       done.push(icao);
       await db.set("intel/services", { ...status, lastRun: nowIso, index: idx + 1, nextAirport: (AIRPORTS[idx + 1] || ["", "refresh"])[1], airportsDone: done, lastAdded: added.length, lastMerged: merged });   // progress saved per airport
-    } catch (e) { const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log(`  service partners ${icao} failed: ${m}`); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Service partners ${icao} failed::${m}`); }
+    } catch (e) { if (e.fatal) throw e; const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log(`  service partners ${icao} failed: ${m}`); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Service partners ${icao} failed::${m}`); }
   }
   const finished = idx >= AIRPORTS.length;
   await db.set("intel/services", { lastRun: nowIso, index: finished ? 0 : idx, pausedUntil: finished ? new Date(Date.now() + 30 * 864e5).toISOString() : null,

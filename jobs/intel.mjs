@@ -39,7 +39,7 @@ export async function ask(prompt, call = callApi, maxTokens = 8000) {
   let res, lastErr;
   for (const t of SEARCH_TYPES) {
     try { res = await call({ model: MODEL, max_tokens: maxTokens, tools: [searchTool(t)], messages: [{ role: "user", content: prompt }] }); break; }
-    catch (e) { lastErr = e; if (!/ 400/.test(e.message)) throw e; }
+    catch (e) { lastErr = e; if (e.fatal || !/ 400/.test(e.message)) throw e; }
   }
   if (!res) throw lastErr;
   const seen = new Set(); let text = "";
@@ -57,7 +57,7 @@ async function callApi(body) {
   const r = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST", headers: { "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
     body: JSON.stringify({ ...body, stream: true }) });
-  if (!r.ok) throw new Error("Anthropic API " + r.status + ": " + (await r.text()).slice(0, 300));
+  if (!r.ok) { const t = (await r.text()).slice(0, 300); throw Object.assign(new Error("Anthropic API " + r.status + ": " + t), { fatal: /credit balance|billing|authentication|invalid x-api-key/i.test(t) }); }
   return readStream(r.body);
 }
 // rebuild the message from server-sent events: blocks start whole, text and citations arrive as deltas
@@ -77,7 +77,7 @@ export async function readStream(stream) {
         if (e.delta.type === "text_delta") b.text = (b.text || "") + e.delta.text;
         else if (e.delta.type === "citations_delta") (b.citations = b.citations || []).push(e.delta.citation);
       } else if (e.type === "message_delta") stop = e.delta && e.delta.stop_reason;
-      else if (e.type === "error") throw new Error("Anthropic API stream: " + JSON.stringify(e.error).slice(0, 300));
+      else if (e.type === "error") { const t = JSON.stringify(e.error).slice(0, 300); throw Object.assign(new Error("Anthropic API stream: " + t), { fatal: /credit balance|billing|authentication/i.test(t) }); }
     }
   }
   return { content: content.filter(Boolean), stop_reason: stop };
@@ -224,7 +224,7 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
   let svc = { added: [], merged: 0, airports: [] };
   if (process.env.SERVICE_RESEARCH !== "off") {
     try { svc = await services.run(db, call, log, optSet); rejected.push(...svc.rejected); }
-    catch (e) { log("  service partner step failed: " + String(e.message || e).slice(0, 200)); }
+    catch (e) { if (e.fatal) throw e; log("  service partner step failed: " + String(e.message || e).slice(0, 200)); }
   }
 
   // 4. sanctions pre-screen of every supplier (operators and service partners, new and existing), each run
@@ -246,7 +246,7 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
   let invCount = 0;
   if (process.env.INVESTOR_RESEARCH !== "off") {
     try { invCount = (await investors.run(db, call, log, lists, undefined, optSet)).added.length; }
-    catch (e) { log("  owner research step failed: " + String(e.message || e).slice(0, 200)); }
+    catch (e) { if (e.fatal) throw e; log("  owner research step failed: " + String(e.message || e).slice(0, 200)); }
   }
 
   const note = `Added ${added.length} for "${focus}"${added.length ? ": " + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") : ""}. Contact routes added to ${updated} existing. Operators added for "${opFocus}": ${opsAdded.length}. Service partners: ${svc.added.length} added, ${svc.merged} airports linked${svc.airports.length ? " (" + svc.airports.join(", ") + ")" : ""}. Sanctions pre-screen: ${screened} operators${possible.length ? ", possible match: " + possible.join(", ") : ", no match"}${listsInfo.failed.length ? " (lists not loaded: " + listsInfo.failed.join(", ") + ")" : ""}. ${rejected.length ? rejected.length + " rejected by the rules." : ""}`.trim();
