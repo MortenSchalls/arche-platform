@@ -57,6 +57,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 - ☑ Archē spelling, typo fixes, translations completed for all changed text.
 - ☑ No "who is behind Archē" content on the site (Morten's choice).
 - ☑ One address per language (/th, /zh, /ja) and a ready-made page copy that search engines can read straight away.
+- ☑ Translated pages checked in every state (all aircraft, all five steps, quote form, thank-you): no English left except names and placeholders. Cabin drawings now carry no words; a translated line under the finder explains them.
 - ☑ Cancellation scale kept; client pays the higher of our scale or the operator's charge plus our brokerage fee (A9, in contract, portal and terms page).
 - ☑ Terms of business compared with five peers (project doc terms-vs-peers-2026-10-20).
 - ☑ Owner can change a prospect's type and undo Do not contact.

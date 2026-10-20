@@ -158,3 +158,18 @@ def page(s):
     anchor = '<section id="fleet"'
     assert s.count(anchor) == 1
     return s.replace(anchor, behind_section() + anchor) if SHOW_BEHIND else s
+
+# ---- cabin drawings carry no words; this line under the aircraft finder says what they show (translated below)
+DRAWINGS_NOTE = ("Cabin drawings are our own and drawn to scale, with a 1.80 m person for comparison. "
+                 "Cabin height and width come from published manufacturer and specification sources.")
+NEW_ROWS.append([DRAWINGS_NOTE,
+    "ภาพตัดห้องโดยสารจัดทำโดยเราและวาดตามสัดส่วนจริง โดยมีคนสูง 1.80 ม. ไว้เปรียบเทียบ ความสูงและความกว้างของห้องโดยสารอ้างอิงจากข้อมูลที่ผู้ผลิตและแหล่งข้อมูลจำเพาะเผยแพร่",
+    "客舱剖面图由我们自行绘制，按真实比例呈现，并以一位身高 1.80 米的人作对比。客舱高度和宽度数据来自制造商及公开的规格资料。",
+    "キャビン断面図は当社が実寸比で作成したもので、比較のため身長 1.80 m の人物を描いています。キャビンの高さと幅は、メーカーおよび公開されている仕様資料に基づきます。"])
+
+_page2 = page
+def page(s):
+    s = _page2(s)
+    end = "describe the market in general, not guaranteed availability.</p>"
+    assert s.count(end) == 1
+    return s.replace(end, end + f'\n    <p style="margin:12px 0 0;font-size:12px;color:#a3a9b1;max-width:760px;line-height:1.7">{DRAWINGS_NOTE}</p>')

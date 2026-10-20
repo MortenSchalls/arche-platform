@@ -5,8 +5,9 @@
 
 Replaces the unlicensed cabin photos (Morten, 20 Oct 2026). Every figure comes from the source named
 in SOURCES and in docs/IMAGE-REGISTER.md. All types use the same scale, so they compare honestly.
-The aircraft name and specs are already printed next to the picture, so the picture carries only the drawing,
-the two measurements and a small source line.
+The pictures carry no words, only the drawing and the measurements, so they read the same in every language.
+The aircraft name and specs are printed next to the picture; the source of the cabin figures is in docs/IMAGE-REGISTER.md
+and the page states that the drawings are to scale.
 """
 import base64, os, math
 
@@ -54,6 +55,10 @@ def person(x, floor):
     d = "M" + " L".join(f"{x + a * k:.1f},{top + b * k:.1f}" for a, b in p) + " Z"
     return head + f'<path d="{d}"/>'
 
+def feet(x):
+    """'5 ft 1 in' -> 5′ 1″, readable in every language."""
+    f, _, i, _ = x.split(); return f"{f}\u2032 {i}\u2033"
+
 def drawing(h, w, h_imp, w_imp, src):
     cx = 1260
     ch, cw = h * S, w * S
@@ -99,22 +104,16 @@ def drawing(h, w, h_imp, w_imp, src):
          f'<line x1="{hx - tick:.1f}" y1="{ceiling:.1f}" x2="{hx + tick:.1f}" y2="{ceiling:.1f}"/>',
          f'<line x1="{hx - tick:.1f}" y1="{FLOOR}" x2="{hx + tick:.1f}" y2="{FLOOR}"/>',
          '</g>',
-         text(hx + 44, (ceiling + FLOOR) / 2 - 26, "CABIN HEIGHT", 26, MUTED, 600, "start", 4),
-         text(hx + 44, (ceiling + FLOOR) / 2 + 34, f"{h:.2f} m", 66, INK, 500, "start"),
-         text(hx + 44, (ceiling + FLOOR) / 2 + 80, h_imp, 32, MUTED, 400, "start"),
+         text(hx + 44, (ceiling + FLOOR) / 2 + 10, f"{h:.2f} m", 66, INK, 500, "start"),
+         text(hx + 44, (ceiling + FLOOR) / 2 + 56, feet(h_imp), 32, MUTED, 400, "start"),
          # width dimension, inside the cabin at its widest point
          f'<g stroke="{ACCENT}" stroke-width="2">',
          f'<line x1="{cx - a:.1f}" y1="{cy:.1f}" x2="{cx + a:.1f}" y2="{cy:.1f}"/>',
          f'<line x1="{cx - a:.1f}" y1="{cy - tick:.1f}" x2="{cx - a:.1f}" y2="{cy + tick:.1f}"/>',
          f'<line x1="{cx + a:.1f}" y1="{cy - tick:.1f}" x2="{cx + a:.1f}" y2="{cy + tick:.1f}"/>',
          '</g>',
-         text(cx, cy - 86, "CABIN WIDTH", 26, MUTED, 600, "middle", 4),
          text(cx, cy - 22, f"{w:.2f} m", 66, INK, 500),
-         text(cx, cy + 50, w_imp, 32, MUTED, 400),
-         # one quiet line: what the drawing shows, and where the figures come from
-         text(1200, 1052, ("Stand-up cabin for a 1.80 m person" if fits else "Seated cabin: a 1.80 m person stoops to move about")
-              + " · drawn to scale", 32, "#c6cbd2", 400, "middle", 1),
-         text(1200, 1100, src, 26, "#8f959d", 400, "middle", 1),
+         text(cx, cy + 50, feet(w_imp), 32, MUTED, 400),
          '</svg>']
     return "\n".join(o)
 
