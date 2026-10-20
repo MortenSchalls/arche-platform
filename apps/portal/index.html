@@ -1008,7 +1008,7 @@ async function act(a, el){
     if (a === "pNew") { S.pNew = true; S.pSel = null; render(); return; }
     if (a === "pfClear") { S.pf = null; render(); return; }
     if (a === "pCancel") { S.pNew = false; render(); return; }
-    if (a === "pAssign" || a === "pDnc") { await prospectAction(a); return; }
+    if (a === "pAssign" || a === "pDnc" || a === "pKind" || a === "pUndoDnc") { await prospectAction(a); return; }
     if (a === "leadEnquiry") { const l = S.leads[S.pSel]; if (!l) return; await writeLead(S.pSel, {status:"enquiry"}, {channel:"Portal", outcome:"enquiry", note:"Enquiry opened"}); S.fromLead = {pid:S.pSel}; openEditor(null); $("e_co").value = l.org || ""; return; }
     if (a === "faqPromote") { promoteFaq(true); return; }
     if (a === "faqCancel") { S.faqEdit = null; render(); return; }
@@ -1209,6 +1209,7 @@ function vProspects(){
     <div><h3>Contact routes</h3>${avenuesHtml(sel)}</div>
     <div><h3>Source</h3><p class="small"><a href="${esc(sel.source)}" target="_blank" rel="noopener">${esc(sel.source)}</a>${sel.aiReviewed ? ` · AI reviewed ${fmtD(sel.aiReviewed)}` : ""}</p></div>
     <div class="row"><label class="f" for="pAssign" style="flex:1">Assign to<select id="pAssign"><option value="">Choose a broker</option>${brokers.map(([id, r]) => `<option value="${id}" ${sel.assignedTo === id ? "selected" : ""}>${esc(r.contractName || nm(id))}${r.example ? " (example)" : ""}</option>`).join("")}</select></label><button class="btn primary" type="button" data-act="pAssign">Assign</button><button class="btn danger" type="button" data-act="pDnc">Do not contact</button></div>
+    ${S.isOwner && !S.preview ? `<div class="row"><label class="f" for="pKind" style="flex:1">Type<select id="pKind"><option value="client" ${sel.kind !== "partner" ? "selected" : ""}>Potential client</option><option value="partner" ${sel.kind === "partner" ? "selected" : ""}>Referral partner</option></select></label><button class="btn" type="button" data-act="pKind">Save type</button>${sel.status === "dnc" ? `<button class="btn" type="button" data-act="pUndoDnc">Undo Do not contact</button>` : ""}</div>` : ""}
     ${sel.status === "review" ? `<div class="note warn small"><b>Your decision:</b> ${esc(sel.reviewReason || "went cold with several brokers")}<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-act="rvRestart" data-pid="${sel.id}">Restart rotation</button><button class="btn small danger" type="button" data-act="rvDnc" data-pid="${sel.id}">Do not contact</button></div></div>` : ""}
     ${sel.sourcedBy ? `<p class="small">Found by <b>${esc(nm(sel.sourcedBy))}</b> on ${fmtD(sel.sourcedAt)}.</p>` : ""}
     ${(sel.history || []).length ? `<div><h3>Assignment history</h3><div class="hist">${sel.history.slice().reverse().map(h => `<div><span class="muted mono">${fmtT(h.t)}</span><span>${h.to ? "To " + esc(nm(h.to)) : "To the owner"}${h.from ? " from " + esc(nm(h.from)) : ""} · ${esc(h.reason || "")}</span></div>`).join("")}</div></div>` : ""}
@@ -1360,6 +1361,11 @@ async function prospectAction(a){
       toast("Assigned to " + nm(bid)); loadStaffLeads(); return;
     }
     if (a === "pDnc") { await dncProspect(id); audit("Prospect marked Do not contact", p.org); toast("Marked Do not contact"); loadStaffLeads(); return; }
+    if (a === "pKind") { if (!S.isOwner) return; const k = $("pKind").value === "partner" ? "partner" : "client"; if (k === (p.kind || "client")) { toast("No change."); return; }
+      await S.db.doc("prospects/" + id).update({kind: k}); audit("Prospect type changed", `${p.org} · ${k === "partner" ? "referral partner" : "potential client"}`); toast(k === "partner" ? "Now a referral partner." : "Now a potential client."); return; }
+    if (a === "pUndoDnc") { if (!S.isOwner || p.status !== "dnc") return;
+      await S.db.doc("prospects/" + id).update({status: "new", dncAt: null, assignedTo: null, history: [...(p.history || []), {t: now(), restart: true, reason: "Do not contact undone by the owner"}]});
+      audit("Do not contact undone", p.org); toast("Back in the list as new. It is assigned at the next round."); loadStaffLeads(); return; }
   } catch(e){ toast("Could not save. Only the owner and operations can change prospects."); }
 }
 /* ---------- charter confirmation (ported from the Archē Executive Charter Confirmation form) ---------- */
