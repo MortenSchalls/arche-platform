@@ -7,13 +7,14 @@ Run after every change to index.html:  python3 build_test.py
 import json, pathlib
 
 HERE = pathlib.Path(__file__).parent
-OWN, OPS, BRK = ("00000000-0000-4000-8000-0000000000a1", "00000000-0000-4000-8000-0000000000a2", "00000000-0000-4000-8000-0000000000a3")
+OWN, OPS, BRK, BRK2 = ("00000000-0000-4000-8000-0000000000a1", "00000000-0000-4000-8000-0000000000a2", "00000000-0000-4000-8000-0000000000a3", "00000000-0000-4000-8000-0000000000a4")
 SCREEN = {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}
 SEED = {
     "profiles": [
         {"id": OWN, "role": "owner", "active": True, "contract_name": "Test Owner", "data": {}},
         {"id": OPS, "role": "ops", "active": True, "contract_name": "Test Operations", "base": "Bangkok", "data": {"roster": True, "example": True}},
-        {"id": BRK, "role": "broker", "active": True, "contract_name": "Test Broker", "base": "Remote", "book": False, "data": {"roster": True, "example": True}}],
+        {"id": BRK, "role": "broker", "active": True, "contract_name": "Test Broker", "base": "Remote", "book": False, "data": {"roster": True, "example": True}},
+        {"id": BRK2, "role": "broker", "active": True, "contract_name": "Test Broker 2", "base": "Remote", "book": False, "data": {"roster": True, "example": True}}],
     "config": [{"key": "terms", "value": {"margin": 0.07, "unit": 45000, "threshold": 8, "rate1": 0.27, "rate2": 0.35, "consultRate": 0.10}},
                {"key": "company", "value": {"email": "charter@example.com"}}],
     "trips": [], "trip_status": [], "leads": [], "optouts": [], "rfqs": [], "audit_log": [], "owner_prospects": [],
@@ -42,7 +43,7 @@ SEED = {
 HARNESS = """<script>
 /* TEST VERSION: example data only, kept in this browser. Nothing reaches the real portal or database. */
 (function(){
-  var KEY = "arche.test.v1", ROLES = {owner: "%(own)s", ops: "%(ops)s", broker: "%(brk)s"};
+  var KEY = "arche.test.v2", ROLES = {owner: "%(own)s", ops: "%(ops)s", broker: "%(brk)s", broker2: "%(brk2)s"};
   var as = (new URLSearchParams(location.search).get("as") || "").toLowerCase();
   try { if (!ROLES[as]) as = localStorage.getItem(KEY + ".as") || "owner"; localStorage.setItem(KEY + ".as", as); } catch (e) { if (!ROLES[as]) as = "owner"; }
   window.__UID = ROLES[as]; window.__TEST_AS = as;
@@ -57,7 +58,7 @@ HARNESS = """<script>
     var bar = document.createElement("div"); bar.id = "testBar";
     bar.innerHTML = '<style>#testBar{background:#985a00;color:#fff;font:600 13px/1.4 "Hanken Grotesk",system-ui,sans-serif;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}#testBar b{letter-spacing:.08em}#testBar select,#testBar button{font:inherit;font-size:12px;padding:3px 8px;border:1px solid #fff;background:transparent;color:#fff;border-radius:4px}#testBar option{color:#000}</style>'
       + '<b>TEST VERSION</b><span>Example data in this browser only. Nothing reaches the real portal.</span>'
-      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option><option value="ops">Test Operations</option><option value="broker">Test Broker</option></select></label>'
+      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option><option value="ops">Test Operations</option><option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option></select></label>'
       + '<button type="button" id="tvReset">Reset test data</button>';
     document.body.insertBefore(bar, document.body.firstChild);
     var sel = document.getElementById("tvAs"); sel.value = as; sel.onchange = function(){ window.__testSwitch(sel.value); };
@@ -72,7 +73,7 @@ def build():
     cdn = '<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>'
     assert src.count(cdn) == 1, "supabase script tag not found"
     fake = (HERE / "tests" / "fake-supabase.js").read_text(encoding="utf-8")
-    harness = HARNESS % {"own": OWN, "ops": OPS, "brk": BRK, "seed": json.dumps(SEED)}
+    harness = HARNESS % {"own": OWN, "ops": OPS, "brk": BRK, "brk2": BRK2, "seed": json.dumps(SEED)}
     out = src.replace(cdn, harness + "\n<script>\n" + fake + "\n</script>")
     out = out.replace("<title>", "<title>TEST · ", 1)
     out = '<meta charset="utf-8">\n' + out
