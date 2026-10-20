@@ -4,7 +4,7 @@ const OWN='00000000-0000-0000-0000-00000000000a', BRK='00000000-0000-0000-0000-0
 const T={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:BRK,role:'broker',active:true,contract_name:'Example Broker',book:false,data:{roster:true}}],
  config:[{key:'terms',value:{margin:0.07,unit:45000,threshold:8,rate1:0.27,rate2:0.35}}],
  trips:[{owner_id:BRK,id:'t1',data:{stage:'submitted',submittedAt:'2026-10-18T10:00:00Z',client:{name:'Example client',company:'Example Co',email:'c@example.com'},trip:{legs:[{from:'WSSS',to:'VTBS',date:'2026-12-01',time:'10:00',pax:'4'}],category:'Midsize jet'},quote:{operator:'Example Ops',aircraft:'Example jet',opPrice:20000,direct:0},checks:{}}}],
- trip_status:[], leads:[{owner_id:BRK,id:'p950',data:{org:'Example Lead Org',status:'assigned',segment:'Family office',country:'Singapore',why:'x',contacts:[{name:'Example Contact',role:'Head of Travel',email:'travel@example-lead.example',sourceType:"Organisation's own website",source:'https://example-lead.example/team',added:new Date().toISOString()}]}}], optouts:[], prospects:[{id:'p900',data:{org:'Example Aviation FO',kind:'client',status:'dnc',dncAt:'2026-10-20T06:00:00Z',segment:'Family office',region:'Asia-Pacific',country:'Hong Kong',why:'x',approach:'y',source:'https://example.org'}},{id:'p901',data:{org:'Example Air Operator',kind:'operator',segment:'Operator',status:'new',region:'Asia-Pacific',country:'Singapore',why:'x',approach:'y',source:'https://example.org/op',ops:{aoc:{authority:'CAAS',source:''},bases:['WSSL'],fleet:[{type:'Example Jet',count:2}],audits:[{name:'ARGUS',level:'Platinum',year:'2025',url:'https://example.org/argus'}],safety:[],tier:'A',flags:[],screen:{country:'clear',entity:''}}}}],
+ trip_status:[], leads:[{owner_id:BRK,id:'p950',data:{org:'Example Lead Org',status:'assigned',segment:'Family office',country:'Singapore',why:'x',contacts:[{name:'Example Contact',role:'Head of Travel',email:'travel@example-lead.example',sourceType:"Organisation's own website",source:'https://example-lead.example/team',added:new Date().toISOString()}]}}], optouts:[], prospects:[{id:'p900',data:{org:'Example Aviation FO',kind:'client',status:'dnc',dncAt:'2026-10-20T06:00:00Z',segment:'Family office',region:'Asia-Pacific',country:'Hong Kong',why:'x',approach:'y',source:'https://example.org'}},{id:'p902',data:{org:'Example FBO Services',kind:'service',segment:'Service partner',category:'FBO and ground handling',airports:['WSSL'],status:'new',region:'Asia-Pacific',country:'Singapore',source:'https://example.org/fbo',why:'x',approach:'y',isbah:{level:'Stage 2',year:'2025',url:'https://example.org/isbah'},flags:[]}},{id:'p901',data:{org:'Example Air Operator',kind:'operator',segment:'Operator',status:'new',region:'Asia-Pacific',country:'Singapore',why:'x',approach:'y',source:'https://example.org/op',ops:{aoc:{authority:'CAAS',source:''},bases:['WSSL'],fleet:[{type:'Example Jet',count:2}],audits:[{name:'ARGUS',level:'Platinum',year:'2025',url:'https://example.org/argus'}],safety:[],tier:'A',flags:[],screen:{country:'clear',entity:''}}}}],
  website_enquiries:[{id:'e1',at:'2026-10-20T01:00:00Z',consent:true,handled:false,data:{type:'quote',legs:[{from:'Singapore',to:'Bangkok',date:'2026-11-02',time:'09:00'}],pax:3,name:'Example Visitor',reach:'+65 0000 0001',reply:'WhatsApp',lang:'en'}}]};
 const page=(uid)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
  .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`)
@@ -45,7 +45,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  const od=await o.textContent('#main');
  ok('operator detail shows tier, certificate and audit', /Tier A/.test(od) && od.includes('CAAS') && od.includes('ARGUS') && !(await o.$('#pAssign')));
  await o.click('[data-act="opScreen"][data-res="clear"]');await o.waitForTimeout(400);
- ok('owner records the sanctions screen', await o.evaluate(()=>window.__T.prospects[1].data.ops.screen.entity==='clear'));
+ ok('owner records the sanctions screen', await o.evaluate(()=>window.__T.prospects.find(r=>r.id==='p901').data.ops.screen.entity==='clear'));
  // investors and partners: owner only
  await o.evaluate(()=>{S.pSec='sales';S.pSel=null;render();});await o.waitForTimeout(200);
  ok('owner sees the owner-only tab', !!(await o.$('[data-sec="inv"]')));
@@ -67,6 +67,14 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  ok('moving writes nothing to the shared audit log', await o.evaluate(n=>(window.__T.audit_log||[]).length===n, auditBefore));
  await k.waitForTimeout(500);
  ok('broker still sees no trace of it', !/Example Capital|Example Aviation FO/.test(await k.evaluate(()=>document.body.innerText)));
+ // service partners
+ await o.evaluate(()=>{S.view='prospects';S.pSec='sales';S.pSel=null;S.pf=null;render();});await o.waitForTimeout(300);
+ ok('client section hides service partners', !(await o.textContent('#main')).includes('Example FBO Services'));
+ await o.click('[data-act="pSec"][data-sec="svc"]');await o.waitForTimeout(300);
+ ok('service partners tab lists the FBO', /Service partners \(1\)/.test(await o.textContent('#main')) && (await o.textContent('#main')).includes('Example FBO Services'));
+ await o.evaluate(()=>{S.pSel='p902';render();});await o.waitForTimeout(300);
+ const sd=await o.textContent('#main');
+ ok('service detail shows category, airport and IS-BAH, no assign control', sd.includes('FBO and ground handling') && sd.includes('WSSL') && sd.includes('Stage 2') && !(await o.$('#pAssign')));
  // named business contacts
  await o.evaluate(()=>{S.view='prospects';S.pSec='ops';S.pSel='p901';render();});await o.waitForTimeout(300);
  ok('contacts hidden until opened', !!(await o.$('[data-ct="show"]')));

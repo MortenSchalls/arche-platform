@@ -8,6 +8,7 @@
 import { connect } from "./lib/db.mjs";
 import { loadLists, screen } from "./lib/sanctions.mjs";
 import * as investors from "./investors.mjs";
+import * as services from "./services.mjs";
 import { vetContacts } from "./lib/contacts.mjs";
 
 const FOCUS = [
@@ -219,16 +220,24 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
     await db.set("prospects/" + id, rec); existing.add(normName(rec.org)); opsAdded.push(rec.org);
   }
 
-  // 4. sanctions pre-screen of every operator (new and existing) against the official lists, each run
+  // 3b. service partners: business-jet suppliers at key airports (a few airports per run)
+  let svc = { added: [], merged: 0, airports: [] };
+  if (process.env.SERVICE_RESEARCH !== "off") {
+    try { svc = await services.run(db, call, log, optSet); rejected.push(...svc.rejected); }
+    catch (e) { log("  service partner step failed: " + String(e.message || e).slice(0, 200)); }
+  }
+
+  // 4. sanctions pre-screen of every supplier (operators and service partners, new and existing), each run
   let screened = 0, possible = [];
-  const ops = (await db.all("prospects")).filter(r => r.data.kind === "operator" && r.data.status !== "dnc");
+  const ops = (await db.all("prospects")).filter(r => (r.data.kind === "operator" || r.data.kind === "service") && r.data.status !== "dnc");
   const lists = await loadLists(fetchLists, log), listsInfo = { loaded: lists.loaded, failed: lists.failed };
   {
     if (lists.names.size) for (const r of ops) {
-      const o = r.data.ops || {}, hits = screen([r.data.org, ...(o.owners || [])], lists);
+      const isOp = r.data.kind === "operator", o = isOp ? (r.data.ops || {}) : r.data, hits = screen([r.data.org, ...(o.owners || [])], lists);
       const auto = { result: hits.length ? "possible match" : "no match", at: nowIso, lists: lists.loaded.map(x => x.replace(/ \(\d+\)$/, "")), failed: lists.failed, hits };
-      const upd = { ...r.data, ops: { ...o, screen: { ...(o.screen || {}), auto } } };
-      if (hits.length && r.data.status !== "review") { upd.status = "review"; upd.ops.flags = [...new Set([...(o.flags || []), "Possible sanctions match: check the names against the list before any contact."])]; possible.push(r.data.org); }
+      const upd = isOp ? { ...r.data, ops: { ...o, screen: { ...(o.screen || {}), auto } } } : { ...r.data, screen: { ...(r.data.screen || {}), auto } };
+      const tgt = isOp ? upd.ops : upd;
+      if (hits.length && r.data.status !== "review") { upd.status = "review"; tgt.flags = [...new Set([...(o.flags || []), "Possible sanctions match: check the names against the list before any contact."])]; possible.push(r.data.org); }
       await db.set("prospects/" + r.id, upd); screened++;
     }
   }
@@ -240,10 +249,10 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
     catch (e) { log("  owner research step failed: " + String(e.message || e).slice(0, 200)); }
   }
 
-  const note = `Added ${added.length} for "${focus}"${added.length ? ": " + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") : ""}. Contact routes added to ${updated} existing. Operators added for "${opFocus}": ${opsAdded.length}. Sanctions pre-screen: ${screened} operators${possible.length ? ", possible match: " + possible.join(", ") : ", no match"}${listsInfo.failed.length ? " (lists not loaded: " + listsInfo.failed.join(", ") + ")" : ""}. ${rejected.length ? rejected.length + " rejected by the rules." : ""}`.trim();
+  const note = `Added ${added.length} for "${focus}"${added.length ? ": " + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") : ""}. Contact routes added to ${updated} existing. Operators added for "${opFocus}": ${opsAdded.length}. Service partners: ${svc.added.length} added, ${svc.merged} airports linked${svc.airports.length ? " (" + svc.airports.join(", ") + ")" : ""}. Sanctions pre-screen: ${screened} operators${possible.length ? ", possible match: " + possible.join(", ") : ", no match"}${listsInfo.failed.length ? " (lists not loaded: " + listsInfo.failed.join(", ") + ")" : ""}. ${rejected.length ? rejected.length + " rejected by the rules." : ""}`.trim();
   await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length, lastUpdated: updated, totalProspects: rows.length + added.length,
     focusIndex: fi + 1, nextFocus: FOCUS[(fi + 1) % FOCUS.length], opFocusIndex: ofi + 1, nextOpFocus: OP_FOCUS[(ofi + 1) % OP_FOCUS.length], lastOperators: opsAdded.length, sanctionsLists: listsInfo, note, rejected: rejected.slice(0, 20), by: "scheduled" });
   log(note); rejected.forEach(x => log("  rejected:", x));
-  return { added, updated, rejected, operators: opsAdded, screened, possible, note, ownerAdded: invCount };
+  return { added, updated, rejected, operators: opsAdded, services: svc.added, screened, possible, note, ownerAdded: invCount };
 }
 if (import.meta.url === `file://${process.argv[1]}`) { const { main } = await import("./lib/main.mjs"); await main("Daily research", ["SUPABASE_URL","SUPABASE_SECRET_KEY","ANTHROPIC_API_KEY"], () => run()); }

@@ -11,7 +11,7 @@ function invTab(){
   return `<button type="button" role="tab" class="btn ${S.pSec === "inv" ? "primary" : ""}" aria-selected="${S.pSec === "inv"}" data-act="pSec" data-sec="inv">Investors and partners · only you (${n})</button>`;
 }
 function vInvestors(){
-  const every = Object.entries(S.prospects).map(([id, p]) => ({id, ...p})), nOps = every.filter(p => p.kind === "operator").length;
+  const every = Object.entries(S.prospects).map(([id, p]) => ({id, ...p})), nOps = every.filter(p => p.kind === "operator").length, nSvc = every.filter(p => p.kind === "service").length;
   const st = (S.inv || {})._status || null;
   const all = Object.entries(S.inv || {}).filter(([k]) => k !== "_status").map(([id, p]) => ({id, ...p}));
   const F = S.invF || (S.invF = {q:"", track:"", for:"", status:"", potential:"", interest:"", industry:"", ticket:""});
@@ -28,7 +28,7 @@ function vInvestors(){
   const sOpt = (id, label, vals, cur) => `<label class="f" for="${id}">${label}<select id="${id}" data-invf="${id.slice(3)}"><option value="">All</option>${vals.map(v => `<option value="${esc(v)}" ${cur === v ? "selected" : ""}>${esc(v)}</option>`).join("")}</select></label>`;
   return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${all.length} ${all.length === 1 ? "investor or strategic partner" : "investors and strategic partners"}. <b>Only you can see this list:</b> the database shows it to no one else, and it is never assigned, rotated or written to the shared log.</p></div>
     <div class="row"><button class="btn" type="button" data-inv="new">Add investor or partner</button></div></div>
-  <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="ops">Operators (${nOps})</button>${invTab()}</div>
+  <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
   <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${st ? `last run ${fmtT(st.lastRun)} · ${st.lastAdded || 0} added · next focus: ${esc(st.nextFocus || "rotating")}<br>${esc(st.note || "")}` : "runs every morning with the other research and covers three areas a day and adds up to 45 investors or partners, each with its public source, evidence and a sanctions pre-screen."}</div>
   <div class="kpis">${["High", "Medium", "Low"].map(k => `<button type="button" class="kpi kbtn" data-inv="pot" data-pot="${k}" aria-pressed="${F.potential === k}"><div class="l">${k} potential</div><div class="v">${counts[k]}</div></button>`).join("")}</div>
   <div class="panel filters">

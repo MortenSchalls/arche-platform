@@ -46,6 +46,16 @@ const r2 = await rotation.run(db, quiet); assert(r2.skipped); pass("second run w
 // intel: fake API returns one good org, one with an unseen source, one duplicate, one with personal routes
 const call = async body => {
   const isEnrich = /contact routes/.test(body.messages[0].content);
+  if (/BUSINESS-JET SUPPLIERS/.test(body.messages[0].content)) {
+    const seenSvc = { type: "web_search_tool_result", content: ["https://fbo-one.example/singapore", "https://isbah.example/fbo-one", "https://cater.example", "https://www.airnav.com/x", "https://limo.example"].map(url => ({ type: "web_search_result", url })) };
+    const svc = [
+      { org: "FBO One Aviation", category: "FBO and ground handling", country: "Singapore", source: "https://fbo-one.example/singapore", website: "https://fbo-one.example", hours: "24/7", services: ["customs and immigration", "hangar"],
+        isbah: { level: "Stage 2", year: "2025", url: "https://isbah.example/fbo-one" }, contacts: [{ name: "Example Manager", role: "FBO manager", email: "fbo@fbo-one.example", url: "https://fbo-one.example/singapore" }] },
+      { org: "Sky Catering Example", category: "In-flight catering", country: "Singapore", source: "https://cater.example" },
+      { org: "Directory Handler", category: "FBO and ground handling", source: "https://www.airnav.com/x" },
+      { org: "Limo Example", category: "Limousine", source: "https://limo.example" }];
+    return { content: [seenSvc, { type: "text", text: "```json\n" + JSON.stringify(svc) + "\n```" }] };
+  }
   if (/investor profile/.test(body.messages[0].content)) {
     const ids = [...body.messages[0].content.matchAll(/- id (\w+):/g)].map(m => m[1]);
     const prof = Object.fromEntries(ids.map(id => [id, { aum: "USD 9bn", aum_url: "https://unseen.example", ticket: "Over USD 50m", interests: ["Real estate"], industries: ["Property"], aviation: "none", geo: ["Europe"] }]));
@@ -128,6 +138,15 @@ assert(gfo.score >= 70 && gfo.potential === "High" && gfo.reasons.some(x => /avi
 const np = own.find(r => r.data.org === "Example Notes Platform").data;
 assert(np.profile && np.profile.aum === "" && np.potential === "Low"); pass("profile research fills records without one; unsourced portfolio size dropped");
 
+// service partners
+assert.deepStrictEqual(res.services.sort(), ["FBO One Aviation", "Sky Catering Example"]); pass("service partners added: FBO and caterer");
+const fbo = T.prospects.find(p => p.data.org === "FBO One Aviation").data;
+assert.deepStrictEqual(fbo.airports, ["WSSL", "WSSS", "VTBD"]); pass("same company at the next airports is linked, not duplicated");
+assert(fbo.kind === "service" && fbo.isbah && fbo.isbah.level === "Stage 2" && !fbo.flags.length && fbo.contacts.length === 1); pass("IS-BAH evidence and business contact kept");
+assert(fbo.screen && fbo.screen.auto && fbo.screen.auto.result === "no match"); pass("service partners are sanctions pre-screened");
+assert(res.rejected.some(x => /Directory Handler.*directory/.test(x)) && res.rejected.some(x => /Limo Example.*categories/.test(x))); pass("directory sources and later categories (limousine) rejected for now");
+assert.equal(T.intel.find(i => i.key === "services").value.index, 3); pass("airport rotation moves on three airports per run");
+
 // operators
 assert.deepStrictEqual(res.operators, ["Good Air Charter", "Clean Air Jets"]); pass("only vetted operators are added");
 assert(res.rejected.some(x => /EU Banned Air.*EU Air Safety List/.test(x))); pass("operator on the EU Air Safety List rejected");
@@ -150,9 +169,9 @@ await rotation.run(db, quiet);
 assert(!T.prospects.find(p => p.data.org === "Good Air Charter").data.assignedTo);
 { const { createRequire } = await import("module"); const { engine } = createRequire(import.meta.url)("../apps/portal/engine.js");
   const roster = { [BRK]: { role: "broker", active: true, contractName: "Example Broker", base: "Singapore", roster: true } };
-  const e = engine({ prospects: { x1: { org: "Op", kind: "operator", status: "new", region: "Asia-Pacific", country: "Singapore" }, x2: { org: "Client", kind: "client", status: "new", region: "Asia-Pacific", country: "Singapore" } }, roster, leads: {}, trips: [] }, {}, new Date().toISOString());
-  assert(e.writes.some(w => JSON.stringify(w).includes("x2")) && !e.writes.some(w => JSON.stringify(w).includes("x1"))); }
-pass("operators are never rotated to brokers (client assigned, operator left alone)");
+  const e = engine({ prospects: { x1: { org: "Op", kind: "operator", status: "new", region: "Asia-Pacific", country: "Singapore" }, x3: { org: "Svc", kind: "service", status: "new", region: "Asia-Pacific", country: "Singapore" }, x2: { org: "Client", kind: "client", status: "new", region: "Asia-Pacific", country: "Singapore" } }, roster, leads: {}, trips: [] }, {}, new Date().toISOString());
+  assert(e.writes.some(w => JSON.stringify(w).includes("x2")) && !e.writes.some(w => JSON.stringify(w).includes("x1")) && !e.writes.some(w => JSON.stringify(w).includes("x3"))); }
+pass("operators and service partners are never rotated to brokers (client assigned, suppliers left alone)");
 
 // sanctions list parsers
 { const sx = await import("./lib/sanctions.mjs");
@@ -178,5 +197,5 @@ pass("contacts older than 12 months without contact and opted-out contacts remov
 
 // backup
 const counts = await backup.run(db, "/tmp/backup-test.json", quiet);
-assert(counts.prospects === 15 && existsSync("/tmp/backup-test.json")); pass("backup holds every table"); unlinkSync("/tmp/backup-test.json");
+assert(counts.prospects === 17 && existsSync("/tmp/backup-test.json")); pass("backup holds every table"); unlinkSync("/tmp/backup-test.json");
 console.log(`\n${ok} checks passed`);

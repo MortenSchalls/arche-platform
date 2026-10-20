@@ -424,6 +424,7 @@ label.f > span.small,label.f > .apthint,label.f > .muted{text-transform:none;let
 .rpmsg p{margin:2px 0 0}
 .rpmsg.them{align-self:flex-start;background:var(--raised)}
 .rpmsg.me{align-self:flex-end;background:color-mix(in srgb,var(--brand) 12%,transparent)}
+.pdetail a,.pdetail .avs li,.pdetail p{overflow-wrap:anywhere}
 </style>
 
 <header class="bar"><div class="in">
@@ -1012,7 +1013,7 @@ async function act(a, el){
     if (a === "pfClear") { S.pf = null; render(); return; }
     if (a === "pCancel") { S.pNew = false; render(); return; }
     if (a === "pAssign" || a === "pDnc" || a === "pKind" || a === "pUndoDnc" || a === "opScreen") { await prospectAction(a, el); return; }
-    if (a === "pSec") { S.pSec = ["ops", "inv"].includes(el.dataset.sec) ? el.dataset.sec : "sales"; S.pf = null; S.pSel = null; S.pPage = 0; render(); return; }
+    if (a === "pSec") { S.pSec = ["ops", "svc", "inv"].includes(el.dataset.sec) ? el.dataset.sec : "sales"; S.pf = null; S.pSel = null; S.pPage = 0; render(); return; }
     if (a === "leadEnquiry") { const l = S.leads[S.pSel]; if (!l) return; await writeLead(S.pSel, {status:"enquiry"}, {channel:"Portal", outcome:"enquiry", note:"Enquiry opened"}); S.fromLead = {pid:S.pSel}; openEditor(null); $("e_co").value = l.org || ""; return; }
     if (a === "faqPromote") { promoteFaq(true); return; }
     if (a === "faqCancel") { S.faqEdit = null; render(); return; }
@@ -1202,28 +1203,43 @@ function opDetail(p){
     <p class="small"><a href="https://sanctionssearch.ofac.treas.gov/" target="_blank" rel="noopener">OFAC search</a> · <a href="https://www.sanctionsmap.eu/" target="_blank" rel="noopener">EU sanctions map</a> · <a href="https://search-uk-sanctions-list.service.gov.uk/" target="_blank" rel="noopener">UK sanctions list</a> · <a href="https://main.un.org/securitycouncil/en/content/un-sc-consolidated-list" target="_blank" rel="noopener">UN list</a></p>
     ${S.isOwner && !S.preview ? `<div class="row"><button class="btn small" type="button" data-act="opScreen" data-res="clear">Screened: no match</button><button class="btn small danger" type="button" data-act="opScreen" data-res="hit">Screened: match found</button></div>` : ""}</div>`;
 }
+const SUPPLIER_KINDS = ["operator", "service"];
+function svcDetail(p){
+  const sc = (p.screen || {}).auto, lnk = (u, t) => u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t || u)}</a>` : "";
+  return `<div><h3>Service and quality</h3>
+    ${(p.flags || []).map(f => `<div class="note warn small">${esc(f)}</div>`).join("")}
+    <ul class="avs">
+      <li><span class="avt">Category</span> ${esc(p.category || "")}</li>
+      <li><span class="avt">Airports</span> ${esc((p.airports || []).join(", "))}</li>
+      ${(p.services || []).length ? `<li><span class="avt">Services</span> ${esc(p.services.join(", "))}</li>` : ""}
+      ${p.hours ? `<li><span class="avt">Hours</span> ${esc(p.hours)}</li>` : ""}
+      <li><span class="avt">IS-BAH</span> ${p.isbah ? `${esc(p.isbah.level || "registered")}${p.isbah.year ? " (" + esc(p.isbah.year) + ")" : ""} · ${lnk(p.isbah.url, "evidence")}` : "not found in public sources"}</li>
+      ${(p.evidence || []).map(x => `<li><span class="avt">Evidence</span> ${esc(x.summary)} · ${lnk(x.url, "source")}</li>`).join("")}
+    </ul>
+    <p class="small">${sc ? `Sanctions check ${fmtD(sc.at)}: <b>${esc(sc.result)}</b>${(sc.hits || []).length ? " (" + sc.hits.map(h => esc(h.name) + " ≈ " + esc(h.listed)).join("; ") + ")" : ""}.` : "Sanctions check: runs with the next morning review."}</p></div>`;
+}
 function vProspects(){
   if (S.pSec === "inv" && !(S.isOwner && !S.preview)) S.pSec = "sales";
   if (S.pSec === "inv") return vInvestors();
   const every = Object.entries(S.prospects).map(([id, p]) => ({id, ...p}));
-  const sec = S.pSec || "sales", nOps = every.filter(p => p.kind === "operator").length;
-  const all = every.filter(p => sec === "ops" ? p.kind === "operator" : p.kind !== "operator");
-  const F = S.pf || (S.pf = {q:"", region:"", country:"", province:"", segment:"", kind:"", status:""});
+  const sec = S.pSec || "sales", nOps = every.filter(p => p.kind === "operator").length, nSvc = every.filter(p => p.kind === "service").length;
+  const all = every.filter(p => sec === "ops" ? p.kind === "operator" : sec === "svc" ? p.kind === "service" : !SUPPLIER_KINDS.includes(p.kind));
+  const F = S.pf || (S.pf = {q:"", region:"", country:"", province:"", segment:"", kind:"", status:"", airport:"", category:""});
   const uniq = arr => [...new Set(arr.filter(Boolean))].sort();
   const inR = all.filter(p => !F.region || p.region === F.region);
   const inC = inR.filter(p => !F.country || p.country === F.country);
   const q = F.q.trim().toLowerCase();
-  const list = inC.filter(p => (!F.province || p.province === F.province) && (!F.segment || p.segment === F.segment) && (!F.kind || (p.kind || "client") === F.kind) && (!F.status || pStatus(p) === F.status) && (!q || [p.org, p.segment, p.country, p.province, p.city, p.why].join(" ").toLowerCase().includes(q)))
+  const list = inC.filter(p => (!F.airport || (p.airports || []).includes(F.airport)) && (!F.category || p.category === F.category) && (!F.province || p.province === F.province) && (!F.segment || p.segment === F.segment) && (!F.kind || (p.kind || "client") === F.kind) && (!F.status || pStatus(p) === F.status) && (!q || [p.org, p.segment, p.country, p.province, p.city, p.why].join(" ").toLowerCase().includes(q)))
     ;
   const sel = all.find(p => p.id === S.pSel);
   const brokers = Object.entries(S.roster).filter(([, r]) => r.active !== false && (r.role === "broker" || r.role === "consultant"));
   const opt = (id, label, vals, cur) => `<label class="f" for="${id}">${label}<select id="${id}" data-pf="${id.slice(3)}"><option value="">All</option>${vals.map(v => `<option ${cur === v ? "selected" : ""}>${esc(v)}</option>`).join("")}</select></label>`;
   const intel = S.intel || {};
   const byRegion = REGIONS.map(r => [r, all.filter(p => p.region === r).length]);
-  return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${sec === "ops" ? `${all.length} charter operators we could book for clients, each with its certificate, audits and safety record from public sources. Never assigned to brokers. Screen each against the sanctions lists before the first booking.` : `${all.length} organisations worldwide, each with the public source it came from. Business contacts only. Assign each to one broker; brokers see only what is assigned to them. Record every opt-out as Do not contact.`}</p></div>
+  return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${sec === "svc" ? `${all.length} business-jet ${all.length === 1 ? "supplier" : "suppliers"} at key airports: FBOs and ground handlers, trip support and in-flight catering, each with its public source. Suppliers, never assigned to brokers. Limousines, helicopters and yachts follow as next steps.` : sec === "ops" ? `${all.length} charter operators we could book for clients, each with its certificate, audits and safety record from public sources. Never assigned to brokers. Screen each against the sanctions lists before the first booking.` : `${all.length} organisations worldwide, each with the public source it came from. Business contacts only. Assign each to one broker; brokers see only what is assigned to them. Record every opt-out as Do not contact.`}</p></div>
     <div class="row"><button class="btn" type="button" data-act="pNew">Add prospect</button></div></div>
-  <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn ${sec === "sales" ? "primary" : ""}" aria-selected="${sec === "sales"}" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps})</button><button type="button" role="tab" class="btn ${sec === "ops" ? "primary" : ""}" aria-selected="${sec === "ops"}" data-act="pSec" data-sec="ops">Operators (${nOps})</button>${invTab()}</div>
-  <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${intel.lastRun ? `last run ${fmtT(intel.lastRun)} · ${intel.lastAdded || 0} added · ${intel.lastUpdated || 0} updated · next focus: ${esc(intel.nextFocus || "rotating")}` : "the daily review has not run yet. Every morning it adds new organisations, charter operators (with certificate, safety and sanctions checks) and contact routes."}${intel.note ? `<br>${esc(intel.note)}` : ""}</div>
+  <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn ${sec === "sales" ? "primary" : ""}" aria-selected="${sec === "sales"}" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn ${sec === "ops" ? "primary" : ""}" aria-selected="${sec === "ops"}" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn ${sec === "svc" ? "primary" : ""}" aria-selected="${sec === "svc"}" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
+  <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${intel.lastRun ? `last run ${fmtT(intel.lastRun)} · ${intel.lastAdded || 0} added · ${intel.lastUpdated || 0} updated · next focus: ${esc(intel.nextFocus || "rotating")}` : "the daily review has not run yet. Every morning it adds new organisations, charter operators (with certificate, safety and sanctions checks), business-jet suppliers at key airports and contact routes."}${intel.note ? `<br>${esc(intel.note)}` : ""}</div>
   <div class="kpis">${byRegion.map(([r, n]) => `<button type="button" class="kpi kbtn" data-region="${esc(r)}" aria-pressed="${F.region === r}"><div class="l">${esc(r)}</div><div class="v">${n}</div></button>`).join("")}</div>
   <div class="panel filters">
     <label class="f" for="pf_q">Search<input id="pf_q" data-pf="q" value="${esc(F.q)}" placeholder="Name, city, segment…"></label>
@@ -1231,20 +1247,21 @@ function vProspects(){
     ${opt("pf_country", "Country", uniq(inR.map(p => p.country)), F.country)}
     ${opt("pf_province", "Province or state", uniq(inC.map(p => p.province)), F.province)}
     ${opt("pf_segment", "Segment", uniq(all.map(p => p.segment)), F.segment)}
-    ${sec === "ops" ? "" : `<label class="f" for="pf_kind">Type<select id="pf_kind" data-pf="kind"><option value="">All</option><option value="client" ${F.kind==="client"?"selected":""}>Potential clients</option><option value="partner" ${F.kind==="partner"?"selected":""}>Referral partners</option></select></label>`}
+    ${sec === "svc" ? opt("pf_airport", "Airport", uniq(all.flatMap(p => p.airports || [])), F.airport) + opt("pf_category", "Category", uniq(all.map(p => p.category)), F.category) : ""}
+    ${sec === "ops" || sec === "svc" ? "" : `<label class="f" for="pf_kind">Type<select id="pf_kind" data-pf="kind"><option value="">All</option><option value="client" ${F.kind==="client"?"selected":""}>Potential clients</option><option value="partner" ${F.kind==="partner"?"selected":""}>Referral partners</option></select></label>`}
     <label class="f" for="pf_status">Status<select id="pf_status" data-pf="status"><option value="">All</option>${Object.entries(LEAD_STATUS).map(([k, v]) => `<option value="${k}" ${F.status===k?"selected":""}>${v}</option>`).join("")}</select></label>
     <div class="row" style="align-self:end"><span class="small muted">${list.length} shown</span><button class="btn small" type="button" data-act="pfClear">Clear filters</button></div>
   </div>
   <div class="grid2"><div class="panel">${prospectRows(list)}</div>
   <div class="pdetail">${S.pNew ? prospectForm() : sel ? `<div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(sel.org)}</h2>${leadChip(pStatus(sel))}</div>
-    <p class="small muted">${esc(sel.segment)} · ${esc(sel.region || "")} · ${esc(pLoc(sel))} · ${sel.kind === "operator" ? "Charter operator (supplier)" : sel.kind === "partner" ? "Referral partner" : "Potential client"}</p>
+    <p class="small muted">${esc(sel.segment)} · ${esc(sel.region || "")} · ${esc(pLoc(sel))} · ${sel.kind === "operator" ? "Charter operator (supplier)" : sel.kind === "service" ? "Service partner (supplier)" : sel.kind === "partner" ? "Referral partner" : "Potential client"}</p>
     <div><h3>Why them</h3><p>${esc(sel.why || "")}</p></div>
-    ${sel.kind === "operator" ? opDetail(sel) : ""}
-    <div><h3>${sel.kind === "operator" ? "How to set them up as a supplier" : "How to approach"}</h3><p>${esc(sel.approach || "")}</p></div>
+    ${sel.kind === "operator" ? opDetail(sel) : sel.kind === "service" ? svcDetail(sel) : ""}
+    <div><h3>${SUPPLIER_KINDS.includes(sel.kind) ? "How to set them up as a supplier" : "How to approach"}</h3><p>${esc(sel.approach || "")}</p></div>
     <div><h3>Contact routes</h3>${avenuesHtml(sel)}</div>
     ${contactsHtml(sel, "prospect", sel.id)}
     <div><h3>Source</h3><p class="small"><a href="${esc(sel.source)}" target="_blank" rel="noopener">${esc(sel.source)}</a>${sel.aiReviewed ? ` · AI reviewed ${fmtD(sel.aiReviewed)}` : ""}</p></div>
-    ${sel.kind === "operator" ? `<div class="row"><button class="btn danger" type="button" data-act="pDnc">Do not use</button></div>` : `<div class="row"><label class="f" for="pAssign" style="flex:1">Assign to<select id="pAssign"><option value="">Choose a broker</option>${brokers.map(([id, r]) => `<option value="${id}" ${sel.assignedTo === id ? "selected" : ""}>${esc(r.contractName || nm(id))}${r.example ? " (example)" : ""}</option>`).join("")}</select></label><button class="btn primary" type="button" data-act="pAssign">Assign</button><button class="btn danger" type="button" data-act="pDnc">Do not contact</button></div>`}
+    ${SUPPLIER_KINDS.includes(sel.kind) ? `<div class="row"><button class="btn danger" type="button" data-act="pDnc">Do not use</button></div>` : `<div class="row"><label class="f" for="pAssign" style="flex:1">Assign to<select id="pAssign"><option value="">Choose a broker</option>${brokers.map(([id, r]) => `<option value="${id}" ${sel.assignedTo === id ? "selected" : ""}>${esc(r.contractName || nm(id))}${r.example ? " (example)" : ""}</option>`).join("")}</select></label><button class="btn primary" type="button" data-act="pAssign">Assign</button><button class="btn danger" type="button" data-act="pDnc">Do not contact</button></div>`}
     ${S.isOwner && !S.preview ? `<div class="row"><label class="f" for="pKind" style="flex:1">Type<select id="pKind"><option value="client" ${!sel.kind || sel.kind === "client" ? "selected" : ""}>Potential client</option><option value="partner" ${sel.kind === "partner" ? "selected" : ""}>Referral partner</option><option value="operator" ${sel.kind === "operator" ? "selected" : ""}>Charter operator</option></select></label><button class="btn" type="button" data-act="pKind">Save type</button><button class="btn" type="button" data-inv="moveFrom" data-id="${esc(sel.id)}">Move to investors and partners</button>${sel.status === "dnc" ? `<button class="btn" type="button" data-act="pUndoDnc">Undo Do not contact</button>` : ""}</div>` : ""}
     ${sel.status === "review" ? `<div class="note warn small"><b>Your decision:</b> ${esc(sel.reviewReason || "went cold with several brokers")}<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-act="rvRestart" data-pid="${sel.id}">Restart rotation</button><button class="btn small danger" type="button" data-act="rvDnc" data-pid="${sel.id}">Do not contact</button></div></div>` : ""}
     ${sel.sourcedBy ? `<p class="small">Found by <b>${esc(nm(sel.sourcedBy))}</b> on ${fmtD(sel.sourcedAt)}.</p>` : ""}
@@ -2845,13 +2862,13 @@ function prospectRows(list){
     <span class="small muted">${rows.length ? `${pg * per + 1}–${pg * per + shown.length} of ${rows.length}` : "0"}</span></div>
     ${chk.size ? `<div class="note info small bulkbar" style="margin-bottom:8px"><b>${chk.size} selected</b><select id="bulkTo" aria-label="Assign selected to" style="width:auto"><option value="">Assign to…</option>${brokers.map(([id, r]) => `<option value="${id}">${esc(r.contractName || nm(id))}</option>`).join("")}</select><button class="btn small primary" type="button" data-act="bulkAssign">Assign</button><button class="btn small danger" type="button" data-act="bulkDnc">Do not contact</button><button class="btn small" type="button" data-act="bulkClear">Clear</button></div>` : ""}
     <div class="tbl"><table class="ptable"><thead><tr><th scope="col"><input type="checkbox" id="pAll" aria-label="Select all on this page" ${shown.length && shown.every(p => chk.has(p.id)) ? "checked" : ""}></th><th scope="col">Organisation</th><th scope="col">Country</th><th scope="col">Status</th><th scope="col">Broker</th><th scope="col">Due</th></tr></thead><tbody>
-    ${shown.map(p => `<tr data-psel="${p.id}" tabindex="0" aria-selected="${S.pSel === p.id}" class="${S.pSel === p.id ? "sel" : ""}"><td><input type="checkbox" data-pchk="${p.id}" ${chk.has(p.id) ? "checked" : ""} aria-label="Select ${esc(p.org)}"></td><td><b>${esc(p.org)}</b><br><span class="small muted">${esc(p.segment || "")}${p.kind === "partner" ? " · partner" : ""}${p.kind === "operator" && p.ops ? ` · ${OP_TIER[p.ops.tier] ? "tier " + p.ops.tier : ""}${(p.ops.flags || []).length ? " · ⚠ check" : ""}` : ""}</span></td><td>${esc(p.country || "")}</td><td>${leadChip(pStatus(p))}</td><td>${p.status === "review" ? "Your decision" : p.assignedTo ? esc(nm(p.assignedTo)) : `<span class="muted">Free</span>`}</td><td>${dueCell(p)}</td></tr>`).join("") || `<tr><td colspan="6" class="muted">No prospects match these filters.</td></tr>`}
+    ${shown.map(p => `<tr data-psel="${p.id}" tabindex="0" aria-selected="${S.pSel === p.id}" class="${S.pSel === p.id ? "sel" : ""}"><td><input type="checkbox" data-pchk="${p.id}" ${chk.has(p.id) ? "checked" : ""} aria-label="Select ${esc(p.org)}"></td><td><b>${esc(p.org)}</b><br><span class="small muted">${esc(p.segment || "")}${p.kind === "partner" ? " · partner" : ""}${p.kind === "service" ? ` · ${esc(p.category || "")} · ${esc((p.airports || []).join(", "))}${p.isbah ? " · IS-BAH" : ""}` : ""}${p.kind === "operator" && p.ops ? ` · ${OP_TIER[p.ops.tier] ? "tier " + p.ops.tier : ""}${(p.ops.flags || []).length ? " · ⚠ check" : ""}` : ""}</span></td><td>${esc(p.country || "")}</td><td>${leadChip(pStatus(p))}</td><td>${p.status === "review" ? "Your decision" : p.assignedTo ? esc(nm(p.assignedTo)) : `<span class="muted">Free</span>`}</td><td>${dueCell(p)}</td></tr>`).join("") || `<tr><td colspan="6" class="muted">No prospects match these filters.</td></tr>`}
     </tbody></table></div>
     ${pages > 1 ? `<div class="row" style="margin-top:8px"><button class="btn small" type="button" data-act="pPrev" ${pg ? "" : "disabled"}>Previous 100</button><span class="small muted">Page ${pg + 1} of ${pages}</span><button class="btn small" type="button" data-act="pNext" ${pg < pages - 1 ? "" : "disabled"}>Next 100</button></div>` : ""}`;
 }
 async function assignProspect(id, bid, reason){
   const p = S.prospects[id]; if (!p || !bid) return false;
-  if (p.status === "dnc" || p.kind === "operator") return false;   // operators are suppliers, never broker leads
+  if (p.status === "dnc" || SUPPLIER_KINDS.includes(p.kind)) return false;   // operators and service partners are suppliers, never broker leads
   const old = p.assignedTo && p.assignedTo !== bid ? (S.staffLeads[p.assignedTo] || {})[id] : null, prevLog = (old && old.log) || [];
   const lead = {org:p.org, segment:p.segment, kind:p.kind || "client", region:p.region || "", province:p.province || "", avenues:p.avenues || [], contacts:p.contacts || [], country:p.country || "", city:p.city || "", website:p.website || "", source:p.source || "", why:p.why || "", approach:p.approach || "", sourcedBy:p.sourcedBy || "", status:"assigned", assignedAt: now(), firstTouchDue: new Date(Date.now() + cfgA().firstTouchHours * 36e5).toISOString(), reason, log:[...prevLog, {t:now(), system:true, channel:"Portal", outcome:"assigned", note:reason}]};
   await S.db.doc(`leads/${bid}/items/${id}`).set(lead);                                                     // 1. new lead first
@@ -3647,7 +3664,7 @@ function invTab(){
   return `<button type="button" role="tab" class="btn ${S.pSec === "inv" ? "primary" : ""}" aria-selected="${S.pSec === "inv"}" data-act="pSec" data-sec="inv">Investors and partners · only you (${n})</button>`;
 }
 function vInvestors(){
-  const every = Object.entries(S.prospects).map(([id, p]) => ({id, ...p})), nOps = every.filter(p => p.kind === "operator").length;
+  const every = Object.entries(S.prospects).map(([id, p]) => ({id, ...p})), nOps = every.filter(p => p.kind === "operator").length, nSvc = every.filter(p => p.kind === "service").length;
   const st = (S.inv || {})._status || null;
   const all = Object.entries(S.inv || {}).filter(([k]) => k !== "_status").map(([id, p]) => ({id, ...p}));
   const F = S.invF || (S.invF = {q:"", track:"", for:"", status:"", potential:"", interest:"", industry:"", ticket:""});
@@ -3664,7 +3681,7 @@ function vInvestors(){
   const sOpt = (id, label, vals, cur) => `<label class="f" for="${id}">${label}<select id="${id}" data-invf="${id.slice(3)}"><option value="">All</option>${vals.map(v => `<option value="${esc(v)}" ${cur === v ? "selected" : ""}>${esc(v)}</option>`).join("")}</select></label>`;
   return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${all.length} ${all.length === 1 ? "investor or strategic partner" : "investors and strategic partners"}. <b>Only you can see this list:</b> the database shows it to no one else, and it is never assigned, rotated or written to the shared log.</p></div>
     <div class="row"><button class="btn" type="button" data-inv="new">Add investor or partner</button></div></div>
-  <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="ops">Operators (${nOps})</button>${invTab()}</div>
+  <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
   <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${st ? `last run ${fmtT(st.lastRun)} · ${st.lastAdded || 0} added · next focus: ${esc(st.nextFocus || "rotating")}<br>${esc(st.note || "")}` : "runs every morning with the other research and covers three areas a day and adds up to 45 investors or partners, each with its public source, evidence and a sanctions pre-screen."}</div>
   <div class="kpis">${["High", "Medium", "Low"].map(k => `<button type="button" class="kpi kbtn" data-inv="pot" data-pot="${k}" aria-pressed="${F.potential === k}"><div class="l">${k} potential</div><div class="v">${counts[k]}</div></button>`).join("")}</div>
   <div class="panel filters">

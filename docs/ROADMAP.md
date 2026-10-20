@@ -46,6 +46,9 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Rotation of website enquiries to the broker on duty | |
 | ☐ | 7%/9% margin split | Only once Morten defines it. |
 | ☐ | Replacement aircraft B11: let the client refuse a replacement and get a refund (less costs) when it differs materially, instead of counting refusal as cancellation | FXAIR refunds in that case. |
+| ☐ | Service partners step 2: limousine and VIP ground transport at the same airports | Small step; same checks. |
+| ☐ | Service partners step 3: helicopter transfers (city to airport, resort and island hops) | Check AOC and safety record as for operators. |
+| ☐ | Service partners step 4: yacht charter partners (Phuket, Côte d'Azur, Mediterranean) | Fits jet-plus-yacht trips. |
 | ☐ | Gulfstream source for the G650 cabin figures | Now from GlobalSecurity.org. |
 
 ## Done
@@ -59,6 +62,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 - ☑ Archē spelling, typo fixes, translations completed for all changed text.
 - ☑ No "who is behind Archē" content on the site (Morten's choice).
 - ☑ One address per language (/th, /zh, /ja) and a ready-made page copy that search engines can read straight away.
+- ☑ Service partners (business-jet suppliers): FBOs and ground handlers, trip support and in-flight catering at 30 key airports; IS-BAH evidence, sanctions pre-screen, business contacts from their own sites; never assigned to brokers; a monthly refresh once all airports are covered.
 - ☑ Named business contacts in all prospect lists (rule approved 20 Oct): work details from the organisation's own site or a licensed database only; brokers see them only on their own leads; opening is logged; opt-out deletes everywhere and blocks re-adding; 12-month deletion; first message says where we found them.
 - ☑ Investor profiles and fit score: portfolio size (sourced only), ticket size, interests, industries, aviation exposure, geography; High/Medium/Low potential with reasons; filters on all of them.
 - ☑ Investors and partners (owner only): own table protected by a database rule, own tab in Prospects, daily research across three areas (up to 45 organisations a day; a manual run covers all nine areas) with evidence and sanctions pre-screen; a prospect can be moved there (for example JET8). Nothing appears in shared logs or summaries.
