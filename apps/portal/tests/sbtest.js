@@ -70,6 +70,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  // import a list into the owner-only investors
  await o.evaluate(()=>{S.view='prospects';S.pSec='inv';S.invSel=null;render();});await o.waitForTimeout(300);
  await o.click('[data-inv="imp"]');await o.waitForTimeout(200);
+ await o.setViewportSize({width:390,height:844});await o.waitForTimeout(200);ok('import form fits 390 px', await o.evaluate(()=>!!document.getElementById('invImpForm') && document.documentElement.scrollWidth<=390));
  await o.fill('#iv_imp','Example Capital Partners | Private equity or private credit | UK\nExample Lenders | Aviation lender or lessor | Singapore\nMr Private Person\nExample Lenders Ltd');
  await o.click('#invImpForm button[type=submit]');await o.waitForTimeout(600);
  ok('import adds new organisations only (skips existing, duplicates and people)', await o.evaluate(()=>{const r=window.__T.owner_prospects.filter(x=>x.data.org==='Example Lenders');const c=window.__T.owner_prospects.filter(x=>x.data.org==='Example Capital Partners');return r.length===1 && r[0].data.track==='Aviation lender or lessor' && c.length===1 && !window.__T.owner_prospects.some(x=>/Private Person|Example Lenders Ltd/.test(x.data.org));}));
