@@ -1,10 +1,12 @@
-// Daily intelligence: research new prospect ORGANISATIONS with web search and add them to the portal.
+// Daily intelligence: research new prospect ORGANISATIONS with web search and add them to the portal,
+// plus charter OPERATORS (suppliers) checked for certificate, audits, safety record and sanctions exposure.
 // Rules (same as the claude.ai scheduled task, now also enforced in code):
 //  - organisations only; a named person may appear only as a role
 //  - every organisation needs a public source URL that appeared in this run's web search results
 //  - no personal data, no guessed emails or phone numbers, no bought lists, no logins or scraping
 //  - never change status, assignment or history of existing prospects
 import { connect } from "./lib/db.mjs";
+import { loadLists, screen } from "./lib/sanctions.mjs";
 
 const FOCUS = [
   "Hong Kong and China family offices", "Japan and Korea luxury travel and family offices",
@@ -89,6 +91,51 @@ export function vetOrg(o, seen, existing) {
   if (o.kind !== "client" && o.kind !== "partner") return "bad kind";
   return null;
 }
+// ---- operators (suppliers): Air Operator Certificate holders Archē can book for clients (Morten, 20 Oct 2026) ----
+export const OP_FOCUS = ["Singapore, Malaysia and Indonesia", "Thailand, Vietnam, Cambodia and the Philippines", "Hong Kong, Macau and Taiwan",
+  "Mainland China", "Japan and South Korea", "India, Sri Lanka and the Maldives", "Australia and New Zealand",
+  "United Arab Emirates, Qatar, Saudi Arabia and Bahrain", "Switzerland, Austria and Germany", "Malta, Cyprus, Italy and France",
+  "United Kingdom, Ireland and the Netherlands", "United States and Canada", "Turkey and Greece", "South Africa and Kenya"];
+// comprehensively sanctioned or high-risk jurisdictions: operators based there are never added
+export const SANCTIONED = ["russia", "russian federation", "belarus", "iran", "north korea", "dprk", "syria", "cuba", "venezuela", "myanmar", "burma", "afghanistan", "crimea", "donetsk", "luhansk"];
+// charter marketplaces and other brokers' sites are never a source (no scraping of boards, nothing copied out of Avinode)
+const MARKETPLACES = /(^|\.)(avinode|jetvip|aircharterguide|charterhub|privatefly|fxair|lunajets|flyvictor|jetsmarter|flyxo|paramountbusinessjets|aircharterservice|evojets|stratosjets|jettly|villiers|mercuryjets|privatejetcharter|charterscanner|jetcharterhub)\.[a-z.]+$/i;
+const AUDITS = { argus: "ARGUS", wyvern: "Wyvern", "is-bah": "IS-BAH", isbah: "IS-BAH" };
+export function opTier(audits) {
+  const top = audits.some(a => (a.name === "ARGUS" && /platinum|gold\s*\+|gold plus/i.test(a.level)) || (a.name === "Wyvern" && /wingman/i.test(a.level)) || (a.name === "IS-BAH" && /stage\s*(2|ii|3|iii)/i.test(a.level)));
+  return top ? "A" : audits.length ? "B" : "C";
+}
+// business jets in Archē's categories (light jet to ultra-long-range); turboprops and helicopters do not count
+const BIZJET = /citation|phenom|praetor|legacy|lineage|learjet|challenger|global\s*\d|global express|falcon|gulfstream|\bg\s?(150|200|280|300|350|400|450|500|550|600|650|700|800)\b|\bg-?iv|\bg-?v\b|hawker|premier|pc-?24|hondajet|\bbbj\b|boeing business jet|\bacj|airbus corporate|embraer (legacy|lineage|praetor|phenom)/i;
+export function vetOperator(o, seen, existing, nowYear = new Date().getFullYear()) {
+  if (!o || !clean(o.org) || !o.source) return { why: "missing name or source" };
+  if (!seen.has(normUrl(o.source))) return { why: "source not seen in this run's search results" };
+  if ([o.source, o.website, o.aoc_source, o.fleet_source].some(u => u && MARKETPLACES.test(host(u)))) return { why: "marketplace or broker site used as a source" };
+  const place = [o.country, o.city, o.org].join(" ").toLowerCase();
+  if (SANCTIONED.some(c => place.includes(c))) return { why: "sanctioned or high-risk jurisdiction" };
+  if (existing.has(normName(o.org))) return { why: "duplicate" };
+  if (!clean(o.aoc_authority)) return { why: "no Air Operator Certificate found" };
+  if (o.eu_air_safety_list === true || /^(yes|true|listed)/i.test(String(o.eu_air_safety_list || ""))) return { why: "on the EU Air Safety List (operator or its certifying state)" };
+  const ok = u => u && seen.has(normUrl(u)) && !MARKETPLACES.test(host(u));
+  const audits = (Array.isArray(o.audits) ? o.audits : []).map(a => ({ name: AUDITS[String(a && a.name || "").toLowerCase()] || "", level: clean(a && a.level, 60), year: clean(a && a.year, 4), url: clean(a && a.url, 400) }))
+    .filter(a => a.name && ok(a.url));
+  const safety = (Array.isArray(o.safety) ? o.safety : []).map(x => ({ year: clean(x && x.year, 4), summary: clean(x && x.summary, 300), url: clean(x && x.url, 400) })).filter(x => x.summary && ok(x.url));
+  const flags = [];
+  if (safety.some(x => +x.year >= nowYear - 5)) flags.push("Accident or serious incident in the last 5 years: read the report before using this operator.");
+  if (!audits.length) flags.push("No ARGUS, Wyvern or IS-BAH evidence found: check before using this operator.");
+  const enforcement = (Array.isArray(o.enforcement) ? o.enforcement : []).map(x => ({ year: clean(x && x.year, 4), summary: clean(x && x.summary, 300), url: clean(x && x.url, 400) })).filter(x => x.summary && ok(x.url));
+  if (enforcement.some(x => +x.year >= nowYear - 5)) flags.push("Regulator action (suspension, fine or restriction) in the last 5 years: read it before using this operator.");
+  const fleet = (Array.isArray(o.fleet) ? o.fleet : []).map(f => ({ type: clean(f && f.type, 80), count: Math.max(0, parseInt(f && f.count, 10) || 0) })).filter(f => f.type).slice(0, 20);
+  if (!fleet.some(f => BIZJET.test(f.type))) flags.push("No business jet in Archē's categories found in the published fleet: check the fleet before using this operator.");
+  const owners = (Array.isArray(o.owners) ? o.owners : []).map(x => clean(x, 120)).filter(x => x && !/\b(mr|mrs|ms|dr)\b\.?/i.test(x)).slice(0, 5);   // organisations only
+  const insurance = o.insurance && ok(o.insurance.url) ? { summary: clean(o.insurance.summary, 200), url: clean(o.insurance.url, 400) } : null;
+  return { ops: { aoc: { authority: clean(o.aoc_authority, 80), source: ok(o.aoc_source) ? clean(o.aoc_source, 400) : "" },
+    bases: (Array.isArray(o.bases) ? o.bases : []).map(b => clean(b, 40)).filter(Boolean).slice(0, 8),
+    fleet, fleetSource: ok(o.fleet_source) || (o.fleet_source && o.website && host(o.fleet_source).endsWith(host(o.website))) ? clean(o.fleet_source, 400) : "",
+    audits, safety, enforcement, owners, insurance, euAirSafetyList: "not listed", founded: clean(o.founded, 4), tier: opTier(audits), flags,
+    screen: { country: "clear", entity: "", note: "Screen the company and its owners against OFAC, EU, UK and UN lists before the first booking." } } };
+}
+
 export function vetAvenues(list, seen, website) {
   const site = host(website);
   return (Array.isArray(list) ? list : []).filter(a => a && AVENUE_TYPES.includes(a.type) && a.url && (seen.has(normUrl(a.url)) || (site && host(a.url).endsWith(site))))
@@ -96,7 +143,7 @@ export function vetAvenues(list, seen, website) {
     .slice(0, 12).map(a => ({ type: a.type, label: clean(a.label || a.type, 120), url: clean(a.url, 400), note: clean(a.note || "found by daily research", 200) }));
 }
 
-export async function run(db = connect(), call = callApi, log = console.log) {
+export async function run(db = connect(), call = callApi, log = console.log, fetchLists = fetch) {
   const status = (await db.get("intel/status")) || {};
   const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0;
   const focus = FOCUS[fi % FOCUS.length];
@@ -142,10 +189,49 @@ Reply with JSON only, in a \`\`\`json block: an object mapping id to an array of
     }
   }
 
-  const note = `Added ${added.length} for "${focus}"${added.length ? ": " + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") : ""}. Contact routes added to ${updated} existing. ${rejected.length ? rejected.length + " rejected by the rules." : ""}`.trim();
+  // 3. operators for today's operator focus (suppliers, owner decides; never rotated to brokers)
+  const ofi = Number.isInteger(status.opFocusIndex) ? status.opFocusIndex : 0;
+  const opFocus = OP_FOCUS[ofi % OP_FOCUS.length];
+  const opsAdded = [];
+  const p3 = `You research charter OPERATORS for Archē Executive, a Singapore private jet charter broker. Archē books whole aircraft on demand (light jets to ultra-long-range business jets) as agent for its clients, worldwide.
+Region focus: ${opFocus}.
+Find up to 10 operators that: hold a current Air Operator Certificate from a recognised civil aviation authority; fly business jets on on-demand charter and accept bookings through brokers; are not based in or controlled from Russia, Belarus, Iran, North Korea, Syria, Cuba, Venezuela, Myanmar or Afghanistan; and, as far as public sources show, are not named on OFAC, EU, UK or UN sanctions lists.
+Scrutinise quality and safety from public sources only: the operator's own website, the aviation authority's AOC register, ARGUS, Wyvern or IS-BAH registries and announcements, official accident investigation reports, the Aviation Safety Network, the regulator's enforcement notices, and the EU Air Safety List (exclude any operator on it, or certified by a state whose carriers are on it).
+Prefer operators with business jets in Archē's categories (light, midsize, super-midsize, heavy, ultra-long-range), a safety audit (ARGUS, Wyvern or IS-BAH), several years of operation and no recent accident or regulator action. Never use charter marketplaces, booking platforms or other brokers' websites as a source (for example Avinode, JetVIP, Air Charter Guide).
+Organisations only: no personal data, no named people. Never guess: leave a field empty if you did not find it.
+Already in the list (skip these): ${rows.map(r => r.data.org).join("; ").slice(0, 6000)}
+Reply with JSON only, in a \`\`\`json block: an array of objects with fields
+org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL of the page where you found the operator), aoc_authority (for example CAAS, CAAT, CAD Hong Kong, GCAA, an EASA member-state authority, FAA Part 135), aoc_source (URL showing the certificate, if found), bases (array of airports), fleet (array of {type, count}) and fleet_source (URL), audits (array of {name: "ARGUS" | "Wyvern" | "IS-BAH", level, year, url}; only with public evidence), safety (array of {year, summary, url} for accidents or serious incidents involving the operator in the last 10 years; empty if none found), owners (array of owning COMPANIES or groups only, never private individuals; empty if not published), eu_air_safety_list (true only if the operator or its certifying state appears on the EU Air Safety List), enforcement (array of {year, summary, url} for AOC suspensions, fines or restrictions by a regulator in the last 10 years; empty if none found), insurance (object {summary, url} if the operator publishes its liability cover, else null), founded (year), why (one sentence: why they fit Archē's business), approach (one or two sentences: how to set them up as a supplier, by role), avenues (array of {type, label, url, note}; official business routes only; types: ${AVENUE_TYPES.join(", ")}).`;
+  const r3 = await ask(p3, call);
+  for (const o of Array.isArray(r3.data) ? r3.data.slice(0, 12) : []) {
+    const v = vetOperator(o, r3.seen, existing); if (v.why) { rejected.push(`${clean(o && o.org, 60)} (operator): ${v.why}`); continue; }
+    next++; const id = "p" + String(next).padStart(3, "0");
+    const rec = { org: clean(o.org, 160), segment: "Operator", kind: "operator", region: REGIONS.includes(o.region) ? o.region : "Global",
+      country: clean(o.country, 60), province: "", city: clean(o.city, 60),
+      website: o.website && (r3.seen.has(normUrl(o.website)) || host(o.website) === host(o.source)) ? clean(o.website, 300) : "",
+      source: clean(o.source, 400), why: clean(o.why, 400), approach: clean(o.approach, 500), status: "new",
+      avenues: vetAvenues(o.avenues, r3.seen, o.website), ops: v.ops, added: nowIso, batch: `Operator review ${today}`, aiReviewed: nowIso };
+    await db.set("prospects/" + id, rec); existing.add(normName(rec.org)); opsAdded.push(rec.org);
+  }
+
+  // 4. sanctions pre-screen of every operator (new and existing) against the official lists, each run
+  let screened = 0, possible = [], listsInfo = { loaded: [], failed: [] };
+  const ops = (await db.all("prospects")).filter(r => r.data.kind === "operator" && r.data.status !== "dnc");
+  if (ops.length) {
+    const lists = await loadLists(fetchLists, log); listsInfo = { loaded: lists.loaded, failed: lists.failed };
+    if (lists.names.size) for (const r of ops) {
+      const o = r.data.ops || {}, hits = screen([r.data.org, ...(o.owners || [])], lists);
+      const auto = { result: hits.length ? "possible match" : "no match", at: nowIso, lists: lists.loaded.map(x => x.replace(/ \(\d+\)$/, "")), failed: lists.failed, hits };
+      const upd = { ...r.data, ops: { ...o, screen: { ...(o.screen || {}), auto } } };
+      if (hits.length && r.data.status !== "review") { upd.status = "review"; upd.ops.flags = [...new Set([...(o.flags || []), "Possible sanctions match: check the names against the list before any contact."])]; possible.push(r.data.org); }
+      await db.set("prospects/" + r.id, upd); screened++;
+    }
+  }
+
+  const note = `Added ${added.length} for "${focus}"${added.length ? ": " + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") : ""}. Contact routes added to ${updated} existing. Operators added for "${opFocus}": ${opsAdded.length}. Sanctions pre-screen: ${screened} operators${possible.length ? ", possible match: " + possible.join(", ") : ", no match"}${listsInfo.failed.length ? " (lists not loaded: " + listsInfo.failed.join(", ") + ")" : ""}. ${rejected.length ? rejected.length + " rejected by the rules." : ""}`.trim();
   await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length, lastUpdated: updated, totalProspects: rows.length + added.length,
-    focusIndex: fi + 1, nextFocus: FOCUS[(fi + 1) % FOCUS.length], note, rejected: rejected.slice(0, 20), by: "scheduled" });
+    focusIndex: fi + 1, nextFocus: FOCUS[(fi + 1) % FOCUS.length], opFocusIndex: ofi + 1, nextOpFocus: OP_FOCUS[(ofi + 1) % OP_FOCUS.length], lastOperators: opsAdded.length, sanctionsLists: listsInfo, note, rejected: rejected.slice(0, 20), by: "scheduled" });
   log(note); rejected.forEach(x => log("  rejected:", x));
-  return { added, updated, rejected };
+  return { added, updated, rejected, operators: opsAdded, screened, possible, note };
 }
 if (import.meta.url === `file://${process.argv[1]}`) { const { main } = await import("./lib/main.mjs"); await main("Daily research", ["SUPABASE_URL","SUPABASE_SECRET_KEY","ANTHROPIC_API_KEY"], () => run()); }

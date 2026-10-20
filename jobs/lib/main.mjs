@@ -10,7 +10,8 @@ export async function main(name, needs, fn) {
     console.log(`::warning title=${name}::SUPABASE_URL looks unusual; expected https://<project>.supabase.co`);
   try {
     const out = await fn();
-    console.log(`::notice title=${name}::Finished.`);
+    const note = out && out.note ? " " + String(out.note).replace(/\n/g, " ").slice(0, 900) : "";
+    console.log(`::notice title=${name}::Finished.${note}`);
     return out;
   } catch (e) {
     const cause = e && e.cause ? " (cause: " + (e.cause.code || "") + " " + (e.cause.message || "") + ")" : "";

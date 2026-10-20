@@ -199,7 +199,7 @@
     });
 
     /* 4. assign free prospects */
-    const free = Object.entries(P).filter(([, p]) => !p.assignedTo && !CLOSED.has(p.status) && p.status !== "review" && p.status !== "notnow")
+    const free = Object.entries(P).filter(([, p]) => p.kind !== "operator" && !p.assignedTo && !CLOSED.has(p.status) && p.status !== "review" && p.status !== "notnow")
       .sort((a, b) => (b[1].priority || 0) - (a[1].priority || 0) || ((b[1].avenues || []).length - (a[1].avenues || []).length) || String(a[1].added || "").localeCompare(String(b[1].added || "")));
     for (const [pid, p] of free) { const nb = pick(p, new Set()); if (!nb) break; assign(pid, p, nb.id, `New prospect for you · ${nb.why}`, null, false); report.assigned++; }
 

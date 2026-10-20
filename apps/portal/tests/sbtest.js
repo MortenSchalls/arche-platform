@@ -4,7 +4,7 @@ const OWN='00000000-0000-0000-0000-00000000000a', BRK='00000000-0000-0000-0000-0
 const T={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:BRK,role:'broker',active:true,contract_name:'Example Broker',book:false,data:{roster:true}}],
  config:[{key:'terms',value:{margin:0.07,unit:45000,threshold:8,rate1:0.27,rate2:0.35}}],
  trips:[{owner_id:BRK,id:'t1',data:{stage:'submitted',submittedAt:'2026-10-18T10:00:00Z',client:{name:'Example client',company:'Example Co',email:'c@example.com'},trip:{legs:[{from:'WSSS',to:'VTBS',date:'2026-12-01',time:'10:00',pax:'4'}],category:'Midsize jet'},quote:{operator:'Example Ops',aircraft:'Example jet',opPrice:20000,direct:0},checks:{}}}],
- trip_status:[], prospects:[{id:'p900',data:{org:'Example Aviation FO',kind:'client',status:'dnc',dncAt:'2026-10-20T06:00:00Z',segment:'Family office',region:'Asia-Pacific',country:'Hong Kong',why:'x',approach:'y',source:'https://example.org'}}],
+ trip_status:[], prospects:[{id:'p900',data:{org:'Example Aviation FO',kind:'client',status:'dnc',dncAt:'2026-10-20T06:00:00Z',segment:'Family office',region:'Asia-Pacific',country:'Hong Kong',why:'x',approach:'y',source:'https://example.org'}},{id:'p901',data:{org:'Example Air Operator',kind:'operator',segment:'Operator',status:'new',region:'Asia-Pacific',country:'Singapore',why:'x',approach:'y',source:'https://example.org/op',ops:{aoc:{authority:'CAAS',source:''},bases:['WSSL'],fleet:[{type:'Example Jet',count:2}],audits:[{name:'ARGUS',level:'Platinum',year:'2025',url:'https://example.org/argus'}],safety:[],tier:'A',flags:[],screen:{country:'clear',entity:''}}}}],
  website_enquiries:[{id:'e1',at:'2026-10-20T01:00:00Z',consent:true,handled:false,data:{type:'quote',legs:[{from:'Singapore',to:'Bangkok',date:'2026-11-02',time:'09:00'}],pax:3,name:'Example Visitor',reach:'+65 0000 0001',reply:'WhatsApp',lang:'en'}}]};
 const page=(uid)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
  .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`)
@@ -37,4 +37,13 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await o.click('[data-act="pUndoDnc"]');await o.waitForTimeout(400);
  ok('owner undoes Do not contact', await o.evaluate(()=>window.__T.prospects[0].data.status==='new'));
  ok('broker has no type control', !(await k.$('#pKind')));
+ await o.evaluate(()=>{S.pSel=null;render();});await o.waitForTimeout(200);
+ ok('client section hides operators', !(await o.textContent('#main')).includes('Example Air Operator'));
+ await o.click('[data-act="pSec"][data-sec="ops"]');await o.waitForTimeout(300);
+ ok('operators section lists the operator', /Operators \(1\)/.test(await o.textContent('#main')) && (await o.textContent('#main')).includes('Example Air Operator'));
+ await o.evaluate(()=>{S.pSel='p901';render();});await o.waitForTimeout(300);
+ const od=await o.textContent('#main');
+ ok('operator detail shows tier, certificate and audit', /Tier A/.test(od) && od.includes('CAAS') && od.includes('ARGUS') && !(await o.$('#pAssign')));
+ await o.click('[data-act="opScreen"][data-res="clear"]');await o.waitForTimeout(400);
+ ok('owner records the sanctions screen', await o.evaluate(()=>window.__T.prospects[1].data.ops.screen.entity==='clear'));
  console.log('ERRORS', JSON.stringify(errs.slice(0,6)));await b.close();})();
