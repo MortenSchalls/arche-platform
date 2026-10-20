@@ -13,3 +13,6 @@ html { overflow-x: clip; }
   /* hero drawing on phones: nearly full width */
   section#top > div[aria-hidden="true"] { width: calc(100vw - 24px) !important; top: 190px !important; }
 }
+@media (max-width: 760px) {
+  section#top > .arche-rose { top: 172px !important; }
+}

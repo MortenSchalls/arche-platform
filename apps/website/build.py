@@ -81,6 +81,14 @@ window.archeSend = function (data) {
     old_top = 'position:absolute;left:50%;top:190px;transform:translateX(-50%);width:calc('
     assert s.count(old_top) == 1
     s = s.replace(old_top, 'position:absolute;left:50%;top:150px;transform:translateX(-50%);width:calc(')
+    # compass rose watermark: top just below the logo, full page width, fades out towards the bottom of the hero
+    subprocess.run([sys.executable, os.path.join(HERE, "compass_rose.py")], check=True, cwd=HERE)
+    jet_div = '<div aria-hidden="true" style="position:absolute;left:50%;top:150px;'
+    assert s.count(jet_div) == 1
+    rose = ('<div aria-hidden="true" class="arche-rose" style="position:absolute;left:0;right:0;top:200px;bottom:0;overflow:hidden;pointer-events:none;'
+            'opacity:0.14;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 45%,transparent 92%);mask-image:linear-gradient(180deg,#000 0%,#000 45%,transparent 92%)">'
+            '<img src="assets/compass-rose.svg" alt="" style="display:block;width:100%;height:auto"></div>')
+    s = s.replace(jet_div, rose + jet_div)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
     print("built", os.path.join(OUT, "index.html"), len(s))
 
