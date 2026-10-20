@@ -652,6 +652,7 @@ function renderNow(){
   if (foc && $(foc)) { try { $(foc).focus({preventScroll:true}); } catch(e){} }
   const log = $("chatLog"); if (log) log.scrollTop = log.scrollHeight;
   if (S.view === "conf" || S.view === "training") fitConfSheets();
+  if (S.scrollDetail) { S.scrollDetail = false; if (innerWidth < 1000) { const d = document.querySelector("#main .pdetail, #main #detail"); if (d) requestAnimationFrame(() => d.scrollIntoView({behavior: "smooth", block: "start"})); } }   // phones: the details sit below the list
   const ids = allTrips().map(t => t.bid).concat(Object.keys(S.roster), Object.keys(S.joins));
   nameOf(ids);
 }
@@ -2529,6 +2530,11 @@ async function promoteFaq(manual){
   finally { S.faqBusy = false; HELP.asksAll = null; render(); }
 }
 function autoFaq(){ if (!S.isOwner || S.preview) return; const last = S.faqRun && Date.parse(S.faqRun.lastRun || 0); if (!last || Date.now() - last > 864e5) promoteFaq(false); }
+
+/* phones and tablets: after choosing an item or a "new" form, bring its details into view */
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-psel],[data-open],[data-invsel],[data-rqsel],[data-act=pNew],[data-inv=new],[data-inv=imp],[data-rq=new]") && !e.target.closest("input,select,label")) S.scrollDetail = true;
+}, true);
 
 /* ---------- events ---------- */
 document.addEventListener("click", async e => {
