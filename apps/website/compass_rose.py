@@ -30,6 +30,7 @@ def star_point(deg, length, half_width):
     return f'<path d="M{l[0]:.2f},{l[1]:.2f} L{tip[0]:.2f},{tip[1]:.2f} L{r[0]:.2f},{r[1]:.2f}" stroke-width="0.6"/>' + line(0, length, deg, 0.35)
 for i in range(16):
     d = i * 22.5
+    if i == 0: continue                  # no north point: it would run through the aircraft (Morten, 20 Oct 2026)
     if i % 4 == 0: parts.append(star_point(d, 440, 26))
     elif i % 2 == 0: parts.append(star_point(d, 330, 18))
     else: parts.append(star_point(d, 220, 11))
