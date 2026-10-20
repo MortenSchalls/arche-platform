@@ -27,7 +27,7 @@ function vInvestors(){
   const sel = all.find(p => p.id === S.invSel);
   const sOpt = (id, label, vals, cur) => `<label class="f" for="${id}">${label}<select id="${id}" data-invf="${id.slice(3)}"><option value="">All</option>${vals.map(v => `<option value="${esc(v)}" ${cur === v ? "selected" : ""}>${esc(v)}</option>`).join("")}</select></label>`;
   return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${all.length} ${all.length === 1 ? "investor or strategic partner" : "investors and strategic partners"}. <b>Only you can see this list:</b> the database shows it to no one else, and it is never assigned, rotated or written to the shared log.</p></div>
-    <div class="row"><button class="btn" type="button" data-inv="new">Add investor or partner</button></div></div>
+    <div class="row"><button class="btn" type="button" data-inv="new">Add investor or partner</button><button class="btn" type="button" data-inv="imp">Import list</button></div></div>
   <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
   <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${st ? `last run ${fmtT(st.lastRun)} · ${st.lastAdded || 0} added · next focus: ${esc(st.nextFocus || "rotating")}<br>${esc(st.note || "")}` : "runs every morning with the other research and covers three areas a day and adds up to 45 investors or partners, each with its public source, evidence and a sanctions pre-screen."}</div>
   <div class="kpis">${["High", "Medium", "Low"].map(k => `<button type="button" class="kpi kbtn" data-inv="pot" data-pot="${k}" aria-pressed="${F.potential === k}"><div class="l">${k} potential</div><div class="v">${counts[k]}</div></button>`).join("")}</div>
@@ -45,7 +45,7 @@ function vInvestors(){
   <div class="grid2"><div class="panel"><div class="tbl"><table class="ptable"><thead><tr><th>Organisation</th><th>Country</th><th>Status</th></tr></thead><tbody>
     ${list.map(p => `<tr data-invsel="${esc(p.id)}" tabindex="0" aria-selected="${S.invSel === p.id}" class="${S.invSel === p.id ? "sel" : ""}"><td><b>${esc(p.org)}</b>${p.potential ? ` <span class="chip ${p.potential === "High" ? "c-flown" : p.potential === "Medium" ? "c-quoted" : "c-returned"}">${esc(p.potential)} · ${p.score}</span>` : ""}<br><span class="small muted">${esc(p.track || "")}${p.for ? " · " + esc(p.for) : ""}</span></td><td>${esc(p.country || "")}</td><td><span class="chip ${p.status === "review" ? "c-review" : p.status === "talks" ? "c-flown" : p.status === "dnc" ? "c-cancelled" : "c-quoted"}">${INV_STATUS[p.status || "new"] || "New"}</span></td></tr>`).join("") || `<tr><td colspan="3" class="muted">No investors or partners match these filters.</td></tr>`}
   </tbody></table></div></div>
-  <div class="pdetail">${S.invNew ? invForm() : sel ? invDetail(sel) : `<div class="panel empty"><p>Select an investor or partner.</p></div>`}</div></div>`;
+  <div class="pdetail">${S.invImp ? invImport() : S.invNew ? invForm() : sel ? invDetail(sel) : `<div class="panel empty"><p>Select an investor or partner.</p></div>`}</div></div>`;
 }
 function invDetail(p){
   const sc = (p.screen || {}).auto;
@@ -79,6 +79,13 @@ function invProfile(p){
       <li><span class="avt">Invests in</span> ${esc((pr.geo || []).join(", ") || "not found")}</li>
     </ul><p class="small muted">The score ranks fit only. Whether they want to be involved is for your conversation.</p></div>`;
 }
+function invImport(){
+  return `<form id="invImpForm" class="panel stack"><h2>Import a list</h2>
+    <p class="small muted">One organisation per line: <b>Name | Track | Country</b> (track and country are optional). Organisations only, no private individuals. Names already in the list are skipped. The morning review then researches each one: profile, evidence, fit score and sanctions check.</p>
+    <label class="f" for="iv_imp">Organisations<textarea id="iv_imp" rows="12" placeholder="Mousse Partners | Family office or UHNW office | France"></textarea></label>
+    <label class="f" for="iv_impb">Label for this batch<input id="iv_impb" value="Imported list ${new Date().toISOString().slice(0, 10)}"></label>
+    <div class="row"><button class="btn primary" type="submit">Import</button><button class="btn" type="button" data-inv="cancel">Cancel</button></div></form>`;
+}
 function invForm(){
   return `<form id="invForm" class="panel stack"><h2>Add investor or partner</h2><p class="small muted">Organisations only. Keep a public source for every entry.</p><div class="fgrid">
     <label class="f" for="iv_org">Organisation<input id="iv_org" required></label>
@@ -97,8 +104,9 @@ document.addEventListener("click", async e => {
   if (sel && invOwner()) { S.invSel = sel.dataset.invsel; S.invNew = false; render(); return; }
   const el = e.target.closest("[data-inv]"); if (!el || !invOwner()) return;
   const a = el.dataset.inv, id = el.dataset.id, p = id && (S.inv || {})[id];
-  if (a === "new") { S.invNew = true; S.invSel = null; render(); return; }
-  if (a === "cancel") { S.invNew = false; render(); return; }
+  if (a === "new") { S.invNew = true; S.invImp = false; S.invSel = null; render(); return; }
+  if (a === "imp") { S.invImp = true; S.invNew = false; S.invSel = null; render(); return; }
+  if (a === "cancel") { S.invNew = false; S.invImp = false; render(); return; }
   if (a === "clear") { S.invF = null; render(); return; }
   if (a === "pot") { const F = S.invF || (S.invF = {q:"", track:"", for:"", status:"", potential:"", interest:"", industry:"", ticket:""}); F.potential = F.potential === el.dataset.pot ? "" : el.dataset.pot; render(); return; }
   if (a === "status" && p) { const v = $("invStatus").value; if (!INV_STATUS[v]) return; await invSet(id, {...p, status: v, log: [...(p.log || []), {t: now(), note: "Status: " + INV_STATUS[v]}]}); toast("Status saved."); return; }
@@ -115,6 +123,23 @@ document.addEventListener("click", async e => {
   }
 });
 document.addEventListener("input", e => { const k = e.target.dataset && e.target.dataset.invf; if (!k || !invOwner()) return; (S.invF || (S.invF = {q:"", track:"", for:"", status:"", potential:"", interest:"", industry:"", ticket:""}))[k] = e.target.value; if (e.target.tagName === "SELECT") render(); else { clearTimeout(S.invT); S.invT = setTimeout(() => { render(); const i = $("if_q"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }, 250); } });
+const invNorm = s => String(s || "").toLowerCase().replace(/\b(ltd|limited|group|pte|llc|inc|co|company|the)\b/g, "").replace(/[^a-z0-9]+/g, "");
+document.addEventListener("submit", async e => {
+  if (e.target.id !== "invImpForm" || !invOwner()) return; e.preventDefault();
+  const label = $("iv_impb").value.trim() || "Imported list", have = new Set(Object.values(S.inv || {}).map(p => invNorm(p.org)));
+  const lines = $("iv_imp").value.split(/\n/).map(l => l.split("|").map(x => x.trim())).filter(x => x[0]);
+  if (!lines.length) { toast("Paste at least one organisation."); return; }
+  let n = parseInt(invNextId().replace(/\D/g, ""), 10), added = 0, skipped = 0;
+  try {
+    for (const [org, track, country] of lines) {
+      if (/^(mr|mrs|ms|dr|sheikh|sir)\b\.?\s/i.test(org) || have.has(invNorm(org))) { skipped++; continue; }
+      const id = "i" + String(n++).padStart(3, "0");
+      await invSet(id, {org: org.slice(0, 160), track: INV_TRACKS.includes(track) ? track : "Strategic partner", for: "Whole platform", country: (country || "").slice(0, 60), status: "new", source: "", batch: label.slice(0, 80), added: now(), addedBy: S.uid, log: [{t: now(), note: "Imported: " + label.slice(0, 80)}]});
+      have.add(invNorm(org)); added++;
+    }
+    S.invImp = false; S.invF = null; toast(`Imported ${added}${skipped ? `, skipped ${skipped} already in the list or not an organisation` : ""}. The morning review researches them.`); render();
+  } catch (err) { toast("Could not import: " + (err.code === "permission_denied" ? "owner only." : "try again.")); }
+});
 document.addEventListener("submit", async e => {
   if (e.target.id !== "invForm" || !invOwner()) return; e.preventDefault();
   const org = $("iv_org").value.trim(); if (!org) { toast("Add the organisation's name."); return; }

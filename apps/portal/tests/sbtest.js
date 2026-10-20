@@ -67,6 +67,12 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  ok('moving writes nothing to the shared audit log', await o.evaluate(n=>(window.__T.audit_log||[]).length===n, auditBefore));
  await k.waitForTimeout(500);
  ok('broker still sees no trace of it', !/Example Capital|Example Aviation FO/.test(await k.evaluate(()=>document.body.innerText)));
+ // import a list into the owner-only investors
+ await o.evaluate(()=>{S.view='prospects';S.pSec='inv';S.invSel=null;render();});await o.waitForTimeout(300);
+ await o.click('[data-inv="imp"]');await o.waitForTimeout(200);
+ await o.fill('#iv_imp','Example Capital Partners | Private equity or private credit | UK\nExample Lenders | Aviation lender or lessor | Singapore\nMr Private Person\nExample Lenders Ltd');
+ await o.click('#invImpForm button[type=submit]');await o.waitForTimeout(600);
+ ok('import adds new organisations only (skips existing, duplicates and people)', await o.evaluate(()=>{const r=window.__T.owner_prospects.filter(x=>x.data.org==='Example Lenders');const c=window.__T.owner_prospects.filter(x=>x.data.org==='Example Capital Partners');return r.length===1 && r[0].data.track==='Aviation lender or lessor' && c.length===1 && !window.__T.owner_prospects.some(x=>/Private Person|Example Lenders Ltd/.test(x.data.org));}));
  // service partners
  await o.evaluate(()=>{S.view='prospects';S.pSec='sales';S.pSel=null;S.pf=null;render();});await o.waitForTimeout(300);
  ok('client section hides service partners', !(await o.textContent('#main')).includes('Example FBO Services'));
