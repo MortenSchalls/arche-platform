@@ -13,6 +13,8 @@ ROOT_X = 760      # left wing root (fuselage side) in the source drawing
 SAFE_X = 432      # stretch only left of this: the tailplane tip sits at x≈440
 TIP_X = 110       # keep the winglet (x < 110) as drawn
 SPAN_M, HEIGHT_M = 31.7, 8.2   # Global 7500, Bombardier factsheet
+SPAN_FACTOR = 0.8   # Morten 20 Oct 2026: wingspan 20% shorter than the true Global 7500 proportion
+FIN_CUT = 32        # Morten 20 Oct 2026: fin about 10% shorter (fin is ~316 px from root to tip)
 
 def widen_left(a):
     h, w, _ = a.shape
@@ -67,15 +69,27 @@ def square_tail_tips(a):
             a[top:bot + 1, xx, 3] = np.maximum(a[top:bot + 1, xx, 3], 235 if xx == x else 120)
     return a
 
+
+def shorten_fin(a, rows=FIN_CUT, start=200):
+    """Remove `rows` rows from the band where only the straight part of the fin is drawn
+    (rows 190-365 hold nothing else), moving the fin tip and tailplane down. The canvas
+    keeps its height: the removed rows are added back, empty, at the top."""
+    band = slice(start, start + rows)
+    assert a[band, :, 3][:, np.r_[0:850, 925:a.shape[1]]].max() <= 20, "band holds more than the fin"
+    kept = np.concatenate([a[:start], a[start + rows:]], axis=0)
+    pad = np.zeros((rows, a.shape[1], 4), dtype=a.dtype)
+    return np.concatenate([pad, kept], axis=0)
+
 im = Image.open(SRC).convert("RGBA"); a = np.array(im)
 a = square_tail_tips(a)
 ys, xs = np.nonzero(a[:, :, 3] > 20)
-span, height = xs.max() - xs.min(), ys.max() - ys.min()
-ADD = int(round((height * SPAN_M / HEIGHT_M - span) / 2))   # pixels to add to each wing
+span, height = xs.max() - xs.min(), ys.max() - ys.min()     # measured before the fin is shortened, so the scale stays true
+ADD = int(round((height * SPAN_M / HEIGHT_M * SPAN_FACTOR - span) / 2))   # pixels to add to each wing
+a = shorten_fin(a)
 mid = a.shape[1] // 2
 left, addl = widen_left(a[:, :mid])
 right, addr = widen_left(a[:, mid:][:, ::-1])
 res = np.concatenate([left, right[:, ::-1]], axis=1)
 Image.fromarray(res).save(OUT, optimize=True)
 ys, xs = np.nonzero(res[:, :, 3] > 20)
-print(OUT, res.shape[1], "x", res.shape[0], "added", addl, addr, "span/height", round((xs.max() - xs.min()) / (ys.max() - ys.min()), 3), "target", round(SPAN_M / HEIGHT_M, 3))
+print(OUT, res.shape[1], "x", res.shape[0], "added", addl, addr, "span/height", round((xs.max() - xs.min()) / (ys.max() - ys.min()), 3), "true Global 7500", round(SPAN_M / HEIGHT_M, 3))

@@ -34,5 +34,5 @@ Work top to bottom. Nothing goes live on archeaviation.com until every P1 line i
 ## Done (20 Oct 2026)
 - Portal on Supabase + Vercel, Morten owner, 133 prospects, settings and FAQ moved.
 - Website on Vercel from Design v7: phone layout, forms to the portal, privacy notice draft, Broker login.
-- Hero drawing: true Global 7500 front-view proportion (span 31.7 m : height 8.2 m, Bombardier factsheet), wingtips about 2 cm from the screen edge.
+- Hero drawing: Global 7500 basis (span 31.7 m : height 8.2 m, Bombardier factsheet), then per Morten: plain tailplane tips, fin 10% shorter, wingspan 20% shorter; wingtips about 2 cm from the screen edge.
 - Portal Day theme: neutral light grey instead of warm off-white.

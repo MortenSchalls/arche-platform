@@ -76,7 +76,7 @@ window.archeSend = function (data) {
     subprocess.run([sys.executable, os.path.join(HERE, "widen_wings.py")], check=True, cwd=HERE)
     old_jet = "width:min(1200px,92vw);aspect-ratio:1774/887;background:url('assets/jet-line-watermark-white.png')"
     assert s.count(old_jet) == 1
-    s = s.replace(old_jet, "width:calc(100vw - 118px);max-width:2400px;aspect-ratio:2804/887;background:url('assets/jet-line-watermark-wide.png')")
+    s = s.replace(old_jet, "width:calc(100vw - 118px);max-width:2400px;aspect-ratio:2252/887;background:url('assets/jet-line-watermark-wide.png')")
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
     print("built", os.path.join(OUT, "index.html"), len(s))
 
