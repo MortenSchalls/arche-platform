@@ -1,4 +1,18 @@
 {
+ "rewrites": [
+  {
+   "source": "/th",
+   "destination": "/th.html"
+  },
+  {
+   "source": "/zh",
+   "destination": "/zh.html"
+  },
+  {
+   "source": "/ja",
+   "destination": "/ja.html"
+  }
+ ],
  "headers": [
   {
    "source": "/(.*)",

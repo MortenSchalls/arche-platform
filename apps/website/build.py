@@ -144,9 +144,12 @@ window.archeSend = function (data) {
     s = s.replace(jet_div, rose + jet_div)
     # search and speed basics (seo.py): title, description, link previews, business description, fonts, images, robots, sitemap
     s = text_fixes.page(s)   # brand spelling and typos in the page text
+    import langs
+    s = langs.patch_runtime(s)   # page starts in its own language; language buttons move between /, /th, /zh, /ja
     import seo
     s = seo.apply(s, OUT, HERE)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
+    langs.build(OUT, seo.SITE_URL)   # th.html, zh.html, ja.html and the ready-made page copy in all four
     print("built", os.path.join(OUT, "index.html"), len(s))
 
 if __name__ == "__main__":

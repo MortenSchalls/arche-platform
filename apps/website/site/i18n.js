@@ -232,4 +232,5 @@ export function apply(l) {
     obs.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['placeholder'] });
   }
   pass();
+  window.__archeI18n = lang;
 }

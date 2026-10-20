@@ -86,6 +86,9 @@ def i18n(t):
     rows = "".join("[" + ",".join(json.dumps(c, ensure_ascii=False) for c in r) + "],\n" for r in NEW_ROWS)
     assert t.count("\n];\nconst RX = [\n") == 1
     t = t.replace("\n];\nconst RX = [\n", "\n" + rows + "];\nconst RX = [\n" + NEW_RX)
+    # tell the page when the language pass has run (langs.py swaps in the live page only then)
+    assert t.count("  pass();\n}") == 1
+    t = t.replace("  pass();\n}", "  pass();\n  window.__archeI18n = lang;\n}")
     return t
 
 # Morten 20 Oct 2026: say nothing about who is behind Archē (the "Satoshi" approach). Kept here, switched off.

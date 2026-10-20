@@ -68,12 +68,16 @@ def apply(s, out_dir, here):
     open(os.path.join(out_dir, "sitemap.xml"), "w").write(f'''<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{SITE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>{SITE_URL}/th</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>{SITE_URL}/zh</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>{SITE_URL}/ja</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>{SITE_URL}/privacy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
   <url><loc>{SITE_URL}/terms.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
 </urlset>
 ''')
     # keep the test address (*.vercel.app) out of search results; only archeaviation.com gets indexed
-    json.dump({"headers": [{"source": "/(.*)", "has": [{"type": "host", "value": ".*\\.vercel\\.app"}],
+    json.dump({"rewrites": [{"source": f"/{l}", "destination": f"/{l}.html"} for l in ("th", "zh", "ja")],
+               "headers": [{"source": "/(.*)", "has": [{"type": "host", "value": ".*\\.vercel\\.app"}],
                             "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]},
                            {"source": "/(img|assets|vendor)/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=2592000"}]}]},
               open(os.path.join(out_dir, "vercel.json"), "w"), indent=1)
