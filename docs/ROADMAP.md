@@ -50,10 +50,12 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Service partners step 3: helicopter transfers (city to airport, resort and island hops) | Check AOC and safety record as for operators. |
 | ☐ | Service partners step 4: yacht charter partners (Phuket, Côte d'Azur, Mediterranean) | Fits jet-plus-yacht trips. |
 | ☐ | AeroBridge spin-out: separate company and data once Supplier quotes is proven on real trips; Archē stays a client | Shared engine, not a merger (project doc aerobridge-arche-supplier-quotes-2026-10-21). |
+| ☐ | Live crew-hotel rates and availability from a licensed source: a crew-accommodation partner (for example get-e, Croowy, Hotels Worldwide) or a hotel-distribution contract; Amadeus closed its free self-service APIs in July 2026 | Decide once Supplier quotes is in use. |
 | ☐ | Gulfstream source for the G650 cabin figures | Now from GlobalSecurity.org. |
 
 ## Done
 **21 Oct 2026**
+- ☑ Crew hotels as their own service: researched near the 30 airports (hotels suited to crews, and crew-accommodation companies) from hotels' own sites, never booking or review sites; own progress record; in Supplier quotes with rooms and nights. Removed "Hotel for crew" from trip support.
 - ☑ Supplier quotes (owner and operations): request quotes from checked service partners at an airport, compare them with an explained score, award with four-eyes; nothing sent from the portal; all in USD. First piece of the AeroBridge idea.
 
 **20 Oct 2026**

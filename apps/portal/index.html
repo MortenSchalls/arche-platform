@@ -1239,7 +1239,7 @@ function vProspects(){
   const opt = (id, label, vals, cur) => `<label class="f" for="${id}">${label}<select id="${id}" data-pf="${id.slice(3)}"><option value="">All</option>${vals.map(v => `<option ${cur === v ? "selected" : ""}>${esc(v)}</option>`).join("")}</select></label>`;
   const intel = S.intel || {};
   const byRegion = REGIONS.map(r => [r, all.filter(p => p.region === r).length]);
-  return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${sec === "svc" ? `${all.length} business-jet ${all.length === 1 ? "supplier" : "suppliers"} at key airports: FBOs and ground handlers, trip support and in-flight catering, each with its public source. Suppliers, never assigned to brokers. Limousines, helicopters and yachts follow as next steps.` : sec === "ops" ? `${all.length} charter operators we could book for clients, each with its certificate, audits and safety record from public sources. Never assigned to brokers. Screen each against the sanctions lists before the first booking.` : `${all.length} organisations worldwide, each with the public source it came from. Business contacts only. Assign each to one broker; brokers see only what is assigned to them. Record every opt-out as Do not contact.`}</p></div>
+  return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${sec === "svc" ? `${all.length} business-jet ${all.length === 1 ? "supplier" : "suppliers"} at key airports: FBOs and ground handlers, trip support, in-flight catering and crew hotels, each with its public source. Suppliers, never assigned to brokers. Limousines, helicopters and yachts follow as next steps.` : sec === "ops" ? `${all.length} charter operators we could book for clients, each with its certificate, audits and safety record from public sources. Never assigned to brokers. Screen each against the sanctions lists before the first booking.` : `${all.length} organisations worldwide, each with the public source it came from. Business contacts only. Assign each to one broker; brokers see only what is assigned to them. Record every opt-out as Do not contact.`}</p></div>
     <div class="row"><button class="btn" type="button" data-act="pNew">Add prospect</button></div></div>
   <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn ${sec === "sales" ? "primary" : ""}" aria-selected="${sec === "sales"}" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn ${sec === "ops" ? "primary" : ""}" aria-selected="${sec === "ops"}" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn ${sec === "svc" ? "primary" : ""}" aria-selected="${sec === "svc"}" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
   <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${intel.lastRun ? `last run ${fmtT(intel.lastRun)} · ${intel.lastAdded || 0} added · ${intel.lastUpdated || 0} updated · next focus: ${esc(intel.nextFocus || "rotating")}` : "the daily review has not run yet. Every morning it adds new organisations, charter operators (with certificate, safety and sanctions checks), business-jet suppliers at key airports and contact routes."}${intel.note ? `<br>${esc(intel.note)}` : ""}</div>
@@ -3819,8 +3819,9 @@ const SQ_TERMS = ["IATA SGHA 2018, Annex B (one-off)", "IATA SGHA 2023, Annex B 
 const SQ_STATUS = {open: "Open", awarded: "Awarded", cancelled: "Cancelled"};
 const SQ_SERVICES = {
   "FBO and ground handling": ["Ramp handling", "Passenger lounge", "Customs and immigration", "Crew transport", "Fuel arrangement", "Hangar", "Lavatory and water service", "Parking"],
-  "Trip support": ["Landing permits", "Overflight permits", "Slots", "Flight planning", "Weather and NOTAM briefing", "Hotel for crew"],
-  "In-flight catering": ["Passenger catering", "Crew meals", "Special diets", "Bar and drinks", "Flowers and amenities"]};
+  "Trip support": ["Landing permits", "Overflight permits", "Slots", "Flight planning", "Weather and NOTAM briefing"],
+  "In-flight catering": ["Passenger catering", "Crew meals", "Special diets", "Bar and drinks", "Flowers and amenities"],
+  "Crew hotels": ["Single rooms for crew", "Crew rate", "Airport transfer", "Day rooms", "Late check-out", "Quiet or blackout rooms", "24-hour reception", "Breakfast"]};
 const sqStaff = () => isStaff() && acting() !== "broker";
 const sqList = () => Object.entries(S.rfqs || {}).map(([id, r]) => ({id, ...r})).sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
 async function sqSet(id, data){ await S.db.doc("rfqs/" + id).set(data); }
@@ -3869,7 +3870,7 @@ Archē Executive would like a quote for ${r.category.toLowerCase()} at ${r.airpo
 Aircraft: ${sc.aircraft || "to follow"}
 Arrival (UTC): ${sc.arr || "to follow"}
 Departure (UTC): ${sc.dep || "to follow"}
-Passengers: ${sc.pax || "to follow"} · Crew: ${sc.crew || "to follow"}
+${r.category === "Crew hotels" ? `Crew: ${sc.crew || "to follow"} · Rooms: ${sc.rooms || "to follow"} · Nights: ${sc.nights || "to follow"}` : `Passengers: ${sc.pax || "to follow"} · Crew: ${sc.crew || "to follow"}`}
 Services: ${(sc.services || []).join(", ") || "as discussed"}
 ${sc.notes ? "Notes: " + sc.notes + "\n" : ""}Terms: ${r.terms}
 Please quote in USD, itemised, with how long the quote is valid, by ${r.neededBy ? fmtD(r.neededBy) : "return"}. Tell us if anything in the terms does not suit you.
@@ -3911,6 +3912,7 @@ function sqForm(){
       <label class="f" for="rq_dep">Departure (UTC)<input id="rq_dep" placeholder="09:00 next day"></label>
       <label class="f" for="rq_pax">Passengers<input id="rq_pax" inputmode="numeric"></label>
       <label class="f" for="rq_crew">Crew<input id="rq_crew" inputmode="numeric"></label>
+      ${D.category === "Crew hotels" ? `<label class="f" for="rq_rooms">Rooms<input id="rq_rooms" inputmode="numeric"></label><label class="f" for="rq_nights">Nights<input id="rq_nights" inputmode="numeric"></label>` : ""}
     </div>
     <fieldset class="small"><legend>Services needed</legend>${SQ_SERVICES[D.category].map((s, i) => `<label class="check" for="rq_s${i}"><input type="checkbox" id="rq_s${i}" data-rqsvc="${esc(s)}"><span>${esc(s)}</span></label>`).join("")}</fieldset>
     <label class="f" for="rq_notes">Notes for the supplier (no client names)<textarea id="rq_notes" rows="2"></textarea></label>
@@ -3923,7 +3925,7 @@ function sqDetail(r){
   const sc = r.scope || {};
   return `<div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(r.ref)}</h2><span class="chip ${st === "awarded" ? "c-flown" : st === "cancelled" ? "c-returned" : "c-quoted"}">${SQ_STATUS[st]}</span></div>
     <p class="small muted">${esc(r.category)} at ${esc(r.airport)}${sc.date ? " · " + fmtD(sc.date) : ""}${r.trip ? " · trip " + esc(r.trip.ref) : ""} · needed by ${fmtD(r.neededBy)} · terms: ${esc(r.terms)}</p>
-    <p class="small">${esc([sc.aircraft, sc.arr && "arrives " + sc.arr + " UTC", sc.dep && "departs " + sc.dep + " UTC", sc.pax && sc.pax + " passengers", sc.crew && sc.crew + " crew"].filter(Boolean).join(" · "))}${(sc.services || []).length ? "<br>Services: " + esc(sc.services.join(", ")) : ""}</p>
+    <p class="small">${esc([sc.aircraft, sc.arr && "arrives " + sc.arr + " UTC", sc.dep && "departs " + sc.dep + " UTC", sc.pax && sc.pax + " passengers", sc.crew && sc.crew + " crew", sc.rooms && sc.rooms + " rooms", sc.nights && sc.nights + " nights"].filter(Boolean).join(" · "))}${(sc.services || []).length ? "<br>Services: " + esc(sc.services.join(", ")) : ""}</p>
     ${r.award ? `<div class="note info small"><b>Awarded to ${esc(r.award.org)} for ${usd(r.award.usd)}</b> on ${fmtD(r.award.at)}.${r.award.reason ? " Reason: " + esc(r.award.reason) : ""} Add it to the trip's direct costs in Operations${r.trip ? " (trip " + esc(r.trip.ref) + ")" : ""}; a price change after approval goes back to the owner.</div>` : ""}
     <div><h3>Suppliers asked</h3><ul class="avs">${(r.suppliers || []).map((s, i) => {
       const p = (S.prospects || {})[s.pid], gate = p ? sqEligible(p, r.category) : {eligible: false, reasons: ["no longer on file"], flags: []};
@@ -3994,7 +3996,7 @@ document.addEventListener("submit", async e => {
       const rec = {ref, airport: D.airport, category: D.category, status: "open", neededBy: need, terms: $("rq_terms").value,
         trip: t ? {bid: t.bid, did: t.did, ref: (t.st && t.st.ref) || t.did} : null,
         scope: {date: $("rq_date").value, aircraft: $("rq_ac").value.trim().slice(0, 60), arr: $("rq_arr").value.trim().slice(0, 40), dep: $("rq_dep").value.trim().slice(0, 40),
-          pax: $("rq_pax").value.trim().slice(0, 4), crew: $("rq_crew").value.trim().slice(0, 4), services: [...document.querySelectorAll("[data-rqsvc]:checked")].map(x => x.dataset.rqsvc), notes: $("rq_notes").value.trim().slice(0, 600)},
+          pax: $("rq_pax").value.trim().slice(0, 4), crew: $("rq_crew").value.trim().slice(0, 4), rooms: $("rq_rooms") ? $("rq_rooms").value.trim().slice(0, 4) : "", nights: $("rq_nights") ? $("rq_nights").value.trim().slice(0, 4) : "", services: [...document.querySelectorAll("[data-rqsvc]:checked")].map(x => x.dataset.rqsvc), notes: $("rq_notes").value.trim().slice(0, 600)},
         suppliers: cands.map(c => ({pid: c.p.id, org: c.p.org, eligible: true, flags: c.flags})), quotes: [], createdBy: S.uid, createdAt: now(), log: [{t: now(), by: S.uid, note: `Request made for ${cands.length} supplier${cands.length > 1 ? "s" : ""}`}]};
       await sqSet(rid, rec); audit("Supplier quote request made", ref + " " + D.airport + " " + D.category);
       S.sqNew = false; S.sqSel = rid; S.sqDraft = null; S.sqF = {status: "open"}; toast("Request " + ref + " made. Prepare and send the messages."); render(); return;

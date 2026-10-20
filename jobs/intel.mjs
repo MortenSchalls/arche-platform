@@ -225,6 +225,8 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
   if (process.env.SERVICE_RESEARCH !== "off") {
     try { svc = await services.run(db, call, log, optSet); rejected.push(...svc.rejected); }
     catch (e) { if (e.fatal) throw e; log("  service partner step failed: " + String(e.message || e).slice(0, 200)); }
+    try { const h = await services.run(db, call, log, optSet, undefined, false, "hotels"); svc.added.push(...h.added); rejected.push(...h.rejected); }   // crew hotels: own progress record
+    catch (e) { if (e.fatal) throw e; log("  service partner step failed: " + String(e.message || e).slice(0, 200)); }
   }
 
   // 4. sanctions pre-screen of every supplier (operators and service partners, new and existing), each run
