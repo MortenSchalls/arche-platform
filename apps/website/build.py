@@ -30,10 +30,24 @@ def build():
     open(os.path.join(OUT, "i18n.js"), "w", encoding="utf-8").write(i18n)
     for d in ("assets", "logo-export"):
         shutil.copytree(os.path.join(SRC, d), os.path.join(OUT, d), dirs_exist_ok=True)
-    shutil.copy(os.path.join(SRC, ".image-slots.state.json"), os.path.join(OUT, "image-slots.state.json"))
+    # pictures: the Design file's images, with any file in apps/website/images/<slot-id>.(webp|jpg|png)
+    # taking its place. Register of sources and licences: docs/IMAGE-REGISTER.md
+    slots = json.load(open(os.path.join(SRC, ".image-slots.state.json"), encoding="utf-8"))
+    img_dir = os.path.join(HERE, "images"); os.makedirs(os.path.join(OUT, "img"), exist_ok=True)
+    for f in sorted(os.listdir(img_dir)) if os.path.isdir(img_dir) else []:
+        slot, ext = os.path.splitext(f)
+        if ext.lower() not in (".webp", ".jpg", ".jpeg", ".png"): continue
+        shutil.copy(os.path.join(img_dir, f), os.path.join(OUT, "img", f))
+        slots[slot] = {"u": "img/" + f, "s": 1, "x": 0, "y": 0}
+        print("  picture replaced:", slot)
+    json.dump(slots, open(os.path.join(OUT, "image-slots.state.json"), "w", encoding="utf-8"))
     slot = open(os.path.join(SRC, "image-slot.js"), encoding="utf-8").read()
     assert "const STATE_FILE = '.image-slots.state.json';" in slot
     slot = slot.replace("const STATE_FILE = '.image-slots.state.json';", "const STATE_FILE = 'image-slots.state.json';")
+    # also accept pictures served from our own img/ folder (replacement pictures), not only embedded data
+    chk = "if (stored && stored.u && !/^data:image\\//i.test(stored.u)) stored = null;"
+    assert slot.count(chk) == 1
+    slot = slot.replace(chk, "if (stored && stored.u && !/^(data:image\\/|img\\/[\\w.-]+$)/i.test(stored.u)) stored = null;")
     open(os.path.join(OUT, "image-slot.js"), "w", encoding="utf-8").write(slot)
 
     s = open(os.path.join(SRC, "Arche Executive v7.dc.html"), encoding="utf-8").read()
