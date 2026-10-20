@@ -527,6 +527,7 @@ async function boot(){
     if (S.isOwner) { watchDoc("intel/faq", snap => { S.faqRun = snap.exists ? snap.data() : null; }); setTimeout(() => autoFaq(), 12000); }
     watchDoc("intel/assign", snap => { S.assignRun = snap.exists ? snap.data() : null; render(); });
     watchCol(`leads/${S.uid}/items`, snap => { S.leads = {}; snap.docs.forEach(d => S.leads[d.id] = d.data()); render(); });
+    watchCol("optouts", snap => { S.optouts = {}; snap.docs.forEach(d => S.optouts[d.id] = true); });
     setTimeout(() => autoEngine(), 7000);
     watchDoc("intel/status", snap => { S.intel = snap.exists ? snap.data() : null; render(); });
     watchCol("prospects", snap => { S.prospects = {}; snap.docs.forEach(d => S.prospects[d.id] = d.data()); render(); });
@@ -535,6 +536,7 @@ async function boot(){
     if (!S.isOwner) S.db.doc("access/" + S.uid).set({lastSeen: now(), role:"ops"}).catch(() => {});
   } else {
     watchCol(`leads/${S.uid}/items`, snap => { S.leads = {}; snap.docs.forEach(d => S.leads[d.id] = d.data()); render(); });
+    watchCol("optouts", snap => { S.optouts = {}; snap.docs.forEach(d => S.optouts[d.id] = true); });
     S.db.doc("access/" + S.uid).set({lastSeen: now(), role:"broker"}).catch(() => {});
     watchDoc("roster/" + S.uid, snap => { S.myRoster = snap.exists ? snap.data() : null; decideRole(); if (S.myRoster && S.myRoster.active !== false) watchBroker(S.uid); render(); });
     watchDoc("join/" + S.uid, snap => { S.myJoin = snap.exists ? snap.data() : null; render(); });
@@ -1240,6 +1242,7 @@ function vProspects(){
     ${sel.kind === "operator" ? opDetail(sel) : ""}
     <div><h3>${sel.kind === "operator" ? "How to set them up as a supplier" : "How to approach"}</h3><p>${esc(sel.approach || "")}</p></div>
     <div><h3>Contact routes</h3>${avenuesHtml(sel)}</div>
+    ${contactsHtml(sel, "prospect", sel.id)}
     <div><h3>Source</h3><p class="small"><a href="${esc(sel.source)}" target="_blank" rel="noopener">${esc(sel.source)}</a>${sel.aiReviewed ? ` · AI reviewed ${fmtD(sel.aiReviewed)}` : ""}</p></div>
     ${sel.kind === "operator" ? `<div class="row"><button class="btn danger" type="button" data-act="pDnc">Do not use</button></div>` : `<div class="row"><label class="f" for="pAssign" style="flex:1">Assign to<select id="pAssign"><option value="">Choose a broker</option>${brokers.map(([id, r]) => `<option value="${id}" ${sel.assignedTo === id ? "selected" : ""}>${esc(r.contractName || nm(id))}${r.example ? " (example)" : ""}</option>`).join("")}</select></label><button class="btn primary" type="button" data-act="pAssign">Assign</button><button class="btn danger" type="button" data-act="pDnc">Do not contact</button></div>`}
     ${S.isOwner && !S.preview ? `<div class="row"><label class="f" for="pKind" style="flex:1">Type<select id="pKind"><option value="client" ${!sel.kind || sel.kind === "client" ? "selected" : ""}>Potential client</option><option value="partner" ${sel.kind === "partner" ? "selected" : ""}>Referral partner</option><option value="operator" ${sel.kind === "operator" ? "selected" : ""}>Charter operator</option></select></label><button class="btn" type="button" data-act="pKind">Save type</button><button class="btn" type="button" data-inv="moveFrom" data-id="${esc(sel.id)}">Move to investors and partners</button>${sel.status === "dnc" ? `<button class="btn" type="button" data-act="pUndoDnc">Undo Do not contact</button>` : ""}</div>` : ""}
@@ -1327,7 +1330,7 @@ function vLeads(){
     <p class="small muted">${esc(sel.segment)} · ${esc(pLoc(sel))}${sel.reason ? " · " + esc(sel.reason) : ""}</p>
     ${sel.status === "duplicate" ? `<div class="note info small">Archē Executive already has this organisation, so it stays with the broker who added it first. Thank you; keep adding new ones.</div>` : ""}
     <div><h3>Why them</h3><p>${esc(sel.why || "")}</p></div>${sel.approach ? `<div><h3>How to approach</h3><p>${esc(sel.approach)}</p></div>` : ""}
-    <div><h3>Contact routes</h3>${avenuesHtml(sel)}${(sel.updates || []).filter(u => !u.merged).length ? `<p class="small muted">${(sel.updates || []).filter(u => !u.merged).length} update waiting for the next round.</p>` : ""}
+    ${contactsHtml(sel, "lead", sel.id)}<div><h3>Contact routes</h3>${avenuesHtml(sel)}${(sel.updates || []).filter(u => !u.merged).length ? `<p class="small muted">${(sel.updates || []).filter(u => !u.merged).length} update waiting for the next round.</p>` : ""}
     ${sel.status === "dnc" || sel.status === "duplicate" ? "" : `<details class="small"><summary>Add or correct a contact route (1 point each)</summary><form id="updForm" class="fgrid" style="margin-top:8px"><label class="f" for="up_t">Type<select id="up_t">${Object.entries(AV_TYPES).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}</select></label><label class="f" for="up_u">Link or business number<input id="up_u" required></label><label class="f wide" for="up_n">What changed (optional)<input id="up_n" placeholder="e.g. new office line, old page removed"></label><div class="row wide"><button class="btn small primary" type="submit">Add update</button></div></form></details>`}</div>
     ${sel.status === "dnc" ? `<div class="note bad small">Do not contact. This organisation asked not to be contacted.</div>` : sel.status === "duplicate" ? "" : `
     <form id="logForm" class="fgrid"><label class="f" for="lg_ch">Channel<select id="lg_ch"><option>Email</option><option>Phone</option><option>Meeting</option><option>Event</option><option>Introduction</option><option>Company LinkedIn</option><option>Other</option></select></label>
@@ -1340,8 +1343,8 @@ function vLeads(){
 async function suggestApproach(l, outEl, btn){
   const sample = await claude.use("sample"); if (!sample) { outEl.textContent = "Not available in this view."; return; }
   btn.disabled = true; outEl.hidden = false; outEl.textContent = "Thinking…";
-  const lead = {organisation:l.org, segment:l.segment, country:l.country, why:l.why, approach:l.approach, contactSoFar:(l.log || []).map(x => `${x.channel}: ${LEAD_STATUS[x.outcome] || x.outcome}${x.note ? " (" + x.note + ")" : ""}`)};
-  const prompt = `${RULES_TEXT}\n\nSuggest how this broker should approach the organisation below: the best first contact (who to ask for by role, never a named private person), a short first message of under 120 words with an easy opt-out line, two questions to qualify their charter needs, and the follow-up timing. Do not claim we own aircraft. Use only business channels.\n\nLead (JSON):\n${JSON.stringify(lead, null, 1)}`;
+  const lead = {organisation:l.org, segment:l.segment, country:l.country, why:l.why, approach:l.approach, namedBusinessContacts:(l.contacts || []).map(c => ({role: c.role, foundOn: c.sourceType})), contactSoFar:(l.log || []).map(x => `${x.channel}: ${LEAD_STATUS[x.outcome] || x.outcome}${x.note ? " (" + x.note + ")" : ""}`)};
+  const prompt = `${RULES_TEXT}\n\nSuggest how this broker should approach the organisation below: the best first contact (by role; if named business contacts are on file, address one of them as [contact name], never invent a name), a short first message of under 120 words that says where we found their details ("We found your details on [source].") and ends with an easy opt-out line, two questions to qualify their charter needs, and the follow-up timing. Do not claim we own aircraft. Use only business channels.\n\nLead (JSON):\n${JSON.stringify(lead, null, 1)}`;
   try { await sample(prompt, {onText: ({text}) => { outEl.textContent = text; }}); }
   catch(e){ outEl.textContent = (e.text || "") + (e.code === "cancelled" ? "" : "\n\n" + aiErr(e.code)); }
   finally { btn.disabled = false; }
@@ -2850,7 +2853,7 @@ async function assignProspect(id, bid, reason){
   const p = S.prospects[id]; if (!p || !bid) return false;
   if (p.status === "dnc" || p.kind === "operator") return false;   // operators are suppliers, never broker leads
   const old = p.assignedTo && p.assignedTo !== bid ? (S.staffLeads[p.assignedTo] || {})[id] : null, prevLog = (old && old.log) || [];
-  const lead = {org:p.org, segment:p.segment, kind:p.kind || "client", region:p.region || "", province:p.province || "", avenues:p.avenues || [], country:p.country || "", city:p.city || "", website:p.website || "", source:p.source || "", why:p.why || "", approach:p.approach || "", sourcedBy:p.sourcedBy || "", status:"assigned", assignedAt: now(), firstTouchDue: new Date(Date.now() + cfgA().firstTouchHours * 36e5).toISOString(), reason, log:[...prevLog, {t:now(), system:true, channel:"Portal", outcome:"assigned", note:reason}]};
+  const lead = {org:p.org, segment:p.segment, kind:p.kind || "client", region:p.region || "", province:p.province || "", avenues:p.avenues || [], contacts:p.contacts || [], country:p.country || "", city:p.city || "", website:p.website || "", source:p.source || "", why:p.why || "", approach:p.approach || "", sourcedBy:p.sourcedBy || "", status:"assigned", assignedAt: now(), firstTouchDue: new Date(Date.now() + cfgA().firstTouchHours * 36e5).toISOString(), reason, log:[...prevLog, {t:now(), system:true, channel:"Portal", outcome:"assigned", note:reason}]};
   await S.db.doc(`leads/${bid}/items/${id}`).set(lead);                                                     // 1. new lead first
   await S.db.doc("prospects/" + id).update({assignedTo: bid, status:"assigned", assignedAt: now(), history:[...(p.history || []), {t:now(), to:bid, from:p.assignedTo || "", reason}]});
   if (p.assignedTo && p.assignedTo !== bid) { try { await S.db.doc(`leads/${p.assignedTo}/items/${id}`).delete(); } catch(e){} }   // 3. old copy last
@@ -3690,6 +3693,7 @@ function invDetail(p){
     ${(p.evidence || []).length ? `<div><h3>Evidence</h3><ul class="small">${p.evidence.map(x => `<li>${esc(x.summary)} · <a href="${esc(x.url)}" target="_blank" rel="noopener">source</a></li>`).join("")}</ul></div>` : ""}
     <div><h3>How to approach</h3><p>${esc(p.approach || "")}</p></div>
     <div><h3>Contact routes</h3>${avenuesHtml(p)}</div>
+    ${contactsHtml(p, "inv", p.id)}
     <div><h3>Source</h3><p class="small">${p.source ? `<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>` : "Added by hand"}${p.aiReviewed ? ` · AI reviewed ${fmtD(p.aiReviewed)}` : ""}${p.movedFrom ? ` · moved from the shared prospect list ${fmtD(p.movedAt)}` : ""}</p></div>
     <div><h3>Sanctions</h3><p class="small">${sc ? `Automatic check ${fmtD(sc.at)} against ${esc((sc.lists || []).join(", ") || "no lists")}: <b>${esc(sc.result)}</b>${(sc.hits || []).length ? ` (${sc.hits.map(h => esc(h.name) + " ≈ " + esc(h.listed) + " on " + esc(h.list)).join("; ")})` : ""}.` : "Not checked yet: the morning run screens it."} Screen the organisation and its owners yourself before any agreement.</p></div>
     <div class="row"><label class="f" for="invStatus" style="flex:1">Status<select id="invStatus">${Object.entries(INV_STATUS).map(([k, v]) => `<option value="${k}" ${(p.status || "new") === k ? "selected" : ""}>${v}</option>`).join("")}</select></label><button class="btn primary" type="button" data-inv="status" data-id="${esc(p.id)}">Save status</button></div>
@@ -3754,5 +3758,73 @@ document.addEventListener("submit", async e => {
   try { await invSet(nid, {org, track: $("iv_track").value, for: $("iv_for").value, country: $("iv_cty").value.trim(), website: $("iv_web").value.trim(), source: $("iv_src").value.trim(), why: $("iv_why").value.trim(), status: "new", added: now(), addedBy: S.uid, log: []});
     S.invNew = false; S.invSel = nid; toast("Saved. Only you can see it."); render(); }
   catch (err) { toast(err.code === "permission_denied" ? "The owner-only table is not set up yet (run 0004 in Supabase)." : "Could not save."); }
+});
+
+/* ---------- Named business contacts on prospects (rule approved by Morten, 20 Oct 2026; see CLAUDE.md) ----------
+   Business contacts only: a professional in a business role at an organisation, with work email or phone as published by
+   the organisation itself or taken from a licensed professional database. Brokers see contacts only on their own leads.
+   Opening the contacts on a shared prospect or lead is recorded in the access log. An opt-out deletes the person's details
+   and stores only one-way codes (hashes), so they can never be added again by anyone. */
+const CT_WEBMAIL = /@(gmail|googlemail|yahoo|ymail|hotmail|outlook|live|msn|icloud|me|mac|aol|proton|protonmail|gmx|mail|yandex|qq|163|126|naver|hanmail)\./i;
+const CT_SOURCES = ["Organisation's own website", "Licensed professional database", "Business card or meeting"];
+const ctNorm = s => String(s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+const ctOrg = s => ctNorm(s).replace(/\b(ltd|limited|pte|llc|inc|co|company|group|the)\b/g, "").replace(/\s+/g, " ").trim();
+async function ctSha(s){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join(""); }
+async function ctHashes(c, org){ const h = []; if (c.email) h.push(await ctSha("e:" + String(c.email).toLowerCase().trim())); if (c.name) h.push(await ctSha("n:" + ctNorm(c.name) + "|" + ctOrg(org))); return h; }
+function ctPath(where, id){ return where === "inv" ? "owner/" + id : where === "lead" ? `leads/${S.uid}/items/${id}` : "prospects/" + id; }
+function ctRec(where, id){ return where === "inv" ? (S.inv || {})[id] : where === "lead" ? S.leads[id] : S.prospects[id]; }
+function contactsHtml(rec, where, id){
+  const list = rec.contacts || [], key = where + ":" + id;
+  S.ctShown = S.ctShown || {};
+  const shown = where === "inv" || S.ctShown[key];
+  const rules = `<p class="small muted">Business contacts only: work details as published by the organisation or from a licensed database. In the first message, say where you found them and offer an opt-out. If someone opts out, press <b>Opted out</b>: their details are deleted from every list.</p>`;
+  if (!shown) return `<div><h3>Business contacts</h3><p class="small">${list.length ? `${list.length} named contact${list.length > 1 ? "s" : ""} on file.` : "No named contacts yet."} <button class="btn small" type="button" data-ct="show" data-where="${where}" data-id="${esc(id)}">Show${list.length ? "" : " and add"} · opening is recorded</button></p>${rec.optedOutNote ? `<p class="small muted">${esc(rec.optedOutNote)}</p>` : ""}</div>`;
+  return `<div><h3>Business contacts</h3>${rules}
+    ${list.length ? `<ul class="avs">${list.map((c, i) => `<li><span class="avt">${esc(c.role || "Contact")}</span> <b>${esc(c.name)}</b>${c.email ? ` · <a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : ""}${c.phone ? ` · ${esc(c.phone)}` : ""}<br><span class="small muted">${c.source && /^https?:/.test(c.source) ? `<a href="${esc(c.source)}" target="_blank" rel="noopener">source</a>` : esc(c.source || "")}${c.sourceType ? " · " + esc(c.sourceType) : ""} · added ${fmtD(c.added)}${c.lastContact ? " · last contact " + fmtD(c.lastContact) : ""}</span>
+      <span class="row" style="margin-top:4px"><button class="btn small" type="button" data-ct="touch" data-where="${where}" data-id="${esc(id)}" data-i="${i}">Contacted today</button><button class="btn small danger" type="button" data-ct="opt" data-where="${where}" data-id="${esc(id)}" data-i="${i}">Opted out</button></span></li>`).join("")}</ul>` : `<p class="small muted">No named contacts yet.</p>`}
+    ${rec.optedOutNote ? `<p class="small muted">${esc(rec.optedOutNote)}</p>` : ""}
+    <details class="small"><summary>Add a business contact</summary><form class="fgrid" data-ctform="${where}" data-id="${esc(id)}" style="margin-top:8px">
+      <label class="f" for="ct_name">Name<input id="ct_name" required></label>
+      <label class="f" for="ct_role">Role<input id="ct_role" required placeholder="Head of Travel"></label>
+      <label class="f" for="ct_email">Work email<input id="ct_email" type="email" placeholder="name@company.com"></label>
+      <label class="f" for="ct_phone">Work phone<input id="ct_phone"></label>
+      <label class="f" for="ct_srct">Where it comes from<select id="ct_srct">${CT_SOURCES.map(s => `<option>${esc(s)}</option>`).join("")}</select></label>
+      <label class="f" for="ct_src">Source (web page or database name)<input id="ct_src" required></label>
+      <div class="row" style="align-self:end"><button class="btn primary" type="submit">Save contact</button></div></form></details></div>`;
+}
+async function ctSave(where, id, patch){
+  const rec = ctRec(where, id); if (!rec) return;
+  if (where === "inv") await S.db.doc(ctPath(where, id)).set({...rec, ...patch}); else await S.db.doc(ctPath(where, id)).update(patch);
+}
+document.addEventListener("click", async e => {
+  const el = e.target.closest("[data-ct]"); if (!el) return;
+  const where = el.dataset.where, id = el.dataset.id, rec = ctRec(where, id); if (!rec) return;
+  if (where === "inv" && !(S.isOwner && !S.preview)) return;
+  if (el.dataset.ct === "show") { S.ctShown = S.ctShown || {}; S.ctShown[where + ":" + id] = true; if (where !== "inv") audit("Business contacts viewed", rec.org || id); render(); return; }
+  const i = +el.dataset.i, c = (rec.contacts || [])[i]; if (!c) return;
+  if (el.dataset.ct === "touch") { const list = rec.contacts.slice(); list[i] = {...c, lastContact: now()}; await ctSave(where, id, {contacts: list}); toast("Marked as contacted today."); return; }
+  if (el.dataset.ct === "opt") {
+    if (!el.dataset.armed) { el.dataset.armed = "1"; el.textContent = "Click again: delete their details"; setTimeout(() => { if (el.isConnected) { delete el.dataset.armed; el.textContent = "Opted out"; } }, 6000); return; }
+    try {
+      for (const h of await ctHashes(c, rec.org)) await S.db.doc("optouts/" + h).set({at: now()});
+      const list = rec.contacts.filter((_, j) => j !== i);
+      await ctSave(where, id, {contacts: list, optedOutNote: `A contact opted out on ${fmtD(now())}. Their details were deleted.`});
+      if (where !== "inv") audit("Business contact opted out", rec.org || id);
+      toast("Deleted. They will not be added again, in any list.");
+    } catch (err) { toast(err.code === "permission_denied" ? "Opt-outs are not set up yet (run 0005 in Supabase)." : "Could not save. Try again."); }
+  }
+});
+document.addEventListener("submit", async e => {
+  const f = e.target; if (!f.dataset || !f.dataset.ctform) return; e.preventDefault();
+  const where = f.dataset.ctform, id = f.dataset.id, rec = ctRec(where, id); if (!rec) return;
+  const c = {name: $("ct_name").value.trim(), role: $("ct_role").value.trim(), email: $("ct_email").value.trim().toLowerCase(), phone: $("ct_phone").value.trim(), sourceType: $("ct_srct").value, source: $("ct_src").value.trim(), added: now(), addedBy: S.uid};
+  if (!c.name || !c.role || !c.source) { toast("Name, role and source are needed."); return; }
+  if (/^(mr|mrs|ms|dr)\.?$/i.test(c.name)) { toast("Write the person's name."); return; }
+  if (c.email && CT_WEBMAIL.test(c.email)) { toast("Work email only: personal addresses like Gmail are not allowed."); return; }
+  if (!c.email && !c.phone) { toast("Add a work email or a work phone."); return; }
+  const hs = await ctHashes(c, rec.org);
+  if (hs.some(h => (S.optouts || {})[h])) { toast("This person has opted out. They cannot be added again."); return; }
+  try { await ctSave(where, id, {contacts: [...(rec.contacts || []), c].slice(0, 10)}); toast("Contact saved."); render(); }
+  catch (err) { toast("Could not save. Try again."); }
 });
 </script>

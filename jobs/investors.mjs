@@ -6,6 +6,7 @@
 // jurisdictions and an automatic sanctions pre-screen against the official lists.
 import { ask, normName, vetAvenues } from "./intel.mjs";
 import { screen } from "./lib/sanctions.mjs";
+import { vetContacts } from "./lib/contacts.mjs";
 
 export const TRACKS = ["Family office or UHNW office", "Aviation lender or lessor", "Private equity or private credit", "Bank or private bank",
   "Distribution partner for notes", "Strategic partner", "Adviser or placement agent"];
@@ -95,16 +96,17 @@ Reply with JSON only, in a \`\`\`json block: an object mapping id to {${PROFILE_
 }
 
 // one research call per focus area; the daily run covers PER_DAY areas, a manual run can cover them all
-export async function run(db, call, log = () => {}, lists = null, areas = Number(process.env.INVESTOR_AREAS || 3)) {
+export async function run(db, call, log = () => {}, lists = null, areas = Number(process.env.INVESTOR_AREAS || 3), optSet = null) {
+  if (!optSet) optSet = new Set((await db.all("optouts")).map(r => r.id));
   const out = { added: [], rejected: [] };
   for (let i = 0; i < Math.min(areas, INV_FOCUS.length); i++) {
-    try { const r = await runOne(db, call, log, lists); out.added.push(...r.added); out.rejected.push(...r.rejected); }
+    try { const r = await runOne(db, call, log, lists, optSet); out.added.push(...r.added); out.rejected.push(...r.rejected); }
     catch (e) { log("  owner research area failed: " + String(e.message || e).slice(0, 200)); }
   }
   out.profiled = await enrich(db, call, log, Number(process.env.INVESTOR_PROFILES || 16));
   return out;
 }
-async function runOne(db, call, log, lists) {
+async function runOne(db, call, log, lists, optSet) {
   const status = (await db.get("owner/_status")) || {};
   const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0;
   const focus = INV_FOCUS[fi % INV_FOCUS.length];
@@ -119,13 +121,14 @@ Find up to 15 ORGANISATIONS that plausibly invest in, finance, distribute or par
 Strict rules: organisations only; no personal data about private individuals (no names of people, no personal phone numbers, emails or profiles); a person may appear only as a role, for example "Head of Aviation Finance". Never guess contact details. Nothing based in or controlled from Russia, Belarus, Iran, North Korea, Syria, Cuba, Venezuela, Myanmar or Afghanistan. Family offices: approach only through introductions or their published channels.
 Already known (skip these): ${[...mine, ...other].map(r => r.data.org).join("; ").slice(0, 5000)}
 Reply with JSON only, in a \`\`\`json block: an array of objects with fields
-org, track (one of ${TRACKS.join(", ")}), for (one of ${FOR.join(", ")}), type (short description), region, country, city, website (official site, only if found), source (URL of the public page where you found it), evidence (array of {summary, url}: public evidence of relevant investments, financings or partnerships), ${PROFILE_FIELDS}, why (one sentence), approach (one or two sentences, by role or introduction route), avenues (array of {type, label, url, note}; official business routes only; types: website, contact, linkedin, event, association, introducer, other).`;
+org, track (one of ${TRACKS.join(", ")}), for (one of ${FOR.join(", ")}), type (short description), region, country, city, website (official site, only if found), source (URL of the public page where you found it), evidence (array of {summary, url}: public evidence of relevant investments, financings or partnerships), ${PROFILE_FIELDS}, why (one sentence), approach (one or two sentences, by role or introduction route), contacts (array of up to 3 {name, role, email, phone, url}: named BUSINESS contacts only as published on the organisation's OWN website, with the page url; work email on the organisation's own domain; never personal emails or phones, never guessed; empty if none published), avenues (array of {type, label, url, note}; official business routes only; types: website, contact, linkedin, event, association, introducer, other).`;
   const { data, seen } = await ask(prompt, call);
   const added = [], rejected = [];
   let next = maxId;
   for (const o of Array.isArray(data) ? data.slice(0, 18) : []) {
     const v = vetInvestor(o, seen, existing); if (v.why) { rejected.push(`${clean(o && o.org, 60)}: ${v.why}`); continue; }
     const rec = withFit({ ...v.rec, profile: vetProfile(o, seen), added: nowIso, batch: `Investor review ${today}`, aiReviewed: nowIso });
+    rec.contacts = vetContacts(o.contacts, seen, rec.website, rec.org, optSet);
     if (lists && lists.names.size) {
       const hits = screen([rec.org], lists);
       rec.screen = { auto: { result: hits.length ? "possible match" : "no match", at: nowIso, lists: lists.loaded.map(x => x.replace(/ \(\d+\)$/, "")), failed: lists.failed, hits } };

@@ -14,7 +14,8 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
 | ◐ | Liability insurance: broker's professional liability and non-owned aircraft liability, stated in the terms | Morten (broker) | Peers state cover (FXAIR USD 100m per occurrence; JetSmarter USD 50m non-owned). Our terms say nothing. See terms comparison 20 Oct. |
 | ☐ | Counsel to confirm: liability cap at the brokerage fee (B14) holds under Singapore law; SIAC arbitration also suits small claims (B16) | Counsel | Peers cap at the price paid. |
-| ◐ | Run `supabase/migrations/0004_owner_prospects.sql` in Supabase (owner-only investors table) | Morten | One paste in the SQL Editor. |
+| ◐ | Run `supabase/migrations/0005_optouts.sql` in Supabase (opt-out codes for business contacts) | Morten | One paste in the SQL Editor. |
+| ☐ | Counsel check of named business contacts: Singapore PDPA business-contact exemption, Thai PDPA (no such exemption), GDPR notice within one month for EU contacts | Counsel | Rule approved 20 Oct 2026. |
 | ☐ | Staff sign-in by Microsoft 365; sign-in emails from archeaviation.com (custom SMTP) | Claude + Morten | |
 | ☐ | Full run-through on desktop and phone, every language | Claude, then Morten | Every section, link, form; quote and call-back reach Today. |
 
@@ -58,6 +59,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 - ☑ Archē spelling, typo fixes, translations completed for all changed text.
 - ☑ No "who is behind Archē" content on the site (Morten's choice).
 - ☑ One address per language (/th, /zh, /ja) and a ready-made page copy that search engines can read straight away.
+- ☑ Named business contacts in all prospect lists (rule approved 20 Oct): work details from the organisation's own site or a licensed database only; brokers see them only on their own leads; opening is logged; opt-out deletes everywhere and blocks re-adding; 12-month deletion; first message says where we found them.
 - ☑ Investor profiles and fit score: portfolio size (sourced only), ticket size, interests, industries, aviation exposure, geography; High/Medium/Low potential with reasons; filters on all of them.
 - ☑ Investors and partners (owner only): own table protected by a database rule, own tab in Prospects, daily research across three areas (up to 45 organisations a day; a manual run covers all nine areas) with evidence and sanctions pre-screen; a prospect can be moved there (for example JET8). Nothing appears in shared logs or summaries.
 - ☑ Operator research strengthened: EU Air Safety List refused, business-jet fleet, owning companies, regulator actions, insurance, and a daily automatic sanctions pre-screen (OFAC, UN, EU, UK) of every operator; a person still confirms before the first booking.

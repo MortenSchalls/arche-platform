@@ -5,6 +5,7 @@ import * as rotation from "./rotation.mjs";
 import * as intel from "./intel.mjs";
 import * as backup from "./backup.mjs";
 import { existsSync, unlinkSync } from "fs";
+import { sha, sweep } from "./lib/contacts.mjs";
 
 function fake(T) {
   const q = table => {
@@ -28,7 +29,8 @@ const BRK = "00000000-0000-0000-0000-00000000000b";
 const T = {
   profiles: [{ id: BRK, role: "broker", active: true, contract_name: "Example Broker", base: "Singapore", data: { roster: true } }, { id: "owner", role: "owner", active: true, data: {} }],
   prospects: Array.from({ length: 12 }, (_, i) => ({ id: "p" + String(i + 1).padStart(3, "0"), data: { org: "Example Org " + (i + 1), status: "new", region: "Asia-Pacific", country: "Singapore", kind: "client", segment: "Family office", avenues: i < 3 ? [] : [{ type: "website", url: "https://example.org" }] } })),
-  config: [], intel: [], locks: [], leads: [], trips: [], trip_status: []
+  config: [], intel: [], locks: [], leads: [], trips: [], trip_status: [],
+  optouts: [{ id: sha("e:gone@good-yachts.example"), data: { at: "2026-10-01" } }]
 };
 const db = connect(fake(T)); const quiet = () => {};
 let ok = 0; const pass = m => { ok++; console.log("PASS", m); };
@@ -79,11 +81,16 @@ const call = async body => {
       { org: "Clean Air Jets", country: "Thailand", region: "Asia-Pacific", source: "https://clean-air.example", aoc_authority: "CAAT", fleet: [{ type: "King Air 350", count: 2 }] }];
     return { content: [seenOps, { type: "text", text: "```json\n" + JSON.stringify(ops) + "\n```" }] };
   }
-  const results = { type: "web_search_tool_result", content: [{ type: "web_search_result", url: "https://good-yachts.example/about" }, { type: "web_search_result", url: "https://www.linkedin.com/company/good-yachts" }, { type: "web_search_result", url: "https://org3.example/contact" }] };
+  const results = { type: "web_search_tool_result", content: [{ type: "web_search_result", url: "https://good-yachts.example/team" }, { type: "web_search_result", url: "https://good-yachts.example/about" }, { type: "web_search_result", url: "https://www.linkedin.com/company/good-yachts" }, { type: "web_search_result", url: "https://org3.example/contact" }] };
   const json = isEnrich
     ? { p001: [{ type: "contact", label: "Contact", url: "https://org3.example/contact" }, { type: "email", label: "x", url: "mailto:someone@gmail.com" }], p002: [{ type: "website", url: "https://never-seen.example" }] }
     : [{ org: "Good Yachts Ltd", kind: "client", segment: "Yachting", region: "Europe", country: "Monaco", source: "https://good-yachts.example/about", website: "https://good-yachts.example", why: "x", approach: "y",
-         avenues: [{ type: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/company/good-yachts" }, { type: "linkedin", label: "person", url: "https://www.linkedin.com/in/some-person" }] },
+         avenues: [{ type: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/company/good-yachts" }, { type: "linkedin", label: "person", url: "https://www.linkedin.com/in/some-person" }],
+         contacts: [{ name: "Example Person", role: "Head of Charter", email: "charter@good-yachts.example", url: "https://good-yachts.example/team" },
+                    { name: "Webmail Person", role: "Director", email: "someone@gmail.com", url: "https://good-yachts.example/team" },
+                    { name: "Profile Person", role: "CEO", url: "https://www.linkedin.com/company/good-yachts" },
+                    { name: "Opted Out", role: "Sales", email: "gone@good-yachts.example", url: "https://good-yachts.example/team" },
+                    { name: "Guessed Person", role: "Sales", email: "sales@good-yachts.example", url: "https://not-seen.example/team" }] },
        { org: "Made Up Charters", kind: "client", source: "https://not-in-results.example" },
        { org: "Example Org 5 Group", kind: "client", source: "https://good-yachts.example/about" }];
   return { content: [results, { type: "text", text: "```json\n" + JSON.stringify(json) + "\n```" }] };
@@ -99,6 +106,8 @@ assert(res.rejected.some(x => /not seen/.test(x)) && res.rejected.some(x => /dup
 const gy = T.prospects.find(p => p.data.org === "Good Yachts Ltd");
 assert.equal(gy.id, "p013"); pass("new id follows the highest existing id");
 assert(gy.data.avenues.length === 1 && !gy.data.avenues.some(a => /linkedin\.com\/in\//.test(a.url))); pass("personal LinkedIn profile dropped, company page kept");
+assert.deepStrictEqual(gy.data.contacts.map(c => c.name), ["Example Person"]); assert(gy.data.contacts[0].source === "https://good-yachts.example/team" && gy.data.contacts[0].sourceType === "Organisation's own website");
+pass("business contacts kept only from the organisation's own site, work email on its domain; webmail, other sites, unseen pages and opt-outs dropped");
 const p1 = T.prospects.find(p => p.id === "p001").data;
 assert(p1.avenues.length === 1 && p1.avenues[0].url.includes("org3.example")); pass("existing prospect: personal email dropped");
 assert(p1.status === p1Before.status && p1.assignedTo === p1Before.assignedTo && JSON.stringify(p1.history) === JSON.stringify(p1Before.history)); pass("status, assignment and history of existing prospects untouched");
@@ -156,6 +165,16 @@ pass("operators are never rotated to brokers (client assigned, operator left alo
   assert(sx.screen(["ACME Aviation Limited"], lists).length === 1 && sx.screen(["Blue Sky Jets"], lists).length === 0);
   assert(sx.screen(["Global Aviation Services Asia"], { names: new Map([["global aviation", "OFAC SDN"]]) }).length === 0); }
 pass("sanctions lists parsed; names compared after removing company suffixes; one-word or all-generic names never match on their own");
+
+// contacts sweep: opt-outs, 12-month limit, brokers' contacts copied to the shared prospect
+{ const old = new Date(Date.now() - 400 * 864e5).toISOString();
+  T.prospects.find(p => p.id === "p002").data.contacts = [{ name: "Stale Person", role: "Director", added: old }, { name: "Fresh Person", role: "Director", added: new Date().toISOString() }];
+  T.leads.push({ owner_id: BRK, id: "p002", data: { org: "Example Org 2", contacts: [{ name: "Broker Found", role: "Travel manager", email: "travel@org2.example", added: new Date().toISOString() }, { name: "Opted", role: "x", email: "gone@good-yachts.example", added: new Date().toISOString() }], log: [] } });
+  const r = await sweep(db, quiet);
+  const p2 = T.prospects.find(p => p.id === "p002").data;
+  assert.deepStrictEqual(p2.contacts.map(c => c.name).sort(), ["Broker Found", "Fresh Person"]); assert(r.removed >= 2 && r.merged === 1);
+  assert(!T.leads.find(l => l.id === "p002").data.contacts.some(c => c.name === "Opted")); }
+pass("contacts older than 12 months without contact and opted-out contacts removed everywhere; broker's contact copied to the prospect");
 
 // backup
 const counts = await backup.run(db, "/tmp/backup-test.json", quiet);

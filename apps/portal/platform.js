@@ -64,6 +64,7 @@
     if (KV[p[0]]) return { kind: "kv", table: KV[p[0]], id: p[1] };
     if (p[0] === "faq") return { kind: "row", table: "faq", key: "id", id: p[1] };
     if (p[0] === "prospects") return { kind: "row", table: "prospects", key: "id", id: p[1] };
+    if (p[0] === "optouts") return { kind: "row", table: "optouts", key: "id", id: p[1] };   // hashes only
     if (p[0] === "owner") return { kind: "row", table: "owner_prospects", key: "id", id: p[1] };   // investors and partners: owner only (database rule)
     if (p[0] === "audit") return { kind: "audit", table: "audit_log", id: p[1] };
     if (p[0] === "roster") return { kind: "profile", table: "profiles", id: p[1] };

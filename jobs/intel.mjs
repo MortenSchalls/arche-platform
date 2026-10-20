@@ -8,6 +8,7 @@
 import { connect } from "./lib/db.mjs";
 import { loadLists, screen } from "./lib/sanctions.mjs";
 import * as investors from "./investors.mjs";
+import { vetContacts } from "./lib/contacts.mjs";
 
 const FOCUS = [
   "Hong Kong and China family offices", "Japan and Korea luxury travel and family offices",
@@ -152,6 +153,7 @@ export async function run(db = connect(), call = callApi, log = console.log, fet
   const existing = new Set(rows.map(r => normName(r.data.org)));
   const maxId = rows.reduce((m, r) => Math.max(m, parseInt(String(r.id).replace(/\D/g, ""), 10) || 0), 0);
   const today = new Date().toISOString().slice(0, 10), nowIso = new Date().toISOString();
+  const optSet = new Set((await db.all("optouts")).map(r => r.id));
 
   // 1. new organisations for today's focus
   const prompt = `You research prospects for Archē Executive, a Singapore private jet charter broker (whole-aircraft charters on third-party operators, worldwide).
@@ -160,7 +162,7 @@ Find up to 15 ORGANISATIONS in this focus that plausibly need private jet charte
 Strict rules: organisations only. No personal data about private individuals: no named people's phone numbers, emails, addresses or personal social profiles. A person may appear only as a role, for example "Head of Travel". Never guess an email address or a phone number. Family offices: approach only through introductions.
 Already in the list (skip these): ${rows.map(r => r.data.org).join("; ").slice(0, 6000)}
 Reply with JSON only, in a \`\`\`json block: an array of objects with fields
-org, segment (one of ${SEGMENTS.join(", ")}), kind ("client" or "partner"), region (one of ${REGIONS.join(", ")}), country, province, city, website (official site, only if you found it), source (URL of the public page where you found the organisation), why (one sentence), approach (one or two sentences, by role), avenues (array of {type, label, url, note}; types: ${AVENUE_TYPES.join(", ")}; only official business routes you found).`;
+org, segment (one of ${SEGMENTS.join(", ")}), kind ("client" or "partner"), region (one of ${REGIONS.join(", ")}), country, province, city, website (official site, only if you found it), source (URL of the public page where you found the organisation), why (one sentence), approach (one or two sentences, by role), avenues (array of {type, label, url, note}; types: ${AVENUE_TYPES.join(", ")}; only official business routes you found), contacts (array of up to 3 {name, role, email, phone, url}: named BUSINESS contacts only as published on the organisation's OWN website, with the page url; work email on the organisation's own domain; never personal emails or phones, never guessed; empty if none published).`;
   const { data, seen } = await ask(prompt, call);
   const added = [], rejected = [];
   let next = maxId;
@@ -172,6 +174,7 @@ org, segment (one of ${SEGMENTS.join(", ")}), kind ("client" or "partner"), regi
       website: o.website && (seen.has(normUrl(o.website)) || host(o.website) === host(o.source)) ? clean(o.website, 300) : "",
       source: clean(o.source, 400), why: clean(o.why, 400), approach: clean(o.approach, 500), status: "new",
       avenues: vetAvenues(o.avenues, seen, o.website), added: nowIso, batch: `AI review ${today}`, aiReviewed: nowIso };
+    rec.contacts = vetContacts(o.contacts, seen, rec.website, rec.org, optSet);
     await db.set("prospects/" + id, rec); existing.add(normName(rec.org)); added.push(rec.org);
   }
 
@@ -202,7 +205,7 @@ Prefer operators with business jets in Archē's categories (light, midsize, supe
 Organisations only: no personal data, no named people. Never guess: leave a field empty if you did not find it.
 Already in the list (skip these): ${rows.map(r => r.data.org).join("; ").slice(0, 6000)}
 Reply with JSON only, in a \`\`\`json block: an array of objects with fields
-org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL of the page where you found the operator), aoc_authority (for example CAAS, CAAT, CAD Hong Kong, GCAA, an EASA member-state authority, FAA Part 135), aoc_source (URL showing the certificate, if found), bases (array of airports), fleet (array of {type, count}) and fleet_source (URL), audits (array of {name: "ARGUS" | "Wyvern" | "IS-BAH", level, year, url}; only with public evidence), safety (array of {year, summary, url} for accidents or serious incidents involving the operator in the last 10 years; empty if none found), owners (array of owning COMPANIES or groups only, never private individuals; empty if not published), eu_air_safety_list (true only if the operator or its certifying state appears on the EU Air Safety List), enforcement (array of {year, summary, url} for AOC suspensions, fines or restrictions by a regulator in the last 10 years; empty if none found), insurance (object {summary, url} if the operator publishes its liability cover, else null), founded (year), why (one sentence: why they fit Archē's business), approach (one or two sentences: how to set them up as a supplier, by role), avenues (array of {type, label, url, note}; official business routes only; types: ${AVENUE_TYPES.join(", ")}).`;
+org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL of the page where you found the operator), aoc_authority (for example CAAS, CAAT, CAD Hong Kong, GCAA, an EASA member-state authority, FAA Part 135), aoc_source (URL showing the certificate, if found), bases (array of airports), fleet (array of {type, count}) and fleet_source (URL), audits (array of {name: "ARGUS" | "Wyvern" | "IS-BAH", level, year, url}; only with public evidence), safety (array of {year, summary, url} for accidents or serious incidents involving the operator in the last 10 years; empty if none found), owners (array of owning COMPANIES or groups only, never private individuals; empty if not published), eu_air_safety_list (true only if the operator or its certifying state appears on the EU Air Safety List), enforcement (array of {year, summary, url} for AOC suspensions, fines or restrictions by a regulator in the last 10 years; empty if none found), insurance (object {summary, url} if the operator publishes its liability cover, else null), founded (year), why (one sentence: why they fit Archē's business), approach (one or two sentences: how to set them up as a supplier, by role), avenues (array of {type, label, url, note}; official business routes only; types: ${AVENUE_TYPES.join(", ")}), contacts (array of up to 3 {name, role, email, phone, url}: named BUSINESS contacts only as published on the operator's OWN website, with the page url; work email on the operator's own domain; never personal emails or phones, never guessed; empty if none published).`;
   const r3 = await ask(p3, call);
   for (const o of Array.isArray(r3.data) ? r3.data.slice(0, 12) : []) {
     const v = vetOperator(o, r3.seen, existing); if (v.why) { rejected.push(`${clean(o && o.org, 60)} (operator): ${v.why}`); continue; }
@@ -212,6 +215,7 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
       website: o.website && (r3.seen.has(normUrl(o.website)) || host(o.website) === host(o.source)) ? clean(o.website, 300) : "",
       source: clean(o.source, 400), why: clean(o.why, 400), approach: clean(o.approach, 500), status: "new",
       avenues: vetAvenues(o.avenues, r3.seen, o.website), ops: v.ops, added: nowIso, batch: `Operator review ${today}`, aiReviewed: nowIso };
+    rec.contacts = vetContacts(o.contacts, r3.seen, rec.website, rec.org, optSet);
     await db.set("prospects/" + id, rec); existing.add(normName(rec.org)); opsAdded.push(rec.org);
   }
 
@@ -232,7 +236,7 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
   // 5. investors and strategic partners: owner-only table; only a count is reported outside it
   let invCount = 0;
   if (process.env.INVESTOR_RESEARCH !== "off") {
-    try { invCount = (await investors.run(db, call, log, lists)).added.length; }
+    try { invCount = (await investors.run(db, call, log, lists, undefined, optSet)).added.length; }
     catch (e) { log("  owner research step failed: " + String(e.message || e).slice(0, 200)); }
   }
 

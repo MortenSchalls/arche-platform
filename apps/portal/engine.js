@@ -57,7 +57,7 @@
         const nl = Object.assign({}, l, {status: "duplicate", imported: true, duplicateOf: dup, updated: nowISO, log: (l.log || []).concat([{t: nowISO, system: true, channel: "Portal", outcome: "duplicate", note: "Already in the database. The first finder keeps the credit."}])});
         L[bid][lid] = nl; W("set", `leads/${bid}/items/${lid}`, nl); report.duplicates++; return;
       }
-      const p = {org: l.org, segment: l.segment || "Other", kind: l.kind || "client", region: l.region || regionOf(l.country) || "", country: l.country || "", province: l.province || "", city: l.city || "", website: l.website || "", source: l.source || "Added by broker", why: l.why || "", approach: l.approach || "", avenues: l.avenues || [],
+      const p = {org: l.org, segment: l.segment || "Other", kind: l.kind || "client", region: l.region || regionOf(l.country) || "", country: l.country || "", province: l.province || "", city: l.city || "", website: l.website || "", source: l.source || "Added by broker", why: l.why || "", approach: l.approach || "", avenues: l.avenues || [], contacts: l.contacts || [],
         status: "assigned", added: l.added || nowISO, addedBy: bid, sourcedBy: bid, sourcedAt: l.added || nowISO, assignedTo: bid, assignedAt: l.added || nowISO, history: [{t: nowISO, to: bid, reason: "Found by this broker: first right to work it"}]};
       P[lid] = p; keyIdx[kN] = lid; if (d) keyIdx["d:" + d] = lid;
       W("set", `prospects/${lid}`, p);
@@ -119,7 +119,7 @@
       return best;
     }
     function leadFrom(p, pid, prevLog, reason, bid) {
-      return {org: p.org, segment: p.segment, kind: p.kind || "client", region: p.region || "", province: p.province || "", avenues: p.avenues || [], country: p.country || "", city: p.city || "", website: p.website || "", source: p.source || "", why: p.why || "", approach: p.approach || "", sourcedBy: p.sourcedBy || "",
+      return {org: p.org, segment: p.segment, kind: p.kind || "client", region: p.region || "", province: p.province || "", avenues: p.avenues || [], contacts: p.contacts || [], country: p.country || "", city: p.city || "", website: p.website || "", source: p.source || "", why: p.why || "", approach: p.approach || "", sourcedBy: p.sourcedBy || "",
         status: "assigned", assignedAt: nowISO, firstTouchDue: new Date(NOW + cfg.firstTouchHours * HOUR).toISOString(), reason, updated: nowISO,
         log: (prevLog || []).concat([{t: nowISO, system: true, channel: "Portal", outcome: "assigned", note: reason}])};
     }

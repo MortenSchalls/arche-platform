@@ -16,7 +16,8 @@ Read this before changing anything. These are business rules set by the owner, M
 - Client ratings may be quoted publicly only with the client's written consent. Never write, buy or reward reviews.
 
 ## Prospects and data
-- Organisations and roles only. No personal data about private individuals, no guessed emails or phone numbers, no bought lists, no LinkedIn log-in or scraping, no scraping of competitor or marketplace boards, no copying Avinode data out of Avinode. Every outreach has an opt-out.
+- Organisations first. Named people may be stored in any prospect list only as business contacts: a professional acting in a business role at an organisation, with name, role and work email or phone, only as published by the organisation itself or taken from a licensed professional database (approved by Morten, 20 Oct 2026). Never private individuals as such: no home addresses, personal phones or personal emails, no wealth or family details. No guessed emails or phone numbers, no bought consumer or wealth lists, no LinkedIn log-in or scraping, no scraping of competitor or marketplace boards, no copying Avinode data out of Avinode.
+- Every first message to a named contact says where we found their details and offers an opt-out. An opt-out deletes the person's details at once in every list (only a one-way code is kept so they are never added again). Contacts not reached within 12 months are deleted. Brokers see contacts only on their own leads; opening contacts is logged; no export of contact details. Contacts in the investor list stay owner-only.
 - Real client and broker data never goes into this repository. Tests use example data only.
 - Any outbound message or action that cannot be undone needs a person to confirm it. Do not connect an e-signature service unless Morten asks.
 

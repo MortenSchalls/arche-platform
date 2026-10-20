@@ -57,6 +57,7 @@ function invDetail(p){
     ${(p.evidence || []).length ? `<div><h3>Evidence</h3><ul class="small">${p.evidence.map(x => `<li>${esc(x.summary)} · <a href="${esc(x.url)}" target="_blank" rel="noopener">source</a></li>`).join("")}</ul></div>` : ""}
     <div><h3>How to approach</h3><p>${esc(p.approach || "")}</p></div>
     <div><h3>Contact routes</h3>${avenuesHtml(p)}</div>
+    ${contactsHtml(p, "inv", p.id)}
     <div><h3>Source</h3><p class="small">${p.source ? `<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>` : "Added by hand"}${p.aiReviewed ? ` · AI reviewed ${fmtD(p.aiReviewed)}` : ""}${p.movedFrom ? ` · moved from the shared prospect list ${fmtD(p.movedAt)}` : ""}</p></div>
     <div><h3>Sanctions</h3><p class="small">${sc ? `Automatic check ${fmtD(sc.at)} against ${esc((sc.lists || []).join(", ") || "no lists")}: <b>${esc(sc.result)}</b>${(sc.hits || []).length ? ` (${sc.hits.map(h => esc(h.name) + " ≈ " + esc(h.listed) + " on " + esc(h.list)).join("; ")})` : ""}.` : "Not checked yet: the morning run screens it."} Screen the organisation and its owners yourself before any agreement.</p></div>
     <div class="row"><label class="f" for="invStatus" style="flex:1">Status<select id="invStatus">${Object.entries(INV_STATUS).map(([k, v]) => `<option value="${k}" ${(p.status || "new") === k ? "selected" : ""}>${v}</option>`).join("")}</select></label><button class="btn primary" type="button" data-inv="status" data-id="${esc(p.id)}">Save status</button></div>
