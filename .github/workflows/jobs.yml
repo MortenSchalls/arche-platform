@@ -12,7 +12,7 @@ on:
       job:
         description: "Job to run now"
         type: choice
-        options: [rotation, intel, backup]
+        options: [rotation, intel, investors, backup]
         default: rotation
 permissions:
   contents: read

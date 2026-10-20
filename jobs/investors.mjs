@@ -76,3 +76,12 @@ org, track (one of ${TRACKS.join(", ")}), for (one of ${FOR.join(", ")}), type (
   await db.set("owner/_status", { lastRun: nowIso, lastAdded: added.length, focusIndex: fi + 1, nextFocus: INV_FOCUS[(fi + 1) % INV_FOCUS.length], note, rejected: rejected.slice(0, 20) });
   return { added, rejected };   // the caller reports only a count, never names
 }
+// run on its own (GitHub Actions job choice "investors"); the run summary shows only a count
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const { main } = await import("./lib/main.mjs"); const { connect } = await import("./lib/db.mjs"); const { loadLists } = await import("./lib/sanctions.mjs");
+  await main("Owner research", ["SUPABASE_URL", "SUPABASE_SECRET_KEY", "ANTHROPIC_API_KEY"], async () => {
+    const lists = await loadLists(fetch, console.log);
+    const r = await run(connect(), undefined, console.log, lists);
+    return { note: `Added ${r.added.length}; ${r.rejected.length} rejected by the rules. Details only in the portal.` };
+  });
+}
