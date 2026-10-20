@@ -7,6 +7,7 @@
 //  - never change status, assignment or history of existing prospects
 import { connect } from "./lib/db.mjs";
 import { loadLists, screen } from "./lib/sanctions.mjs";
+import * as investors from "./investors.mjs";
 
 const FOCUS = [
   "Hong Kong and China family offices", "Japan and Korea luxury travel and family offices",
@@ -215,10 +216,10 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
   }
 
   // 4. sanctions pre-screen of every operator (new and existing) against the official lists, each run
-  let screened = 0, possible = [], listsInfo = { loaded: [], failed: [] };
+  let screened = 0, possible = [];
   const ops = (await db.all("prospects")).filter(r => r.data.kind === "operator" && r.data.status !== "dnc");
-  if (ops.length) {
-    const lists = await loadLists(fetchLists, log); listsInfo = { loaded: lists.loaded, failed: lists.failed };
+  const lists = await loadLists(fetchLists, log), listsInfo = { loaded: lists.loaded, failed: lists.failed };
+  {
     if (lists.names.size) for (const r of ops) {
       const o = r.data.ops || {}, hits = screen([r.data.org, ...(o.owners || [])], lists);
       const auto = { result: hits.length ? "possible match" : "no match", at: nowIso, lists: lists.loaded.map(x => x.replace(/ \(\d+\)$/, "")), failed: lists.failed, hits };
@@ -228,10 +229,17 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
     }
   }
 
+  // 5. investors and strategic partners: owner-only table; only a count is reported outside it
+  let invCount = 0;
+  if (process.env.INVESTOR_RESEARCH !== "off") {
+    try { invCount = (await investors.run(db, call, log, lists)).added.length; }
+    catch (e) { log("  owner research step failed: " + String(e.message || e).slice(0, 200)); }
+  }
+
   const note = `Added ${added.length} for "${focus}"${added.length ? ": " + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") : ""}. Contact routes added to ${updated} existing. Operators added for "${opFocus}": ${opsAdded.length}. Sanctions pre-screen: ${screened} operators${possible.length ? ", possible match: " + possible.join(", ") : ", no match"}${listsInfo.failed.length ? " (lists not loaded: " + listsInfo.failed.join(", ") + ")" : ""}. ${rejected.length ? rejected.length + " rejected by the rules." : ""}`.trim();
   await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length, lastUpdated: updated, totalProspects: rows.length + added.length,
     focusIndex: fi + 1, nextFocus: FOCUS[(fi + 1) % FOCUS.length], opFocusIndex: ofi + 1, nextOpFocus: OP_FOCUS[(ofi + 1) % OP_FOCUS.length], lastOperators: opsAdded.length, sanctionsLists: listsInfo, note, rejected: rejected.slice(0, 20), by: "scheduled" });
   log(note); rejected.forEach(x => log("  rejected:", x));
-  return { added, updated, rejected, operators: opsAdded, screened, possible, note };
+  return { added, updated, rejected, operators: opsAdded, screened, possible, note, ownerAdded: invCount };
 }
 if (import.meta.url === `file://${process.argv[1]}`) { const { main } = await import("./lib/main.mjs"); await main("Daily research", ["SUPABASE_URL","SUPABASE_SECRET_KEY","ANTHROPIC_API_KEY"], () => run()); }

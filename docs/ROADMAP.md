@@ -14,6 +14,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
 | ◐ | Liability insurance: broker's professional liability and non-owned aircraft liability, stated in the terms | Morten (broker) | Peers state cover (FXAIR USD 100m per occurrence; JetSmarter USD 50m non-owned). Our terms say nothing. See terms comparison 20 Oct. |
 | ☐ | Counsel to confirm: liability cap at the brokerage fee (B14) holds under Singapore law; SIAC arbitration also suits small claims (B16) | Counsel | Peers cap at the price paid. |
+| ◐ | Run `supabase/migrations/0004_owner_prospects.sql` in Supabase (owner-only investors table) | Morten | One paste in the SQL Editor. |
 | ☐ | Staff sign-in by Microsoft 365; sign-in emails from archeaviation.com (custom SMTP) | Claude + Morten | |
 | ☐ | Full run-through on desktop and phone, every language | Claude, then Morten | Every section, link, form; quote and call-back reach Today. |
 
@@ -57,6 +58,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 - ☑ Archē spelling, typo fixes, translations completed for all changed text.
 - ☑ No "who is behind Archē" content on the site (Morten's choice).
 - ☑ One address per language (/th, /zh, /ja) and a ready-made page copy that search engines can read straight away.
+- ☑ Investors and partners (owner only): own table protected by a database rule, own tab in Prospects, daily research of up to 8 organisations with evidence and sanctions pre-screen; a prospect can be moved there (for example JET8). Nothing appears in shared logs or summaries.
 - ☑ Operator research strengthened: EU Air Safety List refused, business-jet fleet, owning companies, regulator actions, insurance, and a daily automatic sanctions pre-screen (OFAC, UN, EU, UK) of every operator; a person still confirms before the first booking.
 - ☑ Languages decided: English, Thai, Chinese and Japanese all stay; own translations, not machine translation (Morten).
 - ☑ Translated pages checked in every state (all aircraft, all five steps, quote form, thank-you): no English left except names and placeholders. Cabin drawings now carry no words; a translated line under the finder explains them.

@@ -12,6 +12,7 @@ export function connect(client) {
     const p = path.split("/").filter(Boolean);
     if (KV[p[0]]) return { kind: "kv", table: KV[p[0]], id: p[1] };
     if (p[0] === "prospects") return { kind: "row", table: "prospects", id: p[1] };
+    if (p[0] === "owner") return { kind: "row", table: "owner_prospects", id: p[1] };
     if (OWNED[p[0]] && p[2] === OWNED[p[0]][1]) return { kind: "owned", table: OWNED[p[0]][0], owner: p[1], id: p[3] };
     throw new Error("Unknown path " + path);
   };

@@ -2,7 +2,7 @@
 // (off-site from Supabase). Real data: never commit the file.
 import { writeFileSync } from "fs";
 import { connect } from "./lib/db.mjs";
-const TABLES = ["profiles", "config", "intel", "region_cards", "join_requests", "prospects", "audit_log", "faq", "trips", "trip_status",
+const TABLES = ["profiles", "config", "intel", "region_cards", "join_requests", "prospects", "owner_prospects", "audit_log", "faq", "trips", "trip_status",
   "payouts", "leads", "access_log", "questions", "training_runs", "roleplay_runs", "website_enquiries"];
 
 export async function run(db = connect(), out = "backup.json", log = console.log) {

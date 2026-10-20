@@ -44,6 +44,19 @@ const r2 = await rotation.run(db, quiet); assert(r2.skipped); pass("second run w
 // intel: fake API returns one good org, one with an unseen source, one duplicate, one with personal routes
 const call = async body => {
   const isEnrich = /contact routes/.test(body.messages[0].content);
+  if (/INVESTORS and STRATEGIC PARTNERS/.test(body.messages[0].content)) {
+    const seenInv = { type: "web_search_tool_result", content: ["https://gulf-fo.example/about", "https://gulf-fo.example/deals", "https://notes-platform.example", "https://example-holdings.example", "https://ru-fund.example"].map(url => ({ type: "web_search_result", url })) };
+    const inv = [
+      { org: "Gulf Example Family Office", track: "Family office or UHNW office", for: "Navoryx aircraft notes", country: "UAE", source: "https://gulf-fo.example/about", website: "https://gulf-fo.example",
+        evidence: [{ summary: "Invested in an aircraft leasing fund", url: "https://gulf-fo.example/deals" }, { summary: "unseen", url: "https://never.example" }], why: "x", approach: "Through an introduction" },
+      { org: "Example Notes Platform", track: "Distribution partner for notes", source: "https://notes-platform.example" },
+      { org: "Example Holdings Limited", track: "Private equity or private credit", source: "https://example-holdings.example" },
+      { org: "Mr Private Person", source: "https://gulf-fo.example/about" },
+      { org: "RU Capital", country: "Russia", source: "https://ru-fund.example" },
+      { org: "Unseen Capital", source: "https://not-in-results.example" },
+      { org: "Example Org 4", source: "https://gulf-fo.example/about" }];
+    return { content: [seenInv, { type: "text", text: "```json\n" + JSON.stringify(inv) + "\n```" }] };
+  }
   if (/charter OPERATORS/.test(body.messages[0].content)) {
     const seenOps = { type: "web_search_tool_result", content: ["https://good-air.example/about", "https://good-air.example/fleet", "https://argus.example/registry/good-air", "https://www.avinode.com/operator/x", "https://ru-jets.example", "https://noaoc.example", "https://asn.example/accident/1", "https://clean-air.example", "https://eu-banned.example", "https://caa.example/enforcement/1", "https://good-air.example/insurance"].map(url => ({ type: "web_search_result", url })) };
     const ops = [
@@ -85,6 +98,17 @@ assert(p1.avenues.length === 1 && p1.avenues[0].url.includes("org3.example")); p
 assert(p1.status === p1Before.status && p1.assignedTo === p1Before.assignedTo && JSON.stringify(p1.history) === JSON.stringify(p1Before.history)); pass("status, assignment and history of existing prospects untouched");
 assert.equal((T.prospects.find(p => p.id === "p002").data.avenues || []).length, 0); pass("route not seen in search results is not stored");
 assert.equal(T.intel.find(i => i.key === "status").value.focusIndex, 1); pass("focus rotates to the next region");
+// investors and partners: owner-only table, nothing outside it
+const own = (T.owner_prospects || []).filter(r => r.id !== "_status");
+assert.deepStrictEqual(own.map(r => r.data.org).sort(), ["Example Holdings Limited", "Example Notes Platform", "Gulf Example Family Office"]); pass("investors and partners stored only in the owner-only table");
+assert(!T.prospects.some(p => /Gulf Example|Notes Platform/.test(p.data.org))); pass("no investor in the shared prospect list");
+assert(!JSON.stringify(T.intel).includes("Gulf Example") && !res.note.includes("Gulf Example") && res.ownerAdded === 3); pass("shared status and run summary carry no investor names, only a count");
+const st = T.owner_prospects.find(r => r.id === "_status").data;
+assert(/Mr Private Person: looks like a private individual/.test(st.rejected.join("|")) && /RU Capital: sanctioned/.test(st.rejected.join("|")) && /Unseen Capital: source not seen/.test(st.rejected.join("|")) && /Example Org 4: duplicate/.test(st.rejected.join("|"))); pass("private person, sanctioned country, unseen source and duplicate rejected");
+const gfo = own.find(r => r.data.org === "Gulf Example Family Office").data;
+assert(gfo.evidence.length === 1 && gfo.for === "Navoryx aircraft notes" && gfo.screen.auto.result === "no match"); pass("evidence kept only with a seen source; sanctions pre-screen recorded");
+assert(own.find(r => r.data.org === "Example Holdings Limited").data.status === "review"); pass("possible sanctions match goes to the owner's decision");
+
 // operators
 assert.deepStrictEqual(res.operators, ["Good Air Charter", "Clean Air Jets"]); pass("only vetted operators are added");
 assert(res.rejected.some(x => /EU Banned Air.*EU Air Safety List/.test(x))); pass("operator on the EU Air Safety List rejected");
