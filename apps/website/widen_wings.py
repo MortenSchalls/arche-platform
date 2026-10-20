@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Make the hero line drawing's wings 50% longer on each side, keeping fuselage, engines, tail,
-winglets and the fairings under the wing unchanged. Writes assets/jet-line-watermark-wide.png."""
+"""Give the hero line drawing the true front-view proportions of the Bombardier Global 7500:
+wingspan 31.7 m to overall height 8.2 m (Bombardier factsheet), i.e. span = 3.866 x height.
+Only the outer wing sections are lengthened; fuselage, engines, tail, winglets and the fairings
+under the wing keep their drawn shape. Writes site/assets/jet-line-watermark-wide.png."""
 import numpy as np, sys
 from PIL import Image
 
@@ -9,12 +11,12 @@ OUT = "site/assets/jet-line-watermark-wide.png"
 ROOT_X = 760      # left wing root (fuselage side) in the source drawing
 SAFE_X = 432      # stretch only left of this: the tailplane tip sits at x≈440
 TIP_X = 110       # keep the winglet (x < 110) as drawn
-GROW = 0.5        # wings 50% longer
+SPAN_M, HEIGHT_M = 31.7, 8.2   # Global 7500, Bombardier factsheet
 
 def widen_left(a):
     h, w, _ = a.shape
     alpha = a[:, :, 3]
-    add = int(round((ROOT_X - 27) * GROW))
+    add = ADD
     # find fairings: columns whose lowest drawn pixel hangs below the wing's lower edge line
     xs = np.arange(TIP_X, SAFE_X)
     low = np.array([np.max(np.nonzero(alpha[380:800, x] > 20)[0]) + 380 if (alpha[380:800, x] > 20).any() else 0 for x in xs])
@@ -49,9 +51,13 @@ def widen_left(a):
     return out.clip(0, 255).astype(np.uint8), add
 
 im = Image.open(SRC).convert("RGBA"); a = np.array(im)
+ys, xs = np.nonzero(a[:, :, 3] > 20)
+span, height = xs.max() - xs.min(), ys.max() - ys.min()
+ADD = int(round((height * SPAN_M / HEIGHT_M - span) / 2))   # pixels to add to each wing
 mid = a.shape[1] // 2
 left, addl = widen_left(a[:, :mid])
 right, addr = widen_left(a[:, mid:][:, ::-1])
 res = np.concatenate([left, right[:, ::-1]], axis=1)
 Image.fromarray(res).save(OUT, optimize=True)
-print(OUT, res.shape[1], "x", res.shape[0], "added", addl, addr)
+ys, xs = np.nonzero(res[:, :, 3] > 20)
+print(OUT, res.shape[1], "x", res.shape[0], "added", addl, addr, "span/height", round((xs.max() - xs.min()) / (ys.max() - ys.min()), 3), "target", round(SPAN_M / HEIGHT_M, 3))
