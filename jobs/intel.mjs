@@ -28,17 +28,45 @@ const AVENUE_TYPES = ["website", "contact", "linkedin", "instagram", "facebook",
 const MODEL = process.env.INTEL_MODEL || "claude-sonnet-5-5";
 // newer models use the newer tool version; the job falls back to the older one if the API refuses it
 const SEARCH_TYPES = process.env.WEB_SEARCH_TOOL ? [process.env.WEB_SEARCH_TOOL] : ["web_search_20260209", "web_search_20250305"];
-const searchTool = type => ({ type, name: "web_search", max_uses: 12 });
+const searchTool = type => ({ type, name: "web_search", max_uses: Number(process.env.SEARCHES_PER_CALL || 6) });
+
+// ---- AI spend control (Morten, 21 Oct 2026): every call is metered; a run stops at its budget, and no run starts
+// once the month's budget is used. Prices in USD per million tokens and per search (platform.claude.com pricing, Oct 2026).
+const PRICES = { "claude-sonnet-5-5": [2, 10], "claude-haiku-4-5-20251001": [1, 5] }, SEARCH_USD = 0.01;
+export const RUN_BUDGET = Number(process.env.AI_RUN_BUDGET_USD || 1.5), MONTH_BUDGET = Number(process.env.AI_MONTH_BUDGET_USD || 40);
+export const meter = { usd: 0, searches: 0, calls: 0, monthLeft: Infinity };
+export function charge(model, u) {
+  if (!u) return; const [pi, po] = PRICES[model] || PRICES["claude-sonnet-5-5"];
+  const inTok = (u.input_tokens || 0) + (u.cache_creation_input_tokens || 0) * 1.25 + (u.cache_read_input_tokens || 0) * 0.1;
+  const n = (u.server_tool_use && u.server_tool_use.web_search_requests) || 0;
+  meter.usd += inTok * pi / 1e6 + (u.output_tokens || 0) * po / 1e6 + n * SEARCH_USD; meter.searches += n; meter.calls++;
+}
+const budgetStop = why => Object.assign(new Error(why), { fatal: true, budget: true });
+// before a job: how much of the month's budget is left (0 means do not run)
+export async function startSpend(db) {
+  const s = (await db.get("intel/spend")) || {}, month = new Date().toISOString().slice(0, 7);
+  meter.monthLeft = MONTH_BUDGET - (s.month === month ? s.usd || 0 : 0); return meter.monthLeft;
+}
+// after a job: add this run to the month and keep the last 30 runs
+export async function recordSpend(db, job) {
+  const s = (await db.get("intel/spend")) || {}, month = new Date().toISOString().slice(0, 7), same = s.month === month;
+  const run = { t: new Date().toISOString(), job, usd: Math.round(meter.usd * 100) / 100, searches: meter.searches, calls: meter.calls };
+  await db.set("intel/spend", { month, usd: Math.round(((same ? s.usd || 0 : 0) + meter.usd) * 100) / 100, monthBudget: MONTH_BUDGET, runBudget: RUN_BUDGET,
+    prevMonth: same ? s.prevMonth || null : (s.month ? { month: s.month, usd: s.usd } : null), runs: [run, ...(s.runs || [])].slice(0, 30) });
+  return run;
+}
 
 export const normName = s => String(s || "").toLowerCase().replace(/\b(ltd|limited|group|pte|llc|inc|co|company|the)\b/g, "").replace(/[^a-z0-9À-￿]+/g, "");
 const normUrl = u => { try { const x = new URL(u); return (x.hostname.replace(/^www\./, "") + x.pathname.replace(/\/$/, "")).toLowerCase(); } catch { return ""; } };
 const host = u => { try { return new URL(u).hostname.replace(/^www\./, "").toLowerCase(); } catch { return ""; } };
 
 // one research call: returns {data, seen:Set of URLs from search results}
-export async function ask(prompt, call = callApi, maxTokens = 8000) {
+export async function ask(prompt, call = callApi, maxTokens = 8000, model = MODEL) {
+  if (meter.usd >= RUN_BUDGET) throw budgetStop(`AI budget for this run reached (USD ${RUN_BUDGET}); progress so far is saved`);
+  if (meter.usd >= meter.monthLeft) throw budgetStop(`AI budget for the month reached (USD ${MONTH_BUDGET}); progress so far is saved`);
   let res, lastErr;
   for (const t of SEARCH_TYPES) {
-    try { res = await call({ model: MODEL, max_tokens: maxTokens, tools: [searchTool(t)], messages: [{ role: "user", content: prompt }] }); break; }
+    try { res = await call({ model, max_tokens: maxTokens, tools: [searchTool(t)], messages: [{ role: "user", content: prompt }] }); charge(model, res.usage); break; }
     catch (e) { lastErr = e; if (e.fatal || !/ 400/.test(e.message)) throw e; }
   }
   if (!res) throw lastErr;
@@ -62,7 +90,7 @@ async function callApi(body) {
 }
 // rebuild the message from server-sent events: blocks start whole, text and citations arrive as deltas
 export async function readStream(stream) {
-  const content = []; let buf = "", stop = null;
+  const content = []; let buf = "", stop = null; const usage = {};
   const dec = new TextDecoder();
   for await (const chunk of stream) {
     buf += dec.decode(chunk, { stream: true });
@@ -71,6 +99,8 @@ export async function readStream(stream) {
       const evt = buf.slice(0, k); buf = buf.slice(k + 2);
       const line = evt.split("\n").find(l => l.startsWith("data: ")); if (!line) continue;
       let e; try { e = JSON.parse(line.slice(6)); } catch { continue; }
+      if (e.type === "message_start" && e.message && e.message.usage) Object.assign(usage, e.message.usage);
+      if (e.type === "message_delta" && e.usage) Object.assign(usage, e.usage);
       if (e.type === "content_block_start") content[e.index] = structuredClone(e.content_block);
       else if (e.type === "content_block_delta") {
         const b = content[e.index]; if (!b) continue;
@@ -80,7 +110,7 @@ export async function readStream(stream) {
       else if (e.type === "error") { const t = JSON.stringify(e.error).slice(0, 300); throw Object.assign(new Error("Anthropic API stream: " + t), { fatal: /credit balance|billing|authentication/i.test(t) }); }
     }
   }
-  return { content: content.filter(Boolean), stop_reason: stop };
+  return { content: content.filter(Boolean), stop_reason: stop, usage };
 }
 
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
@@ -147,6 +177,11 @@ export function vetAvenues(list, seen, website) {
 }
 
 export async function run(db = connect(), call = callApi, log = console.log, fetchLists = fetch) {
+  if ((await startSpend(db)) <= 0) { log("Month's AI budget used: research skipped."); return { added: [], updated: 0, rejected: [], operators: [], services: [], screened: 0, possible: [], note: `Skipped: the month's AI budget (USD ${MONTH_BUDGET}) is used.`, ownerAdded: 0 }; }
+  try { return await runSteps(db, call, log, fetchLists); }
+  finally { const r = await recordSpend(db, "Daily research"); log(`AI spend this run: USD ${r.usd} (${r.calls} calls, ${r.searches} searches)`); }
+}
+async function runSteps(db, call, log, fetchLists) {
   const status = (await db.get("intel/status")) || {};
   const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0;
   const focus = FOCUS[fi % FOCUS.length];
@@ -224,9 +259,9 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
   let svc = { added: [], merged: 0, airports: [] };
   if (process.env.SERVICE_RESEARCH !== "off") {
     try { svc = await services.run(db, call, log, optSet); rejected.push(...svc.rejected); }
-    catch (e) { if (e.fatal) throw e; log("  service partner step failed: " + String(e.message || e).slice(0, 200)); }
+    catch (e) { if (e.fatal && !e.budget) throw e; log("  service partner step stopped: " + String(e.message || e).slice(0, 200)); }
     try { const h = await services.run(db, call, log, optSet, undefined, false, "hotels"); svc.added.push(...h.added); rejected.push(...h.rejected); }   // crew hotels: own progress record
-    catch (e) { if (e.fatal) throw e; log("  service partner step failed: " + String(e.message || e).slice(0, 200)); }
+    catch (e) { if (e.fatal && !e.budget) throw e; log("  service partner step stopped: " + String(e.message || e).slice(0, 200)); }
   }
 
   // 4. sanctions pre-screen of every supplier (operators and service partners, new and existing), each run
@@ -247,8 +282,8 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
   // 5. investors and strategic partners: owner-only table; only a count is reported outside it
   let invCount = 0;
   if (process.env.INVESTOR_RESEARCH !== "off") {
-    try { invCount = (await investors.run(db, call, log, lists, undefined, optSet)).added.length; }
-    catch (e) { if (e.fatal) throw e; log("  owner research step failed: " + String(e.message || e).slice(0, 200)); }
+    try { invCount = (await investors.run(db, call, log, lists, Number(process.env.INVESTOR_AREAS || 1), optSet)).added.length; }
+    catch (e) { if (e.fatal && !e.budget) throw e; log("  owner research step stopped: " + String(e.message || e).slice(0, 200)); }
   }
 
   const note = `Added ${added.length} for "${focus}"${added.length ? ": " + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") : ""}. Contact routes added to ${updated} existing. Operators added for "${opFocus}": ${opsAdded.length}. Service partners: ${svc.added.length} added, ${svc.merged} airports linked${svc.airports.length ? " (" + svc.airports.join(", ") + ")" : ""}. Sanctions pre-screen: ${screened} operators${possible.length ? ", possible match: " + possible.join(", ") : ", no match"}${listsInfo.failed.length ? " (lists not loaded: " + listsInfo.failed.join(", ") + ")" : ""}. ${rejected.length ? rejected.length + " rejected by the rules." : ""}`.trim();

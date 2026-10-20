@@ -5,7 +5,8 @@
 // Suppliers, like operators: visible to the owner and operations, never assigned or rotated to brokers.
 // Same rules as all research: organisations first, a public source seen in this run's search results, no marketplace
 // or broker boards, no sanctioned jurisdictions, named business contacts only from the organisation's own website.
-import { ask, normName, vetAvenues } from "./intel.mjs";
+import { ask, normName, vetAvenues, startSpend, recordSpend } from "./intel.mjs";
+const SERVICE_MODEL = process.env.SERVICE_MODEL || "claude-haiku-4-5-20251001";   // listing suppliers is simple work: the cheaper model
 import { vetContacts } from "./lib/contacts.mjs";
 
 export const CORE = ["FBO and ground handling", "Trip support", "In-flight catering"];
@@ -83,7 +84,7 @@ Organisations first; named BUSINESS contacts only as published on the organisati
 Reply with JSON only, in a \`\`\`json block: an array of objects with fields
 org, category (one of ${CORE.join(", ")}), region, country, city, website, source (URL of the page where you found it), services (array of short items, for example "customs and immigration", "crew transport", "hangar", "kosher catering"), hours (for example "24/7"), isbah (object {level, year, url} if registered, else null), evidence (array of {summary, url}: awards, audits or notable facts), why (one sentence), approach (one or two sentences: how to set them up as a supplier), avenues (array of {type, label, url, note}; types: website, contact, phone, email, linkedin, other), contacts (array of up to 3 {name, role, email, phone, url}: named BUSINESS contacts only as published on the organisation's own website; work email on its own domain; empty if none).`;
     try {
-      const { data, seen } = await ask(prompt, call, 16000);
+      const { data, seen } = await ask(prompt, call, 16000, SERVICE_MODEL);
       for (const o of Array.isArray(data) ? data.slice(0, 10) : []) {
         const v = vetService(o, seen, icao, optSet, SET.cats); if (v.why) { rejected.push(`${clean(o && o.org, 60)} (${icao}): ${v.why}`); continue; }
         const ex = byName.get(normName(v.rec.org));
@@ -98,7 +99,7 @@ org, category (one of ${CORE.join(", ")}), region, country, city, website, sourc
       }
       done.push(icao); covered.add(icao);
       await db.set(SET.key, { ...status, lastRun: nowIso, covered: [...covered], pausedUntil: null, airportsDone: done, lastAdded: added.length, lastMerged: merged });   // progress saved per airport
-    } catch (e) { if (e.fatal) throw e; const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log(`  ${SET.label} ${icao} failed: ${m}`); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=${SET.label} ${icao} failed::${m}`); }
+    } catch (e) { if (e.fatal) { if (e.budget) await db.set(SET.key, { ...((await db.get(SET.key)) || {}), stoppedAt: nowIso, stopReason: e.message }); throw e; } const m = String(e.message || e).replace(/\n/g, " ").slice(0, 200); log(`  ${SET.label} ${icao} failed: ${m}`); if (process.env.GITHUB_ACTIONS) console.log(`::warning title=${SET.label} ${icao} failed::${m}`); }
   }
   const finished = covered.size >= AIRPORTS.length;
   const left = AIRPORTS.filter(([icao]) => !covered.has(icao));
@@ -113,7 +114,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const setName = process.env.SERVICE_SET === "hotels" ? "hotels" : "core";
   await main(setName === "hotels" ? "Crew hotels" : "Service partners", ["SUPABASE_URL", "SUPABASE_SECRET_KEY", "ANTHROPIC_API_KEY"], async () => {
     const db = connect(); const opt = new Set((await db.all("optouts")).map(r => r.id));
-    const r = await run(db, undefined, console.log, opt, Number(process.env.SERVICE_AIRPORTS || AIRPORTS.length), true, setName);
+    if ((await startSpend(db)) <= 0) return { note: "Skipped: the month's AI budget is used." };
+    let r; try { r = await run(db, undefined, console.log, opt, Number(process.env.SERVICE_AIRPORTS || AIRPORTS.length), true, setName); } finally { const sp = await recordSpend(db, setName === "hotels" ? "Crew hotels" : "Service partners"); console.log(`AI spend this run: USD ${sp.usd}`); }
     return { note: `Airports covered: ${r.airports.length} (${r.airports.join(", ")}). Added ${r.added.length}, linked to more airports ${r.merged}, rejected ${r.rejected.length}. The next morning review runs the sanctions pre-screen.` };
   });
 }

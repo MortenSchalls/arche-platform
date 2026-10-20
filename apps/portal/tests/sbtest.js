@@ -36,6 +36,8 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  ok('broker role decided from profile', await k.evaluate(()=>S.role==='broker'));
  ok('broker sees own trip', await k.evaluate(()=>allTrips().length===1));
  await o.evaluate(()=>{S.view='today';render();});await o.waitForTimeout(400);
+ await o.evaluate(()=>S.db.doc('intel/spend').set({month:new Date().toISOString().slice(0,7),usd:12.34,monthBudget:40,runBudget:1.5,runs:[{t:new Date().toISOString(),job:'Daily research',usd:1.2,searches:30,calls:6}]}));await o.waitForTimeout(400);
+ ok('owner sees AI spend on Today', /AI research spend this month: USD 12\.34 of USD 40\.00/.test(await o.textContent('#main')));
  ok('owner sees the website enquiry on Today', /Website enquiries \(1\)/.test(await o.textContent('#main')));
  await o.click('[data-enq="e1"]');await o.waitForTimeout(400);
  ok('enquiry marked handled', await o.evaluate(()=>window.__T.website_enquiries[0].handled===true));

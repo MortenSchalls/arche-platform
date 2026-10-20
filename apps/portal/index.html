@@ -524,6 +524,7 @@ async function boot(){
     watchBroker(S.uid);
     if (S.isOwner) watchDoc("config/backup", snap => { S.backup = snap.exists ? snap.data() : null; });
     if (S.isOwner) watchDoc("config/launch", snap => { S.launch = snap.exists ? snap.data() : {}; render(); });
+    if (S.isOwner) watchDoc("intel/spend", snap => { S.spend = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("intel/logaudit", snap => { S.auditDone = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("intel/drive", snap => { const first = S.drive === undefined; S.drive = snap.exists ? snap.data() : null; if (first) setTimeout(() => driveSync(false), 4000); });
     if (S.isOwner) { watchDoc("intel/faq", snap => { S.faqRun = snap.exists ? snap.data() : null; }); setTimeout(() => autoFaq(), 12000); }
@@ -2303,7 +2304,16 @@ function vToday(){
       <p>Prospect research: ${S.intel && S.intel.lastRun ? "last run " + fmtT(S.intel.lastRun) + " · " + (S.intel.totalProspects || Object.keys(S.prospects).length) + " organisations" : "not run yet"}</p>
       <p>Google Drive backup: ${S.drive && (S.drive.lastCloudBackup || S.drive.lastSync) ? "last " + fmtT(S.drive.lastCloudBackup || S.drive.lastSync) + (S.drive.cloudBackupResult ? " · " + esc(S.drive.cloudBackupResult) : "") : "not run yet"}</p>
       <p>Prospect rotation: ${run.lastRun ? "last " + fmtT(run.lastRun) : "not run yet"}</p>
+      ${aiSpendHtml()}
       <div class="row"><button class="btn small" type="button" data-view="control">Control</button><button class="btn small" type="button" data-view="queue">Operations</button><button class="btn small" type="button" data-view="prospects">Prospects</button></div></div></div></div>${spotCheckPanel()}${todayAnalytics()}`;
+}
+
+/* AI research spend (Anthropic API), recorded by every background job; limits are set in .github/workflows/jobs.yml */
+function aiSpendHtml(){
+  const sp = S.spend; if (!sp) return `<p>AI research spend: recorded from the next run.</p>`;
+  const cur = sp.month === new Date().toISOString().slice(0, 7), used = cur ? sp.usd || 0 : 0, lim = sp.monthBudget || 40, last = (sp.runs || [])[0];
+  const fmt = n => "USD " + Number(n || 0).toFixed(2);
+  return `<p>AI research spend this month: <b>${fmt(used)}</b> of ${fmt(lim)}${used >= lim ? ` · <span class="bad-ink">limit reached: research paused until next month</span>` : ""}${last ? `<br><span class="muted">Last run: ${esc(last.job)} ${fmtT(last.t)}, ${fmt(last.usd)} (${last.searches} searches). Each scheduled run stops at ${fmt(sp.runBudget || 1.5)}.</span>` : ""}</p>`;
 }
 
 /* ---------- dashboards: every user's opening page ---------- */

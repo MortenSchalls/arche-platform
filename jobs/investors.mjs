@@ -143,10 +143,14 @@ org, track (one of ${TRACKS.join(", ")}), for (one of ${FOR.join(", ")}), type (
 // run on its own (GitHub Actions job choice "investors"); the run summary shows only a count
 if (import.meta.url === `file://${process.argv[1]}`) {
   const { main } = await import("./lib/main.mjs"); const { connect } = await import("./lib/db.mjs"); const { loadLists } = await import("./lib/sanctions.mjs");
+  const { startSpend, recordSpend } = await import("./intel.mjs");
   await main("Owner research", ["SUPABASE_URL", "SUPABASE_SECRET_KEY", "ANTHROPIC_API_KEY"], async () => {
-    const lists = await loadLists(fetch, console.log);
-    if (process.env.INVESTOR_AREAS === "0") { const n = await enrich(connect(), undefined, console.log, 400); return { note: `Profiles added to ${n}. Details only in the portal.` }; }
-    const r = await run(connect(), undefined, console.log, lists, Number(process.env.INVESTOR_AREAS || INV_FOCUS.length));
-    return { note: `Added ${r.added.length}; ${r.rejected.length} rejected by the rules; profiles added to ${r.profiled}. Details only in the portal.` };
+    const db = connect(); if ((await startSpend(db)) <= 0) return { note: "Skipped: the month's AI budget is used." };
+    try {
+      const lists = await loadLists(fetch, console.log);
+      if (process.env.INVESTOR_AREAS === "0") { const n = await enrich(db, undefined, console.log, 400); return { note: `Profiles added to ${n}. Details only in the portal.` }; }
+      const r = await run(db, undefined, console.log, lists, Number(process.env.INVESTOR_AREAS || INV_FOCUS.length));
+      return { note: `Added ${r.added.length}; ${r.rejected.length} rejected by the rules; profiles added to ${r.profiled}. Details only in the portal.` };
+    } finally { const sp = await recordSpend(db, "Owner research"); console.log(`AI spend this run: USD ${sp.usd}`); }
   });
 }

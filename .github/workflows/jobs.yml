@@ -14,6 +14,10 @@ on:
         type: choice
         options: [rotation, intel, investors, investor-profiles, services, crew-hotels, backup]
         default: rotation
+      budget:
+        description: "Most this run may spend on AI, in USD (the month's limit still applies)"
+        type: string
+        default: "3"
 permissions:
   contents: read
 concurrency:
@@ -27,6 +31,9 @@ jobs:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      # AI spend limits (Morten, 21 Oct 2026): USD 1.50 per scheduled run, USD 40 a month in total
+      AI_RUN_BUDGET_USD: ${{ github.event_name == 'workflow_dispatch' && inputs.budget || '1.5' }}
+      AI_MONTH_BUDGET_USD: "40"
       JOB: ${{ github.event_name == 'workflow_dispatch' && inputs.job || (github.event.schedule == '58 22 * * *' && 'intel') || (github.event.schedule == '17 19 * * *' && 'backup') || 'rotation' }}
     steps:
       - uses: actions/checkout@v5

@@ -14,6 +14,7 @@ export async function main(name, needs, fn) {
     console.log(`::notice title=${name}::Finished.${note}`);
     return out;
   } catch (e) {
+    if (e && e.budget) { console.log(`::warning title=${name} stopped::${String(e.message).slice(0, 300)}`); return; }   // spend limit: a planned stop, not a failure
     const cause = e && e.cause ? " (cause: " + (e.cause.code || "") + " " + (e.cause.message || "") + ")" : "";
     const msg = (String(e && e.message || e) + cause).replace(/sb_secret_[A-Za-z0-9_-]+|sk-ant-[A-Za-z0-9_-]+/g, "[key]").replace(/\n/g, " ").slice(0, 500);
     console.log(`::error title=${name} failed::${msg}`);

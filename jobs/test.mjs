@@ -215,4 +215,15 @@ pass("contacts older than 12 months without contact and opted-out contacts remov
 // backup
 const counts = await backup.run(db, "/tmp/backup-test.json", quiet);
 assert(counts.prospects === 19 && existsSync("/tmp/backup-test.json")); pass("backup holds every table"); unlinkSync("/tmp/backup-test.json");
+// AI spend control
+{ const m = intel.meter; m.usd = 0; m.searches = 0; m.calls = 0;
+  intel.charge("claude-sonnet-5-5", { input_tokens: 100000, output_tokens: 10000, server_tool_use: { web_search_requests: 6 } });
+  assert(Math.abs(m.usd - 0.36) < 1e-9 && m.searches === 6); pass("each call is metered in USD: tokens plus searches");
+  m.usd = intel.RUN_BUDGET; let stopped = null; try { await intel.ask("x", async () => ({ content: [] })); } catch (e) { stopped = e; }
+  assert(stopped && stopped.budget); pass("a run stops once its budget is reached");
+  m.usd = 0; await db.set("intel/spend", { month: new Date().toISOString().slice(0, 7), usd: intel.MONTH_BUDGET });
+  const sk = await intel.run(db, async () => { throw new Error("must not be called"); }, quiet, async () => ({ ok: false }));
+  assert(/budget/.test(sk.note)); pass("no research runs once the month's budget is used");
+  m.usd = 0.5; await db.set("intel/spend", { month: new Date().toISOString().slice(0, 7), usd: 3 }); const rr = await intel.recordSpend(db, "Test");
+  assert(rr.usd === 0.5 && (await db.get("intel/spend")).usd === 3.5); pass("spend added to the month with the run's details"); }
 console.log(`\n${ok} checks passed`);
