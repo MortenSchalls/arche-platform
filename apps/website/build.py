@@ -78,13 +78,13 @@ def build():
     assert s.count(old_h1) == 1
     s = s.replace(old_h1, 'Private aviation,<br>handled with <em style="font-family:inherit;font-style:normal;font-weight:400;'
                   'background:linear-gradient(176deg,#dbe5f0 0%,#a9bdd4 45%,#7d96b4 100%);-webkit-background-clip:text;background-clip:text;color:transparent">care and precision.</em>')
-    # hero text: sits just under the aircraft when the screen is tall enough, otherwise moves up over the
-    # aircraft's faded lower part so the quote form is always visible without scrolling (Morten 20 Oct 2026)
+    # hero text starts just below the landing gear (fin tip at 205 px, gear bottom = 205 px + 0.302 x aircraft width); the aircraft's
+    # width is also limited by the screen height so the quote form stays visible without scrolling (Morten 20 Oct 2026)
     old_pad = 'padding:calc(190px + min(600px,46vw) * 0.8) 40px 40px;display:flex;flex-direction:column;align-items:center;gap:56px'
     assert s.count(old_pad) == 1
     s = s.replace('<div style="position:relative;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;' + old_pad,
                   '<div class="hero-content" style="position:relative;max-width:1440px;margin:0 auto;width:100%;box-sizing:border-box;'
-                  'padding:clamp(230px, calc(100vh - 455px), calc(166px + (100vw - 118px) * 0.28)) 40px 32px;display:flex;flex-direction:column;align-items:center;gap:40px')
+                  'padding:calc(221px + 0.302 * clamp(420px, min(calc((100vw - 118px) * 0.803), calc((100vh - 626px) * 3.31)), 1930px)) 40px 32px;display:flex;flex-direction:column;align-items:center;gap:28px')
     # 4. sender (plain script, after the page)
     s = s.replace("</body>", """<script>
 window.archeSend = function (data) {
@@ -100,13 +100,13 @@ window.archeSend = function (data) {
     old_jet = "width:min(1200px,92vw);aspect-ratio:1774/887;background:url('assets/jet-line-watermark-white.png')"
     assert s.count(old_jet) == 1
     # size kept as before the wingspan cut (0.803 = 2252/2804), so the aircraft does not grow; drawing moved up 40 px
-    s = s.replace(old_jet, "width:calc((100vw - 118px) * 0.803);max-width:1930px;aspect-ratio:2252/887;background:url('assets/jet-line-watermark-wide.png')")
-    old_top = 'position:absolute;left:50%;top:190px;transform:translateX(-50%);width:calc('
+    s = s.replace(old_jet, "width:clamp(420px, min(calc((100vw - 118px) * 0.803), calc((100vh - 626px) * 3.31)), 1930px);aspect-ratio:2252/887;background:url('assets/jet-line-watermark-wide.png')")
+    old_top = 'position:absolute;left:50%;top:190px;transform:translateX(-50%);width:clamp('
     assert s.count(old_top) == 1
-    s = s.replace(old_top, 'position:absolute;left:50%;top:150px;transform:translateX(-50%);width:calc(')
+    s = s.replace(old_top, 'position:absolute;left:50%;top:calc(205px - 0.0471 * clamp(420px, min(calc((100vw - 118px) * 0.803), calc((100vh - 626px) * 3.31)), 1930px));transform:translateX(-50%);width:clamp(')
     # compass rose watermark: top just below the logo, full page width, fades out towards the bottom of the hero
     subprocess.run([sys.executable, os.path.join(HERE, "compass_rose.py")], check=True, cwd=HERE)
-    jet_div = '<div aria-hidden="true" style="position:absolute;left:50%;top:150px;'
+    jet_div = '<div aria-hidden="true" style="position:absolute;left:50%;top:calc(205px'
     assert s.count(jet_div) == 1
     rose = ('<div aria-hidden="true" class="arche-rose" style="position:absolute;left:0;right:0;top:200px;bottom:0;overflow:hidden;pointer-events:none;'
             'opacity:0.14;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 45%,transparent 92%);mask-image:linear-gradient(180deg,#000 0%,#000 45%,transparent 92%)">'
