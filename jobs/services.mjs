@@ -38,11 +38,21 @@ export function vetService(o, seen, icao, optSet, cats = CATEGORIES) {
   const isbah = o.isbah && ok(o.isbah.url) ? { level: clean(o.isbah.level, 40), year: clean(o.isbah.year, 4), url: clean(o.isbah.url, 400) } : null;
   const evidence = (Array.isArray(o.evidence) ? o.evidence : []).map(x => ({ summary: clean(x && x.summary, 300), url: clean(x && x.url, 400) })).filter(x => x.summary && ok(x.url)).slice(0, 3);
   const flags = [];
+  let hotel = null;
+  if (o.category === "Crew hotels") {   // Morten, 21 Oct 2026: hotels at most 15 minutes from the airport, with a dedicated airport shuttle (mandatory)
+    if (o.type === "agency") hotel = { type: "agency" };
+    else {
+      const min = Number(o.minutes), sh = o.shuttle || {};
+      if (!(min > 0 && min <= 15) || !ok(o.minutes_url)) return { why: "hotel not shown to be within 15 minutes of the airport" };
+      if (!clean(sh.desc) || !ok(sh.url)) return { why: "hotel without a dedicated airport shuttle stated in a source" };
+      hotel = { type: "hotel", minutes: min, minutesUrl: clean(o.minutes_url, 400), shuttle: clean(sh.desc, 160), shuttleUrl: clean(sh.url, 400) };
+    }
+  }
   if (o.category === "FBO and ground handling" && !isbah) flags.push("No IS-BAH registration found: check handling standards before relying on them.");
   return { rec: { org: clean(o.org, 160), kind: "service", segment: "Service partner", category: o.category, airports: [icao],
     region: clean(o.region, 40), country: clean(o.country, 60), province: "", city: clean(o.city, 60), website, source: clean(o.source, 400),
     services: (Array.isArray(o.services) ? o.services : []).map(x => clean(x, 60)).filter(Boolean).slice(0, 10),
-    hours: clean(o.hours, 40), isbah, evidence, flags, why: clean(o.why, 400), approach: clean(o.approach, 500),
+    hours: clean(o.hours, 40), isbah, ...(hotel ? { hotel } : {}), evidence, flags, why: clean(o.why, 400), approach: clean(o.approach, 500),
     avenues: vetAvenues(o.avenues, seen, o.website), contacts: vetContacts(o.contacts, seen, website, o.org, optSet), status: "new" } };
 }
 
@@ -61,11 +71,11 @@ export async function run(db, call, log = () => {}, optSet = new Set(), perRun =
   const added = [], rejected = [], done = []; let merged = 0;
   for (const [icao, name] of todo) {
     const prompt = setName === "hotels" ? `You research CREW HOTELS at ${name} airport (${icao}) for Archē Executive, a Singapore private jet charter broker that books business-jet crews into hotels on trips.
-Find up to 8 organisations: hotels within about 30 minutes of this airport that suit business-jet crews (24-hour reception, quiet rooms, airport transfer, crew or corporate rates, late check-out or day rooms), and crew-accommodation companies that book crew hotels at this airport.
+Find up to 8 organisations. HOTELS: only hotels at most 15 minutes by road from this airport AND with their own dedicated airport shuttle (the hotel's own shuttle or car service, stated on the hotel's or airport's own page; not a public bus or taxi). Both are mandatory: leave out any hotel where either is not stated in a source. Prefer hotels that suit crews (24-hour reception, quiet rooms, crew or corporate rates, late check-out or day rooms). Also CREW-ACCOMMODATION COMPANIES that book crew hotels at this airport.
 Scrutinise quality from public sources: the hotel's or hotel group's own website, the airport's official site, reputable travel or aviation press. Never use booking or review sites (Booking.com, Expedia, Hotels.com, Agoda, Trip.com, TripAdvisor, Kayak, Trivago) or charter marketplaces as the source, and never copy prices from them.
 Organisations first; named BUSINESS contacts only as published on the organisation's own website (for example the sales or groups office). Nothing based in or controlled from Russia, Belarus, Iran, North Korea, Syria, Cuba, Venezuela, Myanmar or Afghanistan. Never guess.
 Reply with JSON only, in a \`\`\`json block: an array of objects with fields
-org, category (always "Crew hotels"), region, country, city, website, source (URL of the page where you found it), services (array of short items, for example "airport transfer", "24-hour reception", "day rooms", "crew rate", "late check-out", "minutes to airport: 15"), hours (for example "24/7 reception"), isbah (always null), evidence (array of {summary, url}: star rating from an official body, awards, notable facts), why (one sentence), approach (one or two sentences: how to set up a crew rate or account), avenues (array of {type, label, url, note}; types: website, contact, phone, email, linkedin, other), contacts (array of up to 3 {name, role, email, phone, url}: named BUSINESS contacts only as published on the organisation's own website; work email on its own domain; empty if none).` :
+org, category (always "Crew hotels"), type ("hotel" or "agency"), minutes (hotels: road minutes to the airport, a number), minutes_url (hotels: page that states the distance or time), shuttle (hotels: {desc, url}: the dedicated airport shuttle and the page that states it), region, country, city, website, source (URL of the page where you found it), services (array of short items, for example "airport transfer", "24-hour reception", "day rooms", "crew rate", "late check-out"), hours (for example "24/7 reception"), isbah (always null), evidence (array of {summary, url}: star rating from an official body, awards, notable facts), why (one sentence), approach (one or two sentences: how to set up a crew rate or account), avenues (array of {type, label, url, note}; types: website, contact, phone, email, linkedin, other), contacts (array of up to 3 {name, role, email, phone, url}: named BUSINESS contacts only as published on the organisation's own website; work email on its own domain; empty if none).` :
       `You research BUSINESS-JET SUPPLIERS at ${name} airport (${icao}) for Archē Executive, a Singapore private jet charter broker.
 Find up to 8 organisations serving business jets at this airport in these categories: ${CORE.join("; ")}. Prefer FBOs and handlers dedicated to business aviation, trip-support companies with 24/7 operations, and caterers specialised in business-jet catering.
 Scrutinise quality from public sources: the company's own website, the airport's official site, IS-BAH (International Standard for Business Aircraft Handling) registry or announcements, reputable aviation press. Never use charter marketplaces, booking platforms or airport directories such as AirNav, Avinode or AC-U-KWIK as the source.

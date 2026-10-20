@@ -13,6 +13,7 @@ fs.writeFileSync('t_sb_owner.html',page(OWN));
 const OPS='00000000-0000-0000-0000-00000000000c',T2=JSON.parse(JSON.stringify(T));
 T2.profiles.push({id:OPS,role:'ops',active:true,contract_name:'Example Ops',data:{roster:true}});
 const SC={auto:{result:'no match',at:'2026-10-20T05:00:00Z',lists:['OFAC'],hits:[]}};
+T2.prospects.push({id:'p970',data:{org:'Example Near Hotel',kind:'service',category:'Crew hotels',airports:['WSSL'],status:'new',screen:SC,hotel:{type:'hotel',minutes:10,shuttle:'Own shuttle 24/7'}}},{id:'p971',data:{org:'Example Far Hotel',kind:'service',category:'Crew hotels',airports:['WSSL'],status:'new',screen:SC,hotel:{type:'hotel',minutes:25,shuttle:'Shuttle'}}});
 T2.prospects.push({id:'p960',data:{org:'Example FBO One',kind:'service',category:'FBO and ground handling',airports:['WSSL'],status:'new',isbah:{level:'Stage 2',year:'2025',url:'https://fbo-one.example/isbah'},screen:SC,website:'https://fbo-one.example'}},
  {id:'p961',data:{org:'Example FBO Two',kind:'service',category:'FBO and ground handling',airports:['WSSL'],status:'new',screen:SC,website:'https://fbo-two.example'}},
  {id:'p962',data:{org:'Example FBO Flagged',kind:'service',category:'FBO and ground handling',airports:['WSSL'],status:'review',screen:{auto:{result:'possible match',at:'2026-10-20T05:00:00Z',hits:[]}}}},
@@ -138,7 +139,9 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await q.fill('#rq_ar','Example reason');await q.click('#sqAwardForm button[type=submit]');await q.waitForTimeout(400);
  ok('award recorded with reason and audit row', await (async()=>{const r=await R();return r.status==='awarded'&&r.award.pid==='p961'&&r.award.reason==='Example reason';})() && await q.evaluate(()=>(window.__T.audit_log||[]).some(x=>x.action==='Supplier quote awarded')));
  await q.click('[data-rq="new"]');await q.waitForTimeout(200);await q.selectOption('#rq_cat','Crew hotels');await q.waitForTimeout(300);
- ok('crew hotels is its own service with rooms and nights', await q.evaluate(()=>!!document.getElementById('rq_rooms') && !!document.getElementById('rq_nights') && /Airport transfer/.test(document.getElementById('sqForm').innerText)));
+ ok('crew hotels is its own service with rooms and nights', await q.evaluate(()=>!!document.getElementById('rq_rooms') && !!document.getElementById('rq_nights') && /Crew rate/.test(document.getElementById('sqForm').innerText)));
+ await q.selectOption('#rq_ap','WSSL');await q.waitForTimeout(300);
+ ok('crew hotels: only within 15 minutes with a dedicated shuttle', await q.evaluate(()=>!document.querySelector('[data-rqpick="p970"]').disabled && document.querySelector('[data-rqpick="p971"]').disabled));
  await q.selectOption('#rq_cat','Trip support');await q.waitForTimeout(300);
  ok('trip support no longer lists crew hotel', await q.evaluate(()=>!/hotel/i.test(document.getElementById('sqForm').querySelector('fieldset').innerText) && !document.getElementById('rq_rooms')));
  ok('quotes screen with comparison fits 390 px', await q.evaluate(()=>document.documentElement.scrollWidth<=390));

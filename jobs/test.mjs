@@ -47,8 +47,11 @@ const r2 = await rotation.run(db, quiet); assert(r2.skipped); pass("second run w
 const call = async body => {
   const isEnrich = /contact routes/.test(body.messages[0].content);
   if (/CREW HOTELS/.test(body.messages[0].content)) {
-    const seenH = { type: "web_search_tool_result", content: ["https://airport-hotel.example/crew", "https://www.booking.com/hotel/x"].map(url => ({ type: "web_search_result", url })) };
-    const h = [{ org: "Example Airport Hotel", category: "Crew hotels", country: "Singapore", source: "https://airport-hotel.example/crew", website: "https://airport-hotel.example", services: ["airport transfer", "crew rate"] },
+    const seenH = { type: "web_search_tool_result", content: ["https://airport-hotel.example/crew", "https://airport-hotel.example/shuttle", "https://far-hotel.example", "https://crew-agency.example", "https://www.booking.com/hotel/x"].map(url => ({ type: "web_search_result", url })) };
+    const h = [{ org: "Example Airport Hotel", category: "Crew hotels", type: "hotel", minutes: 10, minutes_url: "https://airport-hotel.example/crew", shuttle: { desc: "Hotel shuttle every 20 minutes, 24/7", url: "https://airport-hotel.example/shuttle" }, country: "Singapore", source: "https://airport-hotel.example/crew", website: "https://airport-hotel.example", services: ["crew rate"] },
+      { org: "Far Hotel", category: "Crew hotels", type: "hotel", minutes: 25, minutes_url: "https://far-hotel.example", shuttle: { desc: "Shuttle", url: "https://far-hotel.example" }, source: "https://far-hotel.example" },
+      { org: "No Shuttle Hotel", category: "Crew hotels", type: "hotel", minutes: 8, minutes_url: "https://airport-hotel.example/crew", source: "https://airport-hotel.example/crew" },
+      { org: "Crew Agency Example", category: "Crew hotels", type: "agency", source: "https://crew-agency.example" },
       { org: "Booked Hotel", category: "Crew hotels", source: "https://www.booking.com/hotel/x" },
       { org: "Wrong Category Hotel", category: "FBO and ground handling", source: "https://airport-hotel.example/crew" }];
     return { content: [seenH, { type: "text", text: "```json\n" + JSON.stringify(h) + "\n```" }] };
@@ -146,7 +149,7 @@ const np = own.find(r => r.data.org === "Example Notes Platform").data;
 assert(np.profile && np.profile.aum === "" && np.potential === "Low"); pass("profile research fills records without one; unsourced portfolio size dropped");
 
 // service partners
-assert.deepStrictEqual(res.services.sort(), ["Example Airport Hotel", "FBO One Aviation", "Sky Catering Example"]); pass("service partners added: FBO, caterer and crew hotel");
+assert.deepStrictEqual(res.services.sort(), ["Crew Agency Example", "Example Airport Hotel", "FBO One Aviation", "Sky Catering Example"]); pass("service partners added: FBO, caterer and crew hotel");
 const fbo = T.prospects.find(p => p.data.org === "FBO One Aviation").data;
 assert.deepStrictEqual(fbo.airports, ["WSSL", "WSSS", "VTBD"]); pass("same company at the next airports is linked, not duplicated");
 assert(fbo.kind === "service" && fbo.isbah && fbo.isbah.level === "Stage 2" && !fbo.flags.length && fbo.contacts.length === 1); pass("IS-BAH evidence and business contact kept");
@@ -156,6 +159,8 @@ assert(res.rejected.some(x => /Directory Handler.*directory/.test(x)) && res.rej
 pass("three airports covered per run; only successful searches count, no pause before all are covered");
 { const ht = T.prospects.find(p => p.data.org === "Example Airport Hotel").data; assert(ht.kind === "service" && ht.category === "Crew hotels" && !ht.flags.length && ht.airports.length === 3); }
 pass("crew hotels researched as their own category and linked across airports");
+assert(res.rejected.some(x => /Far Hotel.*15 minutes/.test(x)) && res.rejected.some(x => /No Shuttle Hotel.*shuttle/.test(x))); pass("hotels more than 15 minutes away or without a dedicated shuttle refused");
+{ const ht = T.prospects.find(p => p.data.org === "Example Airport Hotel").data; assert(ht.hotel.minutes === 10 && /shuttle/i.test(ht.hotel.shuttle)); } pass("distance and shuttle stored with their sources");
 assert(res.rejected.some(x => /Booked Hotel.*marketplace/.test(x)) && res.rejected.some(x => /Wrong Category Hotel.*categories/.test(x))); pass("booking sites refused as sources; hotel research adds only hotels");
 { const hv = T.intel.find(i => i.key === "services-hotels").value; assert(hv.airportsLeft === 27); } pass("crew hotels keep their own progress");
 
@@ -209,5 +214,5 @@ pass("contacts older than 12 months without contact and opted-out contacts remov
 
 // backup
 const counts = await backup.run(db, "/tmp/backup-test.json", quiet);
-assert(counts.prospects === 18 && existsSync("/tmp/backup-test.json")); pass("backup holds every table"); unlinkSync("/tmp/backup-test.json");
+assert(counts.prospects === 19 && existsSync("/tmp/backup-test.json")); pass("backup holds every table"); unlinkSync("/tmp/backup-test.json");
 console.log(`\n${ok} checks passed`);

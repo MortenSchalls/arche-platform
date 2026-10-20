@@ -1216,6 +1216,7 @@ function svcDetail(p){
       <li><span class="avt">Airports</span> ${esc((p.airports || []).join(", "))}</li>
       ${(p.services || []).length ? `<li><span class="avt">Services</span> ${esc(p.services.join(", "))}</li>` : ""}
       ${p.hours ? `<li><span class="avt">Hours</span> ${esc(p.hours)}</li>` : ""}
+      ${p.hotel && p.hotel.type === "hotel" ? `<li><span class="avt">Airport</span> ${esc(p.hotel.minutes)} minutes by road · ${lnk(p.hotel.minutesUrl, "source")}</li><li><span class="avt">Shuttle</span> ${esc(p.hotel.shuttle)} · ${lnk(p.hotel.shuttleUrl, "source")}</li>` : p.hotel && p.hotel.type === "agency" ? `<li><span class="avt">Type</span> Crew-accommodation company: ask only for hotels within 15 minutes with a dedicated shuttle</li>` : ""}
       <li><span class="avt">IS-BAH</span> ${p.isbah ? `${esc(p.isbah.level || "registered")}${p.isbah.year ? " (" + esc(p.isbah.year) + ")" : ""} · ${lnk(p.isbah.url, "evidence")}` : "not found in public sources"}</li>
       ${(p.evidence || []).map(x => `<li><span class="avt">Evidence</span> ${esc(x.summary)} · ${lnk(x.url, "source")}</li>`).join("")}
     </ul>
@@ -3821,7 +3822,7 @@ const SQ_SERVICES = {
   "FBO and ground handling": ["Ramp handling", "Passenger lounge", "Customs and immigration", "Crew transport", "Fuel arrangement", "Hangar", "Lavatory and water service", "Parking"],
   "Trip support": ["Landing permits", "Overflight permits", "Slots", "Flight planning", "Weather and NOTAM briefing"],
   "In-flight catering": ["Passenger catering", "Crew meals", "Special diets", "Bar and drinks", "Flowers and amenities"],
-  "Crew hotels": ["Single rooms for crew", "Crew rate", "Airport transfer", "Day rooms", "Late check-out", "Quiet or blackout rooms", "24-hour reception", "Breakfast"]};
+  "Crew hotels": ["Single rooms for crew", "Crew rate", "Day rooms", "Late check-out", "Quiet or blackout rooms", "24-hour reception", "Breakfast"]};
 const sqStaff = () => isStaff() && acting() !== "broker";
 const sqList = () => Object.entries(S.rfqs || {}).map(([id, r]) => ({id, ...r})).sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
 async function sqSet(id, data){ await S.db.doc("rfqs/" + id).set(data); }
@@ -3839,6 +3840,7 @@ function sqEligible(p, cat){
   if (p.status === "review" || (sc && sc.result === "possible match")) reasons.push("possible sanctions match");
   if (!sc) reasons.push("sanctions check not run yet (runs every morning)");
   if (cat === "FBO and ground handling" && !p.isbah) flags.push("No IS-BAH found");
+  if (cat === "Crew hotels" && !(p.hotel && (p.hotel.type === "agency" || (p.hotel.minutes > 0 && p.hotel.minutes <= 15 && p.hotel.shuttle)))) reasons.push("not shown to be within 15 minutes of the airport with a dedicated airport shuttle");
   if (!(p.avenues || []).length && !p.website) flags.push("No contact route on file");
   return {eligible: !reasons.length, reasons, flags};
 }
@@ -3872,7 +3874,7 @@ Arrival (UTC): ${sc.arr || "to follow"}
 Departure (UTC): ${sc.dep || "to follow"}
 ${r.category === "Crew hotels" ? `Crew: ${sc.crew || "to follow"} · Rooms: ${sc.rooms || "to follow"} · Nights: ${sc.nights || "to follow"}` : `Passengers: ${sc.pax || "to follow"} · Crew: ${sc.crew || "to follow"}`}
 Services: ${(sc.services || []).join(", ") || "as discussed"}
-${sc.notes ? "Notes: " + sc.notes + "\n" : ""}Terms: ${r.terms}
+${sc.notes ? "Notes: " + sc.notes + "\n" : ""}${r.category === "Crew hotels" ? "Required: the hotel is at most 15 minutes by road from the airport and has its own dedicated airport shuttle for the crew, both ways. Please confirm both in your quote.\n" : ""}Terms: ${r.terms}
 Please quote in USD, itemised, with how long the quote is valid, by ${r.neededBy ? fmtD(r.neededBy) : "return"}. Tell us if anything in the terms does not suit you.
 
 We found your details on your organisation's published pages. If you would rather not receive requests from us, reply and we will remove you.

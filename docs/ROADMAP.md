@@ -55,7 +55,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 
 ## Done
 **21 Oct 2026**
-- ☑ Crew hotels as their own service: researched near the 30 airports (hotels suited to crews, and crew-accommodation companies) from hotels' own sites, never booking or review sites; own progress record; in Supplier quotes with rooms and nights. Removed "Hotel for crew" from trip support.
+- ☑ Crew hotels as their own service: researched at the 30 airports: hotels at most 15 minutes by road with a dedicated airport shuttle (both mandatory, with sources), and crew-accommodation companies; from hotels' own sites, never booking or review sites; own progress record; in Supplier quotes with rooms and nights. Removed "Hotel for crew" from trip support.
 - ☑ Supplier quotes (owner and operations): request quotes from checked service partners at an airport, compare them with an explained score, award with four-eyes; nothing sent from the portal; all in USD. First piece of the AeroBridge idea.
 
 **20 Oct 2026**
