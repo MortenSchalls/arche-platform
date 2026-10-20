@@ -12,7 +12,7 @@ on:
       job:
         description: "Job to run now"
         type: choice
-        options: [rotation, intel, investors, backup]
+        options: [rotation, intel, investors, investor-profiles, backup]
         default: rotation
 permissions:
   contents: read
@@ -39,7 +39,7 @@ jobs:
         working-directory: jobs
         run: |
           if [ "$JOB" = "rotation" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then export FORCE=1; fi
-          node "$JOB.mjs"
+          if [ "$JOB" = "investor-profiles" ]; then INVESTOR_AREAS=0 node investors.mjs; else node "$JOB.mjs"; fi
       - name: Encrypt backup
         if: env.JOB == 'backup'
         working-directory: jobs

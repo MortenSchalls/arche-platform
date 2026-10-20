@@ -44,10 +44,16 @@ const r2 = await rotation.run(db, quiet); assert(r2.skipped); pass("second run w
 // intel: fake API returns one good org, one with an unseen source, one duplicate, one with personal routes
 const call = async body => {
   const isEnrich = /contact routes/.test(body.messages[0].content);
+  if (/investor profile/.test(body.messages[0].content)) {
+    const ids = [...body.messages[0].content.matchAll(/- id (\w+):/g)].map(m => m[1]);
+    const prof = Object.fromEntries(ids.map(id => [id, { aum: "USD 9bn", aum_url: "https://unseen.example", ticket: "Over USD 50m", interests: ["Real estate"], industries: ["Property"], aviation: "none", geo: ["Europe"] }]));
+    return { content: [{ type: "web_search_tool_result", content: [] }, { type: "text", text: "```json\n" + JSON.stringify(prof) + "\n```" }] };
+  }
   if (/INVESTORS and STRATEGIC PARTNERS/.test(body.messages[0].content)) {
     const seenInv = { type: "web_search_tool_result", content: ["https://gulf-fo.example/about", "https://gulf-fo.example/deals", "https://notes-platform.example", "https://example-holdings.example", "https://ru-fund.example"].map(url => ({ type: "web_search_result", url })) };
     const inv = [
       { org: "Gulf Example Family Office", track: "Family office or UHNW office", for: "Navoryx aircraft notes", country: "UAE", source: "https://gulf-fo.example/about", website: "https://gulf-fo.example",
+        aum: "USD 2bn", aum_url: "https://gulf-fo.example/about", ticket: "USD 1–10m", interests: ["Aviation", "Private credit", "Made-up class"], industries: ["Aircraft leasing", "Hospitality"], aviation: "direct", geo: ["Middle East", "Mars"],
         evidence: [{ summary: "Invested in an aircraft leasing fund", url: "https://gulf-fo.example/deals" }, { summary: "unseen", url: "https://never.example" }], why: "x", approach: "Through an introduction" },
       { org: "Example Notes Platform", track: "Distribution partner for notes", source: "https://notes-platform.example" },
       { org: "Example Holdings Limited", track: "Private equity or private credit", source: "https://example-holdings.example" },
@@ -108,6 +114,10 @@ assert(/Mr Private Person: looks like a private individual/.test(st.rejected.joi
 const gfo = own.find(r => r.data.org === "Gulf Example Family Office").data;
 assert(gfo.evidence.length === 1 && gfo.for === "Navoryx aircraft notes" && gfo.screen.auto.result === "no match"); pass("evidence kept only with a seen source; sanctions pre-screen recorded");
 assert(own.find(r => r.data.org === "Example Holdings Limited").data.status === "review"); pass("possible sanctions match goes to the owner's decision");
+assert.deepStrictEqual(gfo.profile.interests, ["Aviation", "Private credit"]); assert.deepStrictEqual(gfo.profile.geo, ["Middle East"]); assert(gfo.profile.aum === "USD 2bn"); pass("profile kept to the allowed values; portfolio size only with a seen source");
+assert(gfo.score >= 70 && gfo.potential === "High" && gfo.reasons.some(x => /aviation directly/.test(x))); pass("direct aviation, fitting interests, ticket and region give High potential, with reasons");
+const np = own.find(r => r.data.org === "Example Notes Platform").data;
+assert(np.profile && np.profile.aum === "" && np.potential === "Low"); pass("profile research fills records without one; unsourced portfolio size dropped");
 
 // operators
 assert.deepStrictEqual(res.operators, ["Good Air Charter", "Clean Air Jets"]); pass("only vetted operators are added");

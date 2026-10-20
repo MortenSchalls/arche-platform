@@ -27,6 +27,35 @@ const normUrl = u => { try { const x = new URL(u); return (x.hostname.replace(/^
 const host = u => { try { return new URL(u).hostname.replace(/^www\./, "").toLowerCase(); } catch { return ""; } };
 const PERSON = /^(mr|mrs|ms|dr|sheikh|sir|hrh|prof)\b\.?\s/i;   // organisations only: drop entries that start like a person's name
 
+// ---- profile and fit (Morten, 20 Oct 2026: filter by potential, portfolio, interests and industries) ----
+export const INTERESTS = ["Aviation", "Asset-backed finance", "Private credit", "Fixed income", "Real assets", "Real estate", "Infrastructure", "Private equity", "Venture", "Luxury and hospitality", "Fintech and tokenisation", "Other"];
+export const TICKETS = ["Under USD 1m", "USD 1–10m", "USD 10–50m", "Over USD 50m", "Unknown"];
+export const GEOS = ["Asia-Pacific", "Middle East", "Europe", "North America", "Latin America", "Africa", "Global"];
+export function vetProfile(o, seen) {
+  const ok = u => u && seen.has(normUrl(u));
+  const pick = (arr, allowed) => [...new Set((Array.isArray(arr) ? arr : []).map(x => allowed.find(a => a.toLowerCase() === String(x).toLowerCase().trim())).filter(Boolean))];
+  const aumOk = clean(o.aum, 40) && ok(o.aum_url);
+  return { aum: aumOk ? clean(o.aum, 40) : "", aumSource: aumOk ? clean(o.aum_url, 400) : "",
+    ticket: TICKETS.includes(o.ticket) ? o.ticket : "Unknown", interests: pick(o.interests, INTERESTS),
+    industries: (Array.isArray(o.industries) ? o.industries : []).map(x => clean(x, 40)).filter(Boolean).slice(0, 8),
+    aviation: ["direct", "indirect", "none"].includes(o.aviation) ? o.aviation : "none", geo: pick(o.geo, GEOS) };
+}
+// transparent score out of 100: what makes an organisation likely to fit Navoryx notes or Archē
+export function fitScore(r) {
+  const pr = r.profile || {}, reasons = []; let sc = 0;
+  if (pr.aviation === "direct") { sc += 30; reasons.push("Invests in or finances aviation directly"); } else if (pr.aviation === "indirect") { sc += 15; reasons.push("Some aviation or transport exposure"); }
+  const fitI = (pr.interests || []).filter(i => ["Aviation", "Asset-backed finance", "Private credit", "Fixed income", "Real assets"].includes(i));
+  if (fitI.length) { sc += 20; reasons.push("Interested in " + fitI.join(", ").toLowerCase()); }
+  if (r.track === "Aviation lender or lessor" || ["USD 1–10m", "USD 10–50m"].includes(pr.ticket)) { sc += 15; reasons.push(r.track === "Aviation lender or lessor" ? "Lends against aircraft" : "Ticket size fits a note of about USD 3.5m"); }
+  else if (pr.ticket === "Over USD 50m") { sc += 5; reasons.push("Large tickets: fits a multi-aircraft or fleet deal"); }
+  if ((pr.geo || []).some(g => ["Asia-Pacific", "Middle East", "Global"].includes(g))) { sc += 15; reasons.push("Invests in Asia, the Middle East or globally"); }
+  const ev = (r.evidence || []).length; if (ev) { sc += ev >= 2 ? 15 : 10; reasons.push(ev + " documented deal" + (ev > 1 ? "s" : "")); }
+  if (r.track === "Distribution partner for notes") { sc += 5; reasons.push("Can place notes with its own investors"); }
+  sc = Math.min(100, sc);
+  return { score: sc, potential: sc >= 70 ? "High" : sc >= 45 ? "Medium" : "Low", reasons };
+}
+const PROFILE_FIELDS = `aum (assets under management or fund size as published, for example "USD 2.5bn"; empty if not published), aum_url (URL showing it), ticket (one of ${TICKETS.join(", ")}: typical investment or loan size), interests (array, from: ${INTERESTS.join(", ")}), industries (array of up to 8 sectors it invests in), aviation ("direct" if it invests in or finances aircraft or aviation companies, "indirect" for transport or adjacent exposure, else "none"), geo (array, from: ${GEOS.join(", ")})`;
+
 export function vetInvestor(o, seen, existing) {
   if (!o || !clean(o.org) || !o.source) return { why: "missing name or source" };
   if (PERSON.test(clean(o.org))) return { why: "looks like a private individual, not an organisation" };
@@ -42,6 +71,28 @@ export function vetInvestor(o, seen, existing) {
     source: clean(o.source, 400), why: clean(o.why, 400), approach: clean(o.approach, 500), evidence,
     avenues: vetAvenues(o.avenues, seen, o.website), status: "new" } };
 }
+function withFit(rec) { return { ...rec, ...fitScore(rec) }; }
+
+// profiles for records that have none yet: 8 per research call
+export async function enrich(db, call, log = () => {}, max = 16) {
+  const rows = (await db.all("owner_prospects")).filter(r => r.id !== "_status" && !r.data.profile && r.data.status !== "dnc").slice(0, max);
+  let done = 0;
+  for (let i = 0; i < rows.length; i += 8) {
+    const batch = rows.slice(i, i + 8);
+    const p = `For each organisation below, research its investor profile with web search, from public sources only (its own website, annual reports, press releases, reputable financial press). Organisations only; never personal data.
+${batch.map(r => `- id ${r.id}: ${r.data.org}${r.data.website ? " (" + r.data.website + ")" : ""}, ${r.data.country || ""}`).join("\n")}
+Reply with JSON only, in a \`\`\`json block: an object mapping id to {${PROFILE_FIELDS}, evidence (array of {summary, url}: relevant investments, financings or partnerships)}.`;
+    try {
+      const { data, seen } = await ask(p, call);
+      for (const r of batch) {
+        const o = (data || {})[r.id]; if (!o) continue;
+        const evidence = [...(r.data.evidence || []), ...(Array.isArray(o.evidence) ? o.evidence : []).map(x => ({ summary: clean(x && x.summary, 300), url: clean(x && x.url, 400) })).filter(x => x.summary && seen.has(normUrl(x.url)))].slice(0, 5);
+        await db.set("owner/" + r.id, withFit({ ...r.data, evidence, profile: vetProfile(o, seen), aiReviewed: new Date().toISOString() })); done++;
+      }
+    } catch (e) { log("  owner profile batch failed: " + String(e.message || e).slice(0, 200)); }
+  }
+  return done;
+}
 
 // one research call per focus area; the daily run covers PER_DAY areas, a manual run can cover them all
 export async function run(db, call, log = () => {}, lists = null, areas = Number(process.env.INVESTOR_AREAS || 3)) {
@@ -50,6 +101,7 @@ export async function run(db, call, log = () => {}, lists = null, areas = Number
     try { const r = await runOne(db, call, log, lists); out.added.push(...r.added); out.rejected.push(...r.rejected); }
     catch (e) { log("  owner research area failed: " + String(e.message || e).slice(0, 200)); }
   }
+  out.profiled = await enrich(db, call, log, Number(process.env.INVESTOR_PROFILES || 16));
   return out;
 }
 async function runOne(db, call, log, lists) {
@@ -67,13 +119,13 @@ Find up to 15 ORGANISATIONS that plausibly invest in, finance, distribute or par
 Strict rules: organisations only; no personal data about private individuals (no names of people, no personal phone numbers, emails or profiles); a person may appear only as a role, for example "Head of Aviation Finance". Never guess contact details. Nothing based in or controlled from Russia, Belarus, Iran, North Korea, Syria, Cuba, Venezuela, Myanmar or Afghanistan. Family offices: approach only through introductions or their published channels.
 Already known (skip these): ${[...mine, ...other].map(r => r.data.org).join("; ").slice(0, 5000)}
 Reply with JSON only, in a \`\`\`json block: an array of objects with fields
-org, track (one of ${TRACKS.join(", ")}), for (one of ${FOR.join(", ")}), type (short description), region, country, city, website (official site, only if found), source (URL of the public page where you found it), evidence (array of {summary, url}: public evidence of relevant investments, financings or partnerships), why (one sentence), approach (one or two sentences, by role or introduction route), avenues (array of {type, label, url, note}; official business routes only; types: website, contact, linkedin, event, association, introducer, other).`;
+org, track (one of ${TRACKS.join(", ")}), for (one of ${FOR.join(", ")}), type (short description), region, country, city, website (official site, only if found), source (URL of the public page where you found it), evidence (array of {summary, url}: public evidence of relevant investments, financings or partnerships), ${PROFILE_FIELDS}, why (one sentence), approach (one or two sentences, by role or introduction route), avenues (array of {type, label, url, note}; official business routes only; types: website, contact, linkedin, event, association, introducer, other).`;
   const { data, seen } = await ask(prompt, call);
   const added = [], rejected = [];
   let next = maxId;
   for (const o of Array.isArray(data) ? data.slice(0, 18) : []) {
     const v = vetInvestor(o, seen, existing); if (v.why) { rejected.push(`${clean(o && o.org, 60)}: ${v.why}`); continue; }
-    const rec = { ...v.rec, added: nowIso, batch: `Investor review ${today}`, aiReviewed: nowIso };
+    const rec = withFit({ ...v.rec, profile: vetProfile(o, seen), added: nowIso, batch: `Investor review ${today}`, aiReviewed: nowIso });
     if (lists && lists.names.size) {
       const hits = screen([rec.org], lists);
       rec.screen = { auto: { result: hits.length ? "possible match" : "no match", at: nowIso, lists: lists.loaded.map(x => x.replace(/ \(\d+\)$/, "")), failed: lists.failed, hits } };
@@ -90,7 +142,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const { main } = await import("./lib/main.mjs"); const { connect } = await import("./lib/db.mjs"); const { loadLists } = await import("./lib/sanctions.mjs");
   await main("Owner research", ["SUPABASE_URL", "SUPABASE_SECRET_KEY", "ANTHROPIC_API_KEY"], async () => {
     const lists = await loadLists(fetch, console.log);
+    if (process.env.INVESTOR_AREAS === "0") { const n = await enrich(connect(), undefined, console.log, 400); return { note: `Profiles added to ${n}. Details only in the portal.` }; }
     const r = await run(connect(), undefined, console.log, lists, Number(process.env.INVESTOR_AREAS || INV_FOCUS.length));
-    return { note: `Added ${r.added.length}; ${r.rejected.length} rejected by the rules. Details only in the portal.` };
+    return { note: `Added ${r.added.length}; ${r.rejected.length} rejected by the rules; profiles added to ${r.profiled}. Details only in the portal.` };
   });
 }
