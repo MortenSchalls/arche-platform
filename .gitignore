@@ -21,3 +21,6 @@ apps/portal/t_*.html
 apps/portal/lib
 # generated imports hold real data
 import*.sql
+jobs/node_modules/
+jobs/backup.json
+jobs/backup.json.enc

@@ -1,0 +1,58 @@
+# Scheduled jobs for the Archē portal (times in UTC; Bangkok = UTC+7).
+# Secrets (GitHub → repository → Settings → Secrets and variables → Actions):
+#   SUPABASE_URL, SUPABASE_SECRET_KEY, ANTHROPIC_API_KEY, BACKUP_PASSPHRASE
+name: Portal jobs
+on:
+  schedule:
+    - cron: "11 */3 * * *"   # prospect rotation, every 3 hours
+    - cron: "58 22 * * *"    # daily intelligence, 05:58 Bangkok
+    - cron: "17 19 * * *"    # daily backup, 02:17 Bangkok
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "Job to run now"
+        type: choice
+        options: [rotation, intel, backup]
+        default: rotation
+permissions:
+  contents: read
+concurrency:
+  group: portal-jobs
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      JOB: ${{ github.event_name == 'workflow_dispatch' && inputs.job || (github.event.schedule == '58 22 * * *' && 'intel') || (github.event.schedule == '17 19 * * *' && 'backup') || 'rotation' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - name: Install
+        working-directory: jobs
+        run: npm install --no-audit --no-fund
+      - name: Run ${{ env.JOB }}
+        working-directory: jobs
+        run: |
+          if [ "$JOB" = "rotation" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then export FORCE=1; fi
+          node "$JOB.mjs"
+      - name: Encrypt backup
+        if: env.JOB == 'backup'
+        working-directory: jobs
+        env:
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          test -n "$BACKUP_PASSPHRASE" || { echo "BACKUP_PASSPHRASE secret missing"; exit 1; }
+          openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in backup.json -out backup.json.enc -pass env:BACKUP_PASSPHRASE
+          rm backup.json
+      - name: Keep backup for 90 days
+        if: env.JOB == 'backup'
+        uses: actions/upload-artifact@v4
+        with:
+          name: portal-backup-${{ github.run_id }}
+          path: jobs/backup.json.enc
+          retention-days: 90

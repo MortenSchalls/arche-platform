@@ -1,0 +1,7 @@
+{
+  "name": "arche-jobs",
+  "private": true,
+  "type": "module",
+  "description": "Scheduled jobs for the Arche portal: prospect rotation, daily intelligence, backup",
+  "dependencies": { "@supabase/supabase-js": "2.45.4" }
+}
