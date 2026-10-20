@@ -12,6 +12,8 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Contact email on archeaviation.com | Morten | Site still shows charter@archeexecutive.com. |
 | ◐ | Native-speaker check of Thai, Chinese and Japanese | Morten | All text, including rows added 20 Oct (`apps/website/text_fixes.py`). |
 | ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
+| ◐ | Liability insurance: broker's professional liability and non-owned aircraft liability, stated in the terms | Morten (broker) | Peers state cover (FXAIR USD 100m per occurrence; JetSmarter USD 50m non-owned). Our terms say nothing. See terms comparison 20 Oct. |
+| ☐ | Counsel to confirm: liability cap at the brokerage fee (B14) holds under Singapore law; SIAC arbitration also suits small claims (B16) | Counsel | Peers cap at the price paid. |
 | ☐ | Staff sign-in by Microsoft 365; sign-in emails from archeaviation.com (custom SMTP) | Claude + Morten | |
 | ☐ | Full run-through on desktop and phone, every language | Claude, then Morten | Every section, link, form; quote and call-back reach Today. |
 
@@ -41,6 +43,8 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Accreditations strip | Hidden until Archē holds real accreditations (`SHOW_ACCREDITATIONS` in build.py). |
 | ☐ | Rotation of website enquiries to the broker on duty | |
 | ☐ | 7%/9% margin split | Only once Morten defines it. |
+| ☐ | Cancellation scale A9: consider a lower first tier for bookings far ahead (we charge 25% from signature; ACM 5%, Stratos 10%, JetSmarter 0% beyond 21 days; FXAIR 50%) | Must stay no softer than the operator's own terms. |
+| ☐ | Replacement aircraft B11: let the client refuse a replacement and get a refund (less costs) when it differs materially, instead of counting refusal as cancellation | FXAIR refunds in that case. |
 | ☐ | Gulfstream source for the G650 cabin figures | Now from GlobalSecurity.org. |
 
 ## Done
@@ -54,5 +58,6 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 - ☑ Archē spelling, typo fixes, translations completed for all changed text.
 - ☑ No "who is behind Archē" content on the site (Morten's choice).
 - ☑ One address per language (/th, /zh, /ja) and a ready-made page copy that search engines can read straight away.
+- ☑ Terms of business compared with five peers (project doc terms-vs-peers-2026-10-20).
 - ☑ Owner can change a prospect's type and undo Do not contact.
 - ☑ Portal Day theme neutral grey.
