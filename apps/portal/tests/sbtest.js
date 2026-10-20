@@ -6,10 +6,18 @@ const T={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{
  trips:[{owner_id:BRK,id:'t1',data:{stage:'submitted',submittedAt:'2026-10-18T10:00:00Z',client:{name:'Example client',company:'Example Co',email:'c@example.com'},trip:{legs:[{from:'WSSS',to:'VTBS',date:'2026-12-01',time:'10:00',pax:'4'}],category:'Midsize jet'},quote:{operator:'Example Ops',aircraft:'Example jet',opPrice:20000,direct:0},checks:{}}}],
  trip_status:[], leads:[{owner_id:BRK,id:'p950',data:{org:'Example Lead Org',status:'assigned',segment:'Family office',country:'Singapore',why:'x',contacts:[{name:'Example Contact',role:'Head of Travel',email:'travel@example-lead.example',sourceType:"Organisation's own website",source:'https://example-lead.example/team',added:new Date().toISOString()}]}}], optouts:[], prospects:[{id:'p900',data:{org:'Example Aviation FO',kind:'client',status:'dnc',dncAt:'2026-10-20T06:00:00Z',segment:'Family office',region:'Asia-Pacific',country:'Hong Kong',why:'x',approach:'y',source:'https://example.org'}},{id:'p902',data:{org:'Example FBO Services',kind:'service',segment:'Service partner',category:'FBO and ground handling',airports:['WSSL'],status:'new',region:'Asia-Pacific',country:'Singapore',source:'https://example.org/fbo',why:'x',approach:'y',isbah:{level:'Stage 2',year:'2025',url:'https://example.org/isbah'},flags:[]}},{id:'p901',data:{org:'Example Air Operator',kind:'operator',segment:'Operator',status:'new',region:'Asia-Pacific',country:'Singapore',why:'x',approach:'y',source:'https://example.org/op',ops:{aoc:{authority:'CAAS',source:''},bases:['WSSL'],fleet:[{type:'Example Jet',count:2}],audits:[{name:'ARGUS',level:'Platinum',year:'2025',url:'https://example.org/argus'}],safety:[],tier:'A',flags:[],screen:{country:'clear',entity:''}}}}],
  website_enquiries:[{id:'e1',at:'2026-10-20T01:00:00Z',consent:true,handled:false,data:{type:'quote',legs:[{from:'Singapore',to:'Bangkok',date:'2026-11-02',time:'09:00'}],pax:3,name:'Example Visitor',reach:'+65 0000 0001',reply:'WhatsApp',lang:'en'}}]};
-const page=(uid)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
- .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`)
+const page=(uid,TT=T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
+ .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(TT)};</script><script src="tests/fake-supabase.js"></script>`)
  .replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
-fs.writeFileSync('t_sb_owner.html',page(OWN));fs.writeFileSync('t_sb_broker.html',page(BRK));
+fs.writeFileSync('t_sb_owner.html',page(OWN));
+const OPS='00000000-0000-0000-0000-00000000000c',T2=JSON.parse(JSON.stringify(T));
+T2.profiles.push({id:OPS,role:'ops',active:true,contract_name:'Example Ops',data:{roster:true}});
+const SC={auto:{result:'no match',at:'2026-10-20T05:00:00Z',lists:['OFAC'],hits:[]}};
+T2.prospects.push({id:'p960',data:{org:'Example FBO One',kind:'service',category:'FBO and ground handling',airports:['WSSL'],status:'new',isbah:{level:'Stage 2',year:'2025',url:'https://fbo-one.example/isbah'},screen:SC,website:'https://fbo-one.example'}},
+ {id:'p961',data:{org:'Example FBO Two',kind:'service',category:'FBO and ground handling',airports:['WSSL'],status:'new',screen:SC,website:'https://fbo-two.example'}},
+ {id:'p962',data:{org:'Example FBO Flagged',kind:'service',category:'FBO and ground handling',airports:['WSSL'],status:'review',screen:{auto:{result:'possible match',at:'2026-10-20T05:00:00Z',hits:[]}}}},
+ {id:'p963',data:{org:'Example FBO Unscreened',kind:'service',category:'FBO and ground handling',airports:['WSSL'],status:'new'}});
+fs.writeFileSync('t_sb_ops.html',page(OPS,T2));fs.writeFileSync('t_sb_broker.html',page(BRK));
 const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
 (async()=>{const b=await chromium.launch();const errs=[];
  const o=await b.newPage({viewport:{width:1400,height:950}});o.on('pageerror',e=>errs.push('owner: '+e.message));
@@ -103,4 +111,31 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  ok('broker sees contacts on own lead only after opening', !(await k.textContent('#main')).includes('Example Contact') && !!(await k.$('[data-ct="show"]')));
  await k.click('[data-ct="show"]');await k.waitForTimeout(300);
  ok('broker opens own lead contacts', (await k.textContent('#main')).includes('Example Contact'));
+ // supplier quotes (staff only, four-eyes on the award)
+ ok('broker has no supplier quotes', await k.evaluate(()=>!navItems().some(i=>i[0]==='quotes')));
+ const q=await b.newPage({viewport:{width:390,height:844}});q.on('pageerror',e=>errs.push('ops: '+e.message));
+ await q.goto('http://localhost:8765/t_sb_ops.html');await q.waitForTimeout(3000);
+ ok('operations sees supplier quotes', await q.evaluate(()=>S.role==='ops'&&navItems().some(i=>i[0]==='quotes')));
+ await q.evaluate(()=>{S.view='quotes';render();});await q.waitForTimeout(300);
+ await q.click('[data-rq="new"]');await q.waitForTimeout(200);
+ await q.selectOption('#rq_ap','WSSL');await q.waitForTimeout(300);
+ ok('only checked suppliers can be asked', await q.evaluate(()=>!document.querySelector('[data-rqpick="p960"]').disabled && !document.querySelector('[data-rqpick="p961"]').disabled && document.querySelector('[data-rqpick="p962"]').disabled && document.querySelector('[data-rqpick="p963"]').disabled));
+ await q.fill('#rq_need','2026-12-01');await q.fill('#rq_ac','Example jet');await q.check('#rq_s0');
+ ok('request form fits 390 px', await q.evaluate(()=>document.documentElement.scrollWidth<=390));
+ await q.click('#sqForm button[type=submit]');await q.waitForTimeout(500);
+ const R=()=>q.evaluate(()=>(window.__T.rfqs||[])[0]?.data);
+ ok('request saved with two suppliers', await (async()=>{const r=await R();return r && r.suppliers.length===2 && r.status==='open' && r.ref.startsWith('RQ-');})());
+ ok('message prepared, nothing sent', /Quote request RQ-/.test(await q.inputValue('#rq_msg_0')) && !(await R()).suppliers.some(x=>x.sentAt));
+ for (let n=0;n<2;n++){ await q.click('summary:has-text("Prepare the message")'); await q.click('[data-rq="sent"]'); await q.waitForTimeout(400); }
+ ok('both marked as sent', (await R()).suppliers.every(x=>x.sentAt));
+ for (const [pid,amt,dev] of [['p960','4200',''],['p961','3500','Payment 7 days in advance']]) { await q.click('text=Record a quote received').catch(()=>{}); await q.selectOption('#rq_qs',pid);await q.fill('#rq_qu',amt);await q.fill('#rq_qd',dev);await q.click('#sqQuote button[type=submit]');await q.waitForTimeout(400); }
+ ok('two quotes in USD', (await R()).quotes.length===2);
+ ok('maker cannot award own request', !(await q.$('[data-rq="award"]')) && /Someone else awards/.test(await q.textContent('#main')));
+ await q.evaluate(()=>{const r=window.__T.rfqs[0];return S.db.doc('rfqs/'+r.id).set({...r.data,createdBy:'00000000-0000-0000-0000-00000000000a'});});await q.waitForTimeout(400);
+ await q.click('[data-rq="award"][data-pid="p961"]');await q.waitForTimeout(300);
+ await q.click('#sqAwardForm button[type=submit]');await q.waitForTimeout(300);
+ ok('choosing a lower score needs a reason', (await R()).status==='open');
+ await q.fill('#rq_ar','Example reason');await q.click('#sqAwardForm button[type=submit]');await q.waitForTimeout(400);
+ ok('award recorded with reason and audit row', await (async()=>{const r=await R();return r.status==='awarded'&&r.award.pid==='p961'&&r.award.reason==='Example reason';})() && await q.evaluate(()=>(window.__T.audit_log||[]).some(x=>x.action==='Supplier quote awarded')));
+ ok('quotes screen with comparison fits 390 px', await q.evaluate(()=>document.documentElement.scrollWidth<=390));
  console.log('ERRORS', JSON.stringify(errs.slice(0,6)));await b.close();})();

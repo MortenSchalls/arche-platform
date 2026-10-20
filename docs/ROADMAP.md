@@ -14,6 +14,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
 | ◐ | Liability insurance: broker's professional liability and non-owned aircraft liability, stated in the terms | Morten (broker) | Peers state cover (FXAIR USD 100m per occurrence; JetSmarter USD 50m non-owned). Our terms say nothing. See terms comparison 20 Oct. |
 | ☐ | Counsel to confirm: liability cap at the brokerage fee (B14) holds under Singapore law; SIAC arbitration also suits small claims (B16) | Counsel | Peers cap at the price paid. |
+| ◐ | Run `supabase/migrations/0006_rfqs.sql` in Supabase (supplier quotes) | Morten | One paste in the SQL Editor. |
 | ☐ | Counsel check of named business contacts: Singapore PDPA business-contact exemption, Thai PDPA (no such exemption), GDPR notice within one month for EU contacts | Counsel | Rule approved 20 Oct 2026. |
 | ☐ | Staff sign-in by Microsoft 365; sign-in emails from archeaviation.com (custom SMTP) | Claude + Morten | |
 | ☐ | Full run-through on desktop and phone, every language | Claude, then Morten | Every section, link, form; quote and call-back reach Today. |
@@ -48,9 +49,13 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Service partners step 2: limousine and VIP ground transport at the same airports | Small step; same checks. |
 | ☐ | Service partners step 3: helicopter transfers (city to airport, resort and island hops) | Check AOC and safety record as for operators. |
 | ☐ | Service partners step 4: yacht charter partners (Phuket, Côte d'Azur, Mediterranean) | Fits jet-plus-yacht trips. |
+| ☐ | AeroBridge spin-out: separate company and data once Supplier quotes is proven on real trips; Archē stays a client | Shared engine, not a merger (project doc aerobridge-arche-supplier-quotes-2026-10-21). |
 | ☐ | Gulfstream source for the G650 cabin figures | Now from GlobalSecurity.org. |
 
 ## Done
+**21 Oct 2026**
+- ☑ Supplier quotes (owner and operations): request quotes from checked service partners at an airport, compare them with an explained score, award with four-eyes; nothing sent from the portal; all in USD. First piece of the AeroBridge idea.
+
 **20 Oct 2026**
 - ☑ Portal on Supabase and Vercel; prospects, settings and FAQ moved; background jobs on GitHub Actions.
 - ☑ Website on Vercel: hero aircraft (Global 7500 proportions), compass rose, heading option A, phone layout, forms to the portal.
