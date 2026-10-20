@@ -15,7 +15,10 @@ def extract():
     js = "\n".join(re.search(rf"const {name} = .*?;\n", s, re.S).group(0) for name in ("CANCEL", "PART_B_INTRO"))
     i = s.index("const PART_B = ["); j = s.index("\n];", i) + 3
     js += s[i:j] + "\nconsole.log(JSON.stringify({CANCEL, PART_B_INTRO, PART_B}));"
-    return json.loads(subprocess.run(["node", "-e", js], capture_output=True, text=True, check=True).stdout)
+    a9 = re.search(r'\{n:"A9",[^}]*after:"([^"]*)"\}', s).group(1)
+    d = json.loads(subprocess.run(["node", "-e", js], capture_output=True, text=True, check=True).stdout)
+    d["A9_AFTER"] = a9
+    return d
 
 def page(d):
     e = html.escape
@@ -66,6 +69,7 @@ td {{ padding:10px 0; border-bottom:1px solid var(--line); }} td:last-child {{ t
 <h2 id="a9"><span>A9</span> Cancellation scale</h2>
 <p>Charge as a share of the charter price, by time before the first departure:</p>
 <table>{rows}</table>
+<p>{e(d["A9_AFTER"])}</p>
 {"".join(body)}
 <p class="muted" style="margin-top:48px"><a href="/privacy.html">Privacy notice</a> · <a href="/">Back to Archē Executive</a></p>
 </main>
