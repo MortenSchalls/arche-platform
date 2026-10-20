@@ -23,6 +23,11 @@ def build():
     os.makedirs(OUT, exist_ok=True)
     for f in ("support.js", "i18n.js", "doc-page.js"):
         shutil.copy(os.path.join(SRC, f), OUT)
+    i18n = open(os.path.join(OUT, "i18n.js"), encoding="utf-8").read()
+    row = "['Private aviation, handled with','การบินส่วนตัว ที่ดูแลด้วย','私人航空，','プライベート・アビエーションを、'],"
+    assert i18n.count(row) == 1
+    i18n = i18n.replace(row, row + "\n['Private aviation,','การบินส่วนตัว','私人航空，','プライベート・アビエーションを、'],\n['handled with','ที่ดูแลด้วย','',''],")
+    open(os.path.join(OUT, "i18n.js"), "w", encoding="utf-8").write(i18n)
     for d in ("assets", "logo-export"):
         shutil.copytree(os.path.join(SRC, d), os.path.join(OUT, d), dirs_exist_ok=True)
     shutil.copy(os.path.join(SRC, ".image-slots.state.json"), os.path.join(OUT, "image-slots.state.json"))
@@ -67,6 +72,12 @@ def build():
     if not SHOW_ACCREDITATIONS:
         i = s.index('<section id="standards"'); j = s.index("</section>", i) + len("</section>")
         s = s[:i] + s[j:]
+    # hero heading (Morten 20 Oct 2026, option A): one typeface, upright; accent in the logo's steel-blue
+    # gradient; line break after the comma. The two half-lines get their own translations below.
+    old_h1 = 'Private aviation, handled with <em style="font-family:\'DM Serif Display\',Georgia,serif;font-style:italic;font-weight:400;color:#a9bdd4">care and precision.</em>'
+    assert s.count(old_h1) == 1
+    s = s.replace(old_h1, 'Private aviation,<br>handled with <em style="font-family:inherit;font-style:normal;font-weight:400;'
+                  'background:linear-gradient(176deg,#dbe5f0 0%,#a9bdd4 45%,#7d96b4 100%);-webkit-background-clip:text;background-clip:text;color:transparent">care and precision.</em>')
     # 4. sender (plain script, after the page)
     s = s.replace("</body>", """<script>
 window.archeSend = function (data) {
