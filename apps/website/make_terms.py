@@ -2,16 +2,13 @@
 """Write site/terms.html from Part B of the charter confirmation (apps/charter-confirmation/charter-confirmation-v6.html).
 
 The contract stays the master: change the terms there, then run build.py. The cancellation scale (A9) is shown too,
-because Part B refers to it. One wording change for the website, flagged for Morten: B5 says payment is by bank
-transfer; the business rule is that clients pay only through a Paynode payment request, so the web page says that.
+because Part B refers to it. The build stops if the terms ever mention payment by bank transfer (Paynode only).
 """
 import os, re, json, subprocess, html
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "..", "charter-confirmation", "charter-confirmation-v6.html")
 OUT = os.path.join(HERE, "site", "terms.html")
-PAYMENT_WEB = ("Payment is made through the secure payment request Archē Executive sends, in the invoice currency, "
-               "or by another method the Confirmation names. Archē Executive never asks for payment to a bank account by email or message.")
 
 def extract():
     s = open(SRC, encoding="utf-8").read()
@@ -26,8 +23,7 @@ def page(d):
     body = []
     for c in d["PART_B"]:
         items = list(c.get("items") or [])
-        if c["n"] == "B5":
-            assert "bank transfer" in items[0]; items[0] = PAYMENT_WEB
+        assert "bank transfer" not in json.dumps(c), c["n"] + ": clients pay only through a Paynode payment request"
         part = f'<h2 id="{c["n"].lower()}"><span>{c["n"]}</span> {e(c["t"].rstrip("."))}</h2>'
         if c.get("p"): part += f"<p>{e(c['p'])}</p>"
         if items: part += "<ol>" + "".join(f"<li>{e(x)}</li>" for x in items) + "</ol>"

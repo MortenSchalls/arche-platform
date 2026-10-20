@@ -88,6 +88,9 @@ def i18n(t):
     t = t.replace("\n];\nconst RX = [\n", "\n" + rows + "];\nconst RX = [\n" + NEW_RX)
     return t
 
+# Morten 20 Oct 2026: say nothing about who is behind Archē (the "Satoshi" approach). Kept here, switched off.
+SHOW_BEHIND = False
+
 # ---- "Who is behind Archē": the founder stays anonymous, and the discretion becomes the selling point (Morten, 20 Oct 2026).
 # Every fact below must stay true of the people running Archē. Names, photos and company histories stay off the site;
 # credentials are shared privately on request.
@@ -151,4 +154,4 @@ def page(s):
     s = _page(s)
     anchor = '<section id="fleet"'
     assert s.count(anchor) == 1
-    return s.replace(anchor, behind_section() + anchor)
+    return s.replace(anchor, behind_section() + anchor) if SHOW_BEHIND else s
