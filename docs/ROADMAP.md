@@ -27,6 +27,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Email safety records SPF, DKIM, DMARC | |
 | ☐ | Supabase sign-in addresses updated | |
 | ☐ | Google Search Console: verify the domain, submit the sitemap | Free; shows which searches bring visitors. |
+| ☐ | Decide whether to keep `/test.html` online after go-live (it holds no real data) | Remove the file to take it down. |
 | ☐ | Turn daily prospect research back on (paused 21 Oct 2026 to save AI credit) | Restore the cron line in `.github/workflows/jobs.yml`. Crew hotels then continue at 3 airports a day. |
 
 ## 3. Right after go-live
@@ -56,6 +57,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 
 ## Done
 **21 Oct 2026**
+- ☑ Test version of the portal (`/test.html`): no sign-in, switch between Test Owner, Test Operations and Test Broker; example data in the browser only; never touches the real database.
 - ☑ Daily prospect research paused until go-live; the current lists are the base. Rotation and backups keep running.
 - ☑ AI spend control: every research call metered in USD; USD 1.50 per scheduled run and USD 40 a month in total, then research pauses; manual runs have their own limit (default USD 3); 6 searches per question instead of 12; the cheaper model for service partners and crew hotels; investor research one area a day; spend shown on Today.
 - ☑ Crew hotels as their own service: researched at the 30 airports: hotels at most 15 minutes by road with a dedicated airport shuttle (both mandatory, with sources), and crew-accommodation companies; from hotels' own sites, never booking or review sites; own progress record; in Supplier quotes with rooms and nights. Removed "Hotel for crew" from trip support.

@@ -32,3 +32,6 @@ Company: Arche Executive Pte. Ltd. (Singapore). Brand spelling: Archē. Domain a
 - Academies: `cd apps/academy/build && python3 build.py`, then copy `arche-broker-academy.html` and `charter-broker-academy.html` to `apps/academy/dist`. Checks: `node full.js` and `node acad_theme.js` (need Playwright).
 - Manual: `cd apps/manual && node manual38.js` (needs the `docx` package), then convert to PDF with LibreOffice.
 - Portal tests: serve `apps/portal` on port 8765 and run the scripts in `apps/portal/tests` (they use `mock2.js` and example data in `seed4.json`, never real data).
+
+## Test version of the portal
+`apps/portal/test.html` is the portal with an in-browser stand-in database and example data only: no sign-in, switch between Test Owner, Test Operations and Test Broker in the orange bar, data kept in that browser only, Reset wipes it. AI features do not work there (no real sign-in), so it costs nothing. Rebuild it after every change to `index.html`: `cd apps/portal && python3 build_test.py`.
