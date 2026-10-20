@@ -9,3 +9,7 @@ html { overflow-x: clip; }
   header > div > div > div { gap: 8px !important; }
   header a[href^="tel:"] { display: none !important; }
 }
+@media (max-width: 760px) {
+  /* hero drawing on phones: nearly full width */
+  section#top > div[aria-hidden="true"] { width: calc(100vw - 24px) !important; }
+}
