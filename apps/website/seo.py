@@ -69,6 +69,7 @@ def apply(s, out_dir, here):
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>{SITE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>{SITE_URL}/privacy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>{SITE_URL}/terms.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
 </urlset>
 ''')
     # keep the test address (*.vercel.app) out of search results; only archeaviation.com gets indexed

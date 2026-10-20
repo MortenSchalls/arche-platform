@@ -3,6 +3,9 @@
 Work top to bottom. Nothing goes live on archeaviation.com until every P1 line is ticked.
 
 ## P1: must be done before go-live (legal, trust, safety)
+- [ ] Contract clause B5 says clients pay by bank transfer; the business rule is Paynode only. Align the charter confirmation (the web terms page already says payment request).
+- [ ] "Who is behind Archē" section: Morten to confirm every line is true and that nothing identifies him (apps/website/text_fixes.py, BEHIND).
+- [ ] Native speakers to check the Thai, Chinese and Japanese text, including the rows added 20 Oct 2026 (text_fixes.py).
 - [ ] **Image rights.** Replace or license all 21 website images; record source, licence and date for each in `docs/IMAGE-REGISTER.md`.
   - Remove now: Private Charter photo (Dreamstime watermark, unlicensed preview).
   - Aircraft finder: 11 cabin photos labelled as specific types, source unknown. Licensed photos, operator photos with written permission, or generic class illustrations labelled "Illustration".

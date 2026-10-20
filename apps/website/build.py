@@ -11,7 +11,7 @@ This script copies it and adds what a live site needs:
   - a privacy line under each form and a discreet "Broker login" link in the footer
   - images read from image-slots.state.json (a normal file name, which every host serves)
 """
-import os, shutil, re, json
+import os, shutil, re, json, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "design-source")
@@ -27,6 +27,8 @@ def build():
     row = "['Private aviation, handled with','การบินส่วนตัว ที่ดูแลด้วย','私人航空，','プライベート・アビエーションを、'],"
     assert i18n.count(row) == 1
     i18n = i18n.replace(row, row + "\n['Private aviation,','การบินส่วนตัว','私人航空，','プライベート・アビエーションを、'],\n['handled with','ที่ดูแลด้วย','',''],")
+    import text_fixes
+    i18n = text_fixes.i18n(i18n)   # brand spelling, new and corrected translations
     open(os.path.join(OUT, "i18n.js"), "w", encoding="utf-8").write(i18n)
     for d in ("assets", "logo-export"):
         shutil.copytree(os.path.join(SRC, d), os.path.join(OUT, d), dirs_exist_ok=True)
@@ -77,6 +79,8 @@ def build():
     assert s.count(cb) == 1
     s = s.replace(cb, cb[:-7] + ' <a href="/privacy.html" style="color:#a3a9b1;text-decoration:underline;font-size:12px">Privacy notice</a></span>')
     s = s.replace('<a href="#top">Privacy</a>', '<a href="/privacy.html">Privacy</a>')
+    assert s.count('<a href="#top">Terms of business</a>') == 1
+    s = s.replace('<a href="#top">Terms of business</a>', '<a href="/terms.html">Terms of business</a>')
     login = f'<div style="max-width:1440px;margin:0 auto;padding:0 40px 28px;text-align:right"><a href="{PORTAL}" rel="nofollow" style="font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;color:#a3a9b1">Broker login</a></div>'
     assert s.count("</footer>") == 1
     s = s.replace("</footer>", login + "</footer>")
@@ -119,8 +123,9 @@ window.archeSend = function (data) {
 </body>""")
     shutil.copy(os.path.join(HERE, "site-fixes.css"), OUT)
     shutil.copy(os.path.join(HERE, "privacy.html"), OUT)
+    subprocess.run([sys.executable, os.path.join(HERE, "make_terms.py")], check=True, cwd=HERE)   # Terms of business from the contract, Part B
     # hero drawing: wings 50% longer, tips about 2 cm (76 px) from the screen edge
-    import subprocess, sys
+    pass  # subprocess, sys imported at the top
     subprocess.run([sys.executable, os.path.join(HERE, "widen_wings.py")], check=True, cwd=HERE)
     old_jet = "width:min(1200px,92vw);aspect-ratio:1774/887;background:url('assets/jet-line-watermark-white.png')"
     assert s.count(old_jet) == 1
@@ -138,6 +143,7 @@ window.archeSend = function (data) {
             '<img src="assets/compass-rose.svg" alt="" style="display:block;width:100%;height:auto"></div>')
     s = s.replace(jet_div, rose + jet_div)
     # search and speed basics (seo.py): title, description, link previews, business description, fonts, images, robots, sitemap
+    s = text_fixes.page(s)   # brand spelling and typos in the page text
     import seo
     s = seo.apply(s, OUT, HERE)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
