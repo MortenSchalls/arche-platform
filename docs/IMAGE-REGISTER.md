@@ -8,10 +8,10 @@ Every picture on archeaviation.com, where it came from and on what terms. Nothin
 
 | Slot | Where on the page | Size wanted | Current picture | Status | Source / licence / date |
 |---|---|---|---|---|---|
-| svc-charter | Services: Private Charter | 1600 × 2000 (4:5) | Our line drawing on charcoal (`make_interim.py`) | 🟡 | Archē's own artwork, 20 Oct 2026. Dreamstime preview removed the same day (watermarked, unlicensed). |
-| svc-advisory | Services: Aviation Advisory | 1600 × 2000 (4:5) | Jet in flight over hills | ⚠️ | Unknown. Looks AI-made: check the terms of the tool that made it. |
-| svc-fleet | Services: Fleet Coordination | 1600 × 2000 (4:5) | Jet on apron at sunset | ⚠️ | Unknown. Looks AI-made. |
-| why-photo | Why Archē, wide cabin photo | 2400 × 1030 (21:9) | Cabin with glass and window | ⚠️ | Unknown. |
+| svc-charter | Services: Private Charter | 1600 × 2000 | Jet, nose-on | ✅ | iStock 117955689, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| svc-advisory | Services: Aviation Advisory | 1600 × 2000 | Woman working in a cabin | ✅ | iStock 2294055415, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| svc-fleet | Services: Fleet Coordination | 1600 × 2000 | Jet on the apron at dusk | ✅ | iStock 1177037113, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| why-photo | Why Archē, wide cabin photo | 2400 × 1030 | Cabin interior | ✅ | iStock 1145831489, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | ac-cj3 | Aircraft finder: Citation CJ3 | 2400 × 1350 (16:9) | Cabin cross-section drawing, to scale, 1.80 m figure (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): GlobalAir.com, Citation CJ3 Gen2 specifications (4 ft 9 in × 4 ft 10 in). |
 | ac-phenom300 | Aircraft finder: Phenom 300 | 2400 × 1350 | Cabin cross-section drawing, to scale, 1.80 m figure (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): Embraer Phenom 300E brochure 2025 (1.50 × 1.55 m). |
 | ac-pc24 | Aircraft finder: PC-24 | 2400 × 1350 | Cabin cross-section drawing, to scale, 1.80 m figure (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): Pilatus PC-24 "Just the facts" (5 ft 1 in × 5 ft 7 in). |
@@ -22,16 +22,18 @@ Every picture on archeaviation.com, where it came from and on what terms. Nothin
 | ac-g550 | Aircraft finder: G550 | 2400 × 1350 | Cabin cross-section drawing, to scale, 1.80 m figure (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): GlobalAir.com, G550 specifications (6 ft 2 in × 7 ft 4 in). |
 | ac-g650 | Aircraft finder: G650 | 2400 × 1350 | Cabin cross-section drawing, to scale, 1.80 m figure (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): GlobalSecurity.org, G650 (6 ft 5 in × 8 ft 6 in); replace with a Gulfstream sheet if one is found. |
 | ac-g7500 | Aircraft finder: Global 7500 | 2400 × 1350 | Cabin cross-section drawing, to scale, 1.80 m figure (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): Bombardier Global 7500 factsheet (1.88 × 2.44 m). |
-| journey-1 | How it works, step 1: Tell us the trip | 1600 × 1200 (4:3) | Man on phone, city at dusk | ⚠️ | Unknown. Looks AI-made. |
-| journey-2 | Step 2: We source and vet | 1600 × 1200 | Image with "02 Within the hour" text in it | ❌ | Unknown; text baked into the image. |
-| journey-3 | Step 3: You confirm | 1600 × 1200 | Man with tablet | ⚠️ | Unknown. Looks AI-made. |
-| journey-4 | Step 4: We handle the details | 1600 × 1200 | Image with "04 Before departure" text in it | ❌ | Unknown; text baked into the image. |
-| journey-5 | Step 5: You fly | 1600 × 1200 | Image with "05 Day of travel" text in it | ❌ | Unknown; text baked into the image. |
+| journey-1 | How it works, step 1: Tell us the trip | 1600 × 1200 | Man on the phone on the airstair | ✅ | iStock 896761630, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| journey-2 | Step 2: We source and vet | 1600 × 1200 | Engine close-up | ✅ | iStock 2208749758, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| journey-3 | Step 3: You confirm | 1600 × 1200 | Jet at sunset | ✅ | iStock 1085767446, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| journey-4 | Step 4: We handle the details | 1600 × 1200 | Car to the aircraft, bags carried | ✅ | iStock 2277753697, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| journey-5 | Step 5: You fly | 1600 × 1200 | Passengers boarding | ✅ | iStock 888729764, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | advisor-portrait | Contact: your private client advisor | 1200 × 1500 (4:5) | Man on phone at desk | ❌ | Must be the real advisor, or no photo. A stock or AI face presented as "your advisor" misleads clients. |
-| office-singapore | Contact: Singapore office | 1600 × 1000 | Marina Bay at dusk | ⚠️ | Unknown. |
-| office-bangkok | Contact: Bangkok office | 1600 × 1000 | (empty) | ❌ | Needed if the Bangkok tab stays. |
+| office-singapore | Contact: Singapore office | 1920 × 1080 | Marina Bay and Merlion at dusk | ✅ | iStock 495760087, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| office-bangkok | Contact: Bangkok office | 1920 × 1080 | Bangkok skyline at dusk | ✅ | iStock 871569534, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 
 **Cabin drawings:** to change a figure, edit `SOURCES` in `apps/website/cabin_sections.py`, run it, then run `build.py`. Fonts for the drawings: Hanken Grotesk (SIL Open Font Licence), in `apps/website/tools/fonts`.
+
+**iStock photos:** crops are set in `apps/website/place_photos.py` (photo, size, focus point). The originals stay on Morten's Mac, not in the repository.
 
 ## Acceptable sources
 1. **Licensed stock** with a commercial licence (Adobe Stock, Getty, Shutterstock): keep the receipt; note licence type and number here.
