@@ -173,3 +173,14 @@ def page(s):
     end = "describe the market in general, not guaranteed availability.</p>"
     assert s.count(end) == 1
     return s.replace(end, end + f'\n    <p style="margin:12px 0 0;font-size:12px;color:#a3a9b1;max-width:760px;line-height:1.7">{DRAWINGS_NOTE}</p>')
+
+# ---- placeholders until the company package arrives: translated so no English sentence shows on the other language pages
+NEW_ROWS += [
+    ["[Legal entity, Pte. Ltd.]", "[ชื่อนิติบุคคล, Pte. Ltd.]", "[法人名称, Pte. Ltd.]", "[法人名, Pte. Ltd.]"],
+    ["[Office address, Singapore]", "[ที่อยู่สำนักงาน สิงคโปร์]", "[办公地址，新加坡]", "[オフィス所在地（シンガポール）]"],
+    ["[Legal entity name · registration no. · registered address]", "[ชื่อนิติบุคคล · เลขทะเบียน · ที่อยู่จดทะเบียน]", "[法人名称 · 注册号 · 注册地址]", "[法人名 · 登録番号 · 登記住所]"],
+    ["[Placeholder] Singapore and Thailand disclosure wording to be confirmed against CAAS and CAAT requirements before launch.",
+     "[รอข้อความ] ข้อความเปิดเผยข้อมูลสำหรับสิงคโปร์และไทยจะได้รับการยืนยันตามข้อกำหนดของ CAAS และ CAAT ก่อนเปิดใช้งาน",
+     "[待定] 新加坡和泰国的披露措辞将在上线前根据 CAAS 和 CAAT 的要求确认。",
+     "[準備中] シンガポールおよびタイ向けの開示文言は、公開前に CAAS と CAAT の要件に照らして確定します。"],
+]

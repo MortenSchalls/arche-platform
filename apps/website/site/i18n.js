@@ -187,6 +187,10 @@ const ROWS = [
 ["Fifteen years living and working in Southeast Asia, where most of our flying begins.","สิบห้าปีที่ใช้ชีวิตและทำงานในเอเชียตะวันออกเฉียงใต้ ซึ่งเป็นจุดเริ่มต้นของเที่ยวบินส่วนใหญ่ของเรา","在东南亚生活和工作十五年，我们的大多数航程正是从这里出发。","東南アジアで十五年暮らし、働いてきました。私たちのフライトの多くはここから始まります。"],
 ["Ask us, and we will share our credentials in confidence before you book.","หากท่านต้องการ เราพร้อมแจ้งคุณสมบัติของเราเป็นการส่วนตัวก่อนท่านจอง","如您需要，我们会在您预订前私下提供我们的资历。","ご希望があれば、ご予約前に私たちの経歴を内々にお伝えします。"],
 ["Cabin drawings are our own and drawn to scale, with a 1.80 m person for comparison. Cabin height and width come from published manufacturer and specification sources.","ภาพตัดห้องโดยสารจัดทำโดยเราและวาดตามสัดส่วนจริง โดยมีคนสูง 1.80 ม. ไว้เปรียบเทียบ ความสูงและความกว้างของห้องโดยสารอ้างอิงจากข้อมูลที่ผู้ผลิตและแหล่งข้อมูลจำเพาะเผยแพร่","客舱剖面图由我们自行绘制，按真实比例呈现，并以一位身高 1.80 米的人作对比。客舱高度和宽度数据来自制造商及公开的规格资料。","キャビン断面図は当社が実寸比で作成したもので、比較のため身長 1.80 m の人物を描いています。キャビンの高さと幅は、メーカーおよび公開されている仕様資料に基づきます。"],
+["[Legal entity, Pte. Ltd.]","[ชื่อนิติบุคคล, Pte. Ltd.]","[法人名称, Pte. Ltd.]","[法人名, Pte. Ltd.]"],
+["[Office address, Singapore]","[ที่อยู่สำนักงาน สิงคโปร์]","[办公地址，新加坡]","[オフィス所在地（シンガポール）]"],
+["[Legal entity name · registration no. · registered address]","[ชื่อนิติบุคคล · เลขทะเบียน · ที่อยู่จดทะเบียน]","[法人名称 · 注册号 · 注册地址]","[法人名 · 登録番号 · 登記住所]"],
+["[Placeholder] Singapore and Thailand disclosure wording to be confirmed against CAAS and CAAT requirements before launch.","[รอข้อความ] ข้อความเปิดเผยข้อมูลสำหรับสิงคโปร์และไทยจะได้รับการยืนยันตามข้อกำหนดของ CAAS และ CAAT ก่อนเปิดใช้งาน","[待定] 新加坡和泰国的披露措辞将在上线前根据 CAAS 和 CAAT 的要求确认。","[準備中] シンガポールおよびタイ向けの開示文言は、公開前に CAAS と CAAT の要件に照らして確定します。"],
 ];
 const RX = [
   [/^Call direct · (.+)$/, { th: 'โทรตรง · $1', zh: '直接致电 · $1', ja: '直通電話 · $1' }],
