@@ -1,0 +1,58 @@
+# Archē Executive platform roadmap
+
+The single list of what is done and what is still needed for the website, the portal and the academy. Claude updates it with every change; Morten decides the order. Replaces PRELAUNCH.md.
+
+Status: ☐ to do · ◐ waiting on someone · ☑ done
+
+## 1. Before go-live (must be done)
+| | Item | Waiting on | Notes |
+|---|---|---|---|
+| ◐ | Phone and WhatsApp numbers | Morten (package) | Thai number: AIS SME business mobile plan in mind; maybe AIS Cloud BizCall or Teams Phone for one 24/7 number ringing several phones. The +65 charter desk number needs a Singapore provider. |
+| ◐ | Legal entity, registration number, office addresses | Morten (package) | Footer, contact section, privacy notice, terms page. |
+| ☐ | Contact email on archeaviation.com | Morten | Site still shows charter@archeexecutive.com. |
+| ◐ | Native-speaker check of Thai, Chinese and Japanese | Morten | All text, including rows added 20 Oct (`apps/website/text_fixes.py`). |
+| ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
+| ☐ | Staff sign-in by Microsoft 365; sign-in emails from archeaviation.com (custom SMTP) | Claude + Morten | |
+| ☐ | Full run-through on desktop and phone, every language | Claude, then Morten | Every section, link, form; quote and call-back reach Today. |
+
+## 2. Go-live
+| | Item | Notes |
+|---|---|---|
+| ☐ | GoDaddy DNS: archeaviation.com and www → website; portal.archeaviation.com → portal | `DNS-GODADDY.md` |
+| ☐ | Broker login link → portal.archeaviation.com | `apps/website/build.py`, PORTAL |
+| ☐ | Email safety records SPF, DKIM, DMARC | |
+| ☐ | Supabase sign-in addresses updated | |
+| ☐ | Google Search Console: verify the domain, submit the sitemap | Free; shows which searches bring visitors. |
+
+## 3. Right after go-live
+| | Item | Notes |
+|---|---|---|
+| ☐ | Google Business Profile (Singapore; Bangkok if it is a real office) | Needs real address and phone. |
+| ☐ | Website enquiry alert to the 24/7 desk | So no request is missed. |
+| ☐ | Academy on the same sign-in at academy.archeaviation.com | |
+| ☐ | Retire the claude.ai portal after two weeks of parallel running | |
+| ☐ | Listings in genuine aviation directories and associations (for example AsBAA, if Archē joins) | Links from trusted sites help ranking. |
+
+## 4. Ideas to decide later
+| | Item | Notes |
+|---|---|---|
+| ☐ | Small collapsed FAQ at the bottom of the page | Uses the 23 approved FAQ answers; often shown directly in Google. Morten likes the simple one-page site, so optional. |
+| ☐ | Separate pages (charter, advisory, fleet, Singapore, Bangkok, routes) | Morten prefers one page; on hold. |
+| ☐ | Accreditations strip | Hidden until Archē holds real accreditations (`SHOW_ACCREDITATIONS` in build.py). |
+| ☐ | Rotation of website enquiries to the broker on duty | |
+| ☐ | 7%/9% margin split | Only once Morten defines it. |
+| ☐ | Gulfstream source for the G650 cabin figures | Now from GlobalSecurity.org. |
+
+## Done
+**20 Oct 2026**
+- ☑ Portal on Supabase and Vercel; prospects, settings and FAQ moved; background jobs on GitHub Actions.
+- ☑ Website on Vercel: hero aircraft (Global 7500 proportions), compass rose, heading option A, phone layout, forms to the portal.
+- ☑ SEO basics: titles, descriptions, link previews, business description, sitemap, test address kept out of Google.
+- ☑ All website pictures cleared: our own cabin cross-section drawings in the aircraft finder; 11 licensed iStock photos; advisor portrait removed.
+- ☑ Terms of business page from the contract (Part B), linked in the footer.
+- ☑ Contract clause B5: Paynode only, in the charter confirmation, the portal and the terms page.
+- ☑ Archē spelling, typo fixes, translations completed for all changed text.
+- ☑ No "who is behind Archē" content on the site (Morten's choice).
+- ☑ One address per language (/th, /zh, /ja) and a ready-made page copy that search engines can read straight away.
+- ☑ Owner can change a prospect's type and undo Do not contact.
+- ☑ Portal Day theme neutral grey.

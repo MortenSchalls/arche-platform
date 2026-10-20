@@ -5,7 +5,7 @@ The Design file stays the master for layout; these fixes are applied on top of i
   - typos in the Why Archē card 01
   - translations (TH / ZH-Hans / JA) for text that was changed in the Design file after translation, and for new text
   - a few translation corrections
-Translations are drafts until a native speaker has checked them (see PRELAUNCH.md).
+Translations are drafts until a native speaker has checked them (see ROADMAP.md).
 """
 import json, re
 

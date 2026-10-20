@@ -1,6 +1,6 @@
 # Website image register
 
-Every picture on archeaviation.com, where it came from and on what terms. Nothing goes live without a line here showing a source and a licence (P1 in `PRELAUNCH.md`).
+Every picture on archeaviation.com, where it came from and on what terms. Nothing goes live without a line here showing a source and a licence (P1 in `ROADMAP.md`).
 
 **How to replace a picture:** save the new file as `apps/website/images/<slot>.webp` (or `.jpg` / `.png`) at the size below, run `python3 apps/website/build.py`, and fill in its line here. The original from the Design file is used for any slot without a file in that folder.
 
