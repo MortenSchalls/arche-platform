@@ -53,7 +53,11 @@
 #pv-panel select{font:inherit;background:#2c2e33;color:#f3f5f8;border:1px solid #676b71;padding:2px 6px}
 #pv-panel button{font:inherit;background:transparent;color:#f3f5f8;border:1px solid #676b71;padding:2px 8px;cursor:pointer}
 #pv-panel.min > :not(.pv-keep){display:none}
-body.pv-off-bands .pv-band, body.pv-off-trio .pv-trio, body.pv-off-season .pv-season{display:none}
+body.pv-off-bands .pv-band, body.pv-off-trio .pv-trio{display:none}
+body:not(.pv-off-bands) .pv-moved{display:none !important}
+.pv-ph{background:repeating-linear-gradient(135deg,#454951 0 14px,#4a4e56 14px 28px) !important;display:flex;align-items:center;justify-content:center;text-align:center}
+.pv-ph small{display:block;max-width:80%;margin:12px auto 0;font:500 13px/1.5 'Hanken Grotesk',system-ui,sans-serif;letter-spacing:.06em !important;text-transform:none;color:#f3c26b}
+.pv-trio .pv-ph small{margin:0 auto}
 </style>
 </head>
 <body>
@@ -1246,23 +1250,23 @@ setTimeout(function(){clearInterval(t);var p=document.getElementById('dc-prerend
 <script id="pv-js">
 (function(){
   var BANDS = [
-    {after:"services", img:"img/journey-3.webp", line:"Your schedule. Your aircraft.", note:"Stand-in photo: aircraft at sunset (a wing above clouds to be licensed)"},
-    {before:"journey", img:"img/why-photo.webp", line:"Every detail, arranged.", note:"Licensed cabin photo we already own"},
-    {before:"contact", img:"img/office-singapore.webp", line:"One call. Any hour.", note:"Stand-in photo: Singapore skyline (a night apron to be licensed)"}];
+    {after:"services", img:"", line:"Your schedule. Your aircraft.", note:"New photo 1: wing above clouds at dawn (wide)"},
+    {before:"journey", img:"img/why-photo.webp", line:"Every detail, arranged.", note:"Our cabin photo, moved here from Why Archē (no longer shown there)"},
+    {before:"contact", img:"", line:"One call. Any hour.", note:"New photo 2: business jet on the apron at night, cabin lights on (wide)"}];
   var TRIO = [
-    {img:"img/journey-2.webp", t:"Vetted operators", s:"Certificates, safety audits and a sanctions check before every booking."},
-    {img:"img/svc-advisory.webp", t:"One fixed price", s:"Agreed before you fly and paid securely through Paynode."},
-    {img:"img/journey-1.webp", t:"A 24/7 desk", s:"One team that answers at any hour, wherever you are."}];
+    {img:"", t:"Vetted operators", s:"Certificates, safety audits and a sanctions check before every booking.", note:"New photo 3: pilot's walk-around inspection or cockpit pre-flight check (square)"},
+    {img:"", t:"One fixed price", s:"Agreed before you fly and paid securely through Paynode.", note:"New photo 4: quiet detail, e.g. cabin table with a tablet or a signed document (square)"},
+    {img:"", t:"A 24/7 desk", s:"One team that answers at any hour, wherever you are.", note:"New photo 5: phone call at night, city or airport lights behind (square)"}];
   /* background tones: current charcoal and two lighter steps; muted text lifted so it keeps 4.5:1 */
   var TONES = {
     current: {},
     lighter: {"#34373d":"#3b3f46","#2c2f34":"#33363c","#464a52":"#4d5159","#2b2e33":"#31343a","#a3a9b1":"#b1b6bd","#8fa6c0":"#9db2ca"},
     lightest:{"#34373d":"#42464e","#2c2f34":"#393c42","#464a52":"#545860","#2b2e33":"#373a40","#a3a9b1":"#bdc2c8","#8fa6c0":"#a9bdd4"}};
-  var tone = "current";
+  var tone = "lighter";
   function el(h){ var d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstChild; }
-  function band(b){ var n = el('<div class="pv-band" role="img" aria-label="' + b.line + '"><p>' + b.line.toUpperCase() + '</p></div>'); n.style.backgroundImage = "url('" + b.img + "')"; n.title = b.note; return n; }
+  function band(b){ var n = el('<div class="pv-band' + (b.img ? '' : ' pv-ph') + '" role="img" aria-label="' + b.line + '"><p>' + b.line.toUpperCase() + (b.img ? '' : '<small>' + b.note + '</small>') + '</p></div>'); if (b.img) n.style.backgroundImage = "url('" + b.img + "')"; return n; }
   function trio(){ return el('<section class="pv-trio" aria-label="What every trip includes"><p class="pv-k">What every trip includes</p><div class="pv-g">' +
-    TRIO.map(function(x){ return '<figure><div class="pv-img" style="background-image:url(\'' + x.img + '\')"></div><figcaption><b>' + x.t + '</b><span>' + x.s + '</span></figcaption></figure>'; }).join("") + '</div></section>'); }
+    TRIO.map(function(x){ return '<figure><div class="pv-img' + (x.img ? '' : ' pv-ph') + '"' + (x.img ? ' style="background-image:url(\'' + x.img + '\')"' : '') + '>' + (x.img ? '' : '<small>' + x.note + '</small>') + '</div><figcaption><b>' + x.t + '</b><span>' + x.s + '</span></figcaption></figure>'; }).join("") + '</div></section>'); }
   function season(){ return el('<div class="pv-season">WINTER SEASON <span aria-hidden="true">·</span> NISEKO <span aria-hidden="true">·</span> THE MALDIVES <span aria-hidden="true">·</span> <a href="#contact">PLAN YOUR TRIP</a></div>'); }
   function place(){
     BANDS.forEach(function(b, i){
@@ -1271,7 +1275,7 @@ setTimeout(function(){clearInterval(t);var p=document.getElementById('dc-prerend
       var n = band(b); n.dataset.i = i; ref.parentNode.insertBefore(n, b.after ? ref.nextSibling : ref);
     });
     if (!document.querySelector(".pv-trio")) { var w = document.getElementById("why"); if (w) w.parentNode.insertBefore(trio(), w.nextSibling); }
-    if (!document.querySelector(".pv-season")) { var t = document.getElementById("top"); if (t) t.parentNode.insertBefore(season(), t.nextSibling); }
+    var wp = document.getElementById("why-photo"); if (wp && wp.parentNode && !wp.parentNode.classList.contains("pv-moved")) wp.parentNode.classList.add("pv-moved");
     paint();
   }
   function paint(){
@@ -1291,8 +1295,7 @@ setTimeout(function(){clearInterval(t);var p=document.getElementById('dc-prerend
     var p = el('<div id="pv-panel" role="region" aria-label="Preview controls"><b class="pv-keep">PREVIEW</b>' +
       '<label><input type="checkbox" data-pv="bands" checked> Photo breaks</label>' +
       '<label><input type="checkbox" data-pv="trio" checked> Row of three</label>' +
-      '<label><input type="checkbox" data-pv="season" checked> Season line</label>' +
-      '<label>Background <select id="pv-tone"><option value="current">Current charcoal</option><option value="lighter">Lighter</option><option value="lightest">Lightest</option></select></label>' +
+      '<label>Background <select id="pv-tone"><option value="lighter">One tone lighter</option><option value="current">Current charcoal</option></select></label>' +
       '<button type="button" class="pv-keep" id="pv-min">Hide</button></div>');
     document.body.appendChild(p);
     p.addEventListener("change", function(e){
