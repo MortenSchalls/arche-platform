@@ -148,10 +148,14 @@ window.archeSend = function (data) {
     s = langs.patch_runtime(s)   # page starts in its own language; language buttons move between /, /th, /zh, /ja
     import seo
     s = seo.apply(s, OUT, HERE)
+    import sections
+    s = sections.apply(s)   # photo breaks, "What every trip includes", background one tone lighter (Morten 21 Oct 2026)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
     langs.build(OUT, seo.SITE_URL)   # th.html, zh.html, ja.html and the ready-made page copy in all four
     print("built", os.path.join(OUT, "index.html"), len(s))
-    subprocess.run([sys.executable, os.path.join(HERE, "make_preview.py")], check=True, cwd=HERE)   # design ideas under review (preview.html, not indexed)
+    for f in ("privacy.html", "terms.html"):   # same lighter background on the legal pages
+        fp = os.path.join(OUT, f)
+        if os.path.exists(fp): open(fp, "w", encoding="utf-8").write(sections.tone(open(fp, encoding="utf-8").read()))
 
 if __name__ == "__main__":
     build()

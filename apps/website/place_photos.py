@@ -15,7 +15,6 @@ PLACES = {
     "svc-advisory":     ("2294055415", (1600, 2000), (0.40, 0.50)),   # working in the cabin
     "svc-fleet":        ("1177037113", (1600, 2000), (0.33, 0.55)),   # jet on the apron, others behind
     "why-photo":        ("1145831489", (2400, 1030), (0.50, 0.50)),   # cabin
-    "journey-1":        ("896761630",  (1600, 1200), (0.45, 0.50)),   # on the phone
     "journey-2":        ("2208749758", (1600, 1200), (0.50, 0.50)),   # engine close up: sourcing and vetting
     "journey-3":        ("1085767446", (1600, 1200), (0.50, 0.50)),   # the aircraft at sunset
     "journey-4":        ("2277753697", (1600, 1200), (0.50, 0.50)),   # car to aircraft, bags handled
@@ -31,7 +30,7 @@ PLACES_2 = {
     "trio-1":           ("79339787",   (1200, 1200), (0.66, 0.50)),   # pilot's walk-around under the wing
     "trio-2":           ("2282607115", (1200, 1200), (0.36, 0.55)),   # cabin table: laptop, glass, macarons
     "trio-3":           ("2266443854", (1200, 1200), (0.46, 0.50)),   # phone call at night, city lights behind
-    "journey-1-new":    ("2269862643", (1600, 1200), (0.62, 0.45)),   # client calling to book, daytime office
+    "journey-1":        ("2269862643", (1600, 1200), (0.62, 0.45)),   # client calling to book, daytime office (replaces the 20 Oct journey-1)
 }
 
 def place(src_dir, out_dir, places=None):

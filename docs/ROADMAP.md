@@ -10,7 +10,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ◐ | Phone and WhatsApp numbers | Morten (package) | Thai number: AIS SME business mobile plan in mind; maybe AIS Cloud BizCall or Teams Phone for one 24/7 number ringing several phones. The +65 charter desk number needs a Singapore provider. |
 | ◐ | Legal entity, registration number, office addresses | Morten (package) | Footer, contact section, privacy notice, terms page. |
 | ☐ | Contact email on archeaviation.com | Morten | Site still shows charter@archeexecutive.com. |
-| ◐ | Native-speaker check of Thai, Chinese and Japanese | Morten | All text, including rows added 20 Oct (`apps/website/text_fixes.py`). |
+| ◐ | Native-speaker check of Thai, Chinese and Japanese | Morten | All text, including rows added 20 Oct (`apps/website/text_fixes.py`) and the photo-break lines and "What every trip includes" row added 21 Oct (`apps/website/sections.py`). |
 | ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
 | ◐ | Liability insurance: broker's professional liability and non-owned aircraft liability, stated in the terms | Morten (broker) | Peers state cover (FXAIR USD 100m per occurrence; JetSmarter USD 50m non-owned). Our terms say nothing. See terms comparison 20 Oct. |
 | ☐ | Counsel to confirm: liability cap at the brokerage fee (B14) holds under Singapore law; SIAC arbitration also suits small claims (B16) | Counsel | Peers cap at the price paid. |
@@ -57,6 +57,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 
 ## Done
 **21 Oct 2026**
+- ☑ Website: three full-width photo breaks with one line each, a "What every trip includes" row (vetted operators, one fixed price, 24/7 desk), background one tone lighter (#3b3f46, muted text lifted to keep 4.5:1), new How-it-works step 1 photo; every photo used once; in all four languages (6 new iStock photos, 21 Oct).
 - ☑ Test version of the portal (`/test.html`): no sign-in, switch between Test Owner, Test Operations and Test Broker; example data in the browser only; never touches the real database.
 - ☑ Daily prospect research paused until go-live; the current lists are the base. Rotation and backups keep running.
 - ☑ AI spend control: every research call metered in USD; USD 1.50 per scheduled run and USD 40 a month in total, then research pauses; manual runs have their own limit (default USD 3); 6 searches per question instead of 12; the cheaper model for service partners and crew hotels; investor research one area a day; spend shown on Today.
