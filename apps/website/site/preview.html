@@ -26,7 +26,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://archeaviation.com/#org", "name": "Archē Executive", "alternateName": "Arche Executive", "legalName": "Arche Executive Pte. Ltd.", "url": "https://archeaviation.com/", "logo": "https://archeaviation.com/assets/arche-executive-logo.png", "description": "Private jet charter from Singapore and Bangkok, worldwide. We find the right aircraft, check the operator behind it, and stay with you until you land. Answers within 15 minutes, any hour.", "areaServed": ["Singapore", "Thailand", "Asia-Pacific", "Worldwide"], "knowsAbout": ["Private jet charter", "Business aviation", "Aircraft charter brokerage", "Aviation advisory"]}, {"@type": "Service", "@id": "https://archeaviation.com/#charter", "serviceType": "Private jet charter", "provider": {"@id": "https://archeaviation.com/#org"}, "areaServed": ["Singapore", "Thailand", "Asia-Pacific", "Worldwide"], "description": "Whole-aircraft private jet charter arranged as agent for the client, on third-party operators holding an Air Operator Certificate."}, {"@type": "WebSite", "@id": "https://archeaviation.com/#site", "url": "https://archeaviation.com/", "name": "Archē Executive", "publisher": {"@id": "https://archeaviation.com/#org"}, "inLanguage": "en"}]}</script>
 <link rel="stylesheet" href="/site-fixes.css">
 <script src="./support.js"></script>
-
+<script>(function(){var f=window.fetch;window.fetch=function(u,o){return f.apply(this,arguments).then(function(r){if(String(u).indexOf('image-slots.state.json')<0)return r;return r.clone().json().then(function(j){if(j&&j['journey-1'])j['journey-1'].u='img/journey-1-new.webp';return new Response(JSON.stringify(j),{headers:{'content-type':'application/json'}});}).catch(function(){return r;});});};})();</script>
 <style id="pv-css">
 .pv-band{position:relative;height:min(74vh,700px);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .pv-band::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,26,30,.30) 0%,rgba(24,26,30,.52) 55%,rgba(24,26,30,.62) 100%)}
@@ -1250,13 +1250,13 @@ setTimeout(function(){clearInterval(t);var p=document.getElementById('dc-prerend
 <script id="pv-js">
 (function(){
   var BANDS = [
-    {after:"services", img:"", line:"Your schedule. Your aircraft.", note:"New photo 1: wing above clouds at dawn (wide)"},
+    {after:"services", img:"img/break-1.webp", line:"Your schedule. Your aircraft.", note:"New photo 1: wing above clouds at dawn (wide)"},
     {before:"journey", img:"img/why-photo.webp", line:"Every detail, arranged.", note:"Our cabin photo, moved here from Why Archē (no longer shown there)"},
-    {before:"contact", img:"", line:"One call. Any hour.", note:"New photo 2: business jet on the apron at night, cabin lights on (wide)"}];
+    {before:"contact", img:"img/break-3.webp", line:"One call. Any hour.", note:"New photo 2: business jet on the apron at night, cabin lights on (wide)"}];
   var TRIO = [
-    {img:"", t:"Vetted operators", s:"Certificates, safety audits and a sanctions check before every booking.", note:"New photo 3: pilot's walk-around inspection or cockpit pre-flight check (square)"},
-    {img:"", t:"One fixed price", s:"Agreed before you fly and paid securely through Paynode.", note:"New photo 4: quiet detail, e.g. cabin table with a tablet or a signed document (square)"},
-    {img:"", t:"A 24/7 desk", s:"One team that answers at any hour, wherever you are.", note:"New photo 5: phone call at night, city or airport lights behind (square)"}];
+    {img:"img/trio-1.webp", t:"Vetted operators", s:"Certificates, safety audits and a sanctions check before every booking.", note:"New photo 3: pilot's walk-around inspection or cockpit pre-flight check (square)"},
+    {img:"img/trio-2.webp", t:"One fixed price", s:"Agreed before you fly and paid securely through Paynode.", note:"New photo 4: quiet detail, e.g. cabin table with a tablet or a signed document (square)"},
+    {img:"img/trio-3.webp", t:"A 24/7 desk", s:"One team that answers at any hour, wherever you are.", note:"New photo 5: phone call at night, city or airport lights behind (square)"}];
   /* background tones: current charcoal and two lighter steps; muted text lifted so it keeps 4.5:1 */
   var TONES = {
     current: {},

@@ -50,13 +50,13 @@ JS = r"""
 <script id="pv-js">
 (function(){
   var BANDS = [
-    {after:"services", img:"", line:"Your schedule. Your aircraft.", note:"New photo 1: wing above clouds at dawn (wide)"},
+    {after:"services", img:"img/break-1.webp", line:"Your schedule. Your aircraft.", note:"New photo 1: wing above clouds at dawn (wide)"},
     {before:"journey", img:"img/why-photo.webp", line:"Every detail, arranged.", note:"Our cabin photo, moved here from Why Archē (no longer shown there)"},
-    {before:"contact", img:"", line:"One call. Any hour.", note:"New photo 2: business jet on the apron at night, cabin lights on (wide)"}];
+    {before:"contact", img:"img/break-3.webp", line:"One call. Any hour.", note:"New photo 2: business jet on the apron at night, cabin lights on (wide)"}];
   var TRIO = [
-    {img:"", t:"Vetted operators", s:"Certificates, safety audits and a sanctions check before every booking.", note:"New photo 3: pilot's walk-around inspection or cockpit pre-flight check (square)"},
-    {img:"", t:"One fixed price", s:"Agreed before you fly and paid securely through Paynode.", note:"New photo 4: quiet detail, e.g. cabin table with a tablet or a signed document (square)"},
-    {img:"", t:"A 24/7 desk", s:"One team that answers at any hour, wherever you are.", note:"New photo 5: phone call at night, city or airport lights behind (square)"}];
+    {img:"img/trio-1.webp", t:"Vetted operators", s:"Certificates, safety audits and a sanctions check before every booking.", note:"New photo 3: pilot's walk-around inspection or cockpit pre-flight check (square)"},
+    {img:"img/trio-2.webp", t:"One fixed price", s:"Agreed before you fly and paid securely through Paynode.", note:"New photo 4: quiet detail, e.g. cabin table with a tablet or a signed document (square)"},
+    {img:"img/trio-3.webp", t:"A 24/7 desk", s:"One team that answers at any hour, wherever you are.", note:"New photo 5: phone call at night, city or airport lights behind (square)"}];
   /* background tones: current charcoal and two lighter steps; muted text lifted so it keeps 4.5:1 */
   var TONES = {
     current: {},
@@ -114,7 +114,11 @@ def build():
     s = open(os.path.join(OUT, "index.html"), encoding="utf-8").read()
     s = s.replace('<link rel="canonical" href="https://archeaviation.com/">', '<meta name="robots" content="noindex,nofollow">', 1)
     assert "</head>" in s and "</body>" in s
-    s = s.replace("</head>", CSS + "</head>", 1)
+    # new How-it-works step 1 photo: the preview reads the photo list with journey-1 pointing at the new file
+    swap = ("<script>(function(){var f=window.fetch;window.fetch=function(u,o){return f.apply(this,arguments).then(function(r){"
+            "if(String(u).indexOf('image-slots.state.json')<0)return r;return r.clone().json().then(function(j){if(j&&j['journey-1'])j['journey-1'].u='img/journey-1-new.webp';"
+            "return new Response(JSON.stringify(j),{headers:{'content-type':'application/json'}});}).catch(function(){return r;});});};})();</script>")
+    s = s.replace("</head>", swap + CSS + "</head>", 1)
     i = s.rindex("</body>")
     s = s[:i] + JS + s[i:]
     open(os.path.join(OUT, "preview.html"), "w", encoding="utf-8").write(s)

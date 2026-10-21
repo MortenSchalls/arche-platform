@@ -24,9 +24,19 @@ PLACES = {
     "office-bangkok":   ("871569534",  (1920, 1080), (0.50, 0.45)),
 }
 
-def place(src_dir, out_dir):
+# second batch (21 Oct 2026, originals in "iStock photos 2026-10-21"): photo breaks, the row of three, a new How-it-works step 1
+PLACES_2 = {
+    "break-1":          ("1052491134", (2560, 1100), (0.50, 0.42)),   # wing above clouds at sunrise
+    "break-3":          ("2294478738", (2560, 1100), (0.50, 0.62)),   # business jet taxiing at sunset
+    "trio-1":           ("79339787",   (1200, 1200), (0.66, 0.50)),   # pilot's walk-around under the wing
+    "trio-2":           ("2282607115", (1200, 1200), (0.36, 0.55)),   # cabin table: laptop, glass, macarons
+    "trio-3":           ("2266443854", (1200, 1200), (0.46, 0.50)),   # phone call at night, city lights behind
+    "journey-1-new":    ("2269862643", (1600, 1200), (0.62, 0.45)),   # client calling to book, daytime office
+}
+
+def place(src_dir, out_dir, places=None):
     Image.MAX_IMAGE_PIXELS = None
-    for slot, (sid, (w, h), (fx, fy)) in PLACES.items():
+    for slot, (sid, (w, h), (fx, fy)) in (places or PLACES).items():
         im = Image.open(os.path.join(src_dir, f"iStock-{sid}.jpg")).convert("RGB")
         W, H = im.size; target = w / h
         cw, ch = (round(H * target), H) if W / H > target else (W, round(W / target))
