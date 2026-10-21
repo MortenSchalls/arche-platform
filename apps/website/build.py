@@ -151,6 +151,7 @@ window.archeSend = function (data) {
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
     langs.build(OUT, seo.SITE_URL)   # th.html, zh.html, ja.html and the ready-made page copy in all four
     print("built", os.path.join(OUT, "index.html"), len(s))
+    subprocess.run([sys.executable, os.path.join(HERE, "make_preview.py")], check=True, cwd=HERE)   # design ideas under review (preview.html, not indexed)
 
 if __name__ == "__main__":
     build()
