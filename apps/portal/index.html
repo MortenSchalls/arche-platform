@@ -1230,12 +1230,12 @@ function vProspects(){
   const every = Object.entries(S.prospects).map(([id, p]) => ({id, ...p}));
   const sec = S.pSec || "sales", nOps = every.filter(p => p.kind === "operator").length, nSvc = every.filter(p => p.kind === "service").length;
   const all = every.filter(p => sec === "ops" ? p.kind === "operator" : sec === "svc" ? p.kind === "service" : !SUPPLIER_KINDS.includes(p.kind));
-  const F = S.pf || (S.pf = {q:"", region:"", country:"", province:"", segment:"", kind:"", status:"", airport:"", category:""});
+  const F = S.pf || (S.pf = {q:"", region:"", country:"", province:"", segment:"", kind:"", status:"", airport:"", category:"", batch:""});
   const uniq = arr => [...new Set(arr.filter(Boolean))].sort();
   const inR = all.filter(p => !F.region || p.region === F.region);
   const inC = inR.filter(p => !F.country || p.country === F.country);
   const q = F.q.trim().toLowerCase();
-  const list = inC.filter(p => (!F.airport || (p.airports || []).includes(F.airport)) && (!F.category || p.category === F.category) && (!F.province || p.province === F.province) && (!F.segment || p.segment === F.segment) && (!F.kind || (p.kind || "client") === F.kind) && (!F.status || pStatus(p) === F.status) && (!q || [p.org, p.segment, p.country, p.province, p.city, p.why].join(" ").toLowerCase().includes(q)))
+  const list = inC.filter(p => (!F.batch || p.batch === F.batch) && (!F.airport || (p.airports || []).includes(F.airport)) && (!F.category || p.category === F.category) && (!F.province || p.province === F.province) && (!F.segment || p.segment === F.segment) && (!F.kind || (p.kind || "client") === F.kind) && (!F.status || pStatus(p) === F.status) && (!q || [p.org, p.segment, p.country, p.province, p.city, p.why].join(" ").toLowerCase().includes(q)))
     ;
   const sel = all.find(p => p.id === S.pSel);
   const brokers = Object.entries(S.roster).filter(([, r]) => r.active !== false && (r.role === "broker" || r.role === "consultant"));
@@ -1253,6 +1253,7 @@ function vProspects(){
     ${opt("pf_country", "Country", uniq(inR.map(p => p.country)), F.country)}
     ${opt("pf_province", "Province or state", uniq(inC.map(p => p.province)), F.province)}
     ${opt("pf_segment", "Segment", uniq(all.map(p => p.segment)), F.segment)}
+    ${sec === "sales" ? opt("pf_batch", "Batch", uniq(all.map(p => p.batch)), F.batch) : ""}
     ${sec === "svc" ? opt("pf_airport", "Airport", uniq(all.flatMap(p => p.airports || [])), F.airport) + opt("pf_category", "Category", uniq(all.map(p => p.category)), F.category) : ""}
     ${sec === "ops" || sec === "svc" ? "" : `<label class="f" for="pf_kind">Type<select id="pf_kind" data-pf="kind"><option value="">All</option><option value="client" ${F.kind==="client"?"selected":""}>Potential clients</option><option value="partner" ${F.kind==="partner"?"selected":""}>Referral partners</option></select></label>`}
     <label class="f" for="pf_status">Status<select id="pf_status" data-pf="status"><option value="">All</option>${Object.entries(LEAD_STATUS).map(([k, v]) => `<option value="${k}" ${F.status===k?"selected":""}>${v}</option>`).join("")}</select></label>
