@@ -1063,6 +1063,129 @@
    "tips": [
     "Use the test version for every Try it task in the course."
    ]
+  },
+  {
+   "id": "rules",
+   "title": "The rules behind every booking",
+   "who": "Everyone",
+   "purpose": "The business rules the portal enforces. Know them before your first enquiry.",
+   "steps": [
+    "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
+    "Client price = (operator price + direct trip costs) ÷ 0.93, rounded up: Archē keeps 7% of what the client pays. A lower margin needs the director's approval.",
+    "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
+    "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
+    "Clients pay only through a Paynode payment request. Never print, store or send bank details.",
+    "The owner approves every booking before a confirmation is issued; a price change after approval sends it back for approval.",
+    "Four-eyes: nobody prices, issues or records payment on their own trip.",
+    "Brokers set only enquiry, quoted, sent to operations or cancelled. Money stages come from operations.",
+    "Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request; a score of 3 or less starts service recovery.",
+    "Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews."
+   ],
+   "trouble": [
+    [
+     "A client asks for our bank details",
+     "Never send them. Operations sends a Paynode payment request."
+    ],
+    [
+     "A client wants to fly in 3 days",
+     "Full payment is due at once, before the operator is paid. Operations sends the payment request straight away."
+    ],
+    [
+     "You want to offer a client less than the 7% margin",
+     "Ask the director first: a lower margin needs approval."
+    ],
+    [
+     "A client rates the trip 3 or lower",
+     "Start service recovery: call the client, find out what went wrong and tell the owner."
+    ],
+    [
+     "A happy client offers a review",
+     "Quote it publicly only with their written consent, and never reward reviews."
+    ]
+   ],
+   "tips": [
+    "If you are unsure about a rule, ask the co-pilot or Help before you send the trip to operations."
+   ]
+  },
+  {
+   "id": "privacy",
+   "title": "Client data and privacy",
+   "who": "Everyone",
+   "purpose": "How we protect clients, contacts and the company.",
+   "steps": [
+    "Real client details go only into real trips in the portal: never into training, the test version, the AI or messages outside the portal.",
+    "The AI co-pilot gets trip details without client names or contact details. Describe the trip, not the person.",
+    "Business contacts are hidden until you press Show, opening them is recorded, and contacts cannot be exported.",
+    "Every screen carries a watermark with your name, so screenshots are traceable.",
+    "We never talk about our clients, inside or outside the company."
+   ],
+   "trouble": [
+    [
+     "A client sends passport copies by WhatsApp",
+     "Upload them to the trip in the portal, then delete them from your phone."
+    ],
+    [
+     "Someone asks who our clients are",
+     "We never name clients. Refer them to the owner."
+    ]
+   ],
+   "tips": [
+    "If you are unsure whether you may share something, don't: ask operations first."
+   ]
+  },
+  {
+   "id": "cancel",
+   "title": "Cancelling a trip",
+   "who": "Operations cancels; brokers can cancel their own enquiries and quotes",
+   "purpose": "What happens when a client cancels, and what they pay.",
+   "steps": [
+    "The client cancels in writing. The charge depends on how long before the first departure we receive the notice.",
+    "Scale, as a share of the charter price: more than 14 days 25%; 7 to 14 days 40%; 72 hours to under 7 days 65%; 24 to under 72 hours 85%; under 24 hours or no-show 100%.",
+    "The client pays the higher of the scale or the operator's own cancellation charge plus our brokerage fee. The operator's terms are in the confirmation's remarks.",
+    "Brokers can cancel their own trip while it is an enquiry or a quote. After that, operations cancels it in Operations with Cancel trip; any refund is handled in Paynode."
+   ],
+   "trouble": [
+    [
+     "The client cancels by phone",
+     "Ask them to confirm in writing: the time we receive it decides the charge."
+    ],
+    [
+     "The operator charges more than our scale",
+     "The client pays the operator's charge plus our brokerage fee."
+    ],
+    [
+     "The operator cancels an empty-leg booking because its own flight changed",
+     "We refund everything paid for that booking."
+    ]
+   ],
+   "tips": [
+    "Tell the client the cancellation scale before they sign."
+   ]
+  },
+  {
+   "id": "enquiries",
+   "title": "Website enquiries",
+   "who": "Owner and operations",
+   "purpose": "Quote and call-back requests from the website, answered fast.",
+   "steps": [
+    "Requests from the website's quote and call-back forms appear on Today under Website enquiries.",
+    "Reply within 15 minutes, by the channel the visitor chose.",
+    "Open a trip as usual for a real request.",
+    "Mark the enquiry handled."
+   ],
+   "trouble": [
+    [
+     "The visitor gave no email",
+     "Use the phone or messaging app they chose, such as WhatsApp, LINE or WeChat."
+    ],
+    [
+     "An enquiry you expected is not there",
+     "Reload Today. Only enquiries not yet handled are shown, up to 20."
+    ]
+   ],
+   "tips": [
+    "Call-back requests are marked red: call those first."
+   ]
   }
  ],
  "faq": [

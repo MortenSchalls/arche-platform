@@ -4047,12 +4047,16 @@ document.addEventListener("submit", async e => {
    and a short check made from the guide's own problems and fixes. A lesson is done when the check is all right.
    Progress is kept in train/<uid>/runs/course (people see their own; owner and operations see everyone's). */
 const CR_TRACKS = [
-  {id: "basics", title: "Getting started", lessons: ["access", "testversion", "phone", "dashboard", "help", "ai"]},
-  {id: "broker", title: "Selling and booking", lessons: ["leads", "contacts", "enquiry", "extras", "quote", "docs", "send", "conf", "money", "aftercare", "points", "training", "roleplay", "cards"]},
-  {id: "ops", title: "Operations", lessons: ["ops", "sign", "following", "suppliers", "quotes", "prospects", "rotation", "control", "scorecard", "debrief"]},
+  {id: "basics", title: "Getting started", lessons: ["access", "rules", "privacy", "testversion", "phone", "dashboard", "help", "ai"]},
+  {id: "broker", title: "Selling and booking", lessons: ["leads", "contacts", "enquiry", "extras", "quote", "docs", "send", "conf", "money", "cancel", "aftercare", "points", "training", "roleplay", "cards"]},
+  {id: "ops", title: "Operations", lessons: ["enquiries", "ops", "sign", "following", "suppliers", "quotes", "prospects", "rotation", "control", "scorecard", "debrief"]},
   {id: "owner", title: "Owner", lessons: ["today", "approval", "team", "settings", "investors", "security", "audit", "backup", "launch"]}];
 /* "Try it" in the test version: who to act as, and what to do */
 const CR_TRY = {
+  rules: ["broker", "Make a test enquiry with an operator price of USD 30,000 and check the client price: 30,000 ÷ 0.93, rounded up, is USD 32,259."],
+  privacy: ["broker", "Look for the watermark with your name on any screen of the test version."],
+  cancel: ["broker", "Make a test enquiry, then cancel it yourself while it is still an enquiry."],
+  enquiries: ["owner", "As Test Owner, open Today and read the Website enquiries panel (the test version may have none)."],
   access: ["owner", "Switch between Test Owner, Test Operations and Test Broker in the orange bar and compare the menus."],
   testversion: ["broker", "Press Reset test data (twice), then switch to Test Broker 2 and back."],
   phone: ["broker", "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar."],
@@ -4101,7 +4105,7 @@ function crLessons(tracks){ return tracks.flatMap(t => (CR_TRACKS.find(x => x.id
 function crQuiz(id){
   const all = ((HELP.guide || {}).features || []).flatMap(f => (f.trouble || []).map(t => ({id: f.id, fix: t[1]})));
   const f = crFeat(id); if (!f) return [];
-  return (f.trouble || []).slice(0, 2).map((t, qi) => {
+  return (f.trouble || []).slice(0, 3).map((t, qi) => {
     const others = all.filter(x => x.id !== id && x.fix !== t[1]);
     const seed = [...(id + qi)].reduce((a, c) => a + c.charCodeAt(0), 0);
     const pick = [others[seed % others.length], others[(seed * 7 + 3) % others.length]].filter(Boolean).map(x => x.fix);
@@ -4119,11 +4123,12 @@ function vCourse(){
     <div class="panel"><h2 style="margin-top:0">Your course</h2>
       <p class="small">${n} of ${need.length} lessons done${n === need.length && need.length ? ` · <b>course complete</b>${crDoc().completedAt ? " on " + fmtD(crDoc().completedAt) : ""}` : ""}.</p>
       <div class="cr-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${need.length}" aria-valuenow="${n}"><span style="width:${need.length ? Math.round(100 * n / need.length) : 0}%"></span></div>
+      ${n === need.length && need.length && !crDoc().completedAt ? `<div class="note info small"><b>All lessons done.</b> Finish with the final check: ${crFinalSize()} questions from your lessons, at least 80% right to pass. <button class="btn small primary" type="button" data-crfinal="start">Start the final check</button></div>` : ""}
       <p class="small muted">Each lesson takes a few minutes: read it, try it in the test version, then answer the check. The same text is the troubleshooting guide in Help.</p></div>
     ${CR_TRACKS.map(t => { const ls = t.lessons.filter(crFeat); if (!ls.length) return ""; const reqd = req.includes(t.id);
       return `<div class="panel"><h3 style="margin-top:0">${esc(t.title)}${reqd ? "" : ` <span class="small muted">· optional for your role</span>`}</h3><div class="list">${ls.map(id => `<div class="item" role="option" tabindex="0" data-crsel="${id}" aria-selected="${sel === id}"><div class="t">${done[id] ? "✓ " : ""}${esc(crFeat(id).title)}</div><div class="small muted">${esc(crFeat(id).who || "")}</div></div>`).join("")}</div></div>`; }).join("")}
     ${staff ? crTeam() : ""}
-  </div><div class="pdetail">${crLesson(sel)}</div></div>`;
+  </div><div class="pdetail">${S.crFinal ? crFinalView() : crLesson(sel)}</div></div>`;
 }
 function crLesson(id){
   const f = crFeat(id); if (!f) return `<div class="panel empty"><p>Choose a lesson.</p></div>`;
@@ -4146,30 +4151,53 @@ function crNext(id){ const need = crLessons(crRequired()); const i = need.indexO
 async function crMark(id){
   const d = crDoc(), done = {...(d.done || {}), [id]: now()}, need = crLessons(crRequired());
   const complete = need.length && need.every(x => done[x]);
-  await S.db.doc(`train/${S.uid}/runs/course`).set({kind: "course", done, updated: now(), completedAt: complete ? (d.completedAt || now()) : null});
-  if (complete && !d.completedAt) { audit("Portal course completed", ""); toast("Course complete. Well done."); } else toast("Lesson done.");
+  await S.db.doc(`train/${S.uid}/runs/course`).set({...d, kind: "course", done, updated: now()});
+  toast(complete && !d.completedAt ? "All lessons done. Now take the final check." : "Lesson done.");
+}
+/* final check: questions drawn from every lesson the person needs; 80% to pass */
+function crPool(){ return crLessons(crRequired()).flatMap(id => crQuiz(id).map((q, qi) => ({id, qi, ...q}))); }
+function crFinalSize(){ return Math.min(15, crPool().length); }
+function crFinalView(){
+  const F = S.crFinal;
+  return `<form class="panel stack" data-crfinalform="1"><h2 style="margin:0">Final check</h2><p class="small muted">${F.qs.length} questions. You need ${Math.ceil(F.qs.length * 0.8)} right to pass.</p>
+    ${F.qs.map((q, i) => `<fieldset class="small"><legend><b>${i + 1}. What do you do if: ${esc(q.q.replace(/[.?]$/, ""))}?</b></legend>${q.opts.map((o, oi) => `<label class="check" for="crf_${i}_${oi}"><input type="radio" name="crf_${i}" id="crf_${i}_${oi}" value="${oi}" ${F.ans[i] === oi ? "checked" : ""}><span>${esc(o)}</span></label>`).join("")}
+      ${F.marked && F.ans[i] !== q.right ? `<p class="small bad-ink">The right answer: ${esc(q.opts[q.right])} (lesson: ${esc(crFeat(q.id).title)})</p>` : ""}</fieldset>`).join("")}
+    ${F.marked ? `<div class="note ${F.passed ? "info" : "warn"} small"><b>${F.score} of ${F.qs.length} right.</b> ${F.passed ? "Passed: the course is complete." : "Not passed yet. Read the lessons named above and try again."}</div>` : ""}
+    <div class="row">${F.marked ? `<button class="btn" type="button" data-crfinal="close">Back to the course</button>${F.passed ? "" : `<button class="btn primary" type="button" data-crfinal="start">Try again</button>`}` : `<button class="btn primary" type="submit">Hand in</button><button class="btn" type="button" data-crfinal="close">Cancel</button>`}</div></form>`;
 }
 function crTeam(){
   if (!S.crAll && !S.crLoading) crLoadAll();
   const rows = Object.entries(S.roster || {}).filter(([, r]) => r.active !== false && !r.example).map(([bid, r]) => {
     const role = r.role === "ops" ? "ops" : r.book ? "opsBroker" : "broker", need = crLessons(crRequired(role)), d = (S.crAll || {})[bid] || {}, done = d.done || {};
-    return {name: r.contractName || nm(bid), n: need.filter(x => done[x]).length, of: need.length, at: d.completedAt, last: d.updated};
+    return {name: r.contractName || nm(bid), n: need.filter(x => done[x]).length, of: need.length, at: d.completedAt, last: d.updated, score: d.finalScore};
   });
-  return `<div class="panel tbl"><h3 style="margin-top:0">Team progress</h3>${rows.length ? `<table class="small"><thead><tr><th scope=col>Person</th><th scope=col class="n">Lessons</th><th scope=col>Complete</th><th scope=col>Last</th></tr></thead><tbody>${rows.map(x => `<tr><td>${esc(x.name)}</td><td class="n">${x.n} / ${x.of}</td><td>${x.at ? fmtD(x.at) : "–"}</td><td>${x.last ? fmtD(x.last) : "–"}</td></tr>`).join("")}</tbody></table>` : `<p class="small muted">No team members yet.</p>`}</div>`;
+  return `<div class="panel tbl"><h3 style="margin-top:0">Team progress</h3>${rows.length ? `<table class="small"><thead><tr><th scope=col>Person</th><th scope=col class="n">Lessons</th><th scope=col>Final check</th><th scope=col>Last</th></tr></thead><tbody>${rows.map(x => `<tr><td>${esc(x.name)}</td><td class="n">${x.n} / ${x.of}</td><td>${x.at ? "Passed " + fmtD(x.at) + (x.score ? " · " + esc(x.score) : "") : "–"}</td><td>${x.last ? fmtD(x.last) : "–"}</td></tr>`).join("")}</tbody></table>` : `<p class="small muted">No team members yet.</p>`}</div>`;
 }
 async function crLoadAll(){ S.crLoading = true; const out = {};
   for (const bid of Object.keys(S.roster || {})) { try { const d = await S.db.doc(`train/${bid}/runs/course`).get(); if (d.exists) out[bid] = d.data(); } catch(e){} }
   S.crAll = out; S.crLoading = false; render(); }
 document.addEventListener("click", async e => {
   const s = e.target.closest("[data-crsel]"); if (s) { S.crSel = s.dataset.crsel; S.crShow = null; S.scrollDetail = true; render(); return; }
+  const fb = e.target.closest("[data-crfinal]");
+  if (fb) { if (fb.dataset.crfinal === "close") { S.crFinal = null; render(); return; }
+    const pool = crPool().sort(() => Math.random() - 0.5).slice(0, crFinalSize()); S.crFinal = {qs: pool, ans: {}, marked: false}; S.scrollDetail = true; render(); return; }
   const d = e.target.closest("[data-crdone]"); if (d) { try { await crMark(d.dataset.crdone); } catch(err){ toast("Could not save. Try again."); } return; }
 });
 document.addEventListener("change", e => {
+  const fm = /^crf_(\d+)$/.exec(e.target.name || ""); if (fm && S.crFinal && !S.crFinal.marked) { S.crFinal.ans[+fm[1]] = +e.target.value; return; }
   const m = /^cr_(.+)_(\d+)$/.exec(e.target.name || ""); if (!m) return;
   S.crAns = S.crAns || {}; S.crAns[m[1]] = {...(S.crAns[m[1]] || {}), [m[2]]: +e.target.value};
 });
 document.addEventListener("submit", async e => {
-  const f = e.target; if (!f.dataset || !f.dataset.crquiz) return; e.preventDefault();
+  const f = e.target;
+  if (f.dataset && f.dataset.crfinalform) { e.preventDefault(); const F = S.crFinal; if (!F || F.marked) return;
+    if (F.qs.some((q, i) => F.ans[i] === undefined)) { toast("Answer every question first."); return; }
+    F.score = F.qs.filter((q, i) => F.ans[i] === q.right).length; F.passed = F.score >= Math.ceil(F.qs.length * 0.8); F.marked = true;
+    try { const d = crDoc(); await S.db.doc(`train/${S.uid}/runs/course`).set({...d, kind: "course", updated: now(), finalTries: (d.finalTries || 0) + 1,
+      ...(F.passed ? {completedAt: d.completedAt || now(), finalScore: `${F.score}/${F.qs.length}`} : {})});
+      if (F.passed && !d.completedAt) audit("Portal course completed", `${F.score}/${F.qs.length}`); } catch(err){ toast("Could not save the result. Try again."); }
+    render(); return; }
+  if (!f.dataset || !f.dataset.crquiz) return; e.preventDefault();
   const id = f.dataset.crquiz, quiz = crQuiz(id), ans = (S.crAns || {})[id] || {};
   if (quiz.some((q, i) => ans[i] === undefined)) { toast("Answer every question first."); return; }
   S.crShow = id;
