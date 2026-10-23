@@ -156,6 +156,8 @@ window.archeSend = function (data) {
     for f in ("privacy.html", "terms.html"):   # same lighter background on the legal pages
         fp = os.path.join(OUT, f)
         if os.path.exists(fp): open(fp, "w", encoding="utf-8").write(sections.tone(open(fp, encoding="utf-8").read()))
+    import polish
+    polish.preview(OUT)   # fewer words, larger headlines, metallic labels: preview.html until Morten says go live
 
 if __name__ == "__main__":
     build()
