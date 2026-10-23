@@ -105,6 +105,9 @@
     if (KV[p[0]]) return { kind: "kv", table: KV[p[0]], id: p[1] };
     if (p[0] === "faq") return { kind: "row", table: "faq", key: "id", id: p[1] };
     if (p[0] === "prospects") return { kind: "row", table: "prospects", key: "id", id: p[1] };
+    if (p[0] === "progress") return { kind: "row", table: "academy_progress", key: "id", id: p[1] };   // academy: own progress (database rule)
+    if (p[0] === "records") return { kind: "row", table: "academy_records", key: "id", id: p[1] };    // academy: director's training records
+    if (p[0] === "certs") return { kind: "row", table: "certificates", key: "id", id: p[1] };         // academy: certificate register
     if (p[0] === "rfqs") return { kind: "row", table: "rfqs", key: "id", id: p[1] };   // supplier quotes: staff only (database rule)
     if (p[0] === "optouts") return { kind: "row", table: "optouts", key: "id", id: p[1] };   // hashes only
     if (p[0] === "owner") return { kind: "row", table: "owner_prospects", key: "id", id: p[1] };   // investors and partners: owner only (database rule)

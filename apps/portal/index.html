@@ -3469,7 +3469,7 @@ function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class=
   const _vTraining = vTraining;
   vTraining = function(){
     const t = S.trTab || "course";
-    if (t === "course") return `<div class="head"><div><h1>Training</h1><p class="muted small">The portal course: every screen for your role, with a task to try in the test version and a short check for each lesson. Start here, then practise whole bookings in Booking practice.</p></div></div>` + trTabs() + vCourse();
+    if (t === "course") return `<div class="head"><div><h1>Training</h1><p class="muted small">The portal course: every screen for your role, with a task to try in the test version and a short check for each lesson. Start here, then practise whole bookings in Booking practice.</p></div><div class="row"><a class="btn" href="academy.html" target="_blank" rel="noopener">Open the Broker Academy</a></div></div>` + trTabs() + vCourse();
     if (t === "book") { const h = _vTraining(); return h.replace(/(<div class="note warn small" style="margin-bottom:12px">)/, trTabs() + "$1"); }
     const head = `<div class="head"><div><h1>Training</h1><p class="muted small">${t === "rp" ? "Practise difficult conversations out loud with an AI client, assistant or operator, then see your score on the lab sheet (manual 14.4–14.5)." : "Regional quick-reference cards for live enquiries (manual Appendix J)."}</p></div></div>`;
     return head + trTabs() + (t === "rp" ? rpView() : cardsView());

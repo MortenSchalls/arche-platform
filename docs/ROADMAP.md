@@ -15,6 +15,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
 | ◐ | Liability insurance: broker's professional liability and non-owned aircraft liability, stated in the terms | Morten (broker) | Peers state cover (FXAIR USD 100m per occurrence; JetSmarter USD 50m non-owned). Our terms say nothing. See terms comparison 20 Oct. |
 | ☐ | Counsel to confirm: liability cap at the brokerage fee (B14) holds under Singapore law; SIAC arbitration also suits small claims (B16) | Counsel | Peers cap at the price paid. |
+| ◐ | Run `supabase/migrations/0007_academy.sql` in Supabase (academy progress on the portal sign-in) | Morten | One paste in the SQL Editor. |
 | ◐ | Run `supabase/migrations/0006_rfqs.sql` in Supabase (supplier quotes) | Morten | One paste in the SQL Editor. |
 | ☐ | Counsel check of named business contacts: Singapore PDPA business-contact exemption, Thai PDPA (no such exemption), GDPR notice within one month for EU contacts | Counsel | Rule approved 20 Oct 2026. |
 | ☐ | Staff sign-in by Microsoft 365; sign-in emails from archeaviation.com (custom SMTP) | Claude + Morten | |
@@ -36,7 +37,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 |---|---|---|
 | ☐ | Google Business Profile (Singapore; Bangkok if it is a real office) | Needs real address and phone. |
 | ☐ | Website enquiry alert to the 24/7 desk | So no request is missed. |
-| ☐ | Academy on the same sign-in at academy.archeaviation.com | |
+| ◐ | Academy on the same sign-in | Internal academy now at portal address /academy.html (23 Oct); external academy and academy.archeaviation.com later. Morten runs migration 0007. |
 | ☐ | Retire the claude.ai portal after two weeks of parallel running | |
 | ☐ | Listings in genuine aviation directories and associations (for example AsBAA, if Archē joins) | Links from trusted sites help ranking. |
 
