@@ -12,7 +12,12 @@
   let resolveReady; const ready = new Promise(r => (resolveReady = r));
   async function gate() {
     const { data } = await sb.auth.getSession();
-    if (data.session) { resolveReady(data.session); return; }
+    if (data.session) {
+      // signed in with a temporary password: choose your own before using the portal (Morten 23 Oct 2026)
+      let pw = false; try { pw = localStorage.getItem("arche.pwlogin") === "1"; } catch (e) {}
+      if (pw && !(data.session.user.user_metadata || {}).pw_set) { showSetPassword(data.session); return; }
+      resolveReady(data.session); return;
+    }
     showLogin();
     sb.auth.onAuthStateChange((ev, session) => { if (session && ev === "SIGNED_IN") location.reload(); });
   }
@@ -33,6 +38,8 @@
       <p style="margin:18px 0 0">Or get a sign-in link by email:</p>
       <input id="alEm" type="email" autocomplete="email" placeholder="you@archeaviation.com" aria-label="Email">
       <button type="button" class="alt" id="alSend">Email me a sign-in link</button>
+      <input id="alPw" type="password" autocomplete="current-password" placeholder="Password, if you were given one" aria-label="Password">
+      <button type="button" class="alt" id="alPwGo">Sign in with password</button>
       <p class="msg" id="alMsg" aria-live="polite"></p>
       <p style="font-size:12px;color:#a8adb3">Access is for approved Archē Executive staff and brokers. After your first sign-in, the owner approves you.</p></div>`;
     (document.body ? Promise.resolve() : new Promise(r => addEventListener("DOMContentLoaded", r))).then(() => document.body.appendChild(box));
@@ -42,6 +49,14 @@
         const { error } = await sb.auth.signInWithOAuth({ provider: "azure", options: { scopes: "email", redirectTo: location.origin + location.pathname } });
         if (error) msg("Microsoft sign-in is not switched on yet. Use the email link.");
       }
+      if (e.target.id === "alPwGo") {
+        const em = document.getElementById("alEm").value.trim(), pw = document.getElementById("alPw").value;
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) || !pw) { msg("Enter your email address and password."); return; }
+        try { localStorage.setItem("arche.pwlogin", "1"); } catch (err) {}
+        const { error } = await sb.auth.signInWithPassword({ email: em, password: pw });
+        if (error) { msg(/invalid/i.test(error.message) ? "Email or password not recognised." : error.message); return; }
+        location.reload(); return;
+      }
       if (e.target.id === "alSend") {
         const em = document.getElementById("alEm").value.trim();
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { msg("Enter your email address."); return; }
@@ -49,6 +64,32 @@
         if (error) { msg(/rate/i.test(error.message) ? "Too many emails just now. Wait a few minutes and try again." : error.message); return; }
         msg("Link sent. Open the email (check spam) and click the link on this device.");
       }
+    });
+  }
+  function showSetPassword(session) {
+    const box = document.createElement("div");
+    box.id = "archeSetPw";
+    box.innerHTML = `<style>#archeSetPw{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#34373d;color:#f3f5f8;font-family:'Hanken Grotesk',system-ui,sans-serif;padding:16px}
+      #archeSetPw .card{width:100%;max-width:380px;background:#3d4047;border:1px solid #676b71;padding:28px}#archeSetPw p{color:#c6cbd2;font-size:14px;line-height:1.5}
+      #archeSetPw input,#archeSetPw button{width:100%;box-sizing:border-box;height:44px;font:inherit;margin-top:10px}
+      #archeSetPw input{background:#2c2e33;color:#f3f5f8;border:1px solid #676b71;padding:0 12px}
+      #archeSetPw button{background:linear-gradient(#fafbfc,#c6cbd2);color:#24262a;border:0;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer}
+      #archeSetPw .msg{min-height:20px;font-size:13px;color:#a9bdd4}</style>
+      <div class="card" role="dialog" aria-labelledby="spH"><h2 id="spH" style="margin:0 0 6px;font-weight:500">Choose your own password</h2>
+      <p>You signed in with a temporary password. Choose a new one that only you know: at least 10 characters.</p>
+      <input id="spA" type="password" autocomplete="new-password" placeholder="New password" aria-label="New password">
+      <input id="spB" type="password" autocomplete="new-password" placeholder="New password again" aria-label="New password again">
+      <button type="button" id="spGo">Save and continue</button><p class="msg" id="spMsg" aria-live="polite"></p></div>`;
+    (document.body ? Promise.resolve() : new Promise(r => addEventListener("DOMContentLoaded", r))).then(() => document.body.appendChild(box));
+    box.addEventListener("click", async e => {
+      if (e.target.id !== "spGo") return;
+      const a = document.getElementById("spA").value, b = document.getElementById("spB").value, m = document.getElementById("spMsg");
+      if (a.length < 10) { m.textContent = "At least 10 characters."; return; }
+      if (a !== b) { m.textContent = "The two passwords are different."; return; }
+      const { error } = await sb.auth.updateUser({ password: a, data: { pw_set: true } });
+      if (error) { m.textContent = error.message; return; }
+      try { localStorage.removeItem("arche.pwlogin"); } catch (err) {}
+      location.reload();
     });
   }
   gate();

@@ -57,6 +57,10 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Gulfstream source for the G650 cabin figures | Now from GlobalSecurity.org. |
 
 ## Done
+**23 Oct 2026**
+- ☑ Portal: sign in with email and password (owner creates the login in Supabase; the person must choose their own password on first sign-in). Interim until sign-in emails from our own domain work.
+- ☑ Website: shorter copy, larger headlines and more space on desktop, metallic labels and dividers, in all four languages.
+
 **21 Oct 2026**
 - ☑ Website: three full-width photo breaks with one line each, a "What every trip includes" row (vetted operators, one fixed price, 24/7 desk), background one tone lighter (#3b3f46, muted text lifted to keep 4.5:1), new How-it-works step 1 photo; every photo used once; in all four languages (6 new iStock photos, 21 Oct).
 - ☑ Test version of the portal (`/test.html`): no sign-in, switch between Test Owner, Test Operations and Test Broker; example data in the browser only; never touches the real database.
