@@ -1,5 +1,5 @@
 {
- "version": "1.6, 19 October 2026",
+ "version": "2.0, 23 October 2026",
  "features": [
   {
    "id": "access",
@@ -7,19 +7,28 @@
    "who": "Everyone",
    "purpose": "Only approved people can use the portal, and each person sees only what their role needs.",
    "steps": [
-    "Open the portal link while signed in to claude.ai.",
-    "First time: fill in Join with your full legal name as on your contract, your role, the country you work from and your academy completion code, and tick the portal agreement.",
-    "Wait for approval. The director approves every broker before the first enquiry.",
-    "Your role decides what you see: brokers and consultants see their own trips, leads and commission; operations sees every trip and the operations queue; the owner sees everything."
+    "Open the portal address you were given (portal.archeaviation.com after go-live) and sign in: with the password the owner gave you, or with an emailed sign-in link once that is switched on.",
+    "First time with a temporary password: choose your own (at least 10 characters). After that nobody else knows it, not even the owner.",
+    "Fill in Join: your full legal name as on your contract, your role, the country you work from and, if you have it, your academy completion code. Tick the portal agreement, then Request access.",
+    "Wait until the owner approves you in Team, then reload the portal.",
+    "Your role decides what you see: brokers and consultants see their own trips, leads and commission; operations sees every trip and the operations queue; brokers with booking rights also work as operations; the owner sees everything."
    ],
    "trouble": [
     [
-     "The portal says it could not open",
-     "Open it from claude.ai while signed in, using the link you were given. A copied link opened in another browser profile will not sign you in."
+     "Sign in says Email or password not recognised",
+     "Check the email address and the password. If it still fails, ask the owner to set a new temporary password."
+    ],
+    [
+     "The emailed sign-in link never arrives",
+     "Sign-in emails work only after go-live. Use the password you were given."
+    ],
+    [
+     "Request access does nothing",
+     "Tick the portal agreement under the form; it is required."
     ],
     [
      "I am stuck on Request sent",
-     "The director has not approved you yet. Ask the director; approval needs your contract and academy code."
+     "The owner has not approved you yet. Ask the owner."
     ],
     [
      "I see Access ended",
@@ -31,8 +40,9 @@
     ]
    ],
    "tips": [
-    "Use the same claude.ai account every time: your trips and leads are tied to it.",
-    "Bookmark the portal link on your phone; every page works on a small screen."
+    "Use the same email every time: your trips and leads are tied to your login.",
+    "Never share your password, and sign in only on your own devices.",
+    "Bookmark the portal on your phone; every page works on a small screen."
    ]
   },
   {
@@ -106,12 +116,17 @@
     "Check Running in the background: prospect research and Google Drive backup.",
     "Use the analytics: gross profit from trips flown over six months, this month's funnel and confirmed trips by broker.",
     "If a background job is late (backup or research more than 26 hours, rotation more than 7 hours), it appears at the top of Your decisions with a button to run it from here.",
-    "Spot check: two recent contacts per broker, plus anything that looks wrong (very many contacts in one day, the same note on many leads). Mark each Looks right or Ask the broker."
+    "Spot check: two recent contacts per broker, plus anything that looks wrong (very many contacts in one day, the same note on many leads). Mark each Looks right or Ask the broker.",
+    "Read AI research spend: this month against the limit, and what the last run cost."
    ],
    "trouble": [
     [
      "A background job shows not run yet or an old date",
-     "Scheduled jobs stop when the claude.ai usage limit is reached. Check Settings > Usage in claude.ai; the job runs again at its next time."
+     "Daily prospect research is paused until go-live to save AI credit. Rotation runs every 3 hours and the backup nightly; if one is late, run it from Today."
+    ],
+    [
+     "Research stopped with AI budget reached",
+     "Each run stops at USD 1.50 and research pauses for the month at USD 40. Today shows the spend; raise the limit only if you mean to."
     ],
     [
      "Run now does nothing",
@@ -443,11 +458,12 @@
    "who": "Owner and operations",
    "purpose": "The global list of organisations, with sources, contact routes and status.",
    "steps": [
-    "Filter by region, country, province, segment, type and status, or search.",
+    "Three sections: Clients and partners, Operators, and Service partners (the owner also has Investors and partners).",
+    "Filter by region, country, province, segment, type, status or batch, or search.",
     "Open a prospect to see why, how to approach, contact routes, source, assignment history and the contact log.",
     "Assign it to a broker, or mark Do not contact.",
-    "Add a prospect with its public source.",
-    "The list is a table: sort by organisation, country, status, broker, contact due or newest, 100 per page. Tick several to assign them to one broker or mark them Do not contact in one go."
+    "Tick several (or use the Batch filter and tick all) to assign them to one broker in one go.",
+    "Add a prospect with its public source."
    ],
    "trouble": [
     [
@@ -527,8 +543,8 @@
    ],
    "trouble": [
     [
-     "The co-pilot asks for permission",
-     "Allow Claude when asked, or in the artifact's Permissions menu."
+     "The co-pilot or Assistant asks you to sign in again",
+     "AI features need a real sign-in. They do not work in the test version."
     ],
     [
      "Too many requests",
@@ -566,18 +582,23 @@
    "who": "Owner",
    "purpose": "Approve people, end access and give booking rights.",
    "steps": [
-    "Approve or decline requests to join.",
-    "Give a broker booking rights with Can book, and Editor access in the claude.ai Share menu.",
-    "End access when someone leaves, and remove them from the Share menu the same day."
+    "Approve or decline requests to join. The person reloads the portal to start.",
+    "New people sign in with a temporary password you create in Supabase: Authentication, Users, Add user, tick Auto Confirm User. Give it by phone or in person; they choose their own at first sign-in.",
+    "Tick Booking rights to let a broker also work as operations: they then see every trip, the operations queue, operators, service partners and supplier quotes, and can issue confirmations and record payments on other people's trips, never their own.",
+    "End access the same day someone leaves."
    ],
    "trouble": [
     [
      "A broker with booking rights still sees only their own trips",
-     "They also need Editor access in the Share menu."
+     "They need to reload the portal once after you tick Booking rights."
+    ],
+    [
+     "A new person is not under Requests to join",
+     "They have not sent the form yet: sign in, choose their own password, fill in Join and tick the agreement."
     ]
    ],
    "tips": [
-    "Editors can read the whole portal, including other brokers' trips and commission: give booking rights only to trusted people."
+    "Booking rights open every trip and the commission screen: give them only to trusted people."
    ]
   },
   {
@@ -633,12 +654,13 @@
    "purpose": "Keep the portal ringfenced.",
    "steps": [
     "Review who opened the portal and when.",
-    "Keep the Share menu to named people: brokers Contributor, operations Editor; never a public link."
+    "Every person has their own login: end access in Team the day someone leaves.",
+    "The investor list is visible only to the owner; the database enforces it."
    ],
    "trouble": [
     [
      "Someone unknown appears in the access log",
-     "End their access and remove them from the Share menu at once."
+     "End their access in Team at once and delete their user in Supabase."
     ]
    ],
    "tips": [
@@ -696,6 +718,7 @@
    "who": "Everyone",
    "purpose": "Practise a whole booking, from the client's first request to commission, with a training Avinode and Paynode. Nothing is real: no trip is created, nothing goes to operations or is issued, and nothing counts toward commission or the leaderboard.",
    "steps": [
+    "Start with Portal course: lessons for your role, each with a Try it task in the test version and a short check.",
     "Open Training and choose an exercise. There are six, from a first London–Nice booking to a winter long-haul flight, a US domestic flight, a short-notice trip and a red-flag payer.",
     "Read the client's request, then enter the enquiry with the airport search, exactly as the client asked.",
     "Training Avinode shows the operators who answered. Read the safety audit, seats, operator's country and notes before choosing: some offers are traps (no safety rating, cabotage, expired insurance, no animals, too few seats).",
@@ -910,6 +933,135 @@
    "tips": [
     "Approve early when the deal is right; operations finishes the checks in parallel.",
     "When you issue a confirmation yourself, that counts as your approval."
+   ]
+  },
+  {
+   "id": "contacts",
+   "title": "Named business contacts and opt-outs",
+   "who": "Everyone who works prospects and leads",
+   "purpose": "Named people are stored only as business contacts, and anyone can opt out at once.",
+   "steps": [
+    "Contacts on a lead or prospect are hidden until you press Show; opening them is recorded.",
+    "Add a contact only with a work email or work phone published by the organisation itself or taken from a licensed database, and give the source.",
+    "Your first message says where you found their details and offers an opt-out.",
+    "If someone opts out, press Opted out twice: their details are deleted from every list and nobody can add them again.",
+    "Press Contacted today after each contact. Contacts not reached within 12 months are deleted automatically."
+   ],
+   "trouble": [
+    [
+     "Save contact says Work email only",
+     "Personal addresses like Gmail are not allowed. Use the work email or work phone."
+    ],
+    [
+     "It says This person has opted out",
+     "They asked not to be contacted. Nobody can add them again."
+    ]
+   ],
+   "tips": [
+    "Never use LinkedIn messages or bought lists to find people.",
+    "Organisations first: the company's general email is often the best first route."
+   ]
+  },
+  {
+   "id": "suppliers",
+   "title": "Operators and service partners",
+   "who": "Operations, the owner and brokers with booking rights",
+   "purpose": "The suppliers we can book: charter operators, and business-jet services at our key airports.",
+   "steps": [
+    "Prospects, Operators: charter operators with their certificate, safety audits, fleet and sanctions pre-screen. A person confirms the sanctions check before the first booking.",
+    "Prospects, Service partners: FBOs and ground handlers, trip support, in-flight catering and crew hotels at our key airports. Filter by airport and category.",
+    "Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle.",
+    "Suppliers are never assigned to brokers."
+   ],
+   "trouble": [
+    [
+     "An operator shows Possible sanctions match",
+     "Do not contact or book it. The owner decides."
+    ],
+    [
+     "An airport has no service partner for what you need",
+     "Add one with Add prospect and its public source, or ask the owner."
+    ]
+   ],
+   "tips": [
+    "Check IS-BAH for handlers and ARGUS or Wyvern for operators before relying on them."
+   ]
+  },
+  {
+   "id": "quotes",
+   "title": "Supplier quotes",
+   "who": "Operations, the owner and brokers with booking rights",
+   "purpose": "Ask several suppliers at an airport for a quote, compare them on one screen and award one.",
+   "steps": [
+    "Open Supplier quotes, New quote request. Choose the airport and service, the trip if there is one, when the quotes are needed and the terms.",
+    "Tick the suppliers to ask: only those that pass the checks can be picked.",
+    "For each supplier, copy the prepared message, send it from your work email and press I have sent it.",
+    "Record each quote in USD, with how long it is valid and any changes to our terms.",
+    "Compare the scores and their reasons, then Award. Whoever made the request cannot award it, and a reason is needed if you do not choose the top score.",
+    "Add the awarded cost to the trip's direct costs in Operations."
+   ],
+   "trouble": [
+    [
+     "A supplier is greyed out",
+     "It failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
+    ],
+    [
+     "There is no Award button",
+     "You made the request, so someone else awards it."
+    ],
+    [
+     "Saving says not set up yet",
+     "The owner must run migration 0006 in Supabase."
+    ]
+   ],
+   "tips": [
+    "Nothing is sent from the portal: you stay in control of every message."
+   ]
+  },
+  {
+   "id": "investors",
+   "title": "Investors and partners (owner only)",
+   "who": "Owner",
+   "purpose": "The owner's private list of investors and strategic partners.",
+   "steps": [
+    "Prospects, Investors and partners: visible only to the owner; the database enforces it.",
+    "Filter by potential, track, interest, industry and ticket size; each has a fit score with reasons.",
+    "Add one, or use Import list: one organisation per line (Name | Track | Country). Names already in the list and personal names are skipped.",
+    "Move a prospect from the shared list here when it is an investor rather than a client."
+   ],
+   "trouble": [
+    [
+     "An imported organisation has no profile yet",
+     "Profiles come from the research job, which is paused until go-live."
+    ]
+   ],
+   "tips": [
+    "Nothing about investors appears in shared logs or summaries."
+   ]
+  },
+  {
+   "id": "testversion",
+   "title": "Test version for practice",
+   "who": "Everyone",
+   "purpose": "A copy of the portal with example data only, to try anything without risk.",
+   "steps": [
+    "Open test.html on the portal address.",
+    "Choose who you act as in the orange bar: Test Owner, Test Operations, Test Broker or Test Broker 2.",
+    "Everything you do stays in that browser; Reset test data starts again.",
+    "Pass a trip from Test Broker to Test Operations to Test Owner to see the whole flow."
+   ],
+   "trouble": [
+    [
+     "The AI buttons do not work",
+     "AI features need a real sign-in; they are off in the test version."
+    ],
+    [
+     "My test data is gone",
+     "It is kept per browser and device; another phone or browser has its own copy."
+    ]
+   ],
+   "tips": [
+    "Use the test version for every Try it task in the course."
    ]
   }
  ],

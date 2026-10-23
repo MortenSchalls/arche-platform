@@ -58,6 +58,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 
 ## Done
 **23 Oct 2026**
+- ☑ Portal course in Training: every screen for each role (getting started, selling and booking, operations, owner), each lesson with a Try it task in the test version and a check; progress per person, team progress for owner and operations. Troubleshooting guide updated to the new platform (v2.0) with supplier quotes, operators and service partners, business contacts, investors and the test version.
 - ☑ Portal: sign in with email and password (owner creates the login in Supabase; the person must choose their own password on first sign-in). Interim until sign-in emails from our own domain work.
 - ☑ Website: shorter copy, larger headlines and more space on desktop, metallic labels and dividers, in all four languages.
 

@@ -116,6 +116,7 @@ a{color:var(--steel)}
 .btn.primary{background:var(--steel);border-color:var(--steel);color:var(--surface)}
 .btn.danger{color:var(--bad);border-color:var(--bad)}
 .bad-ink{color:var(--bad)}
+.cr-bar{height:6px;background:var(--track,#e2e6ec);border-radius:3px;overflow:hidden}.cr-bar span{display:block;height:100%;background:var(--series-1,#2a78d6)}
 .btn.small{padding:5px 10px;font-size:13px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 :focus-visible{outline:2px solid var(--steel);outline-offset:2px}
@@ -911,12 +912,12 @@ function vControl(){
 /* ---------- team (owner) ---------- */
 function vTeam(){
   const joins = Object.entries(S.joins), ros = Object.entries(S.roster);
-  return `<div class="head"><div><h1>Team</h1><p class="muted small">Approve each person before their first enquiry. In the Share menu, give brokers and consultants <b>Contributor</b> access and operations <b>Editor</b> access. Never share the portal by public link.</p></div></div>
+  return `<div class="head"><div><h1>Team</h1><p class="muted small">Approve each person before their first enquiry. New people sign in with a temporary password you create in Supabase (Authentication › Users › Add user, Auto Confirm User) and choose their own at first sign-in. End access the same day someone leaves.</p></div></div>
   <div class="grid2"><div class="panel"><h2>Requests to join</h2>${joins.length ? joins.map(([id, j]) => `<div class="flag"><span class="sev low" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(j.contractName)}</b> · ${esc(j.role)} · ${esc(j.base || "")}</p><p class="small muted">Academy code: <span class="mono">${esc(j.cert || "none")}</span> · Requested ${fmtD(j.at)}</p>
     <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-approve="${id}">Approve</button><button class="btn small" type="button" data-decline="${id}">Decline</button></div></div></div>`).join("") : `<p class="muted small">No requests waiting.</p>`}</div>
   <div class="panel tbl"><h2>People</h2><table><thead><tr><th scope=col>Name</th><th scope=col>Role</th><th scope=col>Works from</th><th scope=col>Since</th><th scope=col>Booking rights</th><th scope=col>Access</th></tr></thead><tbody>
   ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))} ${p.example ? '<span class="tag">Example</span>' : ""}</td><td>${esc(p.role)}</td><td>${esc(p.base || "")}</td><td>${fmtD(p.since)}</td><td>${p.role === "ops" ? "Operations" : `<label class="check" style="margin:0"><input type="checkbox" data-book="${id}" ${p.book ? "checked" : ""}><span class="small">Can book</span></label>`}</td><td>${p.active === false ? `<button class="btn small" type="button" data-reactivate="${id}">Restore</button>` : `<button class="btn small danger" type="button" data-deactivate="${id}">End access</button>`}</td></tr>`).join("") || `<tr><td colspan="6" class="muted">Nobody approved yet.</td></tr>`}
-  </tbody></table><p class="small muted" style="margin-top:8px"><b>Booking rights</b> let a broker also work as operations: check trips, issue confirmations and record payments, for everyone except their own trips. Give them <b>Editor</b> access in the Share menu too; Editors can read the whole portal, including other brokers' trips and commission. Ending access hides the portal for that person at once. Also remove them from the Share menu. Their trips and documents stay with Archē Executive.</p></div></div>`;
+  </tbody></table><p class="small muted" style="margin-top:8px"><b>Booking rights</b> let a broker also work as operations: check trips, issue confirmations and record payments, for everyone except their own trips. They reload the portal once to get it. Booking rights open every trip and the commission screen, so give them only to trusted people.</p></div></div>`;
 }
 
 /* ---------- settings (owner) ---------- */
@@ -1455,8 +1456,8 @@ function vSecurity(){
       <li><b>Documents stay inside.</b> Passports, AOCs and quotes are attached in the portal, never emailed.</li>
       <li><b>Access log.</b> The last time each person opened the portal is recorded below.</li>
       <li><b>AI keeps data in Claude.</b> The co-pilot receives trip details without client names or contact details.</li></ul>
-    <h3 style="margin-top:8px">Your checklist in the Share menu</h3>
-    <ul class="small" style="padding-left:18px;margin:0"><li>Never turn on a public link.</li><li>Brokers and consultants: Contributor. Operations: Editor (they can publish page versions, so keep this to trusted staff).</li><li>When someone leaves: End access on the Team page and remove them from the Share menu the same day.</li></ul></div>
+    <h3 style="margin-top:8px">Your access checklist</h3>
+    <ul class="small" style="padding-left:18px;margin:0"><li>Every person has their own login; never share one.</li><li>Booking rights only for trusted people: they open every trip and the commission screen.</li><li>When someone leaves: End access on the Team page the same day, and delete their user in Supabase.</li></ul></div>
   <div class="panel tbl"><h2>Access log</h2><table><thead><tr><th scope=col>Person</th><th scope=col>Role</th><th scope=col>Last opened</th></tr></thead><tbody>
     ${rows.map(([id, a]) => `<tr><td>${esc(nm(id))}</td><td>${esc(a.role || "")}</td><td>${fmtT(a.lastSeen)}</td></tr>`).join("") || `<tr><td colspan="3" class="muted">Nobody else has opened the portal yet.</td></tr>`}
   </tbody></table></div></div>${auditPanel()}`;
@@ -2620,7 +2621,7 @@ document.addEventListener("click", async e => {
   const ap = e.target.closest("[data-approve]"); if (ap) { const id = ap.dataset.approve, j = S.joins[id];
     try { await S.db.doc("roster/" + id).set({contractName:j.contractName, role:j.role, base:j.base || "", cert:j.cert || "", since:now(), active:true}); await S.db.doc("join/" + id).delete(); audit("Person approved", `${j.contractName} · ${j.role}`); toast("Approved"); } catch(err){ toast("Could not approve."); } return; }
   const dc = e.target.closest("[data-decline]"); if (dc) { try { const j = S.joins[dc.dataset.decline] || {}; await S.db.doc("join/" + dc.dataset.decline).delete(); audit("Join request declined", j.contractName || ""); toast("Request declined"); } catch(err){ toast("Could not decline."); } return; }
-  const de = e.target.closest("[data-deactivate]"); if (de) { try { await S.db.doc("roster/" + de.dataset.deactivate).update({active:false, endedAt:now()}); audit("Access ended", nm(de.dataset.deactivate)); toast("Access ended. Remove them in the Share menu too."); } catch(err){ toast("Could not change access."); } return; }
+  const de = e.target.closest("[data-deactivate]"); if (de) { try { await S.db.doc("roster/" + de.dataset.deactivate).update({active:false, endedAt:now()}); audit("Access ended", nm(de.dataset.deactivate)); toast("Access ended."); } catch(err){ toast("Could not change access."); } return; }
   const re = e.target.closest("[data-reactivate]"); if (re) { try { await S.db.doc("roster/" + re.dataset.reactivate).update({active:true}); audit("Access restored", nm(re.dataset.reactivate)); toast("Access restored"); } catch(err){ toast("Could not change access."); } return; }
   const pay = e.target.closest("[data-pay]"); if (pay) { S.payAsk = pay.dataset.pay; render(); return; }
 });
@@ -2635,7 +2636,7 @@ document.addEventListener("change", async e => {
   if (e.target.id === "q_cur") { curSync(); return; }
   if (e.target.id === "sg_file") { const t = tripById(S.sel); if (t) sigSave(t); return; }
   if (e.target.dataset && e.target.dataset.launch) { const k = e.target.dataset.launch; try { await S.db.doc("config/launch").set({...(S.launch || {}), [k]: e.target.checked ? now() : null}); audit(e.target.checked ? "Launch item ticked" : "Launch item unticked", k); } catch(err){ toast("Could not save."); } return; }
-  if (e.target.dataset && e.target.dataset.book) { const id = e.target.dataset.book; audit(e.target.checked ? "Booking rights given" : "Booking rights removed", nm(id)); try { await S.db.doc("roster/" + id).update({book: e.target.checked}); toast(e.target.checked ? "Booking rights on. Give Editor access in the Share menu." : "Booking rights off. Set them back to Contributor in the Share menu."); } catch(err){ toast("Could not change."); } return; }
+  if (e.target.dataset && e.target.dataset.book) { const id = e.target.dataset.book; audit(e.target.checked ? "Booking rights given" : "Booking rights removed", nm(id)); try { await S.db.doc("roster/" + id).update({book: e.target.checked}); toast(e.target.checked ? "Booking rights on. They reload the portal to get them." : "Booking rights off."); } catch(err){ toast("Could not change."); } return; }
   if (e.target.id === "dashMetric") { S.dashMetric = e.target.value; render(); return; }
   if (e.target.id === "fSel") { S.filter = e.target.value; render(); return; }
   if (e.target.dataset && e.target.dataset.pf && e.target.dataset.pf !== "q") { const k = e.target.dataset.pf; S.pf[k] = e.target.value; if (k === "region") { S.pf.country = ""; S.pf.province = ""; } if (k === "country") S.pf.province = ""; render(); return; }
@@ -2808,7 +2809,7 @@ function launchItems(){
     ["company", "Company details on confirmations filled in", !!(co.name && co.reg && co.address && co.email && co.phone && co.signName), "Settings > Company details"],
     ["examples", "Example data removed", ex === 0, ex ? `${ex} example records left` : ""],
     ["team", "At least one broker and one operations person approved", ros.some(r => !r.example && r.active !== false && r.role !== "ops") && ros.some(r => !r.example && r.active !== false && (r.role === "ops" || r.book)), "Team"],
-    ["share", "Share menu checked: no public link, brokers Contributor, operations Editor", !!L.share, "", true],
+    ["share", "Logins checked: one per person, booking rights only for trusted people, test logins removed", !!L.share, "", true],
     ["pdf", "A test confirmation PDF issued and checked", !!L.pdf || trips.some(t => t.st && t.st.confIssued && !t.d.example), "", true],
     ["esign", "Signature routine agreed: confirmations go out from the bookings mailbox, signed copies are saved in the portal the same day", !!L.esign, "", true],
     ["backup", "Backup in Google Drive less than a day old", backupAge < 26 * 36e5, ""],
@@ -3086,7 +3087,7 @@ const TR_SC = [
 ];
 const TR_STEPS = ["Brief","Enquiry","Avinode","Requests and extras","Price","Checks","Operations","Confirmation","Paynode","Flight and commission"];
 const trSc = id => TR_SC.find(s => s.id === id);
-const trRuns = () => Object.entries(S.trRuns || {}).map(([id, r]) => ({id, ...r})).sort((a, b) => (b.started || "").localeCompare(a.started || ""));
+const trRuns = () => Object.entries(S.trRuns || {}).filter(([id]) => id !== "course").map(([id, r]) => ({id, ...r})).sort((a, b) => (b.started || "").localeCompare(a.started || ""));
 const trRun = () => S.trSel && (S.trRuns || {})[S.trSel] ? {id: S.trSel, ...S.trRuns[S.trSel]} : null;
 async function trSave(r, patch){ const body = {...JSON.parse(JSON.stringify(r)), ...patch, updated: now()}; delete body.id; await S.db.doc(`train/${S.uid}/runs/${r.id}`).set(body); }
 function trKm(legs){ let k = 0; for (const l of legs) { const a = APT.by[l.from], b = APT.by[l.to]; if (a && b) k += km(a, b); } return k; }
@@ -3219,7 +3220,7 @@ function trTeamPanel(){
   return `<div class="panel tbl"><h2>Team training</h2><table class="small"><thead><tr><th scope=col>Person</th><th scope=col class="n">Runs done</th><th scope=col class="n">Average</th><th scope=col class="n">Exercises passed (80+)</th><th scope=col>Last</th></tr></thead><tbody>${rows.map(x => `<tr><td>${esc(nm(x.bid))}</td><td class="n">${x.n}</td><td class="n">${x.avg ?? "–"}</td><td class="n">${x.sc} of ${TR_SC.length}</td><td>${x.last ? fmtD(x.last) : "–"}</td></tr>`).join("") || `<tr><td colspan="5" class="muted">No training yet.</td></tr>`}</tbody></table></div>`;
 }
 async function trLoadAll(){ if (S.trLoading) return; S.trLoading = true; const out = {};
-  for (const bid of [...new Set([...Object.keys(S.roster), S.uid])]) { try { const q = await S.db.collection(`train/${bid}/runs`).get(); if (q.docs.length) { out[bid] = {}; q.docs.forEach(d => out[bid][d.id] = d.data()); } } catch(e){} }
+  for (const bid of [...new Set([...Object.keys(S.roster), S.uid])]) { try { const q = await S.db.collection(`train/${bid}/runs`).get(); if (q.docs.length) { out[bid] = {}; q.docs.forEach(d => { if (d.id !== "course") out[bid][d.id] = d.data(); }); } } catch(e){} }
   S.trAll = out; S.trLoading = false; render(); }
 
 async function trAct(a, el){
@@ -3520,8 +3521,8 @@ async function cardsWrite(mut, line){
 
 /* ---------- Training tabs ---------- */
 function trTabs(){
-  const t = S.trTab || "book";
-  return `<div class="row" role="tablist" style="margin-bottom:12px;gap:6px">${[["book","Booking practice"],["rp","Roleplay lab"],["cards","Regional cards"]].map(([k, l]) => `<button class="btn ${t === k ? "primary" : ""}" type="button" role="tab" aria-selected="${t === k}" data-trtab="${k}">${l}</button>`).join("")}</div>`;
+  const t = S.trTab || "course";
+  return `<div class="row" role="tablist" style="margin-bottom:12px;gap:6px">${[["course","Portal course"],["book","Booking practice"],["rp","Roleplay lab"],["cards","Regional cards"]].map(([k, l]) => `<button class="btn ${t === k ? "primary" : ""}" type="button" role="tab" aria-selected="${t === k}" data-trtab="${k}">${l}</button>`).join("")}</div>`;
 }
 
 function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class="head"'); if (i < 0) return add + h; const re = /<\/?div\b/g; re.lastIndex = i; let d = 0, m; while ((m = re.exec(h))) { d += m[0][1] === "/" ? -1 : 1; if (d === 0) { const e = h.indexOf(">", m.index) + 1; return h.slice(0, e) + add + h.slice(e); } } return h + add; }
@@ -3529,7 +3530,8 @@ function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class=
 (function(){
   const _vTraining = vTraining;
   vTraining = function(){
-    const t = S.trTab || "book";
+    const t = S.trTab || "course";
+    if (t === "course") return `<div class="head"><div><h1>Training</h1><p class="muted small">The portal course: every screen for your role, with a task to try in the test version and a short check for each lesson. Start here, then practise whole bookings in Booking practice.</p></div></div>` + trTabs() + vCourse();
     if (t === "book") { const h = _vTraining(); return h.replace(/(<div class="note warn small" style="margin-bottom:12px">)/, trTabs() + "$1"); }
     const head = `<div class="head"><div><h1>Training</h1><p class="muted small">${t === "rp" ? "Practise difficult conversations out loud with an AI client, assistant or operator, then see your score on the lab sheet (manual 14.4–14.5)." : "Regional quick-reference cards for live enquiries (manual Appendix J)."}</p></div></div>`;
     return head + trTabs() + (t === "rp" ? rpView() : cardsView());
@@ -4099,6 +4101,143 @@ document.addEventListener("submit", async e => {
       audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Operations."); return;
     }
   } catch (err) { toast(err.code === "permission_denied" ? "Supplier quotes are not set up yet (run 0006 in Supabase)." : "Could not save. Try again."); }
+});
+
+/* ---------- Portal course: learn every screen for your role (Morten, 23 Oct 2026) ----------
+   Built from the portal guide (guide.json), the same text as the troubleshooting guide in Help, so the two never differ.
+   Each lesson: what it is for, how to do it, a "Try it" task in the test version, what to do when something goes wrong,
+   and a short check made from the guide's own problems and fixes. A lesson is done when the check is all right.
+   Progress is kept in train/<uid>/runs/course (people see their own; owner and operations see everyone's). */
+const CR_TRACKS = [
+  {id: "basics", title: "Getting started", lessons: ["access", "testversion", "phone", "dashboard", "help", "ai"]},
+  {id: "broker", title: "Selling and booking", lessons: ["leads", "contacts", "enquiry", "extras", "quote", "docs", "send", "conf", "money", "aftercare", "points", "training", "roleplay", "cards"]},
+  {id: "ops", title: "Operations", lessons: ["ops", "sign", "following", "suppliers", "quotes", "prospects", "rotation", "control", "scorecard", "debrief"]},
+  {id: "owner", title: "Owner", lessons: ["today", "approval", "team", "settings", "investors", "security", "audit", "backup", "launch"]}];
+/* "Try it" in the test version: who to act as, and what to do */
+const CR_TRY = {
+  access: ["owner", "Switch between Test Owner, Test Operations and Test Broker in the orange bar and compare the menus."],
+  testversion: ["broker", "Press Reset test data (twice), then switch to Test Broker 2 and back."],
+  phone: ["broker", "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar."],
+  dashboard: ["broker", "As Test Broker, open Home and read the progress tiles and the Outstanding list."],
+  help: ["broker", "Open Help and search the guide for a word such as cancellation."],
+  ai: ["broker", "Open Assistant to see where questions go. Answers work only in the real portal."],
+  leads: ["owner", "As Test Owner, assign Example Family Office to Test Broker. Then switch to Test Broker, open it in My leads and log a contact with a proper note."],
+  contacts: ["broker", "On your lead, press Show, add a business contact with a work email and its source, then press Opted out twice and see the details go."],
+  enquiry: ["broker", "Make a New enquiry: Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month."],
+  extras: ["broker", "Add a client request (a small dog) and an operational extra (de-icing, at cost) to your enquiry."],
+  quote: ["broker", "Enter an operator price of USD 20,000 and check the client price: 20,000 ÷ 0.93, rounded up, is USD 21,506."],
+  docs: ["broker", "Attach a small PDF to your trip."],
+  send: ["broker", "Tick the pre-issue checks and send your trip to operations."],
+  conf: ["ops", "As Test Operations, open the trip in Operations and prepare the confirmation."],
+  money: ["ops", "Record the client payment and the flight, then switch to Test Broker and see the commission."],
+  aftercare: ["broker", "On a flown trip, follow the aftercare steps above."],
+  points: ["broker", "On Home, find your points and your place in the team."],
+  training: ["broker", "In Training, Booking practice, start the first exercise."],
+  roleplay: ["broker", "Open Training, Roleplay lab and read the scenarios. The AI client works only in the real portal."],
+  cards: ["broker", "Open Training, Regional cards and read one card."],
+  ops: ["ops", "As Test Operations, open Operations and check the trip waiting for you."],
+  sign: ["ops", "On a confirmed trip, follow the signature steps above."],
+  following: ["ops", "On a trip due to fly, follow the flight-following steps above."],
+  suppliers: ["ops", "Open Prospects, Service partners, filter airport WSSL and open Example Crew Hotel: see its minutes and shuttle."],
+  quotes: ["ops", "Make a crew-hotel quote request at WSSL, mark it sent and record a quote. Then switch to Test Owner and award it."],
+  prospects: ["owner", "In Prospects, tick two organisations and assign them to Test Broker 2 in one go."],
+  rotation: ["owner", "On Today, use Preview in Prospect rotation, then Run now."],
+  control: ["ops", "Open Control and read the monitoring flags."],
+  scorecard: ["ops", "Open Control and find the operator scorecard."],
+  debrief: ["ops", "Read the debrief steps above; they apply to supervised bookings."],
+  today: ["owner", "As Test Owner, approve the trip waiting on Today."],
+  approval: ["owner", "Approve a trip, then change its price as Test Operations and see it come back to Today."],
+  team: ["owner", "Open Team, tick Booking rights for Test Broker, then switch to Test Broker and see Operations in the menu."],
+  settings: ["owner", "Open Settings and find the margin (7%)."],
+  investors: ["owner", "Open Prospects, Investors and partners and use Import list with one example line."],
+  security: ["owner", "Open Security and read the access log."],
+  audit: ["owner", "Find the audit log and the approval you made."],
+  backup: ["owner", "Read the backup steps above. Backups run only in the real portal."],
+  launch: ["owner", "Open the launch checklist and read what is still open."]};
+const crRole = () => { const r = acting(); return r === "owner" ? "owner" : r === "ops" ? (S.alsoBroker ? "opsBroker" : "ops") : "broker"; };
+function crRequired(role = crRole()){ return {owner: ["basics", "broker", "ops", "owner"], ops: ["basics", "ops"], opsBroker: ["basics", "broker", "ops"], broker: ["basics", "broker"]}[role] || ["basics", "broker"]; }
+const crFeat = id => ((HELP.guide || {}).features || []).find(f => f.id === id);
+const crDoc = () => (S.trRuns || {}).course || {};
+function crLessons(tracks){ return tracks.flatMap(t => (CR_TRACKS.find(x => x.id === t) || {lessons: []}).lessons).filter(crFeat); }
+/* the check: "what do you do if…" from the guide's own problems; wrong answers are fixes from other lessons */
+function crQuiz(id){
+  const all = ((HELP.guide || {}).features || []).flatMap(f => (f.trouble || []).map(t => ({id: f.id, fix: t[1]})));
+  const f = crFeat(id); if (!f) return [];
+  return (f.trouble || []).slice(0, 2).map((t, qi) => {
+    const others = all.filter(x => x.id !== id && x.fix !== t[1]);
+    const seed = [...(id + qi)].reduce((a, c) => a + c.charCodeAt(0), 0);
+    const pick = [others[seed % others.length], others[(seed * 7 + 3) % others.length]].filter(Boolean).map(x => x.fix);
+    const opts = [t[1], ...pick.filter((x, i) => pick.indexOf(x) === i && x !== t[1])].slice(0, 3);
+    const order = opts.map((o, i) => ({o, k: (seed * (i + 3)) % 7})).sort((a, b) => a.k - b.k).map(x => x.o);
+    return {q: t[0], opts: order, right: order.indexOf(t[1])};
+  });
+}
+function vCourse(){
+  if (!HELP.guide) { loadGuide(); return `<div class="panel empty"><p>Loading the course…</p></div>`; }
+  const req = crRequired(), done = crDoc().done || {}, need = crLessons(req), n = need.filter(id => done[id]).length;
+  const sel = S.crSel && crFeat(S.crSel) ? S.crSel : (need.find(id => !done[id]) || need[0]);
+  const staff = isStaff() && !S.preview;
+  return `<div class="grid2"><div class="stack">
+    <div class="panel"><h2 style="margin-top:0">Your course</h2>
+      <p class="small">${n} of ${need.length} lessons done${n === need.length && need.length ? ` · <b>course complete</b>${crDoc().completedAt ? " on " + fmtD(crDoc().completedAt) : ""}` : ""}.</p>
+      <div class="cr-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${need.length}" aria-valuenow="${n}"><span style="width:${need.length ? Math.round(100 * n / need.length) : 0}%"></span></div>
+      <p class="small muted">Each lesson takes a few minutes: read it, try it in the test version, then answer the check. The same text is the troubleshooting guide in Help.</p></div>
+    ${CR_TRACKS.map(t => { const ls = t.lessons.filter(crFeat); if (!ls.length) return ""; const reqd = req.includes(t.id);
+      return `<div class="panel"><h3 style="margin-top:0">${esc(t.title)}${reqd ? "" : ` <span class="small muted">· optional for your role</span>`}</h3><div class="list">${ls.map(id => `<div class="item" role="option" tabindex="0" data-crsel="${id}" aria-selected="${sel === id}"><div class="t">${done[id] ? "✓ " : ""}${esc(crFeat(id).title)}</div><div class="small muted">${esc(crFeat(id).who || "")}</div></div>`).join("")}</div></div>`; }).join("")}
+    ${staff ? crTeam() : ""}
+  </div><div class="pdetail">${crLesson(sel)}</div></div>`;
+}
+function crLesson(id){
+  const f = crFeat(id); if (!f) return `<div class="panel empty"><p>Choose a lesson.</p></div>`;
+  const tr = CR_TRY[id], quiz = crQuiz(id), done = (crDoc().done || {})[id], ans = (S.crAns || {})[id] || {};
+  const base = location.pathname.replace(/[^/]*$/, "");
+  return `<div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(f.title)}</h2>${done ? `<span class="chip c-flown">Done</span>` : ""}</div>
+    <p class="small muted">For: ${esc(f.who || "")}</p>
+    <p>${esc(f.purpose || "")}</p>
+    <div><h3>How to do it</h3><ol class="small">${(f.steps || []).map(s => `<li>${esc(s)}</li>`).join("")}</ol></div>
+    ${tr ? `<div class="note info small"><b>Try it in the test version</b>, as ${esc({owner: "Test Owner", ops: "Test Operations", broker: "Test Broker"}[tr[0]])}: ${esc(tr[1])} <a href="${base}test.html?as=${tr[0]}" target="_blank" rel="noopener">Open the test version</a></div>` : ""}
+    ${(f.trouble || []).length ? `<div><h3>If something goes wrong</h3><ul class="small">${f.trouble.map(t => `<li><b>${esc(t[0])}.</b> ${esc(t[1])}</li>`).join("")}</ul></div>` : ""}
+    ${(f.tips || []).length ? `<div><h3>Tips</h3><ul class="small">${f.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>` : ""}
+    ${quiz.length ? `<form class="stack" data-crquiz="${id}"><h3 style="margin:0">Check</h3>${quiz.map((q, qi) => `<fieldset class="small"><legend><b>What do you do if: ${esc(q.q.replace(/[.?]$/, ""))}?</b></legend>${q.opts.map((o, oi) => `<label class="check" for="cr_${id}_${qi}_${oi}"><input type="radio" name="cr_${id}_${qi}" id="cr_${id}_${qi}_${oi}" value="${oi}" ${ans[qi] === oi ? "checked" : ""}><span>${esc(o)}</span></label>`).join("")}
+      ${S.crShow === id && ans[qi] !== undefined ? (ans[qi] === q.right ? `<p class="small" style="color:var(--ok)">Right.</p>` : `<p class="small bad-ink">Not quite: read "If something goes wrong" above.</p>`) : ""}</fieldset>`).join("")}
+      <div class="row"><button class="btn primary" type="submit">${done ? "Check again" : "Check my answers"}</button></div></form>` : `<div class="row"><button class="btn primary" type="button" data-crdone="${id}">Mark as done</button></div>`}
+    <div class="row">${crNext(id) ? `<button class="btn" type="button" data-crsel="${crNext(id)}">Next lesson</button>` : ""}</div>
+  </div>`;
+}
+function crNext(id){ const need = crLessons(crRequired()); const i = need.indexOf(id); return i >= 0 && i < need.length - 1 ? need[i + 1] : null; }
+async function crMark(id){
+  const d = crDoc(), done = {...(d.done || {}), [id]: now()}, need = crLessons(crRequired());
+  const complete = need.length && need.every(x => done[x]);
+  await S.db.doc(`train/${S.uid}/runs/course`).set({kind: "course", done, updated: now(), completedAt: complete ? (d.completedAt || now()) : null});
+  if (complete && !d.completedAt) { audit("Portal course completed", ""); toast("Course complete. Well done."); } else toast("Lesson done.");
+}
+function crTeam(){
+  if (!S.crAll && !S.crLoading) crLoadAll();
+  const rows = Object.entries(S.roster || {}).filter(([, r]) => r.active !== false && !r.example).map(([bid, r]) => {
+    const role = r.role === "ops" ? "ops" : r.book ? "opsBroker" : "broker", need = crLessons(crRequired(role)), d = (S.crAll || {})[bid] || {}, done = d.done || {};
+    return {name: r.contractName || nm(bid), n: need.filter(x => done[x]).length, of: need.length, at: d.completedAt, last: d.updated};
+  });
+  return `<div class="panel tbl"><h3 style="margin-top:0">Team progress</h3>${rows.length ? `<table class="small"><thead><tr><th scope=col>Person</th><th scope=col class="n">Lessons</th><th scope=col>Complete</th><th scope=col>Last</th></tr></thead><tbody>${rows.map(x => `<tr><td>${esc(x.name)}</td><td class="n">${x.n} / ${x.of}</td><td>${x.at ? fmtD(x.at) : "–"}</td><td>${x.last ? fmtD(x.last) : "–"}</td></tr>`).join("")}</tbody></table>` : `<p class="small muted">No team members yet.</p>`}</div>`;
+}
+async function crLoadAll(){ S.crLoading = true; const out = {};
+  for (const bid of Object.keys(S.roster || {})) { try { const d = await S.db.doc(`train/${bid}/runs/course`).get(); if (d.exists) out[bid] = d.data(); } catch(e){} }
+  S.crAll = out; S.crLoading = false; render(); }
+document.addEventListener("click", async e => {
+  const s = e.target.closest("[data-crsel]"); if (s) { S.crSel = s.dataset.crsel; S.crShow = null; S.scrollDetail = true; render(); return; }
+  const d = e.target.closest("[data-crdone]"); if (d) { try { await crMark(d.dataset.crdone); } catch(err){ toast("Could not save. Try again."); } return; }
+});
+document.addEventListener("change", e => {
+  const m = /^cr_(.+)_(\d+)$/.exec(e.target.name || ""); if (!m) return;
+  S.crAns = S.crAns || {}; S.crAns[m[1]] = {...(S.crAns[m[1]] || {}), [m[2]]: +e.target.value};
+});
+document.addEventListener("submit", async e => {
+  const f = e.target; if (!f.dataset || !f.dataset.crquiz) return; e.preventDefault();
+  const id = f.dataset.crquiz, quiz = crQuiz(id), ans = (S.crAns || {})[id] || {};
+  if (quiz.some((q, i) => ans[i] === undefined)) { toast("Answer every question first."); return; }
+  S.crShow = id;
+  if (quiz.every((q, i) => ans[i] === q.right)) { try { await crMark(id); } catch(err){ toast("Could not save. Try again."); } }
+  else toast("Not all right yet. Read the lesson again and try once more.");
+  render();
 });
 
 /* ---------- Named business contacts on prospects (rule approved by Morten, 20 Oct 2026; see CLAUDE.md) ----------

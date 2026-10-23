@@ -147,4 +147,6 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await q.selectOption('#rq_cat','Trip support');await q.waitForTimeout(300);
  ok('trip support no longer lists crew hotel', await q.evaluate(()=>!/hotel/i.test(document.getElementById('sqForm').querySelector('fieldset').innerText) && !document.getElementById('rq_rooms')));
  ok('quotes screen with comparison fits 390 px', await q.evaluate(()=>document.documentElement.scrollWidth<=390));
+ await k.evaluate(()=>{S.view='training';render();});await k.waitForTimeout(1200);
+ ok('broker opens Training on the portal course', /Your course/.test(await k.textContent('#main')) && await k.evaluate(()=>crLessons(crRequired()).length>10));
  console.log('ERRORS', JSON.stringify(errs.slice(0,6)));await b.close();})();
