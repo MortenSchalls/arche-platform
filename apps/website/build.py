@@ -29,6 +29,8 @@ def build():
     i18n = i18n.replace(row, row + "\n['Private aviation,','การบินส่วนตัว','私人航空，','プライベート・アビエーションを、'],\n['handled with','ที่ดูแลด้วย','',''],")
     import text_fixes
     i18n = text_fixes.i18n(i18n)   # brand spelling, new and corrected translations
+    import polish
+    i18n = polish.add_rows(i18n)   # shorter Why Archē and How it works texts (23 Oct 2026)
     open(os.path.join(OUT, "i18n.js"), "w", encoding="utf-8").write(i18n)
     for d in ("assets", "logo-export"):
         shutil.copytree(os.path.join(SRC, d), os.path.join(OUT, d), dirs_exist_ok=True)
@@ -149,6 +151,7 @@ window.archeSend = function (data) {
     import seo
     s = seo.apply(s, OUT, HERE)
     import sections
+    s = polish.apply(s)   # fewer words, larger headlines and more space, metallic labels and dividers (23 Oct 2026)
     s = sections.apply(s)   # photo breaks, "What every trip includes", background one tone lighter (Morten 21 Oct 2026)
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
     langs.build(OUT, seo.SITE_URL)   # th.html, zh.html, ja.html and the ready-made page copy in all four
@@ -156,8 +159,7 @@ window.archeSend = function (data) {
     for f in ("privacy.html", "terms.html"):   # same lighter background on the legal pages
         fp = os.path.join(OUT, f)
         if os.path.exists(fp): open(fp, "w", encoding="utf-8").write(sections.tone(open(fp, encoding="utf-8").read()))
-    import polish
-    polish.preview(OUT)   # fewer words, larger headlines, metallic labels: preview.html until Morten says go live
+
 
 if __name__ == "__main__":
     build()

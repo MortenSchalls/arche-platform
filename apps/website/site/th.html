@@ -26,6 +26,20 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://archeaviation.com/#org", "name": "Archē Executive", "alternateName": "Arche Executive", "legalName": "Arche Executive Pte. Ltd.", "url": "https://archeaviation.com/", "logo": "https://archeaviation.com/assets/arche-executive-logo.png", "description": "Private jet charter from Singapore and Bangkok, worldwide. We find the right aircraft, check the operator behind it, and stay with you until you land. Answers within 15 minutes, any hour.", "areaServed": ["Singapore", "Thailand", "Asia-Pacific", "Worldwide"], "knowsAbout": ["Private jet charter", "Business aviation", "Aircraft charter brokerage", "Aviation advisory"]}, {"@type": "Service", "@id": "https://archeaviation.com/#charter", "serviceType": "Private jet charter", "provider": {"@id": "https://archeaviation.com/#org"}, "areaServed": ["Singapore", "Thailand", "Asia-Pacific", "Worldwide"], "description": "Whole-aircraft private jet charter arranged as agent for the client, on third-party operators holding an Air Operator Certificate."}, {"@type": "WebSite", "@id": "https://archeaviation.com/#site", "url": "https://archeaviation.com/", "name": "Archē Executive", "publisher": {"@id": "https://archeaviation.com/#org"}, "inLanguage": "en"}]}</script>
 <link rel="stylesheet" href="/site-fixes.css">
 <script src="./support.js"></script>
+<style id="arche-polish-css">
+/* 3. breathing room and a larger headline scale */
+section:not(#top) h2{font-size:clamp(30px,4.3vw,62px) !important;line-height:1.08 !important;letter-spacing:-0.01em !important}
+@media (min-width:1025px){
+  section[data-screen-label="Intro"]{padding-top:190px !important;padding-bottom:190px !important}
+  section#services,section#why{padding-bottom:200px !important}
+  section#fleet,section#journey,section#contact{padding-top:150px !important;padding-bottom:150px !important}
+  .ar-trio{padding-bottom:200px !important}
+}
+/* 5. one fine metallic detail: section labels and dividers */
+section span[style*="uppercase"][style*="0.16em"], .ar-trio .ar-k{background:linear-gradient(100deg,#eef2f6 0%,#ffffff 25%,#b9c5d2 55%,#e4ebf2 80%,#ffffff 100%);-webkit-background-clip:text;background-clip:text;color:transparent !important;display:inline-flex;align-items:center;gap:14px}
+section span[style*="uppercase"][style*="0.16em"]::before, .ar-trio .ar-k::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,rgba(185,197,210,0),#dfe6ee);flex:none}
+[style*="border-image"]{border-image:linear-gradient(90deg,rgba(185,197,210,0) 0%,rgba(223,230,238,.55) 35%,rgba(255,255,255,.75) 50%,rgba(223,230,238,.55) 65%,rgba(185,197,210,0) 100%) 1 !important}
+</style>
 <style id="arche-breaks-css">
 .ar-band{position:relative;height:min(74vh,700px);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .ar-band::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,26,30,.30) 0%,rgba(24,26,30,.52) 55%,rgba(24,26,30,.62) 100%)}
@@ -168,8 +182,8 @@ div:has(> #why-photo), .ar-moved{display:none !important}
       <h2 data-dc-tpl="194" style="margin: 0px; font-family: var(--serif,'Prata'),Georgia,serif; font-weight: 400; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.18; background: linear-gradient(176deg, rgb(255, 255, 255) 0%, rgb(238, 242, 246) 40%, rgb(180, 192, 205) 100%) text; color: transparent; text-wrap: balance; max-width: 560px;">เพื่อให้ทุกครั้งที่ท่านก้าวขึ้นเครื่อง ท่านมั่นใจได้ว่าอยู่ในมือที่ไว้วางใจได้</h2>
     </div>
     <div data-dc-tpl="195" style="display: flex; flex-direction: column; gap: 28px; padding-top: 44px; font-family: var(--sans,'Hanken Grotesk'),system-ui,sans-serif; font-weight: 300; letter-spacing: -0.01em; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.55; color: rgb(243, 245, 248); text-wrap: pretty;">
-      <p data-dc-tpl="196" style="margin: 0px;">นายหน้าหลายรายเสนอเครื่องบินที่ว่างอยู่ แล้วปล่อยที่เหลือให้เป็นเรื่องของโชค เราไม่ทำงานแบบนั้น</p>
-      <p data-dc-tpl="197" style="margin: 0px; color: rgb(198, 203, 210);">ก่อนแนะนำเครื่องบินใด เราใช้เวลาทำความเข้าใจว่าใครเป็นผู้ทำการบิน เครื่องบินได้รับการซ่อมบำรุงอย่างไร และท่านกำลังจ่ายเพื่ออะไรอย่างแท้จริง</p>
+      <p data-dc-tpl="196" style="margin: 0px;">นายหน้าหลายรายขายสิ่งที่มีอยู่ แต่เราไม่ทำเช่นนั้น</p>
+      <p data-dc-tpl="197" style="margin: 0px; color: rgb(198, 203, 210);">ก่อนแนะนำเครื่องบิน เรารู้ว่าใครเป็นผู้บิน ดูแลรักษาอย่างไร และคุณจ่ายเงินเพื่ออะไร</p>
     </div>
   </div>
   <div data-dc-tpl="198" style="position: relative; width: 100%; aspect-ratio: 21 / 9; margin-top: 80px; background: rgba(243, 245, 248, 0.03);" class="ar-moved"><image-slot data-dc-tpl="199" id="why-photo" shape="rect" fit="cover" placeholder="Why Archē · cabin interior or crew detail · 21:9 · min 2400 × 1030 px" data-filled=""></image-slot></div>
@@ -177,22 +191,22 @@ div:has(> #why-photo), .ar-moved{display:none !important}
     <div data-dc-tpl="201" style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid rgb(169, 189, 212); padding-top: 24px;">
       <span data-dc-tpl="202" style="font-size: 12.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212);">01</span>
       <span data-dc-tpl="203" style="font-family: var(--sans,'Hanken Grotesk'),system-ui,sans-serif; font-size: 22.4px; line-height: 1.15; color: rgb(243, 245, 248); font-weight: 400; letter-spacing: -0.01em;">เราตรวจสอบสิ่งที่ผู้อื่นเพียงแค่เชื่อตาม</span>
-      <p data-dc-tpl="204" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(198, 203, 210);">ทุกการเช่าเหมาลำและทุกคำแนะนำ ตั้งอยู่บนการตรวจสอบของเราเอง ไม่ใช่เพียงสิ่งที่หน้าจอการจองแสดง เราตรวจสอบทุกแหล่งข้อมูลที่มี และพิจารณาว่าผู้ให้บริการแต่ละรายบริหารความปลอดภัยอย่างไร และเครื่องบินออกตรงเวลาเพียงใด เพื่อให้มั่นใจว่าเครื่องบินของท่านพร้อมบินจริง ทั้งในทางปฏิบัติและบนเอกสาร</p>
+      <p data-dc-tpl="204" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(198, 203, 210);">ทุกคำแนะนำมาจากการตรวจสอบของเราเอง ไม่ใช่แค่หน้าจอการจอง ทั้งวิธีที่ผู้ให้บริการบริหารความปลอดภัย ความตรงต่อเวลา และความพร้อมบินของเครื่องบินในความเป็นจริง ไม่ใช่แค่บนเอกสาร</p>
     </div>
     <div data-dc-tpl="205" style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid rgb(169, 189, 212); padding-top: 24px;">
       <span data-dc-tpl="206" style="font-size: 12.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212);">02</span>
       <span data-dc-tpl="207" style="font-family: var(--sans,'Hanken Grotesk'),system-ui,sans-serif; font-size: 22.4px; line-height: 1.15; color: rgb(243, 245, 248); font-weight: 400; letter-spacing: -0.01em;">เรารับผิดชอบต่อท่านเพียงผู้เดียว</span>
-      <p data-dc-tpl="208" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(198, 203, 210);">เราไม่มีฝูงบินที่ต้องหาผู้โดยสารมาเติม และไม่มีผลประโยชน์ของผู้ใดต้องปกป้อง สำหรับองค์กรและแฟมิลีออฟฟิศ ความเป็นอิสระนี้ยังหมายถึงความเป็นส่วนตัว เงื่อนไขที่ยืดหยุ่น และไม่ต้องผูกเงินทุนไว้กับเครื่องบิน</p>
+      <p data-dc-tpl="208" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(198, 203, 210);">เราไม่มีฝูงบินที่ต้องหาลูกค้า และไม่มีผลประโยชน์ของผู้อื่นที่ต้องปกป้อง สำหรับบริษัทและแฟมิลีออฟฟิศ นั่นหมายถึงความเป็นส่วนตัว เงื่อนไขที่ยืดหยุ่น และไม่ต้องผูกเงินทุนไว้กับเครื่องบิน</p>
     </div>
     <div data-dc-tpl="209" style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid rgb(169, 189, 212); padding-top: 24px;">
       <span data-dc-tpl="210" style="font-size: 12.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212);">03</span>
       <span data-dc-tpl="211" style="font-family: var(--sans,'Hanken Grotesk'),system-ui,sans-serif; font-size: 22.4px; line-height: 1.15; color: rgb(243, 245, 248); font-weight: 400; letter-spacing: -0.01em;">สิ่งที่ท่านบอกเรา จะอยู่กับเราเท่านั้น</span>
-      <p data-dc-tpl="212" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(198, 203, 210);">ชื่อ แผนการเดินทาง และผู้ร่วมเดินทางของท่าน จะส่งถึงเฉพาะผู้ที่จำเป็นต้องรู้เพื่อให้ท่านเดินทางได้อย่างปลอดภัย เราไม่พูดถึงลูกค้าของเรา และจะไม่มีวันทำ</p>
+      <p data-dc-tpl="212" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(198, 203, 210);">แผนการเดินทางและผู้ร่วมเดินทางของคุณ จะแจ้งเฉพาะผู้ที่ดูแลเที่ยวบินของคุณเท่านั้น เราไม่เคยพูดถึงลูกค้าของเรา</p>
     </div>
     <div data-dc-tpl="213" style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid rgb(169, 189, 212); padding-top: 24px;">
       <span data-dc-tpl="214" style="font-size: 12.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212);">04</span>
       <span data-dc-tpl="215" style="font-family: var(--sans,'Hanken Grotesk'),system-ui,sans-serif; font-size: 22.4px; line-height: 1.15; color: rgb(243, 245, 248); font-weight: 400; letter-spacing: -0.01em;">เราดูแลทุกการเดินทางจนจบ</span>
-      <p data-dc-tpl="216" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(198, 203, 210);">ผู้เชี่ยวชาญที่มีประสบการณ์ด้านการบินหลายสิบปี ดูแลทุกการเดินทางตั้งแต่สายแรกจนถึงการลงจอด หากมีสิ่งใดเปลี่ยนแปลง ท่านจะได้ทราบจากเราเป็นคนแรก พร้อมทางออกที่ชัดเจน</p>
+      <p data-dc-tpl="216" style="margin: 0px; font-size: 16px; line-height: 1.7; color: rgb(198, 203, 210);">ผู้เชี่ยวชาญด้านการบินอาวุโสดูแลทุกเที่ยวบินตั้งแต่การติดต่อครั้งแรกจนถึงการลงจอด หากมีสิ่งใดเปลี่ยนแปลง คุณจะได้ทราบจากเราก่อน พร้อมทางเลือกที่ชัดเจน</p>
     </div>
   </div></section><section class="ar-trio" data-ar="why" aria-label="สิ่งที่รวมอยู่ในทุกเที่ยวบิน"><p class="ar-k">สิ่งที่รวมอยู่ในทุกเที่ยวบิน</p><div class="ar-g"><figure><div class="ar-img" role="img" aria-label="ผู้ให้บริการที่ผ่านการตรวจสอบ" style="background-image:url('img/trio-1.webp')"></div><figcaption><b>ผู้ให้บริการที่ผ่านการตรวจสอบ</b><span>ตรวจใบรับรอง ผลการตรวจสอบความปลอดภัย และรายชื่อมาตรการคว่ำบาตร ก่อนการจองทุกครั้ง</span></figcaption></figure><figure><div class="ar-img" role="img" aria-label="ราคาเดียวที่ตกลงไว้" style="background-image:url('img/trio-2.webp')"></div><figcaption><b>ราคาเดียวที่ตกลงไว้</b><span>ตกลงราคาก่อนบิน และชำระเงินอย่างปลอดภัยผ่าน Paynode</span></figcaption></figure><figure><div class="ar-img" role="img" aria-label="ทีมงานพร้อมดูแล 24/7" style="background-image:url('img/trio-3.webp')"></div><figcaption><b>ทีมงานพร้อมดูแล 24/7</b><span>ทีมเดียวที่พร้อมตอบทุกเวลา ไม่ว่าคุณจะอยู่ที่ใด</span></figcaption></figure></div></section><section data-dc-tpl="217" id="fleet" data-screen-label="Aircraft explorer" style="border-top: 1px solid rgba(243, 245, 248, 0.12); border-image: linear-gradient(90deg, rgba(243, 245, 248, 0) 0%, rgba(243, 245, 248, 0.34) 50%, rgba(243, 245, 248, 0) 100%) 1 / 1 / 0 stretch;">
   <div data-dc-tpl="218" style="max-width: 1440px; margin: 0px auto; padding: 140px 40px;">
@@ -390,7 +404,7 @@ div:has(> #why-photo), .ar-moved{display:none !important}
       <div data-dc-tpl="294" style="display: flex; flex-direction: column; gap: 24px; padding-top: 8px;">
         <span data-dc-tpl="295" style="font-size: 12.5px; letter-spacing: 0.3em; text-transform: uppercase; color: rgb(169, 189, 212);">ขั้นตอนที่ <span class="sc-interp">1</span> จาก 5</span>
         <span data-dc-tpl="296" style="font-family: var(--sans,'Hanken Grotesk'),system-ui,sans-serif; font-size: 35.2px; font-weight: 300; letter-spacing: -0.015em; line-height: 1.12; color: rgb(243, 245, 248);"><span class="sc-interp">แจ้งรายละเอียดการเดินทาง</span></span>
-        <p data-dc-tpl="297" style="margin: 0px; font-size: 18px; line-height: 1.75; color: rgb(198, 203, 210); max-width: 560px; text-wrap: pretty;"><span class="sc-interp">โทร ส่งข้อความ หรือใช้แบบฟอร์ม แจ้งเส้นทาง วันที่ และผู้เดินทาง หากมีสิ่งสำคัญสำหรับท่าน เช่น สัตว์เลี้ยง ความต้องการทางการแพทย์ หรือสัมภาระขนาดใหญ่ โปรดแจ้งตั้งแต่ต้น แล้วเราจะวางแผนให้สอดคล้อง</span></p>
+        <p data-dc-tpl="297" style="margin: 0px; font-size: 18px; line-height: 1.75; color: rgb(198, 203, 210); max-width: 560px; text-wrap: pretty;"><span class="sc-interp">โทร ส่งข้อความ หรือใช้แบบฟอร์ม แจ้งเส้นทาง วันที่ และผู้เดินทาง หากมีสัตว์เลี้ยง ความต้องการทางการแพทย์ หรือสัมภาระขนาดใหญ่ โปรดแจ้งตั้งแต่ต้น</span></p>
         <div data-dc-tpl="298" style="display: flex; flex-direction: column; gap: 6px; padding-top: 16px; border-top: 1px solid rgba(243, 245, 248, 0.12); border-image: linear-gradient(90deg, rgba(243, 245, 248, 0) 0%, rgba(243, 245, 248, 0.34) 50%, rgba(243, 245, 248, 0) 100%) 1 / 1 / 0 stretch; max-width: 560px;">
           <span data-dc-tpl="299" style="font-size: 11.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212); text-transform: uppercase;">ผู้รับผิดชอบ</span>
           <span data-dc-tpl="300" style="font-size: 15px; color: rgb(243, 245, 248);"><span class="sc-interp">ท่านและที่ปรึกษา Archē ของท่าน</span></span>
@@ -748,8 +762,8 @@ html:is(:lang(zh),:lang(ja)) em{font-style:normal}
       <h2 style="margin:0;font-family:var(--serif,'Prata'),Georgia,serif;font-weight:400;font-size:clamp(30px,3.2vw,46px);line-height:1.18;background:linear-gradient(176deg,#ffffff 0%,#eef2f6 40%,#b4c0cd 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance;max-width:560px">So that when you step on board, you know you are in the right hands.</h2>
     </div>
     <div style="display:flex;flex-direction:column;gap:28px;padding-top:44px;font-family:var(--sans,'Hanken Grotesk'),system-ui,sans-serif;font-weight:300;letter-spacing:-0.01em;font-size:clamp(19px,1.6vw,23px);line-height:1.55;color:#f3f5f8;text-wrap:pretty">
-      <p style="margin:0">Many brokers offer whatever is available and leave the rest to chance. We do not work that way.</p>
-      <p style="margin:0;color:#c6cbd2">Before we recommend an aircraft, we take the time to understand who will fly it, how it is maintained, and exactly what you are paying for.</p>
+      <p style="margin:0">Many brokers sell whatever is available. We don’t.</p>
+      <p style="margin:0;color:#c6cbd2">Before we recommend an aircraft, we know who flies it, how it is maintained and what you are paying for.</p>
     </div>
   </div>
   <div style="position:relative;width:100%;aspect-ratio:21/9;margin-top:80px;background:rgba(243,245,248,0.03)"><image-slot id="why-photo" shape="rect" fit="cover" placeholder="Why Archē · cabin interior or crew detail · 21:9 · min 2400 × 1030 px"></image-slot></div>
@@ -757,22 +771,22 @@ html:is(:lang(zh),:lang(ja)) em{font-style:normal}
     <div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #a9bdd4;padding-top:24px">
       <span style="font-size:12.5px;letter-spacing:0.16em;color:#a9bdd4">01</span>
       <span style="font-family:var(--sans,'Hanken Grotesk'),system-ui,sans-serif;font-size:22.4px;line-height:1.15;color:#f3f5f8;font-weight:400;letter-spacing:-0.01em">We check what others take on trust</span>
-      <p style="margin:0;font-size:16px;line-height:1.7;color:#c6cbd2">Every charter and every piece of advice rests on our own checks, not just what a booking screen shows. We scrutinise every available source and look at how each operator manages safety and how reliably its aircraft leave on time, to make sure your aircraft is airworthy in practice as well as on paper.</p>
+      <p style="margin:0;font-size:16px;line-height:1.7;color:#c6cbd2">Every recommendation rests on our own checks, not a booking screen: how each operator manages safety, how reliably it flies on time, and whether the aircraft is airworthy in practice, not just on paper.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #a9bdd4;padding-top:24px">
       <span style="font-size:12.5px;letter-spacing:0.16em;color:#a9bdd4">02</span>
       <span style="font-family:var(--sans,'Hanken Grotesk'),system-ui,sans-serif;font-size:22.4px;line-height:1.15;color:#f3f5f8;font-weight:400;letter-spacing:-0.01em">We answer only to you</span>
-      <p style="margin:0;font-size:16px;line-height:1.7;color:#c6cbd2">We have no fleet to fill and no one else’s interests to protect. For companies and family offices, that independence also means privacy, flexible terms, and none of your capital tied up in aircraft.</p>
+      <p style="margin:0;font-size:16px;line-height:1.7;color:#c6cbd2">We have no fleet to fill and no one else’s interests to protect. For companies and family offices, that means privacy, flexible terms and no capital tied up in aircraft.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #a9bdd4;padding-top:24px">
       <span style="font-size:12.5px;letter-spacing:0.16em;color:#a9bdd4">03</span>
       <span style="font-family:var(--sans,'Hanken Grotesk'),system-ui,sans-serif;font-size:22.4px;line-height:1.15;color:#f3f5f8;font-weight:400;letter-spacing:-0.01em">What you tell us stays with us</span>
-      <p style="margin:0;font-size:16px;line-height:1.7;color:#c6cbd2">Your name, your plans and who travels with you go only to the people who need them to fly you safely. We don’t talk about our clients. We never will.</p>
+      <p style="margin:0;font-size:16px;line-height:1.7;color:#c6cbd2">Your plans and your guests are shared only with those who fly you. We never talk about our clients.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #a9bdd4;padding-top:24px">
       <span style="font-size:12.5px;letter-spacing:0.16em;color:#a9bdd4">04</span>
       <span style="font-family:var(--sans,'Hanken Grotesk'),system-ui,sans-serif;font-size:22.4px;line-height:1.15;color:#f3f5f8;font-weight:400;letter-spacing:-0.01em">We see every trip through</span>
-      <p style="margin:0;font-size:16px;line-height:1.7;color:#c6cbd2">Senior people with decades in aviation run each trip from the first call to landing. If anything changes, you hear it from us first, along with a clear way forward.</p>
+      <p style="margin:0;font-size:16px;line-height:1.7;color:#c6cbd2">Senior aviation people run every trip from first call to landing. If anything changes, you hear it from us first, with a way forward.</p>
     </div>
   </div>
 </section>
@@ -1030,11 +1044,11 @@ class Component extends DCLogic {
   ];
 
   steps = [
-    { title: 'Tell us the trip', when: 'Minutes', body: 'Call, message or use the form. Give us the route, the dates and who is travelling. If something matters to you, such as a pet, a medical need or oversized luggage, tell us at the start and we plan around it.', who: 'You and your Archē advisor', photo: 'ADVISOR ON CALL' },
-    { title: 'We source and vet', when: 'Within the hour', body: 'We go to the whole market, not to a preferred fleet. Each option is checked for operator certification, aircraft age and maintenance history, crew experience and safety audits before we show it to you. Every quote names the operator.', who: 'Archē Executive, on your behalf', photo: 'SHORTLIST ON TABLET' },
-    { title: 'You confirm', when: 'Same day', body: 'You get one all-in price and one invoice from us. The charter agreement names the operating carrier, and the payment terms and cancellation conditions are written out before you commit.', who: 'You, with the named operator', photo: 'SIGNED AGREEMENT' },
-    { title: 'We handle the details', when: 'Before departure', body: 'Catering, cars, FBO access, passports and manifests. If the weather, slots or routing change, we tell you straight away and give you the options.', who: 'Archē Executive and the operator', photo: 'FBO LOUNGE' },
-    { title: 'You fly', when: 'Day of travel', body: 'The operator flies the aircraft and keeps operational control. We stay reachable the whole way and check in after you land.', who: 'The operator flies; Archē stays on call', photo: 'BOARDING AT DUSK' },
+    { title: 'Tell us the trip', when: 'Minutes', body: 'Call, message or use the form with the route, dates and who is travelling. Mention pets, medical needs or large luggage at the start.', who: 'You and your Archē advisor', photo: 'ADVISOR ON CALL' },
+    { title: 'We source and vet', when: 'Within the hour', body: 'We search the whole market, not a preferred fleet, and check each operator’s certificate, aircraft, crew and safety audits. Every quote names the operator.', who: 'Archē Executive, on your behalf', photo: 'SHORTLIST ON TABLET' },
+    { title: 'You confirm', when: 'Same day', body: 'One all-in price and one invoice. The agreement names the operator and sets out payment and cancellation terms before you commit.', who: 'You, with the named operator', photo: 'SIGNED AGREEMENT' },
+    { title: 'We handle the details', when: 'Before departure', body: 'Catering, cars, FBO, passports and manifests. If weather, slots or routing change, we tell you at once, with options.', who: 'Archē Executive and the operator', photo: 'FBO LOUNGE' },
+    { title: 'You fly', when: 'Day of travel', body: 'The operator flies the aircraft and keeps operational control. We stay reachable throughout and check in after you land.', who: 'The operator flies; Archē stays on call', photo: 'BOARDING AT DUSK' },
   ];
 
   offices = [

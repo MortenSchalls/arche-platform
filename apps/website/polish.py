@@ -1,5 +1,5 @@
 """Premium polish (Morten, 23 Oct 2026, items 2, 3 and 5): fewer words, more breathing room with a larger headline
-scale, and one fine metallic detail on section labels and dividers. Shown first on preview.html.
+scale, and one fine metallic detail on section labels and dividers. Live from 23 Oct 2026.
 Shorter texts carry Thai, Chinese and Japanese rows for the translation file (added at go-live).
 """
 import os
@@ -89,6 +89,21 @@ def texts(s):
 
 def rows():
     return [list(t[1:]) for t in TEXTS]
+
+
+def add_rows(t):
+    """Add the shorter texts to the translation file (site/i18n.js)."""
+    import json
+    new = "".join("[" + ",".join(json.dumps(c, ensure_ascii=False) for c in r) + "],\n" for r in rows())
+    assert t.count("\n];\nconst RX = [\n") == 1
+    return t.replace("\n];\nconst RX = [\n", "\n" + new + "];\nconst RX = [\n", 1)
+
+
+def apply(s):
+    """Live page (Morten 23 Oct 2026: go live): shorter texts and the polish styles."""
+    missing = [t[0][:50] for t in TEXTS if t[0] not in s and t[0].replace("’", "'") not in s]
+    assert not missing, missing
+    return texts(s).replace("</head>", CSS + "</head>", 1)
 
 
 def preview(out):
