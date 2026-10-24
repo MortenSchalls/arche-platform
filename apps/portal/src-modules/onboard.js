@@ -52,18 +52,21 @@ function obProgLine(p){
   return `Academy: ${passed} module${passed === 1 ? "" : "s"} passed${p.completedAt ? ` · completed ${fmtD(p.completedAt)}` : " · not completed"}`;
 }
 
-/* step 1-3 for people who are not approved yet */
+/* the steps for people who are not approved yet: offer, academy, assessment, agreement, countersignature */
 function vPending(){
   obLoadProg(S.uid);
-  const p = S.obProg[S.uid], done = !!(p && p.completedAt);
-  const step = (n, title, body, state) => `<div class="flag"><span class="sev ${state === "done" ? "low" : state === "now" ? "med" : "low"}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${n}. ${title}</b>${state === "done" ? ' <span class="chip c-flown">Done</span>' : ""}</p>${body}</div></div>`;
-  const s1 = step(1, "Complete the Archē Broker Academy", `<p class="small">Sign in to the academy with this same login. Your progress is saved as you go.</p><p class="small muted">${esc(obProgLine(p))}</p><div class="row" style="margin-top:6px"><a class="btn small ${done ? "" : "primary"}" href="academy.html" target="_blank" rel="noopener">Open the Broker Academy</a></div>`, done ? "done" : "now");
+  if (!S.subs["agr/" + S.uid]) watchDoc("agr/" + S.uid, snap => { S.myAgr = snap.exists ? snap.data() : null; render(); });
+  if (S.agrOpen && S.myAgr) return vAgreementSign();
+  const p = S.obProg[S.uid], done = !!(p && p.completedAt), a = S.myAgr;
+  const step = (n, title, body, state) => `<div class="flag"><span class="sev ${state === "now" ? "med" : "low"}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${n}. ${title}</b>${state === "done" ? ' <span class="chip c-flown">Done</span>' : ""}</p>${body}</div></div>`;
+  const s0 = step(1, "Read the commission offer", `<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="offer">${S.offerOpen ? "Hide the offer" : "Read the offer"}</button></div>${S.offerOpen ? `<div class="agrdoc" style="margin-top:10px">${OFFER_HTML}</div>` : ""}`, "");
+  const s1 = step(2, "Complete the Archē Broker Academy", `<p class="small">Sign in to the academy with this same login. Your progress is saved as you go.</p><p class="small muted">${esc(obProgLine(p))}</p><div class="row" style="margin-top:6px"><a class="btn small ${done ? "" : "primary"}" href="academy.html" target="_blank" rel="noopener">Open the Broker Academy</a></div>`, done ? "done" : "now");
   const s2 = S.myJoin
-    ? step(2, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "operations" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
-    : step(2, "Ask for your assessment", `<p class="small">When the academy is complete, send your request with your academy completion code.</p>
+    ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "operations" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
+    : step(3, "Ask for your assessment", `<p class="small">When the academy is complete, send your request with your academy completion code.</p>
     <form id="joinForm" class="stack" style="margin-top:8px">
       <div class="fgrid">
-        <label class="f" for="j_name">Full legal name, as on your agreement<input id="j_name" required autocomplete="name"></label>
+        <label class="f" for="j_name">Full legal name, as it will appear on your agreement<input id="j_name" required autocomplete="name"></label>
         <label class="f" for="j_role">Role<select id="j_role"><option value="broker">Broker (remote)</option><option value="consultant">Charter consultant</option><option value="ops">Operations</option></select></label>
         <label class="f" for="j_base">Country you work from<input id="j_base" required></label>
         <label class="f" for="j_cert">Academy completion code<input id="j_cert" placeholder="AE2.…"></label>
@@ -71,35 +74,22 @@ function vPending(){
       <label class="check" for="j_agree"><input type="checkbox" id="j_agree" required><span>I will make every enquiry, quote, booking and payment for Archē Executive in this portal, and nowhere else.</span></label>
       <div class="row"><button class="btn primary" type="submit">Ask for assessment</button></div>
     </form>`, done ? "now" : "");
-  const s3 = step(3, "Assessment and onboarding package", `<p class="small">The director assesses your training. If you pass, you receive your Archē email address and your onboarding package, and the portal opens for you.</p>`, S.myJoin ? "now" : "");
-  return `<div class="panel stack" style="max-width:680px"><h1>Join Archē Executive</h1><p class="muted">Every broker trains and is assessed before their first client. Three steps:</p>${s1}${s2}${s3}</div>`;
+  const s3 = step(4, "Assessment by the director", a ? `<p class="small">Passed. Your agreement is ready.</p>` : `<p class="small">The director assesses your training. If you pass, your agreement appears here to read and sign.</p>`, a ? "done" : S.myJoin ? "now" : "");
+  const s4 = step(5, "Read and sign your agreement", a && a.status === "sent" ? `<p class="small">Read it in full, fill in your details and sign it here.</p><div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="open">Read and sign</button></div>`
+    : a && a.status !== "sent" ? `<p class="small">Signed on ${fmtT(a.signedAt)}.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="open">View your agreement</button></div>` : `<p class="small muted">After your assessment.</p>`, a ? (a.status === "sent" ? "now" : "done") : "");
+  const s5 = step(6, "Countersignature and onboarding package", `<p class="small">Archē countersigns, creates your Archē email address and issues your onboarding package. Your portal opens straight after.</p>`, a && a.status === "signed" ? "now" : "");
+  return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p>${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
 }
 
-/* the owner's assessment card in Team */
+/* the owner's card in Team: assessment, agreement, countersignature */
 function obJoinCard(id, j){
-  obLoadProg(id);
+  obLoadProg(id); agrWatchOwner();
   return `<div class="flag"><span class="sev low" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(j.contractName)}</b> · ${esc(j.role)} · ${esc(j.base || "")}</p>
     <p class="small muted">Academy code: <span class="mono">${esc(j.cert || "none")}</span> · Requested ${fmtD(j.at)}</p>
     <p class="small">${esc(obProgLine(S.obProg[id]))}</p>
-    <div class="fgrid" style="margin-top:6px">
-      <label class="f" for="ob_mail_${id}">Archē email address created for them<input id="ob_mail_${id}" type="email" autocomplete="off" placeholder="first.last@…"></label>
-      <label class="f" for="ob_note_${id}">Assessment notes<input id="ob_note_${id}" autocomplete="off" placeholder="What you checked and the result"></label>
-    </div>
-    <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-approve="${id}">Passed: approve and issue package</button><button class="btn small" type="button" data-decline="${id}">Decline</button></div></div></div>`;
+    ${agrOwnerBlock(id, j)}${S.agrView === id ? agrModal() : ""}</div></div>`;
 }
-async function obApprove(id){
-  const j = S.joins[id]; if (!j) return;
-  const mail = (($("ob_mail_" + id) || {}).value || "").trim().toLowerCase(), note = (($("ob_note_" + id) || {}).value || "").trim();
-  if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/.test(mail)) { toast("Enter the Archē email address you created for them."); return; }
-  if (OB_WEBMAIL.test(mail)) { toast("Use their dedicated Archē address, not a personal one."); return; }
-  if (!note) { toast("Add a short note on the assessment."); return; }
-  const at = now();
-  try {
-    await S.db.doc("roster/" + id).set({contractName:j.contractName, role:j.role, base:j.base || "", cert:j.cert || "", since:at, active:true, workEmail:mail, onboarding:{assessedAt:at, assessedBy:S.uid, notes:note, issuedAt:at}});
-    await S.db.doc("join/" + id).delete();
-    audit("Assessed and approved; onboarding package issued", `${j.contractName} · ${j.role} · ${mail}`); toast("Approved. Their portal opens with the onboarding package.");
-  } catch(err){ toast("Could not approve."); }
-}
+async function obApprove(id){ return agrCountersign(id); }
 function obTeamCell(id, p){
   if (!p.onboarding) return `<span class="small muted">Before the package</span>`;
   S.obAcks = S.obAcks || {};
@@ -127,6 +117,7 @@ function obSigHtml(name, phone, mail){
 </td></tr></table>`;
 }
 function vWelcome(){
+  if (!S.subs["agr/" + S.uid]) watchDoc("agr/" + S.uid, snap => { S.myAgr = snap.exists ? snap.data() : null; render(); });
   if (S.obAck === undefined) { obLoadAck(); return `<div class="panel"><p class="small muted">Loading your onboarding package…</p></div>`; }
   const me = obMine(), ack = S.obAck || {}, f = S.obForm || (S.obForm = {name: (ack.sig && ack.sig.name) || me.contractName || "", phone: (ack.sig && ack.sig.phone) || ""});
   const mail = me.workEmail || "";
@@ -144,6 +135,7 @@ function vWelcome(){
     <div class="row"><button class="btn primary" type="button" data-ob="copy">Copy signature</button><button class="btn" type="button" data-ob="dl">Download signature file</button></div>
     <p class="small muted">Paste it into your email app's signature setting (Gmail: Settings › See all settings › Signature; Outlook: Settings › Mail › Compose and reply).</p></div>
   <div class="panel stack"><h2>3. Standards of Conduct</h2><p class="small">We serve the top 0.1% of travellers, and we deliver that standard every time. These rules are part of your agreement.</p>${conduct}</div>
+  <div class="panel stack"><h2>Your signed agreement</h2><p class="small">Signed by both sides in the portal. View it, print it or save it as a PDF whenever you need it.</p><div class="row"><button class="btn" type="button" data-agr="view|${S.uid}">View my agreement</button></div>${S.agrView === S.uid ? agrModal() : ""}</div>
   <div class="panel stack"><h2>4. Meeting background</h2><p class="small">Use the Archē background in every online meeting. Pick the one where the logo sits on the side your head does not cover. Your own view may look mirrored; clients see it the right way round.</p>
     <div class="row"><a class="btn" href="img/arche-meeting-bg-right.jpg" download>Background, logo right</a><a class="btn" href="img/arche-meeting-bg-left.jpg" download>Background, logo left</a></div>
     <p class="small muted">Set your display name to: ${esc((f.name || "First name Last name"))} · Archē Executive</p></div>

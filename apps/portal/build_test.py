@@ -16,8 +16,8 @@ SEED = {
         {"id": BRK, "role": "broker", "active": True, "contract_name": "Test Broker", "base": "Remote", "book": False, "data": {"roster": True, "example": True}},
         {"id": BRK2, "role": "broker", "active": True, "contract_name": "Test Broker 2", "base": "Remote", "book": False, "data": {"roster": True, "example": True}}],
     "config": [{"key": "terms", "value": {"margin": 0.07, "unit": 45000, "threshold": 8, "rate1": 0.27, "rate2": 0.35, "consultRate": 0.10}},
-               {"key": "company", "value": {"email": "charter@example.com"}}],
-    "trips": [], "trip_status": [], "leads": [], "optouts": [], "rfqs": [], "audit_log": [], "owner_prospects": [],
+               {"key": "company", "value": {"name": "Example Company Pte. Ltd.", "reg": "000000000X", "address": "1 Example Street, Singapore 000000", "email": "charter@example.com", "phone": "+65 0000 0000", "web": "example.com", "signName": "Test Owner", "signTitle": "Director", "privacy": "privacy@example.com"}}],
+    "agreements": [], "enquiry_pool": [], "enquiry_contacts": [], "trips": [], "trip_status": [], "leads": [], "optouts": [], "rfqs": [], "audit_log": [], "owner_prospects": [],
     "prospects": [
         {"id": "p001", "data": {"org": "Example Family Office", "kind": "client", "status": "new", "segment": "Family office", "region": "Asia-Pacific", "country": "Singapore",
                                 "why": "Example prospect for testing.", "approach": "Example approach.", "source": "https://example.org/fo"}},

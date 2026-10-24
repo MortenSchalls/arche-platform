@@ -108,6 +108,7 @@
     if (p[0] === "progress") return { kind: "row", table: "academy_progress", key: "id", id: p[1] };   // academy: own progress (database rule)
     if (p[0] === "records") return { kind: "row", table: "academy_records", key: "id", id: p[1] };    // academy: director's training records
     if (p[0] === "certs") return { kind: "row", table: "certificates", key: "id", id: p[1] };         // academy: certificate register
+    if (p[0] === "agr") return { kind: "row", table: "agreements", key: "id", id: p[1] };         // agreements signed in the portal (database rule, 0009)
     if (p[0] === "pool") return { kind: "row", table: "enquiry_pool", key: "id", id: p[1] };       // enquiry pool: owner releases, brokers take (database rule, 0008)
     if (p[0] === "poolc") return { kind: "row", table: "enquiry_contacts", key: "id", id: p[1] };  // client details: owner, operations and the broker who has it
     if (p[0] === "rfqs") return { kind: "row", table: "rfqs", key: "id", id: p[1] };   // supplier quotes: staff only (database rule)
@@ -218,6 +219,17 @@
     return ref;
   }
   const db = Object.freeze({ doc: docRef, collection: colRef });
+  /* signing: the person can only turn their own agreement from "sent" into "signed" (database rule) */
+  window.__agrSign = async function (patch) {
+    const s = await ready, uid = s.user.id;
+    const { data: row } = await sb.from("agreements").select("*").eq("id", uid).maybeSingle();
+    if (!row || !row.data || row.data.status !== "sent") return false;
+    const data = { ...row.data, ...patch, status: "signed" };
+    const { error } = await sb.from("agreements").update({ data, updated_at: new Date().toISOString() }).eq("id", uid).eq("data->>status", "sent");
+    if (error) throw fail(error);
+    const { data: after } = await sb.from("agreements").select("*").eq("id", uid).maybeSingle();
+    return !!(after && after.data && after.data.status === "signed");
+  };
   /* first come, first served: the update only succeeds while the enquiry is still open, so the first broker wins */
   window.__poolTake = async function (id) {
     const s = await ready, uid = s.user.id;
