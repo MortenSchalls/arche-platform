@@ -13,7 +13,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  let c=await open(NEW,base,390);
  ok('new person sees the steps and the join form', await c.evaluate(()=>S.role==='pending') && !!(await c.$('#joinForm')));
  await c.click('[data-agr=offer]');await c.waitForTimeout(200);
- ok('offer readable in the portal', (await c.textContent('#main')).includes('27% of gross profit') && (await c.textContent('#main')).includes('First come, first served'));
+ ok('offer readable in the portal', (await c.textContent('#main')).includes('27% of gross profit') && (await c.textContent('#main')).includes('Why brokers choose Archē'));
  await c.fill('#j_name','Example New Broker');await c.selectOption('#j_role','broker');await c.fill('#j_base','Exampleland');await c.check('#j_agree');
  await c.click('#joinForm button[type=submit]');await c.waitForTimeout(500);
  let T=await c.evaluate(()=>window.__T);

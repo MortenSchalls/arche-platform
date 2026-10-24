@@ -59,7 +59,8 @@ function vPending(){
   if (S.agrOpen && S.myAgr) return vAgreementSign();
   const p = S.obProg[S.uid], done = !!(p && p.completedAt), a = S.myAgr;
   const step = (n, title, body, state) => `<div class="flag"><span class="sev ${state === "now" ? "med" : "low"}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${n}. ${title}</b>${state === "done" ? ' <span class="chip c-flown">Done</span>' : ""}</p>${body}</div></div>`;
-  const s0 = step(1, "Read the commission offer", `<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="offer">${S.offerOpen ? "Hide the offer" : "Read the offer"}</button></div>${S.offerOpen ? `<div class="agrdoc" style="margin-top:10px">${OFFER_HTML}</div>` : ""}`, "");
+  if (S.offerOpen === undefined) S.offerOpen = !S.myJoin && !a;
+  const s0 = step(1, "Your offer: up to 35% of every trip, no cap", `<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="offer">${S.offerOpen ? "Hide the offer" : "Read the offer"}</button></div>${S.offerOpen ? `<div class="agrdoc" style="margin-top:10px">${OFFER_HTML}</div>` : ""}`, "");
   const s1 = step(2, "Complete the Archē Broker Academy", `<p class="small">Sign in to the academy with this same login. Your progress is saved as you go.</p><p class="small muted">${esc(obProgLine(p))}</p><div class="row" style="margin-top:6px"><a class="btn small ${done ? "" : "primary"}" href="academy.html" target="_blank" rel="noopener">Open the Broker Academy</a></div>`, done ? "done" : "now");
   const s2 = S.myJoin
     ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "operations" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
