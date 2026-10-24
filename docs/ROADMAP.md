@@ -11,7 +11,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ◐ | Legal entity, registration number, office addresses | Morten (package) | Footer, contact section, privacy notice, terms page. |
 | ☐ | Contact email on archeaviation.com | Morten | Site still shows charter@archeexecutive.com. |
 | ◐ | Native-speaker check of Thai, Chinese and Japanese | Morten | All text, including rows added 20 Oct (`apps/website/text_fixes.py`) and the photo-break lines and "What every trip includes" row added 21 Oct (`apps/website/sections.py`). |
-| ◐ | Replace Paynode (not available to Asian companies): fast client collection and same-day operator payment, never paying operators before client money arrives | Morten (parked 23 Oct) | Project doc payment-flow-replacing-paynode-2026-10-23. Rule, contract B5, terms page and portal change together. |
+| ◐ | Replace Paynode (not available to Asian companies): fast client collection and same-day operator payment, never paying operators before client money arrives | Morten (active 24 Oct: Wise) | Project doc payment-flow-replacing-paynode-2026-10-23. Rule, contract B5, terms page and portal change together. |
 | ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
 | ◐ | Liability insurance: broker's professional liability and non-owned aircraft liability, stated in the terms | Morten (broker) | Peers state cover (FXAIR USD 100m per occurrence; JetSmarter USD 50m non-owned). Our terms say nothing. See terms comparison 20 Oct. |
 | ☐ | Counsel to confirm: liability cap at the brokerage fee (B14) holds under Singapore law; SIAC arbitration also suits small claims (B16) | Counsel | Peers cap at the price paid. |
@@ -22,6 +22,8 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Full run-through on desktop and phone, every language | Claude, then Morten | Every section, link, form; quote and call-back reach Today. |
 
 ## 2. Go-live
+Plan agreed 24 Oct 2026 (to do when Morten says): portal and academy live on portal.archeaviation.com behind their own login; website on archeaviation.com behind Vercel Authentication (free on every plan since 9 Sep 2026) until launch day; sign-in emails from archeaviation.com at the same time. Old vercel.app addresses keep working during the switch.
+
 | | Item | Notes |
 |---|---|---|
 | ☐ | GoDaddy DNS: archeaviation.com and www → website; portal.archeaviation.com → portal | `DNS-GODADDY.md` |
