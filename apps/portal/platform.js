@@ -108,6 +108,8 @@
     if (p[0] === "progress") return { kind: "row", table: "academy_progress", key: "id", id: p[1] };   // academy: own progress (database rule)
     if (p[0] === "records") return { kind: "row", table: "academy_records", key: "id", id: p[1] };    // academy: director's training records
     if (p[0] === "certs") return { kind: "row", table: "certificates", key: "id", id: p[1] };         // academy: certificate register
+    if (p[0] === "pool") return { kind: "row", table: "enquiry_pool", key: "id", id: p[1] };       // enquiry pool: owner releases, brokers take (database rule, 0008)
+    if (p[0] === "poolc") return { kind: "row", table: "enquiry_contacts", key: "id", id: p[1] };  // client details: owner, operations and the broker who has it
     if (p[0] === "rfqs") return { kind: "row", table: "rfqs", key: "id", id: p[1] };   // supplier quotes: staff only (database rule)
     if (p[0] === "optouts") return { kind: "row", table: "optouts", key: "id", id: p[1] };   // hashes only
     if (p[0] === "owner") return { kind: "row", table: "owner_prospects", key: "id", id: p[1] };   // investors and partners: owner only (database rule)
@@ -216,6 +218,17 @@
     return ref;
   }
   const db = Object.freeze({ doc: docRef, collection: colRef });
+  /* first come, first served: the update only succeeds while the enquiry is still open, so the first broker wins */
+  window.__poolTake = async function (id) {
+    const s = await ready, uid = s.user.id;
+    const { data: row } = await sb.from("enquiry_pool").select("*").eq("id", id).maybeSingle();
+    if (!row || !row.data || row.data.status !== "released") return false;
+    const data = { ...row.data, status: "claimed", claimedBy: uid, claimedAt: new Date().toISOString(), how: "taken" };
+    const { error } = await sb.from("enquiry_pool").update({ data, updated_at: new Date().toISOString() }).eq("id", id).eq("data->>status", "released");
+    if (error) throw fail(error);
+    const { data: after } = await sb.from("enquiry_pool").select("*").eq("id", id).maybeSingle();
+    return !!(after && after.data && after.data.claimedBy === uid);
+  };
 
   /* ---------- user ---------- */
   let profile = null;
