@@ -22,12 +22,13 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ☐ | Full run-through on desktop and phone, every language | Claude, then Morten | Every section, link, form; quote and call-back reach Today. |
 
 ## 2. Go-live
+Started 25 Oct 2026: onboarding, enquiry pool, in-portal agreements and the 9% margin merged to main and live. Morten runs Arche_go_live.sql (migrations 0008, 0009, margin 9%), adds portal.archeaviation.com in Vercel and GoDaddy, protects the website with Vercel Authentication, updates Supabase URL settings, then adds his wife as second owner (Arche_add_owner.sql).
 Plan agreed 24 Oct 2026 (to do when Morten says): portal and academy live on portal.archeaviation.com behind their own login; website on archeaviation.com behind Vercel Authentication (free on every plan since 9 Sep 2026) until launch day; sign-in emails from archeaviation.com at the same time. Old vercel.app addresses keep working during the switch.
 
 | | Item | Notes |
 |---|---|---|
 | ☐ | GoDaddy DNS: archeaviation.com and www → website; portal.archeaviation.com → portal | `DNS-GODADDY.md` |
-| ☐ | Broker login link → portal.archeaviation.com | `apps/website/build.py`, PORTAL |
+| ☑ | Broker login link → portal.archeaviation.com | `apps/website/build.py`, PORTAL (25 Oct 2026) |
 | ☐ | Email safety records SPF, DKIM, DMARC | |
 | ☐ | Supabase sign-in addresses updated | |
 | ☐ | Google Search Console: verify the domain, submit the sitemap | Free; shows which searches bring visitors. |
