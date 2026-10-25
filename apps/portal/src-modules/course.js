@@ -10,7 +10,7 @@ const CR_TRACKS = [
   {id: "owner", title: "Owner", lessons: ["today", "approval", "team", "settings", "investors", "security", "audit", "backup", "launch"]}];
 /* "Try it" in the test version: who to act as, and what to do */
 const CR_TRY = {
-  rules: ["broker", "Make a test enquiry with an operator price of USD 30,000 and check the client price: 30,000 ÷ 0.93, rounded up, is USD 32,259."],
+  rules: ["broker", "Make a test enquiry with an operator price of USD 30,000 and check the client price: 30,000 ÷ 0.91, rounded up, is USD 32,968."],
   privacy: ["broker", "Look for the watermark with your name on any screen of the test version."],
   cancel: ["broker", "Make a test enquiry, then cancel it yourself while it is still an enquiry."],
   enquiries: ["owner", "As Test Owner, open Today and read the Website enquiries panel (the test version may have none)."],
@@ -24,7 +24,7 @@ const CR_TRY = {
   contacts: ["broker", "On your lead, press Show, add a business contact with a work email and its source, then press Opted out twice and see the details go."],
   enquiry: ["broker", "Make a New enquiry: Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month."],
   extras: ["broker", "Add a client request (a small dog) and an operational extra (de-icing, at cost) to your enquiry."],
-  quote: ["broker", "Enter an operator price of USD 20,000 and check the client price: 20,000 ÷ 0.93, rounded up, is USD 21,506."],
+  quote: ["broker", "Enter an operator price of USD 20,000 and check the client price: 20,000 ÷ 0.91, rounded up, is USD 21,979."],
   docs: ["broker", "Attach a small PDF to your trip."],
   send: ["broker", "Tick the pre-issue checks and send your trip to operations."],
   conf: ["ops", "As Test Operations, open the trip in Operations and prepare the confirmation."],
@@ -47,7 +47,7 @@ const CR_TRY = {
   today: ["owner", "As Test Owner, approve the trip waiting on Today."],
   approval: ["owner", "Approve a trip, then change its price as Test Operations and see it come back to Today."],
   team: ["owner", "Open Team, tick Booking rights for Test Broker, then switch to Test Broker and see Operations in the menu."],
-  settings: ["owner", "Open Settings and find the margin (7%)."],
+  settings: ["owner", "Open Settings and find the margin (9%)."],
   investors: ["owner", "Open Prospects, Investors and partners and use Import list with one example line."],
   security: ["owner", "Open Security and read the access log."],
   audit: ["owner", "Find the audit log and the approval you made."],

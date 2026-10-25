@@ -14,7 +14,7 @@ function flowSVG(accent){
   // AI lane
   s += box(0, 0, "Daily research", "new organisations") + box(1, 0, "Prospects", "with sources") + box(2, 0, "Rotation", "every 3 hours", true) + box(6, 0, "Daily backup", "Google Drive");
   // Broker lane
-  s += box(2, 1, "Lead", "contact in 48 h") + box(3, 1, "Enquiry", "airport search") + box(4, 1, "Requests, extras", "and quote ÷ 0.93") + box(5, 1, "7 checks", "documents") + box(6, 1, "Commission", "month flown");
+  s += box(2, 1, "Lead", "contact in 48 h") + box(3, 1, "Enquiry", "airport search") + box(4, 1, "Requests, extras", "and quote ÷ 0.91") + box(5, 1, "7 checks", "documents") + box(6, 1, "Commission", "month flown");
   // Ops lane
   s += box(5, 2, "Operations check", "Avinode, KYC, Paynode") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
   // Client lane

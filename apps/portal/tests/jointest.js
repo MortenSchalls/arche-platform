@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');const fs=require('fs');
 const OWN='00000000-0000-0000-0000-00000000000a', NEW='00000000-0000-0000-0000-00000000000d';
 const CO={name:'Example Company Pte. Ltd.',reg:'000000000X',address:'1 Example Street, Singapore 000000',email:'charter@example.com',phone:'+65 0000 0000',web:'example.com',signName:'Example Director',signTitle:'Director',privacy:'privacy@example.com'};
-const base={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:NEW,role:null,active:false,contract_name:'',data:{}}],config:[{key:'terms',value:{margin:0.07,unit:45000,threshold:8,rate1:0.27,rate2:0.35}},{key:'company',value:CO}],join_requests:[],trips:[],trip_status:[],leads:[],prospects:[],optouts:[],agreements:[]};
+const base={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:NEW,role:null,active:false,contract_name:'',data:{}}],config:[{key:'terms',value:{margin:0.09,unit:45000,threshold:8,rate1:0.27,rate2:0.35}},{key:'company',value:CO}],join_requests:[],trips:[],trip_status:[],leads:[],prospects:[],optouts:[],agreements:[]};
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
  .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`)
  .replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';

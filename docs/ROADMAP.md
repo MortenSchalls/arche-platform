@@ -50,7 +50,7 @@ Plan agreed 24 Oct 2026 (to do when Morten says): portal and academy live on por
 | ☐ | Separate pages (charter, advisory, fleet, Singapore, Bangkok, routes) | Morten prefers one page; on hold. |
 | ☐ | Accreditations strip | Hidden until Archē holds real accreditations (`SHOW_ACCREDITATIONS` in build.py). |
 | ☐ | Rotation of website enquiries to the broker on duty | |
-| ☐ | 7%/9% margin split | Only once Morten defines it. |
+| ☑ | Margin 9% as the rule | Morten, 25 Oct 2026: 9% of the client price (÷ 0.91) everywhere, replacing 7%. Owner sets 9% in portal Settings. |
 | ☐ | Replacement aircraft B11: let the client refuse a replacement and get a refund (less costs) when it differs materially, instead of counting refusal as cancellation | FXAIR refunds in that case. |
 | ☐ | Service partners step 2: limousine and VIP ground transport at the same airports | Small step; same checks. |
 | ☐ | Service partners step 3: helicopter transfers (city to airport, resort and island hops) | Check AOC and safety record as for operators. |

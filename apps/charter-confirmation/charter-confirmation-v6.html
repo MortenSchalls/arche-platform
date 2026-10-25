@@ -426,7 +426,7 @@ const fmtDate = iso => { if(!iso) return ""; const [y,m,d]=iso.split("-"); retur
 const usd = n => "USD " + Math.round(n).toLocaleString("en-US");
 const num = v => { const n=parseFloat(v); return isFinite(n)?n:0; };
 const dayDiff = (a,b) => Math.round((new Date(b+"T00:00:00Z") - new Date(a+"T00:00:00Z"))/864e5);
-const PRICING = {rate:0.07, unit:45000};
+const PRICING = {rate:0.09, unit:45000};
 
 function calc(){
   const price = Math.max(0, num(S.price));
@@ -480,7 +480,7 @@ function checks(cc){
   if (cc.itemsUsed && Math.round(cc.itemsSum)!==Math.round(cc.price)) err.push(`The price breakdown adds up to ${usd(cc.itemsSum)}, not the charter price of ${usd(cc.price)}.`);
   const yom=num(S.ac.yom); if (yom && cc.first){ const age=+cc.first.slice(0,4)-yom; if(age>20) warn.push(`The aircraft will be ${age} years old at departure. Mention it to the client.`); }
   if (cc.margin!==null && cc.price){
-    if (cc.price < cc.target) err.push(`Margin is ${(cc.margin/cc.price*100).toFixed(2)}%, below 7%. The 7% price is ${usd(cc.target)} (operator price ÷ 0.93). Below that needs director approval.`);
+    if (cc.price < cc.target) err.push(`Margin is ${(cc.margin/cc.price*100).toFixed(2)}%, below ${Math.round(PRICING.rate*100)}%. The ${Math.round(PRICING.rate*100)}% price is ${usd(cc.target)} (operator price ÷ ${(1-PRICING.rate).toFixed(2)}). Below that needs director approval.`);
   }
   const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance on file",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Paynode payment request created"};
   Object.keys(ckLabels).forEach(k=>{ if(!S.ck[k]) missing.push(ckLabels[k]); });
@@ -596,7 +596,7 @@ function update(){
   if (cc.margin!==null && cc.price){
     const pct=cc.margin/cc.price*100; const cls = cc.price<cc.target?"bad":"good";
     $("margin").innerHTML = `<span>Archē Executive margin</span><span class="${cls}">${usd(cc.margin)} (${pct.toFixed(2)}%)</span>
-      <span>Price at 7% (operator price ÷ 0.93)</span><span>${usd(cc.target)}</span>
+      <span>Price at 9% (operator price ÷ 0.91)</span><span>${usd(cc.target)}</span>
       <span>Counts toward the booking ramp as</span><span>${(cc.price/PRICING.unit).toFixed(1)} units (1 unit = USD 45,000 billed)</span>`;
   } else $("margin").innerHTML = `<span>Enter the Operator price to check the margin.</span><span></span>`;
   const issues=[...ch.err.map(t=>["err","Fix",t]),...ch.warn.map(t=>["warn","Check",t])];

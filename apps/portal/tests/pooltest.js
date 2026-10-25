@@ -2,7 +2,7 @@
 const {chromium}=require('playwright');const fs=require('fs');
 const OWN='00000000-0000-0000-0000-00000000000a', B1='00000000-0000-0000-0000-0000000000b1', B2='00000000-0000-0000-0000-0000000000b2';
 let T={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:B1,role:'broker',active:true,contract_name:'Example Broker One',data:{roster:true}},{id:B2,role:'broker',active:true,contract_name:'Example Broker Two',data:{roster:true}}],
- config:[{key:'terms',value:{margin:0.07,unit:45000,threshold:8,rate1:0.27,rate2:0.35,cycleDays:5}}],join_requests:[],trips:[],trip_status:[],leads:[],prospects:[],optouts:[],enquiry_pool:[],enquiry_contacts:[],
+ config:[{key:'terms',value:{margin:0.09,unit:45000,threshold:8,rate1:0.27,rate2:0.35,cycleDays:5}}],join_requests:[],trips:[],trip_status:[],leads:[],prospects:[],optouts:[],enquiry_pool:[],enquiry_contacts:[],
  website_enquiries:[{id:'w1',at:'2026-10-24T01:00:00Z',handled:false,consent:true,data:{type:'quote',legs:[{from:'VTBD',to:'WSSS',date:'2026-11-02'}],pax:'4',name:'Example Client',reach:'client@example.com',reply:'email'}}]};
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
  .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`)

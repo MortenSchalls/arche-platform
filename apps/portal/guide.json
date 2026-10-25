@@ -180,7 +180,7 @@
     "Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions.",
     "Tap a suggestion to add it, or Add request / Add extra for your own.",
     "For each line choose the category, describe it, and choose how it is charged: included in the charter price, at cost after the flight, or fixed price.",
-    "For a fixed price enter the supplier's written price. The client pays that price divided by 0.93, rounded up; the portal shows it.",
+    "For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up; the portal shows it.",
     "Use AI: suggest more for anything the rules or route may need."
    ],
    "trouble": [
@@ -207,11 +207,11 @@
    "id": "quote",
    "title": "Operator quote and price",
    "who": "Brokers",
-   "purpose": "Record the operator's all-in quote so the portal sets the client price at 7%.",
+   "purpose": "Record the operator's all-in quote so the portal sets the client price at 9%.",
    "steps": [
     "From Avinode, enter the operator's legal name as on its AOC, aircraft type, registration and Avinode trip ID.",
     "Enter the operator all-in price and any direct trip costs not in it (supplier items Archē buys).",
-    "Read the price preview: client price = (operator price + direct costs) ÷ 0.93, rounded up.",
+    "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.",
     "Save. The trip moves to Quoted.",
     "If the operator quotes in another currency, choose it under Operator quoted in, enter the amount and the rate used (USD per 1 unit). The portal converts to USD, rounds up, and records the rate and date on the trip."
    ],
@@ -226,7 +226,7 @@
     ]
    ],
    "tips": [
-    "Never round down and never quote below 7% without the director's approval.",
+    "Never round down and never quote below 9% without the director's approval.",
     "Re-confirm availability and price with the operator before the offer expires.",
     "Use the rate on the day you quote and say so in the quote email; the client price is fixed in USD."
    ]
@@ -723,7 +723,7 @@
     "Read the client's request, then enter the enquiry with the airport search, exactly as the client asked.",
     "Training Avinode shows the operators who answered. Read the safety audit, seats, operator's country and notes before choosing: some offers are traps (no safety rating, cabotage, expired insurance, no animals, too few seats).",
     "Record the client's requests and the operational extras, each as included, fixed price or at cost.",
-    "Work out the client price yourself: (operator price + direct costs) ÷ 0.93, rounded up.",
+    "Work out the client price yourself: (operator price + direct costs) ÷ 0.91, rounded up.",
     "Tick the seven checks and decide: send to operations, or decline with the reason.",
     "Training operations reviews the file. Anything wrong comes back with the reason; fix it and submit again.",
     "Read the training confirmation (marked TRAINING, never issued), mark it signed, then create the training Paynode request: what is due on signature, when the balance is due, and what the operator is paid.",
@@ -1071,7 +1071,7 @@
    "purpose": "The business rules the portal enforces. Know them before your first enquiry.",
    "steps": [
     "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
-    "Client price = (operator price + direct trip costs) ÷ 0.93, rounded up: Archē keeps 7% of what the client pays. A lower margin needs the director's approval.",
+    "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A lower margin needs the director's approval.",
     "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
     "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
     "Clients pay only through a Paynode payment request. Never print, store or send bank details.",
@@ -1191,7 +1191,7 @@
  "faq": [
   [
    "How is the client price calculated?",
-   "Operator all-in price plus direct trip costs, divided by 0.93 and rounded up. Archē's margin is 7% of the price the client pays. A lower margin needs the director's approval."
+   "Operator all-in price plus direct trip costs, divided by 0.91 and rounded up. Archē's margin is 9% of the price the client pays. A lower margin needs the director's approval."
   ],
   [
    "When does the client pay?",
@@ -1199,7 +1199,7 @@
   ],
   [
    "What is the difference between a fixed-price extra and an extra at cost?",
-   "Fixed price: a supplier quoted it in writing before booking; the client pays the supplier price ÷ 0.93, rounded up, with the balance. At cost: the amount depends on the day (de-icing, extra parking, out-of-hours fees); it is invoiced after the flight with the receipt, without margin."
+   "Fixed price: a supplier quoted it in writing before booking; the client pays the supplier price ÷ 0.91, rounded up, with the balance. At cost: the amount depends on the day (de-icing, extra parking, out-of-hours fees); it is invoiced after the flight with the receipt, without margin."
   ],
   [
    "Why did my lead move to another broker?",
