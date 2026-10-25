@@ -31,11 +31,21 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  ok('new member marked as little data', sc[2][3]===true);
  await p.click('[data-todo=done][data-id=sandy]');await p.waitForTimeout(400);
  ok('manual step can be ticked and is saved', await p.evaluate(()=>!!(window.__T.config.find(c=>c.key==='setup')||{value:{done:{}}}).value.done.sandy));
- ok('weekly snapshot saved', await p.evaluate(()=>!!(window.__T.intel||[]).find(r=>r.key==='matrix')));
+ await p.waitForTimeout(18000);ok('weekly snapshot saved as its own row in member_scores', await p.evaluate(()=>(window.__T.member_scores||[]).length===1 && window.__T.member_scores[0].data.pts.length>=2));
  await p.screenshot({path:'/tmp/claude-0/-home-claude/3678dbf8-f26a-505b-b9f6-0376a0bfbc99/scratchpad/mx1400.png',fullPage:true});
  } else {
  ok('no sideways scroll at 390 px', await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await (await p.$('#trustMatrix')).screenshot({path:'/tmp/claude-0/-home-claude/3678dbf8-f26a-505b-b9f6-0376a0bfbc99/scratchpad/mx390.png'});
  }
  await p.close();}
+ { const T2=JSON.parse(JSON.stringify(T)); T2.member_scores=undefined; delete T2.member_scores; T2.intel=[{key:'matrix',value:{weeks:[{at:day(40),pts:[{id:B1,p:50,t:50}]}]}}];
+  const pg=page(T2).replace('<script>window.__UID','<script>window.__MISSING=["member_scores"];window.__UID');fs.writeFileSync('t_mx.html',pg);
+  const p=await b.newPage({viewport:{width:1400,height:900}});p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/t_mx.html');await p.waitForTimeout(3000);await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(1500);
+  ok('before SQL 0010: step on the to-do list with Copy SQL', !!(await p.$('[data-todo=copy][data-id=sql-0010]')));
+  await p.waitForTimeout(18000);ok('before SQL 0010: weeks kept in the holding record, none lost', await p.evaluate(()=>window.__T.intel.find(r=>r.key==='matrix').value.weeks.length===2));
+  ok('month-old position drawn as a trail', (await p.$$('#trustMatrix line[stroke-dasharray="3 3"]')).length>=1);
+  const T3=await p.evaluate(()=>window.__T); await p.close(); delete T3.member_scores;
+  fs.writeFileSync('t_mx.html',page(T3)); const q=await b.newPage({viewport:{width:1400,height:900}});q.on('pageerror',e=>errs.push(e.message));await q.goto('http://localhost:8765/t_mx.html');await q.waitForTimeout(3000);await q.evaluate(()=>{S.view='today';render();});await q.waitForTimeout(1500);
+  ok('after SQL 0010: held weeks move into member_scores by themselves', await q.evaluate(()=>(window.__T.member_scores||[]).length===2 && window.__T.intel.find(r=>r.key==='matrix').value.weeks.length===0));
+  await q.close(); }
  console.log('ERRORS',JSON.stringify(errs));fs.unlinkSync('t_mx.html');await b.close();})();

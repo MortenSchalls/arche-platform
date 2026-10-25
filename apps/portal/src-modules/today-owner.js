@@ -14,6 +14,8 @@ const OWNER_TODO = [
     why:"Charter enquiries reach you first, then go to brokers first come, first served.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0009", sev:"high", title:"Run SQL: agreements signed in the portal (0009)", sql:"0009", table:"agreements",
     why:"Brokers sign their agreement in the portal; you countersign there.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+  {id:"sql-0010", sev:"high", title:"Run SQL: trust and performance history (0010)", sql:"0010", table:"member_scores",
+    why:"Keeps every weekly snapshot of the matrix for good, readable by owners only. Until it runs, weeks are held safely and move across by themselves.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
     how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},
@@ -121,17 +123,35 @@ function mxScore(id){
   return {id, name: nm(id), role: r.role || "broker", P, T, perf: p.v, trust: tr.v, early: p.n < 2 || tr.n < 2, trips: trips.length, onb};
 }
 function mxQuad(x){ if (x.perf === null || x.trust === null) return "Too early to place"; return x.trust >= 60 ? (x.perf >= 60 ? "Trusted performer" : "Reliable: build volume") : (x.perf >= 60 ? "Results, rules at risk: coach" : "Review with the director"); }
+/* weekly history: one row per week in member_scores (owner only, kept for good). Until SQL 0010 has run,
+   weeks wait in intel/matrix and move across by themselves once the table exists. */
+async function mxLoad(){
+  if (S.mxLoading || S.mxHist) return; S.mxLoading = true;
+  let weeks = [], table = false;
+  try { const q = await S.db.collection("scores").get(); weeks = q.docs.map(d => d.data()); table = true; } catch(e){}
+  let pend = []; try { const d = await S.db.doc("intel/matrix").get(); pend = d.exists ? (d.data().weeks || []) : []; } catch(e){}
+  if (table && pend.length) { try { for (const w of pend) if (!weeks.some(x => x.at === w.at)) { await S.db.doc("scores/" + w.at).set(w); weeks.push(w); } await S.db.doc("intel/matrix").set({weeks: [], movedAt: now()}); pend = []; } catch(e){} }
+  S.mxTable = table; S.mxHist = {weeks: [...weeks, ...pend.filter(w => !weeks.some(x => x.at === w.at))].sort((a, b) => a.at < b.at ? -1 : 1)}; S.mxLoading = false; render();
+}
+const MX_BOOT = Date.now();
 async function mxSnapshot(rows){
-  if (!S.isOwner || S.preview || S.mxSaved) return; S.mxSaved = true;
-  const wk = new Date().toISOString().slice(0, 10), hist = (S.mxHist && S.mxHist.weeks) || [];
+  // wait until every member's trips have loaded (15 s after opening), and never store an empty week
+  if (!S.isOwner || S.preview || S.mxSaved || !S.mxHist || Date.now() - MX_BOOT < 15000) return;
+  if (!rows.some(x => x.perf !== null && x.trust !== null)) return;
+  S.mxSaved = true;
+  const wk = new Date().toISOString().slice(0, 10), hist = S.mxHist.weeks || [];
   if (hist.length && Date.now() - Date.parse(hist[hist.length - 1].at) < 7 * DAY) return;
-  const weeks = [...hist, {at: wk, pts: rows.filter(x => x.perf !== null && x.trust !== null).map(x => ({id: x.id, p: x.perf, t: x.trust}))}].slice(-26);
-  try { await S.db.doc("intel/matrix").set({weeks}); S.mxHist = {weeks}; } catch(e){}
+  const w = {at: wk, pts: rows.filter(x => x.perf !== null && x.trust !== null).map(x => ({id: x.id, n: x.name, p: x.perf, t: x.trust}))};
+  try {
+    if (S.mxTable) await S.db.doc("scores/" + wk).set(w);
+    else { let pend = []; try { const d = await S.db.doc("intel/matrix").get(); pend = d.exists ? (d.data().weeks || []) : []; } catch(e){} await S.db.doc("intel/matrix").set({weeks: [...pend, w]}); }
+    S.mxHist = {weeks: [...hist, w]};
+  } catch(e){}
 }
 function trustMatrix(){
   if (!S.isOwner || S.preview) return "";
   const rows = mxMembers().map(({id}) => mxScore(id));
-  setTimeout(() => mxSnapshot(rows), 0);
+  setTimeout(() => S.mxHist ? mxSnapshot(rows) : mxLoad(), 0);
   const old = ((S.mxHist && S.mxHist.weeks) || []).filter(w => Date.now() - Date.parse(w.at) >= 25 * DAY).pop();
   const narrow = (window.innerWidth || 1000) < 600, W = narrow ? 360 : 640, H = narrow ? 360 : 440, L = 40, R = 12, T = 12, B = 40, pw = W - L - R, ph = H - T - B;
   const X = v => L + pw * v / 100, Y = v => T + ph * (1 - v / 100);
@@ -153,7 +173,7 @@ function trustMatrix(){
       return `<tr><td>${esc(x.name)}${x.onb ? "" : ` <span class="chip c-review">Onboarding</span>`}</td><td class="n">${x.trust ?? "–"}</td><td class="n">${x.perf ?? "–"}</td><td>${esc(mxQuad(x))}</td><td>${weak ? `${esc(weak[0])} ${pct(weak[2])}%: <span class="muted">${esc(weak[3])}</span>` : `<span class="muted">No data yet</span>`}</td></tr>`; }).join("")}</tbody></table></div>
     <details class="small" style="margin-top:8px"><summary>Each member's measures</summary>${rows.map(x => `<p style="margin:8px 0 2px"><b>${esc(x.name)}</b> · ${x.trips} trips in 180 days</p><p class="muted" style="margin:0">Trust: ${x.T.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}<br>Performance: ${x.P.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}</p>`).join("")}</details>` : "";
   return `<div class="panel" style="margin-top:16px" id="trustMatrix"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Trust and performance</h2><span class="small muted">${rows.length} member${rows.length === 1 ? "" : "s"} · last 180 days</span></div>
-    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time and lead follow-up. Performance (right) measures results: quotes booked, bookings against the monthly target, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. Hollow dots have little data yet.</p>
+    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time and lead follow-up. Performance (right) measures results: quotes booked, bookings against the monthly target, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. A snapshot is kept every week, for good${S.mxHist && S.mxHist.weeks.length ? ` (${S.mxHist.weeks.length} week${S.mxHist.weeks.length === 1 ? "" : "s"} since ${fmtD(S.mxHist.weeks[0].at)})` : ""}. Hollow dots have little data yet.</p>
     ${rows.length ? svg : `<div class="empty"><p><b>No active members yet.</b> Members appear here once their agreement is countersigned.</p></div>`}${table}</div>`;
 }
 
