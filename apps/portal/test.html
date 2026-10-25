@@ -7,22 +7,22 @@
 <script>
 /* TEST VERSION: example data only, kept in this browser. Nothing reaches the real portal or database. */
 (function(){
-  var KEY = "arche.test.v2", ROLES = {owner: "00000000-0000-4000-8000-0000000000a1", ops: "00000000-0000-4000-8000-0000000000a2", broker: "00000000-0000-4000-8000-0000000000a3", broker2: "00000000-0000-4000-8000-0000000000a4"};
+  var KEY = "arche.test.v3", ROLES = {owner: "00000000-0000-4000-8000-0000000000a1", ops: "00000000-0000-4000-8000-0000000000a2", broker: "00000000-0000-4000-8000-0000000000a3", broker2: "00000000-0000-4000-8000-0000000000a4", candidate: "00000000-0000-4000-8000-0000000000a5"};
   var as = (new URLSearchParams(location.search).get("as") || "").toLowerCase();
   try { if (!ROLES[as]) as = localStorage.getItem(KEY + ".as") || "owner"; localStorage.setItem(KEY + ".as", as); } catch (e) { if (!ROLES[as]) as = "owner"; }
   window.__UID = ROLES[as]; window.__TEST_AS = as;
-  var seed = {"profiles": [{"id": "00000000-0000-4000-8000-0000000000a1", "role": "owner", "active": true, "contract_name": "Test Owner", "data": {}}, {"id": "00000000-0000-4000-8000-0000000000a2", "role": "ops", "active": true, "contract_name": "Test Operations", "base": "Bangkok", "data": {"roster": true, "example": true}}, {"id": "00000000-0000-4000-8000-0000000000a3", "role": "broker", "active": true, "contract_name": "Test Broker", "base": "Remote", "book": false, "data": {"roster": true, "example": true}}, {"id": "00000000-0000-4000-8000-0000000000a4", "role": "broker", "active": true, "contract_name": "Test Broker 2", "base": "Remote", "book": false, "data": {"roster": true, "example": true}}], "config": [{"key": "terms", "value": {"margin": 0.07, "unit": 45000, "threshold": 8, "rate1": 0.27, "rate2": 0.35, "consultRate": 0.1}}, {"key": "company", "value": {"name": "Example Company Pte. Ltd.", "reg": "000000000X", "address": "1 Example Street, Singapore 000000", "email": "charter@example.com", "phone": "+65 0000 0000", "web": "example.com", "signName": "Test Owner", "signTitle": "Director", "privacy": "privacy@example.com"}}], "agreements": [], "enquiry_pool": [], "enquiry_contacts": [], "trips": [], "trip_status": [], "leads": [], "optouts": [], "rfqs": [], "audit_log": [], "owner_prospects": [], "prospects": [{"id": "p001", "data": {"org": "Example Family Office", "kind": "client", "status": "new", "segment": "Family office", "region": "Asia-Pacific", "country": "Singapore", "why": "Example prospect for testing.", "approach": "Example approach.", "source": "https://example.org/fo"}}, {"id": "p002", "data": {"org": "Example Air Operator", "kind": "operator", "segment": "Operator", "status": "new", "region": "Asia-Pacific", "country": "Singapore", "why": "Example operator for testing.", "approach": "Example.", "source": "https://example.org/op", "ops": {"aoc": {"authority": "CAAS", "source": ""}, "bases": ["WSSL"], "fleet": [{"type": "Example Jet", "count": 2}], "audits": [{"name": "ARGUS", "level": "Platinum", "year": "2025", "url": "https://example.org/argus"}], "safety": [], "tier": "A", "flags": [], "screen": {"country": "clear", "entity": "", "auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}}, {"id": "p003", "data": {"org": "Example FBO One", "kind": "service", "segment": "Service partner", "category": "FBO and ground handling", "airports": ["WSSL", "VTBD"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.org/fbo-one", "website": "https://example.org", "why": "Example.", "approach": "Example.", "isbah": {"level": "Stage 2", "year": "2025", "url": "https://example.org/isbah"}, "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}, "avenues": [{"type": "email", "label": "Operations desk", "url": "mailto:ops@example.org"}]}}, {"id": "p004", "data": {"org": "Example FBO Two", "kind": "service", "segment": "Service partner", "category": "FBO and ground handling", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.net/fbo-two", "website": "https://example.net", "why": "Example.", "approach": "Example.", "flags": ["No IS-BAH registration found: check handling standards before relying on them."], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}, {"id": "p005", "data": {"org": "Example Crew Hotel", "kind": "service", "segment": "Service partner", "category": "Crew hotels", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.com/hotel", "website": "https://example.com", "why": "Example.", "approach": "Example.", "hotel": {"type": "hotel", "minutes": 10, "minutesUrl": "https://example.com/hotel", "shuttle": "Own airport shuttle, 24/7", "shuttleUrl": "https://example.com/hotel"}, "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}, {"id": "p006", "data": {"org": "Example Flight Kitchen", "kind": "service", "segment": "Service partner", "category": "In-flight catering", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.org/kitchen", "why": "Example.", "approach": "Example.", "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}], "website_enquiries": []}, T = null;
+  var seed = {"profiles": [{"id": "00000000-0000-4000-8000-0000000000a1", "role": "owner", "active": true, "contract_name": "Test Owner", "data": {}}, {"id": "00000000-0000-4000-8000-0000000000a2", "role": "ops", "active": true, "contract_name": "Test Operations", "base": "Bangkok", "data": {"roster": true, "example": true}}, {"id": "00000000-0000-4000-8000-0000000000a3", "role": "broker", "active": true, "contract_name": "Test Broker", "base": "Remote", "book": false, "data": {"roster": true, "example": true}}, {"id": "00000000-0000-4000-8000-0000000000a4", "role": "broker", "active": true, "contract_name": "Test Broker 2", "base": "Remote", "book": false, "data": {"roster": true, "example": true}}, {"id": "00000000-0000-4000-8000-0000000000a5", "role": null, "active": false, "contract_name": "", "data": {}}], "config": [{"key": "terms", "value": {"margin": 0.07, "unit": 45000, "threshold": 8, "rate1": 0.27, "rate2": 0.35, "consultRate": 0.1}}, {"key": "company", "value": {"name": "Example Company Pte. Ltd.", "reg": "000000000X", "address": "1 Example Street, Singapore 000000", "email": "charter@example.com", "phone": "+65 0000 0000", "web": "example.com", "signName": "Test Owner", "signTitle": "Director", "privacy": "privacy@example.com"}}], "agreements": [], "enquiry_pool": [], "enquiry_contacts": [], "trips": [], "trip_status": [], "leads": [], "optouts": [], "rfqs": [], "audit_log": [], "owner_prospects": [], "prospects": [{"id": "p001", "data": {"org": "Example Family Office", "kind": "client", "status": "new", "segment": "Family office", "region": "Asia-Pacific", "country": "Singapore", "why": "Example prospect for testing.", "approach": "Example approach.", "source": "https://example.org/fo"}}, {"id": "p002", "data": {"org": "Example Air Operator", "kind": "operator", "segment": "Operator", "status": "new", "region": "Asia-Pacific", "country": "Singapore", "why": "Example operator for testing.", "approach": "Example.", "source": "https://example.org/op", "ops": {"aoc": {"authority": "CAAS", "source": ""}, "bases": ["WSSL"], "fleet": [{"type": "Example Jet", "count": 2}], "audits": [{"name": "ARGUS", "level": "Platinum", "year": "2025", "url": "https://example.org/argus"}], "safety": [], "tier": "A", "flags": [], "screen": {"country": "clear", "entity": "", "auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}}, {"id": "p003", "data": {"org": "Example FBO One", "kind": "service", "segment": "Service partner", "category": "FBO and ground handling", "airports": ["WSSL", "VTBD"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.org/fbo-one", "website": "https://example.org", "why": "Example.", "approach": "Example.", "isbah": {"level": "Stage 2", "year": "2025", "url": "https://example.org/isbah"}, "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}, "avenues": [{"type": "email", "label": "Operations desk", "url": "mailto:ops@example.org"}]}}, {"id": "p004", "data": {"org": "Example FBO Two", "kind": "service", "segment": "Service partner", "category": "FBO and ground handling", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.net/fbo-two", "website": "https://example.net", "why": "Example.", "approach": "Example.", "flags": ["No IS-BAH registration found: check handling standards before relying on them."], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}, {"id": "p005", "data": {"org": "Example Crew Hotel", "kind": "service", "segment": "Service partner", "category": "Crew hotels", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.com/hotel", "website": "https://example.com", "why": "Example.", "approach": "Example.", "hotel": {"type": "hotel", "minutes": 10, "minutesUrl": "https://example.com/hotel", "shuttle": "Own airport shuttle, 24/7", "shuttleUrl": "https://example.com/hotel"}, "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}, {"id": "p006", "data": {"org": "Example Flight Kitchen", "kind": "service", "segment": "Service partner", "category": "In-flight catering", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.org/kitchen", "why": "Example.", "approach": "Example.", "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}], "website_enquiries": [{"id": "w001", "at": "2026-10-25T01:30:00Z", "handled": false, "consent": true, "data": {"type": "quote", "legs": [{"from": "VTBD", "to": "WSSL", "date": "2026-11-06"}], "pax": "4", "name": "Example Website Client", "reach": "client@example.com", "reply": "email"}}]}, T = null;
   try { T = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
   window.__T = T || seed;
   var last = "";
   setInterval(function(){ try { var s = JSON.stringify(window.__T); if (s !== last) { localStorage.setItem(KEY, s); last = s; } } catch (e) {} }, 800);
-  window.__testSwitch = function(r){ try { localStorage.setItem(KEY, JSON.stringify(window.__T)); } catch (e) {} location.search = "?as=" + r; };
+  window.__testSwitch = function(r){ try { localStorage.setItem(KEY, JSON.stringify(window.__T)); } catch (e) {} try { localStorage.setItem(KEY + ".as", r); } catch (e) {} if (/[?&]as=/.test(location.search)) location.search = "?as=" + r; else location.reload(); };
   window.__testReset = function(){ if (!window.__testArmed) { window.__testArmed = 1; var b = document.getElementById("tvReset"); if (b) b.textContent = "Click again to wipe all test data"; return; } try { localStorage.removeItem(KEY); } catch (e) {} location.reload(); };
   document.addEventListener("DOMContentLoaded", function(){
     var bar = document.createElement("div"); bar.id = "testBar";
     bar.innerHTML = '<style>#testBar{background:#985a00;color:#fff;font:600 13px/1.4 "Hanken Grotesk",system-ui,sans-serif;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}#testBar b{letter-spacing:.08em}#testBar select,#testBar button{font:inherit;font-size:12px;padding:3px 8px;border:1px solid #fff;background:transparent;color:#fff;border-radius:4px}#testBar option{color:#000}</style>'
       + '<b>TEST VERSION</b><span>Example data in this browser only. Nothing reaches the real portal.</span>'
-      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option><option value="ops">Test Operations</option><option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option></select></label>'
+      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option><option value="ops">Test Operations</option><option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option><option value="candidate">New candidate</option></select></label>'
       + '<button type="button" id="tvReset">Reset test data</button>';
     document.body.insertBefore(bar, document.body.firstChild);
     var sel = document.getElementById("tvAs"); sel.value = as; sel.onchange = function(){ window.__testSwitch(sel.value); };
@@ -67,7 +67,7 @@ window.supabase = { createClient() {
 
 </script>
 <script src="config.js"></script>
-<script src="platform.js"></script>
+<script src="platform.test.js"></script>
 <script>(function(){var t="light";try{t=localStorage.getItem("arche.theme")||"light";}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
 <style>
 /* Layout: the Archē Executive website's look, carried into the work tool. One dark charcoal theme (as the website), hairline dividers, square corners, Prata headings, uppercase tracked labels, silver primary buttons, steel-blue accent. Lists left, open file right. */
@@ -570,8 +570,8 @@ function commissionFor(bid){
 
 /* ---------- boot ---------- */
 async function boot(){
-  if (!window.claude || !claude.use) { bootFail(); return; }
-  const [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
+  if (!window.__arche || !__arche.use) { bootFail(); return; }
+  const [db, user] = await Promise.all([__arche.use("db"), __arche.use("user")]);
   if (!db || !user) { bootFail(); return; }
   S.db = db; S.user = user; (window.requestIdleCallback || (f => setTimeout(f, 2500)))(() => loadAirports());
   S.uid = await user.id(); S.isOwner = await user.isOwner(); S.canEdit = await user.canEdit();
@@ -1119,7 +1119,7 @@ async function act(a, el){
 }
 async function uploadDoc(t){
   const f = $("docFile").files[0]; if (!f) { toast("Choose a file first."); return; }
-  const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available for your access level."); return; }
+  const assets = await __arche.use("assets"); if (!assets) { toast("Document upload is not available for your access level."); return; }
   try { const r = await assets.upload(f); const docs = [...(t.d.docs || []), {id:r.id, name:f.name, kind:$("docKind").value, at:now()}];
     await deskWrite(t, {docs}, `Document attached: ${$("docKind").value}`); toast("Document attached"); }
   catch(e){ toast("Upload failed: " + (e && e.message ? e.message : "try again")); }
@@ -1167,7 +1167,7 @@ const AI_TASKS = {
   next: {label:"Next best action", prompt: j => `${RULES_TEXT}\n\nThis trip has a live win score of ${'{'}score{'}'}%. Say in at most 5 bullets what the broker should do next, in order, to raise the chance it books and flies through the portal, with one sentence of reasoning each. Be specific to this file.\n\nTrip file (JSON):\n${j}`}
 };
 async function runAI(kind, t, outEl, btns){
-  const sample = await claude.use("sample");
+  const sample = await __arche.use("sample");
   if (!sample) { outEl.textContent = "The AI co-pilot is not available in this view."; return; }
   const j = JSON.stringify(tripForAI(t), null, 1);
   let prompt = AI_TASKS[kind].prompt(j).replace("{score}", String(winScore(t)));
@@ -1193,7 +1193,7 @@ function vAssistant(){
   </div>`;
 }
 async function askChat(q){
-  const sample = await claude.use("sample"); if (!sample) { toast("The assistant is not available in this view."); return; }
+  const sample = await __arche.use("sample"); if (!sample) { toast("The assistant is not available in this view."); return; }
   S.chat.push({role:"user", content:q}); S.chat.push({role:"assistant", content:"Thinking…"}); S.chatBusy = true; render();
   const turns = [{role:"user", content: RULES_TEXT + "\n\nYou are the in-portal assistant. Answer the broker's questions below."}, ...S.chat.slice(0, -1).slice(-12)];
   if (turns[1] && turns[1].role === "assistant") turns.splice(1, 1);
@@ -1217,7 +1217,7 @@ function briefingData(){
     flags: controlFlags().map(f => f[1]), prospects: Object.values(S.prospects).reduce((o, p) => (o[p.status || "new"] = (o[p.status || "new"] || 0) + 1, o), {})};
 }
 async function runBriefing(outEl, btn){
-  const sample = await claude.use("sample"); if (!sample) { outEl.textContent = "AI briefing is not available in this view."; return; }
+  const sample = await __arche.use("sample"); if (!sample) { outEl.textContent = "AI briefing is not available in this view."; return; }
   btn.disabled = true; outEl.hidden = false; outEl.textContent = "Thinking…";
   const prompt = `${RULES_TEXT}\n\nYou are the business analyst for the owner of Archē Executive. From the live portal data below, write today's briefing: 1) Outlook: are we on track against the plan, with the weighted pipeline (trip value × win score) in USD; 2) The three biggest risks to revenue or control (including any sign that business is leaving the portal); 3) Coaching: one specific point per broker; 4) Top five actions for this week, each with an owner (broker, operations or owner). Under 350 words, short headings. Use only the data given; say when data is too thin to judge.\n\nData (JSON):\n${JSON.stringify(briefingData(), null, 1)}`;
   try { await sample(prompt, {modelTier:"complex", cache:{gcTime:3600000}, onText: ({text}) => { outEl.textContent = text; }}); }
@@ -1422,7 +1422,7 @@ function vLeads(){
 }
 
 async function suggestApproach(l, outEl, btn){
-  const sample = await claude.use("sample"); if (!sample) { outEl.textContent = "Not available in this view."; return; }
+  const sample = await __arche.use("sample"); if (!sample) { outEl.textContent = "Not available in this view."; return; }
   btn.disabled = true; outEl.hidden = false; outEl.textContent = "Thinking…";
   const lead = {organisation:l.org, segment:l.segment, country:l.country, why:l.why, approach:l.approach, namedBusinessContacts:(l.contacts || []).map(c => ({role: c.role, foundOn: c.sourceType})), contactSoFar:(l.log || []).map(x => `${x.channel}: ${LEAD_STATUS[x.outcome] || x.outcome}${x.note ? " (" + x.note + ")" : ""}`)};
   const prompt = `${RULES_TEXT}\n\nSuggest how this broker should approach the organisation below: the best first contact (by role; if named business contacts are on file, address one of them as [contact name], never invent a name), a short first message of under 120 words that says where we found their details ("We found your details on [source].") and ends with an easy opt-out line, two questions to qualify their charter needs, and the follow-up timing. Do not claim we own aircraft. Use only business channels.\n\nLead (JSON):\n${JSON.stringify(lead, null, 1)}`;
@@ -1955,7 +1955,7 @@ async function issueConf(btn){
   try {
     await saveConfDraft();
     let assetId = null;
-    try { const blob = await CONF.pdf(data, false); const assets = await claude.use("assets"); if (assets) { const f = new File([blob], `${ref}${rev > 1 ? " Rev " + rev : ""} Archē Executive Charter Confirmation.pdf`, {type:"application/pdf"}); const r = await assets.upload(f); assetId = r.id; } }
+    try { const blob = await CONF.pdf(data, false); const assets = await __arche.use("assets"); if (assets) { const f = new File([blob], `${ref}${rev > 1 ? " Rev " + rev : ""} Archē Executive Charter Confirmation.pdf`, {type:"application/pdf"}); const r = await assets.upload(f); assetId = r.id; } }
     catch(e){ console.warn("pdf", e); }
     const patch = {ref, xsCost: xsCost(t.d), xsClient: xsFixed(t.d), confRev: rev, confIssued: {rev, at: now(), assetId, data}, confRevs: [...(st.confRevs || []), {rev, at: now(), assetId, by: S.uid}]};
     if (rev > 1 && st.signed) { patch.signedRevs = [...(st.signedRevs || []), st.signed]; patch.signed = null; patch.sigSentAt = null; }   // a revision needs a new signature
@@ -1970,13 +1970,13 @@ async function issueConf(btn){
 async function downloadConf(btn){
   const t = tripById(S.sel); const issued = t.st && t.st.confIssued; if (!issued) return;
   btn.disabled = true;
-  try { const downloads = await claude.use("downloads"); if (!downloads) { toast("Downloads are not available in this view."); return; }
+  try { const downloads = await __arche.use("downloads"); if (!downloads) { toast("Downloads are not available in this view."); return; }
     const blob = await CONF.pdf(issued.data, false); await downloads.save({filename: `${issued.data.ref}${issued.rev > 1 ? " Rev " + issued.rev : ""} Archē Executive Charter Confirmation.pdf`, data: blob}); }
   catch(e){ toast(e && e.code === "declined" ? "Download cancelled." : "Could not build the PDF."); }
   finally { btn.disabled = false; }
 }
 async function confAI(btn){
-  const t = tripById(S.sel); const sample = await claude.use("sample"); const out = $("confAiOut");
+  const t = tripById(S.sel); const sample = await __arche.use("sample"); const out = $("confAiOut");
   if (!sample) { toast("The AI check is not available in this view."); return; }
   const st = t.st || {}; const data = st.confIssued && !S.confRevise ? st.confIssued.data : confData(t, S.confDraft);
   const ev = CONF.evaluate(data);
@@ -2099,7 +2099,7 @@ async function rqWrite(t, sec, list, line){
   await S.db.collection(`desk/${t.bid}/deals`).doc(t.did).set(body);
 }
 async function rqAI(btn){
-  const t = tripById(S.sel); const sample = await claude.use("sample"); const note = $("rqAiNote");
+  const t = tripById(S.sel); const sample = await __arche.use("sample"); const note = $("rqAiNote");
   if (!sample) { toast("AI suggestions are not available in this view."); return; }
   btn.disabled = true; note.textContent = "Thinking…";
   const legs = ((t.d.trip || {}).legs || []).map(l => ({...l, fromAirport: aptName(l.from), toAirport: aptName(l.to)}));
@@ -2146,7 +2146,7 @@ async function buildBackup(){
     return out;
 }
 async function exportBackup(btn){
-  const downloads = await claude.use("downloads"); if (!downloads) { toast("Downloads are not available in this view."); return; }
+  const downloads = await __arche.use("downloads"); if (!downloads) { toast("Downloads are not available in this view."); return; }
   btn.disabled = true;
   try {
     const out = await buildBackup();
@@ -2231,7 +2231,7 @@ function driveMsg(e){ return ({needs_reauth:"Reconnect Google Drive in claude.ai
 async function driveSync(manual){
   if (!S.isOwner || S.preview || S.driveBusy) return;
   const cfg = S.drive || {}; if (!cfg.folderFiles || !cfg.folderDb) { if (manual) toast("The Drive folders are not set up yet."); return; }
-  const mcp = await claude.use("mcp"); if (!mcp) { S.driveNote = "Google Drive is not available in this view."; render(); return; }
+  const mcp = await __arche.use("mcp"); if (!mcp) { S.driveNote = "Google Drive is not available in this view."; render(); return; }
   S.driveBusy = true; S.driveNote = "Backing up to Google Drive…"; render();
   const synced = {...(cfg.synced || {})}, pending = {...(cfg.pending || {})}, folders = {...(cfg.folders || {})}; let files = 0, err = null, dbDone = false;
   try {
@@ -2552,7 +2552,7 @@ async function askQuestion(q){
   try {
     await ref.set(body);
     await loadGuide();
-    const sample = await claude.use("sample");
+    const sample = await __arche.use("sample");
     if (sample) {
       const prompt = `${RULES_TEXT}\n\nYou answer questions from Archē Executive brokers and staff about the broker portal and the company's rules. Use only the portal guide and FAQ below and the rules above. Answer in plain English, under 150 words, with the steps to take. If the material does not cover it, or it needs a decision by the director, say so and that the question has been sent to the owner. Never invent figures. Reply with JSON only: {"answer": "...", "covered": true|false, "topic": "two or three words"}.\n\nPORTAL GUIDE\n${guideText()}\n\nFAQ\n${faqList().map(f => "Q: " + f.q + "\nA: " + f.a).join("\n")}\n\nQUESTION\n${q}`;
       const r = await sample.json(prompt);
@@ -2565,7 +2565,7 @@ async function askQuestion(q){
 }
 async function promoteFaq(manual){
   if (!S.isOwner || S.faqBusy) return;
-  const sample = await claude.use("sample"); if (!sample) { if (manual) toast("The AI is not available in this view."); return; }
+  const sample = await __arche.use("sample"); if (!sample) { if (manual) toast("The AI is not available in this view."); return; }
   S.faqBusy = true; render();
   try {
     const all = await loadAllAsks(); const pool = all.filter(a => !a.faqId && a.q);
@@ -2787,7 +2787,7 @@ async function sigSave(t){
   const f = $("sg_file").files[0], name = $("sg_name").value.trim(); if (!f) return;
   if (!/pdf$/i.test(f.type || f.name)) { toast("Choose the signed PDF."); return; }
   if (!name) { toast("Enter who signed, then choose the file again."); $("sg_file").value = ""; return; }
-  const assets = await claude.use("assets"); if (!assets) { toast("Uploads are not available in this view."); return; }
+  const assets = await __arche.use("assets"); if (!assets) { toast("Uploads are not available in this view."); return; }
   toast("Saving the signed contract…");
   try { const r = await assets.upload(f); await statusWrite(t, {signed: {at: now(), by: S.uid, name, assetId: r.id, file: f.name}}, `Signed contract saved (signed by ${name})`); audit("Signed contract saved", `${(t.st || {}).ref || t.did} · signed by ${name}`); toast("Signed contract saved. You can now record the payment."); if (S.isOwner) driveSync(false); }
   catch(e){ toast("Could not save the file. Try again."); }
@@ -3445,7 +3445,7 @@ async function rpLoadAll(){ if (S.rpAllLoading) return; S.rpAllLoading = true; c
 function rpSpeechOK(){ return !!(window.SpeechRecognition || window.webkitSpeechRecognition); }
 function rpSay(text){ try { if (!S.rpVoice || !window.speechSynthesis) return; window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = "en-GB"; u.rate = 1; window.speechSynthesis.speak(u); } catch(e){} }
 async function rpTurn(){
-  const s = S.rp; const sample = await claude.use("sample"); if (!sample) { toast("The AI is not available in this view."); return; }
+  const s = S.rp; const sample = await __arche.use("sample"); if (!sample) { toast("The AI is not available in this view."); return; }
   const turns = [{role:"user", content: rpInstr(s) + "\n\nOpen the conversation now, in character."}];
   s.msgs.forEach(m => turns.push({role: m.role === "assistant" ? "assistant" : "user", content: m.content}));
   if (turns[turns.length - 1].role !== "user") return;
@@ -3456,7 +3456,7 @@ async function rpTurn(){
   s.busy = false; render(); setTimeout(() => { const c = $("rpChat"); if (c) c.scrollTop = c.scrollHeight; const i = $("rp_in"); if (i) i.focus(); }, 30);
 }
 async function rpScore(){
-  const s = S.rp; const sample = await claude.use("sample"); if (!sample) { toast("The AI is not available in this view."); return; }
+  const s = S.rp; const sample = await __arche.use("sample"); if (!sample) { toast("The AI is not available in this view."); return; }
   const tr = s.msgs.map(m => `${m.role === "assistant" ? "OTHER SIDE" : "BROKER"}: ${m.content}`).join("\n");
   const prompt = `You are the assessor for Archē Executive's live negotiation lab. Score only the BROKER's lines in this transcript against the scoring sheet. ${RP_RULES}
 Scenario: ${s.title}. Counterpart: ${s.who}. Level: ${s.lv}.
