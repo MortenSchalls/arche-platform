@@ -80,7 +80,19 @@ def build():
     out = '<meta charset="utf-8">\n' + out
     # inside a claude.ai artifact the viewer owns window.claude, so the test version uses its own name
     out = out.replace("window.claude", "window.__arche").replace("claude.use", "__arche.use").replace('<script src="platform.js"></script>', '<script src="platform.test.js"></script>')
-    (HERE / "platform.test.js").write_text((HERE / "platform.js").read_text(encoding="utf-8").replace("window.claude =", "window.__arche ="), encoding="utf-8")
+    out = out.replace('href="academy.html" target="_blank" rel="noopener"', 'href="academy.test.html"')
+    plat = (HERE / "platform.js").read_text(encoding="utf-8")
+    use_old = 'window.claude = Object.freeze({ use: async name => { await ready; return caps[name] ?? null; } });'
+    assert use_old in plat
+    # AI and downloads go through the claude.ai viewer when the test version runs as an artifact
+    plat = plat.replace(use_old, 'window.__arche = Object.freeze({ use: async name => { await ready; if ((name === "sample" || name === "downloads") && window.claude && typeof window.claude.use === "function") { try { const v = await window.claude.use(name); if (v) return v; } catch (e) {} } return caps[name] ?? null; } });')
+    (HERE / "platform.test.js").write_text(plat, encoding="utf-8")
+    # the academy, on the same example data
+    ac = (HERE / "academy.html").read_text(encoding="utf-8")
+    assert ac.count(cdn) == 1
+    ac = ac.replace(cdn, harness + "\n<script>\n" + fake + "\n</script>").replace('<script src="platform.js"></script>', '<script src="platform.test.js"></script>')
+    ac = ac.replace("window.claude", "window.__arche").replace('<a href="./" ', '<a href="test.html" ')
+    (HERE / "academy.test.html").write_text('<meta charset="utf-8">\n' + ac, encoding="utf-8")
     (HERE / "test.html").write_text(out, encoding="utf-8")
     print("test.html written", len(out), "bytes")
 

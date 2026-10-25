@@ -138,13 +138,17 @@ function vWelcome(){
   <div class="panel stack"><h2>3. Standards of Conduct</h2><p class="small">We serve the top 0.1% of travellers, and we deliver that standard every time. These rules are part of your agreement.</p>${conduct}</div>
   <div class="panel stack"><h2>Your signed agreement</h2><p class="small">Signed by both sides in the portal. View it, print it or save it as a PDF whenever you need it.</p><div class="row"><button class="btn" type="button" data-agr="view|${S.uid}">View my agreement</button></div>${S.agrView === S.uid ? agrModal() : ""}</div>
   <div class="panel stack"><h2>4. Meeting background</h2><p class="small">Use the Archē background in every online meeting. Pick the one where the logo sits on the side your head does not cover. Your own view may look mirrored; clients see it the right way round.</p>
-    <div class="row"><a class="btn" href="img/arche-meeting-bg-right.jpg" download>Background, logo right</a><a class="btn" href="img/arche-meeting-bg-left.jpg" download>Background, logo left</a></div>
+    <div class="row"><button class="btn" type="button" data-ob="bg|right">Download background, logo right</button><button class="btn" type="button" data-ob="bg|left">Download background, logo left</button></div>
     <p class="small muted">Set your display name to: ${esc((f.name || "First name Last name"))} · Archē Executive</p></div>
   ${confirmed ? "" : `<div class="panel stack"><h2>5. Confirm</h2>
     <label class="check" for="ob_c1"><input type="checkbox" id="ob_c1"><span>I have read the Standards of Conduct and will follow them.</span></label>
     <label class="check" for="ob_c2"><input type="checkbox" id="ob_c2"><span>I have set up my Archē email with the signature above, and the meeting background.</span></label>
     <div class="row"><button class="btn primary" type="button" data-ob="ack">Confirm and open my desk</button></div></div>`}
   </div>`;
+}
+async function obSave(filename, blob){   /* through the platform's download helper (inside claude.ai: the viewer's own) */
+  try { const d = await claude.use("downloads"); if (d) { await d.save({filename, data: blob}); return; } } catch(e) { if (e && e.code === "declined") return; }
+  const a = Object.assign(document.createElement("a"), {href: URL.createObjectURL(blob), download: filename}); document.body.appendChild(a); a.click(); a.remove();
 }
 function obReadForm(){ const n = $("ob_n"), p = $("ob_p"); if (n && p) S.obForm = {name: n.value.trim(), phone: p.value.trim()}; return S.obForm || {name:"", phone:""}; }
 document.addEventListener("input", e => {
@@ -153,10 +157,11 @@ document.addEventListener("input", e => {
 });
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-ob]"); if (!b) return; e.preventDefault();
+  if (b.dataset.ob.startsWith("bg|")) { const side = b.dataset.ob.slice(3); try { const r = await fetch(`img/arche-meeting-bg-${side}.jpg`); await obSave(`Arche-meeting-background-logo-${side}.jpg`, await r.blob()); } catch(err){ toast("Could not download. Try again."); } return; }
   const f = obReadForm(), html = obSigHtml(f.name, f.phone, obMine().workEmail || "");
   if (b.dataset.ob === "copy" || b.dataset.ob === "dl") {
     if (!f.name || !f.phone) { toast("Type your name and direct phone first."); return; }
-    if (b.dataset.ob === "dl") { const blob = new Blob([`<!doctype html><html><head><meta charset="utf-8"><title>Archē email signature</title></head><body>${html}</body></html>`], {type: "text/html"}); const a = Object.assign(document.createElement("a"), {href: URL.createObjectURL(blob), download: "Arche-email-signature.html"}); document.body.appendChild(a); a.click(); a.remove(); return; }
+    if (b.dataset.ob === "dl") { await obSave("Arche-email-signature.html", new Blob([`<!doctype html><html><head><meta charset="utf-8"><title>Archē email signature</title></head><body>${html}</body></html>`], {type: "text/html"})); return; }
     try { await navigator.clipboard.write([new ClipboardItem({"text/html": new Blob([html], {type: "text/html"}), "text/plain": new Blob([$("obSig").innerText], {type: "text/plain"})})]); toast("Signature copied. Paste it into your email signature setting."); }
     catch(err){ const r = document.createRange(); r.selectNodeContents($("obSig")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Press Ctrl+C (or Cmd+C) to copy the selected signature."); }
     return;

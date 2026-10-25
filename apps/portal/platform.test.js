@@ -313,5 +313,5 @@
 
   /* ---------- claude.use() replacement ---------- */
   const caps = { db, user, sample, assets, downloads, mcp: null };
-  window.__arche = Object.freeze({ use: async name => { await ready; return caps[name] ?? null; } });
+  window.__arche = Object.freeze({ use: async name => { await ready; if ((name === "sample" || name === "downloads") && window.claude && typeof window.claude.use === "function") { try { const v = await window.claude.use(name); if (v) return v; } catch (e) {} } return caps[name] ?? null; } });
 })();

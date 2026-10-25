@@ -3524,7 +3524,7 @@ function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class=
   const _vTraining = vTraining;
   vTraining = function(){
     const t = S.trTab || "course";
-    if (t === "course") return `<div class="head"><div><h1>Training</h1><p class="muted small">The portal course: every screen for your role, with a task to try in the test version and a short check for each lesson. Start here, then practise whole bookings in Booking practice.</p></div><div class="row"><a class="btn" href="academy.html" target="_blank" rel="noopener">Open the Broker Academy</a></div></div>` + trTabs() + vCourse();
+    if (t === "course") return `<div class="head"><div><h1>Training</h1><p class="muted small">The portal course: every screen for your role, with a task to try in the test version and a short check for each lesson. Start here, then practise whole bookings in Booking practice.</p></div><div class="row"><a class="btn" href="academy.test.html">Open the Broker Academy</a></div></div>` + trTabs() + vCourse();
     if (t === "book") { const h = _vTraining(); return h.replace(/(<div class="note warn small" style="margin-bottom:12px">)/, trTabs() + "$1"); }
     const head = `<div class="head"><div><h1>Training</h1><p class="muted small">${t === "rp" ? "Practise difficult conversations out loud with an AI client, assistant or operator, then see your score on the lab sheet (manual 14.4–14.5)." : "Regional quick-reference cards for live enquiries (manual Appendix J)."}</p></div></div>`;
     return head + trTabs() + (t === "rp" ? rpView() : cardsView());
@@ -4370,7 +4370,7 @@ function agrCoReady(){ const c = S.company || {}; return !!(c.name && c.reg && c
 /* candidate: read and sign */
 function vAgreementSign(){
   const a = S.myAgr; if (!a) return "";
-  if (a.status !== "sent") return `<div class="panel stack" style="max-width:860px"><div class="row" style="justify-content:space-between"><h1>Your agreement</h1><div class="row"><button class="btn" type="button" data-agr="print">Print or save as PDF</button><button class="btn" type="button" data-agr="close">Back</button></div></div>${agrRender(a)}</div>`;
+  if (a.status !== "sent") return `<div class="panel stack" style="max-width:860px"><div class="row" style="justify-content:space-between"><h1>Your agreement</h1><div class="row"><button class="btn" type="button" data-agr="copy">Download a copy</button><button class="btn" type="button" data-agr="print">Print or save as PDF</button><button class="btn" type="button" data-agr="close">Back</button></div></div>${agrRender(a)}</div>`;
   return `<form id="agrForm" class="panel stack" style="max-width:860px"><div class="row" style="justify-content:space-between"><h1>Read and sign your agreement</h1><button class="btn" type="button" data-agr="close">Back</button></div>
     <p class="small">Read the whole agreement, fill in your details in Schedule 2, then sign at the end. Your electronic signature has the same effect as a handwritten one. You can print it or save it as a PDF at any time.</p>
     ${agrRender({...a, details: {consultant: (S.myJoin || {}).contractName || "", territory: (S.myJoin || {}).base || "", ...(a.details || {})}}, {form: true})}
@@ -4411,7 +4411,7 @@ function agrOwnerBlock(id, j){
 }
 function agrWatchOwner(){ if (S.agrOn || !S.isOwner) return; S.agrOn = true; watchCol("agr", snap => { S.agrs = {}; snap.docs.forEach(d => S.agrs[d.id] = d.data()); render(); }); }
 function agrModal(){ const id = S.agrView; if (!id) return ""; const a = (S.agrs || {})[id] || (id === S.uid ? S.myAgr : null); if (!a) return "";
-  return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html || agrRender(a)}</div>`; }
+  return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="copy">Download a copy</button><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html || agrRender(a)}</div>`; }
 async function agrCountersign(id){
   const j = S.joins[id], a = (S.agrs || {})[id]; if (!j || !a || a.status !== "signed") return;
   const mail = (($("ob_mail_" + id) || {}).value || "").trim().toLowerCase();
@@ -4431,6 +4431,7 @@ async function agrCountersign(id){
 document.addEventListener("click", async ev => {
   const b = ev.target.closest("[data-agr]"); if (!b) return; ev.preventDefault();
   const [a, id] = b.dataset.agr.split("|");
+  if (a === "copy") { const el = document.getElementById("agrDoc"); if (!el) return; await obSave("Arche-broker-agreement.html", new Blob([`<!doctype html><html><head><meta charset="utf-8"><title>Archē broker agreement</title><style>body{font:14px/1.6 Helvetica,Arial,sans-serif;max-width:820px;margin:32px auto;padding:0 16px;color:#2b2e33}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:6px 8px;text-align:left}h2{margin-top:24px}</style></head><body>${el.outerHTML}</body></html>`], {type: "text/html"})); return; }
   if (a === "print") { document.body.classList.add("printing-agr"); setTimeout(() => { window.print(); document.body.classList.remove("printing-agr"); }, 50); return; }
   if (a === "open") { S.agrOpen = true; render(); scrollTo(0, 0); return; }
   if (a === "close") { S.agrOpen = false; render(); return; }
@@ -4511,7 +4512,7 @@ function vPending(){
   const step = (n, title, body, state) => `<div class="flag"><span class="sev ${state === "now" ? "med" : "low"}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${n}. ${title}</b>${state === "done" ? ' <span class="chip c-flown">Done</span>' : ""}</p>${body}</div></div>`;
   if (S.offerOpen === undefined) S.offerOpen = !S.myJoin && !a;
   const s0 = step(1, "Your offer: up to 35% of every trip, no cap", `<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="offer">${S.offerOpen ? "Hide the offer" : "Read the offer"}</button></div>${S.offerOpen ? `<div class="agrdoc" style="margin-top:10px">${OFFER_HTML}</div>` : ""}`, "");
-  const s1 = step(2, "Complete the Archē Broker Academy", `<p class="small">Sign in to the academy with this same login. Your progress is saved as you go.</p><p class="small muted">${esc(obProgLine(p))}</p><div class="row" style="margin-top:6px"><a class="btn small ${done ? "" : "primary"}" href="academy.html" target="_blank" rel="noopener">Open the Broker Academy</a></div>`, done ? "done" : "now");
+  const s1 = step(2, "Complete the Archē Broker Academy", `<p class="small">Sign in to the academy with this same login. Your progress is saved as you go.</p><p class="small muted">${esc(obProgLine(p))}</p><div class="row" style="margin-top:6px"><a class="btn small ${done ? "" : "primary"}" href="academy.test.html">Open the Broker Academy</a></div>`, done ? "done" : "now");
   const s2 = S.myJoin
     ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "operations" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
     : step(3, "Ask for your assessment", `<p class="small">When the academy is complete, send your request with your academy completion code.</p>
@@ -4588,13 +4589,17 @@ function vWelcome(){
   <div class="panel stack"><h2>3. Standards of Conduct</h2><p class="small">We serve the top 0.1% of travellers, and we deliver that standard every time. These rules are part of your agreement.</p>${conduct}</div>
   <div class="panel stack"><h2>Your signed agreement</h2><p class="small">Signed by both sides in the portal. View it, print it or save it as a PDF whenever you need it.</p><div class="row"><button class="btn" type="button" data-agr="view|${S.uid}">View my agreement</button></div>${S.agrView === S.uid ? agrModal() : ""}</div>
   <div class="panel stack"><h2>4. Meeting background</h2><p class="small">Use the Archē background in every online meeting. Pick the one where the logo sits on the side your head does not cover. Your own view may look mirrored; clients see it the right way round.</p>
-    <div class="row"><a class="btn" href="img/arche-meeting-bg-right.jpg" download>Background, logo right</a><a class="btn" href="img/arche-meeting-bg-left.jpg" download>Background, logo left</a></div>
+    <div class="row"><button class="btn" type="button" data-ob="bg|right">Download background, logo right</button><button class="btn" type="button" data-ob="bg|left">Download background, logo left</button></div>
     <p class="small muted">Set your display name to: ${esc((f.name || "First name Last name"))} · Archē Executive</p></div>
   ${confirmed ? "" : `<div class="panel stack"><h2>5. Confirm</h2>
     <label class="check" for="ob_c1"><input type="checkbox" id="ob_c1"><span>I have read the Standards of Conduct and will follow them.</span></label>
     <label class="check" for="ob_c2"><input type="checkbox" id="ob_c2"><span>I have set up my Archē email with the signature above, and the meeting background.</span></label>
     <div class="row"><button class="btn primary" type="button" data-ob="ack">Confirm and open my desk</button></div></div>`}
   </div>`;
+}
+async function obSave(filename, blob){   /* through the platform's download helper (inside claude.ai: the viewer's own) */
+  try { const d = await __arche.use("downloads"); if (d) { await d.save({filename, data: blob}); return; } } catch(e) { if (e && e.code === "declined") return; }
+  const a = Object.assign(document.createElement("a"), {href: URL.createObjectURL(blob), download: filename}); document.body.appendChild(a); a.click(); a.remove();
 }
 function obReadForm(){ const n = $("ob_n"), p = $("ob_p"); if (n && p) S.obForm = {name: n.value.trim(), phone: p.value.trim()}; return S.obForm || {name:"", phone:""}; }
 document.addEventListener("input", e => {
@@ -4603,10 +4608,11 @@ document.addEventListener("input", e => {
 });
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-ob]"); if (!b) return; e.preventDefault();
+  if (b.dataset.ob.startsWith("bg|")) { const side = b.dataset.ob.slice(3); try { const r = await fetch(`img/arche-meeting-bg-${side}.jpg`); await obSave(`Arche-meeting-background-logo-${side}.jpg`, await r.blob()); } catch(err){ toast("Could not download. Try again."); } return; }
   const f = obReadForm(), html = obSigHtml(f.name, f.phone, obMine().workEmail || "");
   if (b.dataset.ob === "copy" || b.dataset.ob === "dl") {
     if (!f.name || !f.phone) { toast("Type your name and direct phone first."); return; }
-    if (b.dataset.ob === "dl") { const blob = new Blob([`<!doctype html><html><head><meta charset="utf-8"><title>Archē email signature</title></head><body>${html}</body></html>`], {type: "text/html"}); const a = Object.assign(document.createElement("a"), {href: URL.createObjectURL(blob), download: "Arche-email-signature.html"}); document.body.appendChild(a); a.click(); a.remove(); return; }
+    if (b.dataset.ob === "dl") { await obSave("Arche-email-signature.html", new Blob([`<!doctype html><html><head><meta charset="utf-8"><title>Archē email signature</title></head><body>${html}</body></html>`], {type: "text/html"})); return; }
     try { await navigator.clipboard.write([new ClipboardItem({"text/html": new Blob([html], {type: "text/html"}), "text/plain": new Blob([$("obSig").innerText], {type: "text/plain"})})]); toast("Signature copied. Paste it into your email signature setting."); }
     catch(err){ const r = document.createRange(); r.selectNodeContents($("obSig")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Press Ctrl+C (or Cmd+C) to copy the selected signature."); }
     return;

@@ -34,7 +34,7 @@ function agrCoReady(){ const c = S.company || {}; return !!(c.name && c.reg && c
 /* candidate: read and sign */
 function vAgreementSign(){
   const a = S.myAgr; if (!a) return "";
-  if (a.status !== "sent") return `<div class="panel stack" style="max-width:860px"><div class="row" style="justify-content:space-between"><h1>Your agreement</h1><div class="row"><button class="btn" type="button" data-agr="print">Print or save as PDF</button><button class="btn" type="button" data-agr="close">Back</button></div></div>${agrRender(a)}</div>`;
+  if (a.status !== "sent") return `<div class="panel stack" style="max-width:860px"><div class="row" style="justify-content:space-between"><h1>Your agreement</h1><div class="row"><button class="btn" type="button" data-agr="copy">Download a copy</button><button class="btn" type="button" data-agr="print">Print or save as PDF</button><button class="btn" type="button" data-agr="close">Back</button></div></div>${agrRender(a)}</div>`;
   return `<form id="agrForm" class="panel stack" style="max-width:860px"><div class="row" style="justify-content:space-between"><h1>Read and sign your agreement</h1><button class="btn" type="button" data-agr="close">Back</button></div>
     <p class="small">Read the whole agreement, fill in your details in Schedule 2, then sign at the end. Your electronic signature has the same effect as a handwritten one. You can print it or save it as a PDF at any time.</p>
     ${agrRender({...a, details: {consultant: (S.myJoin || {}).contractName || "", territory: (S.myJoin || {}).base || "", ...(a.details || {})}}, {form: true})}
@@ -75,7 +75,7 @@ function agrOwnerBlock(id, j){
 }
 function agrWatchOwner(){ if (S.agrOn || !S.isOwner) return; S.agrOn = true; watchCol("agr", snap => { S.agrs = {}; snap.docs.forEach(d => S.agrs[d.id] = d.data()); render(); }); }
 function agrModal(){ const id = S.agrView; if (!id) return ""; const a = (S.agrs || {})[id] || (id === S.uid ? S.myAgr : null); if (!a) return "";
-  return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html || agrRender(a)}</div>`; }
+  return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="copy">Download a copy</button><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html || agrRender(a)}</div>`; }
 async function agrCountersign(id){
   const j = S.joins[id], a = (S.agrs || {})[id]; if (!j || !a || a.status !== "signed") return;
   const mail = (($("ob_mail_" + id) || {}).value || "").trim().toLowerCase();
@@ -95,6 +95,7 @@ async function agrCountersign(id){
 document.addEventListener("click", async ev => {
   const b = ev.target.closest("[data-agr]"); if (!b) return; ev.preventDefault();
   const [a, id] = b.dataset.agr.split("|");
+  if (a === "copy") { const el = document.getElementById("agrDoc"); if (!el) return; await obSave("Arche-broker-agreement.html", new Blob([`<!doctype html><html><head><meta charset="utf-8"><title>Archē broker agreement</title><style>body{font:14px/1.6 Helvetica,Arial,sans-serif;max-width:820px;margin:32px auto;padding:0 16px;color:#2b2e33}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:6px 8px;text-align:left}h2{margin-top:24px}</style></head><body>${el.outerHTML}</body></html>`], {type: "text/html"})); return; }
   if (a === "print") { document.body.classList.add("printing-agr"); setTimeout(() => { window.print(); document.body.classList.remove("printing-agr"); }, 50); return; }
   if (a === "open") { S.agrOpen = true; render(); scrollTo(0, 0); return; }
   if (a === "close") { S.agrOpen = false; render(); return; }
