@@ -34,3 +34,4 @@ Read this before changing anything. These are business rules set by the owner, M
 
 ## Before you finish a change
 Run the tests for the part you changed (see README) and say what you ran.
+Update `docs/ARCHE-HANDOVER.md` (the file a new chat starts from) and the copy in the claude.ai project at `arche/arche-handover.md` at the end of each working session.
