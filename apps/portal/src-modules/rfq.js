@@ -160,6 +160,7 @@ document.addEventListener("click", async e => {
   if (a === "sent") {
     const s = (r.suppliers || [])[i]; if (!s) return;
     const p = (S.prospects || {})[s.pid]; if (!p || !sqEligible(p, r.category).eligible) { toast("This supplier no longer passes the checks."); return; }
+    if (await gateHold("supplier", id + "-" + s.pid, "sent", `Send quote request ${r.ref} to ${s.org}`, `${r.category || ""} at ${r.airport || ""}`)) return;
     const sup = r.suppliers.slice(); sup[i] = {...s, sentAt: now(), sentBy: S.uid};
     await sqSet(id, {...r, suppliers: sup, log: sqLog(r, "Request sent to " + s.org)}); toast("Marked as sent."); return;
   }
@@ -207,6 +208,7 @@ document.addEventListener("submit", async e => {
       const A = S.sqAward; if (!A || A.id !== id) return;
       if (r.createdBy === S.uid && !S.isOwner) { toast("You made this request, so someone else awards it."); return; }
       const reason = $("rq_ar").value.trim(); if (A.need && !reason) { toast("Write why you chose this supplier."); return; }
+      { const q0 = (r.quotes || []).find(x => x.pid === A.pid) || {}; if (await gateHold("supplier", id + "-award-" + A.pid, "award", `Award ${r.ref} to ${A.org}${q0.usd ? ", " + usd(q0.usd) : ""}`, reason)) return; }
       const q = (r.quotes || []).find(x => x.pid === A.pid); if (!q) return;
       await sqSet(id, {...r, status: "awarded", award: {pid: q.pid, org: q.org, usd: q.usd, reason: reason.slice(0, 300), by: S.uid, at: now()}, log: sqLog(r, `Awarded to ${q.org} for ${usd(q.usd)}${reason ? ": " + reason : ""}`)});
       audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Operations."); return;

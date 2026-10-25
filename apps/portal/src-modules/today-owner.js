@@ -16,6 +16,8 @@ const OWNER_TODO = [
     why:"Brokers sign their agreement in the portal; you countersign there.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0010", sev:"high", title:"Run SQL: trust and performance history (0010)", sql:"0010", table:"member_scores",
     why:"Keeps every weekly snapshot of the matrix for good, readable by owners only. Until it runs, weeks are held safely and move across by themselves.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+  {id:"sql-0011", sev:"high", title:"Run SQL: supervised steps (0011)", sql:"0011", table:"step_requests",
+    why:"Lets supervised members ask for your OK on each step, and you approve or send back on Today. Until it runs, nothing is held back.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
     how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},
@@ -77,6 +79,14 @@ function ownerTodoPanel(){
     ${later.length ? `<details style="margin-top:8px"${S.todoLater ? " open" : ""} data-todo-det="later"><summary class="small"><b>Later (${later.length})</b></summary>${later.map(item).join("")}</details>` : ""}
     ${done.length ? `<details style="margin-top:8px"><summary class="small muted">Done (${done.length})</summary><ul class="small" style="margin:6px 0 0;padding-left:18px">${done.map(({x, s}) => `<li>${esc(x.title)} · <span class="muted">${esc(s.how)}</span>${((S.setup || {}).done || {})[x.id] ? ` <a href="#" data-todo="undo" data-id="${x.id}">undo</a>` : ""}</li>`).join("")}</ul></details>` : ""}</div>`;
 }
+/* Today shows only a prompt; the list itself is kept in Team (Morten, 26 Oct 2026) */
+function ownerTodoPrompt(){
+  if (!S.isOwner || S.preview) return "";
+  setTimeout(todoProbe, 0);
+  const open = OWNER_TODO.filter(x => !todoState(x).done && !x.later); if (!open.length) return "";
+  return `<div class="panel" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Your tasks: ${open.length} need${open.length === 1 ? "s" : ""} you</h2><button class="btn small primary" type="button" data-view="team">Open in Team</button></div>
+    ${open.map(x => `<div class="flag"><span class="sev ${TODO_SEV[x.sev]}" aria-hidden="true"></span><div><p>${esc(x.title)}</p></div></div>`).join("")}</div>`;
+}
 async function todoAct(a, id){
   const x = OWNER_TODO.find(t => t.id === id); if (!x) return;
   if (a === "copy") { try { await navigator.clipboard.writeText(OWNER_SQL[x.sql]); toast("SQL copied. Paste it in Supabase > SQL Editor and press Run."); } catch(e){ toast("Could not copy: open Show the SQL and copy it from there."); } return; }
@@ -116,6 +126,7 @@ function mxScore(id){
     ["Service recovery", 0.15, low.length ? share(low.filter(x => x.a.rec).length, low.length) : null, `${low.filter(x => x.a.rec).length} of ${low.length} low scores recovered`],
     ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned by operations`],
     ["Contracts signed on time", 0.1, issued.length ? 1 - share(unsignedLate.length, issued.length) : null, `${unsignedLate.length} unsigned after 48 h`],
+    ["Notices confirmed", 0.1, typeof noticeScore === "function" ? noticeScore(id).v : null, typeof noticeScore === "function" ? noticeScore(id).txt : ""],
     ["Lead follow-up", 0.15, num(m.recv30) >= 3 ? 1 - Math.min(1, num(m.breaches30) / num(m.recv30)) : null, `${num(m.breaches30)} of ${num(m.recv30)} leads went cold in 30 days`]
   ];
   const agg = L => { const have = L.filter(c => c[2] !== null); const w = have.reduce((a, c) => a + c[1], 0); return {v: w ? Math.round(have.reduce((a, c) => a + c[1] * c[2], 0) / w * 100) : null, n: have.length}; };
@@ -173,13 +184,15 @@ function trustMatrix(){
       return `<tr><td>${esc(x.name)}${x.onb ? "" : ` <span class="chip c-review">Onboarding</span>`}</td><td class="n">${x.trust ?? "–"}</td><td class="n">${x.perf ?? "–"}</td><td>${esc(mxQuad(x))}</td><td>${weak ? `${esc(weak[0])} ${pct(weak[2])}%: <span class="muted">${esc(weak[3])}</span>` : `<span class="muted">No data yet</span>`}</td></tr>`; }).join("")}</tbody></table></div>
     <details class="small" style="margin-top:8px"><summary>Each member's measures</summary>${rows.map(x => `<p style="margin:8px 0 2px"><b>${esc(x.name)}</b> · ${x.trips} trips in 180 days</p><p class="muted" style="margin:0">Trust: ${x.T.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}<br>Performance: ${x.P.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}</p>`).join("")}</details>` : "";
   return `<div class="panel" style="margin-top:16px" id="trustMatrix"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Trust and performance</h2><span class="small muted">${rows.length} member${rows.length === 1 ? "" : "s"} · last 180 days</span></div>
-    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time and lead follow-up. Performance (right) measures results: quotes booked, bookings against the monthly target, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. A snapshot is kept every week, for good${S.mxHist && S.mxHist.weeks.length ? ` (${S.mxHist.weeks.length} week${S.mxHist.weeks.length === 1 ? "" : "s"} since ${fmtD(S.mxHist.weeks[0].at)})` : ""}. Hollow dots have little data yet.</p>
+    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time, notices confirmed within 3 days and lead follow-up. Performance (right) measures results: quotes booked, bookings against the monthly target, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. A snapshot is kept every week, for good${S.mxHist && S.mxHist.weeks.length ? ` (${S.mxHist.weeks.length} week${S.mxHist.weeks.length === 1 ? "" : "s"} since ${fmtD(S.mxHist.weeks[0].at)})` : ""}. Hollow dots have little data yet.</p>
     ${rows.length ? svg : `<div class="empty"><p><b>No active members yet.</b> Members appear here once their agreement is countersigned.</p></div>`}${table}</div>`;
 }
 
 (function(){
   const _vToday = vToday;
-  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'); const out = i < 0 ? ownerTodoPanel() + h : h.slice(0, i) + ownerTodoPanel() + h.slice(i); return out + trustMatrix(); };
+  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'), top = ownerTodoPrompt() + (typeof reqTodayPanel === "function" ? reqTodayPanel() : ""); const out = i < 0 ? top + h : h.slice(0, i) + top + h.slice(i); return out + trustMatrix(); };
+  const _vTeam = vTeam;
+  vTeam = function(){ const h = _vTeam(); if (!S.isOwner || S.preview) return h; const add = ownerTodoPanel() + (typeof supervisionPanel === "function" ? supervisionPanel() : "") + (typeof noticeTeamPanel === "function" ? noticeTeamPanel() : ""), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + add + h.slice(k); };
   document.addEventListener("click", e => { const b = e.target.closest("[data-todo]"); if (!b) return; e.preventDefault(); todoAct(b.dataset.todo, b.dataset.id); });
   document.addEventListener("toggle", e => { if (e.target.dataset && e.target.dataset.todoDet === "later") S.todoLater = e.target.open; }, true);
 })();

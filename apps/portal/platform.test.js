@@ -98,7 +98,7 @@
 
   /* ---------- path → table mapping ---------- */
   const KV = { config: "config", intel: "intel", locks: "locks" };
-  const OWNED = { desk: ["trips", "deals"], status: ["trip_status", "deals"], payouts: ["payouts", "months"], leads: ["leads", "items"], asks: ["questions", "items"] };
+  const OWNED = { desk: ["trips", "deals"], status: ["trip_status", "deals"], payouts: ["payouts", "months"], leads: ["leads", "items"], asks: ["questions", "items"], req: ["step_requests", "items"] };
   const TRAIN = { runs: "training_runs", rp: "roleplay_runs" };
   const PROFILE_COLS = { contractName: "contract_name", role: "role", active: "active", book: "book", supervised: "supervised", base: "base", cert: "cert", since: "since" };
 

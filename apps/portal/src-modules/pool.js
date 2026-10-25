@@ -81,7 +81,7 @@ document.addEventListener("click", async ev => {
   if (a === "add") { S.poolAdd = true; render(); return; }
   if (a === "cancelAdd") { S.poolAdd = false; render(); return; }
   try {
-    if (a === "take") { const ok = await window.__poolTake(key); if (ok) { audit("Enquiry taken", key); toast("It's yours. Contact the client within 15 minutes."); } else toast("Another broker took it first."); render(); return; }
+    if (a === "take") { { const e0 = (S.pool || {})[key] || {}; if (await gateHold("take", key, "take", `Take enquiry: ${poolLegs(e0).replace(/<[^>]+>/g, "")}`, e0.summary || e0.notes || "")) return; } const ok = await window.__poolTake(key); if (ok) { audit("Enquiry taken", key); toast("It's yours. Contact the client within 15 minutes."); } else toast("Another broker took it first."); render(); return; }
     if (a === "trip") { const e = (S.pool || {})[key], c = (S.poolC || {})[key] || {}; if (!e) return;
       S.fromPool = {id: key, at: e.receivedAt};
       openEditor({bid: S.uid, did: "", d: {client: {name: c.name || "", company: c.company || "", email: c.email || "", phone: c.phone || ""}, trip: {legs: (e.legs || []).map(l => ({from: (l.from || "").toUpperCase(), to: (l.to || "").toUpperCase(), date: l.date || "", pax: e.pax || ""})), notes: [e.note, c.message].filter(Boolean).join("\n")}}}); return; }

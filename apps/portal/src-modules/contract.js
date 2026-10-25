@@ -86,7 +86,7 @@ async function agrCountersign(id){
   done.html = agrRender(done);
   try {
     await S.db.doc("agr/" + id).set(done);
-    await S.db.doc("roster/" + id).set({contractName: j.contractName, role: j.role, base: j.base || "", cert: j.cert || "", since: at, active: true, workEmail: mail,
+    await S.db.doc("roster/" + id).set({contractName: j.contractName, role: j.role, base: j.base || "", cert: j.cert || "", since: at, active: true, workEmail: mail, supervised: true,
       onboarding: {assessedAt: (a.assess || {}).at || at, assessedBy: (a.assess || {}).by || S.uid, notes: (a.assess || {}).notes || "", issuedAt: at, agreement: a.version || AGR_VERSION}});
     await S.db.doc("join/" + id).delete();
     audit("Agreement countersigned; onboarding package issued", `${j.contractName} · ${mail}`); toast("Countersigned. Their portal opens with the onboarding package.");

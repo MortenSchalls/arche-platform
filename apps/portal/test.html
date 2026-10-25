@@ -779,7 +779,7 @@ function tripFile(t){
   if (isStaff() && r !== "broker") ops = opsBlock(t);
   return `<div class="panel stack">
     <div class="head" style="margin:0"><div><h2>${esc(c.company || c.name || "New client")}</h2><p class="small muted">${st.ref ? `<span class="mono">${esc(st.ref)}</span> · ` : ""}Broker: ${esc(nm(t.bid))} · Opened ${fmtD(d.created)}</p></div><span class="chip c-${t.stage}">${STAGES[t.stage]}</span></div>
-    ${t.stage === "returned" ? `<div class="note bad"><b>Returned by operations:</b> ${esc(st.note || "See the history below.")}</div>` : ""}
+    ${gateTripNote(t)}${t.stage === "returned" ? `<div class="note bad"><b>Returned by operations:</b> ${esc(st.note || "See the history below.")}</div>` : ""}
     <div class="row"><button class="btn" type="button" data-act="openConf">Charter confirmation${st.ref ? " · " + esc(st.ref) + (st.confRev ? " Rev " + st.confRev : "") : ""}</button>${st.confIssued ? `<span class="chip c-flown">Issued</span>` : (t.d.conf ? `<span class="chip c-review">Draft</span>` : "")}</div>
     ${sigBlock(t)}
     ${locked && mine ? `<p class="lock">This trip is with operations or confirmed. Price, payment and documents are controlled by operations; ask them for any change.</p>` : ""}
@@ -1031,7 +1031,9 @@ async function saveEditor(f){
   if (!prev.created && S.fromLead) { body.prospectId = S.fromLead.pid; }
   if (!prev.created && S.fromPool) { body.poolId = S.fromPool.id; body.enquiryAt = S.fromPool.at; }
   body.history = [...(prev.history || []), {t:now(), by:S.uid, a: prev.created ? (quote.opPrice && quote.opPrice !== (prev.quote || {}).opPrice ? `Quote updated: operator ${usd(quote.opPrice)}, client ${usd(priceOf(quote.opPrice, quote.direct))}` : "Enquiry updated") : "Enquiry opened"}];
-  try { await S.db.collection(`desk/${bid}/deals`).doc(did).set(body); S.editing = false; S.fromLead = null; S.fromPool = null; S.sel = did; S.view = "trips"; render(); toast("Saved"); }
+  try { await S.db.collection(`desk/${bid}/deals`).doc(did).set(body);
+    if (bid === S.uid && quote.opPrice > 0 && gated("quote")) { const fp = `${num(quote.opPrice)}|${num(quote.direct)}`, r = gateReq(S.uid, "quote", did); if (!(r && r.fp === fp && r.status !== "changes")) { try { await gateAsk("quote", did, fp, `${body.client.company || body.client.name || "Client"}: client price ${usd(priceOf(quote.opPrice, quote.direct))}`, `${legs.map(l => l.from + "→" + l.to + (l.date ? " " + l.date : "")).join(", ")}\nOperator ${quote.operator || "?"} ${quote.aircraft || ""}: ${usd(quote.opPrice)} + direct costs ${usd(quote.direct)}`, {tripBid: bid, tripDid: did}); } catch(e){} } }
+    S.editing = false; S.fromLead = null; S.fromPool = null; S.sel = did; S.view = "trips"; render(); toast("Saved"); }
   catch(e){ toast(e.code === "invalid_argument" ? "You do not have permission to save here." : "Could not save. Try again."); }
 }
 
@@ -1100,7 +1102,9 @@ async function act(a, el){
     if (a === "closeEd") { S.editing = false; S.fromLead = null; S.fromPool = null; render(); return; }
     if (a === "addLeg") { const box = $("legs"); box.insertAdjacentHTML("beforeend", legRow({}, box.children.length)); return; }
     if (a === "delLeg") { const box = $("legs"); if (box.children.length > 1) el.closest(".leg").remove(); return; }
-    if (a === "submit") { await deskWrite(t, {stage:"submitted", submittedAt: now()}, "Sent to operations"); toast("Sent to operations"); return; }
+    if (a === "submit") { if (gated("quote") && !(gateReq(S.uid, "quote", t.did) || {}).status) { if (await gateHold("quote", t.did, quoteFp(t), `${(t.d.client || {}).company || (t.d.client || {}).name || "Client"}: client price ${usd(priceOf((t.d.quote || {}).opPrice, (t.d.quote || {}).direct))}`, "", {tripBid: t.bid, tripDid: t.did})) return; }
+      else if (gated("quote")) { const r = gateReq(S.uid, "quote", t.did); if (!(r.status === "approved" && r.fp === quoteFp(t))) { toast(r.status === "pending" ? "Your quote is waiting for the director's OK." : r.status === "changes" ? "The director asked for changes to the quote. Change it and save to ask again." : "The quote changed since the director's OK. Save it to ask again."); return; } }
+      await deskWrite(t, {stage:"submitted", submittedAt: now()}, "Sent to operations"); toast("Sent to operations"); return; }
     if (a === "withdraw") { await deskWrite(t, {stage:"cancelled"}, "Withdrawn by broker"); toast("Trip withdrawn"); return; }
     if (a === "upload") { await uploadDoc(t); return; }
     if (["opsSave","issue","return","clientPaid","operatorPaid","flown","cancelYes"].includes(a) && ownTrip(t)) { toast("Another operations member or the owner must do this on your own trip."); return; }
@@ -1119,8 +1123,8 @@ async function act(a, el){
       await statusWrite(t, patch, "Operations check saved"); toast("Saved"); return;
     }
     if (a === "return") { const n = $("o_note").value.trim(); if (!n) { toast("Write a note to the broker first."); return; } await statusWrite(t, {state:"returned", note:n}, "Returned to broker: " + n); audit("Trip returned to broker", `${nm(t.bid)} · ${n.slice(0, 80)}`); toast("Returned to broker"); return; }
-    if (a === "clientPaid") { if (t.st && t.st.confIssued && !t.st.signed) { toast("Save the signed contract first."); return; } const d = $("o_cpd").value; if (!d) { toast("Enter the date the payment cleared."); return; } await statusWrite(t, {state:"clientPaid", clientPaid:true, clientPaidDate:d}, "Client payment cleared in Paynode"); audit("Client payment recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Client payment recorded"); return; }
-    if (a === "operatorPaid") { const d = $("o_opd").value; if (!d) { toast("Enter the payment date."); return; } await statusWrite(t, {operatorPaid:true, operatorPaidDate:d}, "Operator paid through Paynode"); audit("Operator payment recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Operator payment recorded"); return; }
+    if (a === "clientPaid") { if (t.st && t.st.confIssued && !t.st.signed) { toast("Save the signed contract first."); return; } const d = $("o_cpd").value; if (!d) { toast("Enter the date the payment cleared."); return; } if (await gateHold("pay", t.did + "-client", "client|" + d, `Record client payment: ${(t.st || {}).ref || t.did}, ${usd((t.st || {}).price || 0)} cleared ${d}`, "", {tripBid: t.bid, tripDid: t.did})) return; await statusWrite(t, {state:"clientPaid", clientPaid:true, clientPaidDate:d}, "Client payment cleared in Paynode"); audit("Client payment recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Client payment recorded"); return; }
+    if (a === "operatorPaid") { const d = $("o_opd").value; if (!d) { toast("Enter the payment date."); return; } if (await gateHold("pay", t.did + "-operator", "operator|" + d, `Record operator payment: ${(t.st || {}).ref || t.did}, ${usd((t.st || {}).opPrice || 0)} paid ${d}`, "", {tripBid: t.bid, tripDid: t.did})) return; await statusWrite(t, {operatorPaid:true, operatorPaidDate:d}, "Operator paid through Paynode"); audit("Operator payment recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Operator payment recorded"); return; }
     if (a === "flown") { const d = $("o_fl").value; if (!d) { toast("Enter the date of the last leg."); return; } await statusWrite(t, {state:"flown", flownDate:d}, "Trip flown"); audit("Flight recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Flight recorded. Commission updated."); return; }
     if (a === "cancelAsk") { $("cancelBox").innerHTML = `<div class="confirm"><span class="small">Cancel this trip? Any refund is handled in Paynode under the booking terms.</span><button class="btn small danger" type="button" data-act="cancelYes">Cancel trip</button><button class="btn small" type="button" data-act="cancelNo">Keep it</button></div>`; return; }
     if (a === "cancelNo") { $("cancelBox").innerHTML = ""; return; }
@@ -2666,7 +2670,8 @@ document.addEventListener("submit", async e => {
   S.dirty.clear();
   if (e.target.id === "edForm") { saveEditor(e.target); return; }
   if (e.target.id === "chatForm") { const q = $("chatIn").value.trim(); if (!q || S.chatBusy) return; $("chatIn").value = ""; askChat(q); return; }
-  if (e.target.id === "logForm") { const out = $("lg_out").value; if ($("lg_note").value.trim().length < 15) { toast("Write what happened in at least 15 characters: who you reached by role, and what was agreed."); return; } try { await writeLead(S.pSel, {status: out}, {channel:$("lg_ch").value, outcome: out, note:$("lg_note").value.trim()}); toast(out === "dnc" ? "Marked Do not contact" : "Contact logged"); } catch(err){ toast("Could not save."); } return; }
+  if (e.target.id === "logForm") { const out = $("lg_out").value; if ($("lg_note").value.trim().length < 15) { toast("Write what happened in at least 15 characters: who you reached by role, and what was agreed."); return; }
+    { const L = (S.leads || {})[S.pSel]; if (L && !(L.log || []).length && await gateHold("contact", S.pSel, "first", `First contact: ${L.org || "lead"}`, `${$("lg_ch").value}: ${$("lg_note").value.trim()}`)) return; } try { await writeLead(S.pSel, {status: out}, {channel:$("lg_ch").value, outcome: out, note:$("lg_note").value.trim()}); toast(out === "dnc" ? "Marked Do not contact" : "Contact logged"); } catch(err){ toast("Could not save."); } return; }
   if (e.target.id === "myForm") { await saveMyProspect(); return; }
   if (e.target.id === "askForm") { const q = $("askIn").value.trim(); if (!q || S.askBusy) return; $("askIn").value = ""; askQuestion(q); return; }
   if (e.target.id === "faqForm") { try { await S.db.doc("faq/" + e.target.dataset.fid).update({q: $("fq_q").value.trim(), a: $("fq_a").value.trim(), editedAt: now()}); S.faqEdit = null; toast("FAQ saved"); render(); } catch(err){ toast("Could not save."); } return; }
@@ -3228,7 +3233,7 @@ function trTeamPanel(){
   return `<div class="panel tbl"><h2>Team training</h2><table class="small"><thead><tr><th scope=col>Person</th><th scope=col class="n">Runs done</th><th scope=col class="n">Average</th><th scope=col class="n">Exercises passed (80+)</th><th scope=col>Last</th></tr></thead><tbody>${rows.map(x => `<tr><td>${esc(nm(x.bid))}</td><td class="n">${x.n}</td><td class="n">${x.avg ?? "–"}</td><td class="n">${x.sc} of ${TR_SC.length}</td><td>${x.last ? fmtD(x.last) : "–"}</td></tr>`).join("") || `<tr><td colspan="5" class="muted">No training yet.</td></tr>`}</tbody></table></div>`;
 }
 async function trLoadAll(){ if (S.trLoading) return; S.trLoading = true; const out = {};
-  for (const bid of [...new Set([...Object.keys(S.roster), S.uid])]) { try { const q = await S.db.collection(`train/${bid}/runs`).get(); if (q.docs.length) { out[bid] = {}; q.docs.forEach(d => { if (d.id !== "course" && d.id !== "onboarding") out[bid][d.id] = d.data(); }); } } catch(e){} }
+  for (const bid of [...new Set([...Object.keys(S.roster), S.uid])]) { try { const q = await S.db.collection(`train/${bid}/runs`).get(); if (q.docs.length) { out[bid] = {}; q.docs.forEach(d => { if (d.id !== "course" && d.id !== "onboarding" && !d.id.startsWith("notice-")) out[bid][d.id] = d.data(); }); } } catch(e){} }
   S.trAll = out; S.trLoading = false; render(); }
 
 async function trAct(a, el){
@@ -4057,6 +4062,7 @@ document.addEventListener("click", async e => {
   if (a === "sent") {
     const s = (r.suppliers || [])[i]; if (!s) return;
     const p = (S.prospects || {})[s.pid]; if (!p || !sqEligible(p, r.category).eligible) { toast("This supplier no longer passes the checks."); return; }
+    if (await gateHold("supplier", id + "-" + s.pid, "sent", `Send quote request ${r.ref} to ${s.org}`, `${r.category || ""} at ${r.airport || ""}`)) return;
     const sup = r.suppliers.slice(); sup[i] = {...s, sentAt: now(), sentBy: S.uid};
     await sqSet(id, {...r, suppliers: sup, log: sqLog(r, "Request sent to " + s.org)}); toast("Marked as sent."); return;
   }
@@ -4104,6 +4110,7 @@ document.addEventListener("submit", async e => {
       const A = S.sqAward; if (!A || A.id !== id) return;
       if (r.createdBy === S.uid && !S.isOwner) { toast("You made this request, so someone else awards it."); return; }
       const reason = $("rq_ar").value.trim(); if (A.need && !reason) { toast("Write why you chose this supplier."); return; }
+      { const q0 = (r.quotes || []).find(x => x.pid === A.pid) || {}; if (await gateHold("supplier", id + "-award-" + A.pid, "award", `Award ${r.ref} to ${A.org}${q0.usd ? ", " + usd(q0.usd) : ""}`, reason)) return; }
       const q = (r.quotes || []).find(x => x.pid === A.pid); if (!q) return;
       await sqSet(id, {...r, status: "awarded", award: {pid: q.pid, org: q.org, usd: q.usd, reason: reason.slice(0, 300), by: S.uid, at: now()}, log: sqLog(r, `Awarded to ${q.org} for ${usd(q.usd)}${reason ? ": " + reason : ""}`)});
       audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Operations."); return;
@@ -4437,7 +4444,7 @@ async function agrCountersign(id){
   done.html = agrRender(done);
   try {
     await S.db.doc("agr/" + id).set(done);
-    await S.db.doc("roster/" + id).set({contractName: j.contractName, role: j.role, base: j.base || "", cert: j.cert || "", since: at, active: true, workEmail: mail,
+    await S.db.doc("roster/" + id).set({contractName: j.contractName, role: j.role, base: j.base || "", cert: j.cert || "", since: at, active: true, workEmail: mail, supervised: true,
       onboarding: {assessedAt: (a.assess || {}).at || at, assessedBy: (a.assess || {}).by || S.uid, notes: (a.assess || {}).notes || "", issuedAt: at, agreement: a.version || AGR_VERSION}});
     await S.db.doc("join/" + id).delete();
     audit("Agreement countersigned; onboarding package issued", `${j.contractName} · ${mail}`); toast("Countersigned. Their portal opens with the onboarding package.");
@@ -4724,7 +4731,7 @@ document.addEventListener("click", async ev => {
   if (a === "add") { S.poolAdd = true; render(); return; }
   if (a === "cancelAdd") { S.poolAdd = false; render(); return; }
   try {
-    if (a === "take") { const ok = await window.__poolTake(key); if (ok) { audit("Enquiry taken", key); toast("It's yours. Contact the client within 15 minutes."); } else toast("Another broker took it first."); render(); return; }
+    if (a === "take") { { const e0 = (S.pool || {})[key] || {}; if (await gateHold("take", key, "take", `Take enquiry: ${poolLegs(e0).replace(/<[^>]+>/g, "")}`, e0.summary || e0.notes || "")) return; } const ok = await window.__poolTake(key); if (ok) { audit("Enquiry taken", key); toast("It's yours. Contact the client within 15 minutes."); } else toast("Another broker took it first."); render(); return; }
     if (a === "trip") { const e = (S.pool || {})[key], c = (S.poolC || {})[key] || {}; if (!e) return;
       S.fromPool = {id: key, at: e.receivedAt};
       openEditor({bid: S.uid, did: "", d: {client: {name: c.name || "", company: c.company || "", email: c.email || "", phone: c.phone || ""}, trip: {legs: (e.legs || []).map(l => ({from: (l.from || "").toUpperCase(), to: (l.to || "").toUpperCase(), date: l.date || "", pax: e.pax || ""})), notes: [e.note, c.message].filter(Boolean).join("\n")}}}); return; }
@@ -4758,13 +4765,214 @@ document.addEventListener("submit", async ev => {
   catch(err){ toast(err.code === "permission_denied" || err.code === "unknown_path" ? "The enquiry pool is not set up yet (run 0008 in Supabase)." : "Could not save. Try again."); }
 });
 
+/* ---------- Supervised steps (Morten, 26 Oct 2026) ----------
+   While a member is supervised, each gated step waits for the owner's OK before it moves on. The owner releases
+   each step separately per member in Team once satisfied ("let loose"); supervision can be switched back on at any
+   time. Requests live in step_requests (SQL 0011): the member can ask and amend while pending; only an owner decides.
+   Until the SQL has run, nothing is gated and the owner's task list shows the SQL step. */
+const GATES = {
+  quote:    {who:"broker", label:"Quote to client", desc:"Each quote waits for your OK before it goes to the client, and cannot go to operations until approved."},
+  take:     {who:"broker", label:"Taking an enquiry", desc:"Taking an enquiry from the pool waits for your OK. Your OK assigns it to them."},
+  contact:  {who:"broker", label:"First contact with a new prospect", desc:"The planned first contact with each new lead (channel and message) waits for your OK."},
+  pay:      {who:"ops", label:"Recording payments", desc:"Client and operator payments are recorded only after your OK."},
+  supplier: {who:"ops", label:"Supplier quotes", desc:"Sending a quote request to a supplier, and awarding a quote, wait for your OK."}
+};
+const GATE_KEYS = Object.keys(GATES);
+if (!S.reqs) S.reqs = {};
+
+function rosterOf(uid){ return (S.roster || {})[uid] || (uid === S.uid ? S.myRoster : null) || {}; }
+function gateApplies(key, uid){ const r = rosterOf(uid), g = GATES[key]; return g.who === "ops" ? r.role === "ops" : (r.role === "broker" || r.role === "consultant" || !!r.book); }
+function gated(key, uid = S.uid){
+  if (!S.reqReady || S.preview) return false;
+  const r = rosterOf(uid); if (r.role === "owner" || (uid === S.uid && S.isOwner)) return false;
+  return !!r.supervised && !(r.released || {})[key] && gateApplies(key, uid);
+}
+function reqList(uid){ return Object.entries(S.reqs[uid] || {}).map(([id, d]) => ({id, uid, ...d})).sort((a, b) => (a.at < b.at ? 1 : -1)); }
+function gateReq(uid, key, ref){ return reqList(uid).find(r => r.key === key && r.ref === ref) || null; }
+
+/* subscribe: members to their own requests, owners to everyone's */
+function gateWatch(){
+  if (!S.db || !S.uid || !S.role || S.role === "loading" || S.role === "pending") return;
+  const ids = S.isOwner ? Object.keys(S.roster || {}).filter(id => id !== S.uid) : [S.uid];
+  ids.forEach(uid => { const path = `req/${uid}/items`; if (S.subs[path]) return;
+    S.subs[path] = S.db.collection(path).onSnapshot(snap => { const o = {}; snap.docs.forEach(d => o[d.id] = d.data()); S.reqs[uid] = o; if (!S.reqReady) S.reqReady = true; render(); }, e => { S.reqErr = e && e.code; }); });
+}
+setInterval(gateWatch, 2000);
+
+async function gateAsk(key, ref, fp, title, detail, extra = {}){
+  const cur = gateReq(S.uid, key, ref), id = cur && cur.status === "pending" ? cur.id : `${key}-${String(ref).replace(/[^\w-]/g, "").slice(0, 40)}-${Date.now().toString(36)}`;
+  const body = {key, ref, fp, title, detail, status: "pending", at: now(), by: S.uid, ...extra};
+  await S.db.doc(`req/${S.uid}/items/${id}`).set(body);
+  S.reqs[S.uid] = {...(S.reqs[S.uid] || {}), [id]: body};
+  audit("Asked for the director's OK", `${GATES[key].label}: ${title}`);
+}
+/* true = stop here (the step waits for the owner); false = go ahead */
+async function gateHold(key, ref, fp, title, detail, extra){
+  if (!gated(key)) return false;
+  const r = gateReq(S.uid, key, ref);
+  if (r && r.status === "approved" && r.fp === fp) return false;
+  if (r && r.status === "pending" && r.fp === fp) { toast("Still waiting for the director's OK."); return true; }
+  try { await gateAsk(key, ref, fp, title, detail, extra); toast("Sent to the director for OK. You will see the answer here."); } catch(e){ toast("Could not send the request. Try again."); }
+  render(); return true;
+}
+
+/* member side: what the director said, shown where the work is */
+function gateLine(r){
+  if (!r) return "";
+  if (r.status === "pending") return `<div class="note info small"><b>Waiting for the director's OK:</b> ${esc(GATES[r.key].label)}. ${r.key === "quote" ? "Do not send the quote to the client yet." : ""} Asked ${fmtT(r.at)}.</div>`;
+  if (r.status === "approved") return `<div class="note ok small"><b>Approved</b> by the director ${fmtT(r.decidedAt)}${r.note ? `: ${esc(r.note)}` : "."}</div>`;
+  return `<div class="note bad small"><b>Changes asked</b> by the director ${fmtT(r.decidedAt)}: ${esc(r.note || "")}. Make the change and ask again.</div>`;
+}
+const quoteFp = t => { const q = t.d.quote || {}; return `${num(q.opPrice)}|${num(q.direct)}`; };
+function gateTripNote(t){
+  if (!t) return "";
+  const out = [];
+  if (gated("quote", t.bid) || gateReq(t.bid, "quote", t.did)) { const r = gateReq(t.bid, "quote", t.did); if (r && (r.status !== "approved" || r.fp === quoteFp(t))) out.push(gateLine(r)); else if (num((t.d.quote || {}).opPrice) && gated("quote", t.bid)) out.push(`<div class="note info small"><b>Quote needs the director's OK</b> before it goes to the client. Save the quote to ask.</div>`); }
+  ["client", "operator"].forEach(w => { const r = gateReq(S.uid, "pay", t.did + "-" + w); if (r && r.status !== "approved") out.push(gateLine(r)); });
+  return out.join("");
+}
+function myReqPanel(){
+  const mine = reqList(S.uid).filter(r => r.status !== "approved" || Date.now() - Date.parse(r.decidedAt || 0) < 3 * 864e5).slice(0, 8);
+  const sup = GATE_KEYS.filter(k => gated(k));
+  if (!mine.length && !sup.length) return "";
+  return `<div class="panel" style="margin-bottom:16px"><h2>Supervised steps</h2><p class="small muted">${sup.length ? `Until the director releases them, these steps wait for an OK: ${sup.map(k => esc(GATES[k].label.toLowerCase())).join(", ")}.` : "The director has released all your steps."}</p>
+    ${mine.map(r => `<div class="flag"><span class="sev ${r.status === "pending" ? "med" : r.status === "approved" ? "low" : "high"}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(GATES[r.key].label)}</b>: ${esc(r.title)}</p>${gateLine(r)}</div></div>`).join("")}</div>`;
+}
+
+/* owner side: decide on Today */
+function reqPending(){ return Object.keys(S.reqs).flatMap(uid => reqList(uid)).filter(r => r.status === "pending").sort((a, b) => (a.at > b.at ? 1 : -1)); }
+function reqTodayPanel(){
+  if (!S.isOwner || S.preview || !S.reqReady) return "";
+  const ps = reqPending(); if (!ps.length) return "";
+  return `<div class="panel" style="margin-bottom:16px" id="reqPanel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Requests waiting for your OK (${ps.length})</h2><button class="btn small" type="button" data-view="team">Supervision in Team</button></div>
+    ${ps.map(r => `<div class="flag"><span class="sev med" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(nm(r.uid))}</b> · ${esc(GATES[r.key].label)} · <span class="muted">${fmtT(r.at)}</span></p><p>${esc(r.title)}</p>${r.detail ? `<p class="small muted" style="white-space:pre-wrap">${esc(r.detail)}</p>` : ""}
+      ${r.tripBid && r.tripDid ? `<p class="small"><a href="#" data-open="${r.tripBid}|${r.tripDid}" data-goto="trips">Open the trip</a></p>` : ""}
+      <label class="f" for="rq_n_${r.id}" style="margin-top:6px">Note to ${esc(nm(r.uid))} (needed when asking for changes)<input id="rq_n_${r.id}"></label>
+      <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-gate="ok" data-uid="${r.uid}" data-id="${r.id}">Approve</button><button class="btn small" type="button" data-gate="changes" data-uid="${r.uid}" data-id="${r.id}">Ask for changes</button></div></div></div>`).join("")}</div>`;
+}
+async function reqDecide(uid, id, ok){
+  const r = (S.reqs[uid] || {})[id]; if (!r) return;
+  const note = (($("rq_n_" + id) || {}).value || "").trim();
+  if (!ok && note.length < 5) { toast("Write what should change, so they can fix it."); return; }
+  const body = {...r, status: ok ? "approved" : "changes", decidedAt: now(), decidedBy: S.uid, note};
+  try {
+    if (ok && r.key === "take") {
+      let e = (S.pool || {})[r.ref]; if (!e) { try { const d = await S.db.doc("pool/" + r.ref).get(); e = d.exists ? d.data() : null; } catch(x){} }
+      if (!e || e.status !== "released") { toast("That enquiry is no longer open. Asking for changes instead is clearer for them."); return; }
+      await S.db.doc("pool/" + r.ref).set({...e, status: "claimed", claimedBy: uid, claimedAt: now(), how: "approved", assignedBy: S.uid});
+    }
+    await S.db.doc(`req/${uid}/items/${id}`).set(body);
+    S.reqs[uid] = {...(S.reqs[uid] || {}), [id]: body};
+    audit(ok ? "Supervised step approved" : "Supervised step: changes asked", `${nm(uid)} · ${GATES[r.key].label}: ${r.title}${note ? " · " + note : ""}`);
+    toast(ok ? (r.key === "take" ? "Approved and assigned." : "Approved.") : "Sent back with your note."); render();
+  } catch(e){ toast("Could not save. Try again."); }
+}
+
+/* owner side: supervision and release in Team */
+function gateStats(uid, key){ const xs = reqList(uid).filter(r => r.key === key && r.status !== "pending"); return {ok: xs.filter(r => r.status === "approved").length, ch: xs.filter(r => r.status === "changes").length}; }
+function supervisionPanel(){
+  const ros = Object.entries(S.roster || {}).filter(([id, p]) => id !== S.uid && p.role !== "owner" && p.active !== false);
+  const head = `<div class="panel tbl" style="margin-bottom:16px" id="supPanel"><h2>Supervision</h2><p class="small muted">While someone is supervised, each step below waits for your OK on Today. Release a step when you are satisfied; you can supervise it again at any time. New people start supervised. The count shows your decisions so far: approved first time, and sent back for changes.</p>
+    ${S.reqReady ? "" : `<div class="note info small">Step approval starts once the SQL step "supervised steps (0011)" above has run. Until then nothing is held back.</div>`}`;
+  if (!ros.length) return head + `<p class="small muted">Nobody approved yet.</p></div>`;
+  return head + `<table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th>${GATE_KEYS.map(k => `<th scope=col>${esc(GATES[k].label)}</th>`).join("")}</tr></thead><tbody>
+    ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Operations" : p.role === "consultant" ? "Charter consultant" : "Broker")}</span></td>
+      <td><label class="check" style="margin:0"><input type="checkbox" data-supall="${id}" ${p.supervised ? "checked" : ""}><span class="small">${p.supervised ? "Yes" : "No"}</span></label></td>
+      ${GATE_KEYS.map(k => { if (!gateApplies(k, id)) return `<td class="muted">–</td>`; const s = gateStats(id, k), rel = !!(p.released || {})[k];
+        return `<td>${!p.supervised ? `<span class="chip c-flown">Free</span>` : rel ? `<span class="chip c-flown">Released</span>` : `<span class="chip c-review">Needs your OK</span>`}<br><span class="muted">${s.ok} approved · ${s.ch} changes</span>${p.supervised ? `<br><button class="btn small" type="button" data-gate="${rel ? "resup" : "release"}" data-uid="${id}" data-key="${k}">${rel ? "Supervise again" : "Release"}</button>` : ""}</td>`; }).join("")}</tr>`).join("")}
+  </tbody></table><details class="small" style="margin-top:8px"><summary>What each step means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}</ul></details></div>`;
+}
+async function gateRelease(uid, key, on){
+  const p = (S.roster || {})[uid]; if (!p) return;
+  const released = {...(p.released || {})}; if (on) released[key] = {at: now(), by: S.uid}; else delete released[key];
+  try { await S.db.doc("roster/" + uid).update({released}); p.released = released; audit(on ? "Supervised step released" : "Supervised step supervised again", `${nm(uid)} · ${GATES[key].label}`); toast(on ? "Released." : "Supervised again."); render(); }
+  catch(e){ toast("Could not save."); }
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-gate]"); if (!b || !S.isOwner) return; e.preventDefault();
+  const a = b.dataset.gate;
+  if (a === "ok" || a === "changes") reqDecide(b.dataset.uid, b.dataset.id, a === "ok");
+  else if (a === "release" || a === "resup") gateRelease(b.dataset.uid, b.dataset.key, a === "release");
+});
+/* member's dashboard: their supervised steps and the director's answers */
+(function(){ const _vHome = vHome; vHome = function(){ const h = _vHome(), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + myReqPanel() + h.slice(k); }; })();
+document.addEventListener("change", async e => {
+  const id = e.target.dataset && e.target.dataset.supall; if (!id || !S.isOwner) return;
+  try { await S.db.doc("roster/" + id).update({supervised: e.target.checked}); audit(e.target.checked ? "Supervision started" : "Supervision ended: all steps free", nm(id)); toast("Saved."); } catch(err){ toast("Could not change."); }
+});
+
+/* ---------- Notices of new features and changed procedures (Morten, 26 Oct 2026) ----------
+   Every new feature or revised procedure ships with a notice here. It shows at the top of each member's dashboard
+   the first time they sign in after the release and stays until they confirm they have read it. The confirmation is
+   kept in their own training record (train/<uid>/runs/notice-<id>), listed for the owner in Team, and counts in the
+   trust matrix ("Notices confirmed within 3 days"). Add new notices at the top; never change an issued one, issue a
+   new one instead. Owners do not get notices. */
+const NOTICES = [
+  {id:"2026-10-26-supervised", date:"2026-10-26", to:["broker","ops"], title:"Supervised steps: some steps now wait for the director's OK",
+    body:["While you are supervised, these steps wait for the director's OK before they move on. Brokers: sending a quote to a client (and to operations), taking an enquiry from the pool, and your first contact with a new prospect. Operations: recording client and operator payments, and sending or awarding supplier quotes.",
+      "The portal asks for you when you take the step. You see the answer on your dashboard and on the trip: approved, or changes asked with a note. Do not send a quote to the client before it is approved.",
+      "The director releases each step separately when satisfied. New people start supervised."]},
+  {id:"2026-10-26-notices", date:"2026-10-26", to:["broker","ops"], title:"Notices like this one: read and confirm",
+    body:["Every new feature or change to a procedure appears here the first time you sign in after it is released. Read it and press \"I have read this\".",
+      "Your confirmations are recorded and seen by the director. Confirming within 3 days counts towards your trust score."]}
+];
+const NOTICE_DAYS = 3;
+if (!S.noticeRead) S.noticeRead = {};
+const noticeFor = (n, role) => n.to.includes("all") || n.to.includes(role === "consultant" ? "broker" : role);
+function noticeRole(uid){ const r = rosterOf(uid); return r.role === "ops" ? "ops" : r.role === "owner" ? "owner" : "broker"; }
+/* notices a member must confirm: issued for their role; those issued before they joined still apply (they are the current procedures) */
+function noticesFor(uid){ const role = noticeRole(uid); return role === "owner" ? [] : NOTICES.filter(n => noticeFor(n, role)); }
+function noticeWatch(){
+  if (!S.db || !S.uid || !S.role || ["loading", "pending"].includes(S.role)) return;
+  const ids = S.isOwner ? Object.keys(S.roster || {}).filter(id => id !== S.uid) : [S.uid];
+  ids.forEach(uid => { const path = `train/${uid}/runs`; const key = "nt:" + path; if (S.subs[key]) return;
+    S.subs[key] = S.db.collection(path).onSnapshot(snap => { const o = {}; snap.docs.forEach(d => { if (d.id.startsWith("notice-")) o[d.id.slice(7)] = d.data(); }); S.noticeRead[uid] = o; render(); }, () => {}); });
+}
+setInterval(noticeWatch, 2000);
+function noticePanel(){
+  if (S.isOwner || S.preview || !S.noticeRead[S.uid]) return "";
+  const open = noticesFor(S.uid).filter(n => !S.noticeRead[S.uid][n.id]); if (!open.length) return "";
+  return `<div class="panel stack" style="margin-bottom:16px;border-left:4px solid var(--steel)" id="noticePanel"><h2 style="margin:0">New: please read and confirm (${open.length})</h2>
+    ${open.map(n => `<div class="stack" style="border-top:1px solid var(--line);padding-top:10px"><p style="margin:0"><b>${esc(n.title)}</b> <span class="small muted">· ${fmtD(n.date)}</span></p>${n.body.map(x => `<p class="small" style="margin:0">${esc(x)}</p>`).join("")}
+      <div class="row"><button class="btn small primary" type="button" data-notice="${n.id}">I have read this</button></div></div>`).join("")}</div>`;
+}
+async function noticeConfirm(id){
+  const n = NOTICES.find(x => x.id === id); if (!n) return;
+  const body = {notice: id, title: n.title, issued: n.date, readAt: now()};
+  try { await S.db.doc(`train/${S.uid}/runs/notice-${id}`).set(body); S.noticeRead[S.uid] = {...(S.noticeRead[S.uid] || {}), [id]: body}; audit("Notice confirmed", n.title); toast("Thank you. Confirmed."); render(); }
+  catch(e){ toast("Could not save. Try again."); }
+}
+document.addEventListener("click", e => { const b = e.target.closest("[data-notice]"); if (!b) return; e.preventDefault(); noticeConfirm(b.dataset.notice); });
+
+/* due date: 3 days after the later of the issue date and the day the member joined */
+function noticeDue(n, uid){ const since = Date.parse(rosterOf(uid).since || 0) || 0; return Math.max(Date.parse(n.date + "T00:00:00Z"), since) + NOTICE_DAYS * 864e5; }
+/* trust measure: confirmed within 3 days, out of the notices now due */
+function noticeScore(uid){
+  const read = S.noticeRead[uid]; if (!read) return {v: null, txt: "not loaded"};
+  const due = noticesFor(uid).filter(n => read[n.id] || Date.now() > noticeDue(n, uid));
+  const onTime = due.filter(n => read[n.id] && Date.parse(read[n.id].readAt) <= noticeDue(n, uid));
+  return {v: due.length ? onTime.length / due.length : null, txt: `${onTime.length} of ${due.length} confirmed within ${NOTICE_DAYS} days`};
+}
+/* owner: who has read what (Team) */
+function noticeTeamPanel(){
+  const ros = Object.entries(S.roster || {}).filter(([id, p]) => id !== S.uid && p.role !== "owner" && p.active !== false);
+  if (!ros.length) return "";
+  return `<div class="panel tbl" style="margin-bottom:16px" id="noticeTeam"><h2>Notices read</h2><p class="small muted">Each new feature or changed procedure is shown to the people it concerns until they confirm. Confirming within ${NOTICE_DAYS} days counts in the trust matrix.</p>
+    <table class="small"><thead><tr><th scope=col>Notice</th>${ros.map(([id, p]) => `<th scope=col>${esc(p.contractName || nm(id))}</th>`).join("")}</tr></thead><tbody>
+    ${NOTICES.map(n => `<tr><td><b>${esc(n.title)}</b><br><span class="muted">${fmtD(n.date)}</span></td>${ros.map(([id]) => { if (!noticesFor(id).includes(n)) return `<td class="muted">–</td>`; const r = (S.noticeRead[id] || {})[n.id];
+      return `<td>${r ? `<span class="chip ${Date.parse(r.readAt) <= noticeDue(n, id) ? "c-flown" : "c-review"}">Read</span><br><span class="muted">${fmtT(r.readAt)}</span>` : Date.now() > noticeDue(n, id) ? `<span class="chip c-returned">Overdue</span>` : `<span class="chip c-enquiry">Not yet</span>`}</td>`; }).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+(function(){
+  const _vHome = vHome; vHome = function(){ const h = _vHome(), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + noticePanel() + h.slice(k); };
+})();
+
 /* ---------- Owner to-do and trust / performance matrix on Today (Morten, 26 Oct 2026) ----------
    The portal is the owner's true source. Every step only the owner can do (SQL to run in Supabase, settings in
    Vercel or GoDaddy, details to fill in) is listed here. Steps the portal can check are ticked by themselves;
    the rest the owner ticks when done (kept in config/setup). New steps are added to OWNER_TODO with each release.
    The matrix places every member by house-rule trust (vertical) and actual results (horizontal), recalculated
    from live data on every visit, with a weekly snapshot in intel/matrix so movement over time shows. */
-const OWNER_SQL = {"0008": "-- Enquiry pool (Morten, 24 Oct 2026): every charter enquiry (website, charter email, phone) reaches the owner first.\n-- The owner releases it to all brokers (first come, first served) or assigns it to one broker, and can reassign at any time.\n-- enquiry_pool: the trip summary everyone in the pool may see. enquiry_contacts: the client's details, only for\n-- the broker who has the enquiry, and for owner and operations.\ncreate table if not exists public.enquiry_pool     (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\ncreate table if not exists public.enquiry_contacts (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.enquiry_pool enable row level security;\nalter table public.enquiry_contacts enable row level security;\nrevoke all on public.enquiry_pool from anon;\nrevoke all on public.enquiry_contacts from anon;\n\ndrop policy if exists pool_owner on public.enquiry_pool;\ndrop policy if exists pool_staff_read on public.enquiry_pool;\ndrop policy if exists pool_member_read on public.enquiry_pool;\ndrop policy if exists pool_member_take on public.enquiry_pool;\ncreate policy pool_owner on public.enquiry_pool for all using (public.is_owner()) with check (public.is_owner());\ncreate policy pool_staff_read on public.enquiry_pool for select using (public.is_staff());\n-- brokers see enquiries that are open to everyone, and their own\ncreate policy pool_member_read on public.enquiry_pool for select using (public.is_member() and (data->>'status' = 'released' or data->>'claimedBy' = auth.uid()::text));\n-- first come, first served: a broker may only turn an open enquiry into one taken by themselves; the row lock makes the first one win\ncreate policy pool_member_take on public.enquiry_pool for update using (public.is_member() and data->>'status' = 'released') with check (data->>'status' = 'claimed' and data->>'claimedBy' = auth.uid()::text);\n\ndrop policy if exists poolc_owner on public.enquiry_contacts;\ndrop policy if exists poolc_staff_read on public.enquiry_contacts;\ndrop policy if exists poolc_taker_read on public.enquiry_contacts;\ncreate policy poolc_owner on public.enquiry_contacts for all using (public.is_owner()) with check (public.is_owner());\ncreate policy poolc_staff_read on public.enquiry_contacts for select using (public.is_staff());\ncreate policy poolc_taker_read on public.enquiry_contacts for select using (public.is_member() and exists (select 1 from public.enquiry_pool p where p.id = enquiry_contacts.id and p.data->>'claimedBy' = auth.uid()::text));\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'enquiry_pool') then\n    alter publication supabase_realtime add table public.enquiry_pool;\n  end if;\nend $$;\n", "0009": "-- Agreements signed in the portal (Morten, 24 Oct 2026): nothing is sent as a file by email.\n-- The owner sends the agreement after a passed assessment; the person reads it, fills in their details and signs in the\n-- portal; the owner countersigns, which also opens the portal and issues the onboarding package.\n-- One row per person (id = their user id). The person can read their own row and can only turn \"sent\" into \"signed\".\ncreate table if not exists public.agreements (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.agreements enable row level security;\nrevoke all on public.agreements from anon;\n\ndrop policy if exists agr_owner on public.agreements;\ndrop policy if exists agr_staff_read on public.agreements;\ndrop policy if exists agr_self_read on public.agreements;\ndrop policy if exists agr_self_sign on public.agreements;\ncreate policy agr_owner on public.agreements for all using (public.is_owner()) with check (public.is_owner());\ncreate policy agr_staff_read on public.agreements for select using (public.is_staff());\ncreate policy agr_self_read on public.agreements for select using (id = auth.uid()::text);\ncreate policy agr_self_sign on public.agreements for update using (id = auth.uid()::text and data->>'status' = 'sent') with check (id = auth.uid()::text and data->>'status' = 'signed');\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'agreements') then\n    alter publication supabase_realtime add table public.agreements;\n  end if;\nend $$;\n", "0010": "-- Trust and performance history (Morten, 26 Oct 2026): one row per week, kept for good, never trimmed.\n-- Each row holds every member's trust and performance score that week. Owner only: members and operations cannot read it.\ncreate table if not exists public.member_scores (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.member_scores enable row level security;\nrevoke all on public.member_scores from anon;\ndrop policy if exists scores_owner on public.member_scores;\ncreate policy scores_owner on public.member_scores for all using (public.is_owner()) with check (public.is_owner());\n"};
+const OWNER_SQL = {"0008": "-- Enquiry pool (Morten, 24 Oct 2026): every charter enquiry (website, charter email, phone) reaches the owner first.\n-- The owner releases it to all brokers (first come, first served) or assigns it to one broker, and can reassign at any time.\n-- enquiry_pool: the trip summary everyone in the pool may see. enquiry_contacts: the client's details, only for\n-- the broker who has the enquiry, and for owner and operations.\ncreate table if not exists public.enquiry_pool     (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\ncreate table if not exists public.enquiry_contacts (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.enquiry_pool enable row level security;\nalter table public.enquiry_contacts enable row level security;\nrevoke all on public.enquiry_pool from anon;\nrevoke all on public.enquiry_contacts from anon;\n\ndrop policy if exists pool_owner on public.enquiry_pool;\ndrop policy if exists pool_staff_read on public.enquiry_pool;\ndrop policy if exists pool_member_read on public.enquiry_pool;\ndrop policy if exists pool_member_take on public.enquiry_pool;\ncreate policy pool_owner on public.enquiry_pool for all using (public.is_owner()) with check (public.is_owner());\ncreate policy pool_staff_read on public.enquiry_pool for select using (public.is_staff());\n-- brokers see enquiries that are open to everyone, and their own\ncreate policy pool_member_read on public.enquiry_pool for select using (public.is_member() and (data->>'status' = 'released' or data->>'claimedBy' = auth.uid()::text));\n-- first come, first served: a broker may only turn an open enquiry into one taken by themselves; the row lock makes the first one win\ncreate policy pool_member_take on public.enquiry_pool for update using (public.is_member() and data->>'status' = 'released') with check (data->>'status' = 'claimed' and data->>'claimedBy' = auth.uid()::text);\n\ndrop policy if exists poolc_owner on public.enquiry_contacts;\ndrop policy if exists poolc_staff_read on public.enquiry_contacts;\ndrop policy if exists poolc_taker_read on public.enquiry_contacts;\ncreate policy poolc_owner on public.enquiry_contacts for all using (public.is_owner()) with check (public.is_owner());\ncreate policy poolc_staff_read on public.enquiry_contacts for select using (public.is_staff());\ncreate policy poolc_taker_read on public.enquiry_contacts for select using (public.is_member() and exists (select 1 from public.enquiry_pool p where p.id = enquiry_contacts.id and p.data->>'claimedBy' = auth.uid()::text));\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'enquiry_pool') then\n    alter publication supabase_realtime add table public.enquiry_pool;\n  end if;\nend $$;\n", "0009": "-- Agreements signed in the portal (Morten, 24 Oct 2026): nothing is sent as a file by email.\n-- The owner sends the agreement after a passed assessment; the person reads it, fills in their details and signs in the\n-- portal; the owner countersigns, which also opens the portal and issues the onboarding package.\n-- One row per person (id = their user id). The person can read their own row and can only turn \"sent\" into \"signed\".\ncreate table if not exists public.agreements (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.agreements enable row level security;\nrevoke all on public.agreements from anon;\n\ndrop policy if exists agr_owner on public.agreements;\ndrop policy if exists agr_staff_read on public.agreements;\ndrop policy if exists agr_self_read on public.agreements;\ndrop policy if exists agr_self_sign on public.agreements;\ncreate policy agr_owner on public.agreements for all using (public.is_owner()) with check (public.is_owner());\ncreate policy agr_staff_read on public.agreements for select using (public.is_staff());\ncreate policy agr_self_read on public.agreements for select using (id = auth.uid()::text);\ncreate policy agr_self_sign on public.agreements for update using (id = auth.uid()::text and data->>'status' = 'sent') with check (id = auth.uid()::text and data->>'status' = 'signed');\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'agreements') then\n    alter publication supabase_realtime add table public.agreements;\n  end if;\nend $$;\n", "0010": "-- Trust and performance history (Morten, 26 Oct 2026): one row per week, kept for good, never trimmed.\n-- Each row holds every member's trust and performance score that week. Owner only: members and operations cannot read it.\ncreate table if not exists public.member_scores (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.member_scores enable row level security;\nrevoke all on public.member_scores from anon;\ndrop policy if exists scores_owner on public.member_scores;\ncreate policy scores_owner on public.member_scores for all using (public.is_owner()) with check (public.is_owner());\n", "0011": "-- Supervised steps (Morten, 26 Oct 2026): while a member is supervised, each gated step (quote to client, taking an\n-- enquiry, first contact with a new prospect, recording payments, supplier quotes) waits for the owner's OK.\n-- One row per request. The member can create and amend their own pending requests and read their own; only an owner\n-- can approve or ask for changes. Owners release each step per member in Team.\ncreate table if not exists public.step_requests (owner_id uuid not null references auth.users(id), id text not null, data jsonb not null default '{}'::jsonb, updated_at timestamptz default now(), primary key (owner_id, id));\nalter table public.step_requests enable row level security;\nrevoke all on public.step_requests from anon;\ndrop policy if exists req_owner on public.step_requests;\ndrop policy if exists req_self_read on public.step_requests;\ndrop policy if exists req_self_ask on public.step_requests;\ndrop policy if exists req_self_amend on public.step_requests;\ncreate policy req_owner on public.step_requests for all using (public.is_owner()) with check (public.is_owner());\ncreate policy req_self_read on public.step_requests for select using (public.is_member() and owner_id = auth.uid());\ncreate policy req_self_ask on public.step_requests for insert with check (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending');\ncreate policy req_self_amend on public.step_requests for update using (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending') with check (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending');\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'step_requests') then\n    alter publication supabase_realtime add table public.step_requests;\n  end if;\nend $$;\n"};
 const OWNER_TODO = [
   {id:"company", sev:"high", title:"Fill in the company details",
     why:"The agreement, email signature, confirmations and privacy notice use them. Agreements cannot be sent until they are in.",
@@ -4776,6 +4984,8 @@ const OWNER_TODO = [
     why:"Brokers sign their agreement in the portal; you countersign there.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0010", sev:"high", title:"Run SQL: trust and performance history (0010)", sql:"0010", table:"member_scores",
     why:"Keeps every weekly snapshot of the matrix for good, readable by owners only. Until it runs, weeks are held safely and move across by themselves.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+  {id:"sql-0011", sev:"high", title:"Run SQL: supervised steps (0011)", sql:"0011", table:"step_requests",
+    why:"Lets supervised members ask for your OK on each step, and you approve or send back on Today. Until it runs, nothing is held back.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
     how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},
@@ -4837,6 +5047,14 @@ function ownerTodoPanel(){
     ${later.length ? `<details style="margin-top:8px"${S.todoLater ? " open" : ""} data-todo-det="later"><summary class="small"><b>Later (${later.length})</b></summary>${later.map(item).join("")}</details>` : ""}
     ${done.length ? `<details style="margin-top:8px"><summary class="small muted">Done (${done.length})</summary><ul class="small" style="margin:6px 0 0;padding-left:18px">${done.map(({x, s}) => `<li>${esc(x.title)} · <span class="muted">${esc(s.how)}</span>${((S.setup || {}).done || {})[x.id] ? ` <a href="#" data-todo="undo" data-id="${x.id}">undo</a>` : ""}</li>`).join("")}</ul></details>` : ""}</div>`;
 }
+/* Today shows only a prompt; the list itself is kept in Team (Morten, 26 Oct 2026) */
+function ownerTodoPrompt(){
+  if (!S.isOwner || S.preview) return "";
+  setTimeout(todoProbe, 0);
+  const open = OWNER_TODO.filter(x => !todoState(x).done && !x.later); if (!open.length) return "";
+  return `<div class="panel" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Your tasks: ${open.length} need${open.length === 1 ? "s" : ""} you</h2><button class="btn small primary" type="button" data-view="team">Open in Team</button></div>
+    ${open.map(x => `<div class="flag"><span class="sev ${TODO_SEV[x.sev]}" aria-hidden="true"></span><div><p>${esc(x.title)}</p></div></div>`).join("")}</div>`;
+}
 async function todoAct(a, id){
   const x = OWNER_TODO.find(t => t.id === id); if (!x) return;
   if (a === "copy") { try { await navigator.clipboard.writeText(OWNER_SQL[x.sql]); toast("SQL copied. Paste it in Supabase > SQL Editor and press Run."); } catch(e){ toast("Could not copy: open Show the SQL and copy it from there."); } return; }
@@ -4876,6 +5094,7 @@ function mxScore(id){
     ["Service recovery", 0.15, low.length ? share(low.filter(x => x.a.rec).length, low.length) : null, `${low.filter(x => x.a.rec).length} of ${low.length} low scores recovered`],
     ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned by operations`],
     ["Contracts signed on time", 0.1, issued.length ? 1 - share(unsignedLate.length, issued.length) : null, `${unsignedLate.length} unsigned after 48 h`],
+    ["Notices confirmed", 0.1, typeof noticeScore === "function" ? noticeScore(id).v : null, typeof noticeScore === "function" ? noticeScore(id).txt : ""],
     ["Lead follow-up", 0.15, num(m.recv30) >= 3 ? 1 - Math.min(1, num(m.breaches30) / num(m.recv30)) : null, `${num(m.breaches30)} of ${num(m.recv30)} leads went cold in 30 days`]
   ];
   const agg = L => { const have = L.filter(c => c[2] !== null); const w = have.reduce((a, c) => a + c[1], 0); return {v: w ? Math.round(have.reduce((a, c) => a + c[1] * c[2], 0) / w * 100) : null, n: have.length}; };
@@ -4933,13 +5152,15 @@ function trustMatrix(){
       return `<tr><td>${esc(x.name)}${x.onb ? "" : ` <span class="chip c-review">Onboarding</span>`}</td><td class="n">${x.trust ?? "–"}</td><td class="n">${x.perf ?? "–"}</td><td>${esc(mxQuad(x))}</td><td>${weak ? `${esc(weak[0])} ${pct(weak[2])}%: <span class="muted">${esc(weak[3])}</span>` : `<span class="muted">No data yet</span>`}</td></tr>`; }).join("")}</tbody></table></div>
     <details class="small" style="margin-top:8px"><summary>Each member's measures</summary>${rows.map(x => `<p style="margin:8px 0 2px"><b>${esc(x.name)}</b> · ${x.trips} trips in 180 days</p><p class="muted" style="margin:0">Trust: ${x.T.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}<br>Performance: ${x.P.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}</p>`).join("")}</details>` : "";
   return `<div class="panel" style="margin-top:16px" id="trustMatrix"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Trust and performance</h2><span class="small muted">${rows.length} member${rows.length === 1 ? "" : "s"} · last 180 days</span></div>
-    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time and lead follow-up. Performance (right) measures results: quotes booked, bookings against the monthly target, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. A snapshot is kept every week, for good${S.mxHist && S.mxHist.weeks.length ? ` (${S.mxHist.weeks.length} week${S.mxHist.weeks.length === 1 ? "" : "s"} since ${fmtD(S.mxHist.weeks[0].at)})` : ""}. Hollow dots have little data yet.</p>
+    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time, notices confirmed within 3 days and lead follow-up. Performance (right) measures results: quotes booked, bookings against the monthly target, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. A snapshot is kept every week, for good${S.mxHist && S.mxHist.weeks.length ? ` (${S.mxHist.weeks.length} week${S.mxHist.weeks.length === 1 ? "" : "s"} since ${fmtD(S.mxHist.weeks[0].at)})` : ""}. Hollow dots have little data yet.</p>
     ${rows.length ? svg : `<div class="empty"><p><b>No active members yet.</b> Members appear here once their agreement is countersigned.</p></div>`}${table}</div>`;
 }
 
 (function(){
   const _vToday = vToday;
-  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'); const out = i < 0 ? ownerTodoPanel() + h : h.slice(0, i) + ownerTodoPanel() + h.slice(i); return out + trustMatrix(); };
+  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'), top = ownerTodoPrompt() + (typeof reqTodayPanel === "function" ? reqTodayPanel() : ""); const out = i < 0 ? top + h : h.slice(0, i) + top + h.slice(i); return out + trustMatrix(); };
+  const _vTeam = vTeam;
+  vTeam = function(){ const h = _vTeam(); if (!S.isOwner || S.preview) return h; const add = ownerTodoPanel() + (typeof supervisionPanel === "function" ? supervisionPanel() : "") + (typeof noticeTeamPanel === "function" ? noticeTeamPanel() : ""), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + add + h.slice(k); };
   document.addEventListener("click", e => { const b = e.target.closest("[data-todo]"); if (!b) return; e.preventDefault(); todoAct(b.dataset.todo, b.dataset.id); });
   document.addEventListener("toggle", e => { if (e.target.dataset && e.target.dataset.todoDet === "later") S.todoLater = e.target.open; }, true);
 })();
