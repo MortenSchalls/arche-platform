@@ -31,9 +31,10 @@ Plan agreed 24 Oct 2026 (to do when Morten says): portal and academy live on por
 | ☑ | GoDaddy DNS: archeaviation.com and www → website; portal.archeaviation.com → portal | Done 25 Oct 2026 (A @ 76.76.21.21, www CNAME cname.vercel-dns.com, portal CNAME to Vercel). Website behind Vercel Authentication. |
 | ☑ | Broker login link → portal.archeaviation.com | `apps/website/build.py`, PORTAL (25 Oct 2026) |
 | ☐ | Email safety records SPF, DKIM, DMARC | |
-| ☐ | Supabase sign-in addresses updated | |
+| ☑ | Supabase sign-in addresses updated | Done 25 Oct 2026. Remove the old arche-platform-sandy.vercel.app redirect later. |
 | ☐ | Google Search Console: verify the domain, submit the sitemap | Free; shows which searches bring visitors. |
 | ☐ | Decide whether to keep `/test.html` online after go-live (it holds no real data) | Remove the file to take it down. |
+| ☐ | Switch on the portal AI (Assistant, trip co-pilot, roleplay lab, briefing). Morten 25 Oct 2026: later | Anthropic console: add credit with a monthly limit and create a key; Vercel portal project: ANTHROPIC_API_KEY (plus SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY if missing), redeploy. Until then the Assistant says the AI is not switched on. |
 | ☐ | Turn daily prospect research back on (paused 21 Oct 2026 to save AI credit) | Restore the cron line in `.github/workflows/jobs.yml`. Crew hotels then continue at 3 airports a day. |
 
 ## 3. Right after go-live
