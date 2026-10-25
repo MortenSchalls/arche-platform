@@ -17,7 +17,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "design-source")
 OUT = os.path.join(HERE, "site")
 SHOW_ACCREDITATIONS = False   # Morten 20 Oct 2026: hide until Archē holds accreditations; set True to bring the section back
-PORTAL = "https://arche-platform-sandy.vercel.app"  # change to https://portal.archeaviation.com at go-live
+PORTAL = "https://portal.archeaviation.com"  # go-live address (Morten, 25 Oct 2026)
 
 def build():
     os.makedirs(OUT, exist_ok=True)
