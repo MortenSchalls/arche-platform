@@ -13,9 +13,11 @@
   async function gate() {
     const { data } = await sb.auth.getSession();
     if (data.session) {
-      // signed in with a temporary password: choose your own before using the portal (Morten 23 Oct 2026)
+      // everyone signs in with their own password (Morten 23 and 25 Oct 2026): a temporary password, or a first
+      // sign-in by email link, leads straight to choosing one; Microsoft sign-in does not need it
+      const u = data.session.user || {}, viaMs = ((u.app_metadata || {}).provider || "") === "azure";
       let pw = false; try { pw = localStorage.getItem("arche.pwlogin") === "1"; } catch (e) {}
-      if (pw && !(data.session.user.user_metadata || {}).pw_set) { showSetPassword(data.session); return; }
+      if (!viaMs && !(u.user_metadata || {}).pw_set) { showSetPassword(data.session, pw); return; }
       resolveReady(data.session); return;
     }
     showLogin();
@@ -66,7 +68,7 @@
       }
     });
   }
-  function showSetPassword(session) {
+  function showSetPassword(session, temp) {
     const box = document.createElement("div");
     box.id = "archeSetPw";
     box.innerHTML = `<style>#archeSetPw{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#34373d;color:#f3f5f8;font-family:'Hanken Grotesk',system-ui,sans-serif;padding:16px}
@@ -76,7 +78,7 @@
       #archeSetPw button{background:linear-gradient(#fafbfc,#c6cbd2);color:#24262a;border:0;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer}
       #archeSetPw .msg{min-height:20px;font-size:13px;color:#a9bdd4}</style>
       <div class="card" role="dialog" aria-labelledby="spH"><h2 id="spH" style="margin:0 0 6px;font-weight:500">Choose your own password</h2>
-      <p>You signed in with a temporary password. Choose a new one that only you know: at least 10 characters.</p>
+      <p>${temp ? "You signed in with a temporary password. Choose" : "Set"} a password that only you know: at least 10 characters. From now on you sign in with your email and this password.</p>
       <input id="spA" type="password" autocomplete="new-password" placeholder="New password" aria-label="New password">
       <input id="spB" type="password" autocomplete="new-password" placeholder="New password again" aria-label="New password again">
       <button type="button" id="spGo">Save and continue</button><p class="msg" id="spMsg" aria-live="polite"></p></div>`;

@@ -23,7 +23,7 @@ window.supabase = { createClient() {
     }
     return api;
   }
-  const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: {} }, access_token: "x" };
+  const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: { pw_set: true } }, access_token: "x" };
   return {
     from: q,
     auth: { getSession: async () => ({ data: { session } }), onAuthStateChange() {}, signOut: async () => {} },
