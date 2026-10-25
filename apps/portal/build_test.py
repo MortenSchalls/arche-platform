@@ -92,7 +92,7 @@ def build():
     assert ac.count(cdn) == 1
     ac = ac.replace(cdn, harness + "\n<script>\n" + fake + "\n</script>").replace('<script src="platform.js"></script>', '<script src="platform.test.js"></script>')
     ac = ac.replace("window.claude", "window.__arche").replace('<a href="./" ', '<a href="test.html" ')
-    (HERE / "academy.test.html").write_text('<meta charset="utf-8">\n' + ac, encoding="utf-8")
+    (HERE / "academy.test.html").write_text('<!doctype html>\n<meta charset="utf-8">\n' + ac, encoding="utf-8")
     (HERE / "test.html").write_text(out, encoding="utf-8")
     print("test.html written", len(out), "bytes")
 
