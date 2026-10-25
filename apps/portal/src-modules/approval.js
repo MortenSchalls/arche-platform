@@ -47,7 +47,7 @@ function apCard(t, compact){
     <div class="row" style="gap:6px">${chk.map(([ok, l]) => `<span class="chip ${ok ? "c-flown" : "c-returned"}" style="white-space:normal;height:auto;text-align:left">${esc(l)}</span>`).join("")}</div>
     ${flags.map(x => `<div class="note warn small">${esc(x)}</div>`).join("")}
     ${(d.trip && d.trip.notes) ? `<p class="small muted">Broker notes: ${esc(d.trip.notes)}</p>` : ""}
-    ${S.isOwner && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
+    ${(S.isOwner || (typeof canRight === "function" && canRight("approve") && t.bid !== S.uid)) && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
     <div class="row"><button class="btn primary" type="button" data-ap="ok" data-id="${t.bid}|${t.did}">Approve booking</button><button class="btn" type="button" data-ap="no" data-id="${t.bid}|${t.did}">Ask for changes</button>${compact ? `<a class="btn" href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a>` : ""}</div>
     <p class="small muted">Approving lets operations issue the confirmation once KYC, Paynode and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> Operations can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
 }
@@ -77,11 +77,11 @@ function apTripBlock(t){
   };
   const _vT = vToday; vToday = function(){ return afterHead(_vT(), `<div id="apList">${apPanel()}</div>`); };
   const _tf = tripFile; tripFile = function(t){ const h = _tf(t), b = apTripBlock(t); return b ? h.replace(`<div><h3>History</h3>`, b + `<div><h3>History</h3>`) : h; };
-  const _ic = issueConf; issueConf = async function(btn){ const t = tripById(S.sel); if (t && apOn() && !apState(t).ok && !S.isOwner) { toast("Waiting for the owner's approval: " + apState(t).why + "."); return; } if (t && apOn() && S.isOwner && !apState(t).ok) await apWrite(t, "approved", "Approved when issuing"); return _ic(btn); };
+  const _ic = issueConf; issueConf = async function(btn){ const t = tripById(S.sel); if (t && !S.isOwner && ((t.st || {}).approval || {}).by === S.uid) { toast("You approved this booking, so someone else issues the confirmation."); return; } if (t && apOn() && !apState(t).ok && !S.isOwner) { toast("Waiting for the owner's approval: " + apState(t).why + "."); return; } if (t && apOn() && S.isOwner && !apState(t).ok) await apWrite(t, "approved", "Approved when issuing"); return _ic(btn); };
 })();
 async function apWrite(t, state, note){
   const f = apFigures(t);
-  await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by the owner at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
+  await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the owner" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
   audit(state === "approved" ? "Booking approved" : "Booking returned by the owner", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
 }
 document.addEventListener("click", e => {
@@ -90,7 +90,8 @@ document.addEventListener("click", e => {
   e.stopImmediatePropagation(); e.preventDefault(); toast("Waiting for the owner's approval: " + apState(t).why + ".");
 }, true);
 document.addEventListener("click", async e => {
-  const b = e.target.closest("[data-ap]"); if (!b || !S.isOwner) return;
+  const b = e.target.closest("[data-ap]"); if (!b || !(S.isOwner || (typeof canRight === "function" && canRight("approve")))) return;
+  { const [bb] = (b.dataset.id || "").split("|"); if (!S.isOwner && bb === S.uid) { toast("You cannot approve your own trip."); return; } }
   const [bid, did] = b.dataset.id.split("|"), t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
   const note = ((document.getElementById("ap_n_" + did) || {}).value || "").trim();
   try {

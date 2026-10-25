@@ -566,7 +566,7 @@ function decideRole(){
   else if (me && me.book && S.canEdit && (me.role === "broker" || me.role === "consultant")) { S.role = "ops"; S.alsoBroker = true; }
   else if (me && (me.role === "broker" || me.role === "consultant")) S.role = "broker";
   else S.role = "pending";
-  if (S.role === "ops" && !["home","queue","quotes","trips","commission","control","prospects","assistant","leads","help","training","openenq"].includes(S.view)) S.view = "home";
+  if (S.role === "ops" && !["home","queue","quotes","trips","commission","control","prospects","assistant","leads","help","training","openenq","supervise"].includes(S.view)) S.view = "home";
   if ((S.role === "broker" || S.role === "ops") && S.view === "trips" && !S.viewSet) { S.view = "home"; S.viewSet = true; }
   if (S.role === "owner" && S.view === "trips" && !S.viewSet) { S.view = "today"; S.viewSet = true; }
 }
@@ -651,6 +651,7 @@ function renderNow(){
   else if (v === "prospects") html = vProspects();
   else if (v === "leads") html = vLeads();
   else if (v === "assistant") html = vAssistant();
+  else if (v === "supervise") html = vSupervise();
   else if (v === "security") html = vSecurity();
   else if (v === "conf") html = vConf();
   const keep = {}, foc = document.activeElement && document.activeElement.id;
@@ -3606,7 +3607,7 @@ function apCard(t, compact){
     <div class="row" style="gap:6px">${chk.map(([ok, l]) => `<span class="chip ${ok ? "c-flown" : "c-returned"}" style="white-space:normal;height:auto;text-align:left">${esc(l)}</span>`).join("")}</div>
     ${flags.map(x => `<div class="note warn small">${esc(x)}</div>`).join("")}
     ${(d.trip && d.trip.notes) ? `<p class="small muted">Broker notes: ${esc(d.trip.notes)}</p>` : ""}
-    ${S.isOwner && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
+    ${(S.isOwner || (typeof canRight === "function" && canRight("approve") && t.bid !== S.uid)) && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
     <div class="row"><button class="btn primary" type="button" data-ap="ok" data-id="${t.bid}|${t.did}">Approve booking</button><button class="btn" type="button" data-ap="no" data-id="${t.bid}|${t.did}">Ask for changes</button>${compact ? `<a class="btn" href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a>` : ""}</div>
     <p class="small muted">Approving lets operations issue the confirmation once KYC, Paynode and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> Operations can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
 }
@@ -3636,11 +3637,11 @@ function apTripBlock(t){
   };
   const _vT = vToday; vToday = function(){ return afterHead(_vT(), `<div id="apList">${apPanel()}</div>`); };
   const _tf = tripFile; tripFile = function(t){ const h = _tf(t), b = apTripBlock(t); return b ? h.replace(`<div><h3>History</h3>`, b + `<div><h3>History</h3>`) : h; };
-  const _ic = issueConf; issueConf = async function(btn){ const t = tripById(S.sel); if (t && apOn() && !apState(t).ok && !S.isOwner) { toast("Waiting for the owner's approval: " + apState(t).why + "."); return; } if (t && apOn() && S.isOwner && !apState(t).ok) await apWrite(t, "approved", "Approved when issuing"); return _ic(btn); };
+  const _ic = issueConf; issueConf = async function(btn){ const t = tripById(S.sel); if (t && !S.isOwner && ((t.st || {}).approval || {}).by === S.uid) { toast("You approved this booking, so someone else issues the confirmation."); return; } if (t && apOn() && !apState(t).ok && !S.isOwner) { toast("Waiting for the owner's approval: " + apState(t).why + "."); return; } if (t && apOn() && S.isOwner && !apState(t).ok) await apWrite(t, "approved", "Approved when issuing"); return _ic(btn); };
 })();
 async function apWrite(t, state, note){
   const f = apFigures(t);
-  await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by the owner at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
+  await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the owner" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
   audit(state === "approved" ? "Booking approved" : "Booking returned by the owner", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
 }
 document.addEventListener("click", e => {
@@ -3649,7 +3650,8 @@ document.addEventListener("click", e => {
   e.stopImmediatePropagation(); e.preventDefault(); toast("Waiting for the owner's approval: " + apState(t).why + ".");
 }, true);
 document.addEventListener("click", async e => {
-  const b = e.target.closest("[data-ap]"); if (!b || !S.isOwner) return;
+  const b = e.target.closest("[data-ap]"); if (!b || !(S.isOwner || (typeof canRight === "function" && canRight("approve")))) return;
+  { const [bb] = (b.dataset.id || "").split("|"); if (!S.isOwner && bb === S.uid) { toast("You cannot approve your own trip."); return; } }
   const [bid, did] = b.dataset.id.split("|"), t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
   const note = ((document.getElementById("ap_n_" + did) || {}).value || "").trim();
   try {
@@ -4361,14 +4363,14 @@ function agrOwnerBlock(id, j){
   const a = (S.agrs || {})[id];
   if (!a) return `<div class="fgrid" style="margin-top:6px"><label class="f" for="ob_note_${id}">Assessment notes<input id="ob_note_${id}" autocomplete="off" placeholder="What you checked and the result"></label><label class="f" for="ag_start_${id}">Start date (optional)<input id="ag_start_${id}" type="date"></label></div>
     ${agrCoReady() ? "" : `<p class="small" style="color:var(--warn)">Fill in the company details in Settings first (legal name, UEN, address, bookings email, signatory and title). They go into the agreement.</p>`}
-    <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="send|${id}" ${agrCoReady() ? "" : "disabled"}>Passed: send agreement</button><button class="btn small" type="button" data-decline="${id}">Decline</button></div>`;
+    <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="send|${id}" ${agrCoReady() ? "" : "disabled"}>Passed: send agreement</button>${S.isOwner ? `<button class="btn small" type="button" data-decline="${id}">Decline</button>` : ""}</div>`;
   if (a.status === "sent") return `<p class="small">Assessment passed ${fmtD(a.assess && a.assess.at)}. Agreement sent ${fmtT(a.sentAt)}, waiting for their signature.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button><button class="btn small" type="button" data-agr="withdraw|${id}">Withdraw</button></div>`;
   if (a.status === "signed") return `<p class="small"><b>Signed</b> by ${esc(a.signedName)} on ${fmtT(a.signedAt)}.</p>
     <div class="fgrid" style="margin-top:6px"><label class="f" for="ob_mail_${id}">Archē email address created for them<input id="ob_mail_${id}" type="email" autocomplete="off" placeholder="name@…"></label></div>
-    <div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button><button class="btn small primary" type="button" data-approve="${id}">Countersign and issue onboarding package</button></div>`;
+    <div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button>${S.isOwner ? `<button class="btn small primary" type="button" data-approve="${id}">Countersign and issue onboarding package</button>` : `<span class="small muted">Waiting for the director's countersignature.</span>`}</div>`;
   return `<p class="small muted">Agreement ${esc(a.status)}.</p>`;
 }
-function agrWatchOwner(){ if (S.agrOn || !S.isOwner) return; S.agrOn = true; watchCol("agr", snap => { S.agrs = {}; snap.docs.forEach(d => S.agrs[d.id] = d.data()); render(); }); }
+function agrWatchOwner(){ if (S.agrOn || !(S.isOwner || (typeof canRight === "function" && canRight("assess")))) return; S.agrOn = true; watchCol("agr", snap => { S.agrs = {}; snap.docs.forEach(d => S.agrs[d.id] = d.data()); render(); }); }
 function agrModal(){ const id = S.agrView; if (!id) return ""; const a = (S.agrs || {})[id] || (id === S.uid ? S.myAgr : null); if (!a) return "";
   return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="copy">Download a copy</button><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html || agrRender(a)}</div>`; }
 async function agrCountersign(id){
@@ -4397,13 +4399,13 @@ document.addEventListener("click", async ev => {
   if (a === "offer") { S.offerOpen = !S.offerOpen; render(); return; }
   if (a === "view") { S.agrView = id; render(); return; }
   if (a === "closeview") { S.agrView = null; render(); return; }
-  if (!S.isOwner) return;
+  if (!S.isOwner && !(a === "send" && typeof canRight === "function" && canRight("assess") && id !== S.uid)) return;
   try {
     if (a === "send") { const note = (($("ob_note_" + id) || {}).value || "").trim(), start = (($("ag_start_" + id) || {}).value || "");
       if (!note) { toast("Add a short note on the assessment."); return; }
       if (!agrCoReady()) { toast("Fill in the company details in Settings first."); return; }
       await S.db.doc("agr/" + id).set({status: "sent", version: AGR_VERSION, sentAt: now(), sentBy: S.uid, start, assess: {notes: note, at: now(), by: S.uid}, company: {...S.company}});
-      audit("Assessment passed; agreement sent", (S.joins[id] || {}).contractName || id); toast("Agreement sent. They read and sign it in the portal."); return; }
+      audit(S.isOwner ? "Assessment passed; agreement sent" : "Assessment passed by supervisor; agreement sent", (S.joins[id] || {}).contractName || id); toast("Agreement sent. They read and sign it in the portal."); return; }
     if (a === "withdraw") { await S.db.doc("agr/" + id).delete(); audit("Agreement withdrawn", (S.joins[id] || {}).contractName || id); toast("Withdrawn."); return; }
   } catch(err){ toast(err.code === "permission_denied" || err.code === "unknown_path" ? "Agreements are not set up yet (run 0009 in Supabase)." : "Could not save."); }
 });
@@ -4734,7 +4736,7 @@ function gateWatch(){
   ids.forEach(uid => { const path = `req/${uid}/items`; if (S.subs[path]) return;
     S.subs[path] = S.db.collection(path).onSnapshot(snap => { const o = {}; snap.docs.forEach(d => o[d.id] = d.data()); S.reqs[uid] = o; if (!S.reqReady) S.reqReady = true; render(); }, e => { S.reqErr = e && e.code; }); });
 }
-setInterval(gateWatch, 2000);
+setInterval(() => gateWatch(), 2000);
 
 async function gateAsk(key, ref, fp, title, detail, extra = {}){
   const cur = gateReq(S.uid, key, ref), id = cur && cur.status === "pending" ? cur.id : `${key}-${String(ref).replace(/[^\w-]/g, "").slice(0, 40)}-${Date.now().toString(36)}`;
@@ -4778,17 +4780,18 @@ function myReqPanel(){
 
 /* owner side: decide on Today */
 function reqPending(){ return Object.keys(S.reqs).flatMap(uid => reqList(uid)).filter(r => r.status === "pending").sort((a, b) => (a.at > b.at ? 1 : -1)); }
-function reqTodayPanel(){
-  if (!S.isOwner || S.preview || !S.reqReady) return "";
-  const ps = reqPending(); if (!ps.length) return "";
-  return `<div class="panel" style="margin-bottom:16px" id="reqPanel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Requests waiting for your OK (${ps.length})</h2><button class="btn small" type="button" data-view="team">Supervision in Team</button></div>
+function reqTodayPanel(asSupervisor){
+  if ((!S.isOwner && !asSupervisor) || S.preview || !S.reqReady) return "";
+  const ps = reqPending().filter(r => r.uid !== S.uid); if (!ps.length) return "";
+  return `<div class="panel" style="margin-bottom:16px" id="reqPanel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Requests waiting for your OK (${ps.length})</h2>${S.isOwner ? `<button class="btn small" type="button" data-view="team">Supervision in Team</button>` : ""}</div>
     ${ps.map(r => `<div class="flag"><span class="sev med" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(nm(r.uid))}</b> · ${esc(GATES[r.key].label)} · <span class="muted">${fmtT(r.at)}</span></p><p>${esc(r.title)}</p>${r.detail ? `<p class="small muted" style="white-space:pre-wrap">${esc(r.detail)}</p>` : ""}
-      ${r.tripBid && r.tripDid ? `<p class="small"><a href="#" data-open="${r.tripBid}|${r.tripDid}" data-goto="trips">Open the trip</a></p>` : ""}
+      ${r.tripBid && r.tripDid && isStaff() ? `<p class="small"><a href="#" data-open="${r.tripBid}|${r.tripDid}" data-goto="trips">Open the trip</a></p>` : ""}
       <label class="f" for="rq_n_${r.id}" style="margin-top:6px">Note to ${esc(nm(r.uid))} (needed when asking for changes)<input id="rq_n_${r.id}"></label>
       <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-gate="ok" data-uid="${r.uid}" data-id="${r.id}">Approve</button><button class="btn small" type="button" data-gate="changes" data-uid="${r.uid}" data-id="${r.id}">Ask for changes</button></div></div></div>`).join("")}</div>`;
 }
 async function reqDecide(uid, id, ok){
   const r = (S.reqs[uid] || {})[id]; if (!r) return;
+  if (uid === S.uid || !(S.isOwner || canRight("supervise"))) { toast("You cannot decide on your own request."); return; }
   const note = (($("rq_n_" + id) || {}).value || "").trim();
   if (!ok && note.length < 5) { toast("Write what should change, so they can fix it."); return; }
   const body = {...r, status: ok ? "approved" : "changes", decidedAt: now(), decidedBy: S.uid, note};
@@ -4800,7 +4803,7 @@ async function reqDecide(uid, id, ok){
     }
     await S.db.doc(`req/${uid}/items/${id}`).set(body);
     S.reqs[uid] = {...(S.reqs[uid] || {}), [id]: body};
-    audit(ok ? "Supervised step approved" : "Supervised step: changes asked", `${nm(uid)} · ${GATES[r.key].label}: ${r.title}${note ? " · " + note : ""}`);
+    audit(ok ? (S.isOwner ? "Supervised step approved" : "Supervised step approved by supervisor") : "Supervised step: changes asked", `${nm(uid)} · ${GATES[r.key].label}: ${r.title}${note ? " · " + note : ""}`);
     toast(ok ? (r.key === "take" ? "Approved and assigned." : "Approved.") : "Sent back with your note."); render();
   } catch(e){ toast("Could not save. Try again."); }
 }
@@ -4809,15 +4812,15 @@ async function reqDecide(uid, id, ok){
 function gateStats(uid, key){ const xs = reqList(uid).filter(r => r.key === key && r.status !== "pending"); return {ok: xs.filter(r => r.status === "approved").length, ch: xs.filter(r => r.status === "changes").length}; }
 function supervisionPanel(){
   const ros = Object.entries(S.roster || {}).filter(([id, p]) => id !== S.uid && p.role !== "owner" && p.active !== false);
-  const head = `<div class="panel tbl" style="margin-bottom:16px" id="supPanel"><h2>Supervision</h2><p class="small muted">While someone is supervised, each step below waits for your OK on Today. Release a step when you are satisfied; you can supervise it again at any time. New people start supervised. The count shows your decisions so far: approved first time, and sent back for changes.</p>
+  const head = `<div class="panel tbl" style="margin-bottom:16px" id="supPanel"><h2>Supervision and supervisor rights</h2><p class="small muted">While someone is supervised, each step below waits for your OK on Today. Release a step when you are satisfied; you can supervise it again at any time. New people start supervised. The count shows your decisions so far: approved first time, and sent back for changes.</p>
     ${S.reqReady ? "" : `<div class="note info small">Step approval starts once the SQL step "supervised steps (0011)" above has run. Until then nothing is held back.</div>`}`;
   if (!ros.length) return head + `<p class="small muted">Nobody approved yet.</p></div>`;
-  return head + `<table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th>${GATE_KEYS.map(k => `<th scope=col>${esc(GATES[k].label)}</th>`).join("")}</tr></thead><tbody>
+  return head + `<table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th>${GATE_KEYS.map(k => `<th scope=col>${esc(GATES[k].label)}</th>`).join("")}<th scope=col>Supervisor rights</th></tr></thead><tbody>
     ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Operations" : p.role === "consultant" ? "Charter consultant" : "Broker")}</span></td>
       <td><label class="check" style="margin:0"><input type="checkbox" data-supall="${id}" ${p.supervised ? "checked" : ""}><span class="small">${p.supervised ? "Yes" : "No"}</span></label></td>
       ${GATE_KEYS.map(k => { if (!gateApplies(k, id)) return `<td class="muted">–</td>`; const s = gateStats(id, k), rel = !!(p.released || {})[k];
-        return `<td>${!p.supervised ? `<span class="chip c-flown">Free</span>` : rel ? `<span class="chip c-flown">Released</span>` : `<span class="chip c-review">Needs your OK</span>`}<br><span class="muted">${s.ok} approved · ${s.ch} changes</span>${p.supervised ? `<br><button class="btn small" type="button" data-gate="${rel ? "resup" : "release"}" data-uid="${id}" data-key="${k}">${rel ? "Supervise again" : "Release"}</button>` : ""}</td>`; }).join("")}</tr>`).join("")}
-  </tbody></table><details class="small" style="margin-top:8px"><summary>What each step means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}</ul></details></div>`;
+        return `<td>${!p.supervised ? `<span class="chip c-flown">Free</span>` : rel ? `<span class="chip c-flown">Released</span>` : `<span class="chip c-review">Needs your OK</span>`}<br><span class="muted">${s.ok} approved · ${s.ch} changes</span>${p.supervised ? `<br><button class="btn small" type="button" data-gate="${rel ? "resup" : "release"}" data-uid="${id}" data-key="${k}">${rel ? "Supervise again" : "Release"}</button>` : ""}</td>`; }).join("")}<td>${S.rightsReady === false ? `<span class="muted">After SQL 0012</span>` : rightsCells(id, p)}</td></tr>`).join("")}
+  </tbody></table><details class="small" style="margin-top:8px"><summary>What each step and right means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}${Object.keys(RIGHTS).map(r => `<li><b>${esc(RIGHTS[r].label)}</b> (supervisor right): ${esc(RIGHTS[r].desc)}</li>`).join("")}</ul><p class="muted" style="margin:6px 0 0">Releasing steps, giving rights and countersigning stay with you. Every supervisor decision is in the audit log with their name.</p></details></div>`;
 }
 async function gateRelease(uid, key, on){
   const p = (S.roster || {})[uid]; if (!p) return;
@@ -4826,10 +4829,10 @@ async function gateRelease(uid, key, on){
   catch(e){ toast("Could not save."); }
 }
 document.addEventListener("click", e => {
-  const b = e.target.closest("[data-gate]"); if (!b || !S.isOwner) return; e.preventDefault();
+  const b = e.target.closest("[data-gate]"); if (!b) return; e.preventDefault();
   const a = b.dataset.gate;
-  if (a === "ok" || a === "changes") reqDecide(b.dataset.uid, b.dataset.id, a === "ok");
-  else if (a === "release" || a === "resup") gateRelease(b.dataset.uid, b.dataset.key, a === "release");
+  if ((a === "ok" || a === "changes") && (S.isOwner || canRight("supervise"))) reqDecide(b.dataset.uid, b.dataset.id, a === "ok");
+  else if ((a === "release" || a === "resup") && S.isOwner) gateRelease(b.dataset.uid, b.dataset.key, a === "release");
 });
 /* member's dashboard: their supervised steps and the director's answers */
 (function(){ const _vHome = vHome; vHome = function(){ const h = _vHome(), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + myReqPanel() + h.slice(k); }; })();
@@ -4838,6 +4841,72 @@ document.addEventListener("change", async e => {
   try { await S.db.doc("roster/" + id).update({supervised: e.target.checked}); audit(e.target.checked ? "Supervision started" : "Supervision ended: all steps free", nm(id)); toast("Saved."); } catch(err){ toast("Could not change."); }
 });
 
+/* ---------- Supervisor rights (Morten, 26 Oct 2026) ----------
+   The owner ticks rights per member in Team once they have the experience: supervise (decide on others' supervised
+   steps), assess (assess new people and send their agreement; countersigning stays with the owner) and approve
+   (approve bookings; operations members only). Never on their own work. Rights need SQL 0012. */
+const RIGHTS = {
+  supervise: {label: "Supervise steps", desc: "Approve or send back supervised steps of others."},
+  assess: {label: "Assess new people", desc: "See requests to join and academy progress, and send the agreement after a passed assessment. You countersign."},
+  approve: {label: "Approve bookings", desc: "Approve bookings before the confirmation is issued (operations only). Never their own trips, and someone else issues."}
+};
+function canRight(r){ if (S.isOwner) return true; const me = rosterOf(S.uid); return me.active !== false && !!(me.rights || {})[r]; }
+const hasAnyRight = () => !S.isOwner && Object.keys(RIGHTS).some(canRight);
+function rightApplies(r, id){ return r === "approve" ? rosterOf(id).role === "ops" : true; }
+
+/* supervisors subscribe to everyone's requests (the roster they can now read) */
+const _gateWatch = gateWatch;
+gateWatch = function(){
+  _gateWatch();
+  if (S.isOwner || !canRight("supervise") || !S.db) return;
+  Object.keys(S.roster || {}).filter(id => id !== S.uid).forEach(uid => { const path = `req/${uid}/items`; if (S.subs[path]) return;
+    S.subs[path] = S.db.collection(path).onSnapshot(snap => { const o = {}; snap.docs.forEach(d => o[d.id] = d.data()); S.reqs[uid] = o; if (!S.reqReady) S.reqReady = true; render(); }, () => {}); });
+};
+function reqForMe(){ return reqPending().filter(r => r.uid !== S.uid && (S.isOwner || canRight("supervise"))); }
+function assessForMe(){ return canRight("assess") ? Object.entries(S.joins || {}).filter(([id]) => id !== S.uid) : []; }
+function approveForMe(){ return canRight("approve") && typeof apNeeds === "function" ? allTrips().filter(t => apNeeds(t) && t.bid !== S.uid) : []; }
+
+/* the supervisor's own page */
+function vSupervise(){
+  const rq = reqForMe(), as = assessForMe(), ap = approveForMe();
+  if (canRight("assess") && typeof agrWatchOwner === "function") agrWatchOwner();
+  const rights = Object.keys(RIGHTS).filter(canRight);
+  return `<div class="head"><div><h1>Supervision</h1><p class="muted small">The director has given you these rights: ${rights.map(r => esc(RIGHTS[r].label.toLowerCase())).join(", ")}. Decide only on others' work, never your own. Every decision is logged with your name and seen by the director.</p></div></div>
+    ${canRight("supervise") ? (rq.length ? reqTodayPanel(true) : `<div class="panel" style="margin-bottom:16px"><h2>Supervised steps</h2><p class="small muted">Nothing waiting.</p></div>`) : ""}
+    ${canRight("approve") ? `<div class="panel" style="margin-bottom:16px"><h2>Bookings to approve${ap.length ? ` (${ap.length})` : ""}</h2>${ap.length ? ap.map(t => apCard(t, true)).join("") : `<p class="small muted">Nothing waiting.</p>`}</div>` : ""}
+    ${canRight("assess") ? `<div class="panel" style="margin-bottom:16px"><h2>Waiting for assessment</h2>${as.length ? as.map(([id, j]) => obJoinCard(id, j)).join("") : `<p class="small muted">No requests waiting.</p>`}</div>` : ""}`;
+}
+function supPrompt(){
+  if (!hasAnyRight()) return "";
+  const n = reqForMe().length + assessForMe().length + approveForMe().length; if (!n) return "";
+  return `<div class="panel" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${n} waiting for your decision as supervisor</h2><button class="btn small primary" type="button" data-view="supervise">Open Supervision</button></div></div>`;
+}
+(function(){
+  const _nav = navItems;
+  navItems = function(){ const items = _nav(); if (hasAnyRight() && !items.some(x => x[0] === "supervise")) items.splice(1, 0, ["supervise", "Supervision"]); return items; };
+  const _vHome2 = vHome;
+  vHome = function(){ const h = _vHome2(), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + supPrompt() + h.slice(k); };
+})();
+
+/* owner: give or take rights in Team */
+function rightsCells(id, p){
+  return Object.keys(RIGHTS).map(r => rightApplies(r, id) ? `<label class="check" style="margin:0 0 4px"><input type="checkbox" data-right="${r}" data-uid="${id}" ${(p.rights || {})[r] ? "checked" : ""}><span class="small">${esc(RIGHTS[r].label)}</span></label>` : "").join("");
+}
+document.addEventListener("change", async e => {
+  const r = e.target.dataset && e.target.dataset.right; if (!r || !S.isOwner) return;
+  const id = e.target.dataset.uid, p = (S.roster || {})[id]; if (!p) return;
+  const rights = {...(p.rights || {})}; if (e.target.checked) rights[r] = true; else delete rights[r];
+  try { await S.db.doc("roster/" + id).update({rights}); p.rights = rights; audit(e.target.checked ? "Supervisor right given" : "Supervisor right taken back", `${nm(id)} · ${RIGHTS[r].label}`); toast("Saved."); render(); }
+  catch(err){ toast("Could not save."); }
+});
+
+/* members with rights who are not staff: read the roster and requests to join (allowed by SQL 0012) */
+setInterval(() => {
+  if (!S.db || S.isOwner || S.canEdit || !hasAnyRight()) return;
+  if (!S.subs["roster"]) watchCol("roster", snap => { const o = {}; snap.docs.forEach(d => o[d.id] = d.data()); S.roster = o; render(); });
+  if (canRight("assess") && !S.subs["join"]) watchCol("join", snap => { S.joins = {}; snap.docs.forEach(d => S.joins[d.id] = d.data()); render(); });
+}, 2500);
+
 /* ---------- Notices of new features and changed procedures (Morten, 26 Oct 2026) ----------
    Every new feature or revised procedure ships with a notice here. It shows at the top of each member's dashboard
    the first time they sign in after the release and stays until they confirm they have read it. The confirmation is
@@ -4845,6 +4914,10 @@ document.addEventListener("change", async e => {
    trust matrix ("Notices confirmed within 3 days"). Add new notices at the top; never change an issued one, issue a
    new one instead. Owners do not get notices. */
 const NOTICES = [
+  {id:"2026-10-26-supervisors", date:"2026-10-26", to:["broker","ops"], title:"Supervisor rights for experienced members",
+    body:["The director can give experienced members supervisor rights: deciding on other people's supervised steps, assessing new people, and (operations) approving bookings.",
+      "If you have a right, a Supervision page appears in your menu, and your dashboard shows when something waits for you. Decide only on others' work, never your own. Every decision is logged with your name.",
+      "Countersigning agreements and releasing supervised steps stay with the director."]},
   {id:"2026-10-26-supervised", date:"2026-10-26", to:["broker","ops"], title:"Supervised steps: some steps now wait for the director's OK",
     body:["While you are supervised, these steps wait for the director's OK before they move on. Brokers: sending a quote to a client (and to operations), taking an enquiry from the pool, and your first contact with a new prospect. Operations: recording client and operator payments, and sending or awarding supplier quotes.",
       "The portal asks for you when you take the step. You see the answer on your dashboard and on the trip: approved, or changes asked with a note. Do not send a quote to the client before it is approved.",
@@ -4909,7 +4982,7 @@ function noticeTeamPanel(){
    the rest the owner ticks when done (kept in config/setup). New steps are added to OWNER_TODO with each release.
    The matrix places every member by house-rule trust (vertical) and actual results (horizontal), recalculated
    from live data on every visit, with a weekly snapshot in intel/matrix so movement over time shows. */
-const OWNER_SQL = {"0008": "-- Enquiry pool (Morten, 24 Oct 2026): every charter enquiry (website, charter email, phone) reaches the owner first.\n-- The owner releases it to all brokers (first come, first served) or assigns it to one broker, and can reassign at any time.\n-- enquiry_pool: the trip summary everyone in the pool may see. enquiry_contacts: the client's details, only for\n-- the broker who has the enquiry, and for owner and operations.\ncreate table if not exists public.enquiry_pool     (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\ncreate table if not exists public.enquiry_contacts (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.enquiry_pool enable row level security;\nalter table public.enquiry_contacts enable row level security;\nrevoke all on public.enquiry_pool from anon;\nrevoke all on public.enquiry_contacts from anon;\n\ndrop policy if exists pool_owner on public.enquiry_pool;\ndrop policy if exists pool_staff_read on public.enquiry_pool;\ndrop policy if exists pool_member_read on public.enquiry_pool;\ndrop policy if exists pool_member_take on public.enquiry_pool;\ncreate policy pool_owner on public.enquiry_pool for all using (public.is_owner()) with check (public.is_owner());\ncreate policy pool_staff_read on public.enquiry_pool for select using (public.is_staff());\n-- brokers see enquiries that are open to everyone, and their own\ncreate policy pool_member_read on public.enquiry_pool for select using (public.is_member() and (data->>'status' = 'released' or data->>'claimedBy' = auth.uid()::text));\n-- first come, first served: a broker may only turn an open enquiry into one taken by themselves; the row lock makes the first one win\ncreate policy pool_member_take on public.enquiry_pool for update using (public.is_member() and data->>'status' = 'released') with check (data->>'status' = 'claimed' and data->>'claimedBy' = auth.uid()::text);\n\ndrop policy if exists poolc_owner on public.enquiry_contacts;\ndrop policy if exists poolc_staff_read on public.enquiry_contacts;\ndrop policy if exists poolc_taker_read on public.enquiry_contacts;\ncreate policy poolc_owner on public.enquiry_contacts for all using (public.is_owner()) with check (public.is_owner());\ncreate policy poolc_staff_read on public.enquiry_contacts for select using (public.is_staff());\ncreate policy poolc_taker_read on public.enquiry_contacts for select using (public.is_member() and exists (select 1 from public.enquiry_pool p where p.id = enquiry_contacts.id and p.data->>'claimedBy' = auth.uid()::text));\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'enquiry_pool') then\n    alter publication supabase_realtime add table public.enquiry_pool;\n  end if;\nend $$;\n", "0009": "-- Agreements signed in the portal (Morten, 24 Oct 2026): nothing is sent as a file by email.\n-- The owner sends the agreement after a passed assessment; the person reads it, fills in their details and signs in the\n-- portal; the owner countersigns, which also opens the portal and issues the onboarding package.\n-- One row per person (id = their user id). The person can read their own row and can only turn \"sent\" into \"signed\".\ncreate table if not exists public.agreements (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.agreements enable row level security;\nrevoke all on public.agreements from anon;\n\ndrop policy if exists agr_owner on public.agreements;\ndrop policy if exists agr_staff_read on public.agreements;\ndrop policy if exists agr_self_read on public.agreements;\ndrop policy if exists agr_self_sign on public.agreements;\ncreate policy agr_owner on public.agreements for all using (public.is_owner()) with check (public.is_owner());\ncreate policy agr_staff_read on public.agreements for select using (public.is_staff());\ncreate policy agr_self_read on public.agreements for select using (id = auth.uid()::text);\ncreate policy agr_self_sign on public.agreements for update using (id = auth.uid()::text and data->>'status' = 'sent') with check (id = auth.uid()::text and data->>'status' = 'signed');\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'agreements') then\n    alter publication supabase_realtime add table public.agreements;\n  end if;\nend $$;\n", "0010": "-- Trust and performance history (Morten, 26 Oct 2026): one row per week, kept for good, never trimmed.\n-- Each row holds every member's trust and performance score that week. Owner only: members and operations cannot read it.\ncreate table if not exists public.member_scores (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.member_scores enable row level security;\nrevoke all on public.member_scores from anon;\ndrop policy if exists scores_owner on public.member_scores;\ncreate policy scores_owner on public.member_scores for all using (public.is_owner()) with check (public.is_owner());\n", "0011": "-- Supervised steps (Morten, 26 Oct 2026): while a member is supervised, each gated step (quote to client, taking an\n-- enquiry, first contact with a new prospect, recording payments, supplier quotes) waits for the owner's OK.\n-- One row per request. The member can create and amend their own pending requests and read their own; only an owner\n-- can approve or ask for changes. Owners release each step per member in Team.\ncreate table if not exists public.step_requests (owner_id uuid not null references auth.users(id), id text not null, data jsonb not null default '{}'::jsonb, updated_at timestamptz default now(), primary key (owner_id, id));\nalter table public.step_requests enable row level security;\nrevoke all on public.step_requests from anon;\ndrop policy if exists req_owner on public.step_requests;\ndrop policy if exists req_self_read on public.step_requests;\ndrop policy if exists req_self_ask on public.step_requests;\ndrop policy if exists req_self_amend on public.step_requests;\ncreate policy req_owner on public.step_requests for all using (public.is_owner()) with check (public.is_owner());\ncreate policy req_self_read on public.step_requests for select using (public.is_member() and owner_id = auth.uid());\ncreate policy req_self_ask on public.step_requests for insert with check (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending');\ncreate policy req_self_amend on public.step_requests for update using (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending') with check (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending');\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'step_requests') then\n    alter publication supabase_realtime add table public.step_requests;\n  end if;\nend $$;\n"};
+const OWNER_SQL = {"0008": "-- Enquiry pool (Morten, 24 Oct 2026): every charter enquiry (website, charter email, phone) reaches the owner first.\n-- The owner releases it to all brokers (first come, first served) or assigns it to one broker, and can reassign at any time.\n-- enquiry_pool: the trip summary everyone in the pool may see. enquiry_contacts: the client's details, only for\n-- the broker who has the enquiry, and for owner and operations.\ncreate table if not exists public.enquiry_pool     (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\ncreate table if not exists public.enquiry_contacts (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.enquiry_pool enable row level security;\nalter table public.enquiry_contacts enable row level security;\nrevoke all on public.enquiry_pool from anon;\nrevoke all on public.enquiry_contacts from anon;\n\ndrop policy if exists pool_owner on public.enquiry_pool;\ndrop policy if exists pool_staff_read on public.enquiry_pool;\ndrop policy if exists pool_member_read on public.enquiry_pool;\ndrop policy if exists pool_member_take on public.enquiry_pool;\ncreate policy pool_owner on public.enquiry_pool for all using (public.is_owner()) with check (public.is_owner());\ncreate policy pool_staff_read on public.enquiry_pool for select using (public.is_staff());\n-- brokers see enquiries that are open to everyone, and their own\ncreate policy pool_member_read on public.enquiry_pool for select using (public.is_member() and (data->>'status' = 'released' or data->>'claimedBy' = auth.uid()::text));\n-- first come, first served: a broker may only turn an open enquiry into one taken by themselves; the row lock makes the first one win\ncreate policy pool_member_take on public.enquiry_pool for update using (public.is_member() and data->>'status' = 'released') with check (data->>'status' = 'claimed' and data->>'claimedBy' = auth.uid()::text);\n\ndrop policy if exists poolc_owner on public.enquiry_contacts;\ndrop policy if exists poolc_staff_read on public.enquiry_contacts;\ndrop policy if exists poolc_taker_read on public.enquiry_contacts;\ncreate policy poolc_owner on public.enquiry_contacts for all using (public.is_owner()) with check (public.is_owner());\ncreate policy poolc_staff_read on public.enquiry_contacts for select using (public.is_staff());\ncreate policy poolc_taker_read on public.enquiry_contacts for select using (public.is_member() and exists (select 1 from public.enquiry_pool p where p.id = enquiry_contacts.id and p.data->>'claimedBy' = auth.uid()::text));\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'enquiry_pool') then\n    alter publication supabase_realtime add table public.enquiry_pool;\n  end if;\nend $$;\n", "0009": "-- Agreements signed in the portal (Morten, 24 Oct 2026): nothing is sent as a file by email.\n-- The owner sends the agreement after a passed assessment; the person reads it, fills in their details and signs in the\n-- portal; the owner countersigns, which also opens the portal and issues the onboarding package.\n-- One row per person (id = their user id). The person can read their own row and can only turn \"sent\" into \"signed\".\ncreate table if not exists public.agreements (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.agreements enable row level security;\nrevoke all on public.agreements from anon;\n\ndrop policy if exists agr_owner on public.agreements;\ndrop policy if exists agr_staff_read on public.agreements;\ndrop policy if exists agr_self_read on public.agreements;\ndrop policy if exists agr_self_sign on public.agreements;\ncreate policy agr_owner on public.agreements for all using (public.is_owner()) with check (public.is_owner());\ncreate policy agr_staff_read on public.agreements for select using (public.is_staff());\ncreate policy agr_self_read on public.agreements for select using (id = auth.uid()::text);\ncreate policy agr_self_sign on public.agreements for update using (id = auth.uid()::text and data->>'status' = 'sent') with check (id = auth.uid()::text and data->>'status' = 'signed');\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'agreements') then\n    alter publication supabase_realtime add table public.agreements;\n  end if;\nend $$;\n", "0010": "-- Trust and performance history (Morten, 26 Oct 2026): one row per week, kept for good, never trimmed.\n-- Each row holds every member's trust and performance score that week. Owner only: members and operations cannot read it.\ncreate table if not exists public.member_scores (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.member_scores enable row level security;\nrevoke all on public.member_scores from anon;\ndrop policy if exists scores_owner on public.member_scores;\ncreate policy scores_owner on public.member_scores for all using (public.is_owner()) with check (public.is_owner());\n", "0011": "-- Supervised steps (Morten, 26 Oct 2026): while a member is supervised, each gated step (quote to client, taking an\n-- enquiry, first contact with a new prospect, recording payments, supplier quotes) waits for the owner's OK.\n-- One row per request. The member can create and amend their own pending requests and read their own; only an owner\n-- can approve or ask for changes. Owners release each step per member in Team.\ncreate table if not exists public.step_requests (owner_id uuid not null references auth.users(id), id text not null, data jsonb not null default '{}'::jsonb, updated_at timestamptz default now(), primary key (owner_id, id));\nalter table public.step_requests enable row level security;\nrevoke all on public.step_requests from anon;\ndrop policy if exists req_owner on public.step_requests;\ndrop policy if exists req_self_read on public.step_requests;\ndrop policy if exists req_self_ask on public.step_requests;\ndrop policy if exists req_self_amend on public.step_requests;\ncreate policy req_owner on public.step_requests for all using (public.is_owner()) with check (public.is_owner());\ncreate policy req_self_read on public.step_requests for select using (public.is_member() and owner_id = auth.uid());\ncreate policy req_self_ask on public.step_requests for insert with check (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending');\ncreate policy req_self_amend on public.step_requests for update using (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending') with check (public.is_member() and owner_id = auth.uid() and data->>'status' = 'pending');\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'step_requests') then\n    alter publication supabase_realtime add table public.step_requests;\n  end if;\nend $$;\n", "0012": "-- Supervisor rights (Morten, 26 Oct 2026): the owner can let experienced members supervise, assess and approve.\n-- Rights are kept on the member's profile (data.rights), which only an owner can change. Nobody acts on their own work:\n-- supervisors cannot decide their own requests, and assessors cannot send an agreement to themselves.\n--   supervise: read everyone's supervised-step requests, approve or ask for changes on others' requests, and hand an\n--              approved pool enquiry to the person who asked for it\n--   assess:    see requests to join and academy progress, and send the agreement after a passed assessment\n--              (countersigning stays with the owner as signatory)\n--   approve:   approve bookings (operations members; they can already update trip status)\ncreate or replace function public.has_right(r text) returns boolean language sql stable security definer set search_path = public as $$\n  select exists (select 1 from public.profiles p where p.id = auth.uid() and p.active and coalesce((p.data->'rights'->>r)::boolean, false))\n$$;\n\ndrop policy if exists profiles_supervisor_read on public.profiles;\ncreate policy profiles_supervisor_read on public.profiles for select using (public.has_right('supervise') or public.has_right('assess'));\n\ndrop policy if exists req_supervisor_read on public.step_requests;\ndrop policy if exists req_supervisor_decide on public.step_requests;\ncreate policy req_supervisor_read on public.step_requests for select using (public.has_right('supervise'));\ncreate policy req_supervisor_decide on public.step_requests for update\n  using (public.has_right('supervise') and owner_id <> auth.uid() and data->>'status' = 'pending')\n  with check (public.has_right('supervise') and owner_id <> auth.uid() and data->>'status' in ('approved', 'changes'));\n\ndrop policy if exists pool_supervisor_assign on public.enquiry_pool;\ncreate policy pool_supervisor_assign on public.enquiry_pool for update\n  using (public.has_right('supervise') and data->>'status' = 'released')\n  with check (public.has_right('supervise') and data->>'status' = 'claimed' and data->>'claimedBy' <> auth.uid()::text);\n\ndrop policy if exists join_assessor_read on public.join_requests;\ncreate policy join_assessor_read on public.join_requests for select using (public.has_right('assess'));\ndrop policy if exists acad_progress_assessor_read on public.academy_progress;\ncreate policy acad_progress_assessor_read on public.academy_progress for select using (public.has_right('assess'));\ndrop policy if exists agr_assessor_read on public.agreements;\ndrop policy if exists agr_assessor_send on public.agreements;\ncreate policy agr_assessor_read on public.agreements for select using (public.has_right('assess'));\ncreate policy agr_assessor_send on public.agreements for insert with check (public.has_right('assess') and id <> auth.uid()::text and data->>'status' = 'sent');\n"};
 const OWNER_TODO = [
   {id:"company", sev:"high", title:"Fill in the company details",
     why:"The agreement, email signature, confirmations and privacy notice use them. Agreements cannot be sent until they are in.",
@@ -4923,6 +4996,8 @@ const OWNER_TODO = [
     why:"Keeps every weekly snapshot of the matrix for good, readable by owners only. Until it runs, weeks are held safely and move across by themselves.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0011", sev:"high", title:"Run SQL: supervised steps (0011)", sql:"0011", table:"step_requests",
     why:"Lets supervised members ask for your OK on each step, and you approve or send back on Today. Until it runs, nothing is held back.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+  {id:"sql-0012", sev:"med", title:"Run SQL: supervisor rights (0012)", sql:"0012",
+    why:"Lets the members you choose supervise steps, assess new people or approve bookings. Before it runs, ticking a right has no effect.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
   {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
     how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},

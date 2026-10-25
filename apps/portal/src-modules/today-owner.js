@@ -18,6 +18,8 @@ const OWNER_TODO = [
     why:"Keeps every weekly snapshot of the matrix for good, readable by owners only. Until it runs, weeks are held safely and move across by themselves.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0011", sev:"high", title:"Run SQL: supervised steps (0011)", sql:"0011", table:"step_requests",
     why:"Lets supervised members ask for your OK on each step, and you approve or send back on Today. Until it runs, nothing is held back.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+  {id:"sql-0012", sev:"med", title:"Run SQL: supervisor rights (0012)", sql:"0012",
+    why:"Lets the members you choose supervise steps, assess new people or approve bookings. Before it runs, ticking a right has no effect.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
   {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
     how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},

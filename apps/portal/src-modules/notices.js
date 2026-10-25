@@ -5,6 +5,10 @@
    trust matrix ("Notices confirmed within 3 days"). Add new notices at the top; never change an issued one, issue a
    new one instead. Owners do not get notices. */
 const NOTICES = [
+  {id:"2026-10-26-supervisors", date:"2026-10-26", to:["broker","ops"], title:"Supervisor rights for experienced members",
+    body:["The director can give experienced members supervisor rights: deciding on other people's supervised steps, assessing new people, and (operations) approving bookings.",
+      "If you have a right, a Supervision page appears in your menu, and your dashboard shows when something waits for you. Decide only on others' work, never your own. Every decision is logged with your name.",
+      "Countersigning agreements and releasing supervised steps stay with the director."]},
   {id:"2026-10-26-supervised", date:"2026-10-26", to:["broker","ops"], title:"Supervised steps: some steps now wait for the director's OK",
     body:["While you are supervised, these steps wait for the director's OK before they move on. Brokers: sending a quote to a client (and to operations), taking an enquiry from the pool, and your first contact with a new prospect. Operations: recording client and operator payments, and sending or awarding supplier quotes.",
       "The portal asks for you when you take the step. You see the answer on your dashboard and on the trip: approved, or changes asked with a note. Do not send a quote to the client before it is approved.",

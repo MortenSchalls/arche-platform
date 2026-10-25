@@ -66,14 +66,14 @@ function agrOwnerBlock(id, j){
   const a = (S.agrs || {})[id];
   if (!a) return `<div class="fgrid" style="margin-top:6px"><label class="f" for="ob_note_${id}">Assessment notes<input id="ob_note_${id}" autocomplete="off" placeholder="What you checked and the result"></label><label class="f" for="ag_start_${id}">Start date (optional)<input id="ag_start_${id}" type="date"></label></div>
     ${agrCoReady() ? "" : `<p class="small" style="color:var(--warn)">Fill in the company details in Settings first (legal name, UEN, address, bookings email, signatory and title). They go into the agreement.</p>`}
-    <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="send|${id}" ${agrCoReady() ? "" : "disabled"}>Passed: send agreement</button><button class="btn small" type="button" data-decline="${id}">Decline</button></div>`;
+    <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="send|${id}" ${agrCoReady() ? "" : "disabled"}>Passed: send agreement</button>${S.isOwner ? `<button class="btn small" type="button" data-decline="${id}">Decline</button>` : ""}</div>`;
   if (a.status === "sent") return `<p class="small">Assessment passed ${fmtD(a.assess && a.assess.at)}. Agreement sent ${fmtT(a.sentAt)}, waiting for their signature.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button><button class="btn small" type="button" data-agr="withdraw|${id}">Withdraw</button></div>`;
   if (a.status === "signed") return `<p class="small"><b>Signed</b> by ${esc(a.signedName)} on ${fmtT(a.signedAt)}.</p>
     <div class="fgrid" style="margin-top:6px"><label class="f" for="ob_mail_${id}">Archē email address created for them<input id="ob_mail_${id}" type="email" autocomplete="off" placeholder="name@…"></label></div>
-    <div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button><button class="btn small primary" type="button" data-approve="${id}">Countersign and issue onboarding package</button></div>`;
+    <div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button>${S.isOwner ? `<button class="btn small primary" type="button" data-approve="${id}">Countersign and issue onboarding package</button>` : `<span class="small muted">Waiting for the director's countersignature.</span>`}</div>`;
   return `<p class="small muted">Agreement ${esc(a.status)}.</p>`;
 }
-function agrWatchOwner(){ if (S.agrOn || !S.isOwner) return; S.agrOn = true; watchCol("agr", snap => { S.agrs = {}; snap.docs.forEach(d => S.agrs[d.id] = d.data()); render(); }); }
+function agrWatchOwner(){ if (S.agrOn || !(S.isOwner || (typeof canRight === "function" && canRight("assess")))) return; S.agrOn = true; watchCol("agr", snap => { S.agrs = {}; snap.docs.forEach(d => S.agrs[d.id] = d.data()); render(); }); }
 function agrModal(){ const id = S.agrView; if (!id) return ""; const a = (S.agrs || {})[id] || (id === S.uid ? S.myAgr : null); if (!a) return "";
   return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="copy">Download a copy</button><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html || agrRender(a)}</div>`; }
 async function agrCountersign(id){
@@ -102,13 +102,13 @@ document.addEventListener("click", async ev => {
   if (a === "offer") { S.offerOpen = !S.offerOpen; render(); return; }
   if (a === "view") { S.agrView = id; render(); return; }
   if (a === "closeview") { S.agrView = null; render(); return; }
-  if (!S.isOwner) return;
+  if (!S.isOwner && !(a === "send" && typeof canRight === "function" && canRight("assess") && id !== S.uid)) return;
   try {
     if (a === "send") { const note = (($("ob_note_" + id) || {}).value || "").trim(), start = (($("ag_start_" + id) || {}).value || "");
       if (!note) { toast("Add a short note on the assessment."); return; }
       if (!agrCoReady()) { toast("Fill in the company details in Settings first."); return; }
       await S.db.doc("agr/" + id).set({status: "sent", version: AGR_VERSION, sentAt: now(), sentBy: S.uid, start, assess: {notes: note, at: now(), by: S.uid}, company: {...S.company}});
-      audit("Assessment passed; agreement sent", (S.joins[id] || {}).contractName || id); toast("Agreement sent. They read and sign it in the portal."); return; }
+      audit(S.isOwner ? "Assessment passed; agreement sent" : "Assessment passed by supervisor; agreement sent", (S.joins[id] || {}).contractName || id); toast("Agreement sent. They read and sign it in the portal."); return; }
     if (a === "withdraw") { await S.db.doc("agr/" + id).delete(); audit("Agreement withdrawn", (S.joins[id] || {}).contractName || id); toast("Withdrawn."); return; }
   } catch(err){ toast(err.code === "permission_denied" || err.code === "unknown_path" ? "Agreements are not set up yet (run 0009 in Supabase)." : "Could not save."); }
 });
