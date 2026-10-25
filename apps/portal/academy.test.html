@@ -48,6 +48,7 @@ window.supabase = { createClient() {
       then(ok, bad) { try { ok(run()); } catch (e) { (bad || ok)({ error: e }); } }
     };
     function run() {
+      if ((window.__MISSING || []).includes(table)) return { data: null, error: { code: "42P01", message: `relation "public.${table}" does not exist` } };
       const m = r => filt.every(f => f(r));
       if (op === "select") { let out = rows().filter(m).map(r => JSON.parse(JSON.stringify(r))); if (ord) out.sort((a, b) => (a[ord[0]] > b[ord[0]] ? 1 : -1) * ord[1]); return { data: single ? out[0] || null : out, error: null }; }
       if (op === "insert") { rows().push({ id: rows().length + 1, ...payload }); }
