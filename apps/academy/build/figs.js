@@ -107,16 +107,16 @@ const FIGS = (() => {
     return {svg: svg(214, o, "Operator vetting funnel"), cap:"Each check narrows the field. An unrated operator needs the director's approval.", say:"Funnel. From all quotes received, keep operators whose aircraft is on their AOC operations specifications, whose insurance covers commercial passengers, with ARGUS Gold Plus or higher or Wyvern Wingman, and who are not banned or sanctioned. What remains is the shortlist for the client."};
   };
 
-  F.price = () => ({svg: svg(200, `<text x="10" y="20" class="t-b">Right: divide by 0.93</text>
-    <rect x="10" y="30" width="572" height="40" rx="4" class="f-soft"/><rect x="582" y="30" width="43" height="40" rx="4" class="f-acc"/><text x="296" y="55" text-anchor="middle" class="t-s">Arche cost 100,000 = 93%</text><text x="603" y="55" text-anchor="middle" class="t-x">7%</text><text x="625" y="90" text-anchor="end" class="t-s">Client price 107,527 · margin 7,527 = 7.0%</text>
-    <text x="10" y="128" class="t-b">Wrong: add 7%</text>
-    <rect x="10" y="138" width="572" height="40" rx="4" class="f-soft"/><rect x="582" y="138" width="40" height="40" rx="4" class="f-red"/><text x="296" y="163" text-anchor="middle" class="t-s">Arche cost 100,000</text><text x="625" y="196" text-anchor="end" class="t-s">Client price 107,000 · margin 7,000 = only 6.5%</text>`, "The 7 percent price formula"),
-    cap:"The margin is 7% of the client price, so divide the cost by 0.93 and round up.", say:"Two bars. Right: an Arche cost of 100,000 divided by 0.93 gives a client price of 107,527, and the margin of 7,527 is 7 percent of the price. Wrong: adding 7 percent gives 107,000, and the margin of 7,000 is only 6.5 percent of the price."});
+  F.price = () => ({svg: svg(200, `<text x="10" y="20" class="t-b">Right: divide by 0.91</text>
+    <rect x="10" y="30" width="560" height="40" rx="4" class="f-soft"/><rect x="570" y="30" width="55" height="40" rx="4" class="f-acc"/><text x="290" y="55" text-anchor="middle" class="t-s">Arche cost 100,000 = 91%</text><text x="597" y="55" text-anchor="middle" class="t-x">9%</text><text x="625" y="90" text-anchor="end" class="t-s">Client price 109,891 · margin 9,891 = 9.0%</text>
+    <text x="10" y="128" class="t-b">Wrong: add 9%</text>
+    <rect x="10" y="138" width="560" height="40" rx="4" class="f-soft"/><rect x="570" y="138" width="50" height="40" rx="4" class="f-red"/><text x="290" y="163" text-anchor="middle" class="t-s">Arche cost 100,000</text><text x="625" y="196" text-anchor="end" class="t-s">Client price 109,000 · margin 9,000 = only 8.26%</text>`, "The 9 percent price formula"),
+    cap:"The margin is 9% of the client price, so divide the cost by 0.91 and round up.", say:"Two bars. Right: an Arche cost of 100,000 divided by 0.91 gives a client price of 109,891, and the margin of 9,891 is 9 percent of the price. Wrong: adding 9 percent gives 109,000, and the margin of 9,000 is only 8.26 percent of the price."});
 
   F.ex = () => {
-    const r = [["A. One-way",100000,107527],["B. Multi-leg",180000,193549],["D. With supplier item",61200,65807]];
+    const r = [["A. One-way",100000,109891],["B. Multi-leg",180000,197803],["D. With supplier item",61200,67253]];
     let o = ""; r.forEach((k,i) => { const y = 14 + i*62, wc = k[1]/200000*470, wp = k[2]/200000*470; o += `<text x="10" y="${y+12}" class="t-s t-b">${k[0]}</text><rect x="150" y="${y}" width="${wc}" height="18" rx="3" class="f-soft"/><text x="${156+wc}" y="${y+14}" class="t-s t-m">cost ${k[1].toLocaleString("en-US")}</text><rect x="150" y="${y+22}" width="${wp}" height="18" rx="3" class="f-acc"/><text x="${156+wp}" y="${y+36}" class="t-s">price ${k[2].toLocaleString("en-US")}</text>`; });
-    return {svg: svg(200, o, "Worked examples"), cap:"Cost and client price for three of the worked examples (USD).", say:"Bar chart of three worked examples. One-way: cost 100,000, price 107,527. Multi-leg: cost 180,000, price 193,549. With a supplier item: cost 61,200, price 65,807."};
+    return {svg: svg(200, o, "Worked examples"), cap:"Cost and client price for three of the worked examples (USD).", say:"Bar chart of three worked examples. One-way: cost 100,000, price 109,891. Multi-leg: cost 180,000, price 197,803. With a supplier item: cost 61,200, price 67,253."};
   };
 
   F.money = () => ({svg: svg(220, `${box(10,30,130,60,"Client","pays the request")}${arrow(140,60,198,60)}${box(200,20,180,80,"Paynode","holds client funds","f-soft s-line")}${arrow(380,60,448,60)}${box(450,30,180,60,"Operator","paid on its terms")}

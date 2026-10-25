@@ -54,7 +54,7 @@ push(T([['Item',3000],['Detail',6640]],[
  ['Owner','Director, Archē Executive'],
  ['Applies to','All brokers, charter consultants and operations staff, in every office and every market'],
  ['Effective','October 2026'],
- ['Version','3.8, 19 October 2026: live negotiation lab and AI practice partner (14.4, 14.5), post-trip debrief (14.6), following every trip to the last leg with follow-up and client rating (11.5, A.4, B.10), ACA Essentials sponsorship (14.3) and Appendix J regional quick-reference cards. 3.7, 18 October 2026: Appendix H Portal guide (flow diagram, every feature with troubleshooting and tips) and Appendix I Portal FAQ. 3.6, 18 October 2026: client requests and operational extras, the operational rules behind them, the booking timeline, the portal, and prospect and lead rules'],
+ ['Version','3.8, 25 October 2026: margin 9% of the client price (÷ 0.91); every worked example and question in Module 9 recomputed. 3.8, 19 October 2026: live negotiation lab and AI practice partner (14.4, 14.5), post-trip debrief (14.6), following every trip to the last leg with follow-up and client rating (11.5, A.4, B.10), ACA Essentials sponsorship (14.3) and Appendix J regional quick-reference cards. 3.7, 18 October 2026: Appendix H Portal guide (flow diagram, every feature with troubleshooting and tips) and Appendix I Portal FAQ. 3.6, 18 October 2026: client requests and operational extras, the operational rules behind them, the booking timeline, the portal, and prospect and lead rules'],
  ['Review','At least once a year, and at once after a change in law, an audit finding or a serious error'],
  ['Controlled copy','The current version is the copy in the Archē document folder. Printed or downloaded copies are for reference only.'],
  ['Questions','Raise with the director. Nobody may change a rule in this manual on their own.'],
@@ -88,7 +88,7 @@ push(box('Critical errors (any one stops certification and is reviewed by the di
  '1. Contract issued without KYC or sanctions screening.',
  '2. Operator used without a checked AOC, insurance and safety standard (or director approval).',
  '3. Flight sold that we may not sell (Module 2.4), including any cabotage breach, or quoted without a trip risk screen (Module 2.9).',
- '4. Wrong price: margin below 7% without approval, a number we cannot source, or a hidden fee.',
+ '4. Wrong price: margin below 9% without approval, a number we cannot source, or a hidden fee.',
  '5. Missing client disclosures (Module 2.2).',
  '6. Payment taken outside Paynode, or bank details sent by email or chat.',
  '7. Personal data sent outside Avinode, the CRM or the operator.']));
@@ -218,7 +218,7 @@ push(P('Our name, Archē, is said ar-KAY. It comes from the Greek word archē, m
 push(H2('1.2 What we sell'));
 push(BL(['Whole-aircraft charters for one client, on third-party aircraft of every size, with a focus on long-range and heavy jets.','Empty legs, on the conditions in Module 9.','Nothing on the "never sell" list in Module 2.4.','We do not sell flight hours on aircraft owned by Navoryx Executive or its aircraft companies while the charter sales agreement for those aircraft is in force. Pass any such request to the director.']));
 push(H2('1.3 How we earn'));
-push(P('Our margin is 7% of the price the client pays (Module 9). The operator receives the rest through Paynode. Only our margin flows into Archē\'s own bank account.'));
+push(P('Our margin is 9% of the price the client pays (Module 9). The operator receives the rest through Paynode. Only our margin flows into Archē\'s own bank account.'));
 push(H2('1.4 Roles'));
 push(T([['Role',2200],['Does',7440]],[
  ['Charter consultant','Builds the client base by phone and follow-up, captures and qualifies enquiries, hands live trips to a broker'],
@@ -248,7 +248,7 @@ push(P(`These are the current settings. The director can change them in the port
 push(H3('Booking rights and separate duties'));
 push(BL([`Operations checks each trip, confirms the operator price on Avinode, completes KYC and sanctions screening, creates the Paynode payment request and issues the confirmation.`,`The director can give a broker booking rights, so the broker also works as operations. Nobody confirms, prices or records payment on their own booking: another operations member or the director does it.`]));
 push(quiz(1,[
- ['A client asks to charter an aircraft owned by Navoryx Executive. What do you do?',['Quote it at 7%','Pass the request to the director','Ask the operator for a discount','Decline without comment'],'b'],
+ ['A client asks to charter an aircraft owned by Navoryx Executive. What do you do?',['Quote it at 9%','Pass the request to the director','Ask the operator for a discount','Decline without comment'],'b'],
  ['A trip billed at USD 135,000 counts as how many booking units?',['1','2','3','4'],'c'],
  ['A client wants to buy four seats on someone else\'s flight. Which is right?',['We sell the seats','We sell whole-aircraft charters to one client only','We split the price four ways','We ask the operator to sell them'],'b'],
  ['A broker buys the flight from the operator and resells it in its own name. Which model is that?',['Agent of the client','Agent of the operator','Principal','None'],'c'],
@@ -417,7 +417,7 @@ push(T([['Stage',2300],['What happens',5040],['Output',2300]],[
  ['3. Legal check','Check the trip against Module 2.4','Allowed, redesigned or refused'],
  ['4. Feasibility','Airports, permits, cabotage, crew duty, documents (Module 6)','Route feasible'],
  ['5. Sourcing','Request quotes on Avinode; vet operators (Module 8)','Shortlist'],
- ['6. Quote','Price at 7%; send through Avinode (Module 9)','Quote with expiry'],
+ ['6. Quote','Price at 9%; send through Avinode (Module 9)','Quote with expiry'],
  ['7. Contract and payment','KYC and sanctions done; confirmation signed; Paynode payment (Module 10)','Confirmed booking'],
  ['8. Operations','Passenger details, permits, catering, ground transport, monitoring (Module 11)','Flight operated'],
  ['9. Close','Extras reconciled with receipts; feedback; file closed (Module 11)','Booking closed'],
@@ -575,23 +575,23 @@ push(H2('9.2 Costs that cannot be fixed before the flight'));
 push(P('Some costs depend on the day: de-icing, extra parking or hangar time, extra crew nights after a schedule change, late catering, Wi-Fi data use, changing airport or passenger taxes, and permit fees for late changes. Treat them the same way every time:'));
 push(BL(['Never put a number on them unless the operator or supplier has given it in writing.','List them in the quote and in Part A of the confirmation as "at cost, invoiced after the flight with receipts".','If the client asks how much, ask the operator for its best estimate in writing and pass it on as the operator\'s estimate, never as a fixed price.','After the flight, recharge only what the operator invoices, with receipts, with no margin unless the confirmation says otherwise.']));
 push(H2('9.3 The Archē price formula'));
-push(P('Our margin is 7% of the price the client pays. Because it is a share of the selling price, divide the cost by 0.93; do not add 7% to the cost.'));
+push(P('Our margin is 9% of the price the client pays. Because it is a share of the selling price, divide the cost by 0.91; do not add 9% to the cost.'));
 push(box('Price formula',['Archē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writing',
- 'Client price = Archē cost ÷ 0.93     Archē margin = client price − Archē cost = 7% of the client price',
+ 'Client price = Archē cost ÷ 0.91     Archē margin = client price − Archē cost = 9% of the client price',
  'Not included: items "at cost, after the flight" (9.2), and card payment costs, charged as set out in the confirmation']));
 push(sp());
 push(H2('9.4 Worked examples'));
 push(T([['Example',5640],['USD',4000]],[
- ['A. One-way: operator all-in 100,000','Client price 100,000 ÷ 0.93 = 107,527; margin 7,527'],
- ['Wrong method: 100,000 + 7% = 107,000','Margin 7,000 = only 6.5% of the price'],
- ['B. Multi-leg: three legs quoted by one operator, all-in 180,000 including positioning','Price on the total: 193,549; margin 13,549. Never price legs separately if the operator quotes the trip as one'],
- ['C. Shared positioning: operator lowers its price from 100,000 to 92,000 because the empty return is sold','New client price 98,925 if the client is not yet contracted; if already contracted, the confirmation decides who benefits'],
- ['D. Supplier item: ground transport quoted 1,200 in writing; operator all-in 60,000','Archē cost 61,200; client price 65,807; margin 4,607'],
+ ['A. One-way: operator all-in 100,000','Client price 100,000 ÷ 0.91 = 109,890.11, rounded up to 109,891; margin 9,891'],
+ ['Wrong method: 100,000 + 9% = 109,000','Margin 9,000 = only 8.26% of the price'],
+ ['B. Multi-leg: three legs quoted by one operator, all-in 180,000 including positioning','Price on the total: 197,803; margin 17,803. Never price legs separately if the operator quotes the trip as one'],
+ ['C. Shared positioning: operator lowers its price from 100,000 to 92,000 because the empty return is sold','New client price 101,099 if the client is not yet contracted; if already contracted, the confirmation decides who benefits'],
+ ['D. Supplier item: ground transport quoted 1,200 in writing; operator all-in 60,000','Archē cost 61,200; client price 67,253; margin 6,053'],
  ['E. Currency: operator quotes in EUR, client pays in USD','Convert the operator price with the Paynode rate on the day of the quote; state the quote currency and that it is fixed only after payment'],
  ['F. Post-flight: de-icing invoiced by the operator at 2,850 with receipt','Recharge 2,850 through Paynode within 7 days of the flight, with the receipt; no margin'],
 ]));
 push(sp());
-push(P('Margins below 7% need the director\'s approval before the quote is sent. Round client prices up, never down.'));
+push(P('Margins below 9% need the director\'s approval before the quote is sent. Round client prices up, never down.'));
 push(H2('9.5 Empty legs'));
 push(P('Empty legs are priced with the same formula on the operator\'s empty-leg conditions, which usually allow the operator to cancel or change the flight if the main charter changes. The client receives those conditions in writing; the Archē confirmation prints them when the booking type is "empty leg".'));
 push(H2('9.6 Presenting the quote'));
@@ -602,18 +602,18 @@ push(H2('9.8 Pricing client requests and operational extras'));
 push(P(`Every client request and operational extra is charged in one of three ways. Agree which with the operator or the supplier in writing before the confirmation is issued.`));
 push(T([['How it is charged',2200],['When to use it',3300],['Price and payment',4140]],[
  ['Included in the charter price','The operator includes it in its all-in quote, for example standard catering or handling','Nothing extra: it is part of the operator price'],
- ['Fixed price','A supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal fee','Like any supplier item Archē buys, it carries the 7% margin: supplier price ÷ 0.93, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away'],
+ ['Fixed price','A supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal fee','Like any supplier item Archē buys, it carries the 9% margin: supplier price ÷ 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away'],
  ['At cost after the flight','The amount depends on the day: de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi use','No number before the flight (Module 9.2). Invoiced within 7 days of the flight with the receipts, through Paynode; payable within 10 calendar days of the invoice (Part A, A7). No margin'],
 ]));
 push(sp());
-push(P(`Worked example: an operator all-in price of USD 100,000 gives a charter price of 107,527. The client adds a car at arrival, quoted in writing at 1,200: the fixed line is 1,200 ÷ 0.93 = 1,290.32, rounded up to 1,291. Total payable: 108,818. The deposit stays at 25% of the charter price: 26,882. The balance of 81,936 is due 7 days before departure. Winter de-icing is listed at cost and invoiced after the flight.`));
+push(P(`Worked example: an operator all-in price of USD 100,000 gives a charter price of 109,891. The client adds a car at arrival, quoted in writing at 1,200: the fixed line is 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319. Total payable: 111,210. The deposit stays at 25% of the charter price: 27,473. The balance of 83,737 is due 7 days before departure. Winter de-icing is listed at cost and invoiced after the flight.`));
 push(quiz(9,[
- ['The operator all-in price is USD 60,000. What is the client price at 7%?',['64,200','64,517','63,000','67,000'],'b'],
+ ['The operator all-in price is USD 60,000. What is the client price at 9%?',['65,400','65,935','65,934','66,000'],'b'],
  ['A client asks the de-icing cost before booking. You:',['Guess 2,000','Ask the operator for a written estimate and pass it on as its estimate','Add it to the fixed price','Refuse to answer'],'b'],
- ['Which items carry the 7% margin?',['Everything including post-flight extras','The operator price and confirmed supplier items Archē buys','Only the operator price','Only extras'],'b'],
- ['Operator all-in 140,000 plus a written catering quote of 2,500 bought by Archē. Client price?',['153,226','152,500','150,000','153,000'],'a'],
+ ['Which items carry the 9% margin?',['Everything including post-flight extras','The operator price and confirmed supplier items Archē buys','Only the operator price','Only extras'],'b'],
+ ['Operator all-in 140,000 plus a written catering quote of 2,500 bought by Archē. Client price?',['156,594','155,325','150,000','156,000'],'a'],
  ['Which negotiation step is acceptable?',['Telling the operator you have a cheaper quote you do not have','Asking whether a different departure day saves positioning','Asking the crew to skip rest','Hiding the passenger count'],'b'],
- ['A car at arrival is quoted in writing at USD 1,200 before booking. What does the client pay for it?',['1,200','1,284','1,291','1,320'],'c'],
+ ['A car at arrival is quoted in writing at USD 1,200 before booking. What does the client pay for it?',['1,200','1,308','1,319','1,330'],'c'],
  ['How is de-icing charged?',['As a fixed price with margin','At cost after the flight with the receipt, without margin','Always included','Never'],'b']
 ]));
 
@@ -653,7 +653,7 @@ push(T([['When',2300],['What must happen',4840],['Where it is set',2500]],[
 push(sp());
 push(P(`Book as early as the client allows. Every day closer to departure means fewer aircraft to choose from, permits and slots that are harder to get, and payment due at once.`));
 push(H2('10.7 How to book in the Archē portal, step by step'));
-push(NL([`Open the enquiry: from a lead with "Open an enquiry", or with New enquiry. For each airport, type a city, airport name or code and pick from the list; the portal stores the ICAO code.`,`Add the client requests and operational extras, each with how it is charged (Module 9.8). Use the suggestions as prompts and confirm every item with the operator or supplier.`,`Enter the operator quote from Avinode: operator legal name as on its AOC, aircraft type, registration, Avinode trip ID, the operator all-in price and any direct trip costs. The portal sets the client price at 7%.`,`Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents. Documents stay in the portal: never email passports or contracts.`,`Tick the seven pre-issue checks and send the trip to operations.`,`Operations confirms the operator price on Avinode, completes KYC and sanctions screening, creates the Paynode payment request and issues the charter confirmation in the portal. The PDF is saved to the trip; any change after issue becomes a numbered revision.`,`Operations records the client's payment, the operator payment through Paynode and the flight. Your commission then appears on your dashboard.`]));
+push(NL([`Open the enquiry: from a lead with "Open an enquiry", or with New enquiry. For each airport, type a city, airport name or code and pick from the list; the portal stores the ICAO code.`,`Add the client requests and operational extras, each with how it is charged (Module 9.8). Use the suggestions as prompts and confirm every item with the operator or supplier.`,`Enter the operator quote from Avinode: operator legal name as on its AOC, aircraft type, registration, Avinode trip ID, the operator all-in price and any direct trip costs. The portal sets the client price at 9%.`,`Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents. Documents stay in the portal: never email passports or contracts.`,`Tick the seven pre-issue checks and send the trip to operations.`,`Operations confirms the operator price on Avinode, completes KYC and sanctions screening, creates the Paynode payment request and issues the charter confirmation in the portal. The PDF is saved to the trip; any change after issue becomes a numbered revision.`,`Operations records the client's payment, the operator payment through Paynode and the flight. Your commission then appears on your dashboard.`]));
 push(quiz(10,[
  ['The operator\'s cancellation terms are stricter than Part A. What happens?',['Issue anyway','Director decides before issue','Change Part A yourself','Ask the client'],'b'],
  ['Which money enters Archē\'s Citi account?',['Full client payment','Only Archē\'s margin','Operator payment','Nothing'],'b'],
@@ -726,7 +726,7 @@ push(T([['What the director tracks',4800],['Why',4840]],[
 ]));
 push(sp());
 push(H2('12.6 Negotiating with clients'));
-push(BL([`Sell value, not discounts: aircraft, operator safety, service and certainty.`,`Offer two or three options at different prices rather than cutting the margin.`,`Below 7% needs the director's approval (Module 9).`]));
+push(BL([`Sell value, not discounts: aircraft, operator safety, service and certainty.`,`Offer two or three options at different prices rather than cutting the margin.`,`Below 9% needs the director's approval (Module 9).`]));
 push(quiz(12,[
  ['Before calling a number from a new list, you must:',['Call at once','Check the national do-not-call register and record opt-outs','Send a message first','Ask the operator'],'b'],
  ['A client says another broker is cheaper. First step?',['Cut our margin','Compare like for like','Criticise the other broker','End the call'],'b'],
@@ -738,7 +738,7 @@ push(H1('Module 13  Case studies',false));
 push(P('Work each case yourself first, then compare with the model answer.'));
 const CASE=(t,sc,steps)=>{push(H2(t));push(P([bo('Situation. '),r(sc)]));push(P([bo('Model answer')],{spacing:{after:40}}));push(NL(steps));};
 CASE('Case 1  A simple one-way in Europe','An assistant asks for 6 passengers from London to Nice next Friday morning, returning on a separate trip later.',[
- 'Confirm: which London airport, departure time in local time, names and nationalities, luggage, payer. Start KYC.','Check Module 2.4: international flight, nothing restricted. Screen all names.','Avinode: request quotes for midsize and super-midsize jets from operators allowed to fly in the EU and UK; ask inclusions and exclusions.','Compare and vet (Module 8). Choose; confirm with the operator in writing.','Price: operator all-in ÷ 0.93. Quote from Avinode with expiry and "at cost" items.','Confirmation signed; Paynode payment request; operator paid through Paynode.','Trip brief to the assistant; flight tracked; post-flight extras recharged with receipts.']);
+ 'Confirm: which London airport, departure time in local time, names and nationalities, luggage, payer. Start KYC.','Check Module 2.4: international flight, nothing restricted. Screen all names.','Avinode: request quotes for midsize and super-midsize jets from operators allowed to fly in the EU and UK; ask inclusions and exclusions.','Compare and vet (Module 8). Choose; confirm with the operator in writing.','Price: operator all-in ÷ 0.91. Quote from Avinode with expiry and "at cost" items.','Confirmation signed; Paynode payment request; operator paid through Paynode.','Trip brief to the assistant; flight tracked; post-flight extras recharged with receipts.']);
 CASE('Case 2  A US trip that touches a domestic leg','A client in Hong Kong wants New York (Teterboro) – Miami – Nassau for 8 people on a European-registered jet she flew before.',[
  'Teterboro – Miami is a US domestic leg: no foreign operator may carry it (Module 2.4).','Archē policy: no US domestic flights until US counsel has confirmed our position. Pass to the director.','Explain to the client early and plainly; offer the alternative the director approves (for example a trip that starts in Miami for the international leg, or referral).','Never quote the European jet for the domestic leg.']);
 CASE('Case 3  Long range, Asia to Europe','A family of 10 wants Singapore to London overnight, non-stop, with plenty of luggage.',[
@@ -751,7 +751,7 @@ CASE('Case 6  A compliance stop','A new client company asks for Dubai – Paris.
  'Payer different from client: get the payer\'s identity and reason; director approval needed (Module 3.1).','Possible sanctions match: stop; no payment; no explanation to the client; report to the director with the screening record.','Do not continue sourcing until the director decides.']);
 
 CASE('Case 7  A winter night departure with a long stay','A family of eight wants Zurich to Bangkok on 22 January, leaving at 23:30, staying five nights, then flying home. They ask for halal catering, a car at arrival and a child seat for a two-year-old.',[
- 'Client requests: halal catering, a car at arrival and a child seat. Get the car as a written supplier quote (fixed price ÷ 0.93) or list it at cost; confirm the catering and the seat with the operator (Modules 5.5 and 9.8).',
+ 'Client requests: halal catering, a car at arrival and a child seat. Get the car as a written supplier quote (fixed price ÷ 0.91) or list it at cost; confirm the catering and the seat with the operator (Modules 5.5 and 9.8).',
  'Operational needs: de-icing at Zurich in January (at cost after the flight); the airport\'s hours and night restrictions for 23:30 (ask the operator, change the time if needed); a private terminal and customs at Bangkok (Module 6.5).',
  'The sector is about 9,000 km: ask the operator in writing whether it is non-stop for eight passengers and their luggage in January, or needs a technical stop, and how the crew is planned.',
  'The aircraft waits five nights: agree crew hotel and allowances and parking at Bangkok, or positioning home and back, whichever the operator prices lower.',
@@ -829,7 +829,7 @@ push(T([['Scenario',4300],['What a good answer does',5340]],[
  [`AOG: the booked aircraft is unserviceable 6 hours before departure`,`Calm, facts first; the operator's written replacement options; extra cost approved by the director, never promised on the call (Module 11.3)`],
  [`The assistant refuses the 25% deposit and wants to pay after the flight`,`Explain the booking terms (Module 10.6) and why the operator must be secured; offer Paynode card or bank options; no exceptions without the director`],
  [`The principal insists on a domestic leg on a foreign-registered aircraft`,`Explain cabotage in plain words; offer a local operator for that leg or a new routing; never sell it (Module 2.4)`],
- [`"Another broker quoted 15% less"`,`Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 7% only with director approval (Module 12.6)`],
+ [`"Another broker quoted 15% less"`,`Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with director approval (Module 12.6)`],
  [`A passenger is added on the day`,`Names to the operator at once; permits, insurance and seats confirmed in writing before you agree`],
  [`The client wants to bring a dog to a strict-entry country`,`Destination rules and the operator's written acceptance first; offer a route and airport that work (Appendix G.4)`],
  [`De-icing delays departure and the client is angry about the charge`,`Safety is the crew's decision; the charge is at cost with the receipt, as the confirmation says (Module 9.2)`],
@@ -872,7 +872,7 @@ push(quiz(14,[
 // ================= APPENDIX A
 push(H1('Appendix A  Checklists',true));
 push(H2('A.1 Pre-issue checklist'));
-push(BL(['KYC complete and reference recorded','Sanctions screening record complete and clear','Trip checked against Module 2.4 (never-sell list, cabotage, US and EU rules)','Trip risk screen recorded; every amber point confirmed in writing; no red open','Operator AOC and operations specifications on file; aircraft listed','Insurance certificate on file, commercial passengers covered','Safety audit standard met, or director approval for an unrated operator; operator not on a banned list','Route feasible: range, runway, crew duty, permits, slots, cabotage confirmed by the operator','Operator terms back to back with Part A','Price at 7% (or director approval); "at cost" items listed','Client requests and operational extras listed, each with how it is charged; fixed prices from a written supplier quote','Airport hours, de-icing, crew plan, parking and customs checked with the operator for the planned times','Disclosures in Module 2.2 included','Payment set up as a Paynode request from Avinode'].map(t=>'☐  '+t)));
+push(BL(['KYC complete and reference recorded','Sanctions screening record complete and clear','Trip checked against Module 2.4 (never-sell list, cabotage, US and EU rules)','Trip risk screen recorded; every amber point confirmed in writing; no red open','Operator AOC and operations specifications on file; aircraft listed','Insurance certificate on file, commercial passengers covered','Safety audit standard met, or director approval for an unrated operator; operator not on a banned list','Route feasible: range, runway, crew duty, permits, slots, cabotage confirmed by the operator','Operator terms back to back with Part A','Price at 9% (or director approval); "at cost" items listed','Client requests and operational extras listed, each with how it is charged; fixed prices from a written supplier quote','Airport hours, de-icing, crew plan, parking and customs checked with the operator for the planned times','Disclosures in Module 2.2 included','Payment set up as a Paynode request from Avinode'].map(t=>'☐  '+t)));
 push(H2('A.2 Operator vetting checklist'));
 push(BL(['AOC','Operations specifications','Insurance','ARGUS / Wyvern / IS-BAO evidence, or the unrated-operator route','EU Air Safety List and national bans','Foreign permissions for the route','Accident and enforcement history','Sanctions screening','Contract terms'].map(t=>'☐  '+t)));
 push(H2('A.3 Pre-flight checklist'));
@@ -1029,7 +1029,7 @@ push(NL(['อาร์เช่ เอ็กเซ็กคิวทีฟ เ�
  'ห้ามขายเที่ยวบินภายในประเทศด้วยเครื่องบินของผู้ให้บริการต่างชาติ (คาโบทาจ) เว้นแต่ผู้ให้บริการยืนยันเป็นลายลักษณ์อักษรว่ากฎหมายอนุญาต และห้ามขายเที่ยวบินภายในสหรัฐอเมริกาทั้งหมดจนกว่าผู้อำนวยการจะอนุมัติ',
  'ต้องทำ KYC และตรวจสอบรายชื่อผู้ถูกคว่ำบาตรของลูกค้า ผู้ชำระเงิน และผู้โดยสารทุกคน ก่อนออกเอกสารยืนยันการจอง หากพบชื่อที่อาจตรงกัน ให้หยุดและรายงานผู้อำนวยการทันที',
  'ใช้เฉพาะผู้ให้บริการที่มี AOC ประกันภัย และมาตรฐานความปลอดภัยตามคู่มือ หรือได้รับอนุมัติจากผู้อำนวยการ',
- 'ราคาต่อลูกค้า = ต้นทุน ÷ 0.93 (กำไร 7% ของราคาขาย) ห้ามใส่ตัวเลขที่ไม่มีแหล่งที่มา ค่าใช้จ่ายที่กำหนดล่วงหน้าไม่ได้ให้เรียกเก็บตามจริงหลังเที่ยวบินพร้อมใบเสร็จ',
+ 'ราคาต่อลูกค้า = ต้นทุน ÷ 0.91 (กำไร 9% ของราคาขาย) ห้ามใส่ตัวเลขที่ไม่มีแหล่งที่มา ค่าใช้จ่ายที่กำหนดล่วงหน้าไม่ได้ให้เรียกเก็บตามจริงหลังเที่ยวบินพร้อมใบเสร็จ',
  'การจองทั้งหมดผ่าน Avinode และการชำระเงินทั้งหมดผ่าน Paynode ห้ามส่งรายละเอียดบัญชีธนาคารทางอีเมลหรือแอปแชต',
  'ข้อมูลส่วนบุคคลเก็บไว้ใน Avinode และ CRM ของอาร์เช่เท่านั้น',
  'ความปลอดภัยเป็นการตัดสินใจของกัปตันและผู้ให้บริการการบินเท่านั้น ห้ามกดดันให้บิน',
@@ -1131,7 +1131,7 @@ push(H2("H.5 Client requests and operational extras"));
 push(P([bo('Who uses it: '),r("Brokers until the trip goes to operations; operations until the confirmation is issued")]));
 push(P("List every request and every operational need, with how it is charged, so the confirmation is complete and nothing is invoiced by surprise."));
 push(H3('How it works'));
-push(NL(["Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions.", "Tap a suggestion to add it, or Add request / Add extra for your own.", "For each line choose the category, describe it, and choose how it is charged: included in the charter price, at cost after the flight, or fixed price.", "For a fixed price enter the supplier's written price. The client pays that price divided by 0.93, rounded up; the portal shows it.", "Use AI: suggest more for anything the rules or route may need."]));
+push(NL(["Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions.", "Tap a suggestion to add it, or Add request / Add extra for your own.", "For each line choose the category, describe it, and choose how it is charged: included in the charter price, at cost after the flight, or fixed price.", "For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up; the portal shows it.", "Use AI: suggest more for anything the rules or route may need."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["I cannot edit the lines", "The trip is with operations or confirmed. Ask operations to change it."], ["The confirmation says a fixed price is missing", "A line set to fixed price has no supplier price. Enter it, or change the line to at cost."], ["A suggestion does not apply", "Ignore it; suggestions are prompts to ask the operator, never facts."]]));
 push(sp());
@@ -1140,14 +1140,14 @@ push(BL(["Ask about catering, cars, pets, children, luggage and allergies on the
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.6 Operator quote and price"));
 push(P([bo('Who uses it: '),r("Brokers")]));
-push(P("Record the operator's all-in quote so the portal sets the client price at 7%."));
+push(P("Record the operator's all-in quote so the portal sets the client price at 9%."));
 push(H3('How it works'));
-push(NL(["From Avinode, enter the operator's legal name as on its AOC, aircraft type, registration and Avinode trip ID.", "Enter the operator all-in price and any direct trip costs not in it (supplier items Archē buys).", "Read the price preview: client price = (operator price + direct costs) ÷ 0.93, rounded up.", "Save. The trip moves to Quoted."]));
+push(NL(["From Avinode, enter the operator's legal name as on its AOC, aircraft type, registration and Avinode trip ID.", "Enter the operator all-in price and any direct trip costs not in it (supplier items Archē buys).", "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.", "Save. The trip moves to Quoted."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["The price looks too high or low", "Check you entered the all-in operator price, including positioning, and no extras twice."], ["Operations changed my operator price", "Operations confirms the price on Avinode; the confirmed figure is used and the difference is flagged."]]));
 push(sp());
 push(H3('Tips and tricks'));
-push(BL(["Never round down and never quote below 7% without the director's approval.", "Re-confirm availability and price with the operator before the offer expires."]));
+push(BL(["Never round down and never quote below 9% without the director's approval.", "Re-confirm availability and price with the operator before the offer expires."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.7 Documents"));
 push(P([bo('Who uses it: '),r("Brokers until the trip goes to operations")]));
@@ -1396,11 +1396,11 @@ push(BL(["Small numbers mislead: look at how many trips were rated."]));
 push(H1('Appendix I  Portal FAQ',true));
 push(P("The first 15 questions below were written before launch. From then on the FAQ grows from real questions: everyone can ask in the portal under Help, the AI answers at once, and questions asked often are added to the FAQ without names or client details. The owner reviews every entry. The live FAQ in the portal is always the current one."));
 push(H3("1. How is the client price calculated?"));
-push(P("Operator all-in price plus direct trip costs, divided by 0.93 and rounded up. Archē's margin is 7% of the price the client pays. A lower margin needs the director's approval."));
+push(P("Operator all-in price plus direct trip costs, divided by 0.91 and rounded up. Archē's margin is 9% of the price the client pays. A lower margin needs the director's approval."));
 push(H3("2. When does the client pay?"));
 push(P("25% of the charter price on signature, at least USD 2,500; the balance, including fixed-price extras, 7 calendar days before the first departure. If departure is less than 7 days away, the full price on signature. Items at cost are invoiced after the flight and paid within 10 calendar days."));
 push(H3("3. What is the difference between a fixed-price extra and an extra at cost?"));
-push(P("Fixed price: a supplier quoted it in writing before booking; the client pays the supplier price ÷ 0.93, rounded up, with the balance. At cost: the amount depends on the day (de-icing, extra parking, out-of-hours fees); it is invoiced after the flight with the receipt, without margin."));
+push(P("Fixed price: a supplier quoted it in writing before booking; the client pays the supplier price ÷ 0.91, rounded up, with the balance. At cost: the amount depends on the day (de-icing, extra parking, out-of-hours fees); it is invoiced after the flight with the receipt, without margin."));
 push(H3("4. Why did my lead move to another broker?"));
 push(P("No first contact was logged within 48 hours of assignment, or no follow-up within 14 days. The lead moves with its full history. Log every contact in the portal to keep your leads."));
 push(H3("5. How many prospects must I add?"));

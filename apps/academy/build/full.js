@@ -32,7 +32,7 @@ async function runPath(p,role,name){
    for(let k=0;k<L.length;k++){const c=`[data-k="${k}"]`;await p.click(`${c} [data-c="${L[k][0]}"]`);await p.click(`${c} [data-i="${L[k][1]}"]`);await p.click(`${c} [data-check]`);}
    ok((await p.textContent('#view')).includes('Lab passed'),'lab not passed');
   } else if(id==='book'){
-   const f={b_risk:'amber',b_cName:'Meridian Family Office Pte Ltd',b_kyc:'KYC-2026-0147',b_lead:'Daniel Tan',b_opName:'Alpine Jet Services AG',b_aoc:'CH.AOC.1042',b_aocState:'Switzerland',b_acType:'Bombardier Global 6000',b_reg:'HB-JXA',b_yom:'2014',b_seats:'13',b_audit:'ARGUS Platinum',b_opNet:'171000',b_price:'183871',b_vd:'2026-10-20',b_vt:'18:00',b_pay:'paynode'};
+   const f={b_risk:'amber',b_cName:'Meridian Family Office Pte Ltd',b_kyc:'KYC-2026-0147',b_lead:'Daniel Tan',b_opName:'Alpine Jet Services AG',b_aoc:'CH.AOC.1042',b_aocState:'Switzerland',b_acType:'Bombardier Global 6000',b_reg:'HB-JXA',b_yom:'2014',b_seats:'13',b_audit:'ARGUS Platinum',b_opNet:'171000',b_price:'187913',b_vd:'2026-10-20',b_vt:'18:00',b_pay:'paynode'};
    for(const [k,v] of Object.entries(f)){ if(k==='b_risk'||k==='b_pay') await p.selectOption('#'+k,v); else await p.fill('#'+k,v);}
    const Lg=[['2026-11-12','10:00','WSSS','VTBD'],['2026-11-14','11:00','VTBD','VTSP'],['2026-11-17','16:00','VTSP','WSSS']];
    for(let i=0;i<3;i++){await p.fill(`#l${i}d`,Lg[i][0]);await p.fill(`#l${i}t`,Lg[i][1]);await p.fill(`#l${i}f`,Lg[i][2]);await p.fill(`#l${i}o`,Lg[i][3]);await p.fill(`#l${i}p`,'6');}
@@ -71,6 +71,6 @@ const said=await p3.evaluate(()=>__said);const badSay=said.filter(x=>/[·\/()%;"
 console.log('spoken lines',said.length,'with symbols',badSay.length);badSay.slice(0,8).forEach(x=>console.log('  >',x));
 await p3.screenshot({path:'chk_mobile_dark.png'});
 ok(p3.errs.length===0,'audio errors '+p3.errs);
-const sp=await p3.evaluate(()=>['See Module 2.4 and Appendix G.7.','Margin 7% (USD 12,871).','Check 14 CFR Part 295 and 1.5% interest.'].map(__AUD.speakable));console.log(sp.join('\n'));
+const sp=await p3.evaluate(()=>['See Module 2.4 and Appendix G.7.','Margin 9% (USD 16,913).','Check 14 CFR Part 295 and 1.5% interest.'].map(__AUD.speakable));console.log(sp.join('\n'));
 await b.close();
 console.log(fails.length?'FAILS:\n'+fails.join('\n'):'ALL CHECKS PASSED');})();

@@ -42,7 +42,7 @@ def m14(B):
      ["AOG: the booked aircraft is unserviceable 6 hours before departure","Calm, facts first; the operator's written replacement options; extra cost approved by the director, never promised on the call (Module 11.3)"],
      ["The assistant refuses the 25% deposit and wants to pay after the flight","Explain the booking terms (Module 10.6) and why the operator must be secured; offer Paynode card or bank options; no exceptions without the director"],
      ["The principal insists on a domestic leg on a foreign-registered aircraft","Explain cabotage in plain words; offer a local operator for that leg or a new routing; never sell it (Module 2.4)"],
-     ["\"Another broker quoted 15% less\"","Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 7% only with director approval (Module 12.6)"],
+     ["\"Another broker quoted 15% less\"","Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with director approval (Module 12.6)"],
      ["A passenger is added on the day","Names to the operator at once; permits, insurance and seats confirmed in writing before you agree"],
      ["The client wants to bring a dog to a strict-entry country","Destination rules and the operator's written acceptance first; offer a route and airport that work (Appendix G.4)"],
      ["De-icing delays departure and the client is angry about the charge","Safety is the crew's decision; the charge is at cost with the receipt, as the confirmation says (Module 9.2)"],

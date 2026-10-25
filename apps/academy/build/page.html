@@ -765,14 +765,14 @@ function vBook(v){
   $("b_reg").addEventListener("input", e => { e.target.value = e.target.value.toUpperCase(); B.reg = e.target.value; });
   function live(){
     const op = num(B.opNet), pr = num(B.price);
-    const tgt = isFinite(op) ? Math.ceil(op/0.93) : NaN, mg = isFinite(op)&&isFinite(pr) ? pr-op : NaN;
-    $("calc").innerHTML = `<span>Price at 7% (operator price ÷ 0.93, rounded up)</span><span>${isFinite(tgt) ? usd(tgt) : "–"}</span><span>Your margin</span><span>${isFinite(mg) ? usd(mg) + (pr>0 ? ` · ${(mg/pr*100).toFixed(2)}%` : "") : "–"}</span>`;
+    const tgt = isFinite(op) ? Math.ceil(op/0.91) : NaN, mg = isFinite(op)&&isFinite(pr) ? pr-op : NaN;
+    $("calc").innerHTML = `<span>Price at 9% (operator price ÷ 0.91, rounded up)</span><span>${isFinite(tgt) ? usd(tgt) : "–"}</span><span>Your margin</span><span>${isFinite(mg) ? usd(mg) + (pr>0 ? ` · ${(mg/pr*100).toFixed(2)}%` : "") : "–"}</span>`;
     const out = [];
     const rc = regC(B.reg);
     B.legs.forEach((l,i) => { const a = icaoC(l.f), b = icaoC(l.to); if (a && b && a === b && rc && rc !== a) out.push(["err", `Leg ${i+1} (${l.f}–${l.to}) is a domestic passenger sector in ${a} on a ${rc}-registered aircraft. Allowed only as one continuous international journey confirmed by the operator in writing.`]); });
     for (let i=1;i<B.legs.length;i++){ const a = B.legs[i-1], b = B.legs[i]; if (a.to && b.f && a.to !== b.f) out.push(["warn", `Leg ${i+1} departs ${b.f}, but leg ${i} arrives ${a.to}.`]); if (a.d && b.d && b.d < a.d) out.push(["err", `Leg ${i+1} is dated before leg ${i}.`]); }
     const seats = num(B.seats); B.legs.forEach((l,i) => { if (isFinite(seats) && num(l.p) > seats) out.push(["err", `Leg ${i+1}: more passengers than seats.`]); });
-    if (isFinite(mg) && pr > 0 && mg < pr*0.07 - 0.005) out.push(["err", `Margin ${(mg/pr*100).toFixed(2)}% is below 7%. Needs director approval.`]);
+    if (isFinite(mg) && pr > 0 && mg < pr*0.09 - 0.005) out.push(["err", `Margin ${(mg/pr*100).toFixed(2)}% is below 9%. Needs director approval.`]);
     if (B.pay && B.pay !== "paynode") out.push(["err", "All client payments go through a Paynode payment request from Avinode."]);
     $("autoc").innerHTML = out.length ? out.map(o => `<div class="issue ${o[0]}">${esc(o[1])}</div>`).join("") : `<div class="issue okk">No automatic warnings.</div>`;
   }
@@ -800,9 +800,9 @@ function markBook(B){
   add(B.ck.route, true, "Continuous journey confirmed for the domestic leg", "Bangkok – Phuket on a Swiss aircraft is allowed only as one continuous international journey, confirmed by the operator in writing. Without it this is a cabotage breach: a critical error.");
   const op = num(B.opNet), pr = num(B.price);
   add(op === 171000, false, "Operator price recorded", "USD 171,000 all-in.");
-  const okPrice = isFinite(pr) && pr >= 183871;
-  add(okPrice, true, "Margin at least 7%", "171,000 ÷ 0.93 = 183,870.97, so the client price is at least USD 183,871. Below that the margin is under 7%: a critical error without approval.");
-  if (okPrice) add(pr <= 183900, false, "Price follows the 7% rule", "Quote USD 183,871 (or rounded to USD 183,900). A higher price is a number we cannot justify.");
+  const okPrice = isFinite(pr) && pr >= 187913;
+  add(okPrice, true, "Margin at least 9%", "171,000 ÷ 0.91 = 187,912.09, so the client price is at least USD 187,913. Below that the margin is under 9%: a critical error without approval.");
+  if (okPrice) add(pr <= 188000, false, "Price follows the 9% rule", "Quote USD 187,913 (or rounded up to USD 188,000). A higher price is a number we cannot justify.");
   const exp = B.vd && B.vt ? B.vd + "T" + B.vt : "";
   add(!!exp && exp <= "2026-10-20T18:00", false, "Offer expiry no later than the operator's quote", "The operator's quote expires 20 October, 18:00 Bangkok time; our offer must not outlive it.");
   add(B.pay === "paynode", true, "Payment by Paynode payment request", "The assistant asked for bank details by WhatsApp. We never send bank details by email or chat: the client pays through a Paynode payment request from Avinode.");
