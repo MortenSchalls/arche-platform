@@ -463,6 +463,8 @@ const BROKER_CHECKS = [
   ["terms","Operator's cancellation and payment terms are no softer for Archē Executive than ours"]];
 const OPS_CHECKS = [["kyc","Charterer KYC and sanctions screening done (operations)"],["pay","Paynode payment request created from the Avinode trip (operations)"]];
 const DEFAULT_TERMS = {margin:0.09, unit:45000, threshold:8, rate1:0.27, rate2:0.35, consultRate:0.10, cycleDays:5};
+// On the live platform the nightly backup is the scheduled job (encrypted, kept 90 days off-site); it records intel/backup.
+const LIVE_PLATFORM = !!window.__sb;
 const S = {db:null, user:null, uid:null, isOwner:false, canEdit:false, role:"loading", roster:{}, joins:{}, myJoin:null, myRoster:null,
   terms:{...DEFAULT_TERMS}, desks:{}, status:{}, payouts:{}, subs:{}, view:"trips", sel:null, preview:"", names:{}, filter:"open", editing:false, prospects:{}, leads:{}, staffLeads:{}, access:{}, chat:[], pSel:null, pFilter:"", pNew:false, pf:null, intel:null, company:{}, confDraft:null, confFor:null, confRevise:false, prevView:"trips", dirty:new Set(), assignCfg:{}, board:null, assignRun:null, finder:{}, alsoBroker:false, fromLead:null, engineBusy:false, enginePreview:null};
 const $ = id => document.getElementById(id);
@@ -531,6 +533,7 @@ async function boot(){
     if (S.isOwner) watchDoc("config/launch", snap => { S.launch = snap.exists ? snap.data() : {}; render(); });
     if (S.isOwner) watchDoc("intel/spend", snap => { S.spend = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("intel/logaudit", snap => { S.auditDone = snap.exists ? snap.data() : null; render(); });
+    if (S.isOwner) watchDoc("intel/backup", snap => { S.nightly = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("intel/drive", snap => { const first = S.drive === undefined; S.drive = snap.exists ? snap.data() : null; if (first) setTimeout(() => driveSync(false), 4000); });
     if (S.isOwner) { watchDoc("intel/faq", snap => { S.faqRun = snap.exists ? snap.data() : null; }); setTimeout(() => autoFaq(), 12000); }
     watchDoc("intel/assign", snap => { S.assignRun = snap.exists ? snap.data() : null; render(); });
@@ -877,10 +880,14 @@ function vSettings(){
   <div class="panel stack" style="max-width:640px;margin-top:16px"><h2>Backup</h2><p class="small muted">Everything in the portal (trips, confirmations, payments, commission, prospects, leads, team and settings) is kept in this portal's own database on claude.ai. Uploaded documents and issued PDFs are kept in its file store. Download a full copy of the database as a JSON file and keep it outside claude.ai.</p>
     <p class="small">${S.backup && S.backup.lastExport ? "Last backup downloaded " + fmtT(S.backup.lastExport) : "No backup downloaded yet."}</p>
     <div class="row"><button class="btn primary" type="button" data-act="backup">Download full backup</button></div>
+    ${LIVE_PLATFORM ? `<h3 style="margin-top:12px">Nightly backup</h3>
+    <p class="small muted">Every night at 02:17 Bangkok time the whole database is copied, encrypted with your backup passphrase and kept for 90 days outside the database (GitHub, Portal jobs). Uploaded documents stay in the portal's file store. To restore, download that night's copy, decrypt it with the passphrase and check it below.</p>
+    <p class="small">${S.nightly && S.nightly.lastRun ? "Last nightly backup " + fmtT(S.nightly.lastRun) + (S.nightly.counts ? " · " + Object.values(S.nightly.counts).reduce((x, y) => x + y, 0) + " records" : "") : "The nightly backup has not reported yet."}</p>` : `
     <h3 style="margin-top:12px">Google Drive</h3>
     <p class="small muted">Once a day (02:17 Bangkok time) a scheduled backup copies the database to Google Drive. When you open the portal, it also copies every new document and issued PDF, byte for byte, and the database if the last copy is older than 6 hours. Folder: Archē Executive Portal Backups, filed by itself into year, month and one folder per trip (date · reference · client · route), with numbered subfolders for operator documents, client KYC, confirmations, signed contracts and the rest. A read-me in the folder explains the layout.</p>
     <p class="small">${S.drive && S.drive.lastSync ? "Last sync from this portal " + fmtT(S.drive.lastSync) + (S.drive.lastDb ? " · database " + fmtT(S.drive.lastDb) : "") + " · " + Object.keys(S.drive.synced || {}).length + " of " + driveFiles().length + " files copied" : "Not synced yet."}${S.driveNote ? `<br>${esc(S.driveNote)}` : ""}</p>
     <div class="row"><button class="btn" type="button" data-act="driveSync" ${S.driveBusy ? "disabled" : ""}>Back up to Google Drive now</button></div>
+`}
     ${restorePanel()}
     <h3 style="margin-top:12px">Keeping background jobs running</h3><p class="small muted">The daily research, the 3-hourly rotation and the nightly backup run as scheduled tasks on your claude.ai account and share its usage limit. If the limit is reached, a job waits for the next run and Today shows it as late, with a button to run it from here. To stop that happening, turn on usage credits in claude.ai Settings &gt; Usage with a monthly cap. Before launch, the portal's records should also move to a hosted database so nothing depends on one account.</p></div>
   ${launchPanel()}`;
@@ -2168,6 +2175,7 @@ Every file name starts with the confirmation reference (or "Enquiry" and the fli
 function driveMsg(e){ return ({needs_reauth:"Reconnect Google Drive in claude.ai settings.", server_not_connected:"Connect Google Drive in claude.ai settings.", not_granted:"Allow this portal to use Google Drive (artifact Permissions menu).", approval_required:"Allow this portal to use Google Drive when claude.ai asks.", consent_required:"Allow this portal to use Google Drive when claude.ai asks."}[e && e.code] || "Google Drive did not answer. The next sync will try again."); }
 async function driveSync(manual){
   if (!S.isOwner || S.preview || S.driveBusy) return;
+  if (LIVE_PLATFORM) return; // live platform: the nightly job backs up; Drive works only inside claude.ai
   const cfg = S.drive || {}; if (!cfg.folderFiles || !cfg.folderDb) { if (manual) toast("The Drive folders are not set up yet."); return; }
   const mcp = await claude.use("mcp"); if (!mcp) { S.driveNote = "Google Drive is not available in this view."; render(); return; }
   S.driveBusy = true; S.driveNote = "Backing up to Google Drive…"; render();
@@ -2299,7 +2307,7 @@ function vToday(){
     ${Object.keys(m).length ? `<div class="tbl"><table class="small"><thead><tr><th scope=col>Broker</th><th scope=col class="n">Open</th><th scope=col class="n">New 7 days</th><th scope=col class="n">Follow-up score</th><th scope=col class="n">Went cold 30 days</th><th scope=col class="n">Added</th><th scope=col class="n">Points</th></tr></thead><tbody>${Object.entries(m).map(([id, x]) => `<tr><td>${esc(nm(id))}</td><td class="n">${x.open}</td><td class="n">${x.recv7}</td><td class="n">${x.perf}</td><td class="n">${x.breaches30}</td><td class="n">${x.addsMonth}</td><td class="n">${x.points}</td></tr>`).join("")}</tbody></table></div>` : ""}</div>
     <div class="panel stack small"><h2>Running in the background</h2>
       <p>Prospect research: ${S.intel && S.intel.lastRun ? "last run " + fmtT(S.intel.lastRun) + " · " + (S.intel.totalProspects || Object.keys(S.prospects).length) + " organisations" : "not run yet"}</p>
-      <p>Google Drive backup: ${S.drive && (S.drive.lastCloudBackup || S.drive.lastSync) ? "last " + fmtT(S.drive.lastCloudBackup || S.drive.lastSync) + (S.drive.cloudBackupResult ? " · " + esc(S.drive.cloudBackupResult) : "") : "not run yet"}</p>
+      ${LIVE_PLATFORM ? `<p>Nightly backup: ${S.nightly && S.nightly.lastRun ? "last " + fmtT(S.nightly.lastRun) + " · encrypted, kept 90 days" : "not run yet"}</p>` : `<p>Google Drive backup: ${S.drive && (S.drive.lastCloudBackup || S.drive.lastSync) ? "last " + fmtT(S.drive.lastCloudBackup || S.drive.lastSync) + (S.drive.cloudBackupResult ? " · " + esc(S.drive.cloudBackupResult) : "") : "not run yet"}</p>`}
       <p>Prospect rotation: ${run.lastRun ? "last " + fmtT(run.lastRun) : "not run yet"}</p>
       ${aiSpendHtml()}
       <div class="row"><button class="btn small" type="button" data-view="control">Control</button><button class="btn small" type="button" data-view="queue">Operations</button><button class="btn small" type="button" data-view="prospects">Prospects</button></div></div></div></div>${spotCheckPanel()}${todayAnalytics()}`;
@@ -2816,11 +2824,12 @@ function auditSample(){
 }
 
 /* resilience: background jobs that are late */
+function lastBackupAt(){ return [S.nightly && S.nightly.lastRun, S.drive && S.drive.lastCloudBackup, S.drive && S.drive.lastDb].filter(Boolean).sort().pop() || null; }
 function lateJobs(){
   const out = [], age = x => x ? (Date.now() - Date.parse(x)) / 36e5 : 1e9;
   if (S.intel !== undefined && age(S.intel && S.intel.lastRun) > 26) out.push(["Prospect research", S.intel && S.intel.lastRun, "It runs every morning; it retries at the next run. If this repeats, enable usage credits in claude.ai Settings > Usage."]);
-  const bk = S.drive ? [S.drive.lastCloudBackup, S.drive.lastDb].filter(Boolean).sort().pop() : null;
-  if (S.drive !== undefined && age(bk) > 26) out.push(["Database backup", bk, "Back up from here now; the daily job retries tonight."]);
+  const bk = lastBackupAt();
+  if ((S.drive !== undefined || S.nightly !== undefined) && age(bk) > 26) out.push(["Database backup", bk, LIVE_PLATFORM ? "The nightly backup (02:17 Bangkok time) did not run. Download a copy from here now; it retries tonight." : "Back up from here now; the daily job retries tonight."]);
   if (S.assignRun !== undefined && age(S.assignRun && S.assignRun.lastRun) > 7) out.push(["Prospect rotation", S.assignRun && S.assignRun.lastRun, "Run it from here now."]);
   return out;
 }
@@ -2831,7 +2840,7 @@ const unsignedLate = () => allTrips().filter(t => t.stage === "issued" && t.st &
 function todayDecisions(){
   const trips = allTrips(), flags = controlFlags(), out = [];
   const val = t => (t.st && t.st.price) || priceOf(t.d.quote && t.d.quote.opPrice, t.d.quote && t.d.quote.direct);
-  lateJobs().forEach(([name, at, hint]) => out.push(`<div class="flag"><span class="sev high" aria-hidden="true"></span><div style="flex:1"><p><b>${esc(name)} is late</b>: last ran ${at ? fmtT(at) : "never"}.</p><p class="small muted">${esc(hint)}</p><div class="row" style="margin-top:6px">${name === "Database backup" ? `<button class="btn small primary" type="button" data-act="driveSync">Back up now</button><button class="btn small" type="button" data-act="backup">Download a copy</button>` : name === "Prospect rotation" ? `<button class="btn small primary" type="button" data-act="engineRun">Run rotation now</button>` : ""}</div></div></div>`));
+  lateJobs().forEach(([name, at, hint]) => out.push(`<div class="flag"><span class="sev high" aria-hidden="true"></span><div style="flex:1"><p><b>${esc(name)} is late</b>: last ran ${at ? fmtT(at) : "never"}.</p><p class="small muted">${esc(hint)}</p><div class="row" style="margin-top:6px">${name === "Database backup" ? (LIVE_PLATFORM ? `<button class="btn small primary" type="button" data-act="backup">Download a copy now</button>` : `<button class="btn small primary" type="button" data-act="driveSync">Back up now</button><button class="btn small" type="button" data-act="backup">Download a copy</button>`) : name === "Prospect rotation" ? `<button class="btn small primary" type="button" data-act="engineRun">Run rotation now</button>` : ""}</div></div></div>`));
   trips.filter(t => t.stage === "review").forEach(t => out.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div><p>Trip waiting for operations: ${esc((t.d.client && (t.d.client.company || t.d.client.name)) || "")} · ${usd(val(t))} ${ageChip(t)}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#" data-open="${t.bid}|${t.did}" data-goto="queue">Open</a></p></div></div>`));
   flags.filter(f => f[0] === "high").forEach(([, txt, t]) => out.push(`<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p>${esc(txt)}</p>${t ? `<p class="small muted">${esc(nm(t.bid))} · <a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open</a></p>` : ""}</div></div>`));
   Object.entries(S.prospects).filter(([, p]) => p.status === "review").forEach(([id, p]) => out.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div style="flex:1"><p>${esc(p.org)} went cold with ${(p.history || []).filter(h => h.cold).length} brokers</p><p class="small muted">${esc(p.reviewReason || "")}</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-act="rvRestart" data-pid="${id}">Restart rotation</button><button class="btn small danger" type="button" data-act="rvDnc" data-pid="${id}">Do not contact</button><button class="btn small" type="button" data-act="rvOpen" data-pid="${id}">Open</button></div></div></div>`));
