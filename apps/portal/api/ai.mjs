@@ -14,6 +14,8 @@ export default async function handler(req, res) {
   if (!token) return res.status(401).json({ error: "Sign in first" });
 
   const SB = process.env.SUPABASE_URL, KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
+  if (!SB || !KEY) return res.status(503).json({ error: "setup", detail: "SUPABASE_URL or SUPABASE_PUBLISHABLE_KEY is missing in Vercel" });
+  if (!process.env.ANTHROPIC_API_KEY) return res.status(503).json({ error: "setup", detail: "ANTHROPIC_API_KEY is missing in Vercel" });
   const who = await fetch(`${SB}/auth/v1/user`, { headers: { apikey: KEY, authorization: `Bearer ${token}` } });
   if (!who.ok) return res.status(401).json({ error: "Sign in again" });
   const u = await who.json();
@@ -42,7 +44,11 @@ export default async function handler(req, res) {
     })
   });
   if (r.status === 429) return res.status(429).json({ error: "AI busy" });
-  if (!r.ok) return res.status(502).json({ error: "AI error" });
+  if (!r.ok) {
+    let msg = ""; try { msg = ((await r.json()).error || {}).message || ""; } catch (e) {}
+    const credit = /credit balance|billing/i.test(msg), badKey = r.status === 401;
+    return res.status(502).json({ error: credit ? "credit" : badKey ? "key" : "AI error", detail: credit ? "The Anthropic account has no credit left" : badKey ? "The Anthropic API key in Vercel is not valid" : ("Anthropic API " + r.status) });
+  }
   const out = await r.json();
   const text = (out.content || []).filter(c => c.type === "text").map(c => c.text).join("");
   return res.status(200).json({ text, truncated: out.stop_reason === "max_tokens" });

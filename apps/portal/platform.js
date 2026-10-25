@@ -271,7 +271,9 @@
     const s = await ready;
     const r = await fetch("/api/ai", { method: "POST", headers: { "content-type": "application/json", authorization: "Bearer " + s.access_token }, body: JSON.stringify({ input, tier: opts.modelTier || "default", json: !!opts.json }), signal: opts.signal });
     if (r.status === 429) throw Object.assign(new Error("busy"), { code: "rate_limited" });
-    if (!r.ok) throw Object.assign(new Error("AI error " + r.status), { code: r.status === 401 || r.status === 403 ? "not_granted" : "error" });
+    if (!r.ok) { let j = {}; try { j = await r.json(); } catch (e) {}
+      const code = r.status === 401 || r.status === 403 ? "not_granted" : (j.error === "setup" || j.error === "credit" || j.error === "key") ? "ai_" + j.error : "error";
+      throw Object.assign(new Error(j.detail || "AI error " + r.status), { code, detail: j.detail || "" }); }
     const j = await r.json();
     if (opts.onText) try { opts.onText({ text: j.text, delta: j.text }); } catch (e) {}
     return { text: j.text, truncated: !!j.truncated };

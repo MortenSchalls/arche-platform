@@ -1121,7 +1121,10 @@ async function runAI(kind, t, outEl, btns){
   catch(e){ outEl.textContent = e.text || ""; if (e.code !== "cancelled") outEl.textContent += (outEl.textContent ? "\n\n" : "") + aiErr(e.code); }
   finally { btns.forEach(b => b.disabled = false); }
 }
-const aiErr = c => ({not_granted:"The co-pilot needs your permission to use Claude. Allow it when asked, or in the artifact's Permissions menu.", rate_limited:"Too many requests right now. Try again in a minute.", sampling_disabled:"Claude is not available for this account."}[c] || "The co-pilot could not answer. Try again.");
+const aiErr = c => ({not_granted: LIVE_PLATFORM ? "Sign in again to use the AI." : "The co-pilot needs your permission to use Claude. Allow it when asked, or in the artifact's Permissions menu.", rate_limited:"Too many requests right now. Try again in a minute.", sampling_disabled:"Claude is not available for this account.",
+  ai_setup:"The AI is not switched on yet: the Anthropic API key is not set in Vercel." + (S.isOwner ? " Owner: Vercel > portal project > Settings > Environment Variables > ANTHROPIC_API_KEY, then redeploy." : " The owner has been told."),
+  ai_credit:"The AI is paused: the Anthropic API account has no credit left." + (S.isOwner ? " Owner: top up at console.anthropic.com > Billing." : " The owner has been told."),
+  ai_key:"The AI is paused: the Anthropic API key in Vercel is not valid." + (S.isOwner ? " Owner: create a new key in console.anthropic.com and replace it in Vercel." : " The owner has been told.")}[c] || "The co-pilot could not answer. Try again.");
 function aiBlock(t){
   return `<div class="panel stack ai"><div class="row" style="justify-content:space-between"><h2 style="margin:0">AI co-pilot</h2>${scoreChip(winScore(t))}</div>
     <p class="small muted">Checks the file against our rules, drafts the client email and suggests the next step. Client names and contact details are not sent to the co-pilot.</p>
