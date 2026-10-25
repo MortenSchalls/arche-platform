@@ -9,6 +9,8 @@ const MAX_CHARS = 60000;
 const hits = new Map(); // simple per-user limit: 30 calls a minute per server instance
 
 export default async function handler(req, res) {
+  // status check for the owner's to-do list: says only whether a key is set, never the key
+  if (req.method === "GET") return res.status(200).json({ configured: !!process.env.ANTHROPIC_API_KEY });
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
   const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, "");
   if (!token) return res.status(401).json({ error: "Sign in first" });

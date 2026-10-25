@@ -533,6 +533,8 @@ async function boot(){
     if (S.isOwner) watchDoc("config/launch", snap => { S.launch = snap.exists ? snap.data() : {}; render(); });
     if (S.isOwner) watchDoc("intel/spend", snap => { S.spend = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("intel/logaudit", snap => { S.auditDone = snap.exists ? snap.data() : null; render(); });
+    if (S.isOwner) watchDoc("config/setup", snap => { S.setup = snap.exists ? snap.data() : null; render(); });
+    if (S.isOwner) watchDoc("intel/matrix", snap => { S.mxHist = snap.exists ? snap.data() : null; });
     if (S.isOwner) watchDoc("intel/backup", snap => { S.nightly = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("intel/drive", snap => { const first = S.drive === undefined; S.drive = snap.exists ? snap.data() : null; if (first) setTimeout(() => driveSync(false), 4000); });
     if (S.isOwner) { watchDoc("intel/faq", snap => { S.faqRun = snap.exists ? snap.data() : null; }); setTimeout(() => autoFaq(), 12000); }
@@ -4692,5 +4694,171 @@ document.addEventListener("submit", async ev => {
   try { await poolCreate(e, c, "new"); S.poolAdd = false; audit("Enquiry added", `${e.legs[0].from} → ${e.legs[0].to}`); toast("Saved. Release or assign it below."); render(); }
   catch(err){ toast(err.code === "permission_denied" || err.code === "unknown_path" ? "The enquiry pool is not set up yet (run 0008 in Supabase)." : "Could not save. Try again."); }
 });
+
+/* ---------- Owner to-do and trust / performance matrix on Today (Morten, 26 Oct 2026) ----------
+   The portal is the owner's true source. Every step only the owner can do (SQL to run in Supabase, settings in
+   Vercel or GoDaddy, details to fill in) is listed here. Steps the portal can check are ticked by themselves;
+   the rest the owner ticks when done (kept in config/setup). New steps are added to OWNER_TODO with each release.
+   The matrix places every member by house-rule trust (vertical) and actual results (horizontal), recalculated
+   from live data on every visit, with a weekly snapshot in intel/matrix so movement over time shows. */
+const OWNER_SQL = {"0008": "-- Enquiry pool (Morten, 24 Oct 2026): every charter enquiry (website, charter email, phone) reaches the owner first.\n-- The owner releases it to all brokers (first come, first served) or assigns it to one broker, and can reassign at any time.\n-- enquiry_pool: the trip summary everyone in the pool may see. enquiry_contacts: the client's details, only for\n-- the broker who has the enquiry, and for owner and operations.\ncreate table if not exists public.enquiry_pool     (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\ncreate table if not exists public.enquiry_contacts (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.enquiry_pool enable row level security;\nalter table public.enquiry_contacts enable row level security;\nrevoke all on public.enquiry_pool from anon;\nrevoke all on public.enquiry_contacts from anon;\n\ndrop policy if exists pool_owner on public.enquiry_pool;\ndrop policy if exists pool_staff_read on public.enquiry_pool;\ndrop policy if exists pool_member_read on public.enquiry_pool;\ndrop policy if exists pool_member_take on public.enquiry_pool;\ncreate policy pool_owner on public.enquiry_pool for all using (public.is_owner()) with check (public.is_owner());\ncreate policy pool_staff_read on public.enquiry_pool for select using (public.is_staff());\n-- brokers see enquiries that are open to everyone, and their own\ncreate policy pool_member_read on public.enquiry_pool for select using (public.is_member() and (data->>'status' = 'released' or data->>'claimedBy' = auth.uid()::text));\n-- first come, first served: a broker may only turn an open enquiry into one taken by themselves; the row lock makes the first one win\ncreate policy pool_member_take on public.enquiry_pool for update using (public.is_member() and data->>'status' = 'released') with check (data->>'status' = 'claimed' and data->>'claimedBy' = auth.uid()::text);\n\ndrop policy if exists poolc_owner on public.enquiry_contacts;\ndrop policy if exists poolc_staff_read on public.enquiry_contacts;\ndrop policy if exists poolc_taker_read on public.enquiry_contacts;\ncreate policy poolc_owner on public.enquiry_contacts for all using (public.is_owner()) with check (public.is_owner());\ncreate policy poolc_staff_read on public.enquiry_contacts for select using (public.is_staff());\ncreate policy poolc_taker_read on public.enquiry_contacts for select using (public.is_member() and exists (select 1 from public.enquiry_pool p where p.id = enquiry_contacts.id and p.data->>'claimedBy' = auth.uid()::text));\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'enquiry_pool') then\n    alter publication supabase_realtime add table public.enquiry_pool;\n  end if;\nend $$;\n", "0009": "-- Agreements signed in the portal (Morten, 24 Oct 2026): nothing is sent as a file by email.\n-- The owner sends the agreement after a passed assessment; the person reads it, fills in their details and signs in the\n-- portal; the owner countersigns, which also opens the portal and issues the onboarding package.\n-- One row per person (id = their user id). The person can read their own row and can only turn \"sent\" into \"signed\".\ncreate table if not exists public.agreements (id text primary key, data jsonb not null default '{}'::jsonb, created_at timestamptz not null default now(), updated_at timestamptz not null default now());\nalter table public.agreements enable row level security;\nrevoke all on public.agreements from anon;\n\ndrop policy if exists agr_owner on public.agreements;\ndrop policy if exists agr_staff_read on public.agreements;\ndrop policy if exists agr_self_read on public.agreements;\ndrop policy if exists agr_self_sign on public.agreements;\ncreate policy agr_owner on public.agreements for all using (public.is_owner()) with check (public.is_owner());\ncreate policy agr_staff_read on public.agreements for select using (public.is_staff());\ncreate policy agr_self_read on public.agreements for select using (id = auth.uid()::text);\ncreate policy agr_self_sign on public.agreements for update using (id = auth.uid()::text and data->>'status' = 'sent') with check (id = auth.uid()::text and data->>'status' = 'signed');\n\ndo $$ begin\n  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'agreements') then\n    alter publication supabase_realtime add table public.agreements;\n  end if;\nend $$;\n"};
+const OWNER_TODO = [
+  {id:"company", sev:"high", title:"Fill in the company details",
+    why:"The agreement, email signature, confirmations and privacy notice use them. Agreements cannot be sent until they are in.",
+    how:"Settings > Company details: UEN, registered address, bookings email, privacy email, signatory name and title.", view:"settings",
+    check: () => { const c = S.company || {}; return ["reg","address","email","privacy","signName","signTitle"].every(k => String(c[k] || "").trim()); }},
+  {id:"sql-0008", sev:"high", title:"Run SQL: enquiry pool (0008)", sql:"0008", table:"enquiry_pool",
+    why:"Charter enquiries reach you first, then go to brokers first come, first served.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+  {id:"sql-0009", sev:"high", title:"Run SQL: agreements signed in the portal (0009)", sql:"0009", table:"agreements",
+    why:"Brokers sign their agreement in the portal; you countersign there.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+  {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
+    why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
+    how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},
+  {id:"smtp", sev:"med", title:"Sign-in emails sent from archeaviation.com",
+    why:"Supabase's built-in mail sends only a few emails an hour and comes from a Supabase address.",
+    how:"Supabase > Authentication > Emails > SMTP settings: enter your email provider's SMTP details. Do it after the email safety records."},
+  {id:"sandy", sev:"low", title:"Remove the old portal address from Supabase",
+    why:"portal.archeaviation.com is now the only address brokers use.",
+    how:"Supabase > Authentication > URL Configuration > Redirect URLs: delete https://arche-platform-sandy.vercel.app/**."},
+  {id:"ai", sev:"low", title:"Switch on the portal AI (when you decide)", later:true,
+    why:"The Assistant, trip co-pilot, roleplay lab and briefing need it. Until then they say the AI is not switched on.",
+    how:"console.anthropic.com: add credit with a monthly limit and create a key. Vercel > portal project > Settings > Environment Variables: ANTHROPIC_API_KEY (and SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY if missing), then redeploy.",
+    check: async () => { try { const r = await fetch("/api/ai", {method:"GET"}); if (!r.ok) return null; return !!(await r.json()).configured; } catch(e){ return null; } }},
+  {id:"accounts", sev:"low", title:"Company WhatsApp Business, LINE and WeChat accounts", later:true,
+    why:"Brokers use only company accounts with clients (Standards of Conduct).",
+    how:"After company formation: open the three business accounts, then add the numbers and IDs in Settings so they show in signatures and on the website."},
+  {id:"research", sev:"low", title:"Turn daily prospect research back on (at go-live)", later:true,
+    why:"Paused since 21 Oct 2026 to save AI credit; until then new prospects come from research in chat.",
+    how:"Ask Claude to restore the daily research line in the jobs workflow; it needs AI credit (see the AI step)."},
+  {id:"launch", sev:"low", title:"Launch day: make the website public", later:true,
+    why:"archeaviation.com stays behind Vercel's login until you switch it on.",
+    how:"Vercel > website project > Settings > Deployment Protection: turn off Vercel Authentication for production."},
+  {id:"testpage", sev:"low", title:"Decide whether to keep the test page online", later:true,
+    why:"portal.archeaviation.com/test.html runs the portal with example data only; useful to show people.",
+    how:"Keep it, or ask Claude to remove it."}
+];
+const TODO_SEV = {high:"high", med:"med", low:"low"};
+
+async function todoProbe(){
+  if (S.todoProbing || (S.todoAuto && Date.now() - S.todoAuto.at < 10 * 60e3)) return;
+  S.todoProbing = true; const res = {};
+  for (const x of OWNER_TODO) {
+    try {
+      if (x.table && window.__sb) {
+        const {error} = await window.__sb.from(x.table).select("id", {head:true, count:"exact"}).limit(1);
+        res[x.id] = !error ? true : /does not exist|PGRST205|42P01|schema cache/i.test((error.code || "") + " " + (error.message || "")) ? false : null;
+      } else if (x.check) res[x.id] = await x.check();
+    } catch(e){ res[x.id] = null; }
+  }
+  S.todoAuto = {at: Date.now(), res}; S.todoProbing = false; render();
+}
+function todoState(x){
+  const auto = S.todoAuto && S.todoAuto.res ? S.todoAuto.res[x.id] : undefined, man = ((S.setup || {}).done || {})[x.id];
+  if (auto === true) return {done:true, how:"checked by the portal"};
+  if (auto === false) return {done:false};
+  if (man) return {done:true, how:"ticked " + fmtT(man.at)};
+  return {done:false, manual: !x.table && !x.check || auto === null};
+}
+function ownerTodoPanel(){
+  if (!S.isOwner || S.preview) return "";
+  setTimeout(todoProbe, 0);
+  const rows = OWNER_TODO.map(x => ({x, s: todoState(x)})), open = rows.filter(r => !r.s.done), now_ = open.filter(r => !r.x.later), later = open.filter(r => r.x.later), done = rows.filter(r => r.s.done);
+  const item = ({x, s}) => `<div class="flag"><span class="sev ${TODO_SEV[x.sev]}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(x.title)}</b></p><p class="small muted">${esc(x.why)}</p><p class="small">${esc(x.how)}</p>
+    ${x.sql && OWNER_SQL[x.sql] ? `<details class="small"><summary>Show the SQL</summary><pre class="mono" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto">${esc(OWNER_SQL[x.sql])}</pre></details>` : ""}
+    <div class="row" style="margin-top:6px">${x.sql && OWNER_SQL[x.sql] ? `<button class="btn small primary" type="button" data-todo="copy" data-id="${x.id}">Copy SQL</button>` : ""}${x.view ? `<button class="btn small" type="button" data-view="${x.view}">Open ${esc(x.view === "settings" ? "Settings" : x.view)}</button>` : ""}${s.manual ? `<button class="btn small" type="button" data-todo="done" data-id="${x.id}">Mark as done</button>` : `<span class="small muted">The portal ticks this by itself once done.</span>`}</div></div></div>`;
+  return `<div class="panel" style="margin-bottom:16px" id="ownerTodo"><div class="row" style="justify-content:space-between"><h2 style="margin:0">To do for you</h2><span class="small muted">${now_.length} now · ${later.length} later · ${done.length} done</span></div>
+    <p class="small muted">Steps only you can do: SQL to run, settings outside the portal, details to fill in. New steps appear here with each update.</p>
+    ${now_.map(item).join("") || `<div class="empty"><p><b>Nothing to do right now.</b></p></div>`}
+    ${later.length ? `<details style="margin-top:8px"${S.todoLater ? " open" : ""} data-todo-det="later"><summary class="small"><b>Later (${later.length})</b></summary>${later.map(item).join("")}</details>` : ""}
+    ${done.length ? `<details style="margin-top:8px"><summary class="small muted">Done (${done.length})</summary><ul class="small" style="margin:6px 0 0;padding-left:18px">${done.map(({x, s}) => `<li>${esc(x.title)} · <span class="muted">${esc(s.how)}</span>${((S.setup || {}).done || {})[x.id] ? ` <a href="#" data-todo="undo" data-id="${x.id}">undo</a>` : ""}</li>`).join("")}</ul></details>` : ""}</div>`;
+}
+async function todoAct(a, id){
+  const x = OWNER_TODO.find(t => t.id === id); if (!x) return;
+  if (a === "copy") { try { await navigator.clipboard.writeText(OWNER_SQL[x.sql]); toast("SQL copied. Paste it in Supabase > SQL Editor and press Run."); } catch(e){ toast("Could not copy: open Show the SQL and copy it from there."); } return; }
+  const done = {...((S.setup || {}).done || {})};
+  if (a === "done") done[id] = {at: now(), by: S.uid}; else if (a === "undo") delete done[id];
+  try { await S.db.doc("config/setup").set({...(S.setup || {}), done}); S.setup = {...(S.setup || {}), done}; render(); } catch(e){ toast("Could not save. Try again."); }
+}
+
+/* ---------- trust / performance matrix ---------- */
+const DAY = 864e5;
+function mxMembers(){
+  return Object.entries(S.roster || {}).filter(([id, r]) => r && r.active !== false && r.role !== "owner" && (r.role === "broker" || r.role === "ops" || r.book)).map(([id, r]) => ({id, r}));
+}
+const share = (ok, n) => n ? ok / n : null;
+function mxScore(id){
+  const t0 = Date.now(), since = t0 - 180 * DAY, trips = allTrips().filter(t => t.bid === id && Date.parse(t.d.enquiryAt || t.d.created || t.st?.updatedAt || 0) >= since);
+  const conf = trips.filter(t => ["issued","clientPaid","flown"].includes(t.stage)), quoted = trips.filter(t => num(t.d.quote && t.d.quote.opPrice) || conf.includes(t) || t.stage === "cancelled");
+  const conf90 = conf.filter(t => Date.parse((t.st && t.st.issuedAt) || 0) >= t0 - 90 * DAY), thr = num((S.terms || {}).threshold) || 8;
+  const cyc = (typeof cycleDays === "function" ? cycleDays() : 5) * DAY;
+  const fast = conf.filter(t => { const a = Date.parse(t.d.enquiryAt || t.d.created || 0), b = Date.parse((t.st && t.st.issuedAt) || 0); return a && b && b - a <= cyc; });
+  const rated = trips.filter(t => t.d.rating && num(t.d.rating.broker || t.d.rating.overall) > 0);
+  const P = [
+    ["Win rate", 0.3, quoted.length >= 2 ? share(conf.length, quoted.length) : null, `${conf.length} of ${quoted.length} quotes booked`],
+    ["Volume", 0.3, trips.length ? Math.min(1, conf90.length / 3 / thr) : null, `${conf90.length} bookings in 90 days (target ${thr} a month)`],
+    ["Booking cycle", 0.2, conf.length ? share(fast.length, conf.length) : null, `${fast.length} of ${conf.length} booked within the cycle target`],
+    ["Client rating", 0.2, rated.length ? rated.reduce((a, t) => a + num(t.d.rating.broker || t.d.rating.overall), 0) / rated.length / 5 : null, `${rated.length} rated`]
+  ];
+  const flown = trips.filter(t => t.stage === "flown"), ac = flown.map(t => ({t, a: (typeof acStatus === "function" ? acStatus(t) : null)})).filter(x => x.a);
+  const fuOn = ac.filter(x => x.a.fu && (!x.a.due || Date.parse(x.a.fu.at) <= Date.parse(x.a.due))), due = ac.filter(x => x.a.fu || x.a.overdue);
+  const low = ac.filter(x => x.a.low), sent = trips.filter(t => ["review","issued","clientPaid","flown","returned"].includes(t.stage) || (t.st && t.st.state));
+  const returned = sent.filter(t => t.stage === "returned" || ((t.st && t.st.history) || []).some(h => /return/i.test(h.a || "")));
+  const issued = trips.filter(t => t.st && t.st.confIssued), unsignedLate = issued.filter(t => !t.st.signed && t0 - Date.parse(t.st.confIssued.at || t.st.issuedAt || 0) > 2 * DAY);
+  const m = ((S.assignRun || {}).metrics || {})[id] || {}, r = (S.roster || {})[id] || {};
+  const T = [
+    ["Follow-up within 24 h", 0.25, due.length ? share(fuOn.length, due.length) : null, `${fuOn.length} of ${due.length} flights followed up on time`],
+    ["Rating requested", 0.15, ac.length ? share(ac.filter(x => x.a.rq).length, ac.length) : null, `${ac.filter(x => x.a.rq).length} of ${ac.length} flights`],
+    ["Service recovery", 0.15, low.length ? share(low.filter(x => x.a.rec).length, low.length) : null, `${low.filter(x => x.a.rec).length} of ${low.length} low scores recovered`],
+    ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned by operations`],
+    ["Contracts signed on time", 0.1, issued.length ? 1 - share(unsignedLate.length, issued.length) : null, `${unsignedLate.length} unsigned after 48 h`],
+    ["Lead follow-up", 0.15, num(m.recv30) >= 3 ? 1 - Math.min(1, num(m.breaches30) / num(m.recv30)) : null, `${num(m.breaches30)} of ${num(m.recv30)} leads went cold in 30 days`]
+  ];
+  const agg = L => { const have = L.filter(c => c[2] !== null); const w = have.reduce((a, c) => a + c[1], 0); return {v: w ? Math.round(have.reduce((a, c) => a + c[1] * c[2], 0) / w * 100) : null, n: have.length}; };
+  const p = agg(P), tr = agg(T), onb = !!r.onboarding;
+  return {id, name: nm(id), role: r.role || "broker", P, T, perf: p.v, trust: tr.v, early: p.n < 2 || tr.n < 2, trips: trips.length, onb};
+}
+function mxQuad(x){ if (x.perf === null || x.trust === null) return "Too early to place"; return x.trust >= 60 ? (x.perf >= 60 ? "Trusted performer" : "Reliable: build volume") : (x.perf >= 60 ? "Results, rules at risk: coach" : "Review with the director"); }
+async function mxSnapshot(rows){
+  if (!S.isOwner || S.preview || S.mxSaved) return; S.mxSaved = true;
+  const wk = new Date().toISOString().slice(0, 10), hist = (S.mxHist && S.mxHist.weeks) || [];
+  if (hist.length && Date.now() - Date.parse(hist[hist.length - 1].at) < 7 * DAY) return;
+  const weeks = [...hist, {at: wk, pts: rows.filter(x => x.perf !== null && x.trust !== null).map(x => ({id: x.id, p: x.perf, t: x.trust}))}].slice(-26);
+  try { await S.db.doc("intel/matrix").set({weeks}); S.mxHist = {weeks}; } catch(e){}
+}
+function trustMatrix(){
+  if (!S.isOwner || S.preview) return "";
+  const rows = mxMembers().map(({id}) => mxScore(id));
+  setTimeout(() => mxSnapshot(rows), 0);
+  const old = ((S.mxHist && S.mxHist.weeks) || []).filter(w => Date.now() - Date.parse(w.at) >= 25 * DAY).pop();
+  const narrow = (window.innerWidth || 1000) < 600, W = narrow ? 360 : 640, H = narrow ? 360 : 440, L = 40, R = 12, T = 12, B = 40, pw = W - L - R, ph = H - T - B;
+  const X = v => L + pw * v / 100, Y = v => T + ph * (1 - v / 100);
+  const placed = rows.map(x => ({...x, px: x.perf === null ? 50 : x.perf, py: x.trust === null ? 50 : x.trust}));
+  const quads = [[60, 100, 60, 100, "Trusted performers"], [0, 60, 60, 100, "Reliable: build volume"], [60, 100, 0, 60, "Results, rules at risk"], [0, 60, 0, 60, "Review with the director"]];
+  const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Trust and performance matrix of ${rows.length} members" style="width:100%;max-width:720px;height:auto;display:block;margin:8px auto 0">
+    ${quads.map(([x0, x1, y0, y1, l], i) => `<rect x="${X(x0)}" y="${Y(y1)}" width="${X(x1) - X(x0)}" height="${Y(y0) - Y(y1)}" fill="var(--${i === 0 ? "ok" : i === 3 ? "bad" : "line"})" opacity="${i === 0 || i === 3 ? 0.08 : 0.25}"/><text x="${i % 2 === 0 ? X(x1) - 6 : X(x0) + 6}" y="${Y(y1) + 16}" text-anchor="${i % 2 === 0 ? "end" : "start"}" font-size="${narrow ? 10 : 12}" fill="var(--muted)">${l}</text>`).join("")}
+    <line x1="${X(60)}" y1="${T}" x2="${X(60)}" y2="${T + ph}" stroke="var(--line)" stroke-dasharray="4 4"/><line x1="${L}" y1="${Y(60)}" x2="${L + pw}" y2="${Y(60)}" stroke="var(--line)" stroke-dasharray="4 4"/>
+    <rect x="${L}" y="${T}" width="${pw}" height="${ph}" fill="none" stroke="var(--line)"/>
+    ${(narrow ? [0, 100] : [0, 50, 100]).map(v => `<text x="${X(v)}" y="${T + ph + 16}" text-anchor="middle" font-size="11" fill="var(--muted)">${v}</text><text x="${L - 6}" y="${Y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)">${v}</text>`).join("")}
+    <text x="${L + pw / 2}" y="${H - 6}" text-anchor="middle" font-size="12" fill="var(--text)">Performance: actual results →</text>
+    <text transform="translate(14 ${T + ph / 2}) rotate(-90)" text-anchor="middle" font-size="12" fill="var(--text)">Trust: house rules kept →</text>
+    ${placed.map(x => { const o = old && old.pts.find(p => p.id === x.id); return o ? `<line x1="${X(o.p)}" y1="${Y(o.t)}" x2="${X(x.px)}" y2="${Y(x.py)}" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 3"/><circle cx="${X(o.p)}" cy="${Y(o.t)}" r="3" fill="var(--muted)"/>` : ""; }).join("")}
+    ${placed.map(x => `<g><title>${esc(x.name)}: performance ${x.perf ?? "–"}, trust ${x.trust ?? "–"}${x.early ? " (little data yet)" : ""}</title><circle cx="${X(x.px)}" cy="${Y(x.py)}" r="7" fill="${x.early ? "var(--surface)" : "var(--steel)"}" stroke="var(--steel)" stroke-width="2"/><text x="${x.px > 70 ? X(x.px) - 10 : X(x.px) + 10}" y="${Y(x.py) + 4}" text-anchor="${x.px > 70 ? "end" : "start"}" font-size="12" fill="var(--text)">${esc(String(x.name).length > 16 ? String(x.name).slice(0, 15) + "…" : x.name)}</text></g>`).join("")}
+  </svg>`;
+  const pct = v => v === null ? `<span class="muted">–</span>` : Math.round(v * 100);
+  const table = rows.length ? `<div class="tbl" style="margin-top:10px"><table class="small"><thead><tr><th scope=col>Member</th><th scope=col class="n">Trust</th><th scope=col class="n">Performance</th><th scope=col>Where</th><th scope=col>Weakest point</th></tr></thead><tbody>${rows.sort((a, b) => (b.trust ?? -1) - (a.trust ?? -1)).map(x => {
+      const weak = [...x.T, ...x.P].filter(c => c[2] !== null).sort((a, b) => a[2] - b[2])[0];
+      return `<tr><td>${esc(x.name)}${x.onb ? "" : ` <span class="chip c-review">Onboarding</span>`}</td><td class="n">${x.trust ?? "–"}</td><td class="n">${x.perf ?? "–"}</td><td>${esc(mxQuad(x))}</td><td>${weak ? `${esc(weak[0])} ${pct(weak[2])}%: <span class="muted">${esc(weak[3])}</span>` : `<span class="muted">No data yet</span>`}</td></tr>`; }).join("")}</tbody></table></div>
+    <details class="small" style="margin-top:8px"><summary>Each member's measures</summary>${rows.map(x => `<p style="margin:8px 0 2px"><b>${esc(x.name)}</b> · ${x.trips} trips in 180 days</p><p class="muted" style="margin:0">Trust: ${x.T.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}<br>Performance: ${x.P.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}</p>`).join("")}</details>` : "";
+  return `<div class="panel" style="margin-top:16px" id="trustMatrix"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Trust and performance</h2><span class="small muted">${rows.length} member${rows.length === 1 ? "" : "s"} · last 180 days</span></div>
+    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time and lead follow-up. Performance (right) measures results: quotes booked, bookings against the monthly target, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. Hollow dots have little data yet.</p>
+    ${rows.length ? svg : `<div class="empty"><p><b>No active members yet.</b> Members appear here once their agreement is countersigned.</p></div>`}${table}</div>`;
+}
+
+(function(){
+  const _vToday = vToday;
+  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'); const out = i < 0 ? ownerTodoPanel() + h : h.slice(0, i) + ownerTodoPanel() + h.slice(i); return out + trustMatrix(); };
+  document.addEventListener("click", e => { const b = e.target.closest("[data-todo]"); if (!b) return; e.preventDefault(); todoAct(b.dataset.todo, b.dataset.id); });
+  document.addEventListener("toggle", e => { if (e.target.dataset && e.target.dataset.todoDet === "later") S.todoLater = e.target.open; }, true);
+})();
 
 </script>
