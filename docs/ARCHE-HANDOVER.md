@@ -2,7 +2,7 @@
 
 The one file to start a new chat from. It says what Archē is, where everything is, the rules we work by, what is built,
 what is decided and what is still open. Claude updates it at the end of every working session.
-Last updated: 26 Oct 2026.
+Last updated: 26 Oct 2026. Peer rating: project note `claude/arche-setup-vs-peers-2026-10-26.md`.
 
 **To continue in a new chat:** attach this file (or open the "Archē Executive" project, where it is kept) and say
 "Continue the Archē work from the handover file". Claude reads it, then `CLAUDE.md` and `docs/ROADMAP.md` in the
@@ -204,6 +204,7 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
    - turn daily research back on at go-live
    - launch day: make the website public
    - decide on `/test.html`
+   - external broker academy: paid access by credit card before it opens (needs price and card provider)
 7. Counsel and other before-launch items: see `docs/ROADMAP.md` section 1. Examples: payment provider to replace Paynode,
    insurance, PDPA checks, native-speaker check of translations.
 8. Prospects:
