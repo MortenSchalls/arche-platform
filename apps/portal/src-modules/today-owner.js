@@ -192,7 +192,7 @@ function trustMatrix(){
 
 (function(){
   const _vToday = vToday;
-  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'), top = ownerTodoPrompt() + (typeof reqTodayPanel === "function" ? reqTodayPanel() : ""); const out = i < 0 ? top + h : h.slice(0, i) + top + h.slice(i); return out + trustMatrix(); };
+  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'), top = ownerTodoPrompt() + (typeof noticePrompt === "function" ? noticePrompt() : "") + (typeof reqTodayPanel === "function" ? reqTodayPanel() : ""); const out = i < 0 ? top + h : h.slice(0, i) + top + h.slice(i); return out + trustMatrix(); };
   const _vTeam = vTeam;
   vTeam = function(){ const h = _vTeam(); if (!S.isOwner || S.preview) return h; const add = ownerTodoPanel() + (typeof supervisionPanel === "function" ? supervisionPanel() : "") + (typeof noticeTeamPanel === "function" ? noticeTeamPanel() : ""), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + add + h.slice(k); };
   document.addEventListener("click", e => { const b = e.target.closest("[data-todo]"); if (!b) return; e.preventDefault(); todoAct(b.dataset.todo, b.dataset.id); });

@@ -25,6 +25,7 @@ Read this before changing anything. These are business rules set by the owner, M
 - Plain, short English. Say "Archē Executive" in branded text; the legal name is Arche Executive Pte. Ltd.
 - The Word manual is the master. Change the manual first, then rebuild the academies from it.
 - The external academy must contain nothing Archē-internal; `apps/academy/build/ext.js` fails the build if it does.
+- Notices to members (`apps/portal/src-modules/notices.js`): ask Morten first whether a change needs a notice at all, and agree the wording, before adding one. A notice in the code is only a draft; nothing reaches members until Morten publishes it in Team (Morten, 26 Oct 2026).
 
 ## Design
 - Day and Night themes; all text at least 4.5:1 contrast (portal `tests/colorscan.js`).
