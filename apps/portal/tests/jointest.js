@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');const fs=require('fs');
 const OWN='00000000-0000-0000-0000-00000000000a', NEW='00000000-0000-0000-0000-00000000000d';
 const CO={name:'Example Company Pte. Ltd.',reg:'000000000X',address:'1 Example Street, Singapore 000000',email:'charter@example.com',phone:'+65 0000 0000',web:'example.com',signName:'Example Director',signTitle:'Director',privacy:'privacy@example.com'};
-const base={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:NEW,role:null,active:false,contract_name:'',data:{}}],config:[{key:'terms',value:{margin:0.09,unit:45000,threshold:8,rate1:0.27,rate2:0.35}},{key:'company',value:CO},{key:'intake',value:{ready:{company:1,bank:1,payments:1,avinode:1},countries:{exampleland:{at:'2026-10-26'}}}}],join_requests:[],trips:[],trip_status:[],leads:[],prospects:[],optouts:[],agreements:[]};
+const base={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:NEW,role:null,active:false,contract_name:'',data:{}}],config:[{key:'terms',value:{margin:0.09,unit:45000,threshold:8,rate1:0.27,rate2:0.35}},{key:'company',value:CO},{key:'intake',value:{ready:{company:1,bank:1,payments:1,avinode:1},countries:{exampleland:{at:'2026-10-26'}}}}],join_requests:[],trips:[],trip_status:[],leads:[],prospects:[],optouts:[],agreements:[],assessments:[{id:NEW,data:{min:{english:1,integrity:1,noconflict:1,contractor:1,network:1,commission:1,reach:1,setup:1,presence:1,academy:1,conduct:1}}}]};
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
  .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`)
  .replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
@@ -18,8 +18,8 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  let T=await c.evaluate(()=>window.__T);
  ok('assessment request saved with organisations', (T.join_requests||[]).some(r=>r.user_id===NEW&&r.data.contractName==='Example New Broker'&&(r.data.orgs||[]).length===12));
  let o=await open(OWN,T,1400);
- await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(400);
- ok('owner sees the request in Team', (await o.textContent('#main')).includes('Example New Broker'));
+ await o.evaluate(()=>{S.view='onboarding';render();});await o.waitForTimeout(800);
+ ok('owner sees the request in Onboarding', (await o.textContent('#main')).includes('Example New Broker'));
  await o.click(`[data-agr="send|${NEW}"]`);await o.waitForTimeout(300);
  T=await o.evaluate(()=>window.__T);
  ok('agreement not sent without assessment notes', !(T.agreements||[]).length);
@@ -40,7 +40,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  const ag=T.agreements.find(r=>r.id===NEW).data;
  ok('signed with name, details, time and fingerprint', ag.status==='signed'&&ag.signedName==='Example New Broker'&&ag.details.territory==='Exampleland'&&/^[0-9a-f]{64}$/.test(ag.hash||'')&&(ag.html||'').includes('Example New Broker'));
  ok('no horizontal scroll at 390 px on the agreement', await c.evaluate(()=>{S.agrOpen=true;render();return document.documentElement.scrollWidth<=innerWidth+1;}));
- o=await open(OWN,T,1400);await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(500);
+ o=await open(OWN,T,1400);await o.evaluate(()=>{S.view='onboarding';render();});await o.waitForTimeout(500);
  await o.click('[data-approve]');await o.waitForTimeout(300);
  ok('countersign refused without Archē email', (await o.evaluate(()=>window.__T.agreements[0].data.status))==='signed');
  await o.fill('#ob_mail_'+NEW,'new@gmail.com');await o.click('[data-approve]');await o.waitForTimeout(300);

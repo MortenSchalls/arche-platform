@@ -13,15 +13,15 @@ const T0={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:
  prospects:[{id:'x1',data:{org:'Example Prospect',assignedTo:B1,status:'assigned'}}],
  leads:[{owner_id:B1,id:'l1',data:{own:true,org:'Example Own Lead',status:'new',log:[]}},{owner_id:B2,id:'m1',data:{own:true,org:'Example New One',status:'new',log:[]}},{owner_id:B2,id:'m2',data:{own:true,org:'Example New Two',status:'new',log:[]}}],
  alert_settings:[{id:'settings',data:{recipients:[{id:'r1',uid:OWN,name:'Owner',email:'o@example.com',events:{approve:true}},{id:'r2',uid:B1,name:'Example Leaver',email:'l@example.com',events:{steps:true}}]}}],
- join_requests:[{user_id:C1,data:{contractName:'Example Candidate',role:'broker',base:'Newland',orgs:['A','B'],at:ago(1)}}],agreements:[],step_requests:[],optouts:[],
+ join_requests:[{user_id:C1,data:{contractName:'Example Candidate',role:'broker',base:'Newland',orgs:['A','B'],at:ago(1)}}],agreements:[],assessments:[{id:C1,data:{min:{english:1,integrity:1,noconflict:1,contractor:1,network:1,commission:1,reach:1,setup:1,presence:1,academy:1,conduct:1}}}],step_requests:[],optouts:[],
  training_runs:[B1,B2].map(u=>({owner_id:u,id:'onboarding',data:{ackAt:ago(50)}}))};
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8').replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`).replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
 const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
 (async()=>{const b=await chromium.launch();const errs=[];let n=0;
  const open=async(uid,T,view,w=1400)=>{const f=`t_i_${n++}.html`;fs.writeFileSync(f,page(uid,T));const p=await b.newPage({viewport:{width:w,height:900}});p.on('pageerror',e=>errs.push(uid.slice(-2)+': '+e.message));await p.goto('http://localhost:8765/'+f);await p.waitForTimeout(4500);if(view){await p.evaluate(v=>{S.view=v;render();},view);await p.waitForTimeout(500);}return p;};
  const toastOf=async(p,fn)=>p.evaluate(async f=>{let m='';const _t=toast;toast=x=>{m=x};try{await eval(f)}finally{toast=_t}return m;},fn);
- let o=await open(OWN,T0,'team');
- ok('Team: ready-to-sign panel with four ticks', (await o.textContent('#main')).includes('Ready to sign brokers') && (await o.$$('[data-intake=ready]')).length===5);
+ let o=await open(OWN,T0,'onboarding');
+ ok('Onboarding: ready-to-sign panel with four ticks', (await o.textContent('#main')).includes('Ready to sign brokers') && (await o.$$('[data-intake=ready]')).length===5);
  let msg=await toastOf(o,`intakeBlock('${C1}')`); ok('not ready: agreement held back', /Not ready to sign/.test(await o.evaluate(id=>intakeBlock(id),C1)));
  for(const k of ['company','bank','payments','avinode']){await o.click(`#ir_${k}`);await o.waitForTimeout(250);}
  ok('ticks saved', await o.evaluate(()=>intakeReady()));
@@ -29,10 +29,18 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await o.click('[data-intake=country]');await o.waitForTimeout(300);
  ok('limit reached (2 supervised, limit set to 2): waiting list', await o.evaluate(async id=>{S.intake={...S.intake,cap:2};return /Supervision is full/.test(intakeBlock(id));},C1));
  await o.evaluate(()=>{S.intake={...S.intake,cap:6};});
+ await o.evaluate(()=>{S.view='onboarding';render();});await o.waitForTimeout(300);
+ ok('checklist shown on the request', (await o.textContent('#main')).includes('Qualification checklist'));
+ await o.evaluate(id=>{const b=document.getElementById('qa_flags_salary_'+id);b.checked=true;b.dispatchEvent(new Event('change',{bubbles:true}));},C1);await o.waitForTimeout(300);
+ ok('a red flag stops the agreement', /red flag/.test(await o.evaluate(id=>intakeBlock(id),C1)));
+ await o.evaluate(id=>{const b=document.getElementById('qa_flags_salary_'+id);b.checked=false;b.dispatchEvent(new Event('change',{bubbles:true}));},C1);await o.waitForTimeout(300);
  ok('all clear: agreement can go', await o.evaluate(id=>intakeBlock(id)==='',C1));
+ ok('Team no longer carries joining and leaving', await o.evaluate(()=>{S.view='team';render();const t=document.querySelector('#main').textContent;return !t.includes('Ready to sign brokers')&&t.includes('request to join waiting');}));
+ await o.evaluate(()=>{S.view='onboarding';render();});
  // leaving, one tick
- await o.click(`[data-offboard="${B1}"]`);await o.waitForTimeout(300);await o.selectOption('#off_mode','agreed');await o.fill('#off_why','Example reason for ending');await o.click('#offForm button[type=submit]');await o.waitForTimeout(1200);
+ await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(300);await o.click(`[data-offboard="${B1}"]`);await o.waitForTimeout(300);await o.selectOption('#off_mode','agreed');await o.fill('#off_why','Example reason for ending');await o.click('#offForm button[type=submit]');await o.waitForTimeout(1200);
  let T=await o.evaluate(()=>window.__T);const pb=T.profiles.find(x=>x.id===B1);
+ ok('End engagement opens the form on Onboarding', await o.evaluate(()=>S.view==='onboarding'));
  ok('access off, rights and supervision removed', pb.active===false&&!Object.keys(pb.data.rights||{}).length&&!pb.supervised&&!!pb.data.offboard);
  ok('their enquiry back in the pool', T.enquiry_pool[0].data.status==='released'&&!T.enquiry_pool[0].data.claimedBy);
  ok('their prospect back in rotation', !T.prospects[0].data.assignedTo);
@@ -44,14 +52,14 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  ok('the leaver sees only the deletion confirmation', (await p.textContent('#main')).includes('Your engagement has ended') && !(await p.$('[data-act=new]')));
  await p.check('#lv_ok');await p.click('[data-intake=leaveOk]');await p.waitForTimeout(400);T=await p.evaluate(()=>window.__T);
  ok('confirmation saved', T.join_requests.some(r=>r.user_id===B1&&r.data.kind==='leaving'&&r.data.confirmedAt));await p.close();
- o=await open(OWN,T,'team');await o.waitForTimeout(16000);T=await o.evaluate(()=>window.__T);
+ o=await open(OWN,T,'onboarding');await o.waitForTimeout(16000);T=await o.evaluate(()=>window.__T);
  ok('owner portal records the confirmation and clears it from requests', !!T.profiles.find(x=>x.id===B1).data.offboard.confirmedAt && !T.join_requests.some(r=>r.user_id===B1));
  ok('leaving row never treated as a request to join', await o.evaluate(id=>!(id in S.joins),'00000000-0000-0000-0000-0000000000b1'));
  for(const k of ['mailbox','whatsapp','avinode']){await o.check(`#ox_${k}_${B1}`);await o.waitForTimeout(250);}
  await o.click(`[data-intake=close][data-uid="${B1}"]`);await o.waitForTimeout(300);T=await o.evaluate(()=>window.__T);
  ok('file closed after the outside steps', !!T.profiles.find(x=>x.id===B1).data.offboard.closed);
  // notice mode
- await o.evaluate(()=>{S.offboardId=null;});await o.click(`[data-offboard="${B2}"]`);await o.waitForTimeout(300);await o.fill('#off_why','Example notice reason');await o.click('#offForm button[type=submit]');await o.waitForTimeout(800);T=await o.evaluate(()=>window.__T);
+ await o.evaluate(()=>{S.offboardId=null;});await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(300);await o.click(`[data-offboard="${B2}"]`);await o.waitForTimeout(300);await o.fill('#off_why','Example notice reason');await o.click('#offForm button[type=submit]');await o.waitForTimeout(800);T=await o.evaluate(()=>window.__T);
  const p2=T.profiles.find(x=>x.id===B2); ok('30 days notice: still active, end date set', p2.active!==false&&p2.data.offboard.mode==='notice'&&Date.parse(p2.data.offboard.endDate)>Date.now()+28*864e5);
  // away
  await o.evaluate(()=>{S.alerts.recipients.push({id:'r3',uid:'00000000-0000-0000-0000-0000000000e1',name:'Example Backup',events:{}});S.view='today';render();});await o.waitForTimeout(300);
@@ -71,6 +79,6 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  const rq=T.step_requests.find(r=>r.owner_id===B2&&r.data.key==='contact');ok('one request covering both leads', rq&&rq.data.refs.length===2);
  rq.data.status='approved';await p.close();p=await open(B2,T,'leads');
  ok('after the OK, both leads can be contacted', await p.evaluate(()=>gateReq(S.uid,'contact','m1').status==='approved'&&gateReq(S.uid,'contact','m2').status==='approved'));
- ok('no sideways scroll at 390 px (Team)', await (async()=>{const q=await open(OWN,T,'team',390);const r=await q.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1);await q.close();return r;})());
+ ok('no sideways scroll at 390 px (Onboarding)', await (async()=>{const q=await open(OWN,T,'onboarding',390);const r=await q.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1);await q.close();return r;})());
  await p.close();
  console.log('ERRORS',JSON.stringify(errs));await b.close();for(const f of fs.readdirSync('.').filter(f=>f.startsWith('t_i_')))fs.unlinkSync(f);})();

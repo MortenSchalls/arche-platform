@@ -168,7 +168,7 @@ document.addEventListener("click", async e => {
     if (a === "awayOff") delete away[S.uid]; else { const u = ($("aw_until") || {}).value, bu = ($("aw_b") || {}).value; if (!u || Date.parse(u) <= Date.now()) { toast("Choose when you are back."); return; } if (!bu) { toast("Add someone else to the alert list first."); return; } away[S.uid] = {until: new Date(u).toISOString(), backup: bu, backupName: ((A.recipients || []).find(r => r.uid === bu) || {}).name || ""}; }
     S.awayForm = false; return alertSave({...A, away}, a === "awayOff" ? "Back from unavailable" : "Unavailable set"); }
 });
-document.addEventListener("click", e => { const b = e.target.closest("[data-offboard]"); if (!b || !S.isOwner) return; e.preventDefault(); S.offboardId = b.dataset.offboard; render(); const el = document.getElementById("intakePanel"); if (el) el.scrollIntoView({behavior: "smooth"}); });
+document.addEventListener("click", e => { const b = e.target.closest("[data-offboard]"); if (!b || !S.isOwner) return; e.preventDefault(); S.offboardId = b.dataset.offboard; S.view = "onboarding"; render(); const el = document.getElementById("intakePanel"); if (el) el.scrollIntoView({behavior: "smooth"}); });
 document.addEventListener("submit", e => { if (e.target.id !== "offForm") return; e.preventDefault(); const why = $("off_why").value.trim(); if (why.length < 5) { toast("Write the reason."); return; } offboardRun(S.offboardId, $("off_mode").value, why); });
 
 /* owner: leaving confirmations arrive as the person's own join row (the only thing they can still write) */
@@ -193,3 +193,76 @@ function leaveTodayFlags(){
 
 /* the confirmation needs the 24-hour contacts */
 (function(){ if (typeof issueConf !== "function") return; const _ic2 = issueConf; issueConf = async function(btn){ const t = tripById(S.sel), c = t && t.st && t.st.contacts24; if (t && !(c && c.op && c.handler)) { toast("Add the 24-hour contacts (operator operations and handler) on the trip first."); return; } return _ic2(btn); }; })();
+
+/* ---------- Onboarding page and qualification checklist (Morten, 26 Oct 2026) ----------
+   Team stays about the team. Joining and leaving live on their own page: requests to join with the qualification
+   checklist, ready to sign, the supervision limit and leaving files. The checklist is kept in assessments (SQL 0015),
+   seen only by owners and assessors; the agreement cannot be sent until every minimum item is ticked and no red
+   flag is ticked. */
+const QUAL_MIN = {
+  english: "Fluent business English, written and spoken",
+  integrity: "Two professional references checked; no fraud or dishonesty convictions; not on a sanctions list",
+  noconflict: "No current work for another charter broker, operator or charter platform",
+  contractor: "Can work as an independent contractor in their country, invoice from abroad and handle own tax; lives and works outside Thailand and Singapore",
+  network: "A real network: 10 to 20 organisations they can reach (list checked)",
+  commission: "Understands commission only, no salary; can carry 3 to 6 months of building",
+  reach: "Can answer a client within 15 minutes in working hours and stay with a trip to the last landing",
+  setup: "Own laptop and smartphone, reliable internet, presentable place for video calls",
+  presence: "Discreet and polished: fit for the top 0.1%",
+  academy: "Academy complete, completion code checked",
+  conduct: "Accepts the Standards of Conduct and the data rules"
+};
+const QUAL_WANT = {
+  sales: "High-value relationship selling (private banking, wealth, luxury property, yachts, luxury travel or concierge, premium hospitality, events)",
+  relations: "Existing relationships with family offices, corporate travel desks, executive assistants, sports or entertainment management",
+  aviation: "Aviation background (charter or airline premium sales, operator or FBO, dispatch or operations, business-aviation cabin crew)",
+  languages: "Languages for our markets (Thai, Mandarin, Japanese, Korean, Bahasa, Hindi, Arabic, Russian)",
+  timezone: "Based in a market or time zone that adds 24-hour cover",
+  selfemployed: "Self-employed or business-owner track record; comfortable with CRM tools",
+  online: "Clean, professional online presence that fits the brand"
+};
+const QUAL_FLAGS = {
+  salary: "Wants a salary or a draw",
+  lists: "Brings bought or scraped contact lists",
+  discounts: "Promises clients discounts or exceptions",
+  otherwork: "Vague about work for other brokers",
+  writing: "Weak written English"
+};
+if (!S.assess) S.assess = {};
+function assessLoad(id){
+  if (!S.db || (id in S.assess)) return; S.assess[id] = undefined;
+  S.db.doc("assess/" + id).get().then(d => { S.assess[id] = d.exists ? d.data() : {}; render(); }, () => { S.assess[id] = null; render(); });
+}
+function assessState(id){ const a = S.assess[id]; if (!a) return {ok: false, min: 0, flags: 0, missing: a === null}; const m = Object.keys(QUAL_MIN).filter(k => (a.min || {})[k]).length, f = Object.keys(QUAL_FLAGS).filter(k => (a.flags || {})[k]).length; return {ok: m === Object.keys(QUAL_MIN).length && !f, min: m, flags: f}; }
+function assessBlock(id){
+  if (id === S.uid) return "";
+  assessLoad(id);
+  const a = S.assess[id], st = assessState(id), sec = (title, obj, part) => `<p class="small" style="margin:8px 0 2px"><b>${title}</b></p>${Object.entries(obj).map(([k, l]) => `<label class="check" for="qa_${part}_${k}_${id}"><input type="checkbox" id="qa_${part}_${k}_${id}" data-qa="${part}" data-k="${k}" data-uid="${id}" ${((a || {})[part] || {})[k] ? "checked" : ""}><span class="small">${esc(l)}</span></label>`).join("")}`;
+  if (a === null) return `<div class="note info small">Run SQL "assessments (0015)" in To do for you to keep the qualification checklist.</div>`;
+  if (a === undefined) return `<p class="small muted">Loading the checklist…</p>`;
+  return `<details class="small" style="margin:6px 0" ${st.ok ? "" : "open"}><summary><b>Qualification checklist</b>: ${st.min} of ${Object.keys(QUAL_MIN).length} minimum${st.flags ? ` · <span style="color:var(--bad)">${st.flags} red flag${st.flags > 1 ? "s" : ""}</span>` : ""}${st.ok ? " · ready" : ""}</summary>
+    ${sec("Minimum (all needed)", QUAL_MIN, "min")}${sec("Desired (strengthens the case)", QUAL_WANT, "want")}${sec("Red flags (any one stops the agreement)", QUAL_FLAGS, "flags")}
+    ${a.by ? `<p class="muted" style="margin:6px 0 0">Last changed ${fmtT(a.at)} by ${esc(nm(a.by))}</p>` : ""}</details>`;
+}
+document.addEventListener("change", async e => {
+  const b = e.target; if (!b.dataset || !b.dataset.qa) return;
+  if (!(S.isOwner || (typeof canRight === "function" && canRight("assess")))) return;
+  const id = b.dataset.uid, part = b.dataset.qa, cur = S.assess[id] || {};
+  const next = {...cur, [part]: {...(cur[part] || {}), [b.dataset.k]: b.checked}, at: now(), by: S.uid};
+  try { await S.db.doc("assess/" + id).set(next); S.assess[id] = next; audit("Assessment checklist", `${(S.joins[id] || {}).contractName || id}: ${part} ${b.dataset.k} ${b.checked ? "ticked" : "unticked"}`); render(); }
+  catch(err){ toast("Could not save. Run SQL 0015 if you have not."); b.checked = !b.checked; }
+});
+/* the agreement waits for the checklist */
+(function(){ const _ib = intakeBlock; intakeBlock = function(id){ const w = _ib(id); if (w) return w; const st = assessState(id); if (!st.ok) return st.flags ? "A red flag is ticked on the qualification checklist." : `Qualification checklist not complete (${st.min} of ${Object.keys(QUAL_MIN).length} minimum items).`; return ""; }; })();
+(function(){ const _x = intakeJoinExtras; intakeJoinExtras = function(id, j){ return assessBlock(id) + _x(id, j); }; })();
+
+function vOnboarding(){
+  const joins = Object.entries(S.joins || {});
+  return `<div class="head"><div><h1>Onboarding</h1><p class="muted small">Joining and leaving. People ask for assessment after the academy; tick the qualification checklist, then send the agreement once Archē is ready to sign. Ending an engagement is one tick here.</p></div></div>
+    <div class="panel" style="margin-bottom:16px"><h2>Waiting for assessment${joins.length ? ` (${joins.length})` : ""}</h2>${joins.length ? joins.map(([id, j]) => obJoinCard(id, j)).join("") : `<p class="muted small">No requests waiting.</p>`}</div>
+    ${intakeTeamPanel()}`;
+}
+(function(){
+  const _nav = navItems;
+  navItems = function(){ const items = _nav(); if (S.isOwner && acting() === "owner" && !items.some(x => x[0] === "onboarding")) { const i = items.findIndex(x => x[0] === "team"); items.splice(i < 0 ? items.length : i + 1, 0, ["onboarding", "Onboarding"]); } return items; };
+})();
