@@ -83,6 +83,8 @@ Morten enters them himself in Vercel, GitHub or Supabase.
 The portal is a single page (`apps/portal/index.html`) with modules in `apps/portal/src-modules/` copied into it.
 `platform.js` connects it to Supabase. `build_test.py` makes the example-data test page.
 
+- **Website page (owner, 26 Oct 2026)**: own cookieless statistics from archeaviation.com (visits, sources, campaigns, countries and cities, sections reached, what was used, enquiries sent, suggestions, organisation links opened). Brokers get a website link per lead (archeaviation.com/?r=CODE) and Today shows organisations that opened theirs in the last 48 hours. Module `src-modules/traffic.js`; website side `site/track.js` and `site/api/collect.mjs`; details in `docs/SEO.md`.
+- **Paynode removed everywhere (26 Oct 2026)** until Morten agrees otherwise: rule, B5, terms, portal, course, academies, manual, charter confirmation say "a secure payment request from our payment provider". Data field `paynodeRef` kept internally.
 - **Owner's Today**
   - Prompt for your tasks.
   - Notice drafts to decide on.
@@ -169,6 +171,7 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
 | 0014 | Phones that receive alerts, and the 2-minute alert check (pg_cron) | Run 26 Oct 2026 (alerts working) |
 | 0015 | Assessments: qualification checklist (owner and assessors only) | Run 26 Oct 2026 |
 | 0016 | Supervision share: supervisors see the trips that pay them | Run 26 Oct 2026 |
+| 0017 | Website statistics (site_events, site_links, submit_visit, site_stats, 13-month clean-up) | **To run**: task in Team |
 
 How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor → paste → Run.
 
@@ -224,6 +227,7 @@ The dated launch steps (UEN, bank, payments, Avinode, Singapore number, email, i
    - SMS service for alerts (account and sender name; key entered by Morten in Supabase)
    - official WhatsApp number for alerts (Meta verification, message template)
    - WhatsApp team setup (proposed 26 Oct 2026): Community "Archē Executive Team" with Announcements, Desk, Operations 24/7, Supervisors, New joiners and per-trip groups for complex charters; owners only as admins; no client personal data in groups; the portal is the record
+6b. Website (26 Oct 2026): run SQL 0017; Google Search Console (task, DNS record at GoDaddy); then Bing Webmaster Tools after launch. Portal content policy is in report-only mode: check the live portal console and switch `Content-Security-Policy-Report-Only` to `Content-Security-Policy` in `apps/portal/vercel.json`. Ask Morten whether the website link per lead needs a notice to members (none added). Privacy notice has a new "Website statistics" section (show Morten). Client payment task changed (Morten agreed 26 Oct): "Choose the client payment provider and apply": Wise when the UEN arrives, Airwallex in parallel as backup, decide on Wise's written answer, counsel on payment licence. Avinode offer received 26 Oct (Starter Broker USD 740/month, extra user USD 118, white-label web app USD 500, 6 months prepaid; KYB about 2 weeks): task "Join Avinode" updated; details in project note claude/avinode-membership-offer-2026-10-26.md. Suggested: no white-label web app at start.
 7. Counsel and other before-launch items: see `docs/ROADMAP.md` section 1. Examples: choosing the payment provider (Paynode removed everywhere 26 Oct 2026),
    insurance, PDPA checks, native-speaker check of translations.
 8. Check Team → To do for you: any SQL step still open there (the portal checks each one itself) is the true status.

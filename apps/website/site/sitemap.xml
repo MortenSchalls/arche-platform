@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://archeaviation.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://archeaviation.com/th</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://archeaviation.com/zh</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://archeaviation.com/ja</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://archeaviation.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://archeaviation.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://archeaviation.com/</loc><lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://archeaviation.com/th"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://archeaviation.com/zh"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://archeaviation.com/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://archeaviation.com/"/>
+  </url>
+  <url><loc>https://archeaviation.com/th</loc><lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://archeaviation.com/th"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://archeaviation.com/zh"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://archeaviation.com/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://archeaviation.com/"/>
+  </url>
+  <url><loc>https://archeaviation.com/zh</loc><lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://archeaviation.com/th"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://archeaviation.com/zh"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://archeaviation.com/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://archeaviation.com/"/>
+  </url>
+  <url><loc>https://archeaviation.com/ja</loc><lastmod>2026-10-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://archeaviation.com/th"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://archeaviation.com/zh"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://archeaviation.com/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://archeaviation.com/"/>
+  </url>
+  <url><loc>https://archeaviation.com/terms.html</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://archeaviation.com/privacy.html</loc><lastmod>2026-10-26</lastmod></url>
 </urlset>

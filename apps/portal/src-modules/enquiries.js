@@ -4,9 +4,9 @@
   let started = false;
   function watch(){ if (started || !isStaff()) return; started = true; watchCol("enquiries", snap => { S.enq = snap.docs.map(d => ({id: d.id, ...d.data()})); render(); }); }
   function line(e){
-    if (e.type === "callback") return `<b>Call back</b> ${esc(e.phone || "")}`;
+    if (e.type === "callback") return `<b>Call back</b> ${esc(e.phone || "")}${typeof enqSourceTag === "function" ? enqSourceTag(e) : ""}`;
     const legs = (e.legs || []).map(l => `${esc(l.from)} → ${esc(l.to)}${l.date ? " " + esc(fmtD(l.date)) : ""}`).join(" · ");
-    return `<b>Quote</b> ${legs} · ${esc(e.pax || "?")} pax · ${esc(e.name || "")} · ${esc(e.reach || "")} (${esc(e.reply || "")})`;
+    return `<b>Quote</b> ${legs} · ${esc(e.pax || "?")} pax · ${esc(e.name || "")} · ${esc(e.reach || "")} (${esc(e.reply || "")})${typeof enqSourceTag === "function" ? enqSourceTag(e) : ""}`;
   }
   function panel(){
     watch(); const open = (S.enq || []).filter(e => !e.handled);

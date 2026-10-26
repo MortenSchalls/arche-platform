@@ -5,7 +5,11 @@ const clean = (v, n = 200) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").t
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  let origin = "";
+  try { origin = new URL(req.headers.origin || req.headers.referer || "").host; } catch (e) {}
+  if (!/^(?:www\.)?archeaviation\.com$|\.vercel\.app$|^localhost(?::\d+)?$/.test(origin)) return res.status(403).json({ error: "Not allowed" });
   const b = req.body || {};
+  if (JSON.stringify(b).length > 8000) return res.status(413).json({ error: "Too large" });
   if (b.website) return res.status(200).json({ ok: true });            // honeypot field for bots
   let data;
   if (b.type === "quote") {
@@ -18,6 +22,8 @@ export default async function handler(req, res) {
     data = { type: "callback", phone: clean(b.phone, 40), lang: clean(b.lang, 5), page: clean(b.page, 80) };
   } else return res.status(400).json({ error: "Unknown request" });
   data.consent = b.consent === true;
+  data.visit = clean(b.visit, 20);                                       // links the enquiry to its website visit (source, campaign)
+  data.code = clean(b.code, 12).replace(/[^A-Za-z0-9]/g, "");             // organisation link code, if the visitor came from one
 
   const r = await fetch(`${process.env.SUPABASE_URL}/rest/v1/rpc/submit_enquiry`, {
     method: "POST",

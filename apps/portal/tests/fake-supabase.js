@@ -5,7 +5,7 @@ window.supabase = { createClient() {
   function q(table) {
     let rows = () => (T[table] = T[table] || []), filt = [], op = "select", payload = null, single = false, conflict = null, ord = null;
     const api = {
-      select() { return api; }, eq(k, v) { filt.push(r => String(get(r, k)) === String(v)); return api; }, in(k, vs) { filt.push(r => vs.includes(r[k])); return api; },
+      select() { return api; }, eq(k, v) { filt.push(r => String(get(r, k)) === String(v)); return api; }, in(k, vs) { filt.push(r => vs.includes(r[k])); return api; }, neq(k, v) { filt.push(r => String(get(r, k)) !== String(v)); return api; }, gte(k, v) { filt.push(r => String(get(r, k)) >= String(v)); return api; },
       order(k, o) { ord = [k, o && o.ascending === false ? -1 : 1]; return api; }, limit() { return api; }, maybeSingle() { single = true; return api; },
       upsert(row, o) { op = "upsert"; payload = row; conflict = (o && o.onConflict || "id").split(","); return api; },
       insert(row) { op = "insert"; payload = row; return api; }, update(row) { op = "update"; payload = row; return api; }, delete() { op = "delete"; return api; },

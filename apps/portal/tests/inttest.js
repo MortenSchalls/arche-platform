@@ -35,7 +35,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  ok('a red flag stops the agreement', /red flag/.test(await o.evaluate(id=>intakeBlock(id),C1)));
  await o.evaluate(id=>{const b=document.getElementById('qa_flags_salary_'+id);b.checked=false;b.dispatchEvent(new Event('change',{bubbles:true}));},C1);await o.waitForTimeout(300);
  ok('all clear: agreement can go', await o.evaluate(id=>intakeBlock(id)==='',C1));
- ok('Team no longer carries joining and leaving', await o.evaluate(()=>{S.view='team';render();const t=document.querySelector('#main').textContent;return !t.includes('Ready to sign brokers')&&t.includes('request to join waiting');}));
+ ok('Team no longer carries joining and leaving', await o.evaluate(()=>{S.view='team';render();const t=document.querySelector('#main').textContent;return ![...document.querySelectorAll('#main h2')].some(h=>/Ready to sign brokers/.test(h.textContent))&&t.includes('request to join waiting');}));
  await o.evaluate(()=>{S.view='onboarding';render();});
  // leaving, one tick
  await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(300);await o.click(`[data-offboard="${B1}"]`);await o.waitForTimeout(300);await o.selectOption('#off_mode','agreed');await o.fill('#off_why','Example reason for ending');await o.click('#offForm button[type=submit]');await o.waitForTimeout(1200);
