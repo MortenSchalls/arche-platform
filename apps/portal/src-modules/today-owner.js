@@ -22,8 +22,8 @@ const OWNER_TODO = [
     why:"Keeps every weekly snapshot of the matrix for good, readable by owners only. Until it runs, weeks are held safely and move across by themselves.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0011", sev:"high", title:"Run SQL: supervised steps (0011)", sql:"0011", table:"step_requests",
     why:"Lets supervised members ask for your OK on each step, and you approve or send back on Today. Until it runs, nothing is held back.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
-  {id:"sql-0012", sev:"med", title:"Run SQL: supervisor rights (0012), after 0011", sql:"0012", after:"sql-0011",
-    why:"Lets the members you choose supervise steps, assess new people or approve bookings. Before it runs, ticking a right has no effect.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
+  {id:"sql-0012", sev:"med", title:"Run SQL: supervisor rights (0012), after 0011", sql:"0012", after:"sql-0011", rpc:"has_right",
+    why:"Lets the members you choose supervise steps, assess new people or approve bookings. Before it runs, ticking a right has no effect.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. The portal ticks this by itself once it has run."},
   {id:"sql-0013", sev:"high", title:"Run SQL: alerts (0013)", sql:"0013", table:"alert_settings",
     why:"Keeps who receives alerts, on which number, for what. Owner only.", how:"Supabase > SQL Editor > New query > paste > Run. Then add yourself in Team > Alerts."},
   {id:"sql-0014", sev:"high", title:"Run SQL: alerts on phones and the 2-minute check (0014)", sql:"0014", table:"push_subs",
@@ -39,7 +39,7 @@ const OWNER_TODO = [
   {id:"alerts-phone", sev:"med", title:"Turn on alerts on your phone",
     why:"Phone alerts are free and arrive even when the portal is closed.",
     how:"iPhone: open portal.archeaviation.com in Safari, tap Share > Add to Home Screen, open Archē from the Home Screen and sign in. Then Team > Alerts > Turn on alerts on this device, and Send a test alert. Add yourself in Alerts with msj@archeaviation.com as email and your SMS number for later."},
-  {id:"sql-0015", sev:"high", title:"Run SQL: assessments (0015), after 0012", sql:"0015", table:"assessments", after:"sql-0012",
+  {id:"sql-0015", sev:"high", title:"Run SQL: assessments (0015)", sql:"0015", table:"assessments",
     why:"Keeps the qualification checklist for each candidate, seen only by owners and assessors. Agreements wait for a complete checklist.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0016", sev:"med", title:"Run SQL: supervision share (0016)", sql:"0016",
     why:"Lets a supervisor see the bookings that pay them a supervision share on their commission page.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
@@ -85,7 +85,11 @@ async function todoProbe(){
   S.todoProbing = true; const res = {};
   for (const x of OWNER_TODO) {
     try {
-      if (x.table && window.__sb) {
+      if (x.rpc && window.__sb) {
+        // a function created by the SQL step: it exists if calling it does not say "not found"
+        const {error} = await window.__sb.rpc(x.rpc, {r: "supervise"});
+        res[x.id] = !error ? true : /PGRST202|not find the function|does not exist|42883/i.test((error.code || "") + " " + (error.message || "")) ? false : null;
+      } else if (x.table && window.__sb) {
         // a normal read (not a head request): a head request gets no error text, which made missing tables look present (26 Oct 2026)
         const {error, status} = await window.__sb.from(x.table).select("*").limit(1);
         res[x.id] = !error && status >= 200 && status < 300 ? true : (status === 404 || /does not exist|PGRST205|42P01|schema cache/i.test(((error || {}).code || "") + " " + ((error || {}).message || ""))) ? false : null;

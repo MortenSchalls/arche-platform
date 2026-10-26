@@ -27,6 +27,7 @@ window.supabase = { createClient() {
   const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: { pw_set: true } }, access_token: "x" };
   return {
     from: q,
+    rpc: async (fn) => (window.__MISSING_FN || []).includes(fn) ? { data: null, error: { code: "PGRST202", message: "Could not find the function public." + fn } } : { data: false, error: null },
     auth: { getSession: async () => ({ data: { session } }), onAuthStateChange() {}, signOut: async () => {} },
     channel() { const c = { on(_e, f, fn) { subs.push({ table: f.table, fn }); return c; }, subscribe() { return c; } }; return c; },
     storage: { from() { return { upload: async () => ({ error: null }), createSignedUrl: async id => ({ data: { signedUrl: "data:text/plain,file" } }), remove: async () => ({}) }; } }
