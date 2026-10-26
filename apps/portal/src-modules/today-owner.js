@@ -93,7 +93,7 @@ const OWNER_TODO = [
     how:"Ask Claude to restore the daily research line in the jobs workflow; it needs AI credit (see the AI step)."},
   {id:"launch", sev:"low", due:"2026-12-01", title:"Launch day: make the website public", later:true,
     why:"archeaviation.com stays behind Vercel's login until you switch it on.",
-    how:"Vercel > website project > Settings > Deployment Protection: turn off Vercel Authentication for production."},
+    how:"First ask Claude to set the Singapore phone number and the UEN on the website and run the website check (apps/website/check_site.py); it must say \"no placeholders left\". Then Vercel > website project > Settings > Deployment Protection: turn off Vercel Authentication for production."},
   {id:"testpage", sev:"low", title:"Decide whether to keep the test page online", later:true,
     why:"portal.archeaviation.com/test.html runs the portal with example data only; useful to show people.",
     how:"Keep it, or ask Claude to remove it."}

@@ -7,6 +7,9 @@ ADDRESS = "20 Collyer Quay, #09-01, Singapore 049319"
 UEN = ""   # registration number, e.g. "202612345A"
 EMAIL = "contact@archeaviation.com"   # public enquiry address (Morten, 26 Oct 2026; was charter@archeexecutive.com)
 PRIVACY = "privacy@archeaviation.com"   # data protection requests (alias on contact@, 26 Oct 2026)
+PHONE = ""       # Singapore business number, e.g. "+65 6123 4567"; also used for WhatsApp. Until set, the site shows a placeholder and check_site.py fails
+LINE_ID = ""     # e.g. "@archeexecutive" once the LINE Official Account exists; until then the LINE card is left out
+WECHAT_ID = ""   # e.g. "ArcheExecutive" once the WeChat account exists; until then the WeChat card is left out
 def pairs():
     line = " · ".join(x for x in (NAME, ("UEN " + UEN) if UEN else "", ADDRESS) if x)
     return [

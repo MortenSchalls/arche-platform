@@ -165,6 +165,7 @@ window.archeSend = function (data) {
             t = open(fp, encoding="utf-8").read()
             if t.strip(): open(fp, "w", encoding="utf-8").write(sections.tone(t))
     import company; company.run()   # name, address and registration number on every page
+    import site_fixes; site_fixes.run()   # one office, notice, payment line, contact routes (26 Oct 2026)
 
 
 if __name__ == "__main__":
