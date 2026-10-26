@@ -41,7 +41,7 @@ push(H2('Stages and exit criteria'));
 push(T([['Stage',1800],['What you do',4200],['To pass',3640]],[
  ['1. Self-study','Read the modules for your path; answer every module check','All module checks done; questions you got wrong reviewed with your mentor'],
  ['2. Written exam','Final exam from the question bank, set by the director','80% or more; every critical-rule question correct'],
- ['3. Systems','Avinode and Paynode training (Module 14)','Avinode and Paynode access live; one practice quote and one practice payment request completed'],
+ ['3. Systems','Avinode and payment system training (Module 14)','Avinode and payment system access live; one practice quote and one practice payment request completed'],
  ['4. Shadowing','Follow a senior broker on live trips from enquiry to closed file, including the follow-up after the flight; visit one FBO or handler and one operator; two live negotiation lab sessions with a senior broker (Module 14.4); practise with the AI practice partner (Module 14.5)','8 complete trips shadowed; both visits done; two lab sessions recorded'],
  ['5. Practical exam','Run a mock trip from enquiry to signed confirmation, with a role-played client and operator, and a scored live negotiation lab with the director (Module 14.4)','No critical error; no more than 3 minor errors; lab score 70 or more with no rule broken'],
  ['6. Supervised','Run your own bookings; the director or a senior broker checks every quote and contract before it is sent; a post-trip debrief after every booking (Module 14.6)','10 bookings with no critical error; 10 debriefs signed by trainee, mentor and operations'],
@@ -54,7 +54,7 @@ push(box('Critical errors (any one stops certification and is reviewed by the di
  '3. Flight sold that we may not sell (Module 2.4), including any cabotage breach, or quoted without a trip risk screen (Module 2.9).',
  '4. Wrong price: margin below 9% without approval, a number we cannot source, or a hidden fee.',
  '5. Missing client disclosures (Module 2.2).',
- '6. Payment taken outside Paynode, or bank details sent by email or chat.',
+ '6. Payment taken outside a payment request, or bank details sent by email or chat.',
  '7. Personal data sent outside Avinode, the CRM or the operator.']));
 push(sp());
 push(H2('Training records and refresher training'));
@@ -63,7 +63,7 @@ push(H2('How long it takes'));
 push(P('These are planning estimates for a full-time trainee with no aviation background. They depend on how many enquiries come in during shadowing and supervision, and are reviewed after the first trainees.'));
 push(T([['Stage',5640],['Broker',2000],['Consultant',2000]],[
  ['Self-study and written exam','2 to 3 weeks','1 to 2 weeks'],
- ['Avinode and Paynode training and practice','2 to 3 days','1 day'],
+ ['Avinode and payment system training and practice','2 to 3 days','1 day'],
  ['Shadowing','2 to 3 weeks','1 week'],
  ['Practical exam','1 day','1 day'],
  ['Supervised work','4 to 8 weeks','2 weeks'],
@@ -90,7 +90,7 @@ push(T([['Party',2200],['Role in a charter',7440]],[
  ['Trip support','A company or the operator\'s own team that obtains permits, slots and flight plans.'],
  ['Aviation authority','Each country\'s regulator (for example the FAA in the US, EASA and national authorities in Europe, the UK CAA, the GCAA in the UAE, CAAS in Singapore). It licenses operators and approves foreign flights.'],
  ['Avinode','The online marketplace where operators list aircraft and brokers request and compare quotes. Arche books every trip through it.'],
- ['Paynode','Avinode\'s payment service. Clients pay and operators are paid through it.'],
+ ['Payment request','A secure payment link from our payment provider. Clients pay and operators are paid through our payment account.'],
 ]));
 push(sp());
 push(H2('0.2 Aircraft categories'));
@@ -182,7 +182,7 @@ push(P('Our name, Arche, is said ar-KAY. It comes from the Greek word archē, me
 push(H2('1.2 What we sell'));
 push(BL(['Whole-aircraft charters for one client, on third-party aircraft of every size, with a focus on long-range and heavy jets.','Empty legs, on the conditions in Module 9.','Nothing on the "never sell" list in Module 2.4.','We do not sell flight hours on aircraft owned by Navoryx Executive or its aircraft companies while the charter sales agreement for those aircraft is in force. Pass any such request to the director.']));
 push(H2('1.3 How we earn'));
-push(P('Our margin is 9% of the price the client pays (Module 9). The operator receives the rest through Paynode. Only our margin flows into Arche\'s own bank account.'));
+push(P('Our margin is 9% of the price the client pays (Module 9). The operator receives the rest from our payment account. Only our margin flows into Arche\'s own bank account.'));
 push(H2('1.4 Roles'));
 push(T([['Role',2200],['Does',7440]],[
  ['Charter consultant','Builds the client base by phone and follow-up, captures and qualifies enquiries, hands live trips to a broker'],
@@ -210,7 +210,7 @@ push(H3('Leads and prospects'));
 push(BL([`The portal assigns organisations to brokers automatically and fairly: by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week.`,`Make first contact with every new lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the director.`,`"Not now" leads are offered again after 90 days, to a different broker with a fresh approach.`,`Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically.`,`Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid: commission rewards the booking.`,`Prospects are organisations and their business contacts only: no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is "Do not contact" for everyone, for good.`]));
 push(P(`These are the current settings. The director can change them in the portal; its Portal rules page always shows the ones in force.`));
 push(H3('Booking rights and separate duties'));
-push(BL([`Operations checks each trip, confirms the operator price on Avinode, completes KYC and sanctions screening, creates the Paynode payment request and issues the confirmation.`,`The director can give a broker booking rights, so the broker also works as operations. Nobody confirms, prices or records payment on their own booking: another operations member or the director does it.`]));
+push(BL([`Operations checks each trip, confirms the operator price on Avinode, completes KYC and sanctions screening, creates the payment request and issues the confirmation.`,`The director can give a broker booking rights, so the broker also works as operations. Nobody confirms, prices or records payment on their own booking: another operations member or the director does it.`]));
 push(quiz(1,[
  ['A client asks to charter an aircraft owned by Navoryx Executive. What do you do?',['Quote it at 9%','Pass the request to the director','Ask the operator for a discount','Decline without comment'],'b'],
  ['A trip billed at USD 135,000 counts as how many booking units?',['1','2','3','4'],'c'],
@@ -229,7 +229,7 @@ push(H2('2.2 What every client is told, worldwide'));
 push(P('We apply the strictest common standard to every client. Before the contract is signed, the client receives in writing:'));
 push(NL(['That Arche Executive acts as a charter broker and not as the operator.','The operator\'s full legal name as shown on its AOC, and any trading name it uses.','The aircraft type, registration and year of manufacture, or "type or similar" until the tail is fixed.','The total price, what it includes, and every item that may be charged after the flight and how (Module 9).','The passenger insurance the operator carries, as confirmed by the operator, and whether Arche itself holds liability insurance.']));
 push(H2('2.3 Our contract position'));
-push(P('All bookings run through Avinode, and all client and operator payments run through Paynode, so that only Arche\'s margin enters Arche\'s own account. The legal wording of our role towards the client is being settled with counsel and will be reflected in the Arche charter confirmation. Until then, use only the approved confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms.'));
+push(P('All bookings run through Avinode, and all client and operator payments run through our payment account, so that only Arche\'s margin enters Arche\'s own account. The legal wording of our role towards the client is being settled with counsel and will be reflected in the Arche charter confirmation. Until then, use only the approved confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms.'));
 push(H2('2.4 Flights we never sell'));
 push(T([['Never sell',3300],['Why',3600],['What to do',2740]],[
  ['A flight by an operator without a commercial AOC, or on an aircraft not listed on its AOC','Illegal charter: uninsured and unsafe','Reject; report to the director'],
@@ -288,7 +288,7 @@ push(sp());
 push(H2('2.9 The trip risk screen'));
 push(P('Every enquiry passes this screen before sourcing, and the result is recorded on the intake form. Each answer gives a colour: green means proceed; amber means the operator or its trip support must confirm in writing before we quote; red means stop and escalate to the director. The screen is only as good as the watchlist behind it (Appendix G), so always check the current watchlist, never your memory.'));
 push(T([['Question',1500],['Check',4400],['Amber',1900],['Red',1840]],[
- ['1. Who flies and pays?','Nationalities, PEPs, sanctions, minors, third-party payer, payer\'s country','PEP; child with one adult; payer differs','Sanctions match; Russian national with an EU point; refuses KYC; payer or operator in a country Paynode cannot serve (Appendix G.7)'],
+ ['1. Who flies and pays?','Nationalities, PEPs, sanctions, minors, third-party payer, payer\'s country','PEP; child with one adult; payer differs','Sanctions match; Russian national with an EU point; refuses KYC; payer or operator in a country we cannot take payments from or pay to (Appendix G.7)'],
  ['2. Where?','Country of every airport (including territories), domestic legs, conflict zones, embargoes, taxes','Domestic leg; conflict-zone routing; strict permit country','US domestic leg; embargoed destination'],
  ['3. What aircraft and operator?','AOC, banned lists, safety rating, where the aircraft was built','No rating; US-made aircraft to a sanctioned country','No AOC; banned operator'],
  ['4. What is carried?','Pets, weapons, cash, medical equipment, dangerous goods','Any of these','Patient needing care in flight'],
@@ -322,7 +322,7 @@ push(quiz(2,[
 
 // ================= MODULE 3
 push(H1('Module 3  Compliance: KYC, sanctions, fraud, bribery and data protection',false));
-push(P('Private aviation moves wealthy people and large sums across borders. Banks, Paynode and regulators expect us to know who we deal with. Every booking passes this module before a quote becomes a contract.'));
+push(P('Private aviation moves wealthy people and large sums across borders. Banks, payment providers and regulators expect us to know who we deal with. Every booking passes this module before a quote becomes a contract.'));
 push(H2('3.1 Know your client (KYC)'));
 push(T([['Client type',2400],['What we collect',4400],['Check',2840]],[
  ['Private individual','Full name, date of birth, nationality, passport copy, residential address, contact details','Name matches passport; address plausible'],
@@ -342,7 +342,7 @@ push(H2('3.4 Money-laundering warning signs'));
 push(BL(['Payment from a third party or a country unrelated to the client','Pressure to accept cash, crypto-assets or split payments','Overpayment followed by a refund request to a different account','Urgency together with reluctance to give identity documents','Routings or passenger lists that make no business or personal sense','Requests to keep passenger names from the operator']));
 push(P('Any of these: pause and escalate. Never accept cash.'));
 push(H2('3.5 Payment fraud'));
-push(BL(['Clients pay only through a Paynode payment request issued from Avinode. We never send bank details by email or messaging apps.','If anyone, including an operator, asks to pay into or change to a new bank account, confirm it by telephone on a number you already hold, never one in the request.','Every Arche confirmation carries the bank-detail fraud warning. Never remove it.']));
+push(BL(['Clients pay only through a payment request from our payment provider. We never send bank details by email or messaging apps.','If anyone, including an operator, asks to pay into or change to a new bank account, confirm it by telephone on a number you already hold, never one in the request.','Every Arche confirmation carries the bank-detail fraud warning. Never remove it.']));
 push(H2('3.6 Gifts and bribery'));
 push(P('Never offer, give or accept anything of value to win or keep business improperly. Bribery is a crime in Singapore and in most countries where our clients and operators are. Gifts and hospitality beyond small courtesies, from or to clients, operators, handlers or officials, need the director\'s approval and are recorded. Never pay anyone to speed up a permit or a border check.'));
 push(H2('3.7 Data protection'));
@@ -382,7 +382,7 @@ push(T([['Stage',2300],['What happens',5040],['Output',2300]],[
  ['4. Feasibility','Airports, permits, cabotage, crew duty, documents (Module 6)','Route feasible'],
  ['5. Sourcing','Request quotes on Avinode; vet operators (Module 8)','Shortlist'],
  ['6. Quote','Price at 9%; send through Avinode (Module 9)','Quote with expiry'],
- ['7. Contract and payment','KYC and sanctions done; confirmation signed; Paynode payment (Module 10)','Confirmed booking'],
+ ['7. Contract and payment','KYC and sanctions done; confirmation signed; payment request (Module 10)','Confirmed booking'],
  ['8. Operations','Passenger details, permits, catering, ground transport, monitoring (Module 11)','Flight operated'],
  ['9. Close','Extras reconciled with receipts; feedback; file closed (Module 11)','Booking closed'],
 ]));
@@ -501,8 +501,8 @@ push(quiz(7,[
 // ================= MODULE 8
 push(H1('Module 8  Sourcing on Avinode and operator vetting',false));
 push(H2('8.1 Sourcing on Avinode'));
-push(NL(['Search the route and dates; filter by category, seats, year of manufacture and the features the client needs.','Send requests for quotes to several suitable operators at once, with the full trip details (RFQ text in Appendix B).','Compare quotes on the same basis: all-in price, inclusions and exclusions, positioning, aircraft age and cabin, operator safety credentials, quote expiry.','Choose; confirm availability and the final price with the operator in writing.','Quote the client from Avinode (Module 9); book and pay the operator through Avinode and Paynode (Module 10).']));
-push(P('Direct contact with operators is good for relationships and off-market aircraft, but every booking is recorded and paid through Avinode and Paynode.'));
+push(NL(['Search the route and dates; filter by category, seats, year of manufacture and the features the client needs.','Send requests for quotes to several suitable operators at once, with the full trip details (RFQ text in Appendix B).','Compare quotes on the same basis: all-in price, inclusions and exclusions, positioning, aircraft age and cabin, operator safety credentials, quote expiry.','Choose; confirm availability and the final price with the operator in writing.','Quote the client from Avinode (Module 9); book and pay the operator through Avinode and our payment provider (Module 10).']));
+push(P('Direct contact with operators is good for relationships and off-market aircraft, but every booking is recorded and paid through Avinode and our payment provider.'));
 push(H2('8.2 Operator vetting standard'));
 push(T([['Check',2600],['Standard',4140],['Evidence on file',2900]],[
  ['AOC','Valid commercial AOC; aircraft listed in the operations specifications','AOC and operations specifications'],
@@ -551,8 +551,8 @@ push(T([['Example',5640],['USD',4000]],[
  ['B. Multi-leg: three legs quoted by one operator, all-in 180,000 including positioning','Price on the total: 197,803; margin 17,803. Never price legs separately if the operator quotes the trip as one'],
  ['C. Shared positioning: operator lowers its price from 100,000 to 92,000 because the empty return is sold','New client price 101,099 if the client is not yet contracted; if already contracted, the confirmation decides who benefits'],
  ['D. Supplier item: ground transport quoted 1,200 in writing; operator all-in 60,000','Arche cost 61,200; client price 67,253; margin 6,053'],
- ['E. Currency: operator quotes in EUR, client pays in USD','Convert the operator price with the Paynode rate on the day of the quote; state the quote currency and that it is fixed only after payment'],
- ['F. Post-flight: de-icing invoiced by the operator at 2,850 with receipt','Recharge 2,850 through Paynode within 7 days of the flight, with the receipt; no margin'],
+ ['E. Currency: operator quotes in EUR, client pays in USD','Convert the operator price with the payment provider exchange rate on the day of the quote; state the quote currency and that it is fixed only after payment'],
+ ['F. Post-flight: de-icing invoiced by the operator at 2,850 with receipt','Recharge 2,850 through a payment request within 7 days of the flight, with the receipt; no margin'],
 ]));
 push(sp());
 push(P('Margins below 9% need the director\'s approval before the quote is sent. Round client prices up, never down.'));
@@ -567,7 +567,7 @@ push(P(`Every client request and operational extra is charged in one of three wa
 push(T([['How it is charged',2200],['When to use it',3300],['Price and payment',4140]],[
  ['Included in the charter price','The operator includes it in its all-in quote, for example standard catering or handling','Nothing extra: it is part of the operator price'],
  ['Fixed price','A supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal fee','Like any supplier item Arche buys, it carries the 9% margin: supplier price ÷ 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away'],
- ['At cost after the flight','The amount depends on the day: de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi use','No number before the flight (Module 9.2). Invoiced within 7 days of the flight with the receipts, through Paynode; payable within 10 calendar days of the invoice (Part A, A7). No margin'],
+ ['At cost after the flight','The amount depends on the day: de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi use','No number before the flight (Module 9.2). Invoiced within 7 days of the flight with the receipts, through a payment request; payable within 10 calendar days of the invoice (Part A, A7). No margin'],
 ]));
 push(sp());
 push(P(`Worked example: an operator all-in price of USD 100,000 gives a charter price of 109,891. The client adds a car at arrival, quoted in writing at 1,200: the fixed line is 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319. Total payable: 111,210. The deposit stays at 25% of the charter price: 27,473. The balance of 83,737 is due 7 days before departure. Winter de-icing is listed at cost and invoiced after the flight.`));
@@ -589,19 +589,19 @@ push(BL(['Back to back: our cancellation, change and payment terms to the client
 push(H2('10.2 How money moves'));
 push(T([['Step',600],['What happens',6040],['Where',3000]],[
  ['1','Booking confirmed with the operator on Avinode','Avinode'],
- ['2','Client receives a Paynode payment request from the trip and pays by bank transfer, card or instant payment','Paynode'],
- ['3','Client funds are held in Arche\'s Paynode account','Paynode'],
- ['4','Operator is paid from Paynode on its payment terms','Paynode'],
+ ['2','Client receives a payment request from our payment provider and pays by bank transfer, card or instant payment','Payment provider'],
+ ['3','Client funds are held in Arche\'s payment account','Payment provider'],
+ ['4','Operator is paid from the payment account on its payment terms','Payment provider'],
  ['5','Arche\'s margin is transferred to Arche\'s operating account at Citi Singapore (account being set up)','Citi Singapore'],
 ]));
 push(sp());
 push(P('Only our margin enters Arche\'s own bank account. Operator money never passes through it.'));
 push(H2('10.3 Refunds, changes and disputes'));
-push(BL(['Refunds go back the same way they came, to the same payer, through Paynode.','Schedule changes: get the operator\'s new price in writing; issue an amended confirmation; collect any difference before the flight.','Card chargebacks or disputes: escalate to the director the same day with the file.']));
+push(BL(['Refunds go back the same way they came, to the same payer, from the payment account.','Schedule changes: get the operator\'s new price in writing; issue an amended confirmation; collect any difference before the flight.','Card chargebacks or disputes: escalate to the director the same day with the file.']));
 push(H2('10.4 The booking file'));
 push(P('Every booking keeps, in Avinode and the CRM: enquiry, KYC and sanctions records, operator quotes, AOC, operations specifications, insurance and audit evidence, the signed confirmation, payment records, the passenger list and post-flight invoices.'));
 push(H2('10.5 Financial controls'));
-push(BL([`No credit: every flight is paid in full as agreed before departure.`,`Check Paynode every day: payments received, payments to operators and refunds match the bookings.`,`Currency: the quote states its currency; a price in another currency is fixed only once paid.`,`Card payments can be disputed later: keep the signed confirmation and proof of the flight in the file.`,`Keep the booking file for the period set by Arche's record-keeping rule.`,`Separate duties: the person who sold a trip never issues its confirmation or records its payments; a second person does.`]));
+push(BL([`No credit: every flight is paid in full as agreed before departure.`,`Check the payment account every day: payments received, payments to operators and refunds match the bookings.`,`Currency: the quote states its currency; a price in another currency is fixed only once paid.`,`Card payments can be disputed later: keep the signed confirmation and proof of the flight in the file.`,`Keep the booking file for the period set by Arche's record-keeping rule.`,`Separate duties: the person who sold a trip never issues its confirmation or records its payments; a second person does.`]));
 push(H2('10.6 When to book: the booking timeline'));
 push(T([['When',2300],['What must happen',4840],['Where it is set',2500]],[
  ['When quoting','The quote and the confirmation state the offer expiry date, time and time zone. Once it has passed, re-confirm the aircraft and price with the operator before signing.','Module 9.6; the confirmation'],
@@ -617,7 +617,7 @@ push(T([['When',2300],['What must happen',4840],['Where it is set',2500]],[
 push(sp());
 push(P(`Book as early as the client allows. Every day closer to departure means fewer aircraft to choose from, permits and slots that are harder to get, and payment due at once.`));
 push(H2('10.7 How to book in the Arche portal, step by step'));
-push(NL([`Open the enquiry: from a lead with "Open an enquiry", or with New enquiry. For each airport, type a city, airport name or code and pick from the list; the portal stores the ICAO code.`,`Add the client requests and operational extras, each with how it is charged (Module 9.8). Use the suggestions as prompts and confirm every item with the operator or supplier.`,`Enter the operator quote from Avinode: operator legal name as on its AOC, aircraft type, registration, Avinode trip ID, the operator all-in price and any direct trip costs. The portal sets the client price at 9%.`,`Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents. Documents stay in the portal: never email passports or contracts.`,`Tick the seven pre-issue checks and send the trip to operations.`,`Operations confirms the operator price on Avinode, completes KYC and sanctions screening, creates the Paynode payment request and issues the charter confirmation in the portal. The PDF is saved to the trip; any change after issue becomes a numbered revision.`,`Operations records the client's payment, the operator payment through Paynode and the flight. Your commission then appears on your dashboard.`]));
+push(NL([`Open the enquiry: from a lead with "Open an enquiry", or with New enquiry. For each airport, type a city, airport name or code and pick from the list; the portal stores the ICAO code.`,`Add the client requests and operational extras, each with how it is charged (Module 9.8). Use the suggestions as prompts and confirm every item with the operator or supplier.`,`Enter the operator quote from Avinode: operator legal name as on its AOC, aircraft type, registration, Avinode trip ID, the operator all-in price and any direct trip costs. The portal sets the client price at 9%.`,`Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents. Documents stay in the portal: never email passports or contracts.`,`Tick the seven pre-issue checks and send the trip to operations.`,`Operations confirms the operator price on Avinode, completes KYC and sanctions screening, creates the payment request and issues the charter confirmation in the portal. The PDF is saved to the trip; any change after issue becomes a numbered revision.`,`Operations records the client's payment, the operator payment and the flight. Your commission then appears on your dashboard.`]));
 push(quiz(10,[
  ['The operator\'s cancellation terms are stricter than Part A. What happens?',['Issue anyway','Director decides before issue','Change Part A yourself','Ask the client'],'b'],
  ['Which money enters Arche\'s Citi account?',['Full client payment','Only Arche\'s margin','Operator payment','Nothing'],'b'],
@@ -649,7 +649,7 @@ push(BL([`Watch every leg in the portal under Flight following: departed, landed
 push(H3('Follow up with the client'));
 push(BL([`Within 24 hours of the last landing, the broker calls or messages the client or the assistant personally: was everything as promised, and is anything still open. Log it in the portal (Aftercare).`,`At the same time, send the client the rating request from the portal (template B.10). It asks for a score from 1 to 5 for the trip overall, the aircraft, the crew and the broker, and for any comment. The client answers with one click from the email; nothing is required.`,`Record the answer in the portal when it arrives. A score of 3 or less, or any complaint, starts service recovery: the broker calls the client within 1 working day, the director is told the same day, and anything about the operator is recorded for the operator scorecard.`,`Ratings feed the broker's service score and the operator scorecard in Control, so we book the operators our clients rate highest. Never publish a client's rating or words without the client's written consent, and never write, offer a reward for or edit a review.`]));
 push(H3('Settle and close'));
-push(BL([`Collect the operator's final invoice and receipts for items charged at cost.`,`Recharge the client within 7 days of the flight, with copies, through Paynode.`,`Close the file only when all payments are settled, the follow-up is logged and the rating request has been sent.`]));
+push(BL([`Collect the operator's final invoice and receipts for items charged at cost.`,`Recharge the client within 7 days of the flight, with copies, through a payment request.`,`Close the file only when all payments are settled, the follow-up is logged and the rating request has been sent.`]));
 push(H2('11.6 Meeting the client at the FBO'));
 push(BL([`For first-time or very important clients, the director may ask a broker or a local representative to meet the client at the FBO.`,`Arrive early; check with the handler that the crew, aircraft, catering and cars are ready.`,`Greet the client, introduce the crew, and stay in the background.`,`Never board the aircraft or interfere with the crew's work.`]));
 push(H2('11.7 Sustainability questions'));
@@ -673,7 +673,7 @@ push(H2('12.3 Common objections'));
 push(T([['Client says',3400],['Answer along these lines',6240]],[
  ['"Another broker is cheaper."','Compare the same aircraft, age, operator rating and inclusions; if like for like, ask the director whether we can match.'],
  ['"Why can\'t you fix the price for everything?"','Some costs depend on the day; we list them and charge only what the operator invoices, with receipts.'],
- ['"Can we pay later?"','No flight departs until paid in full; Paynode makes paying quick and secure.'],
+ ['"Can we pay later?"','No flight departs until paid in full; our secure payment link makes paying quick.'],
  ['"Just add two friends on the domestic leg."','Only if the operator confirms in writing that the law allows it.'],
  ['"Why do you need my passport?"','The law and the operator require it for every passenger; it is stored securely and used only for the flight.'],
 ]));
@@ -702,13 +702,13 @@ push(H1('Module 13  Case studies',false));
 push(P('Work each case yourself first, then compare with the model answer.'));
 const CASE=(t,sc,steps)=>{push(H2(t));push(P([bo('Situation. '),r(sc)]));push(P([bo('Model answer')],{spacing:{after:40}}));push(NL(steps));};
 CASE('Case 1  A simple one-way in Europe','An assistant asks for 6 passengers from London to Nice next Friday morning, returning on a separate trip later.',[
- 'Confirm: which London airport, departure time in local time, names and nationalities, luggage, payer. Start KYC.','Check Module 2.4: international flight, nothing restricted. Screen all names.','Avinode: request quotes for midsize and super-midsize jets from operators allowed to fly in the EU and UK; ask inclusions and exclusions.','Compare and vet (Module 8). Choose; confirm with the operator in writing.','Price: operator all-in ÷ 0.91. Quote from Avinode with expiry and "at cost" items.','Confirmation signed; Paynode payment request; operator paid through Paynode.','Trip brief to the assistant; flight tracked; post-flight extras recharged with receipts.']);
+ 'Confirm: which London airport, departure time in local time, names and nationalities, luggage, payer. Start KYC.','Check Module 2.4: international flight, nothing restricted. Screen all names.','Avinode: request quotes for midsize and super-midsize jets from operators allowed to fly in the EU and UK; ask inclusions and exclusions.','Compare and vet (Module 8). Choose; confirm with the operator in writing.','Price: operator all-in ÷ 0.91. Quote from Avinode with expiry and "at cost" items.','Confirmation signed; payment request; operator paid from the payment account.','Trip brief to the assistant; flight tracked; post-flight extras recharged with receipts.']);
 CASE('Case 2  A US trip that touches a domestic leg','A client in Hong Kong wants New York (Teterboro) – Miami – Nassau for 8 people on a European-registered jet she flew before.',[
  'Teterboro – Miami is a US domestic leg: no foreign operator may carry it (Module 2.4).','Arche policy: no US domestic flights until US counsel has confirmed our position. Pass to the director.','Explain to the client early and plainly; offer the alternative the director approves (for example a trip that starts in Miami for the international leg, or referral).','Never quote the European jet for the domestic leg.']);
 CASE('Case 3  Long range, Asia to Europe','A family of 10 wants Singapore to London overnight, non-stop, with plenty of luggage.',[
  'Shortlist ultra-long-range jets on Avinode; request quotes with the full passenger and luggage load.','Ask each operator in writing whether the flight is non-stop for that load and season, or needs a fuel stop; and how the crew will be planned (extra crew for duty limits).','Check slots and permits for both ends through the operator; Singapore requires a permit and slot (Module 2.5).','Compare beds, crew rest, Wi-Fi and age (Module 7). Present two options, each with the operator\'s confirmed routing.','Price, contract and payment as usual; trip brief states local times at both ends and the arrival date.']);
 CASE('Case 4  An empty leg','An operator lists Geneva – Dubai empty in three days. A client wants it.',[
- 'Screen client and passengers; check nationality against the EU rules on Russian nationals and aircraft (Module 2.4).','Get the operator\'s empty-leg conditions in writing: it can cancel or change if the main charter changes.','Price with the formula on the empty-leg price; quote as "empty leg" with those conditions.','Confirmation prints the empty-leg conditions; the client confirms he accepts the risk; Paynode payment.']);
+ 'Screen client and passengers; check nationality against the EU rules on Russian nationals and aircraft (Module 2.4).','Get the operator\'s empty-leg conditions in writing: it can cancel or change if the main charter changes.','Price with the formula on the empty-leg price; quote as "empty leg" with those conditions.','Confirmation prints the empty-leg conditions; the client confirms he accepts the risk; payment through a payment request.']);
 CASE('Case 5  Aircraft grounded on the day','Nice – New York booked. Three hours before departure the operator reports a technical fault (AOG).',[
  'Ask the operator for a replacement aircraft of equal or higher category under its contract.','If none: search Avinode and direct operators at once; vet the replacement (Module 8).','Any extra cost: director approval before commitment.','Tell the client what happened, what you are doing and when you will update; keep updating.','Record everything in the file and the desk log; agree any refund or credit under the confirmation.']);
 CASE('Case 6  A compliance stop','A new client company asks for Dubai – Paris. The payer is a different company in a third country; one passenger shares a name with a listed person.',[
@@ -744,33 +744,25 @@ SPOT.forEach((x,i)=>push(P([bo(`S${i+1}  `),r(x[0])],{spacing:{after:50}})));
 push(H1('Module 14  Assessment, certification and external training',true));
 push(H2('14.1 Assessment'));
 push(BL(['Module checks after each module; review every wrong answer with your mentor.','Written exam: questions drawn from the module checks and new scenarios; pass mark 80%, with every critical-rule question correct.','Practical exam: a mock trip from enquiry to signed confirmation; no critical error and no more than 3 minor errors (critical errors are listed in "How to use this manual").','Live negotiation lab: scored by the director at stage 5; 70 or more out of 100 with no critical point broken (14.4).','Post-trip debrief: required after every supervised booking (14.6).']));
-push(H2('14.2 Avinode and Paynode training'));
+push(H2('14.2 Avinode and payment system training'));
 push(P('Avinode publishes free onboarding videos and guides in its Help Center. They can be watched without logging in, so trainees can start before Arche\'s account is live. Complete the starter course below in order during stage 3, then take the live sessions with Avinode\'s onboarding team.'));
 const LK2=(t,u,why)=>P([link(t,u),r('  '+why,{size:18,color:MUTED})],{spacing:{after:60}});
 push(H3('Step 1  Before you start'));
-push(LK2('Getting Started with Avinode Marketplace','https://help.avinodegroup.com/hc/en-us/articles/12043060610331-Getting-Started-with-Avinode-Marketplace','Short videos for brokers: quick tools, aircraft search, trips buying, Trip Board, empty-leg search, response statistics'),
- LK2('Paynode Member Eligibility','https://help.avinodegroup.com/hc/en-us/articles/7215260082075-Paynode-Member-Eligibility','Who can use Paynode and the company checks (KYB) that apply'));
+push(LK2('Getting Started with Avinode Marketplace','https://help.avinodegroup.com/hc/en-us/articles/12043060610331-Getting-Started-with-Avinode-Marketplace','Short videos for brokers: quick tools, aircraft search, trips buying, Trip Board, empty-leg search, response statistics'));
 push(H3('Step 2  Starter broker training'));
-push(LK2('Starter Broker Training video with Paynode','https://help.avinodegroup.com/hc/en-us/articles/31953555878043-Starter-Broker-Training-video-with-Paynode','Avinode\'s core broker course for Paynode members; this is the Arche set-up'),
- LK2('Paynode training and Online Banking Walkthrough','https://help.avinodegroup.com/hc/en-us/articles/31953529192987-Paynode-training-and-Online-Banking-Walkthrough-video','The Paynode account, payments in and out, currency accounts'));
+push(P('Watch Avinode\'s starter broker videos in the Onboarding section of the Help Center (Appendix D.1).'));
 push(H3('Step 3  Quoting and booking'));
 push(LK2('Trip Manager and Online Booking training video','https://help.avinodegroup.com/hc/en-us/articles/31913562254491-Trip-Manager-and-Online-Booking-training-video','From request to client quote, contract and payment in one flow'),
  LK2('Trip Manager training videos','https://help.avinodegroup.com/hc/en-us/articles/16390512030491-Training-Videos','Six short videos: request and quote detail, quote PDF to client, trip sheet, invoice, default notes and documents'),
  LK2('Creating a Professional Quote','https://help.avinodegroup.com/hc/en-us/articles/9957467128603-Creating-a-Professional-Quote','Quote layout in Trip Manager'),
  LK2('Buying trips with the new booking flow','https://help.avinodegroup.com/hc/en-us/articles/23323694056859-Buying-trips-with-the-new-booking-flow','How a broker accepts an operator\'s quote, signs and pays'));
 push(H3('Step 4  Taking and making payments'));
-push(LK2('How to Create a Payment Request','https://help.avinodegroup.com/hc/en-us/articles/7937852877467-How-to-Create-a-Payment-Request','The only way a client pays Arche'),
- LK2('Payment Guide: Overview of Sending Payments','https://help.avinodegroup.com/hc/en-us/articles/11978769793563-Payment-Guide-Overview-of-Sending-Payments','Paying the operator'),
- LK2('Overview of card payments','https://help.avinodegroup.com/hc/en-us/articles/7937973595035-Overview-of-card-payments','Card payments and what they cost the client'),
- LK2('Match a Wire Transfer to your Trip using a Payment Request','https://help.avinodegroup.com/hc/en-us/articles/19699527102235-Match-a-Wire-Transfer-to-your-Trip-using-a-Payment-Request','Linking a bank transfer to the right trip'),
- LK2('Timelines and cut-off times for payments','https://help.avinodegroup.com/hc/en-us/articles/14371871276059-Timelines-cut-off-times-for-Payments-in-US-Time-EST','Why a late payment can delay a flight'));
-push(H3('Step 5  What Paynode cannot do'));
-push(LK2('What our payments platform cannot support','https://help.avinodegroup.com/hc/en-us/articles/43773188664347-Know-Before-You-Receive-or-Collect-Payment-What-Our-Payments-Platform-Cannot-Support','Countries and activities Paynode will not handle (Appendix G.7)'),
- LK2('Supported payment methods and country restrictions','https://help.avinodegroup.com/hc/en-us/articles/13144161608603-Send-Payments-Supported-Payment-Methods-and-Country-Restrictions','SWIFT and local payment options'),
- LK2('White paper: payment security for air charter','https://avinode.com/white-paper-payment-security-for-air-charter/','Payment fraud and how to vet customers and transactions'));
+push(P('Our payment provider is still being chosen. Training on payment requests, card and bank payments, operator payouts and refunds is added here once it is agreed. Until then the rules in Module 10 apply: clients pay only through a payment request, and we never send or accept bank details by email or chat.'));
+push(H3('Step 5  What our payment provider cannot do'));
+push(P('Every payment provider refuses some countries and activities. Appendix G.7 lists the countries we cannot take payments from or pay to; check it before you quote.'));
 push(H3('Step 6  Live sessions and practice'));
-push(BL(['When Arche joins Avinode, ask the onboarding team for a live broker session for every broker and consultant, using our own account and settings.','Ask for a separate Paynode session: payment requests, card and bank payments, currency accounts, operator payouts, refunds, user rights and fraud controls.','Ask whether Avinode offers a practice or test environment for trainees.','Exit check for stage 3: one practice quote and one practice payment request completed, reviewed by the director.']));
-push(P('The Help Center has more articles under Getting Started, Scheduling and Quoting, and Charter Payments: Paynode. Settings articles (logo, notification lists, trip statuses, user permissions) are for the director, who sets up the account.'));
+push(BL(['When Arche joins Avinode, ask the onboarding team for a live broker session for every broker and consultant, using our own account and settings.','Ask our payment provider for a training session: payment requests, card and bank payments, currency accounts, operator payouts, refunds, user rights and fraud controls.','Ask whether Avinode offers a practice or test environment for trainees.','Exit check for stage 3: one practice quote and one practice payment request completed, reviewed by the director.']));
+push(P('The Help Center has more articles under Getting Started and Scheduling and Quoting. Settings articles (logo, notification lists, trip statuses, user permissions) are for the director, who sets up the account.'));
 push(H2('14.3 External courses'));
 push(P(`The Air Charter Association's Air Charter Essentials Certificate is a one-day introduction for new staff with limited or no aviation background: air charter roles, the commercial process, aviation geography, flight routing, time zones, airport operations and aircraft knowledge, with an assessment and a certificate for those who pass. It is open to non-members. As at October 2026 it runs in person at London Gatwick (next date 3 February 2027) and an online version is announced for January 2027. Published fees: USD 680 (GBP 495) for non-members; USD 405 (GBP 295) for staff of member companies and for people aged 18 to 25.`));
 push(H3('Arche sponsorship (proposed)'));
@@ -791,13 +783,13 @@ push(BL([`Stage 4 (shadowing): two practice sessions, recorded on the scoring sh
 push(H3('Scenario bank'));
 push(T([['Scenario',4300],['What a good answer does',5340]],[
  [`AOG: the booked aircraft is unserviceable 6 hours before departure`,`Calm, facts first; the operator's written replacement options; extra cost approved by the director, never promised on the call (Module 11.3)`],
- [`The assistant refuses the 25% deposit and wants to pay after the flight`,`Explain the booking terms (Module 10.6) and why the operator must be secured; offer Paynode card or bank options; no exceptions without the director`],
+ [`The assistant refuses the 25% deposit and wants to pay after the flight`,`Explain the booking terms (Module 10.6) and why the operator must be secured; offer card or bank payment options; no exceptions without the director`],
  [`The principal insists on a domestic leg on a foreign-registered aircraft`,`Explain cabotage in plain words; offer a local operator for that leg or a new routing; never sell it (Module 2.4)`],
  [`"Another broker quoted 15% less"`,`Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with director approval (Module 12.6)`],
  [`A passenger is added on the day`,`Names to the operator at once; permits, insurance and seats confirmed in writing before you agree`],
  [`The client wants to bring a dog to a strict-entry country`,`Destination rules and the operator's written acceptance first; offer a route and airport that work (Appendix G.4)`],
  [`De-icing delays departure and the client is angry about the charge`,`Safety is the crew's decision; the charge is at cost with the receipt, as the confirmation says (Module 9.2)`],
- [`The client asks to pay into a personal account or sends new bank details by chat`,`Stop: Paynode only; treat as fraud until proven otherwise (Module 3.5)`],
+ [`The client asks to pay into a personal account or sends new bank details by chat`,`Stop: payment request only; treat as fraud until proven otherwise (Module 3.5)`],
  [`The client asks to leave a passenger's name off the manifest`,`Refuse politely; tell the director (Module 2.4)`],
  [`Screening shows a possible sanctions match on the payer`,`Pause without accusing; say you need a short internal check; tell the director (Module 3.2)`],
  [`The client demands a guaranteed departure time in winter`,`Promise only what the operator confirms in writing; explain de-icing and slots (Module 6.4)`],
@@ -836,13 +828,13 @@ push(quiz(14,[
 // ================= APPENDIX A
 push(H1('Appendix A  Checklists',true));
 push(H2('A.1 Pre-issue checklist'));
-push(BL(['KYC complete and reference recorded','Sanctions screening record complete and clear','Trip checked against Module 2.4 (never-sell list, cabotage, US and EU rules)','Trip risk screen recorded; every amber point confirmed in writing; no red open','Operator AOC and operations specifications on file; aircraft listed','Insurance certificate on file, commercial passengers covered','Safety audit standard met, or director approval for an unrated operator; operator not on a banned list','Route feasible: range, runway, crew duty, permits, slots, cabotage confirmed by the operator','Operator terms back to back with Part A','Price at 9% (or director approval); "at cost" items listed','Client requests and operational extras listed, each with how it is charged; fixed prices from a written supplier quote','Airport hours, de-icing, crew plan, parking and customs checked with the operator for the planned times','Disclosures in Module 2.2 included','Payment set up as a Paynode request from Avinode'].map(t=>'☐  '+t)));
+push(BL(['KYC complete and reference recorded','Sanctions screening record complete and clear','Trip checked against Module 2.4 (never-sell list, cabotage, US and EU rules)','Trip risk screen recorded; every amber point confirmed in writing; no red open','Operator AOC and operations specifications on file; aircraft listed','Insurance certificate on file, commercial passengers covered','Safety audit standard met, or director approval for an unrated operator; operator not on a banned list','Route feasible: range, runway, crew duty, permits, slots, cabotage confirmed by the operator','Operator terms back to back with Part A','Price at 9% (or director approval); "at cost" items listed','Client requests and operational extras listed, each with how it is charged; fixed prices from a written supplier quote','Airport hours, de-icing, crew plan, parking and customs checked with the operator for the planned times','Disclosures in Module 2.2 included','Payment set up as a payment request'].map(t=>'☐  '+t)));
 push(H2('A.2 Operator vetting checklist'));
 push(BL(['AOC','Operations specifications','Insurance','ARGUS / Wyvern / IS-BAO evidence, or the unrated-operator route','EU Air Safety List and national bans','Foreign permissions for the route','Accident and enforcement history','Sanctions screening','Contract terms'].map(t=>'☐  '+t)));
 push(H2('A.3 Pre-flight checklist'));
 push(BL(['Passenger details sent to the operator','Permits and slots confirmed','Catering and ground transport confirmed','Every client request and operational extra confirmed in writing','De-icing, airport hours and crew plan rechecked against the forecast and final times','Trip brief sent to the client','24-hour contact on duty; desk log updated'].map(t=>'☐  '+t)));
 push(H2('A.4 After-flight checklist'));
-push(BL([`Every leg followed to landing in the portal; changes told to the client at once`,`Follow-up call or message within 24 hours of the last landing, logged`,`Rating request sent (B.10); answer recorded when it arrives`,`Score of 3 or less or a complaint: service recovery started, director told`,`Operator invoice and receipts collected; items at cost recharged within 7 days through Paynode`,`Supervised booking: debrief (B.9) completed by trainee, mentor and operations`,`All payments settled; file closed`].map(t=>'☐  '+t)));
+push(BL([`Every leg followed to landing in the portal; changes told to the client at once`,`Follow-up call or message within 24 hours of the last landing, logged`,`Rating request sent (B.10); answer recorded when it arrives`,`Score of 3 or less or a complaint: service recovery started, director told`,`Operator invoice and receipts collected; items at cost recharged within 7 days through a payment request`,`Supervised booking: debrief (B.9) completed by trainee, mentor and operations`,`All payments settled; file closed`].map(t=>'☐  '+t)));
 
 // ================= APPENDIX B TEMPLATES
 push(H1('Appendix B  Templates',true));
@@ -855,7 +847,7 @@ push(H2('B.2 Request for quote to operators (Avinode message)'));
 push(box('Text',['Please quote an all-in price for the trip below. Please list what is included and excluded (positioning, crew overnights, landing, handling and parking, navigation, catering, fuel and surcharges, taxes, de-icing, Wi-Fi, permits), the aircraft registration and year, your safety audit status, and the quote expiry. Please also confirm whether the trip is non-stop for this load and season, and any crew-duty or permit constraints.','[Route, dates and local times, passengers, luggage, special items]']));
 push(sp());
 push(H2('B.3 Quote email to the client'));
-push(box('Text',['Dear [name], thank you for your request. We are pleased to propose:','Aircraft: [type, year], [seats]; operated by [operator legal name as on its AOC].','Schedule (local times): [legs].','Price: USD [amount], including [inclusions]. The following are charged at cost after the flight, with receipts: [list].','This proposal is valid until [date and time]. Arche Executive acts as charter broker; the flight is operated by [operator].','To confirm, we will send our charter confirmation and a secure Paynode payment request. We never send bank details by email.']));
+push(box('Text',['Dear [name], thank you for your request. We are pleased to propose:','Aircraft: [type, year], [seats]; operated by [operator legal name as on its AOC].','Schedule (local times): [legs].','Price: USD [amount], including [inclusions]. The following are charged at cost after the flight, with receipts: [list].','This proposal is valid until [date and time]. Arche Executive acts as charter broker; the flight is operated by [operator].','To confirm, we will send our charter confirmation and a secure payment request. We never send bank details by email.']));
 push(sp());
 push(H2('B.4 Trip brief'));
 push(box('Contents',['Trip reference; aircraft and registration; operator; departure and arrival in local time with dates; FBO name and address; arrival time at the FBO; passenger list; document reminder; catering; ground transport; Arche 24-hour contact.']));
@@ -893,14 +885,10 @@ push(T([['Trip',900],['Problem and action',8740]],SPOT.map((x,i)=>[`S${i+1}`,x[1
 push(H1('Appendix D  Self-study library',false));
 const LK=(t,u,why)=>P(why?[link(t,u),r('  '+why,{size:18,color:MUTED})]:[link(t,u)],{spacing:{after:60}});
 push(P('Every link below was checked in October 2026 and is chosen for air charter brokers (people who sell flights), not aircraft sales brokers (people who sell aircraft). Links are checked again at every review of this manual; report a broken link to the director.'));
-push(H2('D.1 Avinode and Paynode'));
-push(LK('Avinode for brokers','https://avinode.com/broker/','Search, TripManager quotes and contracts, empty legs, Paynode; links to the Help Center'),
- LK('Avinode: how air charter payments work (Paynode)','https://www.avinode.com/how-air-charter-payments-work/','Payment requests, cards, wires, fraud protection'),
+push(H2('D.1 Avinode and our payment provider'));
+push(LK('Avinode for brokers','https://avinode.com/broker/','Search, TripManager quotes and contracts, empty legs; links to the Help Center'),
  LK('Avinode Help Center','https://help.avinodegroup.com/hc/en-us','Knowledge hub; free starter training videos (Module 14.2)'),
- LK('Avinode Help Center: Onboarding','https://help.avinodegroup.com/hc/en-us/sections/23935448207131-Onboarding','Starter broker videos, Trip Manager and Paynode walkthroughs'),
- LK('Avinode Help Center: Charter Payments (Paynode)','https://help.avinodegroup.com/hc/en-us/categories/7155823743259-Charter-Payments','Payment requests, sending payments, cards, matching funds'),
- LK('Paynode FAQ','https://avinode.com/faq-air-charter-payments/','Common payment questions'),
- LK('Paynode payment security white paper','https://avinode.com/white-paper-payment-security-for-air-charter/','Payment fraud and controls'));
+ LK('Avinode Help Center: Onboarding','https://help.avinodegroup.com/hc/en-us/sections/23935448207131-Onboarding','Starter broker videos, Trip Manager walkthroughs'));
 push(H2('D.2 Charter broker training and best practice'));
 push(LK('Air Charter Association: training','https://www.theaircharterassociation.aero/training/','Air Charter Essentials Certificate (one day, open to non-members) and Broker Qualification'),
  LK('Air Charter Association: Broker Qualification','https://www.theaircharterassociation.aero/the-broker-qualification/','Levels 1 to 3; member companies only'),
@@ -971,7 +959,7 @@ push(T([['Term',2400],['Meaning',7240]],[
  ['IS-BAO','International Standard for Business Aircraft Operations, a safety management standard'],
  ['KYC','Know your client: confirming who the client and payer are'],
  ['Operations specifications','The document with an AOC listing the aircraft and operations approved'],
- ['Paynode','Avinode\'s payment service'],
+ ['Payment request','A secure payment link from our payment provider'],
  ['Permit','A country\'s permission for a foreign flight to land or overfly'],
  ['Positioning leg','A flight without passengers to bring the aircraft to the start or back to base'],
  ['PPR','Prior permission required, for example for parking at a busy airport'],
@@ -994,7 +982,7 @@ push(NL(['อาร์เช่ เอ็กเซ็กคิวทีฟ เ�
  'ต้องทำ KYC และตรวจสอบรายชื่อผู้ถูกคว่ำบาตรของลูกค้า ผู้ชำระเงิน และผู้โดยสารทุกคน ก่อนออกเอกสารยืนยันการจอง หากพบชื่อที่อาจตรงกัน ให้หยุดและรายงานผู้อำนวยการทันที',
  'ใช้เฉพาะผู้ให้บริการที่มี AOC ประกันภัย และมาตรฐานความปลอดภัยตามคู่มือ หรือได้รับอนุมัติจากผู้อำนวยการ',
  'ราคาต่อลูกค้า = ต้นทุน ÷ 0.91 (กำไร 9% ของราคาขาย) ห้ามใส่ตัวเลขที่ไม่มีแหล่งที่มา ค่าใช้จ่ายที่กำหนดล่วงหน้าไม่ได้ให้เรียกเก็บตามจริงหลังเที่ยวบินพร้อมใบเสร็จ',
- 'การจองทั้งหมดผ่าน Avinode และการชำระเงินทั้งหมดผ่าน Paynode ห้ามส่งรายละเอียดบัญชีธนาคารทางอีเมลหรือแอปแชต',
+ 'การจองทั้งหมดผ่าน Avinode และการชำระเงินทั้งหมดผ่านคำขอชำระเงิน ห้ามส่งรายละเอียดบัญชีธนาคารทางอีเมลหรือแอปแชต',
  'ข้อมูลส่วนบุคคลเก็บไว้ใน Avinode และ CRM ของอาร์เช่เท่านั้น',
  'ความปลอดภัยเป็นการตัดสินใจของกัปตันและผู้ให้บริการการบินเท่านั้น ห้ามกดดันให้บิน',
  'ทุกคำขอต้องผ่านการคัดกรองความเสี่ยงของเที่ยวบิน 6 ข้อ (Trip risk screen) และตรวจรายการเฝ้าระวัง (Watchlist) ฉบับปัจจุบันก่อนหาเครื่องบิน','เมื่อไม่แน่ใจ ให้หยุดและสอบถามผู้อำนวยการ'],
@@ -1026,9 +1014,8 @@ push(H2('G.5 Strict permit regimes for foreign operators'));
 push(P('Examples where lead times and rules for foreign operators are known to be demanding: China, India and Russian airspace. Ask the operator for the lead time before quoting.'));
 push(H2('G.6 Taxes'));
 push(BL(['United States: federal excise tax on air transportation; generally collected by the person who receives payment, and a broker acting as principal can be required to collect it.','European Union: VAT rules differ by country and by type of trip.','United Kingdom: Air Passenger Duty, with a higher rate for aircraft of 20 tonnes or more equipped for fewer than 19 passengers.','Singapore: GST, as advised by our accountant.']));
-push(H2('G.7 Countries Paynode cannot pay to or from'));
-push(P('Paynode cannot send or receive funds for these jurisdictions (Avinode Help Center, checked October 2026; Avinode says the list can change): Belarus; Crimea, Donetsk, Kherson, Luhansk and Zaporizhzhia regions of Ukraine; Cuba; Iran; Kazakhstan; Libya; Myanmar; North Korea; Russia; South Sudan; Sudan; Syria; Venezuela. Paynode also refuses some activities, including cryptocurrency services and weapons and military items. Because every Arche payment runs through Paynode, a payer or operator in one of these places is a red answer on the trip risk screen: stop and tell the director. Several are not under a broad sanctions embargo; the reason we stop is that we cannot take or make the payment.'));
-push(LK('Avinode: what our payments platform cannot support','https://help.avinodegroup.com/hc/en-us/articles/43773188664347-Know-Before-You-Receive-or-Collect-Payment-What-Our-Payments-Platform-Cannot-Support'));
+push(H2('G.7 Countries we cannot take payments from or pay to'));
+push(P('We do not take payments from or make payments to these jurisdictions (sanctions and payment-provider rules, checked October 2026; the list can change): Belarus; Crimea, Donetsk, Kherson, Luhansk and Zaporizhzhia regions of Ukraine; Cuba; Iran; Kazakhstan; Libya; Myanmar; North Korea; Russia; South Sudan; Sudan; Syria; Venezuela. Payment providers also refuse some activities, including cryptocurrency services and weapons and military items. Because every Arche payment runs through our payment account, a payer or operator in one of these places is a red answer on the trip risk screen: stop and tell the director. Several are not under a broad sanctions embargo; the reason we stop is that we cannot take or make the payment.'));
 push(H2('G.8 Sources the director checks'));
 push(LK('EASA Conflict Zone Information Bulletins','https://www.easa.europa.eu/en/domains/air-operations/czibs'),
  LK('FAA prohibitions, restrictions and notices','https://www.faa.gov/air_traffic/publications/us_restrictions'),
@@ -1045,7 +1032,7 @@ push(H1('Appendix H  Portal guide',true));
 push(P("How every part of the Archē broker portal works, what to do when something goes wrong, and how to get the most out of it. Guide version 1.0, 18 October 2026. The same guide is in the portal under Help."));
 push(H2('H.0 How a trip moves through the portal'));
 push(typeof FLOWPNG!=='undefined'?new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:120},children:[new ImageRun({type:'png',data:FLOWPNG,transformation:{width:640,height:240}})]}):null);
-push(P("Read the diagram left to right. The AI researches organisations every day and the rotation assigns them to brokers. The broker turns a lead into an enquiry, adds requests and extras and the operator quote, completes the checks and sends the trip to operations. Operations checks it on Avinode, completes KYC and the Paynode request and issues the confirmation. The client signs and pays through Paynode, the trip flies, operations records payments and the flight, and commission follows. Dashed arrows loop back: a lead with no contact in time returns to the rotation, and a trip with a problem returns to the broker."));
+push(P("Read the diagram left to right. The AI researches organisations every day and the rotation assigns them to brokers. The broker turns a lead into an enquiry, adds requests and extras and the operator quote, completes the checks and sends the trip to operations. Operations checks it on Avinode, completes KYC and the payment request and issues the confirmation. The client signs and pays through the payment request, the trip flies, operations records payments and the flight, and commission follows. Dashed arrows loop back: a lead with no contact in time returns to the rotation, and a trip with a problem returns to the broker."));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.1 Joining, roles and access"));
 push(P([bo('Who uses it: '),r("Everyone")]));
@@ -1139,12 +1126,12 @@ push(H2("H.9 Operations queue"));
 push(P([bo('Who uses it: '),r("Operations, owner, brokers with booking rights")]));
 push(P("Check, confirm and record every trip that brokers send."));
 push(H3('How it works'));
-push(NL(["Open Operations; take the oldest trip in Waiting for operations.", "Confirm the operator price on Avinode and enter direct trip costs.", "Complete KYC and sanctions screening and tick the record.", "Create the Paynode payment request from the Avinode trip and enter its reference.", "Save, then Prepare and issue confirmation, or Return to broker with a note."]));
+push(NL(["Open Operations; take the oldest trip in Waiting for operations.", "Confirm the operator price on Avinode and enter direct trip costs.", "Complete KYC and sanctions screening and tick the record.", "Create the payment request in our payment provider and enter its reference.", "Save, then Prepare and issue confirmation, or Return to broker with a note."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["I see a note instead of the operations panel", "It is your own trip. Another operations member or the director handles it."], ["The broker's operator price differs from Avinode", "Use the Avinode figure; the difference is flagged in Control."]]));
 push(sp());
 push(H3('Tips and tricks'));
-push(BL(["Work the queue oldest first; check it at least twice a day.", "Never take payment details by email; every client pays through the Paynode request."]));
+push(BL(["Work the queue oldest first; check it at least twice a day.", "Never take payment details by email; every client pays through the payment request."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.10 Charter confirmation"));
 push(P([bo('Who uses it: '),r("Brokers prepare; operations and the owner issue")]));
@@ -1161,7 +1148,7 @@ push(H2("H.11 Payments, flight and commission"));
 push(P([bo('Who uses it: '),r("Operations records; everyone sees their own commission")]));
 push(P("Record money and flights so commission is right and on time."));
 push(H3('How it works'));
-push(NL(["Operations records the date the client payment cleared in Paynode.", "Operations records the operator payment through Paynode.", "After the last leg, operations records the flight date.", "Commission appears in the month the trip flew, paid by the 15th of the next month; the owner marks it paid."]));
+push(NL(["Operations records the date the client payment cleared in the payment account.", "Operations records the operator payment.", "After the last leg, operations records the flight date.", "Commission appears in the month the trip flew, paid by the 15th of the next month; the owner marks it paid."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["My trip flew but no commission", "The client payment has not been recorded, or the flight date has not. Ask operations."], ["Commission seems low", "Commission is a share of gross profit, including the margin on fixed-price extras; at-cost items carry no margin."]]));
 push(sp());
@@ -1305,11 +1292,11 @@ push(P("At least 10 organisations a month, each with the public source where you
 push(H3("6. Do I get a fee for prospects I add?"));
 push(P("No. Commission rewards the booking. Adding prospects earns points, a place on the leaderboard and a bigger share of new leads, and you work your own finds first."));
 push(H3("7. Who issues the charter confirmation?"));
-push(P("Operations or the owner, after the operator price, KYC, sanctions screening and the Paynode request are done. Nobody issues, prices or records payment on their own booking."));
+push(P("Operations or the owner, after the operator price, KYC, sanctions screening and the payment request are done. Nobody issues, prices or records payment on their own booking."));
 push(H3("8. The airport I want is not in the list. What do I do?"));
 push(P("Type the four-letter ICAO code. The list holds airports suitable for jets; if it is still missing, ask operations, because the runway may be too short."));
 push(H3("9. Can a client pay by bank transfer to us directly?"));
-push(P("No. Clients pay only through the Paynode payment request. Never send or accept bank details by email, chat or messaging apps."));
+push(P("No. Clients pay only through the payment request. Never send or accept bank details by email, chat or messaging apps."));
 push(H3("10. Can I quote a domestic flight on a foreign aircraft?"));
 push(P("No. Domestic legs on foreign-registered aircraft are cabotage and are refused in most countries. Use a local operator for the domestic leg or redesign the trip."));
 push(H3("11. What does de-icing cost?"));
@@ -1356,6 +1343,6 @@ push(H2(`J.4 Americas: United States, Canada and Latin America`));
 push(T([['Colour',1300],['Triggers',8340]],[
  [`Green`,`International flight on a US or foreign operator holding the needed authority; whole aircraft; clean screening; US broker disclosures made (14 CFR Part 295)`],
  [`Amber`,`Foreign operator to or from the US (needs US authority); US federal excise tax when acting as principal (G.6); Canada and Latin America domestic legs reserved for local carriers; FAA security notices (for example Haiti, Central America, Colombia, Ecuador, Mexico, Panama)`],
- [`Red`,`Any US domestic leg (both airports in the US, including Alaska, Hawaii and territories): never on a non-US operator, and on any operator only after US counsel confirms Arche's position; Cuba with a US-made aircraft; Venezuela (Paynode cannot pay)`],
+ [`Red`,`Any US domestic leg (both airports in the US, including Alaska, Hawaii and territories): never on a non-US operator, and on any operator only after US counsel confirms Arche's position; Cuba with a US-made aircraft; Venezuela (no payments possible)`],
 ],{size:16}));
 push(note(`Source sections: Modules 2.4, 2.5, 2.9; Appendix G.1, G.3, G.6, G.7.`));

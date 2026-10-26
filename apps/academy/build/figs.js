@@ -13,12 +13,12 @@ const FIGS = (() => {
   F.who = () => ({svg: svg(250, `${box(10,40,140,64,"Client","the charterer")}${box(200,40,170,64,"Arche Executive","the broker")}${box(420,40,200,64,"Operator","holds the AOC, flies")}
     ${arrow(150,64,198,64)}${arrow(370,64,418,64)}
     <text x="174" y="32" text-anchor="middle" class="t-s t-m">enquiry, contract</text><text x="394" y="32" text-anchor="middle" class="t-s t-m">request, booking</text>
-    ${box(200,150,170,54,"Avinode and Paynode","quotes, bookings, payments","f-soft s-line")}
+    ${box(200,150,170,54,"Avinode and our payment provider","quotes, bookings, payments","f-soft s-line")}
     ${arrow(285,104,285,148,"s-line",true)}
     ${box(420,150,200,54,"Crew and aircraft","work for the operator")}${arrow(520,104,520,148)}
     ${box(10,150,140,54,"FBO and handler","at each airport")}
     <text x="320" y="236" text-anchor="middle" class="t-s t-m">Safety and operational decisions belong to the operator and its crew.</text>`, "Who does what"),
-    cap:"Who does what on a charter flight", say:"Diagram. The client sends the enquiry and signs the contract with Arche, the broker. Arche requests and books the flight with the operator, which holds the air operator certificate and flies the aircraft with its own crew. Quotes, bookings and payments run through Avinode and Paynode. A handler and FBO look after the aircraft and passengers at each airport."});
+    cap:"Who does what on a charter flight", say:"Diagram. The client sends the enquiry and signs the contract with Arche, the broker. Arche requests and books the flight with the operator, which holds the air operator certificate and flies the aircraft with its own crew. Quotes, bookings and payments run through Avinode and our payment provider. A handler and FBO look after the aircraft and passengers at each airport."});
 
   F.cats = () => {
     const c = [["Light jet",.55,"sit"],["Midsize",.7,"near standing"],["Super-midsize",.82,"standing"],["Heavy",1.0,"standing, galley"],["Ultra-long-range",1.2,"zones, crew rest"]];
@@ -119,9 +119,9 @@ const FIGS = (() => {
     return {svg: svg(200, o, "Worked examples"), cap:"Cost and client price for three of the worked examples (USD).", say:"Bar chart of three worked examples. One-way: cost 100,000, price 109,891. Multi-leg: cost 180,000, price 197,803. With a supplier item: cost 61,200, price 67,253."};
   };
 
-  F.money = () => ({svg: svg(220, `${box(10,30,130,60,"Client","pays the request")}${arrow(140,60,198,60)}${box(200,20,180,80,"Paynode","holds client funds","f-soft s-line")}${arrow(380,60,448,60)}${box(450,30,180,60,"Operator","paid on its terms")}
+  F.money = () => ({svg: svg(220, `${box(10,30,130,60,"Client","pays the request")}${arrow(140,60,198,60)}${box(200,20,180,80,"Payment provider","holds client funds","f-soft s-line")}${arrow(380,60,448,60)}${box(450,30,180,60,"Operator","paid on its terms")}
     ${arrow(290,100,290,148)}${box(200,150,180,60,"Arche account","only the margin")}<text x="410" y="160" class="t-s t-m">Citi Singapore</text><text x="410" y="178" class="t-s t-m">(being set up)</text>`, "How money moves"),
-    cap:"Operator money never passes through Arche's own account.", say:"Diagram. The client pays the Paynode payment request. Paynode holds the funds and pays the operator on its terms. Only Arche's margin moves to Arche's own account at Citi Singapore."});
+    cap:"Operator money never passes through Arche's own account.", say:"Diagram. The client pays the payment request. The payment account holds the funds and the operator is paid on its terms. Only Arche's margin moves to Arche's own account at Citi Singapore."});
 
   F.day = () => {
     const s = [["Before","details to operator, permits and slots confirmed, trip brief sent"],["From 48 h","watch the forecast, warn early"],["Day of flight","track the flight, update the client first"],["Within 7 days","recharge at-cost items with receipts, close the file"]];

@@ -11,7 +11,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | ◐ | Legal entity, registration number, office addresses | Morten (package) | Footer, contact section, privacy notice, terms page. |
 | ☑ | Contact email on archeaviation.com | Morten | contact@archeaviation.com on every page, the privacy notice and as bookings and privacy email in Settings (26 Oct 2026). msj@ is only for what concerns Morten himself. |
 | ◐ | Native-speaker check of Thai, Chinese and Japanese | Morten | All text, including rows added 20 Oct (`apps/website/text_fixes.py`) and the photo-break lines and "What every trip includes" row added 21 Oct (`apps/website/sections.py`). |
-| ◐ | Replace Paynode (not available to Asian companies): fast client collection and same-day operator payment, never paying operators before client money arrives | Morten (24 Oct: Archē stays standalone, so its own account after incorporation, Wise preferred; not Novaryx's account) | Project doc payment-flow-replacing-paynode-2026-10-23. Rule, contract B5, terms page and portal change together. |
+| ◐ | Choose the payment provider (Paynode removed everywhere 26 Oct 2026; not available to Asian companies): fast client collection and same-day operator payment, never paying operators before client money arrives | Morten (24 Oct: Archē stays standalone, so its own account after incorporation, Wise preferred; not Novaryx's account) | Project doc payment-flow-replacing-paynode-2026-10-23. Rule, contract B5, terms page and portal change together. |
 | ☐ | Counsel review: privacy notice, terms of business, broker disclosure, CAAS/CAAT notices | Counsel | Terms page is built from Part B of the charter confirmation. |
 | ◐ | Liability insurance: broker's professional liability and non-owned aircraft liability, stated in the terms | Morten (broker) | Peers state cover (FXAIR USD 100m per occurrence; JetSmarter USD 50m non-owned). Our terms say nothing. See terms comparison 20 Oct. |
 | ☐ | Counsel to confirm: liability cap at the brokerage fee (B14) holds under Singapore law; SIAC arbitration also suits small claims (B16) | Counsel | Peers cap at the price paid. |
@@ -83,7 +83,7 @@ Plan agreed 24 Oct 2026 (to do when Morten says): portal and academy live on por
 - ☑ SEO basics: titles, descriptions, link previews, business description, sitemap, test address kept out of Google.
 - ☑ All website pictures cleared: our own cabin cross-section drawings in the aircraft finder; 11 licensed iStock photos; advisor portrait removed.
 - ☑ Terms of business page from the contract (Part B), linked in the footer.
-- ☑ Contract clause B5: Paynode only, in the charter confirmation, the portal and the terms page.
+- ☑ Contract clause B5: payment only through a secure payment request (no provider named), in the charter confirmation, the portal and the terms page.
 - ☑ Archē spelling, typo fixes, translations completed for all changed text.
 - ☑ No "who is behind Archē" content on the site (Morten's choice).
 - ☑ One address per language (/th, /zh, /ja) and a ready-made page copy that search engines can read straight away.

@@ -33,7 +33,7 @@ EXT_TEXT = [
  ("Arche Executive Broker Academy","Charter Broker Academy · by Arche Executive"),
  ("Your result is already in the Arche training records. Send the code as well if the director asks for it.","Your result is already in the course records. Keep the code: it is your certificate number."),
  ("Copy this code and email it to the director. The director checks it in the training records.","Copy this code and send it to Arche Executive with your name to have your certificate entered in the register. Employers can then verify it under Verify a certificate."),
- ("Next: Avinode and Paynode training, shadowing, the practical exam with the director and supervised bookings. The director signs your training record when all stages are complete.","This certificate covers the knowledge stage: every module and the written exam. Your employer completes your practical training on live trips."),
+ ("Next: Avinode and payment system training, shadowing, the practical exam with the director and supervised bookings. The director signs your training record when all stages are complete.","This certificate covers the knowledge stage: every module and the written exam. Your employer completes your practical training on live trips."),
  ("What applies to Arche","What applies to the broker"),
  ("Bank transfer to Arche's account","Bank transfer to the broker's account"),
  ("code to send to the director","code to send to the course provider"),

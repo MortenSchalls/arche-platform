@@ -45,7 +45,7 @@ for (const M of Object.values(O.MODS)) for (const S of M.secs) { const i = S.b.f
 
 /* ---- 2. passages rewritten as general practice ---- */
 const EXACT = {"Broker (Arche)":"Broker","Arche Executive":"The broker","Arche":"The broker"};
-const PREFIX = [["In the Arche portal the trip file suggests", "Booking systems can suggest operational needs from the trip itself: de-icing for winter dates, out-of-hours handling for night departures, crew hotel and parking when the aircraft waits between legs, or a private terminal and customs on international arrivals. A suggestion is a prompt to ask the operator, never a fact."],["The client signs the Arche charter confirmation", "The client signs your company's charter confirmation with its booking terms and standard conditions. It is issued only when the pre-issue checklist (Appendix A) is complete."],["All bookings run through Avinode, and all client and operator payments run through Paynode", "Use only your company's approved charter confirmation and terms, never your own wording, and never agree to change liability, cancellation or payment terms. Many brokers run bookings through Avinode and payments through a secure platform such as Paynode, so that client and operator money never passes through the broker's own account. This course uses that set-up as its standard."]];
+const PREFIX = [["In the Arche portal the trip file suggests", "Booking systems can suggest operational needs from the trip itself: de-icing for winter dates, out-of-hours handling for night departures, crew hotel and parking when the aircraft waits between legs, or a private terminal and customs on international arrivals. A suggestion is a prompt to ask the operator, never a fact."],["The client signs the Arche charter confirmation", "The client signs your company's charter confirmation with its booking terms and standard conditions. It is issued only when the pre-issue checklist (Appendix A) is complete."],["All bookings run through Avinode, and all client and operator payments run through a payment request", "Use only your company's approved charter confirmation and terms, never your own wording, and never agree to change liability, cancellation or payment terms. Many brokers run bookings through Avinode and payments through a secure payment platform, so that client and operator money never passes through the broker's own account. This course uses that set-up as its standard."]];
 const OVR = [
  ["Watch every leg in the portal under Flight following:", "Watch every leg in your booking system or flight-tracking tool:"],
  ["Log it in the portal (Aftercare).", "Log it in the trip file."],
@@ -73,10 +73,10 @@ const OVR = [
  ["Singapore (our home)", "Singapore"], ["Thailand (our Asian hub)", "Thailand"],
  ["Singapore company, tax and data-protection law apply to Arche.", "Singapore company, tax and data-protection law apply to brokers established there."],
  ["Use a US operator for the whole trip, subject to Arche's US policy.", "Use a US operator for the whole trip."],
- ["payer or operator in a country Paynode cannot serve", "payer or operator in a country your payment platform cannot serve"],
- ["Paynode limits", "Payment platform limits"], ["Paynode cannot pay to or from some countries", "Payment platforms such as Paynode cannot pay to or from some countries"],
+ ["payer or operator in a country we cannot take payments from or pay to", "payer or operator in a country your payment platform cannot serve"],
+ ["Payment limits", "Payment platform limits"], ["We cannot take payments from or pay to some countries", "Payment platforms cannot pay to or from some countries"],
  ["1.3 How we earn", "1.3 How brokers earn"],
- ["Our margin is 9% of the price the client pays (Module 9). The operator receives the rest through Paynode. Only our margin flows into Arche's own bank account.", "A broker earns a margin or a commission on each charter. This course uses a margin of 9% of the client price as its example (Module 9); your company sets its own. Client and operator money should never pass through the broker's own bank account."],
+ ["Our margin is 9% of the price the client pays (Module 9). The operator receives the rest from our payment account. Only our margin flows into Arche's own bank account.", "A broker earns a margin or a commission on each charter. This course uses a margin of 9% of the client price as its example (Module 9); your company sets its own. Client and operator money should never pass through the broker's own bank account."],
  ["Arche's legal position is being settled with counsel (Module 2.3). Until then, never describe our role in your own words: use the wording in the approved Arche charter confirmation.", "Know which model your company uses, and never describe your role in your own words: use the wording in your company's approved charter confirmation."],
  ["Describe what Arche sells and how it earns", "Describe what a charter broker sells and how it earns"],
  ["Apply the booking ramp and the professional standards", "Apply the professional standards"],
@@ -93,21 +93,21 @@ const OVR = [
  ["Months 1 to 8: brokers share an on-call rota set by the director; the on-call broker answers the client line and operator calls out of office hours.", "Until a 24-hour desk is in place, brokers share an on-call rota set by your manager; the on-call broker answers the client line and operator calls out of office hours."],
  ["12.1 The Arche standard", "12.1 The service standard"], ["The Arche standard", "The service standard"],
  ["Meet the Arche service standard on every call", "Meet the service standard on every call"],
- ["After the exam: Avinode and Paynode training, 8 shadowed trips, the practical exam with the director, and 10 supervised bookings. The director signs your training record when all stages are complete.", "After the exam, your employer completes your practical training: Avinode and payment-platform training, shadowing on live trips, a practical exam and supervised bookings."],
- ["Avinode's core broker course for Paynode members; this is the Arche set-up", "Avinode's core broker course for Paynode members; the set-up this course uses"],
- ["The only way a client pays Arche", "How a client pays through Paynode"],
+ ["After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the director, and 10 supervised bookings. The director signs your training record when all stages are complete.", "After the exam, your employer completes your practical training: Avinode and payment-platform training, shadowing on live trips, a practical exam and supervised bookings."],
+ ["Avinode's core broker course; this is the Arche set-up", "Avinode's core broker course; the set-up this course uses"],
+ ["The only way a client pays Arche", "How a client pays through a payment request"],
  ["Arche modules that prepare for it", "Modules that prepare for it"],
  ["The mapping is Arche's own guide to preparation; the ACA sets its own syllabus.", "The mapping is this course's own guide to preparation; the ACA sets its own syllabus."],
  ["This manual is the single standard for every Arche Executive broker and charter consultant.", "This course is a complete standard for charter brokers and charter consultants."],
- ["6. Payment taken outside Paynode, or bank details sent by email or chat.", "6. Payment taken outside the company's secure payment platform, or bank details sent by email or chat."],
- ["Because every Arche payment runs through Paynode, a payer", "Where payments run through Paynode, a payer"],
+ ["6. Payment taken outside a payment request, or bank details sent by email or chat.", "6. Payment taken outside the company's secure payment platform, or bank details sent by email or chat."],
+ ["Because every Arche payment runs through our payment account, a payer", "Where payments run through a payment request, a payer"],
  ["The director's watchlist (Appendix G)", "The watchlist (Appendix G)"],
  ["Arche Executive acts as charter broker", "[Company] acts as charter broker"],
  ["\"Arche Executive, [name] speaking.", "\"[Company], [name] speaking."],
  ["from Arche Executive, a private jet charter broker", "from [Company], a private jet charter broker"],
  ["Arche cost", "Broker cost"], ["Arche margin", "Broker margin"],
  ["supplier items Arche buys", "supplier items the broker buys"], ["bought by Arche", "bought by the broker"],
- ["Arche's Paynode account", "the broker's Paynode account"], ["Arche's own", "the broker's own"], ["Only Arche's margin", "Only the broker's margin"], ["only our margin reaches Arche's account", "only the broker's margin reaches its own account"],
+ ["Arche's payment account", "the broker's client payment account"], ["Arche's own", "the broker's own"], ["Only Arche's margin", "Only the broker's margin"], ["only our margin reaches Arche's account", "only the broker's margin reaches its own account"],
  ["Every Arche confirmation", "Every confirmation"], ["the Arche CRM", "the company CRM"], ["Arche CRM", "company CRM"],
  ["Arche's record-keeping rule", "your company's record-keeping rule"], ["Arche charter confirmation", "your company's charter confirmation"],
 ];

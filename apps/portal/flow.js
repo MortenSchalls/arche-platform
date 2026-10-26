@@ -1,7 +1,7 @@
 /* Portal flow diagram: one source for the portal Help page and the manual (rendered to PNG). */
 function flowSVG(accent){
   const A = accent || "currentColor";
-  const W = 1384, H = 520, lanes = [["AI and automation",70],["Broker",190],["Operations",310],["Client and Paynode",430]];
+  const W = 1384, H = 520, lanes = [["AI and automation",70],["Broker",190],["Operations",310],["Client and payment",430]];
   const bw = 132, bh = 54;
   const x = c => 168 + c * 152;
   const box = (c, r, t1, t2, hi) => { const X = x(c), Y = lanes[r][1] - bh / 2; return `<rect x="${X}" y="${Y}" width="${bw}" height="${bh}" rx="6" fill="none" stroke="${hi ? A : "currentColor"}" stroke-width="${hi ? 2 : 1.2}"/><text x="${X + bw / 2}" y="${Y + 23}" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">${t1}</text>${t2 ? `<text x="${X + bw / 2}" y="${Y + 40}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">${t2}</text>` : ""}`; };
@@ -16,7 +16,7 @@ function flowSVG(accent){
   // Broker lane
   s += box(2, 1, "Lead", "contact in 48 h") + box(3, 1, "Enquiry", "airport search") + box(4, 1, "Requests, extras", "and quote ÷ 0.91") + box(5, 1, "7 checks", "documents") + box(6, 1, "Commission", "month flown");
   // Ops lane
-  s += box(5, 2, "Operations check", "Avinode, KYC, Paynode") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
+  s += box(5, 2, "Operations check", "Avinode, KYC, payment") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
   // Client lane
   s += box(6, 3, "Signs, deposit", "25%, min USD 2,500") + box(7, 3, "Balance, flight", "7 days before") ;
   // arrows

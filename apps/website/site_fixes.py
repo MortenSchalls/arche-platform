@@ -1,7 +1,7 @@
 """Website fixes kept on every build (Morten, 26 Oct 2026: "we need it to be perfect").
 - One office: the city shows once (as the office name); the heading over the address reads "Registered office".
 - Jurisdictional notice: factual Singapore wording instead of the placeholder (to be confirmed by counsel).
-- Payment line: "a secure payment link", not Paynode (not available to Asian companies; provider still to choose).
+- Payment line: "a secure payment link"; no payment provider is named on the site (Morten, 26 Oct 2026).
 - Phone, WhatsApp, LINE and WeChat come from company.py. Until a value is set, the LINE and WeChat cards are left out,
   and the phone stays a placeholder that check_site.py reports, so the site is not made public with it.
 Run by build.py after company.py; can also be run on its own:  python3 apps/website/site_fixes.py"""
@@ -15,10 +15,7 @@ NOTICE = ["Archē Executive is a private company registered in Singapore. It arr
   "Archē Executive เป็นบริษัทเอกชนที่จดทะเบียนในสิงคโปร์ ทำหน้าที่จัดเที่ยวบินเช่าเหมาลำในฐานะตัวแทนของลูกค้า และไม่ใช่ผู้ดำเนินการเดินอากาศ ทุกเที่ยวบินดำเนินการภายใต้ใบรับรองผู้ดำเนินการเดินอากาศ (AOC) ของผู้ให้บริการที่ระบุในใบเสนอราคาของท่าน และอยู่ภายใต้กฎของหน่วยงานการบินของผู้ให้บริการนั้น",
   "Archē Executive 是一家在新加坡注册的私营公司，以客户代理人的身份安排包机航班，并非航空运营人。每个航班均依据您报价单中所列运营商的航空运营人合格证（AOC）执飞，并受该运营商所属航空主管机构的规则约束。",
   "Archē Executive はシンガポールで登記された民間企業で、お客様の代理人としてチャーター便を手配します。航空運送事業者ではありません。各フライトは、お見積書に記載された運航会社の航空運送事業許可（AOC）のもと、その運航会社を所管する航空当局の規則に従って運航されます。"]
-PAY = [("Agreed before you fly and paid securely through Paynode.", "Agreed before you fly and paid through a secure payment link."),
-  ("ตกลงราคาก่อนบิน และชำระเงินอย่างปลอดภัยผ่าน Paynode", "ตกลงราคาก่อนบิน และชำระเงินผ่านลิงก์ชำระเงินที่ปลอดภัย"),
-  ("起飞前确定价格，并通过 Paynode 安全支付。", "起飞前确定价格，并通过安全支付链接付款。"),
-  ("ご搭乗前に料金を確定し、Paynode で安全にお支払いいただけます。", "ご搭乗前に料金を確定し、安全な決済リンクでお支払いいただけます。")]
+PAY = []   # the source texts (sections.py) already say "a secure payment link"
 PRIVACY_DATE = "26 October 2026"   # change when the privacy notice text changes
 CITY = r"(?:Singapore|สิงคโปร์|新加坡|シンガポール)"
 def fix(t, name):

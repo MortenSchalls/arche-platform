@@ -530,7 +530,7 @@ const BROKER_CHECKS = [
   ["audit","Safety audit checked (ARGUS Gold Plus or higher, or Wyvern Wingman; Gold or unrated only with director approval)"],
   ["route","Routing, permits and continuous journey checked with the operator"],
   ["terms","Operator's cancellation and payment terms are no softer for Archē Executive than ours"]];
-const OPS_CHECKS = [["kyc","Charterer KYC and sanctions screening done (operations)"],["pay","Paynode payment request created from the Avinode trip (operations)"]];
+const OPS_CHECKS = [["kyc","Charterer KYC and sanctions screening done (operations)"],["pay","Payment request created in our payment provider (operations)"]];
 const DEFAULT_TERMS = {margin:0.09, unit:45000, threshold:8, rate1:0.27, rate2:0.35, consultRate:0.10, cycleDays:5};
 // On the live platform the nightly backup is the scheduled job (encrypted, kept 90 days off-site); it records intel/backup.
 const LIVE_PLATFORM = !!window.__sb;
@@ -815,7 +815,7 @@ function tripFile(t){
       <p class="small muted" style="margin-top:6px">${q.aircraft ? esc(q.aircraft) : "Aircraft to be confirmed"}${q.tail ? " · " + esc(q.tail) : ""}${q.avinode ? " · Avinode trip " + esc(q.avinode) : ""}.${curNote(q)} The portal sets the price: operator price plus direct costs, divided by ${(1 - S.terms.margin).toFixed(2)}, rounded up.</p></div>
     ${["flown","cancelled"].includes(t.stage) ? "" : aiBlock(t)}
     <div><h3>Pre-issue checks</h3>${BROKER_CHECKS.map(([k, l]) => `<label class="check" for="ck_${k}"><input type="checkbox" id="ck_${k}" data-ck="${k}" ${checks[k] ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>${l}</span></label>`).join("")}
-      ${OPS_CHECKS.map(([k, l]) => `<label class="check"><input type="checkbox" ${st[k] ? "checked" : ""} disabled><span>${l}</span>${st[k] ? `<span class="who-ticks">${k === "pay" && st.paynodeRef ? "Paynode " + esc(st.paynodeRef) : "done"}</span>` : ""}</label>`).join("")}</div>
+      ${OPS_CHECKS.map(([k, l]) => `<label class="check"><input type="checkbox" ${st[k] ? "checked" : ""} disabled><span>${l}</span>${st[k] ? `<span class="who-ticks">${k === "pay" && st.paynodeRef ? "Payment " + esc(st.paynodeRef) : "done"}</span>` : ""}</label>`).join("")}</div>
     <div><h3>Documents</h3>${docs.length ? `<ul class="small">${docs.map(x => `<li><a href="/_blob/${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.name)}</a> <span class="muted">· ${esc(x.kind || "")} · ${fmtD(x.at)}</span></li>`).join("")}</ul>` : `<p class="small muted">No documents yet.</p>`}
       ${canBrokerEdit ? `<div class="row"><select id="docKind" style="width:auto" aria-label="Document type"><option>Operator quote</option><option>AOC</option><option>Insurance certificate</option><option>Safety audit</option><option>Client KYC</option><option>Passport</option><option>Trip risk screen</option><option>Other</option></select><input type="file" id="docFile" style="width:auto"><button class="btn small" type="button" data-act="upload">Attach</button></div><p class="small muted">Documents stay in the portal. Never send passports or contracts by email or chat.</p>` : ""}</div>
     ${canBrokerEdit ? `<div class="row"><button class="btn" type="button" data-act="edit">Edit enquiry and quote</button><button class="btn primary" type="button" data-act="submit" ${submitReady(d) ? "" : "disabled"}>Send to operations</button>${t.stage === "enquiry" || t.stage === "quoted" ? `<button class="btn danger" type="button" data-act="withdraw">Withdraw</button>` : ""}</div>${submitReady(d) ? "" : `<p class="small muted">To send to operations: client name, at least one leg, operator price and all seven checks.</p>`}` : ""}
@@ -837,21 +837,21 @@ function opsBlock(t){
   return `<div class="panel stack" style="background:var(--raised)">
     <h2>Operations</h2>
     ${!issued && stage !== "cancelled" ? `
-    <p class="small muted">Check the operator price against the Avinode trip, screen the charterer, create the Paynode payment request, then issue.</p>
+    <p class="small muted">Check the operator price against the Avinode trip, screen the charterer, create the payment request, then issue.</p>
     <div class="fgrid">
       <label class="f" for="o_op">Operator price confirmed on Avinode (USD)<input id="o_op" inputmode="decimal" value="${esc(opPrice || "")}"></label>
       <label class="f" for="o_dir">Direct trip costs (USD)<input id="o_dir" inputmode="decimal" value="${esc(direct || 0)}"></label>
-      <label class="f" for="o_pn">Paynode payment request reference<input id="o_pn" value="${esc(st.paynodeRef || "")}"></label>
+      <label class="f" for="o_pn">Payment request reference<input id="o_pn" value="${esc(st.paynodeRef || "")}"></label>
     </div>
     <label class="check" for="o_kyc"><input type="checkbox" id="o_kyc" ${st.kyc ? "checked" : ""}><span>Charterer KYC and sanctions screening done and recorded</span></label>
     ${num(q.opPrice) && num(opPrice) && num(q.opPrice) !== num(opPrice) ? `<div class="note warn small">Broker entered ${usd(num(q.opPrice))} for the operator; you entered ${usd(num(opPrice))}. The confirmed figure is used.</div>` : ""}
     <div class="row"><button class="btn" type="button" data-act="opsSave">Save</button><button class="btn primary" type="button" data-act="openConf">Prepare confirmation</button><button class="btn danger" type="button" data-act="return">Return to broker</button></div>
     <label class="f" for="o_note">Note to the broker (needed to return)<textarea id="o_note"></textarea></label>` : ""}
-    ${issued ? `<div class="price"><span>Confirmation</span><span class="mono">${esc(st.ref)}</span><span>Issued</span><span>${fmtD(st.issuedAt)}</span><span>Paynode request</span><span class="mono">${esc(st.paynodeRef || "–")}</span>
+    ${issued ? `<div class="price"><span>Confirmation</span><span class="mono">${esc(st.ref)}</span><span>Issued</span><span>${fmtD(st.issuedAt)}</span><span>Payment request</span><span class="mono">${esc(st.paynodeRef || "–")}</span>
       <span>Client paid</span><span>${st.clientPaid ? fmtD(st.clientPaidDate) : "Not yet"}</span><span>Operator paid</span><span>${st.operatorPaid ? fmtD(st.operatorPaidDate) : "Not yet"}</span><span>Flown</span><span>${st.flownDate ? fmtD(st.flownDate) : "Not yet"}</span></div>
       <div class="row">
         ${!st.clientPaid ? (st.signed || !st.confIssued ? `<label class="f" for="o_cpd">Client payment cleared on<input type="date" id="o_cpd"></label><button class="btn small" type="button" data-act="clientPaid">Record client payment</button>` : `<p class="small muted">Record the client's payment once the signed contract is saved above.</p>`) : ""}
-        ${st.clientPaid && !st.operatorPaid ? `<label class="f" for="o_opd">Operator paid through Paynode on<input type="date" id="o_opd"></label><button class="btn small" type="button" data-act="operatorPaid">Record operator payment</button>` : ""}
+        ${st.clientPaid && !st.operatorPaid ? `<label class="f" for="o_opd">Operator paid from the payment account on<input type="date" id="o_opd"></label><button class="btn small" type="button" data-act="operatorPaid">Record operator payment</button>` : ""}
         ${st.clientPaid && !st.flownDate ? `<label class="f" for="o_fl">Last leg flown on<input type="date" id="o_fl"></label><button class="btn small" type="button" data-act="flown">Record flight</button>` : ""}
       </div>` : ""}
     ${stage !== "cancelled" && stage !== "flown" ? `<div class="row"><button class="btn danger small" type="button" data-act="cancelAsk">Cancel trip</button></div><div id="cancelBox"></div>` : ""}
@@ -979,7 +979,7 @@ function vRules(){
   return `<div class="panel stack" style="max-width:760px"><h1>Portal rules</h1>
   <ol class="stack" style="padding-left:20px;margin:0">
   <li>Every enquiry, quote, booking, payment and document for Archē Executive is made in this portal. Nothing is sold, quoted or paid outside it.</li>
-  <li>Clients pay only through the Paynode payment request that operations sends from the Avinode trip. Never send or accept bank details by email, chat or messaging apps.</li>
+  <li>Clients pay only through the payment request that operations sends. Never send or accept bank details by email, chat or messaging apps.</li>
   <li>Only operations issues a charter confirmation. A trip is confirmed when it shows a confirmation reference here.</li>
   <li>The portal sets the price: operator price plus direct trip costs, at a ${(S.terms.margin*100).toFixed(0)}% margin. A lower price needs the director's approval through operations.</li>
   <li>Clients, trips and documents belong to Archē Executive. Do not copy them out of the portal.</li>
@@ -1131,7 +1131,7 @@ async function act(a, el){
       const patch = {opPrice:op, direct:dc, price:priceOf(op, dc), paynodeRef:pn, pay:!!pn, kyc, state: t.st && t.st.state === "returned" ? "review" : (t.st && t.st.state) || "review"};
       if (a === "issue") {
         const missing = [];
-        if (!op) missing.push("operator price"); if (!kyc) missing.push("KYC and sanctions"); if (!pn) missing.push("Paynode request reference");
+        if (!op) missing.push("operator price"); if (!kyc) missing.push("KYC and sanctions"); if (!pn) missing.push("payment request reference");
         BROKER_CHECKS.forEach(([k, l]) => { if (!(t.d.checks || {})[k]) missing.push(l.split(" (")[0].split(";")[0]); });
         if (missing.length) { toast("Cannot issue. Missing: " + missing.join(", ")); return; }
         const dt = new Date(), ref = "AE-" + String(dt.getFullYear()).slice(2) + String(dt.getMonth() + 1).padStart(2, "0") + String(dt.getDate()).padStart(2, "0") + "-" + String(Math.floor(Math.random() * 900) + 100);
@@ -1141,10 +1141,10 @@ async function act(a, el){
       await statusWrite(t, patch, "Operations check saved"); toast("Saved"); return;
     }
     if (a === "return") { const n = $("o_note").value.trim(); if (!n) { toast("Write a note to the broker first."); return; } await statusWrite(t, {state:"returned", note:n}, "Returned to broker: " + n); audit("Trip returned to broker", `${nm(t.bid)} · ${n.slice(0, 80)}`); toast("Returned to broker"); return; }
-    if (a === "clientPaid") { if (t.st && t.st.confIssued && !t.st.signed) { toast("Save the signed contract first."); return; } const d = $("o_cpd").value; if (!d) { toast("Enter the date the payment cleared."); return; } if (await gateHold("pay", t.did + "-client", "client|" + d, `Record client payment: ${(t.st || {}).ref || t.did}, ${usd((t.st || {}).price || 0)} cleared ${d}`, "", {tripBid: t.bid, tripDid: t.did})) return; await statusWrite(t, {state:"clientPaid", clientPaid:true, clientPaidDate:d}, "Client payment cleared in Paynode"); audit("Client payment recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Client payment recorded"); return; }
-    if (a === "operatorPaid") { const d = $("o_opd").value; if (!d) { toast("Enter the payment date."); return; } if (await gateHold("pay", t.did + "-operator", "operator|" + d, `Record operator payment: ${(t.st || {}).ref || t.did}, ${usd((t.st || {}).opPrice || 0)} paid ${d}`, "", {tripBid: t.bid, tripDid: t.did})) return; await statusWrite(t, {operatorPaid:true, operatorPaidDate:d}, "Operator paid through Paynode"); audit("Operator payment recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Operator payment recorded"); return; }
+    if (a === "clientPaid") { if (t.st && t.st.confIssued && !t.st.signed) { toast("Save the signed contract first."); return; } const d = $("o_cpd").value; if (!d) { toast("Enter the date the payment cleared."); return; } if (await gateHold("pay", t.did + "-client", "client|" + d, `Record client payment: ${(t.st || {}).ref || t.did}, ${usd((t.st || {}).price || 0)} cleared ${d}`, "", {tripBid: t.bid, tripDid: t.did})) return; await statusWrite(t, {state:"clientPaid", clientPaid:true, clientPaidDate:d}, "Client payment cleared in the payment account"); audit("Client payment recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Client payment recorded"); return; }
+    if (a === "operatorPaid") { const d = $("o_opd").value; if (!d) { toast("Enter the payment date."); return; } if (await gateHold("pay", t.did + "-operator", "operator|" + d, `Record operator payment: ${(t.st || {}).ref || t.did}, ${usd((t.st || {}).opPrice || 0)} paid ${d}`, "", {tripBid: t.bid, tripDid: t.did})) return; await statusWrite(t, {operatorPaid:true, operatorPaidDate:d}, "Operator paid from the payment account"); audit("Operator payment recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Operator payment recorded"); return; }
     if (a === "flown") { const d = $("o_fl").value; if (!d) { toast("Enter the date of the last leg."); return; } await statusWrite(t, {state:"flown", flownDate:d}, "Trip flown"); audit("Flight recorded", `${(t.st || {}).ref || t.did} · ${d}`); toast("Flight recorded. Commission updated."); return; }
-    if (a === "cancelAsk") { $("cancelBox").innerHTML = `<div class="confirm"><span class="small">Cancel this trip? Any refund is handled in Paynode under the booking terms.</span><button class="btn small danger" type="button" data-act="cancelYes">Cancel trip</button><button class="btn small" type="button" data-act="cancelNo">Keep it</button></div>`; return; }
+    if (a === "cancelAsk") { $("cancelBox").innerHTML = `<div class="confirm"><span class="small">Cancel this trip? Any refund is handled in the payment account under the booking terms.</span><button class="btn small danger" type="button" data-act="cancelYes">Cancel trip</button><button class="btn small" type="button" data-act="cancelNo">Keep it</button></div>`; return; }
     if (a === "cancelNo") { $("cancelBox").innerHTML = ""; return; }
     if (a === "cancelYes") { await statusWrite(t, {state:"cancelled"}, "Trip cancelled by operations"); audit("Trip cancelled", (t.st || {}).ref || t.did); toast("Trip cancelled"); return; }
   } catch(e){ console.warn(e); toast(e && e.code === "invalid_argument" ? "You do not have permission for that." : "Could not save. Try again."); }
@@ -1161,10 +1161,10 @@ async function uploadDoc(t){
 const RULES_TEXT = `You support brokers of Archē Executive (said ar-KAY), a charter brokerage registered in Singapore that sells whole-aircraft private charters worldwide on third-party operators. It is the broker, never the operator.
 House rules:
 - Client price = (operator price + direct trip costs) / 0.91, rounded up (9% of the client price is Archē's margin). A lower price needs director approval through operations.
-- Every booking runs through Avinode. The client pays only through the Paynode payment request operations sends from the Avinode trip. Never send or accept bank details by email, chat or messaging apps.
+- Every booking runs through Avinode. The client pays only through the payment request operations sends. Never send or accept bank details by email, chat or messaging apps.
 - Only operations issues a charter confirmation, after KYC and sanctions screening.
 - Never sell: illegal charter (no valid AOC for commercial flights); cabotage (a foreign operator flying a domestic leg) unless the continuous journey is confirmed in writing by the operator; US domestic legs on non-US operators; intra-EU legs on non-EU operators without permission; per-seat sales; flights for sanctioned persons or embargoed places; operators on the EU Air Safety List; aircraft chartered or controlled by Russian nationals into the EU; medical or air-ambulance flights; travel packages without a licence; trips where passenger names are hidden.
-- Paynode cannot send or receive funds for Belarus, occupied Ukrainian regions, Cuba, Iran, Kazakhstan, Libya, Myanmar, North Korea, Russia, South Sudan, Sudan, Syria and Venezuela: a payer or operator there is red.
+- We cannot take payments from or pay to Belarus, occupied Ukrainian regions, Cuba, Iran, Kazakhstan, Libya, Myanmar, North Korea, Russia, South Sudan, Sudan, Syria and Venezuela: a payer or operator there is red.
 - Safety standard: ARGUS Gold Plus or higher, or Wyvern Wingman; ARGUS Gold or unrated only with director approval.
 - Disclose to the client: Archē is the broker, the operator's legal name as on its AOC, aircraft type and registration, the full price, and anything charged after the flight.
 - Trip risk screen: green, amber or red; every amber point confirmed in writing; nothing red goes ahead.
@@ -1194,8 +1194,8 @@ function tripForAI(t){
     operations:{kyc:!!st.kyc, paynodeRequest:!!st.pay, confirmation: st.ref || null, clientPaid:!!st.clientPaid}, opened: d.created, lastUpdate: d.updated, winScore: winScore(t)};
 }
 const AI_TASKS = {
-  check: {label:"Check this trip", prompt: j => `${RULES_TEXT}\n\nReview this trip file before it goes further. Give: 1) a verdict line (Green, Amber or Red) with the reason; 2) compliance points to confirm, especially cabotage, permits, never-sell items and Paynode restrictions for the countries involved; 3) missing information; 4) operational points (airport suitability, crew duty or fuel stops for the route, catering or special requests). Under 250 words, short headings, bullet points.\n\nTrip file (JSON):\n${j}`},
-  email: {label:"Draft quote email", prompt: j => `${RULES_TEXT}\n\nDraft the quote email from the broker to the client for this trip. Include: aircraft type and registration, operator legal name, schedule in local times, the client price in USD and what it includes, what may be charged after the flight and how, the validity of the offer (leave a [date and time] placeholder), that Archē Executive acts as broker and the operator operates the flight, and that a charter confirmation and a secure Paynode payment request follow; state that we never send bank details by email. Use [placeholders] for anything not in the file. Subject line first. Warm, concise, professional.\n\nTrip file (JSON):\n${j}`},
+  check: {label:"Check this trip", prompt: j => `${RULES_TEXT}\n\nReview this trip file before it goes further. Give: 1) a verdict line (Green, Amber or Red) with the reason; 2) compliance points to confirm, especially cabotage, permits, never-sell items and payment restrictions for the countries involved; 3) missing information; 4) operational points (airport suitability, crew duty or fuel stops for the route, catering or special requests). Under 250 words, short headings, bullet points.\n\nTrip file (JSON):\n${j}`},
+  email: {label:"Draft quote email", prompt: j => `${RULES_TEXT}\n\nDraft the quote email from the broker to the client for this trip. Include: aircraft type and registration, operator legal name, schedule in local times, the client price in USD and what it includes, what may be charged after the flight and how, the validity of the offer (leave a [date and time] placeholder), that Archē Executive acts as broker and the operator operates the flight, and that a charter confirmation and a secure payment request follow; state that we never send bank details by email. Use [placeholders] for anything not in the file. Subject line first. Warm, concise, professional.\n\nTrip file (JSON):\n${j}`},
   next: {label:"Next best action", prompt: j => `${RULES_TEXT}\n\nThis trip has a live win score of ${'{'}score{'}'}%. Say in at most 5 bullets what the broker should do next, in order, to raise the chance it books and flies through the portal, with one sentence of reasoning each. Be specific to this file.\n\nTrip file (JSON):\n${j}`}
 };
 async function runAI(kind, t, outEl, btns){
@@ -1478,7 +1478,7 @@ function vSecurity(){
   <div class="grid2"><div class="panel stack"><h2>Ringfence</h2>
     <ul class="stack small" style="padding-left:18px;margin:0">
       <li><b>Separate data per broker.</b> A broker can read and change only their own trips and leads. They cannot see other brokers, the team list, prospects not assigned to them, or anyone's commission but their own.</li>
-      <li><b>Money and confirmations are operations-only.</b> Price, KYC, Paynode reference, confirmation, payments and flight dates sit in records brokers can read but not change.</li>
+      <li><b>Money and confirmations are operations-only.</b> Price, KYC, payment request reference, confirmation, payments and flight dates sit in records brokers can read but not change.</li>
       <li><b>Commission only from the portal.</b> Trips that never went through the portal earn nothing.</li>
       <li><b>Watermark.</b> Every screen carries the viewer's name and "Confidential", so screenshots are traceable.</li>
       <li><b>No export for brokers.</b> Only the owner can download a backup, and copying client and lead details is blocked for brokers.</li>
@@ -1577,7 +1577,7 @@ const PART_B = [
    "If jet fuel at any airport on the routing rises more than 4% between quote and Confirmation, the Price is re-based to the new fuel cost.",
    "Operator surcharges for fuel, insurance or currency arising after Confirmation are passed on at cost."]},
  {n:"B5",t:"Payment mechanics.",items:[
-   "Payment is made only through the Paynode payment request Archē Executive sends, in the invoice currency. Archē Executive never sends bank details or asks for payment any other way.",
+   "Payment is made only through the payment request Archē Executive sends, in the invoice currency. Archē Executive never sends bank details or asks for payment any other way.",
    "Payments are made in full, without set-off or deduction. If tax must be withheld, the Charterer pays enough extra for Archē Executive to receive the invoiced amount.",
    "Payment dates are essential terms. Overdue amounts carry interest at 1.5% per month from the due date.",
    "Money already passed to the Operator is refunded to the Charterer once the Operator has returned it to Archē Executive."]},
@@ -1705,8 +1705,8 @@ function checks(cc){
     if (cc.price < cc.target) err.push(`Margin is ${(cc.margin/cc.price*100).toFixed(2)}%, below ${Math.round(PRICING.rate*100)}%. The ${Math.round(PRICING.rate*100)}% price is ${usd(cc.target)} (operator price ÷ ${(1-PRICING.rate).toFixed(2)}). Below that needs director approval.`);
   }
   [...(S.requests||[]).map(x=>["Client request",x]), ...(S.extras||[]).map(x=>["Operational extra",x])].forEach(([k,x])=>{ if(x.basis==="fixed" && !num(x.amount)) missing.push(`${k} "${x.text}": supplier's written price in USD`); });
-  if (cc.atCost) warn.push("Some items are charged at cost after the flight. Tell the client before signing, and invoice them with the supplier receipts through Paynode.");
-  const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance on file",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Paynode payment request created"};
+  if (cc.atCost) warn.push("Some items are charged at cost after the flight. Tell the client before signing, and invoice them with the supplier receipts through a payment request.");
+  const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance on file",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Payment request created"};
   Object.keys(ckLabels).forEach(k=>{ if(!S.ck[k]) missing.push(ckLabels[k]); });
   return {err,warn,missing};
 }
@@ -1721,7 +1721,7 @@ function clauseHTML(c,cc){
   if(c.after) h+=`<p class="clause">${esc(c.after)}</p>`;
   return h;
 }
-const payLabel = () => S.pay==="pn_card"?"Card via Paynode":S.pay==="pn_instant"?"Instant payment via Paynode":"Bank transfer via Paynode";
+const payLabel = () => S.pay==="pn_card"?"Card (payment request)":S.pay==="pn_instant"?"Instant payment (payment request)":"Bank transfer (payment request)";
 function validText(){ return S.valid.date ? `${fmtDate(S.valid.date)}${S.valid.time?" at "+S.valid.time:""}${S.valid.tz?" "+S.valid.tz:""}` : ""; }
 function renderPreview(cc, draft){
   const LN=S.legNames||[]; const legsRows = S.legs.map((l,i)=>`<tr><td>${i+1}</td><td>${v(fmtDate(l.date),"date")}</td><td>${l.etd?esc(l.etd):"TBC"}</td><td>${v(l.from,"from")}${LN[i]&&LN[i][0]?`<br><span style="color:var(--paper-muted);font-size:10px">${esc(LN[i][0])}</span>`:""}</td><td>${v(l.to,"to")}${LN[i]&&LN[i][1]?`<br><span style="color:var(--paper-muted);font-size:10px">${esc(LN[i][1])}</span>`:""}</td><td class="num">${esc(l.pax||"–")}</td><td>${l.pos?"Positioning":"Passenger"}</td></tr>`).join("");
@@ -1750,12 +1750,12 @@ function renderPreview(cc, draft){
     ${cc.card?`<tr><td>Card cost (${num(S.cardPct)}%), added for payment by card</td><td class="num">${usd(cc.card)}</td></tr>`:""}
     <tr><td>Included</td><td>${esc(S.included||"As listed above")}<br><span style="color:var(--paper-muted)">Not included: taxes, bank charges and the items charged at cost under A7.</span></td></tr></tbody></table>
   <div class="payment"><div class="lbl" style="margin-bottom:5px">How to pay · ${esc(payLabel())}</div>
-    <div class="grid"><span>Payment</span><span>Through the secure Paynode payment request we send you for this booking</span><span>Booking reference</span><span>${esc(S.ref)}</span></div>
+    <div class="grid"><span>Payment</span><span>Through the secure payment request we send you for this booking</span><span>Booking reference</span><span>${esc(S.ref)}</span></div>
     <div class="fraud">Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.</div></div>
 ${(()=>{ const basisTxt={included:"Included",cost:"At cost after the flight",fixed:"Fixed price"};
     const tbl=(title,list)=> list&&list.length?`<h3>${title}</h3><table><thead><tr><th scope=col>Item</th><th scope=col>Type</th><th scope=col>How it is charged</th><th class="num">Amount</th></tr></thead><tbody>${list.map(x=>`<tr><td>${esc(x.text)}</td><td>${esc(x.cat||"")}</td><td>${basisTxt[x.basis]||""}</td><td class="num">${x.basis==="fixed"?(num(x.amount)?usd(xc(x)):'<span class="gap">amount</span>'):(x.basis==="included"?"Included":"At cost")}</td></tr>`).join("")}</tbody></table>`:"";
     const out=tbl("CLIENT REQUESTS",S.requests)+tbl("OPERATIONAL EXTRAS CHARGED TO THE CHARTERER",S.extras);
-    return out+(cc.atCost?`<p style="color:var(--paper-muted);font-size:11px;margin:4px 0 0">Items marked at cost are invoiced after the flight with the supplier receipts (A7) and paid through Paynode.</p>`:""); })()}
+    return out+(cc.atCost?`<p style="color:var(--paper-muted);font-size:11px;margin:4px 0 0">Items marked at cost are invoiced after the flight with the supplier receipts (A7) and paid through a payment request.</p>`:""); })()}
   <h3>ON BOARD AND REMARKS</h3>
   <table class="kv"><tbody>
     <tr><td>Smoking · Animals</td><td>${S.smoking?"Smoking permitted":"No smoking"} · ${S.animals?"Animals permitted with the Operator's written approval":"No animals"}</td></tr>
@@ -1828,11 +1828,11 @@ function docDefinition(cc,logo){
     h("PRICE AND PAYMENT"),
     {table:{widths:["*",110],body:pay.map(([a,b,s])=>[{text:a,color:C.muted,margin:[s?10:0,0,0,0]},{text:b,alignment:"right",color:s?C.muted:C.ink}])},layout:kvLayout},
     kv([["Included",{text:[S.included||"As listed above",{text:"\nNot included: taxes, bank charges and the items charged at cost under A7.",color:C.muted}]}]]),
-    {table:{widths:["*"],body:[[{stack:[label("How to pay · "+payLabel()),{columns:[{width:95,stack:["Payment","Booking reference"],color:C.muted},{stack:["Through the secure Paynode payment request we send you for this booking",{text:S.ref,bold:true}]}]},{text:"Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.",color:C.warn,fontSize:7.6,margin:[0,5,0,0]}]}]]},layout:{hLineWidth:()=>0.6,vLineWidth:()=>0.6,hLineColor:()=>C.rule,vLineColor:()=>C.rule,paddingLeft:()=>9,paddingRight:()=>9,paddingTop:()=>7,paddingBottom:()=>7},margin:[0,7,0,0]},
+    {table:{widths:["*"],body:[[{stack:[label("How to pay · "+payLabel()),{columns:[{width:95,stack:["Payment","Booking reference"],color:C.muted},{stack:["Through the secure payment request we send you for this booking",{text:S.ref,bold:true}]}]},{text:"Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.",color:C.warn,fontSize:7.6,margin:[0,5,0,0]}]}]]},layout:{hLineWidth:()=>0.6,vLineWidth:()=>0.6,hLineColor:()=>C.rule,vLineColor:()=>C.rule,paddingLeft:()=>9,paddingRight:()=>9,paddingTop:()=>7,paddingBottom:()=>7},margin:[0,7,0,0]},
     ...(()=>{ const bt={included:"Included",cost:"At cost after the flight",fixed:"Fixed price"}; const o=[];
       [["CLIENT REQUESTS",S.requests],["OPERATIONAL EXTRAS CHARGED TO THE CHARTERER",S.extras]].forEach(([title,list])=>{ if(!list||!list.length) return;
         o.push(h(title),{table:{headerRows:1,widths:["*",90,92,70],body:[[th("Item"),th("Type"),th("How it is charged"),th("Amount",1)]].concat(list.map(x=>[x.text,x.cat||"",bt[x.basis]||"",{text:x.basis==="fixed"?(num(x.amount)?usd(xc(x)):"–"):(x.basis==="included"?"Included":"At cost"),alignment:"right"}]))},layout:lineLayout}); });
-      if(cc.atCost) o.push({text:"Items marked at cost are invoiced after the flight with the supplier receipts (A7) and paid through Paynode.",color:C.muted,fontSize:7.6,margin:[0,4,0,0]});
+      if(cc.atCost) o.push({text:"Items marked at cost are invoiced after the flight with the supplier receipts (A7) and paid through a payment request.",color:C.muted,fontSize:7.6,margin:[0,4,0,0]});
       return o; })(),
     h("ON BOARD AND REMARKS"),
     kv([["Smoking · Animals",`${S.smoking?"Smoking permitted":"No smoking"} · ${S.animals?"Animals permitted with the Operator's written approval":"No animals"}`],["Cancellation scale",S.opScale?"The Operator's scale in the remarks applies instead of A9":"Standard scale in A9"],["Remarks",S.remarks||"None"]])
@@ -1950,7 +1950,7 @@ function vConf(){
         <div><h3>Itinerary</h3><div class="tbl"><table><thead><tr><th scope=col>Date</th><th scope=col>ETD local</th><th scope=col>From</th><th scope=col>To</th><th scope=col class="n">Pax</th><th scope=col>Positioning</th>${edit ? "<th scope=col></th>" : ""}</tr></thead><tbody>
           ${cf.legs.map((l, i) => `<tr><td><input type="date" id="cl_${i}_date" data-cl="${i}.date" value="${esc(l.date)}" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} date"></td><td><input type="time" id="cl_${i}_etd" data-cl="${i}.etd" value="${esc(l.etd)}" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} time"></td><td><input id="cl_${i}_from" class="apt" data-cl="${i}.from" value="${esc(l.from)}" autocomplete="off" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} from: city, airport or ICAO" style="text-transform:uppercase;width:96px" title="${esc(aptName(l.from))}"></td><td><input id="cl_${i}_to" class="apt" data-cl="${i}.to" value="${esc(l.to)}" autocomplete="off" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} to: city, airport or ICAO" style="text-transform:uppercase;width:96px" title="${esc(aptName(l.to))}"></td><td><input id="cl_${i}_pax" data-cl="${i}.pax" value="${esc(l.pax)}" inputmode="numeric" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} passengers" style="width:64px"></td><td><input type="checkbox" id="cl_${i}_pos" data-cl="${i}.pos" ${l.pos ? "checked" : ""} ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} positioning"></td>${edit ? `<td><button class="btn small" type="button" data-act="confDelLeg" data-i="${i}">Remove</button></td>` : ""}</tr>`).join("")}
         </tbody></table></div>${edit ? `<button class="btn small" type="button" data-act="confAddLeg" style="margin-top:8px">Add leg</button>` : ""}</div>
-        <div><h3>Price and payment</h3><p class="small muted">Charter price ${usd(num(data.price))}, set by the portal at ${(S.terms.margin * 100).toFixed(0)}%. Breakdown is optional and must add up to the price.</p><div class="fgrid">${f("items.flight","Flight and crew (USD)")}${f("items.pos","Positioning (USD)")}${f("items.tax","Airport, handling and taxes (USD)")}${f("items.other","Other (USD)")}${f("pay","Payment through Paynode","select",[["pn_wire","Bank transfer via Paynode"],["pn_instant","Instant payment via Paynode"],["pn_card","Card via Paynode (card cost added)"]])}${f("cardPct","Card cost (%)")}${f("included","Included","area")}</div></div>
+        <div><h3>Price and payment</h3><p class="small muted">Charter price ${usd(num(data.price))}, set by the portal at ${(S.terms.margin * 100).toFixed(0)}%. Breakdown is optional and must add up to the price.</p><div class="fgrid">${f("items.flight","Flight and crew (USD)")}${f("items.pos","Positioning (USD)")}${f("items.tax","Airport, handling and taxes (USD)")}${f("items.other","Other (USD)")}${f("pay","Payment through a payment request","select",[["pn_wire","Bank transfer (payment request)"],["pn_instant","Instant payment (payment request)"],["pn_card","Card (payment request, card cost added)"]])}${f("cardPct","Card cost (%)")}${f("included","Included","area")}</div></div>
         <div><h3>On board and remarks</h3>${f("smoking","Smoking permitted","check")}${f("animals","Animals permitted with the Operator's written approval","check")}${f("opScale","The Operator's cancellation scale applies (write it in remarks)","check")}<div class="fgrid">${f("remarks","Remarks","area")}</div></div>
         ${edit ? `<p class="small muted" id="confSaved">Changes save automatically.</p>` : ""}
       </form>`}
@@ -1980,7 +1980,7 @@ async function saveConfDraft(){
 async function issueConf(btn){
   const t = tripById(S.sel); const st = t.st || {};
   if (ownTrip(t)) { toast("Another operations member or the owner must issue your own trip."); return; }
-  const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by operations"); if (!st.kyc) missing.push("KYC and sanctions"); if (!st.paynodeRef) missing.push("Paynode request reference");
+  const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by operations"); if (!st.kyc) missing.push("KYC and sanctions"); if (!st.paynodeRef) missing.push("payment request reference");
   if (missing.length) { toast("Save these in the operations panel first: " + missing.join(", ")); return; }
   const rev = st.confIssued ? (st.confRev || 1) + 1 : 1;
   const ref = st.ref || CONF.newRef(CONF.todayISO());
@@ -2461,7 +2461,7 @@ function tasksFor(bid, asOps){
       if (t.stage === "issued" && st.confIssued && !st.signed) add(st.sigSentAt ? (t0 - Date.parse(st.sigSentAt) > 2 * day ? 0 : 2) : 1, st.sigSentAt ? `Get the signed contract back: ${nmC} (sent ${fmtD(st.sigSentAt)})` : `Send the confirmation for signature: ${nmC}`, op);
       if (t.stage === "issued" && t0 - Date.parse(st.issuedAt || 0) > 5 * day) add(1, `Chase payment: ${nmC}, confirmed ${fmtD(st.issuedAt)}`, op);
       const legs = (t.d.trip && t.d.trip.legs) || [], last = legs.length ? legs[legs.length - 1].date : "";
-      if (t.stage === "clientPaid" && !st.operatorPaid) add(1, `Pay the operator through Paynode: ${nmC}`, op);
+      if (t.stage === "clientPaid" && !st.operatorPaid) add(1, `Pay the operator from the payment account: ${nmC}`, op);
       if (t.stage === "clientPaid" && last && Date.parse(last) < t0 - day) add(1, `Record the flight: ${nmC} flew ${fmtD(last)}`, op); });
   }
   return out.sort((a, b) => a.sev - b.sev);
@@ -2510,7 +2510,7 @@ function todayAnalytics(){
 /* Portal flow diagram: one source for the portal Help page and the manual (rendered to PNG). */
 function flowSVG(accent){
   const A = accent || "currentColor";
-  const W = 1384, H = 520, lanes = [["AI and automation",70],["Broker",190],["Operations",310],["Client and Paynode",430]];
+  const W = 1384, H = 520, lanes = [["AI and automation",70],["Broker",190],["Operations",310],["Client and payment",430]];
   const bw = 132, bh = 54;
   const x = c => 168 + c * 152;
   const box = (c, r, t1, t2, hi) => { const X = x(c), Y = lanes[r][1] - bh / 2; return `<rect x="${X}" y="${Y}" width="${bw}" height="${bh}" rx="6" fill="none" stroke="${hi ? A : "currentColor"}" stroke-width="${hi ? 2 : 1.2}"/><text x="${X + bw / 2}" y="${Y + 23}" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">${t1}</text>${t2 ? `<text x="${X + bw / 2}" y="${Y + 40}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">${t2}</text>` : ""}`; };
@@ -2525,7 +2525,7 @@ function flowSVG(accent){
   // Broker lane
   s += box(2, 1, "Lead", "contact in 48 h") + box(3, 1, "Enquiry", "airport search") + box(4, 1, "Requests, extras", "and quote ÷ 0.91") + box(5, 1, "7 checks", "documents") + box(6, 1, "Commission", "month flown");
   // Ops lane
-  s += box(5, 2, "Operations check", "Avinode, KYC, Paynode") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
+  s += box(5, 2, "Operations check", "Avinode, KYC, payment") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
   // Client lane
   s += box(6, 3, "Signs, deposit", "25%, min USD 2,500") + box(7, 3, "Balance, flight", "7 days before") ;
   // arrows
@@ -2556,7 +2556,7 @@ function vHelp(){
   const mine = Object.entries(S.myAsks || {}).map(([id, a]) => ({id, ...a})).sort((a, b) => (b.t || "").localeCompare(a.t || ""));
   return `<div class="head"><div><h1>Help</h1><p class="muted small">How every part of the portal works, what to do when something goes wrong, and answers to questions. Ask anything: the AI answers at once, and questions asked often join the FAQ.</p></div></div>
   <div class="panel filters" style="grid-template-columns:1fr"><label class="f" for="helpQ">Search the FAQ and the guide<input id="helpQ" value="${esc(S.helpQ || "")}" placeholder="e.g. deposit, de-icing, lead moved, airport"></label></div>
-  ${!q ? `<div class="panel" style="margin-bottom:16px"><h2>How a trip moves through the portal</h2><figure style="margin:8px 0 0"><div class="flowscroll">${flowSVG("var(--steel)")}</div><figcaption class="small muted">Left to right: research and rotation feed leads; the broker builds the trip; operations checks and issues; the client signs and pays through Paynode; the flight is recorded and commission follows. Dashed arrows loop back.</figcaption></figure></div>` : ""}
+  ${!q ? `<div class="panel" style="margin-bottom:16px"><h2>How a trip moves through the portal</h2><figure style="margin:8px 0 0"><div class="flowscroll">${flowSVG("var(--steel)")}</div><figcaption class="small muted">Left to right: research and rotation feed leads; the broker builds the trip; operations checks and issues; the client signs and pays through the payment request; the flight is recorded and commission follows. Dashed arrows loop back.</figcaption></figure></div>` : ""}
   <div class="grid2"><div class="stack">
     <div class="panel"><h2>Frequently asked questions</h2>${faq.length ? faq.map(f => `<details class="faq" ${S.faqEdit === f.id ? "open" : ""}><summary>${esc(f.q)}${f.source === "ai" ? ` <span class="tag">From questions${f.count ? " · asked " + f.count + "×" : ""}</span>` : ""}</summary>${S.faqEdit === f.id ? `<form id="faqForm" class="stack" data-fid="${f.id}"><label class="f" for="fq_q">Question<input id="fq_q" value="${esc(f.q)}"></label><label class="f" for="fq_a">Answer<textarea id="fq_a" rows="4">${esc(f.a)}</textarea></label><div class="row"><button class="btn small primary" type="submit">Save</button><button class="btn small" type="button" data-act="faqCancel">Cancel</button></div></form>` : `<p>${esc(f.a)}</p>`}${S.isOwner && !S.preview && S.faqEdit !== f.id ? `<div class="row"><button class="btn small" type="button" data-faqedit="${f.id}">Edit</button><button class="btn small danger" type="button" data-faqhide="${f.id}">Remove</button></div>` : ""}</details>`).join("") : `<p class="small muted">${q ? "No FAQ matches. Ask your question on the right." : "The FAQ is loading."}</p>`}</div>
     <div class="panel"><h2>Feature guide</h2>${HELP.guide ? feats.map(f => `<details class="faq"><summary>${esc(f.title)} <span class="muted small">· ${esc(f.who)}</span></summary><p>${esc(f.purpose)}</p><h3>How it works</h3><ol class="small">${f.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol><h3>Troubleshooting</h3><table class="small"><thead><tr><th scope=col>If you see</th><th scope=col>Do this</th></tr></thead><tbody>${f.trouble.map(t => `<tr><td>${esc(t[0])}</td><td>${esc(t[1])}</td></tr>`).join("")}</tbody></table><h3>Tips and tricks</h3><ul class="small">${f.tips.map(x => `<li>${esc(x)}</li>`).join("")}</ul></details>`).join("") || `<p class="small muted">No guide page matches.</p>` : `<p class="small muted">Loading the guide…</p>`}</div>
@@ -2781,7 +2781,7 @@ function sigText(t, reminder){
     ...(atCost.length ? ["Charged at cost after the flight, with receipts:", ...atCost.map(x => `- ${x.cat}: ${x.text}`)] : []),
     cc.full ? `Payment: the full amount of ${usd(total)} on signature (departure is within 7 days).` : `Payment: deposit of ${usd(cc.deposit)} on signature; balance of ${usd(cc.balance)} by ${dl(cc.balanceDue)}.`,
     ...(data.pay === "pn_card" && num(data.cardPct) ? [`Card payment adds a card cost of ${data.cardPct}%.`] : []),
-    "Payment is made only through the secure Paynode payment request you will receive from us. We never ask you to pay into a bank account by email or message; if you ever receive such a request, do not pay and call us.",
+    "Payment is made only through the secure payment request you will receive from us. We never ask you to pay into a bank account by email or message; if you ever receive such a request, do not pay and call us.",
     "", "TO CONFIRM YOUR BOOKING", "1. Check the itinerary, aircraft, operator and price in the attached confirmation.", "2. Sign and date it where marked \"For the Charterer\".",
     `3. Return the signed PDF by reply to this email${valid ? " before " + valid : ""}. The aircraft is held for you until then${valid ? "" : " as stated in the confirmation"}.`,
     "The cancellation terms are set out in the confirmation.",
@@ -3061,7 +3061,7 @@ const curNote = q => q && q.cur && q.cur !== "USD" && q.curAmt ? ` Quoted ${esc(
 document.addEventListener("dragover", e => { const d = e.target.closest && e.target.closest(".drop"); if (d) { e.preventDefault(); d.classList.add("over"); } });
 document.addEventListener("dragleave", e => { const d = e.target.closest && e.target.closest(".drop"); if (d) d.classList.remove("over"); });
 document.addEventListener("drop", e => { const d = e.target.closest && e.target.closest(".drop"); if (!d) return; e.preventDefault(); d.classList.remove("over"); const inp = d.querySelector("input[type=file]"); if (inp && e.dataTransfer.files.length) { inp.files = e.dataTransfer.files; inp.dispatchEvent(new Event("change", {bubbles: true})); } });
-/* ---------- Training: practise a booking from first call to commission, with a training Avinode and Paynode.
+/* ---------- Training: practise a booking from first call to commission, with training versions of Avinode and the payment system.
    Everything lives under train/<uid>/runs. Nothing here touches real trips, commission, leads, dashboards or Control,
    and nothing can be issued. Prices and operators are invented training figures, not market data. ---------- */
 const TR_RATE = {"Very light jet":[3000,700,2200], "Light jet":[3600,720,3000], "Midsize jet":[4600,760,4000], "Super-midsize jet":[5800,800,5800], "Heavy jet":[8200,850,7000], "Ultra-long-range jet":[11500,880,12000]}; // USD per hour, km/h, range km (training figures)
@@ -3116,7 +3116,7 @@ const TR_SC = [
    offers:[{op:"Anatolia Jet AS", st:"Türkiye", type:"Citation XLS+", cat:"Midsize jet", seats:8, yom:2015, rating:"ARGUS Gold Plus", reg:"TC-TRA"},
      {op:"Golden Horn Aviation AS", st:"Türkiye", type:"Challenger 350", cat:"Super-midsize jet", seats:9, yom:2018, rating:"ARGUS Platinum", reg:"TC-TRB"}]},
 ];
-const TR_STEPS = ["Brief","Enquiry","Avinode","Requests and extras","Price","Checks","Operations","Confirmation","Paynode","Flight and commission"];
+const TR_STEPS = ["Brief","Enquiry","Avinode","Requests and extras","Price","Checks","Operations","Confirmation","Payment","Flight and commission"];
 const trSc = id => TR_SC.find(s => s.id === id);
 const trRuns = () => Object.entries(S.trRuns || {}).filter(([id]) => id !== "course" && id !== "onboarding").map(([id, r]) => ({id, ...r})).sort((a, b) => (b.started || "").localeCompare(a.started || ""));
 const trRun = () => S.trSel && (S.trRuns || {})[S.trSel] ? {id: S.trSel, ...S.trRuns[S.trSel]} : null;
@@ -3151,9 +3151,9 @@ function trReview(r){
   const sc = trSc(r.sc), crit = [], minor = [], ok = [];
   const o = r.pick != null ? r.offers[r.pick] : null;
   if (sc.decline) {
-    if (r.decision === "decline" && r.declineWhy === "paynode") ok.push("Right call: Paynode cannot send or receive funds for Russia, so the trip cannot be paid. It stops here.");
-    else if (r.decision === "decline") minor.push("Declining was right, but the reason is the payer: Paynode cannot serve Russia. Record the exact reason.");
-    else crit.push("Red: the payer is registered in Russia. Paynode cannot send or receive funds there. Decline the trip and record why.");
+    if (r.decision === "decline" && r.declineWhy === "payment") ok.push("Right call: we cannot take payments from or pay to Russia, so the trip cannot be paid. It stops here.");
+    else if (r.decision === "decline") minor.push("Declining was right, but the reason is the payer: we cannot take payments from Russia. Record the exact reason.");
+    else crit.push("Red: the payer is registered in Russia. We cannot take payments from there (sanctions). Decline the trip and record why.");
     return {crit, minor, ok};
   }
   if (r.decision === "decline") crit.push("Nothing in this request is a reason to decline. Look again at the operators and the client's needs.");
@@ -3178,7 +3178,7 @@ function trScore(r){
   s.requests = sc.decline ? 15 : sc.need.length ? Math.round(15 * sc.need.filter(n => (r[n.sec] || []).some(x => x.cat === n.cat && (!n.basis || x.basis === n.basis))).length / sc.need.length) : 15;
   s.price = sc.decline ? 10 : (o && num(r.myPrice) === priceOf(o.price, num(r.direct)) ? 10 : 0);
   s.checks = (BROKER_CHECKS.every(([k]) => (r.checks || {})[k]) ? 5 : 0) + ((sc.decline ? r.decision === "decline" : r.decision === "send") ? 10 : 0);
-  s.paynode = sc.decline ? 15 : (r.pn ? (r.pn.depOk ? 6 : 0) + (r.pn.dateOk ? 4 : 0) + (r.pn.opOk ? 5 : 0) : 0);
+  s.payment = sc.decline ? 15 : (r.pn ? (r.pn.depOk ? 6 : 0) + (r.pn.dateOk ? 4 : 0) + (r.pn.opOk ? 5 : 0) : 0);
   s.firstTime = (r.returns || 0) === 0 ? 10 : 0;
   s.total = Object.values(s).reduce((a, b) => a + b, 0); return s;
 }
@@ -3188,7 +3188,7 @@ function vTraining(){
   loadAirports();
   const r = trRun(), runs = trRuns();
   const staffView = isStaff() && !S.preview && S.view === "training";
-  return `<div class="head"><div><h1>Training</h1><p class="muted small">Practise a whole booking, from the client's first request to commission, with a training Avinode and Paynode. Nothing here is real: no trip is created, nothing is sent to operations or issued, and nothing counts toward commission or the leaderboard. Operators, aircraft and prices are invented training figures.</p></div></div>
+  return `<div class="head"><div><h1>Training</h1><p class="muted small">Practise a whole booking, from the client's first request to commission, with training versions of Avinode and the payment system. Nothing here is real: no trip is created, nothing is sent to operations or issued, and nothing counts toward commission or the leaderboard. Operators, aircraft and prices are invented training figures.</p></div></div>
   <div class="note warn small" style="margin-bottom:12px"><b>Training mode.</b> Every screen in this section is marked TRAINING. Use real client details only in real trips, never here.</div>
   <div class="grid2 trgrid"><div class="stack">
     <div class="panel"><h2>Exercises</h2><div class="list">${TR_SC.map(sc => { const done = runs.filter(x => x.sc === sc.id && x.done), best = done.length ? Math.max(...done.map(x => x.score || 0)) : null;
@@ -3224,7 +3224,7 @@ function trRunView(r){
   if (st === 5) body = `<h3>The seven checks, then your decision</h3>${BROKER_CHECKS.map(([k, l]) => `<label class="check" for="trc_${k}"><input type="checkbox" id="trc_${k}" data-trc="${k}" ${(r.checks || {})[k] ? "checked" : ""}><span>${l}</span></label>`).join("")}
     <h3 style="margin-top:10px">Decision</h3><label class="check" for="tr_dsend"><input type="radio" name="tr_dec" id="tr_dsend" value="send" ${r.decision === "send" ? "checked" : ""}><span>Send to operations</span></label>
     <label class="check" for="tr_ddec"><input type="radio" name="tr_dec" id="tr_ddec" value="decline" ${r.decision === "decline" ? "checked" : ""}><span>Decline the trip</span></label>
-    <label class="f" for="tr_why" style="max-width:420px">If declining, why<select id="tr_why"><option value="">Choose a reason</option><option value="paynode" ${r.declineWhy === "paynode" ? "selected" : ""}>The payer is in a country Paynode cannot serve</option><option value="cabotage" ${r.declineWhy === "cabotage" ? "selected" : ""}>Illegal charter or cabotage</option><option value="safety" ${r.declineWhy === "safety" ? "selected" : ""}>No operator meets our safety standard</option><option value="other" ${r.declineWhy === "other" ? "selected" : ""}>Other</option></select></label>
+    <label class="f" for="tr_why" style="max-width:420px">If declining, why<select id="tr_why"><option value="">Choose a reason</option><option value="payment" ${r.declineWhy === "payment" ? "selected" : ""}>The payer is in a country we cannot take payments from or pay to</option><option value="cabotage" ${r.declineWhy === "cabotage" ? "selected" : ""}>Illegal charter or cabotage</option><option value="safety" ${r.declineWhy === "safety" ? "selected" : ""}>No operator meets our safety standard</option><option value="other" ${r.declineWhy === "other" ? "selected" : ""}>Other</option></select></label>
     <div class="row"><button class="btn" type="button" data-tr="back">Back</button><button class="btn primary" type="button" data-tr="submit">Submit</button></div>`;
   if (st === 6) { const v = r.review || {crit:[], minor:[], ok:[]}, pass = !v.crit.length;
     body = `<h3>Operations review (training)</h3>${pass ? `<div class="note ok"><b>${trSc(r.sc).decline ? "Correctly stopped." : "Approved by operations."}</b></div>` : `<div class="note bad"><b>Returned to you.</b> Fix the points below and submit again. Each return costs the first-time bonus.</div>`}
@@ -3233,14 +3233,14 @@ function trRunView(r){
   if (st === 7) body = `<h3>Charter confirmation (training)</h3><p class="small muted">This is what operations would issue. In training it is never issued: it carries a draft watermark and the reference ${esc(r.ref)}. Read it as the client would.</p>
     <div class="trconf">${sheetsHtml(trConfData(r), true)}</div><div class="row"><button class="btn primary" type="button" data-tr="signed">The client has signed (simulated)</button></div>`;
   if (st === 8) { const cc = trDeadline(r), pn = r.pn || {};
-    body = `<h3>Paynode (training)</h3><p class="small muted">Create the payment request the client receives. Fill in what the client pays now and when the balance is due, then pay the operator. Client total ${usd(cc.total)}, first departure ${fmtD(r.enq.legs[0].date)}, confirmation dated ${fmtD((r.started || "").slice(0, 10))}.</p>
+    body = `<h3>Payment request (training)</h3><p class="small muted">Create the payment request the client receives. Fill in what the client pays now and when the balance is due, then pay the operator. Client total ${usd(cc.total)}, first departure ${fmtD(r.enq.legs[0].date)}, confirmation dated ${fmtD((r.started || "").slice(0, 10))}.</p>
     <div class="fgrid"><label class="f" for="tr_dep">Due on signature (USD)<input id="tr_dep" inputmode="decimal" value="${esc(pn.dep || "")}"></label><label class="f" for="tr_bal">Balance due date (leave empty if all is due now)<input type="date" id="tr_bal" value="${esc(pn.bal || "")}"></label><label class="f" for="tr_op">Pay the operator (USD)<input id="tr_op" inputmode="decimal" value="${esc(pn.op || "")}"></label></div>
-    ${pn.checked ? `<div class="stack small">${[[pn.depOk, `Due on signature: ${usd(cc.deposit)} ${cc.full ? "(full amount: departure within 7 days)" : "(25% of the charter price, at least USD 2,500)"}`], [pn.dateOk, cc.full ? "No balance date: everything is due now." : `Balance ${usd(cc.balance)} due ${fmtD(cc.balanceDue)}, 7 days before departure.`], [pn.opOk, `Operator receives its own price, ${usd(o.price)}, through Paynode. Never the client price.`]].map(([ok, t]) => `<div class="note ${ok ? "ok" : "bad"}">${ok ? "Correct" : "Not right"}: ${esc(t)}</div>`).join("")}</div>` : ""}
+    ${pn.checked ? `<div class="stack small">${[[pn.depOk, `Due on signature: ${usd(cc.deposit)} ${cc.full ? "(full amount: departure within 7 days)" : "(25% of the charter price, at least USD 2,500)"}`], [pn.dateOk, cc.full ? "No balance date: everything is due now." : `Balance ${usd(cc.balance)} due ${fmtD(cc.balanceDue)}, 7 days before departure.`], [pn.opOk, `Operator receives its own price, ${usd(o.price)}, through a payment request. Never the client price.`]].map(([ok, t]) => `<div class="note ${ok ? "ok" : "bad"}">${ok ? "Correct" : "Not right"}: ${esc(t)}</div>`).join("")}</div>` : ""}
     <div class="row"><button class="btn" type="button" data-tr="pnCheck">Create payment request</button>${pn.checked ? `<button class="btn primary" type="button" data-tr="next">Record the flight</button>` : ""}</div>`; }
   if (st === 9) { const price = priceOf(o.price, num(r.direct)), gp = price - o.price - num(r.direct) + (r.extrasGp || 0);
     body = `<h3>Flight and commission</h3><p>The flight operated. In a real trip, operations records it and your commission appears in the month flown.</p><div class="price"><span>Client price</span><span class="mono">${usd(price)}</span><span>Operator price and direct costs</span><span class="mono">${usd(o.price + num(r.direct))}</span><span class="tot">Gross profit</span><span class="tot mono">${usd(gp)}</span><span>Your commission at ${(S.terms.rate1 * 100).toFixed(0)}% (first ${S.terms.threshold} bookings a month)</span><span class="mono">${usd(gp * S.terms.rate1)}</span></div><p class="small muted">Training only: this is not counted anywhere.</p><div class="row"><button class="btn primary" type="button" data-tr="finish">See your score</button></div>`; }
   if (st >= 10 || r.done) { const s = r.scores || trScore(r);
-    body = `<h3>Your score: ${s.total} of 100</h3><table class="small"><tbody>${[["Enquiry",s.enquiry,15],["Operator choice",s.operator,20],["Requests and extras",s.requests,15],["Price",s.price,10],["Checks and decision",s.checks,15],["Paynode",s.paynode,15],["Right first time",s.firstTime,10]].map(([l, v, m]) => `<tr><td>${l}</td><td class="n">${v} / ${m}</td></tr>`).join("")}</tbody></table>
+    body = `<h3>Your score: ${s.total} of 100</h3><table class="small"><tbody>${[["Enquiry",s.enquiry,15],["Operator choice",s.operator,20],["Requests and extras",s.requests,15],["Price",s.price,10],["Checks and decision",s.checks,15],["Payment",s.payment,15],["Right first time",s.firstTime,10]].map(([l, v, m]) => `<tr><td>${l}</td><td class="n">${v} / ${m}</td></tr>`).join("")}</tbody></table>
     <p class="small muted">${s.total >= 80 ? "Ready for real bookings of this kind." : "Run it again: the operators and figures stay the same, so you can see what you missed."} Your scores are visible to the owner and operations.</p><div class="row"><button class="btn primary" type="button" data-tr="start" data-sc="${r.sc}">Try again</button></div>`; }
   return `<div class="panel stack trpanel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(sc.title)}</h2><span class="chip c-review">Training</span></div>${trStepper(r)}${body}</div>`;
 }
@@ -3422,13 +3422,13 @@ function supPanel(){
 /* ---------- Roleplay lab (manual 14.4–14.5) ---------- */
 const RP_SC = [
  ["aog","AOG: the booked aircraft is unserviceable 6 hours before departure","Operator's written replacement options; extra cost approved by the director, never promised on the call (11.3)"],
- ["deposit","The assistant refuses the 25% deposit and wants to pay after the flight","Explain the booking terms (10.6); Paynode card or bank options; no exception without the director"],
+ ["deposit","The assistant refuses the 25% deposit and wants to pay after the flight","Explain the booking terms (10.6); card or bank payment options; no exception without the director"],
  ["cabotage","The principal insists on a domestic leg on a foreign-registered aircraft","Explain cabotage plainly; local operator for that leg or a new routing; never sell it (2.4)"],
  ["cheaper","“Another broker quoted 15% less”","Compare like for like; two or three options; below 9% only with director approval (12.6)"],
  ["addpax","A passenger is added on the day","Names to the operator at once; permits, insurance and seats confirmed in writing first"],
  ["pet","The client wants to bring a dog to a strict-entry country","Destination rules and the operator's written acceptance first (G.4)"],
  ["deice","De-icing delays departure and the client is angry about the charge","Safety is the crew's decision; charged at cost with the receipt (9.2)"],
- ["bank","The client asks to pay into a personal account or sends new bank details by chat","Stop: Paynode only; treat as fraud until proven otherwise (3.5)"],
+ ["bank","The client asks to pay into a personal account or sends new bank details by chat","Stop: payment request only; treat as fraud until proven otherwise (3.5)"],
  ["hide","The client asks to leave a passenger's name off the manifest","Refuse politely; tell the director (2.4)"],
  ["sanction","Screening shows a possible sanctions match on the payer","Pause without accusing; short internal check; tell the director (3.2)"],
  ["guarantee","The client demands a guaranteed departure time in winter","Promise only what the operator confirms in writing; de-icing and slots (6.4)"],
@@ -3436,7 +3436,7 @@ const RP_SC = [
 ];
 const RP_WHO = ["Client (principal)","Executive assistant","Family-office manager","Operator's sales manager"];
 const RP_LV = ["Easy","Normal","Hard"];
-const RP_RULES = "Archē Executive rules the broker must follow: Archē is a charter broker, not the operator, and names the operator. Price = operator price plus direct costs divided by 0.91 (9% margin); below 9% only with the director's approval. Deposit 25% of the charter price (at least USD 2,500) on signature, balance 7 days before departure, full payment if departure is under 7 days. All payments only through a Paynode payment request; never bank details by email or chat. Never promise anything the operator has not confirmed in writing. Safety and weather decisions belong to the captain and operator. Never sell: domestic legs on foreign-registered aircraft (cabotage), US domestic legs on non-US operators, seats sold individually, flights hiding passenger names, sanctioned persons, operators without an AOC. Extras that depend on the day (de-icing, parking, out-of-hours fees) are charged at cost after the flight with receipts. KYC and sanctions screening before any contract. Escalate to the director when the rules say so. Confirm everything important in writing.";
+const RP_RULES = "Archē Executive rules the broker must follow: Archē is a charter broker, not the operator, and names the operator. Price = operator price plus direct costs divided by 0.91 (9% margin); below 9% only with the director's approval. Deposit 25% of the charter price (at least USD 2,500) on signature, balance 7 days before departure, full payment if departure is under 7 days. All payments only through a payment request; never bank details by email or chat. Never promise anything the operator has not confirmed in writing. Safety and weather decisions belong to the captain and operator. Never sell: domestic legs on foreign-registered aircraft (cabotage), US domestic legs on non-US operators, seats sold individually, flights hiding passenger names, sanctioned persons, operators without an AOC. Extras that depend on the day (de-icing, parking, out-of-hours fees) are charged at cost after the flight with receipts. KYC and sanctions screening before any contract. Escalate to the director when the rules say so. Confirm everything important in writing.";
 function rpRuns(){ return (S.rpRuns || []).slice().sort((a, b) => (b.started || "").localeCompare(a.started || "")); }
 async function rpLoad(){ if (S.rpLoading) return; S.rpLoading = true; try { const q = await S.db.collection(`train/${S.uid}/rp`).get(); S.rpRuns = q.docs.map(d => ({id:d.id, ...d.data()})); } catch(e){ S.rpRuns = []; } render(); }
 function rpInstr(s){
@@ -3528,7 +3528,7 @@ const CARDS_DEF = {verified:"2026-10-19", by:"director", cards:[
  {id:"eu", title:"Europe: EU, EEA, Switzerland and the United Kingdom", green:"Whole aircraft from an EU/EEA/UK operator with a checked AOC; international or same-carrier-country flights; clean screening", amber:"Non-EU operator into or within Europe (EASA third-country operator authorisation and each state's permits, confirmed in writing); any leg that may be domestic, including territories (G.1); package with hotel or event (ATOL in the UK); de-icing season", red:"Leg inside the EU on a non-EU operator without written permission; Russian national (including dual) or company controlled by one with any EU point, or a Russian-registered aircraft; operator on the EU Air Safety List; seats sold individually; payer or operator in a G.7 country", src:"Modules 2.4, 2.5, 2.9; Appendix G.1, G.2, G.7"},
  {id:"mea", title:"Middle East and Africa", green:"Experienced operator with permits handled through its trip support; whole aircraft; clean screening", amber:"Landing and overflight permits, sponsor rules and lead times vary by state: operator confirms in writing; routes near FAA or EASA conflict-zone notices (G.3); PEP clients; third-party payers", red:"Embargoed destination or sanctions match; payer or operator in a G.7 country (for example Libya, South Sudan, Sudan, Syria); lead time impossible to meet", src:"Modules 2.5, 2.9, 3.2; Appendix G.2, G.3, G.7"},
  {id:"apac", title:"Asia-Pacific: Singapore, Thailand and the region", green:"International flight on an operator with the needed permits; Singapore slot and Air Transport Permit planned (Changi slot at least 72 hours ahead); clean screening", amber:"Thailand: CAAT permits, slots and parking approval at the main Bangkok airports and Phuket, full passenger and crew details; China, India and Russian airspace (strict permit regimes, G.5); Hong Kong and Macau regime with mainland China (G.1); pets into Singapore, Japan, Australia or New Zealand (G.4)", red:"Domestic leg on a foreign-registered aircraft (cabotage is closely enforced in Thailand); North Korea; payer or operator in a G.7 country (for example Myanmar, Kazakhstan); lead time impossible to meet", src:"Modules 2.5, 2.6, 2.9; Appendix G.1, G.4, G.5, G.7"},
- {id:"am", title:"Americas: United States, Canada and Latin America", green:"International flight on a US or foreign operator holding the needed authority; whole aircraft; clean screening; US broker disclosures made (14 CFR Part 295)", amber:"Foreign operator to or from the US (needs US authority); US federal excise tax when acting as principal (G.6); Canada and Latin America domestic legs reserved for local carriers; FAA security notices (for example Haiti, Central America, Colombia, Ecuador, Mexico, Panama)", red:"Any US domestic leg (both airports in the US, including Alaska, Hawaii and territories): never on a non-US operator, and on any operator only after US counsel confirms Archē's position; Cuba with a US-made aircraft; Venezuela (Paynode cannot pay)", src:"Modules 2.4, 2.5, 2.9; Appendix G.1, G.3, G.6, G.7"}]};
+ {id:"am", title:"Americas: United States, Canada and Latin America", green:"International flight on a US or foreign operator holding the needed authority; whole aircraft; clean screening; US broker disclosures made (14 CFR Part 295)", amber:"Foreign operator to or from the US (needs US authority); US federal excise tax when acting as principal (G.6); Canada and Latin America domestic legs reserved for local carriers; FAA security notices (for example Haiti, Central America, Colombia, Ecuador, Mexico, Panama)", red:"Any US domestic leg (both airports in the US, including Alaska, Hawaii and territories): never on a non-US operator, and on any operator only after US counsel confirms Archē's position; Cuba with a US-made aircraft; Venezuela (no payments possible)", src:"Modules 2.4, 2.5, 2.9; Appendix G.1, G.3, G.6, G.7"}]};
 function cardsData(){ const c = S.cards && S.cards.cards ? S.cards : CARDS_DEF; return c; }
 function cardsWatch(){ if (S.cardsW) return; S.cardsW = true; watchDoc("intel/cards", snap => { S.cards = snap.exists ? snap.data() : null; render(); }); watchDoc("intel/cardProposals", snap => { S.cardProps = snap.exists ? snap.data() : null; render(); }); }
 function cardsView(){
@@ -3666,7 +3666,7 @@ function apChecks(t){
   out.push([bc === BROKER_CHECKS.length, `Broker checks ${bc} of ${BROKER_CHECKS.length}`]);
   out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by operations" : "Operator price not confirmed by operations"]);
   out.push([!!st.kyc, st.kyc ? "KYC and sanctions done" : "KYC and sanctions not done"]);
-  out.push([!!st.paynodeRef, st.paynodeRef ? "Paynode request ready" : "Paynode request not created"]);
+  out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Margin ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
   if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, operations confirmed ${usd(f.op)}`]);
   if (f.days !== null) out.push([f.days >= 2, f.days < 0 ? "Departure date has passed" : `Departs in ${f.days} day${f.days === 1 ? "" : "s"}${f.days < 7 ? ": full payment on signature" : ""}`]);
@@ -3689,7 +3689,7 @@ function apCard(t, compact){
     ${(d.trip && d.trip.notes) ? `<p class="small muted">Broker notes: ${esc(d.trip.notes)}</p>` : ""}
     ${(S.isOwner || (typeof canRight === "function" && canRight("approve") && t.bid !== S.uid)) && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
     <div class="row"><button class="btn primary" type="button" data-ap="ok" data-id="${t.bid}|${t.did}">Approve booking</button><button class="btn" type="button" data-ap="no" data-id="${t.bid}|${t.did}">Ask for changes</button>${compact ? `<a class="btn" href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a>` : ""}</div>
-    <p class="small muted">Approving lets operations issue the confirmation once KYC, Paynode and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> Operations can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
+    <p class="small muted">Approving lets operations issue the confirmation once KYC, the payment request and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> Operations can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
 }
 function apPanel(){
   if (!S.isOwner) return "";
@@ -5626,7 +5626,7 @@ const OWNER_TODO = [
     how:"After company formation: open the three business accounts, then add the numbers and IDs in Settings so they show in signatures and on the website."},
   {id:"ext-academy-pay", sev:"low", title:"External broker academy: paid access by credit card before it opens", later:true,
     why:"The external academy is sold to outside brokers; nobody gets in until they have paid by card (Morten, 26 Oct 2026).",
-    how:"Decide the price and the card payment provider (the Paynode replacement, or a card checkout such as Stripe). Claude then builds sign-up, card payment and access that opens only after payment, with receipts and refunds handled by the provider; no card details ever touch the portal."},
+    how:"Decide the price and the card payment provider (to be agreed; for example a card checkout such as Stripe). Claude then builds sign-up, card payment and access that opens only after payment, with receipts and refunds handled by the provider; no card details ever touch the portal."},
   {id:"research", sev:"low", title:"Turn daily prospect research back on (at go-live)", later:true,
     why:"Paused since 21 Oct 2026 to save AI credit; until then new prospects come from research in chat.",
     how:"Ask Claude to restore the daily research line in the jobs workflow; it needs AI credit (see the AI step)."},

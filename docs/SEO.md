@@ -12,7 +12,7 @@
 2. **Google Business Profile:** Singapore office (and Bangkok when it opens). Needs a real address and phone; the strongest signal for "private jet charter Singapore" style searches.
 3. **Bing Webmaster Tools:** same as Search Console; also feeds ChatGPT and Copilot search.
 4. **Real details on the site:** phone, address, advisor name. Search engines and clients both look for them (trust).
-5. **Listings and links:** ACA membership page, Avinode/Paynode partner listings if offered, Singapore and Thai business directories, LinkedIn company page pointing to the site.
+5. **Listings and links:** ACA membership page, Avinode partner listings if offered, Singapore and Thai business directories, LinkedIn company page pointing to the site.
 
 ## Next build steps (proposed, in order)
 1. **Route and city pages:** for example "Private jet charter Singapore", "… Bangkok", "Singapore to Bangkok", "Bangkok to Hong Kong", "Phuket", "Bali". One page each with real, useful content: flight time, suitable aircraft from the aircraft finder, airports (Seletar, Changi, Don Mueang, U-Tapao), what affects the price. These pages are what ranks for searches with buying intent.

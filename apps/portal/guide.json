@@ -289,7 +289,7 @@
     "Open Operations; take the oldest trip in Waiting for operations.",
     "Confirm the operator price on Avinode and enter direct trip costs.",
     "Complete KYC and sanctions screening and tick the record.",
-    "Create the Paynode payment request from the Avinode trip and enter its reference.",
+    "Create the payment request in our payment provider and enter its reference.",
     "Save, then Prepare and issue confirmation, or Return to broker with a note.",
     "Each trip waiting for operations shows how long it has waited: amber after 4 hours, red after 24. The oldest is listed first."
    ],
@@ -305,7 +305,7 @@
    ],
    "tips": [
     "Work the queue oldest first; check it at least twice a day.",
-    "Never take payment details by email; every client pays through the Paynode request."
+    "Never take payment details by email; every client pays through the payment request."
    ]
   },
   {
@@ -346,7 +346,7 @@
    "purpose": "Every issued confirmation is signed by the charterer before payment is recorded, and the signed copy is kept with the trip and in the Google Drive backup.",
    "steps": [
     "After the confirmation is issued, the trip file and the confirmation page show a Client signature panel: Not sent, Sent or Signed.",
-    "Check the charterer's email and press Send for signature. The confirmation PDF downloads and your mail program opens a ready-written email: the full itinerary with airport names and local times, aircraft and registration, operator, price, fixed-price extras, items charged at cost, deposit and balance with due dates, the offer deadline, how to sign and the Paynode-only payment warning. Attach the PDF and send it from the bookings mailbox. The trip is marked Sent at once.",
+    "Check the charterer's email and press Send for signature. The confirmation PDF downloads and your mail program opens a ready-written email: the full itinerary with airport names and local times, aircraft and registration, operator, price, fixed-price extras, items charged at cost, deposit and balance with due dates, the offer deadline, how to sign and the payment-request-only warning. Attach the PDF and send it from the bookings mailbox. The trip is marked Sent at once.",
     "Preview email shows the text first; Copy email text copies it for webmail.",
     "When the signed PDF comes back, drop it on the panel (or choose the file). It saves to the trip straight away, is logged in the audit trail and is filed in Google Drive under the trip's 04 Signed contracts folder.",
     "No answer after 24 hours: the button changes to Send a reminder, with a reminder email. Reminders are counted on the trip.",
@@ -386,8 +386,8 @@
    "who": "Operations records; everyone sees their own commission",
    "purpose": "Record money and flights so commission is right and on time.",
    "steps": [
-    "Operations records the date the client payment cleared in Paynode.",
-    "Operations records the operator payment through Paynode.",
+    "Operations records the date the client payment cleared in the payment account.",
+    "Operations records the operator payment.",
     "After the last leg, operations records the flight date.",
     "Commission appears in the month the trip flew, paid by the 15th of the next month; the owner marks it paid.",
     "Client payment can be recorded only after the signed contract is saved. Commission payouts need a payment reference and date, and are logged in the audit trail."
@@ -716,7 +716,7 @@
    "id": "training",
    "title": "Training",
    "who": "Everyone",
-   "purpose": "Practise a whole booking, from the client's first request to commission, with a training Avinode and Paynode. Nothing is real: no trip is created, nothing goes to operations or is issued, and nothing counts toward commission or the leaderboard.",
+   "purpose": "Practise a whole booking, from the client's first request to commission, with training versions of Avinode and the payment system. Nothing is real: no trip is created, nothing goes to operations or is issued, and nothing counts toward commission or the leaderboard.",
    "steps": [
     "Start with Portal course: lessons for your role, each with a Try it task in the test version and a short check.",
     "Open Training and choose an exercise. There are six, from a first London–Nice booking to a winter long-haul flight, a US domestic flight, a short-notice trip and a red-flag payer.",
@@ -726,7 +726,7 @@
     "Work out the client price yourself: (operator price + direct costs) ÷ 0.91, rounded up.",
     "Tick the seven checks and decide: send to operations, or decline with the reason.",
     "Training operations reviews the file. Anything wrong comes back with the reason; fix it and submit again.",
-    "Read the training confirmation (marked TRAINING, never issued), mark it signed, then create the training Paynode request: what is due on signature, when the balance is due, and what the operator is paid.",
+    "Read the training confirmation (marked TRAINING, never issued), mark it signed, then create the training payment request: what is due on signature, when the balance is due, and what the operator is paid.",
     "See the flight, gross profit and the commission it would earn, then your score out of 100."
    ],
    "trouble": [
@@ -915,7 +915,7 @@
    "steps": [
     "A broker sends a trip to operations. It appears at the top of Today under Bookings to approve, soonest departure first, and in the trip file.",
     "Each card shows the client and payer, legs with dates and passengers, aircraft and operator, operator price, client price, Archē margin in USD and %, deposit and balance with the due date, the broker and win chance.",
-    "Chips show what is done (green) and what is open (red): broker checks, operator price confirmed by operations, KYC and sanctions, Paynode request, margin, days to departure; risk flags show below.",
+    "Chips show what is done (green) and what is open (red): broker checks, operator price confirmed by operations, KYC and sanctions, payment request, margin, days to departure; risk flags show below.",
     "Press Approve booking, or write a note and press Ask for changes, which sends the trip back to the broker.",
     "After approval, operations issues the confirmation once its checks are done. If the price or operator price changes after approval, the trip comes back to you.",
     "Switch the rule off or on with the tick box beside Bookings to approve."
@@ -927,7 +927,7 @@
     ],
     [
      "The card shows red chips",
-     "You can still approve the commercial deal; operations cannot issue until KYC, Paynode and the checks are done."
+     "You can still approve the commercial deal; operations cannot issue until KYC, the payment request and the checks are done."
     ]
    ],
    "tips": [
@@ -1074,7 +1074,7 @@
     "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A lower margin needs the director's approval.",
     "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
     "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
-    "Clients pay only through a Paynode payment request. Never print, store or send bank details.",
+    "Clients pay only through a payment request. Never print, store or send bank details.",
     "The owner approves every booking before a confirmation is issued; a price change after approval sends it back for approval.",
     "Four-eyes: nobody prices, issues or records payment on their own trip.",
     "Brokers set only enquiry, quoted, sent to operations or cancelled. Money stages come from operations.",
@@ -1084,7 +1084,7 @@
    "trouble": [
     [
      "A client asks for our bank details",
-     "Never send them. Operations sends a Paynode payment request."
+     "Never send them. Operations sends a payment request."
     ],
     [
      "A client wants to fly in 3 days",
@@ -1142,7 +1142,7 @@
     "The client cancels in writing. The charge depends on how long before the first departure we receive the notice.",
     "Scale, as a share of the charter price: more than 14 days 25%; 7 to 14 days 40%; 72 hours to under 7 days 65%; 24 to under 72 hours 85%; under 24 hours or no-show 100%.",
     "The client pays the higher of the scale or the operator's own cancellation charge plus our brokerage fee. The operator's terms are in the confirmation's remarks.",
-    "Brokers can cancel their own trip while it is an enquiry or a quote. After that, operations cancels it in Operations with Cancel trip; any refund is handled in Paynode."
+    "Brokers can cancel their own trip while it is an enquiry or a quote. After that, operations cancels it in Operations with Cancel trip; any refund is handled in the payment account."
    ],
    "trouble": [
     [
@@ -1215,7 +1215,7 @@
   ],
   [
    "Who issues the charter confirmation?",
-   "Operations or the owner, after the operator price, KYC, sanctions screening and the Paynode request are done. Nobody issues, prices or records payment on their own booking."
+   "Operations or the owner, after the operator price, KYC, sanctions screening and the payment request are done. Nobody issues, prices or records payment on their own booking."
   ],
   [
    "The airport I want is not in the list. What do I do?",
@@ -1223,7 +1223,7 @@
   ],
   [
    "Can a client pay by bank transfer to us directly?",
-   "No. Clients pay only through the Paynode payment request. Never send or accept bank details by email, chat or messaging apps."
+   "No. Clients pay only through the payment request. Never send or accept bank details by email, chat or messaging apps."
   ],
   [
    "Can I quote a domestic flight on a foreign aircraft?",
@@ -1255,7 +1255,7 @@
   ],
   [
    "Can I practise a booking without it becoming real?",
-   "Yes. Open Training: six exercises take you from the client's request through a training Avinode and Paynode to commission. Nothing is created, sent, issued or counted, and your score shows what to work on."
+   "Yes. Open Training: six exercises take you from the client's request through training versions of Avinode and the payment system to commission. Nothing is created, sent, issued or counted, and your score shows what to work on."
   ],
   [
    "How soon after a flight must I call the client?",

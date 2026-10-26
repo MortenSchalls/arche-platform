@@ -9,11 +9,6 @@ Object.assign(L, {
   acsf:["Air Charter Safety Foundation","https://www.acsf.aero/"],
   tmVid:["Trip Manager training videos (Avinode)","https://help.avinodegroup.com/hc/en-us/articles/16390512030491-Training-Videos"],
   quote:["Creating a professional quote (Avinode)","https://help.avinodegroup.com/hc/en-us/articles/9957467128603-Creating-a-Professional-Quote"],
-  payReq:["How to create a Paynode payment request","https://help.avinodegroup.com/hc/en-us/articles/7937852877467-How-to-Create-a-Payment-Request"],
-  sendPay:["Paynode: overview of sending payments","https://help.avinodegroup.com/hc/en-us/articles/11978769793563-Payment-Guide-Overview-of-Sending-Payments"],
-  card:["Paynode: overview of card payments","https://help.avinodegroup.com/hc/en-us/articles/7937973595035-Overview-of-card-payments"],
-  wire:["Paynode: match a wire transfer to a trip","https://help.avinodegroup.com/hc/en-us/articles/19699527102235-Match-a-Wire-Transfer-to-your-Trip-using-a-Payment-Request"],
-  white:["Paynode white paper: payment security","https://avinode.com/white-paper-payment-security-for-air-charter/"],
   acaTr:["Air Charter Association: training","https://www.theaircharterassociation.aero/training/"],
   wx:["Aviation Weather Center (METAR and TAF)","https://aviationweather.gov/"],
   easaIce:["EU CAT.OP.MPA.250: ice and other contaminants, ground procedures","https://regulatorylibrary.caa.co.uk/air-operations-pre-30-october-2025/Content/Document%20Structure/04%20CAT/2%20Regs/07560_CATOPMPA250_Ice_and_other_contaminants_ground_procedures.htm"],
@@ -49,7 +44,7 @@ const WHY = {
  "9.3":"The 9% margin applies to the operator price and to confirmed supplier items Arche buys.",
  "9.4":"140,000 plus 2,500 is 142,500. Divided by 0.91 that is 156,593.41, rounded up to 156,594.",
  "10.1":"If the operator's terms are stricter than Part A, Arche carries the gap. The director decides before the confirmation is issued.",
- "10.2":"Client and operator payments run through Paynode. Only Arche's margin reaches Arche's own account.",
+ "10.2":"Clients pay through a payment request and operators are paid from our payment account. Only Arche's margin reaches Arche's own account.",
  "11.1":"A file closes only when payments are settled, the personal follow-up is logged and the rating request has gone out, plus service recovery for any low score.",
  "11.2":"A score of 3 or less starts service recovery: the broker calls within 1 working day and the director is told the same day.",
  "11.3":"The broker follows up personally within 24 hours of the last landing, while the trip is fresh and any problem can still be put right.",
@@ -94,24 +89,24 @@ const OBJ = {
  m7:["Know the long-range aircraft families","Compare aircraft for a client using sourced data"],
  m8:["Source on Avinode and compare quotes like for like","Vet an operator against the Arche standard","Check crew and insurance"],
  m9:["Get every price from a written source","Price with the 9% formula and round up","Handle costs that cannot be fixed","Negotiate fairly with operators","Price requests and extras: included, fixed or at cost"],
- m10:["Issue the confirmation back to back with the operator","Explain how money moves through Paynode","Keep financial controls and a complete booking file","Follow the booking timeline from quote to final invoice"],
+ m10:["Issue the confirmation back to back with the operator","Explain how money moves through our payment account","Keep financial controls and a complete booking file","Follow the booking timeline from quote to final invoice"],
  m11:["Prepare and run the day of flight","Handle disruption and the 24/7 desk","Answer sustainability questions honestly"],
  m12:["Meet the Arche service standard on every call","Answer common objections","Manage accounts, follow-ups and negotiation with clients"],
  m13:["Apply the whole manual to six real-world trips"],
- m14:["Know how you are assessed and certified","Plan your Avinode, Paynode and external training"],
+ m14:["Know how you are assessed and certified","Plan your Avinode, payment system and external training"],
 };
 const TAKE = {
  m0:["The operator flies and is responsible for safety; Arche finds, checks, prices, contracts and looks after the client.","Confirm airport, date and time zone in writing, always.","Positioning is usually paid by the client; empty legs can be cancelled.","Use market figures only with their source and date.","Cabotage is the 8th and 9th freedom, and most countries refuse it to foreign operators."],
  m1:["We sell whole-aircraft charters and empty legs at a 9% margin.","No Navoryx fleet hours while the charter sales agreement is in force.","Never sell a flight before an operator has confirmed it in writing.","First contact within 48 hours and follow-up every 14 days, or the lead moves on."],
  m2:["Every client receives the five disclosures in writing before signing.","Never sell anything on the never-sell list, including US domestic legs on non-US operators.","Amber means confirm in writing first; red means stop and escalate.","Liability for the flight lies with the operator; never advertise \"our fleet\"."],
- m3:["KYC and sanctions screening come before any contract.","A possible match means stop, no payment, report to the director.","Payments only through Paynode; bank details never by email or chat.","Personal data stays in Avinode and the CRM."],
+ m3:["KYC and sanctions screening come before any contract.","A possible match means stop, no payment, report to the director.","Payments only through a payment request; bank details never by email or chat.","Personal data stays in Avinode and the CRM."],
  m4:["Discretion is part of the product.","Send details only to people agreed in writing.","Say no early, politely, with an alternative."],
  m5:["Check the never-sell list and run the risk screen before sourcing.","Qualify early: who flies, who pays, who decides.","Match the planning to the mission type."],
  m6:["Every feasibility answer comes from the operator in writing.","The airport must suit the aircraft: hours, customs, fire cover, runway.","The crew decides on weather; we warn the client early.","De-icing, out-of-hours fees and crew nights depend on the day: ask before promising a time, and charge them at cost."],
  m7:["Never quote range, speed or seats from memory.","Compare cabins, beds, age and confirmed range for the actual load."],
  m8:["Compare all-in quotes like for like.","ARGUS Gold Plus or higher, or Wyvern Wingman; otherwise director approval.","Check the aircraft is on the AOC and the insurance covers commercial passengers."],
  m9:["Client price = Arche cost ÷ 0.91, rounded up.","Costs that depend on the day are charged at cost with receipts.","Negotiate with flexibility, never with fake quotes or pressure on safety.","Fixed extras: supplier price ÷ 0.91; extras at cost: receipts, no margin."],
- m10:["Our terms are never softer than the operator's.","Client money and operator money run through Paynode; only our margin reaches Arche's account.","No flight departs until paid in full.","Deposit 25% (at least USD 2,500); balance 7 days before; under 7 days, pay in full on signature."],
+ m10:["Our terms are never softer than the operator's.","Client money and operator money run through a payment request; only our margin reaches Arche's account.","No flight departs until paid in full.","Deposit 25% (at least USD 2,500); balance 7 days before; under 7 days, pay in full on signature."],
  m11:["Keep the client informed before they need to ask.","Extra cost after an AOG needs the director's approval.","Every desk shift ends with a written handover."],
  m12:["Answer the same business day and confirm everything in writing.","Compare like for like before discussing price.","Track every enquiry through the pipeline and follow up every quote."],
  m13:["Work each case yourself before opening the model answer."],
@@ -121,12 +116,12 @@ const TAKE = {
 const CRIT = new Set(["9.6","10.3","1.3","2.1","2.3","2.4","2.5","2.7","2.8","3.1","3.2","3.3","3.4","8.1","8.2","8.3","9.1","9.4","10.2"]);
 /* official and industry sources placed where they are used */
 const LINKS = {
- "3.1":[L.mas], "3.2":[L.un,L.ofac,L.eumap,L.uks,L.mas], "3.3":[L.ofac], "3.5":[L.white,L.payNo], "3.6":[],
+ "3.1":[L.mas], "3.2":[L.un,L.ofac,L.eumap,L.uks,L.mas], "3.3":[L.ofac], "3.5":[], "3.6":[],
  "6.1":[L.uwThai,L.caat,L.caas,L.tim,L.czib,L.faa,L.safe],
  "7.1":[L.gulf,L.bomb,L.dass],
  "8.1":[L.avStart,L.avBroker], "8.2":[L.argus,L.wyv,L.isbao], "8.3":[L.acsf,L.argus], "8.4":[L.asl,L.caa],
  "9.1":[L.quote,L.tmVid], "9.6":[L.quote],
- "10.2":[L.payReq,L.sendPay,L.card,L.wire,L.payNo], "10.3":[L.card],
+ "10.2":[], "10.3":[],
  "11.3":[L.czib,L.faa,L.safe],
  "12.1":[L.nbaaCG], "14.3":[L.acaTr], "6.5":[L.easaIce,L.faaIce,L.icaoIce,L.faaRest],
 };
@@ -191,7 +186,7 @@ MODS.m13.secs.forEach(s => { const i = s.b.findIndex(x => x.p === "Model answer"
 MODS.m13.secs.forEach(s => { if (s.b[0] && s.b[0].p) s.b[0].p = s.b[0].p.replace(/^Situation\.\s*/, ""); s.b.unshift({p:"Work out how you would handle this trip before you open the model answer."}); });
 MODS.m13.secs.push({h:"Spot the problem", b:[{p:"The twelve spot-the-problem trips are in the trip risk screen lab after Module 2. Go back to it any time to practise."}]});
 MODS.m14.secs = MODS.m14.secs.filter(s => !/^14\.1/.test(s.h));
-MODS.m14.secs.unshift({h:"The written exam", b:[{p:"The written exam follows this module. It draws questions from every module check in your path. To pass you need 80% or more, and every question on a critical rule must be right."},{p:"After the exam: Avinode and Paynode training, 8 shadowed trips, the practical exam with the director, and 10 supervised bookings. The director signs your training record when all stages are complete."}]});
+MODS.m14.secs.unshift({h:"The written exam", b:[{p:"The written exam follows this module. It draws questions from every module check in your path. To pass you need 80% or more, and every question on a critical rule must be right."},{p:"After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the director, and 10 supervised bookings. The director signs your training record when all stages are complete."}]});
 
 /* figures placed in the section they explain (drawn in the page) */
 const FIG = {"0.1":"who","0.2":"cats","0.4":"utc","0.5":"pos","0.10":"market","0.12":"freedoms","2.4":"never","2.6":"cabo","2.9":"rag","3.2":"screen","5.1":"cycle","6.2":"airport","8.2":"vet","9.3":"price","9.4":"ex","10.2":"money","11.2":"day","12.5":"funnel","2.10":"montreal"};

@@ -26,7 +26,7 @@ function apChecks(t){
   out.push([bc === BROKER_CHECKS.length, `Broker checks ${bc} of ${BROKER_CHECKS.length}`]);
   out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by operations" : "Operator price not confirmed by operations"]);
   out.push([!!st.kyc, st.kyc ? "KYC and sanctions done" : "KYC and sanctions not done"]);
-  out.push([!!st.paynodeRef, st.paynodeRef ? "Paynode request ready" : "Paynode request not created"]);
+  out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Margin ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
   if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, operations confirmed ${usd(f.op)}`]);
   if (f.days !== null) out.push([f.days >= 2, f.days < 0 ? "Departure date has passed" : `Departs in ${f.days} day${f.days === 1 ? "" : "s"}${f.days < 7 ? ": full payment on signature" : ""}`]);
@@ -49,7 +49,7 @@ function apCard(t, compact){
     ${(d.trip && d.trip.notes) ? `<p class="small muted">Broker notes: ${esc(d.trip.notes)}</p>` : ""}
     ${(S.isOwner || (typeof canRight === "function" && canRight("approve") && t.bid !== S.uid)) && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
     <div class="row"><button class="btn primary" type="button" data-ap="ok" data-id="${t.bid}|${t.did}">Approve booking</button><button class="btn" type="button" data-ap="no" data-id="${t.bid}|${t.did}">Ask for changes</button>${compact ? `<a class="btn" href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a>` : ""}</div>
-    <p class="small muted">Approving lets operations issue the confirmation once KYC, Paynode and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> Operations can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
+    <p class="small muted">Approving lets operations issue the confirmation once KYC, the payment request and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> Operations can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
 }
 function apPanel(){
   if (!S.isOwner) return "";

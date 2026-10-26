@@ -6,7 +6,7 @@ Read this before changing anything. These are business rules set by the owner, M
 - All figures in USD.
 - Client price = (operator price + direct trip costs) ÷ 0.91, rounded up. Archē's margin is 9% of the price the client pays, as a rule (Morten, 25 Oct 2026; was 7%). A lower margin needs the director's approval.
 - Deposit 25% of the charter price (at least USD 2,500) on signature; balance 7 days before the first departure; full payment if departure is under 7 days away. Fixed-price extras are added to the balance; items at cost are invoiced after the flight with receipts, without margin.
-- Clients pay only through a Paynode payment request. Never print, store or send bank details anywhere.
+- Clients pay only through a secure payment request from Archē's payment provider (provider still to be agreed). Paynode is removed everywhere and is not named in any text, page, course or document until Morten agrees otherwise (Morten, 26 Oct 2026). Never print, store or send bank details anywhere.
 
 ## Bookings
 - The owner approves every booking before a confirmation is issued (switch in Today; on by default). A price change after approval sends it back.

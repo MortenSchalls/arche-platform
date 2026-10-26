@@ -13,7 +13,7 @@ STAGES_OLD = [
   "['6. Supervised','Run your own bookings; the director or a senior broker checks every quote and contract before it is sent; a post-trip debrief after every booking (Module 14.6)','10 bookings with no critical error; 10 debriefs signed by trainee, mentor and operations'],"),
 ]
 
-AFTER_OLD = "push(BL(['Collect the operator\\'s final invoice and receipts for items charged at cost.','Recharge the client within 7 days of the flight, with copies, through Paynode.','Ask for feedback; record it in the CRM.','Close the file once all payments are settled.']));"
+AFTER_OLD = "push(BL(['Collect the operator\\'s final invoice and receipts for items charged at cost.','Recharge the client within 7 days of the flight, with copies, through a payment request.','Ask for feedback; record it in the CRM.','Close the file once all payments are settled.']));"
 def after_new(B):
     return ("push(P("+J(f"A trip is not finished when the aircraft takes off. The broker who sold it follows it to the last landing and then follows up with the client. A file is closed only when every step below is done.")+"));\n"
     "push(H3('Follow the trip to the last leg'));\n"
@@ -30,7 +30,7 @@ def after_new(B):
     "push(H3('Settle and close'));\n"
     "push(BL("+arr([
      "Collect the operator's final invoice and receipts for items charged at cost.",
-     "Recharge the client within 7 days of the flight, with copies, through Paynode.",
+     "Recharge the client within 7 days of the flight, with copies, through a payment request.",
      "Close the file only when all payments are settled, the follow-up is logged and the rating request has been sent."])+"));")
 
 Q11_ADD = (" ['When may you close a trip file?',['When the aircraft takes off','When the client has paid','When all payments are settled, the follow-up is logged and the rating request has been sent','After 30 days'],'c'],\n"
@@ -40,13 +40,13 @@ Q11_ADD = (" ['When may you close a trip file?',['When the aircraft takes off','
 def m14(B):
     lab_rows=[
      ["AOG: the booked aircraft is unserviceable 6 hours before departure","Calm, facts first; the operator's written replacement options; extra cost approved by the director, never promised on the call (Module 11.3)"],
-     ["The assistant refuses the 25% deposit and wants to pay after the flight","Explain the booking terms (Module 10.6) and why the operator must be secured; offer Paynode card or bank options; no exceptions without the director"],
+     ["The assistant refuses the 25% deposit and wants to pay after the flight","Explain the booking terms (Module 10.6) and why the operator must be secured; offer card or bank payment options; no exceptions without the director"],
      ["The principal insists on a domestic leg on a foreign-registered aircraft","Explain cabotage in plain words; offer a local operator for that leg or a new routing; never sell it (Module 2.4)"],
      ["\"Another broker quoted 15% less\"","Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with director approval (Module 12.6)"],
      ["A passenger is added on the day","Names to the operator at once; permits, insurance and seats confirmed in writing before you agree"],
      ["The client wants to bring a dog to a strict-entry country","Destination rules and the operator's written acceptance first; offer a route and airport that work (Appendix G.4)"],
      ["De-icing delays departure and the client is angry about the charge","Safety is the crew's decision; the charge is at cost with the receipt, as the confirmation says (Module 9.2)"],
-     ["The client asks to pay into a personal account or sends new bank details by chat","Stop: Paynode only; treat as fraud until proven otherwise (Module 3.5)"],
+     ["The client asks to pay into a personal account or sends new bank details by chat","Stop: payment request only; treat as fraud until proven otherwise (Module 3.5)"],
      ["The client asks to leave a passenger's name off the manifest","Refuse politely; tell the director (Module 2.4)"],
      ["Screening shows a possible sanctions match on the payer","Pause without accusing; say you need a short internal check; tell the director (Module 3.2)"],
      ["The client demands a guaranteed departure time in winter","Promise only what the operator confirms in writing; explain de-icing and slots (Module 6.4)"],
@@ -90,7 +90,7 @@ def ess_new(B):
     "push(LK2('ACA: Air Charter Essentials Certificate','https://www.theaircharterassociation.aero/the-air-charter-essentials-certificate/','Dates, fees and booking'));")
 
 A4 = ("push(H2('A.4 After-flight checklist'));\n"
- "push(BL("+arr(["Every leg followed to landing in the portal; changes told to the client at once","Follow-up call or message within 24 hours of the last landing, logged","Rating request sent (B.10); answer recorded when it arrives","Score of 3 or less or a complaint: service recovery started, director told","Operator invoice and receipts collected; items at cost recharged within 7 days through Paynode","Supervised booking: debrief (B.9) completed by trainee, mentor and operations","All payments settled; file closed"])+".map(t=>'☐  '+t)));")
+ "push(BL("+arr(["Every leg followed to landing in the portal; changes told to the client at once","Follow-up call or message within 24 hours of the last landing, logged","Rating request sent (B.10); answer recorded when it arrives","Score of 3 or less or a complaint: service recovery started, director told","Operator invoice and receipts collected; items at cost recharged within 7 days through a payment request","Supervised booking: debrief (B.9) completed by trainee, mentor and operations","All payments settled; file closed"])+".map(t=>'☐  '+t)));")
 
 def B_new(B):
     s=("push(H2('B.9 Post-trip debrief form'));\n"
@@ -141,7 +141,7 @@ def appJ(B):
      ("J.4 Americas: United States, Canada and Latin America",
       [["Green","International flight on a US or foreign operator holding the needed authority; whole aircraft; clean screening; US broker disclosures made (14 CFR Part 295)"],
        ["Amber","Foreign operator to or from the US (needs US authority); US federal excise tax when acting as principal (G.6); Canada and Latin America domestic legs reserved for local carriers; FAA security notices (for example Haiti, Central America, Colombia, Ecuador, Mexico, Panama)"],
-       ["Red","Any US domestic leg (both airports in the US, including Alaska, Hawaii and territories): never on a non-US operator, and on any operator only after US counsel confirms "+B+"'s position; Cuba with a US-made aircraft; Venezuela (Paynode cannot pay)"]],
+       ["Red","Any US domestic leg (both airports in the US, including Alaska, Hawaii and territories): never on a non-US operator, and on any operator only after US counsel confirms "+B+"'s position; Cuba with a US-made aircraft; Venezuela (no payments possible)"]],
       "Modules 2.4, 2.5, 2.9; Appendix G.1, G.3, G.6, G.7"),
     ]
     s=("push(H1('Appendix J  Regional quick-reference cards',true));\n"

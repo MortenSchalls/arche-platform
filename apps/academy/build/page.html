@@ -733,7 +733,7 @@ function vBook(v){
         <div class="calc full" id="calc"></div>
         <label class="f" for="b_vd">Offer valid until (date)<input id="b_vd" type="date" data-k="vd"></label>
         <label class="f" for="b_vt">Offer valid until (time, Bangkok)<input id="b_vt" type="time" data-k="vt"></label>
-        <label class="f full" for="b_pay">Payment method<select id="b_pay" data-k="pay"><option value="">Choose</option><option value="wire">Bank transfer to Arche's account</option><option value="paynode">Paynode payment request from Avinode</option><option value="card">Card</option></select></label>
+        <label class="f full" for="b_pay">Payment method<select id="b_pay" data-k="pay"><option value="">Choose</option><option value="wire">Bank transfer to Arche's account</option><option value="request">Payment request from our payment provider</option><option value="card">Card</option></select></label>
       </div>
       <h3>Before issuing</h3>
       <div class="auto">
@@ -773,7 +773,7 @@ function vBook(v){
     for (let i=1;i<B.legs.length;i++){ const a = B.legs[i-1], b = B.legs[i]; if (a.to && b.f && a.to !== b.f) out.push(["warn", `Leg ${i+1} departs ${b.f}, but leg ${i} arrives ${a.to}.`]); if (a.d && b.d && b.d < a.d) out.push(["err", `Leg ${i+1} is dated before leg ${i}.`]); }
     const seats = num(B.seats); B.legs.forEach((l,i) => { if (isFinite(seats) && num(l.p) > seats) out.push(["err", `Leg ${i+1}: more passengers than seats.`]); });
     if (isFinite(mg) && pr > 0 && mg < pr*0.09 - 0.005) out.push(["err", `Margin ${(mg/pr*100).toFixed(2)}% is below 9%. Needs director approval.`]);
-    if (B.pay && B.pay !== "paynode") out.push(["err", "All client payments go through a Paynode payment request from Avinode."]);
+    if (B.pay && B.pay !== "request") out.push(["err", "All client payments go through a payment request from our payment provider."]);
     $("autoc").innerHTML = out.length ? out.map(o => `<div class="issue ${o[0]}">${esc(o[1])}</div>`).join("") : `<div class="issue okk">No automatic warnings.</div>`;
   }
   live();
@@ -805,7 +805,7 @@ function markBook(B){
   if (okPrice) add(pr <= 188000, false, "Price follows the 9% rule", "Quote USD 187,913 (or rounded up to USD 188,000). A higher price is a number we cannot justify.");
   const exp = B.vd && B.vt ? B.vd + "T" + B.vt : "";
   add(!!exp && exp <= "2026-10-20T18:00", false, "Offer expiry no later than the operator's quote", "The operator's quote expires 20 October, 18:00 Bangkok time; our offer must not outlive it.");
-  add(B.pay === "paynode", true, "Payment by Paynode payment request", "The assistant asked for bank details by WhatsApp. We never send bank details by email or chat: the client pays through a Paynode payment request from Avinode.");
+  add(B.pay === "request", true, "Payment by payment request", "The assistant asked for bank details by WhatsApp. We never send bank details by email or chat: the client pays through a payment request from our payment provider.");
   add(B.ck.terms, false, "Operator terms back to back", "Tick only once the operator's terms are checked against Part A.");
   add(B.ck.disc, true, "Client disclosures included", "Broker status, operator legal name, aircraft, full price and insurance go to every client in writing.");
   const crit = R.filter(r => !r.ok && r.crit).length, minor = R.filter(r => !r.ok && !r.crit).length;
@@ -837,7 +837,7 @@ function vCert(v){
       <p>${P.mode === "sync" ? "Your result is already in the Arche training records. Send the code as well if the director asks for it." : "Copy this code and email it to the director. The director checks it in the training records."}</p>
       <div class="codebox" id="code">${esc(code)}</div>
       <div class="row"><button class="btn primary" type="button" id="copy">Copy code</button><span class="note" id="cmsg" role="status"></span></div>
-      <p class="note">Next: Avinode and Paynode training, shadowing, the practical exam with the director and supervised bookings. The director signs your training record when all stages are complete.</p>
+      <p class="note">Next: Avinode and payment system training, shadowing, the practical exam with the director and supervised bookings. The director signs your training record when all stages are complete.</p>
     </div>`;
   $("copy").onclick = () => {
     const done = () => $("cmsg").textContent = "Copied.";

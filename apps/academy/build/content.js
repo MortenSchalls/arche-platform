@@ -1,7 +1,6 @@
 /* ===== Course content: from the Master Training Manual (ARC-MST-TRN-2026-007), October 2026 ===== */
 const L = {
   avBroker:["Avinode for brokers","https://avinode.com/broker/"],
-  avPay:["How air charter payments work (Paynode)","https://www.avinode.com/how-air-charter-payments-work/"],
   avStart:["Getting Started with Avinode Marketplace","https://help.avinodegroup.com/hc/en-us/articles/12043060610331-Getting-Started-with-Avinode-Marketplace"],
   sky:["SKYbrary: aviation terms explained","https://skybrary.aero/"],
   gulf:["Gulfstream aircraft","https://www.gulfstream.com/en/aircraft/"],
@@ -32,7 +31,6 @@ const L = {
   irs:["IRS guide: air transportation excise tax","https://irs.gov/pub/irs-mssp/air_transportation.pdf"],
   apd:["UK Air Passenger Duty rates","https://www.gov.uk/guidance/rates-and-allowances-for-air-passenger-duty"],
   tim:["IATA Timatic (travel documents)","https://www.iata.org/en/publications/timatic/"],
-  payNo:["What Paynode cannot support","https://help.avinodegroup.com/hc/en-us/articles/43773188664347-Know-Before-You-Receive-or-Collect-Payment-What-Our-Payments-Platform-Cannot-Support"],
   argus:["ARGUS audits and ratings","https://argus.aero/auditing-services"],
 };
 
@@ -71,8 +69,8 @@ m0:{ intro:"Everything a broker needs before talking to a client or an operator,
    ["Trip support","A company or the operator's own team that obtains permits, slots and flight plans."],
    ["Aviation authority","Each country's regulator, for example the FAA (US), EASA and national authorities (Europe), the UK CAA, the GCAA (UAE), CAAS (Singapore). It licenses operators and approves foreign flights."],
    ["Avinode","The online marketplace where operators list aircraft and brokers request and compare quotes. Arche books every trip through it."],
-   ["Paynode","Avinode's payment service. Clients pay and operators are paid through it."]]}},
-  {links:[L.avBroker,L.avPay]}]},
+   ["Payment request","A secure payment link from our payment provider. Clients pay and operators are paid through our payment account."]]}},
+  {links:[L.avBroker]}]},
  {h:"0.2 Aircraft categories", b:[
   {p:"Private jets are grouped by cabin size and range. Avinode shows each aircraft's category, seats and range: always use the figures for the actual aircraft, not a general rule."},
   {table:{cols:["Category","In plain words","Typical use"],rows:[
@@ -122,7 +120,7 @@ m2:{ intro:"Arche sells worldwide, so we meet many sets of rules. This module gi
   {olist:["That Arche Executive acts as a charter broker and not as the operator.","The operator's full legal name as shown on its AOC, and any trading name it uses.","The aircraft type, registration and year of manufacture, or \"type or similar\" until the tail is fixed.","The total price, what it includes, and every item that may be charged after the flight and how.","The passenger insurance the operator carries, as confirmed by the operator, and whether Arche itself holds liability insurance."]},
   {links:[L.p295,L.nbaaCG]}]},
  {h:"2.3 Our contract position", b:[
-  {p:"All bookings run through Avinode, and all client and operator payments run through Paynode, so that only Arche's margin enters Arche's own account. Use only the approved Arche charter confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms."}]},
+  {p:"All bookings run through Avinode, and all client and operator payments run through our payment account, so that only Arche's margin enters Arche's own account. Use only the approved Arche charter confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms."}]},
  {h:"2.4 Flights we never sell", b:[
   {table:{cols:["Never sell","Why","What to do"],rows:[
    ["A flight by an operator without a commercial AOC, or on an aircraft not listed on its AOC","Illegal charter: uninsured and unsafe","Reject; report to the director"],
@@ -171,18 +169,17 @@ m2:{ intro:"Arche sells worldwide, so we meet many sets of rules. This module gi
    ["Animals","Rabies-free countries have strict import routes and approved arrival airports","Check the authority's rules before quoting"],
    ["Weapons, cash, valuables","Firearms, large cash sums and precious metals need permits or declarations","Operator and authorities decide; director informed"],
    ["Airport restrictions","Night curfews, slot-controlled airports, temporary restrictions during major events","Operator confirms"],
-   ["Paynode limits","Paynode cannot pay to or from some countries","A payer or operator there is red: stop and tell the director"]]}},
-  {links:[L.czib,L.faa,L.safe,L.un,L.ofac,L.eumap,L.uks,L.mas,L.irs,L.apd,L.tim,L.payNo]}]},
+   ["Payment limits","We cannot take payments from or pay to some countries","A payer or operator there is red: stop and tell the director"]]}},
+  {links:[L.czib,L.faa,L.safe,L.un,L.ofac,L.eumap,L.uks,L.mas,L.irs,L.apd,L.tim]}]},
  {h:"2.9 The trip risk screen", b:[
   {p:"Every enquiry passes this screen before sourcing, and the result goes on the intake form. Green means proceed. Amber means the operator or its trip support confirms in writing before we quote. Red means stop and escalate to the director. Always check the current watchlist, never your memory."},
   {table:{cols:["Question","Amber","Red"],rows:[
-   ["1. Who flies and pays?","PEP; child with one adult; payer differs from the client","Sanctions match; Russian national with an EU point; refuses KYC; payer or operator in a country Paynode cannot serve"],
+   ["1. Who flies and pays?","PEP; child with one adult; payer differs from the client","Sanctions match; Russian national with an EU point; refuses KYC; payer or operator in a country we cannot take payments from or pay to"],
    ["2. Where?","Domestic leg; conflict-zone routing; strict permit country","US domestic leg; embargoed destination"],
    ["3. What aircraft and operator?","No safety rating; US-made aircraft to a sanctioned country","No AOC; banned operator"],
    ["4. What is carried?","Pets, weapons, cash, medical equipment, dangerous goods","Patient needing care in flight"],
    ["5. How is it sold?","Hotel or event added","Individual seats"],
    ["6. When?","Short notice into a strict permit country","Lead time impossible to meet"]]},rag:true},
-  {links:[L.payNo]},
   {box:{t:"Practise it",l:["After the module check, the trip risk screen lab gives you 12 real-world trips to screen."]}}]}
  ],
  quiz:[

@@ -173,7 +173,7 @@ fieldset.internal .calc{background:var(--panel)}
       <label>Bookings email<input id="bEmail" type="email" data-k="broker.email" data-req="Bookings email"></label>
       <label>24/7 operations phone<input id="bPhone" data-k="broker.phone" data-req="24/7 operations phone"></label>
       <label>Website<input id="bWeb" data-k="broker.web"></label>
-      <p class="hint full" style="margin-top:4px"><b>Payments</b> run only through a Paynode payment request sent from the Avinode trip. No bank details are printed on the confirmation.</p>
+      <p class="hint full" style="margin-top:4px"><b>Payments</b> run only through a payment request from our payment provider. No bank details are printed on the confirmation.</p>
     </fieldset>
 
     <fieldset>
@@ -213,7 +213,7 @@ fieldset.internal .calc{background:var(--panel)}
       <legend>PRICE AND PAYMENT</legend>
       <label class="full">Charter price (USD, all-in as quoted)<input id="price" type="number" min="0" step="100" data-k="price" data-req="Charter price"></label>
       <div class="calc" id="calc"></div>
-      <label>Payment method (through Paynode)<select id="pay" data-k="pay"><option value="pn_wire">Bank transfer via Paynode</option><option value="pn_instant">Instant payment via Paynode</option><option value="pn_card">Card via Paynode (card cost added)</option></select></label>
+      <label>Payment method (through a payment request)<select id="pay" data-k="pay"><option value="pn_wire">Bank transfer (payment request)</option><option value="pn_instant">Instant payment (payment request)</option><option value="pn_card">Card (payment request, card cost added)</option></select></label>
       <label>Card cost (% if paid by card)<input id="cardPct" type="number" min="0" step="0.1" data-k="cardPct"></label>
       <p class="hint full" style="margin-top:4px"><b>Price breakdown</b> (optional; must add up to the charter price if used)</p>
       <label>Flight and crew<input id="itFlight" type="number" min="0" data-k="items.flight"></label>
@@ -252,7 +252,7 @@ fieldset.internal .calc{background:var(--panel)}
       <label class="check full"><input type="checkbox" id="ck4" data-k="ck.audit"> Safety audit checked (ARGUS Gold Plus or higher, or Wyvern Wingman; ARGUS Gold or unrated only with director approval)</label>
       <label class="check full"><input type="checkbox" id="ck5" data-k="ck.route"> Routing, permits and continuous journey checked with the Operator</label>
       <label class="check full"><input type="checkbox" id="ck6" data-k="ck.terms"> Operator's own cancellation and payment terms are no softer for Archē Executive than A3 and A9</label>
-      <label class="check full"><input type="checkbox" id="ck7" data-k="ck.pay"> Paynode payment request created from the Avinode trip for this booking reference</label>
+      <label class="check full"><input type="checkbox" id="ck7" data-k="ck.pay"> Payment request created in our payment provider for this booking reference</label>
     </fieldset>
   </form>
 
@@ -317,7 +317,7 @@ const PART_B = [
    "If jet fuel at any airport on the routing rises more than 4% between quote and Confirmation, the Price is re-based to the new fuel cost.",
    "Operator surcharges for fuel, insurance or currency arising after Confirmation are passed on at cost."]},
  {n:"B5",t:"Payment mechanics.",items:[
-   "Payment is made only through the Paynode payment request Archē Executive sends, in the invoice currency. Archē Executive never sends bank details or asks for payment any other way.",
+   "Payment is made only through the payment request Archē Executive sends, in the invoice currency. Archē Executive never sends bank details or asks for payment any other way.",
    "Payments are made in full, without set-off or deduction. If tax must be withheld, the Charterer pays enough extra for Archē Executive to receive the invoiced amount.",
    "Payment dates are essential terms. Overdue amounts carry interest at 1.5% per month from the due date.",
    "Money already passed to the Operator is refunded to the Charterer once the Operator has returned it to Archē Executive."]},
@@ -482,7 +482,7 @@ function checks(cc){
   if (cc.margin!==null && cc.price){
     if (cc.price < cc.target) err.push(`Margin is ${(cc.margin/cc.price*100).toFixed(2)}%, below ${Math.round(PRICING.rate*100)}%. The ${Math.round(PRICING.rate*100)}% price is ${usd(cc.target)} (operator price ÷ ${(1-PRICING.rate).toFixed(2)}). Below that needs director approval.`);
   }
-  const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance on file",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Paynode payment request created"};
+  const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance on file",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Payment request created"};
   Object.keys(ckLabels).forEach(k=>{ if(!S.ck[k]) missing.push(ckLabels[k]); });
   return {err,warn,missing};
 }
@@ -529,7 +529,7 @@ function clauseHTML(c,cc){
   if(c.after) h+=`<p class="clause">${esc(c.after)}</p>`;
   return h;
 }
-const payLabel = () => S.pay==="pn_card"?"Card via Paynode":S.pay==="pn_instant"?"Instant payment via Paynode":"Bank transfer via Paynode";
+const payLabel = () => S.pay==="pn_card"?"Card (payment request)":S.pay==="pn_instant"?"Instant payment (payment request)":"Bank transfer (payment request)";
 function validText(){ return S.valid.date ? `${fmtDate(S.valid.date)}${S.valid.time?" at "+S.valid.time:""}${S.valid.tz?" "+S.valid.tz:""}` : ""; }
 function renderPreview(cc, draft){
   const legsRows = S.legs.map((l,i)=>`<tr><td>${i+1}</td><td>${v(fmtDate(l.date),"date")}</td><td>${l.etd?esc(l.etd):"TBC"}</td><td>${v(l.from,"from")}</td><td>${v(l.to,"to")}</td><td class="num">${esc(l.pax||"–")}</td><td>${l.pos?"Positioning":"Passenger"}</td></tr>`).join("");
@@ -557,7 +557,7 @@ function renderPreview(cc, draft){
     ${cc.card?`<tr><td>Card cost (${num(S.cardPct)}%), added for payment by card</td><td class="num">${usd(cc.card)}</td></tr>`:""}
     <tr><td>Included</td><td>${esc(S.included||"As listed above")}<br><span style="color:var(--paper-muted)">Not included: taxes, bank charges and the items charged at cost under A7.</span></td></tr></tbody></table>
   <div class="payment"><div class="lbl" style="margin-bottom:5px">How to pay · ${esc(payLabel())}</div>
-    <div class="grid"><span>Payment</span><span>Through the secure Paynode payment request we send you for this booking</span><span>Booking reference</span><span>${esc(S.ref)}</span></div>
+    <div class="grid"><span>Payment</span><span>Through the secure payment request we send you for this booking</span><span>Booking reference</span><span>${esc(S.ref)}</span></div>
     <div class="fraud">Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.</div></div>
   <h3>ON BOARD AND REMARKS</h3>
   <table class="kv"><tbody>
@@ -663,7 +663,7 @@ function docDefinition(cc,logo){
     h("PRICE AND PAYMENT"),
     {table:{widths:["*",110],body:pay.map(([a,b,s])=>[{text:a,color:C.muted,margin:[s?10:0,0,0,0]},{text:b,alignment:"right",color:s?C.muted:C.ink}])},layout:kvLayout},
     kv([["Included",{text:[S.included||"As listed above",{text:"\nNot included: taxes, bank charges and the items charged at cost under A7.",color:C.muted}]}]]),
-    {table:{widths:["*"],body:[[{stack:[label("How to pay · "+payLabel()),{columns:[{width:95,stack:["Payment","Booking reference"],color:C.muted},{stack:["Through the secure Paynode payment request we send you for this booking",{text:S.ref,bold:true}]}]},{text:"Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.",color:C.warn,fontSize:7.6,margin:[0,5,0,0]}]}]]},layout:{hLineWidth:()=>0.6,vLineWidth:()=>0.6,hLineColor:()=>C.rule,vLineColor:()=>C.rule,paddingLeft:()=>9,paddingRight:()=>9,paddingTop:()=>7,paddingBottom:()=>7},margin:[0,7,0,0]},
+    {table:{widths:["*"],body:[[{stack:[label("How to pay · "+payLabel()),{columns:[{width:95,stack:["Payment","Booking reference"],color:C.muted},{stack:["Through the secure payment request we send you for this booking",{text:S.ref,bold:true}]}]},{text:"Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.",color:C.warn,fontSize:7.6,margin:[0,5,0,0]}]}]]},layout:{hLineWidth:()=>0.6,vLineWidth:()=>0.6,hLineColor:()=>C.rule,vLineColor:()=>C.rule,paddingLeft:()=>9,paddingRight:()=>9,paddingTop:()=>7,paddingBottom:()=>7},margin:[0,7,0,0]},
     h("ON BOARD AND REMARKS"),
     kv([["Smoking · Animals",`${S.smoking?"Smoking permitted":"No smoking"} · ${S.animals?"Animals permitted with the Operator's written approval":"No animals"}`],["Cancellation scale",S.opScale?"The Operator's scale in the remarks applies instead of A9":"Standard scale in A9"],["Remarks",S.remarks||"None"]])
   ];

@@ -25,7 +25,7 @@ async function run(sc, o){
   const right=await p.evaluate(()=>{const r=trRun(),o=r.offers[r.pick];return priceOf(o.price,num(r.direct));});
   await p.fill('#tr_price',String(o.wrongPrice?right-500:right));await p.click('[data-tr="savePrice"]');await p.waitForTimeout(300);
   for(const k of ['never','risk','aoc','ins','audit','route','terms']) await p.check('#trc_'+k);
-  await p.check(o.decline?'#tr_ddec':'#tr_dsend'); if(o.decline) await p.selectOption('#tr_why','paynode');
+  await p.check(o.decline?'#tr_ddec':'#tr_dsend'); if(o.decline) await p.selectOption('#tr_why','payment');
   await p.click('[data-tr="submit"]');await p.waitForTimeout(400);
   const review=await p.evaluate(()=>trRun().review);
   return {offers,review};
@@ -38,7 +38,7 @@ ok('training confirmation shown with TRN reference and training remark', /TRN-/.
 await p.click('[data-tr="signed"]');await p.waitForTimeout(300);
 const cc=await p.evaluate(()=>trDeadline(trRun()));const op=await p.evaluate(()=>{const r=trRun();return r.offers[r.pick].price;});
 await p.fill('#tr_dep',String(cc.deposit));await p.fill('#tr_bal',cc.balanceDue);await p.fill('#tr_op',String(op));await p.click('[data-tr="pnCheck"]');await p.waitForTimeout(300);
-ok('Paynode answers graded correct', await p.evaluate(()=>{const n=trRun().pn;return n.depOk&&n.dateOk&&n.opOk;}));
+ok('payment request answers graded correct', await p.evaluate(()=>{const n=trRun().pn;return n.depOk&&n.dateOk&&n.opOk;}));
 await p.click('[data-tr="next"]');await p.waitForTimeout(300);await p.click('[data-tr="finish"]');await p.waitForTimeout(300);
 const sc1=await p.evaluate(()=>trRun().score);ok('s1 perfect run scores 100 ('+sc1+')', sc1===100);
 await p.screenshot({path:'tr_s1_score.png'});
@@ -58,7 +58,7 @@ await p.click('[data-tr="next"]');await p.waitForTimeout(500);await p.click('[da
 const c5=await p.evaluate(()=>trDeadline(trRun()));ok('short notice means full payment on signature', c5.full===true&&c5.deposit===c5.total);
 // s6 decline
 x=await run('s6',{from:'LTFM',to:'LFMN',pax:4,cat:'Midsize jet',decline:true});
-ok('red flag declined correctly', x.review.crit.length===0 && x.review.ok.some(t=>/Paynode/.test(t)));
+ok('red flag declined correctly', x.review.crit.length===0 && x.review.ok.some(t=>/cannot take payments/.test(t)));
 await p.click('[data-tr="finish"]');await p.waitForTimeout(300);
 ok('decline exercise scores ('+await p.evaluate(()=>trRun().score)+')', (await p.evaluate(()=>trRun().score))>=90);
 // s6 wrongly sent
