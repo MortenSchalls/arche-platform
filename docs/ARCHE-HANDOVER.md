@@ -162,8 +162,8 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
 | 0012 | Supervisor rights | **To run** (mark done by hand after running) |
 | 0013 | Alerts: recipients and official sender (owner only) | **To run**, then add yourself in Team → Alerts |
 | 0014 | Phones that receive alerts, and the 2-minute alert check (pg_cron) | Run 26 Oct 2026 (alerts working) |
-| 0015 | Assessments: qualification checklist (owner and assessors only) | **To run**, after 0012 |
-| 0016 | Supervision share: supervisors see the trips that pay them | **To run** |
+| 0015 | Assessments: qualification checklist (owner and assessors only) | Run 26 Oct 2026 |
+| 0016 | Supervision share: supervisors see the trips that pay them | Run 26 Oct 2026 |
 
 How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor → paste → Run.
 
@@ -218,7 +218,7 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
    - WhatsApp team setup (proposed 26 Oct 2026): Community "Archē Executive Team" with Announcements, Desk, Operations 24/7, Supervisors, New joiners and per-trip groups for complex charters; owners only as admins; no client personal data in groups; the portal is the record
 7. Counsel and other before-launch items: see `docs/ROADMAP.md` section 1. Examples: payment provider to replace Paynode,
    insurance, PDPA checks, native-speaker check of translations.
-8. Run SQL 0015 (assessments) and 0016 (supervision share) from Team.
+8. Check Team → To do for you: any SQL step still open there (the portal checks each one itself) is the true status.
 9. Prospects:
    - 53 organisations imported 25 Oct 2026, researched in chat (option 2, no API cost).
    - Gaps with no business-jet caterer or verified crew hotel: Hong Kong caterer; crew hotels at WSSS/WSSL, VTBD, RPLL
