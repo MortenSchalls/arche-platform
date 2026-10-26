@@ -1,0 +1,79 @@
+{
+ "path": "/guides/cabotage/",
+ "type": "guide",
+ "draft": true,
+ "title": "Cabotage: why a foreign jet cannot fly every domestic leg",
+ "description": "Why a charter jet from one country often cannot fly you between two airports in another: the Chicago Convention, US and EU rules, and how we plan around it.",
+ "eyebrow": "Guide · Rules that shape your trip",
+ "h1": "Cabotage, explained",
+ "lead": "A trip such as London to Nice, on to Paris and back to London looks simple. Whether one aircraft may fly the Nice to Paris leg depends on where the aircraft and its operator come from. This is cabotage, and getting it wrong can ground a flight.",
+ "glance": [
+  [
+   "The principle",
+   "cab.art7"
+  ],
+  [
+   "United States",
+   "cab.us"
+  ],
+  [
+   "European Union",
+   "cab.eu"
+  ],
+  [
+   "Elsewhere",
+   "cab.most"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "What cabotage means",
+   "p": [
+    "Cabotage is carrying paying passengers between two points inside one country. Under {{cab.icao.ref}}, {{cab.art7}}. Countries use this right to keep domestic flying for their own airlines and operators.",
+    "{{cab.icao5.ref}} of the same convention lets non-scheduled aircraft fly into a country and stop for non-traffic purposes: {{cab.art5}}. Flying into a country is therefore a different question from flying between two of its airports."
+   ]
+  },
+  {
+   "h": "The United States",
+   "p": [
+    "US law is clear. Under {{cab.us.ref}}, {{cab.us}}. So we put a leg between two US airports on a US operator, even when the rest of the trip is flown by a foreign aircraft."
+   ]
+  },
+  {
+   "h": "The European Union",
+   "p": [
+    "In Europe the rule works through licensing. {{cab.eu.ref}} says: “{{cab.eu}}.” The right to fly between EU airports belongs to carriers licensed in the EU. For a leg between two EU airports we therefore book an operator licensed in the EU, unless the authority concerned has given a specific permission."
+   ]
+  },
+  {
+   "h": "Everywhere else",
+   "p": [
+    "Rules differ from country to country, and the consequences are serious: {{cab.most}}, and {{cab.seize}}. We check every leg of every trip against the rules of the country it is flown in before we send you a quote."
+   ]
+  },
+  {
+   "h": "How we plan around it",
+   "p": [
+    "When a trip has a domestic leg abroad, we either book an operator from that country for the whole trip, split the trip between two operators with a smooth handover, or change the order of the legs so that no leg breaks the rules. You see the plan, and the reason for it, in your quote.",
+    "This page explains the principle; it is not legal advice. The operator of each flight confirms that it holds the traffic rights for every leg."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a foreign private jet fly me between two cities in the United States?",
+   "a": "Generally not for payment. Under {{cab.us.ref}}, {{cab.us}}."
+  },
+  {
+   "q": "Can a non-EU operator fly a leg between two EU airports?",
+   "a": "The right to operate intra-EU air services belongs to EU-licensed carriers ({{cab.eu.ref}}). We book an EU-licensed operator for such legs unless a specific permission has been given."
+  },
+  {
+   "q": "Why does cabotage matter for a multi-city trip?",
+   "a": "Because one aircraft may not be allowed to fly every leg. We check each leg before quoting, so the plan you approve is one that can actually fly."
+  }
+ ],
+ "related": [
+  "/airports/singapore-seletar/"
+ ]
+}

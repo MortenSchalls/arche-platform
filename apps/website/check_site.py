@@ -9,8 +9,8 @@ RULES = [(r"0000 0000|6500000000", "phone placeholder: set PHONE in company.py")
          (r"charter@archeexecutive\.com|archeexecutive\.com", "old domain"),
          (r"Bangkok office|สำนักงานกรุงเทพ|曼谷办事处|バンコクオフィス|\+66", "Bangkok office or Thai number (Singapore only)")]
 problems = []
-for f in sorted(os.listdir(HERE)):
-    if not f.endswith(".html"): continue
+pages = sorted(os.path.relpath(os.path.join(d, f), HERE) for d, _, fs in os.walk(HERE) for f in fs if f.endswith(".html") and "/vendor" not in d)
+for f in pages:
     t = open(os.path.join(HERE, f), encoding="utf-8").read()
     for rx, why in RULES:
         n = len(re.findall(rx, t))

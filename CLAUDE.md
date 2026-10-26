@@ -28,6 +28,14 @@ Read this before changing anything. These are business rules set by the owner, M
 - The external academy must contain nothing Archē-internal; `apps/academy/build/ext.js` fails the build if it does.
 - Notices to members (`apps/portal/src-modules/notices.js`): ask Morten first whether a change needs a notice at all, and agree the wording, before adding one. A notice in the code is only a draft; nothing reaches members until Morten publishes it in Team (Morten, 26 Oct 2026).
 
+## Website content (Morten, 27 Oct 2026)
+- We are a broker, not an airline: pages are about places, airports and needs, never "routes we fly". Every page ends with "any aircraft, any route, upon availability".
+- Only verified, correct facts, each with its source and the date it was checked. No guesses. Better fewer pages and correct than many and wrong. The build refuses a fact without a source or date.
+- No prices until Archē has its own quote data; then only ranges with the basis and date.
+- No pages, examples or promotion for Russia, Iran, Iraq, Syria or Venezuela (too sensitive).
+- Keep the site's layout, design and watermarks on every new page; speed and structure come first (static pages, no extra scripts).
+- A saved copy of the site before this work: branch `saved/website-2026-10-27` (and the zip in Final versions).
+
 ## Design
 - Day and Night themes; all text at least 4.5:1 contrast (portal `tests/colorscan.js`).
 - Fonts: Prata or Cinzel for headings, Hanken Grotesk for text. Logo in `shared/brand`.

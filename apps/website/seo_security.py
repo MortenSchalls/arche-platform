@@ -92,6 +92,9 @@ def sitemap():
     alt = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{lang}" href="{BASE}{path}"/>' for path, lang in PAGES.values()) + f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{BASE}/"/>'
     urls = "".join(f"\n  <url><loc>{BASE}{path}</loc><lastmod>{day}</lastmod>{alt}\n  </url>" for path, lang in PAGES.values())
     urls += "".join(f"\n  <url><loc>{BASE}/{p}</loc><lastmod>{day}</lastmod></url>" for p in ("terms.html", "privacy.html"))
+    built = os.path.join(HERE, "content", "built.json")   # verified content pages; drafts stay out until approved
+    if os.path.exists(built):
+        urls += "".join(f"\n  <url><loc>{BASE}{b['path']}</loc><lastmod>{day}</lastmod></url>" for b in json.load(open(built)) if not b["draft"])
     open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' + urls + "\n</urlset>\n")
 

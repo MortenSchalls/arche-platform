@@ -1,0 +1,38 @@
+{
+ "sg-aip-wssl": {
+  "title": "Singapore AIP, AD 2 WSSL Singapore/Seletar (effective 2 Oct 2025; amendments 01–03/2026 change only Seletar charts)",
+  "url": "https://aim-sg.caas.gov.sg/aim-content/uploads/aip/09-OCT-2025/AIP/2025-10-02-000000/html/eAIP/SG-AD-2-WSSL-en-GB.html",
+  "publisher": "Civil Aviation Authority of Singapore",
+  "checked": "2026-10-27"
+ },
+ "sg-aip-amdt-03-2026": {
+  "title": "Singapore AIP Amendment 03/2026 (effective 14 May 2026): \"Seletar Airport Nil\"",
+  "url": "https://www.caas.gov.sg/docs/default-source/docs---ats/singapore-aip-amendment-03-2026.pdf",
+  "publisher": "Civil Aviation Authority of Singapore",
+  "checked": "2026-10-27"
+ },
+ "icao-chicago": {
+  "title": "Convention on International Civil Aviation (Chicago, 1944), Articles 5 and 7",
+  "url": "https://amc.namem.gov.mn/wp-content/uploads/ICAO/chicago_convention_1.pdf",
+  "publisher": "ICAO (text as published by the Civil Aviation Authority of Mongolia)",
+  "checked": "2026-10-27"
+ },
+ "us-49usc41703": {
+  "title": "49 U.S.C. § 41703, Navigation of foreign civil aircraft",
+  "url": "https://govinfo.gov/content/pkg/USCODE-2021-title49/html/USCODE-2021-title49-subtitleVII-partA-subpartii-chap417.htm",
+  "publisher": "U.S. Government Publishing Office",
+  "checked": "2026-10-27"
+ },
+ "eu-1008-2008": {
+  "title": "Regulation (EC) No 1008/2008, Article 15 (provision of intra-Community air services)",
+  "url": "https://www.legislation.gov.uk/eur/2008/1008/chapter/III/2008-09-24?view=plain",
+  "publisher": "Official text as adopted, via legislation.gov.uk",
+  "checked": "2026-10-27"
+ },
+ "aopa-cabotage": {
+  "title": "Cabotage (international travel guidance)",
+  "url": "https://www.aopa.org/travel/international-travel/cabotage",
+  "publisher": "Aircraft Owners and Pilots Association (AOPA)",
+  "checked": "2026-10-27"
+ }
+}

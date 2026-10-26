@@ -1,0 +1,103 @@
+{
+ "path": "/airports/singapore-seletar/",
+ "type": "airport",
+ "draft": true,
+ "title": "Seletar Airport (WSSL), Singapore, for private jets",
+ "description": "Seletar Airport, Singapore: runway, customs and immigration, night curfew, aircraft size limits and how private flights clear, from the official Singapore AIP.",
+ "eyebrow": "Airport guide · Singapore",
+ "h1": "Seletar Airport, Singapore",
+ "lead": "Seletar Airport in the north of Singapore has its own Business Aviation Centre. What a private flight here involves, checked against the official Singapore Aeronautical Information Publication.",
+ "airport": {
+  "name": "Seletar Airport",
+  "icao": "wssl.icao",
+  "geo": "wssl.geo",
+  "country": "SG",
+  "city": "Singapore"
+ },
+ "glance": [
+  [
+   "ICAO code",
+   "wssl.icao"
+  ],
+  [
+   "Location",
+   "wssl.location"
+  ],
+  [
+   "Runway",
+   "wssl.runway"
+  ],
+  [
+   "Customs and immigration",
+   "wssl.ciq"
+  ],
+  [
+   "Night curfew",
+   "wssl.curfew"
+  ],
+  [
+   "Largest aircraft",
+   "wssl.maxstand"
+  ],
+  [
+   "Fuelling hours",
+   "wssl.fuel"
+  ],
+  [
+   "Airport operator",
+   "wssl.operator"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "What it is like to fly from Seletar",
+   "p": [
+    "Seletar is run by {{wssl.operator}} and sits {{wssl.location}}. Private passengers do not go through an airline terminal: {{wssl.bac}}. Customs and immigration are {{wssl.ciq}}.",
+    "Every flight is handled locally: {{wssl.handler}}. The operator of your flight appoints the handler; we make sure the handler has your passenger details, catering and transport in good time."
+   ]
+  },
+  {
+   "h": "Times and the night curfew",
+   "p": [
+    "The airport has a night curfew: {{wssl.curfew}}. A late-evening arrival or an early departure therefore needs planning. If your timing falls inside the curfew, we look at Changi as the alternative, or adjust the schedule with you before anything is booked.",
+    "Fuel is available {{wssl.fuel}}. The operator plans the fuel for your schedule around these hours."
+   ]
+  },
+  {
+   "h": "Which aircraft can use it",
+   "p": [
+    "Seletar has {{wssl.runway}}. Parking is limited by stand size: {{wssl.maxstand}}. Whether a particular aircraft can use the runway at the weight your trip needs is the operator's calculation; we have it confirmed before you receive a quote.",
+    "There is also a noise rule: {{wssl.noise}}. Every operator we propose is checked against it before you receive a quote."
+   ]
+  },
+  {
+   "h": "When Changi is the better choice",
+   "p": [
+    "Changi becomes the better choice for a private flight when the aircraft is too large for Seletar's stands, or when the departure or arrival falls inside Seletar's night curfew. We compare both airports for every Singapore trip and tell you why we recommend one."
+   ]
+  },
+  {
+   "h": "How current this is",
+   "p": [
+    "Everything on this page comes from the Singapore Aeronautical Information Publication; {{wssl.amdt}}. Airport rules can change at short notice. The operator and its handler confirm the current rules for your flight before departure."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet land at Seletar at night?",
+   "a": "No, except medical evacuation and emergency flights: {{wssl.curfew}}."
+  },
+  {
+   "q": "Where do private passengers clear immigration at Seletar?",
+   "a": "At the airport itself: {{wssl.bac}}. Customs and immigration are {{wssl.ciq}}."
+  },
+  {
+   "q": "Which is better for a private flight, Seletar or Changi?",
+   "a": "Seletar, when the aircraft fits its stands and runway and the times fall outside the night curfew. Otherwise Changi. We check both for every trip."
+  }
+ ],
+ "related": [
+  "/guides/cabotage/"
+ ]
+}
