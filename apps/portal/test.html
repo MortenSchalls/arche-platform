@@ -5171,7 +5171,7 @@ async function pushTest(){
   try { const s = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
     const r = await fetch("/api/alerts", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({test: true})});
     const j = await r.json(); if (!r.ok) { toast(j.detail || j.error || "The test could not be sent."); return; }
-    S.alertTest = `Test at ${fmtT(now())}: phone ${j.pushed} of ${j.devices} device${j.devices === 1 ? "" : "s"}. Email ${j.email === "ok" ? `accepted by Resend for ${j.to} from ${j.from}. If it does not arrive within a few minutes, look in Spam and in Resend > Emails (it shows delivered or bounced).` : j.email}.`;
+    S.alertTest = `Test at ${fmtT(now())}: phone ${j.pushed} of ${j.devices} device${j.devices === 1 ? "" : "s"}. Email ${j.email === "ok" ? `accepted by Resend for ${j.to} from ${j.from}. If it does not arrive within a few minutes, look in Spam and in Resend > Emails (it shows delivered or bounced).` : j.email + "."}`;
     toast("Test sent. The result is shown in Alerts."); render();
   } catch(e){ toast("The test could not be sent. Alerts may not be set up on the server yet."); }
 }
