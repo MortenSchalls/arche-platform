@@ -65,7 +65,7 @@ const OWNER_TODO = [
     why:"Lets a supervisor see the bookings that pay them a supervision share on their commission page.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
   {id:"email-dns", sev:"med", due:"2026-11-07", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
-    how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},
+    how:"Microsoft 365 from GoDaddy sets the mail records itself for a domain at GoDaddy; check GoDaddy > DNS has one SPF record (TXT starting v=spf1) and that DKIM is on in Email & Office. Then add DMARC: TXT, name _dmarc, value v=DMARC1; p=none; rua=mailto:operations@archeaviation.com (move to p=quarantine after a month of clean reports). Leave the Resend records under send. untouched."},
   {id:"smtp", sev:"med", due:"2026-11-10", title:"Sign-in emails sent from archeaviation.com",
     why:"Supabase's built-in mail sends only a few emails an hour and comes from a Supabase address.",
     how:"Supabase > Authentication > Emails > SMTP settings: enter your email provider's SMTP details. Do it after the email safety records."},

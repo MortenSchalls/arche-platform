@@ -69,9 +69,16 @@ function agrOwnerBlock(id, j){
     <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="send|${id}" ${agrCoReady() ? "" : "disabled"}>Passed: send agreement</button>${S.isOwner ? `<button class="btn small" type="button" data-decline="${id}">Decline</button>` : ""}</div>`;
   if (a.status === "sent") return `<p class="small">Assessment passed ${fmtD(a.assess && a.assess.at)}. Agreement sent ${fmtT(a.sentAt)}, waiting for their signature.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button><button class="btn small" type="button" data-agr="withdraw|${id}">Withdraw</button></div>`;
   if (a.status === "signed") return `<p class="small"><b>Signed</b> by ${esc(a.signedName)} on ${fmtT(a.signedAt)}.</p>
-    <div class="fgrid" style="margin-top:6px"><label class="f" for="ob_mail_${id}">Archē email address created for them<input id="ob_mail_${id}" type="email" autocomplete="off" placeholder="name@…"></label></div>
+    <div class="fgrid" style="margin-top:6px"><label class="f" for="ob_mail_${id}">Archē email address created for them<input id="ob_mail_${id}" type="email" autocomplete="off" value="${esc(obSuggestMail(j.contractName))}" placeholder="firstname.lastname@${esc(obDomain())}"></label></div><p class="small muted" style="margin:4px 0 0">Create this mailbox in GoDaddy first (Email & Office > Create New Email User, Email Essentials), with their own name as display name.</p>
     <div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button>${S.isOwner ? `<button class="btn small primary" type="button" data-approve="${id}">Countersign and issue onboarding package</button>` : `<span class="small muted">Waiting for the director's countersignature.</span>`}</div>`;
   return `<p class="small muted">Agreement ${esc(a.status)}.</p>`;
+}
+/* broker mailboxes: firstname.lastname on the company domain (Morten, 26 Oct 2026) */
+function obDomain(){ const w = String((S.company || {}).web || "archeaviation.com").toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/.*$/, ""); return w || "archeaviation.com"; }
+function obSuggestMail(name){
+  const parts = String(name || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z\s-]/g, " ").split(/\s+/).filter(Boolean);
+  if (!parts.length) return ""; const local = parts.length > 1 ? parts[0] + "." + parts[parts.length - 1] : parts[0];
+  return local + "@" + obDomain();
 }
 function agrWatchOwner(){ if (S.agrOn || !(S.isOwner || (typeof canRight === "function" && canRight("assess")))) return; S.agrOn = true; watchCol("agr", snap => { S.agrs = {}; snap.docs.forEach(d => S.agrs[d.id] = d.data()); render(); }); }
 function agrModal(){ const id = S.agrView; if (!id) return ""; const a = (S.agrs || {})[id] || (id === S.uid ? S.myAgr : null); if (!a) return "";
@@ -81,6 +88,7 @@ async function agrCountersign(id){
   const mail = (($("ob_mail_" + id) || {}).value || "").trim().toLowerCase();
   if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/.test(mail)) { toast("Enter the Archē email address you created for them."); return; }
   if (OB_WEBMAIL.test(mail)) { toast("Use their dedicated Archē address, not a personal one."); return; }
+  if (!mail.endsWith("@" + obDomain())) { toast(`Use their address on ${obDomain()}.`); return; }
   const c = S.company || {}; if (!c.signName || !c.signTitle) { toast("Add the authorised signatory and title in Settings first."); return; }
   const at = now(), done = {...a, status: "active", counterName: c.signName, counterTitle: c.signTitle, counterAt: at, counterBy: S.uid};
   done.html = agrRender(done);
