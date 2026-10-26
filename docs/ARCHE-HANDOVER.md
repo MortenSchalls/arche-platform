@@ -2,7 +2,7 @@
 
 The one file to start a new chat from. It says what Archē is, where everything is, the rules we work by, what is built,
 what is decided and what is still open. Claude updates it at the end of every working session.
-Last updated: 26 Oct 2026. Peer rating: project note `claude/arche-setup-vs-peers-2026-10-26.md`.
+Last updated: 26 Oct 2026. Company formation requested 26 Oct 2026 via corporate services (about a week); then bank KYB, client payment provider and Avinode in parallel; launch target 1 Dec 2026. Peer rating: project note `claude/arche-setup-vs-peers-2026-10-26.md`.
 
 **To continue in a new chat:** attach this file (or open the "Archē Executive" project, where it is kept) and say
 "Continue the Archē work from the handover file". Claude reads it, then `CLAUDE.md` and `docs/ROADMAP.md` in the
@@ -18,6 +18,7 @@ repository.
   the broker offer.
 - Brokers are **contracted consultants on 100% commission**, not employees. They work remotely, not from Thailand or
   Singapore. With 100% commission, **no Thai company** is needed.
+- **Singapore only until the Bangkok office opens:** the website says Singapore · Worldwide in all four languages, with one Singapore office and a Singapore number; no Bangkok office or Thai number anywhere client-facing.
 - Owners: **Morten Schalls Jørgensen** and **Chayanun Chimmod** (second owner in the portal since 25 Oct 2026).
 
 ## 2. Business rules (from `CLAUDE.md`; change only on Morten's written instruction)
@@ -199,7 +200,10 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
 - **Chayanun Chimmod:** second owner in the portal.
 - **Kasper, Sam:** Origin (Navoryx) people, not Archē.
 
-## 8. Open items (also on the portal task list and in `docs/ROADMAP.md`)
+## 8. Open items
+
+The dated launch steps (UEN, bank, payments, Avinode, Singapore number, email, insurance quote, test payment, group 1, launch, then ACA and operator ratings) are in Team → To do for you, sorted by due date.
+ (also on the portal task list and in `docs/ROADMAP.md`)
 
 1. Run SQL 0006/0007 (check), 0010, 0011, 0012 from Team.
 2. Company details in Settings (UEN, address, emails, privacy email, signatory). Needed before agreements can be sent.

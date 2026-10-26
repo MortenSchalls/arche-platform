@@ -23,6 +23,7 @@ Read this before changing anything. These are business rules set by the owner, M
 
 ## Writing
 - Plain, short English. Say "Archē Executive" in branded text; the legal name is Arche Executive Pte. Ltd.
+- Archē is a Singapore company and stays Singaporean until the Bangkok office opens: no Bangkok office, Bangkok address or Thai phone number on the website, in signatures, offers, agreements or client documents (Morten, 26 Oct 2026). Thai routes and airports are fine. The website switch is `BANGKOK_OFFICE` in `apps/website/build.py`.
 - The Word manual is the master. Change the manual first, then rebuild the academies from it.
 - The external academy must contain nothing Archē-internal; `apps/academy/build/ext.js` fails the build if it does.
 - Notices to members (`apps/portal/src-modules/notices.js`): ask Morten first whether a change needs a notice at all, and agree the wording, before adding one. A notice in the code is only a draft; nothing reaches members until Morten publishes it in Team (Morten, 26 Oct 2026).

@@ -16,6 +16,7 @@ import os, shutil, re, json, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "design-source")
 OUT = os.path.join(HERE, "site")
+BANGKOK_OFFICE = False   # Morten 26 Oct 2026: Archē stays Singaporean until the Bangkok office opens (see singapore_only.py)
 SHOW_ACCREDITATIONS = False   # Morten 20 Oct 2026: hide until Archē holds accreditations; set True to bring the section back
 PORTAL = "https://portal.archeaviation.com"  # go-live address (Morten, 25 Oct 2026)
 
@@ -156,6 +157,8 @@ window.archeSend = function (data) {
     open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(s)
     langs.build(OUT, seo.SITE_URL)   # th.html, zh.html, ja.html and the ready-made page copy in all four
     print("built", os.path.join(OUT, "index.html"), len(s))
+    if not BANGKOK_OFFICE:
+        import singapore_only; singapore_only.run()
     for f in ("privacy.html", "terms.html"):   # same lighter background on the legal pages
         fp = os.path.join(OUT, f)
         if os.path.exists(fp): open(fp, "w", encoding="utf-8").write(sections.tone(open(fp, encoding="utf-8").read()))

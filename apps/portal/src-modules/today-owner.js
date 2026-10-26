@@ -6,7 +6,27 @@
    from live data on every visit, with a weekly snapshot in intel/matrix so movement over time shows. */
 const OWNER_SQL = /*SQL*/{};
 const OWNER_TODO = [
-  {id:"company", sev:"high", title:"Fill in the company details",
+  {id:"uen", sev:"high", title:"Company registered: registration number (UEN) received", due:"2026-11-02",
+    why:"Everything else waits for it: bank, payments, Avinode, agreements.", how:"Corporate services sends the UEN and the registered office address. Then do the next three steps the same day."},
+  {id:"apply-bank", sev:"high", title:"Apply for the business bank account (same day as the UEN)", due:"2026-11-03",
+    why:"The bank's business check (KYB) can take 1 to 4 weeks; start at once.", how:"Apply with the UEN, company documents and director ID. Tick Ready to sign brokers > bank in Onboarding when the account is open."},
+  {id:"apply-payments", sev:"high", title:"Apply to the client payment provider (same day)", due:"2026-11-03",
+    why:"Without it no booking can be paid; it is the step most likely to delay launch.", how:"Apply with the UEN; the provider runs its own business check. Tick Ready to sign brokers > client payments once a test payment works."},
+  {id:"apply-avinode", sev:"high", title:"Apply for Avinode (same day)", due:"2026-11-03",
+    why:"Avinode can take a few weeks to approve a new broker.", how:"Apply with the company details, website and references. Tick Ready to sign brokers > Avinode in Onboarding when active."},
+  {id:"sg-number", sev:"med", title:"Singapore business phone number", due:"2026-11-07",
+    why:"Archē stays Singaporean until the Bangkok office opens: no Thai number on the website, signatures or documents.", how:"Get a Singapore number that rings on your phone (a business phone or VoIP service), use it for WhatsApp Business too, and enter it in Settings > Company details. The website shows the Singapore office only."},
+  {id:"insurance-quote", sev:"med", title:"Ask for a broker insurance quote", due:"2026-11-14",
+    why:"Insurance follows 1 to 3 months after launch; knowing the price and conditions now avoids surprises.", how:"Ask a broker for professional liability and non-owned aircraft liability. When bound, tick it in Onboarding and tell signed brokers in writing (clause 8.9)."},
+  {id:"payments-live", sev:"high", title:"Client payments working: one test payment end to end", due:"2026-11-24",
+    why:"The first client must be able to pay on day one.", how:"Run a small test payment and refund through the provider. Then tick client payments in Onboarding."},
+  {id:"group1", sev:"med", title:"Sign group 1: 3 to 5 brokers", due:"2026-11-28",
+    why:"Launch is 1 December. Candidates can finish the academy and assessment before the company is ready.", how:"Onboarding: complete the checklists, send agreements once Ready to sign brokers is all ticked, countersign, issue the packages."},
+  {id:"aca", sev:"low", title:"Apply for Air Charter Association membership", due:"2026-12-15", later:true,
+    why:"Its Seal of Accreditation is what peers show clients.", how:"Apply after launch with the company documents and references."},
+  {id:"op-ratings", sev:"low", title:"Subscribe to operator safety ratings (Wyvern or ARGUS)", due:"2026-12-15", later:true,
+    why:"Peers check every operator against these ratings.", how:"Choose one; record the rating on each trip."},
+  {id:"company", sev:"high", due:"2026-11-03", title:"Fill in the company details",
     why:"The agreement, email signature, confirmations and privacy notice use them. Agreements cannot be sent until they are in.",
     how:"Settings > Company details: UEN, registered address, bookings email, privacy email, signatory name and title.", view:"settings",
     check: () => { const c = S.company || {}; return ["reg","address","email","privacy","signName","signTitle"].every(k => String(c[k] || "").trim()); }},
@@ -43,10 +63,10 @@ const OWNER_TODO = [
     why:"Keeps the qualification checklist for each candidate, seen only by owners and assessors. Agreements wait for a complete checklist.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0016", sev:"med", title:"Run SQL: supervision share (0016)", sql:"0016",
     why:"Lets a supervisor see the bookings that pay them a supervision share on their commission page.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
-  {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
+  {id:"email-dns", sev:"med", due:"2026-11-07", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
     how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},
-  {id:"smtp", sev:"med", title:"Sign-in emails sent from archeaviation.com",
+  {id:"smtp", sev:"med", due:"2026-11-10", title:"Sign-in emails sent from archeaviation.com",
     why:"Supabase's built-in mail sends only a few emails an hour and comes from a Supabase address.",
     how:"Supabase > Authentication > Emails > SMTP settings: enter your email provider's SMTP details. Do it after the email safety records."},
   {id:"sandy", sev:"low", title:"Remove the old portal address from Supabase",
@@ -71,7 +91,7 @@ const OWNER_TODO = [
   {id:"research", sev:"low", title:"Turn daily prospect research back on (at go-live)", later:true,
     why:"Paused since 21 Oct 2026 to save AI credit; until then new prospects come from research in chat.",
     how:"Ask Claude to restore the daily research line in the jobs workflow; it needs AI credit (see the AI step)."},
-  {id:"launch", sev:"low", title:"Launch day: make the website public", later:true,
+  {id:"launch", sev:"low", due:"2026-12-01", title:"Launch day: make the website public", later:true,
     why:"archeaviation.com stays behind Vercel's login until you switch it on.",
     how:"Vercel > website project > Settings > Deployment Protection: turn off Vercel Authentication for production."},
   {id:"testpage", sev:"low", title:"Decide whether to keep the test page online", later:true,
@@ -108,8 +128,9 @@ function todoState(x){
 function ownerTodoPanel(){
   if (!S.isOwner || S.preview) return "";
   setTimeout(todoProbe, 0);
-  const rows = OWNER_TODO.map(x => ({x, s: todoState(x)})), open = rows.filter(r => !r.s.done), now_ = open.filter(r => !r.x.later), later = open.filter(r => r.x.later), done = rows.filter(r => r.s.done);
-  const item = ({x, s}) => `<div class="flag"><span class="sev ${TODO_SEV[x.sev]}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(x.title)}</b></p><p class="small muted">${esc(x.why)}</p><p class="small">${esc(x.how)}</p>
+  const byDue = (a, b) => (a.x.due || "9999") < (b.x.due || "9999") ? -1 : (a.x.due || "9999") > (b.x.due || "9999") ? 1 : 0;
+  const rows = OWNER_TODO.map(x => ({x, s: todoState(x)})).sort(byDue), open = rows.filter(r => !r.s.done), now_ = open.filter(r => !r.x.later), later = open.filter(r => r.x.later), done = rows.filter(r => r.s.done);
+  const item = ({x, s}) => `<div class="flag"><span class="sev ${todoLate(x) ? "high" : TODO_SEV[x.sev]}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(x.title)}</b>${todoDue(x)}</p><p class="small muted">${esc(x.why)}</p><p class="small">${esc(x.how)}</p>
     ${x.sql && OWNER_SQL[x.sql] ? `<details class="small"><summary>Show the SQL</summary><pre class="mono" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto">${esc(OWNER_SQL[x.sql])}</pre></details>` : ""}
     <div class="row" style="margin-top:6px">${x.after && !todoState(OWNER_TODO.find(y => y.id === x.after) || {}).done ? `<span class="small" style="color:var(--warn)">Run ${esc((OWNER_TODO.find(y => y.id === x.after) || {}).title || "the step before")} first.</span>` : x.sql && OWNER_SQL[x.sql] ? `<button class="btn small primary" type="button" data-todo="copy" data-id="${x.id}">Copy SQL</button>` : ""}${x.view ? `<button class="btn small" type="button" data-view="${x.view}">Open ${esc(x.view === "settings" ? "Settings" : x.view)}</button>` : ""}${s.manual ? `<button class="btn small" type="button" data-todo="done" data-id="${x.id}">Mark as done</button>` : `<span class="small muted">The portal ticks this by itself once done.</span>`}</div></div></div>`;
   return `<div class="panel" style="margin-bottom:16px" id="ownerTodo"><div class="row" style="justify-content:space-between"><h2 style="margin:0">To do for you</h2><span class="small muted">${now_.length} now · ${later.length} later · ${done.length} done</span></div>
@@ -118,13 +139,15 @@ function ownerTodoPanel(){
     ${later.length ? `<details style="margin-top:8px"${S.todoLater ? " open" : ""} data-todo-det="later"><summary class="small"><b>Later (${later.length})</b></summary>${later.map(item).join("")}</details>` : ""}
     ${done.length ? `<details style="margin-top:8px"><summary class="small muted">Done (${done.length})</summary><ul class="small" style="margin:6px 0 0;padding-left:18px">${done.map(({x, s}) => `<li>${esc(x.title)} · <span class="muted">${esc(s.how)}</span>${((S.setup || {}).done || {})[x.id] ? ` <a href="#" data-todo="undo" data-id="${x.id}">undo</a>` : ""}</li>`).join("")}</ul></details>` : ""}</div>`;
 }
+const todoLate = x => !!x.due && Date.parse(x.due + "T23:59:00") < Date.now();
+const todoDue = x => x.due ? ` <span class="chip ${todoLate(x) ? "c-returned" : "c-review"}">${todoLate(x) ? "Overdue: " : "Due "}${esc(fmtD(x.due))}</span>` : "";
 /* Today shows only a prompt; the list itself is kept in Team (Morten, 26 Oct 2026) */
 function ownerTodoPrompt(){
   if (!S.isOwner || S.preview) return "";
   setTimeout(todoProbe, 0);
-  const open = OWNER_TODO.filter(x => !todoState(x).done && !x.later); if (!open.length) return "";
+  const open = OWNER_TODO.filter(x => !todoState(x).done && !x.later).sort((a, b) => (a.due || "9999") < (b.due || "9999") ? -1 : 1); if (!open.length) return "";
   return `<div class="panel" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Your tasks: ${open.length} need${open.length === 1 ? "s" : ""} you</h2><button class="btn small primary" type="button" data-view="team">Open in Team</button></div>
-    ${open.map(x => `<div class="flag"><span class="sev ${TODO_SEV[x.sev]}" aria-hidden="true"></span><div><p>${esc(x.title)}</p></div></div>`).join("")}</div>`;
+    ${open.slice(0, 8).map(x => `<div class="flag"><span class="sev ${todoLate(x) ? "high" : TODO_SEV[x.sev]}" aria-hidden="true"></span><div><p>${esc(x.title)}${todoDue(x)}</p></div></div>`).join("")}${open.length > 8 ? `<p class="small muted">and ${open.length - 8} more in Team.</p>` : ""}</div>`;
 }
 async function todoAct(a, id){
   const x = OWNER_TODO.find(t => t.id === id); if (!x) return;

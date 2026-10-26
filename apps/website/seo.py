@@ -5,8 +5,8 @@ import os, json, base64, re
 from PIL import Image, ImageDraw, ImageFont
 
 SITE_URL = "https://archeaviation.com"
-TITLE = "Archē Executive · Private jet charter · Singapore and Bangkok"
-DESC = ("Private jet charter from Singapore and Bangkok, worldwide. We find the right aircraft, check the operator "
+TITLE = "Archē Executive · Private jet charter · Singapore · Worldwide"
+DESC = ("Private jet charter from Singapore, worldwide. We find the right aircraft, check the operator "
         "behind it, and stay with you until you land. Answers within 15 minutes, any hour.")
 FONTS = ("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Prata"
          "&family=Hanken+Grotesk:wght@300;400;500;600&family=Noto+Sans+Thai:wght@300;400;500"
@@ -103,5 +103,5 @@ def og_image(out_dir, here):
         for ch in text: d.text((x, y), ch, font=font, fill=fill); x += d.textlength(ch, font=font) + spacing
     centred(410, "ARCHĒ", f1, (226, 233, 241), 18)
     centred(505, "EXECUTIVE", f2, (190, 202, 216), 14)
-    centred(555, "Private jet charter · Singapore · Bangkok", f3, (169, 189, 212))
+    centred(555, "Private jet charter · Singapore · Worldwide", f3, (169, 189, 212))
     img.save(os.path.join(out_dir, "og-image.jpg"), quality=86)
