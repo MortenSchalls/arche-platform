@@ -81,7 +81,8 @@ function apTripBlock(t){
 })();
 async function apWrite(t, state, note){
   const f = apFigures(t);
-  await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the owner" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
+  const sh = state === "approved" && typeof supShareFor === "function" ? supShareFor(t.bid) : null;
+  await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(sh ? {supShare: sh} : {}), ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the owner" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
   audit(state === "approved" ? "Booking approved" : "Booking returned by the owner", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
 }
 document.addEventListener("click", e => {

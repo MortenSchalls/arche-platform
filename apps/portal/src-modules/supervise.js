@@ -109,9 +109,9 @@ function supervisionPanel(){
   const head = `<div class="panel tbl" style="margin-bottom:16px" id="supPanel"><h2>Supervision and supervisor rights</h2><p class="small muted">While someone is supervised, each step below waits for your OK on Today. Release a step when you are satisfied; you can supervise it again at any time. New people start supervised. The count shows your decisions so far: approved first time, and sent back for changes.</p>
     ${S.reqReady ? "" : `<div class="note info small">Step approval starts once the SQL step "supervised steps (0011)" above has run. Until then nothing is held back.</div>`}`;
   if (!ros.length) return head + `<p class="small muted">Nobody approved yet.</p></div>`;
-  return head + `<table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th>${GATE_KEYS.map(k => `<th scope=col>${esc(GATES[k].label)}</th>`).join("")}<th scope=col>Supervisor rights</th></tr></thead><tbody>
+  return head + `<table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th><th scope=col>Supervisor</th>${GATE_KEYS.map(k => `<th scope=col>${esc(GATES[k].label)}</th>`).join("")}<th scope=col>Supervisor rights</th></tr></thead><tbody>
     ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Operations" : p.role === "consultant" ? "Charter consultant" : "Broker")}</span></td>
-      <td><label class="check" style="margin:0"><input type="checkbox" data-supall="${id}" ${p.supervised ? "checked" : ""}><span class="small">${p.supervised ? "Yes" : "No"}</span></label></td>
+      <td><label class="check" style="margin:0"><input type="checkbox" data-supall="${id}" ${p.supervised ? "checked" : ""}><span class="small">${p.supervised ? "Yes" : "No"}</span></label></td><td>${supAssignCell(id, p)}</td>
       ${GATE_KEYS.map(k => { if (!gateApplies(k, id)) return `<td class="muted">–</td>`; const s = gateStats(id, k), rel = !!(p.released || {})[k];
         return `<td>${!p.supervised ? `<span class="chip c-flown">Free</span>` : rel ? `<span class="chip c-flown">Released</span>` : `<span class="chip c-review">Needs your OK</span>`}<br><span class="muted">${s.ok} approved · ${s.ch} changes</span>${p.supervised ? `<br><button class="btn small" type="button" data-gate="${rel ? "resup" : "release"}" data-uid="${id}" data-key="${k}">${rel ? "Supervise again" : "Release"}</button>` : ""}</td>`; }).join("")}<td>${S.rightsReady === false ? `<span class="muted">After SQL 0012</span>` : rightsCells(id, p)}</td></tr>`).join("")}
   </tbody></table><details class="small" style="margin-top:8px"><summary>What each step and right means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}${Object.keys(RIGHTS).map(r => `<li><b>${esc(RIGHTS[r].label)}</b> (supervisor right): ${esc(RIGHTS[r].desc)}</li>`).join("")}</ul><p class="muted" style="margin:6px 0 0">Releasing steps, giving rights and countersigning stay with you. Every supervisor decision is in the audit log with their name.</p></details></div>`;
@@ -200,3 +200,50 @@ setInterval(() => {
   if (!S.subs["roster"]) watchCol("roster", snap => { const o = {}; snap.docs.forEach(d => o[d.id] = d.data()); S.roster = o; render(); });
   if (canRight("assess") && !S.subs["join"]) watchCol("join", snap => { S.joins = {}; snap.docs.forEach(d => S.joins[d.id] = d.data()); render(); });
 }, 2500);
+
+/* ---------- Supervision share (Schedule 1; Morten, 26 Oct 2026) ----------
+   While someone is supervised and has a named supervisor, 3 points of the gross profit on each booking approved in
+   that time go to the supervisor (to Archē when an owner supervises). Recorded on the trip at approval. The owner can
+   forfeit a supervisor's share on a booking where they approved a step that broke the rules. No automatic end:
+   it stops when supervision is switched off. */
+const SUP_RATE = 0.03;
+function ownerIds(){ return [...new Set([...(S.isOwner ? [S.uid] : []), ...Object.entries(S.roster || {}).filter(([, p]) => p.role === "owner").map(([id]) => id)])]; }
+function supShareFor(bid){
+  const r = rosterOf(bid); if (!r || !r.supervised || !r.supervisor || r.supervisor === bid) return null;
+  const sup = r.supervisor, sr = (S.roster || {})[sup], isOwnerSup = ownerIds().includes(sup) || (sr && sr.role === "owner");
+  return {uid: sup, rate: SUP_RATE, toArche: !!isOwnerSup, at: now()};
+}
+function supCandidates(id){
+  const owners = ownerIds().map(o => [o, o === S.uid ? (S.myName || "You") + " (owner)" : nm(o) + " (owner)"]);
+  const members = Object.entries(S.roster || {}).filter(([o, p]) => o !== id && p.active !== false && p.role !== "owner" && (p.rights || {}).supervise).map(([o, p]) => [o, p.contractName || nm(o)]);
+  return [...owners, ...members];
+}
+function supAssignCell(id, p){
+  if (!p.supervised) return `<span class="muted">–</span>`;
+  const c = supCandidates(id);
+  return `<select data-supby="${id}" aria-label="Supervisor for ${esc(p.contractName || nm(id))}" style="width:auto"><option value="">Not named</option>${c.map(([o, n]) => `<option value="${o}" ${p.supervisor === o ? "selected" : ""}>${esc(n)}</option>`).join("")}</select><br><span class="muted">${p.supervisor ? (ownerIds().includes(p.supervisor) ? "3 points to Archē" : "3 points to the supervisor") : "No share until named"}</span>`;
+}
+document.addEventListener("change", async e => {
+  const id = e.target.dataset && e.target.dataset.supby; if (!id || !S.isOwner) return;
+  const v = e.target.value || null;
+  try { await S.db.doc("roster/" + id).update({supervisor: v}); (S.roster[id] || {}).supervisor = v; audit(v ? "Supervisor named" : "Supervisor removed", `${nm(id)}${v ? " · " + nm(v) : ""}`); toast("Saved."); render(); } catch(err){ toast("Could not save."); }
+});
+/* on the trip: who gets the share, and the owner's forfeit */
+function supShareBlock(t){
+  const sh = t && t.st && t.st.supShare; if (!sh || !(isStaff() || sh.uid === S.uid) || S.preview) return "";
+  const gp = num(t.st.price) - num(t.st.opPrice) - num(t.st.direct), amt = gp * num(sh.rate || SUP_RATE);
+  return `<div class="note ${sh.forfeited ? "bad" : "info"} small"><b>Supervision share</b> (3 points, ${usd(amt)}): ${sh.toArche ? "stays with Archē (an owner supervised)" : sh.forfeited ? `forfeited ${fmtT(sh.forfeited.at)}: ${esc(sh.forfeited.reason || "")}` : `to ${esc(nm(sh.uid))}`}.
+    ${S.isOwner && !sh.toArche && !sh.forfeited ? `<div class="row" style="margin-top:6px"><input id="sf_why" placeholder="Rule broken (for the record)" style="max-width:320px"><button class="btn small danger" type="button" data-supfo="${t.did}">Forfeit the share</button></div>` : ""}</div>`;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest("[data-supfo]"); if (!b || !S.isOwner) return; e.preventDefault();
+  const t = tripById(b.dataset.supfo), why = (($("sf_why") || {}).value || "").trim(); if (!t) return;
+  if (why.length < 5) { toast("Write which rule was broken."); return; }
+  try { await statusWrite(t, {supShare: {...t.st.supShare, forfeited: {at: now(), by: S.uid, reason: why}}}, `Supervision share forfeited: ${why}`); audit("Supervision share forfeited", `${(t.st || {}).ref || t.did} · ${nm(t.st.supShare.uid)} · ${why}`); toast("Forfeited: the share stays with Archē."); } catch(err){ toast("Could not save."); }
+});
+/* supervisors who are not staff: read the trips that pay them a share (SQL 0016) */
+setInterval(() => {
+  if (!S.db || S.isOwner || isStaff() || typeof canRight !== "function" || !canRight("supervise")) return;
+  Object.keys(S.roster || {}).filter(id => id !== S.uid).forEach(bid => { const path = `status/${bid}/deals`; if (S.subs[path]) return;
+    S.subs[path] = S.db.collection(path).onSnapshot(snap => { const o = {}; snap.docs.forEach(d => o[d.id] = d.data()); S.status[bid] = o; render(); }, () => {}); });
+}, 3000);

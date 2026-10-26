@@ -114,6 +114,7 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
   - approve bookings (operations only)
 
   Rights never apply to the person's own work.
+- **Supervision share (Schedule 1, agreement version 2026-10-26.2):** while supervised with a named supervisor, 3 points of gross profit on each booking approved in that time go to the supervisor (24% instead of 27%, 32% instead of 35%); to Archē when an owner supervises; owner can forfeit a supervisor's share on a booking for a rule breach; no automatic end (stops when supervision is switched off). Recorded on the trip at approval; shown in both people's commission. Supervisor named per person in Team → Supervision. Offer says: 'Learn with a supervisor, then earn as one.'
 - **Onboarding page (owner):** joining and leaving moved out of Team. Requests to join carry a qualification checklist (11 minimum items, 7 desired, 5 red flags); the agreement waits until every minimum is ticked and no red flag is.
 - **Broker intake and leaving (26 Oct 2026):** agreements held back until company, bank, client payments and Avinode are ticked in Team → Ready to sign brokers (insurance optional; clause 8.9 now says insurance is being arranged, agreement version 2026-10-26); supervision limit (default 6, others wait); counsel check for a candidate's new country; candidates name 10–20 organisations at assessment, which become their own leads at countersignature; one-tick End engagement (now or 30 days' notice) frees enquiries, prospects and leads, removes rights and alerts, and asks the leaver to confirm deleting Archē data within 7 days; I'm unavailable switch routes alerts to a backup; supervised brokers ask one OK for a batch of first contacts; 24-hour operator and handler contacts required before a confirmation. Offer: earnings shown as an example, plus 'examples, not a promise' note.
 - **Notices:** shown on members' dashboards until they confirm. The confirmation is logged and counts in trust.
@@ -162,6 +163,7 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
 | 0013 | Alerts: recipients and official sender (owner only) | **To run**, then add yourself in Team → Alerts |
 | 0014 | Phones that receive alerts, and the 2-minute alert check (pg_cron) | Run 26 Oct 2026 (alerts working) |
 | 0015 | Assessments: qualification checklist (owner and assessors only) | **To run**, after 0012 |
+| 0016 | Supervision share: supervisors see the trips that pay them | **To run** |
 
 How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor → paste → Run.
 
@@ -216,7 +218,7 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
    - WhatsApp team setup (proposed 26 Oct 2026): Community "Archē Executive Team" with Announcements, Desk, Operations 24/7, Supervisors, New joiners and per-trip groups for complex charters; owners only as admins; no client personal data in groups; the portal is the record
 7. Counsel and other before-launch items: see `docs/ROADMAP.md` section 1. Examples: payment provider to replace Paynode,
    insurance, PDPA checks, native-speaker check of translations.
-8. Supervisor incentive (Morten's idea, 26 Oct 2026): a supervised broker gives up 3 points of their share to the assigned supervisor. Decisions pending: owner as supervisor, time limit, wording in agreement Schedule 1 and the offer.
+8. Run SQL 0015 (assessments) and 0016 (supervision share) from Team.
 9. Prospects:
    - 53 organisations imported 25 Oct 2026, researched in chat (option 2, no API cost).
    - Gaps with no business-jet caterer or verified crew hotel: Hong Kong caterer; crew hotels at WSSS/WSSL, VTBD, RPLL

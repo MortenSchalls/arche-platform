@@ -5,7 +5,7 @@ After changing the agreement doc: replace agreement-source.html, raise VERSION, 
 paste the new src-modules/agreement-text.js over the old block in index.html."""
 import json, pathlib, re
 HERE = pathlib.Path(__file__).parent
-VERSION = "2026-10-26"  # 8.9: insurance being arranged (Morten, 26 Oct 2026)
+VERSION = "2026-10-26.2"  # 8.9 insurance being arranged; Schedule 1 supervision share (Morten, 26 Oct 2026)
 s = (HERE / "agreement" / "agreement-source.html").read_text(encoding="utf-8")
 s = re.sub(r"<h1>.*?</h1>\s*", "", s, count=1)
 s = re.sub(r'<p class="sub">.*?</p>\s*', "", s, count=1)

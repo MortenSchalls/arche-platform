@@ -41,6 +41,8 @@ const OWNER_TODO = [
     how:"iPhone: open portal.archeaviation.com in Safari, tap Share > Add to Home Screen, open Archē from the Home Screen and sign in. Then Team > Alerts > Turn on alerts on this device, and Send a test alert. Add yourself in Alerts with msj@archeaviation.com as email and your SMS number for later."},
   {id:"sql-0015", sev:"high", title:"Run SQL: assessments (0015), after 0012", sql:"0015", table:"assessments", after:"sql-0012",
     why:"Keeps the qualification checklist for each candidate, seen only by owners and assessors. Agreements wait for a complete checklist.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+  {id:"sql-0016", sev:"med", title:"Run SQL: supervision share (0016)", sql:"0016",
+    why:"Lets a supervisor see the bookings that pay them a supervision share on their commission page.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
   {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
     how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},
