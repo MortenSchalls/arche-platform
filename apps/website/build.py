@@ -161,7 +161,10 @@ window.archeSend = function (data) {
         import singapore_only; singapore_only.run()
     for f in ("privacy.html", "terms.html"):   # same lighter background on the legal pages
         fp = os.path.join(OUT, f)
-        if os.path.exists(fp): open(fp, "w", encoding="utf-8").write(sections.tone(open(fp, encoding="utf-8").read()))
+        if os.path.exists(fp):   # read first: opening for writing empties the file (this emptied both pages until 26 Oct 2026)
+            t = open(fp, encoding="utf-8").read()
+            if t.strip(): open(fp, "w", encoding="utf-8").write(sections.tone(t))
+    import company; company.run()   # name, address and registration number on every page
 
 
 if __name__ == "__main__":

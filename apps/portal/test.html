@@ -949,9 +949,9 @@ function vSettings(){
   </div><div class="row"><button class="btn primary" type="submit">Save terms</button></div></form>
   ${assignForm()}
   <form id="companyForm" class="panel stack" style="max-width:640px;margin-top:16px"><h2>Company details on confirmations</h2><p class="small muted">Printed on every charter confirmation. Until these are filled in, confirmations stay in draft.</p><div class="fgrid">
-    <label class="f" for="co_name">Legal entity name<input id="co_name" value="${esc(S.company.name || "")}"></label>
+    <label class="f" for="co_name">Legal entity name<input id="co_name" value="${esc(S.company.name || "Arche Executive Pte. Ltd.")}"></label>
     <label class="f" for="co_reg">Registration (UEN)<input id="co_reg" value="${esc(S.company.reg || "")}"></label>
-    <label class="f wide" for="co_addr">Registered address<textarea id="co_addr">${esc(S.company.address || "")}</textarea></label>
+    <label class="f wide" for="co_addr">Registered address<textarea id="co_addr">${esc(S.company.address || "20 Collyer Quay, #09-01\nSingapore 049319")}</textarea></label>
     <label class="f" for="co_email">Bookings email<input id="co_email" value="${esc(S.company.email || "")}"></label>
     <label class="f" for="co_phone">24/7 operations phone<input id="co_phone" value="${esc(S.company.phone || "")}"></label>
     <label class="f" for="co_web">Website<input id="co_web" value="${esc(S.company.web || "")}"></label>
@@ -5557,7 +5557,7 @@ const OWNER_TODO = [
     why:"Peers check every operator against these ratings.", how:"Choose one; record the rating on each trip."},
   {id:"company", sev:"high", due:"2026-11-03", title:"Fill in the company details",
     why:"The agreement, email signature, confirmations and privacy notice use them. Agreements cannot be sent until they are in.",
-    how:"Settings > Company details: UEN, registered address, bookings email, privacy email, signatory name and title.", view:"settings",
+    how:"Settings > Company details: the legal name and registered address (20 Collyer Quay, #09-01, Singapore 049319) are filled in already; add the UEN, bookings email, privacy email, signatory name and title, then press Save company details.", view:"settings",
     check: () => { const c = S.company || {}; return ["reg","address","email","privacy","signName","signTitle"].every(k => String(c[k] || "").trim()); }},
   {id:"sql-0006", sev:"high", title:"Run SQL: supplier quotes (0006)", sql:"0006", table:"rfqs",
     why:"Operations request, compare and award quotes from FBOs, caterers and hotels in Supplier quotes.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},

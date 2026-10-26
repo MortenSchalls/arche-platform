@@ -18,6 +18,7 @@ repository.
   the broker offer.
 - Brokers are **contracted consultants on 100% commission**, not employees. They work remotely, not from Thailand or
   Singapore. With 100% commission, **no Thai company** is needed.
+- **Registered office:** 20 Collyer Quay, #09-01, Singapore 049319 (on the website in all languages, the privacy notice, the Word agreement, and pre-filled in portal Settings). Add the UEN when it arrives: `apps/website/company.py` (UEN), portal Settings, and the two UEN [●] in the Word agreement.
 - **Singapore only until the Bangkok office opens:** the website says Singapore · Worldwide in all four languages, with one Singapore office and a Singapore number; no Bangkok office or Thai number anywhere client-facing.
 - Owners: **Morten Schalls Jørgensen** and **Chayanun Chimmod** (second owner in the portal since 25 Oct 2026).
 
