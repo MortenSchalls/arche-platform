@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');const fs=require('fs');
 const OWN='00000000-0000-0000-0000-00000000000a', NEW='00000000-0000-0000-0000-00000000000d';
 const CO={name:'Example Company Pte. Ltd.',reg:'000000000X',address:'1 Example Street, Singapore 000000',email:'charter@example.com',phone:'+65 0000 0000',web:'example.com',signName:'Example Director',signTitle:'Director',privacy:'privacy@example.com'};
-const base={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:NEW,role:null,active:false,contract_name:'',data:{}}],config:[{key:'terms',value:{margin:0.09,unit:45000,threshold:8,rate1:0.27,rate2:0.35}},{key:'company',value:CO}],join_requests:[],trips:[],trip_status:[],leads:[],prospects:[],optouts:[],agreements:[]};
+const base={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:NEW,role:null,active:false,contract_name:'',data:{}}],config:[{key:'terms',value:{margin:0.09,unit:45000,threshold:8,rate1:0.27,rate2:0.35}},{key:'company',value:CO},{key:'intake',value:{ready:{company:1,bank:1,payments:1,avinode:1},countries:{exampleland:{at:'2026-10-26'}}}}],join_requests:[],trips:[],trip_status:[],leads:[],prospects:[],optouts:[],agreements:[]};
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8')
  .replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`)
  .replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
@@ -13,10 +13,10 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  let c=await open(NEW,base,390);
  ok('new person sees the steps and the join form', await c.evaluate(()=>S.role==='pending') && !!(await c.$('#joinForm')));
  ok('offer open by default for a new candidate', (await c.textContent('#main')).includes('up to 35% of the profit') && (await c.textContent('#main')).includes('Why brokers choose Archē'));
- await c.fill('#j_name','Example New Broker');await c.selectOption('#j_role','broker');await c.fill('#j_base','Exampleland');await c.check('#j_agree');
+ await c.fill('#j_name','Example New Broker');await c.selectOption('#j_role','broker');await c.fill('#j_base','Exampleland');await c.fill('#j_orgs',Array.from({length:12},(_,i)=>'Example Org '+(i+1)).join('\n'));await c.check('#j_agree');
  await c.click('#joinForm button[type=submit]');await c.waitForTimeout(500);
  let T=await c.evaluate(()=>window.__T);
- ok('assessment request saved', (T.join_requests||[]).some(r=>r.user_id===NEW&&r.data.contractName==='Example New Broker'));
+ ok('assessment request saved with organisations', (T.join_requests||[]).some(r=>r.user_id===NEW&&r.data.contractName==='Example New Broker'&&(r.data.orgs||[]).length===12));
  let o=await open(OWN,T,1400);
  await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(400);
  ok('owner sees the request in Team', (await o.textContent('#main')).includes('Example New Broker'));
@@ -48,6 +48,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await o.fill('#ob_mail_'+NEW,'new.broker@example.com');await o.click('[data-approve]');await o.waitForTimeout(700);
  T=await o.evaluate(()=>window.__T);
  ok('countersigned: agreement active with signatory', T.agreements.some(r=>r.id===NEW&&r.data.status==='active'&&r.data.counterName==='Example Director'));
+ ok('organisations from the assessment became own leads', (T.leads||[]).filter(l=>l.owner_id===NEW&&l.data.own&&/Example Org/.test(l.data.org)).length===12);
  ok('profile active as broker with package and Archē email', T.profiles.some(p=>p.id===NEW&&p.active&&p.role==='broker'&&p.data.workEmail==='new.broker@example.com'&&p.data.onboarding) && !T.join_requests.length);
  c=await open(NEW,T,390);
  ok('portal opens with only the onboarding package', await c.evaluate(()=>S.role==='broker') && (await c.textContent('#main')).includes('Standards of Conduct') && !(await c.$('[data-act=new]')));

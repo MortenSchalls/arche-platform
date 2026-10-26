@@ -54,6 +54,7 @@ function obProgLine(p){
 
 /* the steps for people who are not approved yet: offer, academy, assessment, agreement, countersignature */
 function vPending(){
+  if (S.myRoster && S.myRoster.offboard && S.myRoster.active === false && typeof vLeaving === "function") return vLeaving();
   obLoadProg(S.uid);
   if (!S.subs["agr/" + S.uid]) watchDoc("agr/" + S.uid, snap => { S.myAgr = snap.exists ? snap.data() : null; render(); });
   if (S.agrOpen && S.myAgr) return vAgreementSign();
@@ -71,6 +72,7 @@ function vPending(){
         <label class="f" for="j_role">Role<select id="j_role"><option value="broker">Broker (remote)</option><option value="consultant">Charter consultant</option><option value="ops">Operations</option></select></label>
         <label class="f" for="j_base">Country you work from<input id="j_base" required></label>
         <label class="f" for="j_cert">Academy completion code<input id="j_cert" placeholder="AE2.…"></label>
+        <label class="f wide" for="j_orgs">Organisations you can reach: 10 to 20, one per line (companies, family offices, agencies; no private people)<textarea id="j_orgs" rows="6" placeholder="Example Holdings, Singapore&#10;Example Family Office, Bangkok"></textarea></label>
       </div>
       <label class="check" for="j_agree"><input type="checkbox" id="j_agree" required><span>I will make every enquiry, quote, booking and payment for Archē Executive in this portal, and nowhere else.</span></label>
       <div class="row"><button class="btn primary" type="submit">Ask for assessment</button></div>
@@ -88,7 +90,7 @@ function obJoinCard(id, j){
   return `<div class="flag"><span class="sev low" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(j.contractName)}</b> · ${esc(j.role)} · ${esc(j.base || "")}</p>
     <p class="small muted">Academy code: <span class="mono">${esc(j.cert || "none")}</span> · Requested ${fmtD(j.at)}</p>
     <p class="small">${esc(obProgLine(S.obProg[id]))}</p>
-    ${agrOwnerBlock(id, j)}${S.agrView === id ? agrModal() : ""}</div></div>`;
+    ${typeof intakeJoinExtras === "function" ? intakeJoinExtras(id, j) : ""}${agrOwnerBlock(id, j)}${S.agrView === id ? agrModal() : ""}</div></div>`;
 }
 async function obApprove(id){ return agrCountersign(id); }
 function obTeamCell(id, p){

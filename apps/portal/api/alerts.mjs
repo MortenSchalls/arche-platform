@@ -91,7 +91,16 @@ export function openItems(d, now = Date.now()) {
 
 /* ---------- one run ---------- */
 export async function runAlerts(D, now = Date.now(), send = { push: sendPush, email: sendEmail }) {
-  const cfg = (await D.get("alert_settings", "settings")) || {}, R = (cfg.recipients || []).filter(r => r.active !== false);
+  const cfg = (await D.get("alert_settings", "settings")) || {};
+  let R = (cfg.recipients || []).filter(r => r.active !== false);
+  // "I'm unavailable": skip the person until they are back; their backup goes first and also gets their alert types
+  const awayNow = Object.entries(cfg.away || {}).filter(([, a]) => a && Date.parse(a.until) > now);
+  if (awayNow.length) {
+    const off = new Set(awayNow.map(([u]) => u)), byBackup = {};
+    awayNow.forEach(([u, a]) => { const me = (cfg.recipients || []).find(r => r.uid === u) || {}; byBackup[a.backup] = { ...(byBackup[a.backup] || {}), ...(me.events || {}) }; });
+    const keep = R.filter(r => !off.has(r.uid)).map(r => byBackup[r.uid] ? { ...r, events: { ...(r.events || {}), ...Object.fromEntries(Object.entries(byBackup[r.uid]).filter(([, v]) => v)) } } : r);
+    R = [...keep.filter(r => byBackup[r.uid]), ...keep.filter(r => !byBackup[r.uid])];
+  }
   const repeat = Math.max(5, Number(cfg.repeatMin) || 15) * MIN, escalate = Math.max(10, Number(cfg.escalateMin) || 30) * MIN, emailEvery = Math.max(60 * MIN, repeat);
   let v = await D.get("alert_settings", "vapid"); if (!v) { v = newVapid(); await D.put("alert_settings", "vapid", v); }
   const [trips, status, steps, web, intel, cfgRows, logs, subs] = await Promise.all([

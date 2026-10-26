@@ -221,9 +221,9 @@ function trustMatrix(){
 
 (function(){
   const _vToday = vToday;
-  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'), top = ownerTodoPrompt() + (typeof noticePrompt === "function" ? noticePrompt() : "") + (typeof reqTodayPanel === "function" ? reqTodayPanel() : ""); const out = i < 0 ? top + h : h.slice(0, i) + top + h.slice(i); return out + trustMatrix(); };
+  vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'), top = (typeof awayBlock === "function" ? awayBlock() : "") + (typeof leaveTodayFlags === "function" && leaveTodayFlags().length ? `<div class="panel" style="margin-bottom:16px"><h2>Leaving files</h2>${leaveTodayFlags().map(x => `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p>${esc(x)}</p></div></div>`).join("")}</div>` : "") + ownerTodoPrompt() + (typeof noticePrompt === "function" ? noticePrompt() : "") + (typeof reqTodayPanel === "function" ? reqTodayPanel() : ""); const out = i < 0 ? top + h : h.slice(0, i) + top + h.slice(i); return out + trustMatrix(); };
   const _vTeam = vTeam;
-  vTeam = function(){ const h = _vTeam(); if (!S.isOwner || S.preview) return h; const add = ownerTodoPanel() + (typeof supervisionPanel === "function" ? supervisionPanel() : "") + (typeof noticeTeamPanel === "function" ? noticeTeamPanel() : "") + (typeof alertsPanel === "function" ? alertsPanel() : ""), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + add + h.slice(k); };
+  vTeam = function(){ const h = _vTeam(); if (!S.isOwner || S.preview) return h; const add = (typeof intakeTeamPanel === "function" ? intakeTeamPanel() : "") + ownerTodoPanel() + (typeof supervisionPanel === "function" ? supervisionPanel() : "") + (typeof noticeTeamPanel === "function" ? noticeTeamPanel() : "") + (typeof alertsPanel === "function" ? alertsPanel() : ""), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + add + h.slice(k); };
   document.addEventListener("click", e => { const b = e.target.closest("[data-todo]"); if (!b) return; e.preventDefault(); todoAct(b.dataset.todo, b.dataset.id); });
   document.addEventListener("toggle", e => { if (e.target.dataset && e.target.dataset.todoDet === "later") S.todoLater = e.target.open; }, true);
 })();

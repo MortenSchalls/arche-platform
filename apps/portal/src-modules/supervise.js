@@ -21,7 +21,7 @@ function gated(key, uid = S.uid){
   return !!r.supervised && !(r.released || {})[key] && gateApplies(key, uid);
 }
 function reqList(uid){ return Object.entries(S.reqs[uid] || {}).map(([id, d]) => ({id, uid, ...d})).sort((a, b) => (a.at < b.at ? 1 : -1)); }
-function gateReq(uid, key, ref){ return reqList(uid).find(r => r.key === key && r.ref === ref) || null; }
+function gateReq(uid, key, ref){ return reqList(uid).find(r => r.key === key && (r.ref === ref || (r.refs || []).includes(ref))) || null; }
 
 /* subscribe: members to their own requests, owners to everyone's */
 function gateWatch(){

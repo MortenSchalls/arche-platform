@@ -45,3 +45,8 @@ M.tbl.trip_status[0].data.approval = { state: "approved", price: 45055 };
 sent.length = 0; r = await runAlerts(M, now + 70 * 60e3, send);
 ok("approved booking: no more alerts for it", !sent.some(x => x[2] === "approve:b1:t1") && !M.tbl.alert_settings.some(x => x.id === "log:approve:b1:t1"));
 ok("status row written", r.open === items.length - 1 && !!M.tbl.alert_settings.find(x => x.id === "status"));
+
+// away: owner one unavailable, owner two (backup) gets the alerts first
+const M2 = mem(D0); M2.tbl.alert_settings[0].data.away = { own1: { until: new Date(now + 3600e3).toISOString(), backup: "own2" } };
+const sent2 = []; await runAlerts(M2, now, { push: async (s, vv, m) => { sent2.push(s.endpoint); return 201; }, email: async (to) => { sent2.push(to); return "ok"; } });
+ok("unavailable: alerts go to the backup, not the person away", sent2.length > 0 && sent2.every(x => x.endsWith("/2") || x === "two@example.com"));

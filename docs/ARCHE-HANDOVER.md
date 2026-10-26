@@ -114,6 +114,7 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
   - approve bookings (operations only)
 
   Rights never apply to the person's own work.
+- **Broker intake and leaving (26 Oct 2026):** agreements held back until company, bank, client payments and Avinode are ticked in Team → Ready to sign brokers (insurance optional; clause 8.9 now says insurance is being arranged, agreement version 2026-10-26); supervision limit (default 6, others wait); counsel check for a candidate's new country; candidates name 10–20 organisations at assessment, which become their own leads at countersignature; one-tick End engagement (now or 30 days' notice) frees enquiries, prospects and leads, removes rights and alerts, and asks the leaver to confirm deleting Archē data within 7 days; I'm unavailable switch routes alerts to a backup; supervised brokers ask one OK for a batch of first contacts; 24-hour operator and handler contacts required before a confirmation. Offer: earnings shown as an example, plus 'examples, not a promise' note.
 - **Notices:** shown on members' dashboards until they confirm. The confirmation is logged and counts in trust.
   Published only by the owner.
 - **Enquiry pool:** every enquiry reaches the owner first. The owner releases it to all brokers (first come, first served)
