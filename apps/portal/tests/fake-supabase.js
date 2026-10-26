@@ -12,9 +12,9 @@ window.supabase = { createClient() {
       then(ok, bad) { try { ok(run()); } catch (e) { (bad || ok)({ error: e }); } }
     };
     function run() {
-      if ((window.__MISSING || []).includes(table)) return { data: null, error: { code: "42P01", message: `relation "public.${table}" does not exist` } };
+      if ((window.__MISSING || []).includes(table)) return { data: null, status: 404, error: { code: "PGRST205", message: `Could not find the table 'public.${table}' in the schema cache` } };
       const m = r => filt.every(f => f(r));
-      if (op === "select") { let out = rows().filter(m).map(r => JSON.parse(JSON.stringify(r))); if (ord) out.sort((a, b) => (a[ord[0]] > b[ord[0]] ? 1 : -1) * ord[1]); return { data: single ? out[0] || null : out, error: null }; }
+      if (op === "select") { let out = rows().filter(m).map(r => JSON.parse(JSON.stringify(r))); if (ord) out.sort((a, b) => (a[ord[0]] > b[ord[0]] ? 1 : -1) * ord[1]); return { data: single ? out[0] || null : out, error: null, status: 200 }; }
       if (op === "insert") { rows().push({ id: rows().length + 1, ...payload }); }
       if (op === "upsert") { const i = rows().findIndex(r => conflict.every(c => r[c] === payload[c])); if (i >= 0) rows()[i] = { ...rows()[i], ...payload }; else rows().push(payload); }
       if (op === "update") rows().forEach((r, i) => { if (m(r)) rows()[i] = { ...r, ...payload, data: payload.data ? { ...payload.data } : r.data }; });

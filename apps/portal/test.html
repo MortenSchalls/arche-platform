@@ -50,9 +50,9 @@ window.supabase = { createClient() {
       then(ok, bad) { try { ok(run()); } catch (e) { (bad || ok)({ error: e }); } }
     };
     function run() {
-      if ((window.__MISSING || []).includes(table)) return { data: null, error: { code: "42P01", message: `relation "public.${table}" does not exist` } };
+      if ((window.__MISSING || []).includes(table)) return { data: null, status: 404, error: { code: "PGRST205", message: `Could not find the table 'public.${table}' in the schema cache` } };
       const m = r => filt.every(f => f(r));
-      if (op === "select") { let out = rows().filter(m).map(r => JSON.parse(JSON.stringify(r))); if (ord) out.sort((a, b) => (a[ord[0]] > b[ord[0]] ? 1 : -1) * ord[1]); return { data: single ? out[0] || null : out, error: null }; }
+      if (op === "select") { let out = rows().filter(m).map(r => JSON.parse(JSON.stringify(r))); if (ord) out.sort((a, b) => (a[ord[0]] > b[ord[0]] ? 1 : -1) * ord[1]); return { data: single ? out[0] || null : out, error: null, status: 200 }; }
       if (op === "insert") { rows().push({ id: rows().length + 1, ...payload }); }
       if (op === "upsert") { const i = rows().findIndex(r => conflict.every(c => r[c] === payload[c])); if (i >= 0) rows()[i] = { ...rows()[i], ...payload }; else rows().push(payload); }
       if (op === "update") rows().forEach((r, i) => { if (m(r)) rows()[i] = { ...r, ...payload, data: payload.data ? { ...payload.data } : r.data }; });
@@ -5217,7 +5217,7 @@ const OWNER_TODO = [
     why:"Keeps every weekly snapshot of the matrix for good, readable by owners only. Until it runs, weeks are held safely and move across by themselves.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0011", sev:"high", title:"Run SQL: supervised steps (0011)", sql:"0011", table:"step_requests",
     why:"Lets supervised members ask for your OK on each step, and you approve or send back on Today. Until it runs, nothing is held back.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
-  {id:"sql-0012", sev:"med", title:"Run SQL: supervisor rights (0012)", sql:"0012",
+  {id:"sql-0012", sev:"med", title:"Run SQL: supervisor rights (0012), after 0011", sql:"0012", after:"sql-0011",
     why:"Lets the members you choose supervise steps, assess new people or approve bookings. Before it runs, ticking a right has no effect.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
   {id:"sql-0013", sev:"high", title:"Run SQL: alerts (0013)", sql:"0013", table:"alert_settings",
     why:"Keeps who receives alerts, on which number, for what. Owner only.", how:"Supabase > SQL Editor > New query > paste > Run. Then add yourself in Team > Alerts."},
@@ -5277,8 +5277,9 @@ async function todoProbe(){
   for (const x of OWNER_TODO) {
     try {
       if (x.table && window.__sb) {
-        const {error} = await window.__sb.from(x.table).select("id", {head:true, count:"exact"}).limit(1);
-        res[x.id] = !error ? true : /does not exist|PGRST205|42P01|schema cache/i.test((error.code || "") + " " + (error.message || "")) ? false : null;
+        // a normal read (not a head request): a head request gets no error text, which made missing tables look present (26 Oct 2026)
+        const {error, status} = await window.__sb.from(x.table).select("*").limit(1);
+        res[x.id] = !error && status >= 200 && status < 300 ? true : (status === 404 || /does not exist|PGRST205|42P01|schema cache/i.test(((error || {}).code || "") + " " + ((error || {}).message || ""))) ? false : null;
       } else if (x.check) res[x.id] = await x.check();
     } catch(e){ res[x.id] = null; }
   }
@@ -5297,9 +5298,9 @@ function ownerTodoPanel(){
   const rows = OWNER_TODO.map(x => ({x, s: todoState(x)})), open = rows.filter(r => !r.s.done), now_ = open.filter(r => !r.x.later), later = open.filter(r => r.x.later), done = rows.filter(r => r.s.done);
   const item = ({x, s}) => `<div class="flag"><span class="sev ${TODO_SEV[x.sev]}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(x.title)}</b></p><p class="small muted">${esc(x.why)}</p><p class="small">${esc(x.how)}</p>
     ${x.sql && OWNER_SQL[x.sql] ? `<details class="small"><summary>Show the SQL</summary><pre class="mono" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto">${esc(OWNER_SQL[x.sql])}</pre></details>` : ""}
-    <div class="row" style="margin-top:6px">${x.sql && OWNER_SQL[x.sql] ? `<button class="btn small primary" type="button" data-todo="copy" data-id="${x.id}">Copy SQL</button>` : ""}${x.view ? `<button class="btn small" type="button" data-view="${x.view}">Open ${esc(x.view === "settings" ? "Settings" : x.view)}</button>` : ""}${s.manual ? `<button class="btn small" type="button" data-todo="done" data-id="${x.id}">Mark as done</button>` : `<span class="small muted">The portal ticks this by itself once done.</span>`}</div></div></div>`;
+    <div class="row" style="margin-top:6px">${x.after && !todoState(OWNER_TODO.find(y => y.id === x.after) || {}).done ? `<span class="small" style="color:var(--warn)">Run ${esc((OWNER_TODO.find(y => y.id === x.after) || {}).title || "the step before")} first.</span>` : x.sql && OWNER_SQL[x.sql] ? `<button class="btn small primary" type="button" data-todo="copy" data-id="${x.id}">Copy SQL</button>` : ""}${x.view ? `<button class="btn small" type="button" data-view="${x.view}">Open ${esc(x.view === "settings" ? "Settings" : x.view)}</button>` : ""}${s.manual ? `<button class="btn small" type="button" data-todo="done" data-id="${x.id}">Mark as done</button>` : `<span class="small muted">The portal ticks this by itself once done.</span>`}</div></div></div>`;
   return `<div class="panel" style="margin-bottom:16px" id="ownerTodo"><div class="row" style="justify-content:space-between"><h2 style="margin:0">To do for you</h2><span class="small muted">${now_.length} now · ${later.length} later · ${done.length} done</span></div>
-    <p class="small muted">Steps only you can do: SQL to run, settings outside the portal, details to fill in. New steps appear here with each update.</p>
+    <p class="small muted">Steps only you can do: SQL to run, settings outside the portal, details to fill in. Run the SQL steps in number order. New steps appear here with each update.</p>
     ${now_.map(item).join("") || `<div class="empty"><p><b>Nothing to do right now.</b></p></div>`}
     ${later.length ? `<details style="margin-top:8px"${S.todoLater ? " open" : ""} data-todo-det="later"><summary class="small"><b>Later (${later.length})</b></summary>${later.map(item).join("")}</details>` : ""}
     ${done.length ? `<details style="margin-top:8px"><summary class="small muted">Done (${done.length})</summary><ul class="small" style="margin:6px 0 0;padding-left:18px">${done.map(({x, s}) => `<li>${esc(x.title)} · <span class="muted">${esc(s.how)}</span>${((S.setup || {}).done || {})[x.id] ? ` <a href="#" data-todo="undo" data-id="${x.id}">undo</a>` : ""}</li>`).join("")}</ul></details>` : ""}</div>`;

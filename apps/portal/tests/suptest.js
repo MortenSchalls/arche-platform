@@ -61,6 +61,8 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  const T0=JSON.parse(JSON.stringify(base));delete T0.step_requests;p=await open(B1,T0,1400,true);
  await p.evaluate(async()=>{S.sel='t1';await act('submit');});await p.waitForTimeout(400);T=await p.evaluate(()=>window.__T);
  ok('before SQL 0011: nothing held back', T.trips[0].data.stage==='submitted');await p.close();
+ o=await open(OWN,T0,1400,true);await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(1500);
+ ok('before SQL 0011: 0011 open with Copy SQL, 0012 says run 0011 first', !!(await o.$('[data-todo=copy][data-id=sql-0011]')) && !(await o.$('[data-todo=copy][data-id=sql-0012]')) && (await o.textContent('#main')).includes('first.'));await o.close();
  o=await open(OWN,base,390);await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(400);
  ok('Team at 390 px: no sideways scroll', await o.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await o.close();
