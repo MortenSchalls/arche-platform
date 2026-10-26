@@ -103,7 +103,8 @@ async function pushTest(){
   try { const s = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
     const r = await fetch("/api/alerts", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({test: true})});
     const j = await r.json(); if (!r.ok) { toast(j.detail || j.error || "The test could not be sent."); return; }
-    toast(`Test sent: ${j.pushed} of ${j.devices} device${j.devices === 1 ? "" : "s"}; email: ${j.email === "ok" ? "sent" : j.email}.`);
+    S.alertTest = `Test at ${fmtT(now())}: phone ${j.pushed} of ${j.devices} device${j.devices === 1 ? "" : "s"}. Email ${j.email === "ok" ? `accepted by Resend for ${j.to} from ${j.from}. If it does not arrive within a few minutes, look in Spam and in Resend > Emails (it shows delivered or bounced).` : j.email}.`;
+    toast("Test sent. The result is shown in Alerts."); render();
   } catch(e){ toast("The test could not be sent. Alerts may not be set up on the server yet."); }
 }
 function alertDeviceBlock(){
@@ -112,7 +113,7 @@ function alertDeviceBlock(){
   if (!S.alertStatusOn && S.db) { S.alertStatusOn = true; S.db.doc("alerts/status").get().then(d => { S.alertStatus = d.exists ? d.data() : null; render(); }, () => {}); }
   return `<div class="stack" style="border-top:1px solid var(--line);padding-top:10px;margin-top:10px"><h3 style="margin:0">This phone or computer</h3>
     <p class="small">${st === "on" ? "Alerts are on for this device." : st === "blocked" ? "Alerts are blocked for this site: allow notifications in the phone's settings." : st === "unsupported" ? (isIOS() ? "On iPhone: tap Share, then Add to Home Screen, and open Archē from the Home Screen. Then turn alerts on here." : "This browser cannot show alerts.") : "Alerts are off for this device."}</p>
-    <div class="row">${st !== "on" ? `<button class="btn small primary" type="button" data-al="pushOn">Turn on alerts on this device</button>` : ""}<button class="btn small" type="button" data-al="test">Send a test alert</button></div>
+    <div class="row">${st !== "on" ? `<button class="btn small primary" type="button" data-al="pushOn">Turn on alerts on this device</button>` : ""}<button class="btn small" type="button" data-al="test">Send a test alert</button></div>${S.alertTest ? `<div class="note info small" style="overflow-wrap:anywhere">${esc(S.alertTest)}</div>` : ""}
     <h3 style="margin:8px 0 0">Until someone acts</h3>
     <div class="row"><label class="f" for="al_rep" style="max-width:220px">Repeat the alert every (minutes)<input id="al_rep" type="number" min="5" max="120" value="${Number(A.repeatMin) || 15}"></label><label class="f" for="al_esc" style="max-width:260px">Add the next person after (minutes)<input id="al_esc" type="number" min="10" max="240" value="${Number(A.escalateMin) || 30}"></label><button class="btn small" type="button" data-al="timing">Save</button></div>
     <p class="small muted">Phone alerts repeat at this interval and email at most once an hour, until the booking, request or enquiry has been dealt with. Each alert gives only the type and trip reference.</p>

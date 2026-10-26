@@ -57,10 +57,12 @@ async function sendPush(sub, v, msg) {
   return r.status;
 }
 async function sendEmail(to, subject, text) {
-  if (!process.env.RESEND_API_KEY) return "no-key";
+  if (!process.env.RESEND_API_KEY) return "no-key";   // shown to the owner as "RESEND_API_KEY missing in Vercel"
   const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
     body: JSON.stringify({ from: process.env.ALERT_FROM || "Archē Alerts <onboarding@resend.dev>", to: [to], subject, text }) });
-  return r.ok ? "ok" : "error " + r.status;
+  if (r.ok) return "ok";
+  let m = ""; try { m = (await r.json()).message || ""; } catch (e) {}
+  return `refused by Resend (${r.status}${m ? ": " + m.slice(0, 160) : ""})`;
 }
 
 /* ---------- what is waiting (types match Team > Alerts) ---------- */
@@ -146,8 +148,8 @@ export default async function handler(req, res) {
       let v = await D.get("alert_settings", "vapid"); if (!v) { v = newVapid(); await D.put("alert_settings", "vapid", v); }
       const subs = (await D.all("push_subs", "owner_id,id,data", `&owner_id=eq.${u.id}`)) || []; let pushed = 0, mailed = "none";
       for (const s of subs) { const c = await sendPush(s.data, v, { title: "Archē: test alert", body: "Alerts reach this device.", tag: "test", url: PORTAL + "/" }); if (c < 300) pushed++; }
-      if (me.email) mailed = await sendEmail(me.email, "Archē: test alert", `Alerts reach this email.\n\n${PORTAL}`);
-      return res.status(200).json({ devices: subs.length, pushed, email: me.email ? mailed : "no email in your alert entry" });
+      if (me.email) { mailed = await sendEmail(me.email, "Archē: test alert", `Alerts reach this email.\n\n${PORTAL}`); if (mailed === "no-key") mailed = "not sent: RESEND_API_KEY missing in Vercel (redeploy after adding it)"; }
+      return res.status(200).json({ devices: subs.length, pushed, email: me.email ? mailed : "not sent: no email in your entry in Team > Alerts", to: me.email || "", from: process.env.ALERT_FROM || "Archē Alerts <onboarding@resend.dev>" });
     }
     const last = await D.get("alert_settings", "status");
     if (last && Date.now() - Date.parse(last.lastRun) < 60e3) return res.status(200).json({ skipped: "ran less than a minute ago" });
