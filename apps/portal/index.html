@@ -5682,7 +5682,7 @@ const OWNER_TODO = [
     why:"Counts website visits without cookies, shows where enquiries come from, and lets brokers see when an organisation opens its website link. Needed for the Website page.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"search-console", sev:"med", due:"2026-11-28", title:"Google Search Console for archeaviation.com",
     why:"Free, no cookies. Shows which Google searches show the site, how often people click, your position, and any errors Google finds.",
-    how:"search.google.com/search-console > Add property > Domain > archeaviation.com. Google shows a TXT record: GoDaddy > DNS > Add > TXT, name @, paste the value, save; then press Verify (can take an hour). After launch day: Sitemaps > add sitemap.xml. Use your msj@archeaviation.com Google login or create one for it."},
+    how:"Verified 26 Oct 2026 (keep the google-site-verification TXT record in GoDaddy). If Google ever offers to connect GoDaddy automatically with \"Gmail Setup\", press Cancel: it can remove Microsoft 365 email. Original steps: search.google.com/search-console > Add property > Domain > archeaviation.com, Instructions for: Any DNS provider. Google shows a TXT record: GoDaddy > DNS > Add > TXT, name @, paste the value, save; then press Verify (can take an hour). After launch day: Sitemaps > add sitemap.xml. Use your msj@archeaviation.com Google login or create one for it."},
   {id:"bing", sev:"low", due:"2026-12-08", later:true, title:"Bing Webmaster Tools (feeds Bing, Copilot and ChatGPT search)",
     why:"A second search engine and the AI assistants that use it, with no extra work.",
     how:"bing.com/webmasters > Sign in > Import from Google Search Console. Done once Search Console is verified and the site is public."},
@@ -5716,7 +5716,7 @@ const OWNER_TODO = [
     how:"Ask Claude to restore the daily research line in the jobs workflow; it needs AI credit (see the AI step)."},
   {id:"launch", sev:"low", due:"2026-12-01", title:"Launch day: make the website public", later:true,
     why:"archeaviation.com stays behind Vercel's login until you switch it on.",
-    how:"First ask Claude to set the Singapore phone number and the UEN on the website and run the website check (apps/website/check_site.py); it must say \"no placeholders left\". Then Vercel > website project > Settings > Deployment Protection: turn off Vercel Authentication for production."},
+    how:"First ask Claude to set the Singapore phone number and the UEN on the website and run the website check (apps/website/check_site.py); it must say \"no placeholders left\". Then Vercel > website project > Settings > Deployment Protection: turn off Vercel Authentication for production. Then Google Search Console (already verified 26 Oct) > Sitemaps > enter sitemap.xml > Submit."},
   {id:"testpage", sev:"low", title:"Decide whether to keep the test page online", later:true,
     why:"portal.archeaviation.com/test.html runs the portal with example data only; useful to show people.",
     how:"Keep it, or ask Claude to remove it."}
