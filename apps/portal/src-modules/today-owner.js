@@ -28,7 +28,7 @@ const OWNER_TODO = [
     why:"Peers check every operator against these ratings.", how:"Choose one; record the rating on each trip."},
   {id:"company", sev:"high", due:"2026-11-03", title:"Fill in the company details",
     why:"The agreement, email signature, confirmations and privacy notice use them. Agreements cannot be sent until they are in.",
-    how:"Settings > Company details: the legal name and registered address (20 Collyer Quay, #09-01, Singapore 049319) are filled in already; add the UEN, bookings email, privacy email, signatory name and title, then press Save company details.", view:"settings",
+    how:"Settings > Company details: legal name, registered address and the bookings and privacy email (contact@archeaviation.com) are filled in already; add the UEN, signatory name and title, then press Save company details.", view:"settings",
     check: () => { const c = S.company || {}; return ["reg","address","email","privacy","signName","signTitle"].every(k => String(c[k] || "").trim()); }},
   {id:"sql-0006", sev:"high", title:"Run SQL: supplier quotes (0006)", sql:"0006", table:"rfqs",
     why:"Operations request, compare and award quotes from FBOs, caterers and hotels in Supplier quotes.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},

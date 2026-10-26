@@ -5,6 +5,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 NAME = "Arche Executive Pte. Ltd."
 ADDRESS = "20 Collyer Quay, #09-01, Singapore 049319"
 UEN = ""   # registration number, e.g. "202612345A"
+EMAIL = "contact@archeaviation.com"   # public enquiry address (Morten, 26 Oct 2026; was charter@archeexecutive.com)
 def pairs():
     line = " · ".join(x for x in (NAME, ("UEN " + UEN) if UEN else "", ADDRESS) if x)
     return [
@@ -13,6 +14,7 @@ def pairs():
         ("[Office address, Singapore]", ADDRESS),
         ('font-size:11.5px">Singapore</span><span>[Office address]</span>', 'font-size:11.5px">Singapore</span><span>' + ADDRESS + '</span>'),
         ("[registered address, Singapore]", ADDRESS),
+        ("charter@archeexecutive.com", EMAIL), ("[privacy contact email]", EMAIL),
         # the translated placeholders: a legal name and address stay as written in every language
         ("[ชื่อนิติบุคคล, Pte. Ltd.]", NAME), ("[法人名称, Pte. Ltd.]", NAME), ("[法人名, Pte. Ltd.]", NAME),
         ("[ที่อยู่สำนักงาน สิงคโปร์]", ADDRESS), ("[办公地址，新加坡]", ADDRESS), ("[オフィス所在地（シンガポール）]", ADDRESS),

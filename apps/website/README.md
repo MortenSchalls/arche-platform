@@ -12,7 +12,7 @@ Vercel environment variables for this project: `SUPABASE_URL`, `SUPABASE_PUBLISH
 
 ## To fill in before go-live (placeholders in the Design file)
 - Phone +65 0000 0000 and WhatsApp link; [Advisor name] and [Title]
-- Email charter@archeexecutive.com (old domain) → an archeaviation.com mailbox
+- Email contact@archeaviation.com (old domain) → an archeaviation.com mailbox
 - [Office address] Singapore and Bangkok; [Legal entity, Pte. Ltd.]; registration number
 - Certificates CERT. 01–04 "Pending confirmation"
 - Jurisdictional notices (Singapore CAAS, Thailand CAAT wording)

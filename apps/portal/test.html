@@ -952,10 +952,10 @@ function vSettings(){
     <label class="f" for="co_name">Legal entity name<input id="co_name" value="${esc(S.company.name || "Arche Executive Pte. Ltd.")}"></label>
     <label class="f" for="co_reg">Registration (UEN)<input id="co_reg" value="${esc(S.company.reg || "")}"></label>
     <label class="f wide" for="co_addr">Registered address<textarea id="co_addr">${esc(S.company.address || "20 Collyer Quay, #09-01\nSingapore 049319")}</textarea></label>
-    <label class="f" for="co_email">Bookings email<input id="co_email" value="${esc(S.company.email || "")}"></label>
+    <label class="f" for="co_email">Bookings email<input id="co_email" value="${esc(S.company.email || "contact@archeaviation.com")}"></label>
     <label class="f" for="co_phone">24/7 operations phone<input id="co_phone" value="${esc(S.company.phone || "")}"></label>
     <label class="f" for="co_web">Website<input id="co_web" value="${esc(S.company.web || "")}"></label>
-    <label class="f" for="co_priv">Data protection (privacy) email, used in email signatures<input id="co_priv" value="${esc(S.company.privacy || "")}"></label>
+    <label class="f" for="co_priv">Data protection (privacy) email, used in email signatures<input id="co_priv" value="${esc(S.company.privacy || "contact@archeaviation.com")}"></label>
     <label class="f" for="co_logo">Email signature logo address (optional)<input id="co_logo" value="${esc(S.company.sigLogo || "")}" placeholder="https://…/img/arche-email-logo.png"></label>
     <label class="f" for="co_sn">Authorised signatory<input id="co_sn" value="${esc(S.company.signName || "")}"></label>
     <label class="f" for="co_st">Signatory title<input id="co_st" value="${esc(S.company.signTitle || "")}"></label>
@@ -5565,7 +5565,7 @@ const OWNER_TODO = [
     why:"Peers check every operator against these ratings.", how:"Choose one; record the rating on each trip."},
   {id:"company", sev:"high", due:"2026-11-03", title:"Fill in the company details",
     why:"The agreement, email signature, confirmations and privacy notice use them. Agreements cannot be sent until they are in.",
-    how:"Settings > Company details: the legal name and registered address (20 Collyer Quay, #09-01, Singapore 049319) are filled in already; add the UEN, bookings email, privacy email, signatory name and title, then press Save company details.", view:"settings",
+    how:"Settings > Company details: legal name, registered address and the bookings and privacy email (contact@archeaviation.com) are filled in already; add the UEN, signatory name and title, then press Save company details.", view:"settings",
     check: () => { const c = S.company || {}; return ["reg","address","email","privacy","signName","signTitle"].every(k => String(c[k] || "").trim()); }},
   {id:"sql-0006", sev:"high", title:"Run SQL: supplier quotes (0006)", sql:"0006", table:"rfqs",
     why:"Operations request, compare and award quotes from FBOs, caterers and hotels in Supplier quotes.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
