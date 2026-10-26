@@ -92,7 +92,7 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
   - **To do for you**: SQL and outside steps. The portal ticks a step itself where it can check it.
   - **Supervision and supervisor rights.**
   - **Notices** (drafts, publish, who has read them).
-  - **Alerts:** who receives alerts (WhatsApp, email), for which events, in escalation order; the official WhatsApp sender number. Nothing is sent until the official number is set up and Meta has verified it; sending is not built yet. Next: phone push and email alerts with an escalation timer (proposed 26 Oct 2026).
+  - **Alerts:** who receives alerts (SMS, WhatsApp, email; Morten wants his by SMS), for which events, in escalation order; the official WhatsApp sender number. Nothing is sent until the official number is set up and Meta has verified it; sending is not built yet. Next: phone push and email alerts with an escalation timer (proposed 26 Oct 2026).
   - Assessments, people, booking rights.
 - **Joining**, all in the portal:
   1. offer
@@ -207,6 +207,7 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
    - launch day: make the website public
    - decide on `/test.html`
    - external broker academy: paid access by credit card before it opens (needs price and card provider)
+   - SMS service for alerts (account and sender name; key entered by Morten in Supabase)
    - official WhatsApp number for alerts (Meta verification, message template)
    - WhatsApp team setup (proposed 26 Oct 2026): Community "Archē Executive Team" with Announcements, Desk, Operations 24/7, Supervisors, New joiners and per-trip groups for complex charters; owners only as admins; no client personal data in groups; the portal is the record
 7. Counsel and other before-launch items: see `docs/ROADMAP.md` section 1. Examples: payment provider to replace Paynode,
