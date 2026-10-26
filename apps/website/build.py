@@ -18,7 +18,6 @@ SRC = os.path.join(HERE, "design-source")
 OUT = os.path.join(HERE, "site")
 SHOW_ACCREDITATIONS = False   # Morten 20 Oct 2026: hide until Archē holds accreditations; set True to bring the section back
 PORTAL = "https://portal.archeaviation.com"  # go-live address (Morten, 25 Oct 2026)
-EMAIL = "msj@archeaviation.com"  # every enquiry to this address (Morten, 26 Oct 2026; was charter@archeexecutive.com)
 
 def build():
     os.makedirs(OUT, exist_ok=True)
@@ -160,11 +159,6 @@ window.archeSend = function (data) {
     for f in ("privacy.html", "terms.html"):   # same lighter background on the legal pages
         fp = os.path.join(OUT, f)
         if os.path.exists(fp): open(fp, "w", encoding="utf-8").write(sections.tone(open(fp, encoding="utf-8").read()))
-    for f in os.listdir(OUT):   # one enquiry address on every page and script
-        fp = os.path.join(OUT, f)
-        if f.endswith((".html", ".js", ".json", ".txt", ".xml")) and os.path.isfile(fp):
-            t = open(fp, encoding="utf-8").read()
-            if "charter@archeexecutive.com" in t: open(fp, "w", encoding="utf-8").write(t.replace("charter@archeexecutive.com", EMAIL))
 
 
 if __name__ == "__main__":
