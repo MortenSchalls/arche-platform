@@ -92,7 +92,7 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
   - **To do for you**: SQL and outside steps. The portal ticks a step itself where it can check it.
   - **Supervision and supervisor rights.**
   - **Notices** (drafts, publish, who has read them).
-  - **Alerts:** who receives alerts (SMS, WhatsApp, email; Morten wants his by SMS), for which events, in escalation order; the official WhatsApp sender number. Nothing is sent until the official number is set up and Meta has verified it; sending is not built yet. Next: phone push and email alerts with an escalation timer (proposed 26 Oct 2026).
+  - **Alerts:** who receives alerts (SMS, WhatsApp, email; Morten's alerts by phone push and email for now, SMS later), for which events, in escalation order. Free phone push and email (Resend free plan) are built: Supabase calls `/api/alerts` every 2 minutes; each open item alerts again every 15 min (setting) by push and hourly by email until someone acts, adding the next person after 30 min (setting). Needs SQL 0014, SUPABASE_SECRET_KEY (and RESEND_API_KEY) in Vercel, and "Turn on alerts on this device" on the phone. Morten's own address: msj@archeaviation.com, only for what concerns him (alerts, owner messages), not the public enquiry address.
   - Assessments, people, booking rights.
 - **Joining**, all in the portal:
   1. offer
@@ -158,6 +158,7 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
 | 0011 | Supervised steps | **To run** |
 | 0012 | Supervisor rights | **To run** (mark done by hand after running) |
 | 0013 | Alerts: recipients and official sender (owner only) | **To run**, then add yourself in Team → Alerts |
+| 0014 | Phones that receive alerts, and the 2-minute alert check (pg_cron) | **To run** |
 
 How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor → paste → Run.
 

@@ -51,7 +51,7 @@ function alertsPanel(){
     ${S.alertsReady === false ? `<div class="note info small">Run SQL "alerts (0013)" in To do for you first.</div>` : ""}
     <div class="note ${snd.number ? "ok" : "info"} small"><b>Official WhatsApp number:</b> ${snd.number ? `${esc(alertPhoneShow(snd.number))}${snd.verified ? " · verified by Meta" : " · waiting for Meta verification"}` : "not set up yet. Nothing is sent by WhatsApp until it is."}<br><b>SMS:</b> ${A.smsReady ? "connected" : "not connected yet: SMS alerts start once an SMS service is set up (on your task list)."}
       <div class="row" style="margin-top:6px"><input id="al_snd" inputmode="tel" style="max-width:220px" placeholder="Company number" value="${esc(snd.number ? alertPhoneShow(snd.number) : "")}"><label class="check" for="al_ver" style="margin:0"><input type="checkbox" id="al_ver" ${snd.verified ? "checked" : ""}><span class="small">Verified by Meta</span></label><button class="btn small" type="button" data-al="sender">Save number</button></div></div>
-    ${R.length ? R.map(row).join("") : `<p class="small muted" style="margin-top:8px">Nobody added yet.</p>`}${form}</div>`;
+    ${R.length ? R.map(row).join("") : `<p class="small muted" style="margin-top:8px">Nobody added yet.</p>`}${form}${alertDeviceBlock()}</div>`;
 }
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-al]"); if (!b || !S.isOwner) return; e.preventDefault();
@@ -78,4 +78,49 @@ document.addEventListener("submit", e => {
   const rec = {id: ed >= 0 ? R[ed].id : "r" + Date.now().toString(36), uid: $("al_who").value || null, name, sms, phone, email, events, active: ed >= 0 ? R[ed].active !== false : true, added: ed >= 0 ? R[ed].added : now()};
   if (ed >= 0) R[ed] = rec; else R.push(rec);
   S.alertEdit = null; alertSave({...A, recipients: R}, `${name} ${ed >= 0 ? "changed" : "added"}`);
+});
+
+/* ---------- this device: phone push, test alert, repeat settings, status (Morten, 26 Oct 2026) ---------- */
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent || "");
+const isHomeApp = () => (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+const u8 = s => { const b = atob((s + "===".slice((s.length + 3) % 4)).replace(/-/g, "+").replace(/_/g, "/")); return Uint8Array.from(b, c => c.charCodeAt(0)); };
+async function pushState(){
+  try { if (!("serviceWorker" in navigator) || !("PushManager" in window)) return "unsupported"; const reg = await navigator.serviceWorker.getRegistration("/"); const sub = reg && await reg.pushManager.getSubscription(); return sub ? "on" : (typeof Notification !== "undefined" && Notification.permission === "denied" ? "blocked" : "off"); } catch(e){ return "unsupported"; }
+}
+async function pushEnable(){
+  if (!("serviceWorker" in navigator) || !("PushManager" in window)) { toast(isIOS() && !isHomeApp() ? "On iPhone: tap Share, then Add to Home Screen. Open Archē from the Home Screen and press this again." : "This browser cannot show alerts. Try Chrome or Safari."); return; }
+  try {
+    const perm = await Notification.requestPermission(); if (perm !== "granted") { toast("Alerts are blocked for this site. Allow notifications in the phone's settings."); S.pushSt = "blocked"; render(); return; }
+    const reg = await navigator.serviceWorker.register("/sw.js", {scope: "/"}); await navigator.serviceWorker.ready;
+    const k = await (await fetch("/api/alerts?vapid=1")).json(); if (!k.publicKey) { toast("Alerts are not set up on the server yet (see To do for you)."); return; }
+    const sub = await reg.pushManager.getSubscription() || await reg.pushManager.subscribe({userVisibleOnly: true, applicationServerKey: u8(k.publicKey)});
+    const j = sub.toJSON(), h = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(j.endpoint)))).slice(0, 12).map(x => x.toString(16).padStart(2, "0")).join("");
+    await S.db.doc(`push/${S.uid}/subs/${h}`).set({endpoint: j.endpoint, keys: j.keys, device: (navigator.userAgent || "").replace(/\(.*?\)/, "").slice(0, 60), at: now()});
+    S.pushSt = "on"; audit("Alerts turned on for a device", isIOS() ? "iPhone or iPad" : "browser"); toast("Alerts are on for this device."); render();
+  } catch(e){ toast("Could not turn alerts on. Try again."); }
+}
+async function pushTest(){
+  try { const s = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
+    const r = await fetch("/api/alerts", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({test: true})});
+    const j = await r.json(); if (!r.ok) { toast(j.detail || j.error || "The test could not be sent."); return; }
+    toast(`Test sent: ${j.pushed} of ${j.devices} device${j.devices === 1 ? "" : "s"}; email: ${j.email === "ok" ? "sent" : j.email}.`);
+  } catch(e){ toast("The test could not be sent. Alerts may not be set up on the server yet."); }
+}
+function alertDeviceBlock(){
+  if (S.pushSt === undefined) { S.pushSt = null; pushState().then(x => { S.pushSt = x; render(); }); }
+  const st = S.pushSt, A = S.alerts || {}, ST = S.alertStatus || null;
+  if (!S.alertStatusOn && S.db) { S.alertStatusOn = true; S.db.doc("alerts/status").get().then(d => { S.alertStatus = d.exists ? d.data() : null; render(); }, () => {}); }
+  return `<div class="stack" style="border-top:1px solid var(--line);padding-top:10px;margin-top:10px"><h3 style="margin:0">This phone or computer</h3>
+    <p class="small">${st === "on" ? "Alerts are on for this device." : st === "blocked" ? "Alerts are blocked for this site: allow notifications in the phone's settings." : st === "unsupported" ? (isIOS() ? "On iPhone: tap Share, then Add to Home Screen, and open Archē from the Home Screen. Then turn alerts on here." : "This browser cannot show alerts.") : "Alerts are off for this device."}</p>
+    <div class="row">${st !== "on" ? `<button class="btn small primary" type="button" data-al="pushOn">Turn on alerts on this device</button>` : ""}<button class="btn small" type="button" data-al="test">Send a test alert</button></div>
+    <h3 style="margin:8px 0 0">Until someone acts</h3>
+    <div class="row"><label class="f" for="al_rep" style="max-width:220px">Repeat the alert every (minutes)<input id="al_rep" type="number" min="5" max="120" value="${Number(A.repeatMin) || 15}"></label><label class="f" for="al_esc" style="max-width:260px">Add the next person after (minutes)<input id="al_esc" type="number" min="10" max="240" value="${Number(A.escalateMin) || 30}"></label><button class="btn small" type="button" data-al="timing">Save</button></div>
+    <p class="small muted">Phone alerts repeat at this interval and email at most once an hour, until the booking, request or enquiry has been dealt with. Each alert gives only the type and trip reference.</p>
+    <p class="small">${ST && ST.lastRun ? `Last check ${fmtT(ST.lastRun)} · ${ST.open} waiting · ${ST.pushes} phone and ${ST.emails} email alerts sent${ST.email ? "" : " · email not connected yet"}${(ST.errors || []).length ? ` · problems: ${esc(ST.errors.join("; "))}` : ""}` : "The server check has not run yet (see To do for you)."}</p></div>`;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-al]"); if (!b) return; const a = b.dataset.al;
+  if (a === "pushOn") { e.preventDefault(); pushEnable(); }
+  else if (a === "test" && S.isOwner) { e.preventDefault(); pushTest(); }
+  else if (a === "timing" && S.isOwner) { e.preventDefault(); const r = Math.min(120, Math.max(5, +($("al_rep") || {}).value || 15)), x = Math.min(240, Math.max(10, +($("al_esc") || {}).value || 30)); alertSave({...(S.alerts || {recipients: []}), repeatMin: r, escalateMin: x}, `Repeat every ${r} min, next person after ${x} min`); }
 });
