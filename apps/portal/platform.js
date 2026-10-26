@@ -110,6 +110,7 @@
     if (p[0] === "progress") return { kind: "row", table: "academy_progress", key: "id", id: p[1] };   // academy: own progress (database rule)
     if (p[0] === "records") return { kind: "row", table: "academy_records", key: "id", id: p[1] };    // academy: director's training records
     if (p[0] === "certs") return { kind: "row", table: "certificates", key: "id", id: p[1] };         // academy: certificate register
+    if (p[0] === "alerts") return { kind: "row", table: "alert_settings", key: "id", id: p[1] };   // alert recipients and sender: owner only (database rule, 0013)
     if (p[0] === "scores") return { kind: "row", table: "member_scores", key: "id", id: p[1] };   // weekly trust/performance history: owner only (database rule, 0010)
     if (p[0] === "agr") return { kind: "row", table: "agreements", key: "id", id: p[1] };         // agreements signed in the portal (database rule, 0009)
     if (p[0] === "pool") return { kind: "row", table: "enquiry_pool", key: "id", id: p[1] };       // enquiry pool: owner releases, brokers take (database rule, 0008)

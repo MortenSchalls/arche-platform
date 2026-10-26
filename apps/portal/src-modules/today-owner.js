@@ -24,6 +24,8 @@ const OWNER_TODO = [
     why:"Lets supervised members ask for your OK on each step, and you approve or send back on Today. Until it runs, nothing is held back.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0012", sev:"med", title:"Run SQL: supervisor rights (0012)", sql:"0012",
     why:"Lets the members you choose supervise steps, assess new people or approve bookings. Before it runs, ticking a right has no effect.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. Mark as done once it has run."},
+  {id:"sql-0013", sev:"high", title:"Run SQL: alerts (0013)", sql:"0013", table:"alert_settings",
+    why:"Keeps who receives alerts, on which number, for what. Owner only.", how:"Supabase > SQL Editor > New query > paste > Run. Then add yourself in Team > Alerts."},
   {id:"email-dns", sev:"med", title:"Email safety records for archeaviation.com (SPF, DKIM, DMARC)",
     why:"Without them, emails from @archeaviation.com addresses land in spam or are refused.",
     how:"Your email provider (e.g. Google Workspace or Microsoft 365) shows the three records; add them in GoDaddy > DNS. Do this before brokers start mailing clients."},
@@ -37,6 +39,9 @@ const OWNER_TODO = [
     why:"The Assistant, trip co-pilot, roleplay lab and briefing need it. Until then they say the AI is not switched on.",
     how:"console.anthropic.com: add credit with a monthly limit and create a key. Vercel > portal project > Settings > Environment Variables: ANTHROPIC_API_KEY (and SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY if missing), then redeploy.",
     check: async () => { try { const r = await fetch("/api/ai", {method:"GET"}); if (!r.ok) return null; return !!(await r.json()).configured; } catch(e){ return null; } }},
+  {id:"wa-official", sev:"low", title:"Official WhatsApp number for alerts", later:true,
+    why:"Alerts by WhatsApp go out from the company's official number, which Meta must verify first.",
+    how:"After company formation: Meta Business verification, a WhatsApp Business Platform number, and an approved alert message template. Then enter the number in Team > Alerts and ask Claude to connect sending."},
   {id:"accounts", sev:"low", title:"Company WhatsApp Business, LINE and WeChat accounts", later:true,
     why:"Brokers use only company accounts with clients (Standards of Conduct).",
     how:"After company formation: open the three business accounts, then add the numbers and IDs in Settings so they show in signatures and on the website."},
@@ -201,7 +206,7 @@ function trustMatrix(){
   const _vToday = vToday;
   vToday = function(){ const h = _vToday(), i = h.indexOf('<div class="kpis">'), top = ownerTodoPrompt() + (typeof noticePrompt === "function" ? noticePrompt() : "") + (typeof reqTodayPanel === "function" ? reqTodayPanel() : ""); const out = i < 0 ? top + h : h.slice(0, i) + top + h.slice(i); return out + trustMatrix(); };
   const _vTeam = vTeam;
-  vTeam = function(){ const h = _vTeam(); if (!S.isOwner || S.preview) return h; const add = ownerTodoPanel() + (typeof supervisionPanel === "function" ? supervisionPanel() : "") + (typeof noticeTeamPanel === "function" ? noticeTeamPanel() : ""), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + add + h.slice(k); };
+  vTeam = function(){ const h = _vTeam(); if (!S.isOwner || S.preview) return h; const add = ownerTodoPanel() + (typeof supervisionPanel === "function" ? supervisionPanel() : "") + (typeof noticeTeamPanel === "function" ? noticeTeamPanel() : "") + (typeof alertsPanel === "function" ? alertsPanel() : ""), k = h.trimStart().startsWith('<div class="head">') ? h.indexOf('</div></div>') + 12 : 0; return h.slice(0, k) + add + h.slice(k); };
   document.addEventListener("click", e => { const b = e.target.closest("[data-todo]"); if (!b) return; e.preventDefault(); todoAct(b.dataset.todo, b.dataset.id); });
   document.addEventListener("toggle", e => { if (e.target.dataset && e.target.dataset.todoDet === "later") S.todoLater = e.target.open; }, true);
 })();
