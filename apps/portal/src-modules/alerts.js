@@ -33,7 +33,7 @@ function alertsPanel(){
   const A = S.alerts || {recipients: []}, R = A.recipients || [], snd = A.sender || {};
   const people = [[S.uid, S.myName || "You"], ...Object.entries(S.roster || {}).filter(([id, p]) => id !== S.uid && p.active !== false).map(([id, p]) => [id, p.contractName || nm(id)])];
   const row = (r, i) => `<div class="flag"><span class="sev ${r.active === false ? "low" : "med"}" aria-hidden="true"></span><div style="flex:1;min-width:0">
-      <p><b>${i + 1}. ${esc(r.name)}</b>${r.active === false ? ` <span class="chip c-enquiry">Paused</span>` : ""}</p>
+      <p><b>${i + 1}. ${esc(r.name)}</b>${r.active === false ? ` <span class="chip c-enquiry">Paused</span>` : ""} <span class="small muted">· ${r.uid ? (r.uid === S.uid ? "linked to you" : "linked to " + esc(nm(r.uid))) : "not linked to a portal user: no phone alerts"}</span></p>
       <p class="small">${[r.sms ? `SMS ${esc(alertPhoneShow(r.sms))}` : "", r.phone ? `WhatsApp ${esc(alertPhoneShow(r.phone))}` : "", r.email ? `Email ${esc(r.email)}` : ""].filter(Boolean).join(" · ")}</p>
       <p class="small muted">${Object.keys(ALERT_EVENTS).filter(k => (r.events || {})[k]).map(k => esc(ALERT_EVENTS[k])).join(" · ") || "No alerts chosen"}</p>
       <div class="row" style="margin-top:6px">${i > 0 ? `<button class="btn small" type="button" data-al="up" data-i="${i}">Move up</button>` : ""}<button class="btn small" type="button" data-al="edit" data-i="${i}">Change</button><button class="btn small" type="button" data-al="pause" data-i="${i}">${r.active === false ? "Resume" : "Pause"}</button><button class="btn small danger" type="button" data-al="del" data-i="${i}">Remove</button></div></div></div>`;

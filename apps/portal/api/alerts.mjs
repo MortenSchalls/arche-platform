@@ -144,12 +144,14 @@ export default async function handler(req, res) {
       const who = await fetch(`${D.SB}/auth/v1/user`, { headers: { apikey: PK, authorization: `Bearer ${token}` } }); if (!who.ok) return res.status(401).json({ error: "Sign in again" });
       const u = await who.json(), prof = (await D.all("profiles", "id,role,active", `&id=eq.${u.id}`))[0];
       if (!prof || prof.role !== "owner" || !prof.active) return res.status(403).json({ error: "Owners only" });
-      const cfg = (await D.get("alert_settings", "settings")) || {}, me = (cfg.recipients || []).find(r => r.uid === u.id) || {};
+      const cfg = (await D.get("alert_settings", "settings")) || {}, R = cfg.recipients || [];
+      const linked = R.find(r => r.uid === u.id), me = (linked && linked.email ? linked : R.find(r => r.email && (r.uid === u.id || (u.email && r.email.toLowerCase() === u.email.toLowerCase())))) || linked || {};
       let v = await D.get("alert_settings", "vapid"); if (!v) { v = newVapid(); await D.put("alert_settings", "vapid", v); }
       const subs = (await D.all("push_subs", "owner_id,id,data", `&owner_id=eq.${u.id}`)) || []; let pushed = 0, mailed = "none";
       for (const s of subs) { const c = await sendPush(s.data, v, { title: "Archē: test alert", body: "Alerts reach this device.", tag: "test", url: PORTAL + "/" }); if (c < 300) pushed++; }
       if (me.email) { mailed = await sendEmail(me.email, "Archē: test alert", `Alerts reach this email.\n\n${PORTAL}`); if (mailed === "no-key") mailed = "not sent: RESEND_API_KEY missing in Vercel (redeploy after adding it)"; }
-      return res.status(200).json({ devices: subs.length, pushed, email: me.email ? mailed : "not sent: no email in your entry in Team > Alerts", to: me.email || "", from: process.env.ALERT_FROM || "Archē Alerts <onboarding@resend.dev>" });
+      const why = !R.length ? "not sent: the server sees no one in Team > Alerts yet (was the entry saved?)" : !linked ? `not sent: the server sees ${R.length} entr${R.length === 1 ? "y" : "ies"} in Team > Alerts, none linked to you (Change > Who: yourself)` : "not sent: your linked entry has no email";
+      return res.status(200).json({ devices: subs.length, pushed, email: me.email ? mailed : why, to: me.email || "", from: process.env.ALERT_FROM || "Archē Alerts <onboarding@resend.dev>" });
     }
     const last = await D.get("alert_settings", "status");
     if (last && Date.now() - Date.parse(last.lastRun) < 60e3) return res.status(200).json({ skipped: "ran less than a minute ago" });
