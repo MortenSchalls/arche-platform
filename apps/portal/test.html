@@ -5153,7 +5153,7 @@ const OWNER_SQL = {"0006": "-- Supplier quotes (Morten, 21 Oct 2026): quote requ
 const OWNER_TODO = [
   {id:"company", sev:"high", title:"Fill in the company details",
     why:"The agreement, email signature, confirmations and privacy notice use them. Agreements cannot be sent until they are in.",
-    how:"Settings > Company details: UEN, registered address, bookings email, privacy email, signatory name and title.", view:"settings",
+    how:"Settings > Company details: UEN, registered address, bookings email (msj@archeaviation.com: every enquiry goes there, Morten 26 Oct 2026), privacy email, signatory name and title.", view:"settings",
     check: () => { const c = S.company || {}; return ["reg","address","email","privacy","signName","signTitle"].every(k => String(c[k] || "").trim()); }},
   {id:"sql-0006", sev:"high", title:"Run SQL: supplier quotes (0006)", sql:"0006", table:"rfqs",
     why:"Operations request, compare and award quotes from FBOs, caterers and hotels in Supplier quotes.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
