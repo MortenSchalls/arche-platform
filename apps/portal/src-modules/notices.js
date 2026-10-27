@@ -7,6 +7,11 @@
    Every notice here is a DRAFT until the owner publishes it in Team (Morten, 26 Oct 2026: "ask me first if it needs to
    be a notice"). Publishing or setting aside is kept in config/notices; only published notices reach members. */
 const NOTICES = [
+  {id:"2026-10-27-booking-safety", date:"2026-10-27", to:["broker","ops"], title:"Bookings: step-by-step guide, operator safety record and Trip checks",
+    body:["Every trip now shows \"Steps to book this trip\": what is done, what is missing, who does it, and a button that opens the field. The trip form marks the fields needed to send to operations (*).",
+      "New panel on every trip: Operator safety. Accepted without approval: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3, current on the last flight date and checked in the auditor's registry within 14 days, with the link and the proof attached as \"Safety audit\". ARGUS Gold Plus no longer exists; ARGUS Gold and Gold Certified now need the director's approval.",
+      "Any other operator needs the director's approval on the trip, the five checks in manual 8.3, the crew hours, and the client told in writing before signing (attach the email as \"Client safety disclosure\"). Every operator: two pilots on jets, insurance of at least USD 50 million (jet) or 25 million (turboprop), and five years clear of accidents and sanctions.",
+      "Trip checks now show red for anything that stops a trip (sanctions, cabotage, curfew, safety) and amber for what you must confirm with the operator. Send to operations opens only when nothing is missing and nothing is red. Manual Module 8 has the full rule."]},
   {id:"2026-10-26-supervisors", date:"2026-10-26", to:["broker","ops"], title:"Supervisor rights for experienced members",
     body:["The director can give experienced members supervisor rights: deciding on other people's supervised steps, assessing new people, and (operations) approving bookings.",
       "If you have a right, a Supervision page appears in your menu, and your dashboard shows when something waits for you. Decide only on others' work, never your own. Every decision is logged with your name.",
