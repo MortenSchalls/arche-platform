@@ -8,7 +8,8 @@
   S.sw = S.sw || {loaded: false, data: null};
   function load(){
     if (S.sw.loading || S.sw.loaded || !S.isOwner) return; S.sw.loading = true;
-    S.db.doc("intel/sanctions-regimes").get().then(d => { S.sw.data = d.exists ? d.data() : null; }, () => { S.sw.data = null; })
+    Promise.all([S.db.doc("intel/sanctions-regimes").get().then(d => { S.sw.data = d.exists ? d.data() : null; }, () => { S.sw.data = null; }),
+      S.db.doc("intel/screen").get().then(d => { S.sw.screen = d.exists ? d.data() : null; }, () => { S.sw.screen = null; })])
       .finally(() => { S.sw.loading = false; S.sw.loaded = true; render(); });
   }
   const LIST = {"OFAC SDN": "United States (OFAC)", "UN": "United Nations", "EU": "European Union", "UK": "United Kingdom"};
@@ -16,11 +17,12 @@
     if (!S.isOwner || acting() !== "owner") return ""; load(); const d = S.sw.data;
     const head = `<div class="panel" style="margin-bottom:16px"><h2>Sanctions watch</h2><p class="small muted">Every Monday the portal reads the official UN, US, EU and UK sanctions lists. A new or ended sanctions programme, or a list that cannot be read, shows here so the website's excluded places, the manual and KYC stay current. People and companies are screened on every booking and operator against the same lists.</p>`;
     if (!S.sw.loaded) return head + `<p class="small muted">Loading…</p></div>`;
-    if (!d) return head + `<p class="small">Not run yet. The first run on Monday stores today's programmes as the starting point. To run it now: GitHub → Actions → Portal jobs → Run workflow → regimes.</p></div>`;
+    const sc = S.sw.screen, scLine = sc ? `<p class="small">Daily screen of operators and partners: last run ${esc(fmtT(sc.lastRun))}, ${sc.screened} screened, possible matches: <b>${esc((sc.possible || []).join(", ") || "none")}</b>. Name index for booking screens: ${sc.indexSize} names.${(Date.now() - Date.parse(sc.lastRun)) > 48 * 3600e3 ? ` <b>Older than 48 hours: check the job in GitHub Actions.</b>` : ""}</p>` : `<p class="small"><b>The daily screen has not run yet.</b> Booking screens need it: GitHub → Actions → Portal jobs → Run workflow → screen.</p>`;
+    if (!d) return head + scLine + `<p class="small">Programme watch not run yet. The first run on Monday stores today's programmes as the starting point. To run it now: GitHub → Actions → Portal jobs → Run workflow → regimes.</p></div>`;
     const lists = Object.entries(d.latest || {}).map(([k, v]) => `${LIST[k] || k}: ${v.length} programmes`).join(" · ");
     const open = (d.open || []).map(c => `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p>${esc(LIST[c.list] || c.list)}: ${c.added.length ? "new " + esc(c.added.join(", ")) : ""}${c.added.length && c.removed.length ? "; " : ""}${c.removed.length ? "ended " + esc(c.removed.join(", ")) : ""}</p><p class="small muted">Seen ${esc(fmtD(c.at))}</p></div></div>`).join("");
     const fail = (d.failed || []).length ? `<div class="note warn small">Could not read: ${esc(d.failed.map(x => LIST[x] || x).join(", "))}${d.failRuns >= 2 ? " (two runs in a row; check the job in GitHub Actions)" : " (will try again next week)"}.</div>` : "";
-    return head + `<p class="small">Last checked ${esc(fmtT(d.checkedAt))}. ${esc(lists)}.</p>${fail}${open}
+    return head + scLine + `<p class="small">Programme watch last checked ${esc(fmtT(d.checkedAt))}. ${esc(lists)}.</p>${fail}${open}
       ${d.review ? `<p class="small">Review: ask Claude to compare the change with the website's excluded places, manual Appendix G.2 and KYC, and update them where needed. Then mark it reviewed.</p><button class="btn small primary" type="button" data-sw="ok">Mark reviewed</button>` : `<p class="small muted">Nothing to review.</p>`}</div>`;
   }
   window.sanctionsPrompt = function(){

@@ -95,6 +95,7 @@ const OVR = [
  ["Meet the Arche service standard on every call", "Meet the service standard on every call"],
  ["After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the director, and 10 supervised bookings. The director signs your training record when all stages are complete.", "After the exam, your employer completes your practical training: Avinode and payment-platform training, shadowing on live trips, a practical exam and supervised bookings."],
  ["Avinode's core broker course; this is the Arche set-up", "Avinode's core broker course; the set-up this course uses"],
+ ["Record the result: in the portal, operations enters every name in the Sanctions screening box on the trip and presses Screen names now, which checks the official UN, US, EU and UK lists, then saves the record (date, person, lists, outcome). A confirmation cannot be issued without it. Without the portal, use the official search pages and the sanctions screening record (Appendix B).", "Record the result in your sanctions screening record, with the date, who screened, the lists searched and the outcome. No confirmation is issued without it."],
  ["The only way a client pays Arche", "How a client pays through a payment request"],
  ["Arche modules that prepare for it", "Modules that prepare for it"],
  ["The mapping is Arche's own guide to preparation; the ACA sets its own syllabus.", "The mapping is this course's own guide to preparation; the ACA sets its own syllabus."],

@@ -466,7 +466,7 @@ const BROKER_CHECKS = [
   ["audit","Safety audit checked (ARGUS Gold Plus or higher, or Wyvern Wingman; Gold or unrated only with director approval)"],
   ["route","Routing, permits and continuous journey checked with the operator"],
   ["terms","Operator's cancellation and payment terms are no softer for Archē Executive than ours"]];
-const OPS_CHECKS = [["kyc","Charterer KYC and sanctions screening done (operations)"],["pay","Payment request created in our payment provider (operations)"]];
+const OPS_CHECKS = [["kyc","Charterer KYC and sanctions screening recorded (operations)"],["pay","Payment request created in our payment provider (operations)"]];
 const DEFAULT_TERMS = {margin:0.09, unit:45000, threshold:8, rate1:0.27, rate2:0.35, consultRate:0.10, cycleDays:5};
 // On the live platform the nightly backup is the scheduled job (encrypted, kept 90 days off-site); it records intel/backup.
 const LIVE_PLATFORM = !!window.__sb;
@@ -774,13 +774,14 @@ function opsBlock(t){
   return `<div class="panel stack" style="background:var(--raised)">
     <h2>Operations</h2>
     ${!issued && stage !== "cancelled" ? `
-    <p class="small muted">Check the operator price against the Avinode trip, screen the charterer, create the payment request, then issue.</p>
+    <p class="small muted">Check the operator price against the Avinode trip, run KYC and the sanctions screening, create the payment request, then issue.</p>
     <div class="fgrid">
       <label class="f" for="o_op">Operator price confirmed on Avinode (USD)<input id="o_op" inputmode="decimal" value="${esc(opPrice || "")}"></label>
       <label class="f" for="o_dir">Direct trip costs (USD)<input id="o_dir" inputmode="decimal" value="${esc(direct || 0)}"></label>
       <label class="f" for="o_pn">Payment request reference<input id="o_pn" value="${esc(st.paynodeRef || "")}"></label>
     </div>
-    <label class="check" for="o_kyc"><input type="checkbox" id="o_kyc" ${st.kyc ? "checked" : ""}><span>Charterer KYC and sanctions screening done and recorded</span></label>
+    ${typeof screenBlock === "function" ? screenBlock(t, st) : ""}
+    <label class="check" for="o_kyc"><input type="checkbox" id="o_kyc" ${st.kyc ? "checked" : ""}><span>Charterer KYC done and recorded: identity, company register, owners and source of funds (manual 3.1)</span></label>
     ${num(q.opPrice) && num(opPrice) && num(q.opPrice) !== num(opPrice) ? `<div class="note warn small">Broker entered ${usd(num(q.opPrice))} for the operator; you entered ${usd(num(opPrice))}. The confirmed figure is used.</div>` : ""}
     <div class="row"><button class="btn" type="button" data-act="opsSave">Save</button><button class="btn primary" type="button" data-act="openConf">Prepare confirmation</button><button class="btn danger" type="button" data-act="return">Return to broker</button></div>
     <label class="f" for="o_note">Note to the broker (needed to return)<textarea id="o_note"></textarea></label>` : ""}
@@ -1068,7 +1069,7 @@ async function act(a, el){
       const patch = {opPrice:op, direct:dc, price:priceOf(op, dc), paynodeRef:pn, pay:!!pn, kyc, state: t.st && t.st.state === "returned" ? "review" : (t.st && t.st.state) || "review"};
       if (a === "issue") {
         const missing = [];
-        if (!op) missing.push("operator price"); if (!kyc) missing.push("KYC and sanctions"); if (!pn) missing.push("payment request reference");
+        if (!op) missing.push("operator price"); if (!kyc) missing.push("KYC"); if (typeof screenOk === "function" && !screenOk(t, t.st || {})) missing.push("sanctions screening record (no match, or the owner's decision)"); if (!pn) missing.push("payment request reference");
         BROKER_CHECKS.forEach(([k, l]) => { if (!(t.d.checks || {})[k]) missing.push(l.split(" (")[0].split(";")[0]); });
         if (missing.length) { toast("Cannot issue. Missing: " + missing.join(", ")); return; }
         const dt = new Date(), ref = "AE-" + String(dt.getFullYear()).slice(2) + String(dt.getMonth() + 1).padStart(2, "0") + String(dt.getDate()).padStart(2, "0") + "-" + String(Math.floor(Math.random() * 900) + 100);
@@ -1917,7 +1918,7 @@ async function saveConfDraft(){
 async function issueConf(btn){
   const t = tripById(S.sel); const st = t.st || {};
   if (ownTrip(t)) { toast("Another operations member or the owner must issue your own trip."); return; }
-  const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by operations"); if (!st.kyc) missing.push("KYC and sanctions"); if (!st.paynodeRef) missing.push("payment request reference");
+  const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by operations"); if (!st.kyc) missing.push("KYC"); if (typeof screenOk === "function" && !screenOk(t, st)) missing.push("sanctions screening record"); if (!st.paynodeRef) missing.push("payment request reference");
   if (missing.length) { toast("Save these in the operations panel first: " + missing.join(", ")); return; }
   const rev = st.confIssued ? (st.confRev || 1) + 1 : 1;
   const ref = st.ref || CONF.newRef(CONF.todayISO());
@@ -3602,7 +3603,8 @@ function apChecks(t){
   const bc = BROKER_CHECKS.filter(([k]) => chk[k]).length;
   out.push([bc === BROKER_CHECKS.length, `Broker checks ${bc} of ${BROKER_CHECKS.length}`]);
   out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by operations" : "Operator price not confirmed by operations"]);
-  out.push([!!st.kyc, st.kyc ? "KYC and sanctions done" : "KYC and sanctions not done"]);
+  out.push([!!st.kyc, st.kyc ? "KYC done" : "KYC not done"]);
+  { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
   out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Margin ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
   if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, operations confirmed ${usd(f.op)}`]);
@@ -5621,7 +5623,8 @@ function vOnboarding(){
   S.sw = S.sw || {loaded: false, data: null};
   function load(){
     if (S.sw.loading || S.sw.loaded || !S.isOwner) return; S.sw.loading = true;
-    S.db.doc("intel/sanctions-regimes").get().then(d => { S.sw.data = d.exists ? d.data() : null; }, () => { S.sw.data = null; })
+    Promise.all([S.db.doc("intel/sanctions-regimes").get().then(d => { S.sw.data = d.exists ? d.data() : null; }, () => { S.sw.data = null; }),
+      S.db.doc("intel/screen").get().then(d => { S.sw.screen = d.exists ? d.data() : null; }, () => { S.sw.screen = null; })])
       .finally(() => { S.sw.loading = false; S.sw.loaded = true; render(); });
   }
   const LIST = {"OFAC SDN": "United States (OFAC)", "UN": "United Nations", "EU": "European Union", "UK": "United Kingdom"};
@@ -5629,11 +5632,12 @@ function vOnboarding(){
     if (!S.isOwner || acting() !== "owner") return ""; load(); const d = S.sw.data;
     const head = `<div class="panel" style="margin-bottom:16px"><h2>Sanctions watch</h2><p class="small muted">Every Monday the portal reads the official UN, US, EU and UK sanctions lists. A new or ended sanctions programme, or a list that cannot be read, shows here so the website's excluded places, the manual and KYC stay current. People and companies are screened on every booking and operator against the same lists.</p>`;
     if (!S.sw.loaded) return head + `<p class="small muted">Loading…</p></div>`;
-    if (!d) return head + `<p class="small">Not run yet. The first run on Monday stores today's programmes as the starting point. To run it now: GitHub → Actions → Portal jobs → Run workflow → regimes.</p></div>`;
+    const sc = S.sw.screen, scLine = sc ? `<p class="small">Daily screen of operators and partners: last run ${esc(fmtT(sc.lastRun))}, ${sc.screened} screened, possible matches: <b>${esc((sc.possible || []).join(", ") || "none")}</b>. Name index for booking screens: ${sc.indexSize} names.${(Date.now() - Date.parse(sc.lastRun)) > 48 * 3600e3 ? ` <b>Older than 48 hours: check the job in GitHub Actions.</b>` : ""}</p>` : `<p class="small"><b>The daily screen has not run yet.</b> Booking screens need it: GitHub → Actions → Portal jobs → Run workflow → screen.</p>`;
+    if (!d) return head + scLine + `<p class="small">Programme watch not run yet. The first run on Monday stores today's programmes as the starting point. To run it now: GitHub → Actions → Portal jobs → Run workflow → regimes.</p></div>`;
     const lists = Object.entries(d.latest || {}).map(([k, v]) => `${LIST[k] || k}: ${v.length} programmes`).join(" · ");
     const open = (d.open || []).map(c => `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p>${esc(LIST[c.list] || c.list)}: ${c.added.length ? "new " + esc(c.added.join(", ")) : ""}${c.added.length && c.removed.length ? "; " : ""}${c.removed.length ? "ended " + esc(c.removed.join(", ")) : ""}</p><p class="small muted">Seen ${esc(fmtD(c.at))}</p></div></div>`).join("");
     const fail = (d.failed || []).length ? `<div class="note warn small">Could not read: ${esc(d.failed.map(x => LIST[x] || x).join(", "))}${d.failRuns >= 2 ? " (two runs in a row; check the job in GitHub Actions)" : " (will try again next week)"}.</div>` : "";
-    return head + `<p class="small">Last checked ${esc(fmtT(d.checkedAt))}. ${esc(lists)}.</p>${fail}${open}
+    return head + scLine + `<p class="small">Programme watch last checked ${esc(fmtT(d.checkedAt))}. ${esc(lists)}.</p>${fail}${open}
       ${d.review ? `<p class="small">Review: ask Claude to compare the change with the website's excluded places, manual Appendix G.2 and KYC, and update them where needed. Then mark it reviewed.</p><button class="btn small primary" type="button" data-sw="ok">Mark reviewed</button>` : `<p class="small muted">Nothing to review.</p>`}</div>`;
   }
   window.sanctionsPrompt = function(){
@@ -5649,6 +5653,73 @@ function vOnboarding(){
     const next = {...d, baseline: {...(d.baseline || {}), ...(d.latest || {})}, open: [], review: false, failRuns: 0, reviewedAt: now(), reviewedBy: S.uid};
     try { await S.db.doc("intel/sanctions-regimes").set(next); S.sw.data = next; audit("Sanctions changes reviewed", (d.open || []).map(c => c.list).join(", ")); toast("Marked reviewed."); render(); }
     catch(e){ toast("Could not save."); }
+  });
+})();
+
+/* ---------- Sanctions screening record on every booking (Morten, 27 Oct 2026) ----------
+   Operations (or the owner) lists every name to screen: the charterer, its company, the payer, owners of 25% or more
+   and anyone who controls the company, every passenger, the operator and the aircraft owner (manual 3.2).
+   "Screen names now" checks them against the official UN, US (OFAC), EU and UK lists (api/screen.mjs, index built
+   daily by jobs/screen.mjs). The result is saved on the trip with date, person, lists and outcome.
+   A confirmation cannot be issued without a clear record that still covers the charterer and company on the trip.
+   A possible match stops the booking: only the owner can record a decision after checking the details. */
+(function(){
+  S.scr = S.scr || {};
+  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}; return [c.name, c.company, q.operator].filter(x => x && String(x).trim()); };
+  const key = s => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
+  window.screenOk = function(t, st){
+    const s = (st || {}).screen; if (!s) return false;
+    if (!(s.outcome === "clear" || (s.outcome === "possible match" && s.ownerDecision && s.ownerDecision.verdict === "proceed"))) return false;
+    const done = new Set((s.names || []).map(key));
+    return tripNames(t).filter(n => n !== (t.d.quote || {}).operator).every(n => done.has(key(n)));   // charterer and company on the trip now were screened
+  };
+  window.screenBlock = function(t, st){
+    const s = st.screen, live = S.scr[t.did] || {}, ok = screenOk(t, st);
+    const pre = live.text !== undefined ? live.text : ((s && s.names) || tripNames(t)).join("\n");
+    const res = live.results ? `<table class="small" style="margin-top:8px"><thead><tr><th>Name</th><th>Result</th></tr></thead><tbody>${live.results.map(r => `<tr><td>${esc(r.name)}</td><td>${r.result === "no match" ? "No match" : `<b>Possible match</b>: ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}`}</td></tr>`).join("")}</tbody></table>
+      <p class="small muted">Lists: ${esc((live.lists || []).join(", "))}, loaded ${esc(fmtT(live.at))}${live.stale ? " · <b>older than 48 hours</b>: also check the official search pages below" : ""}${(live.failed || []).length ? " · could not load " + esc(live.failed.join(", ")) : ""}.</p>
+      <button class="btn small primary" type="button" data-scr="save|${esc(t.did)}">Save this screening record</button>` : "";
+    const rec = s ? `<div class="note ${s.outcome === "clear" ? "ok" : "bad"} small" style="margin-top:8px">Recorded ${esc(fmtT(s.at))} by ${esc(nm(s.by))}: <b>${s.outcome === "clear" ? "no match" : "possible match"}</b> · ${s.names.length} names · ${esc((s.lists || []).join(", "))}${s.ownerDecision ? ` · owner decision: <b>${esc(s.ownerDecision.verdict)}</b> (${esc(s.ownerDecision.note)})` : ""}${!ok && s.outcome === "clear" ? " · <b>the charterer or company has changed since: screen again</b>" : ""}</div>` : "";
+    const decide = s && s.outcome === "possible match" && !s.ownerDecision ? (S.isOwner && acting() === "owner" ? `<div class="fgrid" style="margin-top:8px"><label class="f wide" for="scr_note">Owner decision after checking dates of birth, nationality and addresses against the listing<input id="scr_note" placeholder="e.g. different person: listed person born 1961, our client born 1985"></label></div><div class="row"><button class="btn small" type="button" data-scr="proceed|${esc(t.did)}">Not the listed person: proceed</button><button class="btn small danger" type="button" data-scr="stop|${esc(t.did)}">Stop the booking</button></div>` : `<div class="note bad small">Stop. Do not tell the client why and take no payment. The owner decides (manual 3.2).</div>`) : "";
+    return `<div class="panel" style="margin:12px 0;padding:16px"><h3 style="margin-top:0">Sanctions screening</h3>
+      <p class="small muted">One name per line: charterer, company, payer, owners of 25% or more and anyone who controls the company, every passenger, the operator and the aircraft owner. Add date of birth after a person's name if known.</p>
+      <label class="f wide" for="scr_names_${esc(t.did)}">Names to screen<textarea id="scr_names_${esc(t.did)}" rows="6" data-scrtext="${esc(t.did)}">${esc(pre)}</textarea></label>
+      <div class="row"><button class="btn small" type="button" data-scr="run|${esc(t.did)}">Screen names now</button>
+      <a class="small" href="https://sanctionssearch.ofac.treas.gov/" target="_blank" rel="noopener">OFAC search</a> · <a class="small" href="https://www.sanctionsmap.eu/" target="_blank" rel="noopener">EU map</a> · <a class="small" href="https://search-uk-sanctions-list.service.gov.uk/" target="_blank" rel="noopener">UK list</a> · <a class="small" href="https://main.un.org/securitycouncil/content/un-sc-consolidated-list" target="_blank" rel="noopener">UN list</a></div>
+      ${res}${rec}${decide}</div>`;
+  };
+  document.addEventListener("input", ev => { const el = ev.target.closest("[data-scrtext]"); if (el) { S.scr[el.dataset.scrtext] = {...(S.scr[el.dataset.scrtext] || {}), text: el.value, results: null}; } });
+  document.addEventListener("click", async ev => {
+    const b = ev.target.closest("[data-scr]"); if (!b) return; ev.preventDefault();
+    const [a, did] = b.dataset.scr.split("|"); const t = tripById(did); if (!t) return;
+    if (ownTrip(t) && a !== "run") { toast("Another operations member or the owner must record the screening on your own trip."); return; }
+    const box = $("scr_names_" + did), names = (box ? box.value : "").split("\n").map(x => x.trim()).filter(Boolean);
+    if (a === "run") {
+      if (!names.length) { toast("Add the names to screen."); return; }
+      b.disabled = true; b.textContent = "Screening…";
+      try {
+        const s = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
+        const r = await fetch("/api/screen", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({names: names.map(n => n.replace(/\s*\(?\b(19|20)\d\d[-/.]\d\d?[-/.]\d\d?\)?\s*$/, ""))})});
+        const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status);
+        j.results.forEach((x, i) => { x.name = names[i]; });
+        S.scr[did] = {text: names.join("\n"), results: j.results, lists: j.lists, at: j.at, stale: j.stale, failed: j.failed};
+      } catch(e){ toast("Screening not available: " + String(e.message || e).slice(0, 140) + ". Use the official search pages and record the result in a note."); }
+      render(); return;
+    }
+    if (a === "save") {
+      const L = S.scr[did]; if (!L || !L.results) return;
+      const hit = L.results.some(r => r.result !== "no match");
+      const screen = {at: now(), by: S.uid, names: L.results.map(r => r.name), lists: L.lists, listsAt: L.at, stale: !!L.stale, outcome: hit ? "possible match" : "clear", hits: L.results.filter(r => r.result !== "no match").map(r => ({name: r.name, hits: r.hits}))};
+      await statusWrite(t, {screen}, hit ? "Sanctions screening: possible match, owner to decide" : "Sanctions screening: no match");
+      audit("Sanctions screening recorded", `${(t.st || {}).ref || t.did} · ${hit ? "possible match" : "no match"} · ${screen.names.length} names`);
+      S.scr[did] = {}; toast(hit ? "Recorded. The booking stops until the owner decides." : "Recorded: no match."); return;
+    }
+    if ((a === "proceed" || a === "stop") && S.isOwner) {
+      const note = ($("scr_note") || {}).value || ""; if (note.trim().length < 15) { toast("Write what you checked (at least 15 characters)."); return; }
+      const s = {...(t.st || {}).screen, ownerDecision: {verdict: a, note: note.trim(), at: now(), by: S.uid}};
+      await statusWrite(t, {screen: s}, a === "proceed" ? "Owner: not the listed person, proceed" : "Owner: booking stopped after sanctions screening");
+      audit("Sanctions decision", `${(t.st || {}).ref || t.did} · ${a}`); toast("Decision recorded."); return;
+    }
   });
 })();
 

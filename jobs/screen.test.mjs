@@ -1,0 +1,22 @@
+// Offline test of the daily sanctions screen and the booking name check (example data only).
+import { run } from "./screen.mjs";
+import { check } from "../apps/portal/api/screen.mjs";
+let fails = 0; const ok = (n, c) => { console.log((c ? "PASS " : "FAIL ") + n); if (!c) fails++; };
+const filler = Array.from({ length: 60 }, (_, i) => `FILLER PERSON ${String.fromCharCode(65 + (i % 26))}${i}`);
+const sdn = [...filler, "BADWING AIR CHARTER LLC", "IVAN EXAMPLOV"].map((n, i) => `${i},"${n}","-0-","SDGT"`).join("\n");
+const fetchFn = async url => { const t = url.includes("sdn.csv") ? sdn : ""; return { ok: !!t, status: t ? 200 : 404, text: async () => t }; };
+const rows = [{ id: "p1", data: { kind: "operator", org: "Badwing Air Charter", status: "new", ops: { owners: [] } } }, { id: "p2", data: { kind: "operator", org: "Clean Jets Pte Ltd", status: "new", ops: {} } }];
+const store = {}; let index = null;
+const db = { all: async () => rows, set: async (k, v) => { store[k] = v; }, get: async k => store[k] || null };
+const out = await run(db, fetchFn, () => {}, "2026-10-27T00:00:00Z", async body => { index = JSON.parse(body); });
+ok("operators screened", out.screened === 2);
+ok("possible match sets review", store["prospects/p1"].status === "review" && out.possible[0] === "Badwing Air Charter");
+ok("clean operator stays", !store["prospects/p2"].status || store["prospects/p2"].status === "new");
+ok("index stored with names", index && Object.keys(index.names).length >= 60);
+const ix = new Map(Object.entries(index.names));
+const r = check(["Ivan Examplov", "Examplov Ivan", "Jane Example", "Ivan"], ix);
+ok("exact person name matches", r[0].result === "possible match");
+ok("reversed word order matches", r[1].result === "possible match");
+ok("unrelated name is clear", r[2].result === "no match");
+ok("a single short word does not match everything", r[3].result === "no match");
+console.log(fails ? `${fails} FAILED` : "ALL PASS"); process.exit(fails ? 1 : 0);
