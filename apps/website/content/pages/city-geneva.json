@@ -1,0 +1,75 @@
+{
+ "path": "/cities/geneva/",
+ "title": "Private jet charter to and from Geneva: what to know",
+ "description": "Private flights to and from Geneva: prior permission for business aviation, how far ahead to book, night rules and noise quotas, from Geneva Airport's own rules.",
+ "eyebrow": "City guide · Geneva",
+ "h1": "Private flights to and from Geneva",
+ "lead": "Geneva Airport runs private flights through its own permission system. What that means for your trip.",
+ "glance": [
+  [
+   "Airport",
+   "lsgg.icao"
+  ],
+  [
+   "Opening",
+   "lsgg.hours"
+  ],
+  [
+   "Permission",
+   "lsgg.ppr"
+  ],
+  [
+   "Night",
+   "lsgg.curfew"
+  ],
+  [
+   "Airport operator",
+   "lsgg.operator"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Permission for every private flight",
+   "p": [
+    "Geneva Airport is run by {{lsgg.operator}}. For private flights the key rule is permission: {{lsgg.ppr}}. The permission number then goes into the flight plan. Business aviation is a large part of the airport's traffic: {{lsgg.notable}}.",
+    "On busy dates permission can be harder to get at short notice. We ask the operator to book as soon as your plans are firm."
+   ]
+  },
+  {
+   "h": "Night rules",
+   "p": [
+    "The airport is {{lsgg.hours}}. Under the airport's rules, {{lsgg.curfew}}. For business aviation, {{lsgg.noise}}. A late departure is therefore possible only with the right aircraft and the right approval, and we check both with the operator first."
+   ]
+  },
+  {
+   "h": "The aircraft and the operator",
+   "p": [
+    "Because of the noise rules, the aircraft type matters at Geneva in the evening. We ask the operator for the aircraft's noise class when your times are late, and we tell you before you confirm if the flight would not be allowed."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Geneva",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We check the airport rules for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How far ahead must a private flight to Geneva be booked?",
+   "a": "The airport's permission system opens shortly before the flight: {{lsgg.ppr}}. We arrange it with the operator as soon as your plans are firm."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/regions/europe/",
+  "/guides/operator-safety-audits/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "city"
+}

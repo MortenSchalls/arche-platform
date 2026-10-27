@@ -1,0 +1,38 @@
+{
+ "icao": "WSSS",
+ "iata": null,
+ "name": "Singapore Changi Airport",
+ "city": "Singapore",
+ "country": "SG",
+ "tz": "Asia/Singapore",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "sg-aip-wsss",
+   "quote": "Customs and Immigration H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "sg-aip-wsss",
+   "quote": "Aerodrome Administration ... H24"
+  },
+  "ppr": {
+   "v": "prior permission needed only for aircraft without radio",
+   "src": "sg-aip-wsss",
+   "quote": "Prior permission required for aircraft not equipped with radiotelephony."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway (AD 2.12 not readable, see unreadable)",
+  "curfew",
+  "slots",
+  "handling",
+  "noise (AD 2.21 not readable)"
+ ],
+ "notes": "Arrival window converted from 0900-1559 UTC to Singapore time (UTC+8, no daylight saving). The AIP SUP 002/2026 (sg-sup-2026-002) gives RWY 02R/20L a full-length declared distance of 4,000 m but no width, and says that runway was closed to civil use from 19 Feb to 5 Aug 2026; the longest runway and widths were not verified. The AIP page read is valid from 09 Jul 2026 (folder 15-JUL-2026); the fetch tool only read the page up to AD 2.11."
+}

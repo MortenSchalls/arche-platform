@@ -1,0 +1,40 @@
+{
+ "icao": "RJTT",
+ "iata": null,
+ "name": "Tokyo International Airport (Haneda)",
+ "city": "Tokyo",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "four runways; the longest, C, is 3,360 m long and 60 m wide",
+   "longest_m": 3360,
+   "src": "tcab-haneda-outline",
+   "quote": "C 3,360m × 60m"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "tcab-haneda-rules",
+   "quote": "空港の運用時間は、２４時間とする。"
+  },
+  "handling": {
+   "v": "business aviation uses dedicated arrival and departure gates with their own customs and immigration",
+   "src": "haneda-bizav",
+   "quote": "using dedicated CIQ facilities and arrival and departure gates"
+  }
+ },
+ "missing": [
+  "iata",
+  "geo (Japan AIP not reachable)",
+  "customs hours (page says dedicated CIQ but no hours)",
+  "curfew",
+  "slots (no official current source read)",
+  "ppr",
+  "max_aircraft",
+  "noise"
+ ],
+ "notes": "The website names no companies other than authorities, airport operators and sources, so the handling_list is for internal use only. The Japanese AIP (aisjapan.mlit.go.jp) could not be opened. The runway/outline sheet (tcab-haneda-outline) shows no date. An undated MLIT business jet pamphlet says daytime business jet movements at Haneda are limited to 8 per day; it was not used because it is undated and likely out of date. Japan has no daylight saving time."
+}

@@ -1,0 +1,70 @@
+{
+ "path": "/cities/dubai/",
+ "title": "Private jet charter to and from Dubai: airports and slots",
+ "description": "Private flights to and from Dubai: Dubai World Central and Dubai International compared on slots, permission, runways and customs, from the official UAE sources.",
+ "eyebrow": "City guide · Dubai",
+ "h1": "Private flights to and from Dubai",
+ "lead": "Dubai has two international airports, and both need a slot for every private flight. How they compare, from the UAE Aeronautical Information Publication and the airports' conditions of use.",
+ "glance": [
+  [
+   "Dubai World Central",
+   "omdw.runway"
+  ],
+  [
+   "Dubai International",
+   "omdb.location"
+  ],
+  [
+   "Customs at DXB",
+   "omdb.customs"
+  ],
+  [
+   "Largest aircraft",
+   "omdb.max_aircraft"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Dubai World Central – Al Maktoum",
+   "p": [
+    "At Dubai World Central, {{omdw.slots}}. The airport has {{omdw.runway}}. {{omdw.notable}}. Our Dubai World Central guide has the details."
+   ]
+  },
+  {
+   "h": "Dubai International",
+   "p": [
+    "Dubai International is {{omdb.location}} and is {{omdb.hours}}. It is {{omdb.slots}}. It has {{omdb.customs}}. One more rule from its conditions: {{omdb.notable_diversion}}."
+   ]
+  },
+  {
+   "h": "What both airports require",
+   "p": [
+    "Both airports are run by {{omdb.operator}}. At both, private flights are requested through the operator's handling agent, and {{omdb.max_aircraft}}. Both have noise rules: at Dubai International, {{omdb.noise}}."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Dubai",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We compare the airports around Dubai for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Which Dubai airport is better for a private jet?",
+   "a": "It depends on your times, the slot available and where you are going in the city. Dubai International is {{omdb.location}}. We compare both for every trip."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/airports/dubai-world-central/",
+  "/regions/middle-east/",
+  "/guides/charter-price/"
+ ],
+ "draft": true,
+ "type": "city"
+}

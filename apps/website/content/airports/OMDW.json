@@ -1,0 +1,48 @@
+{
+ "icao": "OMDW",
+ "iata": "DWC",
+ "name": "Dubai World Central - Al Maktoum International Airport",
+ "city": "Dubai",
+ "country": "AE",
+ "tz": "Asia/Dubai",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "runway 12/30, 4,500 m long and 60 m wide",
+   "longest_m": 4500,
+   "src": "uae-aip-omdw-adc",
+   "quote": "RWY 12 119° 4500 x 60 850/F/A/X/T 30 299° 4500 x 60 850/F/A/X/T"
+  },
+  "slots": {
+   "v": "schedule clearance (a slot) from the coordinator is needed before any flight, plus prior permission from the Dubai Civil Aviation Authority; requests are made through the operator's handling agent",
+   "src": "dwc-cou-ga-s24",
+   "quote": "No Operator shall operate to or from without first obtaining schedule clearance from the Schedules facilitator (ACL)"
+  },
+  "max_aircraft": {
+   "v": "the largest aircraft (code F) must apply for schedule clearance at least 72 hours before arrival",
+   "src": "dwc-cou-ga-s24",
+   "quote": "should apply for schedule clearance at a minimum 72 hours prior to arrival"
+  },
+  "handling": {
+   "v": "five FBOs handle general aviation: Execujet, DC Aviation-Al Futtaim, Jet Aviation, Falcon Aviation Services and Jetex",
+   "src": "dwc-cou-ga-s24",
+   "quote": "Execujet, DC Aviation-Al Futtaim, Jet Aviation, Falcon Aviation Services and Jetex flight support"
+  },
+  "noise": {
+   "v": "Chapter 2 (older, noisier) aircraft may not operate; the authorities may restrict some operations in noise-sensitive hours with prior notice",
+   "src": "dwc-cou-ga-s24",
+   "quote": "Chapter 2 (Noise Certification Requirements) aircraft are not allowed to operate to Dubai World Central (DWC)."
+  }
+ },
+ "missing": [
+  "location",
+  "customs",
+  "curfew",
+  "ppr",
+  "hours",
+  "AIP AD 2.20 local regulations"
+ ],
+ "notes": "The text pages of UAE AIP AD 2 OMDW could not be opened (only charts were reachable), so customs hours, aerodrome hours, distance from the city and AD 2.20 rules are not verified. Facts from the chart are AIRAC 08/2026 (effective 6 Aug 2026). The DWC General Aviation Conditions of Use found is the Northern Summer 2024 edition (Dubai Airports, hosted by the slot coordinator ACL); a newer edition may exist, so re-check FBO list and slot rules before publishing. The chart's runway 13/31 dimensions were not stated in the extracted text. The 'noise-sensitive hours' are not defined in the source: do not state a curfew."
+}

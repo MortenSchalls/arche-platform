@@ -1,0 +1,71 @@
+{
+ "path": "/cities/hong-kong/",
+ "title": "Private jet charter to and from Hong Kong: what to know",
+ "description": "Private flights to and from Hong Kong: the Civil Aviation Department permit, the business aviation centre, customs and night rules, from official sources.",
+ "eyebrow": "City guide · Hong Kong",
+ "h1": "Private flights to and from Hong Kong",
+ "lead": "Private flights to Hong Kong use Hong Kong International Airport, and every charter flight needs a permit in advance. What that means for your trip.",
+ "glance": [
+  [
+   "Airport",
+   "vhhh.icao"
+  ],
+  [
+   "Location",
+   "vhhh.location"
+  ],
+  [
+   "Charter permit",
+   "vhhh.permit"
+  ],
+  [
+   "Customs and immigration",
+   "vhhh.customs"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Approval in advance",
+   "p": [
+    "For charter flights, Hong Kong's rule is clear: {{vhhh.permit}}. The operator applies with the passenger and trip details, so the earlier your plans are firm, the easier the permit.",
+    "The airport is {{vhhh.operator}} and lies {{vhhh.location}}. According to the AIP, flights for hire or reward are handled at the business aviation centre, away from the airline terminals."
+   ]
+  },
+  {
+   "h": "Times",
+   "p": [
+    "The airport is {{vhhh.hours}}, with {{vhhh.customs}}. At night there are {{vhhh.noise}}."
+   ]
+  },
+  {
+   "h": "Onward travel",
+   "p": [
+    "Many private trips through Hong Kong continue to other cities in the region. Each stop needs its own permission, and some countries restrict flights between two of their own airports. We plan the whole routing with the operator before you see a quote. Our cabotage guide explains the rules on domestic legs."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Hong Kong",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We check the airport rules for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How far ahead must a charter flight to Hong Kong be planned?",
+   "a": "For the permit, {{vhhh.permit}}. We ask the operator to apply as soon as your plans are firm."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/airports/hong-kong-international/",
+  "/regions/asia-pacific/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "city"
+}

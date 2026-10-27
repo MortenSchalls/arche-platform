@@ -1,0 +1,57 @@
+{
+ "icao": "KHPN",
+ "iata": "HPN",
+ "name": "Westchester County Airport",
+ "city": "New York",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "curfew": {
+   "v": "a voluntary request not to fly between midnight and 06:30 every day, not a mandatory curfew",
+   "windows_local": [
+    [
+     "00:00",
+     "06:30"
+    ]
+   ],
+   "voluntary": true,
+   "src": "hpn-noise",
+   "quote": "Operators please note: this is not a mandatory curfew, but a voluntary program."
+  },
+  "noise": {
+   "v": "six noise programmes, including a voluntary restraint from flying, a programme for high-noise events of 90 dBA or more, no intersection take-offs, and limits on maintenance run-ups and reverse thrust",
+   "src": "hpn-noise",
+   "quote": "there are no fines, penalties or aircraft restrictions associated with this program"
+  },
+  "customs": {
+   "v": "US Customs and Border Protection clears arriving aircraft 7 days a week, 07:30-23:15 Eastern Time, at the Signature-West, Million Air or Atlantic-East FBOs; request permission to land at least 2 hours before leaving the foreign airport",
+   "h24": false,
+   "hours_local": [
+    [
+     "07:30",
+     "23:15"
+    ]
+   ],
+   "src": "cbp-khpn-ga",
+   "quote": "Arriving aircraft will be processed at Signature-West, Million Air or Atlantic-East FBOs."
+  },
+  "handling": {
+   "v": "FBOs named by CBP for customs clearance: Signature-West, Million Air and Atlantic-East",
+   "src": "cbp-khpn-ga",
+   "quote": "Arriving aircraft will be processed at Signature-West, Million Air or Atlantic-East FBOs."
+  }
+ },
+ "missing": [
+  "geo (coordinates)",
+  "operator",
+  "runway",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "hours"
+ ],
+ "notes": "The FAA Chart Supplement could not be opened. The FAA airport diagram (AL-651, on faa.gov and the county site) shows 'RWY 16-34', 'RWY 11-29', '6549 X 150' and '4451 X 150', but the extracted text does not tie each size to a runway, so the runway fact is left out; check the diagram visually before publishing. The airport site names 'Advanced Authorization to operate' as a noise programme but the page reached did not explain it, so PPR is not stated. The county noise page and general page show no date (footer '© 2026'). The airport domain now in use is airport.westchestercountyny.gov (the brief's airport.westchestergov.com also resolves). CBP fact sheet dated 26 Mar 2024."
+}

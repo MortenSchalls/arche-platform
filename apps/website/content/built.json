@@ -1,12 +1,137 @@
 [
  {
+  "path": "/airports/dubai-world-central/",
+  "draft": true,
+  "words": 448
+ },
+ {
+  "path": "/airports/farnborough/",
+  "draft": true,
+  "words": 390
+ },
+ {
+  "path": "/airports/hong-kong-international/",
+  "draft": true,
+  "words": 500
+ },
+ {
+  "path": "/airports/singapore-changi/",
+  "draft": true,
+  "words": 454
+ },
+ {
+  "path": "/airports/sydney/",
+  "draft": true,
+  "words": 422
+ },
+ {
+  "path": "/airports/teterboro/",
+  "draft": true,
+  "words": 461
+ },
+ {
   "path": "/guides/cabotage/",
   "draft": true,
   "words": 707
  },
  {
+  "path": "/cities/bangkok/",
+  "draft": true,
+  "words": 491
+ },
+ {
+  "path": "/cities/dubai/",
+  "draft": true,
+  "words": 461
+ },
+ {
+  "path": "/cities/geneva/",
+  "draft": true,
+  "words": 487
+ },
+ {
+  "path": "/cities/hong-kong/",
+  "draft": true,
+  "words": 467
+ },
+ {
+  "path": "/cities/london/",
+  "draft": true,
+  "words": 527
+ },
+ {
+  "path": "/cities/new-york/",
+  "draft": true,
+  "words": 583
+ },
+ {
+  "path": "/cities/nice/",
+  "draft": true,
+  "words": 550
+ },
+ {
+  "path": "/cities/paris/",
+  "draft": true,
+  "words": 399
+ },
+ {
+  "path": "/cities/phuket/",
+  "draft": true,
+  "words": 477
+ },
+ {
+  "path": "/cities/singapore/",
+  "draft": true,
+  "words": 463
+ },
+ {
+  "path": "/cities/sydney/",
+  "draft": true,
+  "words": 442
+ },
+ {
+  "path": "/cities/tokyo/",
+  "draft": true,
+  "words": 462
+ },
+ {
+  "path": "/guides/charter-price/",
+  "draft": true,
+  "words": 575
+ },
+ {
+  "path": "/guides/empty-legs/",
+  "draft": true,
+  "words": 633
+ },
+ {
+  "path": "/guides/operator-safety-audits/",
+  "draft": true,
+  "words": 723
+ },
+ {
+  "path": "/regions/asia-pacific/",
+  "draft": true,
+  "words": 447
+ },
+ {
+  "path": "/regions/europe/",
+  "draft": true,
+  "words": 393
+ },
+ {
+  "path": "/regions/middle-east/",
+  "draft": true,
+  "words": 330
+ },
+ {
+  "path": "/regions/north-america/",
+  "draft": true,
+  "words": 404
+ },
+ {
   "path": "/airports/singapore-seletar/",
   "draft": true,
-  "words": 553
+  "words": 613
  }
 ]

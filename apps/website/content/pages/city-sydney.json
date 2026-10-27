@@ -1,0 +1,70 @@
+{
+ "path": "/cities/sydney/",
+ "title": "Private jet charter to and from Sydney: curfew and slots",
+ "description": "Private flights to and from Sydney: the night curfew and which business jets may fly in it, slots, parking limits and crew security rules, from official sources.",
+ "eyebrow": "City guide · Sydney",
+ "h1": "Private flights to and from Sydney",
+ "lead": "Private flights to Sydney use Sydney Kingsford Smith, where a curfew is set in law and every flight needs a slot. What that means for your trip.",
+ "glance": [
+  [
+   "Airport",
+   "yssy.icao"
+  ],
+  [
+   "Curfew",
+   "yssy.curfew"
+  ],
+  [
+   "Slots",
+   "yssy.slots"
+  ],
+  [
+   "Parking",
+   "yssy.max_aircraft"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "The curfew",
+   "p": [
+    "Sydney has {{yssy.curfew}}. The important detail for private flights: {{yssy.curfew_jets}}. We check with the operator whether your aircraft is on the approved list before you see a quote."
+   ]
+  },
+  {
+   "h": "Slots, parking and security",
+   "p": [
+    "Every flight needs a slot: {{yssy.slots}}. Parking for private aircraft has limits: {{yssy.max_aircraft}}. And {{yssy.notable}}. The operator's handling agent arranges what is needed."
+   ]
+  },
+  {
+   "h": "Long-haul trips",
+   "p": [
+    "Many private trips to Sydney are long-haul, with a technical stop on the way. We plan the stop, the crew rest and the arrival time with the operator so that the arrival fits the curfew and the slot."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Sydney",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We check the airport rules for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet arrive in Sydney at night?",
+   "a": "Only an approved quieter aircraft: {{yssy.curfew_jets}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/airports/sydney/",
+  "/regions/asia-pacific/",
+  "/guides/charter-price/"
+ ],
+ "draft": true,
+ "type": "city"
+}

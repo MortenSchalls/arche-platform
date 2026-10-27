@@ -1,0 +1,69 @@
+{
+ "path": "/guides/charter-price/",
+ "type": "guide",
+ "title": "How a private jet charter price is put together",
+ "description": "What goes into a private jet charter price: flight time, positioning, airport charges, taxes such as US excise tax and UK duty, and what a broker must disclose.",
+ "eyebrow": "Guide · Pricing",
+ "h1": "What makes up a charter price",
+ "lead": "A charter price is not a ticket price. It is the cost of the whole aircraft for your trip, built from the operator's price, airport charges and taxes. This guide explains each part, with the official sources for the taxes.",
+ "glance": [
+  [
+   "US excise tax",
+   "price.us_fet_irs"
+  ],
+  [
+   "UK duty on private jets",
+   "price.uk_apd_higher"
+  ],
+  [
+   "Singapore GST",
+   "price.sg_gst_zero"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "The operator's price",
+   "p": [
+    "Most of the price is the operator's charge for the aircraft and crew. It depends on the flying time for your trip, the aircraft type and any positioning the aircraft needs to reach you and return. Waiting days away from base, crew overnight costs and catering are added where they apply.",
+    "Because we are a broker, we compare operators for each trip and add our service fee to the operator's price. You see one total price before you confirm."
+   ]
+  },
+  {
+   "h": "Airport charges",
+   "p": [
+    "Every airport publishes its own charges, and the operator passes them on. The published list for Singapore Changi shows how they are built: {{price.changi_landing}}. {{price.changi_parking}}. {{price.changi_passenger}}. Handling is charged separately by the handling agent the operator appoints."
+   ]
+  },
+  {
+   "h": "Taxes",
+   "p": [
+    "Taxes depend on where the flight starts and ends. In the United States, {{price.us_fet_statute}}. {{price.us_segment}}, and {{price.us_charter_segment}}. {{price.us_international}}.",
+    "In the United Kingdom, {{price.uk_apd_higher}}. {{price.uk_apd_dates}}.",
+    "In Singapore, {{price.sg_gst_zero}}; this covers {{price.sg_gst_routes}}."
+   ]
+  },
+  {
+   "h": "What you should always be told",
+   "p": [
+    "US rules for charter brokers set a clear standard: {{price.us_disclose_total}}, and {{price.us_third_party_fees}}. We apply the same standard everywhere. Your quote shows the total price, what is included, and any items charged afterwards at cost, such as de-icing, with the supplier's receipts.",
+    "We do not publish prices on this website: every trip is priced for its own aircraft, route and dates. Tell us the trip and you receive a written quote with the operator named."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Why do two quotes for the same trip differ?",
+   "a": "Different aircraft, positioning distances, crew costs and airport charges. We show you what each quote includes, so you compare like with like."
+  },
+  {
+   "q": "Are taxes included in the price?",
+   "a": "Your quote states which taxes and charges are included and which, if any, are charged afterwards at cost."
+  }
+ ],
+ "related": [
+  "/guides/empty-legs/",
+  "/guides/operator-safety-audits/",
+  "/guides/cabotage/"
+ ],
+ "draft": true
+}

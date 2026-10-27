@@ -1,0 +1,85 @@
+{
+ "path": "/airports/teterboro/",
+ "type": "airport",
+ "title": "Teterboro Airport (KTEB), New York, for private jets",
+ "description": "Teterboro for private flights into New York: the weight limit, the Quiet Flying Program, noise limits, customs hours and night rules, from the official sources.",
+ "eyebrow": "Airport guide · New York",
+ "h1": "Teterboro Airport, New York",
+ "lead": "Teterboro in New Jersey is a business aviation airport for New York with firm rules on weight and noise. What they mean for your trip.",
+ "airport": {
+  "name": "Teterboro Airport",
+  "icao": "kteb.icao",
+  "country": "US",
+  "city": "New York"
+ },
+ "glance": [
+  [
+   "ICAO code",
+   "kteb.icao"
+  ],
+  [
+   "Runways",
+   "kteb.runway"
+  ],
+  [
+   "Weight limit",
+   "kteb.max_aircraft"
+  ],
+  [
+   "Customs",
+   "kteb.cbp_hours"
+  ],
+  [
+   "Night",
+   "kteb.curfew"
+  ],
+  [
+   "Control tower",
+   "kteb.hours"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "The weight limit",
+   "p": [
+    "Teterboro's best-known rule is about weight: {{kteb.max_aircraft}}. Most business jets are well within it. The largest long-range jets and converted airliners are not always, and then the trip uses another airport. The operator confirms the aircraft's weight for your trip before you receive a quote."
+   ]
+  },
+  {
+   "h": "Permission and noise",
+   "p": [
+    "Jets need the airport's permission to use it at all: {{kteb.ppr}}. The airport also has {{kteb.noise}}. We only propose operators whose aircraft and crews work within these rules.",
+    "At night there is {{kteb.curfew}}. A late arrival is possible, but we discuss it with you and the operator first."
+   ]
+  },
+  {
+   "h": "Arriving from abroad",
+   "p": [
+    "Teterboro has US customs on site, open {{kteb.cbp_hours}}. One more point from the customs rules: {{kteb.notable}}."
+   ]
+  },
+  {
+   "h": "Runways",
+   "p": [
+    "The airport has {{kteb.runway}}; {{kteb.runway_second}}. The operator checks that the runway suits the aircraft at the weight your trip needs.",
+    "This page uses the Port Authority of New York and New Jersey's documents for Teterboro, the US Customs and Border Protection fact sheet and the FAA. Airport rules can change at short notice. The operator and its handling agent confirm the current rules for your flight before departure."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can every private jet use Teterboro?",
+   "a": "No. {{kteb.max_aircraft}}. A heavier aircraft uses another New York airport."
+  },
+  {
+   "q": "Is there a curfew at Teterboro?",
+   "a": "Not a mandatory one: {{kteb.curfew}}."
+  }
+ ],
+ "related": [
+  "/cities/new-york/",
+  "/guides/charter-price/",
+  "/guides/cabotage/"
+ ],
+ "draft": true
+}

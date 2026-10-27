@@ -1,27 +1,1306 @@
 {
- "wssl.icao": {"v": "WSSL", "src": "sg-aip-wssl"},
- "wssl.operator": {"v": "Changi Airport Group", "src": "sg-aip-wssl"},
- "wssl.location": {"v": "14.6 km north of the city centre", "src": "sg-aip-wssl"},
- "wssl.elevation": {"v": "14 m (46 ft)", "src": "sg-aip-wssl"},
- "wssl.runway": {"v": "one runway, 03/21, 1,836 m long and 46 m wide", "src": "sg-aip-wssl"},
- "wssl.ciq": {"v": "open 24 hours", "src": "sg-aip-wssl"},
- "wssl.curfew": {"v": "no flights between 22:00 and 07:00 Singapore time (14:00–23:00 UTC), except medical evacuation and emergency flights", "src": "sg-aip-wssl"},
- "wssl.bac": {"v": "non-scheduled flights clear customs and immigration at the Seletar Business Aviation Centre", "src": "sg-aip-wssl"},
- "wssl.handler": {"v": "every arriving and departing aircraft must appoint a licensed ground handling agent", "src": "sg-aip-wssl"},
- "wssl.maxstand": {"v": "the largest stands take aircraft up to a Boeing 757-200 without winglets", "src": "sg-aip-wssl"},
- "wssl.noise": {"v": "subsonic jets need a noise certificate to ICAO Annex 16, Volume I, Chapter 3 or equivalent", "src": "sg-aip-wssl"},
- "wssl.fuel": {"v": "07:30–22:00 Monday to Friday and 08:30–17:30 on weekends and public holidays, Singapore time", "src": "sg-aip-wssl"},
- "wssl.amdt": {"v": "the 2026 amendments published so far list no change for Seletar beyond its charts", "src": "sg-aip-amdt-03-2026"},
- "wssl.geo": {"v": [1.41696, 103.86764], "src": "sg-aip-wssl", "note": "ARP 012501.04N 1035203.52E converted to decimal degrees"},
-
- "cab.art7": {"v": "each contracting State may refuse aircraft of other States permission to take on passengers, mail or cargo for payment in its territory and carry them to another point within its territory", "src": "icao-chicago"},
- "cab.art5": {"v": "aircraft not on scheduled international services may fly into or non-stop across another contracting State and make stops for non-traffic purposes, subject to the Convention and to the right of the State flown over to require a landing", "src": "icao-chicago"},
- "cab.us": {"v": "a foreign civil aircraft may take on passengers or cargo for compensation at one place in the United States for another place in the United States only if specifically authorised under 49 U.S.C. § 40109(g), or under regulations for foreign aircraft leased or chartered without crew to US air carriers", "src": "us-49usc41703"},
- "cab.eu": {"v": "Community air carriers shall be entitled to operate intra-Community air services", "src": "eu-1008-2008"},
- "cab.eu.ref": {"v": "Article 15(1) of Regulation (EC) No 1008/2008", "src": "eu-1008-2008"},
- "cab.us.ref": {"v": "49 U.S.C. § 41703(c)", "src": "us-49usc41703"},
- "cab.icao.ref": {"v": "Article 7 of the Chicago Convention of 1944", "src": "icao-chicago"},
- "cab.icao5.ref": {"v": "Article 5", "src": "icao-chicago"},
- "cab.most": {"v": "most countries prohibit cabotage for hire, and some also bar carrying non-paying passengers between two of their own airports", "src": "aopa-cabotage"},
- "cab.seize": {"v": "in Europe and Canada, aircraft can be seized when a cabotage violation is found", "src": "aopa-cabotage"}
+ "wssl.icao": {
+  "v": "WSSL",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.operator": {
+  "v": "Changi Airport Group",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.location": {
+  "v": "14.6 km north of the city centre",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.elevation": {
+  "v": "14 m (46 ft)",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.runway": {
+  "v": "one runway, 03/21, 1,836 m long and 46 m wide",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.ciq": {
+  "v": "open 24 hours",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.curfew": {
+  "v": "no flights between 22:00 and 07:00 Singapore time (14:00–23:00 UTC), except medical evacuation and emergency flights",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.bac": {
+  "v": "non-scheduled flights clear customs and immigration at the Seletar Business Aviation Centre",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.handler": {
+  "v": "every arriving and departing aircraft must appoint a licensed ground handling agent",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.maxstand": {
+  "v": "the largest stands take aircraft up to a Boeing 757-200 without winglets",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.noise": {
+  "v": "subsonic jets need a noise certificate to ICAO Annex 16, Volume I, Chapter 3 or equivalent",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.fuel": {
+  "v": "07:30–22:00 Monday to Friday and 08:30–17:30 on weekends and public holidays, Singapore time",
+  "src": "sg-aip-wssl"
+ },
+ "wssl.amdt": {
+  "v": "the 2026 amendments published so far list no change for Seletar beyond its charts",
+  "src": "sg-aip-amdt-03-2026"
+ },
+ "wssl.geo": {
+  "v": [
+   1.41696,
+   103.86764
+  ],
+  "src": "sg-aip-wssl",
+  "note": "ARP 012501.04N 1035203.52E converted to decimal degrees"
+ },
+ "cab.art7": {
+  "v": "each contracting State may refuse aircraft of other States permission to take on passengers, mail or cargo for payment in its territory and carry them to another point within its territory",
+  "src": "icao-chicago"
+ },
+ "cab.art5": {
+  "v": "aircraft not on scheduled international services may fly into or non-stop across another contracting State and make stops for non-traffic purposes, subject to the Convention and to the right of the State flown over to require a landing",
+  "src": "icao-chicago"
+ },
+ "cab.us": {
+  "v": "a foreign civil aircraft may take on passengers or cargo for compensation at one place in the United States for another place in the United States only if specifically authorised under 49 U.S.C. § 40109(g), or under regulations for foreign aircraft leased or chartered without crew to US air carriers",
+  "src": "us-49usc41703"
+ },
+ "cab.eu": {
+  "v": "Community air carriers shall be entitled to operate intra-Community air services",
+  "src": "eu-1008-2008"
+ },
+ "cab.eu.ref": {
+  "v": "Article 15(1) of Regulation (EC) No 1008/2008",
+  "src": "eu-1008-2008"
+ },
+ "cab.us.ref": {
+  "v": "49 U.S.C. § 41703(c)",
+  "src": "us-49usc41703"
+ },
+ "cab.icao.ref": {
+  "v": "Article 7 of the Chicago Convention of 1944",
+  "src": "icao-chicago"
+ },
+ "cab.icao5.ref": {
+  "v": "Article 5",
+  "src": "icao-chicago"
+ },
+ "cab.most": {
+  "v": "most countries prohibit cabotage for hire, and some also bar carrying non-paying passengers between two of their own airports",
+  "src": "aopa-cabotage"
+ },
+ "cab.seize": {
+  "v": "in Europe and Canada, aircraft can be seized when a cabotage violation is found",
+  "src": "aopa-cabotage"
+ },
+ "vhhh.icao": {
+  "v": "VHHH",
+  "src": "hk-aip-vhhh"
+ },
+ "vhhh.geo": {
+  "v": [
+   22.3089,
+   113.9147
+  ],
+  "src": "hk-aip-vhhh",
+  "quote": "ARP co-ordinates and site at AD 221832N 1135453E"
+ },
+ "vhhh.operator": {
+  "v": "run by the Airport Authority Hong Kong",
+  "src": "hk-aip-vhhh",
+  "quote": "Airport Authority Hong Kong"
+ },
+ "vhhh.location": {
+  "v": "25 km west of Central District, Hong Kong Island",
+  "src": "hk-aip-vhhh",
+  "quote": "25 km west of Central District, Hong Kong Island"
+ },
+ "vhhh.runway": {
+  "v": "three parallel runways (07L/25R, 07C/25C, 07R/25L), each 3,800 m long and 60 m wide",
+  "src": "hk-aip-vhhh",
+  "quote": "RWY 07L/25R 3800 x 60; RWY 07C/25C 3800 x 60; RWY 07R/25L 3800 x 60"
+ },
+ "vhhh.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "hk-aip-vhhh",
+  "quote": "Customs and immigration H24"
+ },
+ "vhhh.hours": {
+  "v": "open 24 hours",
+  "src": "hk-aip-vhhh",
+  "quote": "AD Administration H24"
+ },
+ "vhhh.ppr": {
+  "v": "all non-commercial flights need prior approval from the Director-General of Civil Aviation, and final approval from the Aerodrome Control Supervisor on the day of flight",
+  "src": "hk-aip-vhhh",
+  "quote": "All non-commercial fixed wing aircraft and helicopter flights at HKIA must have prior approval from the Director-General of Civil Aviation."
+ },
+ "vhhh.handling": {
+  "v": "flights for hire or reward are handled by the Hong Kong Business Aviation Centre, with parking on its own apron",
+  "src": "hk-aip-vhhh",
+  "quote": "Flights operated for Hire or Reward handled by Hong Kong Business Aviation Centre"
+ },
+ "vhhh.noise": {
+  "v": "night noise-mitigation measures every day from 23:00 to 07:00 local time (preferred runway and approach use, not a ban)",
+  "src": "hk-aip-vhhh",
+  "quote": "implemented daily between 1500 and 2300 UTC"
+ },
+ "vhhh.notable": {
+  "v": "recreational flights are not normally permitted",
+  "src": "hk-aip-vhhh",
+  "quote": "Recreational flights are not normally permitted at HKIA."
+ },
+ "wsss.icao": {
+  "v": "WSSS",
+  "src": "sg-aip-wsss"
+ },
+ "wsss.geo": {
+  "v": [
+   1.359211,
+   103.989325
+  ],
+  "src": "sg-aip-wsss",
+  "quote": "012133.16N 1035921.57E (Control Tower)"
+ },
+ "wsss.operator": {
+  "v": "run by Changi Airport Group (Singapore) Pte Ltd",
+  "src": "sg-aip-wsss",
+  "quote": "CHANGI AIRPORT GROUP (SINGAPORE) PTE LTD"
+ },
+ "wsss.location": {
+  "v": "17.2 km north-east of the city centre (The Fullerton Hotel)",
+  "src": "sg-aip-wsss",
+  "quote": "17.2km North-East from City Centre (The Fullerton Hotel, Singapore)"
+ },
+ "wsss.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "sg-aip-wsss",
+  "quote": "Customs and Immigration H24"
+ },
+ "wsss.hours": {
+  "v": "open 24 hours",
+  "src": "sg-aip-wsss",
+  "quote": "Aerodrome Administration ... H24"
+ },
+ "wsss.notable": {
+  "v": "not available to non-scheduled civil aircraft of 40 seats or fewer except in special circumstances",
+  "src": "sg-aip-wsss",
+  "quote": "Not available to all non-scheduled civil aircraft types of 40-seater or below except in special circumstances."
+ },
+ "wsss.ppr": {
+  "v": "prior permission needed only for aircraft without radio",
+  "src": "sg-aip-wsss",
+  "quote": "Prior permission required for aircraft not equipped with radiotelephony."
+ },
+ "wsss.nsarrival": {
+  "v": "larger non-scheduled aircraft shall not plan to arrive between 17:00 and 23:59 local time",
+  "src": "sg-aip-wsss",
+  "quote": "Aircraft larger than the above category shall not plan their arrival between 0900-1559UTC."
+ },
+ "rjtt.icao": {
+  "v": "RJTT",
+  "src": "tcab-haneda-outline"
+ },
+ "rjtt.operator": {
+  "v": "a state airport run by the Minister of Land, Infrastructure, Transport and Tourism",
+  "src": "tcab-haneda-outline",
+  "quote": "設置管理者 国土交通大臣"
+ },
+ "rjtt.location": {
+  "v": "in Ota City, Tokyo",
+  "src": "tcab-haneda-outline",
+  "quote": "所在地 東京都大田区"
+ },
+ "rjtt.runway": {
+  "v": "four runways; the longest, C, is 3,360 m long and 60 m wide",
+  "src": "tcab-haneda-outline",
+  "quote": "C 3,360m × 60m"
+ },
+ "rjtt.hours": {
+  "v": "open 24 hours",
+  "src": "tcab-haneda-rules",
+  "quote": "空港の運用時間は、２４時間とする。"
+ },
+ "rjtt.handling": {
+  "v": "business aviation uses dedicated arrival and departure gates with their own customs and immigration",
+  "src": "haneda-bizav",
+  "quote": "using dedicated CIQ facilities and arrival and departure gates"
+ },
+ "rjtt.notable": {
+  "v": "business aviation is not available at Terminal 1",
+  "src": "haneda-bizav",
+  "quote": "Business Aviation is not available at Terminal 1"
+ },
+ "rjaa.icao": {
+  "v": "RJAA",
+  "src": "naa-facilities"
+ },
+ "rjaa.operator": {
+  "v": "run by Narita International Airport Corporation",
+  "src": "naa-facilities",
+  "quote": "NARITA INTERNATIONAL AIRPORT CORPORATION"
+ },
+ "rjaa.runway": {
+  "v": "runway A, 4,000 m long and 60 m wide; runway B is currently 2,500 m by 60 m",
+  "src": "naa-facilities",
+  "quote": "Runway A 4,000m×60m ... Runway B 3,500m×60m (at present 2,500ｍ×60ｍ)"
+ },
+ "rjaa.curfew": {
+  "v": "no take-offs or landings from midnight to 06:00 on runway A and from 23:00 to 06:00 on runway B, except in emergencies; a short flexible extension applies only for delays the airline could not avoid",
+  "src": "naa-curfew",
+  "quote": "24時から6時までの離着陸（ A滑走路）、23時から6時までの離着陸（B滑走路）で下記の事例に該当する場合、緊急事態（従来取り決め）が適用されます。"
+ },
+ "rjaa.slots": {
+  "v": "business jets need a slot",
+  "src": "naa-bj",
+  "quote": "Slot application is necessary for flying business jets in Narita International Airport."
+ },
+ "rjaa.handling": {
+  "v": "Premier Gate, an exclusive terminal for business jets with its own customs and immigration",
+  "src": "naa-premiergate",
+  "quote": "Premier Gate is an exclusive terminal for business jets with CIQ facilities."
+ },
+ "omdw.icao": {
+  "v": "OMDW",
+  "src": "uae-aip-omdw-adc"
+ },
+ "omdw.iata": {
+  "v": "DWC",
+  "src": "uae-aip-omdw-adc"
+ },
+ "omdw.geo": {
+  "v": [
+   24.9183,
+   55.1756
+  ],
+  "src": "uae-aip-omdw-adc",
+  "quote": "ARP AD ELEV 171 FT ... 245506N 0551032E"
+ },
+ "omdw.operator": {
+  "v": "Dubai Airports (Dubai Airports Corporation)",
+  "src": "dwc-cou-ga-s24",
+  "quote": "'DA' or 'Dubai Airports' means Dubai Airports Corporation;"
+ },
+ "omdw.runway": {
+  "v": "runway 12/30, 4,500 m long and 60 m wide",
+  "src": "uae-aip-omdw-adc",
+  "quote": "RWY 12 119° 4500 x 60 850/F/A/X/T 30 299° 4500 x 60 850/F/A/X/T"
+ },
+ "omdw.slots": {
+  "v": "schedule clearance (a slot) from the coordinator is needed before any flight, plus prior permission from the Dubai Civil Aviation Authority; requests are made through the operator's handling agent",
+  "src": "dwc-cou-ga-s24",
+  "quote": "No Operator shall operate to or from without first obtaining schedule clearance from the Schedules facilitator (ACL)"
+ },
+ "omdw.max_aircraft": {
+  "v": "the largest aircraft (code F) must apply for schedule clearance at least 72 hours before arrival",
+  "src": "dwc-cou-ga-s24",
+  "quote": "should apply for schedule clearance at a minimum 72 hours prior to arrival"
+ },
+ "omdw.handling": {
+  "v": "five FBOs handle general aviation: Execujet, DC Aviation-Al Futtaim, Jet Aviation, Falcon Aviation Services and Jetex",
+  "src": "dwc-cou-ga-s24",
+  "quote": "Execujet, DC Aviation-Al Futtaim, Jet Aviation, Falcon Aviation Services and Jetex flight support"
+ },
+ "omdw.noise": {
+  "v": "Chapter 2 (older, noisier) aircraft may not operate; the authorities may restrict some operations in noise-sensitive hours with prior notice",
+  "src": "dwc-cou-ga-s24",
+  "quote": "Chapter 2 (Noise Certification Requirements) aircraft are not allowed to operate to Dubai World Central (DWC)."
+ },
+ "omdw.notable": {
+  "v": "the airport chart shows a VIP Terminal",
+  "src": "uae-aip-omdw-adc",
+  "quote": "VIP Terminal"
+ },
+ "omdb.icao": {
+  "v": "OMDB",
+  "src": "uae-aip-omdb"
+ },
+ "omdb.iata": {
+  "v": "DXB",
+  "src": "uae-aip-omdb"
+ },
+ "omdb.geo": {
+  "v": [
+   25.2528,
+   55.3644
+  ],
+  "src": "uae-aip-omdb",
+  "quote": "251510N 0552152E, On CL RWY 12R/30L, DTHR RWY 12R"
+ },
+ "omdb.operator": {
+  "v": "Dubai Airports",
+  "src": "uae-aip-omdb",
+  "quote": "Post: Dubai Airports"
+ },
+ "omdb.location": {
+  "v": "2.5 nautical miles east of Dubai",
+  "src": "uae-aip-omdb",
+  "quote": "2.5 NM E of Dubai"
+ },
+ "omdb.runway": {
+  "v": "two parallel runways; the longer, 12R/30L, is 4,447 m long and 60 m wide (12L/30R is 4,351 m x 60 m)",
+  "src": "uae-aip-omdb",
+  "quote": "12R ... 4447 x 60 ... 12L ... 4351 x 60 (AD 2.12 table)"
+ },
+ "omdb.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "uae-aip-omdb",
+  "quote": "Customs and Immigration: H24"
+ },
+ "omdb.hours": {
+  "v": "open 24 hours, with air traffic services, fuel and handling 24 hours",
+  "src": "uae-aip-omdb",
+  "quote": "AD Administration: H24 ... Air Traffic Services: H24 ... Handling: H24"
+ },
+ "omdb.slots": {
+  "v": "a fully slot-coordinated (IATA level 3) airport: no flight without a slot from the coordinator and landing permission from the Dubai Civil Aviation Authority",
+  "src": "uae-aip-omdb",
+  "quote": "OMDB operates as an IATA level 3 slot coordinated airport. No operator shall operate to or from OMDB without first obtaining an allocated slot from Airport Coordination Limited (ACL)"
+ },
+ "omdb.handling": {
+  "v": "Jet Aviation and ExecuJet are the only FBOs handling general aviation; operators must contract one of them, and slot requests go through the FBO",
+  "src": "dxb-cou-ga-w25",
+  "quote": "Jet Aviation and Execujet Aviation Group are the sole FBOs providing ground handling services for GA aircraft at the Airport."
+ },
+ "omdb.max_aircraft": {
+  "v": "the largest aircraft (code F) must apply for schedule clearance at least 72 hours before arrival",
+  "src": "dxb-cou-ga-w25",
+  "quote": "must apply for schedule clearance at least seventy-two (72) hours prior to the intended arrival"
+ },
+ "omdb.noise": {
+  "v": "aircraft without noise certification to the ICAO Annex 16 standards may not operate to or from Dubai International",
+  "src": "uae-aip-omdb",
+  "quote": "aircraft not in possession of noise certification in accordance with the standards of Annex 16 ... are not permitted to operate to/from OMDB"
+ },
+ "omdb.notable_diversion": {
+  "v": "general aviation flights that divert are sent to Al Maktoum International (OMDW)",
+  "src": "uae-aip-omdb",
+  "quote": "All General Aviation Flights shall be routed to OMDW (DUBAI / ALMAKTOUM INTERNATIONAL) in case of diversion."
+ },
+ "kteb.icao": {
+  "v": "KTEB",
+  "src": "teb-flight-crew-handbook"
+ },
+ "kteb.runway": {
+  "v": "two runways; the longer, 1/19, is 7,000 ft (about 2,134 m) long",
+  "src": "teb-flight-crew-handbook",
+  "quote": "Runway 1/19 7,000 ft"
+ },
+ "kteb.runway_second": {
+  "v": "runway 6/24 is 6,013 ft (about 1,833 m)",
+  "src": "teb-flight-crew-handbook",
+  "quote": "Runway 6/24 6,013 ft"
+ },
+ "kteb.max_aircraft": {
+  "v": "no aircraft over 100,000 lb actual gross weight may land, take off or taxi; heavier-certified aircraft must keep their operating weight at 100,000 lb or less; exceptions need the Airport Manager's prior permission",
+  "src": "teb-100k-form",
+  "quote": "NO Aircraft may weigh in excess of 100,000 pounds on any Teterboro Airport paved surface."
+ },
+ "kteb.ppr": {
+  "v": "no jet aircraft may operate without the Airport Manager's approval (a signed Permission to Operate under the Quiet Flying Program)",
+  "src": "teb-flight-crew-handbook",
+  "quote": "No jet-powered aircraft may operate at TEB without approval of the Airport Manager."
+ },
+ "kteb.curfew": {
+  "v": "a voluntary restraint of non-essential flights from 23:00 to 06:00 local, not a mandatory curfew",
+  "src": "teb-flight-crew-handbook",
+  "quote": "includes a voluntary restraint of all nonessential aircraft operations between the hours of 23:00 and 06:00 local."
+ },
+ "kteb.noise": {
+  "v": "mandatory departure noise limits: runway 24, 80 dB(A) from 22:00 to 07:00 local and 90 dB(A) at other times; other runways 95 dB(A); three violations in two years bar the aircraft from TEB",
+  "src": "teb-flight-crew-handbook",
+  "quote": "Aircraft that have received three (3) noise violations in a two-year span shall not be permitted to operate at TEB."
+ },
+ "kteb.customs": {
+  "v": "US Customs and Border Protection clears arriving aircraft 7 days a week, 07:30-23:15, at Hangar 1 (north side) or Jet Aviation (south side); request permission to land at least 2 hours before leaving the foreign airport",
+  "src": "cbp-kteb-ga",
+  "quote": "available 7 days per week, 0730-2315"
+ },
+ "kteb.handling": {
+  "v": "the Port Authority's airport map shows Signature (North, West, East and South), Atlantic Aviation and Jet Aviation",
+  "src": "teb-flight-crew-handbook",
+  "quote": "Signature North, Atlantic Aviation, Signature West, Signature East, Signature South, Jet Aviation"
+ },
+ "kteb.hours": {
+  "v": "the control tower operates 24 hours",
+  "src": "faa-teb-kbyg",
+  "quote": "KTEB ATCT operates 24 hours."
+ },
+ "kteb.notable": {
+  "v": "customs clears passenger flights only, no cargo",
+  "src": "cbp-kteb-ga",
+  "quote": "no cargo can be processed"
+ },
+ "khpn.icao": {
+  "v": "KHPN",
+  "src": "hpn-site-general"
+ },
+ "khpn.location": {
+  "v": "about 5 miles east of White Plains and about 30 miles north of New York City",
+  "src": "hpn-site-general",
+  "quote": "Conveniently located about five miles east of White Plains and about 30 miles north of New York City"
+ },
+ "khpn.curfew": {
+  "v": "a voluntary request not to fly between midnight and 06:30 every day, not a mandatory curfew",
+  "src": "hpn-noise",
+  "quote": "Operators please note: this is not a mandatory curfew, but a voluntary program."
+ },
+ "khpn.noise": {
+  "v": "six noise programmes, including a voluntary restraint from flying, a programme for high-noise events of 90 dBA or more, no intersection take-offs, and limits on maintenance run-ups and reverse thrust",
+  "src": "hpn-noise",
+  "quote": "there are no fines, penalties or aircraft restrictions associated with this program"
+ },
+ "khpn.customs": {
+  "v": "US Customs and Border Protection clears arriving aircraft 7 days a week, 07:30-23:15 Eastern Time, at the Signature-West, Million Air or Atlantic-East FBOs; request permission to land at least 2 hours before leaving the foreign airport",
+  "src": "cbp-khpn-ga",
+  "quote": "Arriving aircraft will be processed at Signature-West, Million Air or Atlantic-East FBOs."
+ },
+ "khpn.handling": {
+  "v": "FBOs named by CBP for customs clearance: Signature-West, Million Air and Atlantic-East",
+  "src": "cbp-khpn-ga",
+  "quote": "Arriving aircraft will be processed at Signature-West, Million Air or Atlantic-East FBOs."
+ },
+ "khpn.notable": {
+  "v": "customs clears passenger flights only, no cargo",
+  "src": "cbp-khpn-ga",
+  "quote": "Westchester County Airport is designated to process passenger flights only, no cargo can be processed."
+ },
+ "eglf.icao": {
+  "v": "EGLF",
+  "src": "fab-pmr-2024"
+ },
+ "eglf.operator": {
+  "v": "Farnborough Airport Ltd",
+  "src": "fab-pmr-2024",
+  "quote": "Farnborough Airport Ltd (FAL)"
+ },
+ "eglf.runway": {
+  "v": "one runway, 06/24, 45 m wide; longest take-off run available 2,063 m (runway 24)",
+  "src": "fab-specs",
+  "quote": "Runway 24: TORA 2063m (6768ft) TODA 2123m (6965ft) ASDA 2440m (8005ft) LDA 1800m (5905ft)"
+ },
+ "eglf.hours": {
+  "v": "open 07:00 to 22:00 on weekdays and 08:00 to 20:00 at weekends and on bank holidays; closed on Christmas Day and Boxing Day",
+  "src": "fab-contact",
+  "quote": "Monday to Friday 07:00 – 22:00 ... Saturday, Sunday & Bank Holidays 08:00 – 20:00 ... Christmas Day & Boxing Day Closed"
+ },
+ "eglf.curfew": {
+  "v": "no flying outside 07:00-22:00 on weekdays and 08:00-20:00 at weekends and on bank holidays, except emergencies",
+  "src": "rushmoor-fab-hours",
+  "quote": "Between 7am and 10pm on weekdays ... Between 8am and 8pm at weekends and on Bank Holidays ... This is except for in an emergency."
+ },
+ "eglf.max_aircraft": {
+  "v": "no business aircraft over 80 tonnes MTOW operated in 2024 (report states this as an outcome, not as the limit itself)",
+  "src": "fab-pmr-2024",
+  "quote": "no business aviation aircraft heavier than 80 tonnes MTOW operated during the period"
+ },
+ "eglf.notable": {
+  "v": "planning limits of 50,000 movements a year, of which no more than 8,900 at weekends and bank holidays",
+  "src": "fab-pmr-2024",
+  "quote": "permit up to 50,000 movements per year ... no more than 8,900 at weekends and bank holidays"
+ },
+ "eglf.noise": {
+  "v": "no use of aircraft auxiliary power units between 22:30 and 06:30",
+  "src": "fab-pmr-2024",
+  "quote": "no APU operations between 22:30 and 06:30"
+ },
+ "eggw.icao": {
+  "v": "EGGW",
+  "src": "lla-bizav"
+ },
+ "eggw.operator": {
+  "v": "London Luton Airport Operations Limited",
+  "src": "lla-bizav",
+  "quote": "© 2026 London Luton Airport Operations Limited. All rights reserved."
+ },
+ "eggw.runway": {
+  "v": "one runway, 2.16 km long",
+  "src": "lla-runway-2026",
+  "quote": "Work on the 2.16km runway commenced each night at 00:01 and completed by 05:45"
+ },
+ "eggw.hours": {
+  "v": "open 24 hours",
+  "src": "lla-noise-faq",
+  "quote": "LLA holds a 24 hour licence to operate and there is no ban on night flights."
+ },
+ "eggw.curfew": {
+  "v": "no ban on night flights, but older-generation jets are not allowed at night and night noise limits and a quota count system apply",
+  "src": "lla-noise-faq",
+  "quote": "we prohibit the operation of older generation jets at night."
+ },
+ "eggw.noise": {
+  "v": "night flights are controlled through lower noise violation limits, movement limits and a quota count system",
+  "src": "lla-night-noise",
+  "quote": "Each specific aircraft type is assigned Quota points based on how noisy it is."
+ },
+ "eggw.slots": {
+  "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator",
+  "src": "acl-faqs",
+  "quote": "London Luton (LTN)"
+ },
+ "eggw.handling": {
+  "v": "business aviation handled by Signature Flight Support (two sites) and Harrods Aviation",
+  "src": "lla-bizav",
+  "quote": "Harrods Aviation is the leading London-based business aviation service provider."
+ },
+ "egkb.icao": {
+  "v": "EGKB",
+  "src": "bqh-specs"
+ },
+ "egkb.geo": {
+  "v": [
+   51.3308,
+   0.0325
+  ],
+  "src": "bqh-specs",
+  "quote": "511951 N – 0000157 E"
+ },
+ "egkb.operator": {
+  "v": "London Biggin Hill Airport",
+  "src": "bqh-ops",
+  "quote": "London Biggin Hill Airport"
+ },
+ "egkb.location": {
+  "v": "15 miles from central London and 12 miles from Canary Wharf",
+  "src": "bqh-ops",
+  "quote": "Just 12 miles from Canary Wharf and 15 miles from Central London."
+ },
+ "egkb.runway": {
+  "v": "runway 03/21, 1,806 m long and 45 m wide",
+  "src": "bqh-specs",
+  "quote": "21/03 ... 1,806m x 45m"
+ },
+ "egkb.hours": {
+  "v": "open 06:30 to 23:00 on weekdays and 08:00 to 22:00 at weekends and on public holidays",
+  "src": "bqh-specs",
+  "quote": "0630 – 2300hrs (local time) ... 0800 – 2200hrs (local time)"
+ },
+ "egkb.curfew": {
+  "v": "closed outside 06:30-23:00 on weekdays and 08:00-22:00 at weekends and on public holidays",
+  "src": "bromley-bqh",
+  "quote": "Monday - Friday 06:30 - 23:00 ... Saturday, Sunday and public holidays 08:00 - 22:00"
+ },
+ "egkb.slots": {
+  "v": "no runway slots required",
+  "src": "bqh-ops",
+  "quote": "no runway slots required"
+ },
+ "egkb.ppr": {
+  "v": "all movements without a flight plan must be pre-notified to air traffic control",
+  "src": "bqh-ga",
+  "quote": "introducing a requirement for all non-flight planned aircraft movements to be pre-notified to Air Traffic Control"
+ },
+ "egkb.customs": {
+  "v": "a port of entry (hours not stated)",
+  "src": "bqh-ga",
+  "quote": "the convenience of being a Port of Entry"
+ },
+ "egkb.handling": {
+  "v": "two full-service FBOs; the airport names Biggin Hill Exec",
+  "src": "bqh-ops",
+  "quote": "London Biggin Hill has two full service FBOs catering to every want and need for the business aviation user."
+ },
+ "egkb.max_aircraft": {
+  "v": "pavement strength PCN 45/F/C/X/U; fire cover category 6 (no weight limit stated)",
+  "src": "bqh-specs",
+  "quote": "PCN 45/F/C/X/U"
+ },
+ "lsgg.icao": {
+  "v": "LSGG",
+  "src": "gva-about"
+ },
+ "lsgg.operator": {
+  "v": "Genève Aéroport, an autonomous public institution owned by the State of Geneva",
+  "src": "gva-about",
+  "quote": "Property of the State of Geneva, Genève Aéroport is an autonomous public institution since 1994."
+ },
+ "lsgg.hours": {
+  "v": "open at all times, subject to the night-flight rules",
+  "src": "gva-reglement",
+  "quote": "L’aéroport est ouvert en permanence sous réserve des prescriptions applicables aux vols de nuit."
+ },
+ "lsgg.curfew": {
+  "v": "any planned commercial take-off or landing between 22:00 and 06:00 needs the airport operator's prior approval",
+  "src": "gva-reglement",
+  "quote": "tout mouvement commercial planifié entre 22 h et 6 h (atterrissage ou décollage) devra avoir été préalablement soumis à l’approbation de l’exploitant",
+  "approval": true
+ },
+ "lsgg.noise": {
+  "v": "noise quotas apply to the night period 22:00-05:59; for business and general aviation they cover take-offs after 22:00 by aircraft in noise classes IV and V",
+  "src": "gva-noise-faq",
+  "quote": "The available NOISE QUOTAS are determined globally for the night period (10:00 p.m. – 5:59 a.m. LT)."
+ },
+ "lsgg.ppr": {
+  "v": "prior permission (PPR) needed for business and general aviation; bookings open 5 days ahead, made through the handling agent",
+  "src": "gva-ppr",
+  "quote": "prior permission (PPR) is required for operations not regulated by Slot Coordination Switzerland."
+ },
+ "lsgg.slots": {
+  "v": "PPR slot booking opens 5 days before the flight; the PPR number goes in item 18 of the flight plan",
+  "src": "gva-ppr",
+  "quote": "Booking available 5 days in advance"
+ },
+ "lsgg.handling": {
+  "v": "the airport's private aviation contacts list includes TAG Aviation, Jet Aviation, Global Jet, Sparfell and others; separate partner pages for Signature Flight Support, Swissport Executive Aviation and Dassault Aviation Business Services",
+  "src": "gva-private-contacts",
+  "quote": "TAG Aviation"
+ },
+ "lsgg.notable": {
+  "v": "general and business aviation made up 23% of flights in 2025",
+  "src": "gva-ar-2025",
+  "quote": "General and business aviation (GA/BA) accounted for 23% of total aircraft flights in 2025"
+ },
+ "lfmn.icao": {
+  "v": "LFMN",
+  "src": "aca-group"
+ },
+ "lfmn.operator": {
+  "v": "Aéroports de la Côte d'Azur, which also runs Cannes-Mandelieu and Golfe de Saint-Tropez",
+  "src": "aca-group",
+  "quote": "Three airports managed by Aéroports de la Côte d'Azur"
+ },
+ "lfmn.hours": {
+  "v": "open 24 hours",
+  "src": "cohor-nce",
+  "quote": "Opening Times : 24/24H"
+ },
+ "lfmn.slots": {
+  "v": "fully coordinated (Level 3): all operations need a slot; business and general aviation slots are requested by the handling agent",
+  "src": "cohor-nce",
+  "quote": "Aircraft operators contact their handling agent who is in charge to request airport slots to COHOR."
+ },
+ "lfmn.handling": {
+  "v": "business aviation handling limited to three providers: AviaVIP, Signature Aviation and DC Aviation G-OPS",
+  "src": "aca-bizav",
+  "quote": "The number of groundhandlers (FBO) is limited to three service providers."
+ },
+ "lfmn.customs": {
+  "v": "the business aviation terminal has its own customs post",
+  "src": "aca-bizav",
+  "quote": "It features its own customs control post in addition to two security control posts for outbound passengers."
+ },
+ "lfmn.curfew": {
+  "v": "an operating restriction order limits the time windows for noisy aircraft (times not stated on readable pages)",
+  "src": "aca-bizav",
+  "quote": "an order restricting usage that limits the time windows for noisy aircraft"
+ },
+ "lfmn.noise": {
+  "v": "APU use limited to 30 minutes; engines fully shut down on arrival at the KILO parking area",
+  "src": "aca-bizav",
+  "quote": "APU use is limited to 30 minutes"
+ },
+ "lfmn.notable": {
+  "v": "general aviation turnarounds of more than 4 hours need airport approval",
+  "src": "cohor-nce",
+  "quote": "GA turnarounds over 4 hours need airport approval"
+ },
+ "lfmd.icao": {
+  "v": "LFMD",
+  "src": "aca-group"
+ },
+ "lfmd.operator": {
+  "v": "Aéroports de la Côte d'Azur",
+  "src": "aca-group",
+  "quote": "Three airports managed by Aéroports de la Côte d'Azur"
+ },
+ "lfmd.hours": {
+  "v": "air traffic control open from 08:00 local; closing 20:00 in winter, 21:00 in spring and autumn, 22:00 from early May to late August (FBO opens 06:30)",
+  "src": "ceq-airport",
+  "quote": "FBO and ATC closing hours (local time)"
+ },
+ "lfmd.curfew": {
+  "v": "limited night flying: closes at 20:00 in winter and at sunset plus 30 minutes in summer; no night landings on runway heading 17",
+  "src": "ceq-env",
+  "quote": "Limit on night-time flights (closing at 8pm in the winter and at sunset + 30 min in the summer)"
+ },
+ "lfmd.max_aircraft": {
+  "v": "jets up to 35 tonnes and turboprops up to 22 tonnes",
+  "src": "ceq-env",
+  "quote": "Limit on 35 t turbojet / 22 t turboprop aircraft"
+ },
+ "lfmd.noise": {
+  "v": "noisier aircraft (margin under 13 EPNdB, ICAO chapter 3) are banned; APU use limited to 20 minutes before and 10 minutes after flight",
+  "src": "ceq-env",
+  "quote": "Ban on noisier aircraft (<13 EPNdB ICAO chapter 3)"
+ },
+ "lfmd.notable": {
+  "v": "no scheduled commercial flights; IFR arrivals limited to 5-6 an hour",
+  "src": "ceq-env",
+  "quote": "Ban on regular commercial flights"
+ },
+ "lfmd.slots": {
+  "v": "listed by the French coordinator as Level 3; business and general aviation slots are requested through the handling agent",
+  "src": "cohor-ceq",
+  "quote": "General and business aviation operators ask their handling agent Skyvallet to request slots"
+ },
+ "lfmd.handling": {
+  "v": "handling agent named by the coordinator: Skyvallet",
+  "src": "cohor-ceq",
+  "quote": "their handling agent Skyvallet"
+ },
+ "lfpb.icao": {
+  "v": "LFPB",
+  "src": "adp-lbg"
+ },
+ "lfpb.location": {
+  "v": "7 km north of Paris",
+  "src": "adp-lbg",
+  "quote": "7 kilometres North of Paris, Paris-Le Bourget is the leading business airport in Europe."
+ },
+ "lfpb.runway": {
+  "v": "three runways (lengths not stated on readable pages)",
+  "src": "adp-lbg",
+  "quote": "With its three runways and parking areas, it can accommodate all types of aircraft."
+ },
+ "lfpb.hours": {
+  "v": "open 24 hours",
+  "src": "cohor-lbg",
+  "quote": "Opening Times: 24/24H"
+ },
+ "lfpb.curfew": {
+  "v": "jet take-offs, use of reverse thrust and use of runway 2 by aircraft over 5.7 tonnes are banned between 22:15 and 06:00",
+  "src": "adp-lbg",
+  "quote": "are prohibited between 22:15 and 6:00"
+ },
+ "lfpb.slots": {
+  "v": "an IATA Level 1 airport",
+  "src": "cohor-lbg",
+  "quote": "IATA Airport Designation: Level 1"
+ },
+ "vtbs.icao": {
+  "v": "VTBS",
+  "src": "th-aip-vtbs"
+ },
+ "vtbs.geo": {
+  "v": [
+   13.68583,
+   100.74889
+  ],
+  "src": "th-aip-vtbs",
+  "quote": "134109N 1004456E"
+ },
+ "vtbs.operator": {
+  "v": "Airports of Thailand Public Company Limited (AOT)",
+  "src": "th-aip-vtbs",
+  "quote": "Airports of Thailand Public Company Limited (AOT)"
+ },
+ "vtbs.location": {
+  "v": "25 km east of Bangkok",
+  "src": "th-aip-vtbs",
+  "quote": "25 km East of Bangkok"
+ },
+ "vtbs.runway": {
+  "v": "three runways; the two longest, 01/19 and 02L/20R, are each 4,000 m long and 60 m wide",
+  "src": "th-aip-vtbs",
+  "quote": "01 | 014.42° | 4000 x 60 ... 02L | 014.00° | 4000 x 60"
+ },
+ "vtbs.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "th-aip-vtbs",
+  "quote": "Customs and immigration: H24"
+ },
+ "vtbs.hours": {
+  "v": "open 24 hours",
+  "src": "th-aip-vtbs",
+  "quote": "Aerodrome operator: H24"
+ },
+ "vtbs.handling": {
+  "v": "ground handling by WFS Bangkok Air Ground Handling (BFS Ground) and Thai Airways International; no business aviation terminal is named in the AIP",
+  "src": "th-aip-vtbs",
+  "quote": "Worldwide Flight Services Bangkok Air Ground Handling Co., Ltd. (BFS Ground); Thai Airways International Public Co.Ltd. (TG)"
+ },
+ "vtbd.icao": {
+  "v": "VTBD",
+  "src": "th-aip-vtbd"
+ },
+ "vtbd.geo": {
+  "v": [
+   13.91437,
+   100.60569
+  ],
+  "src": "th-aip-vtbd",
+  "quote": "135451.74N 1003620.49E"
+ },
+ "vtbd.operator": {
+  "v": "Airports of Thailand Public Company Limited (AOT)",
+  "src": "th-aip-vtbd",
+  "quote": "Airports of Thailand Public Company Limited (AOT)"
+ },
+ "vtbd.location": {
+  "v": "12 NM north-east of Bangkok",
+  "src": "th-aip-vtbd",
+  "quote": "12 NM NE of Bangkok"
+ },
+ "vtbd.runway": {
+  "v": "two runways; the longest, 03L/21R, is 3,700 m long and 60 m wide",
+  "src": "th-aip-vtbd",
+  "quote": "03L: 3700 x 60 m; 21R: 3700 x 60 m; 03R: 3500 x 45 m"
+ },
+ "vtbd.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "th-aip-vtbd",
+  "quote": "Customs and immigration: H24"
+ },
+ "vtbd.hours": {
+  "v": "open 24 hours",
+  "src": "th-aip-vtbd",
+  "quote": "Aerodrome Operator: H24"
+ },
+ "vtbd.handling": {
+  "v": "MJETS Limited is listed as handling agent for private aircraft only, alongside AOT Ground Aviation Services (AOTGA)",
+  "src": "th-aip-vtbd",
+  "quote": "MJETS LIMITED ... Private Aircraft only; AOT GROUND AVIATION SERVICES CO., LTD. (AOTGA)"
+ },
+ "vtbd.notable": {
+  "v": "hangar and repair facilities for visiting private aircraft are operated by Mjets Ltd.",
+  "src": "th-aip-vtbd",
+  "quote": "Private Aircraft operated by Mjets Ltd."
+ },
+ "vtbu.icao": {
+  "v": "VTBU",
+  "src": "th-aip-vtbu"
+ },
+ "vtbu.geo": {
+  "v": [
+   12.67961,
+   101.00492
+  ],
+  "src": "th-aip-vtbu",
+  "quote": "124046.6N 1010017.7E"
+ },
+ "vtbu.operator": {
+  "v": "the Royal Thai Navy",
+  "src": "th-aip-vtbu",
+  "quote": "Operator: Royal Thai Navy"
+ },
+ "vtbu.location": {
+  "v": "34 km west of Rayong",
+  "src": "th-aip-vtbu",
+  "quote": "34 KM W of Rayong"
+ },
+ "vtbu.runway": {
+  "v": "one runway, 18/36, 3,505 m long and 60 m wide",
+  "src": "th-aip-vtbu",
+  "quote": "Runway 18 ... 3505 m x 60 m; Runway 36 ... 3505 m x 60 m"
+ },
+ "vtbu.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "th-aip-vtbu",
+  "quote": "Customs and immigration: H24"
+ },
+ "vtbu.hours": {
+  "v": "open 24 hours",
+  "src": "th-aip-vtbu",
+  "quote": "Aerodrome Operator: H24"
+ },
+ "vtbu.noise": {
+  "v": "no noise abatement procedures listed",
+  "src": "th-aip-vtbu",
+  "quote": "Noise abatement (AD 2.21): NIL"
+ },
+ "vtsp.icao": {
+  "v": "VTSP",
+  "src": "th-aip-vtsp"
+ },
+ "vtsp.geo": {
+  "v": [
+   8.1125,
+   98.30917
+  ],
+  "src": "th-aip-vtsp",
+  "quote": "080645N 0981833E"
+ },
+ "vtsp.operator": {
+  "v": "Airports of Thailand Public Company Limited (AOT)",
+  "src": "th-aip-vtsp",
+  "quote": "Operator: Airports of Thailand Public Company Limited"
+ },
+ "vtsp.location": {
+  "v": "32 km north-west",
+  "src": "th-aip-vtsp",
+  "quote": "32 km (NW)"
+ },
+ "vtsp.runway": {
+  "v": "one runway, 09/27, 45 m wide; 3,000 m long from runway 09 and 3,100 m from runway 27",
+  "src": "th-aip-vtsp",
+  "quote": "RWY 09: length 3000, width 45; RWY 27: length 3100, width 45"
+ },
+ "vtsp.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "th-aip-vtsp",
+  "quote": "Customs and immigration: H24"
+ },
+ "vtsp.hours": {
+  "v": "open 24 hours",
+  "src": "th-aip-vtsp",
+  "quote": "Aerodrome Operator: H24"
+ },
+ "vtsp.handling": {
+  "v": "Siam Land Private Jet Terminal (private aircraft only); Siam Land Flying is listed as handling agent for private aircraft",
+  "src": "th-aip-vtsp",
+  "quote": "Siam Land Private Jet Terminal (Private Aircraft only)"
+ },
+ "vtsp.slots": {
+  "v": "private jets must fly to the time slot approved by the Slot Coordination Committee, within 2 hours early or late",
+  "src": "th-aip-vtsp",
+  "quote": "shall commence the flight in accordance with the approved time slot by the Slot Coordination Committee. If the flight is delay or arrive early, it should not more than 2 hours."
+ },
+ "vtsp.ppr": {
+  "v": "private jets need permission from the Civil Aviation Authority of Thailand and a ground handling agent, and the airport must be told at least 3 workdays before arrival",
+  "src": "th-aip-vtsp",
+  "quote": "Aircraft owner/operator or PIC shall inform The Airports of Thailand Public Company Limited at least three (3) workdays before the arrival aircraft"
+ },
+ "vtsp.max_aircraft": {
+  "v": "stands 51 to 54 and Apron E (remote, overnight parking) are for private aircraft only",
+  "src": "th-aip-vtsp",
+  "quote": "Remote parking (for private aircraft only)"
+ },
+ "vtsp.noise": {
+  "v": "no noise abatement procedures listed",
+  "src": "th-aip-vtsp",
+  "quote": "NIL"
+ },
+ "vtsp.notable": {
+  "v": "aircraft may not taxi out under their own power from any stand; pushback by tow-bar or towbar-less tractor only",
+  "src": "th-aip-vtsp",
+  "quote": "Due to aircraft congestion, self-manoeuvring is not permitted at any parking stand"
+ },
+ "yssy.icao": {
+  "v": "YSSY",
+  "src": "au-ersa-yssy"
+ },
+ "yssy.geo": {
+  "v": [
+   -33.94611,
+   151.17722
+  ],
+  "src": "au-ersa-yssy",
+  "quote": "335646S 1511038E"
+ },
+ "yssy.operator": {
+  "v": "Sydney Airport Corporation Ltd",
+  "src": "au-ersa-yssy",
+  "quote": "AD OPR Sydney Airport Corporation Ltd, Locked Bag 5000, Sydney International Airport, NSW"
+ },
+ "yssy.runway": {
+  "v": "three runways, each 45 m wide; the longest is 3,962 m",
+  "src": "au-dap-yssy-ad",
+  "quote": "3962 x 45 GROOVED ... 2438 x 45 GROOVED ... 2530 x 45 GROOVED"
+ },
+ "yssy.curfew": {
+  "v": "a curfew from 11 pm to 6 am; only listed quieter aircraft, including approved business jets under 34,000 kg, may operate, taking off to the south and landing to the north over Botany Bay",
+  "src": "au-curfew-act",
+  "quote": "A curfew period starts at 11 pm on a day and ends at 6 am on the next day."
+ },
+ "yssy.slots": {
+  "v": "every flight needs a slot from the airport's slot coordinator",
+  "src": "au-ersa-yssy",
+  "quote": "All flights operating into and out of Sydney must obtain an Airport Coordination Limited (ACL) slot"
+ },
+ "yssy.max_aircraft": {
+  "v": "the corporate aviation apron takes aircraft up to 22,000 kg MTOW and 32 m wingspan; larger aircraft must arrange parking with the airport before arrival",
+  "src": "au-ersa-yssy",
+  "quote": "Access to corporate aviation apron restricted to 22,000KG MTOW/32M MAX wing span and BLW. ACFT in excess of this are to contact AD OPR prior to arrival for parking arrangements."
+ },
+ "yssy.handling": {
+  "v": "ExecuJet runs the FBO and VIP lounge, open 24 hours",
+  "src": "au-ersa-yssy",
+  "quote": "Execujet: FBO services and VIP Lounge H24. Civil and MIL ACFT. IS-BAH Stage II."
+ },
+ "yssy.noise": {
+  "v": "noise abatement procedures and the curfew apply",
+  "src": "au-ersa-yssy",
+  "quote": "Noise Abatement Procedures (NAP) and Curfew applies. Refer AIP DAP."
+ },
+ "yssy.notable": {
+  "v": "all crew must hold an Australian or Sydney aviation security identity card (ASIC), and training flights are not allowed",
+  "src": "au-ersa-yssy",
+  "quote": "All fixed wing and HEL crew operating at SY, must hold either Australian or SYD Aviation Security Identity Card (ASIC)."
+ },
+ "yssy.curfew_jets": {
+  "v": "newer, quieter jets on the approved list may operate during the curfew, with no limit on their number of movements",
+  "src": "au-ditrdca-curfew",
+  "quote": "The Sydney Instrument allows newer, quieter aircraft to operate during the curfew."
+ },
+ "yssy.curfew_direction": {
+  "v": "during the curfew, aircraft take off to the south and land to the north, over Botany Bay",
+  "src": "au-ditrdca-curfew",
+  "quote": "During the curfew aircraft must operate over Botany Bay, that is take-offs to the south and landings to the north"
+ },
+ "yssy.movement_cap": {
+  "v": "no more than 80 aircraft movements in any regulated hour",
+  "src": "au-demand-act",
+  "quote": "There are to be no more than 80 aircraft movements at Sydney Airport in any regulated hour. This limit is known as the maximum movement limit."
+ },
+ "audit.argus_who": {
+  "v": "ARGUS International, founded in 1995, provides specialised aviation audit services",
+  "src": "argus-home",
+  "quote": "Founded in 1995, ARGUS International, Inc., an SGS Company, is a global leader in specialized aviation audit services"
+ },
+ "audit.argus_gold": {
+  "v": "an ARGUS Gold rating uses a remote audit to check the operator's safety management system and maintenance practices",
+  "src": "argus-gold",
+  "quote": "While the Gold rating utilizes a remote audit to validate your SMS and maintenance practices"
+ },
+ "audit.argus_gold_certified": {
+  "v": "ARGUS Gold Certified adds an on-site audit to the Gold checks",
+  "src": "argus-gold",
+  "quote": "Gold Certified takes your commitment a step further by introducing a rigorous onsite audit component."
+ },
+ "audit.argus_platinum_audit": {
+  "v": "an ARGUS Platinum rating rests on a two-day on-site audit of the operator's safety management system",
+  "src": "argus-ecosystem",
+  "quote": "This is a two-day, onsite event which examines the certificate holder's safety management system."
+ },
+ "audit.argus_platinum_renewal": {
+  "v": "a Platinum operator must pass a renewal audit every two years",
+  "src": "argus-ecosystem",
+  "quote": "to maintain the Platinum rating, operators must undergo a renewal audit every two years."
+ },
+ "audit.argus_platinum_elite": {
+  "v": "ARGUS Platinum Elite requires at least two Platinum audits in a row with no significant findings",
+  "src": "argus-platinum-elite",
+  "quote": "at least two consecutive Platinum audits with no significant findings"
+ },
+ "audit.argus_elite_cycle": {
+  "v": "Platinum Elite operators have maintenance and operations reviews every six months",
+  "src": "argus-platinum-elite",
+  "quote": "maintenance and operation reviews every six months"
+ },
+ "audit.argus_cheq": {
+  "v": "ARGUS CHEQ is ARGUS's database of rated operators, and TripCHEQ is its due-diligence tool for charter customers",
+  "src": "argus-cheq",
+  "quote": "TripCHEQ is a due-diligence tool that provides charter customers with key information about their upcoming flights."
+ },
+ "audit.wyvern_standard": {
+  "v": "the WYVERN Wingman Standard, published by WYVERN Ltd, sets safety performance expectations for aircraft operators and is voluntary",
+  "src": "wyvern-standard",
+  "quote": "The Wingman Standard sets safety performance expectations for aircraft operators for the benefit of all stakeholders."
+ },
+ "audit.wyvern_sms": {
+  "v": "Wingman requires a safety management system that meets FAA/CAA rules or ICAO Annex 19",
+  "src": "wyvern-standard",
+  "quote": "The operator shall have implemented an SMS that conforms to the FAA/CAA regulatory requirements or ICAO Annex 19"
+ },
+ "audit.wyvern_cycle": {
+  "v": "Wingman audits traditionally run on a 24-month cycle",
+  "src": "wyvern-standard",
+  "quote": "As an alternative to the traditional 24-month auditing cycle"
+ },
+ "audit.wyvern_onsite": {
+  "v": "Wingman operators go through an on-site audit of two to three days",
+  "src": "wyvern-whitecloud",
+  "quote": "Operators undergo a 2-3 day on-side audit to ensure they meet the expectations of the Wingman Standard"
+ },
+ "audit.isbao_what": {
+  "v": "IS-BAO is the International Standard for Business Aircraft Operations, run by IBAC",
+  "src": "ibac-isbao",
+  "quote": "the International Standard for Business Aircraft Operations (IS-BAO™)"
+ },
+ "audit.isbao_icao": {
+  "v": "IBAC describes IS-BAO as the only ICAO-recognised industry standards programme",
+  "src": "ibac-isbao",
+  "quote": "the only ICAO-recognized industry standards program."
+ },
+ "audit.isbao_stage1": {
+  "v": "IS-BAO Stage 1 confirms the safety management system is in place",
+  "src": "ibac-isbao",
+  "quote": "confirms that the SMS infrastructure is established and that safety management activities are appropriately targeted"
+ },
+ "audit.isbao_stage3": {
+  "v": "IS-BAO Stage 3 confirms safety management is fully built into the operator's business",
+  "src": "ibac-isbao",
+  "quote": "verifies that safety management activities are fully integrated into the operator's business"
+ },
+ "audit.isbao_audit": {
+  "v": "IS-BAO registration needs an independent third-party audit",
+  "src": "ibac-auditors",
+  "quote": "requires an independent third-party audit to achieve the registration"
+ },
+ "audit.isbao_renewal": {
+  "v": "IS-BAO registration is renewed every two or three years",
+  "src": "ibac-auditors",
+  "quote": "renewing (every two, or three years)"
+ },
+ "audit.aoc_what": {
+  "v": "an Air Operator Certificate (AOC) is the authority's safety approval that lets an operator carry out specified commercial air transport flights",
+  "src": "caas-aoc",
+  "quote": "an aviation safety instrument that authorises an operator to carry out specified commercial air transport"
+ },
+ "audit.aoc_needed": {
+  "v": "in Singapore an operator must hold a Singapore AOC to carry out commercial air transport",
+  "src": "caas-aoc",
+  "quote": "must hold a Singapore AOC to conduct commercial air transport"
+ },
+ "audit.aoc_oversight": {
+  "v": "the regulator keeps inspecting AOC holders after the certificate is issued",
+  "src": "caas-aoc",
+  "quote": "CAAS conducts regular inspections to ensure AOC holders continue to meet safety and regulatory standards."
+ },
+ "audit.faa_ask_certificate": {
+  "v": "the US FAA tells charter customers to ask to see the operator's certificate",
+  "src": "faa-charter",
+  "quote": "ask to see the Operator's Air Carrier or Operating Certificate"
+ },
+ "audit.us_no_false_audit_claims": {
+  "v": "US rules forbid a broker to misstate that an operator meets an auditing organisation's standard",
+  "src": "cfr-295-2023",
+  "quote": "or that the air charter broker or any direct carriers to be used for a particular flight meets a standard set by an auditing organization."
+ },
+ "empty.us_broker_definition": {
+  "v": "under US rules an air charter broker sells or arranges whole-aircraft charters flown by a direct air carrier",
+  "src": "cfr-295-2023",
+  "quote": "Air charter broker means a person or entity that, as an indirect air carrier, foreign indirect air carrier, or a bona fide agent, holds out, sells, or arranges single entity charter air transportation using a direct air carrier."
+ },
+ "empty.single_entity": {
+  "v": "a single entity charter is the hire of the whole aircraft, paid for by the charterer rather than by individual passengers",
+  "src": "cfr-295-2023",
+  "quote": "Single entity charter means a charter for the entire capacity of the aircraft, the cost of which is borne by the charterer"
+ },
+ "empty.ads_say_broker": {
+  "v": "in the US a broker's adverts, including web pages, must say it is a broker and not the airline in control of the aircraft",
+  "src": "cfr-295-2023",
+  "quote": "and that it is not a direct air carrier or a direct foreign air carrier in operational control of aircraft,"
+ },
+ "empty.licensed_carrier": {
+  "v": "the advert must also say the flight will be flown by a properly licensed carrier",
+  "src": "cfr-295-2023",
+  "quote": "and that the air service advertised shall be provided by a properly licensed direct air carrier or direct foreign air carrier."
+ },
+ "empty.disclose_before_contract": {
+  "v": "a US broker must give certain disclosures before the contract for a flight is signed",
+  "src": "ecfr-295-24",
+  "quote": "Before entering a contract for a specific flight or series of flights with charterers"
+ },
+ "empty.disclose_operator": {
+  "v": "one of them is the corporate name of the operator in operational control of the aircraft",
+  "src": "ecfr-295-24",
+  "quote": "The corporate name of the direct air carrier or direct foreign air carrier in operational control of the aircraft"
+ },
+ "empty.disclose_before_flight": {
+  "v": "in every case the disclosures must be made before the flight starts",
+  "src": "ecfr-295-24",
+  "quote": "In all circumstances, air charter brokers must disclose prior to the start of the air transportation"
+ },
+ "empty.refund": {
+  "v": "if the disclosures are not made in time, the customer may cancel and get a full refund",
+  "src": "ecfr-295-24",
+  "quote": "receive a full refund of any monies paid for the charter air transportation and services"
+ },
+ "empty.electronic": {
+  "v": "the disclosures may be sent electronically",
+  "src": "cfr-295-2023",
+  "quote": "The six disclosures may be accomplished through electronic transmissions."
+ },
+ "empty.rule_effective": {
+  "v": "the US air charter broker rule took effect on 14 February 2019",
+  "src": "fr-2018-18345",
+  "quote": "This rule is effective February 14, 2019."
+ },
+ "empty.positioning_counts": {
+  "v": "in Europe, a positioning flight flown by an AOC holder right before or after a commercial sector counts towards crew duty time",
+  "src": "easa-faq-47560",
+  "quote": "aircraft positioning conducted by an AOC holder, immediately before or after a CAT sector counts as FDP and sector."
+ },
+ "empty.dot_no_holding_out": {
+  "v": "US DOT guidance says brokers must not present themselves as airlines or operators",
+  "src": "dot-broker-guidance-2004",
+  "quote": "should take care not to hold out as \"airlines,\" \"air carriers,\" \"operators,\""
+ },
+ "price.us_disclose_total": {
+  "v": "US rules make a broker disclose the total cost paid by the charterer to or through the broker",
+  "src": "ecfr-295-24",
+  "quote": "The total cost of the air transportation paid by the charterer to or through the air charter broker"
+ },
+ "price.us_third_party_fees": {
+  "v": "they also make the broker disclose fees collected by third parties, such as fuel, landing and parking or hangar fees",
+  "src": "cfr-295-2023",
+  "quote": "including fuel, landing fees, and aircraft parking or hangar fees"
+ },
+ "price.us_fet_statute": {
+  "v": "US federal law taxes amounts paid for taxable air transport of persons at 7.5 percent",
+  "src": "usc-4261",
+  "quote": "a tax equal to 7.5 percent of the amount so paid"
+ },
+ "price.us_fet_irs": {
+  "v": "the IRS states the percentage tax as 7.5% of amounts paid for taxable air transport of persons",
+  "src": "irs-i720",
+  "quote": "The percentage tax is 7.5% of amounts paid for taxable transportation of persons by air."
+ },
+ "price.us_segment": {
+  "v": "US law also charges a tax on each domestic flight segment",
+  "src": "usc-4261",
+  "quote": "There is hereby imposed on the amount paid for each domestic segment of taxable transportation by air"
+ },
+ "price.us_charter_segment": {
+  "v": "for a chartered aircraft the IRS works out the segment tax by multiplying it by the number of passengers on board",
+  "src": "irs-i720",
+  "quote": "of taxable transportation is figured by multiplying the tax by the number of passengers transported on the aircraft."
+ },
+ "price.us_international": {
+  "v": "a separate US tax applies to international air transport that begins or ends in the United States",
+  "src": "irs-i720",
+  "quote": "if the transportation begins or ends in the United States,"
+ },
+ "price.uk_apd_higher": {
+  "v": "UK Air Passenger Duty's higher rate applies to aircraft of 20 tonnes or more with fewer than 19 seats",
+  "src": "govuk-apd-2026",
+  "quote": "The higher rate applies to flights aboard aircraft of 20 tonnes and above with fewer than 19 seats."
+ },
+ "price.uk_apd_dates": {
+  "v": "the current UK APD rates apply to passengers carried on or after 1 April 2026",
+  "src": "govuk-apd-2026",
+  "quote": "will have effect in relation to the carriage of chargeable passengers on or after 1 April 2026."
+ },
+ "price.uk_apd_increase": {
+  "v": "the UK government announced a 50% increase to the APD higher rate",
+  "src": "hmt-apd-reform-2024",
+  "quote": "a 50% increase to the higher rate"
+ },
+ "price.changi_landing": {
+  "v": "at Singapore Changi, landing charges are based on the aircraft's maximum taxi weight",
+  "src": "changi-fees",
+  "quote": "The landing charges are based on the maximum taxi weight for each aircraft."
+ },
+ "price.changi_parking": {
+  "v": "Changi charges aircraft parking per 24 hours, with the first 3 hours free",
+  "src": "changi-fees",
+  "quote": "The Parking Charges are charged per 24 hours or part thereof, with the first 3 hours free."
+ },
+ "price.changi_passenger": {
+  "v": "Changi also lists passenger charges: a service and security fee, an aviation levy and an airport development levy",
+  "src": "changi-fees",
+  "quote": "Passenger Service and Security Fee (PSSF), Aviation Levy (AL) and Airport Development Levy (ADL)"
+ },
+ "price.sg_gst_zero": {
+  "v": "international transport of passengers can be charged GST at 0% (zero-rated)",
+  "src": "iras-intl-services",
+  "quote": "You can zero-rate your supply of services (i.e. charge GST at 0%) only if it falls within the description of international services under Section 21(3) of the GST Act."
+ },
+ "price.sg_gst_routes": {
+  "v": "flights from Singapore abroad, from abroad to Singapore, and between two places outside Singapore",
+  "src": "iras-intl-services",
+  "quote": "3. from a place outside Singapore to another place outside Singapore."
+ },
+ "kteb.cbp_hours": {
+  "v": "07:30–23:15, seven days a week",
+  "src": "cbp-kteb-ga",
+  "quote": "available 7 days per week, 0730-2315"
+ },
+ "eglf.self": {
+  "v": "the largest and the most pre-eminent business aviation airport in the UK",
+  "src": "fab-home",
+  "quote": "The largest and the most pre-eminent business aviation airport in the UK"
+ },
+ "vhhh.permit": {
+  "v": "the operator needs a permit from the Director-General of Civil Aviation, applied for at least 3 working days before the flight, or at least 2 weeks ahead for a new or infrequent operator",
+  "src": "cad-charter",
+  "quote": "must obtain a permit from the Director-General of Civil Aviation ... at least 3 working days before the anticipated arrival/departure date ... at least 2 weeks prior to the date of operation"
+ }
 }

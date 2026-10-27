@@ -1,0 +1,57 @@
+{
+ "icao": "LFMD",
+ "iata": "CEQ",
+ "name": "Cannes-Mandelieu Airport",
+ "city": "Nice",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "air traffic control open from 08:00 local; closing 20:00 in winter, 21:00 in spring and autumn, 22:00 from early May to late August (FBO opens 06:30)",
+   "src": "ceq-airport",
+   "seasonal_close_local": {
+    "01-01..03-08": "20:00",
+    "03-09..05-03": "21:00",
+    "05-04..08-23": "22:00",
+    "08-24..10-18": "21:00",
+    "10-19..12-31": "20:00"
+   },
+   "open_local": "08:00",
+   "quote": "FBO and ATC closing hours (local time)"
+  },
+  "max_aircraft": {
+   "v": "jets up to 35 tonnes and turboprops up to 22 tonnes",
+   "src": "ceq-env",
+   "quote": "Limit on 35 t turbojet / 22 t turboprop aircraft"
+  },
+  "noise": {
+   "v": "noisier aircraft (margin under 13 EPNdB, ICAO chapter 3) are banned; APU use limited to 20 minutes before and 10 minutes after flight",
+   "src": "ceq-env",
+   "quote": "Ban on noisier aircraft (<13 EPNdB ICAO chapter 3)"
+  },
+  "slots": {
+   "v": "listed by the French coordinator as Level 3; business and general aviation slots are requested through the handling agent",
+   "src": "cohor-ceq",
+   "quote": "General and business aviation operators ask their handling agent Skyvallet to request slots"
+  },
+  "handling": {
+   "v": "handling agent named by the coordinator: Skyvallet",
+   "src": "cohor-ceq",
+   "names": [
+    "Skyvallet"
+   ],
+   "quote": "their handling agent Skyvallet"
+  }
+ },
+ "missing": [
+  "geo (AIP ARP)",
+  "location",
+  "runway",
+  "customs",
+  "ppr"
+ ],
+ "notes": "French eAIP and Légifrance (arrêté of 6 Dec 1995 as amended, latest 26 Nov 2025) could not be opened. Hours conflict: the COHOR page says opening is 'from 08:00 local time until 30 mns after sunset' while the operator's airport page gives a fixed seasonal closing table (20:00/21:00/22:00); the year the table applies to is not shown. The COHOR Level 3 text refers to 16 May-17 Sep 2023, so the current coordination status should be confirmed; specific procedures apply during the Monaco Grand Prix and Cannes Film Festival. City set to Nice per the task grouping; the airport serves Cannes."
+}

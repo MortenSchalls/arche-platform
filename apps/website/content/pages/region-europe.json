@@ -1,0 +1,50 @@
+{
+ "path": "/regions/europe/",
+ "title": "Private jet charter in Europe: airports, slots and rules",
+ "description": "Private flights in Europe: how airport hours, permission systems and the EU cabotage rule shape a trip, with guides to London, Geneva, Nice and Paris.",
+ "eyebrow": "Region · Europe",
+ "h1": "Private flights in Europe",
+ "lead": "Europe has many airports used by private jets, with strict local rules on hours, noise and permission. What to know before you plan a trip, and our city and airport guides.",
+ "sections": [
+  {
+   "h": "Hours and night rules differ by airport",
+   "p": [
+    "In Europe, the biggest difference between airports is often the opening hours. Farnborough near London is {{eglf.hours}}. At Paris–Le Bourget, {{lfpb.curfew}}. At Geneva, {{lsgg.curfew}}."
+   ]
+  },
+  {
+   "h": "Flights within the European Union",
+   "p": [
+    "Inside the European Union, flights between EU airports are intra-Community air services, and {{cab.eu}} ({{cab.eu.ref}}). In practice, an operator from outside the EU cannot normally operate a flight between two EU airports. We check the operator's licence against every leg before you see a quote. Our cabotage guide explains the rules."
+   ]
+  },
+  {
+   "h": "Permission and slots",
+   "p": [
+    "Many European airports manage private flights through slots or permission. At Geneva, {{lsgg.ppr}}. Nice is {{lfmn.slots}}. Others are simpler: at Biggin Hill near London, {{egkb.slots}}, and Paris–Le Bourget is {{lfpb.slots}}."
+   ]
+  },
+  {
+   "h": "Our guides for Europe",
+   "p": [
+    "Our city guides cover London, Geneva, Paris, and Nice with Cannes. Our airport guide covers Farnborough. More cities follow, each checked against official sources before it is published."
+   ]
+  },
+  {
+   "h": "Any aircraft, any route",
+   "p": [
+    "We are a broker, not an airline, and we have no fixed routes. Tell us where you want to go and when, and we find aircraft from licensed operators, check each operator and name it in your quote before you confirm. Any aircraft, any route, upon availability."
+   ]
+  }
+ ],
+ "related": [
+  "/cities/london/",
+  "/cities/geneva/",
+  "/cities/nice/",
+  "/cities/paris/",
+  "/airports/farnborough/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "region"
+}

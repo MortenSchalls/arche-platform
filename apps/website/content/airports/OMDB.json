@@ -1,0 +1,55 @@
+{
+ "icao": "OMDB",
+ "iata": "DXB",
+ "name": "Dubai International Airport",
+ "city": "Dubai",
+ "country": "AE",
+ "tz": "Asia/Dubai",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways; the longer, 12R/30L, is 4,447 m long and 60 m wide (12L/30R is 4,351 m x 60 m)",
+   "longest_m": 4447,
+   "src": "uae-aip-omdb",
+   "quote": "12R ... 4447 x 60 ... 12L ... 4351 x 60 (AD 2.12 table)"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "uae-aip-omdb",
+   "quote": "Customs and Immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours, with air traffic services, fuel and handling 24 hours",
+   "src": "uae-aip-omdb",
+   "quote": "AD Administration: H24 ... Air Traffic Services: H24 ... Handling: H24"
+  },
+  "slots": {
+   "v": "a fully slot-coordinated (IATA level 3) airport: no flight without a slot from the coordinator and landing permission from the Dubai Civil Aviation Authority",
+   "src": "uae-aip-omdb",
+   "quote": "OMDB operates as an IATA level 3 slot coordinated airport. No operator shall operate to or from OMDB without first obtaining an allocated slot from Airport Coordination Limited (ACL)"
+  },
+  "handling": {
+   "v": "Jet Aviation and ExecuJet are the only FBOs handling general aviation; operators must contract one of them, and slot requests go through the FBO",
+   "src": "dxb-cou-ga-w25",
+   "quote": "Jet Aviation and Execujet Aviation Group are the sole FBOs providing ground handling services for GA aircraft at the Airport."
+  },
+  "max_aircraft": {
+   "v": "the largest aircraft (code F) must apply for schedule clearance at least 72 hours before arrival",
+   "src": "dxb-cou-ga-w25",
+   "quote": "must apply for schedule clearance at least seventy-two (72) hours prior to the intended arrival"
+  },
+  "noise": {
+   "v": "aircraft without noise certification to the ICAO Annex 16 standards may not operate to or from Dubai International",
+   "src": "uae-aip-omdb",
+   "quote": "aircraft not in possession of noise certification in accordance with the standards of Annex 16 ... are not permitted to operate to/from OMDB"
+  }
+ },
+ "missing": [
+  "curfew (AIP shows H24 but no explicit 'no night restriction'; GA has daily restricted periods, see notable)",
+  "ppr (beyond slot and DCAA landing permission)"
+ ],
+ "notes": "GA restricted periods are in UTC; Dubai is UTC+4 all year (no daylight saving), so local they are 04:30-06:29, 07:30-11:59, 14:30-18:29 (not Mondays), 23:00-01:29 and 03:00-04:59. The source table did not extract cleanly: it is not certain whether each period applies to arrivals, departures or both (totals 8.5 and 10.5 hours suggest separate arrival/departure columns), so do not publish these as a curfew or as exact windows without re-checking the PDF. The Conditions of Use found is Northern Winter 2025 (effective 26 Oct 2025); a Winter 2026 edition may now apply. The AIP AD 2 OMDB PDF used is from the 2026-P06 package with pages up to AIRAC 08/2026; later AIRACs (P09-P11) were not readable as text."
+}

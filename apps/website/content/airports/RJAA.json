@@ -1,0 +1,58 @@
+{
+ "icao": "RJAA",
+ "iata": null,
+ "name": "Narita International Airport",
+ "city": "Tokyo",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "runway A, 4,000 m long and 60 m wide; runway B is currently 2,500 m by 60 m",
+   "longest_m": 4000,
+   "src": "naa-facilities",
+   "quote": "Runway A 4,000m×60m ... Runway B 3,500m×60m (at present 2,500ｍ×60ｍ)"
+  },
+  "curfew": {
+   "v": "no take-offs or landings from midnight to 06:00 on runway A and from 23:00 to 06:00 on runway B, except in emergencies; a short flexible extension applies only for delays the airline could not avoid",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "windows_local_runway_b": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "src": "naa-curfew",
+   "quote": "24時から6時までの離着陸（ A滑走路）、23時から6時までの離着陸（B滑走路）で下記の事例に該当する場合、緊急事態（従来取り決め）が適用されます。"
+  },
+  "slots": {
+   "v": "business jets need a slot",
+   "src": "naa-bj",
+   "quote": "Slot application is necessary for flying business jets in Narita International Airport."
+  },
+  "handling": {
+   "v": "Premier Gate, an exclusive terminal for business jets with its own customs and immigration",
+   "src": "naa-premiergate",
+   "quote": "Premier Gate is an exclusive terminal for business jets with CIQ facilities."
+  }
+ },
+ "missing": [
+  "iata",
+  "geo (Japan AIP not reachable)",
+  "location (distance from Tokyo not stated on official pages read)",
+  "customs hours",
+  "hours",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "slot lead time"
+ ],
+ "notes": "Curfew times come from the NAA Japanese curfew page (no page date; it cites the change of 27 Oct 2019). Flexible operation: runway A 24:00-24:30, runway B 23:00-24:00, only for unavoidable delays. Runway B also has a limit of 10 movements between 22:00 and 23:00. Narita's runway B extension and new runway C are planned; re-check the curfew page before publishing. Handling_list is for internal use only (the website names no companies). NAA also asks operators to send aircraft, insurance and other documents before flying in (naa-bj-private-docs); no deadline is stated."
+}

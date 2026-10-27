@@ -1,0 +1,47 @@
+{
+ "path": "/regions/middle-east/",
+ "title": "Private jet charter in the Middle East: Dubai and beyond",
+ "description": "Private flights in the Middle East: slots, permission and airport choice in Dubai, and how we check operators and routings for the region, from official UAE sources.",
+ "eyebrow": "Region · Middle East",
+ "h1": "Private flights in the Middle East",
+ "lead": "The Gulf is a crossroads for private flights between Europe, Asia and Africa. What to know about planning a trip, starting with Dubai.",
+ "sections": [
+  {
+   "h": "Slots and permission in Dubai",
+   "p": [
+    "Both of Dubai's international airports need a slot for every private flight. Dubai International is {{omdb.slots}}. At Dubai World Central, {{omdw.slots}}. And {{omdw.max_aircraft}}."
+   ]
+  },
+  {
+   "h": "Choosing the airport",
+   "p": [
+    "Dubai International is {{omdb.location}}. Dubai World Central has {{omdw.runway}}. {{omdw.notable}}. We compare both for your times, the slot available and where you are going."
+   ]
+  },
+  {
+   "h": "Routings across the region",
+   "p": [
+    "Long-haul private trips through the Gulf often cross several countries, each with its own overflight and landing permission. The operator applies for each one; we plan the routing with it before you see a quote."
+   ]
+  },
+  {
+   "h": "Our guides for the Middle East",
+   "p": [
+    "Our city guide covers Dubai and our airport guide covers Dubai World Central. More follow, each checked against official sources before it is published."
+   ]
+  },
+  {
+   "h": "Any aircraft, any route",
+   "p": [
+    "We are a broker, not an airline, and we have no fixed routes. Tell us where you want to go and when, and we find aircraft from licensed operators, check each operator and name it in your quote before you confirm. Any aircraft, any route, upon availability."
+   ]
+  }
+ ],
+ "related": [
+  "/cities/dubai/",
+  "/airports/dubai-world-central/",
+  "/guides/operator-safety-audits/"
+ ],
+ "draft": true,
+ "type": "region"
+}

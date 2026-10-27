@@ -1,0 +1,60 @@
+{
+ "icao": "VTSP",
+ "iata": null,
+ "name": "Phuket/ Phuket International Airport",
+ "city": "Phuket",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 09/27, 45 m wide; 3,000 m long from runway 09 and 3,100 m from runway 27",
+   "longest_m": 3100,
+   "src": "th-aip-vtsp",
+   "quote": "RWY 09: length 3000, width 45; RWY 27: length 3100, width 45"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "th-aip-vtsp",
+   "quote": "Customs and immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "th-aip-vtsp",
+   "quote": "Aerodrome Operator: H24"
+  },
+  "handling": {
+   "v": "Siam Land Private Jet Terminal (private aircraft only); Siam Land Flying is listed as handling agent for private aircraft",
+   "src": "th-aip-vtsp",
+   "quote": "Siam Land Private Jet Terminal (Private Aircraft only)"
+  },
+  "slots": {
+   "v": "private jets must fly to the time slot approved by the Slot Coordination Committee, within 2 hours early or late",
+   "src": "th-aip-vtsp",
+   "quote": "shall commence the flight in accordance with the approved time slot by the Slot Coordination Committee. If the flight is delay or arrive early, it should not more than 2 hours."
+  },
+  "ppr": {
+   "v": "private jets need permission from the Civil Aviation Authority of Thailand and a ground handling agent, and the airport must be told at least 3 workdays before arrival",
+   "src": "th-aip-vtsp",
+   "quote": "Aircraft owner/operator or PIC shall inform The Airports of Thailand Public Company Limited at least three (3) workdays before the arrival aircraft"
+  },
+  "max_aircraft": {
+   "v": "stands 51 to 54 and Apron E (remote, overnight parking) are for private aircraft only",
+   "src": "th-aip-vtsp",
+   "quote": "Remote parking (for private aircraft only)"
+  },
+  "noise": {
+   "v": "no noise abatement procedures listed",
+   "src": "th-aip-vtsp",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew"
+ ],
+ "notes": "Read from the eAIP edition effective 14 May 2026. Newer AIRAC editions (6 Aug 2026, 3 Sep 2026) could not be opened; recheck. Runway 27 has a 100 m displaced area, which is why the lengths differ by direction. No engine start-up is allowed on Apron E. No night restriction was found in the sections read (AD 2.23 onward was not fully read). IATA code is not given in the AIP. The 'max_aircraft' field holds stand allocation only; the AIP gives no weight limit for business aviation."
+}

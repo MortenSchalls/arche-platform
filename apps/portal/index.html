@@ -5777,8 +5777,8 @@ function vOnboarding(){
       if (RA && RA.status !== "unavailable") {
         const cf = RA.rules.curfew, t = toMin(l.time);
         if (cf && !cf.none && (cf.windows_local || []).length) {
-          if (t === null) add(`cur|${n}|dep`, "amber", n, `${esc(l.from)} has a night curfew (${esc(cf.v)}). Add the departure time.${src(cf)}`);
-          else if (cf.windows_local.some(w => inWin(t, w))) add(`cur|${n}|dep`, "red", n, `Departure ${esc(l.time)} from ${esc(l.from)} is inside the night curfew: ${esc(cf.v)}.${src(cf)}`);
+          if (t === null) add(`cur|${n}|dep`, "amber", n, `${esc(l.from)} has a ${cf.voluntary || cf.approval ? "night restriction" : "night curfew"} (${esc(cf.v)}). Add the departure time.${src(cf)}`);
+          else if (cf.windows_local.some(w => inWin(t, w))) add(`cur|${n}|dep`, (cf.voluntary || cf.approval) ? "amber" : "red", n, (cf.voluntary || cf.approval) ? `Departure ${esc(l.time)} from ${esc(l.from)} is inside a night restriction: ${esc(cf.v)}. Confirm with the operator.${src(cf)}` : `Departure ${esc(l.time)} from ${esc(l.from)} is inside the night curfew: ${esc(cf.v)}.${src(cf)}`);
         }
         const cu = RA.rules.customs;
         if (A && B && A.cc !== B.cc && cu && cu.h24 === false && cu.hours_local && t !== null && !cu.hours_local.some(w => inWin(t, w))) add(`cus|${n}|dep`, "amber", n, `Departure ${esc(l.time)} is outside customs hours at ${esc(l.from)}: ${esc(cu.v)}.${src(cu)}`);

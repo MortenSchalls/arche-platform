@@ -3,7 +3,7 @@
 Morten, 27 Oct 2026: research 50 airports every morning. Start with all known business-aviation airports (tier 1 in `_queue.json`), then secondary airports (tier 2). The portal's trip checks and the website use these files. Read `CLAUDE.md` first; its rules apply.
 
 ## What a run does
-1. Take the next airports from `_queue.json`: tier 1 in the order listed, then tier 2. Skip any airport that already has a file here. Take up to `perRun` (50).
+1. Take the next airports from `_queue.json`: tier 1 in the order listed, then tier 2. Skip any airport that already has a file here with status `verified`; an airport with status `partial` gets its `missing` fields researched when the queue reaches it (keep what is already verified). Take up to `perRun` (50).
 2. When tier 1 has no airports left and `tier2` is empty, build tier 2 first:
    - 200 secondary business-aviation airports worldwide: resorts, regional hubs and the business-aviation fields near big cities.
    - None in a sanctioned place (`../excluded.json`).
@@ -48,7 +48,8 @@ Morten, 27 Oct 2026: research 50 airports every morning. Start with all known bu
 
 **Structured fields the portal uses:**
 - `runway.longest_m`
-- `curfew.windows_local` (local times), or `curfew.none: true` when the source says there is no curfew
+- `curfew.windows_local` (local times), or `curfew.none: true` when the source says there is no curfew. Add `"voluntary": true` for a voluntary restraint, or `"approval": true` when night movements need approval rather than being banned; the portal then shows amber instead of red.
+- Every rule keeps `quote`: the exact words from the source.
 - `customs.h24`, or `customs.hours_local`
 
 **Status values:**

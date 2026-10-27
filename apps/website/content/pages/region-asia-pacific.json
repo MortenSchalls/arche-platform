@@ -1,0 +1,51 @@
+{
+ "path": "/regions/asia-pacific/",
+ "title": "Private jet charter in Asia-Pacific: airports and rules",
+ "description": "Private flights in Asia-Pacific: approvals, curfews, slots and domestic legs across Singapore, Hong Kong, Tokyo, Bangkok, Phuket and Sydney, from official sources.",
+ "eyebrow": "Region · Asia-Pacific",
+ "h1": "Private flights in Asia-Pacific",
+ "lead": "Archē Executive is based in Singapore, and Asia-Pacific is our home region. Its airports have very different rules for private jets. What to know, and our city and airport guides.",
+ "sections": [
+  {
+   "h": "Approvals before you fly",
+   "p": [
+    "Several airports in the region need approval before a private flight. In Hong Kong, {{vhhh.permit}}. In Phuket, {{vtsp.ppr}}. At Tokyo Narita, {{rjaa.slots}}. The operator applies; we make sure it has the passenger and trip details in good time."
+   ]
+  },
+  {
+   "h": "Curfews and airport limits",
+   "p": [
+    "Night curfews shape many trips. Singapore's business aviation airport, Seletar, has {{wssl.curfew}}. Sydney has {{yssy.curfew}}. Narita has {{rjaa.curfew}}. And some airline hubs limit private flights: Singapore Changi is {{wsss.notable}}."
+   ]
+  },
+  {
+   "h": "Domestic legs",
+   "p": [
+    "Many trips in the region include a domestic leg, such as Bangkok to Phuket. Internationally, {{cab.most}}. We check the operator's permission for every domestic leg before you see a quote. Our cabotage guide explains the rules."
+   ]
+  },
+  {
+   "h": "Our guides for Asia-Pacific",
+   "p": [
+    "Our city guides cover Singapore, Hong Kong, Tokyo, Bangkok, Phuket and Sydney, and our airport guides cover Seletar, Changi, Hong Kong International and Sydney. More follow, each checked against official sources before it is published."
+   ]
+  },
+  {
+   "h": "Any aircraft, any route",
+   "p": [
+    "We are a broker, not an airline, and we have no fixed routes. Tell us where you want to go and when, and we find aircraft from licensed operators, check each operator and name it in your quote before you confirm. Any aircraft, any route, upon availability."
+   ]
+  }
+ ],
+ "related": [
+  "/cities/singapore/",
+  "/cities/hong-kong/",
+  "/cities/tokyo/",
+  "/cities/bangkok/",
+  "/cities/phuket/",
+  "/cities/sydney/",
+  "/airports/singapore-seletar/"
+ ],
+ "draft": true,
+ "type": "region"
+}

@@ -1,0 +1,74 @@
+{
+ "path": "/guides/operator-safety-audits/",
+ "type": "guide",
+ "title": "Private jet operator safety audits: AOC, ARGUS, WYVERN, IS-BAO",
+ "description": "What a private jet operator's certificate and safety audits mean: the AOC, ARGUS ratings, the WYVERN Wingman standard and IS-BAO, from the official sources.",
+ "eyebrow": "Guide · Safety",
+ "h1": "How to read an operator's safety credentials",
+ "lead": "Every charter flight is flown by an operator, not by the broker. This guide explains the licence every operator must hold and the independent audits that go further, based on what the bodies that issue them publish.",
+ "glance": [
+  [
+   "Licence",
+   "audit.aoc_what"
+  ],
+  [
+   "ARGUS Platinum",
+   "audit.argus_platinum_audit"
+  ],
+  [
+   "WYVERN Wingman",
+   "audit.wyvern_cycle"
+  ],
+  [
+   "IS-BAO",
+   "audit.isbao_renewal"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "The licence: the Air Operator Certificate",
+   "p": [
+    "The starting point is the operator's licence. As the Civil Aviation Authority of Singapore explains it, {{audit.aoc_what}}. For a Singapore operator the rule is simple: {{audit.aoc_needed}}. The certificate is not a one-off: {{audit.aoc_oversight}}.",
+    "Other countries work the same way, each through its own authority. The certificate comes with operations specifications that list what the operator may do and with which aircraft, so we check that the aircraft offered for your trip is covered. The US regulator gives private customers the same advice we follow ourselves: {{audit.faa_ask_certificate}}."
+   ]
+  },
+  {
+   "h": "Independent audits: going beyond the licence",
+   "p": [
+    "A licence shows that the authority has approved the operator. Independent audits look at how the operator actually runs its safety management, and they are voluntary. Three are widely used in business aviation.",
+    "ARGUS: {{audit.argus_who}}. It rates operators at several levels. {{audit.argus_gold}}; {{audit.argus_gold_certified}}. At the next level, {{audit.argus_platinum_audit}}, and {{audit.argus_platinum_renewal}}. The top level is Platinum Elite: {{audit.argus_platinum_elite}}, and {{audit.argus_elite_cycle}}.",
+    "WYVERN: {{audit.wyvern_standard}}. {{audit.wyvern_sms}}. {{audit.wyvern_cycle}}, and {{audit.wyvern_onsite}}.",
+    "IS-BAO: {{audit.isbao_what}}. {{audit.isbao_icao}}. Registration has stages: {{audit.isbao_stage1}}, while {{audit.isbao_stage3}}. {{audit.isbao_audit}}, and {{audit.isbao_renewal}}."
+   ]
+  },
+  {
+   "h": "What we check before you see a quote",
+   "p": [
+    "Before we propose an operator we check its certificate and the aircraft listed on it, its insurance, and its audit status with the audit bodies above. Where an operator has no independent audit, we tell you before you decide.",
+    "Audit claims must be accurate. Under US rules, {{audit.us_no_false_audit_claims}}. We hold ourselves to the same standard everywhere: we only state an audit result we have checked with the audit body."
+   ]
+  },
+  {
+   "h": "Questions to ask any broker",
+   "p": [
+    "Who is the operator, and may I see its certificate? Is this aircraft on that certificate? Which independent audit does the operator hold, and when does it expire? A good broker answers all three in writing before you sign."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Is an audited operator safer than one without an audit?",
+   "a": "An audit is an extra, independent check of how the operator manages safety. It does not replace the authority's licence, and no audit is a promise about a single flight. It is one of several things we weigh before proposing an operator."
+  },
+  {
+   "q": "Does Archē Executive operate aircraft?",
+   "a": "No. We are a broker. Every flight is operated by a licensed operator, named in your quote and your charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/guides/empty-legs/",
+  "/guides/charter-price/",
+  "/guides/cabotage/"
+ ],
+ "draft": true
+}

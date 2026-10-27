@@ -1,0 +1,60 @@
+{
+ "icao": "YSSY",
+ "iata": null,
+ "name": "Sydney/Kingsford Smith",
+ "city": "Sydney",
+ "country": "AU",
+ "tz": "Australia/Sydney",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "three runways, each 45 m wide; the longest is 3,962 m",
+   "longest_m": 3962,
+   "src": "au-dap-yssy-ad",
+   "quote": "3962 x 45 GROOVED ... 2438 x 45 GROOVED ... 2530 x 45 GROOVED"
+  },
+  "curfew": {
+   "v": "a curfew from 11 pm to 6 am; only listed quieter aircraft, including approved business jets under 34,000 kg, may operate, taking off to the south and landing to the north over Botany Bay",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "src": "au-curfew-act",
+   "approval": true,
+   "quote": "A curfew period starts at 11 pm on a day and ends at 6 am on the next day."
+  },
+  "slots": {
+   "v": "every flight needs a slot from the airport's slot coordinator",
+   "src": "au-ersa-yssy",
+   "quote": "All flights operating into and out of Sydney must obtain an Airport Coordination Limited (ACL) slot"
+  },
+  "max_aircraft": {
+   "v": "the corporate aviation apron takes aircraft up to 22,000 kg MTOW and 32 m wingspan; larger aircraft must arrange parking with the airport before arrival",
+   "src": "au-ersa-yssy",
+   "quote": "Access to corporate aviation apron restricted to 22,000KG MTOW/32M MAX wing span and BLW. ACFT in excess of this are to contact AD OPR prior to arrival for parking arrangements."
+  },
+  "handling": {
+   "v": "ExecuJet runs the FBO and VIP lounge, open 24 hours",
+   "src": "au-ersa-yssy",
+   "quote": "Execujet: FBO services and VIP Lounge H24. Civil and MIL ACFT. IS-BAH Stage II."
+  },
+  "noise": {
+   "v": "noise abatement procedures and the curfew apply",
+   "src": "au-ersa-yssy",
+   "quote": "Noise Abatement Procedures (NAP) and Curfew applies. Refer AIP DAP."
+  }
+ },
+ "missing": [
+  "iata",
+  "location",
+  "customs",
+  "hours",
+  "ppr",
+  "runway designation of the longest runway"
+ ],
+ "notes": "The ERSA entry is dated 9 Jul 2026, which was the newest edition found. The 3,962 m runway's designator could not be read reliably from the DAP chart text (ERSA lists 07/25, 16L/34R and 16R/34L, all 45 m wide), so the designator is left out. The ERSA states no distance from the city, no customs hours and no general opening hours. The curfew wording comes from Compilation No. 7 of the Curfew Act (16 Dec 2020); the latest compilation (C2024C00497, 14 Oct 2024) could not be read as text, so recheck section 6 against it. The 80-movement cap comes from the Demand Management Act compilation of 14 Jan 2011; the latest version was not checked. Under the DITRDCA page, the curfew shoulder hours are 11 pm to midnight and 5 am to 6 am, with limits on international passenger arrivals between 5 and 6 am. The curfew is legally enforceable, and dispensations are granted only in exceptional circumstances. Sydney observes daylight saving time (AEDT, UTC+11, in summer; ERSA header says UTC +10); the curfew is set in local time. Extra 'curfew_jets', 'curfew_direction' and 'movement_cap' keys were added under facts."
+}

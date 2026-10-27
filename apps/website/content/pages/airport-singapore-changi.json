@@ -1,0 +1,86 @@
+{
+ "path": "/airports/singapore-changi/",
+ "type": "airport",
+ "title": "Singapore Changi (WSSS) and private jets: what the AIP says",
+ "description": "Singapore Changi for private flights: the limit on small non-scheduled aircraft, arrival times, customs and when Seletar is the answer, from the official AIP.",
+ "eyebrow": "Airport guide · Singapore",
+ "h1": "Singapore Changi Airport",
+ "lead": "Changi is a major airline hub, and that shapes how private jets can use it. What the Singapore Aeronautical Information Publication says, and what it means for your trip.",
+ "airport": {
+  "name": "Singapore Changi Airport",
+  "icao": "wsss.icao",
+  "geo": "wsss.geo",
+  "country": "SG",
+  "city": "Singapore"
+ },
+ "glance": [
+  [
+   "ICAO code",
+   "wsss.icao"
+  ],
+  [
+   "Small private aircraft",
+   "wsss.notable"
+  ],
+  [
+   "Larger non-scheduled aircraft",
+   "wsss.nsarrival"
+  ],
+  [
+   "Customs and immigration",
+   "wsss.customs"
+  ],
+  [
+   "Opening hours",
+   "wsss.hours"
+  ],
+  [
+   "Airport operator",
+   "wsss.operator"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "The rule that matters most",
+   "p": [
+    "Changi is {{wsss.operator}}. For private flights one line in its rules decides almost everything: the airport is {{wsss.notable}}. Most business jets have far fewer seats than that, so for most private trips to Singapore the airport is Seletar, not Changi.",
+    "Seletar is Singapore's business aviation airport, with its own business aviation centre and customs and immigration. Our Seletar guide explains its runway, its night curfew and the size of aircraft it takes."
+   ]
+  },
+  {
+   "h": "Larger aircraft",
+   "p": [
+    "Larger aircraft with more seats, such as airliners used for groups, can use Changi as non-scheduled flights, with a timing rule: {{wsss.nsarrival}}. The operator plans the arrival around it."
+   ]
+  },
+  {
+   "h": "Times and border control",
+   "p": [
+    "The airport is {{wsss.hours}}, with {{wsss.customs}}. The operator's handling agent arranges the clearance for passengers and crew."
+   ]
+  },
+  {
+   "h": "Choosing between Changi and Seletar",
+   "p": [
+    "For every Singapore trip we check which airport the aircraft can use at the times you need. A business jet will normally use Seletar, outside Seletar's night curfew. A larger aircraft with more than forty seats may need Changi, outside the evening arrival window. A large aircraft with forty seats or fewer, such as a VIP airliner, can be too big for Seletar and still not allowed at Changi; then we discuss the alternatives with you before anything is booked. When neither fits your timing, we tell you before anything is booked and suggest the nearest schedule that works.",
+    "Everything on this page comes from the Singapore Aeronautical Information Publication. Airport rules can change at short notice. The operator and its handling agent confirm the current rules for your flight before departure."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet land at Changi?",
+   "a": "A small private jet normally cannot: Changi is {{wsss.notable}}. Business jets use Seletar instead."
+  },
+  {
+   "q": "When can a larger private aircraft arrive at Changi?",
+   "a": "Outside the evening peak: {{wsss.nsarrival}}."
+  }
+ ],
+ "related": [
+  "/airports/singapore-seletar/",
+  "/cities/singapore/",
+  "/guides/cabotage/"
+ ],
+ "draft": true
+}

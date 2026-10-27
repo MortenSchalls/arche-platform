@@ -1,0 +1,45 @@
+{
+ "icao": "LFPB",
+ "iata": "LBG",
+ "name": "Paris-Le Bourget Airport",
+ "city": "Paris",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours",
+   "src": "cohor-lbg",
+   "quote": "Opening Times: 24/24H"
+  },
+  "curfew": {
+   "v": "jet take-offs, use of reverse thrust and use of runway 2 by aircraft over 5.7 tonnes are banned between 22:15 and 06:00",
+   "src": "adp-lbg",
+   "windows_local": [
+    [
+     "22:15",
+     "06:00"
+    ]
+   ],
+   "applies_to": "jet take-offs, reverse thrust, runway 2 for aircraft over 5.7 t",
+   "quote": "are prohibited between 22:15 and 6:00"
+  },
+  "slots": {
+   "v": "an IATA Level 1 airport",
+   "src": "cohor-lbg",
+   "quote": "IATA Airport Designation: Level 1"
+  }
+ },
+ "missing": [
+  "geo (AIP ARP)",
+  "operator (Groupe ADP; not named on the readable page)",
+  "runway lengths and longest runway",
+  "customs",
+  "ppr",
+  "max_aircraft",
+  "handling"
+ ],
+ "notes": "French eAIP, Légifrance (arrêté of 15 Feb 2011 on Le Bourget restrictions) and most Paris Aéroport pages (bot protection) could not be opened. The 22:15-06:00 ban is on jet take-offs (not landings), reverse thrust and runway 2 for aircraft over 5.7 t; it is not a full closure. The ADP page's own time base is assumed local; it does not say UTC. COHOR also links an arrêté of 23 June 2023 making Le Bourget coordinated for the 2023 Rugby World Cup; status beyond that event is unclear. COHOR page last modified 9 Jul 2025."
+}

@@ -1,0 +1,48 @@
+{
+ "icao": "LFMN",
+ "iata": "NCE",
+ "name": "Nice Côte d'Azur Airport",
+ "city": "Nice",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours",
+   "src": "cohor-nce",
+   "quote": "Opening Times : 24/24H"
+  },
+  "slots": {
+   "v": "fully coordinated (Level 3): all operations need a slot; business and general aviation slots are requested by the handling agent",
+   "src": "cohor-nce",
+   "quote": "Aircraft operators contact their handling agent who is in charge to request airport slots to COHOR."
+  },
+  "handling": {
+   "v": "business aviation handling limited to three providers: AviaVIP, Signature Aviation and DC Aviation G-OPS",
+   "src": "aca-bizav",
+   "names": [
+    "AviaVIP",
+    "Signature Aviation",
+    "DC Aviation G-OPS"
+   ],
+   "quote": "The number of groundhandlers (FBO) is limited to three service providers."
+  },
+  "noise": {
+   "v": "APU use limited to 30 minutes; engines fully shut down on arrival at the KILO parking area",
+   "src": "aca-bizav",
+   "quote": "APU use is limited to 30 minutes"
+  }
+ },
+ "missing": [
+  "geo (AIP ARP)",
+  "location",
+  "runway (only the northern runway, 2,420 m, is stated in a 2021 news item)",
+  "customs hours",
+  "night restriction times",
+  "ppr",
+  "max_aircraft"
+ ],
+ "notes": "French eAIP (SIA) and Légifrance (arrêté of 2 March 2010 on Nice night restrictions) could not be opened. Operator news item (12 Jan 2021) says the northern runway measures 2,420 m; southern runway length not stated, so longest runway not verified. The 'noise' and 'notable' quotes came back paraphrased by the fetch tool (e.g. 'APU use is limited to 30 minutes'); re-check exact wording. The handler licence text on the page dates from 2014-2022 and may be out of date. COHOR page last modified 2 Oct 2026. Do not name companies on the public site (site rule)."
+}

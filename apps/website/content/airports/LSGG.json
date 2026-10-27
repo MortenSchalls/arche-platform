@@ -1,0 +1,69 @@
+{
+ "icao": "LSGG",
+ "iata": null,
+ "name": "Genève Aéroport",
+ "city": "Geneva",
+ "country": "CH",
+ "tz": "Europe/Zurich",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "open at all times, subject to the night-flight rules",
+   "src": "gva-reglement",
+   "quote": "L’aéroport est ouvert en permanence sous réserve des prescriptions applicables aux vols de nuit."
+  },
+  "curfew": {
+   "v": "any planned commercial take-off or landing between 22:00 and 06:00 needs the airport operator's prior approval",
+   "src": "gva-reglement",
+   "windows_local": [
+    [
+     "22:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "quote": "tout mouvement commercial planifié entre 22 h et 6 h (atterrissage ou décollage) devra avoir été préalablement soumis à l’approbation de l’exploitant"
+  },
+  "noise": {
+   "v": "noise quotas apply to the night period 22:00-05:59; for business and general aviation they cover take-offs after 22:00 by aircraft in noise classes IV and V",
+   "src": "gva-noise-faq",
+   "quote": "The available NOISE QUOTAS are determined globally for the night period (10:00 p.m. – 5:59 a.m. LT)."
+  },
+  "ppr": {
+   "v": "prior permission (PPR) needed for business and general aviation; bookings open 5 days ahead, made through the handling agent",
+   "src": "gva-ppr",
+   "quote": "prior permission (PPR) is required for operations not regulated by Slot Coordination Switzerland."
+  },
+  "slots": {
+   "v": "PPR slot booking opens 5 days before the flight; the PPR number goes in item 18 of the flight plan",
+   "src": "gva-ppr",
+   "quote": "Booking available 5 days in advance"
+  },
+  "handling": {
+   "v": "the airport's private aviation contacts list includes TAG Aviation, Jet Aviation, Global Jet, Sparfell and others; separate partner pages for Signature Flight Support, Swissport Executive Aviation and Dassault Aviation Business Services",
+   "src": "gva-private-contacts",
+   "names": [
+    "TAG Aviation",
+    "SwiftCopters",
+    "Sparfell",
+    "LunaJets SA",
+    "Jet Aviation",
+    "Global Jet",
+    "Albinati Aeronautics SA"
+   ],
+   "quote": "TAG Aviation"
+  }
+ },
+ "missing": [
+  "iata",
+  "geo (AIP ARP)",
+  "location",
+  "runway",
+  "customs",
+  "max_aircraft",
+  "exact OSIA art. 39 curfew hours (federal text could not be opened)"
+ ],
+ "notes": "Swiss eAIP is a paid product on skybriefing.com and was not read; the federal OSIA text on fedlex could not be opened. The 22:00-06:00 window is the period in which planned commercial movements need prior approval (operating regulations, état 8 Jan 2018 / 1 Jan 2025 versions), not a stated total closure; do not call it a curfew. The handler list is the airport's 'private aviation contacts' list and includes brokers (e.g. LunaJets) that are not handlers; the page also has a 'Show more' button so the list may be incomplete. Partner pages also exist for Signature Flight Support, Swissport Executive Aviation Geneva and Dassault Aviation Business Services (not opened). Do not name companies on the public site (site rule)."
+}

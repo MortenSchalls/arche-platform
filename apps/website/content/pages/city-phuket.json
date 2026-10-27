@@ -1,0 +1,75 @@
+{
+ "path": "/cities/phuket/",
+ "title": "Private jet charter to and from Phuket: rules to know",
+ "description": "Private flights to and from Phuket: permission, approved time slots, advance notice, parking for private aircraft and customs, from the Thailand AIP.",
+ "eyebrow": "City guide · Phuket",
+ "h1": "Private flights to and from Phuket",
+ "lead": "Phuket International Airport has clear rules for private jets: permission, an approved time slot and advance notice to the airport. What they mean for your trip.",
+ "glance": [
+  [
+   "Airport",
+   "vtsp.icao"
+  ],
+  [
+   "Location",
+   "vtsp.location"
+  ],
+  [
+   "Permission",
+   "vtsp.ppr"
+  ],
+  [
+   "Time slot",
+   "vtsp.slots"
+  ],
+  [
+   "Customs",
+   "vtsp.customs"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Permission and time slots",
+   "p": [
+    "Phuket's rules for private aircraft are specific: {{vtsp.ppr}}. Timing matters too: {{vtsp.slots}}. The operator plans the schedule to stay within that window."
+   ]
+  },
+  {
+   "h": "The airport",
+   "p": [
+    "The airport is run by {{vtsp.operator}} and lies {{vtsp.location}} of Phuket Town. It is {{vtsp.hours}}, with {{vtsp.customs}}. It has {{vtsp.runway}}.",
+    "Private aircraft have their own parking: {{vtsp.max_aircraft}}. One ground rule: {{vtsp.notable}}."
+   ]
+  },
+  {
+   "h": "Flights from elsewhere in Thailand",
+   "p": [
+    "A flight from Bangkok or another Thai airport to Phuket is a domestic flight. Internationally, {{cab.most}}, so we check that the operator is allowed to fly the leg before you see a quote. Our cabotage guide explains the rule."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Phuket",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We check the airport rules for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How much notice does Phuket need for a private jet?",
+   "a": "The rule is that {{vtsp.ppr}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/cities/bangkok/",
+  "/regions/asia-pacific/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "city"
+}

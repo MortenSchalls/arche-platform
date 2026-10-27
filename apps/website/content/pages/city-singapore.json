@@ -1,0 +1,75 @@
+{
+ "path": "/cities/singapore/",
+ "title": "Private jet charter to and from Singapore: Seletar and Changi",
+ "description": "Private flights to and from Singapore: why business jets use Seletar, when Changi applies, curfews, arrival windows and customs, from the official Singapore AIP.",
+ "eyebrow": "City guide · Singapore",
+ "h1": "Private flights to and from Singapore",
+ "lead": "Singapore has two airports for private flights, and the aircraft decides between them. What the official rules say.",
+ "glance": [
+  [
+   "Seletar",
+   "wssl.runway"
+  ],
+  [
+   "Seletar night curfew",
+   "wssl.curfew"
+  ],
+  [
+   "Changi and small aircraft",
+   "wsss.notable"
+  ],
+  [
+   "Customs",
+   "wssl.ciq"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Seletar: the airport for business jets",
+   "p": [
+    "Most private jets use Seletar, {{wssl.location}}. There, {{wssl.bac}}, which are {{wssl.ciq}}. The airport has {{wssl.runway}}, and {{wssl.maxstand}}.",
+    "Seletar closes at night: {{wssl.curfew}}. A late arrival or an early departure has to be planned around it. Our Seletar guide has the details."
+   ]
+  },
+  {
+   "h": "Changi: for larger aircraft",
+   "p": [
+    "Changi is {{wsss.notable}}. Larger aircraft with more seats, such as airliners used for groups, can use it, with one timing rule: {{wsss.nsarrival}}. Changi has {{wsss.customs}}. Our Changi guide explains more."
+   ]
+  },
+  {
+   "h": "Archē Executive in Singapore",
+   "p": [
+    "Archē Executive is a Singapore company. For every Singapore trip we check which airport your aircraft can use at your times, and if neither fits, we propose the nearest schedule that works before anything is booked."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Singapore",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We compare the airports around Singapore for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet land at Changi?",
+   "a": "Changi is {{wsss.notable}}. Business jets use Seletar."
+  },
+  {
+   "q": "Can a private jet land at Seletar at night?",
+   "a": "No: {{wssl.curfew}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/airports/singapore-seletar/",
+  "/airports/singapore-changi/",
+  "/regions/asia-pacific/"
+ ],
+ "draft": true,
+ "type": "city"
+}

@@ -1,0 +1,61 @@
+{
+ "icao": "EGGW",
+ "iata": "LTN",
+ "name": "London Luton Airport",
+ "city": "London",
+ "country": "GB",
+ "tz": "Europe/London",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 2.16 km long",
+   "src": "lla-runway-2026",
+   "longest_m": 2160,
+   "quote": "Work on the 2.16km runway commenced each night at 00:01 and completed by 05:45"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "lla-noise-faq",
+   "quote": "LLA holds a 24 hour licence to operate and there is no ban on night flights."
+  },
+  "curfew": {
+   "v": "no ban on night flights, but older-generation jets are not allowed at night and night noise limits and a quota count system apply",
+   "src": "lla-noise-faq",
+   "none": true,
+   "none_quote": "LLA holds a 24 hour licence to operate and there is no ban on night flights.",
+   "quote": "we prohibit the operation of older generation jets at night."
+  },
+  "noise": {
+   "v": "night flights are controlled through lower noise violation limits, movement limits and a quota count system",
+   "src": "lla-night-noise",
+   "quote": "Each specific aircraft type is assigned Quota points based on how noisy it is."
+  },
+  "slots": {
+   "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator",
+   "src": "acl-faqs",
+   "context": "Listed by ACL among UK Level 3 (coordinated) airports; ACL Luton page: 'London Luton Airport was formally declared as Level 3 effective Summer 2013.'",
+   "quote": "London Luton (LTN)"
+  },
+  "handling": {
+   "v": "business aviation handled by Signature Flight Support (two sites) and Harrods Aviation",
+   "src": "lla-bizav",
+   "names": [
+    "Signature Flight Support",
+    "Harrods Aviation"
+   ],
+   "quote": "Harrods Aviation is the leading London-based business aviation service provider."
+  }
+ },
+ "missing": [
+  "geo (AIP ARP)",
+  "location",
+  "runway designation and width",
+  "customs",
+  "ppr",
+  "max_aircraft",
+  "night-period times (night quota hours)"
+ ],
+ "notes": "UK AIP could not be read. 'none': true for curfew means only that the operator states there is no ban on night flights; night restrictions (older jets banned, quota count, 79 dB(A) night noise limit) still apply, so do not write 'no restrictions'. The night period hours were not found on a readable page. ACL pages do not say explicitly that business aviation needs slots, only that Luton is Level 3. Handling company names: the website rule says the site names no companies except authorities, airport operators and cited sources, so these are for internal use."
+}

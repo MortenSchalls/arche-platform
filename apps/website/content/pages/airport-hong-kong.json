@@ -1,0 +1,94 @@
+{
+ "path": "/airports/hong-kong-international/",
+ "type": "airport",
+ "title": "Hong Kong International Airport (VHHH) for private jets",
+ "description": "Hong Kong International Airport for private flights: the Civil Aviation Department permit, customs, runways and night rules, from official Hong Kong sources.",
+ "eyebrow": "Airport guide · Hong Kong",
+ "h1": "Hong Kong International Airport",
+ "lead": "What a private charter flight to Hong Kong International Airport involves, checked against the Hong Kong Aeronautical Information Publication and the Civil Aviation Department.",
+ "airport": {
+  "name": "Hong Kong International Airport",
+  "icao": "vhhh.icao",
+  "geo": "vhhh.geo",
+  "country": "HK",
+  "city": "Hong Kong"
+ },
+ "glance": [
+  [
+   "ICAO code",
+   "vhhh.icao"
+  ],
+  [
+   "Location",
+   "vhhh.location"
+  ],
+  [
+   "Runways",
+   "vhhh.runway"
+  ],
+  [
+   "Customs and immigration",
+   "vhhh.customs"
+  ],
+  [
+   "Opening hours",
+   "vhhh.hours"
+  ],
+  [
+   "Charter permit",
+   "vhhh.permit"
+  ],
+  [
+   "Night rules",
+   "vhhh.noise"
+  ],
+  [
+   "Airport operator",
+   "vhhh.operator"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Permission comes first",
+   "p": [
+    "The most important rule for a charter flight to Hong Kong is the permit: {{vhhh.permit}}. The operator applies for it, so the trip has to be planned early enough for the permit to come through. We make sure the operator has every passenger and trip detail it needs for the application in good time.",
+    "The airport is {{vhhh.operator}} and lies {{vhhh.location}}. According to the AIP, flights for hire or reward are handled at the business aviation centre, which has its own apron, rather than at the airline terminals."
+   ]
+  },
+  {
+   "h": "Times and night rules",
+   "p": [
+    "The airport is {{vhhh.hours}}, with {{vhhh.customs}}. The published rules we checked set night noise measures rather than a curfew: {{vhhh.noise}}. Those measures decide which runway and approach the crew is given at night; they do not stop the flight."
+   ]
+  },
+  {
+   "h": "Which aircraft can use it",
+   "p": [
+    "Hong Kong has {{vhhh.runway}}, so runway length is not what limits a business jet here. The operator checks the permit and parking for your dates before you receive a quote.",
+    "One more point from the rules: {{vhhh.notable}}. Every private flight we arrange is a charter for a specific trip."
+   ]
+  },
+  {
+   "h": "How current this is",
+   "p": [
+    "This page uses the Hong Kong Aeronautical Information Publication and the Civil Aviation Department's charter rules. Airport rules can change at short notice. The operator and its handling agent confirm the current rules for your flight before departure."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Do I need permission to fly a private jet into Hong Kong?",
+   "a": "Yes. For a charter flight, {{vhhh.permit}}. The operator applies; we make sure it has what it needs."
+  },
+  {
+   "q": "Can a private jet land in Hong Kong at night?",
+   "a": "The published rules we checked set night noise measures rather than a curfew: {{vhhh.noise}}."
+  }
+ ],
+ "related": [
+  "/cities/hong-kong/",
+  "/guides/operator-safety-audits/",
+  "/guides/charter-price/"
+ ],
+ "draft": true
+}

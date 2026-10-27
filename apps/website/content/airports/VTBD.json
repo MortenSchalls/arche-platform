@@ -1,0 +1,44 @@
+{
+ "icao": "VTBD",
+ "iata": null,
+ "name": "Bangkok/ Don Mueang International Airport",
+ "city": "Bangkok",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest, 03L/21R, is 3,700 m long and 60 m wide",
+   "longest_m": 3700,
+   "src": "th-aip-vtbd",
+   "quote": "03L: 3700 x 60 m; 21R: 3700 x 60 m; 03R: 3500 x 45 m"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "th-aip-vtbd",
+   "quote": "Customs and immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "th-aip-vtbd",
+   "quote": "Aerodrome Operator: H24"
+  },
+  "handling": {
+   "v": "MJETS Limited is listed as handling agent for private aircraft only, alongside AOT Ground Aviation Services (AOTGA)",
+   "src": "th-aip-vtbd",
+   "quote": "MJETS LIMITED ... Private Aircraft only; AOT GROUND AVIATION SERVICES CO., LTD. (AOTGA)"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise"
+ ],
+ "notes": "Read from the eAIP edition effective 14 May 2026; the reading covered AD 2.1 to AD 2.18 and no slot, PPR, noise or night-restriction text was found there; AD 2.20 and later were not read. Newer AIRAC editions (6 Aug 2026, 3 Sep 2026) could not be opened. The AIP also mentions a 'GA Aviation Channel (Private aircraft) and AOTGA Premium Lounge' contact. IATA code is not given in the AIP."
+}

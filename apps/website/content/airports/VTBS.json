@@ -1,0 +1,45 @@
+{
+ "icao": "VTBS",
+ "iata": null,
+ "name": "Bangkok/ Suvarnabhumi International Airport",
+ "city": "Bangkok",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "three runways; the two longest, 01/19 and 02L/20R, are each 4,000 m long and 60 m wide",
+   "longest_m": 4000,
+   "src": "th-aip-vtbs",
+   "quote": "01 | 014.42° | 4000 x 60 ... 02L | 014.00° | 4000 x 60"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "th-aip-vtbs",
+   "quote": "Customs and immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "th-aip-vtbs",
+   "quote": "Aerodrome operator: H24"
+  },
+  "handling": {
+   "v": "ground handling by WFS Bangkok Air Ground Handling (BFS Ground) and Thai Airways International; no business aviation terminal is named in the AIP",
+   "src": "th-aip-vtbs",
+   "quote": "Worldwide Flight Services Bangkok Air Ground Handling Co., Ltd. (BFS Ground); Thai Airways International Public Co.Ltd. (TG)"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "notable"
+ ],
+ "notes": "The eAIP HTML page for VTBS (AIRAC 14 May 2026) ends at AD 2.19; AD 2.20 Local aerodrome regulations and AD 2.21 Noise abatement are not on that page, so slots, PPR, GA parking and night rules could not be verified. Newer AIRAC editions exist (AMDT 08/26 effective 6 Aug 2026; AMDT 09/26 effective 3 Sep 2026) but their AD 2 pages could not be opened; recheck before publishing. The AIP lists no business aviation terminal or FBO at VTBS. IATA code is not given in the AIP."
+}

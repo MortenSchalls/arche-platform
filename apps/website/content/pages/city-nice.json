@@ -1,0 +1,72 @@
+{
+ "path": "/cities/nice/",
+ "title": "Private jet charter to Nice and Cannes: airports and rules",
+ "description": "Private flights to Nice and the Riviera: Nice Côte d'Azur and Cannes-Mandelieu compared on hours, slots, aircraft size and noise rules, from official sources.",
+ "eyebrow": "City guide · Nice and the Riviera",
+ "h1": "Private flights to Nice and Cannes",
+ "lead": "Two airports serve private flights on this part of the Riviera, both run by the same airport company: Nice Côte d'Azur, and Cannes-Mandelieu for smaller jets close to Cannes.",
+ "glance": [
+  [
+   "Nice",
+   "lfmn.hours"
+  ],
+  [
+   "Nice slots",
+   "lfmn.slots"
+  ],
+  [
+   "Cannes size limit",
+   "lfmd.max_aircraft"
+  ],
+  [
+   "Cannes at night",
+   "lfmd.curfew"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Nice Côte d'Azur",
+   "p": [
+    "Both airports are run by {{lfmd.operator}}. Nice is {{lfmn.hours}}. It is a busy airline airport too: {{lfmn.slots}}. For private passengers, {{lfmn.customs}}.",
+    "Two rules for the aircraft on the ground: {{lfmn.noise}}, and {{lfmn.notable}}. The operator plans the turnaround with these in mind."
+   ]
+  },
+  {
+   "h": "Cannes-Mandelieu",
+   "p": [
+    "Cannes-Mandelieu is the airport closest to Cannes, with limits that decide which aircraft can use it. Size: {{lfmd.max_aircraft}}. Hours: {{lfmd.curfew}}; the exact closing time changes with the season, and the operator confirms it for your date.",
+    "Noise rules are strict: {{lfmd.noise}}. And traffic is limited: {{lfmd.notable}}. Slots are needed too: {{lfmd.slots}}. When an aircraft or a time does not fit Cannes, the trip uses Nice."
+   ]
+  },
+  {
+   "h": "Choosing the airport",
+   "p": [
+    "For a small or midsize jet arriving in the daytime, Cannes-Mandelieu can save time on the road. For larger aircraft, late arrivals or busy event weeks, Nice is usually the airport, subject to its own rules for noisier aircraft at night. We check both for your aircraft and times."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Nice and Cannes",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We compare the airports around Nice and Cannes for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a large private jet land at Cannes?",
+   "a": "Only within its limits: {{lfmd.max_aircraft}}. Larger aircraft use Nice."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/regions/europe/",
+  "/cities/paris/",
+  "/guides/charter-price/"
+ ],
+ "draft": true,
+ "type": "city"
+}

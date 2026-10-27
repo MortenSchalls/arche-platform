@@ -1,0 +1,77 @@
+{
+ "path": "/cities/new-york/",
+ "title": "Private jet charter to and from New York: Teterboro, White Plains",
+ "description": "Private flights to and from New York: Teterboro and Westchester County compared on weight limits, noise rules, night restrictions and customs, from official sources.",
+ "eyebrow": "City guide · New York",
+ "h1": "Private flights to and from New York",
+ "lead": "New York's private flights use airports outside Manhattan, each with its own rules. How Teterboro and Westchester County (White Plains) compare.",
+ "glance": [
+  [
+   "Teterboro weight limit",
+   "kteb.max_aircraft"
+  ],
+  [
+   "Teterboro customs",
+   "kteb.cbp_hours"
+  ],
+  [
+   "Westchester location",
+   "khpn.location"
+  ],
+  [
+   "Westchester night",
+   "khpn.curfew"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Teterboro",
+   "p": [
+    "Teterboro, in New Jersey, has a firm weight rule: {{kteb.max_aircraft}}. Jets also need the airport's permission: {{kteb.ppr}}. US customs is on site, open {{kteb.cbp_hours}}. At night there is {{kteb.curfew}}. Our Teterboro guide has the details."
+   ]
+  },
+  {
+   "h": "Westchester County (White Plains)",
+   "p": [
+    "Westchester County Airport is {{khpn.location}}. At night there is {{khpn.curfew}}. The county runs {{khpn.noise}}.",
+    "US customs is available here too, and the same customs rule applies as at Teterboro: {{khpn.notable}}."
+   ]
+  },
+  {
+   "h": "Choosing the airport",
+   "p": [
+    "Teterboro suits most business jets heading to Manhattan, within its weight limit. For trips to the northern suburbs, Westchester County can be closer. We check the aircraft weight, the customs times and the night rules for your flight before you see a quote."
+   ]
+  },
+  {
+   "h": "Flights within the United States",
+   "p": [
+    "Flights between two US cities have their own rule: {{cab.us}}. Our cabotage guide explains it."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from New York",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We compare the airports around New York for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Is there a curfew at New York's private jet airports?",
+   "a": "Not a mandatory one at these two: Teterboro has {{kteb.curfew}}, and Westchester County has {{khpn.curfew}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/airports/teterboro/",
+  "/regions/north-america/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "city"
+}

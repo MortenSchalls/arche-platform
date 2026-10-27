@@ -1,0 +1,45 @@
+{
+ "icao": "VTBU",
+ "iata": null,
+ "name": "Rayong/ U-Tapao Rayong Pattaya International Airport",
+ "city": "Rayong",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 18/36, 3,505 m long and 60 m wide",
+   "longest_m": 3505,
+   "src": "th-aip-vtbu",
+   "quote": "Runway 18 ... 3505 m x 60 m; Runway 36 ... 3505 m x 60 m"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "th-aip-vtbu",
+   "quote": "Customs and immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "th-aip-vtbu",
+   "quote": "Aerodrome Operator: H24"
+  },
+  "noise": {
+   "v": "no noise abatement procedures listed",
+   "src": "th-aip-vtbu",
+   "quote": "Noise abatement (AD 2.21): NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "notable"
+ ],
+ "notes": "The newest VTBU AD 2 page that could be opened is the AIRAC edition effective 17 Apr 2025; 2026 editions were not found or could not be opened, so recheck before publishing. The AIP names no handling agent or business aviation terminal and says nothing on GA, slots or PPR. There is a local flying restriction near the gas separation plant (2,000 ft), not a night rule. No official U-Tapao airport or Royal Thai Navy page could be found; the search turned up only broker and directory sites. IATA code is not given in the AIP."
+}

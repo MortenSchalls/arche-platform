@@ -1,0 +1,85 @@
+{
+ "icao": "EGKB",
+ "iata": null,
+ "name": "London Biggin Hill Airport",
+ "city": "London",
+ "country": "GB",
+ "tz": "Europe/London",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "runway 03/21, 1,806 m long and 45 m wide",
+   "src": "bqh-specs",
+   "longest_m": 1806,
+   "quote": "21/03 ... 1,806m x 45m"
+  },
+  "hours": {
+   "v": "open 06:30 to 23:00 on weekdays and 08:00 to 22:00 at weekends and on public holidays",
+   "src": "bqh-specs",
+   "hours_local": {
+    "weekday": [
+     [
+      "06:30",
+      "23:00"
+     ]
+    ],
+    "weekend_public_holiday": [
+     [
+      "08:00",
+      "22:00"
+     ]
+    ]
+   },
+   "quote": "0630 – 2300hrs (local time) ... 0800 – 2200hrs (local time)"
+  },
+  "curfew": {
+   "v": "closed outside 06:30-23:00 on weekdays and 08:00-22:00 at weekends and on public holidays",
+   "src": "bromley-bqh",
+   "windows_local": [
+    [
+     "23:00",
+     "06:30"
+    ]
+   ],
+   "windows_local_weekend": [
+    [
+     "22:00",
+     "08:00"
+    ]
+   ],
+   "quote": "Monday - Friday 06:30 - 23:00 ... Saturday, Sunday and public holidays 08:00 - 22:00"
+  },
+  "slots": {
+   "v": "no runway slots required",
+   "src": "bqh-ops",
+   "quote": "no runway slots required"
+  },
+  "ppr": {
+   "v": "all movements without a flight plan must be pre-notified to air traffic control",
+   "src": "bqh-ga",
+   "quote": "introducing a requirement for all non-flight planned aircraft movements to be pre-notified to Air Traffic Control"
+  },
+  "handling": {
+   "v": "two full-service FBOs; the airport names Biggin Hill Exec",
+   "src": "bqh-ops",
+   "names": [
+    "Biggin Hill Exec"
+   ],
+   "quote": "London Biggin Hill has two full service FBOs catering to every want and need for the business aviation user."
+  },
+  "max_aircraft": {
+   "v": "pavement strength PCN 45/F/C/X/U; fire cover category 6 (no weight limit stated)",
+   "src": "bqh-specs",
+   "quote": "PCN 45/F/C/X/U"
+  }
+ },
+ "missing": [
+  "iata (not stated on a readable official page)",
+  "customs hours",
+  "ppr lead time",
+  "noise rules detail"
+ ],
+ "notes": "UK AIP could not be read. Coordinates are from the operator's page, not the AIP ARP; replace with the AIP value when available. Operator specs page last modified 23 Apr 2024; Bromley Council page last modified 27 Mar 2024. Operator page says 'no runway slots required'. Do not name the FBO on the public site (site rule)."
+}

@@ -1,0 +1,48 @@
+{
+ "path": "/regions/north-america/",
+ "title": "Private jet charter in North America: rules to know",
+ "description": "Private flights in North America: the US rule on domestic flights, broker disclosure, US excise tax and New York's business aviation airports, from official sources.",
+ "eyebrow": "Region · North America",
+ "h1": "Private flights in North America",
+ "lead": "The United States has clear federal rules for charter. What they mean for your trip, and our guides to New York.",
+ "sections": [
+  {
+   "h": "Domestic flights in the United States",
+   "p": [
+    "Flights between two US airports have their own rule: {{cab.us}} ({{cab.us.ref}}). In practice, domestic legs are flown by US operators. We check the operator for every leg before you see a quote."
+   ]
+  },
+  {
+   "h": "What a broker must tell you",
+   "p": [
+    "US rules for charter brokers are written down: {{empty.ads_say_broker}}. {{empty.disclose_before_contract}}, and {{empty.disclose_operator}}. We follow the same standard everywhere we work."
+   ]
+  },
+  {
+   "h": "Taxes",
+   "p": [
+    "Charter flights in the United States carry federal tax: {{price.us_fet_irs}}. {{price.us_international}}. Your quote states which taxes are included."
+   ]
+  },
+  {
+   "h": "New York",
+   "p": [
+    "New York's private flights use airports outside Manhattan. At Teterboro, {{kteb.max_aircraft}}. Westchester County is {{khpn.location}}. Our New York guide compares them."
+   ]
+  },
+  {
+   "h": "Any aircraft, any route",
+   "p": [
+    "We are a broker, not an airline, and we have no fixed routes. Tell us where you want to go and when, and we find aircraft from licensed operators, check each operator and name it in your quote before you confirm. Any aircraft, any route, upon availability."
+   ]
+  }
+ ],
+ "related": [
+  "/cities/new-york/",
+  "/airports/teterboro/",
+  "/guides/cabotage/",
+  "/guides/charter-price/"
+ ],
+ "draft": true,
+ "type": "region"
+}

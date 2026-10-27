@@ -1,0 +1,71 @@
+{
+ "path": "/cities/paris/",
+ "title": "Private jet charter to and from Paris: Le Bourget",
+ "description": "Private flights to and from Paris through Le Bourget: where it is, opening hours, the night restriction on jet departures and slot status, from official sources.",
+ "eyebrow": "City guide · Paris",
+ "h1": "Private flights to and from Paris",
+ "lead": "Paris–Le Bourget is the city's business aviation airport, close to the centre. What a private flight through it involves, from the airport operator and the French slot coordinator.",
+ "glance": [
+  [
+   "Airport",
+   "lfpb.icao"
+  ],
+  [
+   "Location",
+   "lfpb.location"
+  ],
+  [
+   "Opening",
+   "lfpb.hours"
+  ],
+  [
+   "Night",
+   "lfpb.curfew"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Le Bourget",
+   "p": [
+    "Le Bourget lies {{lfpb.location}}. It is {{lfpb.hours}}.",
+    "The French slot coordinator classes Le Bourget as {{lfpb.slots}}, the level with no general slot coordination."
+   ]
+  },
+  {
+   "h": "The night rule",
+   "p": [
+    "Le Bourget has a night rule that matters for departures: {{lfpb.curfew}}. An arrival late in the evening is therefore easier to plan than a late jet departure. If you want to leave Paris late at night, we look at the times and the alternatives with you before anything is booked."
+   ]
+  },
+  {
+   "h": "Planning around events",
+   "p": [
+    "When many private flights arrive for the same event, parking can become the limit at any airport. When you know your dates, tell us early: the operator can then arrange parking, or a plan for the aircraft to reposition while you are in the city."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Paris",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We check the airport rules for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet leave Le Bourget at night?",
+   "a": "Not between these hours: {{lfpb.curfew}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/regions/europe/",
+  "/cities/nice/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "city"
+}

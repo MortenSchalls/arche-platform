@@ -147,10 +147,12 @@ def fact_html(F, S, key, refs):
 def cap(s): return s[:1].upper() + s[1:]
 
 def fill(t, F, S, refs, plain=False):
-    if plain: return TOKEN.sub(lambda m: str(F[m.group(1)]["v"]), t)
+    if plain: return TOKEN.sub(lambda m: (cap if re.search(r"(^|[.?!]\s+)$", t[:m.start()]) else str)(str(F[m.group(1)]["v"])), t)
     out, last = [], 0
     for m in TOKEN.finditer(t):
-        out.append(html.escape(t[last:m.start()])); out.append(fact_html(F, S, m.group(1), refs)); last = m.end()
+        before = t[last:m.start()]; out.append(html.escape(before)); fh = fact_html(F, S, m.group(1), refs)
+        if re.search(r"(^|[.?!]\s+)$", t[:m.start()]): fh = cap(fh)   # a fact that starts a sentence gets a capital
+        out.append(fh); last = m.end()
     out.append(html.escape(t[last:]))
     return "".join(out).replace("&amp;#", "&#")
 
@@ -174,14 +176,14 @@ def page_html(p, F, S, P):
     checked = max(S[k]["checked"] for k in refs)
     # structured data
     url = BASE + p["path"]
-    section = {"airport": ("Airports", "/airports/"), "guide": ("Guides", "/guides/"), "city": ("Cities", "/cities/")}.get(p["type"], ("Guides", "/guides/"))
+    section = {"airport": ("Airports", "/airports/"), "guide": ("Guides", "/guides/"), "city": ("Cities", "/cities/"), "region": ("Regions", "/regions/")}.get(p["type"], ("Guides", "/guides/"))
     ld = [{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Archē Executive", "item": BASE + "/"},
         {"@type": "ListItem", "position": 2, "name": section[0], "item": BASE + section[1]},
         {"@type": "ListItem", "position": 3, "name": p["h1"], "item": url}]}]
     if p.get("faq"):
         ld.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q["q"], "acceptedAnswer": {"@type": "Answer", "text": fill(q["a"], F, S, [], plain=True)}} for q in p["faq"]]})
-    if p["type"] == "airport" and p.get("airport"):
+    if p["type"] == "airport" and p.get("airport") and p["airport"].get("geo") in F:
         a = p["airport"]; g = F[a["geo"]]["v"]
         ld.append({"@context": "https://schema.org", "@type": "Airport", "name": a["name"], "icaoCode": F[a["icao"]]["v"], "geo": {"@type": "GeoCoordinates", "latitude": g[0], "longitude": g[1]}, "address": {"@type": "PostalAddress", "addressLocality": a["city"], "addressCountry": a["country"]}})
     ld.append({"@context": "https://schema.org", "@type": "WebPage", "url": url, "name": p["title"], "description": p["description"], "dateModified": checked, "publisher": {"@id": BASE + "/#org"}, "inLanguage": "en"})

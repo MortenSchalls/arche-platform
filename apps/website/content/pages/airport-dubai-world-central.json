@@ -1,0 +1,86 @@
+{
+ "path": "/airports/dubai-world-central/",
+ "type": "airport",
+ "title": "Dubai World Central – Al Maktoum (OMDW) for private jets",
+ "description": "Al Maktoum International, Dubai World Central, for private flights: slots and permission, the runway, noise rules and how it compares with Dubai International.",
+ "eyebrow": "Airport guide · Dubai",
+ "h1": "Dubai World Central – Al Maktoum International",
+ "lead": "Dubai has two international airports. This guide covers Al Maktoum International at Dubai World Central, where several handling agents serve private aviation, from the official sources.",
+ "airport": {
+  "name": "Al Maktoum International Airport (Dubai World Central)",
+  "icao": "omdw.icao",
+  "geo": "omdw.geo",
+  "country": "AE",
+  "city": "Dubai"
+ },
+ "glance": [
+  [
+   "ICAO code",
+   "omdw.icao"
+  ],
+  [
+   "IATA code",
+   "omdw.iata"
+  ],
+  [
+   "Runway",
+   "omdw.runway"
+  ],
+  [
+   "Slot and permission",
+   "omdw.slots"
+  ],
+  [
+   "Largest aircraft",
+   "omdw.max_aircraft"
+  ],
+  [
+   "Airport operator",
+   "omdw.operator"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Slots and permission",
+   "p": [
+    "Every private flight here is planned in advance: {{omdw.slots}}. The operator arranges this through its handling agent. There is an extra lead time for the biggest aircraft: {{omdw.max_aircraft}}.",
+    "The airport is run by {{omdw.operator}}, which also runs Dubai International. Several handling agents serve private aviation at Dubai World Central; the operator of your flight appoints one."
+   ]
+  },
+  {
+   "h": "Runway and terminal",
+   "p": [
+    "The airport has {{omdw.runway}}. {{omdw.notable}}."
+   ]
+  },
+  {
+   "h": "Noise rules",
+   "p": [
+    "Dubai World Central applies noise rules to every aircraft: {{omdw.noise}}. We confirm that the aircraft meets these rules before you receive a quote."
+   ]
+  },
+  {
+   "h": "Dubai World Central or Dubai International",
+   "p": [
+    "Dubai International is {{omdb.slots}}. It is {{omdb.location}}. Dubai International's rules also say that {{omdb.notable_diversion}}. For each trip we compare both airports for your times and your aircraft, and tell you which one we recommend and why.",
+    "This page uses the official UAE Aeronautical Information Publication and Dubai Airports' conditions of use for general aviation, which are published in seasonal editions. Airport rules can change at short notice. The operator and its handling agent confirm the current rules for your flight before departure."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Do private flights to Dubai need a slot?",
+   "a": "Yes. At Dubai World Central, {{omdw.slots}}."
+  },
+  {
+   "q": "Which Dubai airport is closer to the city?",
+   "a": "Dubai International, which is {{omdb.location}}. We compare both airports for each trip."
+  }
+ ],
+ "related": [
+  "/cities/dubai/",
+  "/guides/operator-safety-audits/",
+  "/guides/charter-price/"
+ ],
+ "draft": true
+}

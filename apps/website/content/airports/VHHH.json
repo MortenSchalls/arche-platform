@@ -1,0 +1,59 @@
+{
+ "icao": "VHHH",
+ "iata": null,
+ "name": "Hong Kong International Airport",
+ "city": "Hong Kong",
+ "country": "HK",
+ "tz": "Asia/Hong_Kong",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "three parallel runways (07L/25R, 07C/25C, 07R/25L), each 3,800 m long and 60 m wide",
+   "longest_m": 3800,
+   "src": "hk-aip-vhhh",
+   "quote": "RWY 07L/25R 3800 x 60; RWY 07C/25C 3800 x 60; RWY 07R/25L 3800 x 60"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "hk-aip-vhhh",
+   "quote": "Customs and immigration H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "hk-aip-vhhh",
+   "quote": "AD Administration H24"
+  },
+  "ppr": {
+   "v": "all non-commercial flights need prior approval from the Director-General of Civil Aviation, and final approval from the Aerodrome Control Supervisor on the day of flight",
+   "src": "hk-aip-vhhh",
+   "quote": "All non-commercial fixed wing aircraft and helicopter flights at HKIA must have prior approval from the Director-General of Civil Aviation."
+  },
+  "handling": {
+   "v": "flights for hire or reward are handled by the Hong Kong Business Aviation Centre, with parking on its own apron",
+   "src": "hk-aip-vhhh",
+   "quote": "Flights operated for Hire or Reward handled by Hong Kong Business Aviation Centre"
+  },
+  "noise": {
+   "v": "night noise-mitigation measures every day from 23:00 to 07:00 local time (preferred runway and approach use, not a ban)",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "src": "hk-aip-vhhh",
+   "quote": "implemented daily between 1500 and 2300 UTC"
+  }
+ },
+ "missing": [
+  "iata (AIP AD 2 page does not state it)",
+  "curfew (the AIP states no curfew, and does not state that there is none)",
+  "slots",
+  "max_aircraft",
+  "lead time for the CAD prior approval"
+ ],
+ "notes": "Noise window converted from UTC (1500-2300 UTC) to Hong Kong time (UTC+8); Hong Kong has no daylight saving time. The AIP page read is the 4 Sep 2025 amendment inside the eaip_20250710 package; newer packages (e.g. eaip_20260806) exist on ais.gov.hk but their AD 2 VHHH text page could not be opened from here, so re-check before publishing. The airport authority's 2021 press release confirms HKBAC operates the business aircraft facilities at HKIA (source hk-aahk-hkbac). AD 2.20 stand list for the HKBAC apron is printed with a typo in the AIP (\"StandStands X1X2, X456 and Stand X458\"), so stand numbers are not used."
+}

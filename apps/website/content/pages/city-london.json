@@ -1,0 +1,72 @@
+{
+ "path": "/cities/london/",
+ "title": "Private jet charter to and from London: airports and rules",
+ "description": "Private flights to and from London: Farnborough, Biggin Hill and Luton compared on opening hours, night rules, slots and runways, with official sources.",
+ "eyebrow": "City guide · London",
+ "h1": "Private flights to and from London",
+ "lead": "London has several airports used by private jets, and they differ most in their opening hours. How the main ones compare, from the airports' own published rules.",
+ "glance": [
+  [
+   "Farnborough",
+   "eglf.hours"
+  ],
+  [
+   "Biggin Hill",
+   "egkb.hours"
+  ],
+  [
+   "Luton",
+   "eggw.hours"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Farnborough",
+   "p": [
+    "Farnborough, south-west of London, describes itself as {{eglf.self}}. It is {{eglf.hours}}, and the planning rules are strict: {{eglf.curfew}}. It has {{eglf.runway}}. Our Farnborough guide has the details."
+   ]
+  },
+  {
+   "h": "Biggin Hill",
+   "p": [
+    "Biggin Hill lies {{egkb.location}}. It is {{egkb.hours}}, and it has {{egkb.runway}}. A practical advantage: {{egkb.slots}}. The rule on flight notification: {{egkb.ppr}}."
+   ]
+  },
+  {
+   "h": "Luton",
+   "p": [
+    "Luton is {{eggw.hours}} and has {{eggw.runway}}. It is a busy airline airport as well: {{eggw.slots}}. At night there is {{eggw.curfew}}. Of the three, it is the one open around the clock."
+   ]
+  },
+  {
+   "h": "Choosing the airport",
+   "p": [
+    "The right airport depends on the time of day, the size of the aircraft and where in London you are going. A morning departure from the south-east may suit Biggin Hill; a late-night arrival points to Luton. We check the hours, slots and runway for your aircraft at each airport before you see a quote."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from London",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We compare the airports around London for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Which London airport is open at night?",
+   "a": "Of the three on this page, Luton: it is {{eggw.hours}}, with night noise rules. Farnborough and Biggin Hill close at night."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/airports/farnborough/",
+  "/regions/europe/",
+  "/guides/charter-price/"
+ ],
+ "draft": true,
+ "type": "city"
+}

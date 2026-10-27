@@ -1,0 +1,76 @@
+{
+ "path": "/cities/bangkok/",
+ "title": "Private jet charter to and from Bangkok: three airports",
+ "description": "Private flights to and from Bangkok: Don Mueang, Suvarnabhumi and U-Tapao compared on location, runways, customs and opening hours, from the Thailand AIP.",
+ "eyebrow": "City guide · Bangkok",
+ "h1": "Private flights to and from Bangkok",
+ "lead": "Three airports can serve a private trip to Bangkok and the east coast: Don Mueang and Suvarnabhumi near the city, and U-Tapao near Rayong and Pattaya. How they compare, from the Thailand Aeronautical Information Publication.",
+ "glance": [
+  [
+   "Don Mueang",
+   "vtbd.location"
+  ],
+  [
+   "Suvarnabhumi",
+   "vtbs.location"
+  ],
+  [
+   "U-Tapao",
+   "vtbu.location"
+  ],
+  [
+   "Customs at all three",
+   "vtbs.customs"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Don Mueang",
+   "p": [
+    "Don Mueang lies {{vtbd.location}}. It is {{vtbd.hours}}, with {{vtbd.customs}}, and it has {{vtbd.runway}}. It is run by {{vtbd.operator}}. Its AIP lists a handling agent for private aircraft only."
+   ]
+  },
+  {
+   "h": "Suvarnabhumi",
+   "p": [
+    "Suvarnabhumi lies {{vtbs.location}}. It is {{vtbs.hours}}, with {{vtbs.customs}}, and it has {{vtbs.runway}}. It is the main airline airport for Bangkok, and its AIP names no business aviation terminal, so private passengers are handled through the operator's handling agent."
+   ]
+  },
+  {
+   "h": "U-Tapao",
+   "p": [
+    "U-Tapao lies {{vtbu.location}}, convenient for Pattaya and the eastern seaboard. It is operated by {{vtbu.operator}}. It is {{vtbu.hours}}, with {{vtbu.customs}}, and it has {{vtbu.runway}}. For trips to the east of Bangkok it can save time on the road."
+   ]
+  },
+  {
+   "h": "Domestic flights in Thailand",
+   "p": [
+    "Flights between two Thai airports are domestic flights. Internationally, {{cab.most}}, so for a leg such as Bangkok to Phuket we check the operator's permission for that leg first. Our cabotage guide explains why."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Bangkok",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We compare the airports around Bangkok for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Which Bangkok airport do private jets use?",
+   "a": "It depends on the trip. Don Mueang, which lies {{vtbd.location}}, lists a handling agent for private aircraft; Suvarnabhumi and U-Tapao are alternatives."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/cities/phuket/",
+  "/regions/asia-pacific/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "city"
+}

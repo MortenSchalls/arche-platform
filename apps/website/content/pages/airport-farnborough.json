@@ -1,0 +1,86 @@
+{
+ "path": "/airports/farnborough/",
+ "type": "airport",
+ "title": "Farnborough Airport (EGLF), London, for private jets",
+ "description": "Farnborough, London's dedicated business aviation airport: opening hours, the runway, movement limits and noise rules, from the airport and its local authority.",
+ "eyebrow": "Airport guide · London",
+ "h1": "Farnborough Airport, London",
+ "lead": "Farnborough, south-west of London, calls itself {{eglf.self}}. What its rules mean for your trip.",
+ "airport": {
+  "name": "Farnborough Airport",
+  "icao": "eglf.icao",
+  "country": "GB",
+  "city": "London"
+ },
+ "glance": [
+  [
+   "ICAO code",
+   "eglf.icao"
+  ],
+  [
+   "Opening hours",
+   "eglf.hours"
+  ],
+  [
+   "Runway",
+   "eglf.runway"
+  ],
+  [
+   "Movements",
+   "eglf.notable"
+  ],
+  [
+   "Airport operator",
+   "eglf.operator"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Opening hours",
+   "p": [
+    "Farnborough is not a twenty-four-hour airport. It is {{eglf.hours}}. The planning rules behind these hours are strict: {{eglf.curfew}}. A late return from a meeting or an early departure therefore needs planning; if your times fall outside the hours, we look at another London airport with you before anything is booked."
+   ]
+  },
+  {
+   "h": "Built for business aviation",
+   "p": [
+    "The airport is run by {{eglf.operator}}. Its growth is capped by planning limits: {{eglf.notable}}.",
+    "There is also a rule on noise on the ground: {{eglf.noise}}."
+   ]
+  },
+  {
+   "h": "Which aircraft can use it",
+   "p": [
+    "Farnborough has {{eglf.runway}}. Whether a particular aircraft can use the runway at the weight your trip needs is the operator's calculation, and we have it confirmed before you receive a quote."
+   ]
+  },
+  {
+   "h": "Other London airports",
+   "p": [
+    "London has several airports used by private jets, each with different hours and rules. Our London page compares the main ones."
+   ]
+  },
+  {
+   "h": "How current this is",
+   "p": [
+    "This page uses the airport's own published information and the local planning authority. Airport rules can change at short notice. The operator and its handling agent confirm the current rules for your flight before departure."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can I fly into Farnborough at night?",
+   "a": "No. {{eglf.curfew}}."
+  },
+  {
+   "q": "Is Farnborough open on public holidays?",
+   "a": "Yes, with weekend hours, except over Christmas: it is {{eglf.hours}}."
+  }
+ ],
+ "related": [
+  "/cities/london/",
+  "/guides/charter-price/",
+  "/guides/operator-safety-audits/"
+ ],
+ "draft": true
+}

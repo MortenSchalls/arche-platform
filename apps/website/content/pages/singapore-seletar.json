@@ -59,7 +59,7 @@
   {
    "h": "Times and the night curfew",
    "p": [
-    "The airport has a night curfew: {{wssl.curfew}}. A late-evening arrival or an early departure therefore needs planning. If your timing falls inside the curfew, we look at Changi as the alternative, or adjust the schedule with you before anything is booked.",
+    "The airport has a night curfew: {{wssl.curfew}}. A late-evening arrival or an early departure therefore needs planning. If your timing falls inside the curfew, we adjust the schedule with you before anything is booked; Changi is an alternative only for larger aircraft.",
     "Fuel is available {{wssl.fuel}}. The operator plans the fuel for your schedule around these hours."
    ]
   },
@@ -71,9 +71,9 @@
    ]
   },
   {
-   "h": "When Changi is the better choice",
+   "h": "Seletar or Changi",
    "p": [
-    "Changi becomes the better choice for a private flight when the aircraft is too large for Seletar's stands, or when the departure or arrival falls inside Seletar's night curfew. We compare both airports for every Singapore trip and tell you why we recommend one."
+    "For most business jets there is no choice: Changi is {{wsss.notable}}. Seletar is the airport for private jets in Singapore. Changi becomes an option for larger aircraft, such as converted airliners used for groups, and then with its own timing rule: {{wsss.nsarrival}}. We check both airports for every Singapore trip and tell you which one works for your aircraft and times."
    ]
   },
   {
@@ -94,10 +94,12 @@
   },
   {
    "q": "Which is better for a private flight, Seletar or Changi?",
-   "a": "Seletar, when the aircraft fits its stands and runway and the times fall outside the night curfew. Otherwise Changi. We check both for every trip."
+   "a": "For a business jet, Seletar: Changi is {{wsss.notable}}. Changi is an option for larger aircraft with more seats, outside its evening arrival window. We check both for every trip."
   }
  ],
  "related": [
+  "/airports/singapore-changi/",
+  "/cities/singapore/",
   "/guides/cabotage/"
  ]
 }

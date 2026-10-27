@@ -1,0 +1,76 @@
+{
+ "icao": "EGLF",
+ "iata": "FAB",
+ "name": "Farnborough Airport",
+ "city": "London",
+ "country": "GB",
+ "tz": "Europe/London",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 06/24, 45 m wide; longest take-off run available 2,063 m (runway 24)",
+   "src": "fab-specs",
+   "longest_m": 2063,
+   "width_m": 45,
+   "width_quote": "Runway Width: 45m",
+   "quote": "Runway 24: TORA 2063m (6768ft) TODA 2123m (6965ft) ASDA 2440m (8005ft) LDA 1800m (5905ft)"
+  },
+  "hours": {
+   "v": "open 07:00 to 22:00 on weekdays and 08:00 to 20:00 at weekends and on bank holidays; closed on Christmas Day and Boxing Day",
+   "src": "fab-contact",
+   "hours_local": {
+    "weekday": [
+     [
+      "07:00",
+      "22:00"
+     ]
+    ],
+    "weekend_bank_holiday": [
+     [
+      "08:00",
+      "20:00"
+     ]
+    ]
+   },
+   "quote": "Monday to Friday 07:00 – 22:00 ... Saturday, Sunday & Bank Holidays 08:00 – 20:00 ... Christmas Day & Boxing Day Closed"
+  },
+  "curfew": {
+   "v": "no flying outside 07:00-22:00 on weekdays and 08:00-20:00 at weekends and on bank holidays, except emergencies",
+   "src": "rushmoor-fab-hours",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "windows_local_weekend": [
+    [
+     "20:00",
+     "08:00"
+    ]
+   ],
+   "quote": "Between 7am and 10pm on weekdays ... Between 8am and 8pm at weekends and on Bank Holidays ... This is except for in an emergency."
+  },
+  "max_aircraft": {
+   "v": "no business aircraft over 80 tonnes MTOW operated in 2024 (report states this as an outcome, not as the limit itself)",
+   "src": "fab-pmr-2024",
+   "quote": "no business aviation aircraft heavier than 80 tonnes MTOW operated during the period"
+  },
+  "noise": {
+   "v": "no use of aircraft auxiliary power units between 22:30 and 06:30",
+   "src": "fab-pmr-2024",
+   "quote": "no APU operations between 22:30 and 06:30"
+  }
+ },
+ "missing": [
+  "geo (AIP ARP)",
+  "location",
+  "customs",
+  "slots",
+  "ppr",
+  "handling (operator site names no handler; says 'full-service facilities')"
+ ],
+ "notes": "UK AIP could not be read. The operator's airfield-specs page shows an ARP 'Lat: 51,1631N, Long: 0,004639W', which is evidently malformed, so it is not used. Runway length given as the longest TORA (2,063 m); total concrete incl. starter strip is 2608 m and ASDA up to 2,590 m (runway 06) per the same page. The 80 t figure in the report is an observation, so do not publish it as a rule without the AIP or planning consent text. The 'quote' strings came back through a fetch tool with a short-quote limit; spot-check wording before publishing."
+}

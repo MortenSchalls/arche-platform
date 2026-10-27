@@ -1,0 +1,85 @@
+{
+ "path": "/airports/sydney/",
+ "type": "airport",
+ "title": "Sydney Airport (YSSY) for private jets: curfew, slots, parking",
+ "description": "Sydney Kingsford Smith for private flights: the night curfew and which business jets may fly in it, slots, corporate apron limits and crew security rules.",
+ "eyebrow": "Airport guide · Sydney",
+ "h1": "Sydney Airport",
+ "lead": "Sydney Kingsford Smith has a night curfew set in law. What it means for a private flight, from the Australian AIP and the curfew legislation.",
+ "airport": {
+  "name": "Sydney Kingsford Smith Airport",
+  "icao": "yssy.icao",
+  "geo": "yssy.geo",
+  "country": "AU",
+  "city": "Sydney"
+ },
+ "glance": [
+  [
+   "ICAO code",
+   "yssy.icao"
+  ],
+  [
+   "Curfew",
+   "yssy.curfew"
+  ],
+  [
+   "Slots",
+   "yssy.slots"
+  ],
+  [
+   "Corporate apron",
+   "yssy.max_aircraft"
+  ],
+  [
+   "Runways",
+   "yssy.runway"
+  ],
+  [
+   "Airport operator",
+   "yssy.operator"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "The curfew",
+   "p": [
+    "Sydney's curfew is set in law: {{yssy.curfew}}. For business aviation the detail matters: {{yssy.curfew_jets}}. Whether your aircraft is on the approved list is something we confirm with the operator before you receive a quote, so a late arrival can be planned rather than hoped for.",
+    "Outside the curfew the airport is busy, and the law limits that too: {{yssy.movement_cap}}."
+   ]
+  },
+  {
+   "h": "Slots and parking",
+   "p": [
+    "Every flight is planned in advance: {{yssy.slots}}. Parking is the other limit for private aircraft: {{yssy.max_aircraft}}. The operator arranges both through its handling agent."
+   ]
+  },
+  {
+   "h": "Crew and security rules",
+   "p": [
+    "Sydney has a security rule for crews: {{yssy.notable}}. The operator plans the crew and the handling around it."
+   ]
+  },
+  {
+   "h": "Runways",
+   "p": [
+    "The airport is run by {{yssy.operator}} and has {{yssy.runway}}, enough for any business jet. This page uses the Australian Aeronautical Information Publication, the Sydney Airport curfew and demand management laws and the Australian transport department. Airport rules can change at short notice. The operator and its handling agent confirm the current rules for your flight before departure."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet land in Sydney during the curfew?",
+   "a": "Only an approved quieter aircraft: {{yssy.curfew_jets}}."
+  },
+  {
+   "q": "Does a private flight to Sydney need a slot?",
+   "a": "Yes: {{yssy.slots}}."
+  }
+ ],
+ "related": [
+  "/cities/sydney/",
+  "/guides/operator-safety-audits/",
+  "/guides/charter-price/"
+ ],
+ "draft": true
+}

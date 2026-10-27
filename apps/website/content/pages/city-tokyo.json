@@ -1,0 +1,72 @@
+{
+ "path": "/cities/tokyo/",
+ "title": "Private jet charter to and from Tokyo: Haneda and Narita",
+ "description": "Private flights to and from Tokyo: Haneda's business aviation terminal and Narita's Premier Gate compared, with slots and the Narita curfew, from official sources.",
+ "eyebrow": "City guide · Tokyo",
+ "h1": "Private flights to and from Tokyo",
+ "lead": "Tokyo's two international airports both take private jets, through dedicated business aviation facilities. How they compare, from the Japanese transport ministry and the airport operators.",
+ "glance": [
+  [
+   "Haneda",
+   "rjtt.hours"
+  ],
+  [
+   "Haneda runways",
+   "rjtt.runway"
+  ],
+  [
+   "Narita curfew",
+   "rjaa.curfew"
+  ],
+  [
+   "Narita slots",
+   "rjaa.slots"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Haneda",
+   "p": [
+    "Haneda is {{rjtt.operator}}, {{rjtt.location}}, and it is {{rjtt.hours}}. For private flights, {{rjtt.handling}}, and {{rjtt.notable}}. It has {{rjtt.runway}}.",
+    "Haneda is close to central Tokyo, which makes it the first choice for many trips."
+   ]
+  },
+  {
+   "h": "Narita",
+   "p": [
+    "Narita is {{rjaa.operator}}. For private flights there is {{rjaa.handling}}. It has {{rjaa.runway}}.",
+    "Narita has a night curfew: {{rjaa.curfew}}. And {{rjaa.slots}}. The operator plans the flight around both."
+   ]
+  },
+  {
+   "h": "Choosing the airport",
+   "p": [
+    "For a daytime trip into central Tokyo, Haneda is usually the first choice if capacity is available. Narita is the alternative, outside its curfew. We check both for your aircraft and times before you see a quote."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Tokyo",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We compare the airports around Tokyo for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Is Haneda open at night for private jets?",
+   "a": "The airport is {{rjtt.hours}}. Whether a private flight can be accepted at a given time depends on capacity, which the operator confirms."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/regions/asia-pacific/",
+  "/cities/hong-kong/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "city"
+}

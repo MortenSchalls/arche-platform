@@ -1,0 +1,76 @@
+{
+ "icao": "KTEB",
+ "iata": "TEB",
+ "name": "Teterboro Airport",
+ "city": "New York",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 1/19, is 7,000 ft (about 2,134 m) long",
+   "longest_m": 2134,
+   "src": "teb-flight-crew-handbook",
+   "quote": "Runway 1/19 7,000 ft"
+  },
+  "max_aircraft": {
+   "v": "no aircraft over 100,000 lb actual gross weight may land, take off or taxi; heavier-certified aircraft must keep their operating weight at 100,000 lb or less; exceptions need the Airport Manager's prior permission",
+   "src": "teb-100k-form",
+   "quote": "NO Aircraft may weigh in excess of 100,000 pounds on any Teterboro Airport paved surface."
+  },
+  "ppr": {
+   "v": "no jet aircraft may operate without the Airport Manager's approval (a signed Permission to Operate under the Quiet Flying Program)",
+   "src": "teb-flight-crew-handbook",
+   "quote": "No jet-powered aircraft may operate at TEB without approval of the Airport Manager."
+  },
+  "curfew": {
+   "v": "a voluntary restraint of non-essential flights from 23:00 to 06:00 local, not a mandatory curfew",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "teb-flight-crew-handbook",
+   "quote": "includes a voluntary restraint of all nonessential aircraft operations between the hours of 23:00 and 06:00 local."
+  },
+  "noise": {
+   "v": "mandatory departure noise limits: runway 24, 80 dB(A) from 22:00 to 07:00 local and 90 dB(A) at other times; other runways 95 dB(A); three violations in two years bar the aircraft from TEB",
+   "src": "teb-flight-crew-handbook",
+   "quote": "Aircraft that have received three (3) noise violations in a two-year span shall not be permitted to operate at TEB."
+  },
+  "customs": {
+   "v": "US Customs and Border Protection clears arriving aircraft 7 days a week, 07:30-23:15, at Hangar 1 (north side) or Jet Aviation (south side); request permission to land at least 2 hours before leaving the foreign airport",
+   "h24": false,
+   "hours_local": [
+    [
+     "07:30",
+     "23:15"
+    ]
+   ],
+   "src": "cbp-kteb-ga",
+   "quote": "available 7 days per week, 0730-2315"
+  },
+  "handling": {
+   "v": "the Port Authority's airport map shows Signature (North, West, East and South), Atlantic Aviation and Jet Aviation",
+   "src": "teb-flight-crew-handbook",
+   "quote": "Signature North, Atlantic Aviation, Signature West, Signature East, Signature South, Jet Aviation"
+  },
+  "hours": {
+   "v": "the control tower operates 24 hours",
+   "src": "faa-teb-kbyg",
+   "quote": "KTEB ATCT operates 24 hours."
+  }
+ },
+ "missing": [
+  "geo (coordinates)",
+  "operator (named in an official sentence)",
+  "location",
+  "runway width",
+  "slots"
+ ],
+ "notes": "The FAA Chart Supplement (A/FD) and FAA airport-data pages could not be opened, so coordinates, runway widths and the A/FD wording of the 100,000 lb limit are not verified from FAA; the 100,000 lb limit is verified from Port Authority documents (the form itself says the limit is 'As stated in the Airport/Facility Directory'). Runway lengths are from the Port Authority Flight Crew Handbook (cover dated 4/25) in feet; metres are my conversion (1 ft = 0.3048 m). The CBP fact sheet (22 Feb 2024) does not state the time zone on the 0730-2315 line; local Eastern Time is the natural reading but is not stated. The operator is the Port Authority of New York and New Jersey (documents are on panynj.gov and cite 'The Port Authority of NY & NJ Air Terminal Rules & Regulations'), but no source sentence states 'operated by'. The 100,000 lb form is dated 3/2/2012; the Permission to Operate form 12/2018. Website wording: say the 23:00-06:00 restraint is voluntary."
+}
