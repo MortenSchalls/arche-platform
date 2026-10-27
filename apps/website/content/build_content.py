@@ -245,10 +245,24 @@ def page_html(p, F, S, P):
 </html>
 """
 
+def portal_rules(S, verbose=True):
+    """The portal's trip checks read one file: sanctioned places plus the verified airport rules (apps/portal/airport-rules.json)."""
+    d = os.path.join(HERE, "airports"); A = {}
+    for f in sorted(os.listdir(d)):
+        if not f.endswith(".json") or f.startswith("_"): continue
+        a = json.load(open(os.path.join(d, f), encoding="utf-8"))
+        rules = {k: {**r, "srcTitle": S[r["src"]]["title"], "srcUrl": S[r["src"]]["url"], "checked": S[r["src"]]["checked"]} for k, r in a.get("rules", {}).items()}
+        A[a["icao"]] = {"status": a["status"], "checked": a["checked"], "tz": a["tz"], "country": a["country"], "rules": rules, "missing": a.get("missing", [])}
+    out = {"generated": datetime.date.today().isoformat(), "excluded": {k: EXCL[k] for k in ("countries", "words", "iso2", "airports_iata")}, "airports": A}
+    p = os.path.join(HERE, "..", "..", "portal", "airport-rules.json")
+    open(p, "w", encoding="utf-8").write(json.dumps(out, ensure_ascii=False, separators=(",", ":")))
+    if verbose: print(f"  portal: airport-rules.json with {len(A)} airports")
+
 def run(verbose=True):
     S, F, P = load()
     check_excluded(); check_sources(S); check_facts(F, S)
     import check_airports; check_airports.run(verbose)
+    portal_rules(S, verbose)
     paths = set(); built = []
     for p in P:
         if p["path"] in paths: raise Bad(f"{p['_file']}: path used twice")

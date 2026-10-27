@@ -1,4 +1,4 @@
-// Sanctions screen of a booking's names on demand (Morten, 27 Oct 2026). Owner and operations only.
+// Sanctions screen of names on demand (Morten, 27 Oct 2026): booking screens (owner, operations) and the live check in the trip form (brokers too).
 // Uses the name index the daily job (jobs/screen.mjs) builds from the official UN, US (OFAC), EU and UK lists and
 // keeps in private storage. Returns possible matches; a person decides. Names are not stored here: the portal saves
 // the screening record on the trip (operations-only table).
@@ -51,7 +51,7 @@ export default async function handler(req, res) {
   const u = await who.json();
   const pr = await fetch(`${SB}/rest/v1/profiles?id=eq.${encodeURIComponent(u.id)}&select=role,active`, { headers: { apikey: SECRET, authorization: `Bearer ${SECRET}` } });
   const prof = pr.ok ? (await pr.json())[0] : null;
-  if (!prof || !prof.active || !["owner", "ops"].includes(prof.role)) return res.status(403).json({ error: "Owner and operations only" });
+  if (!prof || !prof.active || !["owner", "ops", "broker"].includes(prof.role)) return res.status(403).json({ error: "Members only" });
   const names = (Array.isArray((req.body || {}).names) ? req.body.names : []).map(x => String(x || "").slice(0, 160)).filter(x => x.trim()).slice(0, 40);
   if (!names.length) return res.status(400).json({ error: "No names" });
   let ix;

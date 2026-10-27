@@ -22,7 +22,7 @@ Morten, 27 Oct 2026: research 50 airports every morning. Start with all known bu
    - If no official source can be read at all, write the file with `"status": "unavailable"`, no rules, and a note saying which source was tried.
 5. Add each source to `../sources.json`: title with the effective date, URL, publisher, and `checked` set to today's date.
 6. Run `python3 apps/website/content/check_airports.py` and `python3 apps/website/content/build_content.py`. Both must pass.
-7. Commit to `main` with the usual attribution lines and push.
+7. Commit the files under `apps/website/content/` and the regenerated `apps/portal/airport-rules.json` (written by `build_content.py`; the portal's trip checks read it) to `main` with the usual attribution lines and push.
 8. Report:
    - how many airports were verified, partly verified or unavailable
    - which official sources could not be opened, so Morten can download them
