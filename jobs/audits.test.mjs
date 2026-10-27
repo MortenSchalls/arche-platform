@@ -32,5 +32,10 @@ ok("unrelated operator not found", lookup("Other Aviation Ltd", index2.entries).
 ok("browser text pairs name and level", (parseLines("Registry\nNo Name\nGold\nAir Bravo Corp.\nPlatinum Elite\nAero Air LLC\nGold\n<\n1", ["Platinum Elite","Platinum","Gold"]).length === 2));
 const wy = parseWyvern("WYVERN Wingman Directory\nIntro\nName\nExample Jet\nCity, Country\nAB-1\nExample Jet Holdings Ltd\n+2 Additional\nWebsite\nSecond Air\nTown, Country\nX9\nSecond Air Ltd\nThird Air\nPlace, Country\nC-3\nThird Holder Inc\nWebsite\n© 2026");
 ok("WYVERN directory: names, holders and certificates", wy.length === 5 && wy.filter(e => e.name === "Second Air").length === 1 && wy.find(e => e.name === "Third Holder Inc").holderOf === "Third Air" && wy.every(e => e.level === "Wingman"));
+// a failed read keeps yesterday's list (up to 7 days), marked
+let index3 = null; await run(db, fetchFn, () => {}, "2026-11-05T00:00:00Z", async b => { index3 = JSON.parse(b); }, async () => [], null, async () => index2);
+ok("failed read keeps the last good list, marked", index3.sources.ARGUS.ok && index3.sources.ARGUS.kept && index3.entries.filter(e => e.prog === "ARGUS").length === 321);
+let index4 = null; await run(db, fetchFn, () => {}, "2026-11-20T00:00:00Z", async b => { index4 = JSON.parse(b); }, async () => [], null, async () => index2);
+ok("a list older than 7 days is not kept", !index4 || !index4.sources.ARGUS.ok);
 ok("names normalised", normName("Example Jets Pte. Ltd.") === "example jets");
 console.log(fails ? `${fails} FAILED` : "ALL PASS"); process.exit(fails ? 1 : 0);

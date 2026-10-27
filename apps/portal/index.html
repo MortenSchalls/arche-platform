@@ -6130,8 +6130,8 @@ function vOnboarding(){
     if (!src || !src.ok) return {state: "unread", text: `The ${map[0]} registry could not be read automatically${r.error ? " (" + r.error + ")" : ""}. Your own registry check, link and evidence are the proof.`};
     const hits = (r.matches || []).filter(m => m.prog === map[0]);
     const best = hits.sort((a, b) => (RANK[b.level] || 0) - (RANK[a.level] || 0))[0];
-    if (best && (RANK[best.level] || 0) >= (RANK[map[1]] || 9)) return {state: "confirmed", text: `${map[0]} registry (read ${fmtD(r.at)}): ${best.name}, ${best.level}.`, url: src.url};
-    return {state: "mismatch", text: best ? `${map[0]} registry (read ${fmtD(r.at)}) lists ${best.name} as ${best.level}, not ${map[1]}.` : `${map[0]} registry (read ${fmtD(r.at)}) does not list ${q.operator}. The name may differ from the AOC holder's.`};
+    if (best && (RANK[best.level] || 0) >= (RANK[map[1]] || 9)) return {state: "confirmed", text: `${map[0]} registry (read ${fmtD(src.readAt || r.at)}): ${best.name}, ${best.level}.`, url: src.url};
+    return {state: "mismatch", text: best ? `${map[0]} registry (read ${fmtD(src.readAt || r.at)}) lists ${best.name} as ${best.level}, not ${map[1]}.` : `${map[0]} registry (read ${fmtD(src.readAt || r.at)}) does not list ${q.operator}. The name may differ from the AOC holder's.`};
   };
   const regMismatch = d => safetyRegistry(d).state === "mismatch";
   const needsApproval = (s, d) => !!s && (!!T2[s.audit] || s.history === "event" || (!!d && regMismatch(d)));

@@ -79,10 +79,19 @@ export function parseWyvern(text) {
 // a real browser (GitHub Actions installs Chromium for this job): loads the page, then presses the list's "next" control
 // until no new operators appear, so a paginated or browser-only list is read in full
 export async function readWithBrowser(R, log = () => {}) {
+  let best = [];
+  for (let attempt = 1; attempt <= 3 && best.length < R.min; attempt++) {
+    try { const got = await readOnce(R, log); if (got.length > best.length) best = got; } catch (e) { log(`  ${R.id}: browser attempt ${attempt}: ${e.message}`); }
+  }
+  return best;
+}
+async function readOnce(R, log) {
   let pw; try { pw = await import("playwright"); } catch (e) { throw new Error("browser not installed"); }
   const b = await pw.chromium.launch(); const p = await b.newPage({ userAgent: "Mozilla/5.0 (compatible; ArcheExecutive-audit-check/1.0)" });
   try {
-    await p.goto(R.url, { waitUntil: "networkidle", timeout: 60000 }); await p.waitForTimeout(3000);
+    await p.goto(R.url, { waitUntil: "networkidle", timeout: 90000 }); await p.waitForTimeout(4000);
+    // wait until the list itself has rendered (a level word on the page), up to 30 s
+    await p.waitForFunction(lv => lv.some(l => document.body.innerText.includes("\n" + l)), R.levels, { timeout: 30000 }).catch(() => {});
     const all = new Map(); let same = 0;
     for (let page = 0; page < 60 && same < 2; page++) {
       const txt = await p.evaluate(() => document.body.innerText);
@@ -91,7 +100,7 @@ export async function readWithBrowser(R, log = () => {}) {
       same = all.size === before ? same + 1 : 0;
       // the ARGUS list (a Wix page) pages with a "selection tag" checkbox whose value is {"type":"next",...}
       const next = await p.evaluate(() => { const t = [...document.querySelectorAll("input[type=checkbox]")].find(i => /"type"\s*:\s*"next"/.test(i.value || "")); if (t) { t.click(); return true; } const c = [...document.querySelectorAll("a,button,[role=button],span,div")].filter(e => e.getBoundingClientRect().width > 0 && e.children.length === 0 && /^(>|›|»|next|next page)$/i.test((e.textContent || e.getAttribute("aria-label") || "").trim())); const n = c[c.length - 1]; if (!n) return false; (n.closest("a,button,[role=button]") || n).click(); return true; });
-      if (!next) break; await p.waitForTimeout(2500);
+      if (!next) break; await p.waitForTimeout(3500);
     }
     log(`  ${R.id}: browser read ${all.size} operators`);
     return [...all.values()];
@@ -108,7 +117,7 @@ export function words(html, list) {
   return list.filter(w => t.includes(w.toLowerCase())).sort();
 }
 
-export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null, browser = null, pageText = null) {
+export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null, browser = null, pageText = null, loadPrev = null) {
   const get = async url => { const r = await fetchFn(url, { headers: { "user-agent": "Mozilla/5.0 (compatible; ArcheExecutive-audit-check/1.0)" } }); if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); };
   // 1. registries
   const index = { at: nowIso, sources: {}, entries: [] };
@@ -121,6 +130,18 @@ export async function run(db, fetchFn = fetch, log = console.log, nowIso = new D
       index.sources[R.id] = { ok: true, count: e.length, url: R.url };
     } catch (err) { index.sources[R.id] = { ok: false, error: String(err.message || err).slice(0, 200), url: R.url }; log(`  ${R.id} registry: ${err.message}`); }
   }
+  // a registry that could not be read today keeps its last good list for up to 7 days, marked with its date
+  let prevIx = null; try { prevIx = loadPrev ? await loadPrev() : null; } catch (e) {}
+  for (const R of REGISTRIES) {
+    if (index.sources[R.id].ok || !prevIx || !prevIx.sources || !(prevIx.sources[R.id] || {}).ok) continue;
+    const from = prevIx.sources[R.id].readAt || prevIx.at;
+    if ((new Date(nowIso) - new Date(from)) / 86400e3 > 7) continue;
+    const keep = (prevIx.entries || []).filter(e => e.prog === R.id); if (!keep.length) continue;
+    keep.forEach(e => index.entries.push(e));
+    index.sources[R.id] = { ok: true, count: prevIx.sources[R.id].count, url: R.url, readAt: from, kept: true, todayError: index.sources[R.id].error };
+    log(`  ${R.id}: today's read failed; kept the list read ${from.slice(0, 10)}`);
+  }
+  for (const R of REGISTRIES) if (index.sources[R.id].ok && !index.sources[R.id].readAt) index.sources[R.id].readAt = nowIso;
   if (store && index.entries.length) await store(JSON.stringify(index));
   const prevReg = (await db.get("intel/audit-registries")) || {};
   const regOut = { at: nowIso, sources: index.sources, total: index.entries.length, lastGood: index.entries.length ? nowIso : prevReg.lastGood || null };
@@ -141,7 +162,7 @@ export async function run(db, fetchFn = fetch, log = console.log, nowIso = new D
   const open = (prev.open || []).concat(changes);
   const failRuns = failed.length ? (prev.failRuns || 0) + 1 : 0;
   await db.set("intel/audit-programmes", { baseline: { ...latest, ...(base || {}) }, latest, checkedAt: nowIso, failed, failRuns, open, review: open.length > 0 || failRuns >= 7 });
-  const regNote = REGISTRIES.map(R => index.sources[R.id].ok ? `${R.id} registry ${index.sources[R.id].count} operators` : `${R.id} registry not readable (${index.sources[R.id].error})`).join("; ");
+  const regNote = REGISTRIES.map(R => index.sources[R.id].ok ? `${R.id} registry ${index.sources[R.id].count} operators${index.sources[R.id].kept ? " (today's read failed; list from " + index.sources[R.id].readAt.slice(0, 10) + " kept)" : ""}` : `${R.id} registry not readable (${index.sources[R.id].error})`).join("; ");
   const note = `${regNote}. Programme pages: ${Object.keys(latest).length} read${failed.length ? ", could not read " + failed.join(", ") : ""}; ${changes.length ? changes.length + " changed: " + changes.map(c => c.id + (c.added.length ? " +" + c.added.join("/") : "") + (c.removed.length ? " -" + c.removed.join("/") : "")).join("; ") : base ? "no change" : "baseline stored"}.`;
   log(note); return { note };
 }
@@ -156,6 +177,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const r = await st.from("registries").upload("index.json", new Blob([body], { type: "application/json" }), { upsert: true, contentType: "application/json" });
       if (r.error) throw new Error("index upload: " + r.error.message);
     };
-    return run(db, fetch, console.log, new Date().toISOString(), store, readWithBrowser, browserText);
+    const loadPrev = async () => { const r = await db.sb.storage.from("registries").download("index.json"); if (r.error || !r.data) return null; return JSON.parse(await r.data.text()); };
+    return run(db, fetch, console.log, new Date().toISOString(), store, readWithBrowser, browserText, loadPrev);
   });
 }
