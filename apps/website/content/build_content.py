@@ -2,7 +2,7 @@
 Rules (Morten, 27 Oct 2026; CLAUDE.md "Website content"):
 - Every fact comes from facts.json with a source in sources.json and a check date. Page text may not contain
   any digit outside a {{fact}} token, so no number can appear without a source.
-- No page, example or mention of Russia, Iran, Iraq, Syria or Venezuela. No fleet claims, no prices.
+- No sanctioned country, territory, company or person is listed or named (excluded.json). No fleet claims, no prices.
 - Facts older than 365 days stop the build (they must be checked again).
 - Pages marked "draft" are built with noindex and left out of the sitemap until Morten approves them.
 Run:  python3 apps/website/content/build_content.py   (also run by build.py)"""
@@ -12,7 +12,8 @@ SITE = os.path.join(HERE, "..", "site")
 sys.path.insert(0, os.path.join(HERE, ".."))
 import company
 BASE = "https://archeaviation.com"
-BANNED = re.compile(r"\b(russia|russian|moscow|st\.? petersburg|iran|iranian|tehran|iraq|iraqi|baghdad|syria|syrian|damascus|venezuela|venezuelan|caracas)\b", re.I)
+EXCL = json.load(open(os.path.join(HERE, "excluded.json"), encoding="utf-8"))
+BANNED = re.compile(r"\b(" + "|".join(re.escape(w) for w in EXCL["countries"] + EXCL["words"]) + r")\b", re.I)   # sanctioned places: never on the website
 CLAIMS = re.compile(r"\b(our fleet|our aircraft|we own|we operate|cheapest|guaranteed|best price|lowest price)\b", re.I)
 PRICE = re.compile(r"(USD|US\$|\$|SGD|EUR|€|£)\s?\d|\bfrom\s+(USD|\$)", re.I)
 MAX_AGE = 365

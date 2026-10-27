@@ -5,7 +5,7 @@
 - Phone, WhatsApp, LINE and WeChat come from company.py. Until a value is set, the LINE and WeChat cards are left out,
   and the phone stays a placeholder that check_site.py reports, so the site is not made public with it.
 Run by build.py after company.py; can also be run on its own:  python3 apps/website/site_fixes.py"""
-import os, re
+import os, re, json
 import company
 HERE = os.path.dirname(os.path.abspath(__file__))
 NOTICE_OLD = {
@@ -18,7 +18,17 @@ NOTICE = ["Archē Executive is a private company registered in Singapore. It arr
 PAY = []   # the source texts (sections.py) already say "a secure payment link"
 PRIVACY_DATE = "26 October 2026"   # change when the privacy notice text changes
 CITY = r"(?:Singapore|สิงคโปร์|新加坡|シンガポール)"
+EXCL = json.load(open(os.path.join(HERE, "content", "excluded.json"), encoding="utf-8"))
+def drop_excluded_airports(t):
+    """The quote form's airport list: no airports in sanctioned countries (Morten, 27 Oct 2026)."""
+    def clean(m):
+        rows = m.group(1).split("\\n")
+        keep = [r for r in rows if not (len(r.split("|")) > 2 and (r.split("|")[2] in EXCL["airports_iata"] or r.split("|")[1] in EXCL["countries"]))]
+        return 'airports = "' + "\\n".join(keep) + '";'
+    return re.sub(r'airports = "(.*?)";', clean, t, flags=re.S)
+
 def fix(t, name):
+    t = drop_excluded_airports(t)
     # office heading: "Registered office" instead of repeating the city
     t = t.replace('<span style="font-size:13px;letter-spacing:0.3em;text-transform:uppercase;color:#f3f5f8">{{ office.city }}</span>', '<span style="font-size:13px;letter-spacing:0.3em;text-transform:uppercase;color:#f3f5f8">{{ office.label }}</span>')
     t = t.replace("      office: this.offices[s.office],", "      office: { ...this.offices[s.office], label: this.offices.length > 1 ? this.offices[s.office].city : 'Registered office' },")

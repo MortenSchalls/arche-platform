@@ -32,7 +32,7 @@ Read this before changing anything. These are business rules set by the owner, M
 - We are a broker, not an airline: pages are about places, airports and needs, never "routes we fly". Every page ends with "any aircraft, any route, upon availability".
 - Only verified, correct facts, each with its source and the date it was checked. No guesses. Better fewer pages and correct than many and wrong. The build refuses a fact without a source or date.
 - No prices until Archē has its own quote data; then only ranges with the basis and date.
-- No pages, examples or promotion for Russia, Iran, Iraq, Syria or Venezuela (too sensitive).
+- Sanctions (Morten, 27 Oct 2026): sanctioned countries, territories, companies and people are avoided in KYC (manual Module 3.2, including ownership and control) and are never listed, named, offered or promoted on the website; this includes Russia, Iran, Iraq, Syria and Venezuela. The list of places is `apps/website/content/excluded.json`; the content build, `check_site.py` and the quote form's airport list all use it. Sanctions are covered only in general words in the terms of business (charter confirmation Part B, clause B6), which name the regimes (UN, Singapore, US, EU, UK) but list no countries. The website names no companies or people other than authorities, airport operators and the sources it cites.
 - Keep the site's layout, design and watermarks on every new page; speed and structure come first (static pages, no extra scripts).
 - A saved copy of the site before this work: branch `saved/website-2026-10-27` (and the zip in Final versions).
 
