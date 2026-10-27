@@ -1,4 +1,4 @@
-// Website quote and call-back requests → Supabase (shown in the portal under Today).
+// Website quote, call-back and empty-leg alert requests → Supabase (shown in the portal under Today).
 // Environment variables (Vercel → website project → Settings → Environment Variables):
 //   SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY
 const clean = (v, n = 200) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
@@ -16,10 +16,15 @@ export default async function handler(req, res) {
     const legs = (Array.isArray(b.legs) ? b.legs : []).slice(0, 8).map(l => ({ from: clean(l.from, 80), to: clean(l.to, 80), date: clean(l.date, 10), time: clean(l.time, 5) }));
     if (!legs.length || !legs.every(l => l.from && l.to) || !clean(b.name) || !clean(b.reach)) return res.status(400).json({ error: "Missing details" });
     data = { type: "quote", trip: clean(b.trip, 10), legs, returnDate: clean(b.returnDate, 10), pax: Math.max(1, Math.min(19, parseInt(b.pax) || 1)),
-             name: clean(b.name, 120), reach: clean(b.reach, 160), reply: clean(b.reply, 20), lang: clean(b.lang, 5), page: clean(b.page, 80) };
+             name: clean(b.name, 120), reach: clean(b.reach, 160), reply: clean(b.reply, 20), lang: clean(b.lang, 5), page: clean(b.page, 80),
+             flown: ["yes", "no"].includes(b.flown) ? b.flown : "", news: b.news === true };   // news: separate, unticked opt-in (27 Oct 2026)
   } else if (b.type === "callback") {
     if (!clean(b.phone)) return res.status(400).json({ error: "Missing phone" });
     data = { type: "callback", phone: clean(b.phone, 40), lang: clean(b.lang, 5), page: clean(b.page, 80) };
+  } else if (b.type === "alert") {                                       // empty-leg alerts sign-up (home page, 27 Oct 2026)
+    const email = clean(b.email, 160).toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return res.status(400).json({ error: "Email not valid" });
+    data = { type: "alert", email, route: clean(b.route, 160), lang: clean(b.lang, 5), page: clean(b.page, 80), news: true };
   } else return res.status(400).json({ error: "Unknown request" });
   data.consent = b.consent === true;
   data.visit = clean(b.visit, 20);                                       // links the enquiry to its website visit (source, campaign)

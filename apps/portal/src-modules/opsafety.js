@@ -24,7 +24,7 @@
   const suspended = name => { const n = normOp(name); return n && ((S.opSusp || {}).list || []).find(x => normOp(x.name) === n) || null; };
   const fpOf = d => { const s = d.safety || {}, q = d.quote || {}; return [normOp(q.operator), s.audit || "", s.history || "", regMismatch(d) ? "reg" : ""].join("|"); };
   // the auditors' own registries (jobs/audits.mjs → api/auditcheck.mjs): a level the registry does not confirm needs the director
-  const REG = {"argus-plat": ["ARGUS", "Platinum"], "argus-elite": ["ARGUS", "Platinum Elite"], "wyv-wingman": ["WYVERN", "Wingman"], "wyv-pro": ["WYVERN", "Wingman PRO"]};
+  const REG = {"argus-plat": ["ARGUS", "Platinum"], "argus-elite": ["ARGUS", "Platinum Elite"], "wyv-wingman": ["WYVERN", "Wingman"], "wyv-pro": ["WYVERN", "Wingman"]};   // the WYVERN directory lists Wingman and Wingman PRO together (both tier 1)
   const RANK = {"Gold": 1, "Gold Certified": 2, "Platinum": 3, "Platinum Elite": 4, "Wingman": 3, "Wingman PRO": 4};
   S.regc = S.regc || {};
   function regFetch(name){
@@ -211,6 +211,15 @@
     const b = e.target.closest && e.target.closest('[data-ap="ok"],[data-act="confIssue"],[data-act="issue"]'); if (!b) return;
     const t = b.dataset.ap ? (() => { const [bid, did] = (b.dataset.id || "").split("|"); return allTrips().find(x => x.bid === bid && x.did === did); })() : tripById(S.sel);
     if (!t) return; const n = safetyNeeds(t.d, t.st);
-    if (n.length) { e.stopImmediatePropagation(); e.preventDefault(); toast("Operator safety record not complete: " + n.map(x => x.replace("operator safety: ", "")).join(", ") + "."); }
+    if (!n.length) return;
+    e.stopImmediatePropagation(); e.preventDefault();
+    // the registry is still being read (first time this operator is looked at): wait for it, then press again once
+    if (n.every(x => /registry check in progress/.test(x)) && !b.dataset.sfWait) {
+      b.dataset.sfWait = "1"; toast("Checking the operator in the auditor's registry…");
+      (async () => { for (let i = 0; i < 30 && safetyNeeds(t.d, t.st).some(x => /in progress/.test(x)); i++) await new Promise(r => setTimeout(r, 200));
+        const again = document.querySelector(b.dataset.ap ? `[data-ap="ok"][data-id="${b.dataset.id}"]` : `[data-act="${b.dataset.act}"]`) || b; again.dataset.sfWait = "1"; again.click(); delete again.dataset.sfWait; delete b.dataset.sfWait; })();
+      return;
+    }
+    toast("Operator safety record not complete: " + n.map(x => x.replace("operator safety: ", "")).join(", ") + ".");
   }, true);
 })();

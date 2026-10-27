@@ -1,5 +1,5 @@
 // Offline test of the daily audit check (example data only).
-import { run, parseRegistry, parseLines } from "./audits.mjs";
+import { run, parseRegistry, parseLines, parseWyvern } from "./audits.mjs";
 import { lookup, normName } from "../apps/portal/api/auditcheck.mjs";
 let fails = 0; const ok = (n, c) => { console.log((c ? "PASS " : "FAIL ") + n); if (!c) fails++; };
 const rows = Array.from({ length: 25 }, (_, i) => `<div><p>Example Operator ${i} LLC</p><img src="/x/${i % 3 ? "gold" : "platinum"}.png" alt=""></div>`).join("") +
@@ -29,6 +29,8 @@ let index2 = null; await run(db, fetchFn, () => {}, "2026-11-04T00:00:00Z", asyn
 ok("browser read used when the page is partial", index2.sources.ARGUS.ok && index2.sources.ARGUS.count === 321);
 ok("operator found by name", lookup("Example Jets Pte. Ltd.", index2.entries).some(m => m.level === "Platinum Elite"));
 ok("unrelated operator not found", lookup("Other Aviation Ltd", index2.entries).length === 0);
-ok("browser text pairs name and level", (parseLines("Registry\nAir Bravo Corp.\nPlatinum Elite\nAero Air LLC\nGold\n<\n1", ["Platinum Elite","Platinum","Gold"]).length === 2));
+ok("browser text pairs name and level", (parseLines("Registry\nNo Name\nGold\nAir Bravo Corp.\nPlatinum Elite\nAero Air LLC\nGold\n<\n1", ["Platinum Elite","Platinum","Gold"]).length === 2));
+const wy = parseWyvern("WYVERN Wingman Directory\nIntro\nName\nExample Jet\nCity, Country\nAB-1\nExample Jet Holdings Ltd\n+2 Additional\nWebsite\nSecond Air\nTown, Country\nX9\nSecond Air Ltd\nThird Air\nPlace, Country\nC-3\nThird Holder Inc\nWebsite\n© 2026");
+ok("WYVERN directory: names, holders and certificates", wy.length === 5 && wy.filter(e => e.name === "Second Air").length === 1 && wy.find(e => e.name === "Third Holder Inc").holderOf === "Third Air" && wy.every(e => e.level === "Wingman"));
 ok("names normalised", normName("Example Jets Pte. Ltd.") === "example jets");
 console.log(fails ? `${fails} FAILED` : "ALL PASS"); process.exit(fails ? 1 : 0);

@@ -11,8 +11,10 @@
 // min: fewer operators than this means only part of the list was read (it is paginated or loads in the browser), and
 // a partial list is never used to say an operator is "not listed".
 export const REGISTRIES = [
-  { id: "ARGUS", url: "https://www.argus.aero/operatorregistry", levels: ["Platinum Elite", "Platinum", "Gold Certified", "Gold"], min: 300 },
-  { id: "WYVERN", url: "https://app.wyvern.systems/public/directory/wingman", levels: ["Wingman PRO", "Wingman"], min: 50 },
+  { id: "ARGUS", url: "https://www.argus.aero/operatorregistry", levels: ["Platinum Elite", "Platinum", "Gold Certified", "Gold", "Under Review"], min: 300 },
+  // the WYVERN directory lists every operator "in good standing" with the Wingman programme (Wingman or Wingman PRO,
+  // not told apart), with the trading name, base, certificate number and certificate holder; a single page, in the browser only
+  { id: "WYVERN", url: "https://app.wyvern.systems/public/directory/wingman", levels: ["Wingman PRO", "Wingman"], min: 50, text: "wyvern" },
 ];
 export const PROGRAMMES = [
   { id: "ARGUS ratings", url: "https://www.argus.aero/", words: ["Gold Plus", "Gold Certified", "Platinum Elite", "Platinum", "Gold"] },
@@ -57,7 +59,21 @@ export function parseRegistry(html, levels) {
 export function parseLines(text, levels) {
   const lv = [...levels].sort((a, b) => b.length - a.length), out = [];
   const lines = String(text || "").split(/\n+/).map(x => x.trim()).filter(Boolean);
-  for (let i = 1; i < lines.length; i++) { const l = lv.find(x => lines[i].toLowerCase() === x.toLowerCase()); if (l && !lv.some(x => lines[i - 1].toLowerCase() === x.toLowerCase()) && lines[i - 1].length >= 3 && lines[i - 1].length <= 120) out.push({ name: lines[i - 1], level: l }); }
+  for (let i = 1; i < lines.length; i++) { const l = lv.find(x => lines[i].toLowerCase() === x.toLowerCase()); if (l && !lv.some(x => lines[i - 1].toLowerCase() === x.toLowerCase()) && lines[i - 1].length >= 3 && lines[i - 1].length <= 120 && !/^no name$/i.test(lines[i - 1])) out.push({ name: lines[i - 1], level: l }); }
+  return out;
+}
+// WYVERN directory text: after the "Name" heading, each operator is 4 lines (trading name, base, certificate number,
+// certificate holder), then optional "+2 Additional" and "Website" lines. Both names are indexed.
+export function parseWyvern(text) {
+  const L = String(text || "").split(/\n+/).map(x => x.trim()).filter(Boolean), out = [];
+  let i = L.findIndex(x => x === "Name"); if (i < 0) return out; i++;
+  while (i + 3 < L.length && !/^©/.test(L[i])) {
+    const [name, base, cert, holder] = L.slice(i, i + 4);
+    if ([name, base, cert, holder].some(x => /^©|^\+\d+ Additional$|^Website$/.test(x))) break;
+    out.push({ name, level: "Wingman", cert, base });
+    if (normName(holder) && normName(holder) !== normName(name)) out.push({ name: holder, level: "Wingman", cert, base, holderOf: name });
+    i += 4; while (i < L.length && /^\+\d+ Additional$|^Website$/.test(L[i])) i++;
+  }
   return out;
 }
 // a real browser (GitHub Actions installs Chromium for this job): loads the page, then presses the list's "next" control
@@ -69,10 +85,12 @@ export async function readWithBrowser(R, log = () => {}) {
     await p.goto(R.url, { waitUntil: "networkidle", timeout: 60000 }); await p.waitForTimeout(3000);
     const all = new Map(); let same = 0;
     for (let page = 0; page < 60 && same < 2; page++) {
-      const got = parseLines(await p.evaluate(() => document.body.innerText), R.levels); const before = all.size;
+      const txt = await p.evaluate(() => document.body.innerText);
+      const got = R.text === "wyvern" ? parseWyvern(txt) : parseLines(txt, R.levels); const before = all.size;
       got.forEach(e => all.set(normName(e.name) + "|" + e.level, e));
       same = all.size === before ? same + 1 : 0;
-      const next = await p.evaluate(() => { const c = [...document.querySelectorAll("a,button,[role=button],span,div")].filter(e => e.getBoundingClientRect().width > 0 && e.children.length === 0 && /^(>|›|»|next|next page)$/i.test((e.textContent || e.getAttribute("aria-label") || "").trim())); const n = c[c.length - 1]; if (!n) return false; (n.closest("a,button,[role=button]") || n).click(); return true; });
+      // the ARGUS list (a Wix page) pages with a "selection tag" checkbox whose value is {"type":"next",...}
+      const next = await p.evaluate(() => { const t = [...document.querySelectorAll("input[type=checkbox]")].find(i => /"type"\s*:\s*"next"/.test(i.value || "")); if (t) { t.click(); return true; } const c = [...document.querySelectorAll("a,button,[role=button],span,div")].filter(e => e.getBoundingClientRect().width > 0 && e.children.length === 0 && /^(>|›|»|next|next page)$/i.test((e.textContent || e.getAttribute("aria-label") || "").trim())); const n = c[c.length - 1]; if (!n) return false; (n.closest("a,button,[role=button]") || n).click(); return true; });
       if (!next) break; await p.waitForTimeout(2500);
     }
     log(`  ${R.id}: browser read ${all.size} operators`);
@@ -93,7 +111,7 @@ export async function run(db, fetchFn = fetch, log = console.log, nowIso = new D
       let e = []; try { e = parseRegistry(await get(R.url), R.levels); } catch (err) { log(`  ${R.id} page: ${err.message}`); }
       if (e.length < R.min && browser) { try { e = await browser(R, log); } catch (err) { log(`  ${R.id} browser: ${err.message}`); } }
       if (e.length < R.min) throw new Error(`only ${e.length} operators could be read; the list is paginated or loads in the browser only, so it is not used to say an operator is not listed`);
-      e.forEach(x => index.entries.push({ prog: R.id, level: x.level, name: x.name, norm: normName(x.name) }));
+      e.forEach(x => index.entries.push({ prog: R.id, level: x.level, name: x.name, norm: normName(x.name), ...(x.cert ? { cert: x.cert } : {}), ...(x.holderOf ? { holderOf: x.holderOf } : {}) }));
       index.sources[R.id] = { ok: true, count: e.length, url: R.url };
     } catch (err) { index.sources[R.id] = { ok: false, error: String(err.message || err).slice(0, 200), url: R.url }; log(`  ${R.id} registry: ${err.message}`); }
   }

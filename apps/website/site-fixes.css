@@ -32,3 +32,7 @@ section#top button { min-width: 32px; min-height: 32px; }
   #fleet input[type="range"] { min-height: 32px; }
 }
 #fleet p, footer p { font-size: max(13px, 1em); }
+/* Tighter vertical rhythm (27 Oct 2026 review: home page ran to 12,000 px on desktop, 16,000 px on phones) */
+section#top + section { padding-top: clamp(72px, 8vw, 120px) !important; padding-bottom: clamp(72px, 8vw, 120px) !important; }
+section#services, section#why, section#why + section { padding-bottom: clamp(64px, 7vw, 112px) !important; }
+section#fleet, section#journey, section#contact { padding-top: clamp(64px, 7vw, 104px) !important; padding-bottom: clamp(64px, 7vw, 104px) !important; }
