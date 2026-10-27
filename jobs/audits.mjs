@@ -1,0 +1,103 @@
+// Daily audit check (Morten, 27 Oct 2026: "ensure the audits we list is something we can back up. we need to have
+// this automated as we do with the sanctions list"). No AI.
+// 1. Registry index: reads the auditors' public registries (ARGUS operator registry; WYVERN Wingman directory) and
+//    stores operator name → programme and level in private storage (registries/index.json). The portal's Operator
+//    safety panel checks every operator against it (api/auditcheck.mjs): a level the registry does not confirm needs
+//    the director's approval. A registry that cannot be read is reported, never guessed; the broker's own registry
+//    check with link and evidence then stays the proof.
+// 2. Programme watch: reads the pages where ARGUS, WYVERN and IBAC describe their ratings. When the levels named there
+//    change (a level added, renamed or dropped, as ARGUS did with Gold Plus), the owner is asked to review the
+//    standard in manual Module 8, the portal and the website guide (Team → Audit watch). Nothing changes automatically.
+export const REGISTRIES = [
+  { id: "ARGUS", url: "https://www.argus.aero/operatorregistry", levels: ["Platinum Elite", "Platinum", "Gold Certified", "Gold"] },
+  { id: "WYVERN", url: "https://app.wyvern.systems/public/directory/wingman", levels: ["Wingman PRO", "Wingman"] },
+];
+export const PROGRAMMES = [
+  { id: "ARGUS ratings", url: "https://www.argus.aero/", words: ["Gold Plus", "Gold Certified", "Platinum Elite", "Platinum", "Gold"] },
+  { id: "ARGUS Gold", url: "https://www.argus.aero/products/argus-gold", words: ["remote", "onsite", "on-site", "Gold Certified", "May 2027"] },
+  { id: "WYVERN programmes", url: "https://www.wyvernltd.com/?p=225", words: ["Wingman PRO", "Wingman", "Registered", "PASS"] },
+  { id: "IBAC IS-BAO", url: "https://ibac.org/is-bao", words: ["Stage 1", "Stage 2", "Stage 3", "ICAO"] },
+];
+export const normName = s => String(s || "").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "")
+  .replace(/\b(dba|d\/b\/a)\b.*$/, "").replace(/\b(ltd|limited|pte|llc|inc|incorporated|co|corp|corporation|company|plc|sa|ag|gmbh|bv|srl|spa|sdn|bhd|pty|kk|jsc|fze|s\.a\. de c\.v\.|de|cv)\b\.?/g, " ")
+  .replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
+
+// HTML → a flat sequence of text pieces, with rating badges (image names or alt text) kept as pieces too
+export function pieces(html) {
+  const s = String(html || "").replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ");
+  const out = [];
+  const re = /<img\b[^>]*>|<[^>]+>|[^<]+/g; let m;
+  while ((m = re.exec(s))) {
+    const t = m[0];
+    if (/^<img/i.test(t)) { const alt = (t.match(/\balt="([^"]*)"/i) || [])[1] || ""; const src = (t.match(/\bsrc="([^"]*)"/i) || [])[1] || ""; out.push({ img: (alt + " " + src.split("/").pop()).toLowerCase() }); }
+    else if (t[0] !== "<") { const x = t.replace(/&amp;/g, "&").replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim(); if (x) out.push({ text: x }); }
+  }
+  return out;
+}
+// pair each rating (as text or badge) with the operator name just before it
+export function parseRegistry(html, levels) {
+  const P = pieces(html), entries = [], lv = [...levels].sort((a, b) => b.length - a.length);
+  const levelOf = s => lv.find(l => new RegExp("(^|[^a-z])" + l.toLowerCase().replace(/ /g, "[ _-]?") + "([^a-z]|$)").test(s.toLowerCase()));
+  let last = null;
+  for (const p of P) {
+    if (p.text) {
+      const m = p.text.match(/^(.{3,120}?)\s*[:–-]\s*(.+)$/); const inline = m && levelOf(m[2]) && m[2].length < 30 ? levelOf(m[2]) : null;
+      if (inline) { entries.push({ name: m[1].trim(), level: inline }); last = null; continue; }
+      const only = levelOf(p.text) && p.text.length < 30 ? levelOf(p.text) : null;
+      if (only && last) { entries.push({ name: last, level: only }); last = null; continue; }
+      if (!only && p.text.length >= 3 && p.text.length <= 120 && /[a-z]/i.test(p.text)) last = p.text;
+    } else if (p.img && last) { const l = levelOf(p.img); if (l) { entries.push({ name: last, level: l }); last = null; } }
+  }
+  const seen = new Set();
+  return entries.filter(e => { const k = normName(e.name) + "|" + e.level; if (!normName(e.name) || seen.has(k)) return false; seen.add(k); return true; });
+}
+export function words(html, list) {
+  const t = pieces(html).map(p => p.text || "").join(" ").toLowerCase();
+  return list.filter(w => t.includes(w.toLowerCase())).sort();
+}
+
+export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null) {
+  const get = async url => { const r = await fetchFn(url, { headers: { "user-agent": "Mozilla/5.0 (compatible; ArcheExecutive-audit-check/1.0)" } }); if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); };
+  // 1. registries
+  const index = { at: nowIso, sources: {}, entries: [] };
+  for (const R of REGISTRIES) {
+    try {
+      const html = await get(R.url); const e = parseRegistry(html, R.levels);
+      if (e.length < 20) throw new Error(`only ${e.length} operators could be read (page ${html.length} bytes; the list may load in the browser only)`);
+      e.forEach(x => index.entries.push({ prog: R.id, level: x.level, name: x.name, norm: normName(x.name) }));
+      index.sources[R.id] = { ok: true, count: e.length, url: R.url };
+    } catch (err) { index.sources[R.id] = { ok: false, error: String(err.message || err).slice(0, 200), url: R.url }; log(`  ${R.id} registry: ${err.message}`); }
+  }
+  if (store && index.entries.length) await store(JSON.stringify(index));
+  const prevReg = (await db.get("intel/audit-registries")) || {};
+  const regOut = { at: nowIso, sources: index.sources, total: index.entries.length, lastGood: index.entries.length ? nowIso : prevReg.lastGood || null };
+  await db.set("intel/audit-registries", regOut);
+  // 2. programme watch
+  const prev = (await db.get("intel/audit-programmes")) || {};
+  const latest = {}, failed = [];
+  for (const P of PROGRAMMES) {
+    try { latest[P.id] = words(await get(P.url), P.words); } catch (err) { failed.push(P.id); log(`  ${P.id}: ${err.message}`); }
+  }
+  const base = prev.baseline || null, changes = [];
+  if (base) for (const [id, w] of Object.entries(latest)) { const was = base[id]; if (!was) continue; const added = w.filter(x => !was.includes(x)), removed = was.filter(x => !w.includes(x)); if (added.length || removed.length) changes.push({ id, added, removed, at: nowIso }); }
+  const open = (prev.open || []).concat(changes);
+  const failRuns = failed.length ? (prev.failRuns || 0) + 1 : 0;
+  await db.set("intel/audit-programmes", { baseline: { ...latest, ...(base || {}) }, latest, checkedAt: nowIso, failed, failRuns, open, review: open.length > 0 || failRuns >= 7 });
+  const regNote = REGISTRIES.map(R => index.sources[R.id].ok ? `${R.id} registry ${index.sources[R.id].count} operators` : `${R.id} registry not readable (${index.sources[R.id].error})`).join("; ");
+  const note = `${regNote}. Programme pages: ${Object.keys(latest).length} read${failed.length ? ", could not read " + failed.join(", ") : ""}; ${changes.length ? changes.length + " changed: " + changes.map(c => c.id + (c.added.length ? " +" + c.added.join("/") : "") + (c.removed.length ? " -" + c.removed.join("/") : "")).join("; ") : base ? "no change" : "baseline stored"}.`;
+  log(note); return { note };
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const { main } = await import("./lib/main.mjs"); const { connect } = await import("./lib/db.mjs");
+  await main("Daily audit check", ["SUPABASE_URL", "SUPABASE_SECRET_KEY"], async () => {
+    const db = connect();
+    const store = async body => {
+      const st = db.sb.storage;
+      await st.createBucket("registries", { public: false }).catch(() => {});
+      const r = await st.from("registries").upload("index.json", new Blob([body], { type: "application/json" }), { upsert: true, contentType: "application/json" });
+      if (r.error) throw new Error("index upload: " + r.error.message);
+    };
+    return run(db, fetch, console.log, new Date().toISOString(), store);
+  });
+}

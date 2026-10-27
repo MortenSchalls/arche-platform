@@ -6101,8 +6101,37 @@ function vOnboarding(){
   const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind);
   const tripOf = d => { try { return allTrips().find(x => x.d === d) || null; } catch(e){ return null; } };
   const suspended = name => { const n = normOp(name); return n && ((S.opSusp || {}).list || []).find(x => normOp(x.name) === n) || null; };
-  const fpOf = d => { const s = d.safety || {}, q = d.quote || {}; return [normOp(q.operator), s.audit || "", s.history || ""].join("|"); };
-  const needsApproval = s => !!s && (!!T2[s.audit] || s.history === "event");
+  const fpOf = d => { const s = d.safety || {}, q = d.quote || {}; return [normOp(q.operator), s.audit || "", s.history || "", regMismatch(d) ? "reg" : ""].join("|"); };
+  // the auditors' own registries (jobs/audits.mjs → api/auditcheck.mjs): a level the registry does not confirm needs the director
+  const REG = {"argus-plat": ["ARGUS", "Platinum"], "argus-elite": ["ARGUS", "Platinum Elite"], "wyv-wingman": ["WYVERN", "Wingman"], "wyv-pro": ["WYVERN", "Wingman PRO"]};
+  const RANK = {"Gold": 1, "Gold Certified": 2, "Platinum": 3, "Platinum Elite": 4, "Wingman": 3, "Wingman PRO": 4};
+  S.regc = S.regc || {};
+  function regFetch(name){
+    const k = normOp(name); if (!k || S.regc[k]) return;
+    S.regc[k] = {status: "loading"};
+    (async () => {
+      try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
+        const r = await fetch("/api/auditcheck", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (sess ? sess.access_token : "")}, body: JSON.stringify({name})});
+        const j = await r.json(); S.regc[k] = r.ok ? {status: "ok", ...j} : {status: "unavailable", error: j.error || r.status}; }
+      catch(e){ S.regc[k] = {status: "unavailable", error: String(e.message || e)}; }
+      render();
+    })();
+  }
+  // {state: "na"|"loading"|"unread"|"confirmed"|"mismatch", text}
+  window.safetyRegistry = function(d){
+    const s = d.safety || {}, q = d.quote || {}, map = REG[s.audit];
+    if (!map || !q.operator) return {state: "na"};
+    const k = normOp(q.operator); regFetch(q.operator); const r = S.regc[k] || {status: "loading"};
+    if (r.status === "loading") return {state: "loading", text: "Checking the " + map[0] + " registry…"};
+    const src = r.status === "ok" ? (r.sources || {})[map[0]] : null;
+    if (!src || !src.ok) return {state: "unread", text: `The ${map[0]} registry could not be read automatically${r.error ? " (" + r.error + ")" : ""}. Your own registry check, link and evidence are the proof.`};
+    const hits = (r.matches || []).filter(m => m.prog === map[0]);
+    const best = hits.sort((a, b) => (RANK[b.level] || 0) - (RANK[a.level] || 0))[0];
+    if (best && (RANK[best.level] || 0) >= (RANK[map[1]] || 9)) return {state: "confirmed", text: `${map[0]} registry (read ${fmtD(r.at)}): ${best.name}, ${best.level}.`, url: src.url};
+    return {state: "mismatch", text: best ? `${map[0]} registry (read ${fmtD(r.at)}) lists ${best.name} as ${best.level}, not ${map[1]}.` : `${map[0]} registry (read ${fmtD(r.at)}) does not list ${q.operator}. The name may differ from the AOC holder's.`};
+  };
+  const regMismatch = d => safetyRegistry(d).state === "mismatch";
+  const needsApproval = (s, d) => !!s && (!!T2[s.audit] || s.history === "event" || (!!d && regMismatch(d)));
   window.safetyApproved = (d, st) => { const a = (st || {}).safetyApproval; return !!a && a.fp === fpOf(d); };
 
   // what is still missing (blocks "Send to operations")
@@ -6123,7 +6152,8 @@ function vOnboarding(){
       if (!(s.cap > 0 && s.capType > 0 && s.fo > 0)) out.push("operator safety: crew hours confirmed by the operator");
       if (!s.toldAt || !docOf(d, "Client safety disclosure")) out.push("operator safety: client told in writing (date and email attached as Client safety disclosure)");
     }
-    if (needsApproval(s) && !safetyApproved(d, st)) out.push("operator safety: the director's approval on this trip");
+    if (T1[s.audit]) { const rg = safetyRegistry(d); if (rg.state === "loading") out.push("operator safety: registry check in progress"); }
+    if (needsApproval(s, d) && !safetyApproved(d, st)) out.push(regMismatch(d) ? "operator safety: the registry does not confirm the audit; the director must check the evidence and approve" : "operator safety: the director's approval on this trip");
     return [...new Set(out)];
   };
   // breaches of the standard (red: stop the trip)
@@ -6162,7 +6192,9 @@ function vOnboarding(){
     const head = red.length ? `<div class="note bad small">${red.map(x => `<div>${x}</div>`).join("")}</div>`
       : needs.length ? `<div class="note warn small"><b>Still needed:</b> ${needs.map(x => esc(x.replace("operator safety: ", ""))).join(" · ")}</div>`
       : `<div class="note ok small"><b>Meets the standard</b>${tier === 1 ? ` · ${esc(LABEL[s.audit])}, expires ${esc(fmtD(s.expiry))}, checked ${esc(fmtD(s.checkedAt))}` : ` · approved by the director ${esc(fmtT((st.safetyApproval || {}).at))}`}</div>`;
-    const t1 = tier === 1 ? `<div class="fgrid">
+    const rg = safetyRegistry(d);
+    const regLine = rg.state === "na" ? "" : `<div class="note ${rg.state === "confirmed" ? "ok" : rg.state === "mismatch" ? "bad" : "info"} small">${esc(rg.text || "")}${rg.state === "confirmed" && can && (s.checkedAt !== today() || s.link !== rg.url) ? ` <button class="btn small" type="button" data-sfr="use">Use this check (today, registry link)</button>` : ""}</div>`;
+    const t1 = tier === 1 ? regLine + `<div class="fgrid">
       <label class="f" for="sf_exp">Audit expiry date<input type="date" id="sf_exp" data-sf="expiry" value="${esc(s.expiry || "")}" ${dis}></label>
       <label class="f" for="sf_chk">Checked at the source on<input type="date" id="sf_chk" data-sf="checkedAt" value="${esc(s.checkedAt || "")}" max="${today()}" ${dis}></label>
       <label class="f wide" for="sf_link">Link to the auditor's registry entry or certificate<input id="sf_link" data-sf="link" value="${esc(s.link || "")}" placeholder="https://" ${dis}></label></div>
@@ -6175,7 +6207,7 @@ function vOnboarding(){
       <label class="f" for="sf_fo">First officer: total hours<input id="sf_fo" inputmode="numeric" data-sfn="fo" value="${esc(s.fo || "")}" ${dis}></label>
       <label class="f" for="sf_told">Client told in writing on<input type="date" id="sf_told" data-sf="toldAt" value="${esc(s.toldAt || "")}" max="${today()}" ${dis}></label></div>
       <p class="small muted">Tell the client which audit the operator holds, or that it holds none, and attach the email as document type "Client safety disclosure".</p>` : "";
-    const appr = needsApproval(s) ? (safetyApproved(d, st) ? `<p class="small">Approved by the director ${esc(fmtT(st.safetyApproval.at))}: ${esc(st.safetyApproval.note || "")}</p>`
+    const appr = needsApproval(s, d) ? (safetyApproved(d, st) ? `<p class="small">Approved by the director ${esc(fmtT(st.safetyApproval.at))}: ${esc(st.safetyApproval.note || "")}</p>`
       : (S.isOwner && acting() === "owner" ? `<div class="fgrid"><label class="f wide" for="sf_apn">Director: why this operator is acceptable for this trip<input id="sf_apn" placeholder="e.g. IS-BAO Stage 1 renewed 2026, references from two brokers, crew hours confirmed"></label></div><div class="row"><button class="btn small primary" type="button" data-sfa="approve">Approve this operator for this trip</button></div>`
         : `<p class="small muted">Waiting for the director's approval on this trip.</p>`)) : "";
     const sp = suspended(q.operator);
@@ -6203,6 +6235,11 @@ function vOnboarding(){
     } catch(err){ toast("Could not save. Try again."); }
   });
   document.addEventListener("click", async e => {
+    const b = e.target.closest && e.target.closest("[data-sfr]"); if (!b) return;
+    const t = tripById(S.sel); if (!t) return; const rg = safetyRegistry(t.d); if (rg.state !== "confirmed") return;
+    try { await save(t, {checkedAt: today(), link: rg.url, regAt: (S.regc[normOp((t.d.quote || {}).operator)] || {}).at || ""}, "Operator safety: audit confirmed in the auditor's registry"); toast("Registry check recorded. Attach a screenshot of the entry as \"Safety audit\"."); } catch(err){ toast("Could not save."); }
+  });
+  document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest("[data-sfa]"); if (!b) return;
     const t = tripById(S.sel); if (!t || !(S.isOwner && acting() === "owner")) return;
     const q = t.d.quote || {}, a = b.dataset.sfa;
@@ -6216,6 +6253,30 @@ function vOnboarding(){
         audit("Operator suspended", `${q.operator} · ${note.slice(0, 80)}`); toast(`${q.operator} is suspended on every trip.`); return; }
       if (a === "unsuspend") { await S.db.doc("config/opsuspend").set({list: cur.filter(x => normOp(x.name) !== normOp(q.operator))}); audit("Operator suspension lifted", q.operator || ""); toast("Suspension lifted."); return; }
     } catch(err){ toast("Could not save. Try again."); }
+  });
+  // Team → Audit watch: the daily audit job's registry status and any change in how ARGUS, WYVERN or IBAC describe their levels
+  S.aw = S.aw || {};
+  function awLoad(){ if (S.aw.loading || S.aw.loaded || !S.isOwner) return; S.aw.loading = true;
+    Promise.all([S.db.doc("intel/audit-programmes").get().then(x => { S.aw.prog = x.exists ? x.data() : null; }, () => {}), S.db.doc("intel/audit-registries").get().then(x => { S.aw.reg = x.exists ? x.data() : null; }, () => {})])
+      .finally(() => { S.aw.loading = false; S.aw.loaded = true; render(); }); }
+  function awPanel(){
+    if (!S.isOwner || acting() !== "owner") return ""; awLoad();
+    const P = S.aw.prog, R = S.aw.reg;
+    const head = `<div class="panel" style="margin-bottom:16px"><h2>Audit watch</h2><p class="small muted">Every morning the portal reads the ARGUS operator registry and the WYVERN Wingman directory, so each trip's Operator safety record is checked against the auditor's own list, and it watches the pages where ARGUS, WYVERN and IBAC describe their levels. A level added, renamed or dropped shows here for you to review the standard (manual Module 8).</p>`;
+    if (!S.aw.loaded) return head + `<p class="small muted">Loading…</p></div>`;
+    if (!R && !P) return head + `<p class="small">Not run yet. GitHub → Actions → Portal jobs → Run workflow → audits. It runs by itself every morning at 06:53 Bangkok time.</p></div>`;
+    const reg = R ? Object.entries(R.sources || {}).map(([k, v]) => `${k} registry: ${v.ok ? v.count + " operators" : "<b>not readable</b> (" + esc(v.error || "") + "): brokers check by hand, with link and evidence"}`).join("<br>") : "";
+    const open = ((P || {}).open || []).map(c => `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p>${esc(c.id)}: ${c.added.length ? "now mentions " + esc(c.added.join(", ")) : ""}${c.added.length && c.removed.length ? "; " : ""}${c.removed.length ? "no longer mentions " + esc(c.removed.join(", ")) : ""}</p><p class="small muted">Seen ${esc(fmtD(c.at))}</p></div></div>`).join("");
+    return head + `<p class="small">Last run ${esc(fmtT((R || P).at || (P || {}).checkedAt))}.<br>${reg}</p>${(P && (P.failed || []).length) ? `<div class="note warn small">Could not read: ${esc(P.failed.join(", "))}.</div>` : ""}${open}
+      ${P && P.review ? `<p class="small">Review: ask Claude to compare the change with the standard (manual 8.2, the portal's Operator safety, the website guide), update them if needed, then mark it reviewed.</p><button class="btn small primary" type="button" data-aw="ok">Mark reviewed</button>` : `<p class="small muted">Nothing to review.</p>`}</div>`;
+  }
+  const _vTeamAW = vTeam; vTeam = function(){ return afterHead(_vTeamAW(), awPanel()); };
+  const _vTodayAW = vToday; vToday = function(){ awLoad(); const P = S.aw.prog; return afterHead(_vTodayAW(), S.isOwner && acting() === "owner" && P && P.review ? `<div class="note warn" style="margin-bottom:16px"><b>Audit levels changed.</b> ARGUS, WYVERN or IBAC changed how they describe their levels. <a href="#" data-view="team">Review it in Team</a>.</div>` : ""); };
+  document.addEventListener("click", async e => {
+    const b = e.target.closest && e.target.closest("[data-aw]"); if (!b || !S.isOwner) return; e.preventDefault();
+    const P = S.aw.prog; if (!P) return;
+    const next = {...P, baseline: {...(P.baseline || {}), ...(P.latest || {})}, open: [], review: false, failRuns: 0, reviewedAt: now(), reviewedBy: S.uid};
+    try { await S.db.doc("intel/audit-programmes").set(next); S.aw.prog = next; audit("Audit level changes reviewed", (P.open || []).map(c => c.id).join(", ")); toast("Marked reviewed."); render(); } catch(err){ toast("Could not save."); }
   });
   // the safety-audit tick follows the record: it cannot be ticked by hand before the record is complete
   document.addEventListener("change", e => {

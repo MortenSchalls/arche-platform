@@ -34,4 +34,15 @@ await p.screenshot({path:'SF_panel.png',clip:await (await p.$('#secSafety')).bou
 await as('Test Owner');await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(800);
 await p.evaluate(()=>document.querySelector('#secSafety details').open=true);await p.fill('#sf_sn','Runway excursion 26 Oct, under review');await p.click('[data-sfa="suspend"]');await p.waitForTimeout(1200);
 console.log('H suspended red:',await p.evaluate(()=>document.querySelector('#secSafety .note').innerText.slice(0,160)));
+// registry check (api/auditcheck mocked): not listed -> director needed; listed at the level -> confirmed
+await p.click('[data-sfa="unsuspend"]');await p.waitForTimeout(800);
+let reg={at:'2026-10-27T00:00:00Z',sources:{ARGUS:{ok:true,count:550,url:'https://www.argus.aero/operatorregistry'},WYVERN:{ok:false,error:'list loads in the browser only'}},matches:[]};
+await p.route('**/api/auditcheck',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(reg)}));
+await as('Test Broker');await p.evaluate(d=>{S.regc={};S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(800);
+await sel('sf_aud','argus-plat');await p.waitForTimeout(800);
+console.log('I not in registry:',await p.evaluate(()=>[...document.querySelectorAll('#secSafety .note')].map(n=>n.innerText).join(' || ').slice(0,300)));
+reg.matches=[{prog:'ARGUS',level:'Platinum Elite',name:'Example Jets Pte Ltd'}];await p.evaluate(()=>{S.regc={};render();});await p.waitForTimeout(800);
+console.log('J confirmed:',await p.evaluate(()=>[...document.querySelectorAll('#secSafety .note')].map(n=>n.innerText).join(' || ').slice(0,300)));
+await p.click('[data-sfr="use"]');await p.waitForTimeout(800);console.log('K recorded:',toasts.slice(-1),await p.evaluate(()=>{const t=tripById(S.sel);return [t.d.safety.checkedAt,t.d.safety.link]}));
+await sel('sf_aud','wyv-wingman');await p.waitForTimeout(800);console.log('L WYVERN unread:',await p.evaluate(()=>document.querySelector('#secSafety .note.info')?.innerText||''));
 console.log('errs',errs);await b.close()})();
