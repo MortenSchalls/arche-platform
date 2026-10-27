@@ -1,0 +1,55 @@
+{
+ "icao": "WSSL",
+ "iata": null,
+ "name": "Seletar Airport",
+ "city": "Singapore",
+ "country": "SG",
+ "tz": "Asia/Singapore",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "One runway, 03/21, 1,836 m × 46 m",
+   "longest_m": 1836,
+   "src": "sg-aip-wssl"
+  },
+  "curfew": {
+   "v": "No flights 22:00–07:00 Singapore time (14:00–23:00 UTC), except medical evacuation and emergency flights",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "src": "sg-aip-wssl"
+  },
+  "customs": {
+   "v": "Customs and immigration open 24 hours; non-scheduled flights clear at the Seletar Business Aviation Centre",
+   "h24": true,
+   "src": "sg-aip-wssl"
+  },
+  "max_aircraft": {
+   "v": "Largest stands take up to a Boeing 757-200 without winglets",
+   "src": "sg-aip-wssl"
+  },
+  "handling": {
+   "v": "Every arriving and departing aircraft must appoint a licensed ground handling agent",
+   "required": true,
+   "src": "sg-aip-wssl"
+  },
+  "noise": {
+   "v": "Subsonic jets need a noise certificate to ICAO Annex 16, Volume I, Chapter 3 or equivalent",
+   "src": "sg-aip-wssl"
+  },
+  "fuel": {
+   "v": "07:30–22:00 Monday to Friday; 08:30–17:30 weekends and public holidays (Singapore time)",
+   "src": "sg-aip-wssl"
+  }
+ },
+ "missing": [
+  "slots",
+  "ppr"
+ ],
+ "notes": "Slot rules for Seletar are in Singapore AIP GEN 1.2, not read yet."
+}

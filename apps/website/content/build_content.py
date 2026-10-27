@@ -248,6 +248,7 @@ def page_html(p, F, S, P):
 def run(verbose=True):
     S, F, P = load()
     check_excluded(); check_sources(S); check_facts(F, S)
+    import check_airports; check_airports.run(verbose)
     paths = set(); built = []
     for p in P:
         if p["path"] in paths: raise Bad(f"{p['_file']}: path used twice")
