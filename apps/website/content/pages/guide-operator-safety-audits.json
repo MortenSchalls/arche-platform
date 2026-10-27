@@ -36,7 +36,7 @@
    "h": "Independent audits: going beyond the licence",
    "p": [
     "A licence shows that the authority has approved the operator. Independent audits look at how the operator actually runs its safety management, and they are voluntary. Three are widely used in business aviation.",
-    "ARGUS: {{audit.argus_who}}. It rates operators at several levels. {{audit.argus_gold}}; {{audit.argus_gold_certified}}. At the next level, {{audit.argus_platinum_audit}}, and {{audit.argus_platinum_renewal}}. The top level is Platinum Elite: {{audit.argus_platinum_elite}}, and {{audit.argus_elite_cycle}}.",
+    "ARGUS: {{audit.argus_who}}. It rates operators at several levels. {{audit.argus_gold}}. At a higher level, {{audit.argus_platinum_audit}}, and {{audit.argus_platinum_renewal}}. The top level is Platinum Elite: {{audit.argus_platinum_elite}}, and {{audit.argus_elite_cycle}}.",
     "WYVERN: {{audit.wyvern_standard}}. {{audit.wyvern_sms}}. {{audit.wyvern_cycle}}, and {{audit.wyvern_onsite}}.",
     "IS-BAO: {{audit.isbao_what}}. {{audit.isbao_icao}}. Registration has stages: {{audit.isbao_stage1}}, while {{audit.isbao_stage3}}. {{audit.isbao_audit}}, and {{audit.isbao_renewal}}."
    ]
