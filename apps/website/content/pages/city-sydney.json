@@ -67,5 +67,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "sydney"
+ "events": "sydney",
+ "region": "/regions/asia-pacific/"
 }

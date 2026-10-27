@@ -67,5 +67,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "dubai"
+ "events": "dubai",
+ "region": "/regions/middle-east/"
 }

@@ -72,5 +72,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "geneva"
+ "events": "geneva",
+ "region": "/regions/europe/"
 }

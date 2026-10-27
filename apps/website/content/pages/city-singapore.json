@@ -72,5 +72,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "singapore"
+ "events": "singapore",
+ "region": "/regions/asia-pacific/"
 }

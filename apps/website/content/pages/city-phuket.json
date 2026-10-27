@@ -80,5 +80,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "phuket"
+ "events": "phuket",
+ "region": "/regions/asia-pacific/"
 }

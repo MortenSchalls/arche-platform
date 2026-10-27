@@ -38,19 +38,29 @@ def standard():
 </div></section><!--/ae:home-->'''
 
 def destinations(P):
-    short = lambda h: re.sub(r"^Private flights (to and from |to |in (the )?)", "", h)
-    regs = sorted([p for p in P if p["type"] == "region"], key=lambda p: short(p["h1"]))
-    cities = sorted([p for p in P if p["type"] == "city"], key=lambda p: short(p["h1"]))
+    """Grouped by region (Asia-Pacific first, our home region): region name heads a column, its city guides below,
+    country permit guides in one line underneath. Approved pages only once the site is launched."""
+    short = lambda h: re.sub(r"^Private flights (to and from |to |in )(the )?", "", h)
+    regs = {p["path"]: p for p in P if p["type"] == "region"}
+    cities = [p for p in P if p["type"] == "city"]; countries = sorted([p for p in P if p["type"] == "country"], key=lambda p: short(p["h1"]))
     if not regs and not cities: return ""
-    card = lambda p, t: f'<a href="{p["path"]}" style="{CARD}"><span style="display:block;color:#f3f5f8;font-family:Prata,Georgia,serif;font-size:19px;line-height:1.3">{html.escape(t)}</span></a>'
-    short = lambda h: re.sub(r"^Private flights (to and from |to |in (the )?)", "", h)
-    grid = "display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:12px;margin:0 0 16px"
+    ORDER = ["/regions/asia-pacific/", "/regions/europe/", "/regions/middle-east/", "/regions/north-america/"]
+    keys = [k for k in ORDER if k in regs] + sorted(k for k in regs if k not in ORDER)
+    link = "display:block;padding:9px 0;border-bottom:1px solid rgba(243,245,248,0.08);color:#c6cbd2;font-size:15.5px;text-decoration:none"
+    def col(k):
+        r = regs[k]; cs = sorted([c for c in cities if c.get("region") == k], key=lambda c: short(c["h1"]))
+        return (f'<div><a href="{r["path"]}" style="display:block;padding:0 0 12px;border-bottom:1px solid rgba(243,245,248,0.3);color:#f3f5f8;font-family:Prata,Georgia,serif;font-size:21px;line-height:1.3;text-decoration:none">{html.escape(short(r["h1"]))} <span aria-hidden="true" style="color:#a9bdd4">&#8594;</span></a>'
+                + '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));column-gap:24px">' + "".join(f'<a href="{c["path"]}" style="{link}">{html.escape(short(c["h1"]))}</a>' for c in cs) + '</div></div>')
+    rest = [c for c in cities if c.get("region") not in regs]
+    cols = "".join(col(k) for k in keys) + (f'<div><span style="display:block;padding:0 0 12px;border-bottom:1px solid rgba(243,245,248,0.3);color:#f3f5f8;font-family:Prata,Georgia,serif;font-size:21px">More places</span>' + "".join(f'<a href="{c["path"]}" style="{link}">{html.escape(short(c["h1"]))}</a>' for c in rest) + '</div>' if rest else "")
+    ctry = (f'<p style="margin:28px 0 0;font-size:15px;line-height:1.9;color:#c6cbd2"><span style="{EYE};font-size:11.5px;display:block;margin-bottom:6px">Permits by country</span>'
+            + ' <span aria-hidden="true" style="color:#6e7681">·</span> '.join(f'<a href="{c["path"]}" style="color:#c6cbd2;white-space:nowrap;text-decoration:underline;text-decoration-color:rgba(198,203,210,0.35);text-underline-offset:3px">{html.escape(short(c["h1"]))}</a>' for c in countries) + '</p>') if countries else ""
     return f'''<!--ae:home--><section id="destinations" data-ae="home" style="{LINE}"><div style="{WRAP}">
-<span style="{EYE}">Destinations</span><h2 style="{H2}">Any aircraft, any route, upon availability.</h2>
-<p style="{TXT}">We are a broker, not an airline: we have no fixed routes. Our guides set out what a private flight involves in each place: airports, permits, night rules and customs, each fact with its official source and the date we checked it.</p>
-<div style="{grid}">{"".join(card(p, short(p["h1"])) for p in regs)}</div>
-<div style="{grid}">{"".join(card(p, short(p["h1"])) for p in cities)}</div>
-<p style="margin:8px 0 0"><a href="/destinations/" style="font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase;color:#f3f5f8;border-bottom:1px solid rgba(243,245,248,0.4);padding-bottom:4px">All destinations and guides</a></p>
+<span style="{EYE}">Destinations</span><h2 style="{H2}">Know the rules before you fly.</h2>
+<p style="{TXT}">We have no fixed routes. For each place, our guides cover the airports, permits, night rules and customs, with the official source of every fact and the date we checked it.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:32px 40px;margin:28px 0 0">{cols}</div>
+{ctry}
+<div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;margin:32px 0 0"><a href="/destinations/" style="font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase;color:#f3f5f8;border-bottom:1px solid rgba(243,245,248,0.4);padding-bottom:4px">All destinations and guides</a><span style="font-size:14px;color:#a3a9b1;font-style:italic">Any aircraft, any route, upon availability.</span></div>
 </div></section><!--/ae:home-->'''
 
 def dates(P):
@@ -119,24 +129,19 @@ UI_NEW = '''<!--ae:home--><div data-ae="home" style="grid-column:1/-1;display:fl
         </div><!--/ae:home-->
           '''
 
-I18N = [
-    ("A broker, not an airline: we find and check the operator; the operator flies your trip.", "เราเป็นนายหน้า ไม่ใช่สายการบิน: เราค้นหาและตรวจสอบผู้ให้บริการ และผู้ให้บริการเป็นผู้ทำการบิน", "我们是包机经纪人，而非航空公司：我们寻找并审核运营商，由运营商执飞您的航班。", "私たちは航空会社ではなくブローカーです。運航会社を探して確認し、運航会社がフライトを運航します。"),
-    ("Our standard", "มาตรฐานของเรา", "我们的标准", "私たちの基準"),
-    ("Every operator checked before you see a quote.", "ผู้ให้บริการทุกรายได้รับการตรวจสอบก่อนที่คุณจะได้รับใบเสนอราคา", "在您收到报价之前，每家运营商都已经过审核。", "見積もりをお送りする前に、すべての運航会社を確認します。"),
-    ("Read the full standard", "อ่านมาตรฐานฉบับเต็ม", "阅读完整标准", "基準の全文を読む"),
-    ("Destinations", "จุดหมายปลายทาง", "目的地", "目的地"),
-    ("Any aircraft, any route, upon availability.", "เครื่องบินทุกลำ ทุกเส้นทาง ตามความพร้อมให้บริการ", "任何机型，任何航线，视供应情况而定。", "あらゆる機体、あらゆるルートに、空き状況に応じて対応します。"),
-    ("All destinations and guides", "จุดหมายปลายทางและคู่มือทั้งหมด", "所有目的地与指南", "すべての目的地とガイド"),
-    ("Dates ahead", "วันสำคัญที่กำลังจะมาถึง", "近期日期", "今後の日程"),
-    ("Events fill airports and parking early.", "งานใหญ่ทำให้สนามบินและที่จอดเครื่องบินเต็มเร็ว", "大型活动会让机场和停机位提前满档。", "大きなイベントの時期は、空港と駐機場が早く埋まります。"),
-    ("The next dates confirmed by the organisers. If you plan to travel for one of them, tell us early.", "วันที่ผู้จัดงานยืนยันแล้ว หากคุณวางแผนเดินทางไปร่วมงาน โปรดแจ้งเราล่วงหน้า", "以下是主办方已确认的日期。如果您计划出行参加，请尽早告诉我们。", "主催者が確定した次の日程です。参加のご予定があれば、お早めにお知らせください。"),
-    ("Dates from each organiser; the source is on the city page.", "วันที่จากผู้จัดงานแต่ละราย แหล่งที่มาอยู่ในหน้าของเมือง", "日期来自各主办方；来源见城市页面。", "日程は各主催者によるもので、出典は各都市のページにあります。"),
-    ("Empty-leg alerts", "การแจ้งเตือนเที่ยวบินเปล่า", "空程航班提醒", "空レッグのお知らせ"),
-    ("Send me alerts", "ส่งการแจ้งเตือนให้ฉัน", "向我发送提醒", "お知らせを受け取る"),
-    ("Flown privately before?", "เคยบินส่วนตัวมาก่อนหรือไม่?", "以前乘坐过私人飞机吗？", "プライベートジェットのご利用経験は？"),
-    ("No, first time", "ไม่เคย ครั้งแรก", "没有，第一次", "いいえ、初めてです"),
-    ("Also send me empty-leg alerts and occasional news (optional)", "ส่งการแจ้งเตือนเที่ยวบินเปล่าและข่าวสารเป็นครั้งคราวให้ฉันด้วย (ไม่บังคับ)", "同时向我发送空程航班提醒和不定期资讯（可选）", "空レッグのお知らせと時々のニュースも受け取る（任意）"),
-]
+# Thai, Chinese and Japanese for these additions: i18n_home.json (one place to review). Dates "5–12 December 2026"
+# are rendered per language: Thai with the Buddhist-era year, Chinese and Japanese as 2026年12月5日.
+DATE_RX = r"""
+  [/^(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (\d{4}) – (\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})$/, { th: (m, a, mo, y, b, mo2, y2) => `${+a} ${AE_TH[mo]} ${+y + 543} – ${+b} ${AE_TH[mo2]} ${+y2 + 543}`, zh: (m, a, mo, y, b, mo2, y2) => `${y}年${AE_N[mo]}月${+a}日–${y2}年${AE_N[mo2]}月${+b}日`, ja: (m, a, mo, y, b, mo2, y2) => `${y}年${AE_N[mo]}月${+a}日～${y2}年${AE_N[mo2]}月${+b}日` }],
+  [/^(\d{1,2})–(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})$/, { th: (m, a, b, mo, y) => `${+a}–${+b} ${AE_TH[mo]} ${+y + 543}`, zh: (m, a, b, mo, y) => `${y}年${AE_N[mo]}月${+a}日–${+b}日`, ja: (m, a, b, mo, y) => `${y}年${AE_N[mo]}月${+a}日～${+b}日` }],
+  [/^(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) – (\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})$/, { th: (m, a, mo, b, mo2, y) => `${+a} ${AE_TH[mo]} – ${+b} ${AE_TH[mo2]} ${+y + 543}`, zh: (m, a, mo, b, mo2, y) => `${y}年${AE_N[mo]}月${+a}日–${AE_N[mo2]}月${+b}日`, ja: (m, a, mo, b, mo2, y) => `${y}年${AE_N[mo]}月${+a}日～${AE_N[mo2]}月${+b}日` }],
+  [/^(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (\d{4})$/, { th: (m, a, mo, y) => `${+a} ${AE_TH[mo]} ${+y + 543}`, zh: (m, a, mo, y) => `${y}年${AE_N[mo]}月${+a}日`, ja: (m, a, mo, y) => `${y}年${AE_N[mo]}月${+a}日` }],
+"""
+DATE_HEAD = """const AE_M = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const AE_N = Object.fromEntries(AE_M.map((m, i) => [m, i + 1]));
+const AE_TH = Object.fromEntries(AE_M.map((m, i) => [m, ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'][i]]));
+"""
+def js(x): return "'" + x.replace("\\", "\\\\").replace("'", "\\'") + "'"
 
 def run(verbose=True):
     P = _pages()
@@ -165,11 +170,20 @@ def run(verbose=True):
         open(p, "w", encoding="utf-8").write(s)
     p = os.path.join(SITE, "i18n.js")
     if os.path.exists(p):
-        t = open(p, encoding="utf-8").read(); add = ""
-        for row in I18N:
-            if "['" + row[0].replace("'", "\\'") + "'," not in t: add += "\n[" + ",".join("'" + x.replace("'", "\\'") + "'" for x in row) + "],"
-        anchor = "['How it works','ขั้นตอนการให้บริการ','服务流程','ご利用の流れ'],"
-        if add and anchor in t: open(p, "w", encoding="utf-8").write(t.replace(anchor, anchor + add, 1))
+        t = open(p, encoding="utf-8").read()
+        rows = json.load(open(os.path.join(HERE, "i18n_home.json"), encoding="utf-8"))["rows"]
+        for r in rows: assert len(r) == 4 and all(x.strip() for x in r), r
+        t = re.sub(r"// ae:home[^\n]*\n.*?// /ae:home\n", "", t, flags=re.S)
+        for r in rows: t = t.replace("\n[" + ",".join(js(x) for x in r) + "],", "")   # rows added by earlier builds
+        old_first = [ln for ln in t.split("\n") if ln.startswith("['" + "A broker, not an airline")]
+        for ln in old_first: t = t.replace("\n" + ln, "")
+        keys = {r[0] for r in rows}
+        t = "\n".join(ln for ln in t.split("\n") if not (ln.startswith("['") and any(ln.startswith("[" + js(k) + ",") for k in keys)))
+        block = "// ae:home rows (home_extras.py, from i18n_home.json)\n" + "".join("[" + ",".join(js(x) for x in r) + "],\n" for r in rows) + "// /ae:home\n"
+        t = t.replace("const ROWS = [\n", "const ROWS = [\n" + block, 1)
+        t = t.replace("const RX = [\n", "const RX = [\n// ae:home dates\n" + DATE_RX.strip("\n") + "\n// /ae:home\n", 1)
+        if "const AE_M" not in t: t = t.replace("const ROWS = [", DATE_HEAD + "const ROWS = [", 1)
+        open(p, "w", encoding="utf-8").write(t)
     if verbose: print(f"  home: standard, {len([x for x in P if x['type'] in ('region','city')])} destinations, dates, alerts, quote form step 2")
 
 if __name__ == "__main__": run()

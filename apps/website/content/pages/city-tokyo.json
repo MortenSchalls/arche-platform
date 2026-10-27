@@ -69,5 +69,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "tokyo"
+ "events": "tokyo",
+ "region": "/regions/asia-pacific/"
 }

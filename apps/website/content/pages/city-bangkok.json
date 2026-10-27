@@ -73,5 +73,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "bangkok"
+ "events": "bangkok",
+ "region": "/regions/asia-pacific/"
 }

@@ -74,5 +74,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "new-york"
+ "events": "new-york",
+ "region": "/regions/north-america/"
 }

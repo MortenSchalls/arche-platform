@@ -17,7 +17,8 @@ Morten, 27 Oct 2026: "we need to have this automated as we do with the sanctions
    - Research each one from official sources only, as in `airports/README.md`, into a JSON file in the shape `RESEARCH-BRIEF.md` sets out (airports and, for a country, the "Country facts").
    - Import it with `python3 apps/website/content/importer.py <file>.json`: facts, sources and airport files, each fact with its quote. Then write a page in `pages/` with `"draft": true`.
    - Pages never use handling-agent or other company facts (only authorities, airport operators and cited sources may be named).
-   - Copy the structure of the existing city, airport or country pages.
+   - Copy the structure of the existing city, airport or country pages. City and country pages need a "region" (e.g. "/regions/asia-pacific/"); the home page groups them by it.
+   - Add the Thai, Chinese and Japanese names of any new city, country or event to `apps/website/i18n_home.json`, or the home page shows it in English on the translated pages.
    - Never publish: Morten approves drafts.
    - Remove the entries done from the queue.
 4. Run `python3 apps/website/content/check_airports.py`, then `python3 apps/website/build.py`, then `python3 apps/website/check_site.py`. They must pass, apart from the known phone and UEN placeholders.

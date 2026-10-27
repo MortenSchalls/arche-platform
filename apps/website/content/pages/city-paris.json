@@ -68,5 +68,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": null
+ "events": null,
+ "region": "/regions/europe/"
 }

@@ -63,5 +63,6 @@
   "/cities/hong-kong/"
  ],
  "draft": true,
- "type": "country"
+ "type": "country",
+ "region": "/regions/asia-pacific/"
 }

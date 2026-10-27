@@ -68,5 +68,6 @@
   "/countries/india/"
  ],
  "draft": true,
- "type": "country"
+ "type": "country",
+ "region": "/regions/asia-pacific/"
 }

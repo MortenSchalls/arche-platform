@@ -68,5 +68,6 @@
  ],
  "draft": true,
  "type": "city",
- "events": "hong-kong"
+ "events": "hong-kong",
+ "region": "/regions/asia-pacific/"
 }

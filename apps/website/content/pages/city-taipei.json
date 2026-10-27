@@ -66,5 +66,6 @@
   "/regions/asia-pacific/"
  ],
  "draft": true,
- "type": "city"
+ "type": "city",
+ "region": "/regions/asia-pacific/"
 }
