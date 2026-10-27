@@ -28,6 +28,10 @@ def load():
         if f.endswith(".json"): P.append(json.load(open(os.path.join(HERE, "pages", f), encoding="utf-8")) | {"_file": f})
     return S, F, P
 
+def check_excluded():
+    d = datetime.date.fromisoformat(EXCL["reviewed"])
+    if (datetime.date.today() - d).days > 120: raise Bad(f"excluded.json last reviewed {EXCL['reviewed']}: review it against the official sanctions lists (more than 120 days)")
+
 def check_sources(S):
     today = datetime.date.today()
     for k, s in S.items():
@@ -243,7 +247,7 @@ def page_html(p, F, S, P):
 
 def run(verbose=True):
     S, F, P = load()
-    check_sources(S); check_facts(F, S)
+    check_excluded(); check_sources(S); check_facts(F, S)
     paths = set(); built = []
     for p in P:
         if p["path"] in paths: raise Bad(f"{p['_file']}: path used twice")

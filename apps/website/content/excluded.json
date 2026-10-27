@@ -1,5 +1,5 @@
 {
- "_why": "Morten, 27 Oct 2026: sanctioned countries, companies and people are avoided in KYC and never listed or promoted on the website; the terms of business (B6) cover sanctions in general words. Countries and territories: Morten's list (26-27 Oct 2026) plus the Master Training Manual Appendix G.2 (sanctions and embargoes) and G.7 (countries we cannot take payments from or pay to), checked October 2026. Kazakhstan is on G.7 only because of payment-provider rules (not sanctions) and is not listed here. Review with each manual review.",
+ "_why": "Morten, 27 Oct 2026: sanctioned countries, companies and people are avoided in KYC and never listed or promoted on the website; the terms of business (B6) cover sanctions in general words. A place is listed here when it has a country sanctions programme under the UN Security Council, or comprehensive or broad country-wide measures under the US, EU or UK, or when Morten asked for it (Russia, Iran, Iraq, Syria, Venezuela). Places with only targeted measures against named people or companies (for example Hong Kong, China, Lebanon, Nicaragua, Zimbabwe, Guinea, Bosnia) are not listed: those people and companies are screened in KYC. Kazakhstan is a payment-provider limit, not sanctions, and is not listed. The weekly job jobs/regimes.mjs watches the official lists and asks for a review when a programme starts or ends; the website build stops if this file has not been reviewed for 120 days.",
  "countries": [
   "Russia",
   "Belarus",
@@ -17,7 +17,16 @@
   "Donetsk",
   "Luhansk",
   "Kherson",
-  "Zaporizhzhia"
+  "Zaporizhzhia",
+  "Afghanistan",
+  "Somalia",
+  "Yemen",
+  "Democratic Republic of the Congo",
+  "DR Congo",
+  "Central African Republic",
+  "Haiti",
+  "Mali",
+  "Guinea-Bissau"
  ],
  "words": [
   "russian",
@@ -52,7 +61,23 @@
   "khartoum",
   "juba",
   "sevastopol",
-  "simferopol"
+  "simferopol",
+  "afghan",
+  "kabul",
+  "kandahar",
+  "somali",
+  "mogadishu",
+  "yemeni",
+  "sanaa",
+  "sana'a",
+  "kinshasa",
+  "lubumbashi",
+  "bangui",
+  "port-au-prince",
+  "haitian",
+  "bamako",
+  "malian",
+  "bissau"
  ],
  "airports_iata": [
   "SVO",
@@ -79,6 +104,45 @@
   "MDL",
   "KRT",
   "JUB",
-  "SIP"
+  "SIP",
+  "KBL",
+  "KDH",
+  "MGQ",
+  "SAH",
+  "ADE",
+  "FIH",
+  "FBM",
+  "BGF",
+  "PAP",
+  "BKO",
+  "OXB"
+ ],
+ "reviewed": "2026-10-27",
+ "sources": [
+  {
+   "name": "UN Security Council sanctions regimes (15 programmes, via OpenSanctions UN SC dataset, last changed 22 Oct 2026)",
+   "url": "https://www.opensanctions.org/datasets/un_sc_sanctions",
+   "checked": "2026-10-27"
+  },
+  {
+   "name": "US Treasury OFAC, Sanctions Programs and Country Information (36 programmes)",
+   "url": "https://ofac.treasury.gov/sanctions-programs-and-country-information",
+   "checked": "2026-10-27"
+  },
+  {
+   "name": "UK sanctions regimes (25 country regimes, list of 2 Feb 2026)",
+   "url": "https://comsuregroup.com/news/new-uk-sanctions-lists-of-designations-and-sanctions-notices-25-regime-country-pages-and-9-themes",
+   "checked": "2026-10-27"
+  },
+  {
+   "name": "Monetary Authority of Singapore, Regulations for Targeted Financial Sanctions (8 country regulations)",
+   "url": "https://www.mas.gov.sg/regulation/anti-money-laundering/targeted-financial-sanctions/regulations-for-targeted-financial-sanctions",
+   "checked": "2026-10-27"
+  },
+  {
+   "name": "EU Sanctions Map (over 40 regimes; the map could not be read automatically here; the weekly job reads the EU consolidated list)",
+   "url": "https://sanctionsmap.eu/",
+   "checked": "2026-10-27"
+  }
  ]
 }
