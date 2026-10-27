@@ -90,7 +90,7 @@ async function readOnce(R, log, notes = []) {
   let pw; try { pw = await import("playwright"); } catch (e) { throw new Error("browser not installed"); }
   const b = await pw.chromium.launch(); const p = await b.newPage({ userAgent: "Mozilla/5.0 (compatible; ArcheExecutive-audit-check/1.0)" });
   try {
-    const resp = await p.goto(R.url, { waitUntil: "networkidle", timeout: 90000 }); await p.waitForTimeout(4000);
+    const resp = await p.goto(R.url, { waitUntil: "domcontentloaded", timeout: 90000 }); await p.waitForTimeout(6000);   // not "networkidle": the ARGUS (Wix) page keeps loading trackers
     // wait until the list itself has rendered (a level word on the page), up to 30 s
     await p.waitForFunction(lv => lv.some(l => document.body.innerText.includes("\n" + l)), R.levels, { timeout: 30000 }).catch(() => {});
     const all = new Map(); let same = 0;
@@ -111,7 +111,7 @@ async function readOnce(R, log, notes = []) {
 // a page's text through the browser, for sites that refuse plain requests
 export async function browserText(url) {
   const pw = await import("playwright"); const b = await pw.chromium.launch();
-  try { const p = await b.newPage(); await p.goto(url, { waitUntil: "networkidle", timeout: 60000 }); return "<p>" + (await p.evaluate(() => document.body.innerText)).replace(/</g, " ") + "</p>"; }
+  try { const p = await b.newPage(); await p.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 }); await p.waitForTimeout(5000); return "<p>" + (await p.evaluate(() => document.body.innerText)).replace(/</g, " ") + "</p>"; }
   finally { await b.close(); }
 }
 export function words(html, list) {
