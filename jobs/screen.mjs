@@ -18,7 +18,14 @@ export async function run(db, fetchFn = fetch, log = console.log, nowIso = new D
     const auto = { result: hits.length ? "possible match" : "no match", at: nowIso, lists: lists.loaded.map(x => x.replace(/ \(\d+\)$/, "")), failed: lists.failed, hits };
     const upd = isOp ? { ...r.data, ops: { ...o, screen: { ...(o.screen || {}), auto } } } : { ...r.data, screen: { ...(r.data.screen || {}), auto } };
     const tgt = isOp ? upd.ops : upd;
-    if (hits.length && r.data.status !== "review") { upd.status = "review"; tgt.flags = [...new Set([...(o.flags || []), "Possible sanctions match: check the names against the list before any contact."])]; possible.push(r.data.org); }
+    const FLAG = "Possible sanctions match: check the names against the list before any contact.";
+    if (hits.length && r.data.status !== "review") { upd.screenPrev = r.data.status || ""; upd.status = "review"; tgt.flags = [...new Set([...(o.flags || []), FLAG])]; possible.push(r.data.org); }
+    else if (hits.length) possible.push(r.data.org);
+    // no longer a match (lists or matching changed): remove our flag, and undo the review this job set, unless a person decided
+    if (!hits.length && (o.flags || []).includes(FLAG)) {
+      tgt.flags = (o.flags || []).filter(f => f !== FLAG);
+      if (r.data.status === "review" && "screenPrev" in r.data && !((o.screen || {}).decision)) { upd.status = r.data.screenPrev || "new"; delete upd.screenPrev; }
+    }
     await db.set("prospects/" + r.id, upd); screened++;
   }
 

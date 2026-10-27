@@ -82,15 +82,15 @@
     const nameRed = red.some(x => x.key.startsWith("name|"));
     const release = nameRed && S.isOwner && acting() === "owner" ? `<div class="fgrid"><label class="f wide" for="tc_rel">Owner: after checking dates of birth, nationality and addresses against the listing<input id="tc_rel" placeholder="e.g. different person: listed person born 1961, our client born 1985"></label></div><div class="row"><button class="btn small" type="button" data-tc="release|${esc(t.bid)}|${esc(t.did)}">Not the listed person: release</button></div>` : "";
     const head = red.length ? `<div class="note bad small"><b>This trip is stopped.</b> ${red.length} red item${red.length > 1 ? "s" : ""} below. It cannot go to operations, be approved or be issued until ${red.some(x => !x.key.startsWith("name|")) ? "the trip is changed" : "the owner releases it"}.</div>` : amberOpen.length ? `<div class="note warn small">${amberOpen.length} item${amberOpen.length > 1 ? "s" : ""} to confirm with the operator before the trip goes to operations.</div>` : "";
-    return `<div class="panel" style="padding:16px;margin:8px 0"><h3 style="margin-top:0">Trip checks</h3>${head}${["red", "amber", "grey", "green"].flatMap(s => all.filter(x => x.sev === s)).map(row).join("")}${release}
+    return `<div class="panel" id="secTC" style="padding:16px;margin:8px 0"><h3 style="margin-top:0">Trip checks</h3>${head}${["red", "amber", "grey", "green"].flatMap(s => all.filter(x => x.sev === s)).map(row).join("")}${release}
       <p class="small muted">Red stops the trip. Amber must be confirmed with the operator. Grey: not checked yet; the operator confirms. Rules come from official sources, each with its check date.</p></div>`;
   };
 
   // live red in the trip form
   function mark(el, html){ let m = el.parentElement.querySelector(".tcmsg"); if (!m) { m = document.createElement("span"); m.className = "tcmsg small"; m.style.cssText = "display:block;color:var(--bad);margin-top:4px;font-weight:600"; el.parentElement.appendChild(m); } m.innerHTML = html || ""; el.style.outline = html ? "2px solid var(--bad)" : ""; el.setAttribute("aria-invalid", html ? "true" : "false"); }
-  async function screenNames(names){
+  async function screenNames(names, extra){
     const s = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
-    const r = await fetch("/api/screen", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({names})});
+    const r = await fetch("/api/screen", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({names, ...(extra || {})})});
     const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status); return j;
   }
   const NAMEFIELDS = ["e_cn", "e_co", "e_py", "q_op"];
@@ -111,11 +111,11 @@
     setTimeout(() => { const v = el.value.toUpperCase().trim(); const hit = APT.by[v] || (aptSearch(v).find(h => h.a.iata === v) || {}).a; mark(el, hit && aptRed(hit.icao) ? `In a sanctioned country (${esc(cname(hit.cc))}): not possible.` : ""); }, 50);
   });
   // on save: screen the names and record the result on the trip; red keeps the trip as an enquiry
-  window.tcBeforeSave = async function(body){
+  window.tcBeforeSave = async function(body, ids){
     const c = body.client || {}, names = [c.name, c.company, c.payer, (body.quote || {}).operator].map(x => String(x || "").trim()).filter(x => x.length >= 3);
     const prevNames = ((body.screen || {}).results || []).map(r => r.name).join("|");
     if (names.length && names.join("|") !== prevNames) {
-      try { const j = await screenNames(names); body.screen = {at: now(), lists: j.lists, listsAt: j.at, results: j.results}; }
+      try { const j = await screenNames(names, ids ? {log: "trip", tripOwner: ids.bid, tripId: ids.did} : null); body.screen = {at: now(), lists: j.lists, listsAt: j.at, results: j.results, logId: j.logId || null}; }
       catch(e){ body.screen = {at: null, error: String(e.message || e).slice(0, 120), results: []}; }
     }
     const {red} = tripBlockers(body, {});

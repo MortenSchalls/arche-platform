@@ -41,17 +41,17 @@
       b.disabled = true; b.textContent = "Screening…";
       try {
         const s = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
-        const r = await fetch("/api/screen", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({names: names.map(n => n.replace(/\s*\(?\b(19|20)\d\d[-/.]\d\d?[-/.]\d\d?\)?\s*$/, ""))})});
+        const r = await fetch("/api/screen", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({names: names.map(n => n.replace(/\s*\(?\b(19|20)\d\d[-/.]\d\d?[-/.]\d\d?\)?\s*$/, "")), log: "operations", tripOwner: t.bid, tripId: t.did})});
         const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status);
         j.results.forEach((x, i) => { x.name = names[i]; });
-        S.scr[did] = {text: names.join("\n"), results: j.results, lists: j.lists, at: j.at, stale: j.stale, failed: j.failed};
+        S.scr[did] = {text: names.join("\n"), results: j.results, lists: j.lists, at: j.at, stale: j.stale, failed: j.failed, logId: j.logId || null};
       } catch(e){ toast("Screening not available: " + String(e.message || e).slice(0, 140) + ". Use the official search pages and record the result in a note."); }
       render(); return;
     }
     if (a === "save") {
       const L = S.scr[did]; if (!L || !L.results) return;
       const hit = L.results.some(r => r.result !== "no match");
-      const screen = {at: now(), by: S.uid, names: L.results.map(r => r.name), lists: L.lists, listsAt: L.at, stale: !!L.stale, outcome: hit ? "possible match" : "clear", hits: L.results.filter(r => r.result !== "no match").map(r => ({name: r.name, hits: r.hits}))};
+      const screen = {at: now(), by: S.uid, names: L.results.map(r => r.name), lists: L.lists, listsAt: L.at, stale: !!L.stale, logId: L.logId || null, outcome: hit ? "possible match" : "clear", hits: L.results.filter(r => r.result !== "no match").map(r => ({name: r.name, hits: r.hits}))};
       await statusWrite(t, {screen}, hit ? "Sanctions screening: possible match, owner to decide" : "Sanctions screening: no match");
       audit("Sanctions screening recorded", `${(t.st || {}).ref || t.did} · ${hit ? "possible match" : "no match"} · ${screen.names.length} names`);
       S.scr[did] = {}; toast(hit ? "Recorded. The booking stops until the owner decides." : "Recorded: no match."); return;

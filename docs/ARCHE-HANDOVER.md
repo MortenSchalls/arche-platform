@@ -171,7 +171,8 @@ The portal is a single page (`apps/portal/index.html`) with modules in `apps/por
 | 0014 | Phones that receive alerts, and the 2-minute alert check (pg_cron) | Run 26 Oct 2026 (alerts working) |
 | 0015 | Assessments: qualification checklist (owner and assessors only) | Run 26 Oct 2026 |
 | 0016 | Supervision share: supervisors see the trips that pay them | Run 26 Oct 2026 |
-| 0017 | Website statistics (site_events, site_links, submit_visit, site_stats, 13-month clean-up) | **To run**: task in Team |
+| 0017 | Website statistics (site_events, site_links, submit_visit, site_stats, 13-month clean-up) | Run 26 Oct 2026 |
+| 0018 | Sanctions screening log (screen_log, written only by api/screen.mjs, never editable) and private storage bucket "sanctions" | **To run** (27 Oct 2026): task on Today |
 
 How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor → paste → Run.
 
@@ -242,6 +243,9 @@ The dated launch steps (UEN, bank, payments, Avinode, Singapore number, email, i
    - Gaps with no business-jet caterer or verified crew hotel: Hong Kong caterer; crew hotels at WSSS/WSSL, VTBD, RPLL
      and VRMM.
    - Weekly research by scheduled task: offered, not yet set up.
+
+6i. Booking steps (27 Oct 2026, src-modules/nextsteps.js), after Morten's dummy booking ("it does not suggest what needs to be filled"): every trip shows "Steps to book this trip": 1 Client and trip, 2 Operator quote, 3 Checks and documents, 4 Confirmation details (recommended), 5 Send to operations, 6 Operations check, 7 Signature and payment, 8 Flight and follow-up. Each item is ticked or open, says who does it ("your turn"), and has a button that opens the exact field. The trip form marks needed fields (*) and lists what is still missing as you type; the save message names the next step; under Send to operations the exact missing items are listed. Send to operations now needs: client name, email or phone, country of residence, every leg with from, to, date, local time and passengers, operator name, operator's country, aircraft type, operator price, all 7 checks, no red and no open amber trip checks. AOC, insurance and quote documents and the confirmation details are shown as recommended. No AI involved.
+6j. Sanctions log (27 Oct 2026): SQL 0018 adds screen_log. api/screen.mjs writes a row for each trip-form save (purpose "trip") and each "Screen names now" in Operations (purpose "operations", owner/ops only); the log id is kept on the trip's screening record. Brokers read only their own rows. Matching ignores names made only of trade words (aviation, business, centre, airport, handling…): the first run had flagged four real handling agents on "Business Aviation Centre". First screen job run 27 Oct 2026 03:20 UTC: 168 operators and partners, lists OFAC SDN, OFAC alias, UN, EU, UK, 69,257 names; the regimes job was started the same morning. Owner tasks on Today: sql-0018, screen-job, regimes-job (each ticks itself).
 
 ## 9. Planning notes in the project (claude/…)
 

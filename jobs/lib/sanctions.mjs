@@ -57,7 +57,7 @@ export async function loadLists(fetchFn = fetch, log = () => {}) {
   return { names, loaded, failed };
 }
 
-const GENERIC = new Set("air airlines airline airways aviation aero aerospace jet jets charter charters flight flights executive business global international group holding holdings services service transport logistics trading general express star sky".split(" "));
+export const GENERIC = new Set("air airlines airline airways aviation aero aerospace jet jets charter charters flight flights executive business global international group holding holdings services service transport logistics trading general express star sky centre center airport airports terminal handling fbo ground support base company enterprises industries solutions systems management partners worldwide".split(" "));
 // exact match after normalising, or every word of a listed name (two words or more) appears in our name
 export function screen(orgNames, lists) {
   const hits = [];
