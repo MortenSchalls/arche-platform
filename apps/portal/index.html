@@ -6014,10 +6014,12 @@ function todoState(x){
   if (man) return {done:true, how:"ticked " + fmtT(man.at)};
   return {done:false, manual: !x.table && !x.check || auto === null};
 }
+// open database steps first: they take a minute and other features wait for them (27 Oct 2026)
+const todoKey = x => x.sql ? "0000-" + x.sql : (x.due || "9999");
 function ownerTodoPanel(){
   if (!S.isOwner || S.preview) return "";
   setTimeout(todoProbe, 0);
-  const byDue = (a, b) => (a.x.due || "9999") < (b.x.due || "9999") ? -1 : (a.x.due || "9999") > (b.x.due || "9999") ? 1 : 0;
+  const byDue = (a, b) => todoKey(a.x) < todoKey(b.x) ? -1 : todoKey(a.x) > todoKey(b.x) ? 1 : 0;
   const rows = OWNER_TODO.map(x => ({x, s: todoState(x)})).sort(byDue), open = rows.filter(r => !r.s.done), now_ = open.filter(r => !r.x.later), later = open.filter(r => r.x.later), done = rows.filter(r => r.s.done);
   const item = ({x, s}) => `<div class="flag"><span class="sev ${todoLate(x) ? "high" : TODO_SEV[x.sev]}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(x.title)}</b>${todoDue(x)}</p><p class="small muted">${esc(x.why)}</p><p class="small">${esc(x.how)}</p>
     ${x.sql && OWNER_SQL[x.sql] ? `<details class="small"><summary>Show the SQL</summary><pre class="mono" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto">${esc(OWNER_SQL[x.sql])}</pre></details>` : ""}
@@ -6034,7 +6036,7 @@ const todoDue = x => x.due ? ` <span class="chip ${todoLate(x) ? "c-returned" : 
 function ownerTodoPrompt(){
   if (!S.isOwner || S.preview) return "";
   setTimeout(todoProbe, 0);
-  const open = OWNER_TODO.filter(x => !todoState(x).done && !x.later).sort((a, b) => (a.due || "9999") < (b.due || "9999") ? -1 : 1); if (!open.length) return "";
+  const open = OWNER_TODO.filter(x => !todoState(x).done && !x.later).sort((a, b) => todoKey(a) < todoKey(b) ? -1 : 1); if (!open.length) return "";
   return `<div class="panel" style="margin-bottom:16px"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Your tasks: ${open.length} need${open.length === 1 ? "s" : ""} you</h2><button class="btn small primary" type="button" data-view="team">Open in Team</button></div>
     ${open.slice(0, 8).map(x => `<div class="flag"><span class="sev ${todoLate(x) ? "high" : TODO_SEV[x.sev]}" aria-hidden="true"></span><div><p>${esc(x.title)}${todoDue(x)}</p></div></div>`).join("")}${open.length > 8 ? `<p class="small muted">and ${open.length - 8} more in Team.</p>` : ""}</div>`;
 }
