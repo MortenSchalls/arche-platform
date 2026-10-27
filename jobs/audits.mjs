@@ -79,17 +79,18 @@ export function parseWyvern(text) {
 // a real browser (GitHub Actions installs Chromium for this job): loads the page, then presses the list's "next" control
 // until no new operators appear, so a paginated or browser-only list is read in full
 export async function readWithBrowser(R, log = () => {}) {
-  let best = [];
+  let best = []; const notes = [];
   for (let attempt = 1; attempt <= 3 && best.length < R.min; attempt++) {
-    try { const got = await readOnce(R, log); if (got.length > best.length) best = got; } catch (e) { log(`  ${R.id}: browser attempt ${attempt}: ${e.message}`); }
+    try { const got = await readOnce(R, log, notes); if (got.length > best.length) best = got; } catch (e) { notes.push(`attempt ${attempt}: ${e.message}`); log(`  ${R.id}: browser attempt ${attempt}: ${e.message}`); }
   }
+  if (best.length < R.min) throw new Error(`browser read ${best.length} (${notes.join("; ").slice(0, 300)})`);
   return best;
 }
-async function readOnce(R, log) {
+async function readOnce(R, log, notes = []) {
   let pw; try { pw = await import("playwright"); } catch (e) { throw new Error("browser not installed"); }
   const b = await pw.chromium.launch(); const p = await b.newPage({ userAgent: "Mozilla/5.0 (compatible; ArcheExecutive-audit-check/1.0)" });
   try {
-    await p.goto(R.url, { waitUntil: "networkidle", timeout: 90000 }); await p.waitForTimeout(4000);
+    const resp = await p.goto(R.url, { waitUntil: "networkidle", timeout: 90000 }); await p.waitForTimeout(4000);
     // wait until the list itself has rendered (a level word on the page), up to 30 s
     await p.waitForFunction(lv => lv.some(l => document.body.innerText.includes("\n" + l)), R.levels, { timeout: 30000 }).catch(() => {});
     const all = new Map(); let same = 0;
@@ -103,6 +104,7 @@ async function readOnce(R, log) {
       if (!next) break; await p.waitForTimeout(3500);
     }
     log(`  ${R.id}: browser read ${all.size} operators`);
+    if (all.size < R.min) notes.push(`HTTP ${resp ? resp.status() : "?"}, ${all.size} read, page text ${(await p.evaluate(() => document.body.innerText.length))} chars: ${(await p.evaluate(() => document.body.innerText.replace(/\s+/g, " ").slice(0, 120)))}`);
     return [...all.values()];
   } finally { await b.close(); }
 }
@@ -124,11 +126,12 @@ export async function run(db, fetchFn = fetch, log = console.log, nowIso = new D
   for (const R of REGISTRIES) {
     try {
       let e = []; try { e = parseRegistry(await get(R.url), R.levels); } catch (err) { log(`  ${R.id} page: ${err.message}`); }
-      if (e.length < R.min && browser) { try { e = await browser(R, log); } catch (err) { log(`  ${R.id} browser: ${err.message}`); } }
-      if (e.length < R.min) throw new Error(`only ${e.length} operators could be read; the list is paginated or loads in the browser only, so it is not used to say an operator is not listed`);
+      let why = "";
+      if (e.length < R.min && browser) { try { e = await browser(R, log); } catch (err) { why = " [" + err.message + "]"; log(`  ${R.id} browser: ${err.message}`); } }
+      if (e.length < R.min) throw new Error(`only ${e.length} operators could be read; a partial list is not used to say an operator is not listed${why}`);
       e.forEach(x => index.entries.push({ prog: R.id, level: x.level, name: x.name, norm: normName(x.name), ...(x.cert ? { cert: x.cert } : {}), ...(x.holderOf ? { holderOf: x.holderOf } : {}) }));
       index.sources[R.id] = { ok: true, count: e.length, url: R.url };
-    } catch (err) { index.sources[R.id] = { ok: false, error: String(err.message || err).slice(0, 200), url: R.url }; log(`  ${R.id} registry: ${err.message}`); }
+    } catch (err) { index.sources[R.id] = { ok: false, error: String(err.message || err).slice(0, 500), url: R.url }; log(`  ${R.id} registry: ${err.message}`); }
   }
   // a registry that could not be read today keeps its last good list for up to 7 days, marked with its date
   let prevIx = null; try { prevIx = loadPrev ? await loadPrev() : null; } catch (e) {}
