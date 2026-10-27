@@ -97,12 +97,18 @@ export async function readWithBrowser(R, log = () => {}) {
     return [...all.values()];
   } finally { await b.close(); }
 }
+// a page's text through the browser, for sites that refuse plain requests
+export async function browserText(url) {
+  const pw = await import("playwright"); const b = await pw.chromium.launch();
+  try { const p = await b.newPage(); await p.goto(url, { waitUntil: "networkidle", timeout: 60000 }); return "<p>" + (await p.evaluate(() => document.body.innerText)).replace(/</g, " ") + "</p>"; }
+  finally { await b.close(); }
+}
 export function words(html, list) {
   const t = pieces(html).map(p => p.text || "").join(" ").toLowerCase();
   return list.filter(w => t.includes(w.toLowerCase())).sort();
 }
 
-export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null, browser = null) {
+export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null, browser = null, pageText = null) {
   const get = async url => { const r = await fetchFn(url, { headers: { "user-agent": "Mozilla/5.0 (compatible; ArcheExecutive-audit-check/1.0)" } }); if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); };
   // 1. registries
   const index = { at: nowIso, sources: {}, entries: [] };
@@ -123,7 +129,12 @@ export async function run(db, fetchFn = fetch, log = console.log, nowIso = new D
   const prev = (await db.get("intel/audit-programmes")) || {};
   const latest = {}, failed = [];
   for (const P of PROGRAMMES) {
-    try { latest[P.id] = words(await get(P.url), P.words); } catch (err) { failed.push(P.id); log(`  ${P.id}: ${err.message}`); }
+    try { latest[P.id] = words(await get(P.url), P.words); }
+    catch (err) {
+      // some sites refuse plain requests; a real browser reads the page as a visitor would
+      try { if (!pageText) throw err; latest[P.id] = words(await pageText(P.url), P.words); log(`  ${P.id}: read in the browser`); }
+      catch (err2) { failed.push(P.id); log(`  ${P.id}: ${err.message}`); }
+    }
   }
   const base = prev.baseline || null, changes = [];
   if (base) for (const [id, w] of Object.entries(latest)) { const was = base[id]; if (!was) continue; const added = w.filter(x => !was.includes(x)), removed = was.filter(x => !w.includes(x)); if (added.length || removed.length) changes.push({ id, added, removed, at: nowIso }); }
@@ -145,6 +156,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const r = await st.from("registries").upload("index.json", new Blob([body], { type: "application/json" }), { upsert: true, contentType: "application/json" });
       if (r.error) throw new Error("index upload: " + r.error.message);
     };
-    return run(db, fetch, console.log, new Date().toISOString(), store, readWithBrowser);
+    return run(db, fetch, console.log, new Date().toISOString(), store, readWithBrowser, browserText);
   });
 }

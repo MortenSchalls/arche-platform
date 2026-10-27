@@ -702,15 +702,255 @@
   "checked": "2026-10-27"
  },
  "th-aip-gen12": {
-  "title": "Thailand eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIRAC effective 04 Sep 2025)",
+  "title": "Thailand eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIRAC effective 4 Sep 2025)",
   "url": "https://aip.caat.or.th/2025-09-04-AIRAC/html/eAIP/VT-GEN-1.2-en-GB.html",
-  "publisher": "Civil Aviation Authority of Thailand (CAAT)",
+  "publisher": "Civil Aviation Authority of Thailand",
   "checked": "2026-10-27"
  },
  "pg-airport-business": {
   "title": "Bangkok Airways investor relations, Airport Business (no page date shown; copyright 2026; checked 27 Oct 2026)",
   "url": "https://investor.bangkokair.com/en/company-overview/business-overview/airport-business",
   "publisher": "Bangkok Airways Public Company Limited",
+  "checked": "2026-10-27"
+ },
+ "my-aip-wmsa": {
+  "title": "AIP Malaysia, AD 2 WMSA Subang/Sultan Abdul Aziz Shah (eAIP effective 19 May 2026)",
+  "url": "https://aip.caam.gov.my/aip/eAIP/2026-05-19/html/eAIP/WM-AD-2.WMSA-en-MS.html",
+  "publisher": "Civil Aviation Authority of Malaysia",
+  "checked": "2026-10-27"
+ },
+ "my-aip-wmkk": {
+  "title": "AIP Malaysia, AD 2 WMKK KL International/Sepang (eAIP AIRAC effective 6 Aug 2026)",
+  "url": "https://aip.caam.gov.my/aip/eAIP/2026-08-06-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html",
+  "publisher": "Civil Aviation Authority of Malaysia",
+  "checked": "2026-10-27"
+ },
+ "my-aip-gen12": {
+  "title": "AIP Malaysia, GEN 1.2 Entry, transit and departure of aircraft (eAIP effective 11 Aug 2026)",
+  "url": "https://aip.caam.gov.my/aip/eAIP/2026-08-11/html/eAIP/WM-GEN-1.2-en-MS.html",
+  "publisher": "Civil Aviation Authority of Malaysia",
+  "checked": "2026-10-27"
+ },
+ "id-dgca-wadd": {
+  "title": "DGCA Indonesia airport register: I Gusti Ngurah Rai (page undated, checked 27 Oct 2026)",
+  "url": "https://hubud.kemenhub.go.id/bandara/11",
+  "publisher": "Direktorat Jenderal Perhubungan Udara, Kementerian Perhubungan",
+  "checked": "2026-10-27"
+ },
+ "id-dgca-wihh": {
+  "title": "DGCA Indonesia airport register: Halim Perdana Kusuma (page undated, checked 27 Oct 2026)",
+  "url": "https://hubud.kemenhub.go.id/bandara/122",
+  "publisher": "Direktorat Jenderal Perhubungan Udara, Kementerian Perhubungan",
+  "checked": "2026-10-27"
+ },
+ "id-dgca-hlp-move": {
+  "title": "DGCA news: moving part of scheduled flights from Halim to Soekarno-Hatta (15 Jul 2025)",
+  "url": "https://hubud.kemenhub.go.id/berita/4760",
+  "publisher": "Direktorat Jenderal Perhubungan Udara",
+  "checked": "2026-10-27"
+ },
+ "id-dgca-faq": {
+  "title": "DGCA Indonesia FAQ (page undated, checked 27 Oct 2026)",
+  "url": "https://hubud.kemenhub.go.id/faq",
+  "publisher": "Direktorat Jenderal Perhubungan Udara",
+  "checked": "2026-10-27"
+ },
+ "miaa-ao1-2024": {
+  "title": "MIAA Revised Administrative Order No. 1, Series of 2024 (fees and charges; posted 9 Sep 2024)",
+  "url": "https://www.miaa.gov.ph/images/stories/miaa-mc-oo-2024/20240909-ao-no-1-s-2024.pdf",
+  "publisher": "Manila International Airport Authority",
+  "checked": "2026-10-27"
+ },
+ "miaa-naia-im": {
+  "title": "NAIA PPP Project Information Memorandum (posted 18 Sep 2023)",
+  "url": "https://www.miaa.gov.ph/images/stories/Bidding/20230918-information-memorandum-naia-ppp.pdf",
+  "publisher": "Manila International Airport Authority",
+  "checked": "2026-10-27"
+ },
+ "miaa-mc06-2016": {
+  "title": "MIAA Memorandum Circular, Series of 2016: Policy guidelines for aeronautical fees and charges (dated 1 Jun 2016)",
+  "url": "https://www.miaa.gov.ph/images/stories/MIAA-MC-OO-2020/20201030-mc-no.-06-s.-2016-1.pdf",
+  "publisher": "Manila International Airport Authority",
+  "checked": "2026-10-27"
+ },
+ "clark-lipad": {
+  "title": "Clark International Airport: LIPAD Corp. page (undated, checked 27 Oct 2026)",
+  "url": "https://clarkinternationalairport.com/lipadcorp/",
+  "publisher": "Luzon International Premiere Airport Development Corp.",
+  "checked": "2026-10-27"
+ },
+ "ciac-overview": {
+  "title": "CIAC Business Overview (undated; refers to events to Nov 2022)",
+  "url": "https://ciac.gov.ph/wp-content/uploads/2020/09/CIAC-Business-Overview.pdf",
+  "publisher": "Clark International Airport Corporation",
+  "checked": "2026-10-27"
+ },
+ "ph-caap-ais": {
+  "title": "CAAP Aeronautical Information Service portal home (checked 27 Oct 2026)",
+  "url": "https://ais.caap.gov.ph/home",
+  "publisher": "Civil Aviation Authority of the Philippines",
+  "checked": "2026-10-27"
+ },
+ "th-aip-vtcc": {
+  "title": "Thailand eAIP, AD 2 VTCC Chiang Mai (AIRAC effective 14 May 2026)",
+  "url": "https://aip.caat.or.th/2026-05-14-AIRAC/html/eAIP/VT-AD-2.VTCC-en-GB.html",
+  "publisher": "Civil Aviation Authority of Thailand",
+  "checked": "2026-10-27"
+ },
+ "hk-aip-vmmc": {
+  "title": "Hong Kong eAIP, AD 2 VMMC Macao Intl (AIRAC effective 16 Apr 2026)",
+  "url": "https://www.ais.gov.hk/eaip_20260319/2026-04-16-000000/html/eAIP/VH-AD-2-VMMC-en-US.html",
+  "publisher": "Civil Aviation Department, Hong Kong",
+  "checked": "2026-10-27"
+ },
+ "mia-tag-2019": {
+  "title": "Macau International Airport news: CAM Chairman visits TAG Aviation Asia (14 Mar 2019)",
+  "url": "https://www.macau-airport.com/en/media-centre/news/news-details/17872",
+  "publisher": "CAM - Macau International Airport Co. Ltd.",
+  "checked": "2026-10-27"
+ },
+ "vn-aip-vvts-2024": {
+  "title": "Viet Nam eAIP, AD 2 VVTS Tan Son Nhat (effective 28 Feb 2024, in AIRAC folder 18 Apr 2024)",
+  "url": "https://aim.vatm.vn/images/stories/vnaic.vn/SanPhamDichVu/AIPVietNam/AIP/2024-04-18-AIRAC/html/eAIP/VV-AD-2.VVTS-en-GB.html",
+  "publisher": "VATM Aeronautical Information Management, for CAAV",
+  "checked": "2026-10-27"
+ },
+ "vn-aip-vvts-2023": {
+  "title": "Viet Nam eAIP, AD 2 VVTS Tan Son Nhat (AMDT 01/2023, effective 30 Mar 2023)",
+  "url": "https://aim.vatm.vn/images/stories/vnaic.vn/SanPhamDichVu/AIPVietNam/Related%20Links/2023-01-AMDT/html/eAIP/AD-2.VVTS-en-GB.html",
+  "publisher": "VATM Aeronautical Information Management, for CAAV",
+  "checked": "2026-10-27"
+ },
+ "vn-aip-vvnb-2023": {
+  "title": "Viet Nam eAIP, AD 2 VVNB Noi Bai (AMDT 01/2023, effective 30 Mar 2023)",
+  "url": "https://aim.vatm.vn/images/stories/vnaic.vn/SanPhamDichVu/AIPVietNam/Related%20Links/2023-01-AMDT/html/eAIP/AD-2.VVNB-en-GB.html",
+  "publisher": "VATM Aeronautical Information Management, for CAAV",
+  "checked": "2026-10-27"
+ },
+ "vn-aip-gen12": {
+  "title": "Viet Nam eAIP, GEN 1.2 Entry, transit and departure of aircraft (AMDT 01/2023 set; page effective 30 Mar 2022)",
+  "url": "https://aim.vatm.vn/images/stories/vnaic.vn/SanPhamDichVu/AIPVietNam/Related%20Links/2023-01-AMDT/html/eAIP/GEN-1.2-en-GB.html",
+  "publisher": "VATM Aeronautical Information Management, for CAAV",
+  "checked": "2026-10-27"
+ },
+ "icao-kh-vdti-2025": {
+  "title": "ICAO APAC MET SG/29 WP/25, presented by Cambodia: VDTI ROBEX integration (meeting 18-22 Aug 2025)",
+  "url": "https://www.icao.int/sites/default/files/APAC/Meetings/2025/2025%20MET%20SG29/3-Working%20Papers/WP25-AI.5-KHM-VDTI-ROBEX-INTEGRATION-Rev.1.pdf",
+  "publisher": "Kingdom of Cambodia, via ICAO Asia/Pacific Office",
+  "checked": "2026-10-27"
+ },
+ "kh-cats-aim": {
+  "title": "AIM Cambodia, eAIP page (page dated 2026)",
+  "url": "https://aim.cats.com.kh/eaip.html",
+  "publisher": "Cambodia Air Traffic Services (CATS)",
+  "checked": "2026-10-27"
+ },
+ "mv-caa-aerodromes": {
+  "title": "List of Land Aerodromes in Maldives (updated 20 Feb 2022)",
+  "url": "https://www.caa.gov.mv/attachments/9PQpPUGeQkIBxYlwkTKTZK3yBtrTztnkN4fBckD0.pdf",
+  "publisher": "Maldives Civil Aviation Authority",
+  "checked": "2026-10-27"
+ },
+ "macl-home": {
+  "title": "Maldives Airports Company Limited home page (2026)",
+  "url": "https://www.macl.aero/",
+  "publisher": "Maldives Airports Company Limited",
+  "checked": "2026-10-27"
+ },
+ "mv-car-part10": {
+  "title": "Maldives Civil Aviation Regulations Part 10, Conditions of Flight (2nd edition, June 2002)",
+  "url": "https://www.caa.gov.mv/attachments/zet7yWhZQmaBemkB3A8ALOnDb8II65QieueLCmBv.pdf",
+  "publisher": "Maldives Civil Aviation Authority",
+  "checked": "2026-10-27"
+ },
+ "mv-caa-form-foreign-op": {
+  "title": "MCAA Form CAA/ATS/04, Application for Commercial Air Transport Operation by a Foreign Operator (Nov 2022)",
+  "url": "https://www.caa.gov.mv/public/attachments/oiYF3esY0XNn8NZUOvG5RJ3w7I0wddhRVTXRxQGL.pdf",
+  "publisher": "Maldives Civil Aviation Authority",
+  "checked": "2026-10-27"
+ },
+ "lk-caasl-nonsked": {
+  "title": "CAASL, Landing / overflying permission for non-scheduled flights (page undated; checked 27 Oct 2026)",
+  "url": "https://caa.lk/en/licenses-certificates-approvals/approvals/landing-overflying-permission-for-non-sked-flights",
+  "publisher": "Civil Aviation Authority of Sri Lanka",
+  "checked": "2026-10-27"
+ },
+ "mo-gov-ps1956b": {
+  "title": "Macao SAR Government Portal, PS-1956B Flight Approval for Non-Scheduled Air Services (last modified 6 Jul 2026)",
+  "url": "https://www.gov.mo/en/services/ps-1956/ps-1956b/",
+  "publisher": "Macao SAR Government / Civil Aviation Authority (AACM)",
+  "checked": "2026-10-27"
+ },
+ "kr-aip-rkss": {
+  "title": "Korea eAIP, AD 2 RKSS Seoul/Gimpo International (package 19 Feb 2025 AIRAC; no effective date printed on page)",
+  "url": "https://aim.koca.go.kr/eaipPub/Package/2025-02-19-AIRAC/html/eAIP/KR-AD-2.RKSS-en-GB.html",
+  "publisher": "Korea Office of Civil Aviation, MOLIT",
+  "checked": "2026-10-27"
+ },
+ "kr-aip-rksi": {
+  "title": "Korea eAIP, AD 2 RKSI Seoul/Incheon INTL (package 8 Jan 2026; no effective date printed on page)",
+  "url": "https://aim.koca.go.kr/eaipPub/Package/2026-01-08/html/eAIP/KR-AD-2.RKSI-en-GB.html?amdt=show",
+  "publisher": "Korea Office of Civil Aviation, MOLIT",
+  "checked": "2026-10-27"
+ },
+ "kr-aip-gen12": {
+  "title": "Korea eAIP, GEN 1.2 Entry, transit and departure of aircraft (package 27 Jun 2024)",
+  "url": "https://aim.koca.go.kr/eaipPub/Package/2024-06-27/html/eAIP/KR-GEN-1.2-en-GB.html",
+  "publisher": "Korea Office of Civil Aviation, MOLIT",
+  "checked": "2026-10-27"
+ },
+ "tw-aip-rcss": {
+  "title": "Taipei FIR eAIP, AD 2 RCSS Taipei/Songshan (AIP AMDT 01-23, 12 Jan 2023)",
+  "url": "https://ais.caa.gov.tw/eaip/AIP%20AMDT%2001-23_2023_01_12/eAIP/RC-AD%202%20RCSS%20%E8%87%BA%E5%8C%97-%E6%9D%BE%E5%B1%B1TAIPEI-SONGSHAN-en-GB.html",
+  "publisher": "Civil Aeronautics Administration, Taiwan",
+  "checked": "2026-10-27"
+ },
+ "tw-aip-rctp": {
+  "title": "Taipei FIR eAIP, AD 2 RCTP Taipei/Taiwan Taoyuan Intl (AIRAC AIP AMDT 01-26, 19 Mar 2026)",
+  "url": "https://ais.caa.gov.tw/eaip/AIRAC%20AIP%20AMDT%2001-26_2026_03_19/eAIP/RC-AD%202%20RCTP%20%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9BTAIPEI-TAIWAN%20TAOYUAN%20INTL-en-GB.html",
+  "publisher": "Civil Aeronautics Administration, Taiwan",
+  "checked": "2026-10-27"
+ },
+ "tw-aip-gen12": {
+  "title": "Taipei FIR eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIP AMDT 02-23, 9 Mar 2023)",
+  "url": "https://ais.caa.gov.tw/eaip/AIP%20AMDT%2002-23_2023_03_09/eAIP/RC-GEN%201.2-en-GB.html",
+  "publisher": "Civil Aeronautics Administration, Taiwan",
+  "checked": "2026-10-27"
+ },
+ "tw-law-foreign-aircraft": {
+  "title": "外籍航空器飛航國境規則 (Regulations on foreign aircraft flights across the national border, last amended 1 Sep 2020)",
+  "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0090002",
+  "publisher": "Ministry of Justice laws database, Taiwan",
+  "checked": "2026-10-27"
+ },
+ "in-aip-vidp": {
+  "title": "India eAIP, AD 2 VIDP Indira Gandhi International, Delhi (AIRAC AMDT 04-26, effective 14 May 2026)",
+  "url": "https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html",
+  "publisher": "Airports Authority of India",
+  "checked": "2026-10-27"
+ },
+ "in-aip-vabb": {
+  "title": "India eAIP, AD 2 VABB Chhatrapati Shivaji Maharaj International, Mumbai (AIRAC AMDT 05-25, effective 02 Oct 2025)",
+  "url": "https://aim-india.aai.aero/eAIP_Archive/02-10-2025/eAIP/IN-AD%202.1VABB-en-GB.html",
+  "publisher": "Airports Authority of India",
+  "checked": "2026-10-27"
+ },
+ "in-aip-gen12": {
+  "title": "India eAIP, GEN 1.2 Entry, transit and departure of aircraft (page AMDT 02-21, effective 25 Mar 2021, in package eaip-v2-02-2024)",
+  "url": "https://aim-india.aai.aero/eaip-v2-02-2024/eAIP/IN-GEN%201.2-en-GB.html",
+  "publisher": "Airports Authority of India",
+  "checked": "2026-10-27"
+ },
+ "jp-mlit-bizjet": {
+  "title": "ビジネスジェット機（外国籍機）の各種申請手続き (Application procedures for foreign-registered business jets, 1 Oct 2026)",
+  "url": "https://www.mlit.go.jp/koku/content/001762020.pdf",
+  "publisher": "Civil Aviation Bureau, International Aviation Division, MLIT",
+  "checked": "2026-10-27"
+ },
+ "jp-mlit-press-2023": {
+  "title": "MLIT press release: shorter application deadline for foreign business jets for tourism (1 Jun 2023)",
+  "url": "https://www.mlit.go.jp/report/press/kouku19_hh_000112.html",
+  "publisher": "MLIT",
   "checked": "2026-10-27"
  }
 }

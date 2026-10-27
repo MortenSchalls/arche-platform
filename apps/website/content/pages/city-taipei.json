@@ -1,0 +1,70 @@
+{
+ "path": "/cities/taipei/",
+ "title": "Private jet charter to and from Taipei: Songshan and Taoyuan",
+ "description": "Private flights to and from Taipei: Songshan and Taoyuan compared on night rules, customs hours and runways, from the official AIP, with the date we checked.",
+ "eyebrow": "City guide · Taipei",
+ "h1": "Private flights to and from Taipei",
+ "lead": "Taipei has two airports for private flights: Songshan in the city, with a night closure, and Taoyuan, the main international airport, open around the clock.",
+ "glance": [
+  [
+   "Songshan",
+   "rcss.icao"
+  ],
+  [
+   "Songshan at night",
+   "rcss.curfew"
+  ],
+  [
+   "Taoyuan",
+   "rctp.icao"
+  ],
+  [
+   "Taoyuan opening",
+   "rctp.hours"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Songshan",
+   "p": [
+    "Songshan lies {{rcss.location}} and is run by the {{rcss.operator}}. It has {{rcss.runway}}. Customs: {{rcss.customs}}. At night: {{rcss.curfew}}. For business flights, {{rcss.handling}}."
+   ]
+  },
+  {
+   "h": "Taoyuan",
+   "p": [
+    "Taoyuan is {{rctp.location}} and is run by {{rctp.operator}}. It is {{rctp.hours}}, with {{rctp.customs}}, and has {{rctp.runway}}. One ground rule: {{rctp.noise}}."
+   ]
+  },
+  {
+   "h": "Choosing the airport",
+   "p": [
+    "For a daytime trip into the city, Songshan is closer. For late arrivals and early departures outside its hours, Taoyuan is the airport. Every flight also needs a permit; our Taiwan guide sets out the rules and lead times."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Taipei",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet land at Songshan at night?",
+   "a": "No: {{rcss.curfew}}. Taoyuan is {{rctp.hours}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/countries/taiwan/",
+  "/cities/hong-kong/",
+  "/regions/asia-pacific/"
+ ],
+ "draft": true,
+ "type": "city"
+}

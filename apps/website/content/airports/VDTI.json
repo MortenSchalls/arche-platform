@@ -1,0 +1,28 @@
+{
+ "icao": "VDTI",
+ "iata": null,
+ "name": "Techo International Airport",
+ "city": "Phnom Penh",
+ "country": "KH",
+ "tz": "Asia/Phnom_Penh",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-27",
+ "rules": {},
+ "missing": [
+  "iata",
+  "geo",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise"
+ ],
+ "notes": "Techo (VDTI) is the current Phnom Penh airport; VDPP is closed, so it is not listed. The Cambodian eAIP (aim.cats.com.kh) needs a log-in, so no AD 2 data could be verified. A Cambodian government page (Economic Diplomacy unit, 20 Oct 2025, reprinting a Kiripost article) gives a 4,000 m x 60 m runway, about 20-26 km south of Phnom Penh, managed by CAIC with VINCI Airports; this is a news reprint, not the AIP, so it is not used as a fact. Checked 2026-10-27."
+}

@@ -1,0 +1,65 @@
+{
+ "icao": "RCSS",
+ "iata": null,
+ "name": "Taipei Songshan Airport",
+ "city": "Taipei",
+ "country": "TW",
+ "tz": "Asia/Taipei",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 2,605 m long and 60 m wide",
+   "src": "tw-aip-rcss",
+   "longest_m": 2605,
+   "quote": "2605 x 60"
+  },
+  "customs": {
+   "v": "customs and immigration 05:00 to 23:00 local time (2100-1500 UTC)",
+   "src": "tw-aip-rcss",
+   "h24": false,
+   "hours_local": [
+    [
+     "05:00",
+     "23:00"
+    ]
+   ],
+   "quote": "2100-1500 (UTC)"
+  },
+  "curfew": {
+   "v": "no civil take-offs or landings from 23:00 to 06:00 local time (1500-2200 UTC), except emergencies",
+   "src": "tw-aip-rcss",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "quote": "Curfew period: 1500-2200 UTC daily. Except for emergency, take-off or landings of civil aircraft are prohibited."
+  },
+  "hours": {
+   "v": "aerodrome administration 06:00 to 23:00 local time (2200-1500 UTC)",
+   "src": "tw-aip-rcss",
+   "quote": "2200-1500 (UTC)"
+  },
+  "handling": {
+   "v": "passengers and crew of international business charter or private aircraft clear customs at the Business Aviation center",
+   "src": "tw-aip-rcss",
+   "quote": "Passengers and flight crew of international business charter or private aircraft departing or landing Taipei/Songshan Airport"
+  },
+  "noise": {
+   "v": "noise abatement departure procedures apply 23:00 to 06:00 local time",
+   "src": "tw-aip-rcss",
+   "quote": "Between hours of 1500 and 2200 UTC"
+  }
+ },
+ "missing": [
+  "iata (AIP page does not state it)",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling agent names"
+ ],
+ "notes": "Times converted from UTC to Taiwan time (UTC+8, no daylight saving). Newest RCSS page found is AIP AMDT 01-23 (12 Jan 2023); the eAIP home page shows AIRAC AMDT 04/26 effective 01 Oct 2026 is current, but that package could not be opened, so RCSS facts may be out of date and should be re-checked."
+}

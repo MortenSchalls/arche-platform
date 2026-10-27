@@ -1,0 +1,73 @@
+{
+ "path": "/countries/vietnam/",
+ "title": "Private jet charter to Vietnam: permits and rules",
+ "description": "Private flights to Vietnam: CAAV permission and lead times, overflight, international airports at Hanoi and Ho Chi Minh City, from the Vietnam AIP.",
+ "eyebrow": "Country guide · Vietnam",
+ "h1": "Private flights to and from Vietnam",
+ "lead": "Every private or charter flight to Vietnam needs the authority's permission first. What the rules are, how far ahead to plan, and what they mean for your trip.",
+ "glance": [
+  [
+   "Authority",
+   "vn.authority"
+  ],
+  [
+   "Permission",
+   "vn.permit"
+  ],
+  [
+   "Overflight",
+   "vn.overflight"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Permission to land",
+   "p": [
+    "Permission comes from the {{vn.authority}}. The lead times differ by type of flight: {{vn.permit}}. In addition, {{vn.notable}}.",
+    "A charter flight with paying passengers therefore needs the longest lead time, and we ask the operator to apply as soon as your dates are firm."
+   ]
+  },
+  {
+   "h": "Overflight and technical stops",
+   "p": [
+    "Flights that only cross Vietnam or stop for fuel need permission too: {{vn.overflight}}."
+   ]
+  },
+  {
+   "h": "Airports",
+   "p": [
+    "The rule for international flights: {{vn.customs_airports}}. The two main gateways are both open around the clock. Tan Son Nhat at Ho Chi Minh City is {{vvts.location}} and is {{vvts.hours}}, with {{vvts.customs}}. Noi Bai at Hanoi is {{vvnb.location}} and is {{vvnb.hours}}, with {{vvnb.customs}}."
+   ]
+  },
+  {
+   "h": "Who applies for the permit",
+   "p": [
+    "The operator that flies your trip applies, usually through its handling agent or a flight-permit service. You do not need to deal with the authority yourself. What you can do is give us final names, passport details and times early, because a permit is issued for a given aircraft, schedule and passenger list, and late changes can mean a new application."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Vietnam",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How long does a charter permit for Vietnam take?",
+   "a": "The authority's rule: {{vn.permit}}. We ask the operator to apply early, because the permit decides the schedule."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/regions/asia-pacific/",
+  "/cities/bangkok/",
+  "/guides/operator-safety-audits/"
+ ],
+ "draft": true,
+ "type": "country"
+}

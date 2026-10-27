@@ -1,0 +1,32 @@
+{
+ "icao": "RPLC",
+ "iata": null,
+ "name": "Clark International Airport",
+ "city": "Clark (Pampanga)",
+ "country": "PH",
+ "tz": "Asia/Manila",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "main runway 02R/20L, 3,200 m long and 61 m wide",
+   "src": "ciac-overview",
+   "longest_m": 3200,
+   "quote": "CRK's primary runway (Runway 02R/20L) has a length of 3,200 meters and a width of 61 meters."
+  }
+ },
+ "missing": [
+  "iata",
+  "geo",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise"
+ ],
+ "notes": "No AIP data (Philippine AIP login-only). CIAC's overview is undated (file posted 2020-09, text refers to events up to Nov 2022). The 'one hour from Metro Manila' is CIAC's travel-time claim, not a distance."
+}

@@ -1,0 +1,71 @@
+{
+ "path": "/cities/seoul/",
+ "title": "Private jet charter to and from Seoul: Gimpo and Incheon",
+ "description": "Private flights to and from Seoul: Gimpo and Incheon compared on night rules, limits for private aircraft, slots and customs, from the Korea AIP.",
+ "eyebrow": "City guide · Seoul",
+ "h1": "Private flights to and from Seoul",
+ "lead": "Seoul has two international airports for private flights: Gimpo, close to the city with a night closure, and Incheon, open around the clock. How they compare, from the Korea AIP.",
+ "glance": [
+  [
+   "Gimpo",
+   "rkss.icao"
+  ],
+  [
+   "Gimpo at night",
+   "rkss.curfew"
+  ],
+  [
+   "Incheon",
+   "rksi.icao"
+  ],
+  [
+   "Incheon opening",
+   "rksi.hours"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Gimpo",
+   "p": [
+    "Gimpo lies {{rkss.location}}, which makes it the quick choice for the city. It is run by {{rkss.operator}} and has {{rkss.runway}}. It closes at night: {{rkss.curfew}}.",
+    "Its rules for private aircraft are specific. Who may use it: {{rkss.notable}}. Size limits: {{rkss.max_aircraft}}. Notice: {{rkss.ppr}}. Whether a chartered aircraft fits these conditions is something we check with the operator before you see a quote."
+   ]
+  },
+  {
+   "h": "Incheon",
+   "p": [
+    "Incheon is the main international airport, {{rksi.location}}. It is {{rksi.hours}}, with {{rksi.customs}}, and has {{rksi.runway}}. Slots are required: {{rksi.slots}}."
+   ]
+  },
+  {
+   "h": "Choosing the airport",
+   "p": [
+    "When the aircraft and the type of flight meet Gimpo's conditions and the time is in the day, Gimpo saves time on the road. For a large aircraft, a late arrival or an early departure, Incheon is usually the airport. Every flight to South Korea also needs a permit; our South Korea guide sets out the national rules."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Seoul",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet land at Gimpo at night?",
+   "a": "No: {{rkss.curfew}}. Night arrivals use Incheon, which is {{rksi.hours}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/countries/south-korea/",
+  "/cities/tokyo/",
+  "/regions/asia-pacific/"
+ ],
+ "draft": true,
+ "type": "city"
+}

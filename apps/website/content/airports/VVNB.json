@@ -1,0 +1,40 @@
+{
+ "icao": "VVNB",
+ "iata": null,
+ "name": "Noi Bai International Airport",
+ "city": "Hanoi",
+ "country": "VN",
+ "tz": "Asia/Ho_Chi_Minh",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest, 11R/29L, is 3,800 m long and 45 m wide",
+   "src": "vn-aip-vvnb-2023",
+   "longest_m": 3800,
+   "quote": "11R: 3 800 x 45; 29L: 3 800 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "src": "vn-aip-vvnb-2023",
+   "h24": true,
+   "quote": "Customs and Immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "vn-aip-vvnb-2023",
+   "quote": "Aerodrome Administration: H24"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise"
+ ],
+ "notes": "Runway, hours and coordinate quotes are AIP table cells joined with their row labels, not running text. Only the 2023 AIP edition (effective 30 Mar 2023) could be opened; newer editions exist but were blocked or redirected. Re-check before publishing. The end of AD 2.20 and AD 2.21 were not read. AD 2.4 names no handling agents. Checked 2026-10-27."
+}

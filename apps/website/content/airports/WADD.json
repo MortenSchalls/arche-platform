@@ -1,0 +1,36 @@
+{
+ "icao": "WADD",
+ "iata": "DPS",
+ "name": "I Gusti Ngurah Rai International Airport",
+ "city": "Bali (Denpasar)",
+ "country": "ID",
+ "tz": "Asia/Makassar",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 3,000 m long and 45 m wide",
+   "src": "id-dgca-wadd",
+   "longest_m": 3000,
+   "quote": "3.000,00 x 45,00 m"
+  },
+  "max_aircraft": {
+   "v": "critical aircraft is the Airbus A380-800 (aerodrome code 4E)",
+   "src": "id-dgca-wadd",
+   "quote": "Critical Aircraft: AIRBUS A-380-800 ... Klasifikasi 4E"
+  }
+ },
+ "missing": [
+  "runway designation",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "hours",
+  "noise",
+  "notable"
+ ],
+ "notes": "Indonesian AIP (aimindonesia.dephub.go.id) needs a login and blocks automated access, so no AD 2 data. Facts are from the DGCA (Hubud Kemenhub) airport register, which shows no update date. Coordinates converted from DMS (LS = south, BT = east)."
+}

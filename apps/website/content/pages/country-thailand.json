@@ -1,0 +1,83 @@
+{
+ "path": "/countries/thailand/",
+ "title": "Private jet charter to Thailand: permits and rules",
+ "description": "Private flights to Thailand: CAAT approval, slots, domestic legs, overflight and customs airports, from the Thailand AIP, with the date we checked it.",
+ "eyebrow": "Country guide · Thailand",
+ "h1": "Private flights to and from Thailand",
+ "lead": "Every private or charter flight to Thailand needs the authority's permission first. What the rules are, how far ahead to plan, and what they mean for your trip.",
+ "glance": [
+  [
+   "Authority",
+   "th.authority"
+  ],
+  [
+   "Permission",
+   "th.permit"
+  ],
+  [
+   "Overflight",
+   "th.overflight"
+  ],
+  [
+   "Domestic legs",
+   "th.cabotage"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Permission to land",
+   "p": [
+    "Permits are issued by the {{th.authority}}. The rule for a private or charter flight from abroad: {{th.permit}}.",
+    "Slots matter as well: {{th.notable}}. Our Bangkok and Phuket guides show how this works at the busiest airports."
+   ]
+  },
+  {
+   "h": "Overflight and technical stops",
+   "p": [
+    "A flight that only crosses Thailand, or stops for fuel, is covered too: {{th.overflight}}."
+   ]
+  },
+  {
+   "h": "Flights within Thailand",
+   "p": [
+    "A foreign operator cannot sell you a domestic leg: {{th.cabotage}}. If your trip includes a flight between two Thai airports, we check that the operator is allowed to fly it before you see a quote. Our cabotage guide explains the rule."
+   ]
+  },
+  {
+   "h": "Customs airports",
+   "p": [
+    "International flights use designated airports only: {{th.customs_airports}}. This matters for island and resort destinations: the first landing in Thailand must be at an airport where customs and immigration are available for your arrival time."
+   ]
+  },
+  {
+   "h": "Who applies for the permit",
+   "p": [
+    "The operator that flies your trip applies, usually through its handling agent or a flight-permit service. You do not need to deal with the authority yourself. What you can do is give us final names, passport details and times early, because a permit is issued for a given aircraft, schedule and passenger list, and late changes can mean a new application."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Thailand",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a foreign private jet fly me between Bangkok and Phuket?",
+   "a": "Not as a charter: {{th.cabotage}}. We find an operator that is allowed to fly the domestic leg."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/cities/bangkok/",
+  "/cities/phuket/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "country"
+}

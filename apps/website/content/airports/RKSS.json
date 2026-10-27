@@ -1,0 +1,68 @@
+{
+ "icao": "RKSS",
+ "iata": null,
+ "name": "Gimpo International Airport",
+ "city": "Seoul",
+ "country": "KR",
+ "tz": "Asia/Seoul",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest, 14L/32R, is 3,600 m long and 45 m wide",
+   "src": "kr-aip-rkss",
+   "longest_m": 3600,
+   "quote": "3 600 × 45"
+  },
+  "customs": {
+   "v": "customs and immigration as required by operations (HO)",
+   "src": "kr-aip-rkss",
+   "h24": false,
+   "quote": "HO"
+  },
+  "curfew": {
+   "v": "no take-offs or landings from 23:00 to 06:00 local time (1400-2100 UTC) for noise",
+   "src": "kr-aip-rkss",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "quote": "Take-off and landing is restricted from 1400 UTC to 2100 UTC due to noise abatement"
+  },
+  "hours": {
+   "v": "aerodrome open 06:00 to 23:00 local time (2100-1400 UTC); ATS 24 hours",
+   "src": "kr-aip-rkss",
+   "quote": "Permitted Hours : 2100-1400 UTC, daily"
+  },
+  "ppr": {
+   "v": "general aviation must contact the airport operator's airside operations team at least 1 day before the flight to confirm a stand",
+   "src": "kr-aip-rkss",
+   "quote": "should contact with airport operator (airside operations team) at least 1 day before the flight"
+  },
+  "max_aircraft": {
+   "v": "international private flights excluded if the aircraft seats more than 50 passengers or has a maximum payload of 2,721 kg or more",
+   "src": "kr-aip-rkss",
+   "quote": "Aircraft having a seating capacity of more than 50 passengers"
+  },
+  "handling": {
+   "v": "4 business aircraft hangars for code C aircraft (no handling agents named)",
+   "src": "kr-aip-rkss",
+   "quote": "Business aircraft hangar : 4 for code letter \"C\" aircraft"
+  },
+  "noise": {
+   "v": "no engine run-ups or idle power checks from 23:00 to 06:00 local time",
+   "src": "kr-aip-rkss",
+   "quote": "Run up checks and idle power check are not allowed from 1400 UTC to 2100 UTC."
+  }
+ },
+ "missing": [
+  "iata (AIP page does not state it)",
+  "slots",
+  "handling agent / business aviation terminal names",
+  "customs hours as clock times (AIP says HO)"
+ ],
+ "notes": "Times converted from UTC to Korea time (UTC+9, no daylight saving). Excluded from international use at Gimpo: non-scheduled public charter, inclusive tour charter, >50 seats, max payload 2,721 kg (6,000 lb) or more, aircraft carrying commercial goods. A paid charter therefore needs checking case by case; a company- or person-owned private flight is the permitted case. Newest RKSS page found was the 19 Feb 2025 package (no effective date printed on the page); a newer Korean package (8 Jan 2026) exists for RKSI, so the RKSS page may be superseded."
+}

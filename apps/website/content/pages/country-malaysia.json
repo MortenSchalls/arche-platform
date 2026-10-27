@@ -1,0 +1,73 @@
+{
+ "path": "/countries/malaysia/",
+ "title": "Private jet charter to Malaysia: permits and rules",
+ "description": "Private flights to Malaysia: the landing application to CAAM, slot confirmation, overflight and designated airports, from the Malaysia AIP.",
+ "eyebrow": "Country guide · Malaysia",
+ "h1": "Private flights to and from Malaysia",
+ "lead": "Every private or charter flight to Malaysia needs the authority's permission first. What the rules are, how far ahead to plan, and what they mean for your trip.",
+ "glance": [
+  [
+   "Authority",
+   "my.authority"
+  ],
+  [
+   "Permission",
+   "my.permit"
+  ],
+  [
+   "Overflight",
+   "my.overflight"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Permission to land",
+   "p": [
+    "Malaysia's civil aviation authority is the {{my.authority}}. For a private or charter flight from abroad the rule is that {{my.permit}}.",
+    "Before that application, a slot is needed: {{my.slots}}. In practice the operator secures the slot first and the landing approval second, so both have to be started in good time."
+   ]
+  },
+  {
+   "h": "Overflight",
+   "p": [
+    "Crossing Malaysian airspace without landing has its own rule: {{my.overflight}}. The operator plans the route with this in mind when your flight passes over Malaysia on the way to somewhere else."
+   ]
+  },
+  {
+   "h": "Airports and handling",
+   "p": [
+    "For international flights, {{my.customs_airports}}. The application has a further condition: {{my.notable}}. Our Kuala Lumpur guide compares the city's two airports."
+   ]
+  },
+  {
+   "h": "Who applies for the permit",
+   "p": [
+    "The operator that flies your trip applies, usually through its handling agent or a flight-permit service. You do not need to deal with the authority yourself. What you can do is give us final names, passport details and times early, because a permit is issued for a given aircraft, schedule and passenger list, and late changes can mean a new application."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Malaysia",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How far ahead must a private flight to Malaysia be arranged?",
+   "a": "The landing application rule is: {{my.permit}}. A slot confirmation comes first, so we ask the operator to start both as soon as your plans are firm."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/cities/kuala-lumpur/",
+  "/cities/singapore/",
+  "/regions/asia-pacific/"
+ ],
+ "draft": true,
+ "type": "country"
+}

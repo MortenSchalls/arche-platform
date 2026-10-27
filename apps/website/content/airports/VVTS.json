@@ -1,0 +1,44 @@
+{
+ "icao": "VVTS",
+ "iata": null,
+ "name": "Tan Son Nhat International Airport",
+ "city": "Ho Chi Minh City",
+ "country": "VN",
+ "tz": "Asia/Ho_Chi_Minh",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest, 07R/25L, is 3,828 m long and 45 m wide",
+   "src": "vn-aip-vvts-2023",
+   "longest_m": 3828,
+   "quote": "07R: 3 828 x 45 M; 25L: 3 828 x 45 M"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "src": "vn-aip-vvts-2024",
+   "h24": true,
+   "quote": "Customs and Immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "vn-aip-vvts-2024",
+   "quote": "H24"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "vn-aip-vvts-2023",
+   "quote": "Nil"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling"
+ ],
+ "notes": "Runway, hours and coordinate quotes are AIP table cells joined with their row labels, not running text. The 2024 AIP page (effective 28 Feb 2024) could only be read up to AD 2.10; runway and noise come from the older 2023 edition (effective 30 Mar 2023) and should be re-checked against the current AIP. Runway 07R also has a displaced-threshold length of 3,059 m. Newer AIRAC editions (e.g. 19 Mar 2026) exist but could not be opened. AD 2.4 names no handling agents. Checked 2026-10-27."
+}

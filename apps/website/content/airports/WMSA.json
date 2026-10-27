@@ -1,0 +1,59 @@
+{
+ "icao": "WMSA",
+ "iata": null,
+ "name": "Sultan Abdul Aziz Shah Airport (Subang)",
+ "city": "Kuala Lumpur",
+ "country": "MY",
+ "tz": "Asia/Kuala_Lumpur",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 15/33, 3,782 m long and 45 m wide",
+   "src": "my-aip-wmsa",
+   "longest_m": 3782,
+   "quote": "15 | 3782 x 45 ; 33 | 3782 x 45 (AD 2.12; markup tokens removed)"
+  },
+  "customs": {
+   "v": "customs and immigration from 07:00 to 23:00 local time (2300-1500 UTC)",
+   "src": "my-aip-wmsa",
+   "h24": false,
+   "hours_local": [
+    [
+     "07:00",
+     "23:00"
+    ]
+   ],
+   "quote": "Customs and immigration: 2300 - 1500"
+  },
+  "hours": {
+   "v": "aerodrome open 24 hours; terminal building 05:00 to 24:00 local time (2100-1600 UTC), outside that on 24 hours' prior permission from Malaysia Airports",
+   "src": "my-aip-wmsa",
+   "quote": "Terminal building OPR BTN 2100 - 1600. Outside this time, terminal building available on 24 hr PPR from Malaysia Airport Sdn. Bhd."
+  },
+  "handling": {
+   "v": "by arrangement with an authorised handling agent (no agents named in the AIP)",
+   "src": "my-aip-wmsa",
+   "quote": "By arrangement with authorized handling agent."
+  },
+  "max_aircraft": {
+   "v": "stands on taxilane P1 at bays 1-4 and 13-14 are limited to aircraft with a wingspan of 28 m or less",
+   "src": "my-aip-wmsa",
+   "quote": "Aircraft stand taxilane P1 from Bay 1 until Bay 4 and Bay 13 until Bay 14 is restricted for aircraft wing span 28 m and below."
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "my-aip-wmsa",
+   "quote": "AD 2.21 Noise Abatement: NIL"
+  }
+ },
+ "missing": [
+  "iata (not stated in the AIP)",
+  "curfew (no night restriction for business aviation stated)",
+  "slots",
+  "ppr (aircraft)",
+  "handling agent names"
+ ],
+ "notes": "AIP times are UTC; Malaysia is UTC+8 with no DST, so conversions are fixed. A later edition (AIRAC 6 Aug 2026 / 11 Aug 2026) exists but its WMSA page could not be opened; facts are from the 19 May 2026 edition. Slots for all Malaysian airports are covered at country level (GEN 1.2, NSCM)."
+}

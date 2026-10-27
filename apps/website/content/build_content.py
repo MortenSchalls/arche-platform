@@ -288,7 +288,7 @@ def site_nav(on):
         t = open(p, encoding="utf-8").read(); row = "['How it works','ขั้นตอนการให้บริการ','服务流程','ご利用の流れ'],"
         if "['Destinations'," not in t and row in t: open(p, "w", encoding="utf-8").write(t.replace(row, row + "\n['Destinations','จุดหมายปลายทาง','目的地','目的地'],"))
 
-GROUPS = [("region", "Regions"), ("country", "Countries"), ("city", "Cities"), ("airport", "Airports"), ("need", "Services"), ("guide", "Guides")]
+GROUPS = [("region", "Regions"), ("country", "Countries and territories"), ("city", "Cities"), ("airport", "Airports"), ("need", "Services"), ("guide", "Guides")]
 def hub(F, S, pub, verbose=True):
     """/destinations/: every published page, grouped. On the test website drafts are listed with a Draft mark."""
     out = os.path.join(SITE, "destinations", "index.html")

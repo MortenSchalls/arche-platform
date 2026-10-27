@@ -1,0 +1,35 @@
+{
+ "icao": "WIHH",
+ "iata": "HLP",
+ "name": "Halim Perdanakusuma International Airport",
+ "city": "Jakarta",
+ "country": "ID",
+ "tz": "Asia/Jakarta",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 3,000 m long and 45 m wide",
+   "src": "id-dgca-wihh",
+   "longest_m": 3000,
+   "quote": "3.000,00 x 45,00 m"
+  },
+  "max_aircraft": {
+   "v": "critical aircraft is the Boeing 777-300ER (aerodrome code 4E)",
+   "src": "id-dgca-wihh",
+   "quote": "Critical Aircraft: BOEING 777-300ER ... 4E"
+  }
+ },
+ "missing": [
+  "runway designation",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "hours",
+  "noise"
+ ],
+ "notes": "No AIP data (Indonesian AIP login-only). The 2025 DGCA notice does not say what stays at Halim (charter, private); do not state that. Halim is also an air force base; not confirmed by the DGCA register page, so not stated."
+}

@@ -1,0 +1,43 @@
+{
+ "icao": "VABB",
+ "iata": null,
+ "name": "Chhatrapati Shivaji Maharaj International Airport",
+ "city": "Mumbai",
+ "country": "IN",
+ "tz": "Asia/Kolkata",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "src": "in-aip-vabb",
+   "h24": true,
+   "quote": "H24"
+  },
+  "slots": {
+   "v": "non-scheduled operators must file a slot request with the airport operations control centre (AOCC); all non-scheduled and general aviation movements need positive approval",
+   "src": "in-aip-vabb",
+   "quote": "Non Scheduled Aircraft operators are required to file their slot request with aocc.planning@adani.com for clearance."
+  },
+  "ppr": {
+   "v": "requests for international movements at least 72 hours ahead, domestic at least 12 hours ahead",
+   "src": "in-aip-vabb",
+   "quote": "Request for International movement must be forwarded at least 72hrs in advance."
+  },
+  "handling": {
+   "v": "hangar space at Air India and Jet Airways hangars subject to availability; no handling agents named",
+   "src": "in-aip-vabb",
+   "quote": "At Air India (NACIL) and Jet Airways Hanger subject to availability."
+  }
+ },
+ "missing": [
+  "iata (AIP page does not state it)",
+  "runway (AD 2.12 beyond the text read; the aerodrome chart labels are ambiguous)",
+  "curfew",
+  "max_aircraft",
+  "hours (only aerodrome office hours stated)",
+  "noise"
+ ],
+ "notes": "Converted from UTC to India time (UTC+5:30, no daylight saving). Page read is India AIP AMDT 05-25 (effective 02 Oct 2025); a newer amendment (AMDT 04-26, 14 May 2026) exists for VIDP, so VABB may be superseded. The AIP still lists Jet Airways and NACIL hangars; check before using."
+}

@@ -1521,5 +1521,1073 @@
   "v": "28 May – 19 June 2027",
   "src": "nsw-vivid-2027",
   "quote": "28 May 2027 - 19 June 2027"
+ },
+ "wmsa.icao": {
+  "v": "WMSA",
+  "src": "my-aip-wmsa"
+ },
+ "wmsa.geo": {
+  "v": [
+   3.1322,
+   101.5503
+  ],
+  "src": "my-aip-wmsa",
+  "quote": "030756N 1013301E (ARP, AD 2.2; markup tokens removed)"
+ },
+ "wmsa.operator": {
+  "v": "Malaysia Airports Sdn Bhd",
+  "src": "my-aip-wmsa",
+  "quote": "Operator: Malaysia Airports Sdn Bhd Skypark Terminal, Sultan Abdul Aziz Shah Airport"
+ },
+ "wmsa.location": {
+  "v": "17 km (9.2 NM) from the Kuala Lumpur Tower, on a bearing of 262°",
+  "src": "my-aip-wmsa",
+  "quote": "17 KM ( 9.2 NM ) brg 262° fm KL Tower"
+ },
+ "wmsa.runway": {
+  "v": "one runway, 15/33, 3,782 m long and 45 m wide",
+  "src": "my-aip-wmsa",
+  "quote": "15 | 3782 x 45 ; 33 | 3782 x 45 (AD 2.12; markup tokens removed)"
+ },
+ "wmsa.customs": {
+  "v": "customs and immigration from 07:00 to 23:00 local time (2300-1500 UTC)",
+  "src": "my-aip-wmsa",
+  "quote": "Customs and immigration: 2300 - 1500"
+ },
+ "wmsa.hours": {
+  "v": "aerodrome open 24 hours; terminal building 05:00 to 24:00 local time (2100-1600 UTC), outside that on 24 hours' prior permission from Malaysia Airports",
+  "src": "my-aip-wmsa",
+  "quote": "Terminal building OPR BTN 2100 - 1600. Outside this time, terminal building available on 24 hr PPR from Malaysia Airport Sdn. Bhd."
+ },
+ "wmsa.handling": {
+  "v": "by arrangement with an authorised handling agent (no agents named in the AIP)",
+  "src": "my-aip-wmsa",
+  "quote": "By arrangement with authorized handling agent."
+ },
+ "wmsa.max_aircraft": {
+  "v": "stands on taxilane P1 at bays 1-4 and 13-14 are limited to aircraft with a wingspan of 28 m or less",
+  "src": "my-aip-wmsa",
+  "quote": "Aircraft stand taxilane P1 from Bay 1 until Bay 4 and Bay 13 until Bay 14 is restricted for aircraft wing span 28 m and below."
+ },
+ "wmsa.noise": {
+  "v": "no noise abatement procedures published",
+  "src": "my-aip-wmsa",
+  "quote": "AD 2.21 Noise Abatement: NIL"
+ },
+ "wmsa.notable": {
+  "v": "scheduled commercial jet operations are limited to 06:00-22:00 local time (2200-1400 UTC); the AIP does not apply this to business aviation",
+  "src": "my-aip-wmsa",
+  "quote": "Scheduled commercial jets operations hours are between 2200 - 1400 only."
+ },
+ "wmkk.icao": {
+  "v": "WMKK",
+  "src": "my-aip-wmkk"
+ },
+ "wmkk.geo": {
+  "v": [
+   2.7433,
+   101.6981
+  ],
+  "src": "my-aip-wmkk",
+  "quote": "024436N 1014153E (ARP, AD 2.2; markup tokens removed)"
+ },
+ "wmkk.operator": {
+  "v": "Malaysia Airports (Sepang) Sdn. Bhd.",
+  "src": "my-aip-wmkk",
+  "quote": "Operator: Post: MALAYSIA AIRPORTS (SEPANG) SDN. BHD."
+ },
+ "wmkk.location": {
+  "v": "45 km south of the Kuala Lumpur Tower",
+  "src": "my-aip-wmkk",
+  "quote": "Bearing 180° 45' 12\"/ 45 KM from Kuala Lumpur Tower, Kuala Lumpur."
+ },
+ "wmkk.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "my-aip-wmkk",
+  "quote": "Customs and immigration: H24"
+ },
+ "wmkk.hours": {
+  "v": "open 24 hours",
+  "src": "my-aip-wmkk",
+  "quote": "AD Operator: H24 ... ATS: H24"
+ },
+ "wmkk.handling": {
+  "v": "by prior arrangement (no agents named in the AIP pages read)",
+  "src": "my-aip-wmkk",
+  "quote": "Handling: Prior arrangement."
+ },
+ "wmkk.notable": {
+  "v": "VFR traffic is limited to approved helicopter operations; IFR traffic is for approved international and domestic flights",
+  "src": "my-aip-wmkk",
+  "quote": "IFR category: Approved international and domestic flights. VFR category: Approved helicopter operations."
+ },
+ "wadd.icao": {
+  "v": "WADD",
+  "src": "id-dgca-wadd"
+ },
+ "wadd.iata": {
+  "v": "DPS",
+  "src": "id-dgca-wadd"
+ },
+ "wadd.geo": {
+  "v": [
+   -8.7475,
+   115.1692
+  ],
+  "src": "id-dgca-wadd",
+  "quote": "08° 44' 51\" LS 115° 10' 09\" BT"
+ },
+ "wadd.operator": {
+  "v": "PT. Angkasa Pura Indonesia",
+  "src": "id-dgca-wadd",
+  "quote": "PT. Angkasa Pura Indonesia"
+ },
+ "wadd.location": {
+  "v": "at Tuban, Kuta, Badung Regency, Bali",
+  "src": "id-dgca-wadd",
+  "quote": "Tuban, Kuta, Kabupaten Badung, Bali"
+ },
+ "wadd.runway": {
+  "v": "one runway, 3,000 m long and 45 m wide",
+  "src": "id-dgca-wadd",
+  "quote": "3.000,00 x 45,00 m"
+ },
+ "wadd.max_aircraft": {
+  "v": "critical aircraft is the Airbus A380-800 (aerodrome code 4E)",
+  "src": "id-dgca-wadd",
+  "quote": "Critical Aircraft: AIRBUS A-380-800 ... Klasifikasi 4E"
+ },
+ "wihh.icao": {
+  "v": "WIHH",
+  "src": "id-dgca-wihh"
+ },
+ "wihh.iata": {
+  "v": "HLP",
+  "src": "id-dgca-wihh"
+ },
+ "wihh.geo": {
+  "v": [
+   -6.2686,
+   106.8917
+  ],
+  "src": "id-dgca-wihh",
+  "quote": "06° 16' 07\" LS 106° 53' 30\" BT"
+ },
+ "wihh.operator": {
+  "v": "PT. Angkasa Pura Indonesia",
+  "src": "id-dgca-wihh",
+  "quote": "PT. Angkasa Pura Indonesia"
+ },
+ "wihh.location": {
+  "v": "in Makasar, East Jakarta",
+  "src": "id-dgca-wihh",
+  "quote": "Halim Perdana Kusuma, Makasar, Kota Administrasi Jakarta Timur, Dki Jakarta"
+ },
+ "wihh.runway": {
+  "v": "one runway, 3,000 m long and 45 m wide",
+  "src": "id-dgca-wihh",
+  "quote": "3.000,00 x 45,00 m"
+ },
+ "wihh.max_aircraft": {
+  "v": "critical aircraft is the Boeing 777-300ER (aerodrome code 4E)",
+  "src": "id-dgca-wihh",
+  "quote": "Critical Aircraft: BOEING 777-300ER ... 4E"
+ },
+ "wihh.notable": {
+  "v": "part of the scheduled flights were moved to Soekarno-Hatta from 1 August 2025",
+  "src": "id-dgca-hlp-move",
+  "quote": "Perpindahan sebagian penerbangan berjadwal ... efektif mulai tanggal 1 Agustus 2025"
+ },
+ "rpll.icao": {
+  "v": "RPLL",
+  "src": "miaa-ao1-2024"
+ },
+ "rpll.operator": {
+  "v": "MIAA was the airport operator until the concession start, then the concessionaire (MIAA's 2024 order does not name it)",
+  "src": "miaa-ao1-2024",
+  "quote": "Airport Operator means MIAA before the O&M Start Date, and the Concessionaire after O&M Start Date;"
+ },
+ "rpll.location": {
+  "v": "in Pasay and Parañaque, south of Manila proper",
+  "src": "miaa-naia-im",
+  "quote": "The NAIA land spans the cities of Pasay and Parañaque, south of Manila proper (Capital)"
+ },
+ "rpll.runway": {
+  "v": "two runways; the main one, 06/24, is 3,737 m long and 60 m wide; 13/31 is 2,258 m long and 45 m wide",
+  "src": "miaa-naia-im",
+  "quote": "Runway 06/24. NAIA's primary runway is 3,737 meters long and 60 meters wide ... Runway 13/31. Its secondary runway is 2,258 meters long and 45 meters wide"
+ },
+ "rpll.ppr": {
+  "v": "non-scheduled flights (commercial and non-commercial) need MIAA approval of a flight advisory, filed at least 3 days ahead (2016 rule)",
+  "src": "miaa-mc06-2016",
+  "quote": "Application must be filed in advance with a minimum notice period of three (3) days"
+ },
+ "rpll.handling": {
+  "v": "non-scheduled flights must use an MIAA-accredited ground handler or FBO (no names listed)",
+  "src": "miaa-mc06-2016",
+  "quote": "All Air Carriers or Operators of non-scheduled flights must secure the services of MIAA accredited Groundhandler/FBO"
+ },
+ "rplc.icao": {
+  "v": "RPLC",
+  "src": "clark-lipad"
+ },
+ "rplc.operator": {
+  "v": "Luzon International Premiere Airport Development (LIPAD) Corp, awarded the operations contract on 16 August 2019",
+  "src": "clark-lipad",
+  "quote": "CRK is operated by the Luzon International Premiere Airport Development (LIPAD) Corp, a special purpose company"
+ },
+ "rplc.location": {
+  "v": "in the Clark Freeport Zone, Pampanga, about one hour by road from Metro Manila",
+  "src": "ciac-overview",
+  "quote": "within the Clark Freeport Zone in the province of Pampanga."
+ },
+ "rplc.runway": {
+  "v": "main runway 02R/20L, 3,200 m long and 61 m wide",
+  "src": "ciac-overview",
+  "quote": "CRK's primary runway (Runway 02R/20L) has a length of 3,200 meters and a width of 61 meters."
+ },
+ "rplc.notable": {
+  "v": "the operator manages leases of airport land for the general aviation industry",
+  "src": "clark-lipad",
+  "quote": "The management of the leases of the surrounding areas for the general aviation industry, among others."
+ },
+ "my.authority": {
+  "v": "Civil Aviation Authority of Malaysia (CAAM)",
+  "src": "my-aip-gen12",
+  "quote": "The Chief Executive Officer of Civil Aviation Authority of Malaysia"
+ },
+ "my.permit": {
+  "v": "non-scheduled flights need a landing application to CAAM, submitted 3 working days before the flight; the approval number goes in item 18 of the flight plan",
+  "src": "my-aip-gen12",
+  "quote": "All airlines or operators or appointed agents are to submit their landing application for non-scheduled flights ... in three (3) working days before date of operation/flight."
+ },
+ "my.slots": {
+  "v": "all operators to Malaysian airports must get a slot confirmation from National Slot Coordination Malaysia (NSCM) before applying to CAAM",
+  "src": "my-aip-gen12",
+  "quote": "All airlines operating to all airports in Malaysia must contact National Slot Coordination Malaysia (NSCM)."
+ },
+ "my.overflight": {
+  "v": "aircraft of ICAO states with diplomatic relations with Malaysia need prior permission through diplomatic channels (Ministry of Foreign Affairs)",
+  "src": "my-aip-gen12",
+  "quote": "prior permission must be sought and obtained through diplomatic means."
+ },
+ "my.customs_airports": {
+  "v": "international flights must enter and leave through a designated aerodrome; both KL International and Sultan Abdul Aziz Shah (Subang) are on the list",
+  "src": "my-aip-gen12",
+  "quote": "01. K.L. International Airport, Sepang, Selangor ... 05. Sultan Abdul Aziz Shah Airport, Subang, Selangor"
+ },
+ "my.notable": {
+  "v": "the application must name the ground handling agent at the landing airport",
+  "src": "my-aip-gen12",
+  "quote": "Name and address of ground handling agent at point of landing in Malaysia."
+ },
+ "my.name": {
+  "v": "Malaysia",
+  "src": "my-aip-gen12"
+ },
+ "id.authority": {
+  "v": "Directorate General of Civil Aviation (Direktorat Jenderal Perhubungan Udara), Ministry of Transportation",
+  "src": "id-dgca-faq",
+  "quote": "Direktorat Jenderal Perhubungan Udara"
+ },
+ "id.permit": {
+  "v": "charter flights, domestic and international, need a DGCA flight approval (FA)",
+  "src": "id-dgca-faq",
+  "quote": "Penerbangan tidak berjadwal dalam negeri dan luar negeri (charter)."
+ },
+ "id.name": {
+  "v": "Indonesia",
+  "src": "id-dgca-faq"
+ },
+ "ph.authority": {
+  "v": "Civil Aviation Authority of the Philippines (CAAP)",
+  "src": "ph-caap-ais",
+  "quote": "Civil Aviation Authority of the Philippines"
+ },
+ "ph.name": {
+  "v": "Philippines",
+  "src": "ph-caap-ais"
+ },
+ "vtcc.icao": {
+  "v": "VTCC",
+  "src": "th-aip-vtcc"
+ },
+ "vtcc.geo": {
+  "v": [
+   18.7714,
+   98.9628
+  ],
+  "src": "th-aip-vtcc",
+  "quote": "184617N 0985746E (ARP: Centre of RWY 18/36 1050 m from THR RWY 18)"
+ },
+ "vtcc.operator": {
+  "v": "Airports of Thailand Public Company Limited (AOT)",
+  "src": "th-aip-vtcc",
+  "quote": "Airports of Thailand Public Company Limited"
+ },
+ "vtcc.location": {
+  "v": "4 km south-west of the city",
+  "src": "th-aip-vtcc",
+  "quote": "4 km SW"
+ },
+ "vtcc.runway": {
+  "v": "one runway, 18/36, 3,400 m long and 45 m wide (3,100 m available for landing on runway 18)",
+  "src": "th-aip-vtcc",
+  "quote": "RWY 18: 3400 x 45; RWY 36: 3100 x 45; RWY 18 LDA 3100"
+ },
+ "vtcc.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "th-aip-vtcc",
+  "quote": "Customs and immigration: H24"
+ },
+ "vtcc.hours": {
+  "v": "open 24 hours",
+  "src": "th-aip-vtcc",
+  "quote": "AD operator: H24"
+ },
+ "vtcc.handling": {
+  "v": "ground handling by Thai Airways International, BAGS Ground Services, Chiang Mai Ground Handling Services, HS Aviation and Thai Ground Handling; fuel by PTT",
+  "src": "th-aip-vtcc",
+  "quote": "Fuelling provide by PTT Public Company Limited."
+ },
+ "vtcc.noise": {
+  "v": "no noise abatement procedures published",
+  "src": "th-aip-vtcc",
+  "quote": "NIL"
+ },
+ "vtcc.notable": {
+  "v": "aircraft may taxi out of a stand under own power only if code A or B (wingspan up to 24 m); power-back is not permitted",
+  "src": "th-aip-vtcc",
+  "quote": "Self-maneuvering is permitted only for aircraft code letter A, B, or aircraft with wingspan up to 24 meters (79 feet). Power-back is not permitted at any parking stands."
+ },
+ "vmmc.icao": {
+  "v": "VMMC",
+  "src": "mia-tag-2019"
+ },
+ "vmmc.handling": {
+  "v": "TAG Aviation (Macau) runs a 24-hour business-aviation FBO, the airport's second FBO (opened January 2019)",
+  "src": "mia-tag-2019",
+  "quote": "the second commercial/general aviation fixed base operator (FBO) of Macau International Airport"
+ },
+ "vmmc.notable": {
+  "v": "aerodrome data are published in AIP Macao; the Hong Kong AIP covers only Hong Kong airspace procedures for VMMC",
+  "src": "hk-aip-vmmc",
+  "quote": "Refer to AIP Macao"
+ },
+ "vvts.icao": {
+  "v": "VVTS",
+  "src": "vn-aip-vvts-2024"
+ },
+ "vvts.geo": {
+  "v": [
+   10.8206,
+   106.6608
+  ],
+  "src": "vn-aip-vvts-2024",
+  "quote": "104914N 1063939E"
+ },
+ "vvts.operator": {
+  "v": "Airports Corporation of Viet Nam (ACV), through its Southern Airports Authority",
+  "src": "vn-aip-vvts-2024",
+  "quote": "Airports Corporation of Viet Nam (ACV)"
+ },
+ "vvts.location": {
+  "v": "6.5 km north-west of the city centre",
+  "src": "vn-aip-vvts-2024",
+  "quote": "6.5 KM North West from city centre"
+ },
+ "vvts.runway": {
+  "v": "two runways; the longest, 07R/25L, is 3,828 m long and 45 m wide",
+  "src": "vn-aip-vvts-2023",
+  "quote": "07R: 3 828 x 45 M; 25L: 3 828 x 45 M"
+ },
+ "vvts.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "vn-aip-vvts-2024",
+  "quote": "Customs and Immigration: H24"
+ },
+ "vvts.hours": {
+  "v": "open 24 hours",
+  "src": "vn-aip-vvts-2024",
+  "quote": "H24"
+ },
+ "vvts.noise": {
+  "v": "no noise abatement procedures published",
+  "src": "vn-aip-vvts-2023",
+  "quote": "Nil"
+ },
+ "vvnb.icao": {
+  "v": "VVNB",
+  "src": "vn-aip-vvnb-2023"
+ },
+ "vvnb.geo": {
+  "v": [
+   21.2217,
+   105.8056
+  ],
+  "src": "vn-aip-vvnb-2023",
+  "quote": "211318N – 1054820E"
+ },
+ "vvnb.operator": {
+  "v": "Airports Corporation of Viet Nam (ACV)",
+  "src": "vn-aip-vvnb-2023",
+  "quote": "Airports Corporation of Viet Nam (ACV)"
+ },
+ "vvnb.location": {
+  "v": "28 km north of Hanoi",
+  "src": "vn-aip-vvnb-2023",
+  "quote": "28 KM North from Ha Noi city"
+ },
+ "vvnb.runway": {
+  "v": "two runways; the longest, 11R/29L, is 3,800 m long and 45 m wide",
+  "src": "vn-aip-vvnb-2023",
+  "quote": "11R: 3 800 x 45; 29L: 3 800 x 45"
+ },
+ "vvnb.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "vn-aip-vvnb-2023",
+  "quote": "Customs and Immigration: H24"
+ },
+ "vvnb.hours": {
+  "v": "open 24 hours",
+  "src": "vn-aip-vvnb-2023",
+  "quote": "Aerodrome Administration: H24"
+ },
+ "vdti.icao": {
+  "v": "VDTI",
+  "src": "icao-kh-vdti-2025"
+ },
+ "vdti.notable": {
+  "v": "replaced Phnom Penh International Airport (VDPP), which closed at 17:00 UTC on 8 September 2025; Techo opened at 00:00 UTC on 4 September 2025 (Cambodia's notice to ICAO)",
+  "src": "icao-kh-vdti-2025",
+  "quote": "Phnom Penh International Airport (VDPP) is officially close at 1700 UTC on 08 September 2025."
+ },
+ "vrmm.icao": {
+  "v": "VRMM",
+  "src": "mv-caa-aerodromes"
+ },
+ "vrmm.iata": {
+  "v": "MLE",
+  "src": "mv-caa-aerodromes"
+ },
+ "vrmm.geo": {
+  "v": [
+   4.1917,
+   73.5292
+  ],
+  "src": "mv-caa-aerodromes",
+  "quote": "Velana International Airport Maldives Airports Company Ltd. 4E VRMM MLE 04 11 30 N 73 31 45 E"
+ },
+ "vrmm.operator": {
+  "v": "Maldives Airports Company Ltd. (MACL)",
+  "src": "mv-caa-aerodromes",
+  "quote": "Velana International Airport Maldives Airports Company Ltd."
+ },
+ "vrmm.runway": {
+  "v": "runway 3,400 m long",
+  "src": "macl-home",
+  "quote": "Runway3,400m"
+ },
+ "th.authority": {
+  "v": "Civil Aviation Authority of Thailand (CAAT), Flight Permit Division",
+  "src": "th-aip-gen12",
+  "quote": "Application for such permission shall be made to Flight Permit Division (FP)"
+ },
+ "th.permit": {
+  "v": "prior approval from CAAT for every foreign non-scheduled flight, applied for at least 3 business days ahead through the FPOS system; this also covers non-commercial (private) flights",
+  "src": "th-aip-gen12",
+  "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days"
+ },
+ "th.overflight": {
+  "v": "overflight (transit non-stop) and technical stops also need prior CAAT approval, at least 3 business days ahead",
+  "src": "th-aip-gen12",
+  "quote": "in transit non-stop across Thailand, or to make stops for non-traffic purpose in Thailand"
+ },
+ "th.cabotage": {
+  "v": "charter flights by foreign carriers may not carry passengers between points in Thailand",
+  "src": "th-aip-gen12",
+  "quote": "Any charter flights operated by foreign carriers transporting passengers between any points in Thailand is prohibited."
+ },
+ "th.customs_airports": {
+  "v": "aircraft entering or leaving Thailand must land at or depart from a customs airport",
+  "src": "th-aip-gen12",
+  "quote": "No aircraft entering or leaving the Kingdom of Thailand shall land before or depart except at or from a Customs Airport."
+ },
+ "th.notable": {
+  "v": "slots are required at Level 2 and Level 3 airports; documents must be completed in legible English",
+  "src": "th-aip-gen12",
+  "quote": "must obtain slots for Level 2 and Level 3 Airport."
+ },
+ "th.name": {
+  "v": "Thailand",
+  "src": "th-aip-gen12"
+ },
+ "vn.authority": {
+  "v": "Civil Aviation Authority of Viet Nam (CAAV)",
+  "src": "vn-aip-gen12",
+  "quote": "Flight permission applications shall be submitted to the appropriate Departments of CAAV indicated in item 2.1."
+ },
+ "vn.permit": {
+  "v": "flight permission from CAAV: international charter flights at least 7 days ahead; general aviation flights at least 3 working days before departure",
+  "src": "vn-aip-gen12",
+  "quote": "At least 7 days before the intended date to operate: International charter flights, extra fights into/from the territory of Viet Nam;"
+ },
+ "vn.overflight": {
+  "v": "non-scheduled overflights and technical stops need permission at least 3 working days before departure",
+  "src": "vn-aip-gen12",
+  "quote": "At least 3 working days before the estimated departure time of operating: Non-scheduled international flights that overfly Vietnamese airspace or make stop in Viet Nam for technical purpose;"
+ },
+ "vn.customs_airports": {
+  "v": "first landing and final departure must be at an international aerodrome of Viet Nam",
+  "src": "vn-aip-gen12",
+  "quote": "Aircraft flying into or departing from Viet Nam territory shall make their first landing at, or final departure from an international aerodrome of Viet Nam"
+ },
+ "vn.notable": {
+  "v": "other general aviation flights also need permission at least 3 working days ahead",
+  "src": "vn-aip-gen12",
+  "quote": "Other flights intended for general aviation operations."
+ },
+ "vn.name": {
+  "v": "Vietnam",
+  "src": "vn-aip-gen12"
+ },
+ "kh.authority": {
+  "v": "State Secretariat of Civil Aviation (SSCA)",
+  "src": "kh-cats-aim",
+  "quote": "State Secretariat of Civil Aviation (SSCA)"
+ },
+ "kh.name": {
+  "v": "Cambodia",
+  "src": "kh-cats-aim"
+ },
+ "mv.authority": {
+  "v": "Maldives Civil Aviation Authority (MCAA)",
+  "src": "mv-caa-form-foreign-op",
+  "quote": "Maldives Civil Aviation Authority (MCAA)"
+ },
+ "mv.permit": {
+  "v": "non-scheduled flights by aircraft of ICAO states may transit or land for non-traffic purposes with permission obtained at least 72 hours ahead; carrying paying passengers needs the Director's permission (a foreign air carrier permit)",
+  "src": "mv-car-part10",
+  "quote": "after obtaining permission at least 72 hours prior to operation of the flight"
+ },
+ "mv.customs_airports": {
+  "v": "flights from abroad must land at an aerodrome designated as an international airport",
+  "src": "mv-car-part10",
+  "quote": "shall land at an aerodrome designated as an international airport"
+ },
+ "mv.notable": {
+  "v": "foreign commercial (including charter) operators apply to MCAA with AOC, insurance and a letter appointing their Maldives representative",
+  "src": "mv-caa-form-foreign-op",
+  "quote": "The letter of appointment issued to the Party representing the Airline in the Maldives"
+ },
+ "mv.name": {
+  "v": "Maldives",
+  "src": "mv-caa-form-foreign-op"
+ },
+ "lk.authority": {
+  "v": "Civil Aviation Authority of Sri Lanka (CAASL)",
+  "src": "lk-caasl-nonsked",
+  "quote": "Issuance of landing permission for non-scheduled flights"
+ },
+ "lk.permit": {
+  "v": "landing permission from CAASL for non-scheduled flights, 3 working days ahead, in the format set in AIP GEN 1.2",
+  "src": "lk-caasl-nonsked",
+  "quote": "Required time: 03 working days"
+ },
+ "lk.overflight": {
+  "v": "permission to overfly the Colombo FIR, also 3 working days ahead",
+  "src": "lk-caasl-nonsked",
+  "quote": "Required time: 03 working days"
+ },
+ "lk.notable": {
+  "v": "requests go by AMHS/AFTN, fax or e-mail; there is an after-hours channel",
+  "src": "lk-caasl-nonsked",
+  "quote": "The preferred channels of communication for such approvals are AMHS/AFTN, fax, or e-mail."
+ },
+ "lk.name": {
+  "v": "Sri Lanka",
+  "src": "lk-caasl-nonsked"
+ },
+ "mo.authority": {
+  "v": "Civil Aviation Authority of Macao (AACM)",
+  "src": "mo-gov-ps1956b",
+  "quote": "Flight Approval for Non-Scheduled Air Services"
+ },
+ "mo.permit": {
+  "v": "flight approval from AACM for non-scheduled (including charter) services, with AOC, insurance, registration, airworthiness and noise certificates; no deadline, processing takes 3 working days",
+  "src": "mo-gov-ps1956b",
+  "quote": "It takes 3 working days to complete the authorization process (time guaranteed in performance pledge)."
+ },
+ "mo.name": {
+  "v": "Macao",
+  "src": "mo-gov-ps1956b"
+ },
+ "rkss.icao": {
+  "v": "RKSS",
+  "src": "kr-aip-rkss"
+ },
+ "rkss.geo": {
+  "v": [
+   37.5569,
+   126.7975
+  ],
+  "src": "kr-aip-rkss",
+  "quote": "373325N 1264751E"
+ },
+ "rkss.operator": {
+  "v": "Korea Airports Corporation",
+  "src": "kr-aip-rkss",
+  "quote": "Korea Airports Corporation(Gimpo International Airport)"
+ },
+ "rkss.location": {
+  "v": "16 km west of Seoul City Hall (bearing 275°)",
+  "src": "kr-aip-rkss",
+  "quote": "275°, 16 km from Seoul City Hall"
+ },
+ "rkss.runway": {
+  "v": "two runways; the longest, 14L/32R, is 3,600 m long and 45 m wide",
+  "src": "kr-aip-rkss",
+  "quote": "3 600 × 45"
+ },
+ "rkss.customs": {
+  "v": "customs and immigration as required by operations (HO)",
+  "src": "kr-aip-rkss",
+  "quote": "HO"
+ },
+ "rkss.curfew": {
+  "v": "no take-offs or landings from 23:00 to 06:00 local time (1400-2100 UTC) for noise",
+  "src": "kr-aip-rkss",
+  "quote": "Take-off and landing is restricted from 1400 UTC to 2100 UTC due to noise abatement"
+ },
+ "rkss.hours": {
+  "v": "aerodrome open 06:00 to 23:00 local time (2100-1400 UTC); ATS 24 hours",
+  "src": "kr-aip-rkss",
+  "quote": "Permitted Hours : 2100-1400 UTC, daily"
+ },
+ "rkss.ppr": {
+  "v": "general aviation must contact the airport operator's airside operations team at least 1 day before the flight to confirm a stand",
+  "src": "kr-aip-rkss",
+  "quote": "should contact with airport operator (airside operations team) at least 1 day before the flight"
+ },
+ "rkss.max_aircraft": {
+  "v": "international private flights excluded if the aircraft seats more than 50 passengers or has a maximum payload of 2,721 kg or more",
+  "src": "kr-aip-rkss",
+  "quote": "Aircraft having a seating capacity of more than 50 passengers"
+ },
+ "rkss.notable": {
+  "v": "international private aircraft owned by a company or a person may use Gimpo under conditions; non-scheduled public charters and inclusive tour charters are excluded, and use may be refused for capacity, safety or security",
+  "src": "kr-aip-rkss",
+  "quote": "Private aircraft which is owned by an enterprise or a person, except the following aircraft;"
+ },
+ "rkss.notable_refusal": {
+  "v": "use may be refused for capacity, safety or security reasons",
+  "src": "kr-aip-rkss",
+  "quote": "The use of the Gimpo Airport may not be permitted when required for certain reasons, including the shortage of airport capacity, safety or security."
+ },
+ "rkss.handling": {
+  "v": "4 business aircraft hangars for code C aircraft (no handling agents named)",
+  "src": "kr-aip-rkss",
+  "quote": "Business aircraft hangar : 4 for code letter \"C\" aircraft"
+ },
+ "rkss.noise": {
+  "v": "no engine run-ups or idle power checks from 23:00 to 06:00 local time",
+  "src": "kr-aip-rkss",
+  "quote": "Run up checks and idle power check are not allowed from 1400 UTC to 2100 UTC."
+ },
+ "rksi.icao": {
+  "v": "RKSI",
+  "src": "kr-aip-rksi"
+ },
+ "rksi.geo": {
+  "v": [
+   37.4625,
+   126.4392
+  ],
+  "src": "kr-aip-rksi",
+  "quote": "372745N 1262621E"
+ },
+ "rksi.operator": {
+  "v": "Incheon International Airport Corporation",
+  "src": "kr-aip-rksi",
+  "quote": "Incheon International Airport Corporation"
+ },
+ "rksi.location": {
+  "v": "48.7 km west of Seoul City Hall (bearing 264°); 23.9 km from Incheon City Hall",
+  "src": "kr-aip-rksi",
+  "quote": "264°, 48.7 km from Seoul City Hall"
+ },
+ "rksi.runway": {
+  "v": "four runways; the longest, 16L/34R, is 4,000 m long and 60 m wide",
+  "src": "kr-aip-rksi",
+  "quote": "4000 × 60"
+ },
+ "rksi.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "kr-aip-rksi",
+  "quote": "H24"
+ },
+ "rksi.hours": {
+  "v": "open 24 hours",
+  "src": "kr-aip-rksi",
+  "quote": "H24"
+ },
+ "rksi.slots": {
+  "v": "slots must be obtained before operating (Level 3 airport)",
+  "src": "kr-aip-rksi",
+  "quote": "Slots must be obtained prior to commencing operations at RKSI (Level-3 airport)."
+ },
+ "rksi.handling": {
+  "v": "no hangar space for visiting aircraft; no handling agents named",
+  "src": "kr-aip-rksi",
+  "quote": "Not available"
+ },
+ "rksi.notable": {
+  "v": "business jets follow Incheon Apron instructions at the de-icing pads; training flights, light sport and ultra-light aircraft not permitted",
+  "src": "kr-aip-rksi",
+  "quote": "The use of this airport for training purpose is prohibited."
+ },
+ "rcss.icao": {
+  "v": "RCSS",
+  "src": "tw-aip-rcss"
+ },
+ "rcss.geo": {
+  "v": [
+   25.0697,
+   121.5525
+  ],
+  "src": "tw-aip-rcss",
+  "quote": "250411N 1213309E"
+ },
+ "rcss.operator": {
+  "v": "Taipei International Airport Office",
+  "src": "tw-aip-rcss",
+  "quote": "TAIPEI INTERNATIONAL AIRPORT OFFICE"
+ },
+ "rcss.location": {
+  "v": "4.8 km north-east of Taipei",
+  "src": "tw-aip-rcss",
+  "quote": "2.6NM (4.8KM) NORTHEAST of TAIPEI"
+ },
+ "rcss.runway": {
+  "v": "one runway, 10/28, 2,605 m long and 60 m wide",
+  "src": "tw-aip-rcss",
+  "quote": "2605 x 60"
+ },
+ "rcss.customs": {
+  "v": "customs and immigration 05:00 to 23:00 local time (2100-1500 UTC)",
+  "src": "tw-aip-rcss",
+  "quote": "2100-1500 (UTC)"
+ },
+ "rcss.curfew": {
+  "v": "no civil take-offs or landings from 23:00 to 06:00 local time (1500-2200 UTC), except emergencies",
+  "src": "tw-aip-rcss",
+  "quote": "Curfew period: 1500-2200 UTC daily. Except for emergency, take-off or landings of civil aircraft are prohibited."
+ },
+ "rcss.hours": {
+  "v": "aerodrome administration 06:00 to 23:00 local time (2200-1500 UTC)",
+  "src": "tw-aip-rcss",
+  "quote": "2200-1500 (UTC)"
+ },
+ "rcss.handling": {
+  "v": "passengers and crew of international business charter or private aircraft clear customs at the Business Aviation center",
+  "src": "tw-aip-rcss",
+  "quote": "Passengers and flight crew of international business charter or private aircraft departing or landing Taipei/Songshan Airport"
+ },
+ "rcss.noise": {
+  "v": "noise abatement departure procedures apply 23:00 to 06:00 local time",
+  "src": "tw-aip-rcss",
+  "quote": "Between hours of 1500 and 2200 UTC"
+ },
+ "rctp.icao": {
+  "v": "RCTP",
+  "src": "tw-aip-rctp"
+ },
+ "rctp.geo": {
+  "v": [
+   25.0803,
+   121.2322
+  ],
+  "src": "tw-aip-rctp",
+  "quote": "250449N 1211356E"
+ },
+ "rctp.operator": {
+  "v": "Taoyuan International Airport Corporation Ltd.",
+  "src": "tw-aip-rctp",
+  "quote": "TAOYUAN INTERNATIONAL AIRPORT CORPORATION LTD."
+ },
+ "rctp.location": {
+  "v": "30.9 km west of Taipei City",
+  "src": "tw-aip-rctp",
+  "quote": "16.7NM (30.9KM) WEST of TAIPEI CITY"
+ },
+ "rctp.runway": {
+  "v": "two runways; the longest, 05R/23L, is 3,800 m long and 60 m wide",
+  "src": "tw-aip-rctp",
+  "quote": "3800 x 60"
+ },
+ "rctp.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "tw-aip-rctp",
+  "quote": "H24"
+ },
+ "rctp.hours": {
+  "v": "open 24 hours",
+  "src": "tw-aip-rctp",
+  "quote": "H24"
+ },
+ "rctp.handling": {
+  "v": "hangar space for visiting aircraft by arrangement with operating airlines; no handling agents named",
+  "src": "tw-aip-rctp",
+  "quote": "By arrangement with operating airlines."
+ },
+ "rctp.noise": {
+  "v": "no engine tests from 00:00 to 06:00 local time (1600-2200 UTC) unless authorised",
+  "src": "tw-aip-rctp",
+  "quote": "from 1600 to 2200 UTC"
+ },
+ "rctp.notable": {
+  "v": "training and test flights limited to 01:00-06:00 local time (1700-2200 UTC)",
+  "src": "tw-aip-rctp",
+  "quote": "1700-2200UTC daily"
+ },
+ "vidp.icao": {
+  "v": "VIDP",
+  "src": "in-aip-vidp"
+ },
+ "vidp.geo": {
+  "v": [
+   28.5686,
+   77.1122
+  ],
+  "src": "in-aip-vidp",
+  "quote": "283407N 0770644E"
+ },
+ "vidp.operator": {
+  "v": "Delhi International Airport Ltd (DIAL)",
+  "src": "in-aip-vidp",
+  "quote": "Delhi International Airport Ltd"
+ },
+ "vidp.location": {
+  "v": "15 km south-west of Delhi Railway Station (bearing 228°)",
+  "src": "in-aip-vidp",
+  "quote": "BRG 228DEG /15Km from Delhi Railway Station."
+ },
+ "vidp.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "in-aip-vidp",
+  "quote": "H24"
+ },
+ "vidp.ppr": {
+  "v": "non-scheduled flights need a valid Delhi Approach Arrival Clearance Number (DACN), applied for from the airport's operations control centre",
+  "src": "in-aip-vidp",
+  "quote": "Non-Sked flights not permitted to operate at IGI Airport without a valid Delhi APCH ARR CLR NR (DACN)"
+ },
+ "vidp.notable": {
+  "v": "international non-scheduled flights must get night parking approval from DIAL's flight data unit at least 5 days ahead and bring their own tow bar",
+  "src": "in-aip-vidp",
+  "quote": "at least 5 days in advance and shall arrange Tow Bar themselves."
+ },
+ "vidp.notable_runway": {
+  "v": "runway 09/27 is reserved for VVIP aircraft and other listed categories",
+  "src": "in-aip-vidp",
+  "quote": "Only VVIP aircraft (President, Vice President, Prime Minister and SPG Protectees)"
+ },
+ "vabb.icao": {
+  "v": "VABB",
+  "src": "in-aip-vabb"
+ },
+ "vabb.geo": {
+  "v": [
+   19.0917,
+   72.8661
+  ],
+  "src": "in-aip-vabb",
+  "quote": "190530N 0725158E"
+ },
+ "vabb.operator": {
+  "v": "Mumbai International Airport Limited",
+  "src": "in-aip-vabb",
+  "quote": "Mumbai International Airport Limited, 1st Floor, Terminal - 1,"
+ },
+ "vabb.location": {
+  "v": "14 km from Mumbai Central railway station (bearing 021.5°)",
+  "src": "in-aip-vabb",
+  "quote": "021.5 DEG, 14Km from Mumbai Central Railway station"
+ },
+ "vabb.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "in-aip-vabb",
+  "quote": "H24"
+ },
+ "vabb.slots": {
+  "v": "non-scheduled operators must file a slot request with the airport operations control centre (AOCC); all non-scheduled and general aviation movements need positive approval",
+  "src": "in-aip-vabb",
+  "quote": "Non Scheduled Aircraft operators are required to file their slot request with aocc.planning@adani.com for clearance."
+ },
+ "vabb.ppr": {
+  "v": "requests for international movements at least 72 hours ahead, domestic at least 12 hours ahead",
+  "src": "in-aip-vabb",
+  "quote": "Request for International movement must be forwarded at least 72hrs in advance."
+ },
+ "vabb.notable": {
+  "v": "no general aviation between 08:00-10:00 and 17:00-19:30 local time daily (0230-0430 and 1130-1400 UTC); only VIP and scheduled flights then",
+  "src": "in-aip-vabb",
+  "quote": "Between 0230-0430 and 1130-1400 UTC daily,"
+ },
+ "vabb.notable_night": {
+  "v": "night flying is subject to other restrictions for non-scheduled flights",
+  "src": "in-aip-vabb",
+  "quote": "Night flying shall be subject to other restrictions applicable for the operation of non-scheduled flights"
+ },
+ "vabb.handling": {
+  "v": "hangar space at Air India and Jet Airways hangars subject to availability; no handling agents named",
+  "src": "in-aip-vabb",
+  "quote": "At Air India (NACIL) and Jet Airways Hanger subject to availability."
+ },
+ "jp.authority": {
+  "v": "Civil Aviation Bureau, Ministry of Land, Infrastructure, Transport and Tourism (MLIT); applications go to its International Aviation Division",
+  "src": "jp-mlit-bizjet",
+  "quote": "国土交通省 航空局 航空ネットワーク部 国際航空課 国際運送係"
+ },
+ "jp.permit": {
+  "v": "a foreign aircraft flying to or from Japan needs an Article 126 permit, applied for 10 days before the flight",
+  "src": "jp-mlit-bizjet",
+  "quote": "航行の予定期日の１０日前まで"
+ },
+ "jp.permit_paid": {
+  "v": "carrying paying passengers to or from Japan needs an Article 130-2 permit: 30 days ahead, 10 days if the operator has an office or agent in Japan, and 3 days (72 hours) for business, medical or tourism trips with an office or agent in Japan",
+  "src": "jp-mlit-bizjet",
+  "quote": "商用目的、医療目的又は観光目的の場合は3日(72時間)前"
+ },
+ "jp.overflight": {
+  "v": "crossing Japanese airspace needs the same permit unless the aircraft flies only on airways",
+  "src": "jp-mlit-bizjet",
+  "quote": "但、航空路のみを航行する場合は、申請は不要。"
+ },
+ "jp.cabotage": {
+  "v": "domestic legs need an Article 127 permit (free carriage, 3 days ahead); passengers may not board for a domestic leg only",
+  "src": "jp-mlit-bizjet",
+  "quote": "国内区間のみの搭乗は認められないので注意すること。"
+ },
+ "jp.customs_airports": {
+  "v": "landing at an airport not designated by the Minister needs a separate permit",
+  "src": "jp-mlit-bizjet",
+  "quote": "国土交通大臣の指定する空港等（一覧表参照）以外において"
+ },
+ "jp.notable": {
+  "v": "chartered capacity may not be resold; flying without a permit can mean prison or a fine",
+  "src": "jp-mlit-bizjet",
+  "quote": "チャーターした部分の全部又は一部を、直接的又は間接的に転売又は販売しないこと。"
+ },
+ "jp.name": {
+  "v": "Japan",
+  "src": "jp-mlit-bizjet"
+ },
+ "kr.authority": {
+  "v": "Ministry of Land, Infrastructure and Transport (MOLIT)",
+  "src": "kr-aip-gen12",
+  "quote": "Administrator of Regional Office of Aviation, Ministry of Land, Infrastructure and Transport"
+ },
+ "kr.permit": {
+  "v": "a foreign charter (non-scheduled commercial) flight needs a Foreign Non-scheduled International Air Transport Permission at least 10 days ahead (16 days for a military airport)",
+  "src": "kr-aip-gen12",
+  "quote": "at least 10 days(in case of military airport: 16 days) before the intended date of operation."
+ },
+ "kr.permit_private": {
+  "v": "a private (non-commercial) flight applies to the Regional Office of Aviation at least 2 days ahead (16 days for a military airport)",
+  "src": "kr-aip-gen12",
+  "quote": "at least 2 days(in case of military airport : 16 days) before the intended date of operation."
+ },
+ "kr.overflight": {
+  "v": "an overflight permit request goes to the Air Traffic Management Office 2 days ahead",
+  "src": "kr-aip-gen12",
+  "quote": "shall submit an overflight permit request application to the Air Traffic Management Office(ATMO)"
+ },
+ "kr.customs_airports": {
+  "v": "international flights must first land at or finally depart from a designated international airport",
+  "src": "kr-aip-gen12",
+  "quote": "must first land at or finally depart from the designated international airport"
+ },
+ "kr.notable": {
+  "v": "a permit is valid for ±24 hours; a new permit is needed if the time moves outside that window or the aircraft or call sign changes",
+  "src": "kr-aip-gen12",
+  "quote": "Validation of permit is ±24 hours for civil aircraft"
+ },
+ "kr.name": {
+  "v": "South Korea",
+  "src": "kr-aip-gen12"
+ },
+ "tw.authority": {
+  "v": "the CAA (民用航空局)",
+  "src": "tw-aip-gen12",
+  "quote": "民用航空局航空站 Airport Office, CAA"
+ },
+ "tw.permit": {
+  "v": "a foreign charter flight applies to the CAA 10 working days before departure; a private flight needs a CAA permit",
+  "src": "tw-aip-gen12",
+  "quote": "must be filed with the CAA, 10 working days before estimated departure date."
+ },
+ "tw.permit_private": {
+  "v": "other non-scheduled and private flights apply 2 working days before entry",
+  "src": "tw-aip-gen12",
+  "quote": "2 workdays prior to the proposed date of entry."
+ },
+ "tw.overflight": {
+  "v": "non-scheduled transit flights submit to the Taipei Area Control Center 1 working day ahead",
+  "src": "tw-aip-gen12",
+  "quote": "1 working day in advance of the date of proposed operation."
+ },
+ "tw.customs_airports": {
+  "v": "first landing and final departure at Taoyuan, Kaohsiung or other authorised aerodromes",
+  "src": "tw-aip-gen12",
+  "quote": "Taipei/Taiwan Taoyuan International Aerodrome, Kaohsiung International Aerodrome, or other authorized aerodromes"
+ },
+ "tw.notable": {
+  "v": "an applicant without scheduled operations or a local general agent must appoint a local airline approved for international operations",
+  "src": "tw-aip-gen12",
+  "quote": "shall be delegated to a local civil air transport enterprise who is approved to conduct international operations."
+ },
+ "tw.notable_law": {
+  "v": "the national rules ask for the application 2 working days before entry or exit",
+  "src": "tw-law-foreign-aircraft",
+  "quote": "於入境或出境二工作日前向民航局申請核准"
+ },
+ "tw.name": {
+  "v": "Taiwan",
+  "src": "tw-aip-gen12"
+ },
+ "in.authority": {
+  "v": "Directorate General of Civil Aviation (DGCA)",
+  "src": "in-aip-gen12",
+  "quote": "it is necessary for the operator to apply and obtain prior approval of DGCA."
+ },
+ "in.permit": {
+  "v": "non-scheduled flights into, from or over India need prior DGCA approval, applied for 3 working days ahead for flights carrying traffic",
+  "src": "in-aip-gen12",
+  "quote": "Three working days for flights for traffic purposes; except as stated in 3.2.1.2."
+ },
+ "in.overflight": {
+  "v": "overflying aircraft must quote a DGCA clearance or may be made to land",
+  "src": "in-aip-gen12",
+  "quote": "Overflying aircraft that are unable to quote the authority are liable to make a landing in India"
+ },
+ "in.cabotage": {
+  "v": "international flights may not pick up passengers in India and set them down elsewhere in India",
+  "src": "in-aip-gen12",
+  "quote": "International flights are not permitted to pick up passengers/load at any place in India"
+ },
+ "in.customs_airports": {
+  "v": "first landing and final departure at an international aerodrome",
+  "src": "in-aip-gen12",
+  "quote": "shall make their first landing at or final departure from,"
+ },
+ "in.notable": {
+  "v": "immigration and customs clearance on the General Declaration is required before departure",
+  "src": "in-aip-gen12",
+  "quote": "No flight shall leave India without obtaining clearance of Immigration and Custom authorities on General Declaration"
+ },
+ "in.name": {
+  "v": "India",
+  "src": "in-aip-gen12"
  }
 }

@@ -1,0 +1,32 @@
+{
+ "icao": "VRMM",
+ "iata": "MLE",
+ "name": "Velana International Airport",
+ "city": "Malé",
+ "country": "MV",
+ "tz": "Indian/Maldives",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "runway 3,400 m long",
+   "src": "macl-home",
+   "longest_m": 3400,
+   "quote": "Runway3,400m"
+  }
+ },
+ "missing": [
+  "location",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise",
+  "runway width and designation"
+ ],
+ "notes": "The Maldives AIP AD 2 pages on macl.aero are loaded by script and could not be opened (cover page effective 15 Oct 2026 is listed). Coordinates are from the CAA's list of aerodromes (updated 20 Feb 2022), not the AIP. NOTAM A0208/26 closes RWY 18/36 daily 1900-2359 UTC (00:00-04:59 Maldives time, UTC+5, no DST) from 1 Aug to 31 Oct 2026 for maintenance; temporary, do not publish as a permanent fact. Checked 2026-10-27."
+}

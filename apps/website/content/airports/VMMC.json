@@ -1,0 +1,33 @@
+{
+ "icao": "VMMC",
+ "iata": null,
+ "name": "Macao International Airport",
+ "city": "Macao",
+ "country": "MO",
+ "tz": "Asia/Macau",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "handling": {
+   "v": "TAG Aviation (Macau) runs a 24-hour business-aviation FBO, the airport's second FBO (opened January 2019)",
+   "src": "mia-tag-2019",
+   "quote": "the second commercial/general aviation fixed base operator (FBO) of Macau International Airport"
+  }
+ },
+ "missing": [
+  "iata",
+  "geo",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "hours",
+  "noise"
+ ],
+ "notes": "AIP Macao (AACM) is not available online; only the Hong Kong eAIP page (procedures in HK airspace) could be read. Handling fact is from the airport company's 2019 news pages; the name of the first FBO was not found on the operator's site, and current FBO list should be re-checked before publishing. Checked 2026-10-27."
+}

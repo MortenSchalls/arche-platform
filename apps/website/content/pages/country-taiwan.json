@@ -1,0 +1,67 @@
+{
+ "path": "/countries/taiwan/",
+ "title": "Private jet charter to Taiwan: permits and rules",
+ "description": "Private flights to Taiwan: charter and private flight permits, the local agent rule, overflight and the international airports, from the official AIP.",
+ "eyebrow": "Country guide · Taiwan",
+ "h1": "Private flights to and from Taiwan",
+ "lead": "Every private or charter flight to Taiwan needs the authority's permission first. What the rules are, how far ahead to plan, and what they mean for your trip.",
+ "glance": [
+  [
+   "Authority",
+   "tw.authority"
+  ],
+  [
+   "Permission",
+   "tw.permit"
+  ],
+  [
+   "Overflight",
+   "tw.overflight"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Permits for charter and private flights",
+   "p": [
+    "Permits come from {{tw.authority}}. For a charter flight: {{tw.permit}}. For other non-scheduled and private flights: {{tw.permit_private}}; {{tw.notable_law}}.",
+    "There is also a local condition: {{tw.notable}}. The operator arranges this through its handling agent."
+   ]
+  },
+  {
+   "h": "Overflight and airports",
+   "p": [
+    "Flights that only cross the area: {{tw.overflight}}. Landing: {{tw.customs_airports}}. Our Taipei guide compares Songshan, close to the city with a night closure, and Taoyuan, open around the clock."
+   ]
+  },
+  {
+   "h": "Who applies for the permit",
+   "p": [
+    "The operator that flies your trip applies, usually through its handling agent or a flight-permit service. You do not need to deal with the authority yourself. What you can do is give us final names, passport details and times early, because a permit is issued for a given aircraft, schedule and passenger list, and late changes can mean a new application."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Taiwan",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How far ahead must a charter flight to Taipei be arranged?",
+   "a": "The rule for a charter: {{tw.permit}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/cities/taipei/",
+  "/regions/asia-pacific/",
+  "/cities/hong-kong/"
+ ],
+ "draft": true,
+ "type": "country"
+}

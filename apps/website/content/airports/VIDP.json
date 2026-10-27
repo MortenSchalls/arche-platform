@@ -1,0 +1,35 @@
+{
+ "icao": "VIDP",
+ "iata": null,
+ "name": "Indira Gandhi International Airport",
+ "city": "Delhi",
+ "country": "IN",
+ "tz": "Asia/Kolkata",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "src": "in-aip-vidp",
+   "h24": true,
+   "quote": "H24"
+  },
+  "ppr": {
+   "v": "non-scheduled flights need a valid Delhi Approach Arrival Clearance Number (DACN), applied for from the airport's operations control centre",
+   "src": "in-aip-vidp",
+   "quote": "Non-Sked flights not permitted to operate at IGI Airport without a valid Delhi APCH ARR CLR NR (DACN)"
+  }
+ },
+ "missing": [
+  "iata (AIP page does not state it)",
+  "runway (AD 2.12 beyond the text the fetch tool could read)",
+  "curfew",
+  "slots",
+  "max_aircraft",
+  "handling",
+  "hours (only aerodrome office hours stated)",
+  "noise"
+ ],
+ "notes": "Page read is India AIP AMDT 04-26 (effective 14 May 2026). The page is long and the text returned stopped inside AD 2.10 obstacles, so AD 2.12 runways, AD 2.20 local rules and AD 2.21 noise were not read. The AIP refers to the airport's own general aviation page (newdelhiairport.in) for the DACN procedure; not opened."
+}

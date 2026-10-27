@@ -1,0 +1,40 @@
+{
+ "icao": "WMKK",
+ "iata": null,
+ "name": "Kuala Lumpur International Airport (KL International / Sepang)",
+ "city": "Kuala Lumpur",
+ "country": "MY",
+ "tz": "Asia/Kuala_Lumpur",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "src": "my-aip-wmkk",
+   "h24": true,
+   "quote": "Customs and immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "my-aip-wmkk",
+   "quote": "AD Operator: H24 ... ATS: H24"
+  },
+  "handling": {
+   "v": "by prior arrangement (no agents named in the AIP pages read)",
+   "src": "my-aip-wmkk",
+   "quote": "Handling: Prior arrangement."
+  }
+ },
+ "missing": [
+  "iata (not stated in the AIP)",
+  "runway (AD 2.12 not readable, page cut off at AD 2.9)",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "handling agent names"
+ ],
+ "notes": "The eAIP page (AIRAC 6 Aug 2026) only loaded up to AD 2.9; runway, local regulations and noise sections could not be read. The old PDF AD 2 on aip.caam.gov.my dates from 2008-2011 and was not used. Customs and aerodrome are H24."
+}

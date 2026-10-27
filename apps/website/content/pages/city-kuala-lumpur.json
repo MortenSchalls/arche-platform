@@ -1,0 +1,71 @@
+{
+ "path": "/cities/kuala-lumpur/",
+ "title": "Private jet charter to and from Kuala Lumpur: KLIA and Subang",
+ "description": "Private flights to and from Kuala Lumpur: KLIA and Subang compared on opening hours, customs hours, runways and stands, from the Malaysia AIP, with sources.",
+ "eyebrow": "City guide · Kuala Lumpur",
+ "h1": "Private flights to and from Kuala Lumpur",
+ "lead": "Kuala Lumpur has two airports used by private flights: Kuala Lumpur International, open around the clock, and Subang, closer to the city with shorter customs hours.",
+ "glance": [
+  [
+   "KLIA",
+   "wmkk.icao"
+  ],
+  [
+   "KLIA opening",
+   "wmkk.hours"
+  ],
+  [
+   "Subang",
+   "wmsa.icao"
+  ],
+  [
+   "Subang customs",
+   "wmsa.customs"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Kuala Lumpur International",
+   "p": [
+    "The main airport lies {{wmkk.location}} and is run by {{wmkk.operator}}. It is {{wmkk.hours}}, with {{wmkk.customs}}. It is the airport for arrivals at night."
+   ]
+  },
+  {
+   "h": "Subang",
+   "p": [
+    "Subang, officially Sultan Abdul Aziz Shah Airport, lies {{wmsa.location}} and is run by {{wmsa.operator}}. It has {{wmsa.runway}}. Opening: {{wmsa.hours}}. Customs: {{wmsa.customs}}, so an international arrival outside those hours goes to the main airport.",
+    "Space for larger aircraft is limited on some stands: {{wmsa.max_aircraft}}. A limit that applies to airlines, not private flights: {{wmsa.notable}}."
+   ]
+  },
+  {
+   "h": "Choosing the airport",
+   "p": [
+    "For a daytime arrival in a small or midsize jet, Subang is closer to the city. For larger aircraft and arrivals at night, the main airport is the choice. Every flight to Malaysia also needs a slot and landing approval; our Malaysia guide sets out the rules."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Kuala Lumpur",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet arrive at Subang at night?",
+   "a": "Customs there work {{wmsa.customs}}, so an international arrival at night goes to Kuala Lumpur International, which is {{wmkk.hours}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/countries/malaysia/",
+  "/cities/singapore/",
+  "/regions/asia-pacific/"
+ ],
+ "draft": true,
+ "type": "city"
+}

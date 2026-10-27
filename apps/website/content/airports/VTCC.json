@@ -1,0 +1,49 @@
+{
+ "icao": "VTCC",
+ "iata": null,
+ "name": "Chiang Mai International Airport",
+ "city": "Chiang Mai",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 18/36, 3,400 m long and 45 m wide (3,100 m available for landing on runway 18)",
+   "src": "th-aip-vtcc",
+   "longest_m": 3400,
+   "quote": "RWY 18: 3400 x 45; RWY 36: 3100 x 45; RWY 18 LDA 3100"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "src": "th-aip-vtcc",
+   "h24": true,
+   "quote": "Customs and immigration: H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "th-aip-vtcc",
+   "quote": "AD operator: H24"
+  },
+  "handling": {
+   "v": "ground handling by Thai Airways International, BAGS Ground Services, Chiang Mai Ground Handling Services, HS Aviation and Thai Ground Handling; fuel by PTT",
+   "src": "th-aip-vtcc",
+   "quote": "Fuelling provide by PTT Public Company Limited."
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "th-aip-vtcc",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "business-aviation terminal (FBO)"
+ ],
+ "notes": "Runway, hours and coordinate quotes are AIP table cells joined with their row labels, not running text. AIP quotes come from tagged eAIP cells (database tags stripped). No curfew or night restriction appears in AD 2.20/2.21, but the AIP does not state 'no curfew', so curfew is left missing. Thai GEN 1.2 says slots are required at Level 2 and Level 3 airports; VTCC's slot level was not verified. Latest AIRAC found online was 14 May 2026; a later one may exist. Checked 2026-10-27."
+}

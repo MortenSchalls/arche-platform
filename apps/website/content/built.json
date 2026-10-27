@@ -55,6 +55,11 @@
   "words": 530
  },
  {
+  "path": "/cities/kuala-lumpur/",
+  "draft": true,
+  "words": 495
+ },
+ {
   "path": "/cities/london/",
   "draft": true,
   "words": 577
@@ -80,6 +85,11 @@
   "words": 710
  },
  {
+  "path": "/cities/seoul/",
+  "draft": true,
+  "words": 536
+ },
+ {
   "path": "/cities/singapore/",
   "draft": true,
   "words": 521
@@ -90,9 +100,59 @@
   "words": 500
  },
  {
+  "path": "/cities/taipei/",
+  "draft": true,
+  "words": 417
+ },
+ {
   "path": "/cities/tokyo/",
   "draft": true,
   "words": 502
+ },
+ {
+  "path": "/countries/india/",
+  "draft": true,
+  "words": 543
+ },
+ {
+  "path": "/countries/japan/",
+  "draft": true,
+  "words": 597
+ },
+ {
+  "path": "/countries/malaysia/",
+  "draft": true,
+  "words": 534
+ },
+ {
+  "path": "/countries/maldives/",
+  "draft": true,
+  "words": 476
+ },
+ {
+  "path": "/countries/south-korea/",
+  "draft": true,
+  "words": 497
+ },
+ {
+  "path": "/countries/sri-lanka/",
+  "draft": true,
+  "words": 446
+ },
+ {
+  "path": "/countries/taiwan/",
+  "draft": true,
+  "words": 458
+ },
+ {
+  "path": "/countries/thailand/",
+  "draft": true,
+  "words": 537
+ },
+ {
+  "path": "/countries/vietnam/",
+  "draft": true,
+  "words": 510
  },
  {
   "path": "/guides/charter-price/",

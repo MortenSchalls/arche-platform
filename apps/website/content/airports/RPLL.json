@@ -1,0 +1,41 @@
+{
+ "icao": "RPLL",
+ "iata": null,
+ "name": "Ninoy Aquino International Airport",
+ "city": "Manila",
+ "country": "PH",
+ "tz": "Asia/Manila",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the main one, 06/24, is 3,737 m long and 60 m wide; 13/31 is 2,258 m long and 45 m wide",
+   "src": "miaa-naia-im",
+   "longest_m": 3737,
+   "quote": "Runway 06/24. NAIA's primary runway is 3,737 meters long and 60 meters wide ... Runway 13/31. Its secondary runway is 2,258 meters long and 45 meters wide"
+  },
+  "ppr": {
+   "v": "non-scheduled flights (commercial and non-commercial) need MIAA approval of a flight advisory, filed at least 3 days ahead (2016 rule)",
+   "src": "miaa-mc06-2016",
+   "quote": "Application must be filed in advance with a minimum notice period of three (3) days"
+  },
+  "handling": {
+   "v": "non-scheduled flights must use an MIAA-accredited ground handler or FBO (no names listed)",
+   "src": "miaa-mc06-2016",
+   "quote": "All Air Carriers or Operators of non-scheduled flights must secure the services of MIAA accredited Groundhandler/FBO"
+  }
+ },
+ "missing": [
+  "iata",
+  "geo",
+  "customs",
+  "curfew",
+  "slots",
+  "max_aircraft",
+  "hours",
+  "noise",
+  "notable (GA peak-hour limits reported in news could not be confirmed from an official source)"
+ ],
+ "notes": "Philippine AIP needs a registered account (ais.caap.gov.ph), so no AD 2 data. NAIA has been run by a concessionaire since the O&M start date; the 2016 MIAA rules on flight advisories and FBOs may have been replaced by the concessionaire's rules - check before publishing. News reports of private-jet limits at NAIA are not used."
+}

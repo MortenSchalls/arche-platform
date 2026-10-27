@@ -1,0 +1,49 @@
+{
+ "icao": "RKSI",
+ "iata": null,
+ "name": "Incheon International Airport",
+ "city": "Seoul",
+ "country": "KR",
+ "tz": "Asia/Seoul",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "four runways; the longest, 16L/34R, is 4,000 m long and 60 m wide",
+   "src": "kr-aip-rksi",
+   "longest_m": 4000,
+   "quote": "4000 × 60"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "src": "kr-aip-rksi",
+   "h24": true,
+   "quote": "H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "kr-aip-rksi",
+   "quote": "H24"
+  },
+  "slots": {
+   "v": "slots must be obtained before operating (Level 3 airport)",
+   "src": "kr-aip-rksi",
+   "quote": "Slots must be obtained prior to commencing operations at RKSI (Level-3 airport)."
+  },
+  "handling": {
+   "v": "no hangar space for visiting aircraft; no handling agents named",
+   "src": "kr-aip-rksi",
+   "quote": "Not available"
+  }
+ },
+ "missing": [
+  "iata (AIP page does not state it)",
+  "curfew (AD 2.21 not in the text read)",
+  "noise",
+  "ppr",
+  "max_aircraft",
+  "handling agent / business aviation terminal names"
+ ],
+ "notes": "Page read is the 8 Jan 2026 Korean eAIP package (no effective date printed on the page). AD 2.21 was not in the text returned, so no curfew statement either way."
+}
