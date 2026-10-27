@@ -60,7 +60,7 @@ def check_page(p, F):
     name = p["_file"]
     for need in ("path", "type", "title", "description", "eyebrow", "h1", "lead", "sections"):
         if not p.get(need): raise Bad(f"{name}: missing {need}")
-    if not re.fullmatch(r"/(airports|cities|guides|regions|needs|events)/[a-z0-9-]+/", p["path"]): raise Bad(f"{name}: path {p['path']} not allowed")
+    if not re.fullmatch(r"/(airports|cities|countries|guides|regions|needs|events)/[a-z0-9-]+/", p["path"]): raise Bad(f"{name}: path {p['path']} not allowed")
     if len(p["title"]) > 65: raise Bad(f"{name}: title longer than 65 characters")
     if not 110 <= len(p["description"]) <= 165: raise Bad(f"{name}: description should be 110–165 characters (is {len(p['description'])})")
     words = 0
@@ -182,7 +182,7 @@ def page_html(p, F, S, P):
     checked = max([S[k]["checked"] for k in refs] or [datetime.date.today().isoformat()])
     # structured data
     url = BASE + p["path"]
-    section = {"airport": ("Airports", "/airports/"), "guide": ("Guides", "/guides/"), "city": ("Cities", "/cities/"), "region": ("Regions", "/regions/"), "hub": ("Destinations", "/destinations/")}.get(p["type"], ("Guides", "/guides/"))
+    section = {"airport": ("Airports", "/airports/"), "guide": ("Guides", "/guides/"), "city": ("Cities", "/cities/"), "region": ("Regions", "/regions/"), "country": ("Countries", "/countries/"), "need": ("Services", "/needs/"), "hub": ("Destinations", "/destinations/")}.get(p["type"], ("Guides", "/guides/"))
     ld = [{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Archē Executive", "item": BASE + "/"},
         {"@type": "ListItem", "position": 2, "name": section[0], "item": BASE + section[1]},
@@ -288,7 +288,7 @@ def site_nav(on):
         t = open(p, encoding="utf-8").read(); row = "['How it works','ขั้นตอนการให้บริการ','服务流程','ご利用の流れ'],"
         if "['Destinations'," not in t and row in t: open(p, "w", encoding="utf-8").write(t.replace(row, row + "\n['Destinations','จุดหมายปลายทาง','目的地','目的地'],"))
 
-GROUPS = [("region", "Regions"), ("city", "Cities"), ("airport", "Airports"), ("guide", "Guides")]
+GROUPS = [("region", "Regions"), ("country", "Countries"), ("city", "Cities"), ("airport", "Airports"), ("need", "Services"), ("guide", "Guides")]
 def hub(F, S, pub, verbose=True):
     """/destinations/: every published page, grouped. On the test website drafts are listed with a Draft mark."""
     out = os.path.join(SITE, "destinations", "index.html")

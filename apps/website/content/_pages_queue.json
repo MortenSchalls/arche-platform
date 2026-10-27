@@ -1,0 +1,25 @@
+{
+ "_why": "New draft pages, taken 3 per weekly upkeep run (UPKEEP.md). Morten, 27 Oct 2026: beat regional peers with verified pages only. Check each place against excluded.json first.",
+ "queue": [
+  {"type": "country", "name": "Malaysia", "airports": ["WMSA", "WMKK"]},
+  {"type": "country", "name": "Indonesia", "airports": ["WADD", "WIHH"]},
+  {"type": "country", "name": "Philippines", "airports": ["RPLL", "RPLC"]},
+  {"type": "country", "name": "Vietnam", "airports": ["VVTS", "VVNB"]},
+  {"type": "country", "name": "Cambodia", "airports": ["VDPP"]},
+  {"type": "country", "name": "Thailand", "airports": ["VTBD", "VTBS", "VTBU", "VTSP", "VTCC", "VTSM"]},
+  {"type": "country", "name": "Japan", "airports": ["RJTT", "RJAA"]},
+  {"type": "country", "name": "South Korea", "airports": ["RKSS", "RKSI"]},
+  {"type": "country", "name": "Taiwan", "airports": ["RCSS", "RCTP"]},
+  {"type": "country", "name": "India", "airports": ["VIDP", "VABB"]},
+  {"type": "country", "name": "Maldives", "airports": ["VRMM"]},
+  {"type": "country", "name": "Sri Lanka", "airports": ["VCBI"]},
+  {"type": "city", "name": "Kuala Lumpur", "airports": ["WMSA", "WMKK"]},
+  {"type": "city", "name": "Bali", "airports": ["WADD"]},
+  {"type": "city", "name": "Macau", "airports": ["VMMC"]},
+  {"type": "city", "name": "Seoul", "airports": ["RKSS", "RKSI"]},
+  {"type": "city", "name": "Chiang Mai", "airports": ["VTCC"]},
+  {"type": "need", "name": "Group and sports team charter"},
+  {"type": "need", "name": "Government and delegation flights"},
+  {"type": "need", "name": "Flying with pets"}
+ ]
+}
