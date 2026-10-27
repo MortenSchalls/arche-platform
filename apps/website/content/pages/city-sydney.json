@@ -66,5 +66,6 @@
   "/guides/charter-price/"
  ],
  "draft": true,
- "type": "city"
+ "type": "city",
+ "events": "sydney"
 }

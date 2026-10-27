@@ -254,6 +254,21 @@ def page_html(p, F, S, P):
 </html>
 """
 
+def add_events(P):
+    """Dated events on city pages (events.json): only those not yet over; past ones drop off at the next build."""
+    f = os.path.join(HERE, "events.json")
+    if not os.path.exists(f): return
+    E = json.load(open(f, encoding="utf-8"))["events"]; today = datetime.date.today().isoformat()
+    for p in P:
+        if not p.get("events"): continue
+        xs = sorted([e for e in E if e["city"] == p["events"] and e["end"] >= today], key=lambda e: e["start"])[:6]
+        p["sections"] = [s for s in p["sections"] if not s.get("_ev")]
+        if not xs: continue
+        sec = {"_ev": True, "h": "Dates ahead", "p": ["Large events fill airports, slots and parking early. These are the next dates confirmed by the organisers; if you plan to travel for one of them, tell us as early as you can."] +
+               [f"{e['name']}{' ' + e['venue'] if e.get('venue') else ''}: {{{{{e['key']}}}}}." for e in xs]}
+        i = next((k for k, s in enumerate(p["sections"]) if s["h"].startswith("How we plan")), len(p["sections"]))
+        p["sections"].insert(i, sec)
+
 NAV = {"index.html": "Destinations", "th.html": "จุดหมายปลายทาง", "zh.html": "目的地", "ja.html": "目的地"}
 def site_nav(on):
     """A Destinations link in the main site's menu, mobile menu and footer, next to "How it works"; removed when there
@@ -314,6 +329,7 @@ def run(verbose=True):
     import check_airports; check_airports.run(verbose)
     portal_rules(S, verbose)
     paths = set(); built = []
+    add_events(P)
     for p in P: check_page(p, F)
     # launched: drafts are not published at all; test website: everything is built so Morten can use it in full
     pub = [p for p in P if not (company.LAUNCHED and p.get("draft"))]

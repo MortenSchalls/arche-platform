@@ -67,5 +67,6 @@
   "/guides/cabotage/"
  ],
  "draft": true,
- "type": "city"
+ "type": "city",
+ "events": "hong-kong"
 }

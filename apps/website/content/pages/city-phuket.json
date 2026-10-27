@@ -1,7 +1,7 @@
 {
  "path": "/cities/phuket/",
- "title": "Private jet charter to and from Phuket: rules to know",
- "description": "Private flights to and from Phuket: permission, approved time slots, advance notice, parking for private aircraft and customs, from the Thailand AIP.",
+ "title": "Private jet charter to Phuket, Krabi and Samui",
+ "description": "Private flights to Phuket, Krabi and Samui: permits, approved time slots, customs hours, night rules and dates ahead, from the Thailand AIP and organisers.",
  "eyebrow": "City guide · Phuket",
  "h1": "Private flights to and from Phuket",
  "lead": "Phuket International Airport has clear rules for private jets: permission, an approved time slot and advance notice to the airport. What they mean for your trip.",
@@ -42,6 +42,14 @@
    ]
   },
   {
+   "h": "Krabi and Samui",
+   "p": [
+    "Two smaller airports nearby can save time on the road or the boat. Krabi airport lies {{vtsg.location}} and is {{vtsg.operator}}. It has {{vtsg.runway}}. Customs and immigration work {{vtsg.customs}}, so an international arrival outside those hours has to be arranged with the authorities in advance.",
+    "Samui airport is {{vtsm.operator}}. It is {{vtsm.hours}}, with {{vtsm.customs}}, and it has {{vtsm.runway}}. Its night rule is strict: {{vtsm.curfew}}. It is {{vtsm.slots}}.",
+    "For every private flight in Thailand the national rule applies: {{vtsg.ppr}}."
+   ]
+  },
+  {
    "h": "Flights from elsewhere in Thailand",
    "p": [
     "A flight from Bangkok or another Thai airport to Phuket is a domestic flight. Internationally, {{cab.most}}, so we check that the operator is allowed to fly the leg before you see a quote. Our cabotage guide explains the rule."
@@ -71,5 +79,6 @@
   "/guides/cabotage/"
  ],
  "draft": true,
- "type": "city"
+ "type": "city",
+ "events": "phuket"
 }

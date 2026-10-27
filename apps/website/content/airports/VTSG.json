@@ -1,0 +1,64 @@
+{
+ "icao": "VTSG",
+ "iata": null,
+ "name": "Krabi Airport",
+ "city": "Krabi",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 14/32, 3,000 m long and 45 m wide",
+   "src": "th-aip-vtsg",
+   "longest_m": 3000,
+   "quote": "3000x45"
+  },
+  "customs": {
+   "v": "customs and immigration 08:30–16:30 local, and on demand",
+   "src": "th-aip-vtsg",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:30",
+     "16:30"
+    ]
+   ],
+   "quote": "0130-0930, On demand"
+  },
+  "hours": {
+   "v": "aerodrome open 24 hours",
+   "src": "th-aip-vtsg",
+   "quote": "H24"
+  },
+  "handling": {
+   "v": "handling on request",
+   "src": "th-aip-vtsg",
+   "quote": "On request"
+  },
+  "slots": {
+   "v": "Level 2 airport under Thai slot rules; non-scheduled flights must obtain slots",
+   "src": "th-aip-gen12",
+   "quote": "Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+  },
+  "ppr": {
+   "v": "non-scheduled flights need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead",
+   "src": "th-aip-gen12",
+   "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
+  },
+  "noise": {
+   "v": "no noise abatement procedures listed",
+   "src": "th-aip-vtsg",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata (not stated in AIP)",
+  "curfew",
+  "max_aircraft",
+  "handling agent names",
+  "business-aviation terminal"
+ ],
+ "notes": "AIP times are UTC; local = UTC+7 (Thailand has no daylight saving). Read from the 12 Jun 2025 AIRAC because newer packages (incl. 14 May 2026) could not be opened from this session; re-check against the current AIRAC before publishing. Slot level list is in GEN 1.2 section 3.2."
+}

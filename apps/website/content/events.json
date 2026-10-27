@@ -1,0 +1,157 @@
+{
+ "_why": "Dated events shown on city pages (Morten, 27 Oct 2026, after the ASA comparison). Official dates only, each with a source in facts.json. Past events drop off at the next build. Names without sponsors (the site names no companies other than authorities, airport operators and cited sources).",
+ "events": [
+  {
+   "key": "ev.phuket_kingscup_2026",
+   "city": "phuket",
+   "name": "Phuket King's Cup Regatta",
+   "venue": "",
+   "start": "2026-12-05",
+   "end": "2026-12-12"
+  },
+  {
+   "key": "ev.th_songkran_2027_phuket",
+   "city": "phuket",
+   "name": "Songkran (Thai New Year)",
+   "venue": "across Thailand",
+   "start": "2027-04-13",
+   "end": "2027-04-15"
+  },
+  {
+   "key": "ev.th_songkran_2027_bangkok",
+   "city": "bangkok",
+   "name": "Songkran (Thai New Year)",
+   "venue": "across Thailand",
+   "start": "2027-04-13",
+   "end": "2027-04-15"
+  },
+  {
+   "key": "ev.sgp_gp_2027",
+   "city": "singapore",
+   "name": "Singapore Grand Prix",
+   "venue": "at the Marina Bay Street Circuit",
+   "start": "2027-10-08",
+   "end": "2027-10-10"
+  },
+  {
+   "key": "ev.sgp_artsg_2027",
+   "city": "singapore",
+   "name": "ART SG art fair",
+   "venue": "at Marina Bay Sands",
+   "start": "2027-01-21",
+   "end": "2027-01-24"
+  },
+  {
+   "key": "ev.hkg_artbasel_2027",
+   "city": "hong-kong",
+   "name": "Art Basel Hong Kong",
+   "venue": "",
+   "start": "2027-03-25",
+   "end": "2027-03-27"
+  },
+  {
+   "key": "ev.hkg_sevens_2027",
+   "city": "hong-kong",
+   "name": "Hong Kong Sevens",
+   "venue": "at Kai Tak Stadium",
+   "start": "2027-04-09",
+   "end": "2027-04-11"
+  },
+  {
+   "key": "ev.hkg_hkir_2026",
+   "city": "hong-kong",
+   "name": "Hong Kong International Races",
+   "venue": "at Sha Tin Racecourse",
+   "start": "2026-12-13",
+   "end": "2026-12-13"
+  },
+  {
+   "key": "ev.tyo_marathon_2027",
+   "city": "tokyo",
+   "name": "Tokyo Marathon",
+   "venue": "",
+   "start": "2027-03-07",
+   "end": "2027-03-07"
+  },
+  {
+   "key": "ev.dxb_airshow_2027",
+   "city": "dubai",
+   "name": "Dubai Airshow",
+   "venue": "at Dubai World Central",
+   "start": "2027-11-15",
+   "end": "2027-11-19"
+  },
+  {
+   "key": "ev.dxb_worldcup_2027",
+   "city": "dubai",
+   "name": "Dubai World Cup",
+   "venue": "at Meydan",
+   "start": "2027-03-27",
+   "end": "2027-03-27"
+  },
+  {
+   "key": "ev.gva_ww_2027",
+   "city": "geneva",
+   "name": "Watches and Wonders Geneva",
+   "venue": "at Palexpo and in the city centre",
+   "start": "2027-04-05",
+   "end": "2027-04-11"
+  },
+  {
+   "key": "ev.mco_gp_2027",
+   "city": "nice-monaco",
+   "name": "Monaco Grand Prix",
+   "venue": "on the Circuit de Monaco",
+   "start": "2027-06-04",
+   "end": "2027-06-06"
+  },
+  {
+   "key": "ev.mco_yachtshow_2027",
+   "city": "nice-monaco",
+   "name": "Monaco Yacht Show",
+   "venue": "at Port Hercule",
+   "start": "2027-09-22",
+   "end": "2027-09-25"
+  },
+  {
+   "key": "ev.nce_cannes_2027",
+   "city": "nice-monaco",
+   "name": "Cannes Film Festival",
+   "venue": "",
+   "start": "2027-05-11",
+   "end": "2027-05-22"
+  },
+  {
+   "key": "ev.lon_wimbledon_2027",
+   "city": "london",
+   "name": "Wimbledon",
+   "venue": "at the All England Lawn Tennis Club",
+   "start": "2027-06-28",
+   "end": "2027-07-11"
+  },
+  {
+   "key": "ev.nyc_frieze_2027",
+   "city": "new-york",
+   "name": "Frieze New York",
+   "venue": "at The Shed",
+   "start": "2027-05-12",
+   "end": "2027-05-16"
+  },
+  {
+   "key": "ev.syd_nye_2026",
+   "city": "sydney",
+   "name": "New Year's Eve on Sydney Harbour",
+   "venue": "on Sydney Harbour",
+   "start": "2026-12-31",
+   "end": "2026-12-31"
+  },
+  {
+   "key": "ev.syd_vivid_2027",
+   "city": "sydney",
+   "name": "Vivid Sydney",
+   "venue": "",
+   "start": "2027-05-28",
+   "end": "2027-06-19"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "icao": "VTSM",
+ "iata": null,
+ "name": "Samui Airport",
+ "city": "Koh Samui",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 17/35, 2,100 m long and 45 m wide",
+   "src": "th-aip-vtsm",
+   "longest_m": 2100,
+   "quote": "2100x45"
+  },
+  "hours": {
+   "v": "aerodrome open 06:00–22:00 local",
+   "src": "th-aip-vtsm",
+   "quote": "2300-1500"
+  },
+  "customs": {
+   "v": "customs and immigration within aerodrome hours",
+   "src": "th-aip-vtsm",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:00",
+     "22:00"
+    ]
+   ],
+   "quote": "Available within AD hours"
+  },
+  "curfew": {
+   "v": "closed outside 06:00–22:00 local; marginally compliant Chapter 3 jets may not take off or land 18:00–06:59 local",
+   "src": "th-aip-vtsm",
+   "windows_local": [
+    [
+     "22:00",
+     "06:00"
+    ]
+   ],
+   "quote": "will be prohibited for take-off and landing at Samui Airport between 1100 UTC and 2359 UTC."
+  },
+  "noise": {
+   "v": "Chapter 2 jets not allowed; NADP 1 take-offs; APU use kept to a minimum",
+   "src": "th-aip-vtsm",
+   "quote": "Aircraft with Chapter 2 noise certification are not permitted to operate."
+  },
+  "handling": {
+   "v": "ground handling by Bangkok Airways Ground Services (PGGS)",
+   "src": "th-aip-vtsm",
+   "quote": "Bangkok Airways Ground Services Co., Ltd (PGGS)"
+  },
+  "slots": {
+   "v": "Level 3 (coordinated) airport under Thai slot rules; non-scheduled flights must obtain slots",
+   "src": "th-aip-gen12",
+   "quote": "Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+  },
+  "ppr": {
+   "v": "non-scheduled flights need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead",
+   "src": "th-aip-gen12",
+   "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
+  }
+ },
+ "missing": [
+  "iata (not stated in AIP)",
+  "max_aircraft",
+  "business-aviation terminal",
+  "how far ahead slots must be requested"
+ ],
+ "notes": "AIP times are UTC; local = UTC+7, no daylight saving. Closure window derived from AD hours 2300-1500 UTC. The 18:00-06:59 local ban applies only to marginally compliant Chapter 3 jets (cumulative margin 5 EPNdB or less), with medical/humanitarian exemptions. Runway TORA is shorter than runway length (RWY 17 1,800 m, RWY 35 1,900 m). Read from the 23 Jan 2025 AIRAC (location wording from 13 Jun 2024); newer packages could not be opened. AIP lists www.samuiairport.com as the airport URL (not read)."
+}

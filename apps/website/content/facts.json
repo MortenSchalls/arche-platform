@@ -1302,5 +1302,224 @@
   "v": "the operator needs a permit from the Director-General of Civil Aviation, applied for at least 3 working days before the flight, or at least 2 weeks ahead for a new or infrequent operator",
   "src": "cad-charter",
   "quote": "must obtain a permit from the Director-General of Civil Aviation ... at least 3 working days before the anticipated arrival/departure date ... at least 2 weeks prior to the date of operation"
+ },
+ "vtsg.icao": {
+  "v": "VTSG",
+  "src": "th-aip-vtsg"
+ },
+ "vtsg.geo": {
+  "v": [
+   8.100164,
+   98.985314
+  ],
+  "src": "th-aip-vtsg",
+  "quote": "080600.59N 0985907.13E 1500 M FM THR RWY14"
+ },
+ "vtsg.operator": {
+  "v": "run by the Department of Airports",
+  "src": "th-aip-vtsg",
+  "quote": "Operator: Department of Airports"
+ },
+ "vtsg.location": {
+  "v": "10 km north-east of Krabi town",
+  "src": "th-aip-vtsg",
+  "quote": "10 KM NE from city"
+ },
+ "vtsg.runway": {
+  "v": "one runway, 14/32, 3,000 m long and 45 m wide",
+  "src": "th-aip-vtsg",
+  "quote": "3000x45"
+ },
+ "vtsg.customs": {
+  "v": "08:30–16:30 local, and on demand",
+  "src": "th-aip-vtsg",
+  "quote": "0130-0930, On demand"
+ },
+ "vtsg.hours": {
+  "v": "aerodrome open 24 hours",
+  "src": "th-aip-vtsg",
+  "quote": "H24"
+ },
+ "vtsg.handling": {
+  "v": "handling on request",
+  "src": "th-aip-vtsg",
+  "quote": "On request"
+ },
+ "vtsg.slots": {
+  "v": "Level 2 airport under Thai slot rules; non-scheduled flights must obtain slots",
+  "src": "th-aip-gen12",
+  "quote": "Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+ },
+ "vtsg.ppr": {
+  "v": "non-scheduled flights need a flight permit from the Civil Aviation Authority of Thailand, applied for at least 3 business days ahead",
+  "src": "th-aip-gen12",
+  "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
+ },
+ "vtsg.noise": {
+  "v": "no noise abatement procedures listed",
+  "src": "th-aip-vtsg",
+  "quote": "NIL"
+ },
+ "vtsg.notable": {
+  "v": "aircraft the weight of a B737/A319 or heavier may not make a 180-degree turn on the runway",
+  "src": "th-aip-vtsg",
+  "quote": "aircraft with weight equivalent to or heavier than B737 or A319 are not allowed to make 180 degree turn on the runway."
+ },
+ "vtsm.icao": {
+  "v": "VTSM",
+  "src": "th-aip-vtsm"
+ },
+ "vtsm.geo": {
+  "v": [
+   9.548889,
+   100.0625
+  ],
+  "src": "th-aip-vtsm",
+  "quote": "093256N 1000345E Centre line of RWY, 860 M from THR 35"
+ },
+ "vtsm.operator": {
+  "v": "run by Bangkok Airways, which owns the airport",
+  "src": "th-aip-vtsm",
+  "quote": "Operator: Bangkok Airways Public Company Limited"
+ },
+ "vtsm.location": {
+  "v": "17 km from the city",
+  "src": "th-aip-vtsm-2024",
+  "quote": "17 KM, from city"
+ },
+ "vtsm.runway": {
+  "v": "one runway, 17/35, 2,100 m long and 45 m wide",
+  "src": "th-aip-vtsm",
+  "quote": "2100x45"
+ },
+ "vtsm.hours": {
+  "v": "open 06:00–22:00 local",
+  "src": "th-aip-vtsm",
+  "quote": "2300-1500"
+ },
+ "vtsm.customs": {
+  "v": "customs and immigration within those hours",
+  "src": "th-aip-vtsm",
+  "quote": "Available within AD hours"
+ },
+ "vtsm.curfew": {
+  "v": "closed outside 06:00–22:00 local, and jets that only just meet the Chapter 3 noise standard may not take off or land 18:00–06:59 local",
+  "src": "th-aip-vtsm",
+  "quote": "will be prohibited for take-off and landing at Samui Airport between 1100 UTC and 2359 UTC."
+ },
+ "vtsm.noise": {
+  "v": "Chapter 2 jets not allowed; NADP 1 take-offs; APU use kept to a minimum",
+  "src": "th-aip-vtsm",
+  "quote": "Aircraft with Chapter 2 noise certification are not permitted to operate."
+ },
+ "vtsm.handling": {
+  "v": "ground handling by Bangkok Airways Ground Services (PGGS)",
+  "src": "th-aip-vtsm",
+  "quote": "Bangkok Airways Ground Services Co., Ltd (PGGS)"
+ },
+ "vtsm.slots": {
+  "v": "a Level 3 (coordinated) airport under Thai slot rules, where non-scheduled flights must obtain slots",
+  "src": "th-aip-gen12",
+  "quote": "Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+ },
+ "vtsm.ppr": {
+  "v": "non-scheduled flights need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead",
+  "src": "th-aip-gen12",
+  "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
+ },
+ "ev.phuket_kingscup_2026": {
+  "v": "5–12 December 2026",
+  "src": "kingscup-home",
+  "quote": "5th - 12th December 2026!!!"
+ },
+ "ev.th_songkran_2027_phuket": {
+  "v": "13–15 April 2027",
+  "src": "bot-holidays-2027",
+  "quote": "4. Tuesday 13th April Songkran Festival ... 6. Thursday 15th April Songkran Festival"
+ },
+ "ev.th_songkran_2027_bangkok": {
+  "v": "13–15 April 2027",
+  "src": "bot-holidays-2027",
+  "quote": "4. Tuesday 13th April Songkran Festival ... 6. Thursday 15th April Songkran Festival"
+ },
+ "ev.sgp_gp_2027": {
+  "v": "8–10 October 2027",
+  "src": "f1-2027-singapore",
+  "quote": "08Oct ... 09Oct ... 10Oct (Race)"
+ },
+ "ev.sgp_artsg_2027": {
+  "v": "21–24 January 2027",
+  "src": "artsg-home",
+  "quote": "VIP Preview & Vernissage 21 JANUARY 2027; Public Days 22 – 24 JANUARY 2027"
+ },
+ "ev.hkg_artbasel_2027": {
+  "v": "25–27 March 2027",
+  "src": "artbasel-hk",
+  "quote": "March 25 – 27, 2027"
+ },
+ "ev.hkg_sevens_2027": {
+  "v": "9–11 April 2027",
+  "src": "hkru-sevens-2027",
+  "quote": "9 APR 2027 — 11 APR 2027 ... KAI TAK STADIUM"
+ },
+ "ev.hkg_hkir_2026": {
+  "v": "13 December 2026",
+  "src": "hkjc-hkir-2026",
+  "quote": "December 13, 2026 ... Sha Tin Racecourse"
+ },
+ "ev.tyo_marathon_2027": {
+  "v": "7 March 2027",
+  "src": "tokyo-marathon-2027",
+  "quote": "Date: March 7, 2027 (Sun)"
+ },
+ "ev.dxb_airshow_2027": {
+  "v": "15–19 November 2027",
+  "src": "dubai-airshow",
+  "quote": "15-19 November 2027"
+ },
+ "ev.dxb_worldcup_2027": {
+  "v": "27 March 2027",
+  "src": "era-season-2026-27",
+  "quote": "27 March 2027"
+ },
+ "ev.gva_ww_2027": {
+  "v": "5–11 April 2027",
+  "src": "ww-2027-press",
+  "quote": "From April 5 to 11, 2027, Watches and Wonders Geneva will return for a full week"
+ },
+ "ev.mco_gp_2027": {
+  "v": "4–6 June 2027",
+  "src": "f1-2027-monaco",
+  "quote": "04Jun ... 05Jun ... 06Jun (Race)"
+ },
+ "ev.mco_yachtshow_2027": {
+  "v": "22–25 September 2027",
+  "src": "mys-home",
+  "quote": "22 - 25 September 2027"
+ },
+ "ev.nce_cannes_2027": {
+  "v": "11–22 May 2027",
+  "src": "cannes-home",
+  "quote": "The 80th edition will be held from May 11 to 22, 2027."
+ },
+ "ev.lon_wimbledon_2027": {
+  "v": "28 June – 11 July 2027",
+  "src": "wimbledon-tickets",
+  "quote": "28 June to 11 July 2027"
+ },
+ "ev.nyc_frieze_2027": {
+  "v": "12–16 May 2027",
+  "src": "frieze-ny-2027",
+  "quote": "Frieze New York returns to The Shed from May 12–16, 2027."
+ },
+ "ev.syd_nye_2026": {
+  "v": "31 December 2026",
+  "src": "nsw-nye-2026",
+  "quote": "Thursday, 31 December 2026"
+ },
+ "ev.syd_vivid_2027": {
+  "v": "28 May – 19 June 2027",
+  "src": "nsw-vivid-2027",
+  "quote": "28 May 2027 - 19 June 2027"
  }
 }

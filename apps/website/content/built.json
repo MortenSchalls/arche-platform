@@ -37,37 +37,37 @@
  {
   "path": "/cities/bangkok/",
   "draft": true,
-  "words": 491
+  "words": 535
  },
  {
   "path": "/cities/dubai/",
   "draft": true,
-  "words": 471
+  "words": 523
  },
  {
   "path": "/cities/geneva/",
   "draft": true,
-  "words": 487
+  "words": 536
  },
  {
   "path": "/cities/hong-kong/",
   "draft": true,
-  "words": 467
+  "words": 530
  },
  {
   "path": "/cities/london/",
   "draft": true,
-  "words": 528
+  "words": 577
  },
  {
   "path": "/cities/new-york/",
   "draft": true,
-  "words": 583
+  "words": 627
  },
  {
   "path": "/cities/nice/",
   "draft": true,
-  "words": 558
+  "words": 619
  },
  {
   "path": "/cities/paris/",
@@ -77,22 +77,22 @@
  {
   "path": "/cities/phuket/",
   "draft": true,
-  "words": 477
+  "words": 710
  },
  {
   "path": "/cities/singapore/",
   "draft": true,
-  "words": 463
+  "words": 521
  },
  {
   "path": "/cities/sydney/",
   "draft": true,
-  "words": 445
+  "words": 500
  },
  {
   "path": "/cities/tokyo/",
   "draft": true,
-  "words": 462
+  "words": 502
  },
  {
   "path": "/guides/charter-price/",

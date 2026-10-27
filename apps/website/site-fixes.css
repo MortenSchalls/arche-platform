@@ -20,3 +20,15 @@ html { overflow-x: clip; }
   /* phones: keep the original spacing under the aircraft */
   section#top > .hero-content { padding: calc(190px + 46vw * 0.8) 16px 32px !important; gap: 40px !important; }
 }
+/* Readability and touch (27 Oct 2026 review): no label under 11px, comfortable tap targets on phones */
+section#top span[style*="font-size: 9px"], section#top span[style*="font-size:9px"], section#top label > span { font-size: 11px !important; }
+section#top input:not([type="range"]) { min-height: 32px !important; font-size: 15px !important; }
+section#top button { min-width: 32px; min-height: 32px; }
+@media (max-width: 760px) {
+  section#top input:not([type="range"]) { min-height: 40px !important; font-size: 16px !important; }
+  section#top button { min-width: 40px; min-height: 40px; }
+  header a[href="#"], header a[lang], header nav a { padding: 8px 4px; }
+  footer nav a, footer a { display: inline-block; padding: 10px 2px; }
+  #fleet input[type="range"] { min-height: 32px; }
+}
+#fleet p, footer p { font-size: max(13px, 1em); }
