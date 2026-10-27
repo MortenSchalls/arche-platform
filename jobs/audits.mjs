@@ -8,9 +8,11 @@
 // 2. Programme watch: reads the pages where ARGUS, WYVERN and IBAC describe their ratings. When the levels named there
 //    change (a level added, renamed or dropped, as ARGUS did with Gold Plus), the owner is asked to review the
 //    standard in manual Module 8, the portal and the website guide (Team → Audit watch). Nothing changes automatically.
+// min: fewer operators than this means only part of the list was read (it is paginated or loads in the browser), and
+// a partial list is never used to say an operator is "not listed".
 export const REGISTRIES = [
-  { id: "ARGUS", url: "https://www.argus.aero/operatorregistry", levels: ["Platinum Elite", "Platinum", "Gold Certified", "Gold"] },
-  { id: "WYVERN", url: "https://app.wyvern.systems/public/directory/wingman", levels: ["Wingman PRO", "Wingman"] },
+  { id: "ARGUS", url: "https://www.argus.aero/operatorregistry", levels: ["Platinum Elite", "Platinum", "Gold Certified", "Gold"], min: 300 },
+  { id: "WYVERN", url: "https://app.wyvern.systems/public/directory/wingman", levels: ["Wingman PRO", "Wingman"], min: 50 },
 ];
 export const PROGRAMMES = [
   { id: "ARGUS ratings", url: "https://www.argus.aero/", words: ["Gold Plus", "Gold Certified", "Platinum Elite", "Platinum", "Gold"] },
@@ -51,19 +53,46 @@ export function parseRegistry(html, levels) {
   const seen = new Set();
   return entries.filter(e => { const k = normName(e.name) + "|" + e.level; if (!normName(e.name) || seen.has(k)) return false; seen.add(k); return true; });
 }
+// browser text: a name line followed by a level line
+export function parseLines(text, levels) {
+  const lv = [...levels].sort((a, b) => b.length - a.length), out = [];
+  const lines = String(text || "").split(/\n+/).map(x => x.trim()).filter(Boolean);
+  for (let i = 1; i < lines.length; i++) { const l = lv.find(x => lines[i].toLowerCase() === x.toLowerCase()); if (l && !lv.some(x => lines[i - 1].toLowerCase() === x.toLowerCase()) && lines[i - 1].length >= 3 && lines[i - 1].length <= 120) out.push({ name: lines[i - 1], level: l }); }
+  return out;
+}
+// a real browser (GitHub Actions installs Chromium for this job): loads the page, then presses the list's "next" control
+// until no new operators appear, so a paginated or browser-only list is read in full
+export async function readWithBrowser(R, log = () => {}) {
+  let pw; try { pw = await import("playwright"); } catch (e) { throw new Error("browser not installed"); }
+  const b = await pw.chromium.launch(); const p = await b.newPage({ userAgent: "Mozilla/5.0 (compatible; ArcheExecutive-audit-check/1.0)" });
+  try {
+    await p.goto(R.url, { waitUntil: "networkidle", timeout: 60000 }); await p.waitForTimeout(3000);
+    const all = new Map(); let same = 0;
+    for (let page = 0; page < 60 && same < 2; page++) {
+      const got = parseLines(await p.evaluate(() => document.body.innerText), R.levels); const before = all.size;
+      got.forEach(e => all.set(normName(e.name) + "|" + e.level, e));
+      same = all.size === before ? same + 1 : 0;
+      const next = await p.evaluate(() => { const c = [...document.querySelectorAll("a,button,[role=button],span,div")].filter(e => e.getBoundingClientRect().width > 0 && e.children.length === 0 && /^(>|›|»|next|next page)$/i.test((e.textContent || e.getAttribute("aria-label") || "").trim())); const n = c[c.length - 1]; if (!n) return false; (n.closest("a,button,[role=button]") || n).click(); return true; });
+      if (!next) break; await p.waitForTimeout(2500);
+    }
+    log(`  ${R.id}: browser read ${all.size} operators`);
+    return [...all.values()];
+  } finally { await b.close(); }
+}
 export function words(html, list) {
   const t = pieces(html).map(p => p.text || "").join(" ").toLowerCase();
   return list.filter(w => t.includes(w.toLowerCase())).sort();
 }
 
-export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null) {
+export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null, browser = null) {
   const get = async url => { const r = await fetchFn(url, { headers: { "user-agent": "Mozilla/5.0 (compatible; ArcheExecutive-audit-check/1.0)" } }); if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); };
   // 1. registries
   const index = { at: nowIso, sources: {}, entries: [] };
   for (const R of REGISTRIES) {
     try {
-      const html = await get(R.url); const e = parseRegistry(html, R.levels);
-      if (e.length < 20) throw new Error(`only ${e.length} operators could be read (page ${html.length} bytes; the list may load in the browser only)`);
+      let e = []; try { e = parseRegistry(await get(R.url), R.levels); } catch (err) { log(`  ${R.id} page: ${err.message}`); }
+      if (e.length < R.min && browser) { try { e = await browser(R, log); } catch (err) { log(`  ${R.id} browser: ${err.message}`); } }
+      if (e.length < R.min) throw new Error(`only ${e.length} operators could be read; the list is paginated or loads in the browser only, so it is not used to say an operator is not listed`);
       e.forEach(x => index.entries.push({ prog: R.id, level: x.level, name: x.name, norm: normName(x.name) }));
       index.sources[R.id] = { ok: true, count: e.length, url: R.url };
     } catch (err) { index.sources[R.id] = { ok: false, error: String(err.message || err).slice(0, 200), url: R.url }; log(`  ${R.id} registry: ${err.message}`); }
@@ -98,6 +127,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const r = await st.from("registries").upload("index.json", new Blob([body], { type: "application/json" }), { upsert: true, contentType: "application/json" });
       if (r.error) throw new Error("index upload: " + r.error.message);
     };
-    return run(db, fetch, console.log, new Date().toISOString(), store);
+    return run(db, fetch, console.log, new Date().toISOString(), store, readWithBrowser);
   });
 }

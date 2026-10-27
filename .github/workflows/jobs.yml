@@ -46,6 +46,10 @@ jobs:
       - name: Install
         working-directory: jobs
         run: npm install --no-audit --no-fund
+      - name: Browser for the audit registries
+        if: env.JOB == 'audits'
+        working-directory: jobs
+        run: npm install --no-save --no-audit --no-fund playwright@1.56.0 && npx playwright install --with-deps chromium
       - name: Run ${{ env.JOB }}
         working-directory: jobs
         run: |
