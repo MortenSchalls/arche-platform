@@ -1,0 +1,60 @@
+{
+ "icao": "EGLC",
+ "iata": "LCY",
+ "name": "London City Airport",
+ "city": "London",
+ "country": "GB",
+ "tz": "Europe/London",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "aerodrome open 06:30-22:00 on weekdays, 06:30-12:30 on Saturdays and 12:30-22:00 on Sundays (local time, winter 2026/27 season)",
+   "src": "acl-lcy-w26",
+   "quote": "Aerodrome Operating Hours ( Local ) ... Weekdays 04:45 22:00 06:30 22:00 Saturday 04:45 13:00 06:30 12:30 Sunday 10:30 22:00 12:30 22:00"
+  },
+  "curfew": {
+   "v": "closed outside its operating hours: no flights 22:00-06:30 on weekdays, and none from 12:30 Saturday to 12:30 Sunday; movement caps of 100 on Saturdays and 200 on Sundays",
+   "windows_local": [
+    [
+     "22:00",
+     "06:30"
+    ]
+   ],
+   "src": "acl-lcy-w26",
+   "weekend_closure_local": [
+    [
+     "Sat 12:30",
+     "Sun 12:30"
+    ]
+   ],
+   "quote": "Weekdays 04:45 22:00 06:30 22:00 Saturday 04:45 13:00 06:30 12:30 Sunday 10:30 22:00 12:30 22:00 ... Limit of 100 movements on Saturdays and 200 on Sundays ."
+  },
+  "max_aircraft": {
+   "v": "only aircraft on the airport's approved list may land; a steep approach (5.5 degrees or more) approval is required",
+   "src": "lcy-pjc-approval",
+   "quote": "Must include procedures and limitations for approach path angles of 5.5° or greater."
+  },
+  "handling": {
+   "v": "Private Jet Centre with a full aviation handling service",
+   "src": "lcy-pjc-why",
+   "quote": "The purpose-built Private Jet Centre offers exceptional customer care and a full aviation handling service."
+  },
+  "slots": {
+   "v": "slots are booked for arrival and departure through the Private Jet Centre (lead time not stated)",
+   "src": "lcy-pjc-services",
+   "quote": "Slot-booking arrangements for arrival and departure."
+  }
+ },
+ "missing": [
+  "geo",
+  "operator",
+  "location",
+  "runway",
+  "customs hours",
+  "ppr lead time",
+  "slot coordination level"
+ ],
+ "notes": "UK AIP (aurora.nats.co.uk) could not be read (robots disallowed / permission timeout), so runway, ARP and location are missing. Hours are from the ACL winter 2026/27 capacity declaration (season ends late March 2027); summer hours may differ and 25 Dec 2026 the airport is closed. Operator name not confirmed from a quotable sentence (site footer shows London City Airport Ltd)."
+}

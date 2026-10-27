@@ -1,0 +1,50 @@
+{
+ "icao": "EDDF",
+ "iata": "FRA",
+ "name": "Frankfurt Airport",
+ "city": "Frankfurt",
+ "country": "DE",
+ "tz": "Europe/Berlin",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "flight operating hours 05:00 to 23:00 local time",
+   "src": "fra-runways",
+   "quote": "The flight operating hours at Frankfurt Airport run from 5:00 a.m. to 11:00 p.m. local time."
+  },
+  "curfew": {
+   "v": "night flight ban from 23:00 to 05:00; only safety-related diversions, disaster relief and medical aid flights may land; from 22:00 to 23:00 and 05:00 to 06:00 at most 133 movements per night (annual average)",
+   "windows_local": [
+    [
+     "23:00",
+     "05:00"
+    ]
+   ],
+   "src": "fra-hours",
+   "quote": "Between 11:00 p.m. and 5:00 a.m. CEST, there is a ban on night flights."
+  },
+  "noise": {
+   "v": "aircraft without a noise-reduced ICAO noise class may fly only Monday to Friday 08:00 to 20:00, not at weekends",
+   "src": "fra-hours",
+   "quote": "only permitted to fly from Monday to Friday between 8:00 a.m. and 8:00 p.m. CEST"
+  },
+  "slots": {
+   "v": "Level 3 coordinated airport; general aviation flights need a slot from the German airport coordinator (Fluko)",
+   "src": "fluko-ga",
+   "quote": "Coordination of General Aviation flights is required at the following Level 3 airports:"
+  }
+ },
+ "missing": [
+  "geo",
+  "operator",
+  "location",
+  "runway length/width (longest_m)",
+  "customs",
+  "ppr",
+  "max_aircraft",
+  "handling"
+ ],
+ "notes": "DFS AIP could not be read (robots block) and the web-search budget ran out before Fraport's facts page for runway lengths and its general-aviation page were found. Night ban from the operator (Fraport) pages; the page says CEST, but the rule is in local time all year."
+}

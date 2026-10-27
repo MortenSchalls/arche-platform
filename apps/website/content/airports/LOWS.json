@@ -1,0 +1,76 @@
+{
+ "icao": "LOWS",
+ "iata": "SZG",
+ "name": "Salzburg Airport W. A. Mozart",
+ "city": "Salzburg",
+ "country": "AT",
+ "tz": "Europe/Vienna",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 15/33, 2,850 m long and 45 m wide",
+   "longest_m": 2850,
+   "src": "at-aip-lows",
+   "quote": "15 156.93 2850 x 45 RWY: PCN 65/F/A/"
+  },
+  "customs": {
+   "v": "customs and immigration 06:00 to 23:00 local, on request (0500-2200 UTC winter, 0400-2100 UTC summer)",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "src": "at-aip-lows",
+   "quote": "CUSTOMS AND IMMIGRATION 0500-2200 (0400-2100) on request"
+  },
+  "hours": {
+   "v": "take-offs and landings 06:00 to 23:00 local time",
+   "src": "szg-hours",
+   "quote": "The operating hours (take-off and landing) are from 06:00 to 23:00 (local time)."
+  },
+  "curfew": {
+   "v": "closed 23:00 to 06:00 (ambulance flights excepted); non-commercial flights land 06:00-22:00 and take off 07:00-22:00; commercial take-offs 06:00-22:00, commercial landings 22:00-23:00 only for aircraft under 84 dB",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "src": "szg-hours",
+   "quote": "Ambulance flights may also be carried out at night."
+  },
+  "noise": {
+   "v": "no landing permit at any time for B727, B732, B747SP, DC10, MD80 series and TU154M (over 98 dB)",
+   "src": "szg-tech",
+   "quote": "No landing permit for the following types of aircraft during the entire operating period"
+  },
+  "max_aircraft": {
+   "v": "aircraft of all sizes up to the B747-400",
+   "src": "szg-tech",
+   "quote": "Salzburg Airport can be used by aircraft of all sizes up to the B747-400."
+  },
+  "slots": {
+   "v": "schedule-facilitated airport (Slot Coordination Austria)",
+   "src": "sca-about",
+   "quote": "for the facilitated Airports Graz (GRZ), Innsbruck (INN), Klagenfurt (KLU), Linz (LNZ) and Salzburg (SZG)"
+  },
+  "handling": {
+   "v": "handled by the airport's own Traffic Handling team; the General Aviation Handling package is compulsory for aircraft over 3,500 kg MTOW",
+   "src": "szg-handling",
+   "quote": "The package \"General Aviation Handling\" must be registered for aircraft over 3,500 kg MTOW."
+  },
+  "fuel": {
+   "v": "Jet A1 and AVGAS 100LL; fuelling 05:30-21:30 local (0430-2030 UTC winter), prior notice to the operator outside these hours",
+   "src": "at-aip-lows",
+   "quote": "FUELLING 0430-2030 (0330-1930) Outside that time PN to the AD OPR necessary."
+  }
+ },
+ "missing": [
+  "ppr"
+ ],
+ "notes": "AIP edition used: AIRAC set published 04 SEP 2026 (the 02 OCT 2026 LOWS page could not be opened); page dates vary (AD 2-1 dated 11 JUL 2024). The operator's technical-data page gives the runway as 2,750 m x 45 m plus a 100 m stopway, while the AIP gives 2,850 x 45 with SWY NIL; the AIP figure is used. Night rule times are local all year (operator). Customs UTC converted: 0500-2200 UTC in winter (CET) and 0400-2100 UTC in summer (CEST) both = 06:00-23:00 local. Short-notice handling bookings under 24 h carry a 25% surcharge. The operator's site links a PPR request form but does not state that PPR is mandatory."
+}

@@ -374,9 +374,9 @@
   "quote": "must apply for schedule clearance at least seventy-two (72) hours prior to the intended arrival"
  },
  "omdb.noise": {
-  "v": "aircraft without noise certification to the ICAO Annex 16 standards may not operate to or from Dubai International",
+  "v": "except for passenger flights, aircraft without ICAO Annex 16 noise certification (Chapter 3 minimum) may not operate to or from Dubai International",
   "src": "uae-aip-omdb",
-  "quote": "aircraft not in possession of noise certification in accordance with the standards of Annex 16 ... are not permitted to operate to/from OMDB"
+  "quote": "Except for passenger operations, aircraft not in possession of noise certification in accordance with the standards of Annex 16 to the ICAO ... are not permitted to operate to/from OMDB."
  },
  "omdb.notable_diversion": {
   "v": "general aviation flights that divert are sent to Al Maktoum International (OMDW)",
@@ -530,9 +530,9 @@
   "quote": "LLA holds a 24 hour licence to operate and there is no ban on night flights."
  },
  "eggw.curfew": {
-  "v": "no ban on night flights, but older-generation jets are not allowed at night and night noise limits and a quota count system apply",
-  "src": "lla-noise-faq",
-  "quote": "we prohibit the operation of older generation jets at night."
+  "v": "no night ban (24-hour licence), but a night quota period 23:30-06:00 local time with movement limits and quota counts; older-generation jets are not allowed at night",
+  "src": "acl-ltn-lr1",
+  "quote": "Night Quota Period: 2330 – 0600 local time. Departures 2315 – 0545 local time (inclusive) Arrivals 2330 – 0600 local time (inclusive)"
  },
  "eggw.noise": {
   "v": "night flights are controlled through lower noise violation limits, movement limits and a quota count system",
@@ -2589,5 +2589,1872 @@
  "in.name": {
   "v": "India",
   "src": "in-aip-gen12"
+ },
+ "omdb.notable": {
+  "v": "general aviation flights that divert are sent to Al Maktoum International (DWC), not Dubai International",
+  "src": "uae-aip-omdb",
+  "quote": "All General Aviation Flights shall be routed to OMDW (DUBAI / ALMAKTOUM INTERNATIONAL) in case of diversion."
+ },
+ "omaa.icao": {
+  "v": "OMAA",
+  "src": "adairports-who"
+ },
+ "omaa.iata": {
+  "v": "AUH",
+  "src": "adairports-who"
+ },
+ "omaa.operator": {
+  "v": "run by Abu Dhabi Airports, which operates five airports in the emirate",
+  "src": "adairports-who",
+  "quote": "five commercial airports in the emirate, including Zayed International, Al Ain International, Al Bateen Executive"
+ },
+ "omaa.location": {
+  "v": "about 50 km outside Abu Dhabi city",
+  "src": "adairports-who",
+  "quote": "AUH was inaugurated at its current location 50km outside of the capital city."
+ },
+ "omaa.slots": {
+  "v": "an IATA level 2 (schedules facilitated) airport, with Airport Coordination Limited (ACL) as facilitator",
+  "src": "acl-auh",
+  "quote": "IATA Designation Level 2"
+ },
+ "omad.icao": {
+  "v": "OMAD",
+  "src": "azi-about"
+ },
+ "omad.iata": {
+  "v": "AZI",
+  "src": "azi-about"
+ },
+ "omad.operator": {
+  "v": "one of the five airports run by Abu Dhabi Airports",
+  "src": "azi-about",
+  "quote": "Within Abu Dhabi Airports' portfolio of five airports within the emirate"
+ },
+ "omad.location": {
+  "v": "on Abu Dhabi Island, in the city",
+  "src": "azi-about",
+  "quote": "Situated on Abu Dhabi Island"
+ },
+ "omad.runway": {
+  "v": "one runway, 13/31, 3.2 km long (width not stated by the operator)",
+  "src": "azi-aviation",
+  "quote": "Run away 13/31 | 3.2km, CAT 1 ILS/GNSS/VOR/DME"
+ },
+ "omad.hours": {
+  "v": "operating 24/7",
+  "src": "azi-aviation",
+  "quote": "A high-precision technical ecosystem operating 24/7 with zero slot restrictions and a 50-stand apron layout"
+ },
+ "omad.slots": {
+  "v": "no slot restrictions, as stated by the operator",
+  "src": "azi-aviation",
+  "quote": "With no slot restrictions, no holding patterns, and short taxi times, AZI accommodates the demands"
+ },
+ "omad.max_aircraft": {
+  "v": "aircraft up to code D (Boeing 767 size); up to 50 aircraft stands",
+  "src": "azi-aviation",
+  "quote": "Aircraft Category | Up to Code D, B767 equivalent ... Apron capacity | Up to 50 aircraft stands"
+ },
+ "omad.handling": {
+  "v": "Jetex runs the FBO, opened in 2023",
+  "src": "azi-executive",
+  "quote": "The Jetex FBO, opened in 2023, adds another layer of luxury."
+ },
+ "omad.notable": {
+  "v": "Abu Dhabi's dedicated business aviation and private jet airport",
+  "src": "adairports-who",
+  "quote": "the first dedicated business aviation and private jet airport in the Middle East"
+ },
+ "othh.geo": {
+  "v": [
+   25.2746,
+   51.6084
+  ],
+  "src": "qa-aip-othh-2024",
+  "quote": "251628.43N 0513630.16E Adjacent to control Tower building"
+ },
+ "othh.icao": {
+  "v": "OTHH",
+  "src": "qa-aip-othh-2024"
+ },
+ "othh.operator": {
+  "v": "operated by the Qatar Company for Airports Operation and Management (MATAR)",
+  "src": "qa-aip-othh-2024",
+  "quote": "Qatar Company for Airports Operation and Management - MATAR"
+ },
+ "othh.location": {
+  "v": "5.5 nautical miles east of Doha city centre",
+  "src": "qa-aip-othh-2024",
+  "quote": "5.5 NM East from Doha City Centre"
+ },
+ "othh.runway": {
+  "v": "two parallel runways; the longer, 16L/34R, is 4,850 m long and 60 m wide (16R/34L is 4,250 m x 60 m); the eastern runway is currently open at reduced length during remediation works",
+  "src": "qa-aip-othh-2024",
+  "quote": "16L 158.17˚ 4 850 X 60 ... 16R 158.16˚ 4 250 X 60"
+ },
+ "othh.permits": {
+  "v": "non-scheduled flights need prior landing permission from the Qatar Civil Aviation Authority, requested through its online portal at least 72 hours before the flight",
+  "src": "qa-aip-gen12",
+  "quote": "it is necessary for the operator to obtain prior landing/overflying permission from the QCAA ... at least seventy-two (72) hours"
+ },
+ "othh.slots": {
+  "v": "non-scheduled flights must also apply for schedule/slot approval (IATA Chapter 6 format) to the Qatar slot coordination office",
+  "src": "qa-aip-gen12",
+  "quote": "All Non-Scheduled flights should apply for schedule/slot approval as per IATA Chapter 6 format."
+ },
+ "othh.notable": {
+  "v": "the eastern runway is open at reduced length during remediation works",
+  "src": "hia-east-rwy",
+  "quote": "Our East RWY 16L-34R will remain operational with reduced length."
+ },
+ "lszh.icao": {
+  "v": "LSZH",
+  "src": "zrh-flugbetrieb"
+ },
+ "lszh.iata": {
+  "v": "ZRH",
+  "src": "ch-bazl-lszh"
+ },
+ "lszh.hours": {
+  "v": "operating hours 06:00 to 23:30",
+  "src": "zrh-flugbetrieb",
+  "quote": "Die Betriebszeiten des Flughafens Zürich liegen zwischen 06:00 und 23:30 Uhr."
+ },
+ "lszh.curfew": {
+  "v": "no flights from 23:30 to 06:00 unless an exemption permit is granted; 23:00 to 23:30 is kept only for clearing delays",
+  "src": "zrh-flugbetrieb",
+  "quote": "Die letzte halbe Stunde (23:00–23:30) ist für den Verspätungsabbau reserviert. ... Während der Sperrzeit benötigen alle Flugzeuge eine Ausnahmebewilligung"
+ },
+ "lszh.runway": {
+  "v": "longest runway, runway 34, is 3,700 m long",
+  "src": "zrh-pisten-2023",
+  "quote": "Piste 34 (3’700 m)"
+ },
+ "lszh.slots": {
+  "v": "every IFR movement needs an airport slot before departure or arrival, including positioning, training and maintenance flights; IFR slots come via the dispatcher or handling agent (FBO)",
+  "src": "ch-sc-gaba",
+  "quote": "Each IFR aircraft movement is required to previously obtain a mandatory airport slot; this includes positioning, training and flights into/out of maintenance facilities."
+ },
+ "lszh.handling": {
+  "v": "operators must use one of the handling agents listed in AIP Switzerland for LSZH (unless self-handling is authorised); the airport names BHS Aviation Switzerland AG, Cat Air Service AG, Jet Aviation AG, Motorfluggruppe Zürich, SWISS PRIVILEGE AVIATION SERVICES GmbH and Travelcoup as business-aviation FBOs",
+  "src": "zrh-business-aviation",
+  "quote": "Der Handling-Anbieter (FBO) ihrer Wahl kümmert sich um die gesamte Organisation ihres Fluges"
+ },
+ "lszh.notable": {
+  "v": "all passengers must be escorted between the General Aviation Center and the aircraft, and crews and passengers pass an ICAO-standard security check before departure",
+  "src": "zrh-business-aviation",
+  "quote": "Alle Passagiere müssen bei Ankunft und Abflug zwischen dem General Aviation Center und dem Flugzeug begleitet werden."
+ },
+ "lszs.icao": {
+  "v": "LSZS",
+  "src": "lszs-briefing-2022"
+ },
+ "lszs.operator": {
+  "v": "Engadin Airport AG",
+  "src": "lszs-briefing-2022",
+  "quote": "ENGADIN AIRPORT AG"
+ },
+ "lszs.location": {
+  "v": "north-east of St. Moritz and east of Samedan",
+  "src": "lszs-briefing-2025",
+  "quote": "Samedan airport is situated north-east of St. Moritz and east of Samedan."
+ },
+ "lszs.runway": {
+  "v": "one runway, 03/21, 1,840 m long and 40 m wide, asphalt/concrete",
+  "src": "lszs-briefing-2025",
+  "quote": "Runway 03 / 21 1‘840 m x 40 m asphalt/concrete"
+ },
+ "lszs.hours": {
+  "v": "open 0600Z to 1700Z in summer and 0700Z to 30 minutes after sunset in winter",
+  "src": "lszs-briefing-2025",
+  "quote": "Airport opening hours summer: 0600Z to 1700Z ... Airport opening hours winter: 0700Z to SS+30min"
+ },
+ "lszs.curfew": {
+  "v": "no night operations; closed outside opening hours (summer 0600Z-1700Z, i.e. 08:00-19:00 local; winter from 0700Z, i.e. 08:00 local, to 30 minutes after sunset)",
+  "src": "lszs-briefing-2025",
+  "quote": "NO NIGHT OPERATION!"
+ },
+ "lszs.ppr": {
+  "v": "PPR for IFR approaches with piston-engine aircraft and for multiple (training) IFR approaches",
+  "src": "lszs-briefing-2025",
+  "quote": "PPR for IFR APCH with piston engine aircraft. ... PPR for multiple IFR APCH (training)."
+ },
+ "lszs.noise": {
+  "v": "operators must check that the aircraft type's noise class is allowed at Samedan",
+  "src": "lszs-briefing-2025",
+  "quote": "Make sure that the type of aircraft (noise class) is allowed to operate at Samedan airport."
+ },
+ "lszs.notable": {
+  "v": "only pilots who have completed the airport's mandatory online briefing and test may use the airport (elevation 5,600 ft); parking space on the apron is limited",
+  "src": "lszs-briefing-2025",
+  "quote": "use of the airport is restricted to pilots who have successfully completed the mandatory online briefing (e-learning)"
+ },
+ "liml.geo": {
+  "v": [
+   45.4494,
+   9.2783
+  ],
+  "src": "sea-tech-data",
+  "quote": "45°26’58’’N 009°16’42’’E"
+ },
+ "liml.icao": {
+  "v": "LIML",
+  "src": "sea-tech-data"
+ },
+ "liml.location": {
+  "v": "4.2 NM east-south-east of the city",
+  "src": "sea-tech-data",
+  "quote": "4.2 NM ESE"
+ },
+ "liml.hours": {
+  "v": "open 24 hours (H24)",
+  "src": "sea-tech-data",
+  "quote": "Operational hours: H24"
+ },
+ "liml.runway": {
+  "v": "main runway 18/36, 2,442 m long and 60 m wide (a second runway, 17/35, is 601 m x 22 m)",
+  "src": "sea-tech-data",
+  "quote": "RWY (M) size (M): 2442 x 60"
+ },
+ "liml.slots": {
+  "v": "a coordinated airport (slot allocation by Assoclearance)",
+  "src": "enac-slot",
+  "quote": "ha classificato come aeroporti coordinati gli scali di: ... Milano Linate"
+ },
+ "liml.handling": {
+  "v": "general aviation is handled at the A.T.A. traffic office; listed: ATA Linate West (06:00-22:00, summer 05:00-21:00), Sky Services (05:00-21:00, summer 04:00-20:00) and Universal Aviation Italy (06:00-22:00, summer 05:00-21:00)",
+  "src": "sea-tech-data",
+  "quote": "All operations referring to General Aviation traffic will be carried out at the A.T.A. traffic office."
+ },
+ "liml.notable": {
+  "v": "runway 18/36 is closed every Tuesday 23:15-00:15 (22:15-23:15 in summer) for an ILS ground check, weather permitting",
+  "src": "sea-tech-data",
+  "quote": "Due to ILS ground check, the 18/36 runway will be closed every Tuesday, from 23:15-00:15 (22:15-23:15), weather and operating conditions permitting."
+ },
+ "lira.icao": {
+  "v": "LIRA",
+  "src": "adr-cia-regs"
+ },
+ "lira.operator": {
+  "v": "Aeroporti di Roma SpA",
+  "src": "adr-cia-regs",
+  "quote": "These Airport Regulations have been prepared for the Airport of Ciampino by Aeroporti di Roma SpA,"
+ },
+ "lira.curfew": {
+  "v": "private and commercial flights only between 06:00 and 23:00 local; outside these hours PPRs are issued only for emergency, ambulance and state flights",
+  "src": "adr-cia-regs",
+  "quote": "Excluding emergency/ambulance/state operations, PPRs can be released only within the airport opening time for private and commercial flights, that is between 06.00LT and 23.00LT"
+ },
+ "lira.ppr": {
+  "v": "every arriving general-aviation aircraft needs a PPR from the airport operator, issued in advance according to stand availability and requested by the carrier or handler",
+  "src": "adr-cia-regs",
+  "quote": "Incoming aircraft of the general aviation are subject to the issuance of a permit, ... issued in advance on the basis on the availability of the stands by the Managing Company (Prior Permission Request - PPR)."
+ },
+ "lira.max_aircraft": {
+  "v": "general-aviation PPRs are capped at 61 movements a day (medical, emergency and rescue flights excluded), under Ministerial Decree 345/2018",
+  "src": "adr-cia-regs",
+  "quote": "In compliance with the provisions of Ministerial Decree 345/2018, ... PPR may be issued up to a maximum of 61 daily movements"
+ },
+ "lira.handling": {
+  "v": "the General Aviation Terminal and its services are open 07:00 to 23:30; GA handlers must be ENAC-certified for Ciampino",
+  "src": "adr-cia-regs",
+  "quote": "The General Aviation Terminal and of all its relative activities and services are open from 07:00AM to 11:30PM."
+ },
+ "lira.slots": {
+  "v": "a coordinated airport (slot allocation by Assoclearance)",
+  "src": "enac-slot",
+  "quote": "ha classificato come aeroporti coordinati gli scali di: ... Roma Ciampino"
+ },
+ "lipz.icao": {
+  "v": "LIPZ",
+  "src": "save-regs"
+ },
+ "lipz.operator": {
+  "v": "SAVE S.p.A., the concession holder that runs the airport",
+  "src": "save-regs",
+  "quote": "Entity managing Venice Airport, concessionaire for operating the airport"
+ },
+ "lipz.slots": {
+  "v": "a coordinated airport (slot allocation by Assoclearance)",
+  "src": "enac-slot",
+  "quote": "ha classificato come aeroporti coordinati gli scali di: ... Venezia"
+ },
+ "eddm.icao": {
+  "v": "EDDM",
+  "src": "muc-facts"
+ },
+ "eddm.iata": {
+  "v": "MUC",
+  "src": "muc-facts"
+ },
+ "eddm.operator": {
+  "v": "run by Flughafen München GmbH (FMG)",
+  "src": "muc-facts",
+  "quote": "Flughafen München GmbH (FMG)"
+ },
+ "eddm.location": {
+  "v": "28.5 km from Munich city centre",
+  "src": "muc-location",
+  "quote": "28.5 kilometers from Munich city center"
+ },
+ "eddm.runway": {
+  "v": "two runways, each 4 km long and 60 m wide",
+  "src": "muc-location",
+  "quote": "2 runways each 4 km long and 60 m wide"
+ },
+ "eddm.curfew": {
+  "v": "core night period from midnight to 05:00, when only mail flights and DFS survey flights are automatically permitted; other exceptions are emergencies, safety landings and individual flights approved by the authority; from 22:00 to midnight and 05:00 to 06:00 only aircraft on the Ministry of Transport bonus list may operate",
+  "src": "muc-night",
+  "quote": "During the core period (from midnight until 0500 hours) only mail flights and surveying flights by German Air Traffic Control are automatically permitted."
+ },
+ "eddm.noise": {
+  "v": "from 22:00 to midnight and 05:00 to 06:00 only aircraft on the Ministry of Transport bonus list may operate",
+  "src": "muc-night",
+  "quote": "only aircraft on the so-called Ministry of Transport bonus list are allowed to operate"
+ },
+ "eddm.slots": {
+  "v": "Level 3 coordinated airport; general aviation flights need a slot from the German airport coordinator (Fluko)",
+  "src": "fluko-ga",
+  "quote": "Coordination of General Aviation flights is required at the following Level 3 airports:"
+ },
+ "eddm.handling": {
+  "v": "General Aviation Terminal (GAT) run by Flughafen München GmbH; companies listed there include ExecuJet Europe GmbH, Signature Flight Support - SFS Munich GmbH & Co. KG, MAS Munich Aviation Service, AHS München Aviation Handling Services GmbH and Lufthansa Technik AG",
+  "src": "muc-gat",
+  "quote": "there is no obligation to handle passengers and aircraft at the General Aviation Terminal!"
+ },
+ "eddm.notable": {
+  "v": "using the General Aviation Terminal is not compulsory; AVGAS 100LL is not available",
+  "src": "muc-gat",
+  "quote": "AVGAS 100LL is not available at Munich airport"
+ },
+ "eddf.icao": {
+  "v": "EDDF",
+  "src": "fra-runways"
+ },
+ "eddf.iata": {
+  "v": "FRA",
+  "src": "fra-runways"
+ },
+ "eddf.hours": {
+  "v": "flight operating hours 05:00 to 23:00 local time",
+  "src": "fra-runways",
+  "quote": "The flight operating hours at Frankfurt Airport run from 5:00 a.m. to 11:00 p.m. local time."
+ },
+ "eddf.curfew": {
+  "v": "night flight ban from 23:00 to 05:00; only safety-related diversions, disaster relief and medical aid flights may land; from 22:00 to 23:00 and 05:00 to 06:00 at most 133 movements per night (annual average)",
+  "src": "fra-hours",
+  "quote": "Between 11:00 p.m. and 5:00 a.m. CEST, there is a ban on night flights."
+ },
+ "eddf.noise": {
+  "v": "aircraft without a noise-reduced ICAO noise class may fly only Monday to Friday 08:00 to 20:00, not at weekends",
+  "src": "fra-hours",
+  "quote": "only permitted to fly from Monday to Friday between 8:00 a.m. and 8:00 p.m. CEST"
+ },
+ "eddf.runway": {
+  "v": "four runways: 07L/25R, 07C/25C, 07R/25L and 18 (lengths not stated on the operator page)",
+  "src": "fra-runways",
+  "quote": "Northwest Runway (25R/07L)"
+ },
+ "eddf.slots": {
+  "v": "Level 3 coordinated airport; general aviation flights need a slot from the German airport coordinator (Fluko)",
+  "src": "fluko-ga",
+  "quote": "Coordination of General Aviation flights is required at the following Level 3 airports:"
+ },
+ "eddb.icao": {
+  "v": "EDDB",
+  "src": "ber-lubb-night"
+ },
+ "eddb.iata": {
+  "v": "BER",
+  "src": "ber-lubb-night"
+ },
+ "eddb.curfew": {
+  "v": "no take-offs or landings from 23:30 to 05:30 local time (exceptions: emergencies, safety diversions, relief, medical, state flights, weekday mail and some delayed/early scheduled flights); 23:00-24:00 and 05:00-06:00 count against an annual night quota; jets over 20,000 kg from 22:00 to 06:00 must be at least 10 EPNdB below the noise limits",
+  "src": "ber-lubb-night",
+  "quote": "In der Zeit zwischen 23:30 und 05:30 Uhr Ortszeit dürfen keine Luftfahrzeuge starten oder landen."
+ },
+ "eddb.slots": {
+  "v": "Level 3 coordinated airport; general aviation flights need a slot from the German airport coordinator (Fluko)",
+  "src": "fluko-ga",
+  "quote": "Coordination of General Aviation flights is required at the following Level 3 airports:"
+ },
+ "loww.geo": {
+  "v": [
+   48.1103,
+   16.5697
+  ],
+  "src": "at-aip-loww",
+  "quote": "ARP COORDINATES AND SITE AT AD 48 06 37N 016 34 11E"
+ },
+ "loww.icao": {
+  "v": "LOWW",
+  "src": "at-aip-loww"
+ },
+ "loww.iata": {
+  "v": "VIE",
+  "src": "at-aip-loww"
+ },
+ "loww.operator": {
+  "v": "run by Flughafen Wien AG",
+  "src": "at-aip-loww",
+  "quote": "Flughafen Wien AG"
+ },
+ "loww.location": {
+  "v": "9 NM south-east of Vienna",
+  "src": "at-aip-loww",
+  "quote": "DIRECTION AND DISTANCE FROM WIEN 9 NM SE FM Wien"
+ },
+ "loww.runway": {
+  "v": "two runways: 16/34, 3,600 m long and 45 m wide, and 11/29, 3,500 m long and 45 m wide",
+  "src": "vie-facts",
+  "quote": "length 3,600 metres, width 45 metres, 2 shoulders 7.5 metres"
+ },
+ "loww.customs": {
+  "v": "customs and immigration H24",
+  "src": "at-aip-loww",
+  "quote": "ZOLL- UND EINWANDERUNGSBEHÖRDE H24"
+ },
+ "loww.hours": {
+  "v": "open 24 hours",
+  "src": "vie-facts",
+  "quote": "24 hours / no night curfew, but there is a limit of movements in accordance with the mediation agreement."
+ },
+ "loww.curfew": {
+  "v": "no night curfew; under the mediation agreement, movements in the night core period 23:30 to 05:30 are limited to 4,700 a year",
+  "src": "vie-mediation",
+  "quote": "the number of aircraft movements during the night core period has been limited to 4,700 as of 2010"
+ },
+ "loww.slots": {
+  "v": "fully coordinated airport (EU Regulation 95/93), slots via Slot Coordination Austria; GA/BA slot requests accepted at most 28 days ahead (night-flight guideline)",
+  "src": "sca-night",
+  "quote": "Slot requests for GA/BA flights are accepted maximum 28 days ahead of the planned operation"
+ },
+ "loww.max_aircraft": {
+  "v": "EASA Code 4E; A380, Antonov 124 and Boeing 747-8 can operate",
+  "src": "at-aip-loww",
+  "quote": "Certification: EASA Code 4E; A380, Antonov 124 and Boeing 747-8 OPS possible."
+ },
+ "loww.noise": {
+  "v": "only noise category 3 aircraft allowed",
+  "src": "vie-facts",
+  "quote": "only category 3 aircraft allowed"
+ },
+ "loww.handling": {
+  "v": "the airport's own General Aviation Center (business and private jet terminal), plus a VIP Terminal",
+  "src": "vie-bizjets",
+  "quote": "General Aviation Center"
+ },
+ "loww.fuel": {
+  "v": "Jet A1, fuelling H24",
+  "src": "at-aip-loww",
+  "quote": "Treibstoffsorten: JET A1"
+ },
+ "lows.geo": {
+  "v": [
+   47.7944,
+   13.0033
+  ],
+  "src": "at-aip-lows",
+  "quote": "ARP COORDINATES AND SITE AT AD 47 47 40N 013 00 12E"
+ },
+ "lows.icao": {
+  "v": "LOWS",
+  "src": "at-aip-lows"
+ },
+ "lows.iata": {
+  "v": "SZG",
+  "src": "at-aip-lows"
+ },
+ "lows.operator": {
+  "v": "run by Salzburger Flughafen GmbH",
+  "src": "at-aip-lows",
+  "quote": "Salzburger Flughafen GmbH / Salzburg Airport - W.A. Mozart"
+ },
+ "lows.location": {
+  "v": "1.7 NM west-south-west of Salzburg",
+  "src": "at-aip-lows",
+  "quote": "1.7 NM WSW FM Salzburg"
+ },
+ "lows.runway": {
+  "v": "one runway, 15/33, 2,850 m long and 45 m wide",
+  "src": "at-aip-lows",
+  "quote": "15 156.93 2850 x 45 RWY: PCN 65/F/A/"
+ },
+ "lows.customs": {
+  "v": "customs and immigration 06:00 to 23:00 local, on request (0500-2200 UTC winter, 0400-2100 UTC summer)",
+  "src": "at-aip-lows",
+  "quote": "CUSTOMS AND IMMIGRATION 0500-2200 (0400-2100) on request"
+ },
+ "lows.hours": {
+  "v": "take-offs and landings 06:00 to 23:00 local time",
+  "src": "szg-hours",
+  "quote": "The operating hours (take-off and landing) are from 06:00 to 23:00 (local time)."
+ },
+ "lows.curfew": {
+  "v": "closed 23:00 to 06:00 (ambulance flights excepted); non-commercial flights land 06:00-22:00 and take off 07:00-22:00; commercial take-offs 06:00-22:00, commercial landings 22:00-23:00 only for aircraft under 84 dB",
+  "src": "szg-hours",
+  "quote": "Ambulance flights may also be carried out at night."
+ },
+ "lows.noise": {
+  "v": "no landing permit at any time for B727, B732, B747SP, DC10, MD80 series and TU154M (over 98 dB)",
+  "src": "szg-tech",
+  "quote": "No landing permit for the following types of aircraft during the entire operating period"
+ },
+ "lows.max_aircraft": {
+  "v": "aircraft of all sizes up to the B747-400",
+  "src": "szg-tech",
+  "quote": "Salzburg Airport can be used by aircraft of all sizes up to the B747-400."
+ },
+ "lows.slots": {
+  "v": "schedule-facilitated airport (Slot Coordination Austria)",
+  "src": "sca-about",
+  "quote": "for the facilitated Airports Graz (GRZ), Innsbruck (INN), Klagenfurt (KLU), Linz (LNZ) and Salzburg (SZG)"
+ },
+ "lows.handling": {
+  "v": "handled by the airport's own Traffic Handling team; the General Aviation Handling package is compulsory for aircraft over 3,500 kg MTOW",
+  "src": "szg-handling",
+  "quote": "The package \"General Aviation Handling\" must be registered for aircraft over 3,500 kg MTOW."
+ },
+ "lows.fuel": {
+  "v": "Jet A1 and AVGAS 100LL; fuelling 05:30-21:30 local (0430-2030 UTC winter), prior notice to the operator outside these hours",
+  "src": "at-aip-lows",
+  "quote": "FUELLING 0430-2030 (0330-1930) Outside that time PN to the AD OPR necessary."
+ },
+ "lemd.geo": {
+  "v": [
+   40.4722,
+   -3.5608
+  ],
+  "src": "es-aip-lemd",
+  "quote": "402820N 0033339W. See AD 2-LEMD ADC."
+ },
+ "lemd.icao": {
+  "v": "LEMD",
+  "src": "es-aip-lemd"
+ },
+ "lemd.iata": {
+  "v": "MAD",
+  "src": "es-aip-lemd"
+ },
+ "lemd.operator": {
+  "v": "run by Aena",
+  "src": "es-aip-lemd",
+  "quote": "Aena."
+ },
+ "lemd.location": {
+  "v": "13 km north-east of Madrid",
+  "src": "es-aip-lemd",
+  "quote": "13 km NE."
+ },
+ "lemd.hours": {
+  "v": "open 24 hours",
+  "src": "es-aip-lemd",
+  "quote": "H24."
+ },
+ "lemd.runway": {
+  "v": "four runways; the longest, 18R/36L, is 4,179 m long and 60 m wide",
+  "src": "es-aip-lemd",
+  "quote": "4179 x 60"
+ },
+ "lemd.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "es-aip-lemd",
+  "quote": "H24."
+ },
+ "lemd.curfew": {
+  "v": "no full curfew stated; at night (23:00 to 06:59 local) take-offs and landings by the noisiest aircraft (noise rating CR-4 or higher) are prohibited",
+  "src": "es-aip-lemd",
+  "quote": "Take-off and landing operations of aircraft rated as CR-4 or higher are prohibited at night time (23:00 to 6:59 LT)."
+ },
+ "lemd.slots": {
+  "v": "an airport slot is needed; flight plans that do not match the allocated slot are not accepted",
+  "src": "es-aip-lemd",
+  "quote": "The operations office at Adolfo Suárez Madrid-Barajas shall not accept flights with origin or destination"
+ },
+ "lemd.handling": {
+  "v": "aircraft under 10,000 kg MTOW and/or under 20 seats must use one of two authorised General and Business Aviation managers: AVIAVIP FBO Madrid or United Aviation FBO",
+  "src": "es-aip-lemd",
+  "quote": "All aircraft with MTOW less than 10000 Kg and/or fewer than 20 seats must have engaged the services of either"
+ },
+ "lemd.max_aircraft": {
+  "v": "aircraft over 10,000 kg MTOW and/or with 20 seats or more are not treated as general or business aviation",
+  "src": "es-aip-lemd",
+  "quote": "Any aircaraft whose MTOW is more than 10000 kg and/or has 20 seats or more will not be considered"
+ },
+ "lemd.fuel": {
+  "v": "Jet A-1",
+  "src": "es-aip-lemd",
+  "quote": "JET A-1."
+ },
+ "lebl.geo": {
+  "v": [
+   41.2969,
+   2.0783
+  ],
+  "src": "es-aip-lebl",
+  "quote": "411749N 0020442E. See AD 2-LEBL ADC."
+ },
+ "lebl.icao": {
+  "v": "LEBL",
+  "src": "es-aip-lebl"
+ },
+ "lebl.iata": {
+  "v": "BCN",
+  "src": "es-aip-lebl"
+ },
+ "lebl.operator": {
+  "v": "run by Aena",
+  "src": "es-aip-lebl",
+  "quote": "Aena."
+ },
+ "lebl.location": {
+  "v": "10 km south-west of Barcelona",
+  "src": "es-aip-lebl",
+  "quote": "10 km SW."
+ },
+ "lebl.hours": {
+  "v": "open 24 hours",
+  "src": "es-aip-lebl",
+  "quote": "H24."
+ },
+ "lebl.runway": {
+  "v": "three runways; the longest, 06L/24R, is 3,352 m long and 60 m wide",
+  "src": "es-aip-lebl",
+  "quote": "3352 x 60"
+ },
+ "lebl.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "es-aip-lebl",
+  "quote": "H24."
+ },
+ "lebl.slots": {
+  "v": "in summer, general aviation slots (arrival and departure) are coordinated no more than 30 days ahead",
+  "src": "es-aip-lebl",
+  "quote": "During the summer season, general aviation slots (arrival + departure) will not be coordinated more than 30 days in advance."
+ },
+ "lebl.max_aircraft": {
+  "v": "from June to September, aircraft of 15,000 kg MTOW or less cannot arrive between 07:00 and 11:30",
+  "src": "es-aip-lebl",
+  "quote": "they cannot operate arrivals within the time period 0700-1130"
+ },
+ "lebl.notable": {
+  "v": "non-regular general aviation operators may stay at most 96 hours and must book an arrival slot with a linked departure slot",
+  "src": "es-aip-lebl",
+  "quote": "Non-regular operators shall be limited to a maximum stay of 96 hours"
+ },
+ "lebl.handling": {
+  "v": "the AIP lists AVIAVIP FBO, United Aviation FBO, ExecuJet Spain, General Aviation Service, Jetex Executive Aviation Barcelona, Skyvalet and Universal Aviation Spain as general aviation agents and FBO managers",
+  "src": "es-aip-lebl",
+  "quote": "General Aviation agents and General and Business Aviation terminal Managers (FBO):"
+ },
+ "lebl.noise": {
+  "v": "a special night runway configuration is used between 23:00 and 07:00 local",
+  "src": "es-aip-lebl",
+  "quote": "Night time configuration between 2300 and 0700 LT:"
+ },
+ "lebl.fuel": {
+  "v": "Jet A-1",
+  "src": "es-aip-lebl",
+  "quote": "JET A-1."
+ },
+ "leib.geo": {
+  "v": [
+   38.8728,
+   1.3731
+  ],
+  "src": "es-aip-leib",
+  "quote": "385222N 0012223E. See AD 2-LEIB ADC."
+ },
+ "leib.icao": {
+  "v": "LEIB",
+  "src": "es-aip-leib"
+ },
+ "leib.iata": {
+  "v": "IBZ",
+  "src": "es-aip-leib"
+ },
+ "leib.operator": {
+  "v": "run by Aena",
+  "src": "es-aip-leib",
+  "quote": "Aena."
+ },
+ "leib.location": {
+  "v": "7 km south-west of Ibiza town",
+  "src": "es-aip-leib",
+  "quote": "7 km SW."
+ },
+ "leib.hours": {
+  "v": "open 24 hours in summer and until 31 October; from 1 November open 0630-2300, with extension on 1 hour prior permission",
+  "src": "es-aip-leib",
+  "quote": "V: H24. I: Until October 31st: H24. From November 1st: 0630-2300. PS 1 HR PPR."
+ },
+ "leib.runway": {
+  "v": "one runway, 06/24, 2,799 m long and 45 m wide",
+  "src": "es-aip-leib",
+  "quote": "2799 x 45"
+ },
+ "leib.customs": {
+  "v": "customs and immigration during aerodrome hours",
+  "src": "es-aip-leib",
+  "quote": "HR AD."
+ },
+ "leib.slots": {
+  "v": "an airport slot is needed except for flights in VFR conditions",
+  "src": "es-aip-leib",
+  "quote": "Flights in VFR conditions are exempt from the previous request for airport slot."
+ },
+ "leib.ppr": {
+  "v": "from 1 May to 15 October, general aviation aircraft over 18 m wingspan (and helicopters staying over 3 hours) need prior parking authorisation before requesting a slot",
+  "src": "es-aip-leib",
+  "quote": "In this case, requesting the airport slot requires prior parking authorisation from the Airport."
+ },
+ "leib.max_aircraft": {
+  "v": "aircraft of up to 18 m wingspan may park on the commercial apron for at most one week",
+  "src": "es-aip-leib",
+  "quote": "the maximum parking time of an aircraft with a maximum wingspan of 18 m in the Commercial Aviation Apron is one week."
+ },
+ "leib.handling": {
+  "v": "the AIP lists two General and Business Aviation managers (FBO): Aviapartner Ibiza FBO and Sky Valet Spain",
+  "src": "es-aip-leib",
+  "quote": "General and Business Aviation Managers (FBO) (in alphabetical order):"
+ },
+ "leib.noise": {
+  "v": "reverse thrust above idle is not allowed from 2200 to 0500 except for safety",
+  "src": "es-aip-leib",
+  "quote": "Reverse thrust other than idling may not be used except for safety reasons from 2200 to 0500."
+ },
+ "leib.fuel": {
+  "v": "100LL and Jet A-1",
+  "src": "es-aip-leib",
+  "quote": "100LL, JET A-1."
+ },
+ "lepa.geo": {
+  "v": [
+   39.5517,
+   2.7389
+  ],
+  "src": "es-amdt-lepa",
+  "quote": "393306N 0024420E. See AD 2-LEPA/LESJ ADC."
+ },
+ "lepa.icao": {
+  "v": "LEPA",
+  "src": "es-amdt-lepa"
+ },
+ "lepa.iata": {
+  "v": "PMI",
+  "src": "es-amdt-lepa"
+ },
+ "lepa.operator": {
+  "v": "civil side run by Aena (shared with the Spanish Air and Space Force)",
+  "src": "es-amdt-lepa",
+  "quote": "CIV: Aena."
+ },
+ "lepa.location": {
+  "v": "8 km east of Palma",
+  "src": "es-amdt-lepa",
+  "quote": "8 km E."
+ },
+ "lepa.hours": {
+  "v": "open 24 hours",
+  "src": "es-amdt-lepa",
+  "quote": "H24 (1)."
+ },
+ "lepa.runway": {
+  "v": "two runways; the longest, 06L/24R, is 3,270 m long and 45 m wide",
+  "src": "es-amdt-lepa",
+  "quote": "3270 x 45."
+ },
+ "lepa.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "es-amdt-lepa",
+  "quote": "H24."
+ },
+ "lepa.slots": {
+  "v": "a slot request counts as not authorised until confirmed coordination is received",
+  "src": "es-amdt-lepa",
+  "quote": "The slot request shall be understood as not authorized until the reception of the confirmed coordination."
+ },
+ "lepa.handling": {
+  "v": "a handling agent is mandatory for all general and business aviation; the AIP lists Aviapartner Palma de Mallorca FBO and Mallorcair as authorised FBOs",
+  "src": "es-amdt-lepa",
+  "quote": "It is mandatory to contract handling agent for all operation to General and Business Aviation"
+ },
+ "lepa.max_aircraft": {
+  "v": "aircraft over 20 m long may park on the general aviation apron for at most 7 days",
+  "src": "es-amdt-lepa",
+  "quote": "the maximum parking time on the general aviation apron for an aircraft over 20 m in length shall be 7 days"
+ },
+ "lepa.noise": {
+  "v": "at night (summer 2100-0500, winter 2200-0600) no training flights, no APU use and no reverse thrust above idle except for safety",
+  "src": "es-amdt-lepa",
+  "quote": "The term night hours is defined as the time period comprised between: V: 2100-0500, I: 2200-0600."
+ },
+ "lepa.fuel": {
+  "v": "Jet A-1",
+  "src": "es-amdt-lepa",
+  "quote": "CIV: JET A-1."
+ },
+ "lfpb.geo": {
+  "v": [
+   48.9694,
+   2.4414
+  ],
+  "src": "fr-aip-lfpb-2025",
+  "quote": "48°58'10\"N 002°26'29\"E"
+ },
+ "lfpb.iata": {
+  "v": "LBG",
+  "src": "fr-aip-lfpb-2025"
+ },
+ "lfpb.operator": {
+  "v": "run by Groupe ADP (Paris Aéroport)",
+  "src": "fr-vac-lfpb",
+  "quote": "4 - Exploitant d'aérodrome / AD operator : Groupe ADP - Paris Aéroport"
+ },
+ "lfpb.customs": {
+  "v": "customs and police open 24 hours",
+  "src": "fr-vac-lfpb",
+  "quote": "9 - Douanes, Police / Customs, Police : H24."
+ },
+ "lfpb.ppr": {
+  "v": "VFR flights need prior permission by email at least 48 working hours ahead (helicopters and some public missions exempt)",
+  "src": "fr-vac-lfpb",
+  "quote": "PPR requests must be sent by email with at least 48 working HR PN to ppr-vfr-lfpb@aviation-civile.gouv.fr"
+ },
+ "lfpb.handling": {
+  "v": "handling by an approved based company is mandatory",
+  "src": "fr-vac-lfpb",
+  "quote": "Mandatory assistance from approved based societies."
+ },
+ "lfmn.geo": {
+  "v": [
+   43.6653,
+   7.215
+  ],
+  "src": "fr-aip-lfmn-2025",
+  "quote": "43°39'55\"N 007°12'54\"E"
+ },
+ "lfmn.iata": {
+  "v": "NCE",
+  "src": "fr-aip-lfmn-2025"
+ },
+ "lfmn.location": {
+  "v": "5.9 km south-west of Nice",
+  "src": "fr-vac-lfmn",
+  "quote": "5,9 km SW Nice (06-Alpes Maritimes)."
+ },
+ "lfmn.runway": {
+  "v": "two parallel runways: 04R/22L, 2,963 m by 45 m (the longest), and 04L/22R, 2,628 m by 45 m",
+  "src": "fr-aip-lfmn-2025",
+  "quote": "2963 x 45"
+ },
+ "lfmn.ppr": {
+  "v": "minimum handling is compulsory and must be arranged (PPR) before leaving the departure airport (VFR chart text)",
+  "src": "fr-vac-lfmn",
+  "quote": "Minimum handling compulsory PPR before departure from origin AD."
+ },
+ "lfmd.geo": {
+  "v": [
+   43.5464,
+   6.9542
+  ],
+  "src": "fr-aip-lfmd-2025",
+  "quote": "Position GEO ARP 43°32'47\"N 006°57'15\"E"
+ },
+ "lfmd.iata": {
+  "v": "CEQ",
+  "src": "fr-aip-lfmd-2025"
+ },
+ "lfmd.location": {
+  "v": "5 km west of Cannes",
+  "src": "fr-vac-lfmd",
+  "quote": "5 km W Cannes (06-Alpes Maritimes)."
+ },
+ "lfmd.runway": {
+  "v": "main paved runway 17/35, 1,540 m by 45 m; also paved 04/22 (760 m) and grass 17L/35R (550 m)",
+  "src": "fr-vac-lfmd",
+  "quote": "170 1540 x 45"
+ },
+ "lfsb.geo": {
+  "v": [
+   47.59,
+   7.5292
+  ],
+  "src": "fr-aip-lfsb-2025",
+  "quote": "47°35'24\"N 007°31'45\"E"
+ },
+ "lfsb.icao": {
+  "v": "LFSB",
+  "src": "fr-aip-lfsb-2025"
+ },
+ "lfsb.iata": {
+  "v": "BSL",
+  "src": "fr-aip-lfsb-2025"
+ },
+ "lfsb.operator": {
+  "v": "run by the Franco-Swiss public body of Basel-Mulhouse airport",
+  "src": "fr-vac-lfsb",
+  "quote": "Etablissement Public Franco-Suisse de l'aéroport de BALE MULHOUSE."
+ },
+ "lfsb.location": {
+  "v": "6 km north-west of Basel and 22 km south-east of Mulhouse",
+  "src": "fr-vac-lfsb",
+  "quote": "1 - Situation / Location : 6 km NW Bâle, 22 km SE Mulhouse (68 - Haut Rhin)."
+ },
+ "lfsb.runway": {
+  "v": "two runways: 15/33, 3,900 m by 60 m (the longest), and 07/25, 1,715 m by 60 m",
+  "src": "fr-aip-lfsb-2025",
+  "quote": "3900 x 60"
+ },
+ "lfsb.customs": {
+  "v": "French customs 05:00-24:00 local (stated 0400-2300 UTC winter, one hour earlier in summer); Swiss customs from 05:15; immigration police 24 hours",
+  "src": "fr-vac-lfsb",
+  "quote": "Douanes / Customs FR : 0400-2300. Douanes / Customs S : 0415-2300."
+ },
+ "lfsb.curfew": {
+  "v": "general aviation may not land or take off between 2100 and 0500 UTC winter time (22:00-06:00 local all year); exceptions for ambulance, humanitarian, emergency, state and government flights",
+  "src": "fr-vac-lfsb",
+  "quote": "LDG and TKOF forbidden between 2100 and 0500. (SUM : - 1 HR)."
+ },
+ "lfsb.ppr": {
+  "v": "non-based VFR flights parking at the airport need prior permission from Apron Control 24 hours ahead",
+  "src": "fr-vac-lfsb",
+  "quote": "subject to a PPR request and to FPL filing."
+ },
+ "lfsb.handling": {
+  "v": "handling compulsory for all non-based general aviation; AIP lists Swissport, Air France, Air Service Basel (ASB) and CGS",
+  "src": "fr-vac-lfsb",
+  "quote": "For safety and security reasons, handling is compulsory for all non-based general aviation flights."
+ },
+ "lfsb.slots": {
+  "v": "IATA Level 2 (schedules facilitated) since summer 2024, coordinated by COHOR",
+  "src": "cohor-lfsb",
+  "quote": "EuroAirport (MLH, BSL, EAP/LFSB) is designated as Level 2 airport, effective from the start of NS24."
+ },
+ "lfsb.notable": {
+  "v": "scheduled flights may not land 2300-0400 or take off 2300-0500 UTC winter time (00:00-05:00 / 00:00-06:00 local)",
+  "src": "fr-vac-lfsb",
+  "quote": "Scheduled flights : TFC prohibited between 2300 and 0400 (LDG) or 0500 (TKOF) (SUM : - 1 HR)."
+ },
+ "lfkj.geo": {
+  "v": [
+   41.9239,
+   8.8025
+  ],
+  "src": "fr-aip-lfkj",
+  "quote": "Position GEO ARP 41°55'26\"N 008°48'09\"E"
+ },
+ "lfkj.icao": {
+  "v": "LFKJ",
+  "src": "fr-aip-lfkj"
+ },
+ "lfkj.iata": {
+  "v": "AJA",
+  "src": "fr-aip-lfkj"
+ },
+ "lfkj.operator": {
+  "v": "run by the CCI de Corse (Corsica chamber of commerce)",
+  "src": "fr-aip-lfkj",
+  "quote": "CCI DE CORSE"
+ },
+ "lfkj.location": {
+  "v": "5 km east of Ajaccio",
+  "src": "fr-aip-lfkj",
+  "quote": "5 km East of Ajaccio"
+ },
+ "lfkj.runway": {
+  "v": "one runway, 02/20, 2,300 m long and 45 m wide",
+  "src": "fr-aip-lfkj",
+  "quote": "02 025 (022) 2300 x 45 35 F/C/W/T"
+ },
+ "lfkj.slots": {
+  "v": "IATA Level 1; operators ask their handling agent to request slots from COHOR",
+  "src": "cohor-lfkj",
+  "quote": "Aircraft operators contact their handling agent who is in charge to request airport slots to COHOR."
+ },
+ "lflb.geo": {
+  "v": [
+   45.6392,
+   5.88
+  ],
+  "src": "fr-aip-lflb-2025",
+  "quote": "45°38'21\"N 005°52'48\"E"
+ },
+ "lflb.icao": {
+  "v": "LFLB",
+  "src": "fr-aip-lflb-2025"
+ },
+ "lflb.iata": {
+  "v": "CMF",
+  "src": "fr-aip-lflb-2025"
+ },
+ "lflb.operator": {
+  "v": "run by SEACA (Société d'exploitation de l'aéroport de Chambéry-Aix les Bains)",
+  "src": "fr-aip-lflb-2025",
+  "quote": "Société d'exploitation de l'aéroport de Chambéry-Aix les Bains"
+ },
+ "lflb.location": {
+  "v": "4.5 NM north-north-west of Chambéry and 3.5 NM south-south-west of Aix-les-Bains",
+  "src": "fr-aip-lflb-2025",
+  "quote": "4,5 NM NNW CHAMBERY"
+ },
+ "lflb.runway": {
+  "v": "one paved runway, 18/36, 2,020 m long and 45 m wide (plus a 700 m grass strip)",
+  "src": "fr-aip-lflb-2025",
+  "quote": "2020 x 45"
+ },
+ "lflb.slots": {
+  "v": "IATA Level 2; operators ask their handling agent to request slots from COHOR; for IFR general and business aviation a prior request is required",
+  "src": "cohor-lflb",
+  "quote": "Aircraft operators contact their handling agent who is in charge to request airport slots to COHOR."
+ },
+ "oerk.geo": {
+  "v": [
+   24.9628,
+   46.7081
+  ],
+  "src": "sa-aip-oerk",
+  "quote": "N245746 E0464229"
+ },
+ "oerk.icao": {
+  "v": "OERK",
+  "src": "sa-aip-oerk"
+ },
+ "oerk.operator": {
+  "v": "operated by the General Authority of Civil Aviation (GACA)",
+  "src": "sa-aip-oerk",
+  "quote": "GENERAL AUTHORITY OF CIVIL AVIATION"
+ },
+ "oerk.location": {
+  "v": "35 km north of Riyadh",
+  "src": "sa-aip-oerk",
+  "quote": "35 KM North"
+ },
+ "oerk.runway": {
+  "v": "two parallel runways, 15L/33R and 15R/33L, each 4,205 m long and 60 m wide",
+  "src": "sa-aip-oerk",
+  "quote": "4205 x 60"
+ },
+ "oerk.slots": {
+  "v": "listed by the slot coordinator ACL as an IATA Level 3 (coordinated) airport; the page does not say how this applies to business aviation",
+  "src": "acl-ruh",
+  "quote": "IATA Designation Level 3"
+ },
+ "oejn.geo": {
+  "v": [
+   21.6811,
+   39.1561
+  ],
+  "src": "sa-aip-oejn",
+  "quote": "N214052 E0390922    920 M / 063° from TWR"
+ },
+ "oejn.icao": {
+  "v": "OEJN",
+  "src": "sa-aip-oejn"
+ },
+ "oejn.operator": {
+  "v": "operated by the General Authority of Civil Aviation (GACA)",
+  "src": "sa-aip-oejn",
+  "quote": "GENERAL AUTHORITY OF CIVIL AVIATION"
+ },
+ "oejn.location": {
+  "v": "13 NM (24 km) north of Jeddah Islamic Port",
+  "src": "sa-aip-oejn",
+  "quote": "13 NM (24 KM) North of Jeddah Islamic Harbour"
+ },
+ "oejn.runway": {
+  "v": "three runways; the longest, 16C/34C and 16L/34R, are 4,000 m long and 60 m wide (16R/34L is 3,800 m)",
+  "src": "sa-aip-oejn",
+  "quote": "4000 x 60"
+ },
+ "obbi.geo": {
+  "v": [
+   26.2708,
+   50.6336
+  ],
+  "src": "bh-aip-obbi",
+  "quote": "261615N 0503801E Mid - point of RWY on CL"
+ },
+ "obbi.icao": {
+  "v": "OBBI",
+  "src": "bh-aip-obbi"
+ },
+ "obbi.operator": {
+  "v": "operated by Bahrain Airport Company",
+  "src": "bh-aip-obbi",
+  "quote": "BAHRAIN AIRPORT COMPANY"
+ },
+ "obbi.location": {
+  "v": "3.3 NM north-east of Manama",
+  "src": "bh-aip-obbi",
+  "quote": "3.3 NM NE of Manama"
+ },
+ "obbi.runway": {
+  "v": "main runway 12L/30R, 3,964 m long and 60 m wide; the second runway 12R/30L (2,530 m x 45 m) is listed as not available",
+  "src": "bh-aip-obbi",
+  "quote": "3964 x 60 ... Note: Runway 12R/30L is currently not available."
+ },
+ "okkk.icao": {
+  "v": "OKKK",
+  "src": "kw-sup-01-26"
+ },
+ "okkk.notable": {
+  "v": "runway 15L/33R is closed to all aircraft from 6 Jan 2026 to 22 Feb 2027 for rehabilitation (Kuwait AIP SUP 01/26)",
+  "src": "kw-sup-01-26",
+  "quote": "RWY (15L/33R) will be CLOSED during the above-mentioned period to all aircraft operations."
+ },
+ "llbg.geo": {
+  "v": [
+   32.0094,
+   34.8856
+  ],
+  "src": "il-aip-llbg",
+  "quote": "320034N 0345308E 316°/1 400 M from THR 30"
+ },
+ "llbg.icao": {
+  "v": "LLBG",
+  "src": "il-aip-llbg"
+ },
+ "llbg.operator": {
+  "v": "operated by the Israel Airports Authority (IAA)",
+  "src": "il-aip-llbg",
+  "quote": "Israel Airports Authority (IAA)"
+ },
+ "llbg.location": {
+  "v": "19 km south-east (115°) of Tel Aviv city centre",
+  "src": "il-aip-llbg",
+  "quote": "115°, 19 km from Tel-Aviv city center"
+ },
+ "llbg.runway": {
+  "v": "three runways; the longest, 08/26, is 4,062 m long and 45 m wide",
+  "src": "il-aip-llbg",
+  "quote": "4 062 x 45"
+ },
+ "eham.geo": {
+  "v": [
+   52.3081,
+   4.7642
+  ],
+  "src": "nl-aip-eham",
+  "quote": "521829N 0044551E"
+ },
+ "eham.icao": {
+  "v": "EHAM",
+  "src": "nl-aip-eham"
+ },
+ "eham.iata": {
+  "v": "AMS",
+  "src": "nl-aip-eham"
+ },
+ "eham.operator": {
+  "v": "run by Amsterdam Airport Schiphol",
+  "src": "nl-aip-eham",
+  "quote": "AMSTERDAM AIRPORT SCHIPHOL"
+ },
+ "eham.location": {
+  "v": "4.9 NM south-west of Amsterdam",
+  "src": "nl-aip-eham",
+  "quote": "4.9 NM SW of Amsterdam."
+ },
+ "eham.runway": {
+  "v": "longest runway 18R/36L, 3,800 m long and 60 m wide (six runways in all)",
+  "src": "nl-aip-eham",
+  "quote": "18R | 183.20° | 3800 x 60 | RWY: 89/F/C/W/T Asphalt SWY: NIL"
+ },
+ "eham.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "nl-aip-eham",
+  "quote": "Customs and immigration | H24"
+ },
+ "eham.hours": {
+  "v": "aerodrome open 24 hours",
+  "src": "nl-aip-eham",
+  "quote": "AD operator: H24"
+ },
+ "eham.curfew": {
+  "v": "general aviation, including business aviation, is in principle not allowed at night, 2200-0600 UTC in winter (2100-0500 UTC in summer), i.e. 23:00-07:00 local; the slot coordinator sets night capacity for general aviation at 0",
+  "src": "nl-aip-eham",
+  "quote": "General aviation is in principle not allowed to operate during the night between 2200-0600 (2100-0500)."
+ },
+ "eham.slots": {
+  "v": "a slot from the coordinator ACNL is required for every general aviation landing and take-off; ad hoc slots are requested after the slot return date in GCR format, usually via the operator or handler",
+  "src": "nl-aip-eham",
+  "quote": "Slot requests for GA must be filed in the general aviation clearance request (GCR) format according the SSIM Appendix K."
+ },
+ "eham.max_aircraft": {
+  "v": "in winter 2026-27, no general aviation stand capacity for larger aircraft (ICAO code D, E, F) for arrivals 0620-0934 UTC and departures 0620-1159 UTC; exceptions at the airport's discretion",
+  "src": "acnl-ams-w26",
+  "quote": "Arrival slots from 0620 up to and including 0934 ... Departure slots from 0620 up to and including 1159 ... Applicable to flights with ICAO code: | D | E | F |"
+ },
+ "eham.notable": {
+  "v": "business aviation, air taxi and technical flights count as general aviation under the slot rules",
+  "src": "nl-aip-eham",
+  "quote": "Business aviation, air taxi operations and technical flights are part of general aviation."
+ },
+ "ebbr.geo": {
+  "v": [
+   50.9014,
+   4.4844
+  ],
+  "src": "be-aip-ebbr",
+  "quote": "505405N 0042904E"
+ },
+ "ebbr.icao": {
+  "v": "EBBR",
+  "src": "be-aip-ebbr"
+ },
+ "ebbr.iata": {
+  "v": "BRU",
+  "src": "be-aip-ebbr"
+ },
+ "ebbr.operator": {
+  "v": "run by Brussels Airport Company",
+  "src": "be-aip-ebbr",
+  "quote": "Brussels Airport Company"
+ },
+ "ebbr.location": {
+  "v": "6.5 NM north-east of Brussels",
+  "src": "be-aip-ebbr",
+  "quote": "6.5 NM NE of Brussels"
+ },
+ "ebbr.runway": {
+  "v": "longest runway 07L/25R, 3,638 m long and 45 m wide (three runways in all)",
+  "src": "be-aip-ebbr",
+  "quote": "07L ... 3 638 x 45"
+ },
+ "ebbr.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "be-aip-ebbr",
+  "quote": "Customs and immigration H24"
+ },
+ "ebbr.hours": {
+  "v": "aerodrome open 24 hours",
+  "src": "be-aip-ebbr",
+  "quote": "AD Operator H24"
+ },
+ "ebbr.curfew": {
+  "v": "no full night closure, but take-off and landing by marginally compliant (noisier) aircraft is forbidden 2200-0459 UTC in winter (2100-0359 UTC in summer), i.e. about 23:00-06:00 local; night noise-quota rules also apply",
+  "src": "be-aip-ebbr",
+  "quote": "Take-off or landing of marginally compliant aircraft is forbidden between 2200 and 0459 (2100 and 0359)."
+ },
+ "ebbr.slots": {
+  "v": "a coordinated airport; general and business aviation must request slots through a handling agent, not directly from the coordinator",
+  "src": "be-aip-ebbr",
+  "quote": "Slot requests sent directly to the coordinator will not be accepted."
+ },
+ "ebbr.notable": {
+  "v": "aircraft without radio may not take off or land, and local VFR flights are not allowed at night",
+  "src": "be-aip-ebbr",
+  "quote": "Take-off and landing of aircraft without radio is prohibited."
+ },
+ "eidw.geo": {
+  "v": [
+   53.4214,
+   -6.27
+  ],
+  "src": "ie-aip-eidw",
+  "quote": "532517N 0061612W"
+ },
+ "eidw.icao": {
+  "v": "EIDW",
+  "src": "ie-aip-eidw"
+ },
+ "eidw.iata": {
+  "v": "DUB",
+  "src": "ie-aip-eidw"
+ },
+ "eidw.location": {
+  "v": "10 km (5.4 NM) north of Dublin",
+  "src": "ie-aip-eidw",
+  "quote": "10 KM (5.4 NM) N of Dublin"
+ },
+ "eidw.runway": {
+  "v": "longest runway 10L/28R, 3,109 m long and 45 m wide (three runways in all)",
+  "src": "ie-aip-eidw",
+  "quote": "10L 095.25° 3109 x 45 1140/R/C/W/T CONC"
+ },
+ "eidw.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "ie-aip-eidw",
+  "quote": "Customs/Irish Immigration: H24"
+ },
+ "eidw.hours": {
+  "v": "aerodrome open 24 hours",
+  "src": "ie-aip-eidw",
+  "quote": "AD Operator H24"
+ },
+ "eidw.noise": {
+  "v": "no general night closure was found, but the longest runway, 10L/28R, is not used for take-off or landing 23:00-07:00 except for safety and other listed reasons, and reverse thrust should not be used 23:00-06:00 local",
+  "src": "ie-aip-eidw",
+  "quote": "Runway 10L-28R shall not be used for take-off or landing between 2300 hours and 0700 hours, except in cases of safety,"
+ },
+ "eidw.handling": {
+  "v": "passenger handling by Swissport, Sky Handling, Signature Flight Support (corporate), Universal Aviation (corporate), Aer Lingus and Fenix Logistics",
+  "src": "ie-aip-eidw",
+  "quote": "Available from Swissport, Sky Handling, Signature Flight Support (Corporate), Universal Aviation (Corporate), Aer Lingus and Fenix Logistics."
+ },
+ "eidw.fuel": {
+  "v": "Jet A-1 available 24 hours",
+  "src": "ie-aip-eidw",
+  "quote": "JET A1 H24 No limitations."
+ },
+ "eidw.deicing": {
+  "v": "de-icing on request from Swissport and Aer Lingus",
+  "src": "ie-aip-eidw",
+  "quote": "On request from Swissport and Aer Lingus"
+ },
+ "essb.geo": {
+  "v": [
+   59.3544,
+   17.9422
+  ],
+  "src": "se-aip-essb",
+  "quote": "592116N 0175632E 125° GEO 840 m from THR 12"
+ },
+ "essb.icao": {
+  "v": "ESSB",
+  "src": "se-aip-essb"
+ },
+ "essb.iata": {
+  "v": "BMA",
+  "src": "se-aip-essb"
+ },
+ "essb.operator": {
+  "v": "run by Swedavia AB",
+  "src": "se-aip-essb",
+  "quote": "Swedavia AB, SE-168 67 Bromma"
+ },
+ "essb.location": {
+  "v": "4 NM west-north-west of central Stockholm",
+  "src": "se-aip-essb",
+  "quote": "WNW 4 NM from centre of Stockholm"
+ },
+ "essb.runway": {
+  "v": "one runway, 12/30, 1,668 m long and 45 m wide",
+  "src": "se-aip-essb",
+  "quote": "1668 x 45"
+ },
+ "essb.customs": {
+  "v": "customs and immigration on request",
+  "src": "se-aip-essb",
+  "quote": "Customs and immigration O/R"
+ },
+ "essb.hours": {
+  "v": "open Monday-Friday 0600-2100, Saturday 0800-1600, Sunday 1100-2100 (UTC, winter; one hour earlier in summer), i.e. 07:00-22:00, 09:00-17:00 and 12:00-22:00 local",
+  "src": "se-aip-essb",
+  "quote": "MON–FRI 0600–2100 (0500–2000) SAT 0800–1600 (0700–1500) SUN 1100–2100 (1000–2000)"
+ },
+ "essb.curfew": {
+  "v": "closed outside opening hours: on weekdays closed 22:00-07:00 local; on Saturday open only 09:00-17:00 and on Sunday 12:00-22:00 local",
+  "src": "se-aip-essb",
+  "quote": "STOCKHOLM/Bromma AD may be used only:"
+ },
+ "essb.slots": {
+  "v": "a slot is required for every arrival and departure; for general aviation it can be requested at the earliest 28 days ahead and at the latest when the flight plan is filed",
+  "src": "se-aip-essb",
+  "quote": "For GA traffic request of SLOT can be made earliest 28 days before estimated departure or arrival"
+ },
+ "essb.handling": {
+  "v": "a ground handling company must be contracted for all flights, except aircraft granted PPR",
+  "src": "se-aip-essb",
+  "quote": "Contracting a ground handling company is mandatory for all flights to and from STOCKHOLM/Bromma aerodrome, with the exception of aircraft granted PPR (Prior Permission Required)."
+ },
+ "essb.ppr": {
+  "v": "PPR may be granted only for non-scheduled flights with MTOM up to 4,000 kg (or small helicopters)",
+  "src": "se-aip-essb",
+  "quote": "Prior permission may be granted (PPR) for non-scheduled flights with MTOM max 4000 kg or helicopters max D.13 m."
+ },
+ "essb.max_aircraft": {
+  "v": "aircraft with a reference code letter above C need permission from aircraft stand parking",
+  "src": "se-aip-essb",
+  "quote": "Operators wishing to operate the airport with an aircraft with a higher reference code letter than C shall apply for permission to Aircraft Stand Parking"
+ },
+ "essb.noise": {
+  "v": "noise emission must not exceed 89 EPNdB (average of three measuring points)",
+  "src": "se-aip-essb",
+  "quote": "The noise emission must not exceed 89 EPNdB, an average for the three points of measurement"
+ },
+ "essb.fuel": {
+  "v": "Jet A-1 and 100LL available",
+  "src": "se-aip-essb",
+  "quote": "Fuel: 100LL, Jet A1"
+ },
+ "ekch.geo": {
+  "v": [
+   55.6179,
+   12.656
+  ],
+  "src": "dk-aip-ekch",
+  "quote": "1 ARP PSN 55 37 04.50N 012 39 21.50E"
+ },
+ "ekch.icao": {
+  "v": "EKCH",
+  "src": "dk-aip-ekch"
+ },
+ "ekch.iata": {
+  "v": "CPH",
+  "src": "dk-aip-ekch"
+ },
+ "ekch.operator": {
+  "v": "run by Københavns Lufthavne A/S (Copenhagen Airports)",
+  "src": "dk-aip-ekch",
+  "quote": "5. AD ADM: Københavns Lufthavne A/S"
+ },
+ "ekch.location": {
+  "v": "4.4 NM south-south-east of Copenhagen",
+  "src": "dk-aip-ekch",
+  "quote": "4.4 NM SSE of Copenhagen"
+ },
+ "ekch.runway": {
+  "v": "longest runway 04L/22R, 3,571 m long (in the 22R direction) and 45 m wide",
+  "src": "dk-aip-ekch",
+  "quote": "22R 221.2° GEO 3571 x 45 M PCN 80/F/C/X/U."
+ },
+ "ekch.customs": {
+  "v": "customs and immigration open 24 hours",
+  "src": "dk-aip-ekch",
+  "quote": "Hours for customs and immigration H24 (H24)"
+ },
+ "ekch.curfew": {
+  "v": "23:00-06:00 Danish time, take-off needs advance approval from Copenhagen Airports (or, exceptionally, permission from the slot coordinator ACD); landing needs no approval; noise limit 80 dB(A) at residential measuring points",
+  "src": "dk-aip-ekch",
+  "quote": "Take-off may only take place if an advance approval has been issued by Københavns Lufthavne A/S (Copenhagen Airports)."
+ },
+ "ekch.handling": {
+  "v": "all operators, including executive, private and general aviation, must arrange a handling agent in advance",
+  "src": "dk-aip-ekch",
+  "quote": "All operators, including military flights, executive, private and general aviation, must take prior arrangements"
+ },
+ "ekch.noise": {
+  "v": "night rules apply 23:00-06:00 Danish time to all fixed-wing aeroplanes, whatever their weight",
+  "src": "dk-aip-ekch",
+  "quote": "Restrictions in the period 2300-0600 Danish time, valid for all fixedwinged aeroplanes irrespective of weight"
+ },
+ "lgmk.icao": {
+  "v": "LGMK",
+  "src": "fg-ppr-handbook"
+ },
+ "lgmk.iata": {
+  "v": "JMK",
+  "src": "fg-ppr-handbook"
+ },
+ "lgmk.operator": {
+  "v": "run by Fraport Greece (regional airports concession)",
+  "src": "fg-ppr-handbook",
+  "quote": "It is mandatory for all flights in the category of General/Business Aviation (GA/BA), to obtain a PPR at FG Regional Airports"
+ },
+ "lgmk.ppr": {
+  "v": "prior permission (PPR, parking authorisation) is mandatory for all general and business aviation flights; it can be requested up to 14 calendar days before arrival and must be cleared through a licensed ground handler",
+  "src": "fg-ppr-handbook",
+  "quote": "PPR Platform users can apply for an Apron clearance within 14 calendar days before the scheduled arrival of the flight."
+ },
+ "lgmk.slots": {
+  "v": "slot-coordinated (IATA Level 3) in summer, not coordinated (Level 1) in winter; the PPR must be obtained from Fraport Greece before the slot request to the Hellenic slot coordinator (HSCA)",
+  "src": "fg-ppr-handbook",
+  "quote": "JMK Coordinated Airport (IATA Level 3) Non Characterized (IATA Level 1)"
+ },
+ "lgmk.handling": {
+  "v": "all PPR requests go through a ground handler holding a category 1 licence; GA/BA flights at JMK also need a ground services confirmation (GSCN)",
+  "src": "jmk-ga",
+  "quote": "All PPR requests must be cleared through a Ground Handling Service Provider with a valid category 1 License"
+ },
+ "lgmk.hours": {
+  "v": "open every day 00:00 to 23:59, with extensions possible on specific dates",
+  "src": "jmk-ga",
+  "quote": "Every Day 00:00 – 23:59"
+ },
+ "lppt.icao": {
+  "v": "LPPT",
+  "src": "pt-aip-ad11"
+ },
+ "lppt.curfew": {
+  "v": "by law no landings or take-offs between 00:00 and 06:00 UTC (23:00–05:00 UTC in summer), i.e. midnight to 06:00 local; Lisboa has a limited exception regime: a night flight must be coordinated at least one day ahead with the IATA slot coordinator and the aircraft must hold an ICAO Annex 16 Chapter 3 noise certificate",
+  "src": "pt-aip-ad11",
+  "quote": "On Airports and/or Aerodromes landing and/or take-off is forbidden by Law between 00:00 (23:00) and 06:00 (05:00)"
+ },
+ "lppt.slots": {
+  "v": "night flights under the exception regime must be coordinated at least one day in advance with the IATA airport slot coordinator",
+  "src": "pt-aip-ad11",
+  "quote": "have had a flight coordinated with at least one day in advance with the IATA Airport Slot Coordinator, and"
+ },
+ "lppt.noise": {
+  "v": "night flights under the exception regime need an ICAO Annex 16, Vol I, Chapter 3 noise certificate",
+  "src": "pt-aip-ad11",
+  "quote": "have a noise certificate according with ICAO Annex 16, Vol I, Chapt 3."
+ },
+ "lpfr.geo": {
+  "v": [
+   37.0144,
+   -7.9658
+  ],
+  "src": "pt-aip-lpfr",
+  "quote": "LAT: 370052N LONG: 0075757W"
+ },
+ "lpfr.icao": {
+  "v": "LPFR",
+  "src": "pt-aip-lpfr"
+ },
+ "lpfr.operator": {
+  "v": "ANA Aeroportos de Portugal",
+  "src": "pt-aip-lpfr",
+  "quote": "ANA Aeroportos de Portugal, SA"
+ },
+ "lpfr.location": {
+  "v": "4 km west of Alto de Faro (bearing 262°)",
+  "src": "pt-aip-lpfr",
+  "quote": "4 KM (2.16NM) BRG 262° from Alto de Faro"
+ },
+ "lpfr.runway": {
+  "v": "one runway, 10/28, 2,490 m long and 45 m wide",
+  "src": "pt-aip-lpfr",
+  "quote": "2490x45"
+ },
+ "lpfr.customs": {
+  "v": "customs and immigration H24",
+  "src": "pt-aip-lpfr",
+  "quote": "Customs and immigration H24"
+ },
+ "lpfr.hours": {
+  "v": "aerodrome open 06:00–24:00 UTC (05:00–23:00 UTC in summer), i.e. 06:00 to midnight local; extension to 01:00 possible if requested by 23:30",
+  "src": "pt-aip-lpfr",
+  "quote": "* Aerodrome OPS HR extension will be considered until 01:00 (00:00) of the next day, if requested until 23:30 (22:30),"
+ },
+ "lpfr.curfew": {
+  "v": "by Portuguese law no landings or take-offs between 00:00 and 06:00 UTC (23:00–05:00 UTC in summer), i.e. midnight to 06:00 local; Faro is not on the list of airports with the night exception regime",
+  "src": "pt-aip-ad11",
+  "quote": "On Airports and/or Aerodromes landing and/or take-off is forbidden by Law between 00:00 (23:00) and 06:00 (05:00)"
+ },
+ "lpfr.slots": {
+  "v": "airport slots are requested as set out in GEN 1.2",
+  "src": "pt-aip-lpfr",
+  "quote": "For airport slots request see GEN 1.2 ENTRY, TRANSIT AND DEPARTURE OF AIRCRAFT"
+ },
+ "lpfr.handling": {
+  "v": "every GA/BA operator must use a listed ground handler; the AIP names Groundforce, Portway, Elitesky, Omni, Safeport, Sky Valet, Groundlink and PTS (Ryanair self-handles)",
+  "src": "pt-aip-lpfr",
+  "quote": "All GA/BA operators must be assisted by one ground handler as specified in LPFR AD 2.23 item 2 Handling Services."
+ },
+ "lpfr.max_aircraft": {
+  "v": "GA/BA aircraft preferably use stands 201–213; non-based aircraft may not park more than 72 hours",
+  "src": "pt-aip-lpfr",
+  "quote": "all aircraft other than those based at Faro, are not allowed to park more than 72 hours."
+ },
+ "lpfr.fuel": {
+  "v": "fuelling 08:00–24:00 UTC (07:00–23:00 UTC in summer), other times on request with a surcharge",
+  "src": "pt-aip-lpfr",
+  "quote": "Fuelling 08:00-24:00 (07:00-23:00). Other times on request with surcharge"
+ },
+ "lpfr.notable": {
+  "v": "GA/BA stands named in the AIP",
+  "src": "pt-aip-lpfr",
+  "quote": "General Aviation/Business Aviation aircraft will use preferably stands 201, 203, 205, 207, 209 and 211 and 213."
+ },
+ "lkpr.geo": {
+  "v": [
+   50.1008,
+   14.26
+  ],
+  "src": "cz-aip-lkpr",
+  "quote": "500603N 0141536E"
+ },
+ "lkpr.icao": {
+  "v": "LKPR",
+  "src": "cz-aip-lkpr"
+ },
+ "lkpr.operator": {
+  "v": "Prague Airport",
+  "src": "cz-aip-lkpr",
+  "quote": "Prague Airport"
+ },
+ "lkpr.location": {
+  "v": "10 km from Prague Castle, bearing 277°",
+  "src": "cz-aip-lkpr",
+  "quote": "277° GEO - 10 km Prague castle"
+ },
+ "lkpr.runway": {
+  "v": "two runways; the longest is 06/24, 3,715 m long and 45 m wide (12/30 is 3,250 m × 45 m)",
+  "src": "cz-aip-lkpr",
+  "quote": "3715 x 45"
+ },
+ "lkpr.customs": {
+  "v": "customs and immigration H24",
+  "src": "cz-aip-lkpr",
+  "quote": "Customs and immigration H 24"
+ },
+ "lkpr.hours": {
+  "v": "aerodrome open 24 hours",
+  "src": "cz-aip-lkpr",
+  "quote": "AD Operator H 24"
+ },
+ "lkpr.handling": {
+  "v": "business aviation handling by Bell Textron Prague, ABS Jets and Time Air (all-flight handlers: Czech Airlines Handling, Menzies Aviation, Czech GH)",
+  "src": "cz-aip-lkpr",
+  "quote": "ABS Jets, a.s. − Business Aviation Handling"
+ },
+ "lkpr.deicing": {
+  "v": "de-icing available H24",
+  "src": "cz-aip-lkpr",
+  "quote": "De-icing H 24"
+ },
+ "lkpr.fuel": {
+  "v": "Jet A-1 and AVGAS 100LL, fuelling H24",
+  "src": "cz-aip-lkpr",
+  "quote": "Fuel: Turbo Fuel JET A-1, AVGAS 100 LL"
+ },
+ "lkpr.noise": {
+  "v": "the operator states a limited number of coordinated operations in the night period and restricted access for aircraft without ICAO Annex 16 noise certification; details in AIP LKPR AD 2.21",
+  "src": "prg-noise",
+  "quote": "Limited number of coordinated operations in night time period."
+ },
+ "epwa.geo": {
+  "v": [
+   52.1658,
+   20.9672
+  ],
+  "src": "pl-aip-epwa",
+  "quote": "520957N 0205802E"
+ },
+ "epwa.icao": {
+  "v": "EPWA",
+  "src": "pl-aip-epwa"
+ },
+ "epwa.iata": {
+  "v": "WAW",
+  "src": "pl-aip-epwa"
+ },
+ "epwa.operator": {
+  "v": "Polish Airports (Polskie Porty Lotnicze S.A.)",
+  "src": "pl-aip-epwa",
+  "quote": "Polskie Porty Lotnicze S.A."
+ },
+ "epwa.location": {
+  "v": "10 km from the city, bearing 205°",
+  "src": "pl-aip-epwa",
+  "quote": "10 km (5.4 NM), BRG 205° GEO."
+ },
+ "epwa.runway": {
+  "v": "two runways; the longest is 15/33, 3,690 m long and 60 m wide (11/29 is 2,800 m × 50 m)",
+  "src": "pl-aip-epwa",
+  "quote": "3690 x 60"
+ },
+ "epwa.customs": {
+  "v": "customs and immigration H24",
+  "src": "pl-aip-epwa",
+  "quote": "Customs and immigration H24"
+ },
+ "epwa.hours": {
+  "v": "aerodrome administration H24",
+  "src": "pl-aip-epwa",
+  "quote": "Aerodrome Administration H24"
+ },
+ "epwa.handling": {
+  "v": "handling agents named in the AIP: LS Airport Services, Welcome Airport Services and Excel Handling; GA flights without an agent are handled by the pilot-in-command",
+  "src": "pl-aip-epwa",
+  "quote": "the pilot-in-command (for general aviation flights without a handling agent)"
+ },
+ "epwa.slots": {
+  "v": "slot-coordinated airport (IATA Level 3); the A-CDM process cannot start without an airport slot",
+  "src": "acl-waw",
+  "quote": "IATA Designation Level 3"
+ },
+ "epwa.curfew": {
+  "v": "night period 22:00–06:00 local: all operators are subject to noise limits, and slots may be denied if the overall nightly limit is breached",
+  "src": "acl-waw",
+  "quote": "during the night period (2200-0600 Local Time) will be subject to noise limits,"
+ },
+ "epwa.noise": {
+  "v": "all civil operators must submit a valid noise certificate",
+  "src": "acl-waw",
+  "quote": "All operators of civil aircraft operating to and from Warsaw F. Chopin airport are required to submit a valid noise"
+ },
+ "epwa.max_aircraft": {
+  "v": "aircraft larger than ICAO Code E need separate authorisation from the aerodrome duty officers",
+  "src": "acl-waw",
+  "quote": "To obtain authorization for flights operated by aircraft larger than Code E,"
+ },
+ "lhbp.geo": {
+  "v": [
+   47.4394,
+   19.2619
+  ],
+  "src": "hu-aip-lhbp",
+  "quote": "472622N 0191543E At intersection of TWYs \"A\", \"N\" and \"K\""
+ },
+ "lhbp.icao": {
+  "v": "LHBP",
+  "src": "hu-aip-lhbp"
+ },
+ "lhbp.iata": {
+  "v": "BUD",
+  "src": "hu-aip-lhbp"
+ },
+ "lhbp.operator": {
+  "v": "Budapest Airport Zrt.",
+  "src": "hu-aip-lhbp",
+  "quote": "Budapest Airport Zrt. H-1185 Budapest, BUD International Airport"
+ },
+ "lhbp.location": {
+  "v": "16 km east-southeast of central Budapest",
+  "src": "hu-aip-lhbp",
+  "quote": "16 KM, ESE (115°) from the centre of Budapest"
+ },
+ "lhbp.runway": {
+  "v": "two runways; the longest is 13L/31R, 3,707 m long and 45 m wide (13R/31L is 3,009 m × 45 m)",
+  "src": "hu-aip-lhbp",
+  "quote": "3707 x 45 M"
+ },
+ "lhbp.customs": {
+  "v": "customs and immigration H24",
+  "src": "hu-aip-lhbp",
+  "quote": "Customs and immigration | H24"
+ },
+ "lhbp.hours": {
+  "v": "aerodrome administration H24",
+  "src": "hu-aip-lhbp",
+  "quote": "AD Administration | H24"
+ },
+ "lhbp.curfew": {
+  "v": "night quota, not a closure: 50 scheduled and non-scheduled commercial movements allowed 21:00–05:00 UTC (20:00–04:00 UTC in summer), of which only 6 between 23:00 and 04:00 UTC (22:00–03:00 UTC in summer)",
+  "src": "hu-aip-lhbp",
+  "quote": "50 movements between 2100 - 0500 (2000-0400);"
+ },
+ "lhbp.noise": {
+  "v": "operators must send the airport operator the aircraft's noise certificate in advance; engine power tests banned at night",
+  "src": "hu-aip-lhbp",
+  "quote": "The airline or aircraft operator planning to use the airport is obliged to send to the airport operator in advance the noise certification of its aircraft."
+ },
+ "lhbp.notable": {
+  "v": "GA flights are given a FOLLOW ME vehicle on the aprons; training flights with Code A/B non-jet aircraft are not allowed",
+  "src": "hu-aip-lhbp",
+  "quote": "Training flights may not be planned or conducted with ICAO Code A and B non-jet aircraft."
+ },
+ "eglc.icao": {
+  "v": "EGLC",
+  "src": "acl-lcy-w26"
+ },
+ "eglc.iata": {
+  "v": "LCY",
+  "src": "acl-lcy-w26"
+ },
+ "eglc.hours": {
+  "v": "aerodrome open 06:30-22:00 on weekdays, 06:30-12:30 on Saturdays and 12:30-22:00 on Sundays (local time, winter 2026/27 season)",
+  "src": "acl-lcy-w26",
+  "quote": "Aerodrome Operating Hours ( Local ) ... Weekdays 04:45 22:00 06:30 22:00 Saturday 04:45 13:00 06:30 12:30 Sunday 10:30 22:00 12:30 22:00"
+ },
+ "eglc.curfew": {
+  "v": "closed outside its operating hours: no flights 22:00-06:30 on weekdays, and none from 12:30 Saturday to 12:30 Sunday; movement caps of 100 on Saturdays and 200 on Sundays",
+  "src": "acl-lcy-w26",
+  "quote": "Weekdays 04:45 22:00 06:30 22:00 Saturday 04:45 13:00 06:30 12:30 Sunday 10:30 22:00 12:30 22:00 ... Limit of 100 movements on Saturdays and 200 on Sundays ."
+ },
+ "eglc.max_aircraft": {
+  "v": "only aircraft on the airport's approved list may land; a steep approach (5.5 degrees or more) approval is required",
+  "src": "lcy-pjc-approval",
+  "quote": "Must include procedures and limitations for approach path angles of 5.5° or greater."
+ },
+ "eglc.notable": {
+  "v": "steep approach procedures are mandatory",
+  "src": "lcy-pjc-approved",
+  "quote": "Steep approach procedures are mandatory to maintain safe operations in our unique airfield environment."
+ },
+ "eglc.customs": {
+  "v": "UK Border Force and customs on site at the Private Jet Centre for international arrivals (hours not stated)",
+  "src": "lcy-pjc-why",
+  "quote": "The UK Border Force and Customs operate on-site for all international arrivals"
+ },
+ "eglc.handling": {
+  "v": "Private Jet Centre with a full aviation handling service",
+  "src": "lcy-pjc-why",
+  "quote": "The purpose-built Private Jet Centre offers exceptional customer care and a full aviation handling service."
+ },
+ "eglc.slots": {
+  "v": "slots are booked for arrival and departure through the Private Jet Centre (lead time not stated)",
+  "src": "lcy-pjc-services",
+  "quote": "Slot-booking arrangements for arrival and departure."
+ },
+ "egss.icao": {
+  "v": "EGSS",
+  "src": "stn-facts"
+ },
+ "egss.iata": {
+  "v": "STN",
+  "src": "stn-facts"
+ },
+ "egss.operator": {
+  "v": "owned and operated by Manchester Airports Group",
+  "src": "stn-facts",
+  "quote": "Owned and operated by Manchester Airports Group"
+ },
+ "egss.location": {
+  "v": "about 45 minutes to Canary Wharf and the City of London; Stansted Express 47 minutes to central London",
+  "src": "stn-ga-why",
+  "quote": "transit times of just 45 minutes to Canary Wharf and the City of London"
+ },
+ "egss.runway": {
+  "v": "one runway, 3,049 m long and 46 m wide",
+  "src": "stn-facts",
+  "quote": "Runway length: 3,049m long by 46m wide"
+ },
+ "egss.hours": {
+  "v": "open 24 hours a day, 365 days a year",
+  "src": "stn-facts",
+  "quote": "24 hours a day, 365 days a year"
+ },
+ "egss.curfew": {
+  "v": "no closure, but government night quota limits apply 23:30-06:00 (movement and noise quota limits)",
+  "src": "stn-facts",
+  "quote": "Night quota restrictions apply during period 23:30 - 06:00"
+ },
+ "egss.noise": {
+  "v": "government night quota period 23:30-06:00 kept for October 2025 to October 2028; Stansted limits 5,600 movements in winter and 8,100 in summer",
+  "src": "dft-night-2024",
+  "quote": "will run for 3 years, from October 2025 – October 2028."
+ },
+ "egss.slots": {
+  "v": "fully coordinated airport; every business and general aviation movement needs a slot allocated in advance",
+  "src": "acl-stn-w26",
+  "quote": "Stansted is designated as fully coordinated airport ... each business and general aviation movement requires the prior allocation of a slot."
+ },
+ "egss.handling": {
+  "v": "FBOs listed by the airport: Fayair, Harrods Aviation, Inflite Jet Centre, Universal Aviation and Diamond Aviation Hub (XJET)",
+  "src": "stn-ga-onsite",
+  "quote": "Fayair ... Harrods Aviation ... Inflite Jet Centre ... Universal Aviation ... Diamond Aviation Hub"
+ },
+ "eglf.iata": {
+  "v": "FAB",
+  "src": "fab-passengers"
+ },
+ "eglf.location": {
+  "v": "in Hampshire, under 60 minutes to central London by road (about 12 minutes by helicopter)",
+  "src": "fab-passengers",
+  "quote": "swift getaway from Farnborough to central London in under 60 minutes"
+ },
+ "eglf.customs": {
+  "v": "customs, immigration and screening on site (hours not stated)",
+  "src": "fab-passengers",
+  "quote": "Our on-site customs, immigration and screening service ensures speedy clearance with fewer delays"
+ },
+ "eglf.handling": {
+  "v": "ground handling only by Farnborough Airport Ltd or approved third parties",
+  "src": "fab-rules",
+  "quote": "No person other than FAL or approved third parties may carry out ground handling at the Airport."
+ },
+ "eggw.iata": {
+  "v": "LTN",
+  "src": "acl-ltn-lr1"
+ },
+ "egkb.iata": {
+  "v": "BQH",
+  "src": "bqh-spec"
+ },
+ "egkb.noise": {
+  "v": "jets must be ICAO Chapter 3 or better; only Chapter 4 aircraft 06:30-07:00; IFR jet departures follow the noise preferential route at no more than 185 knots",
+  "src": "bqh-noise",
+  "quote": "We restrict the period between 06:30 and 07:00 hours to Chapter 4 certified aircraft"
+ },
+ "egkb.notable": {
+  "v": "training circuits only 09:00-21:00 weekdays and 09:00-17:00 weekends and bank holidays",
+  "src": "bqh-noise",
+  "quote": "Monday to Friday: 09.00 to 21.00 hours (Local time)"
  }
 }

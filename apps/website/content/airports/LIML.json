@@ -1,0 +1,46 @@
+{
+ "icao": "LIML",
+ "iata": null,
+ "name": "Milan Linate Airport",
+ "city": "Milan",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours (H24)",
+   "src": "sea-tech-data",
+   "quote": "Operational hours: H24"
+  },
+  "runway": {
+   "v": "main runway 18/36, 2,442 m long and 60 m wide (a second runway, 17/35, is 601 m x 22 m)",
+   "longest_m": 2442,
+   "src": "sea-tech-data",
+   "quote": "RWY (M) size (M): 2442 x 60"
+  },
+  "slots": {
+   "v": "a coordinated airport (slot allocation by Assoclearance)",
+   "src": "enac-slot",
+   "quote": "ha classificato come aeroporti coordinati gli scali di: ... Milano Linate"
+  },
+  "handling": {
+   "v": "general aviation is handled at the A.T.A. traffic office; listed: ATA Linate West (06:00-22:00, summer 05:00-21:00), Sky Services (05:00-21:00, summer 04:00-20:00) and Universal Aviation Italy (06:00-22:00, summer 05:00-21:00)",
+   "src": "sea-tech-data",
+   "quote": "All operations referring to General Aviation traffic will be carried out at the A.T.A. traffic office."
+  }
+ },
+ "missing": [
+  "iata",
+  "operator (no verbatim operator statement; the data is published by SEA S.p.A.)",
+  "customs",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "ENAV eAIP (AIP Italia) needs an ENAV account and could not be opened, so customs, night rules and GA rules from AD 2 are missing. All facts except slots come from SEA's 'Technical data' page (no date; © 2026). The page does not say whether the handler hours and the Tuesday closure are UTC or local; the bracketed times appear to be the summer values; they are copied as written, not converted. The SEA noise action plan only mentions an engine-run ban 22:00-05:00 and a national night-flight decree (D.P.R. 476/99) without terms, so no curfew was recorded. Slot quote from ENAC page (updated 14/11/2024); the coordinator is Assoclearance ('l’associazione Assoclearance che è stata incaricata del coordinamento'). Whether GA needs a slot is not stated there."
+}

@@ -1,0 +1,34 @@
+{
+ "icao": "LFKJ",
+ "iata": "AJA",
+ "name": "Ajaccio Napoléon Bonaparte",
+ "city": "Ajaccio",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 02/20, 2,300 m long and 45 m wide",
+   "longest_m": 2300,
+   "src": "fr-aip-lfkj",
+   "quote": "02 025 (022) 2300 x 45 35 F/C/W/T"
+  },
+  "slots": {
+   "v": "IATA Level 1; operators ask their handling agent to request slots from COHOR",
+   "src": "cohor-lfkj",
+   "quote": "Aircraft operators contact their handling agent who is in charge to request airport slots to COHOR."
+  }
+ },
+ "missing": [
+  "customs (only in a superseded AIP edition; current edition not read)",
+  "ppr (only in a superseded AIP edition; current edition not read)",
+  "curfew (only in a superseded AIP edition; current edition not read)",
+  "hours (only in a superseded AIP edition; current edition not read)",
+  "handling (only in a superseded AIP edition; current edition not read)",
+  "max_aircraft (only in a superseded AIP edition; current edition not read)",
+  "noise (only in a superseded AIP edition; current edition not read)"
+ ],
+ "notes": "Source page is in the SIA eAIP edition of 19 FEB 2026 (page valid from 22 JAN 2026); the current 01 OCT 2026 edition of this page could not be opened, so a later change cannot be ruled out. Mandatory handling quote: 'l'assistance est obligatoire pour les vols VFR et IFR.' Handling agent: 'Casavia (assistant escale)'. No timed night curfew is stated in AD 2.20-2.22; the night rule recorded is a specific approach restriction, not a closure. Summer UTC+2, winter UTC+1. Facts from the superseded edition other than runway, location and operator were not used (customs, ppr, curfew, hours, handling, max_aircraft, noise)."
+}

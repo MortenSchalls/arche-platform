@@ -1,0 +1,55 @@
+{
+ "icao": "EKCH",
+ "iata": "CPH",
+ "name": "Copenhagen Airport, Kastrup",
+ "city": "Copenhagen",
+ "country": "DK",
+ "tz": "Europe/Copenhagen",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "longest runway 04L/22R, 3,571 m long (in the 22R direction) and 45 m wide",
+   "longest_m": 3571,
+   "src": "dk-aip-ekch",
+   "quote": "22R 221.2° GEO 3571 x 45 M PCN 80/F/C/X/U."
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "dk-aip-ekch",
+   "quote": "Hours for customs and immigration H24 (H24)"
+  },
+  "curfew": {
+   "v": "23:00-06:00 Danish time, take-off needs advance approval from Copenhagen Airports (or, exceptionally, permission from the slot coordinator ACD); landing needs no approval; noise limit 80 dB(A) at residential measuring points",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "dk-aip-ekch",
+   "quote": "Take-off may only take place if an advance approval has been issued by Københavns Lufthavne A/S (Copenhagen Airports)."
+  },
+  "handling": {
+   "v": "all operators, including executive, private and general aviation, must arrange a handling agent in advance",
+   "src": "dk-aip-ekch",
+   "quote": "All operators, including military flights, executive, private and general aviation, must take prior arrangements"
+  },
+  "noise": {
+   "v": "night rules apply 23:00-06:00 Danish time to all fixed-wing aeroplanes, whatever their weight",
+   "src": "dk-aip-ekch",
+   "quote": "Restrictions in the period 2300-0600 Danish time, valid for all fixedwinged aeroplanes irrespective of weight"
+  }
+ },
+ "missing": [
+  "slots (AIP does not state a GA/business-aviation slot rule in the text read)",
+  "ppr",
+  "max_aircraft",
+  "hours",
+  "fuel"
+ ],
+ "notes": "Night times are stated in Danish (local) time, so no DST conversion needed. Landing at night needs no approval ('For landing, no advance approval is required.'). Runway 04L/22R is listed as 3,001 m in the 04L direction and 3,571 m in the 22R direction. AIP: Naviair EK AD 2 EKCH PDF; pages dated 27 Nov 2025 to 14 May 2026 (AIRAC AMDT 05/26)."
+}

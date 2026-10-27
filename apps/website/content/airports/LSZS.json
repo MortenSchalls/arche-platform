@@ -1,0 +1,62 @@
+{
+ "icao": "LSZS",
+ "iata": null,
+ "name": "Engadin Airport (Samedan)",
+ "city": "St. Moritz / Samedan",
+ "country": "CH",
+ "tz": "Europe/Zurich",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 03/21, 1,840 m long and 40 m wide, asphalt/concrete",
+   "longest_m": 1840,
+   "src": "lszs-briefing-2025",
+   "quote": "Runway 03 / 21 1‘840 m x 40 m asphalt/concrete"
+  },
+  "hours": {
+   "v": "open 0600Z to 1700Z in summer and 0700Z to 30 minutes after sunset in winter",
+   "src": "lszs-briefing-2025",
+   "quote": "Airport opening hours summer: 0600Z to 1700Z ... Airport opening hours winter: 0700Z to SS+30min"
+  },
+  "curfew": {
+   "v": "no night operations; closed outside opening hours (summer 0600Z-1700Z, i.e. 08:00-19:00 local; winter from 0700Z, i.e. 08:00 local, to 30 minutes after sunset)",
+   "windows_local": [
+    [
+     "19:00",
+     "08:00"
+    ]
+   ],
+   "windows_local_summer": [
+    [
+     "19:00",
+     "08:00"
+    ]
+   ],
+   "src": "lszs-briefing-2025",
+   "quote": "NO NIGHT OPERATION!"
+  },
+  "ppr": {
+   "v": "PPR for IFR approaches with piston-engine aircraft and for multiple (training) IFR approaches",
+   "src": "lszs-briefing-2025",
+   "quote": "PPR for IFR APCH with piston engine aircraft. ... PPR for multiple IFR APCH (training)."
+  },
+  "noise": {
+   "v": "operators must check that the aircraft type's noise class is allowed at Samedan",
+   "src": "lszs-briefing-2025",
+   "quote": "Make sure that the type of aircraft (noise class) is allowed to operate at Samedan airport."
+  }
+ },
+ "missing": [
+  "iata",
+  "geo",
+  "customs",
+  "slots",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "Source is the operator's pilot familiarization briefing (v09/2025), which itself says to use the official AIP/VFR manual for flight preparation; the Swiss eAIP (skybriefing) is paid and was not used. Hours are given in UTC: summer 0600-1700Z = 08:00-19:00 CEST; winter opens 0700Z = 08:00 CET and closes 30 min after sunset, so the winter closure starts earlier than 19:00 (windows_local shows the summer window only; winter evening closure varies with sunset). Elevation 5,600 ft AMSL (2022 briefing v7.10: 'Elevation 5‘600 ft AMSL'). The briefing header shows coordinates 46°32'6\"N 9°53'6\"E, but not as an AIP ARP, so geo was left out."
+}

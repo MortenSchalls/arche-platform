@@ -1,0 +1,33 @@
+{
+ "icao": "OBBI",
+ "iata": null,
+ "name": "Bahrain International Airport",
+ "city": "Manama",
+ "country": "BH",
+ "tz": "Asia/Bahrain",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "main runway 12L/30R, 3,964 m long and 60 m wide; the second runway 12R/30L (2,530 m x 45 m) is listed as not available",
+   "longest_m": 3964,
+   "src": "bh-aip-obbi",
+   "quote": "3964 x 60 ... Note: Runway 12R/30L is currently not available."
+  }
+ },
+ "missing": [
+  "curfew",
+  "slots",
+  "ppr",
+  "hours",
+  "noise",
+  "iata (not shown in the AIP)",
+  "customs (only in a superseded AIP edition; current edition not read)",
+  "handling (only in a superseded AIP edition; current edition not read)",
+  "fuel (only in a superseded AIP edition; current edition not read)",
+  "max_aircraft (only in a superseded AIP edition; current edition not read)",
+  "notable (only in a superseded AIP edition; current edition not read)"
+ ],
+ "notes": "Source is the Bahrain/Qatar eAIP AD 2 OBBI page effective 4 Sep 2025, the newest that could be opened. The Bahrain AIM site shows AIRAC 02/26 (9 Jul 2026) as current, but that page could not be opened; re-check before publishing. WebFetch returned only AD 2.1 to AD 2.12 of the page, so AD 2.20 to 2.22 (local rules, noise, night, slots) could not be read. AD 2.3 'AD operator' hours read 'SUN - THU 04:00 - 11:15' (office hours, time basis not shown) and were not recorded as airport hours. Facts from the superseded edition other than runway, location and operator were not used (customs, handling, fuel, max_aircraft, notable)."
+}

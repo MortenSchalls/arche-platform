@@ -21,11 +21,16 @@
    "quote": "LLA holds a 24 hour licence to operate and there is no ban on night flights."
   },
   "curfew": {
-   "v": "no ban on night flights, but older-generation jets are not allowed at night and night noise limits and a quota count system apply",
-   "src": "lla-noise-faq",
-   "none": true,
-   "none_quote": "LLA holds a 24 hour licence to operate and there is no ban on night flights.",
-   "quote": "we prohibit the operation of older generation jets at night."
+   "v": "no night ban (24-hour licence), but a night quota period 23:30-06:00 local time with movement limits and quota counts; older-generation jets are not allowed at night",
+   "windows_local": [
+    [
+     "23:30",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "acl-ltn-lr1",
+   "quote": "Night Quota Period: 2330 – 0600 local time. Departures 2315 – 0545 local time (inclusive) Arrivals 2330 – 0600 local time (inclusive)"
   },
   "noise": {
    "v": "night flights are controlled through lower noise violation limits, movement limits and a quota count system",
@@ -49,13 +54,12 @@
   }
  },
  "missing": [
-  "geo (AIP ARP)",
+  "geo",
   "location",
-  "runway designation and width",
+  "runway designation, width and exact length in m",
   "customs",
   "ppr",
-  "max_aircraft",
-  "night-period times (night quota hours)"
+  "max_aircraft"
  ],
- "notes": "UK AIP could not be read. 'none': true for curfew means only that the operator states there is no ban on night flights; night restrictions (older jets banned, quota count, 79 dB(A) night noise limit) still apply, so do not write 'no restrictions'. The night period hours were not found on a readable page. ACL pages do not say explicitly that business aviation needs slots, only that Luton is Level 3. Handling company names: the website rule says the site names no companies except authorities, airport operators and cited sources, so these are for internal use."
+ "notes": "UK AIP could not be read. 'none': true for curfew means only that the operator states there is no ban on night flights; night restrictions (older jets banned, quota count, 79 dB(A) night noise limit) still apply, so do not write 'no restrictions'. The night period hours were not found on a readable page. ACL pages do not say explicitly that business aviation needs slots, only that Luton is Level 3. Handling company names: the website rule says the site names no companies except authorities, airport operators and cited sources, so these are for internal use. | 2026-10-27 run: UK AIP not readable. Night quota times are from Luton Local Rule 1 on the ACL site, marked 'Adopted: 2015' (still the published rule). Night shoulder period also defined: departures 05:50-06:45, arrivals 06:00-07:00 local. Luton's 'Procedures for Requesting Prior Permission to Operate' PDF could not be opened (see unreadable)."
 }

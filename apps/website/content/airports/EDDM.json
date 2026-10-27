@@ -1,0 +1,54 @@
+{
+ "icao": "EDDM",
+ "iata": "MUC",
+ "name": "Munich Airport",
+ "city": "Munich",
+ "country": "DE",
+ "tz": "Europe/Berlin",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways, each 4 km long and 60 m wide",
+   "longest_m": 4000,
+   "src": "muc-location",
+   "quote": "2 runways each 4 km long and 60 m wide"
+  },
+  "curfew": {
+   "v": "core night period from midnight to 05:00, when only mail flights and DFS survey flights are automatically permitted; other exceptions are emergencies, safety landings and individual flights approved by the authority; from 22:00 to midnight and 05:00 to 06:00 only aircraft on the Ministry of Transport bonus list may operate",
+   "windows_local": [
+    [
+     "00:00",
+     "05:00"
+    ]
+   ],
+   "src": "muc-night",
+   "quote": "During the core period (from midnight until 0500 hours) only mail flights and surveying flights by German Air Traffic Control are automatically permitted."
+  },
+  "noise": {
+   "v": "from 22:00 to midnight and 05:00 to 06:00 only aircraft on the Ministry of Transport bonus list may operate",
+   "src": "muc-night",
+   "quote": "only aircraft on the so-called Ministry of Transport bonus list are allowed to operate"
+  },
+  "slots": {
+   "v": "Level 3 coordinated airport; general aviation flights need a slot from the German airport coordinator (Fluko)",
+   "src": "fluko-ga",
+   "quote": "Coordination of General Aviation flights is required at the following Level 3 airports:"
+  },
+  "handling": {
+   "v": "General Aviation Terminal (GAT) run by Flughafen München GmbH; companies listed there include ExecuJet Europe GmbH, Signature Flight Support - SFS Munich GmbH & Co. KG, MAS Munich Aviation Service, AHS München Aviation Handling Services GmbH and Lufthansa Technik AG",
+   "src": "muc-gat",
+   "quote": "there is no obligation to handle passengers and aircraft at the General Aviation Terminal!"
+  }
+ },
+ "missing": [
+  "geo (DFS AIP ARP not readable)",
+  "customs",
+  "hours",
+  "ppr",
+  "max_aircraft",
+  "fuel"
+ ],
+ "notes": "DFS AIP could not be read (robots block), so runway and location come from the operator's site; widths/lengths are as the operator states them (4 km). Coordinates not recorded because the AIP ARP could not be read (the operator's 2016 facts sheet gives 48°21'17\" N, 11°47'15\" E). Night rules: the bonus list also limits scheduled/charter night flights to max. 28 per night under an annual quota. GAT operating hours 06:00-22:00 (office 05:30-22:00) per the operator, but these are the terminal's hours, not the airport's."
+}

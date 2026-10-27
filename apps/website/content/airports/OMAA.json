@@ -1,0 +1,31 @@
+{
+ "icao": "OMAA",
+ "iata": "AUH",
+ "name": "Zayed International Airport",
+ "city": "Abu Dhabi",
+ "country": "AE",
+ "tz": "Asia/Dubai",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "slots": {
+   "v": "an IATA level 2 (schedules facilitated) airport, with Airport Coordination Limited (ACL) as facilitator",
+   "src": "acl-auh",
+   "quote": "IATA Designation Level 2"
+  }
+ },
+ "missing": [
+  "geo",
+  "runway",
+  "customs",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise",
+  "AIP AD 2.20 local regulations"
+ ],
+ "notes": "The UAE AIP AD 2 OMAA text PDF was blocked, and older OMAA chart PDFs found by search no longer exist on the GCAA site. The airport's own site (abudhabiairport.ae) was blocked. Slot level comes from the slot coordinator ACL's airport page, which lists capacity declarations up to Summer 2027 (page metadata dated 2016, so content is maintained but the page carries no edit date). GA/business aviation rules at AUH are not verified; Abu Dhabi's dedicated business-aviation airport is Al Bateen (OMAD)."
+}

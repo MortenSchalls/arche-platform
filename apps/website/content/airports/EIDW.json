@@ -1,0 +1,58 @@
+{
+ "icao": "EIDW",
+ "iata": "DUB",
+ "name": "Dublin Airport",
+ "city": "Dublin",
+ "country": "IE",
+ "tz": "Europe/Dublin",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "longest runway 10L/28R, 3,109 m long and 45 m wide (three runways in all)",
+   "longest_m": 3109,
+   "src": "ie-aip-eidw",
+   "quote": "10L 095.25° 3109 x 45 1140/R/C/W/T CONC"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "ie-aip-eidw",
+   "quote": "Customs/Irish Immigration: H24"
+  },
+  "hours": {
+   "v": "aerodrome open 24 hours",
+   "src": "ie-aip-eidw",
+   "quote": "AD Operator H24"
+  },
+  "noise": {
+   "v": "no general night closure was found, but the longest runway, 10L/28R, is not used for take-off or landing 23:00-07:00 except for safety and other listed reasons, and reverse thrust should not be used 23:00-06:00 local",
+   "src": "ie-aip-eidw",
+   "quote": "Runway 10L-28R shall not be used for take-off or landing between 2300 hours and 0700 hours, except in cases of safety,"
+  },
+  "handling": {
+   "v": "passenger handling by Swissport, Sky Handling, Signature Flight Support (corporate), Universal Aviation (corporate), Aer Lingus and Fenix Logistics",
+   "src": "ie-aip-eidw",
+   "quote": "Available from Swissport, Sky Handling, Signature Flight Support (Corporate), Universal Aviation (Corporate), Aer Lingus and Fenix Logistics."
+  },
+  "fuel": {
+   "v": "Jet A-1 available 24 hours",
+   "src": "ie-aip-eidw",
+   "quote": "JET A1 H24 No limitations."
+  },
+  "deicing": {
+   "v": "de-icing on request from Swissport and Aer Lingus",
+   "src": "ie-aip-eidw",
+   "quote": "On request from Swissport and Aer Lingus"
+  }
+ },
+ "missing": [
+  "operator (AIP AD 2.2 does not name it in the text read)",
+  "curfew (no explicit 'no curfew' statement; only a runway-specific night rule, recorded under noise)",
+  "slots",
+  "ppr",
+  "max_aircraft"
+ ],
+ "notes": "Edition: Irish eAIP effective 14 May 2026, the newest found online; a later AIRAC may be in force. The 10L/28R night rule applies to that runway only, so it is recorded under noise, not curfew. US Customs and Border Protection preclearance is by prior negotiation (0700-1700). dublinairport.com had no official GA/business-aviation page found by search."
+}

@@ -42,14 +42,15 @@
    "quote": "must apply for schedule clearance at least seventy-two (72) hours prior to the intended arrival"
   },
   "noise": {
-   "v": "aircraft without noise certification to the ICAO Annex 16 standards may not operate to or from Dubai International",
+   "v": "except for passenger flights, aircraft without ICAO Annex 16 noise certification (Chapter 3 minimum) may not operate to or from Dubai International",
    "src": "uae-aip-omdb",
-   "quote": "aircraft not in possession of noise certification in accordance with the standards of Annex 16 ... are not permitted to operate to/from OMDB"
+   "quote": "Except for passenger operations, aircraft not in possession of noise certification in accordance with the standards of Annex 16 to the ICAO ... are not permitted to operate to/from OMDB."
   }
  },
  "missing": [
-  "curfew (AIP shows H24 but no explicit 'no night restriction'; GA has daily restricted periods, see notable)",
-  "ppr (beyond slot and DCAA landing permission)"
+  "curfew (AIP AD 2.20 and 2.21 state no night restriction and no 'no curfew' statement)",
+  "ppr (AIP has no PPR beyond the ACL slot and DCAA landing permission already recorded)",
+  "GA restricted periods table (current Winter 2025 Conditions of Use could not be opened)"
  ],
- "notes": "GA restricted periods are in UTC; Dubai is UTC+4 all year (no daylight saving), so local they are 04:30-06:29, 07:30-11:59, 14:30-18:29 (not Mondays), 23:00-01:29 and 03:00-04:59. The source table did not extract cleanly: it is not certain whether each period applies to arrivals, departures or both (totals 8.5 and 10.5 hours suggest separate arrival/departure columns), so do not publish these as a curfew or as exact windows without re-checking the PDF. The Conditions of Use found is Northern Winter 2025 (effective 26 Oct 2025); a Winter 2026 edition may now apply. The AIP AD 2 OMDB PDF used is from the 2026-P06 package with pages up to AIRAC 08/2026; later AIRACs (P09-P11) were not readable as text."
+ "notes": "GA restricted periods are in UTC; Dubai is UTC+4 all year (no daylight saving), so local they are 04:30-06:29, 07:30-11:59, 14:30-18:29 (not Mondays), 23:00-01:29 and 03:00-04:59. The source table did not extract cleanly: it is not certain whether each period applies to arrivals, departures or both (totals 8.5 and 10.5 hours suggest separate arrival/departure columns), so do not publish these as a curfew or as exact windows without re-checking the PDF. The Conditions of Use found is Northern Winter 2025 (effective 26 Oct 2025); a Winter 2026 edition may now apply. The AIP AD 2 OMDB PDF used is from the 2026-P06 package with pages up to AIRAC 08/2026; later AIRACs (P09-P11) were not readable as text. | 2026-10-27 run: CORRECTION to the existing noise fact: AIP AD 2.21.1 begins 'Except for passenger operations', so the ban on aircraft without Annex 16 noise certification does not apply to passenger operations; replace the existing noise fact with the one here. AD 2.20 has no night restriction or curfew text, and no general PPR (only helicopter permissions). GA restricted periods: the Winter 2025 Conditions of Use could not be opened. The older Summer 2025 edition (effective 30 Mar 2025, clause 6 'GA OPERATIONAL RESTRICTIONS': 'GA operations will be restricted at DXB (not permitted to schedule or operate) during the specified hours below') was readable, but its table did not extract with clear arrival/departure labels; the reading tool's inferred split (arrivals 0030-0229, 1030-1429 not Mondays, 1900-2129 UTC; departures 0330-0759, 1030-1429 not Mondays, 2300-0059 UTC) is NOT verified, the edition is superseded, and it is not recorded as a fact. Do not publish GA windows until the current PDF is checked by a person. AIP used: 2026-P06 package (pages to AIRAC 08/2026); the GCAA site lists packages up to 2026-P12 (AIRAC 12/2026 effective 26 Nov 2026), whose AD 2 OMDB text could not be opened."
 }

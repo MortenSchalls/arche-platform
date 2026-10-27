@@ -6,7 +6,7 @@
  "country": "FR",
  "tz": "Europe/Paris",
  "tier": 1,
- "status": "partial",
+ "status": "verified",
  "checked": "2026-10-27",
  "rules": {
   "hours": {
@@ -30,16 +30,33 @@
    "v": "an IATA Level 1 airport",
    "src": "cohor-lbg",
    "quote": "IATA Airport Designation: Level 1"
+  },
+  "runway": {
+   "v": "three runways: 07/25, 2,991 m by 45 m (the longest); 03/21, 2,395 m by 45 m; 09/27, 1,847 m by 45 m",
+   "longest_m": 2991,
+   "src": "fr-aip-lfpb-2025",
+   "quote": "2991 x 45"
+  },
+  "customs": {
+   "v": "customs and police open 24 hours",
+   "h24": true,
+   "src": "fr-vac-lfpb",
+   "quote": "9 - Douanes, Police / Customs, Police : H24."
+  },
+  "ppr": {
+   "v": "VFR flights need prior permission by email at least 48 working hours ahead (helicopters and some public missions exempt)",
+   "src": "fr-vac-lfpb",
+   "quote": "PPR requests must be sent by email with at least 48 working HR PN to ppr-vfr-lfpb@aviation-civile.gouv.fr"
+  },
+  "handling": {
+   "v": "handling by an approved based company is mandatory",
+   "src": "fr-vac-lfpb",
+   "quote": "Mandatory assistance from approved based societies."
   }
  },
  "missing": [
-  "geo (AIP ARP)",
-  "operator (Groupe ADP; not named on the readable page)",
-  "runway lengths and longest runway",
-  "customs",
-  "ppr",
-  "max_aircraft",
-  "handling"
+  "named handling agents (AIP names none)",
+  "max_aircraft (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "French eAIP, Légifrance (arrêté of 15 Feb 2011 on Le Bourget restrictions) and most Paris Aéroport pages (bot protection) could not be opened. The 22:15-06:00 ban is on jet take-offs (not landings), reverse thrust and runway 2 for aircraft over 5.7 t; it is not a full closure. The ADP page's own time base is assumed local; it does not say UTC. COHOR also links an arrêté of 23 June 2023 making Le Bourget coordinated for the 2023 Rugby World Cup; status beyond that event is unclear. COHOR page last modified 9 Jul 2025."
+ "notes": "French eAIP, Légifrance (arrêté of 15 Feb 2011 on Le Bourget restrictions) and most Paris Aéroport pages (bot protection) could not be opened. The 22:15-06:00 ban is on jet take-offs (not landings), reverse thrust and runway 2 for aircraft over 5.7 t; it is not a full closure. The ADP page's own time base is assumed local; it does not say UTC. COHOR also links an arrêté of 23 June 2023 making Le Bourget coordinated for the 2023 Rugby World Cup; status beyond that event is unclear. COHOR page last modified 9 Jul 2025. | 2026-10-27 run: Current SIA eAIP HTML page (AIRAC 01 OCT 2026) could not be opened; runway, ARP, location and wingspan limit come from AIP France AD 2 LFPB pages (AIRAC AMDT 02/25, 20 FEB 2025) as republished by DIRCAM; operator, customs, PPR and handling from the SIA VAC atlas of the 01 OCT 2026 edition. The PPR rule in the AIP applies to VFR flights; the AIP does not state a PPR for IFR business flights. The VAC also states jets may not leave the stand for take-off from 2115 to 0500 UTC winter time (consistent with the already verified 22:15-06:00 local rule). Facts from the superseded edition other than runway, location and operator were not used (max_aircraft)."
 }

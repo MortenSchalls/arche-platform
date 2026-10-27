@@ -1,6 +1,6 @@
 {
  "icao": "EGKB",
- "iata": null,
+ "iata": "BQH",
  "name": "London Biggin Hill Airport",
  "city": "London",
  "country": "GB",
@@ -73,13 +73,16 @@
    "v": "pavement strength PCN 45/F/C/X/U; fire cover category 6 (no weight limit stated)",
    "src": "bqh-specs",
    "quote": "PCN 45/F/C/X/U"
+  },
+  "noise": {
+   "v": "jets must be ICAO Chapter 3 or better; only Chapter 4 aircraft 06:30-07:00; IFR jet departures follow the noise preferential route at no more than 185 knots",
+   "src": "bqh-noise",
+   "quote": "We restrict the period between 06:30 and 07:00 hours to Chapter 4 certified aircraft"
   }
  },
  "missing": [
-  "iata (not stated on a readable official page)",
   "customs hours",
-  "ppr lead time",
-  "noise rules detail"
+  "ppr lead time"
  ],
- "notes": "UK AIP could not be read. Coordinates are from the operator's page, not the AIP ARP; replace with the AIP value when available. Operator specs page last modified 23 Apr 2024; Bromley Council page last modified 27 Mar 2024. Operator page says 'no runway slots required'. Do not name the FBO on the public site (site rule)."
+ "notes": "UK AIP could not be read. Coordinates are from the operator's page, not the AIP ARP; replace with the AIP value when available. Operator specs page last modified 23 Apr 2024; Bromley Council page last modified 27 Mar 2024. Operator page says 'no runway slots required'. Do not name the FBO on the public site (site rule). | 2026-10-27 run: IATA code BQH and ARP taken from the operator's Airfield Specification page ('EGKB/BQH'); UK AIP not readable. ARP 51°19'51\"N 000°01'57\"E converted to decimal."
 }

@@ -1,0 +1,60 @@
+{
+ "icao": "LEBL",
+ "iata": "BCN",
+ "name": "Josep Tarradellas Barcelona-El Prat Airport",
+ "city": "Barcelona",
+ "country": "ES",
+ "tz": "Europe/Madrid",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours",
+   "src": "es-aip-lebl",
+   "quote": "H24."
+  },
+  "runway": {
+   "v": "three runways; the longest, 06L/24R, is 3,352 m long and 60 m wide",
+   "longest_m": 3352,
+   "src": "es-aip-lebl",
+   "quote": "3352 x 60"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "es-aip-lebl",
+   "quote": "H24."
+  },
+  "slots": {
+   "v": "in summer, general aviation slots (arrival and departure) are coordinated no more than 30 days ahead",
+   "src": "es-aip-lebl",
+   "quote": "During the summer season, general aviation slots (arrival + departure) will not be coordinated more than 30 days in advance."
+  },
+  "max_aircraft": {
+   "v": "from June to September, aircraft of 15,000 kg MTOW or less cannot arrive between 07:00 and 11:30",
+   "src": "es-aip-lebl",
+   "quote": "they cannot operate arrivals within the time period 0700-1130"
+  },
+  "handling": {
+   "v": "the AIP lists AVIAVIP FBO, United Aviation FBO, ExecuJet Spain, General Aviation Service, Jetex Executive Aviation Barcelona, Skyvalet and Universal Aviation Spain as general aviation agents and FBO managers",
+   "src": "es-aip-lebl",
+   "quote": "General Aviation agents and General and Business Aviation terminal Managers (FBO):"
+  },
+  "noise": {
+   "v": "a special night runway configuration is used between 23:00 and 07:00 local",
+   "src": "es-aip-lebl",
+   "quote": "Night time configuration between 2300 and 0700 LT:"
+  },
+  "fuel": {
+   "v": "Jet A-1",
+   "src": "es-aip-lebl",
+   "quote": "JET A-1."
+  }
+ },
+ "missing": [
+  "curfew",
+  "ppr"
+ ],
+ "notes": "Night-time noise operating restrictions are in AD 2-LEBL item 21.1 sections 5 and 6, which the HTML page as read did not contain (the 15,000 kg 07:00-11:30 rule time basis not stated; excludes ambulance, emergency, State and some public service flights). The night runway configuration is not a curfew. Ramp-0 is for corporate and private aircraft only. Header shows WEF 01-OCT-26 and WEF 03-SEP-26."
+}

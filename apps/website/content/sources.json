@@ -952,5 +952,587 @@
   "url": "https://www.mlit.go.jp/report/press/kouku19_hh_000112.html",
   "publisher": "MLIT",
   "checked": "2026-10-27"
+ },
+ "adairports-who": {
+  "title": "Abu Dhabi Airports, Who we are (no page date shown; checked 27 Oct 2026)",
+  "url": "https://www.adairports.ae/en/About-us/Who-we-are",
+  "publisher": "Abu Dhabi Airports",
+  "checked": "2026-10-27"
+ },
+ "acl-auh": {
+  "title": "ACL airport information, Zayed International Airport (AUH) (page lists capacity declarations to S27; checked 27 Oct 2026)",
+  "url": "https://www.acl-uk.org/airport-info-details/?aid=47",
+  "publisher": "Airport Coordination Limited (slot coordinator / schedules facilitator)",
+  "checked": "2026-10-27"
+ },
+ "azi-aviation": {
+  "title": "Al Bateen Executive Airport, Aviation Services (no page date shown; checked 27 Oct 2026)",
+  "url": "https://www.albateenairport.ae/en/aviation",
+  "publisher": "Abu Dhabi Airports (Al Bateen Executive Airport)",
+  "checked": "2026-10-27"
+ },
+ "azi-about": {
+  "title": "Al Bateen Executive Airport, About AZI (no page date shown; checked 27 Oct 2026)",
+  "url": "https://www.albateenairport.ae/en/aboutus",
+  "publisher": "Abu Dhabi Airports (Al Bateen Executive Airport)",
+  "checked": "2026-10-27"
+ },
+ "azi-executive": {
+  "title": "Al Bateen Executive Airport, Executive Travel (no page date shown; checked 27 Oct 2026)",
+  "url": "https://www.albateenairport.ae/en/passengers/executive",
+  "publisher": "Abu Dhabi Airports (Al Bateen Executive Airport)",
+  "checked": "2026-10-27"
+ },
+ "qa-aip-othh-2024": {
+  "title": "Qatar AIP, AD 2 OTHH Hamad International (AIRAC 09/2024, published 31 Oct 2024, effective 28 Nov 2024; superseded edition) (not the current edition; current edition could not be opened)",
+  "url": "https://aim.gov.qa/eaip/2024-10-31-AIRAC/html/eAIP/AD-2.OTHH-en-GB.html",
+  "publisher": "Qatar Civil Aviation Authority",
+  "checked": "2026-10-27"
+ },
+ "qa-aip-gen12": {
+  "title": "Qatar AIP, GEN 1.2 Entry, transit and departure of aircraft (AIP-29, valid from 06 Aug 2026)",
+  "url": "https://aim.gov.qa/AIP/11-JUN-2026/AIP-29/2026-08-06-000000/html/eAIP/QA-GEN-1.2-mobile-en-GB.html",
+  "publisher": "Qatar Civil Aviation Authority",
+  "checked": "2026-10-27"
+ },
+ "hia-east-rwy": {
+  "title": "Hamad International Airport, Eastern Runway Remediation Works (no page date shown; © 2026; checked 27 Oct 2026)",
+  "url": "https://dohahamadairport.com/eastern-runway-remediation-works",
+  "publisher": "Hamad International Airport",
+  "checked": "2026-10-27"
+ },
+ "ch-sil-lsgg": {
+  "title": "FOCA/BAZL, SIL object sheet Genève (14 Nov 2018) (not the current edition; current edition could not be opened)",
+  "url": "https://www.bazl.admin.ch/dam/de/sd-web/NMs189uuXWMg/geneve-du-14-11-2018.pdf",
+  "publisher": "Swiss Federal Office of Civil Aviation (FOCA/BAZL)",
+  "checked": "2026-10-27"
+ },
+ "ch-bazl-lsgg": {
+  "title": "FOCA/BAZL, Flughafen Genf airport page (no date shown; checked 27 Oct 2026)",
+  "url": "https://www.bazl.admin.ch/de/flughafen-genf",
+  "publisher": "Swiss Federal Office of Civil Aviation (FOCA/BAZL)",
+  "checked": "2026-10-27"
+ },
+ "ch-bazl-lszh": {
+  "title": "FOCA/BAZL, Aéroport de Zurich airport page (no date shown; checked 27 Oct 2026)",
+  "url": "https://www.bazl.admin.ch/bazl/fr/home/infrastructure/aerodromes-en-general/fluegplaetze-a-z/flughafen-zuerich.html",
+  "publisher": "Swiss Federal Office of Civil Aviation (FOCA/BAZL)",
+  "checked": "2026-10-27"
+ },
+ "zrh-flugbetrieb": {
+  "title": "Flughafen Zürich, Flugbewegungen – Betriebszeiten, Konzepte und Routen (© 2026; checked 27 Oct 2026)",
+  "url": "https://www.flughafen-zuerich.ch/de/unternehmen/verantwortung/laerm-und-schallschutz/flugbetrieb",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-27"
+ },
+ "zrh-pisten-2023": {
+  "title": "Flughafen Zürich, Pistenverlängerungen – Fakten und Hintergründe (summer 2023) (not the current edition; current edition could not be opened)",
+  "url": "https://media.flughafen-zuerich.ch/-/jssmedia/airport/portal/dokumente/das-unternehmen/the-company/airport-development/pistenverlaengerungen_fakten_und_hintergruende_sommer2023.pd",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-27"
+ },
+ "zrh-business-aviation": {
+  "title": "Flughafen Zürich, Business Aviation (© 2026; checked 27 Oct 2026)",
+  "url": "https://www.flughafen-zuerich.ch/de/business/airlines-und-handling/flugbetrieb/business-aviation",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-27"
+ },
+ "zrh-general-aviation": {
+  "title": "Zurich Airport, General Aviation (© 2026; checked 27 Oct 2026)",
+  "url": "https://www.flughafen-zuerich.ch/en/business/airlines-and-handling/flight-operations/general-aviation",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-27"
+ },
+ "ch-sc-gaba": {
+  "title": "Slot Coordination Switzerland, GA/BA Aviation (© 2026; checked 27 Oct 2026)",
+  "url": "https://www.slotcoordination.ch/gaba",
+  "publisher": "Slot Coordination Switzerland",
+  "checked": "2026-10-27"
+ },
+ "lszs-briefing-2025": {
+  "title": "Engadin Airport, Briefing Familiarization LSZS (version 09/2025)",
+  "url": "https://www.engadin-airport.ch/wp-content/uploads/2025/09/Briefing-Familiarization-LSZS.pdf",
+  "publisher": "Engadin Airport AG",
+  "checked": "2026-10-27"
+ },
+ "lszs-briefing-2022": {
+  "title": "Engadin Airport, Familiarization Briefing LSZS v7.10 (issued 11 Apr 2022) (not the current edition; current edition could not be opened)",
+  "url": "https://www.engadin-airport.ch/wp-content/uploads/2023/08/SMV-PILOT-BRIEFING-V7.10_.pdf",
+  "publisher": "Engadin Airport AG",
+  "checked": "2026-10-27"
+ },
+ "sea-tech-data": {
+  "title": "SEA Milan Airports, Technical data (Linate section; © 2026; checked 27 Oct 2026)",
+  "url": "https://milanairports.com/en/group/technical-data",
+  "publisher": "SEA S.p.A.",
+  "checked": "2026-10-27"
+ },
+ "enac-slot": {
+  "title": "ENAC, Bande orarie (slot) (last updated 14 Nov 2024)",
+  "url": "https://www.enac.gov.it/trasporto-aereo/compagnie-aeree/bande-orarie-slot/",
+  "publisher": "ENAC (Italian Civil Aviation Authority)",
+  "checked": "2026-10-27"
+ },
+ "adr-cia-regs": {
+  "title": "Aeroporti di Roma, Ciampino Airport Regulations, English translation, rev. 2 (updated 16 Oct 2025)",
+  "url": "https://m.adr.it/documents/d/aeroporti-di-roma-en/reg_cia_inglese_agg-16-10-2025-pdf",
+  "publisher": "Aeroporti di Roma SpA",
+  "checked": "2026-10-27"
+ },
+ "save-regs": {
+  "title": "SAVE, Venice Airport 'Marco Polo' Airport Regulations, Ed. 2 Amdt 2 (SAVE 15 Nov 2023; ENAC adoption 6 Dec 2023)",
+  "url": "https://my.veniceairport.it/media/2571/20231115_regolamento_di_scalo_ed2_em2_en.pdf",
+  "publisher": "SAVE S.p.A.",
+  "checked": "2026-10-27"
+ },
+ "at-aip-loww": {
+  "title": "AIP Austria, AD 2 LOWW Wien-Schwechat (AIRAC set published 02 OCT 2026; page dates vary)",
+  "url": "https://eaip.austrocontrol.at/lo/261002/PART_3/AD_2/PRI/AD_2_LOWW/LO_AD_2_LOWW_en.pdf",
+  "publisher": "Austro Control GmbH",
+  "checked": "2026-10-27"
+ },
+ "at-aip-lows": {
+  "title": "AIP Austria, AD 2 LOWS Salzburg (AIRAC set published 04 SEP 2026; page dates vary, AD 2-1 dated 11 JUL 2024)",
+  "url": "https://eaip.austrocontrol.at/lo/260904/PART_3/AD_2/PRI/AD_2_LOWS/LO_AD_2_LOWS_en.pdf",
+  "publisher": "Austro Control GmbH",
+  "checked": "2026-10-27"
+ },
+ "vie-facts": {
+  "title": "Vienna Airport, Aviation facts (checked 27 Oct 2026, no page date)",
+  "url": "https://viennaairport.com/en/business__partner/aviation/aviation_facts",
+  "publisher": "Flughafen Wien AG",
+  "checked": "2026-10-27"
+ },
+ "vie-mediation": {
+  "title": "Vienna Airport, Mediation procedure (checked 27 Oct 2026, no page date)",
+  "url": "https://viennaairport.com/en/company/flughafen_wien_ag/3rd_runway/mediation_procedure",
+  "publisher": "Flughafen Wien AG",
+  "checked": "2026-10-27"
+ },
+ "vie-bizjets": {
+  "title": "Vienna Airport, Business & Private Jets (checked 27 Oct 2026)",
+  "url": "https://viennaairport.com/en/passengers/arrival__departure/business__private_jets",
+  "publisher": "Flughafen Wien AG",
+  "checked": "2026-10-27"
+ },
+ "sca-night": {
+  "title": "Slot Coordination Austria, Guideline on Airport Slot Coordination of Night Flights at Vienna Airport (SCA/KO/BH/136, pages dated 21.03.2025)",
+  "url": "https://slots-austria.com/jart/prj3/sca_2024/uploads/data-uploads/Guideline%20Slot%20Coordination%20of%20night%20flights%20VIE.pdf",
+  "publisher": "Schedule Coordination Austria GmbH",
+  "checked": "2026-10-27"
+ },
+ "sca-about": {
+  "title": "Slot Coordination Austria, About us (checked 27 Oct 2026, no page date)",
+  "url": "https://slots-austria.com/about_us",
+  "publisher": "Schedule Coordination Austria GmbH",
+  "checked": "2026-10-27"
+ },
+ "szg-hours": {
+  "title": "Salzburg Airport, Operating hours (checked 27 Oct 2026, no page date)",
+  "url": "https://Salzburg-airport.com/en/business-aviation/aviation/operating-hours",
+  "publisher": "Salzburger Flughafen GmbH",
+  "checked": "2026-10-27"
+ },
+ "szg-tech": {
+  "title": "Salzburg Airport, Technical data (checked 27 Oct 2026, no page date)",
+  "url": "https://www.salzburg-airport.com/en/thecompany/about-us/technical-data",
+  "publisher": "Salzburger Flughafen GmbH",
+  "checked": "2026-10-27"
+ },
+ "szg-handling": {
+  "title": "Salzburg Airport, Handling service (checked 27 Oct 2026, no page date)",
+  "url": "https://salzburg-airport.com/en/business-aviation/aviation/handling-service",
+  "publisher": "Salzburger Flughafen GmbH",
+  "checked": "2026-10-27"
+ },
+ "muc-night": {
+  "title": "Munich Airport, Night flight (checked 27 Oct 2026, no page date)",
+  "url": "https://www.munich-airport.com/night-flight-264466",
+  "publisher": "Flughafen München GmbH",
+  "checked": "2026-10-27"
+ },
+ "muc-location": {
+  "title": "Munich Airport, Location & Expansion (checked 27 Oct 2026, no page date)",
+  "url": "https://www.munich-airport.com/location-expansion-263252",
+  "publisher": "Flughafen München GmbH",
+  "checked": "2026-10-27"
+ },
+ "muc-facts": {
+  "title": "Munich Airport, Interesting facts about Munich Airport (facts as at 12/2016) (not the current edition; current edition could not be opened)",
+  "url": "https://www.munich-airport.de/_b/0000000000000002686807bb59b0000a/Kennzahlen_englisch.pdf",
+  "publisher": "Flughafen München GmbH",
+  "checked": "2026-10-27"
+ },
+ "muc-gat": {
+  "title": "Munich Airport, General Aviation Terminal / GAT (checked 27 Oct 2026, no page date)",
+  "url": "https://www.munich-airport.com/general-aviation-terminal-gat-3636498",
+  "publisher": "Flughafen München GmbH",
+  "checked": "2026-10-27"
+ },
+ "fra-runways": {
+  "title": "Fraport, Runway system and operating hours (checked 27 Oct 2026, no page date)",
+  "url": "https://www.fraport.com/en/sustainability/dialog-with-neighbors/noise-and-air/flight-operations/runway-system-and-operating-hours.html",
+  "publisher": "Fraport AG",
+  "checked": "2026-10-27"
+ },
+ "fra-hours": {
+  "title": "Fraport, Hours of operation (checked 27 Oct 2026, no page date)",
+  "url": "https://www.fraport.com/en/business-areas/operations/airside-and-terminal-operations/hours-of-operation.html",
+  "publisher": "Fraport AG",
+  "checked": "2026-10-27"
+ },
+ "ber-lubb-night": {
+  "title": "LuBB, extract from the BER operating permit, section XI Flugbetriebliche Regelungen (applies from opening of the new south runway; checked 27 Oct 2026)",
+  "url": "https://lubb.berlin-brandenburg.de/wp-content/uploads/auszug-aus-genehmigung-punkt-xi-flugbetriebliche-regelungen-2.pdf",
+  "publisher": "Landesamt für Bauen und Verkehr (LuBB), Brandenburg aviation authority",
+  "checked": "2026-10-27"
+ },
+ "fluko-ga": {
+  "title": "Fluko (German airport coordinator), General & Business Aviation (page last modified 25 Jun 2026)",
+  "url": "https://fluko.org/en/koordination/allgemeine-business-luftfahrt/",
+  "publisher": "Fluko Flughafenkoordination Deutschland GmbH",
+  "checked": "2026-10-27"
+ },
+ "es-aip-lemd": {
+  "title": "ENAIRE AIP España, AD 2 LEMD Adolfo Suárez Madrid-Barajas (WEF 01-OCT-26)",
+  "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEMD/LE_AD_2_LEMD_en.html",
+  "publisher": "ENAIRE (Spanish AIS)",
+  "checked": "2026-10-27"
+ },
+ "es-aip-lebl": {
+  "title": "ENAIRE AIP España, AD 2 LEBL Barcelona-El Prat (WEF 01-OCT-26)",
+  "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEBL/LE_AD_2_LEBL_en.html",
+  "publisher": "ENAIRE (Spanish AIS)",
+  "checked": "2026-10-27"
+ },
+ "es-aip-leib": {
+  "title": "ENAIRE AIP España, AD 2 LEIB Ibiza (WEF 09-JUL-26)",
+  "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEIB/LE_AD_2_LEIB_en.html",
+  "publisher": "ENAIRE (Spanish AIS)",
+  "checked": "2026-10-27"
+ },
+ "es-amdt-lepa": {
+  "title": "ENAIRE AIP España, Amendment 2026/410, AD 2 LEPA/LESJ Palma de Mallorca (page dated 03-SEP-26)",
+  "url": "https://aip.enaire.es/AIP/contenido_AMDT/LE_Amdt_2026_410_AD_2_LEPA_LESJ_en.html",
+  "publisher": "ENAIRE (Spanish AIS)",
+  "checked": "2026-10-27"
+ },
+ "fr-vac-lfpb": {
+  "title": "SIA Atlas VAC, AD 2 LFPB Paris-Le Bourget text pages (eAIP edition 01 OCT 2026; pages dated 31 OCT 2024 and earlier)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_01_OCT_2026/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.LFPB.pdf",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-10-27"
+ },
+ "fr-aip-lfpb-2025": {
+  "title": "AIP France AD 2 LFPB Paris-Le Bourget (AIRAC AMDT 02/25, 20 FEB 2025), republished in DIRCAM MIAC 1 (not the current edition; current edition could not be opened)",
+  "url": "https://www.dircam.dsae.defense.gouv.fr/images/Stories/Doc/MIAC1/miac1_paris_le_bourget_lfpb.pdf",
+  "publisher": "SIA / DIRCAM (French Ministry of the Armed Forces)",
+  "checked": "2026-10-27"
+ },
+ "fr-vac-lfmn": {
+  "title": "SIA Atlas VAC, AD 2 LFMN Nice Côte d'Azur text pages (eAIP edition 01 OCT 2026; pages dated 19 MAR 2026 and 07 AUG 2025)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_01_OCT_2026/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.LFMN.pdf",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-10-27"
+ },
+ "fr-aip-lfmn-2025": {
+  "title": "AIP France AD 2 LFMN Nice Côte d'Azur (AIRAC AMDT 06/25, 12 JUN 2025), republished in DIRCAM MIAC 1 (not the current edition; current edition could not be opened)",
+  "url": "https://www.dircam.dsae.defense.gouv.fr/images/Stories/Doc/MIAC1/miac1_nice_lfmn.pdf",
+  "publisher": "SIA / DIRCAM (French Ministry of the Armed Forces)",
+  "checked": "2026-10-27"
+ },
+ "fr-vac-lfmd": {
+  "title": "SIA Atlas VAC, AD 2 LFMD Cannes-Mandelieu text pages (eAIP edition 01 OCT 2026; pages dated up to 16 APR 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_01_OCT_2026/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.LFMD.pdf",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-10-27"
+ },
+ "fr-aip-lfmd-2025": {
+  "title": "AIP France AD 2 LFMD Cannes-Mandelieu (AIRAC AMDT 06/25, 12 JUN 2025), republished in DIRCAM MIAC 1 (not the current edition; current edition could not be opened)",
+  "url": "https://www.dircam.dsae.defense.gouv.fr/images/Stories/Doc/MIAC1/miac1_cannes_lfmd.pdf",
+  "publisher": "SIA / DIRCAM (French Ministry of the Armed Forces)",
+  "checked": "2026-10-27"
+ },
+ "fr-vac-lfsb": {
+  "title": "SIA Atlas VAC, AD 2 LFSB Bâle-Mulhouse text pages (eAIP edition 01 OCT 2026; pages dated up to 06 AUG 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_01_OCT_2026/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.LFSB.pdf",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-10-27"
+ },
+ "fr-aip-lfsb-2025": {
+  "title": "AIP France AD 2 LFSB Bâle-Mulhouse (AIRAC AMDT 06/25, 12 JUN 2025), republished in DIRCAM MIAC 1 (not the current edition; current edition could not be opened)",
+  "url": "https://www.dircam.dsae.defense.gouv.fr/images/Stories/Doc/MIAC1/miac1_bale_lfsb.pdf",
+  "publisher": "SIA / DIRCAM (French Ministry of the Armed Forces)",
+  "checked": "2026-10-27"
+ },
+ "fr-aip-lfkj": {
+  "title": "AIP France eAIP, AD 2 LFKJ Ajaccio Napoléon Bonaparte (valid from 22 JAN 2026; eAIP edition 19 FEB 2026) (not the current edition; current edition could not be opened)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_19_FEB_2026/FRANCE/AIRAC-2026-02-19/html/eAIP/FR-AD-2.LFKJ-fr-FR.html",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-10-27"
+ },
+ "fr-aip-lflb-2025": {
+  "title": "AIP France AD 2 LFLB Chambéry Aix-les-Bains (AIRAC AMDT 04/25, 17 APR 2025), republished in DIRCAM MIAC 1 (not the current edition; current edition could not be opened)",
+  "url": "https://www.dircam.dsae.defense.gouv.fr/images/Stories/Doc/MIAC1/miac1_chambery_lflb.pdf",
+  "publisher": "SIA / DIRCAM (French Ministry of the Armed Forces)",
+  "checked": "2026-10-27"
+ },
+ "cohor-lfsb": {
+  "title": "COHOR, Notification of airport level changes for Nantes Atlantique and EuroAirport (published 6 Oct 2023)",
+  "url": "https://www.cohor.org/en/?p=16253554",
+  "publisher": "COHOR (French slot coordinator)",
+  "checked": "2026-10-27"
+ },
+ "cohor-lfkj": {
+  "title": "COHOR, Ajaccio Napoleon Bonaparte (AJA/LFKJ) airport page (last modified 22 Aug 2023)",
+  "url": "https://www.cohor.org/en/airports/ajaccio-napoleon-bonaparte-aja-lfkj/",
+  "publisher": "COHOR (French slot coordinator)",
+  "checked": "2026-10-27"
+ },
+ "cohor-lflb": {
+  "title": "COHOR, Chambéry Airport (CMF/LFLB) airport page (last modified 9 Oct 2026)",
+  "url": "https://www.cohor.org/en/airports/chambery-cmf-lflb/",
+  "publisher": "COHOR (French slot coordinator)",
+  "checked": "2026-10-27"
+ },
+ "sa-aip-oerk": {
+  "title": "Saudi Arabia eAIP, AD 2 OERK Riyadh - King Khaled International (AIRAC AIP AMDT 02/26, effective 19 Feb 2026) (not the current edition; current edition could not be opened)",
+  "url": "https://aimss.sans.com.sa/assets/FileManagerFiles/AIRAC%20AIP%20AMDT%2002_26_2026_02_19/eAIP/AD%202%20OERK%20RIYADH%20-%20KING%20KHALED%20INTERNATIONAL-en-GB.html",
+  "publisher": "Saudi Air Navigation Services (SANS) for the General Authority of Civil Aviation",
+  "checked": "2026-10-27"
+ },
+ "sa-aip-oejn": {
+  "title": "Saudi Arabia eAIP, AD 2 OEJN Jeddah - King Abdulaziz International (AIP AMDT 07/25, 3 Apr 2025) (not the current edition; current edition could not be opened)",
+  "url": "https://aimss.sans.com.sa/assets/FileManagerFiles/AIP%20AMDT%2007_25_2025_04_03/eAIP/AD%202%20OEJN%20JEDDAH%20-%20KING%20ABDULAZIZ%20INTERNATIONAL-en-GB.html",
+  "publisher": "Saudi Air Navigation Services (SANS) for the General Authority of Civil Aviation",
+  "checked": "2026-10-27"
+ },
+ "acl-ruh": {
+  "title": "ACL slot coordination, airport information: King Khalid International Airport (RUH), checked 27 Oct 2026",
+  "url": "https://www.acl-uk.org/airport-info-details/?aid=73",
+  "publisher": "Airport Coordination Limited (slot coordinator)",
+  "checked": "2026-10-27"
+ },
+ "bh-aip-obbi": {
+  "title": "AIP Kingdom of Bahrain and State of Qatar, AD 2 OBBI Bahrain International (AIRAC effective 4 Sep 2025) (not the current edition; current edition could not be opened)",
+  "url": "https://aim.mtt.gov.bh/eAIP/2025-09-04-AIRAC/html/eAIP/OB-AD-2.OBBI-en-BH.html",
+  "publisher": "Ministry of Transportation and Telecommunications, Kingdom of Bahrain",
+  "checked": "2026-10-27"
+ },
+ "kw-sup-01-26": {
+  "title": "Kuwait AIP SUP 01/26: Kuwait International Airport (OKKK) runway closure, ILS removal (issued 6 Jan 2026, effective 6 Jan 2026 to 22 Feb 2027)",
+  "url": "https://dgcawebappstg.blob.core.windows.net/upload/AIPSubPDF/live/151/SUP%2001-26.pdf",
+  "publisher": "Directorate General of Civil Aviation, State of Kuwait (AIS)",
+  "checked": "2026-10-27"
+ },
+ "il-aip-llbg": {
+  "title": "AIP Israel, AD 2 LLBG Ben-Gurion (AIRAC effective 15 Jun 2023; not the current 6 Aug 2026 edition)",
+  "url": "https://e-aip.azurefd.net/2023-06-15-AIRAC/html/eAIP/LL-AD-2.LLBG-en-GB.html",
+  "publisher": "Civil Aviation Authority of Israel",
+  "checked": "2026-10-27"
+ },
+ "nl-aip-eham": {
+  "title": "Netherlands eAIP, AD 2 EHAM Amsterdam/Schiphol (AIRAC AMDT 06-2026, effective 11 Jun 2026)",
+  "url": "https://eaip.lvnl.nl/web/eaip/AIRAC%20AMDT%2006-2026_2026_06_11/eAIP/EH-AD%202%20EHAM%201-en-GB.html",
+  "publisher": "LVNL (Air Traffic Control the Netherlands)",
+  "checked": "2026-10-27"
+ },
+ "acnl-ams-w26": {
+  "title": "AMS Capacity Declaration Winter 2026-2027, version 1.0 (24 Apr 2026; season 25 Oct 2026 - 27 Mar 2027)",
+  "url": "https://slotcoordination.nl/wp-content/uploads/2026/04/AMS-Capacity-Declaration-Winter-2026-2027-v1.0.pdf",
+  "publisher": "Airport Coordination Netherlands (ACNL)",
+  "checked": "2026-10-27"
+ },
+ "be-aip-ebbr": {
+  "title": "Belgium eAIP, AD 2 EBBR Brussels/Brussels-National (current edition, eAIP_Main, read 27 Oct 2026)",
+  "url": "https://ops.skeyes.be/html/belgocontrol_static/eaip/eAIP_Main/html/eAIP/EB-AD-2.EBBR-en-GB.html?amdt=show",
+  "publisher": "skeyes",
+  "checked": "2026-10-27"
+ },
+ "ie-aip-eidw": {
+  "title": "Ireland eAIP, AD 2 EIDW Dublin International (effective 14 May 2026)",
+  "url": "https://www.airnav.ie/AIRAC/2026-05-14-AIRAC/html/eAIP/EI-AD-2.EIDW-en-IE.html",
+  "publisher": "AirNav Ireland",
+  "checked": "2026-10-27"
+ },
+ "se-aip-essb": {
+  "title": "Sweden AIP, AD 2 ESSB Stockholm/Bromma (LFV AIRAC AIP AMDT 3-2026 package, 14 May 2026; pages dated 22 Jan 2026, AMDT 1/2026)",
+  "url": "https://aro.lfv.se/content/eaip/AIRAC%20AIP%20AMDT%203-2026_2026_05_14/documents/PDF/ES-AD%202%20ESSB%20STOCKHOLM-BROMMA%201.pdf",
+  "publisher": "LFV",
+  "checked": "2026-10-27"
+ },
+ "dk-aip-ekch": {
+  "title": "Denmark AIP, AD 2 EKCH Copenhagen/Kastrup (pages up to AIRAC AMDT 05/26, 14 May 2026)",
+  "url": "https://aim.naviair.dk/media/files/aplnug1mfae/EK_AD_2_EKCH_en.pdf",
+  "publisher": "Naviair",
+  "checked": "2026-10-27"
+ },
+ "fg-ppr-handbook": {
+  "title": "Fraport Greece, PPR Handbook – General & Business Aviation Flights (MSD 8.50.5.10-14.4, version 09.00, 12 May 2025)",
+  "url": "https://www.fraport-greece.com/content/dam/fraport-company-greece/documents/en/our-expertise/ppr/MSD_8.50.5.10-14.4_PPR_Handbook_v9.0.pdf/_jcr_content/renditions/original.media_file.download_attachment.file/MSD_8.50.5.10-14.4_PPR_Handbook_v9.0.pdf",
+  "publisher": "Fraport Greece (airport operator)",
+  "checked": "2026-10-27"
+ },
+ "jmk-ga": {
+  "title": "Mykonos Airport, General Aviation / Business Aviation page (no page date shown; checked 27 Oct 2026)",
+  "url": "https://www.jmk-airport.gr/en/category-detailed/ctg_id-582/nd_id-1635",
+  "publisher": "Mykonos Airport (Fraport Greece)",
+  "checked": "2026-10-27"
+ },
+ "pt-aip-ad11": {
+  "title": "AIP Portugal, AD 1.1 Aerodromes/Heliports – Introduction (AD 1.1.6 night restrictions), current eAIP (valid-from date not shown on page; checked 27 Oct 2026)",
+  "url": "https://ais.nav.pt/wp-content/uploads/AIS_Files/eAIP_Current/eAIP_Online/eAIP/html/eAIP/LP-AD-1.1-en-PT.html",
+  "publisher": "NAV Portugal, E.P.E.",
+  "checked": "2026-10-27"
+ },
+ "pt-aip-lpfr": {
+  "title": "AIP Portugal, AD 2 LPFR Faro (valid from 01 Oct 2026)",
+  "url": "https://ais.nav.pt/wp-content/uploads/AIS_Files/eAIP_Current/eAIP_Online/eAIP/html/eAIP/LP-AD-2.LPFR-en-PT.html",
+  "publisher": "NAV Portugal, E.P.E.",
+  "checked": "2026-10-27"
+ },
+ "cz-aip-lkpr": {
+  "title": "AIP Czech Republic, AD 2 LKPR Praha/Ruzyně (effective 1 Oct 2026, published 17 Sep 2026)",
+  "url": "https://aim.rlp.cz/eaip/html/eAIP/LK-AD-2.LKPR-en-GB.html",
+  "publisher": "Air Navigation Services of the Czech Republic (ANS CR)",
+  "checked": "2026-10-27"
+ },
+ "prg-noise": {
+  "title": "Prague Airport, Noise – air traffic and noise, airport operations (no page date; latest file listed 12 Oct 2026; checked 27 Oct 2026)",
+  "url": "https://www.prg.aero/en/noise-air-traffic-and-noise-airport-operations",
+  "publisher": "Prague Airport (airport operator)",
+  "checked": "2026-10-27"
+ },
+ "pl-aip-epwa": {
+  "title": "AIP Poland (eAIP IFR), AD 2 EPWA Warszawa/Chopina, page 1 (AIRAC AMDT 10-26, effective 1 Oct 2026)",
+  "url": "https://docs.pansa.pl/ais/eaipifr/AIRAC%20AMDT%2010-26_2026_10_01/eAIP/AD%202%20EPWA%201-en-GB.html",
+  "publisher": "Polish Air Navigation Services Agency (PANSA)",
+  "checked": "2026-10-27"
+ },
+ "acl-waw": {
+  "title": "ACL airport coordination page, Warsaw Chopin (WAW) (content for S26/S27 seasons; no page date shown; checked 27 Oct 2026)",
+  "url": "https://www.acl-uk.org/airport-info-details/?aid=12",
+  "publisher": "Airport Coordination Limited (slot coordinator)",
+  "checked": "2026-10-27"
+ },
+ "hu-aip-lhbp": {
+  "title": "AIP Hungary, AD 2 LHBP Budapest/Liszt Ferenc International Airport (AIRAC effective 14 May 2026)",
+  "url": "https://ais-en.hungarocontrol.hu/aip/2026-05-14/2026-05-14-AIRAC/html/eAIP/LH-AD-2.LHBP-en-HU.html",
+  "publisher": "HungaroControl",
+  "checked": "2026-10-27"
+ },
+ "acl-lcy-w26": {
+  "title": "ACL, LCY W26 Capacity Declaration (Winter 2026/27 season, no issue date)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2026/04/LCY-W26-Capacity-Declaration.pdf",
+  "publisher": "London City Airport, published by Airport Coordination Ltd (UK slot coordinator)",
+  "checked": "2026-10-27"
+ },
+ "lcy-pjc-approved": {
+  "title": "London City Airport Private Jet Centre, Approved Aircraft (checked 27 Oct 2026)",
+  "url": "https://privatejetcentre.londoncityairport.com/services/approved-aircraft",
+  "publisher": "London City Airport",
+  "checked": "2026-10-27"
+ },
+ "lcy-pjc-approval": {
+  "title": "London City Airport Private Jet Centre, Application Process (checked 27 Oct 2026)",
+  "url": "https://privatejetcentre.londoncityairport.com/services/approved-aircraft/application-process/",
+  "publisher": "London City Airport",
+  "checked": "2026-10-27"
+ },
+ "lcy-pjc-why": {
+  "title": "London City Airport Private Jet Centre, Why Us (checked 27 Oct 2026)",
+  "url": "https://privatejetcentre.londoncityairport.com/why-us",
+  "publisher": "London City Airport",
+  "checked": "2026-10-27"
+ },
+ "lcy-pjc-services": {
+  "title": "London City Airport Private Jet Centre, Services (checked 27 Oct 2026)",
+  "url": "https://privatejetcentre.londoncityairport.com/services",
+  "publisher": "London City Airport",
+  "checked": "2026-10-27"
+ },
+ "stn-facts": {
+  "title": "London Stansted Airport, Facts and figures (checked 27 Oct 2026)",
+  "url": "https://www.stanstedairport.com/about-us/london-stansted-airport-and-mag/facts-and-figures/",
+  "publisher": "London Stansted Airport (MAG)",
+  "checked": "2026-10-27"
+ },
+ "stn-ga-why": {
+  "title": "London Stansted Airport, General Aviation: Why London Stansted Airport? (checked 27 Oct 2026)",
+  "url": "https://www.stanstedairport.com/about-us/general-aviation/why-stansted-airport/",
+  "publisher": "London Stansted Airport (MAG)",
+  "checked": "2026-10-27"
+ },
+ "stn-ga-onsite": {
+  "title": "London Stansted Airport, General Aviation: Services and Businesses On Site (checked 27 Oct 2026)",
+  "url": "https://www.stanstedairport.com/about-us/general-aviation/services-and-businesses-on-site/",
+  "publisher": "London Stansted Airport (MAG)",
+  "checked": "2026-10-27"
+ },
+ "acl-stn-w26": {
+  "title": "ACL, London Stansted Airport: Winter 2026/27 Scheduling Capacities (no issue date)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2026/04/London-Stansted-Airport-W26-Capacity-Declaration.pdf",
+  "publisher": "London Stansted Airport, published by Airport Coordination Ltd (UK slot coordinator)",
+  "checked": "2026-10-27"
+ },
+ "dft-night-2024": {
+  "title": "DfT, Night Flight Restrictions at Heathrow, Gatwick and Stansted from October 2025, Decision Document (December 2024)",
+  "url": "https://assets.publishing.service.gov.uk/media/6752c47114973821ce2a6c90/decision-night-flight-restrictions-heathrow-gatwick-stansted-from-oct-25.pdf",
+  "publisher": "UK Department for Transport",
+  "checked": "2026-10-27"
+ },
+ "fab-passengers": {
+  "title": "Farnborough Airport, For Passengers and Pets (checked 27 Oct 2026)",
+  "url": "https://www.farnboroughairport.com/experience/for-passengers-and-pets",
+  "publisher": "Farnborough Airport Ltd",
+  "checked": "2026-10-27"
+ },
+ "fab-rules": {
+  "title": "Farnborough Airport, Rules and Regulations (undated, checked 27 Oct 2026)",
+  "url": "https://www.farnboroughairport.com/legal/rules-and-regulations",
+  "publisher": "Farnborough Airport Ltd",
+  "checked": "2026-10-27"
+ },
+ "acl-ltn-lr1": {
+  "title": "ACL, London Luton Airport Local Rule 1 - night movements and night noise quota (adopted 2015, current on ACL site 27 Oct 2026)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2016/10/Local-rule-1.pdf",
+  "publisher": "London Luton Airport Ltd, published by Airport Coordination Ltd",
+  "checked": "2026-10-27"
+ },
+ "acl-ltn-info": {
+  "title": "ACL, Airport info details: Luton (checked 27 Oct 2026)",
+  "url": "https://www.acl-uk.org/airport-info-details/?aid=2",
+  "publisher": "Airport Coordination Ltd (UK slot coordinator)",
+  "checked": "2026-10-27"
+ },
+ "ltn-noise-faq": {
+  "title": "London Luton Airport, Noise - Frequently Asked Questions (checked 27 Oct 2026)",
+  "url": "https://www.london-luton.co.uk/corporate/community/noise/frequently-asked-questions",
+  "publisher": "London Luton Airport Operations Ltd",
+  "checked": "2026-10-27"
+ },
+ "ltn-bizav": {
+  "title": "London Luton Airport, Business & private aviation (checked 27 Oct 2026)",
+  "url": "https://www.london-luton.co.uk/corporate/business-private-aviation",
+  "publisher": "London Luton Airport Operations Ltd",
+  "checked": "2026-10-27"
+ },
+ "bqh-spec": {
+  "title": "London Biggin Hill Airport, Airfield Specification (checked 27 Oct 2026)",
+  "url": "https://bigginhillairport.com/operations/airfield-specification/",
+  "publisher": "London Biggin Hill Airport Ltd",
+  "checked": "2026-10-27"
+ },
+ "bqh-noise": {
+  "title": "London Biggin Hill Airport, Noise & Airspace (checked 27 Oct 2026)",
+  "url": "https://bigginhillairport.com/community/noise/",
+  "publisher": "London Biggin Hill Airport Ltd",
+  "checked": "2026-10-27"
+ },
+ "bqh-fbo": {
+  "title": "London Biggin Hill Airport, FBO (checked 27 Oct 2026)",
+  "url": "https://bigginhillairport.com/operations/fbo/",
+  "publisher": "London Biggin Hill Airport Ltd",
+  "checked": "2026-10-27"
  }
 }

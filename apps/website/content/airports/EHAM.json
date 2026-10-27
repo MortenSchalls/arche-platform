@@ -1,0 +1,58 @@
+{
+ "icao": "EHAM",
+ "iata": "AMS",
+ "name": "Amsterdam Airport Schiphol",
+ "city": "Amsterdam",
+ "country": "NL",
+ "tz": "Europe/Amsterdam",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "longest runway 18R/36L, 3,800 m long and 60 m wide (six runways in all)",
+   "longest_m": 3800,
+   "src": "nl-aip-eham",
+   "quote": "18R | 183.20° | 3800 x 60 | RWY: 89/F/C/W/T Asphalt SWY: NIL"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "nl-aip-eham",
+   "quote": "Customs and immigration | H24"
+  },
+  "hours": {
+   "v": "aerodrome open 24 hours",
+   "src": "nl-aip-eham",
+   "quote": "AD operator: H24"
+  },
+  "curfew": {
+   "v": "general aviation, including business aviation, is in principle not allowed at night, 2200-0600 UTC in winter (2100-0500 UTC in summer), i.e. 23:00-07:00 local; the slot coordinator sets night capacity for general aviation at 0",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "src": "nl-aip-eham",
+   "quote": "General aviation is in principle not allowed to operate during the night between 2200-0600 (2100-0500)."
+  },
+  "slots": {
+   "v": "a slot from the coordinator ACNL is required for every general aviation landing and take-off; ad hoc slots are requested after the slot return date in GCR format, usually via the operator or handler",
+   "src": "nl-aip-eham",
+   "quote": "Slot requests for GA must be filed in the general aviation clearance request (GCR) format according the SSIM Appendix K."
+  },
+  "max_aircraft": {
+   "v": "in winter 2026-27, no general aviation stand capacity for larger aircraft (ICAO code D, E, F) for arrivals 0620-0934 UTC and departures 0620-1159 UTC; exceptions at the airport's discretion",
+   "src": "acnl-ams-w26",
+   "quote": "Arrival slots from 0620 up to and including 0934 ... Departure slots from 0620 up to and including 1159 ... Applicable to flights with ICAO code: | D | E | F |"
+  }
+ },
+ "missing": [
+  "handling",
+  "ppr",
+  "noise",
+  "fuel"
+ ],
+ "notes": "Night window: AIP gives 2200-0600 (2100-0500); the ACNL W26 capacity declaration states times in UTC with local in brackets and defines a night movement as 2200-0559 UTC (2300-0659 LT), so 23:00-07:00 local applies in both seasons (bracketed AIP times are the summer UTC times). GEN 2.1 time-system page could not be opened to quote the convention directly. The max_aircraft quote joins three table cells from the ACNL declaration. AIP edition used: AIRAC AMDT 06-2026 (effective 11 Jun 2026), the newest edition found online; a later edition may be in force. Handling agents are listed in AD 2.23, which was not reached."
+}

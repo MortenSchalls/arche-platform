@@ -1,0 +1,55 @@
+{
+ "icao": "EBBR",
+ "iata": "BRU",
+ "name": "Brussels Airport",
+ "city": "Brussels",
+ "country": "BE",
+ "tz": "Europe/Brussels",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "longest runway 07L/25R, 3,638 m long and 45 m wide (three runways in all)",
+   "longest_m": 3638,
+   "src": "be-aip-ebbr",
+   "quote": "07L ... 3 638 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "be-aip-ebbr",
+   "quote": "Customs and immigration H24"
+  },
+  "hours": {
+   "v": "aerodrome open 24 hours",
+   "src": "be-aip-ebbr",
+   "quote": "AD Operator H24"
+  },
+  "curfew": {
+   "v": "no full night closure, but take-off and landing by marginally compliant (noisier) aircraft is forbidden 2200-0459 UTC in winter (2100-0359 UTC in summer), i.e. about 23:00-06:00 local; night noise-quota rules also apply",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "src": "be-aip-ebbr",
+   "approval": true,
+   "quote": "Take-off or landing of marginally compliant aircraft is forbidden between 2200 and 0459 (2100 and 0359)."
+  },
+  "slots": {
+   "v": "a coordinated airport; general and business aviation must request slots through a handling agent, not directly from the coordinator",
+   "src": "be-aip-ebbr",
+   "quote": "Slot requests sent directly to the coordinator will not be accepted."
+  }
+ },
+ "missing": [
+  "handling",
+  "ppr",
+  "max_aircraft",
+  "noise (night QC limits per movement)",
+  "fuel"
+ ],
+ "notes": "Curfew is a noise-class ban, not a closure: describe it as such. AIP times appear as UTC with summer UTC in brackets (e.g. 2200-0459 (2100-0359)); the bracket convention was not quoted from GEN 2.1, so the local conversion (23:00-05:59 local in both seasons) carries that caveat. The runway quote joins the designation and dimensions cells of the AD 2.12 table. Slot sentence on GA/BA via handling agent: AIP reads 'airport slots and airport slot authorization number must be requested only via a handling agent' (unless agreed otherwise with Belgium Slot Coordination). AIP read from skeyes eAIP_Main (current edition); the page did not display an AIRAC date in the text read. Night QC limits per movement were not reached in readable form."
+}

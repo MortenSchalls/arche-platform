@@ -1,0 +1,66 @@
+{
+ "icao": "EPWA",
+ "iata": "WAW",
+ "name": "Warsaw Chopin Airport",
+ "city": "Warsaw",
+ "country": "PL",
+ "tz": "Europe/Warsaw",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest is 15/33, 3,690 m long and 60 m wide (11/29 is 2,800 m × 50 m)",
+   "longest_m": 3690,
+   "src": "pl-aip-epwa",
+   "quote": "3690 x 60"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "pl-aip-epwa",
+   "quote": "Customs and immigration H24"
+  },
+  "hours": {
+   "v": "aerodrome administration H24",
+   "src": "pl-aip-epwa",
+   "quote": "Aerodrome Administration H24"
+  },
+  "handling": {
+   "v": "handling agents named in the AIP: LS Airport Services, Welcome Airport Services and Excel Handling; GA flights without an agent are handled by the pilot-in-command",
+   "src": "pl-aip-epwa",
+   "quote": "the pilot-in-command (for general aviation flights without a handling agent)"
+  },
+  "slots": {
+   "v": "slot-coordinated airport (IATA Level 3); the A-CDM process cannot start without an airport slot",
+   "src": "acl-waw",
+   "quote": "IATA Designation Level 3"
+  },
+  "curfew": {
+   "v": "night period 22:00–06:00 local: all operators are subject to noise limits, and slots may be denied if the overall nightly limit is breached",
+   "windows_local": [
+    [
+     "22:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "acl-waw",
+   "quote": "during the night period (2200-0600 Local Time) will be subject to noise limits,"
+  },
+  "noise": {
+   "v": "all civil operators must submit a valid noise certificate",
+   "src": "acl-waw",
+   "quote": "All operators of civil aircraft operating to and from Warsaw F. Chopin airport are required to submit a valid noise"
+  },
+  "max_aircraft": {
+   "v": "aircraft larger than ICAO Code E need separate authorisation from the aerodrome duty officers",
+   "src": "acl-waw",
+   "quote": "To obtain authorization for flights operated by aircraft larger than Code E,"
+  }
+ },
+ "missing": [
+  "ppr"
+ ],
+ "notes": "AIP: PANSA eAIP IFR AIRAC AMDT 10-26 (1 Oct 2026), page 'AD 2 EPWA 1' only (it ends inside AD 2.20; the next pages could not be opened). Night rule and slot level come from the coordinator's (ACL) WAW page, which shows S26/S27 content but no page date and does not itself say ACL is the appointed coordinator. The night rule is a noise quota with possible slot refusal, not a full closure. The AIP location line gives distance and bearing without naming the reference point."
+}

@@ -1,0 +1,56 @@
+{
+ "icao": "LIRA",
+ "iata": null,
+ "name": "Rome Ciampino Airport (G.B. Pastine)",
+ "city": "Rome",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "curfew": {
+   "v": "private and commercial flights only between 06:00 and 23:00 local; outside these hours PPRs are issued only for emergency, ambulance and state flights",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "src": "adr-cia-regs",
+   "quote": "Excluding emergency/ambulance/state operations, PPRs can be released only within the airport opening time for private and commercial flights, that is between 06.00LT and 23.00LT"
+  },
+  "ppr": {
+   "v": "every arriving general-aviation aircraft needs a PPR from the airport operator, issued in advance according to stand availability and requested by the carrier or handler",
+   "src": "adr-cia-regs",
+   "quote": "Incoming aircraft of the general aviation are subject to the issuance of a permit, ... issued in advance on the basis on the availability of the stands by the Managing Company (Prior Permission Request - PPR)."
+  },
+  "max_aircraft": {
+   "v": "general-aviation PPRs are capped at 61 movements a day (medical, emergency and rescue flights excluded), under Ministerial Decree 345/2018",
+   "src": "adr-cia-regs",
+   "quote": "In compliance with the provisions of Ministerial Decree 345/2018, ... PPR may be issued up to a maximum of 61 daily movements"
+  },
+  "handling": {
+   "v": "the General Aviation Terminal and its services are open 07:00 to 23:30; GA handlers must be ENAC-certified for Ciampino",
+   "src": "adr-cia-regs",
+   "quote": "The General Aviation Terminal and of all its relative activities and services are open from 07:00AM to 11:30PM."
+  },
+  "slots": {
+   "v": "a coordinated airport (slot allocation by Assoclearance)",
+   "src": "enac-slot",
+   "quote": "ha classificato come aeroporti coordinati gli scali di: ... Roma Ciampino"
+  }
+ },
+ "missing": [
+  "iata",
+  "geo",
+  "location",
+  "runway",
+  "customs",
+  "hours (aerodrome)",
+  "noise",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "ENAV eAIP needs an ENAV account and could not be opened; ADR's passenger GA services page blocks automated reading. Facts come from ADR's Ciampino Airport Regulations (English translation, rev. 2, updated 16/10/2025; the Italian text prevails). The 61-movement cap is a daily cap on GA PPRs, filed under max_aircraft for want of a better key. Night limits at Ciampino have been the subject of court cases; re-check before quoting to clients."
+}

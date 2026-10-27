@@ -1,0 +1,28 @@
+{
+ "icao": "LGAV",
+ "iata": null,
+ "name": "Athens International Airport",
+ "city": "Athens",
+ "country": "GR",
+ "tz": "Europe/Athens",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-27",
+ "rules": {},
+ "missing": [
+  "geo",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise",
+  "iata"
+ ],
+ "notes": "No official source could be read. The HASP eAIP site (aisgr.hasp.gov.gr) puts the AIP behind a 'user check' page and no LGAV AD 2 file URL could be found by search (only LGMT files of the AIRAC 05/26 edition, effective 11 Jun 2026, showed up). The HCAA copy at ypa.gr (AD 2 LGAV, page date 23 Feb 2023) loops between https and http and could not be opened, and is old anyway. aia.gr search found no business-aviation, slot or night-rule page. The shared web-search budget ran out before more tries."
+}

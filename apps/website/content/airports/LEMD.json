@@ -1,0 +1,66 @@
+{
+ "icao": "LEMD",
+ "iata": "MAD",
+ "name": "Adolfo Suárez Madrid-Barajas Airport",
+ "city": "Madrid",
+ "country": "ES",
+ "tz": "Europe/Madrid",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours",
+   "src": "es-aip-lemd",
+   "quote": "H24."
+  },
+  "runway": {
+   "v": "four runways; the longest, 18R/36L, is 4,179 m long and 60 m wide",
+   "longest_m": 4179,
+   "src": "es-aip-lemd",
+   "quote": "4179 x 60"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "es-aip-lemd",
+   "quote": "H24."
+  },
+  "curfew": {
+   "v": "no full curfew stated; at night (23:00 to 06:59 local) take-offs and landings by the noisiest aircraft (noise rating CR-4 or higher) are prohibited",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "src": "es-aip-lemd",
+   "approval": true,
+   "quote": "Take-off and landing operations of aircraft rated as CR-4 or higher are prohibited at night time (23:00 to 6:59 LT)."
+  },
+  "slots": {
+   "v": "an airport slot is needed; flight plans that do not match the allocated slot are not accepted",
+   "src": "es-aip-lemd",
+   "quote": "The operations office at Adolfo Suárez Madrid-Barajas shall not accept flights with origin or destination"
+  },
+  "handling": {
+   "v": "aircraft under 10,000 kg MTOW and/or under 20 seats must use one of two authorised General and Business Aviation managers: AVIAVIP FBO Madrid or United Aviation FBO",
+   "src": "es-aip-lemd",
+   "quote": "All aircraft with MTOW less than 10000 Kg and/or fewer than 20 seats must have engaged the services of either"
+  },
+  "max_aircraft": {
+   "v": "aircraft over 10,000 kg MTOW and/or with 20 seats or more are not treated as general or business aviation",
+   "src": "es-aip-lemd",
+   "quote": "Any aircaraft whose MTOW is more than 10000 kg and/or has 20 seats or more will not be considered"
+  },
+  "fuel": {
+   "v": "Jet A-1",
+   "src": "es-aip-lemd",
+   "quote": "JET A-1."
+  }
+ },
+ "missing": [
+  "ppr"
+ ],
+ "notes": "Handling agent names come from the AIP (AVIAVIP FBO MADRID, UNITED AVIATION FBO). The 'not accept flights' quote continues: EOBT/ETA in the flight plan must match the allocated airport slot (see GEN 1.2 section 3). The CR-4 night ban applies to noise-rated aircraft classes, not all movements; the airport may allow exceptions (delays within 30 minutes, safety, humanitarian). Marginally compliant aircraft are banned day and night since 28 Sep 2012. The AIP's 'aircaraft' typo is copied as written. The page header shows WEF 01-OCT-26 and WEF 03-SEP-26."
+}

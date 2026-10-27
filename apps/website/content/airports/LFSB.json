@@ -1,0 +1,62 @@
+{
+ "icao": "LFSB",
+ "iata": "BSL",
+ "name": "EuroAirport Basel-Mulhouse-Freiburg",
+ "city": "Basel / Mulhouse",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways: 15/33, 3,900 m by 60 m (the longest), and 07/25, 1,715 m by 60 m",
+   "longest_m": 3900,
+   "src": "fr-aip-lfsb-2025",
+   "quote": "3900 x 60"
+  },
+  "customs": {
+   "v": "French customs 05:00-24:00 local (stated 0400-2300 UTC winter, one hour earlier in summer); Swiss customs from 05:15; immigration police 24 hours",
+   "h24": false,
+   "hours_local": [
+    [
+     "05:00",
+     "00:00"
+    ]
+   ],
+   "src": "fr-vac-lfsb",
+   "quote": "Douanes / Customs FR : 0400-2300. Douanes / Customs S : 0415-2300."
+  },
+  "curfew": {
+   "v": "general aviation may not land or take off between 2100 and 0500 UTC winter time (22:00-06:00 local all year); exceptions for ambulance, humanitarian, emergency, state and government flights",
+   "windows_local": [
+    [
+     "22:00",
+     "06:00"
+    ]
+   ],
+   "src": "fr-vac-lfsb",
+   "quote": "LDG and TKOF forbidden between 2100 and 0500. (SUM : - 1 HR)."
+  },
+  "ppr": {
+   "v": "non-based VFR flights parking at the airport need prior permission from Apron Control 24 hours ahead",
+   "src": "fr-vac-lfsb",
+   "quote": "subject to a PPR request and to FPL filing."
+  },
+  "handling": {
+   "v": "handling compulsory for all non-based general aviation; AIP lists Swissport, Air France, Air Service Basel (ASB) and CGS",
+   "src": "fr-vac-lfsb",
+   "quote": "For safety and security reasons, handling is compulsory for all non-based general aviation flights."
+  },
+  "slots": {
+   "v": "IATA Level 2 (schedules facilitated) since summer 2024, coordinated by COHOR",
+   "src": "cohor-lfsb",
+   "quote": "EuroAirport (MLH, BSL, EAP/LFSB) is designated as Level 2 airport, effective from the start of NS24."
+  }
+ },
+ "missing": [
+  "max_aircraft",
+  "hours (only in a superseded AIP edition; current edition not read)"
+ ],
+ "notes": "Times in the French AIP are UTC winter; 'SUM : - 1 HR' means one hour earlier in UTC in summer, so local times stay the same all year (winter UTC+1, summer UTC+2). VAC text pages dated 06 AUG 2026 / 10 AUG 2023 (01 OCT 2026 edition). Geo, runway, hours and handling-agent names from AIP France AD 2 LFSB (AIRAC AMDT 06/25, 12 JUN 2025) as republished by DIRCAM. The handling quote covers the compulsory rule; agent names quoted from AD 2.4: '(1) SWISSPORT (2) AIR FRANCE (3) AIR SERVICE BASEL (ASB) (4) CGS'. COHOR level notice dated 6 Oct 2023; the current level was not rechecked. The airport sits in France; the EuroAirport operator site was not reached. Facts from the superseded edition other than runway, location and operator were not used (hours)."
+}

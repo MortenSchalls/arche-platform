@@ -1,0 +1,59 @@
+{
+ "icao": "EGSS",
+ "iata": "STN",
+ "name": "London Stansted Airport",
+ "city": "London",
+ "country": "GB",
+ "tz": "Europe/London",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 3,049 m long and 46 m wide",
+   "longest_m": 3049,
+   "src": "stn-facts",
+   "quote": "Runway length: 3,049m long by 46m wide"
+  },
+  "hours": {
+   "v": "open 24 hours a day, 365 days a year",
+   "src": "stn-facts",
+   "quote": "24 hours a day, 365 days a year"
+  },
+  "curfew": {
+   "v": "no closure, but government night quota limits apply 23:30-06:00 (movement and noise quota limits)",
+   "windows_local": [
+    [
+     "23:30",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "stn-facts",
+   "quote": "Night quota restrictions apply during period 23:30 - 06:00"
+  },
+  "noise": {
+   "v": "government night quota period 23:30-06:00 kept for October 2025 to October 2028; Stansted limits 5,600 movements in winter and 8,100 in summer",
+   "src": "dft-night-2024",
+   "quote": "will run for 3 years, from October 2025 – October 2028."
+  },
+  "slots": {
+   "v": "fully coordinated airport; every business and general aviation movement needs a slot allocated in advance",
+   "src": "acl-stn-w26",
+   "quote": "Stansted is designated as fully coordinated airport ... each business and general aviation movement requires the prior allocation of a slot."
+  },
+  "handling": {
+   "v": "FBOs listed by the airport: Fayair, Harrods Aviation, Inflite Jet Centre, Universal Aviation and Diamond Aviation Hub (XJET)",
+   "src": "stn-ga-onsite",
+   "quote": "Fayair ... Harrods Aviation ... Inflite Jet Centre ... Universal Aviation ... Diamond Aviation Hub"
+  }
+ },
+ "missing": [
+  "geo",
+  "runway designation",
+  "customs",
+  "ppr",
+  "max_aircraft"
+ ],
+ "notes": "UK AIP not readable. Night quota period: the airport and DfT give 23:30-06:00; the ACL scheduling declaration states it as '2330 - 0600 (GMT)', so in summer (BST) the ACL figures would be one hour later in local time - check before quoting summer times. The night quota is a cap on numbers and noise points, not a ban. Handling quote is a list of names taken from the page, not one sentence."
+}

@@ -1,0 +1,71 @@
+{
+ "icao": "LOWW",
+ "iata": "VIE",
+ "name": "Vienna International Airport",
+ "city": "Vienna",
+ "country": "AT",
+ "tz": "Europe/Vienna",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways: 16/34, 3,600 m long and 45 m wide, and 11/29, 3,500 m long and 45 m wide",
+   "longest_m": 3600,
+   "src": "vie-facts",
+   "quote": "length 3,600 metres, width 45 metres, 2 shoulders 7.5 metres"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "at-aip-loww",
+   "quote": "ZOLL- UND EINWANDERUNGSBEHÖRDE H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "vie-facts",
+   "quote": "24 hours / no night curfew, but there is a limit of movements in accordance with the mediation agreement."
+  },
+  "curfew": {
+   "v": "no night curfew; under the mediation agreement, movements in the night core period 23:30 to 05:30 are limited to 4,700 a year",
+   "windows_local": [
+    [
+     "23:30",
+     "05:30"
+    ]
+   ],
+   "voluntary": true,
+   "src": "vie-mediation",
+   "quote": "the number of aircraft movements during the night core period has been limited to 4,700 as of 2010"
+  },
+  "slots": {
+   "v": "fully coordinated airport (EU Regulation 95/93), slots via Slot Coordination Austria; GA/BA slot requests accepted at most 28 days ahead (night-flight guideline)",
+   "src": "sca-night",
+   "quote": "Slot requests for GA/BA flights are accepted maximum 28 days ahead of the planned operation"
+  },
+  "max_aircraft": {
+   "v": "EASA Code 4E; A380, Antonov 124 and Boeing 747-8 can operate",
+   "src": "at-aip-loww",
+   "quote": "Certification: EASA Code 4E; A380, Antonov 124 and Boeing 747-8 OPS possible."
+  },
+  "noise": {
+   "v": "only noise category 3 aircraft allowed",
+   "src": "vie-facts",
+   "quote": "only category 3 aircraft allowed"
+  },
+  "handling": {
+   "v": "the airport's own General Aviation Center (business and private jet terminal), plus a VIP Terminal",
+   "src": "vie-bizjets",
+   "quote": "General Aviation Center"
+  },
+  "fuel": {
+   "v": "Jet A1, fuelling H24",
+   "src": "at-aip-loww",
+   "quote": "Treibstoffsorten: JET A1"
+  }
+ },
+ "missing": [
+  "ppr"
+ ],
+ "notes": "AIP pages carry different dates; edition used is the AIRAC set published 02 OCT 2026 (next AIRAC 29 Oct 2026 not checked). Slot Coordination Austria states Vienna is fully coordinated: \"which is fully coordinated according to EU-regulation 95/93\". Night core period for slot purposes is 23:30-05:30 daily. Night limit is a mediation agreement, not a statutory ban."
+}

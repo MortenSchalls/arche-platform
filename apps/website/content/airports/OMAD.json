@@ -1,0 +1,49 @@
+{
+ "icao": "OMAD",
+ "iata": "AZI",
+ "name": "Al Bateen Executive Airport",
+ "city": "Abu Dhabi",
+ "country": "AE",
+ "tz": "Asia/Dubai",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 13/31, 3.2 km long (width not stated by the operator)",
+   "longest_m": 3200,
+   "src": "azi-aviation",
+   "quote": "Run away 13/31 | 3.2km, CAT 1 ILS/GNSS/VOR/DME"
+  },
+  "hours": {
+   "v": "operating 24/7",
+   "src": "azi-aviation",
+   "quote": "A high-precision technical ecosystem operating 24/7 with zero slot restrictions and a 50-stand apron layout"
+  },
+  "slots": {
+   "v": "no slot restrictions, as stated by the operator",
+   "src": "azi-aviation",
+   "quote": "With no slot restrictions, no holding patterns, and short taxi times, AZI accommodates the demands"
+  },
+  "max_aircraft": {
+   "v": "aircraft up to code D (Boeing 767 size); up to 50 aircraft stands",
+   "src": "azi-aviation",
+   "quote": "Aircraft Category | Up to Code D, B767 equivalent ... Apron capacity | Up to 50 aircraft stands"
+  },
+  "handling": {
+   "v": "Jetex runs the FBO, opened in 2023",
+   "src": "azi-executive",
+   "quote": "The Jetex FBO, opened in 2023, adds another layer of luxury."
+  }
+ },
+ "missing": [
+  "geo",
+  "customs",
+  "curfew",
+  "ppr",
+  "noise",
+  "runway width",
+  "AIP AD 2 (all items)"
+ ],
+ "notes": "All facts are from the operator's own websites (albateenairport.ae, adairports.ae); the UAE AIP AD 2 OMAD text could not be found or opened, so no AIP coordinates. Runway length is the operator's rounded '3.2km' (longest_m 3200 is therefore approximate). '24/7' is an operating-hours statement, not an explicit 'no night restriction', so curfew is left missing. The site lists 'Customs and immigration facilitation' only as a handling service, with no hours. Stand counts differ between sites (50 on albateenairport.ae, 54 on adairports.ae): only the 50 figure from the airport's own spec table is used. The site footer shows a ground-handling logo named 'Munawala' but gives no name in text, so it is not recorded."
+}

@@ -1,0 +1,28 @@
+{
+ "icao": "ENGM",
+ "iata": null,
+ "name": "Oslo Airport, Gardermoen",
+ "city": "Oslo",
+ "country": "NO",
+ "tz": "Europe/Oslo",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-27",
+ "rules": {},
+ "missing": [
+  "geo",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise",
+  "notable"
+ ],
+ "notes": "Unavailable: the Avinor eAIP pages found by search (2025-09-04 and 2025-11-27 AIRAC) now show only an 'outdated AIP' notice, and the current AIP index page and the 2026-09-03 AIRAC page could not be opened (permission not granted in time). No facts recorded; IATA code shown is from the task list, not verified from the AIP."
+}

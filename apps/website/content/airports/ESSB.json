@@ -1,0 +1,76 @@
+{
+ "icao": "ESSB",
+ "iata": "BMA",
+ "name": "Stockholm Bromma Airport",
+ "city": "Stockholm",
+ "country": "SE",
+ "tz": "Europe/Stockholm",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 12/30, 1,668 m long and 45 m wide",
+   "longest_m": 1668,
+   "src": "se-aip-essb",
+   "quote": "1668 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration on request",
+   "h24": false,
+   "src": "se-aip-essb",
+   "quote": "Customs and immigration O/R"
+  },
+  "hours": {
+   "v": "open Monday-Friday 0600-2100, Saturday 0800-1600, Sunday 1100-2100 (UTC, winter; one hour earlier in summer), i.e. 07:00-22:00, 09:00-17:00 and 12:00-22:00 local",
+   "src": "se-aip-essb",
+   "quote": "MON–FRI 0600–2100 (0500–2000) SAT 0800–1600 (0700–1500) SUN 1100–2100 (1000–2000)"
+  },
+  "curfew": {
+   "v": "closed outside opening hours: on weekdays closed 22:00-07:00 local; on Saturday open only 09:00-17:00 and on Sunday 12:00-22:00 local",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "src": "se-aip-essb",
+   "quote": "STOCKHOLM/Bromma AD may be used only:"
+  },
+  "slots": {
+   "v": "a slot is required for every arrival and departure; for general aviation it can be requested at the earliest 28 days ahead and at the latest when the flight plan is filed",
+   "src": "se-aip-essb",
+   "quote": "For GA traffic request of SLOT can be made earliest 28 days before estimated departure or arrival"
+  },
+  "handling": {
+   "v": "a ground handling company must be contracted for all flights, except aircraft granted PPR",
+   "src": "se-aip-essb",
+   "quote": "Contracting a ground handling company is mandatory for all flights to and from STOCKHOLM/Bromma aerodrome, with the exception of aircraft granted PPR (Prior Permission Required)."
+  },
+  "ppr": {
+   "v": "PPR may be granted only for non-scheduled flights with MTOM up to 4,000 kg (or small helicopters)",
+   "src": "se-aip-essb",
+   "quote": "Prior permission may be granted (PPR) for non-scheduled flights with MTOM max 4000 kg or helicopters max D.13 m."
+  },
+  "max_aircraft": {
+   "v": "aircraft with a reference code letter above C need permission from aircraft stand parking",
+   "src": "se-aip-essb",
+   "quote": "Operators wishing to operate the airport with an aircraft with a higher reference code letter than C shall apply for permission to Aircraft Stand Parking"
+  },
+  "noise": {
+   "v": "noise emission must not exceed 89 EPNdB (average of three measuring points)",
+   "src": "se-aip-essb",
+   "quote": "The noise emission must not exceed 89 EPNdB, an average for the three points of measurement"
+  },
+  "fuel": {
+   "v": "Jet A-1 and 100LL available",
+   "src": "se-aip-essb",
+   "quote": "Fuel: 100LL, Jet A1"
+  }
+ },
+ "missing": [
+  "deicing",
+  "catering"
+ ],
+ "notes": "AD 2.3 says AD operator hours 'Ref AIP SUP/NOTAM': check NOTAMs for temporary changes. Opening hours are given as UTC with summer times in brackets (assumed per Swedish AIP convention; GEN 2.1 not quoted), so local times are the same year-round. Weekend windows are narrower than the weekday curfew window recorded. AIP: LFV AIRAC AIP AMDT 3-2026 package (14 May 2026), ESSB pages dated 22 Jan 2026 (AMDT 1/2026); a later amendment may be in force. Bromma is a short runway: large-cabin jets may not be suitable."
+}

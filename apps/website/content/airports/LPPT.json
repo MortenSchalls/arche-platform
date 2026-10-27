@@ -1,0 +1,48 @@
+{
+ "icao": "LPPT",
+ "iata": null,
+ "name": "Lisboa (Humberto Delgado) Airport",
+ "city": "Lisbon",
+ "country": "PT",
+ "tz": "Europe/Lisbon",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "curfew": {
+   "v": "by law no landings or take-offs between 00:00 and 06:00 UTC (23:00–05:00 UTC in summer), i.e. midnight to 06:00 local; Lisboa has a limited exception regime: a night flight must be coordinated at least one day ahead with the IATA slot coordinator and the aircraft must hold an ICAO Annex 16 Chapter 3 noise certificate",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "pt-aip-ad11",
+   "quote": "On Airports and/or Aerodromes landing and/or take-off is forbidden by Law between 00:00 (23:00) and 06:00 (05:00)"
+  },
+  "slots": {
+   "v": "night flights under the exception regime must be coordinated at least one day in advance with the IATA airport slot coordinator",
+   "src": "pt-aip-ad11",
+   "quote": "have had a flight coordinated with at least one day in advance with the IATA Airport Slot Coordinator, and"
+  },
+  "noise": {
+   "v": "night flights under the exception regime need an ICAO Annex 16, Vol I, Chapter 3 noise certificate",
+   "src": "pt-aip-ad11",
+   "quote": "have a noise certificate according with ICAO Annex 16, Vol I, Chapt 3."
+  }
+ },
+ "missing": [
+  "geo",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "iata"
+ ],
+ "notes": "The LPPT AD 2 PDF on ais.nav.pt is blocked to WebFetch (robots), and the AD 2 HTML page could not be opened (permission not given in time). Only the national night rule in AD 1.1.6 was read. Exception-regime airports named there: 'Lisboa (LPPT), Porto (LPPR), Madeira (LPMA), Porto Santo (LPPS) and Ponta Delgada (LPPD)'. Times: the AIP gives UTC with summer UTC in brackets; both equal 00:00–06:00 local. AD 1.1.6 gives no number for the night movements allowed."
+}

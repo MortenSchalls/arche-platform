@@ -44,14 +44,18 @@
     "Skyvallet"
    ],
    "quote": "their handling agent Skyvallet"
+  },
+  "runway": {
+   "v": "main paved runway 17/35, 1,540 m by 45 m; also paved 04/22 (760 m) and grass 17L/35R (550 m)",
+   "longest_m": 1540,
+   "src": "fr-vac-lfmd",
+   "quote": "170 1540 x 45"
   }
  },
  "missing": [
-  "geo (AIP ARP)",
-  "location",
-  "runway",
-  "customs",
-  "ppr"
+  "ppr",
+  "customs (only in a superseded AIP edition; current edition not read)",
+  "slots (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "French eAIP and Légifrance (arrêté of 6 Dec 1995 as amended, latest 26 Nov 2025) could not be opened. Hours conflict: the COHOR page says opening is 'from 08:00 local time until 30 mns after sunset' while the operator's airport page gives a fixed seasonal closing table (20:00/21:00/22:00); the year the table applies to is not shown. The COHOR Level 3 text refers to 16 May-17 Sep 2023, so the current coordination status should be confirmed; specific procedures apply during the Monaco Grand Prix and Cannes Film Festival. City set to Nice per the task grouping; the airport serves Cannes."
+ "notes": "French eAIP and Légifrance (arrêté of 6 Dec 1995 as amended, latest 26 Nov 2025) could not be opened. Hours conflict: the COHOR page says opening is 'from 08:00 local time until 30 mns after sunset' while the operator's airport page gives a fixed seasonal closing table (20:00/21:00/22:00); the year the table applies to is not shown. The COHOR Level 3 text refers to 16 May-17 Sep 2023, so the current coordination status should be confirmed; specific procedures apply during the Monaco Grand Prix and Cannes Film Festival. City set to Nice per the task grouping; the airport serves Cannes. | 2026-10-27 run: Current SIA eAIP HTML not openable; geo, operator, customs, slots from AIP France AD 2 LFMD (AIRAC AMDT 06/25, 12 JUN 2025) as republished by DIRCAM; location and runway from the SIA VAC atlas (01 OCT 2026 edition; runway page dated 19 MAR 2026 or earlier). The VAC line 'HOR ATS ou PPR la veille / ATS SKED or PPR on previous day' sits next to the fuel entry and its scope is unclear, so it was not recorded as a PPR rule. Facts from the superseded edition other than runway, location and operator were not used (customs, slots)."
 }

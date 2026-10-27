@@ -1,0 +1,33 @@
+{
+ "icao": "OEJN",
+ "iata": null,
+ "name": "King Abdulaziz International Airport",
+ "city": "Jeddah",
+ "country": "SA",
+ "tz": "Asia/Riyadh",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "three runways; the longest, 16C/34C and 16L/34R, are 4,000 m long and 60 m wide (16R/34L is 3,800 m)",
+   "longest_m": 4000,
+   "src": "sa-aip-oejn",
+   "quote": "4000 x 60"
+  }
+ },
+ "missing": [
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling agent names",
+  "iata (not shown in the AIP)",
+  "customs (only in a superseded AIP edition; current edition not read)",
+  "hours (only in a superseded AIP edition; current edition not read)",
+  "handling (only in a superseded AIP edition; current edition not read)",
+  "notable (only in a superseded AIP edition; current edition not read)",
+  "noise (only in a superseded AIP edition; current edition not read)"
+ ],
+ "notes": "Source is the AD 2 page from AIP AMDT 07/25 (3 Apr 2025), the newest OEJN page that could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective; its pages could not be opened; re-check before publishing. The page states no night restriction, PPR, slot rule or Hajj/Umrah rule. Fuel line in the AIP ('Turbine JP1 and JP4') left out as it looks outdated. Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, notable, noise)."
+}

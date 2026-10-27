@@ -1,0 +1,60 @@
+{
+ "icao": "LEPA",
+ "iata": "PMI",
+ "name": "Palma de Mallorca Airport",
+ "city": "Palma de Mallorca",
+ "country": "ES",
+ "tz": "Europe/Madrid",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours",
+   "src": "es-amdt-lepa",
+   "quote": "H24 (1)."
+  },
+  "runway": {
+   "v": "two runways; the longest, 06L/24R, is 3,270 m long and 45 m wide",
+   "longest_m": 3270,
+   "src": "es-amdt-lepa",
+   "quote": "3270 x 45."
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "es-amdt-lepa",
+   "quote": "H24."
+  },
+  "slots": {
+   "v": "a slot request counts as not authorised until confirmed coordination is received",
+   "src": "es-amdt-lepa",
+   "quote": "The slot request shall be understood as not authorized until the reception of the confirmed coordination."
+  },
+  "handling": {
+   "v": "a handling agent is mandatory for all general and business aviation; the AIP lists Aviapartner Palma de Mallorca FBO and Mallorcair as authorised FBOs",
+   "src": "es-amdt-lepa",
+   "quote": "It is mandatory to contract handling agent for all operation to General and Business Aviation"
+  },
+  "max_aircraft": {
+   "v": "aircraft over 20 m long may park on the general aviation apron for at most 7 days",
+   "src": "es-amdt-lepa",
+   "quote": "the maximum parking time on the general aviation apron for an aircraft over 20 m in length shall be 7 days"
+  },
+  "noise": {
+   "v": "at night (summer 2100-0500, winter 2200-0600) no training flights, no APU use and no reverse thrust above idle except for safety",
+   "src": "es-amdt-lepa",
+   "quote": "The term night hours is defined as the time period comprised between: V: 2100-0500, I: 2200-0600."
+  },
+  "fuel": {
+   "v": "Jet A-1",
+   "src": "es-amdt-lepa",
+   "quote": "CIV: JET A-1."
+  }
+ },
+ "missing": [
+  "curfew",
+  "ppr"
+ ],
+ "notes": "Source is the ENAIRE AIP amendment page for AD 2 LEPA/LESJ dated 03-SEP-26 (Amdt 2026/410); the current consolidated AD 2 page could not be opened. Night hours are given without UTC/LT marking (Spanish AIP normally uses UTC; if UTC both seasons equal 23:00-07:00 local) - not converted. The night rules restrict training, APU and reverse thrust; no ban on movements was found, but absence is not stated, so curfew is left missing. Footnote (1) on hours: foreign state/military aircraft need PPR 72 h ahead (not relevant to charter). GA ramp agents also listed: Aviapartner, General Aviation Service, Gestair, Jetland Executive Services, Mallorcair, Melendez, Sky Valet Spain."
+}

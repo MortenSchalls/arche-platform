@@ -1,0 +1,64 @@
+{
+ "icao": "LEIB",
+ "iata": "IBZ",
+ "name": "Ibiza Airport",
+ "city": "Ibiza",
+ "country": "ES",
+ "tz": "Europe/Madrid",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours in summer and until 31 October; from 1 November open 0630-2300, with extension on 1 hour prior permission",
+   "src": "es-aip-leib",
+   "quote": "V: H24. I: Until October 31st: H24. From November 1st: 0630-2300. PS 1 HR PPR."
+  },
+  "runway": {
+   "v": "one runway, 06/24, 2,799 m long and 45 m wide",
+   "longest_m": 2799,
+   "src": "es-aip-leib",
+   "quote": "2799 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration during aerodrome hours",
+   "h24": false,
+   "src": "es-aip-leib",
+   "quote": "HR AD."
+  },
+  "slots": {
+   "v": "an airport slot is needed except for flights in VFR conditions",
+   "src": "es-aip-leib",
+   "quote": "Flights in VFR conditions are exempt from the previous request for airport slot."
+  },
+  "ppr": {
+   "v": "from 1 May to 15 October, general aviation aircraft over 18 m wingspan (and helicopters staying over 3 hours) need prior parking authorisation before requesting a slot",
+   "src": "es-aip-leib",
+   "quote": "In this case, requesting the airport slot requires prior parking authorisation from the Airport."
+  },
+  "max_aircraft": {
+   "v": "aircraft of up to 18 m wingspan may park on the commercial apron for at most one week",
+   "src": "es-aip-leib",
+   "quote": "the maximum parking time of an aircraft with a maximum wingspan of 18 m in the Commercial Aviation Apron is one week."
+  },
+  "handling": {
+   "v": "the AIP lists two General and Business Aviation managers (FBO): Aviapartner Ibiza FBO and Sky Valet Spain",
+   "src": "es-aip-leib",
+   "quote": "General and Business Aviation Managers (FBO) (in alphabetical order):"
+  },
+  "noise": {
+   "v": "reverse thrust above idle is not allowed from 2200 to 0500 except for safety",
+   "src": "es-aip-leib",
+   "quote": "Reverse thrust other than idling may not be used except for safety reasons from 2200 to 0500."
+  },
+  "fuel": {
+   "v": "100LL and Jet A-1",
+   "src": "es-aip-leib",
+   "quote": "100LL, JET A-1."
+  }
+ },
+ "missing": [
+  "curfew"
+ ],
+ "notes": "V/I in the AIP mean summer/winter season. The page does not state whether 0630-2300 and 2200-0500 are UTC or local; the Spanish AIP normally gives times in UTC unless marked LT (if UTC, the winter hours are 07:30-00:00 local) - not converted here. The winter closure outside aerodrome hours is not a noise curfew. Customs 'HR AD' means same hours as the aerodrome, so H24 in summer. Page header shows WEF 09-JUL-26 and WEF 11-JUN-26."
+}

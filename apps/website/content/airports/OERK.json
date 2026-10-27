@@ -1,0 +1,38 @@
+{
+ "icao": "OERK",
+ "iata": null,
+ "name": "King Khaled International Airport",
+ "city": "Riyadh",
+ "country": "SA",
+ "tz": "Asia/Riyadh",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways, 15L/33R and 15R/33L, each 4,205 m long and 60 m wide",
+   "longest_m": 4205,
+   "src": "sa-aip-oerk",
+   "quote": "4205 x 60"
+  },
+  "slots": {
+   "v": "listed by the slot coordinator ACL as an IATA Level 3 (coordinated) airport; the page does not say how this applies to business aviation",
+   "src": "acl-ruh",
+   "quote": "IATA Designation Level 3"
+  }
+ },
+ "missing": [
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "handling agent names",
+  "iata (not shown in the AIP; RUH is from the ACL slot coordinator page)",
+  "customs (only in a superseded AIP edition; current edition not read)",
+  "hours (only in a superseded AIP edition; current edition not read)",
+  "handling (only in a superseded AIP edition; current edition not read)",
+  "fuel (only in a superseded AIP edition; current edition not read)",
+  "noise (only in a superseded AIP edition; current edition not read)",
+  "notable (only in a superseded AIP edition; current edition not read)"
+ ],
+ "notes": "Source is the AD 2 page from AIRAC AIP AMDT 02/26 (19 Feb 2026), the newest edition whose OERK page could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective, but its frame-based pages could not be opened; re-check before publishing. The AD 2 page states no night restriction, PPR or slot rule; AD 2.20 GA section says GA parks on the GA area and calls Ground North for start-up. Page header reads 'AIP for Specimen' (the SANS HTML template). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, fuel, noise, notable)."
+}

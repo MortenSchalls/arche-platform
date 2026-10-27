@@ -1,0 +1,43 @@
+{
+ "icao": "LGMK",
+ "iata": "JMK",
+ "name": "Mykonos Airport",
+ "city": "Mykonos",
+ "country": "GR",
+ "tz": "Europe/Athens",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "ppr": {
+   "v": "prior permission (PPR, parking authorisation) is mandatory for all general and business aviation flights; it can be requested up to 14 calendar days before arrival and must be cleared through a licensed ground handler",
+   "src": "fg-ppr-handbook",
+   "quote": "PPR Platform users can apply for an Apron clearance within 14 calendar days before the scheduled arrival of the flight."
+  },
+  "slots": {
+   "v": "slot-coordinated (IATA Level 3) in summer, not coordinated (Level 1) in winter; the PPR must be obtained from Fraport Greece before the slot request to the Hellenic slot coordinator (HSCA)",
+   "src": "fg-ppr-handbook",
+   "quote": "JMK Coordinated Airport (IATA Level 3) Non Characterized (IATA Level 1)"
+  },
+  "handling": {
+   "v": "all PPR requests go through a ground handler holding a category 1 licence; GA/BA flights at JMK also need a ground services confirmation (GSCN)",
+   "src": "jmk-ga",
+   "quote": "All PPR requests must be cleared through a Ground Handling Service Provider with a valid category 1 License"
+  },
+  "hours": {
+   "v": "open every day 00:00 to 23:59, with extensions possible on specific dates",
+   "src": "jmk-ga",
+   "quote": "Every Day 00:00 – 23:59"
+  }
+ },
+ "missing": [
+  "geo",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "max_aircraft",
+  "noise"
+ ],
+ "notes": "No AIP page could be read (see LGAV). The 40-minute ground-time rule is stated for summer 2025 in PPR Handbook v9.0 (12 May 2025); check whether a newer handbook repeats it for 2026 before quoting it as current. The operator's hours line ('Every Day 00:00 – 23:59') comes from jmk-airport.gr, which shows no page date; it is not a customs/immigration hours statement."
+}

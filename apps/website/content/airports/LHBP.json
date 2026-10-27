@@ -1,0 +1,54 @@
+{
+ "icao": "LHBP",
+ "iata": "BUD",
+ "name": "Budapest Liszt Ferenc International Airport",
+ "city": "Budapest",
+ "country": "HU",
+ "tz": "Europe/Budapest",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest is 13L/31R, 3,707 m long and 45 m wide (13R/31L is 3,009 m × 45 m)",
+   "longest_m": 3707,
+   "src": "hu-aip-lhbp",
+   "quote": "3707 x 45 M"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "hu-aip-lhbp",
+   "quote": "Customs and immigration | H24"
+  },
+  "hours": {
+   "v": "aerodrome administration H24",
+   "src": "hu-aip-lhbp",
+   "quote": "AD Administration | H24"
+  },
+  "curfew": {
+   "v": "night quota, not a closure: 50 scheduled and non-scheduled commercial movements allowed 21:00–05:00 UTC (20:00–04:00 UTC in summer), of which only 6 between 23:00 and 04:00 UTC (22:00–03:00 UTC in summer)",
+   "windows_local": [
+    [
+     "22:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "hu-aip-lhbp",
+   "quote": "50 movements between 2100 - 0500 (2000-0400);"
+  },
+  "noise": {
+   "v": "operators must send the airport operator the aircraft's noise certificate in advance; engine power tests banned at night",
+   "src": "hu-aip-lhbp",
+   "quote": "The airline or aircraft operator planning to use the airport is obliged to send to the airport operator in advance the noise certification of its aircraft."
+  }
+ },
+ "missing": [
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling"
+ ],
+ "notes": "Source is the HungaroControl eAIP edition effective 14 May 2026, the newest one search found; later AIRAC editions (up to 1 Oct 2026) probably exist and could not be checked. Night times converted: 2100–0500 UTC winter (UTC+1) and 2000–0400 UTC summer (UTC+2) both give 22:00–06:00 local; the 6-movement core is 00:00–05:00 local. The quota covers commercial landings and take-offs; exemptions include emergency, humanitarian, medical and government flights. Sub-cap quote: 'Out of this, 6 movements between 2300 - 0400 (2200-0300).' AD 2.4 names no handling agents (fuel: BP Europa SE Hungary Branch, Airport Fuel Supply). No PPR or GA slot rule found in the part of the page read (last 4,000 characters, inside AD 2.22, not read)."
+}

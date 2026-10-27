@@ -1,0 +1,73 @@
+{
+ "icao": "LPFR",
+ "iata": null,
+ "name": "Faro Airport",
+ "city": "Faro",
+ "country": "PT",
+ "tz": "Europe/Lisbon",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 2,490 m long and 45 m wide",
+   "longest_m": 2490,
+   "src": "pt-aip-lpfr",
+   "quote": "2490x45"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "pt-aip-lpfr",
+   "quote": "Customs and immigration H24"
+  },
+  "hours": {
+   "v": "aerodrome open 06:00–24:00 UTC (05:00–23:00 UTC in summer), i.e. 06:00 to midnight local; extension to 01:00 possible if requested by 23:30",
+   "hours_local": [
+    [
+     "06:00",
+     "24:00"
+    ]
+   ],
+   "src": "pt-aip-lpfr",
+   "quote": "* Aerodrome OPS HR extension will be considered until 01:00 (00:00) of the next day, if requested until 23:30 (22:30),"
+  },
+  "curfew": {
+   "v": "by Portuguese law no landings or take-offs between 00:00 and 06:00 UTC (23:00–05:00 UTC in summer), i.e. midnight to 06:00 local; Faro is not on the list of airports with the night exception regime",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "src": "pt-aip-ad11",
+   "quote": "On Airports and/or Aerodromes landing and/or take-off is forbidden by Law between 00:00 (23:00) and 06:00 (05:00)"
+  },
+  "slots": {
+   "v": "airport slots are requested as set out in GEN 1.2",
+   "src": "pt-aip-lpfr",
+   "quote": "For airport slots request see GEN 1.2 ENTRY, TRANSIT AND DEPARTURE OF AIRCRAFT"
+  },
+  "handling": {
+   "v": "every GA/BA operator must use a listed ground handler; the AIP names Groundforce, Portway, Elitesky, Omni, Safeport, Sky Valet, Groundlink and PTS (Ryanair self-handles)",
+   "src": "pt-aip-lpfr",
+   "quote": "All GA/BA operators must be assisted by one ground handler as specified in LPFR AD 2.23 item 2 Handling Services."
+  },
+  "max_aircraft": {
+   "v": "GA/BA aircraft preferably use stands 201–213; non-based aircraft may not park more than 72 hours",
+   "src": "pt-aip-lpfr",
+   "quote": "all aircraft other than those based at Faro, are not allowed to park more than 72 hours."
+  },
+  "fuel": {
+   "v": "fuelling 08:00–24:00 UTC (07:00–23:00 UTC in summer), other times on request with a surcharge",
+   "src": "pt-aip-lpfr",
+   "quote": "Fuelling 08:00-24:00 (07:00-23:00). Other times on request with surcharge"
+  }
+ },
+ "missing": [
+  "ppr",
+  "noise",
+  "iata"
+ ],
+ "notes": "Times: the Portuguese AIP gives UTC with summer UTC in brackets; Portugal is UTC+0 in winter and UTC+1 in summer, so both give the same local times (aerodrome 06:00–24:00, night ban 00:00–06:00). Fuelling local = 08:00–24:00. AD 2.21 only refers to AD 1.1.5/1.1.6 and gives no airport-specific night times. The runway width/length line sits next to RWY 10; RWY 28 is the other end of the same runway. PPR is mentioned only for engine runs and unserviceable-aircraft start-up, not for arrivals."
+}

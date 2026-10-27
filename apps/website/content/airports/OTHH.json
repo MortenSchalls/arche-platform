@@ -1,0 +1,40 @@
+{
+ "icao": "OTHH",
+ "iata": null,
+ "name": "Hamad International Airport",
+ "city": "Doha",
+ "country": "QA",
+ "tz": "Asia/Qatar",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways; the longer, 16L/34R, is 4,850 m long and 60 m wide (16R/34L is 4,250 m x 60 m); the eastern runway is currently open at reduced length during remediation works",
+   "longest_m": 4850,
+   "src": "qa-aip-othh-2024",
+   "quote": "16L 158.17˚ 4 850 X 60 ... 16R 158.16˚ 4 250 X 60"
+  },
+  "permits": {
+   "v": "non-scheduled flights need prior landing permission from the Qatar Civil Aviation Authority, requested through its online portal at least 72 hours before the flight",
+   "src": "qa-aip-gen12",
+   "quote": "it is necessary for the operator to obtain prior landing/overflying permission from the QCAA ... at least seventy-two (72) hours"
+  },
+  "slots": {
+   "v": "non-scheduled flights must also apply for schedule/slot approval (IATA Chapter 6 format) to the Qatar slot coordination office",
+   "src": "qa-aip-gen12",
+   "quote": "All Non-Scheduled flights should apply for schedule/slot approval as per IATA Chapter 6 format."
+  }
+ },
+ "missing": [
+  "curfew (AIP shows H24 operation but no explicit 'no night restriction')",
+  "ppr (no PPR beyond QCAA landing permission and slot approval)",
+  "max_aircraft",
+  "current-edition AD 2 OTHH (2026)",
+  "customs (only in a superseded AIP edition; current edition not read)",
+  "hours (only in a superseded AIP edition; current edition not read)",
+  "handling (only in a superseded AIP edition; current edition not read)",
+  "noise (only in a superseded AIP edition; current edition not read)"
+ ],
+ "notes": "AD 2 OTHH facts are from the AIP edition AIRAC 09/2024 (effective 28 Nov 2024), the newest AD 2 OTHH page that could be opened; the current AIP (AIP-29, valid from 06 Aug 2026) AD 2 OTHH page was blocked. Re-check coordinates, hours and handling against the current edition before publishing. The 4,850 m runway length is also confirmed on the airport's own 2026 site (runway remediation page, no date shown; reduced length not stated). Permit and slot rules are from the current GEN 1.2 (valid 06 Aug 2026). IATA code DOH is not quoted in any source opened. AD 2.21 noise abatement is 'NIL' in the 2024 edition. Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, noise)."
+}

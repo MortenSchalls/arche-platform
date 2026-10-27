@@ -62,15 +62,18 @@
    "v": "no use of aircraft auxiliary power units between 22:30 and 06:30",
    "src": "fab-pmr-2024",
    "quote": "no APU operations between 22:30 and 06:30"
+  },
+  "handling": {
+   "v": "ground handling only by Farnborough Airport Ltd or approved third parties",
+   "src": "fab-rules",
+   "quote": "No person other than FAL or approved third parties may carry out ground handling at the Airport."
   }
  },
  "missing": [
-  "geo (AIP ARP)",
-  "location",
-  "customs",
+  "geo",
   "slots",
   "ppr",
-  "handling (operator site names no handler; says 'full-service facilities')"
+  "customs hours"
  ],
- "notes": "UK AIP could not be read. The operator's airfield-specs page shows an ARP 'Lat: 51,1631N, Long: 0,004639W', which is evidently malformed, so it is not used. Runway length given as the longest TORA (2,063 m); total concrete incl. starter strip is 2608 m and ASDA up to 2,590 m (runway 06) per the same page. The 80 t figure in the report is an observation, so do not publish it as a rule without the AIP or planning consent text. The 'quote' strings came back through a fetch tool with a short-quote limit; spot-check wording before publishing."
+ "notes": "UK AIP could not be read. The operator's airfield-specs page shows an ARP 'Lat: 51,1631N, Long: 0,004639W', which is evidently malformed, so it is not used. Runway length given as the longest TORA (2,063 m); total concrete incl. starter strip is 2608 m and ASDA up to 2,590 m (runway 06) per the same page. The 80 t figure in the report is an observation, so do not publish it as a rule without the AIP or planning consent text. The 'quote' strings came back through a fetch tool with a short-quote limit; spot-check wording before publishing. | 2026-10-27 run: UK AIP not readable. The operator's Airfield Specs page shows the ARP as 'Lat: 51,1631N, Long: 0,004639W' - the format is unclear, so no decimal coordinates were recorded. No slot or PPR text found on the operator site."
 }

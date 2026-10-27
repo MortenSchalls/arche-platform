@@ -1,0 +1,28 @@
+{
+ "icao": "OKKK",
+ "iata": null,
+ "name": "Kuwait International Airport",
+ "city": "Kuwait City",
+ "country": "KW",
+ "tz": "Asia/Kuwait",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-27",
+ "rules": {},
+ "missing": [
+  "geo",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise",
+  "iata (not shown in an official source read)"
+ ],
+ "notes": "The Kuwait DGCA AIP portal (dgca.gov.kw/AIP) blocks automated reading (robots disallowed), and no AD 2 OKKK page could be found elsewhere on the DGCA file store. Only AIP supplements could be read. They confirm the ICAO code OKKK (SUP 01/26 title: 'KUWAIT INTERNATIONAL AIRPORT (OKKK)'; the former code OKBK appears on third-party sites). Status partial: no runway, customs or night facts verified."
+}

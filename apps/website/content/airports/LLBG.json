@@ -1,0 +1,33 @@
+{
+ "icao": "LLBG",
+ "iata": null,
+ "name": "Ben Gurion Airport",
+ "city": "Tel Aviv",
+ "country": "IL",
+ "tz": "Asia/Jerusalem",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-27",
+ "rules": {
+  "runway": {
+   "v": "three runways; the longest, 08/26, is 4,062 m long and 45 m wide",
+   "longest_m": 4062,
+   "src": "il-aip-llbg",
+   "quote": "4 062 x 45"
+  }
+ },
+ "missing": [
+  "ppr",
+  "handling",
+  "iata (not shown in the AIP)",
+  "customs (only in a superseded AIP edition; current edition not read)",
+  "hours (only in a superseded AIP edition; current edition not read)",
+  "curfew (only in a superseded AIP edition; current edition not read)",
+  "noise (only in a superseded AIP edition; current edition not read)",
+  "slots (only in a superseded AIP edition; current edition not read)",
+  "permits (only in a superseded AIP edition; current edition not read)",
+  "max_aircraft (only in a superseded AIP edition; current edition not read)",
+  "notable (only in a superseded AIP edition; current edition not read)"
+ ],
+ "notes": "IMPORTANT: the only LLBG AD 2 page that could be opened is the AIRAC edition of 15 Jun 2023. The Israel eAIP index shows AIRAC AMDT 001/2026 (6 Aug 2026) as currently effective, but its LLBG page could not be opened. All LLBG facts must be re-checked against the 2026 edition before publishing. All AD 2.20/2.21 times are local (summer = Israel daylight time). Exact GA restricted periods quoted in v come from the same para 6.1 (summer 05:00-08:00, 14:00-18:00 & 00:01-01:40; winter 05:30-08:00 & 00:01-01:40). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, curfew, noise, slots, permits, max_aircraft, notable)."
+}
