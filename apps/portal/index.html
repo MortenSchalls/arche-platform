@@ -463,7 +463,7 @@ const BROKER_CHECKS = [
   ["risk","Trip risk screen recorded; every amber point confirmed in writing; no red open"],
   ["aoc","Operator AOC and operations specifications on file, aircraft listed on them"],
   ["ins","Operator insurance certificate on file, including commercial passenger liability"],
-  ["audit","Safety audit checked (ARGUS Gold Plus or higher, or Wyvern Wingman; Gold or unrated only with director approval)"],
+  ["audit","Safety audit checked and recorded under Operator safety (ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3; anything else only with the director's approval and the client told in writing)"],
   ["route","Routing, permits and continuous journey checked with the operator"],
   ["terms","Operator's cancellation and payment terms are no softer for Archē Executive than ours"]];
 const OPS_CHECKS = [["kyc","Charterer KYC and sanctions screening recorded (operations)"],["pay","Payment request created in our payment provider (operations)"]];
@@ -751,10 +751,10 @@ function tripFile(t){
       ${xsFixed(d) ? `<span>Fixed-price requests and extras (supplier ${usd(xsCost(d))} ÷ ${(1 - S.terms.margin).toFixed(2)})</span><span class="mono">${usd(xsFixed(d))}</span><span class="tot">Client pays in total</span><span class="tot mono">${usd(price + xsFixed(d))}</span>` : ""}</div>
       <p class="small muted" style="margin-top:6px">${q.aircraft ? esc(q.aircraft) : "Aircraft to be confirmed"}${q.tail ? " · " + esc(q.tail) : ""}${q.avinode ? " · Avinode trip " + esc(q.avinode) : ""}.${curNote(q)} The portal sets the price: operator price plus direct costs, divided by ${(1 - S.terms.margin).toFixed(2)}, rounded up.</p></div>
     ${["flown","cancelled"].includes(t.stage) ? "" : aiBlock(t)}
-    <div id="secChecks"><h3>Pre-issue checks</h3>${BROKER_CHECKS.map(([k, l]) => `<label class="check" for="ck_${k}"><input type="checkbox" id="ck_${k}" data-ck="${k}" ${checks[k] ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>${l}</span></label>`).join("")}
+    ${typeof safetyBlock === "function" ? safetyBlock(t) : ""}<div id="secChecks"><h3>Pre-issue checks</h3>${BROKER_CHECKS.map(([k, l]) => `<label class="check" for="ck_${k}"><input type="checkbox" id="ck_${k}" data-ck="${k}" ${checks[k] ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>${l}</span></label>`).join("")}
       ${OPS_CHECKS.map(([k, l]) => `<label class="check"><input type="checkbox" ${st[k] ? "checked" : ""} disabled><span>${l}</span>${st[k] ? `<span class="who-ticks">${k === "pay" && st.paynodeRef ? "Payment " + esc(st.paynodeRef) : "done"}</span>` : ""}</label>`).join("")}</div>
     <div id="secDocs"><h3>Documents</h3>${docs.length ? `<ul class="small">${docs.map(x => `<li><a href="/_blob/${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.name)}</a> <span class="muted">· ${esc(x.kind || "")} · ${fmtD(x.at)}</span></li>`).join("")}</ul>` : `<p class="small muted">No documents yet.</p>`}
-      ${canBrokerEdit ? `<div class="row"><select id="docKind" style="width:auto" aria-label="Document type"><option>Operator quote</option><option>AOC</option><option>Insurance certificate</option><option>Safety audit</option><option>Client KYC</option><option>Passport</option><option>Trip risk screen</option><option>Other</option></select><input type="file" id="docFile" style="width:auto"><button class="btn small" type="button" data-act="upload">Attach</button></div><p class="small muted">Documents stay in the portal. Never send passports or contracts by email or chat.</p>` : ""}</div>
+      ${canBrokerEdit ? `<div class="row"><select id="docKind" style="width:auto" aria-label="Document type"><option>Operator quote</option><option>AOC</option><option>Insurance certificate</option><option>Safety audit</option><option>Client KYC</option><option>Passport</option><option>Trip risk screen</option><option>Client safety disclosure</option><option>Other</option></select><input type="file" id="docFile" style="width:auto"><button class="btn small" type="button" data-act="upload">Attach</button></div><p class="small muted">Documents stay in the portal. Never send passports or contracts by email or chat.</p>` : ""}</div>
     ${canBrokerEdit ? `<div class="row" id="secSend"><button class="btn" type="button" data-act="edit">Edit enquiry and quote</button><button class="btn primary" type="button" data-act="submit" ${submitReady(d) ? "" : "disabled"}>Send to operations</button>${t.stage === "enquiry" || t.stage === "quoted" ? `<button class="btn danger" type="button" data-act="withdraw">Withdraw</button>` : ""}</div>${submitReady(d) ? "" : (typeof sendMissingNote === "function" ? sendMissingNote(t) : `<p class="small muted">To send to operations: client name, at least one leg, operator price and all seven checks.</p>`)}` : ""}
     ${ops}
     <div><h3>History</h3><div class="hist">${historyOf(t).map(h => `<div><span class="muted mono">${fmtT(h.t)}</span><span>${esc(h.a)} <span class="muted">· ${esc(h.by === "ops" ? "Operations" : nm(h.by))}</span></span></div>`).join("") || `<p class="small muted">No history yet.</p>`}</div></div>
@@ -1105,7 +1105,7 @@ House rules:
 - Only operations issues a charter confirmation, after KYC and sanctions screening.
 - Never sell: illegal charter (no valid AOC for commercial flights); cabotage (a foreign operator flying a domestic leg) unless the continuous journey is confirmed in writing by the operator; US domestic legs on non-US operators; intra-EU legs on non-EU operators without permission; per-seat sales; flights for sanctioned persons or embargoed places; operators on the EU Air Safety List; aircraft chartered or controlled by Russian nationals into the EU; medical or air-ambulance flights; travel packages without a licence; trips where passenger names are hidden.
 - We cannot take payments from or pay to Belarus, occupied Ukrainian regions, Cuba, Iran, Kazakhstan, Libya, Myanmar, North Korea, Russia, South Sudan, Sudan, Syria and Venezuela: a payer or operator there is red.
-- Safety standard: ARGUS Gold Plus or higher, or Wyvern Wingman; ARGUS Gold or unrated only with director approval.
+- Safety standard: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; anything else (including ARGUS Gold or Gold Certified) only with the director's approval and the client told in writing. Every operator: two pilots on jets, insurance at least USD 50M jet / 25M turboprop, five years clear.
 - Disclose to the client: Archē is the broker, the operator's legal name as on its AOC, aircraft type and registration, the full price, and anything charged after the flight.
 - Trip risk screen: green, amber or red; every amber point confirmed in writing; nothing red goes ahead.
 - Marketing: never claim a fleet; business contacts only; honour every opt-out and do-not-call register; follow data-protection law (PDPA).
@@ -3006,8 +3006,8 @@ document.addEventListener("drop", e => { const d = e.target.closest && e.target.
    and nothing can be issued. Prices and operators are invented training figures, not market data. ---------- */
 const TR_RATE = {"Very light jet":[3000,700,2200], "Light jet":[3600,720,3000], "Midsize jet":[4600,760,4000], "Super-midsize jet":[5800,800,5800], "Heavy jet":[8200,850,7000], "Ultra-long-range jet":[11500,880,12000]}; // USD per hour, km/h, range km (training figures)
 const TR_TRAPS = {
-  unrated: "Operator has no safety audit rating. Our standard is ARGUS Gold Plus or higher, or Wyvern Wingman; unrated only with the director's approval.",
-  gold: "ARGUS Gold only. Our standard is Gold Plus or higher, or Wyvern Wingman; Gold only with the director's approval.",
+  unrated: "Operator has no safety audit. Our standard is ARGUS Platinum or Platinum Elite, WYVERN Wingman or IS-BAO Stage 2 or 3; anything else only with the director's approval and the client told in writing.",
+  gold: "ARGUS Gold only (a remote audit). Our standard is ARGUS Platinum or Platinum Elite, WYVERN Wingman or IS-BAO Stage 2 or 3; Gold only with the director's approval and the client told in writing.",
   tooSmall: "Not enough passenger seats for the group.",
   cabotage: "A non-US operator on a US domestic flight is cabotage, which is illegal. Only a US operator with Part 135 authority may fly it.",
   noPets: "This operator does not accept animals, and the client travels with a dog.",
@@ -3020,7 +3020,7 @@ const TR_SC = [
    client:"Harbour Family Office (training)", country:"United Kingdom", date: () => plusDays(12), time:"11:00",
    from:["EGLL","EGKK","EGGW","EGSS","EGLC","EGLF","EGKB","EGWU","EGTK"], to:["LFMN","LFMD"], pax:5, cats:["Light jet","Midsize jet"],
    need:[{sec:"requests", cat:"Catering", why:"Lunch on board was requested."}],
-   offers:[{op:"Albion Jet Charter Ltd", st:"United Kingdom", type:"Citation CJ3+", cat:"Light jet", seats:7, yom:2016, rating:"ARGUS Gold Plus", reg:"G-TRNA"},
+   offers:[{op:"Albion Jet Charter Ltd", st:"United Kingdom", type:"Citation CJ3+", cat:"Light jet", seats:7, yom:2016, rating:"ARGUS Platinum", reg:"G-TRNA"},
      {op:"Channel Air Services Ltd", st:"United Kingdom", type:"Phenom 300E", cat:"Light jet", seats:7, yom:2019, rating:"Unrated", trap:"unrated", k:0.86, reg:"G-TRNB"},
      {op:"Riviera Executive SA", st:"France", type:"Citation XLS+", cat:"Midsize jet", seats:8, yom:2014, rating:"Wyvern Wingman", reg:"F-TRNC"},
      {op:"Northern Sky Charter Ltd", st:"United Kingdom", type:"HondaJet Elite", cat:"Very light jet", seats:4, yom:2020, rating:"ARGUS Platinum", trap:"tooSmall", reg:"G-TRND"}]},
@@ -3029,31 +3029,31 @@ const TR_SC = [
    from:["LSGG"], to:["LEPA"], pax:6, cats:["Midsize jet","Super-midsize jet"],
    need:[{sec:"requests", cat:"Pets", why:"The dog must be recorded, with the operator's written approval and the EU pet travel documents (Regulation 576/2013)."}],
    offers:[{op:"Alpine Executive Aviation AG", st:"Switzerland", type:"Citation Latitude", cat:"Midsize jet", seats:9, yom:2018, rating:"ARGUS Platinum", reg:"HB-TRA", note:"Animals accepted in the cabin with prior approval."},
-     {op:"Balearic Jet SL", st:"Spain", type:"Learjet 75", cat:"Midsize jet", seats:8, yom:2015, rating:"ARGUS Gold Plus", trap:"noPets", k:0.84, reg:"EC-TRB", note:"No animals on board (operator policy)."},
+     {op:"Balearic Jet SL", st:"Spain", type:"Learjet 75", cat:"Midsize jet", seats:8, yom:2015, rating:"ARGUS Platinum", trap:"noPets", k:0.84, reg:"EC-TRB", note:"No animals on board (operator policy)."},
      {op:"Leman Air SA", st:"Switzerland", type:"Challenger 350", cat:"Super-midsize jet", seats:9, yom:2017, rating:"Wyvern Wingman", reg:"HB-TRC", note:"Animals accepted in the cabin with prior approval."}]},
   {id:"s3", title:"Winter long-haul: Zurich to Bangkok", level:"Advanced", brief: c => `A Zurich industrial group books Zurich to Bangkok on ${fmtD(c.date)}, departing 06:30, for 8 passengers, one way, heavy or ultra-long-range jet. January in Zurich: expect frost or snow at an early departure.`,
    client:"Helvetia Precision Group (training)", country:"Switzerland", date: nextJan, time:"06:30",
    from:["LSZH"], to:["VTBS","VTBD"], pax:8, cats:["Heavy jet","Ultra-long-range jet"],
    need:[{sec:"extras", cat:"De-icing", basis:"cost", why:"Early winter departure: de-icing may be needed. It cannot be known in advance, so it is charged at cost after the flight (EU CAT.OP.MPA.250)."}],
    offers:[{op:"Zurich Global Jets AG", st:"Switzerland", type:"Global 6000", cat:"Ultra-long-range jet", seats:13, yom:2015, rating:"ARGUS Platinum", reg:"HB-TRG"},
-     {op:"Danube Executive GmbH", st:"Austria", type:"Falcon 900LX", cat:"Heavy jet", seats:12, yom:2012, rating:"ARGUS Gold Plus", trap:"expiredIns", k:0.88, reg:"OE-TRH", note:"Insurance certificate on file valid until 30 Sep 2026."},
+     {op:"Danube Executive GmbH", st:"Austria", type:"Falcon 900LX", cat:"Heavy jet", seats:12, yom:2012, rating:"ARGUS Platinum", trap:"expiredIns", k:0.88, reg:"OE-TRH", note:"Insurance certificate on file valid until 30 Sep 2026."},
      {op:"Lake Constance Aviation AG", st:"Switzerland", type:"Falcon 7X", cat:"Ultra-long-range jet", seats:12, yom:2013, rating:"Wyvern Wingman", reg:"HB-TRI"}]},
   {id:"s4", title:"US domestic: Miami to New York", level:"Intermediate", brief: c => `A Miami sports agency needs Miami to New York (Teterboro preferred) on ${fmtD(c.date)} at 15:00 for 5 passengers, one way, midsize or super-midsize.`,
    client:"Biscayne Sports Group (training)", country:"United States", date: () => plusDays(15), time:"15:00",
    from:["KMIA","KOPF","KTMB"], to:["KTEB","KJFK","KLGA","KHPN"], pax:5, cats:["Midsize jet","Super-midsize jet"], need:[],
-   offers:[{op:"Maple Leaf Jets Inc", st:"Canada", type:"Challenger 300", cat:"Super-midsize jet", seats:9, yom:2014, rating:"ARGUS Gold Plus", trap:"cabotage", k:0.8, reg:"C-TRNJ"},
+   offers:[{op:"Maple Leaf Jets Inc", st:"Canada", type:"Challenger 300", cat:"Super-midsize jet", seats:9, yom:2014, rating:"ARGUS Platinum", trap:"cabotage", k:0.8, reg:"C-TRNJ"},
      {op:"Coastal Jet Charter LLC", st:"United States (Part 135)", type:"Citation Sovereign", cat:"Midsize jet", seats:9, yom:2013, rating:"ARGUS Platinum", reg:"N101TR"},
      {op:"Empire Air Charter LLC", st:"United States (Part 135)", type:"Praetor 600", cat:"Super-midsize jet", seats:9, yom:2021, rating:"Wyvern Wingman", reg:"N202TR"}]},
   {id:"s5", title:"Short notice: Dubai to Riyadh", level:"Intermediate", brief: c => `A Dubai client needs Dubai to Riyadh on ${fmtD(c.date)} at 18:00 (three days from today) for 6 passengers, one way. Midsize, super-midsize or heavy.`,
    client:"Gulf Horizon Investments (training)", country:"United Arab Emirates", date: () => plusDays(3), time:"18:00",
    from:["OMDB","OMDW"], to:["OERK"], pax:6, cats:["Midsize jet","Super-midsize jet","Heavy jet"], need:[], fullPay:true,
-   offers:[{op:"Emirates Business Air LLC", st:"United Arab Emirates", type:"Legacy 500", cat:"Midsize jet", seats:8, yom:2017, rating:"ARGUS Gold Plus", reg:"A6-TRA"},
+   offers:[{op:"Emirates Business Air LLC", st:"United Arab Emirates", type:"Legacy 500", cat:"Midsize jet", seats:8, yom:2017, rating:"ARGUS Platinum", reg:"A6-TRA"},
      {op:"Desert Wing Aviation LLC", st:"United Arab Emirates", type:"Challenger 650", cat:"Heavy jet", seats:12, yom:2019, rating:"Wyvern Wingman", reg:"A6-TRB"},
      {op:"Falcon Coast Charter LLC", st:"United Arab Emirates", type:"Citation Latitude", cat:"Midsize jet", seats:9, yom:2016, rating:"ARGUS Gold", trap:"gold", k:0.85, reg:"A6-TRC"}]},
   {id:"s6", title:"Red flag: who is paying?", level:"Advanced", brief: c => `A trading company asks for Istanbul to Nice on ${fmtD(c.date)} at 12:00 for 4 passengers. Its contact says the company is registered in Moscow and will pay the charter itself. Midsize or super-midsize.`,
    client:"Bosphorus Commodities (training)", country:"Russia", date: () => plusDays(18), time:"12:00",
    from:["LTFM","LTBA","LTFJ"], to:["LFMN"], pax:4, cats:["Midsize jet","Super-midsize jet"], need:[], decline:true,
-   offers:[{op:"Anatolia Jet AS", st:"Türkiye", type:"Citation XLS+", cat:"Midsize jet", seats:8, yom:2015, rating:"ARGUS Gold Plus", reg:"TC-TRA"},
+   offers:[{op:"Anatolia Jet AS", st:"Türkiye", type:"Citation XLS+", cat:"Midsize jet", seats:8, yom:2015, rating:"ARGUS Platinum", reg:"TC-TRA"},
      {op:"Golden Horn Aviation AS", st:"Türkiye", type:"Challenger 350", cat:"Super-midsize jet", seats:9, yom:2018, rating:"ARGUS Platinum", reg:"TC-TRB"}]},
 ];
 const TR_STEPS = ["Brief","Enquiry","Avinode","Requests and extras","Price","Checks","Operations","Confirmation","Payment","Flight and commission"];
@@ -5927,6 +5927,7 @@ function vOnboarding(){
       out.push([!red.length, red.length ? `Trip checks: ${red.length} red item${red.length > 1 ? "s" : ""} stop the trip` : "Trip checks: nothing red", "sec|secTC", true]);
       out.push([!amberOpen.length, amberOpen.length ? `Trip checks: confirm ${amberOpen.length} amber item${amberOpen.length > 1 ? "s" : ""} with the operator` : "Trip checks: amber items confirmed", "sec|secTC", true]);
     }
+    if (typeof safetyNeeds === "function") { const n = safetyNeeds(d, t.st), r = safetyBreaches(d); out.push([!n.length && !r.length, r.length ? "Operator safety: a red item stops the trip" : n.length ? `Complete the operator safety record (${n.length} open)` : "Operator safety record complete", "sec|secSafety", true]); }
     const ck = d.checks || {}, open = BROKER_CHECKS.filter(([k]) => !ck[k]);
     out.push([!open.length, open.length ? `Tick the pre-issue checks (${BROKER_CHECKS.length - open.length} of ${BROKER_CHECKS.length} done)` : `Pre-issue checks: all ${BROKER_CHECKS.length} ticked`, "sec|secChecks", true]);
     const docs = [["AOC", "AOC"], ["Insurance certificate", "insurance certificate"], ["Operator quote", "operator's quote"]], dm = docs.filter(([k]) => !docOf(d, k));
@@ -6069,6 +6070,162 @@ function vOnboarding(){
     else if (cur) { const n = cur.items.filter(x => !x[0] && x[3]); toast(`Saved. Next: ${cur.title}${n.length ? " – " + n.slice(0, 3).map(x => x[1].split(" (")[0]).join(", ") + (n.length > 3 ? "…" : "") : ""}.`); }
     else toast("Saved");
   };
+})();
+
+/* ---------- Operator safety standard on every trip (Morten, 27 Oct 2026: "proceed with your proposed rule and ensure
+   we can enforce it, otherwise remove"). Manual Module 8.2, 8.3 and 8.5.
+   Tier 1, no approval needed: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3,
+     current on the last flight date, checked at the source no more than 14 days ago, link and evidence saved.
+   Tier 2, everything else: the director (owner) approves on the trip, all 8.3 checks done, crew minimums confirmed,
+     and the client told in writing before signing (the email attached to the trip).
+   Every operator: two pilots on every jet flight; passenger liability at least USD 50M (jet) or USD 25M (turboprop);
+     five years clear of fatal accidents, serious incidents and sanctions (otherwise director approval); suspended
+     operators (after an accident or serious incident, until the director's review) cannot be used.
+   Enforced: "Send to operations" stays closed until the record is complete; a breach is a red trip check that also
+   blocks approval and issue; the safety-audit tick cannot be set by hand before the record is complete. */
+(function(){
+  const T1 = {"argus-plat": "ARGUS Platinum", "argus-elite": "ARGUS Platinum Elite", "wyv-wingman": "WYVERN Wingman", "wyv-pro": "WYVERN Wingman PRO", "isbao-2": "IS-BAO Stage 2", "isbao-3": "IS-BAO Stage 3"};
+  const T2 = {"argus-gold": "ARGUS Gold", "argus-goldcert": "ARGUS Gold Certified", "isbao-1": "IS-BAO Stage 1", "wyv-reg": "WYVERN Registered (no audit)", "other": "Another audit", "none": "No audit"};
+  const LABEL = {...T1, ...T2};
+  const MIN_INS = {jet: 50e6, turboprop: 25e6};
+  const CREW = {cap: 3000, capType: 250, fo: 1000};
+  const CHECKS83 = [["aocAuth", "AOC and aircraft confirmed with the issuing authority or its public register"], ["insInsurer", "Insurance confirmed by the insurer or the operator's insurance broker, not only by a copy"], ["sms", "IS-BAO registration, or the Archē operator questionnaire completed"], ["noAdverse", "No adverse history in public accident databases"], ["refs", "Two references from brokers or clients who have flown with the operator"]];
+  const DAY = 864e5, today = () => new Date().toISOString().slice(0, 10);
+  const normOp = s => String(s || "").toLowerCase().replace(/\b(ltd|limited|pte|llc|inc|co|corp|plc|sa|ag|gmbh)\b\.?/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+  const lastDate = d => (((d.trip || {}).legs) || []).map(l => l.date).filter(Boolean).sort().pop() || "";
+  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind);
+  const tripOf = d => { try { return allTrips().find(x => x.d === d) || null; } catch(e){ return null; } };
+  const suspended = name => { const n = normOp(name); return n && ((S.opSusp || {}).list || []).find(x => normOp(x.name) === n) || null; };
+  const fpOf = d => { const s = d.safety || {}, q = d.quote || {}; return [normOp(q.operator), s.audit || "", s.history || ""].join("|"); };
+  const needsApproval = s => !!s && (!!T2[s.audit] || s.history === "event");
+  window.safetyApproved = (d, st) => { const a = (st || {}).safetyApproval; return !!a && a.fp === fpOf(d); };
+
+  // what is still missing (blocks "Send to operations")
+  window.safetyNeeds = function(d, st){
+    const s = d.safety || {}, out = [];
+    if (!s.audit) { out.push("operator safety: audit held by the operator"); return out; }
+    if (!s.cls) out.push("operator safety: jet or turboprop");
+    if (s.cls === "jet" && s.twoPilots !== "yes") out.push("operator safety: two pilots confirmed");
+    if (!(Number(s.ins) > 0)) out.push("operator safety: passenger liability insurance amount");
+    if (!s.history) out.push("operator safety: five-year accident and sanction history");
+    if (T1[s.audit]) {
+      if (!s.expiry) out.push("operator safety: audit expiry date");
+      if (!s.checkedAt) out.push("operator safety: date the audit was checked at the source");
+      if (!/^https:\/\//.test(s.link || "")) out.push("operator safety: link to the auditor's registry entry or certificate");
+      if (!docOf(d, "Safety audit")) out.push("operator safety: audit evidence attached (document type Safety audit)");
+    } else {
+      CHECKS83.forEach(([k]) => { if (!(s.c83 || {})[k]) out.push("operator safety: all five checks for operators below the audit standard"); });
+      if (!(s.cap > 0 && s.capType > 0 && s.fo > 0)) out.push("operator safety: crew hours confirmed by the operator");
+      if (!s.toldAt || !docOf(d, "Client safety disclosure")) out.push("operator safety: client told in writing (date and email attached as Client safety disclosure)");
+    }
+    if (needsApproval(s) && !safetyApproved(d, st)) out.push("operator safety: the director's approval on this trip");
+    return [...new Set(out)];
+  };
+  // breaches of the standard (red: stop the trip)
+  window.safetyBreaches = function(d){
+    const s = d.safety || {}, q = d.quote || {}, out = [];
+    const sp = suspended(q.operator); if (sp) out.push(`${esc(q.operator)} is suspended by the director (${esc(fmtD(sp.at))}${sp.note ? ": " + esc(sp.note) : ""}). It cannot be used until the suspension is lifted.`);
+    if (s.cls === "jet" && s.twoPilots === "no") out.push("Single-pilot jet flight: Archē requires two pilots on every jet flight (manual 8.2).");
+    if (s.cls && Number(s.ins) > 0 && Number(s.ins) < MIN_INS[s.cls]) out.push(`Passenger liability insurance ${usd(Number(s.ins))} is below the minimum of ${usd(MIN_INS[s.cls])} for a ${s.cls} (manual 8.2).`);
+    if (T1[s.audit]) {
+      const last = lastDate(d);
+      if (s.expiry && last && s.expiry < last) out.push(`The ${esc(LABEL[s.audit])} audit expires ${esc(fmtD(s.expiry))}, before the last flight (${esc(fmtD(last))}).`);
+      if (s.checkedAt && (Date.now() - new Date(s.checkedAt).getTime()) / DAY > 14 && !["review","issued","clientPaid","flown"].includes(stageOf(d, {}))) out.push(`The audit was checked at the source on ${esc(fmtD(s.checkedAt))}, more than 14 days ago. Check it again and update the date.`);
+    } else if (s.audit && (s.cap > 0 || s.capType > 0 || s.fo > 0) && (s.cap < CREW.cap || s.capType < CREW.capType || s.fo < CREW.fo)) {
+      out.push(`Crew below the minimums for an operator without an accepted audit: captain ${CREW.cap.toLocaleString("en-US")} hours total and ${CREW.capType} on type, first officer ${CREW.fo.toLocaleString("en-US")} hours (manual 8.3).`);
+    }
+    return out;
+  };
+  // red items join the trip checks, so the existing gates (send, approve, issue) stop the trip
+  const _tc = window.tripChecks;
+  if (_tc) window.tripChecks = function(d, st){ return _tc(d, st).concat(safetyBreaches(d).map((text, i) => ({key: "safety|" + i, sev: "red", leg: null, text}))); };
+  // the send list includes the safety record
+  const _sn = window.sendNeeds;
+  window.sendNeeds = function(d){ const t = tripOf(d); return _sn(d).concat(safetyNeeds(d, t ? t.st : {})); };
+
+  function watch(){ if (S.opSuspW || typeof watchDoc !== "function") return; S.opSuspW = true; try { watchDoc("config/opsuspend", snap => { S.opSusp = snap.exists ? snap.data() : {list: []}; render(); }); } catch(e){} }
+
+  window.safetyBlock = function(t){
+    watch();
+    const d = t.d, st = t.st || {}, s = d.safety || {}, q = d.quote || {};
+    const mine = t.bid === S.uid, locked = ["review","issued","clientPaid","flown","cancelled"].includes(t.stage);
+    const can = mine && !locked;
+    const dis = can ? "" : "disabled";
+    const tier = T1[s.audit] ? 1 : s.audit ? 2 : 0;
+    const needs = safetyNeeds(d, st), red = safetyBreaches(d);
+    const opt = (o, v) => Object.entries(o).map(([k, l]) => `<option value="${k}" ${v === k ? "selected" : ""}>${esc(l)}</option>`).join("");
+    const head = red.length ? `<div class="note bad small">${red.map(x => `<div>${x}</div>`).join("")}</div>`
+      : needs.length ? `<div class="note warn small"><b>Still needed:</b> ${needs.map(x => esc(x.replace("operator safety: ", ""))).join(" · ")}</div>`
+      : `<div class="note ok small"><b>Meets the standard</b>${tier === 1 ? ` · ${esc(LABEL[s.audit])}, expires ${esc(fmtD(s.expiry))}, checked ${esc(fmtD(s.checkedAt))}` : ` · approved by the director ${esc(fmtT((st.safetyApproval || {}).at))}`}</div>`;
+    const t1 = tier === 1 ? `<div class="fgrid">
+      <label class="f" for="sf_exp">Audit expiry date<input type="date" id="sf_exp" data-sf="expiry" value="${esc(s.expiry || "")}" ${dis}></label>
+      <label class="f" for="sf_chk">Checked at the source on<input type="date" id="sf_chk" data-sf="checkedAt" value="${esc(s.checkedAt || "")}" max="${today()}" ${dis}></label>
+      <label class="f wide" for="sf_link">Link to the auditor's registry entry or certificate<input id="sf_link" data-sf="link" value="${esc(s.link || "")}" placeholder="https://" ${dis}></label></div>
+      <p class="small muted">Check the operator in the auditor's own registry (ARGUS registry, WYVERN Wingman directory, IS-BAO certificate) for the AOC that flies this trip. Attach a screenshot or the certificate as document type "Safety audit".</p>` : "";
+    const t2 = tier === 2 ? `<p class="small"><b>Below the audit standard (manual 8.3).</b> Allowed only with the director's approval, all five checks, the crew minimums and the client told in writing before signing.</p>
+      ${CHECKS83.map(([k, l]) => `<label class="check" for="sf83_${k}"><input type="checkbox" id="sf83_${k}" data-sf83="${k}" ${(s.c83 || {})[k] ? "checked" : ""} ${dis}><span>${esc(l)}</span></label>`).join("")}
+      <div class="fgrid">
+      <label class="f" for="sf_cap">Captain: total hours<input id="sf_cap" inputmode="numeric" data-sfn="cap" value="${esc(s.cap || "")}" ${dis}></label>
+      <label class="f" for="sf_capt">Captain: hours on type<input id="sf_capt" inputmode="numeric" data-sfn="capType" value="${esc(s.capType || "")}" ${dis}></label>
+      <label class="f" for="sf_fo">First officer: total hours<input id="sf_fo" inputmode="numeric" data-sfn="fo" value="${esc(s.fo || "")}" ${dis}></label>
+      <label class="f" for="sf_told">Client told in writing on<input type="date" id="sf_told" data-sf="toldAt" value="${esc(s.toldAt || "")}" max="${today()}" ${dis}></label></div>
+      <p class="small muted">Tell the client which audit the operator holds, or that it holds none, and attach the email as document type "Client safety disclosure".</p>` : "";
+    const appr = needsApproval(s) ? (safetyApproved(d, st) ? `<p class="small">Approved by the director ${esc(fmtT(st.safetyApproval.at))}: ${esc(st.safetyApproval.note || "")}</p>`
+      : (S.isOwner && acting() === "owner" ? `<div class="fgrid"><label class="f wide" for="sf_apn">Director: why this operator is acceptable for this trip<input id="sf_apn" placeholder="e.g. IS-BAO Stage 1 renewed 2026, references from two brokers, crew hours confirmed"></label></div><div class="row"><button class="btn small primary" type="button" data-sfa="approve">Approve this operator for this trip</button></div>`
+        : `<p class="small muted">Waiting for the director's approval on this trip.</p>`)) : "";
+    const sp = suspended(q.operator);
+    const susp = S.isOwner && acting() === "owner" && q.operator ? (sp ? `<div class="row"><button class="btn small" type="button" data-sfa="unsuspend">Lift the suspension of ${esc(q.operator)}</button></div>`
+      : `<details class="small" style="margin-top:8px"><summary>Suspend this operator (after an accident or serious incident)</summary><div class="fgrid"><label class="f wide" for="sf_sn">Reason<input id="sf_sn"></label></div><button class="btn small danger" type="button" data-sfa="suspend">Suspend ${esc(q.operator)} on every trip</button></details>`) : "";
+    return `<div class="panel" id="secSafety" style="padding:16px;margin:8px 0"><h3 style="margin-top:0">Operator safety${q.operator ? " · " + esc(q.operator) : ""}</h3>${head}
+      <div class="fgrid">
+      <label class="f" for="sf_aud">Audit held by the operator (for the AOC that flies this trip)<select id="sf_aud" data-sf="audit" ${dis}><option value="">Choose</option><optgroup label="Accepted (manual 8.2)">${opt(T1, s.audit)}</optgroup><optgroup label="Director approval needed (manual 8.3)">${opt(T2, s.audit)}</optgroup></select></label>
+      <label class="f" for="sf_cls">Aircraft<select id="sf_cls" data-sf="cls" ${dis}><option value="">Choose</option><option value="jet" ${s.cls === "jet" ? "selected" : ""}>Jet</option><option value="turboprop" ${s.cls === "turboprop" ? "selected" : ""}>Turboprop</option></select></label>
+      <label class="f" for="sf_2p">Two pilots on every flight, confirmed by the operator<select id="sf_2p" data-sf="twoPilots" ${dis}><option value="">Choose</option><option value="yes" ${s.twoPilots === "yes" ? "selected" : ""}>Yes, in writing</option><option value="no" ${s.twoPilots === "no" ? "selected" : ""}>No, single pilot</option></select></label>
+      <label class="f" for="sf_ins">Passenger liability insurance (USD)<input id="sf_ins" inputmode="numeric" data-sfn="ins" value="${esc(s.ins || "")}" placeholder="e.g. 50000000" ${dis}></label>
+      <label class="f" for="sf_hist">Last five years: fatal accident, serious incident or sanction?<select id="sf_hist" data-sf="history" ${dis}><option value="">Choose</option><option value="clear" ${s.history === "clear" ? "selected" : ""}>None found (databases checked, operator confirms)</option><option value="event" ${s.history === "event" ? "selected" : ""}>Yes: needs the director's approval</option></select></label>
+      </div>${t1}${t2}${appr}${susp}
+      <p class="small muted">Minimums for every operator: two pilots on every jet flight; insurance at least USD 50 million (jet) or 25 million (turboprop); five years clear, otherwise the director decides. Manual Module 8.</p></div>`;
+  };
+
+  async function save(t, patch, line){ const s = {...(t.d.safety || {}), ...patch, at: now()}; await deskWrite(t, {safety: s}, line); }
+  document.addEventListener("change", async e => {
+    const el = e.target; if (!el.closest || !el.closest("#secSafety")) return;
+    const t = tripById(S.sel); if (!t) return;
+    try {
+      if (el.dataset.sf) await save(t, {[el.dataset.sf]: el.value.trim()}, `Operator safety: ${el.dataset.sf} ${el.dataset.sf === "audit" ? LABEL[el.value] || "" : ""}`.trim());
+      else if (el.dataset.sfn) await save(t, {[el.dataset.sfn]: Math.max(0, Math.round(num(el.value)))}, `Operator safety: ${el.dataset.sfn} updated`);
+      else if (el.dataset.sf83) await save(t, {c83: {...((t.d.safety || {}).c83 || {}), [el.dataset.sf83]: el.checked}}, `Operator safety: check ${el.dataset.sf83} ${el.checked ? "done" : "undone"}`);
+    } catch(err){ toast("Could not save. Try again."); }
+  });
+  document.addEventListener("click", async e => {
+    const b = e.target.closest && e.target.closest("[data-sfa]"); if (!b) return;
+    const t = tripById(S.sel); if (!t || !(S.isOwner && acting() === "owner")) return;
+    const q = t.d.quote || {}, a = b.dataset.sfa;
+    try {
+      if (a === "approve") { const note = (($("sf_apn") || {}).value || "").trim(); if (note.length < 15) { toast("Write why the operator is acceptable (at least 15 characters)."); return; }
+        await statusWrite(t, {safetyApproval: {fp: fpOf(t.d), by: S.uid, at: now(), note, audit: (t.d.safety || {}).audit || ""}}, `Operator approved below the audit standard: ${q.operator || ""} (${LABEL[(t.d.safety || {}).audit] || ""}). ${note}`);
+        audit("Operator approved below the audit standard", `${q.operator || ""} · ${(t.st || {}).ref || t.did} · ${note.slice(0, 80)}`); toast("Approved for this trip."); return; }
+      const cur = (S.opSusp && S.opSusp.list) || [];
+      if (a === "suspend") { const note = (($("sf_sn") || {}).value || "").trim(); if (note.length < 10) { toast("Write the reason (at least 10 characters)."); return; }
+        await S.db.doc("config/opsuspend").set({list: [...cur.filter(x => normOp(x.name) !== normOp(q.operator)), {name: q.operator, at: now(), by: S.uid, note}]});
+        audit("Operator suspended", `${q.operator} · ${note.slice(0, 80)}`); toast(`${q.operator} is suspended on every trip.`); return; }
+      if (a === "unsuspend") { await S.db.doc("config/opsuspend").set({list: cur.filter(x => normOp(x.name) !== normOp(q.operator))}); audit("Operator suspension lifted", q.operator || ""); toast("Suspension lifted."); return; }
+    } catch(err){ toast("Could not save. Try again."); }
+  });
+  // the safety-audit tick follows the record: it cannot be ticked by hand before the record is complete
+  document.addEventListener("change", e => {
+    const el = e.target; if (!el.dataset || el.dataset.ck !== "audit" || !el.checked) return;
+    const t = tripById(S.sel); if (!t) return;
+    const n = safetyNeeds(t.d, t.st), r = safetyBreaches(t.d);
+    if (n.length || r.length) { el.checked = false; e.stopImmediatePropagation(); toast("Complete the Operator safety record first: " + (r.length ? "it shows a red item" : n[0].replace("operator safety: ", "")) + "."); const s = $("secSafety"); if (s) s.scrollIntoView({block: "start", behavior: "smooth"}); }
+  }, true);
+  // operations cannot approve or issue a trip whose record is not complete
+  document.addEventListener("click", e => {
+    const b = e.target.closest && e.target.closest('[data-ap="ok"],[data-act="confIssue"],[data-act="issue"]'); if (!b) return;
+    const t = b.dataset.ap ? (() => { const [bid, did] = (b.dataset.id || "").split("|"); return allTrips().find(x => x.bid === bid && x.did === did); })() : tripById(S.sel);
+    if (!t) return; const n = safetyNeeds(t.d, t.st);
+    if (n.length) { e.stopImmediatePropagation(); e.preventDefault(); toast("Operator safety record not complete: " + n.map(x => x.replace("operator safety: ", "")).join(", ") + "."); }
+  }, true);
 })();
 
 /* ---------- Owner to-do and trust / performance matrix on Today (Morten, 26 Oct 2026) ----------

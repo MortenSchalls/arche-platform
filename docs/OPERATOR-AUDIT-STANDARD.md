@@ -2,7 +2,7 @@
 
 Morten, 27 Oct 2026: "deeply analyse this and check as many peer companies … we need to be able to keep the standard we chose."
 
-Status: proposal for Morten's decision. Nothing changed in the manual, portal or academies yet.
+Status: ADOPTED by Morten, 27 Oct 2026 ("proceed with your proposed rule and ensure we can enforce it, otherwise remove"). Enforced in the portal (src-modules/opsafety.js); manual v3.8 Module 8 updated; academies rebuilt; charter confirmation label updated. Per-trip TripCHEQ/WYVERN PASS reports are NOT part of the rule yet (not enforceable until the safety-rating subscription exists).
 
 ## 1. What changed at ARGUS
 - **Gold Plus no longer exists.** It meant ARGUS Gold plus an ARGUS on-site audit; findings could still be open. In 2009–10 ARGUS also accepted an IS-BAO Stage 1 audit in its place. ARGUS has published no notice of when or why it was dropped. The only trace is an undated chart on its auditing-services page.

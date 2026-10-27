@@ -48,6 +48,7 @@
       out.push([!red.length, red.length ? `Trip checks: ${red.length} red item${red.length > 1 ? "s" : ""} stop the trip` : "Trip checks: nothing red", "sec|secTC", true]);
       out.push([!amberOpen.length, amberOpen.length ? `Trip checks: confirm ${amberOpen.length} amber item${amberOpen.length > 1 ? "s" : ""} with the operator` : "Trip checks: amber items confirmed", "sec|secTC", true]);
     }
+    if (typeof safetyNeeds === "function") { const n = safetyNeeds(d, t.st), r = safetyBreaches(d); out.push([!n.length && !r.length, r.length ? "Operator safety: a red item stops the trip" : n.length ? `Complete the operator safety record (${n.length} open)` : "Operator safety record complete", "sec|secSafety", true]); }
     const ck = d.checks || {}, open = BROKER_CHECKS.filter(([k]) => !ck[k]);
     out.push([!open.length, open.length ? `Tick the pre-issue checks (${BROKER_CHECKS.length - open.length} of ${BROKER_CHECKS.length} done)` : `Pre-issue checks: all ${BROKER_CHECKS.length} ticked`, "sec|secChecks", true]);
     const docs = [["AOC", "AOC"], ["Insurance certificate", "insurance certificate"], ["Operator quote", "operator's quote"]], dm = docs.filter(([k]) => !docOf(d, k));

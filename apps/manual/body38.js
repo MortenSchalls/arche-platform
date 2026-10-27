@@ -506,25 +506,28 @@ push(P('Direct contact with operators is good for relationships and off-market a
 push(H2('8.2 Operator vetting standard'));
 push(T([['Check',2600],['Standard',4140],['Evidence on file',2900]],[
  ['AOC','Valid commercial AOC; aircraft listed in the operations specifications','AOC and operations specifications'],
- ['Insurance','Current certificate covering commercial passenger flights','Insurance certificate'],
- ['Safety audit','ARGUS Gold Plus, Platinum or Platinum Elite, or Wyvern Wingman; ARGUS Gold only with director approval','Rating shown on Avinode or the audit provider\'s site, with date'],
- ['Safety management standard','IS-BAO registration is a strong plus','Certificate'],
+ ['Insurance','Current certificate covering commercial passenger flights, with passenger liability of at least USD 50 million for jets and USD 25 million for turboprops','Insurance certificate; the amount recorded in the portal'],
+ ['Safety audit','ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3: current on the date of the last flight and held by the AOC that flies the trip. Every other case (ARGUS Gold or Gold Certified, IS-BAO Stage 1, WYVERN Registered, another audit or none) only on the route in 8.3','The auditor\'s own registry entry or certificate, checked at the source for each booking no more than 14 days before it goes to operations, saved on the trip with the expiry date'],
+ ['Crew','Two pilots on every jet flight; crew type-rated and current on the aircraft','Operator\'s written confirmation'],
  ['Banned lists','Operator not on the EU Air Safety List or any similar national ban','Search result with date'],
  ['Foreign permissions','The authorisations needed for the route (for example EASA TCO, US authority, CAAS operations permit)','Operator\'s written confirmation'],
- ['History','No fatal accident, serious incident or regulatory sanction in the last 36 months without a satisfactory explanation','Public accident databases and operator statement'],
+ ['History','No fatal accident, serious incident or regulatory sanction in the last five years. Anything in that time only with the director\'s approval after a written explanation','Public accident databases and operator statement'],
+ ['Suspension','An operator is suspended after any accident or serious incident until the director has reviewed it','The portal\'s suspension list'],
  ['Sanctions','Operator and owner not sanctioned (Module 3)','Screening record'],
  ['Terms','Operator terms can be matched back to back by our client terms','Operator contract'],
 ],{size:17}));
 push(sp());
-push(H2('8.3 When the operator has no audit rating'));
-push(P('Many good operators worldwide have no ARGUS or Wyvern rating. They may be used with the director\'s approval if all of these are in place:'));
-push(BL(['AOC and aircraft confirmed with the issuing authority or its public register where one exists','Insurance confirmed by the insurer or the operator\'s insurance broker, not only by a copy','IS-BAO registration, or a completed Arche operator questionnaire on safety management, crew training and maintenance','No adverse history in public accident databases','Two references from brokers or clients who have flown with the operator']));
+push(H2('8.3 When the operator does not meet the audit standard'));
+push(P('Many good operators, above all in Asia-Pacific and the Middle East, hold none of the audits in 8.2. They may be used only with the director\'s approval, recorded on the trip in the portal, and only when all of these are in place:'));
+push(BL(['AOC and aircraft confirmed with the issuing authority or its public register where one exists','Insurance confirmed by the insurer or the operator\'s insurance broker, not only by a copy','IS-BAO registration, or a completed Arche operator questionnaire on safety management, crew training and maintenance','No adverse history in public accident databases','Two references from brokers or clients who have flown with the operator','Crew minimums confirmed by the operator in writing: captain at least 3,000 hours in total and 250 hours on the type; first officer at least 1,000 hours in total','The client told in writing, before signing, which audit the operator holds or that it holds none; the email attached to the trip']));
+push(P('ARGUS Gold Plus no longer exists. ARGUS Gold Certified is described by ARGUS as a remote, one-day audit, so it does not replace the on-site audit that Gold Plus required (ARGUS, 30 April 2026). The standard in 8.2 keeps an independent audit of the operator: on site for ARGUS Platinum and WYVERN Wingman, by a third-party auditor for IS-BAO.'));
 push(H2('8.4 Red flags'));
 push(BL(['Price far below every other quote for the same trip','Aircraft registered privately, or not on the AOC','Reluctance to send AOC, insurance or contract','Payment requested to a personal account or a country unrelated to the operator','Last-minute change of operator or aircraft without explanation']));
 push(H2('8.5 Crew and insurance'));
-push(BL([`Ask the operator to confirm that the crew are type-rated and current on the aircraft; on long-range trips, ask about their experience on the type and route.`,`Insurance must cover commercial passenger flights. In the United States, liability cover of USD 50 to 100 million is typical for turbojets (NBAA, 2024); ask what the operator carries and record it.`,`Where possible, ask the operator to add the client, and Arche, as additional insured on its policy.`,`Check the regulator's public records for enforcement action against the operator where they exist.`]));
+push(BL([`Ask the operator to confirm in writing two pilots on every jet flight, and that the crew are type-rated and current on the aircraft; on long-range trips, ask about their experience on the type and route. A single-pilot jet flight stops the trip.`,`Insurance must cover commercial passenger flights, with passenger liability of at least USD 50 million for jets and USD 25 million for turboprops. In the United States, cover of USD 50 to 100 million is typical for turbojets (NBAA, 2024). Record the amount in the portal; a lower amount stops the trip.`,`Where possible, ask the operator to add the client, and Arche, as additional insured on its policy.`,`Check the regulator's public records for enforcement action against the operator where they exist.`]));
 push(quiz(8,[
- ['Which audit standard is accepted without director approval?',['ARGUS Gold','ARGUS Gold Plus','No rating','Any rating'],'b'],
+ ['Which audit is accepted without director approval?',['ARGUS Gold Certified','WYVERN Wingman','IS-BAO Stage 1','No rating'],'b'],
+ ['An operator holds no audit. What must happen before the client signs?',['Nothing','The director approves it in the portal and the client is told in writing','The client gets a discount','Only the operator\'s word'],'b'],
  ['An operator is not rated. Which is required?',['Nothing','Director approval plus AOC, insurance, history and references checked','Client approval only','A lower price'],'b'],
  ['Before using an operator for a flight into Europe, which list do you check?',['The OFAC list only','The EU Air Safety List','The ATOL list','None'],'b'],
  ['What should you ask the operator about its insurance?',['Nothing','What liability cover it carries, and whether the client and Arche can be added as additional insured','Only the premium','Who the insurer\'s director is'],'b']
@@ -830,7 +833,7 @@ push(H1('Appendix A  Checklists',true));
 push(H2('A.1 Pre-issue checklist'));
 push(BL(['KYC complete and reference recorded','Sanctions screening record complete and clear','Trip checked against Module 2.4 (never-sell list, cabotage, US and EU rules)','Trip risk screen recorded; every amber point confirmed in writing; no red open','Operator AOC and operations specifications on file; aircraft listed','Insurance certificate on file, commercial passengers covered','Safety audit standard met, or director approval for an unrated operator; operator not on a banned list','Route feasible: range, runway, crew duty, permits, slots, cabotage confirmed by the operator','Operator terms back to back with Part A','Price at 9% (or director approval); "at cost" items listed','Client requests and operational extras listed, each with how it is charged; fixed prices from a written supplier quote','Airport hours, de-icing, crew plan, parking and customs checked with the operator for the planned times','Disclosures in Module 2.2 included','Payment set up as a payment request'].map(t=>'☐  '+t)));
 push(H2('A.2 Operator vetting checklist'));
-push(BL(['AOC','Operations specifications','Insurance','ARGUS / Wyvern / IS-BAO evidence, or the unrated-operator route','EU Air Safety List and national bans','Foreign permissions for the route','Accident and enforcement history','Sanctions screening','Contract terms'].map(t=>'☐  '+t)));
+push(BL(['AOC','Operations specifications','Insurance','Audit evidence from the auditor\'s registry (Module 8.2), or the director\'s approval and client notice (8.3)','EU Air Safety List and national bans','Foreign permissions for the route','Accident and enforcement history','Sanctions screening','Contract terms'].map(t=>'☐  '+t)));
 push(H2('A.3 Pre-flight checklist'));
 push(BL(['Passenger details sent to the operator','Permits and slots confirmed','Catering and ground transport confirmed','Every client request and operational extra confirmed in writing','De-icing, airport hours and crew plan rechecked against the forecast and final times','Trip brief sent to the client','24-hour contact on duty; desk log updated'].map(t=>'☐  '+t)));
 push(H2('A.4 After-flight checklist'));
@@ -912,7 +915,8 @@ push(LK('US: 14 CFR Part 295, air charter brokers (eCFR)','https://www.ecfr.gov/
  LK('EU sanctions and business aviation: Russia and Belarus (EBAA, 2023)','https://www.ebaa.org/app/uploads/2023/04/Impact-of-EU-Sanctions-against-Russia-and-Belarus-on-BizAv.pdf'));
 push(H2('D.5 Operator safety and airspace'));
 push(LK('ARGUS auditing services and ratings','https://argus.aero/auditing-services'),
- LK('Wyvern','https://www.wyvern.aero/','Wingman certification; site blocks automated checks, open in a browser'),
+ LK('WYVERN','https://www.wyvernltd.com/','Wingman standard and the public Wingman directory'),
+ LK('IBAC IS-BAO','https://ibac.org/is-bao','IS-BAO stages and registration'),
  LK('IS-BAO (International Business Aviation Council)','https://www.ibac.org/is-bao'),
  LK('Air Charter Safety Foundation','https://www.acsf.aero/','Industry Audit Standard'),
  LK('EASA Conflict Zone Information Bulletins','https://www.easa.europa.eu/en/domains/air-operations/czibs'),
@@ -946,7 +950,7 @@ push(H1('Appendix E  Glossary',false));
 push(T([['Term',2400],['Meaning',7240]],[
  ['AOC','Air Operator Certificate: an authority\'s approval for an operator to fly commercially'],
  ['AOG','Aircraft on ground: the aircraft cannot fly because of a technical fault'],
- ['ARGUS / Wyvern','Independent safety audit and rating providers for charter operators'],
+ ['ARGUS / WYVERN / IS-BAO','Independent safety audits of charter operators; see Module 8.2 for the levels Arche accepts'],
  ['Avinode','The marketplace Arche uses to source, quote and book flights'],
  ['Back to back','Our terms to the client mirror the operator\'s terms to us'],
  ['Block time','From moving off the parking stand to stopping at the destination'],
@@ -1115,7 +1119,7 @@ push(H2("H.8 Pre-issue checks and sending to operations"));
 push(P([bo('Who uses it: '),r("Brokers")]));
 push(P("Hand operations a complete, compliant trip."));
 push(H3('How it works'));
-push(NL(["Tick the seven broker checks only when each is done and recorded: never-sell list, trip risk screen, AOC, insurance, safety audit, routing and permits, operator terms.", "Send to operations. The button works only with a client name, at least one leg, an operator price and all seven checks."]));
+push(NL(["Tick the seven broker checks only when each is done and recorded: never-sell list, trip risk screen, AOC, insurance, safety audit, routing and permits, operator terms.", "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For any other operator, do the five checks, record the crew hours, tell the client in writing (attach the email as \"Client safety disclosure\") and wait for the director's approval. The safety-audit tick follows this record.", "Send to operations. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["Send to operations is greyed out", "One of the required items is missing; the note under the button lists them."], ["The trip came back as Returned", "Read the operations note at the top of the trip, fix it and send again."]]));
 push(sp());

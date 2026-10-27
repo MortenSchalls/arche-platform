@@ -30,6 +30,7 @@ EXT_TEXT = [
  ("as the Arche charter confirmation form","as a professional charter confirmation form"),
  ("On live bookings you use the Arche charter confirmation form. It produces the client PDF with Part A and Part B. Your director will give you access.","At work you use your company's own charter confirmation and terms. The checks are the same."),
  ("Needs director approval.","Needs your manager's approval."),
+ ("IS-BAO Stage 2 or 3; otherwise director approval)","IS-BAO Stage 2 or 3; otherwise your manager's approval)"),
  ("Arche Executive Broker Academy","Charter Broker Academy · by Arche Executive"),
  ("Your result is already in the Arche training records. Send the code as well if the director asks for it.","Your result is already in the course records. Keep the code: it is your certificate number."),
  ("Copy this code and email it to the director. The director checks it in the training records.","Copy this code and send it to Arche Executive with your name to have your certificate entered in the register. Employers can then verify it under Verify a certificate."),

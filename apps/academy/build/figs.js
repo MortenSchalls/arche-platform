@@ -102,9 +102,9 @@ const FIGS = (() => {
   };
 
   F.vet = () => {
-    const s = ["All quotes received","AOC and aircraft on the operations specifications","Insurance covers commercial passengers","ARGUS Gold Plus or higher, or Wyvern Wingman","Not on any banned list; not sanctioned","Shortlist for the client"];
+    const s = ["All quotes received","AOC and aircraft on the operations specifications","Insurance covers commercial passengers","ARGUS Platinum, WYVERN Wingman or IS-BAO Stage 2–3","Not on any banned list; not sanctioned","Shortlist for the client"];
     let o = ""; s.forEach((t,i) => { const w = 620 - i*70, x = (640-w)/2, y = 8 + i*34; o += `<rect x="${x}" y="${y}" width="${w}" height="28" rx="6" class="${i===5?"f-acc":"f-soft"}"/><text x="320" y="${y+19}" text-anchor="middle" class="t-s ${i===5?"t-inv t-b":""}">${t}</text>`; });
-    return {svg: svg(214, o, "Operator vetting funnel"), cap:"Each check narrows the field. An unrated operator needs the director's approval.", say:"Funnel. From all quotes received, keep operators whose aircraft is on their AOC operations specifications, whose insurance covers commercial passengers, with ARGUS Gold Plus or higher or Wyvern Wingman, and who are not banned or sanctioned. What remains is the shortlist for the client."};
+    return {svg: svg(214, o, "Operator vetting funnel"), cap:"Each check narrows the field. Any other operator needs the director's approval and the client told in writing.", say:"Funnel. From all quotes received, keep operators whose aircraft is on their AOC operations specifications, whose insurance covers commercial passengers, with ARGUS Platinum or Platinum Elite, WYVERN Wingman or IS-BAO Stage 2 or 3, and who are not banned or sanctioned. What remains is the shortlist for the client."};
   };
 
   F.price = () => ({svg: svg(200, `<text x="10" y="20" class="t-b">Right: divide by 0.91</text>

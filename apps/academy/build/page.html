@@ -722,7 +722,7 @@ function vBook(v){
         <label class="f" for="b_reg">Registration (tail)<input id="b_reg" data-k="reg"></label>
         <label class="f" for="b_yom">Year of manufacture<input id="b_yom" data-k="yom" inputmode="numeric"></label>
         <label class="f" for="b_seats">Passenger seats<input id="b_seats" data-k="seats" inputmode="numeric"></label>
-        <label class="f full" for="b_audit">Safety audit<input id="b_audit" data-k="audit" placeholder="e.g. ARGUS Gold Plus"></label>
+        <label class="f full" for="b_audit">Safety audit<input id="b_audit" data-k="audit" placeholder="e.g. WYVERN Wingman, expires 03/2027"></label>
       </div>
       <h3>Itinerary (local times, ICAO codes)</h3>
       <div id="legs" class="auto"></div>
@@ -737,7 +737,7 @@ function vBook(v){
       </div>
       <h3>Before issuing</h3>
       <div class="auto">
-        ${[["kyc","Charterer KYC and sanctions screening done"],["aoc","Operator AOC and operations specifications on file, aircraft listed on them"],["ins","Operator insurance certificate on file, including commercial passenger liability"],["audit","Safety audit checked (ARGUS Gold Plus or higher, or Wyvern Wingman)"],["route","Routing, permits and continuous journey confirmed by the operator in writing"],["terms","Operator's terms back to back with Part A"],["disc","Client disclosures included (broker status, operator legal name, aircraft, full price, insurance)"]].map(c => `<label class="check" for="ck_${c[0]}"><input type="checkbox" id="ck_${c[0]}" data-ck="${c[0]}"> ${esc(c[1])}</label>`).join("")}
+        ${[["kyc","Charterer KYC and sanctions screening done"],["aoc","Operator AOC and operations specifications on file, aircraft listed on them"],["ins","Operator insurance certificate on file, including commercial passenger liability"],["audit","Safety audit checked (ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; otherwise director approval)"],["route","Routing, permits and continuous journey confirmed by the operator in writing"],["terms","Operator's terms back to back with Part A"],["disc","Client disclosures included (broker status, operator legal name, aircraft, full price, insurance)"]].map(c => `<label class="check" for="ck_${c[0]}"><input type="checkbox" id="ck_${c[0]}" data-ck="${c[0]}"> ${esc(c[1])}</label>`).join("")}
       </div>
       <h3>Automatic checks</h3>
       <div class="auto" id="autoc"></div>
