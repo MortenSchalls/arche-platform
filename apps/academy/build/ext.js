@@ -107,6 +107,7 @@ const OVR = [
  ["\"Arche Executive, [name] speaking.", "\"[Company], [name] speaking."],
  ["from Arche Executive, a private jet charter broker", "from [Company], a private jet charter broker"],
  ["Arche cost", "Broker cost"], ["Arche margin", "Broker margin"],
+ ["8.3 Arche-approved operators", "8.3 Operators your company has approved"], ["the operator's Arche approval", "the operator's company approval"], ["\"Arche-approved operator, approval valid to …\"", "\"Approved operator, approval valid to …\""], ["(an Arche-approved operator)", "(an operator your company has approved)"], ["an Arche-approved operator", "an operator your company has approved"], ["Arche-approved operators", "operators your company has approved"], ["Arche-approved", "company-approved"], ["An Arche approval", "A company approval"], ["Arche operator questionnaire", "operator questionnaire"],
  ["supplier items Arche buys", "supplier items the broker buys"], ["bought by Arche", "bought by the broker"],
  ["Arche's payment account", "the broker's client payment account"], ["Arche's own", "the broker's own"], ["Only Arche's margin", "Only the broker's margin"], ["only our margin reaches Arche's account", "only the broker's margin reaches its own account"],
  ["Every Arche confirmation", "Every confirmation"], ["the Arche CRM", "the company CRM"], ["Arche CRM", "company CRM"],

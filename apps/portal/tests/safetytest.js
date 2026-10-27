@@ -18,8 +18,7 @@ await sel('sf_aud','isbao-1');await sel('sf_cls','jet');await sel('sf_2p','no');
 console.log('C red:',await p.evaluate(()=>document.querySelector('#secSafety .note').innerText));
 await sel('sf_2p','yes');await fill('sf_ins','60000000');
 for(const k of ['aocAuth','insInsurer','sms','noAdverse','refs']){await p.check('#sf83_'+k);await p.waitForTimeout(300);}
-await fill('sf_cap','4000');await fill('sf_capt','300');await fill('sf_fo','1500');await fill('sf_told','2026-10-27');
-await p.evaluate(async d=>{const t=tripById(d);await deskWrite(t,{docs:[...(t.d.docs||[]),{id:'x',name:'disclosure.eml',kind:'Client safety disclosure',at:now()}]},'test doc');},did);await p.waitForTimeout(800);
+await fill('sf_cap','4000');await fill('sf_capt','300');await fill('sf_fo','1500');
 console.log('D needs:',await p.evaluate(()=>document.querySelector('#secSafety .note').innerText));
 for (const k of ["never","risk","aoc","ins","audit","route","terms"]) { await p.click('#ck_'+k); await p.waitForTimeout(250); }
 console.log('E audit ticked?',await p.isChecked('#ck_audit'),' submit disabled:',await p.evaluate(()=>document.querySelector('[data-act="submit"]').disabled));

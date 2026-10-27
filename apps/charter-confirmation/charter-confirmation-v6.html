@@ -196,7 +196,7 @@ fieldset.internal .calc{background:var(--panel)}
       <label>Passenger seats<input id="acSeats" type="number" min="1" data-k="ac.seats" data-req="Passenger seats"></label>
       <label>Cabin attendant<select id="acCa" data-k="ac.ca"><option>Included</option><option>Not included</option></select></label>
       <label>Wi-Fi on board<select id="acWifi" data-k="ac.wifi"><option>Not available</option><option>Available, charged at cost</option><option>Available, included</option></select></label>
-      <label>Safety audit<input id="acAudit" data-k="ac.audit" placeholder="e.g. ARGUS Platinum"></label>
+      <label>Operator safety<input id="acAudit" data-k="ac.audit" placeholder="e.g. ARGUS Platinum, valid to 30 June 2027"></label>
       <label class="full">Operator (legal name, as on the AOC)<input id="opName" data-k="op.name" data-req="Operator legal name"></label>
       <label>AOC number<input id="opAoc" data-k="op.aoc" data-req="Operator AOC number"></label>
       <label>AOC state<input id="opState" data-k="op.state" data-req="AOC state"></label>
@@ -249,7 +249,7 @@ fieldset.internal .calc{background:var(--panel)}
       <label class="check full"><input type="checkbox" id="ck1" data-k="ck.kyc"> Charterer KYC and sanctions screening done</label>
       <label class="check full"><input type="checkbox" id="ck2" data-k="ck.aoc"> Operator AOC and operations specifications on file, aircraft listed on them</label>
       <label class="check full"><input type="checkbox" id="ck3" data-k="ck.ins"> Operator insurance certificate on file, including commercial passenger liability</label>
-      <label class="check full"><input type="checkbox" id="ck4" data-k="ck.audit"> Safety audit checked (ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; anything else only with director approval and the client told in writing)</label>
+      <label class="check full"><input type="checkbox" id="ck4" data-k="ck.audit"> Safety audit checked (ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; anything else only as an Archē-approved operator or with director approval for the trip)</label>
       <label class="check full"><input type="checkbox" id="ck5" data-k="ck.route"> Routing, permits and continuous journey checked with the Operator</label>
       <label class="check full"><input type="checkbox" id="ck6" data-k="ck.terms"> Operator's own cancellation and payment terms are no softer for Archē Executive than A3 and A9</label>
       <label class="check full"><input type="checkbox" id="ck7" data-k="ck.pay"> Payment request created in our payment provider for this booking reference</label>
@@ -544,7 +544,7 @@ function renderPreview(cc, draft){
   <h3>AIRCRAFT AND OPERATOR</h3>
   <table class="kv"><tbody>
     <tr><td>Aircraft</td><td>${esc(S.ac.cat)} · ${v(S.ac.type,"type")} · ${v(S.ac.reg,"registration")} · built ${v(S.ac.yom,"year")} · ${v(S.ac.seats,"seats")} passenger seats</td></tr>
-    <tr><td>On board</td><td>Cabin attendant ${S.ac.ca==="Included"?"included":"not included"} · Wi-Fi ${esc(S.ac.wifi.toLowerCase())}${S.ac.audit?" · Safety audit: "+esc(S.ac.audit):""}</td></tr>
+    <tr><td>On board</td><td>Cabin attendant ${S.ac.ca==="Included"?"included":"not included"} · Wi-Fi ${esc(S.ac.wifi.toLowerCase())}${S.ac.audit?" · Operator safety: "+esc(S.ac.audit):""}</td></tr>
     <tr><td>Operator</td><td>${v(S.op.name,"operator")}, AOC ${v(S.op.aoc,"number")} (${v(S.op.state,"state")})</td></tr></tbody></table>
   <h3>ITINERARY</h3>
   <table><thead><tr><th>Leg</th><th>Date</th><th>ETD local</th><th>From</th><th>To</th><th class="num">Pax</th><th>Sector</th></tr></thead><tbody>${legsRows}</tbody></table>
@@ -656,7 +656,7 @@ function docDefinition(cc,logo){
     {table:{widths:["*","*"],body:[[party("Broker",bl),party("Charterer",cl)]]},layout:{hLineWidth:()=>0,vLineWidth:i=>i===1?10:0,vLineColor:()=>"#FFFFFF",paddingLeft:()=>9,paddingRight:()=>9,paddingTop:()=>7,paddingBottom:()=>7}},
     h("AIRCRAFT AND OPERATOR"),
     kv([["Aircraft",{text:[S.ac.cat," · ",t(S.ac.type,"type")," · ",t(S.ac.reg,"registration")," · built ",t(S.ac.yom,"year")," · ",t(S.ac.seats,"seats")," passenger seats"]}],
-        ["On board",`Cabin attendant ${S.ac.ca==="Included"?"included":"not included"} · Wi-Fi ${S.ac.wifi.toLowerCase()}${S.ac.audit?" · Safety audit: "+S.ac.audit:""}`],
+        ["On board",`Cabin attendant ${S.ac.ca==="Included"?"included":"not included"} · Wi-Fi ${S.ac.wifi.toLowerCase()}${S.ac.audit?" · Operator safety: "+S.ac.audit:""}`],
         ["Operator",{text:[t(S.op.name,"operator"),", AOC ",t(S.op.aoc,"number")," (",t(S.op.state,"state"),")"]}]]),
     h("ITINERARY"),
     {table:{headerRows:1,widths:[20,58,42,38,38,24,"*"],body:legsBody},layout:lineLayout},

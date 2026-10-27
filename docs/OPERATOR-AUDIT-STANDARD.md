@@ -54,21 +54,27 @@ Status: ADOPTED by Morten, 27 Oct 2026 ("proceed with your proposed rule and ens
 - **Many "Asian" operators fly on Cayman, San Marino, Guam or Malta AOCs.** The audit must belong to the AOC that flies the trip.
 - **Consequence:** most regional trips will use the director-approval route. That route must be fast and well documented, not a loophole.
 
-## 5. Proposed rule
+## 5. The rule (adopted 27 Oct 2026; tier 2 changed the same day)
 **Tier 1, accepted without director approval.** The audit must be current, checked in the auditor's own registry or on its certificate for the AOC that flies the trip, and recorded with its expiry date:
 - ARGUS Platinum or Platinum Elite
 - WYVERN Wingman or Wingman PRO
 - IS-BAO Stage 2 or Stage 3
 
-**Tier 2, director approval, and the client told in writing before signature:**
+**Tier 2: an Archē-approved operator, or the director's approval for one trip** (changed 27 Oct 2026, Morten: "Ok confirmed", after the registry count below showed almost no tier-1 operators in South-East Asia):
 - ARGUS Gold or Gold Certified, IS-BAO Stage 1, WYVERN Registered, another audit, or no audit.
-- The unrated-operator checks in manual 8.3 apply in full:
+- **Archē-approved operator:** the director approves the operator (the AOC) once, for twelve months, after seven checks:
   - AOC confirmed with the authority;
   - insurance confirmed by the insurer;
   - IS-BAO or the Archē questionnaire;
-  - no adverse history;
-  - two references.
-- Plus crew minimums confirmed by the operator in writing: captain 3,000 hours total and 250 on type; first officer 1,000 hours total.
+  - safety documents reviewed (SMS manual, training and maintenance records), with a visit where practical;
+  - no adverse history in five years;
+  - two references;
+  - the operator's written commitment on crew minimums: captain 3,000 hours total and 250 on type; first officer 1,000 hours total.
+  Brokers then quote it like an audited operator. The approval ends at once after an accident or serious incident (suspension), an insurance lapse, an AOC change or a sanctions match; the director can withdraw it. Portal: config/opapproved, Team → Archē-approved operators, Today warns 30 days before an approval ends.
+- **One trip:** the director approves that trip after the five checks and the crew hours of that trip's crew.
+- **Client:** every quote and charter confirmation carries one safety line written by the portal: "ARGUS Platinum, valid to …", "Archē-approved operator, approval valid to … (our own review; the operator holds …)", or "Approved by Archē's director for this trip (…)". This replaces the separate disclosure email.
+
+**Registry count, 27 Oct 2026:** WYVERN Wingman 106 operators (71 US; Asia-Pacific five: Taiwan 2, India, Australia, Guam; none based in Singapore, Thailand, Malaysia, Indonesia, the Philippines, Hong Kong, China or Japan). ARGUS 528 rated operators, almost all North and Latin American by name, about a quarter Platinum or Platinum Elite. IS-BAO has no public list.
 
 **For every operator, in both tiers:**
 - Two pilots on every jet flight. No single-pilot commercial jet flights.
@@ -88,10 +94,10 @@ Status: ADOPTED by Morten, 27 Oct 2026 ("proceed with your proposed rule and ens
 - **ARGUS:** ask in writing whether Gold Certified includes any on-site audit, and how long Gold Certified ratings last.
 - **Avinode:** check in Archē's account which ratings it shows today, and whether it can filter by them.
 - **Insurance:** confirm the USD 50M / 25M minimums with the insurance broker for Asian operators.
-- **Registries:** open the WYVERN public directory and the ARGUS registry in a browser and filter by country. They could not be read from the research tool.
+- **Registries:** read every morning by the audits job (jobs/audits.mjs); counts above.
 
 ## 7. Where the rule appears (change the manual first, then rebuild the academies)
-- Manual 8.2 (vetting table), 8.3 (unrated route), 8.5 (crew and insurance), the Module 8 quiz, and the checklists on pages 867 and 869 of manual38.js.
+- Manual 8.2 (vetting table), 8.3 (Archē-approved operators and the one-trip route), 8.5 (crew and insurance), the Module 8 quiz, and the checklists on pages 867 and 869 of manual38.js.
 - Portal BROKER_CHECKS "audit" label; the charter confirmation's check box ck.audit.
 - Academy build files: build_content.js 8.1 and m8, figs.js and the placeholder "e.g. ARGUS Gold Plus".
 - Website guide /guides/operator-safety-audits/: the Gold Certified "on-site" sentence has already been removed (27 Oct 2026).
