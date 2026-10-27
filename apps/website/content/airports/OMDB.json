@@ -27,7 +27,7 @@
    "quote": "AD Administration: H24 ... Air Traffic Services: H24 ... Handling: H24"
   },
   "slots": {
-   "v": "a fully slot-coordinated (IATA level 3) airport: no flight without a slot from the coordinator and landing permission from the Dubai Civil Aviation Authority",
+   "v": "a fully slot-coordinated (IATA level 3) airport: no flight without a slot from the slot coordinator (Airport Coordination Limited, ACL) and landing permission from the Dubai Civil Aviation Authority",
    "src": "uae-aip-omdb",
    "quote": "OMDB operates as an IATA level 3 slot coordinated airport. No operator shall operate to or from OMDB without first obtaining an allocated slot from Airport Coordination Limited (ACL)"
   },

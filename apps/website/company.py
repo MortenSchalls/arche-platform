@@ -10,6 +10,12 @@ PRIVACY = "privacy@archeaviation.com"   # data protection requests (alias on con
 PHONE = ""       # Singapore business number, e.g. "+65 6123 4567"; also used for WhatsApp. Until set, the site shows a placeholder and check_site.py fails
 LINE_ID = ""     # e.g. "@archeexecutive" once the LINE Official Account exists; until then the LINE card is left out
 WECHAT_ID = ""   # e.g. "ArcheExecutive" once the WeChat account exists; until then the WeChat card is left out
+# The website switch (Morten, 27 Oct 2026: "ensure nothing is live before we switch the website on").
+# False (test website, behind Vercel Authentication): every page and draft is built and linked so Morten can use the
+#   whole site, but every page also says "noindex, nofollow" and robots.txt shuts search engines out, in case the
+#   login is ever off. True (launch day): search engines welcome; only approved pages are built and linked; drafts
+#   are not published at all.
+LAUNCHED = False
 def pairs():
     line = " · ".join(x for x in (NAME, ("UEN " + UEN) if UEN else "", ADDRESS) if x)
     return [

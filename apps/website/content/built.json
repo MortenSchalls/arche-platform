@@ -2,7 +2,7 @@
  {
   "path": "/airports/dubai-world-central/",
   "draft": true,
-  "words": 448
+  "words": 463
  },
  {
   "path": "/airports/farnborough/",
@@ -22,7 +22,7 @@
  {
   "path": "/airports/sydney/",
   "draft": true,
-  "words": 422
+  "words": 428
  },
  {
   "path": "/airports/teterboro/",
@@ -42,7 +42,7 @@
  {
   "path": "/cities/dubai/",
   "draft": true,
-  "words": 461
+  "words": 471
  },
  {
   "path": "/cities/geneva/",
@@ -57,7 +57,7 @@
  {
   "path": "/cities/london/",
   "draft": true,
-  "words": 527
+  "words": 528
  },
  {
   "path": "/cities/new-york/",
@@ -67,12 +67,12 @@
  {
   "path": "/cities/nice/",
   "draft": true,
-  "words": 550
+  "words": 558
  },
  {
   "path": "/cities/paris/",
   "draft": true,
-  "words": 399
+  "words": 400
  },
  {
   "path": "/cities/phuket/",
@@ -87,7 +87,7 @@
  {
   "path": "/cities/sydney/",
   "draft": true,
-  "words": 442
+  "words": 445
  },
  {
   "path": "/cities/tokyo/",
@@ -117,12 +117,12 @@
  {
   "path": "/regions/europe/",
   "draft": true,
-  "words": 393
+  "words": 399
  },
  {
   "path": "/regions/middle-east/",
   "draft": true,
-  "words": 330
+  "words": 340
  },
  {
   "path": "/regions/north-america/",

@@ -15,7 +15,7 @@
    "quote": "Opening Times : 24/24H"
   },
   "slots": {
-   "v": "fully coordinated (Level 3): all operations need a slot; business and general aviation slots are requested by the handling agent",
+   "v": "fully coordinated (Level 3): all operations need a slot; business and general aviation slots are requested by the handling agent from the French slot coordinator (COHOR)",
    "src": "cohor-nce",
    "quote": "Aircraft operators contact their handling agent who is in charge to request airport slots to COHOR."
   },

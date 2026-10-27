@@ -33,7 +33,7 @@
    "quote": "Each specific aircraft type is assigned Quota points based on how noisy it is."
   },
   "slots": {
-   "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator",
+   "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator (ACL)",
    "src": "acl-faqs",
    "context": "Listed by ACL among UK Level 3 (coordinated) airports; ACL Luton page: 'London Luton Airport was formally declared as Level 3 effective Summer 2013.'",
    "quote": "London Luton (LTN)"

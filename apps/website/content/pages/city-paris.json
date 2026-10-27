@@ -28,7 +28,7 @@
    "h": "Le Bourget",
    "p": [
     "Le Bourget lies {{lfpb.location}}. It is {{lfpb.hours}}.",
-    "The French slot coordinator classes Le Bourget as {{lfpb.slots}}, the level with no general slot coordination."
+    "The French slot coordinator (COHOR) classes Le Bourget as {{lfpb.slots}}, the level with no general slot coordination."
    ]
   },
   {

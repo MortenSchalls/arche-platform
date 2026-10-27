@@ -94,7 +94,9 @@ def sitemap():
     urls += "".join(f"\n  <url><loc>{BASE}/{p}</loc><lastmod>{day}</lastmod></url>" for p in ("terms.html", "privacy.html"))
     built = os.path.join(HERE, "content", "built.json")   # verified content pages; drafts stay out until approved
     if os.path.exists(built):
-        urls += "".join(f"\n  <url><loc>{BASE}{b['path']}</loc><lastmod>{day}</lastmod></url>" for b in json.load(open(built)) if not b["draft"])
+        pub = [b for b in json.load(open(built)) if not b["draft"]]
+        urls += "".join(f"\n  <url><loc>{BASE}{b['path']}</loc><lastmod>{day}</lastmod></url>" for b in pub)
+        if pub: urls += f"\n  <url><loc>{BASE}/destinations/</loc><lastmod>{day}</lastmod></url>"
     open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' + urls + "\n</urlset>\n")
 
@@ -119,7 +121,8 @@ def vercel():
     p = os.path.join(SITE, "vercel.json")
     v = json.load(open(p, encoding="utf-8"))
     hs = [h for h in v.get("headers", []) if h.get("source") != "/(.*)" or h.get("has")]
-    hs.insert(0, {"source": "/(.*)", "headers": SECURITY})
+    import company
+    hs.insert(0, {"source": "/(.*)", "headers": SECURITY + ([] if company.LAUNCHED else [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}])})
     hs.append({"source": "/api/(.*)", "headers": [{"key": "Cache-Control", "value": "no-store"}, {"key": "X-Robots-Tag", "value": "noindex"}]})
     seen, out = set(), []
     for h in hs:
@@ -128,8 +131,14 @@ def vercel():
     v["headers"] = out
     json.dump(v, open(p, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
 
+def robots():
+    import company
+    txt = (f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {BASE}/sitemap.xml\n" if company.LAUNCHED
+           else "# Test website: not switched on yet (company.LAUNCHED = False). No search engine may read it.\nUser-agent: *\nDisallow: /\n")
+    open(os.path.join(SITE, "robots.txt"), "w").write(txt)
+
 def run():
-    icons(); photos(); state(); sitemap(); vercel()
+    icons(); photos(); state(); sitemap(); vercel(); robots()
     changed = []
     for f in os.listdir(SITE):
         if not f.endswith(".html"): continue

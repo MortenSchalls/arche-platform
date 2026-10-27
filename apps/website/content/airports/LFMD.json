@@ -33,7 +33,7 @@
    "quote": "Ban on noisier aircraft (<13 EPNdB ICAO chapter 3)"
   },
   "slots": {
-   "v": "listed by the French coordinator as Level 3; business and general aviation slots are requested through the handling agent",
+   "v": "listed by the French slot coordinator (COHOR) as Level 3; business and general aviation slots are requested through the handling agent",
    "src": "cohor-ceq",
    "quote": "General and business aviation operators ask their handling agent Skyvallet to request slots"
   },

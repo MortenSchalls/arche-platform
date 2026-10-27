@@ -6,7 +6,7 @@ Rules (Morten, 27 Oct 2026; CLAUDE.md "Website content"):
 - Facts older than 365 days stop the build (they must be checked again).
 - Pages marked "draft" are built with noindex and left out of the sitemap until Morten approves them.
 Run:  python3 apps/website/content/build_content.py   (also run by build.py)"""
-import json, os, re, sys, html, datetime
+import json, os, re, sys, html, datetime, shutil
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(HERE, "..", "site")
 sys.path.insert(0, os.path.join(HERE, ".."))
@@ -133,6 +133,12 @@ footer .g .k{font-size:11.5px;letter-spacing:.16em;color:var(--accent);text-tran
 footer .g p{margin:10px 0 0;font-size:13.5px;line-height:1.7;color:var(--muted)}
 footer .b{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:12px;letter-spacing:.1em;color:var(--muted)}
 footer .bl{text-align:right;padding:0 0 28px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase}footer .bl a{color:var(--muted)}
+.cols.one{grid-template-columns:1fr}
+.hub h2{scroll-margin-top:24px}.hub .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px;margin:0 0 8px}
+.hub .grid a{display:block;border:1px solid var(--line);background:rgba(243,245,248,.03);padding:20px 22px;color:var(--text)}.hub .grid a:hover{text-decoration:none;border-color:var(--accent)}
+.hub .grid b{display:block;color:var(--ink);font:400 19px/1.3 Prata,Georgia,serif;margin-bottom:6px}.hub .grid span{font-size:14.5px;line-height:1.55;display:block}
+.draft{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid #d9a441;color:#e8c27a;padding:2px 8px;margin-bottom:8px}
+.testbar{position:fixed;left:0;right:0;bottom:0;z-index:9;background:#d9a441;color:#2b2e33;font:600 12px/1.4 'Hanken Grotesk',sans-serif;letter-spacing:.06em;text-align:center;padding:6px 12px}
 @media (max-width:1000px){.cols{grid-template-columns:1fr}.side{position:static}}
 @media (max-width:760px){.wrap{padding:0 16px}header.top .bar{grid-template-columns:auto 1fr;padding:16px 0}.brand{grid-column:1/-1;grid-row:2;justify-self:center}.nav-r a.tel{display:none}.brand .w{font-size:30px}body{font-size:16px}.card{padding:22px}.btn{display:block;margin:10px 0}}
 """
@@ -170,13 +176,13 @@ def page_html(p, F, S, P):
     known = {x["path"]: x for x in P}
     rel = [r for r in p.get("related", []) if r in known]
     related = ('<h2>Read next</h2><div class="rel">' + "".join(f'<a href="{r}">{html.escape(known[r]["h1"])} →</a>' for r in rel) + "</div>") if rel else ""
-    srcs = '<div class="card src"><span class="k">Sources</span><ol>' + "".join(
+    srcs = "" if not refs else '<div class="card src"><span class="k">Sources</span><ol>' + "".join(
         f'<li id="src-{i+1}"><a href="{html.escape(S[k]["url"])}" rel="noopener nofollow" target="_blank">{html.escape(S[k]["title"])}</a>. {html.escape(S[k]["publisher"])}. Checked {datetime.date.fromisoformat(S[k]["checked"]).strftime("%-d %B %Y")}.</li>'
         for i, k in enumerate(refs)) + "</ol></div>"
-    checked = max(S[k]["checked"] for k in refs)
+    checked = max([S[k]["checked"] for k in refs] or [datetime.date.today().isoformat()])
     # structured data
     url = BASE + p["path"]
-    section = {"airport": ("Airports", "/airports/"), "guide": ("Guides", "/guides/"), "city": ("Cities", "/cities/"), "region": ("Regions", "/regions/")}.get(p["type"], ("Guides", "/guides/"))
+    section = {"airport": ("Airports", "/airports/"), "guide": ("Guides", "/guides/"), "city": ("Cities", "/cities/"), "region": ("Regions", "/regions/"), "hub": ("Destinations", "/destinations/")}.get(p["type"], ("Guides", "/guides/"))
     ld = [{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Archē Executive", "item": BASE + "/"},
         {"@type": "ListItem", "position": 2, "name": section[0], "item": BASE + section[1]},
@@ -187,7 +193,7 @@ def page_html(p, F, S, P):
         a = p["airport"]; g = F[a["geo"]]["v"]
         ld.append({"@context": "https://schema.org", "@type": "Airport", "name": a["name"], "icaoCode": F[a["icao"]]["v"], "geo": {"@type": "GeoCoordinates", "latitude": g[0], "longitude": g[1]}, "address": {"@type": "PostalAddress", "addressLocality": a["city"], "addressCountry": a["country"]}})
     ld.append({"@context": "https://schema.org", "@type": "WebPage", "url": url, "name": p["title"], "description": p["description"], "dateModified": checked, "publisher": {"@id": BASE + "/#org"}, "inLanguage": "en"})
-    robots = '<meta name="robots" content="noindex, nofollow">' if p.get("draft") else ""
+    robots = '<meta name="robots" content="noindex, nofollow">' if p.get("draft") or not company.LAUNCHED else ""
     phone = company.PHONE or "+65 0000 0000"; tel = "+" + re.sub(r"\D", "", phone) if company.PHONE else "+6500000000"
     wa = "https://wa.me/" + re.sub(r"\D", "", tel)
     return f"""<!doctype html>
@@ -220,13 +226,13 @@ def page_html(p, F, S, P):
 </div></div></header>
 <section class="hero"><div class="rose" aria-hidden="true"><img src="/assets/compass-rose.svg" alt=""></div><div class="jet" aria-hidden="true"></div>
 <div class="wrap"><div class="in">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> · <span>{section[0]}</span></nav>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> · {'<span>Destinations</span>' if p["type"] == "hub" else '<a href="/destinations/#' + p["type"] + '">' + section[0] + '</a>'}</nav>
 <span class="eyebrow">{html.escape(p['eyebrow'])}</span>
 <h1>{html.escape(p['h1'])}</h1>
 <p class="lead">{fill(p['lead'], F, S, refs)}</p>
 </div></div></section>
-<main><div class="wrap"><div class="cols">
-<article>{''.join(body)}{faq}{related}</article>
+<main><div class="wrap"><div class="cols{' one' if p.get('_main') else ''}">
+<article>{'' if company.LAUNCHED or not p.get('draft') else '<span class="draft">Draft · waiting for approval</span>'}{p.get('_main') or (''.join(body) + faq + related)}</article>
 <aside class="side">{glance}{srcs}</aside>
 </div>
 <section class="cta">
@@ -237,15 +243,57 @@ def page_html(p, F, S, P):
 </section></div></main>
 <footer class="ft"><div class="wrap"><div class="fin">
 <div style="display:flex;flex-direction:column;align-items:center;gap:22px"><a class="brand" href="/" aria-label="Archē Executive home">{LOGO.format(w=110, h=27, id='lg2', s1=4, s2=2.4)}<span class="w" style="font-size:28px">ARCHĒ</span><span class="x">EXECUTIVE</span></a>
-<nav><a href="/#services">Services</a><a href="/#fleet">Aircraft</a><a href="/#journey">How it works</a><a href="/#contact">Contact</a><a href="/terms.html">Terms of business</a><a href="/privacy.html">Privacy</a></nav></div>
+<nav><a href="/#services">Services</a><a href="/#fleet">Aircraft</a><a href="/#journey">How it works</a><a href="/destinations/">Destinations</a><a href="/#contact">Contact</a><a href="/terms.html">Terms of business</a><a href="/privacy.html">Privacy</a></nav></div>
 <div class="g"><div><span class="k">Broker disclosure</span><p>Archē Executive acts solely as agent for its clients and does not own or operate any aircraft. All flights are operated by third-party air operators holding the appropriate Air Operator Certificate, who retain full operational control of each flight. The operator for your flight is named in your quotation and charter agreement before you confirm.</p></div>
 <div><span class="k">This page</span><p>Facts checked on {datetime.date.fromisoformat(checked).strftime('%-d %B %Y')} against the sources listed. Rules change; the operator confirms the current rules for your flight.</p><p>{html.escape(company.NAME)} · {html.escape(company.ADDRESS)}</p></div></div>
 <div class="b"><span>© {datetime.date.today().year} Archē Executive</span><span>Singapore · Worldwide</span></div>
 </div><div class="bl"><a href="https://portal.archeaviation.com" rel="nofollow">Broker login</a></div></div></footer>
+{'' if company.LAUNCHED else '<style>body{padding-bottom:34px}</style><div class="testbar">Test website · not public · ' + ('draft page, waiting for approval' if p.get('draft') else 'list of pages' if p['type'] == 'hub' else 'approved page') + '</div>'}
 <script src="/track.js" defer></script>
 </body>
 </html>
 """
+
+NAV = {"index.html": "Destinations", "th.html": "จุดหมายปลายทาง", "zh.html": "目的地", "ja.html": "目的地"}
+def site_nav(on):
+    """A Destinations link in the main site's menu, mobile menu and footer, next to "How it works"; removed when there
+    is nothing to show (launched with no approved page yet)."""
+    for f, label in NAV.items():
+        p = os.path.join(SITE, f)
+        if not os.path.exists(p): continue
+        t = open(p, encoding="utf-8").read()
+        t = re.sub(r'<a href="/destinations/" data-ae="dest"[^>]*>[^<]*</a>', "", t)
+        if on:
+            t = re.sub(r'(<a data-dc-tpl="\d+" href="#journey">[^<]*</a>)', lambda m: m.group(1) + f'<a href="/destinations/" data-ae="dest">{label}</a>', t, count=1)
+            t = re.sub(r'(<a href="#journey" onClick="\{\{ closeMenu \}\}"( style="[^"]*")>How it works</a>)', lambda m: m.group(1) + f'<a href="/destinations/" data-ae="dest"{m.group(2)}>Destinations</a>', t, count=1)
+            t = re.sub(r'(<a href="#journey">How it works</a>)', lambda m: m.group(1) + '<a href="/destinations/" data-ae="dest">Destinations</a>', t, count=1)
+        open(p, "w", encoding="utf-8").write(t)
+    p = os.path.join(SITE, "i18n.js")
+    if on and os.path.exists(p):
+        t = open(p, encoding="utf-8").read(); row = "['How it works','ขั้นตอนการให้บริการ','服务流程','ご利用の流れ'],"
+        if "['Destinations'," not in t and row in t: open(p, "w", encoding="utf-8").write(t.replace(row, row + "\n['Destinations','จุดหมายปลายทาง','目的地','目的地'],"))
+
+GROUPS = [("region", "Regions"), ("city", "Cities"), ("airport", "Airports"), ("guide", "Guides")]
+def hub(F, S, pub, verbose=True):
+    """/destinations/: every published page, grouped. On the test website drafts are listed with a Draft mark."""
+    out = os.path.join(SITE, "destinations", "index.html")
+    if not pub:
+        if os.path.exists(out): os.remove(out)
+        return
+    secs = []
+    for t, name in GROUPS:
+        xs = sorted([p for p in pub if p["type"] == t], key=lambda p: p["h1"])
+        if not xs: continue
+        cards = "".join(f'<a href="{p["path"]}">{"" if company.LAUNCHED or not p.get("draft") else "<em class=draft>Draft</em>"}<b>{html.escape(p["h1"])}</b><span>{html.escape(fill(p["lead"], F, S, [], plain=True))}</span></a>' for p in xs)
+        secs.append(f'<h2 id="{t}">{name}</h2><div class="grid">{cards}</div>')
+    p = {"path": "/destinations/", "type": "hub", "title": "Private jet destinations, airports and guides", "draft": False,
+         "description": "Guides to private flights by region, city and airport, and how charter works, each checked against official sources with the date it was checked.",
+         "eyebrow": "Destinations and guides", "h1": "Where private flights go, and how they work",
+         "lead": "Guides to regions, cities and airports, and to how charter works. Every fact is checked against an official source, with the date. Any aircraft, any route, upon availability.",
+         "sections": [], "_main": '<div class="hub">' + "".join(secs) + "</div>"}
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    open(out, "w", encoding="utf-8").write(page_html(p, F, S, pub))
+    if verbose: print(f"  /destinations/  {len(pub)} pages listed")
 
 def portal_rules(S, verbose=True):
     """The portal's trip checks read one file: sanctioned places plus the verified airport rules (apps/portal/airport-rules.json)."""
@@ -266,14 +314,22 @@ def run(verbose=True):
     import check_airports; check_airports.run(verbose)
     portal_rules(S, verbose)
     paths = set(); built = []
+    for p in P: check_page(p, F)
+    # launched: drafts are not published at all; test website: everything is built so Morten can use it in full
+    pub = [p for p in P if not (company.LAUNCHED and p.get("draft"))]
     for p in P:
+        if p in pub: continue
+        d = os.path.join(SITE, p["path"].strip("/"))
+        if os.path.isdir(d): shutil.rmtree(d)
+    for p in pub:
         if p["path"] in paths: raise Bad(f"{p['_file']}: path used twice")
         paths.add(p["path"]); w = check_page(p, F)
         out = os.path.join(SITE, p["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
-        open(out, "w", encoding="utf-8").write(page_html(p, F, S, P))
+        open(out, "w", encoding="utf-8").write(page_html(p, F, S, pub))
         built.append({"path": p["path"], "draft": bool(p.get("draft")), "words": w})
         if verbose: print(f"  {p['path']}  {w} words{'  (draft: noindex)' if p.get('draft') else ''}")
+    hub(F, S, pub, verbose); site_nav(bool(pub))
     json.dump(built, open(os.path.join(HERE, "built.json"), "w"), indent=1)
     return built
 

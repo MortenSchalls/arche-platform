@@ -28,7 +28,7 @@
    "quote": "A curfew period starts at 11 pm on a day and ends at 6 am on the next day."
   },
   "slots": {
-   "v": "every flight needs a slot from the airport's slot coordinator",
+   "v": "every flight needs a slot from the slot coordinator (Airport Coordination Limited, ACL)",
    "src": "au-ersa-yssy",
    "quote": "All flights operating into and out of Sydney must obtain an Airport Coordination Limited (ACL) slot"
   },

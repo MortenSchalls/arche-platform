@@ -293,7 +293,7 @@
   "quote": "RWY 12 119° 4500 x 60 850/F/A/X/T 30 299° 4500 x 60 850/F/A/X/T"
  },
  "omdw.slots": {
-  "v": "schedule clearance (a slot) from the coordinator is needed before any flight, plus prior permission from the Dubai Civil Aviation Authority; requests are made through the operator's handling agent",
+  "v": "schedule clearance (a slot) from the schedules facilitator (Airport Coordination Limited, ACL) is needed before any flight, plus prior permission from the Dubai Civil Aviation Authority; requests are made through the operator's handling agent",
   "src": "dwc-cou-ga-s24",
   "quote": "No Operator shall operate to or from without first obtaining schedule clearance from the Schedules facilitator (ACL)"
  },
@@ -359,7 +359,7 @@
   "quote": "AD Administration: H24 ... Air Traffic Services: H24 ... Handling: H24"
  },
  "omdb.slots": {
-  "v": "a fully slot-coordinated (IATA level 3) airport: no flight without a slot from the coordinator and landing permission from the Dubai Civil Aviation Authority",
+  "v": "a fully slot-coordinated (IATA level 3) airport: no flight without a slot from the slot coordinator (Airport Coordination Limited, ACL) and landing permission from the Dubai Civil Aviation Authority",
   "src": "uae-aip-omdb",
   "quote": "OMDB operates as an IATA level 3 slot coordinated airport. No operator shall operate to or from OMDB without first obtaining an allocated slot from Airport Coordination Limited (ACL)"
  },
@@ -540,7 +540,7 @@
   "quote": "Each specific aircraft type is assigned Quota points based on how noisy it is."
  },
  "eggw.slots": {
-  "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator",
+  "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator (ACL)",
   "src": "acl-faqs",
   "quote": "London Luton (LTN)"
  },
@@ -671,7 +671,7 @@
   "quote": "Opening Times : 24/24H"
  },
  "lfmn.slots": {
-  "v": "fully coordinated (Level 3): all operations need a slot; business and general aviation slots are requested by the handling agent",
+  "v": "fully coordinated (Level 3): all operations need a slot; business and general aviation slots are requested by the handling agent from the French slot coordinator (COHOR)",
   "src": "cohor-nce",
   "quote": "Aircraft operators contact their handling agent who is in charge to request airport slots to COHOR."
  },
@@ -735,7 +735,7 @@
   "quote": "Ban on regular commercial flights"
  },
  "lfmd.slots": {
-  "v": "listed by the French coordinator as Level 3; business and general aviation slots are requested through the handling agent",
+  "v": "listed by the French slot coordinator (COHOR) as Level 3; business and general aviation slots are requested through the handling agent",
   "src": "cohor-ceq",
   "quote": "General and business aviation operators ask their handling agent Skyvallet to request slots"
  },
@@ -999,7 +999,7 @@
   "quote": "A curfew period starts at 11 pm on a day and ends at 6 am on the next day."
  },
  "yssy.slots": {
-  "v": "every flight needs a slot from the airport's slot coordinator",
+  "v": "every flight needs a slot from the slot coordinator (Airport Coordination Limited, ACL)",
   "src": "au-ersa-yssy",
   "quote": "All flights operating into and out of Sydney must obtain an Airport Coordination Limited (ACL) slot"
  },

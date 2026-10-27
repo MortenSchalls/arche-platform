@@ -1,5 +1,3 @@
+# Test website: not switched on yet (company.LAUNCHED = False). No search engine may read it.
 User-agent: *
-Allow: /
-Disallow: /api/
-
-Sitemap: https://archeaviation.com/sitemap.xml
+Disallow: /

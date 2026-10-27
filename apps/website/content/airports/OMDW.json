@@ -16,7 +16,7 @@
    "quote": "RWY 12 119° 4500 x 60 850/F/A/X/T 30 299° 4500 x 60 850/F/A/X/T"
   },
   "slots": {
-   "v": "schedule clearance (a slot) from the coordinator is needed before any flight, plus prior permission from the Dubai Civil Aviation Authority; requests are made through the operator's handling agent",
+   "v": "schedule clearance (a slot) from the schedules facilitator (Airport Coordination Limited, ACL) is needed before any flight, plus prior permission from the Dubai Civil Aviation Authority; requests are made through the operator's handling agent",
    "src": "dwc-cou-ga-s24",
    "quote": "No Operator shall operate to or from without first obtaining schedule clearance from the Schedules facilitator (ACL)"
   },
