@@ -38,14 +38,16 @@ export async function resetJoining(sb, u, why) {
   ck(await sb.from("audit_log").insert({ by: null, action: "Joining started again", detail: `${before.name || "person " + id.slice(0, 8)}: ${done.join(", ") || "nothing to remove"} (${why})` }), "audit");
   return { before: before.step, removed: done };
 }
+// the result also goes into a job annotation, which Claude reads through the GitHub API (the plain log is not reachable from its workspace)
+const note = o => { if (process.env.GITHUB_ACTIONS) console.log("::notice title=Admin result::" + JSON.stringify(o).replace(/%/g, "%25").replace(/\r?\n/g, " ")); };
 export async function main(env = process.env, sb) {
   sb = sb || createClient(env.SUPABASE_URL, env.SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
   const action = env.ACTION, email = env.EMAIL, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
   if (!["person-status", "reset-joining"].includes(action)) throw new Error("Unknown action " + action);
   const u = await findUser(sb, email);
-  if (!u) { const out = { email: mask(email), login: false, note: "No login with this email: the person has never signed in or signed up. Create the login in Supabase > Authentication > Users > Add user." }; console.log(JSON.stringify(out, null, 1)); return out; }
-  if (action === "person-status") { const out = { email: mask(email), ...(await status(sb, u)) }; console.log(JSON.stringify(out, null, 1)); return out; }
+  if (!u) { const out = { email: mask(email), login: false, note: "No login with this email: the person has never signed in or signed up. Create the login in Supabase > Authentication > Users > Add user." }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "person-status") { const out = { email: mask(email), ...(await status(sb, u)) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   const r = await resetJoining(sb, u, why), out = { email: mask(email), ...r, now: (await status(sb, u)).step };
-  console.log(JSON.stringify(out, null, 1)); return out;
+  console.log(JSON.stringify(out, null, 1)); note(out); return out;
 }
-if (import.meta.url === `file://${process.argv[1]}`) main().catch(e => { console.error("FAILED: " + e.message); process.exit(1); });
+if (import.meta.url === `file://${process.argv[1]}`) main().catch(e => { console.error("FAILED: " + e.message); if (process.env.GITHUB_ACTIONS) console.log("::error title=Admin failed::" + String(e.message).slice(0, 300)); process.exit(1); });
