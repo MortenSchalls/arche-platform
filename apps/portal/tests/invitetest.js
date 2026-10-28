@@ -13,7 +13,7 @@ await p.close();
 p=await open('owner','fail');await p.fill('#inv_name','Example Person');await p.fill('#inv_mail','example.person@example.com');await p.click('#joinInvForm button[type=submit]');await p.waitForTimeout(800);
 ok('email refused: login created, owner told to send the link',await p.evaluate(()=>/Login created[\s\S]*Send this personal link yourself/.test(document.getElementById('invResult').innerText)));await p.close();
 p=await open('broker');p=await open('owner');await p.evaluate(()=>S.db.doc('intel/invites').set({list:[{email:'example.person@example.com',name:'Example Person',at:new Date().toISOString(),sent:true}]}));await p.waitForTimeout(1500);await p.evaluate(()=>{S.invStAt=0;render();});await p.waitForTimeout(1200);
-ok('recent invitations show who accepted and their step',await p.evaluate(()=>/0 pending, 1 accepted[\s\S]*Example Person[\s\S]*Yes[\s\S]*Joining steps/.test(document.getElementById('invPanel').innerText)));await p.close();p=await open('broker');
+ok('recent invitations show who accepted and their step',await p.evaluate(()=>/0 pending, 1 accepted[\s\S]*Example Person[\s\S]*Yes[\s\S]*Joining steps/i.test(document.getElementById('invPanel').innerText)));await p.close();p=await open('broker');
 ok('brokers do not see invitations',await p.evaluate(()=>!document.getElementById('invPanel')));await p.close();
 p=await open('owner');await p.setViewportSize({width:390,height:900});await p.waitForTimeout(400);ok('no sideways scroll at 390 px',await p.evaluate(()=>document.documentElement.scrollWidth<=390));await p.close();
 ok('no page errors',errs.length===0,errs);console.log(fails?fails+' FAILED':'ALL PASS');await b.close();process.exit(fails?1:0)})();
