@@ -3,7 +3,7 @@
 // POST { email, name } with an owner's sign-in token. Creates the login (or a fresh link if the person already has one but
 // never finished signing in), emails a personal one-time link from the company domain (Resend), and returns the link so
 // the owner can send it another way if the email fails. The person clicks it, chooses a password and lands on step 1 of
-// joining (the offer). Owners only; written to the audit log. Environment as for /api/alerts:
+// joining (the offer). The inviting owner gets a hidden copy (BCC). Owners only; written to the audit log. Environment as for /api/alerts:
 //   SUPABASE_URL, SUPABASE_SECRET_KEY, SUPABASE_PUBLISHABLE_KEY, RESEND_API_KEY; optional INVITE_FROM, PORTAL_URL.
 const PORTAL = process.env.PORTAL_URL || "https://portal.archeaviation.com";
 const FROM = process.env.INVITE_FROM || "Archē Executive <welcome@archeaviation.com>";
@@ -34,6 +34,11 @@ export function inviteMail({ name, link, from }) {
   return { subject: "Your access to the Archē Executive broker portal", text, html };
 }
 
+// the inviting owner gets a hidden copy (BCC) of every invitation (Morten, 28 Oct 2026) and the person's replies
+export function inviteRequest({ from, to, owner, mail }) {
+  const o = owner && EMAIL_RX.test(owner) && owner.toLowerCase() !== to ? [owner] : undefined;
+  return { from, to: [to], bcc: o, reply_to: o, subject: mail.subject, text: mail.text, html: mail.html };
+}
 async function sb(path, opt = {}) {
   const KEY = process.env.SUPABASE_SECRET_KEY;
   const r = await fetch(`${process.env.SUPABASE_URL}${path}`, { ...opt, headers: { apikey: KEY, authorization: `Bearer ${KEY}`, "content-type": "application/json", ...(opt.headers || {}) } });
@@ -78,7 +83,7 @@ export default async function handler(req, res) {
     if (process.env.RESEND_API_KEY) {
       const m = inviteMail({ name, link, from: ownerName });
       const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
-        body: JSON.stringify({ from: FROM, to: [email], reply_to: me.email ? [me.email] : undefined, subject: m.subject, text: m.text, html: m.html }) });
+        body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m })) });
       if (r.ok) sent = "sent"; else { let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {} sent = `not sent: refused by Resend (${r.status}${msg ? ": " + msg.slice(0, 120) : ""})`; }
     }
     const at = new Date().toISOString(), masked = email.replace(/^(.).*?(@.*)$/, "$1***$2");
