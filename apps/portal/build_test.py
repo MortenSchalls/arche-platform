@@ -75,7 +75,8 @@ def build():
     assert src.count(cdn) == 1, "supabase script tag not found"
     fake = (HERE / "tests" / "fake-supabase.js").read_text(encoding="utf-8")
     harness = HARNESS % {"own": OWN, "ops": OPS, "brk": BRK, "brk2": BRK2, "cand": CAND, "seed": json.dumps(SEED)}
-    out = src.replace(cdn, harness + "\n<script>\n" + fake + "\n</script>")
+    live = (HERE / "tests" / "live-train.js").read_text(encoding="utf-8")   # live training: share or watch the test portal (28 Oct 2026)
+    out = src.replace(cdn, harness + "\n<script>\n" + fake + "\n</script>\n<script>\n" + live + "\n</script>")
     out = out.replace("<title>", "<title>TEST · ", 1)
     out = '<meta charset="utf-8">\n' + out
     # inside a claude.ai artifact the viewer owns window.claude, so the test version uses its own name
