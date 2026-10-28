@@ -137,7 +137,7 @@
   // ---------- controls in the test bar ----------
   function bar(){
     var host = $("lvBox"); if (!host) return;
-    var link = location.origin + location.pathname + "?watch=" + L.code;
+    var link = location.origin + location.pathname + "?as=broker&watch=" + L.code;   // the trainee opens it as Test Broker
     if (L.role === "lead") host.innerHTML = '<span>Sharing your screen · code <b>' + fmt(L.code) + '</b></span><button type="button" id="lvCopy">Copy link</button><button type="button" id="lvStop">Stop sharing</button><span id="lvStatus"></span>';
     else if (L.role === "watch") host.innerHTML = '<span>Watching <b id="lvWho">' + (L.leader || "…") + '</b> · code ' + fmt(L.code) + '</span><button type="button" id="lvTake">Share mine instead</button><button type="button" id="lvStop">Stop watching</button><span id="lvStatus"></span>';
     else host.innerHTML = '<button type="button" id="lvShare">Live training: share my screen</button><input id="lvCode" placeholder="Code" aria-label="Session code" maxlength="9" style="width:90px;font:inherit;font-size:12px;padding:3px 6px;border:1px solid #fff;background:transparent;color:#fff;border-radius:4px;text-transform:uppercase"><button type="button" id="lvWatch">Watch</button><span id="lvStatus"></span>';
