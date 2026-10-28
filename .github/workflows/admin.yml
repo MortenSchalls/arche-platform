@@ -7,7 +7,7 @@ on:
       action:
         description: "What to do"
         type: choice
-        options: [person-status, reset-joining, reset-next-login, cancel-reset-next, set-name, leads-status, alerts-status]
+        options: [person-status, reset-joining, reset-next-login, cancel-reset-next, set-name, leads-status, alerts-status, trim-leads]
         default: person-status
       email:
         description: "The person's login email (or leave empty and give the name)"

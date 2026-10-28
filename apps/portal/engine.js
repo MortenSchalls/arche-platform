@@ -9,6 +9,8 @@
     followUpDays: 14,         // longest gap between contacts on an open lead
     parkDays: 90,             // "Not now" is revisited after this
     maxOpen: 40,              // open leads per broker
+    starterOpen: 10,          // a new broker's open leads in their first starterDays (Morten, 29 Oct 2026: "yes 10 leads")
+    starterDays: 30,
     perRound: 10,             // new prospects per broker per round
     weeklyFloor: 5,           // every active broker gets at least this many a week while prospects are free
     maxHops: 3,               // brokers tried before the owner decides
@@ -68,6 +70,7 @@
     /* 2. broker metrics */
     const M = {};
     brokers.forEach(({id}) => M[id] = {open: 0, recv30: 0, recv7: 0, assigned90: 0, adds30: 0, updMonth: 0, enqMonth: 0, confMonth: 0, flownMonth: 0, gpMonth: 0, quotedMonth: 0, breaches90: 0, breaches30: 0, enquiries90: 0, flown90: 0, gp90: 0, addsMonth: 0, segWins: {}, regions: new Set(), countries: new Set(), points: 0, roundNew: 0});
+    brokers.forEach(({id, r}) => { const since = t(r.since); M[id].cap = since > NOW - cfg.starterDays * DAY ? Math.min(cfg.starterOpen, cfg.maxOpen) : cfg.maxOpen; });   // starter pace
     brokers.forEach(({id, r}) => { const base = String(r.base || "").trim(); if (base) { M[id].countries.add(base.toLowerCase()); const rg = regionOf(base); if (rg) M[id].regions.add(rg); } (r.regions || []).forEach(x => M[id].regions.add(x)); });
     Object.values(P).forEach(p => {
       (p.history || []).forEach(h => {
@@ -115,7 +118,7 @@
     }
     function pick(p, exclude) {
       let best = null;
-      brokers.forEach(({id}) => { const m = M[id]; if (exclude.has(id) || m.open >= cfg.maxOpen || m.roundNew >= cfg.perRound) return; const sc = score(id, p); if (!best || sc.s > best.s) best = {id, s: sc.s, why: sc.why}; });
+      brokers.forEach(({id}) => { const m = M[id]; if (exclude.has(id) || m.open >= m.cap || m.roundNew >= cfg.perRound) return; const sc = score(id, p); if (!best || sc.s > best.s) best = {id, s: sc.s, why: sc.why}; });
       return best;
     }
     function leadFrom(p, pid, prevLog, reason, bid) {

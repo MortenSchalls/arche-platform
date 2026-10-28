@@ -189,6 +189,18 @@ assert(!T.prospects.find(p => p.data.org === "Good Air Charter").data.assignedTo
   const e = engine({ prospects: { x1: { org: "Op", kind: "operator", status: "new", region: "Asia-Pacific", country: "Singapore" }, x3: { org: "Svc", kind: "service", status: "new", region: "Asia-Pacific", country: "Singapore" }, x2: { org: "Client", kind: "client", status: "new", region: "Asia-Pacific", country: "Singapore" } }, roster, leads: {}, trips: [] }, {}, new Date().toISOString());
   assert(e.writes.some(w => JSON.stringify(w).includes("x2")) && !e.writes.some(w => JSON.stringify(w).includes("x1")) && !e.writes.some(w => JSON.stringify(w).includes("x3"))); }
 pass("operators and service partners are never rotated to brokers (client assigned, suppliers left alone)");
+{ const { createRequire } = await import("module"); const { engine } = createRequire(import.meta.url)("../apps/portal/engine.js");
+  const P = {}; for (let i = 0; i < 30; i++) P["s" + i] = { org: "Example Org " + i, kind: "client", status: "new", region: "Asia-Pacific", country: "Singapore" };
+  const fresh = { [BRK]: { role: "broker", active: true, contractName: "New Broker", base: "Singapore", roster: true, since: new Date(Date.now() - 5 * 864e5).toISOString() } };
+  const L = {}; let n = 0;
+  for (let round = 0; round < 3; round++) { const e = engine({ prospects: P, roster: fresh, leads: L, trips: [] }, {}, new Date().toISOString());
+    e.writes.filter(w => w.path.startsWith(`leads/${BRK}/items/`) && w.op === "set").forEach(w => { L[BRK] = L[BRK] || {}; L[BRK][w.path.split("/").pop()] = w.data; n++; });
+    e.writes.filter(w => w.path.startsWith("prospects/")).forEach(w => { const id = w.path.split("/")[1]; P[id] = { ...P[id], ...w.data }; }); }
+  assert(Object.keys(L[BRK] || {}).length === 10, "starter got " + Object.keys(L[BRK] || {}).length);
+  const old = { [BRK]: { ...fresh[BRK], since: new Date(Date.now() - 60 * 864e5).toISOString() } };
+  const e2 = engine({ prospects: P, roster: old, leads: L, trips: [] }, {}, new Date().toISOString());
+  assert(e2.writes.some(w => w.path.startsWith(`leads/${BRK}/items/`) && w.op === "set")); }
+pass("starter pace: a broker in their first 30 days has at most 10 open leads; after that the normal limit applies");
 
 // sanctions list parsers
 { const sx = await import("./lib/sanctions.mjs");

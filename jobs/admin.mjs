@@ -7,6 +7,9 @@
 //                                   keeps the login, leads, trips and training records (same as Team > Start joining again)
 //   ACTION=reset-next-login EMAIL=… or NAME=…   the same reset, done the next time the person signs in (api/resetcheck.mjs)
 //   ACTION=cancel-reset-next EMAIL=…  takes the person off that list again
+//   ACTION=trim-leads EMAIL=… [KEEP=10]   starter pace (Morten, 29 Oct 2026, for Natalia): keep KEEP open leads (her base
+//                                   country first, then Thailand, Singapore, the rest of Asia), the others back to the pool,
+//                                   and the first-contact clock restarts on the ones kept
 //   ACTION=alerts-status              read only: what the alert sender has open, how often each was sent, the last run
 //   ACTION=leads-status [EMAIL=…]     read only: counts of prospects by status, open leads per broker, the last rotation
 //   ACTION=set-name EMAIL=… NEW_NAME=…  corrects the name shown in the portal (not the name in a signed agreement)
@@ -40,6 +43,29 @@ export async function resetNext(sb, u, name) {
   ck(await sb.from("intel").upsert({ key: "resetnext", value: { list: next }, updated_at: new Date().toISOString() }, { onConflict: "key" }), "intel");
   ck(await sb.from("audit_log").insert({ by: null, action: "Joining to start again at next sign-in", detail: `${name || "person " + u.id.slice(0, 8)} (on the owner's request)` }), "audit");
   return { queued: true, lastSignIn: u.last_sign_in_at || null };
+}
+export async function trimLeads(sb, u, keep = 10, now = Date.now()) {
+  const prof = ck(await sb.from("profiles").select("role,base,contract_name").eq("id", u.id).maybeSingle(), "profiles") || {};
+  if (prof.role === "owner") throw new Error("Not for owners");
+  const cfg = ((ck(await sb.from("config").select("value").eq("key", "assign").maybeSingle(), "config") || {}).value) || {}, hours = Number(cfg.firstTouchHours) || 48;
+  const mine = (ck(await sb.from("leads").select("owner_id,id,data").eq("owner_id", u.id), "leads") || []);
+  const OPEN = l => !["notnow", "dnc", "duplicate", "enquiry"].includes((l.data || {}).status) && !(l.data || {}).own;
+  const base = String(prof.base || "").toLowerCase(), rank = l => { const c = String((l.data || {}).country || "").toLowerCase(), r = String((l.data || {}).region || "");
+    return c && c === base ? 0 : c === "thailand" ? 1 : c === "singapore" ? 2 : r === "Asia-Pacific" || c === "asia" ? 3 : 4; };
+  const open = mine.filter(OPEN).sort((a, b) => rank(a) - rank(b) || String((a.data || {}).org || "").localeCompare(String((b.data || {}).org || "")));
+  const kept = open.slice(0, keep), back = open.slice(keep), at = new Date(now).toISOString(), due = new Date(now + hours * 3600e3).toISOString();
+  for (const l of kept) { const d = { ...l.data, firstTouchDue: due, updated: at, log: [...((l.data || {}).log || []), { t: at, system: true, channel: "Portal", outcome: "assigned", note: "Starter pace: first-contact clock restarted" }] };
+    ck(await sb.from("leads").update({ data: d, updated_at: at }).eq("owner_id", u.id).eq("id", l.id).select(), "leads"); }
+  let returned = 0;
+  for (const l of back) {
+    const p = ck(await sb.from("prospects").select("data").eq("id", l.id).maybeSingle(), "prospects");
+    if (p) { const d = { ...p.data, status: "new", assignedTo: null, history: [...((p.data || {}).history || []), { t: at, restart: true, reason: "Starter pace: back to the pool (owner's decision)" }] };
+      ck(await sb.from("prospects").update({ data: d, updated_at: at }).eq("id", l.id).select(), "prospects"); }
+    ck(await sb.from("leads").delete().eq("owner_id", u.id).eq("id", l.id).select(), "leads"); returned++;
+  }
+  ck(await sb.from("audit_log").insert({ by: null, action: "Starter pace applied", detail: `${prof.contract_name || "broker"}: kept ${kept.length} leads (clock restarted), ${returned} back to the pool (on the owner's request)` }), "audit");
+  const byCountry = kept.reduce((a, l) => { const k = (l.data || {}).country || "?"; a[k] = (a[k] || 0) + 1; return a; }, {});
+  return { base: prof.base || "", kept: kept.length, keptCountries: byCountry, returned, firstContactDue: due };
 }
 export async function alertsStatus(sb) {
   const rows = ck(await sb.from("alert_settings").select("id,data"), "alert_settings") || [];
@@ -104,6 +130,7 @@ const note = o => { if (process.env.GITHUB_ACTIONS) console.log("::notice title=
 export async function main(env = process.env, sb) {
   sb = sb || createClient(env.SUPABASE_URL, env.SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
   const action = env.ACTION, email = env.EMAIL, name = env.NAME, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
+  if (action === "trim-leads") { const u0 = await findUser(sb, email); if (!u0) throw new Error("No login with this email"); const out = { email: mask(email), ...(await trimLeads(sb, u0, Math.max(1, Math.min(40, Number(env.KEEP) || 10)))) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (!["person-status", "reset-joining", "reset-next-login", "cancel-reset-next", "set-name"].includes(action)) throw new Error("Unknown action " + action);

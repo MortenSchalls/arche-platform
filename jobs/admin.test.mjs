@@ -5,7 +5,9 @@ const ID = "00000000-0000-4000-8000-0000000000e1";
 function fake() {
   const T = { profiles: [{ id: ID, role: "broker", active: true, contract_name: "Example Person", data: { roster: true } }, { id: "own", role: "owner", active: true, data: {} }],
     join_requests: [{ user_id: ID, data: { contractName: "Example Person" } }], agreements: [{ id: ID, data: { status: "active" } }], academy_progress: [{ id: ID, data: { completedAt: "2026-10-20" } }],
-    access_log: [{ owner_id: ID, data: { lastSeen: "2026-10-28T09:00:00Z" } }], audit_log: [], intel: [] };
+    access_log: [{ owner_id: ID, data: { lastSeen: "2026-10-28T09:00:00Z" } }], audit_log: [], intel: [], config: [{ key: "assign", value: { firstTouchHours: 24 } }],
+    leads: ["Japan", "Thailand", "Hong Kong", "Singapore", "Thailand"].map((c, i) => ({ owner_id: ID, id: "p" + i, data: { org: "Example Org " + i, country: c, status: "assigned", log: [] } })),
+    prospects: [0, 1, 2, 3, 4].map(i => ({ id: "p" + i, data: { org: "Example Org " + i, status: "assigned", assignedTo: ID } })) };
   const users = [{ id: ID, email: "example.person@example.com", email_confirmed_at: "2026-10-01", created_at: "2026-10-01", last_sign_in_at: "2026-10-28T09:00:00Z" }];
   const q = (t) => { let rows = T[t], filt = [], op = "select", patch = null, ins = null;
     const api = { select() { return api; }, eq(c, v) { filt.push([c, v]); return api; }, delete() { op = "delete"; return api; }, update(p) { op = "update"; patch = p; return api; },
@@ -34,6 +36,9 @@ r = await main({ ACTION: "cancel-reset-next", EMAIL: "example.person@example.com
 ok("reset at next sign-in can be cancelled", r.cancelled && sb2.T.intel[0].value.list.length === 0);
 r = await main({ ACTION: "set-name", EMAIL: "example.person@example.com", NEW_NAME: "Example Persson" }, sb2);
 ok("name corrected in the profile and logged", r.to === "Example Persson" && sb2.T.profiles.find(p => p.id === ID).contract_name === "Example Persson" && sb2.T.audit_log.some(a => a.action === "Name corrected"));
+r = await main({ ACTION: "trim-leads", EMAIL: "example.person@example.com", KEEP: "3" }, sb2);
+ok("starter pace: keeps 3 (Thailand first, then Singapore), clock restarted, the rest back to the pool", r.kept === 3 && r.returned === 2 && r.keptCountries.Thailand === 2 && r.keptCountries.Singapore === 1
+  && sb2.T.leads.length === 3 && sb2.T.leads.every(l => l.data.firstTouchDue) && sb2.T.prospects.filter(p => p.data.status === "new" && !p.data.assignedTo).length === 2 && sb2.T.audit_log.some(a => a.action === "Starter pace applied"));
 let amb = false; sb2.T.profiles.push({ id: "x2", role: "broker", contract_name: "Example Personal", data: {} }); try { await main({ ACTION: "reset-next-login", NAME: "example person" }, sb2); } catch (e) { amb = /2 people match/.test(e.message); }
 ok("two people match the name: refused, asks for the email", amb);
 let own = false; sb.auth.admin.listUsers = async () => ({ data: { users: [{ id: "own", email: "owner@example.com" }] }, error: null }); try { await main({ ACTION: "reset-joining", EMAIL: "owner@example.com" }, sb); } catch (e) { own = /never reset/.test(e.message); }
