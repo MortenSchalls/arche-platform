@@ -7,6 +7,7 @@
 //                                   keeps the login, leads, trips and training records (same as Team > Start joining again)
 //   ACTION=reset-next-login EMAIL=… or NAME=…   the same reset, done the next time the person signs in (api/resetcheck.mjs)
 //   ACTION=cancel-reset-next EMAIL=…  takes the person off that list again
+//   ACTION=leads-status [EMAIL=…]     read only: counts of prospects by status, open leads per broker, the last rotation
 //   ACTION=set-name EMAIL=… NEW_NAME=…  corrects the name shown in the portal (not the name in a signed agreement)
 import { createClient } from "@supabase/supabase-js";
 
@@ -38,6 +39,19 @@ export async function resetNext(sb, u, name) {
   ck(await sb.from("intel").upsert({ key: "resetnext", value: { list: next }, updated_at: new Date().toISOString() }, { onConflict: "key" }), "intel");
   ck(await sb.from("audit_log").insert({ by: null, action: "Joining to start again at next sign-in", detail: `${name || "person " + u.id.slice(0, 8)} (on the owner's request)` }), "audit");
   return { queued: true, lastSignIn: u.last_sign_in_at || null };
+}
+export async function leadsStatus(sb, u) {
+  const prospects = ck(await sb.from("prospects").select("id,data"), "prospects") || [], leads = ck(await sb.from("leads").select("owner_id,id,data"), "leads") || [];
+  const profs = ck(await sb.from("profiles").select("id,role,active,contract_name,data"), "profiles") || [];
+  const byStatus = {}; prospects.forEach(p => { const s = (p.data || {}).status || "new"; byStatus[s] = (byStatus[s] || 0) + 1; });
+  const assignedTo = {}; prospects.forEach(p => { const a = (p.data || {}).assignedTo; if (a) assignedTo[a] = (assignedTo[a] || 0) + 1; });
+  const brokers = profs.filter(p => p.active && (p.data || {}).roster && ["broker", "consultant"].includes(p.role)).map(p => {
+    const mine = leads.filter(l => l.owner_id === p.id), open = mine.filter(l => !["notnow", "dnc", "duplicate", "enquiry"].includes((l.data || {}).status));
+    return { name: p.contract_name, role: p.role, supervised: !!(p.data || {}).supervised, leads: mine.length, open: open.length, assigned: assignedTo[p.id] || 0, lastAssigned: mine.map(l => (l.data || {}).assignedAt || "").sort().slice(-1)[0] || null };
+  });
+  const assign = ck(await sb.from("intel").select("value").eq("key", "assign").maybeSingle(), "intel"), cfg = ck(await sb.from("config").select("value").eq("key", "assign").maybeSingle(), "config");
+  const a = (assign || {}).value || {};
+  return { prospects: prospects.length, byStatus, brokers, rotation: { lastRun: a.lastRun || null, writes: a.writes, report: a.report ? { assigned: a.report.assigned, moved: a.report.moved, parked: a.report.parked, review: a.report.review, notes: (a.report.notes || []).slice(0, 6) } : null }, config: (cfg || {}).value || {} , person: u ? u.id.slice(0, 8) : null };
 }
 export async function cancelResetNext(sb, u) {
   const row = ck(await sb.from("intel").select("value").eq("key", "resetnext").maybeSingle(), "intel"), list = ((row || {}).value || {}).list || [];
@@ -77,6 +91,7 @@ const note = o => { if (process.env.GITHUB_ACTIONS) console.log("::notice title=
 export async function main(env = process.env, sb) {
   sb = sb || createClient(env.SUPABASE_URL, env.SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
   const action = env.ACTION, email = env.EMAIL, name = env.NAME, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
+  if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (!["person-status", "reset-joining", "reset-next-login", "cancel-reset-next", "set-name"].includes(action)) throw new Error("Unknown action " + action);
   const u = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null;
   if (!email && !name) throw new Error("Give an email or a name");
