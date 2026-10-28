@@ -1,5 +1,5 @@
 -- Archē platform: live training (Morten, 28 Oct 2026)
--- The owner shares his screen with members he chooses (Team → Live training). The session is kept in the
+-- The owner shares his screen with members he chooses (Training → Live training). The session is kept in the
 -- config row 'live'. Only the owner and the chosen members may join its private channel, and only until the
 -- session ends. Nothing is stored. Safe to run more than once.
 

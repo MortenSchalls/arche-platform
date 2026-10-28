@@ -8,8 +8,10 @@ async function mk(who,as){const ctx=await b.newContext({viewport:{width:1300,hei
  await p.addInitScript(`window.__who=${JSON.stringify(who)};`+stub);await p.goto('http://localhost:8765/test.html?as='+as);await p.waitForTimeout(2500);pages[who]=p;p.__errs=errs;return p;}
 const M=await mk('owner','owner');
 // an example trip with a client email and phone, so masking can be checked
-await M.evaluate(()=>{S.view='team';render();});await M.waitForTimeout(800);
-ok('Team shows the Live training panel',await M.evaluate(()=>!!document.getElementById('lvPanel')));
+await M.evaluate(()=>{S.view='training';S.trTab='live';render();});await M.waitForTimeout(800);
+ok('Training → Live training shows the panel',await M.evaluate(()=>!!document.getElementById('lvPanel')));
+ok('Team no longer has the panel',await M.evaluate(async()=>{S.view='team';render();await new Promise(r=>setTimeout(r,500));const x=!document.getElementById('lvPanel');S.view='training';S.trTab='live';render();await new Promise(r=>setTimeout(r,500));return x;}));
+ok('every active member with a role can be chosen (operations, both brokers)',await M.evaluate(()=>document.querySelectorAll('[data-lvw]').length===3));
 ok('Security and Settings cannot be chosen',await M.evaluate(()=>!document.querySelector('[data-lvs="security"]')&&!document.querySelector('[data-lvs="settings"]')));
 ok('nothing is pre-selected',await M.evaluate(()=>!document.querySelector('[data-lvs]:checked,[data-lvw]:checked')));
 await M.click('[data-lv="start"]');await M.waitForTimeout(300);ok('start refused without a watcher',await M.evaluate(()=>!(S.live&&S.live.id)));

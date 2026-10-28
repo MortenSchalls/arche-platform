@@ -108,7 +108,7 @@
     const s = shareable(), l = S.live || {};
     b.style.cssText = `position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:2147483000;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 14px;background:${s.ok ? "#7a1f1f" : "#4a4f57"};color:#fff;font:600 13px/1.4 "Hanken Grotesk",system-ui,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.35)`;
     const so = !!(l.syl && l.syl.on);
-    b.innerHTML = `<span>${s.ok ? "● Sharing this page with" : "Not shared: this is " + esc(s.why) + ". Watchers see a pause."} ${s.ok ? esc((l.watchers || []).map(nm).join(", ")) : ""}</span><button type="button" class="btn small" data-syl="toggle" style="background:transparent;color:#fff;border:1px solid #fff">Syllabus: ${so ? "on" : "off"}</button><button type="button" class="btn small" data-lv="stop" style="background:#fff;color:#222">Stop sharing</button>`;
+    b.innerHTML = `<span>${s.ok ? "● Sharing this page with" : "Not shared: this is " + esc(s.why) + ". Watchers see a pause."} ${s.ok ? esc((l.watchers || []).map(who).join(", ")) : ""}</span><button type="button" class="btn small" data-syl="toggle" style="background:transparent;color:#fff;border:1px solid #fff">Syllabus: ${so ? "on" : "off"}</button><button type="button" class="btn small" data-lv="stop" style="background:#fff;color:#222">Stop sharing</button>`;
     sylCards();
   }
 
@@ -161,23 +161,38 @@
   function ownerPanel(){
     if (!S.isOwner || acting() !== "owner") return ""; watchCfg();
     const l = S.live, open = liveOpen(l);
-    const members = Object.entries(S.roster || {}).filter(([id, r]) => id !== S.uid && r && r.active !== false && r.role && r.role !== "owner").map(([id]) => id);
+    // everyone with access to the portal: the team list plus every active profile with a role (Morten, 28 Oct 2026)
+    staffLoad();
+    const members = [...new Set([...Object.entries(S.roster || {}).filter(([id, r]) => r && r.active !== false && r.role).map(([id]) => id), ...Object.keys(S.lvStaff || {})])].filter(id => id !== S.uid).sort((a, b) => who(a).localeCompare(who(b)));
     const views = navItems().filter(([k]) => !NEVER[k]);
     const F = S.lvForm = S.lvForm || {w: {}, s: {}, syl: "fam", h: 2};   // kept across re-renders while ticking
-    if (open) return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small">Open until ${esc(fmtT(l.until))} for ${esc((l.watchers || []).map(nm).join(", "))}. Shared pages: ${esc((l.scope || []).map(k => (views.find(v => v[0] === k) || [k, k])[1]).join(", "))}.</p>
+    if (open) return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small">Open until ${esc(fmtT(l.until))} for ${esc((l.watchers || []).map(who).join(", "))}. Shared pages: ${esc((l.scope || []).map(k => (views.find(v => v[0] === k) || [k, k])[1]).join(", "))}.</p>
       <div class="row">${LV.role === "lead" ? `<button class="btn small danger" type="button" data-lv="stop">Stop sharing</button>` : `<button class="btn small primary" type="button" data-lv="resume">Share my screen now</button> <button class="btn small" type="button" data-lv="stop">End the session</button>`}</div></div>`;
     return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small muted">Let chosen members watch your screen live, with your pointer and clicks. Talk over a phone or Teams call. Only the pages you tick are shown; on any other page they see a pause. Always kept back: the investor and partner list, Security, Settings, and every email address and phone number (masked).</p>
-      <p class="small" style="margin:8px 0 4px"><b>Who may watch</b></p>${members.map(id => `<label class="check" for="lvw_${id}"><input type="checkbox" id="lvw_${id}" data-lvw="${id}" ${F.w[id] ? "checked" : ""}><span>${esc(nm(id))}</span></label>`).join("") || `<p class="small muted">No members yet.</p>`}
+      <p class="small" style="margin:8px 0 4px"><b>Who may watch</b></p>${members.map(id => `<label class="check" for="lvw_${id}"><input type="checkbox" id="lvw_${id}" data-lvw="${id}" ${F.w[id] ? "checked" : ""}><span>${esc(who(id))}${roleOf(id) ? ` <span class="small muted">· ${esc(roleOf(id))}</span>` : ""}</span></label>`).join("") || `<p class="small muted">No members yet.</p>`}
       <p class="small" style="margin:8px 0 4px"><b>Pages to share</b></p>${views.map(([k, t]) => `<label class="check" for="lvs_${k}"><input type="checkbox" id="lvs_${k}" data-lvs="${k}" ${F.s[k] ? "checked" : ""}><span>${esc(t)}</span></label>`).join("")}
       <p class="small" style="margin:8px 0 4px"><b>Syllabus</b> (you can switch it on or off while sharing)</p><div class="fgrid"><label class="f" for="lvSyl">Follow<select id="lvSyl">${[["", "No syllabus: just share the screen"], ["fam", "Familiarisation (first day)"], ["full", "Full syllabus"]].map(([v, t]) => `<option value="${v}" ${F.syl === v ? "selected" : ""}>${t}</option>`).join("")}</select></label>
       <label class="f" for="lvHours">Ends after<select id="lvHours">${[1, 2, 4, 8].map(h => `<option value="${h}" ${F.h === h ? "selected" : ""}>${h} hour${h > 1 ? "s" : ""}</option>`).join("")}</select></label></div>
       <button class="btn small primary" type="button" data-lv="start">Start sharing</button></div>`;
   }
+  const ROLE_NAME = {owner: "owner", ops: "operations", broker: "broker", consultant: "consultant"};
+  const who = id => ((S.roster || {})[id] && (S.roster[id].contractName || "")) || ((S.lvStaff || {})[id] || {}).name || nm(id);
+  const roleOf = id => ROLE_NAME[((S.roster || {})[id] || {}).role || ((S.lvStaff || {})[id] || {}).role] || "";
+  function staffLoad(){
+    if (S.lvStaffAt && Date.now() - S.lvStaffAt < 60e3) return; S.lvStaffAt = Date.now();
+    (async () => { try { const {data} = await sb().from("profiles").select("id,role,active,contract_name").eq("active", true);
+      const o = {}; (data || []).forEach(r => { if (r.role && r.id !== S.uid) o[r.id] = {name: r.contract_name || "", role: r.role}; });
+      if (JSON.stringify(o) !== JSON.stringify(S.lvStaff || {})) { S.lvStaff = o; render(); } } catch(e){} })();
+  }
   function watcherBanner(){
     const l = S.live; if (!amWatcher(l) || LV.role === "watch") return "";
     return `<div class="note info" style="margin-bottom:16px"><b>${esc(nm(l.owner))} is sharing his screen with you</b> (live training, until ${esc(fmtT(l.until))}). <button class="btn small primary" type="button" data-lv="watch">Watch</button></div>`;
   }
-  const _vTeamLV = vTeam; vTeam = function(){ return afterHead(_vTeamLV(), ownerPanel()); };
+  // Training → Live training (owner): moved from Team (Morten, 28 Oct 2026)
+  const _trTabsLV = trTabs; trTabs = function(){ const h = _trTabsLV(); if (!S.isOwner || acting() !== "owner") return h; const t = S.trTab || "course";
+    return h.replace(/<\/div>$/, `<button class="btn ${t === "live" ? "primary" : ""}" type="button" role="tab" aria-selected="${t === "live"}" data-trtab="live">Live training</button></div>`); };
+  const _vTrainingLV = vTraining; vTraining = function(){ if ((S.trTab || "") !== "live" || !S.isOwner || acting() !== "owner") return _vTrainingLV();
+    return `<div class="head"><div><h1>Training</h1><p class="muted small">Train someone live: they watch your screen in their own portal while you talk on the phone or Teams, with a syllabus if you want one.</p></div></div>` + trTabs() + ownerPanel(); };
   const _renderLV = renderNow; renderNow = function(){ watchCfg(); _renderLV(); const main = document.getElementById("main"); const ban = watcherBanner();
     if (main && ban && !document.getElementById("lvBanner")) { const d = document.createElement("div"); d.id = "lvBanner"; d.innerHTML = ban; main.insertBefore(d, main.firstChild); }
     if (LV.role === "lead") bar(); };
@@ -194,7 +209,7 @@
       const hours = Number(($("lvHours") || {}).value || 2), course = ($("lvSyl") || {}).value || "";
       const l = {id: rid(), owner: S.uid, watchers, scope, at: now(), until: new Date(Date.now() + hours * 3600e3).toISOString(), syl: {on: !!course, course: course || "fam", idx: 0, done: {}}};
       if (course) { S.live = l; l.syl.done = await sylLoadDone(course); const C = SYL[course]; const first = C.lessons.findIndex(x => !l.syl.done[x.id]); l.syl.idx = first < 0 ? 0 : first; }
-      try { await S.db.doc("config/live").set(l); S.live = l; audit("Live training started", `${watchers.map(nm).join(", ")} · ${scope.join(", ")} · ${hours} h`); startLead(l); toast("Sharing. They see a Watch button in their portal."); render(); }
+      try { await S.db.doc("config/live").set(l); S.live = l; audit("Live training started", `${watchers.map(who).join(", ")} · ${scope.join(", ")} · ${hours} h`); startLead(l); toast("Sharing. They see a Watch button in their portal."); render(); }
       catch(err){ toast("Could not start. Try again."); }
     }
   });
@@ -274,7 +289,7 @@
     if (a === "next") { sylSet({idx: Math.min(C.lessons.length - 1, i + 1)}); return; }
     if (a === "done") {
       for (const w of (S.live || {}).watchers || []) { try { await S.db.doc(`train/${w}/runs/syl-${s.course || "fam"}-${L.id}`).set({kind: "syllabus", course: s.course || "fam", lesson: L.id, title: L.t, at: now(), by: S.uid}); } catch(err){} }
-      audit("Training lesson done", `${(S.live.watchers || []).map(nm).join(", ")} · ${L.t}`);
+      audit("Training lesson done", `${(S.live.watchers || []).map(who).join(", ")} · ${L.t}`);
       sylSet({done: {...(s.done || {}), [L.id]: true}, idx: Math.min(C.lessons.length - 1, i + 1)}); return; }
   });
   document.addEventListener("change", e => { const el = e.target, F = S.lvForm; if (!F || !el.closest || !el.closest("#lvPanel")) return;
