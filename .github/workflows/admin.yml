@@ -7,7 +7,7 @@ on:
       action:
         description: "What to do"
         type: choice
-        options: [person-status, reset-joining, reset-next-login]
+        options: [person-status, reset-joining, reset-next-login, cancel-reset-next, set-name]
         default: person-status
       email:
         description: "The person's login email (or leave empty and give the name)"
@@ -15,6 +15,10 @@ on:
         required: false
       name:
         description: "The person's name, if no email is given"
+        type: string
+        required: false
+      new_name:
+        description: "set-name only: the corrected first and last name"
         type: string
         required: false
 permissions:
@@ -43,4 +47,5 @@ jobs:
           ACTION: ${{ inputs.action }}
           EMAIL: ${{ inputs.email }}
           NAME: ${{ inputs.name }}
+          NEW_NAME: ${{ inputs.new_name }}
         run: node admin.mjs

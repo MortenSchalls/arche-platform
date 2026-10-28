@@ -30,6 +30,10 @@ r = await main({ ACTION: "person-status", EMAIL: "nobody@example.com" }, sb);
 ok("unknown email: says there is no login", r.login === false);
 const sb2 = fake(); r = await main({ ACTION: "reset-next-login", NAME: "example per" }, sb2);
 ok("reset at next sign-in: found by name, put on the list, nothing removed yet", r.queued && sb2.T.intel[0].value.list[0].id === ID && sb2.T.join_requests.length === 1 && /next sign-in/.test(sb2.T.audit_log[0].action));
+r = await main({ ACTION: "cancel-reset-next", EMAIL: "example.person@example.com" }, sb2);
+ok("reset at next sign-in can be cancelled", r.cancelled && sb2.T.intel[0].value.list.length === 0);
+r = await main({ ACTION: "set-name", EMAIL: "example.person@example.com", NEW_NAME: "Example Persson" }, sb2);
+ok("name corrected in the profile and logged", r.to === "Example Persson" && sb2.T.profiles.find(p => p.id === ID).contract_name === "Example Persson" && sb2.T.audit_log.some(a => a.action === "Name corrected"));
 let amb = false; sb2.T.profiles.push({ id: "x2", role: "broker", contract_name: "Example Personal", data: {} }); try { await main({ ACTION: "reset-next-login", NAME: "example person" }, sb2); } catch (e) { amb = /2 people match/.test(e.message); }
 ok("two people match the name: refused, asks for the email", amb);
 let own = false; sb.auth.admin.listUsers = async () => ({ data: { users: [{ id: "own", email: "owner@example.com" }] }, error: null }); try { await main({ ACTION: "reset-joining", EMAIL: "owner@example.com" }, sb); } catch (e) { own = /never reset/.test(e.message); }

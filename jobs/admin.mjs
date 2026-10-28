@@ -6,6 +6,8 @@
 //   ACTION=reset-joining  EMAIL=…   back to step 1 (the offer): removes request, agreement, academy progress, team access;
 //                                   keeps the login, leads, trips and training records (same as Team > Start joining again)
 //   ACTION=reset-next-login EMAIL=… or NAME=…   the same reset, done the next time the person signs in (api/resetcheck.mjs)
+//   ACTION=cancel-reset-next EMAIL=…  takes the person off that list again
+//   ACTION=set-name EMAIL=… NEW_NAME=…  corrects the name shown in the portal (not the name in a signed agreement)
 import { createClient } from "@supabase/supabase-js";
 
 const mask = e => String(e || "").trim().toLowerCase().replace(/^(.).*?(@.*)$/, "$1***$2");
@@ -37,6 +39,20 @@ export async function resetNext(sb, u, name) {
   ck(await sb.from("audit_log").insert({ by: null, action: "Joining to start again at next sign-in", detail: `${name || "person " + u.id.slice(0, 8)} (on the owner's request)` }), "audit");
   return { queued: true, lastSignIn: u.last_sign_in_at || null };
 }
+export async function cancelResetNext(sb, u) {
+  const row = ck(await sb.from("intel").select("value").eq("key", "resetnext").maybeSingle(), "intel"), list = ((row || {}).value || {}).list || [];
+  const was = list.some(x => x.id === u.id);
+  ck(await sb.from("intel").upsert({ key: "resetnext", value: { list: list.filter(x => x.id !== u.id) }, updated_at: new Date().toISOString() }, { onConflict: "key" }), "intel");
+  if (was) ck(await sb.from("audit_log").insert({ by: null, action: "Reset at next sign-in cancelled", detail: "on the owner's request" }), "audit");
+  return { cancelled: was };
+}
+export async function setName(sb, u, name) {
+  const n = String(name || "").replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 80); if (n.split(/\s+/).length < 2) throw new Error("Give first and last name");
+  const pr = ck(await sb.from("profiles").select("contract_name,role").eq("id", u.id).maybeSingle(), "profiles"); if (!pr) throw new Error("No profile");
+  ck(await sb.from("profiles").update({ contract_name: n }).eq("id", u.id).select(), "profiles");
+  ck(await sb.from("audit_log").insert({ by: null, action: "Name corrected", detail: `${pr.contract_name || "(none)"} → ${n} (on the owner's request)` }), "audit");
+  return { from: pr.contract_name || "", to: n };
+}
 export async function status(sb, u) {
   const id = u.id, one = async (t, col, v, sel = "*") => ck(await sb.from(t).select(sel).eq(col, v).maybeSingle(), t);
   const [prof, join, agr, prog, acc] = await Promise.all([one("profiles", "id", id), one("join_requests", "user_id", id), one("agreements", "id", id),
@@ -61,10 +77,12 @@ const note = o => { if (process.env.GITHUB_ACTIONS) console.log("::notice title=
 export async function main(env = process.env, sb) {
   sb = sb || createClient(env.SUPABASE_URL, env.SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
   const action = env.ACTION, email = env.EMAIL, name = env.NAME, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
-  if (!["person-status", "reset-joining", "reset-next-login"].includes(action)) throw new Error("Unknown action " + action);
+  if (!["person-status", "reset-joining", "reset-next-login", "cancel-reset-next", "set-name"].includes(action)) throw new Error("Unknown action " + action);
   const u = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null;
   if (!email && !name) throw new Error("Give an email or a name");
   if (!u) { const out = { email: mask(email), login: false, note: "No login with this email: the person has never signed in or signed up. Create the login in Supabase > Authentication > Users > Add user." }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "cancel-reset-next") { const out = { email: mask(email || u.email), ...(await cancelResetNext(sb, u)) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "set-name") { const out = { email: mask(email || u.email), ...(await setName(sb, u, env.NEW_NAME)) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "reset-next-login") { const st = await status(sb, u), out = { email: mask(email || u.email), name: st.name, step: st.step, ...(await resetNext(sb, u, st.name)) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "person-status") { const out = { email: mask(email), ...(await status(sb, u)) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   const r = await resetJoining(sb, u, why), out = { email: mask(email), ...r, now: (await status(sb, u)).step };
