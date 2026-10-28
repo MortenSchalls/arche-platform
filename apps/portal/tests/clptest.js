@@ -1,0 +1,22 @@
+// Today and Dashboard: every section collapses and expands; the choice is remembered on this device. Example data.
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x)));if(!c)fails++;};
+const ctx=await b.newContext({viewport:{width:1300,height:1000}});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
+await p.goto('http://localhost:8765/test.html?as=owner');await p.waitForTimeout(3000);await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(1500);
+const n=await p.evaluate(()=>document.querySelectorAll('#main div[data-clp]').length);ok('every Today section has a collapse button',n>=3&&n===await p.evaluate(()=>document.querySelectorAll('#main .clpbtn').length),n);
+ok('Collapse all and Expand all are shown',await p.evaluate(()=>!!document.querySelector('[data-clpall="0"]')&&!!document.querySelector('[data-clpall="1"]')));
+const first=await p.evaluate(()=>document.querySelector('#main div[data-clp]').dataset.clp);
+await p.click('#main div[data-clp] .clpbtn');await p.waitForTimeout(300);
+ok('one click hides the section body, the heading stays',await p.evaluate(k=>{const x=document.querySelector(`#main div[data-clp="${k}"]`);const kids=[...x.children].filter(c=>!c.hasAttribute('data-clp-head'));return x.classList.contains('clp-off')&&kids.every(c=>getComputedStyle(c).display==='none')&&getComputedStyle(x.querySelector('[data-clp-head]')).display!=='none';},first));
+await p.evaluate(()=>render());await p.waitForTimeout(800);
+ok('stays collapsed after the page refreshes its data',await p.evaluate(k=>document.querySelector(`#main div[data-clp="${k}"]`).classList.contains('clp-off'),first));
+await p.reload();await p.waitForTimeout(3000);await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(1500);
+ok('remembered after reloading the portal',await p.evaluate(k=>{const x=document.querySelector(`#main div[data-clp="${k}"]`);return !!x&&x.classList.contains('clp-off');},first));
+await p.click('[data-clpall="0"]');await p.waitForTimeout(300);ok('Collapse all',await p.evaluate(()=>[...document.querySelectorAll('#main div[data-clp]')].every(x=>x.classList.contains('clp-off'))));
+await p.click('[data-clpall="1"]');await p.waitForTimeout(300);ok('Expand all',await p.evaluate(()=>[...document.querySelectorAll('#main div[data-clp]')].every(x=>!x.classList.contains('clp-off'))));
+await p.click('#main div[data-clp] h2');await p.waitForTimeout(300);ok('clicking the heading text also toggles',await p.evaluate(()=>document.querySelector('#main div[data-clp]').classList.contains('clp-off')));
+await p.click('[data-clpall="1"]');
+await p.screenshot({path:'/tmp/claude-0/-home-claude/3678dbf8-f26a-505b-b9f6-0376a0bfbc99/scratchpad/clp-open.png'});await p.click('[data-clpall="0"]');await p.waitForTimeout(300);await p.screenshot({path:'/tmp/claude-0/-home-claude/3678dbf8-f26a-505b-b9f6-0376a0bfbc99/scratchpad/clp-closed.png'});await p.click('[data-clpall="1"]');
+const p2=await ctx.newPage();await p2.setViewportSize({width:390,height:900});await p2.goto('http://localhost:8765/test.html?as=broker');await p2.waitForTimeout(3000);
+ok('broker Dashboard sections collapse too',await p2.evaluate(()=>document.querySelectorAll('#main div[data-clp]').length>=1));
+ok('no sideways scroll at 390 px',await p2.evaluate(()=>document.documentElement.scrollWidth<=390));
+ok('no page errors',errs.length===0,errs);console.log(fails?fails+' FAILED':'ALL PASS');await b.close();process.exit(fails?1:0)})();
