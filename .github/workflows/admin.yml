@@ -1,0 +1,41 @@
+# Owner-requested admin actions (Morten, 28 Oct 2026). Started by Claude from the chat when Morten asks, or by Morten from the
+# Actions tab. Only the actions listed in jobs/admin.mjs exist. Uses the same repository secrets as "Portal jobs".
+name: Admin actions
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "What to do"
+        type: choice
+        options: [person-status, reset-joining]
+        default: person-status
+      email:
+        description: "The person's login email"
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: admin-actions
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Hide the email in the log
+        run: echo "::add-mask::${{ inputs.email }}"
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: "22" }
+      - name: Install
+        working-directory: jobs
+        run: npm install --no-audit --no-fund
+      - name: Run ${{ inputs.action }}
+        working-directory: jobs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          ACTION: ${{ inputs.action }}
+          EMAIL: ${{ inputs.email }}
+        run: node admin.mjs

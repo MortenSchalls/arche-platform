@@ -450,7 +450,7 @@ label.f > span.small,label.f > .apthint,label.f > .muted{text-transform:none;let
   <div class="who" id="who"></div>
 </div></header>
 <main class="wrap" id="main">
-  <div class="panel empty" id="boot"><p><b>Opening the portal…</b></p><p class="small">Your trips, payments and commission load here. If nothing appears, sign in to claude.ai and open this page from the link you were given.</p></div>
+  <div class="panel empty" id="boot"><p><b>Opening the portal…</b></p><p class="small">This takes a few seconds.</p></div>
 </main>
 <nav id="tabbar" class="tabbar" aria-label="Main sections"></nav>
 <div class="wm" id="wm" aria-hidden="true"></div>
@@ -575,7 +575,17 @@ async function boot(){
   }
   decideRole(); render();
 }
-function bootFail(msg){ $("main").innerHTML = `<div class="panel empty"><p><b>The portal could not open here.</b></p><p class="small">${esc(msg || "Sign in again, or ask the owner to approve your access.")}</p></div>`; }
+function bootFail(msg){ $("main").innerHTML = `<div class="panel empty"><p><b>The portal could not open here.</b></p><p class="small">${esc(msg || "Sign in again, or ask the owner to approve your access.")}</p><div class="row" style="justify-content:center;margin-top:10px"><button class="btn primary" type="button" onclick="location.reload()">Try again</button></div></div>`; }
+/* never leave someone on "Opening the portal…" (Morten, 28 Oct 2026: a broker could not open the portal; that is lost revenue).
+   If opening stops on an error, or is still not done after 15 seconds, the page says so and offers Try again; one automatic retry. */
+function bootGuard(err){
+  if (document.getElementById("archeLogin") || document.getElementById("archeSetPw")) return;   // still signing in: never interrupt
+  if (!document.getElementById("boot") && S.role !== "loading") return;
+  let tries = 0; try { tries = +sessionStorage.getItem("arche.bootRetry") || 0; } catch(e){}
+  if (tries < 1) { try { sessionStorage.setItem("arche.bootRetry", String(tries + 1)); } catch(e){} location.reload(); return; }
+  try { sessionStorage.removeItem("arche.bootRetry"); } catch(e){}
+  bootFail("The connection did not answer in time. Check your internet connection and press Try again. If it happens again, call or message Archē operations." + (err ? " (" + String(err.message || err).slice(0, 80) + ")" : ""));
+}
 function decideRole(){
   const me = S.isOwner ? null : (S.roster[S.uid] || S.myRoster);
   if (S.isOwner) S.role = "owner";
@@ -3241,7 +3251,8 @@ function trSyncX(r){ document.querySelectorAll("[data-trx]").forEach(el => { con
 function setTheme(t){ S.theme = t; document.documentElement.setAttribute("data-theme", t); try { localStorage.setItem("arche.theme", t); } catch(e){} watermark(); render(); }
 S.theme = document.documentElement.getAttribute("data-theme") || "light";
 try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (S.theme === "system") { watermark(); render(); } }); } catch(e){}
-boot();
+boot().then(() => { try { sessionStorage.removeItem("arche.bootRetry"); } catch(e){} }, e => { console.error("boot", e); bootGuard(e); });
+setTimeout(() => { if (document.getElementById("boot")) bootGuard(); }, 15000);
 /* ---------- Beta 20: flight following, aftercare and rating, post-trip debrief, roleplay lab, reference cards, operator scorecard (manual v3.8: 11.5, 14.4–14.6, Appendix J) ---------- */
 const LEG_ST = [["","Scheduled"],["dep","Departed"],["land","Landed"],["delay","Delayed"],["div","Diverted"],["canc","Cancelled"]];
 const AC_CH = ["Call","Message","Email","Meeting"];

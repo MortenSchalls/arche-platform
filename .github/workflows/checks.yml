@@ -1,0 +1,38 @@
+# Checks before anything reaches the live portal (Morten, 28 Oct 2026: "that is lost revenue and cannot happen in a live
+# environment"). Runs on every push. Changes are made on the "staging" branch (Vercel builds a preview there) and reach
+# main, and so the live portal, only when these checks pass and Morten has said "release".
+name: Portal checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: "22" }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Browser for the screen tests
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw" && npm init -y >/dev/null && npm install --no-audit --no-fund playwright@1.56.0 http_ece@1.2.0
+          npx playwright install --with-deps chromium
+          echo "NODE_PATH=$RUNNER_TEMP/pw/node_modules" >> "$GITHUB_ENV"
+      - name: Jobs install
+        working-directory: jobs
+        run: npm install --no-audit --no-fund
+      - name: Server checks (alerts, admin actions)
+        run: |
+          node apps/portal/tests/alertsrv.test.mjs "$NODE_PATH/http_ece"
+          (cd jobs && node admin.test.mjs)
+      - name: Portal screens (test version, example data)
+        working-directory: apps/portal
+        run: |
+          python3 build_test.py
+          (python3 -m http.server 8765 >/dev/null 2>&1 &) ; sleep 2
+          set -o pipefail
+          for t in boottest roletodaytest rightstest inttest; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done
