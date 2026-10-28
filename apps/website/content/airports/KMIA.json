@@ -1,0 +1,49 @@
+{
+ "icao": "KMIA",
+ "iata": null,
+ "name": "Miami International",
+ "city": "Miami",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "four runways; the longest, 9/27, is 13,016 ft × 150 ft (about 3,967 m × 46 m); 8R/26L 10,506 × 200 ft, 12/30 9,360 × 150 ft, 8L/26R 8,600 × 150 ft",
+   "longest_m": 3967,
+   "src": "kfll-faa-aip-fl",
+   "quote": "13016 ft x 150 ft"
+  },
+  "hours": {
+   "v": "airport attended at all hours",
+   "src": "kfll-faa-aip-fl",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "ppr": {
+   "v": "PPR 3 hours before every arrival on the General Aviation Center (GAC) ramp (305-876-7550); aircraft with wingspan over 78 ft may not enter the GAC ramp",
+   "src": "kfll-faa-aip-fl",
+   "quote": "PPR 3 HRS PRIOR TO ALL ARRIVALS ON THE GENERAL AVIATION CENTER (GAC) RAMP 305-876-7550"
+  },
+  "max_aircraft": {
+   "v": "GAC ramp: wingspan up to 78 ft only; wingspans over 171 ft may not taxi on taxiway P east of U",
+   "src": "kfll-faa-aip-fl",
+   "quote": "ACFT WITH WINGSPAN GREATER THAN 78 FT ARE PROHIBITED FROM ENTERING THE GAC RAMP."
+  },
+  "noise": {
+   "v": "all turbojets must fly the NADP-2 noise abatement departure profile from all runways; runways 8L/26R and 12/30 closed 03:00–12:00 UTC (23:00–08:00 local in summer, EDT UTC-4; 22:00–07:00 in winter, EST UTC-5) when 8R/26L and 9/27 are in use",
+   "src": "kfll-faa-aip-fl",
+   "quote": "ALL TBJT ACFT ARE REQD TO USE DSNT NOISE ABATEMENT DEP PROFILE (NADP-2) FROM ALL RWYS."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs hours",
+  "curfew (no statement either way)",
+  "slots",
+  "handling (FBO names)",
+  "fuel",
+  "operator (named in an official sentence)"
+ ],
+ "notes": "US AIP Part 3 AD 2 Florida, HTML, read 28 Oct 2026 (amendment shown on page not stated; 29th edition effective 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published). The AIP says only 'US CBP AND EAPIS AVBL.' with no hours, so customs is not recorded; the CBP KMIA fact sheet was not found because the web search budget ran out. Airport contact is listed at the Miami-Dade Aviation Department. Local-time conversion of the 0300-1200Z runway closure is mine. ft to m conversion mine (1 ft = 0.3048 m)."
+}

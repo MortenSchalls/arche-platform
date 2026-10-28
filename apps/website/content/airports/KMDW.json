@@ -1,0 +1,47 @@
+{
+ "icao": "KMDW",
+ "iata": null,
+ "name": "Chicago Midway International Airport",
+ "city": "Chicago",
+ "country": "US",
+ "tz": "America/Chicago",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "longest runway 6,522 ft x 150 ft (about 1,988 m), as shown on the runway diagram in the Fly Quiet manual",
+   "longest_m": 1988,
+   "src": "kmdw-cda-flyquiet",
+   "quote": "(6,522' X 150')"
+  },
+  "curfew": {
+   "v": "voluntary nighttime curfew for air carriers 00:00-06:00 local; the manual says nothing about business or charter flights at night",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "kmdw-cda-flyquiet",
+   "quote": "A Voluntary Air Carrier Nighttime Curfew is in effect at Midway International Airport between the hours of 12:00 a.m."
+  },
+  "noise": {
+   "v": "voluntary Fly Quiet Program: expedite climb through 1,500 ft MSL 22:00-06:00, night preferential runways; maintenance run-ups not allowed 22:00-07:00 weeknights and 22:00-09:00 weekends",
+   "src": "kmdw-cda-flyquiet",
+   "quote": "The Fly Quiet Program is a voluntary program."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "hours",
+  "max_aircraft",
+  "fuel"
+ ],
+ "notes": "Read the Chicago Department of Aviation's Midway Fly Quiet Program Manual 2026 (updated Feb 2026). The diagram lists 6,522, 6,446, 5,507 and 3,859 ft runways without tying each size to a runway number, so only the longest length is recorded; metres are my conversion (1 ft = 0.3048 m). Not opened: CBP KMDW fact sheet (4 Mar 2026) https://www.cbp.gov/sites/default/files/2026-03/KMDW%20GA%20Airport%20Fact%20Sheet%2020260304.pdf, the older one (6 May 2024), and the CBP port page https://www.cbp.gov/about/contact/ports/midway-international-airport-chicago-illinois-3910; FAA Chart Supplement (CS_EC_20260903.pdf) not opened. IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+}

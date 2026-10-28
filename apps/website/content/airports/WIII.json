@@ -1,0 +1,35 @@
+{
+ "icao": "WIII",
+ "iata": "CGK",
+ "name": "Soekarno-Hatta International Airport",
+ "city": "Jakarta",
+ "country": "ID",
+ "tz": "Asia/Jakarta",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "three runways: 3,600 x 60 m, 3,660 x 60 m and 3,000 x 60 m",
+   "longest_m": 3660,
+   "src": "wiii-hubud-bandara",
+   "quote": "3.660,00 x 60,00"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "wiii-otban1-profil",
+   "quote": "24 Hours"
+  }
+ },
+ "missing": [
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "fuel",
+  "handling",
+  "noise",
+  "AIP AD 2"
+ ],
+ "notes": "Indonesia's AIP (AirNav Indonesia) is not free to read online and was not opened; the FAA IFIM pointed to http://hubud.dephub.go.id/?en+page+detail+40, which could not be opened. Used the Ministry of Transportation DG Civil Aviation airport data page (runways, codes CGK/WIII; the page writes 3.660,00 with a decimal comma, i.e. 3,660 m) and the Airport Authority Office Region I profile ('24 Hours'). Neither page is dated. The two pages name the operator differently (PT. Angkasa Pura Indonesia vs PT. Angkasa Pura II). Customs/CIQ hours and slot rules not found."
+}

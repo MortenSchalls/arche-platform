@@ -1,0 +1,22 @@
+{
+ "icao": "CYUL",
+ "iata": null,
+ "name": "Montréal-Trudeau International Airport",
+ "city": "Montréal",
+ "country": "CA",
+ "tz": "America/Toronto",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-28",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "hours"
+ ],
+ "notes": "Not opened: NAV CANADA Canada Flight Supplement / CAP and Transport Canada pages, and the airport authority site (admtl.com), were not reached: the web-search budget for the run ran out before an official URL could be found, and unlisted URLs were blocked by the fetch tool. Night restriction programme not verified."
+}

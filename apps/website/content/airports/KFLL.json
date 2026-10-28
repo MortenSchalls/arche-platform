@@ -1,0 +1,54 @@
+{
+ "icao": "KFLL",
+ "iata": null,
+ "name": "Fort Lauderdale-Hollywood International",
+ "city": "Fort Lauderdale",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 10L/28R, is 9,000 ft × 150 ft (about 2,743 m × 46 m); 10R/28L is 8,000 ft × 150 ft",
+   "longest_m": 2743,
+   "src": "kfll-faa-aip-fl",
+   "quote": "9000 ft x 150 ft"
+  },
+  "hours": {
+   "v": "airport attended at all hours; tower and ground control 24 hours",
+   "src": "kfll-faa-aip-fl",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "customs": {
+   "v": "CBP clears general aviation 24 hours, 7 days (Eastern Time) at the FIS attached to the FBO; permission at least 1 hour before arrival, requested before leaving the foreign port",
+   "h24": true,
+   "src": "kfll-cbp-ga",
+   "quote": "seven days per week, 24 hours per day"
+  },
+  "noise": {
+   "v": "all runways noise sensitive, noise abatement and a preferential runway use program in effect; no jet run-ups 23:00–07:00; voluntary: all aircraft asked not to use runway 10R/28L 22:30–06:00 local (2015 letter)",
+   "src": "kfll-faa-aip-fl",
+   "quote": "ALL RWYS NOISE SENSITIVE; NOISE ABATEMENT IN EFCT - 954-359-6181."
+  },
+  "ppr": {
+   "v": "PPR only for aircraft carrying explosives; some taxiways closed to wingspans over 118 ft or 171 ft without prior permission",
+   "src": "kfll-faa-aip-fl",
+   "quote": "PPR FOR ACFT WITH EXPLOSIVES."
+  },
+  "fuel": {
+   "v": "100LL and Jet A listed",
+   "src": "kfll-faa-aip-fl",
+   "quote": "Fuel Types: 100LL A"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no statement either way)",
+  "slots",
+  "max_aircraft",
+  "handling (FBO names)",
+  "operator (named in an official sentence)"
+ ],
+ "notes": "US AIP Part 3 AD 2 Florida, HTML, read 28 Oct 2026; the page does not show its amendment (29th edition effective 22 Jan 2026; Amendment 1 dated 9 Jul 2026 is published); the AIP AD 2 index page could not be opened (https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_.html). The AIP contact address is Broward County's (320 Terminal Drive) but no sentence states the operator. The 22:30–06:00 runway 10R/28L request is from a Broward County Aviation Department letter of 23 Apr 2015 (kfll-bcad-10r-memo), voluntary; it may be out of date. The AIP training remark ('ALL TRNG 2300-0700' with a 58,000 lb wording) is abbreviated and not clear, so not recorded. CBP fact sheet 15 Feb 2024. ft to m conversion mine (1 ft = 0.3048 m)."
+}

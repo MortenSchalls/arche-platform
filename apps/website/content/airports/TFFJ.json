@@ -1,0 +1,68 @@
+{
+ "icao": "TFFJ",
+ "iata": null,
+ "name": "Saint-Barthélemy Rémy de Haenen Airport",
+ "city": "Saint-Barthélemy",
+ "country": "BL",
+ "tz": "America/St_Barthelemy",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 646 m × 18 m, concrete; take-off weight limited to 5.7 t (weak pavement)",
+   "longest_m": 646,
+   "src": "tffj-fr-aip",
+   "quote": "646 x 18"
+  },
+  "max_aircraft": {
+   "v": "maximum take-off weight 5.7 tonnes because of the weak runway pavement; aircraft must have a radio and a transponder with altitude reporting",
+   "src": "tffj-fr-aip",
+   "quote": "la charge maximale autorisée au décollage est de 5,7 tonnes"
+  },
+  "permits": {
+   "v": "public transport (charter) flights by aeroplane need an authorisation from the Director of Civil Aviation Safety for the French West Indies and French Guiana, per aeroplane type or class; pilots need a proficiency recognised by an instructor before using the airport, kept by flying there as pilot-in-command within the last 6 months, per type or class",
+   "src": "tffj-fr-aip",
+   "quote": "Public air transport flights by aeroplane to or from TFFJ are restricted to operators holding an authorisation"
+  },
+  "ppr": {
+   "v": "parking of aircraft not based at TFFJ needs prior permission from the airport operator 48 hours before arrival",
+   "src": "tffj-fr-aip",
+   "quote": "Le stationnement des ACFT non basés est soumis à PPR auprès de l'exploitant d'aérodrome 48 HR"
+  },
+  "hours": {
+   "v": "aerodrome and AFIS 1100 UTC to 15 minutes after sunset (07:00 local to sunset+15); night landings banned on both runways; night take-offs only runway 10 and only for MEDEVAC by operators with a protocol",
+   "src": "tffj-fr-aip",
+   "quote": "atterrissages de nuit RWY 10 interdits. ... atterrissages de nuit RWY 28 interdits."
+  },
+  "customs": {
+   "v": "customs on 24 hours' prior notice, Mon-Fri 1100-2200 UTC (07:00-18:00 local), Sat 1130-1600 UTC (07:30-12:00 local)",
+   "h24": false,
+   "hours_local": [
+    [
+     "07:00",
+     "18:00"
+    ]
+   ],
+   "src": "tffj-fr-aip",
+   "quote": "Douanes: PN 24HR, LUN-VEN : 1100-2200 - SAM : 1130-1600."
+  },
+  "handling": {
+   "v": "handling on request 1100 UTC to sunset+15; recommended for commercial flights and general/business aircraft over 3 t MTOW",
+   "src": "tffj-fr-aip",
+   "quote": "Assistance recommandée pour les vols commerciaux et les aéronefs d'aviation générale/d'affaires de MTOW > 3t."
+  },
+  "fuel": {
+   "v": "no fuel available",
+   "src": "tffj-fr-aip",
+   "quote": "Avitaillement / Fueling NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no fixed times; night landings banned, see hours)",
+  "slots",
+  "noise"
+ ],
+ "notes": "Read French AIP CAR-SAM-NAM AD 2 TFFJ (AIRAC AMDT 10/26, eff. 01 OCT 2026; some pages carry older amendment stamps). The AIP states CAR-SAM-NAM times are UTC; local = UTC-4 (Saint-Barthélemy has no summer time) is my conversion. Crosswind limit: no take-off or landing above 25 kt dry / 20 kt wet. Large helicopters over 13 m need the operator's prior agreement. Pilot rule is in AD 2.23.2.2, charter authorisation in AD 2.23.2.1; quotes for these were read from the English side of the bilingual page. The June 2026 HTML edition could not be opened (permission not granted). Trip fact: only small aircraft (5.7 t take-off) with specially qualified pilots; daylight only."
+}

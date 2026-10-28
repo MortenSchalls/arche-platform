@@ -1,0 +1,59 @@
+{
+ "icao": "VOBL",
+ "iata": null,
+ "name": "Kempegowda International Airport",
+ "city": "Bengaluru",
+ "country": "IN",
+ "tz": "Asia/Kolkata",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways, 09L/27R and 09R/27L, each 4,000 m x 45 m",
+   "longest_m": 4000,
+   "src": "vobl-aai-eaip",
+   "quote": "4000 x 45 M"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "vobl-aai-eaip",
+   "quote": "H24"
+  },
+  "hours": {
+   "v": "air traffic services, fuelling and handling 24 hours; the aerodrome operator's office is Mon-Fri 0300-1200 UTC (08:30-17:30 IST)",
+   "src": "vobl-aai-eaip",
+   "quote": "MON-FRI 0300-1200 UTC (0830-1730 IST)"
+  },
+  "fuel": {
+   "v": "Jet A-1 by hydrant, dispensers and bowsers, 24 hours",
+   "src": "vobl-aai-eaip",
+   "quote": "JET A1"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "vobl-aai-eaip",
+   "quote": "NIL"
+  },
+  "handling": {
+   "v": "all non-scheduled aircraft get a follow-me service; no hangar space for visiting aircraft",
+   "src": "vobl-aai-eaip",
+   "quote": "All non-sked aircraft shall be provided with Follow-Me service."
+  },
+  "noise": {
+   "v": "pilots should keep reverse thrust after landing to a minimum",
+   "src": "vobl-aai-eaip",
+   "quote": "Consistent with safety of aircraft operations and in consideration of high intensity runway operations"
+  }
+ },
+ "missing": [
+  "iata",
+  "current AIP edition",
+  "curfew",
+  "slots",
+  "ppr",
+  "general aviation parking"
+ ],
+ "notes": "Read AAI India eAIP AD 2 VOBL, AIRAC AMDT 05-23 effective 10 Aug 2023 (the newest edition found); the current edition could not be located because aim-india.aai.aero (home) and aai.aero pages could not be opened (permission not given / site blocks reading), so status is partial until the current AD 2 VOBL is checked. AD 2.3 gives ATS H24; no curfew or night restriction is stated. AD 2.20 covers the nearby Yelahanka (VOYK) air base and does not mention slots or general aviation. IATA code not shown on the page read."
+}

@@ -1,0 +1,64 @@
+{
+ "icao": "TNCM",
+ "iata": null,
+ "name": "Princess Juliana International Airport",
+ "city": "Sint Maarten",
+ "country": "SX",
+ "tz": "America/Lower_Princes",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 2,300 m × 45 m",
+   "longest_m": 2300,
+   "src": "tncm-dc-aip",
+   "quote": "2300 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration 07:00-21:00 local; private passengers and crew clear inside the FBO terminal",
+   "h24": false,
+   "hours_local": [
+    [
+     "07:00",
+     "21:00"
+    ]
+   ],
+   "src": "tncm-dc-aip",
+   "quote": "07:00 – 21:00 LT"
+  },
+  "hours": {
+   "v": "air traffic services 07:00-21:00 local; airport administration 07:30-16:30 local",
+   "src": "tncm-dc-aip",
+   "quote": "07:00 – 21:00 LT"
+  },
+  "slots": {
+   "v": "all private aircraft need landing clearance and slot approval in advance, usually arranged by the handler or FBO",
+   "src": "tncm-sxm-private",
+   "quote": "all private aircraft must obtain landing clearance and slot approval in advance"
+  },
+  "handling": {
+   "v": "the airport names two FBOs west of the main terminal: ExecuJet by Atlantic Aviation and Signature Aviation",
+   "src": "tncm-sxm-private",
+   "quote": "Located west of the main terminal."
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas 100LL",
+   "src": "tncm-dc-aip",
+   "quote": "Fuel: JET A1, AVGAS 100LL"
+  },
+  "noise": {
+   "v": "no noise abatement procedures",
+   "src": "tncm-dc-aip",
+   "quote": "No procedures in place"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "latest AIP amendment (02-26, 6 Aug 2026)"
+ ],
+ "notes": "AIP read: DC-ANSP eAIP edition folder dated 28 Nov 2024 (no effective date printed on the page). The newer DC-ANSP eAIP AIRAC AMDT 02-26 (6 Aug 2026) TNCM page could not be opened (permission not granted): https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2002-26_2026_08_06/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html - check it before relying on hours. The 07:00-21:00 LT hours are ATS/service hours, not a stated curfew; AD 2.15 also shows 'OTHER 1100-0100 UTC'. Operator named in AIP: Princess Juliana International Airport Operating Company. The airport site uses 'SXM' but does not label it the IATA code."
+}

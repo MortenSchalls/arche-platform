@@ -1,0 +1,58 @@
+{
+ "icao": "LTFM",
+ "iata": null,
+ "name": "Istanbul Airport",
+ "city": "Istanbul",
+ "country": "TR",
+ "tz": "Europe/Istanbul",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "five runways; the longest, 17R/35L and 17L/35R, are 4,100 m long (17L/35R 60 m wide); 16R/34L 3,750 x 60 m, 16L/34R 3,750 x 45 m, 18/36 3,060 x 45 m",
+   "longest_m": 4100,
+   "src": "ltfm-dhmi-aip",
+   "quote": "4100X60"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "ltfm-dhmi-aip",
+   "quote": "Customs and immigration H24"
+  },
+  "hours": {
+   "v": "aerodrome operator, air traffic services, fuelling and handling all 24 hours",
+   "src": "ltfm-dhmi-aip",
+   "quote": "AD Operator H24"
+  },
+  "fuel": {
+   "v": "Jet A-1, available 24 hours in unlimited amount",
+   "src": "ltfm-dhmi-aip",
+   "quote": "Fuel: JET A1 Aviation Fuel."
+  },
+  "deicing": {
+   "v": "de-icing available",
+   "src": "ltfm-dhmi-aip",
+   "quote": "Available"
+  },
+  "ppr": {
+   "v": "hangar space for visiting aircraft is limited and needs prior permission",
+   "src": "ltfm-dhmi-aip",
+   "quote": "Limited-PPR"
+  },
+  "max_aircraft": {
+   "v": "some taxiways are for Code C aircraft only (wingspan up to 36 m)",
+   "src": "ltfm-dhmi-aip",
+   "quote": "are for Code C (max wing span 36 meter) aircraft only"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "general aviation parking",
+  "noise"
+ ],
+ "notes": "Read DHMI AIP AD 2 LTFM (English PDF on dhmi.gov.tr); highest amendment shown AIRAC AMDT 04/25, 17 Apr 2025; AD 2.3 page AIRAC AMDT 03/25. AD 2.3 lists all services H24; no curfew or night restriction is stated, and none is recorded here. The PDF text read was about 73,000 characters and AD 2.20 was cut off after the Preferential Runway System heading, so slot rules, general/business aviation rules and AD 2.21 noise abatement were not read. Slot rules for Turkey are likely in AIP GEN, not read. IATA code not shown in the AIP pages read. Runway dimensions are metres as given."
+}

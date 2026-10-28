@@ -1,0 +1,22 @@
+{
+ "icao": "NZAA",
+ "iata": null,
+ "name": "Auckland Airport",
+ "city": "Auckland",
+ "country": "NZ",
+ "tz": "Pacific/Auckland",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-28",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "hours"
+ ],
+ "notes": "Not opened: the NZ AIP AD 2 page https://www.aip.net.nz/assets/AIP/Aerodromes-AD1/AERODROMES/NZAA_AD2.pdf and the CAA NZ AIP index https://www.aviation.govt.nz/airspace-and-aerodromes/air-navigation/aip/ were blocked by the fetch tool (URL not cleared), and the web-search budget for the run ran out. Auckland Airport's own site was not reached."
+}

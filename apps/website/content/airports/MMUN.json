@@ -1,0 +1,29 @@
+{
+ "icao": "MMUN",
+ "iata": null,
+ "name": "Cancún International Airport",
+ "city": "Cancún",
+ "country": "MX",
+ "tz": "America/Cancun",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "handling": {
+   "v": "the airport operator ASUR runs its own private aviation FBO at Cancún",
+   "src": "mmun-asur-fbo",
+   "quote": "ASUR has FBO facilities at the airports in Cancún, Mérida and Veracruz."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "hours",
+  "fuel"
+ ],
+ "notes": "Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMUN) could not be read (site refuses automated reading, robots). ASUR's Cancún pages read (Cancún page and FBO page) give no runway, hours or customs data; the FBO 'Requerimientos de Autoridades' page was not opened (search limit reached). proyectosmexico.gob.mx Cancún page refused (robots)."
+}

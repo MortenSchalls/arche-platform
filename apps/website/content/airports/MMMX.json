@@ -1,0 +1,34 @@
+{
+ "icao": "MMMX",
+ "iata": null,
+ "name": "Mexico City International Airport (Benito Juárez)",
+ "city": "Mexico City",
+ "country": "MX",
+ "tz": "America/Mexico_City",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "permits": {
+   "v": "closed to private general aviation and air taxi since a presidential decree of 1 June 1994; the DGAC circular CO SA-30/12 allows only exceptions (flights requested by the Presidency, federal ministers and other listed officials, diplomats at the Foreign Ministry's request), for aircraft over 5,700 kg; requests at least 5 hours ahead, Mon-Fri 09:00-16:00, subject to space in the daily schedule, and not in the peak periods 07:00-10:00 and 19:00-22:00; the decree excludes military, presidential staff, air ambulance, emergency and rotary-wing aircraft and those the ministry authorises",
+   "src": "mmmx-dgac-co-sa-30-12",
+   "quote": "el cierre de las operaciones en el AICM a la aviación privada, la aviación de estado y las operaciones de taxi aéreo"
+  },
+  "ppr": {
+   "v": "any exceptional general aviation flight needs DGAC (now AFAC) authorisation requested at least 5 hours before the flight and depends on space in the AICM daily schedule; no flights 07:00-10:00 and 19:00-22:00",
+   "src": "mmmx-dgac-co-sa-30-12",
+   "quote": "entre las 07:00 a 10:00 horas y de las 19:00 a 22:00 horas"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "hours",
+  "fuel",
+  "handling"
+ ],
+ "notes": "Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMMX, AMDT AIRAC 02/26: https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_2/38_MMMX/AD_2-MMMX-2.pdf) refused by the site (robots), so no runway, customs or hours data. The circular CO SA-30/12 (DGAC/SCT, in force from 17 May 2012, indefinite) is hosted on gob.mx; whether AFAC has amended it since was not checked. The circular does not say whether its times are local; local is the natural reading. AICM site pages read gave no runway or GA data. Practical meaning: private charter jets normally cannot use MMMX; offer Toluca (MMTO) or other airports."
+}

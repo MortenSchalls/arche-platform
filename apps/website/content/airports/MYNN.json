@@ -1,0 +1,35 @@
+{
+ "icao": "MYNN",
+ "iata": null,
+ "name": "Lynden Pindling International Airport",
+ "city": "Nassau",
+ "country": "BS",
+ "tz": "America/Nassau",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "hours": {
+   "v": "the airport operates 24/7; individual services and counters have their own hours",
+   "src": "mynn-nad-faq",
+   "quote": "LPIA operates 24/7, but specific services and counters have varying hours of operation."
+  },
+  "handling": {
+   "v": "the airport's private flight page names two FBOs: Odyssey Aviation and Jet Nassau",
+   "src": "mynn-nad-private",
+   "quote": "Odyssey Aviation is a network of privately owned FBOs and Ground Handling Service Stations"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "permits",
+  "fuel",
+  "max_aircraft"
+ ],
+ "notes": "No Bahamas AIP (AD 2 MYNN) could be found online from an official Bahamian source. Read the Nassau Airport Development Company site (FAQs; Private Flight Services, modified 2 May 2025; Customs & Immigration page, modified 26 Feb 2026, gives no hours for private flights). The FAA IFIM Bahamas page (dated 1 Nov 2014) was read but not used because it is out of date. The FAQ gives terminal security hours (06:00-22:00) for passengers, not customs hours for private aircraft. Owner should obtain the Bahamas AIP from the Bahamas Civil Aviation Authority / Air Navigation Services Division."
+}

@@ -1,0 +1,56 @@
+{
+ "icao": "KOPF",
+ "iata": null,
+ "name": "Miami-Opa locka Executive Airport",
+ "city": "Miami",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "three runways; the longest, 9L/27R, is 8,002 ft (about 2,439 m) long and 150 ft (about 46 m) wide; 9R/27L 6,800 ft and 12/30 4,309 ft",
+   "longest_m": 2439,
+   "src": "kopf-mdad-facts",
+   "quote": "OPF has one of the longest general aviation runways in the country at 8,002 feet."
+  },
+  "hours": {
+   "v": "airport attended 24 hours, 7 days; control tower 07:00–23:00 local",
+   "src": "kopf-mdad-facts",
+   "quote": "Attended continuously."
+  },
+  "customs": {
+   "v": "CBP clears arriving aircraft 7 days a week, 09:00–24:00 Eastern Time; aircraft must block at the CBP ramp; contact CBP no less than 1 hour and no more than 24 hours before arrival",
+   "h24": false,
+   "hours_local": [
+    [
+     "09:00",
+     "24:00"
+    ]
+   ],
+   "src": "kopf-cbp-ga",
+   "quote": "7 days per week, 0900-2400"
+  },
+  "noise": {
+   "v": "noise-sensitive airport; turbine and large aircraft are asked to use NBAA noise abatement profiles; flight training only for aircraft of 40,000 lb maximum take-off weight or less, and only 07:00–21:00",
+   "src": "kopf-mdad-facts",
+   "quote": "Aircraft operators of turbine and large aircraft are requested to use NBAA recommended Noise Abatement Profiles."
+  },
+  "handling": {
+   "v": "the operator lists Atlantic Aviation, Fontainebleau Aviation and Signature Flight Support",
+   "src": "kopf-mdad-facts",
+   "quote": "Atlantic Aviation, Fontainebleau Aviation, and Signature Flight Support"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no statement either way)",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "fuel",
+  "Chart Supplement entry"
+ ],
+ "notes": "Operator page miami-airport.com (Miami-Dade Aviation Department), undated, gives 8,002 ft and 24-hour attendance; runway widths and the other two runway lengths are from the FAA airport diagram AL-256 (cycle 19 Mar–16 Apr 2026, not the current cycle); the diagram text lists dimensions apart from labels, so the matching of 6,800 ft and 4,309 ft to runways is by layout. The operator page is inconsistent on the main runway ('9L/27R' in the text, '9R-27L' in remarks). The customs line on the operator page says '9:00 am - midnight, daily' with one hour's notice, which agrees with the CBP fact sheet of 22 Feb 2024. No source read states a curfew or that there is none. ft to m conversion mine (1 ft = 0.3048 m). Chart Supplement not opened (FAA search page blocked)."
+}

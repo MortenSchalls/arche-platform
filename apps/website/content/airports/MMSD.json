@@ -1,0 +1,28 @@
+{
+ "icao": "MMSD",
+ "iata": "SJD",
+ "name": "Los Cabos International Airport",
+ "city": "San José del Cabo",
+ "country": "MX",
+ "tz": "America/Mazatlan",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "handling": {
+   "v": "the operator GAP lists PRIMESKY, a private FBO inside Los Cabos airport",
+   "src": "mmsd-gap-private",
+   "quote": "PREMIUM PRIVATE FBO"
+  }
+ },
+ "missing": [
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "hours",
+  "fuel"
+ ],
+ "notes": "IATA SJD and ICAO MMSD are shown on GAP's private aviation page ('Codigo IATA SJD, código OACI MMSD'). Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMSD) could not be read (site refuses automated reading, robots). GAP's 'Sobre el aeropuerto' page gives no runway, hours or customs data."
+}

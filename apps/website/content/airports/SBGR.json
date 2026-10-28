@@ -1,0 +1,24 @@
+{
+ "icao": "SBGR",
+ "iata": null,
+ "name": "São Paulo/Guarulhos - Governador André Franco Montoro International Airport",
+ "city": "São Paulo",
+ "country": "BR",
+ "tz": "America/Sao_Paulo",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-28",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "hours"
+ ],
+ "notes": "No current official source could be read. Tried: DECEA eAIP AD 2 SBGR (AIRAC A 13-2026, 9 Jul 2026) https://aisweb.decea.mil.br/eaip/A%2013-2026_2026_07_09/eAIP/AD%202%20SBGR-en-GB.html - server error; AISWEB ROTAER page https://aisweb.decea.mil.br/?i=aerodromos&codigo=SBGR - returned another aerodrome; DECEA full AIP/AD PDFs - binary, could not be read. An AIP SUP N258/18 (2018) on general aviation at SBGR was found but not used because it is old. GRU Airport (operator) capacity declarations found are old seasons (S16-S22). Owner should download the current AD 2 SBGR from AISWEB."
+}

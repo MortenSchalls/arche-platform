@@ -1,0 +1,30 @@
+{
+ "icao": "NFFN",
+ "iata": null,
+ "name": "Nadi International Airport",
+ "city": "Nadi",
+ "country": "FJ",
+ "tz": "Pacific/Fiji",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours, 7 days",
+   "src": "nffn-fal-faq",
+   "quote": "Nadi International Airport operates 24/7."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "fuel",
+  "handling",
+  "AIP AD 2"
+ ],
+ "notes": "The Fiji AIP is not published online; CAAF AIC 03/22 (19 May 2022) says copies are obtained from the Aeronautical Information Service (AISO@fijiairports.com.fj). The airportsfiji.com AIS page gave no AIP link and airportsfiji.com/aboutus.php failed to open. Fiji Airports' Nadi page and the Civil Aviation Master Plan 2026-2031 (Ministry of Tourism and Civil Aviation) give no runway dimensions or curfew. Only the 24/7 operating statement on Fiji Airports' FAQ page is recorded; it is an operator page, not the AIP. Operator: Airports Fiji Limited (airportsfiji.com, 'manages and operates')."
+}

@@ -1,0 +1,61 @@
+{
+ "icao": "KADS",
+ "iata": null,
+ "name": "Addison Airport",
+ "city": "Addison (Dallas)",
+ "country": "US",
+ "tz": "America/Chicago",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 7,203 ft (about 2,195 m) x 100 ft",
+   "longest_m": 2195,
+   "src": "kads-facts",
+   "quote": "7,203 x 100 ft. runway"
+  },
+  "hours": {
+   "v": "airport open 24 hours, 7 days; control tower 06:00-22:00 daily",
+   "src": "kads-faq",
+   "quote": "Addison Airport (ADS) is open 24 hours per day, seven days per week."
+  },
+  "customs": {
+   "v": "US Customs at 4545 Jimmy Doolittle, Suite 100; normal hours Mon-Fri 10:00-19:00; weekends, holidays and after hours by appointment (call before 16:30, for weekends by the Friday before), after-hours fee USD 325; user fee USD 100-500 by MTOW",
+   "h24": false,
+   "hours_local": [
+    [
+     "10:00",
+     "19:00"
+    ]
+   ],
+   "src": "kads-customs",
+   "quote": "Normal hours of service are 10:00am-7:00pm Monday through Friday."
+  },
+  "handling": {
+   "v": "three 24-hour FBOs: Million Air, Galaxy and Atlantic Aviation",
+   "src": "kads-facts",
+   "quote": "Three 24-hour full service fixed base operators: Million Air, Galaxy & Atlantic Aviation"
+  },
+  "fuel": {
+   "v": "no self-service fuelling",
+   "src": "kads-facts",
+   "quote": "No self-service fueling"
+  },
+  "noise": {
+   "v": "departures should follow NBAA noise procedures unless ATC directs otherwise; engine run-ups only 06:00-22:00",
+   "src": "kads-rules",
+   "quote": "All aircraft maintenance engine run-ups shall be conducted between the hours of 6:00 a.m. and 10:00 p.m."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (none stated)",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "deicing",
+  "runway designation"
+ ],
+ "notes": "Read Addison Airport pages (Services and Quick Facts, U.S. Customs, FAQ; no dates, footer 2026) and the Rules and Regulations adopted 14 Dec 2010. No curfew is stated; the airport says it is open 24 hours. Quick Facts says '24-hour U.S. Customs' while the Customs page gives normal hours Mon-Fri 10:00-19:00 with other times by appointment; I record the normal hours. CBP fact sheet (https://www.cbp.gov/sites/default/files/2025-11/KADS%20GA%20Airport%20Fact%20Sheet%2020251106.pdf) could not be opened. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened. Metres are my conversion (1 ft = 0.3048 m)."
+}

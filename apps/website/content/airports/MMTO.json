@@ -1,0 +1,24 @@
+{
+ "icao": "MMTO",
+ "iata": null,
+ "name": "Toluca International Airport (Adolfo López Mateos)",
+ "city": "Toluca",
+ "country": "MX",
+ "tz": "America/Mexico_City",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-28",
+ "rules": {},
+ "missing": [
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "hours",
+  "fuel",
+  "handling",
+  "iata"
+ ],
+ "notes": "Tried: Mexico AIP on aipmexico.seneam.gob.mx (site refuses automated reading, robots), the airport site aeropuertodetoluca.com.mx (only a redirect page; the target could not be opened), and proyectosmexico.gob.mx (robots). Nothing official could be read."
+}

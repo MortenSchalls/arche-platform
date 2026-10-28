@@ -1,0 +1,24 @@
+{
+ "icao": "ZBAA",
+ "iata": null,
+ "name": "Beijing Capital International Airport",
+ "city": "Beijing",
+ "country": "CN",
+ "tz": "Asia/Shanghai",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-28",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "hours",
+  "handling",
+  "permits"
+ ],
+ "notes": "Tried 28 Oct 2026: China eAIP (www.eaipchina.cn, www.aischina.com) - fetch blocked (permission not granted in time); only unofficial mirrors of old (2019) eAIP editions were found by search, which may not be used. Operator site www.bcia.com.cn read: the 'about us' page (gsjj.html) says only that the airport has three terminals and three runways, with no lengths, hours, customs or business-aviation details, so nothing was recorded; the corporate page (gsjssy.html) refused automated reading (robots) and en.bcia.com.cn was blocked. CAAC AIP AD 2 for this airport should be obtained (e.g. via a registered eAIP China account) and read before any rule is recorded."
+}
