@@ -271,6 +271,8 @@ Released 28 Oct 2026 12:00 CET (Morten: "Release, go live"): invite from Team, r
 
 Invitations, 28 Oct 2026 afternoon (staging, waiting for "release"): inviting owner gets a BCC of every invitation and the replies; Team list "Invitations: N pending, N accepted" with sign-in time and joining step (GET /api/invite, owners only). GitHub emails Morten when Portal checks fail on staging; that is the safety net working (the live portal is untouched).
 
+Released 28 Oct 2026 13:55 and 14:36 CET: BCC and pending/accepted list; readable heading on the choose-your-password screen (was dark on dark). Next: phone layout, then findings 2, 1, 3, 4, 6, 5.
+
 GDPR review copies, 28 Oct 2026: branch `gdpr-review` (not merged). Portal there = the example-data test version (index.html is test.html, config.js empty, no live database); every server function in apps/portal/api and apps/website/site/api is a stub that saves and sends nothing. Preview URLs: website https://arche-platform-m4gj-git-gdpr-review-arche-platform.vercel.app, portal https://arche-platform-portal-git-gdpr-review-arche-platform.vercel.app. Both behind Vercel Authentication; Morten makes them viewable for the consultant with Share > Anyone with the link on each deployment. Delete the branch (and the links stop) when the review ends. Never merge it into main.
 
 Collapsible Today and Dashboard, 28 Oct 2026 (Morten: "make all my information on Today's page collapsible"): every section (panels, Bookings to approve, Key figures) has a ▾/▸ toggle on its heading, plus Collapse all / Expand all; remembered on the device (localStorage arche.collapsed.v1). src-modules/collapse.js; test tests/clptest.js.
