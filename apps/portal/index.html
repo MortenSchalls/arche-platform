@@ -7228,7 +7228,8 @@ function trustMatrix(){
 (function(){
   function panel(){
     if (!S.isOwner || S.preview) return "";
-    if (!S.subs["intel/invites"]) watchDoc("intel/invites", snap => { S.invites = snap.exists ? (snap.data() || {}).list || [] : []; render(); });
+    if (!S.subs["intel/invites"]) watchDoc("intel/invites", snap => { S.invites = snap.exists ? (snap.data() || {}).list || [] : []; S.invStAt = 0; render(); });
+    states();
     const r = S.invRes, list = (S.invites || []).slice(0, 8);
     return `<div class="panel stack" id="invPanel" style="margin-bottom:16px"><h2>Invite someone to join</h2>
       <p class="small muted">They get an email with a personal link. They choose a password and start at step 1: the offer, then the academy, assessment and agreement.</p>
@@ -7239,7 +7240,16 @@ function trustMatrix(){
           <p>${r.sent === "sent" ? "If it does not arrive (check spam), send the link yourself:" : "Send this personal link yourself, by WhatsApp or email:"}</p>
           <div class="row"><button class="btn small" type="button" data-inv="copy">Copy the personal link</button></div><p class="muted">The link works once, for 24 hours. Send it only to this person.</p></div>`
         : `<div class="note warn small" id="invResult"><p>${esc(r.error || "Could not send the invitation.")}</p></div>`) : ""}
-      ${list.length ? `<h3 style="margin:6px 0 0">Recent invitations</h3><div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th></tr></thead><tbody>${list.map(x => `<tr><td>${esc(x.name || "")}</td><td>${esc(x.email || "")}</td><td>${fmtT(x.at)}</td><td>${x.sent ? "Yes" : "No: link given to you"}</td></tr>`).join("")}</tbody></table></div>` : ""}</div>`;
+      ${list.length ? `<h3 style="margin:6px 0 0">Invitations: ${(() => { const st = S.invStates || {}, acc = list.filter(x => (st[x.email] || {}).accepted).length; return S.invStates ? `${list.length - acc} pending, ${acc} accepted` : "pending and accepted"; })()}</h3><div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
+        return `<tr><td>${esc(x.name || "")}</td><td>${esc(x.email || "")}</td><td>${fmtT(x.at)}</td><td>${x.sent ? "Yes" : "No: link given to you"}</td><td>${!st ? `<span class="muted">Checking…</span>` : st.accepted ? `<span class="chip c-flown">Yes</span> <span class="muted">${fmtT(st.signedIn)}</span><br><span class="muted">${esc(st.step)}</span>` : `<span class="chip c-enquiry">Not yet</span><br><span class="muted">${esc(st.step)}</span>`}</td></tr>`; }).join("")}</tbody></table></div>` : ""}</div>`;
+  }
+  async function states(){   // who has accepted: asked at most once a minute while Team is open
+    if (S.invStBusy || (S.invStAt && Date.now() - S.invStAt < 60e3) || !(S.invites || []).length) return;
+    S.invStBusy = true; S.invStAt = Date.now();
+    try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
+      const r = await fetch("/api/invite", {headers: {authorization: "Bearer " + ((sess || {}).access_token || "")}}); const j = await r.json().catch(() => ({}));
+      if (j.states) { S.invStates = j.states; render(); } } catch(e){}
+    S.invStBusy = false;
   }
   async function send(){
     const name = ($("inv_name") || {}).value || "", email = ($("inv_mail") || {}).value || "";

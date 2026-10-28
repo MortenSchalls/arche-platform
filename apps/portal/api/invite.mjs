@@ -54,18 +54,41 @@ async function findUser(email) {
   return null;
 }
 
+// accepted = the person has signed in; step = where they are in joining (for Team > Recent invitations)
+export function inviteState(u, prof, join, agr) {
+  if (!u) return { accepted: false, step: "No login yet" };
+  if (!u.last_sign_in_at) return { accepted: false, step: "Invited, not signed in yet" };
+  const onTeam = !!(prof && prof.active && prof.data && prof.data.roster);
+  const step = onTeam ? "On the team" : agr ? "Agreement " + ((agr.data || {}).status || "") : join ? "Asked for assessment" : "Joining steps (offer, academy)";
+  return { accepted: true, signedIn: u.last_sign_in_at, step };
+}
+async function owner(req) {
+  const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, ""), PK = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_SECRET_KEY;
+  const who = await fetch(`${process.env.SUPABASE_URL}/auth/v1/user`, { headers: { apikey: PK, authorization: `Bearer ${token}` } });
+  if (!who.ok) return { code: 401, error: "Sign in again" };
+  const me = await who.json();
+  const prof = await sb(`/rest/v1/profiles?select=role,active,contract_name&id=eq.${me.id}`);
+  const p = (prof.body || [])[0]; if (!p || p.role !== "owner" || !p.active) return { code: 403, error: "Owners only" };
+  return { me, p };
+}
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
-  if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
+  if (req.method !== "POST" && req.method !== "GET") return res.status(405).json({ error: "GET or POST" });
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SECRET_KEY) return res.status(503).json({ error: "SUPABASE_URL or SUPABASE_SECRET_KEY missing in Vercel" });
   try {
-    // owners only
-    const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, ""), PK = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_SECRET_KEY;
-    const who = await fetch(`${process.env.SUPABASE_URL}/auth/v1/user`, { headers: { apikey: PK, authorization: `Bearer ${token}` } });
-    if (!who.ok) return res.status(401).json({ error: "Sign in again" });
-    const me = await who.json();
-    const prof = await sb(`/rest/v1/profiles?select=role,active,contract_name&id=eq.${me.id}`);
-    const p = (prof.body || [])[0]; if (!p || p.role !== "owner" || !p.active) return res.status(403).json({ error: "Owners only" });
+    const o = await owner(req); if (o.error) return res.status(o.code).json({ error: o.error });
+    const { me, p } = o;
+    if (req.method === "GET") {   // who has accepted (owners only)
+      const cur = await sb("/rest/v1/intel?select=value&key=eq.invites"), list = (((cur.body || [])[0] || {}).value || {}).list || [];
+      const out = {};
+      for (const x of list.slice(0, 30)) {
+        const u = await findUser(String(x.email || "").toLowerCase());
+        let prof = null, join = null, agr = null;
+        if (u) { prof = ((await sb(`/rest/v1/profiles?select=active,data&id=eq.${u.id}`)).body || [])[0] || null; join = ((await sb(`/rest/v1/join_requests?select=data&user_id=eq.${u.id}`)).body || [])[0] || null; agr = ((await sb(`/rest/v1/agreements?select=data&id=eq.${u.id}`)).body || [])[0] || null; }
+        out[x.email] = inviteState(u, prof, join, agr);
+      }
+      return res.status(200).json({ states: out });
+    }
 
     const b = req.body || {}, email = clean(b.email, 120).toLowerCase(), name = clean(b.name, 80);
     if (!EMAIL_RX.test(email)) return res.status(400).json({ error: "Enter a valid email address." });

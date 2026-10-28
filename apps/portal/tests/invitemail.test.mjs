@@ -1,5 +1,5 @@
 // Invitation email: intro agreed with Morten 28 Oct 2026 (options A and B), joining steps, link, no Bangkok details. Example data only.
-import { inviteMail, inviteRequest } from "../api/invite.mjs";
+import { inviteMail, inviteRequest, inviteState } from "../api/invite.mjs";
 const ok = (k, v) => { console.log((v ? "PASS " : "FAIL ") + k); if (!v) process.exitCode = 1; };
 const m = inviteMail({ name: "Example Person", link: "https://example.com/one-time", from: "Example Owner" });
 ok("greets by first name", m.text.startsWith("Dear Example,"));
@@ -10,3 +10,7 @@ ok("no Bangkok office or Thai phone number", !/bangkok|\+66/i.test(m.text + m.ht
 const rq = inviteRequest({ from: "Archē Executive <welcome@example.com>", to: "new.person@example.com", owner: "owner@example.com", mail: m });
 ok("the inviting owner gets a hidden copy (BCC) and the replies", JSON.stringify(rq.bcc) === '["owner@example.com"]' && JSON.stringify(rq.reply_to) === '["owner@example.com"]' && JSON.stringify(rq.to) === '["new.person@example.com"]');
 ok("no copy when the owner invites their own address", inviteRequest({ from: "x", to: "owner@example.com", owner: "owner@example.com", mail: m }).bcc === undefined);
+ok("not accepted: no login, or invited but never signed in", !inviteState(null).accepted && !inviteState({ id: "u" }).accepted && /not signed in/.test(inviteState({ id: "u" }).step));
+const acc = inviteState({ id: "u", last_sign_in_at: "2026-10-28T12:00:00Z" }, { active: false, data: {} }, null, null);
+ok("accepted: signed in, with the joining step", acc.accepted && acc.signedIn === "2026-10-28T12:00:00Z" && /offer, academy/.test(acc.step));
+ok("later steps shown: assessment, agreement, team", /assessment/.test(inviteState({ last_sign_in_at: "x" }, null, { data: {} }, null).step) && /Agreement signed/.test(inviteState({ last_sign_in_at: "x" }, null, null, { data: { status: "signed" } }).step) && inviteState({ last_sign_in_at: "x" }, { active: true, data: { roster: true } }).step === "On the team");
