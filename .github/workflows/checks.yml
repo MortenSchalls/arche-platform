@@ -30,6 +30,7 @@ jobs:
           node apps/portal/tests/alertsrv.test.mjs "$NODE_PATH/http_ece"
           (cd jobs && node admin.test.mjs)
           node apps/portal/tests/resetcheck.test.mjs
+          node apps/portal/tests/invitemail.test.mjs
       - name: Portal screens (test version, example data)
         working-directory: apps/portal
         run: |

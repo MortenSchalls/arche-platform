@@ -13,7 +13,9 @@ const clean = (s, n) => String(s || "").replace(/[\u0000-\u001f<>]/g, " ").trim(
 export function inviteMail({ name, link, from }) {
   const first = (name || "").split(/\s+/)[0] || "";
   const text = [`Dear ${first || "colleague"},`, "",
-    "Welcome to Archē Executive. Your access to our broker portal is ready.", "",
+    "Archē Executive is a private jet charter broker based in Singapore. We arrange the right aircraft for clients across Asia and worldwide, from any operator, on any route.", "",
+    "We are inviting a small group of people to build their own charter business with us, keeping up to 35% of the profit on every trip they sell.", "",
+    "Your access to our broker portal is ready.", "",
     "Open your personal link below, choose your password, and you will see your joining steps:",
     "1. our offer to you", "2. the Archē Broker Academy, at your own pace", "3. your request for assessment", "4. your agreement, which you read and sign in the portal", "",
     link, "",
@@ -21,7 +23,9 @@ export function inviteMail({ name, link, from }) {
     `Kind regards,`, from || "Archē Executive", "Archē Executive"].join("\n");
   const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
   const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px">
-<p>Dear ${esc(first || "colleague")},</p><p>Welcome to Archē Executive. Your access to our broker portal is ready.</p>
+<p>Dear ${esc(first || "colleague")},</p><p>Archē Executive is a private jet charter broker based in Singapore. We arrange the right aircraft for clients across Asia and worldwide, from any operator, on any route.</p>
+<p>We are inviting a small group of people to build their own charter business with us, keeping up to 35% of the profit on every trip they sell.</p>
+<p>Your access to our broker portal is ready.</p>
 <p>Open your personal link, choose your password, and you will see your joining steps:</p>
 <ol><li>our offer to you</li><li>the Archē Broker Academy, at your own pace</li><li>your request for assessment</li><li>your agreement, which you read and sign in the portal</li></ol>
 <p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">OPEN YOUR PORTAL</a></p>
