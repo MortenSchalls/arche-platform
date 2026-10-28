@@ -47,7 +47,13 @@ export async function leadsStatus(sb, u) {
   const assignedTo = {}; prospects.forEach(p => { const a = (p.data || {}).assignedTo; if (a) assignedTo[a] = (assignedTo[a] || 0) + 1; });
   const brokers = profs.filter(p => p.active && (p.data || {}).roster && ["broker", "consultant"].includes(p.role)).map(p => {
     const mine = leads.filter(l => l.owner_id === p.id), open = mine.filter(l => !["notnow", "dnc", "duplicate", "enquiry"].includes((l.data || {}).status));
-    return { name: p.contract_name, role: p.role, supervised: !!(p.data || {}).supervised, leads: mine.length, open: open.length, assigned: assignedTo[p.id] || 0, lastAssigned: mine.map(l => (l.data || {}).assignedAt || "").sort().slice(-1)[0] || null };
+    const has = f => mine.filter(l => { const v = (l.data || {})[f]; return Array.isArray(v) ? v.length > 0 : !!String(v || "").trim(); }).length;
+    const touched = mine.filter(l => ((l.data || {}).log || []).some(x => !x.system)).length, overdue = mine.filter(l => { const d = l.data || {}; return d.firstTouchDue && Date.parse(d.firstTouchDue) < Date.now() && !(d.log || []).some(x => !x.system); }).length;
+    return { name: p.contract_name, role: p.role, supervised: !!(p.data || {}).supervised, leads: mine.length, open: open.length, assigned: assignedTo[p.id] || 0, lastAssigned: mine.map(l => (l.data || {}).assignedAt || "").sort().slice(-1)[0] || null,
+      filled: { why: has("why"), approach: has("approach"), website: has("website"), contactRoutes: has("avenues"), namedContacts: has("contacts"), city: has("city") }, touched, firstTouchOverdue: overdue,
+      segments: Object.entries(mine.reduce((a, l) => { const k = (l.data || {}).segment || "?"; a[k] = (a[k] || 0) + 1; return a; }, {})).sort((a, b) => b[1] - a[1]).slice(0, 8),
+      countries: Object.entries(mine.reduce((a, l) => { const k = (l.data || {}).country || "?"; a[k] = (a[k] || 0) + 1; return a; }, {})).sort((a, b) => b[1] - a[1]).slice(0, 8),
+      whyLen: Math.round(mine.reduce((a, l) => a + String((l.data || {}).why || "").length, 0) / Math.max(1, mine.length)), approachLen: Math.round(mine.reduce((a, l) => a + String((l.data || {}).approach || "").length, 0) / Math.max(1, mine.length)) };
   });
   const assign = ck(await sb.from("intel").select("value").eq("key", "assign").maybeSingle(), "intel"), cfg = ck(await sb.from("config").select("value").eq("key", "assign").maybeSingle(), "config");
   const a = (assign || {}).value || {};
