@@ -76,7 +76,8 @@
       #archeSetPw input,#archeSetPw button{width:100%;box-sizing:border-box;height:44px;font:inherit;margin-top:10px}
       #archeSetPw input{background:#2c2e33;color:#f3f5f8;border:1px solid #676b71;padding:0 12px}
       #archeSetPw button{background:linear-gradient(#fafbfc,#c6cbd2);color:#24262a;border:0;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer}
-      #archeSetPw .msg{min-height:20px;font-size:13px;color:#a9bdd4}</style>
+      #archeSetPw .msg{min-height:20px;font-size:13px;color:#a9bdd4}
+      #archeSetPw h2{color:#f3f5f8;border:0;padding:0;font-family:Cinzel,serif;letter-spacing:.06em;font-size:20px}</style>
       <div class="card" role="dialog" aria-labelledby="spH"><h2 id="spH" style="margin:0 0 6px;font-weight:500">Choose your own password</h2>
       <p>${temp ? "You signed in with a temporary password. Choose" : "Set"} a password that only you know: at least 10 characters. From now on you sign in with your email and this password.</p>
       <input id="spA" type="password" autocomplete="new-password" placeholder="New password" aria-label="New password">

@@ -37,4 +37,4 @@ jobs:
           python3 build_test.py
           (python3 -m http.server 8765 >/dev/null 2>&1 &) ; sleep 2
           set -o pipefail
-          for t in boottest roletodaytest invitetest rightstest inttest; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done
+          for t in boottest roletodaytest invitetest seeastest rightstest inttest; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done
