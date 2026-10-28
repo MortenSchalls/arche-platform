@@ -3,7 +3,12 @@
 -- config row 'live'. Only the owner and the chosen members may join its private channel, and only until the
 -- session ends. Nothing is stored. Safe to run more than once.
 
-create or replace function public.live_allowed(p_topic text)
+-- start clean (an earlier version of this function had a different parameter name)
+drop policy if exists live_receive on realtime.messages;
+drop policy if exists live_send on realtime.messages;
+drop function if exists public.live_allowed(text);
+
+create function public.live_allowed(p_topic text)
 returns boolean
 language sql
 stable
@@ -29,13 +34,11 @@ revoke all on function public.live_allowed(text) from public;
 grant execute on function public.live_allowed(text) to authenticated;
 
 -- receive messages on the channel
-drop policy if exists live_receive on realtime.messages;
 create policy live_receive on realtime.messages
   for select to authenticated
   using (realtime.messages.extension = 'broadcast' and public.live_allowed(realtime.topic()));
 
 -- send messages on the channel
-drop policy if exists live_send on realtime.messages;
 create policy live_send on realtime.messages
   for insert to authenticated
   with check (realtime.messages.extension = 'broadcast' and public.live_allowed(realtime.topic()));
