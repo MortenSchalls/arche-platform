@@ -44,5 +44,13 @@
     if (a === "yes") { b.disabled = true; reset(id).catch(() => toast("Could not reset. Try again.")); }
   });
   const _vTeamRJ = vTeam; vTeam = function(){ return afterHead(_vTeamRJ(), panel()); };
+  // reset at next sign-in (api/resetcheck.mjs): asked once per page load by everyone except owners, on the live portal only
+  let rcDone = false;
+  const _rnRC = renderNow; renderNow = function(){ _rnRC();
+    if (rcDone || !window.__sb || window.__TEST_AS || !S.uid || S.isOwner || !S.role || S.role === "loading") return; rcDone = true;
+    (async () => { try { const sess = (await window.__sb.auth.getSession()).data.session; if (!sess) return;
+      const r = await fetch("/api/resetcheck", {method: "POST", headers: {authorization: "Bearer " + sess.access_token}}); const j = await r.json().catch(() => ({}));
+      if (j.reset) { toast("Your joining steps start again from the offer."); setTimeout(() => location.reload(), 1200); } } catch(e){} })();
+  };
   window.__rj = {reset};
 })();

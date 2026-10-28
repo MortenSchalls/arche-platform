@@ -7,12 +7,16 @@ on:
       action:
         description: "What to do"
         type: choice
-        options: [person-status, reset-joining]
+        options: [person-status, reset-joining, reset-next-login]
         default: person-status
       email:
-        description: "The person's login email"
+        description: "The person's login email (or leave empty and give the name)"
         type: string
-        required: true
+        required: false
+      name:
+        description: "The person's name, if no email is given"
+        type: string
+        required: false
 permissions:
   contents: read
 concurrency:
@@ -24,7 +28,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Hide the email in the log
-        run: echo "::add-mask::${{ inputs.email }}"
+        run: '[ -z "${{ inputs.email }}" ] || echo "::add-mask::${{ inputs.email }}"' 
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with: { node-version: "22" }
@@ -38,4 +42,5 @@ jobs:
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
           ACTION: ${{ inputs.action }}
           EMAIL: ${{ inputs.email }}
+          NAME: ${{ inputs.name }}
         run: node admin.mjs

@@ -5,6 +5,7 @@
 //   ACTION=person-status  EMAIL=…   where the person is: login, last sign-in, joining step, team access
 //   ACTION=reset-joining  EMAIL=…   back to step 1 (the offer): removes request, agreement, academy progress, team access;
 //                                   keeps the login, leads, trips and training records (same as Team > Start joining again)
+//   ACTION=reset-next-login EMAIL=… or NAME=…   the same reset, done the next time the person signs in (api/resetcheck.mjs)
 import { createClient } from "@supabase/supabase-js";
 
 const mask = e => String(e || "").trim().toLowerCase().replace(/^(.).*?(@.*)$/, "$1***$2");
@@ -18,6 +19,23 @@ export async function findUser(sb, email) {
     if ((data.users || []).length < 200) return null;
   }
   return null;
+}
+export async function findByName(sb, name) {
+  const n = String(name || "").trim().toLowerCase(); if (n.length < 3) throw new Error("Name too short");
+  const hits = new Set();
+  (ck(await sb.from("profiles").select("id,contract_name,role"), "profiles") || []).forEach(p => { if (p.role !== "owner" && String(p.contract_name || "").toLowerCase().includes(n)) hits.add(p.id); });
+  (ck(await sb.from("join_requests").select("user_id,data"), "join_requests") || []).forEach(j => { if (String((j.data || {}).contractName || "").toLowerCase().includes(n)) hits.add(j.user_id); });
+  (ck(await sb.from("agreements").select("id,data"), "agreements") || []).forEach(a => { if (String((a.data || {}).signedName || "").toLowerCase().includes(n)) hits.add(a.id); });
+  if (hits.size !== 1) throw new Error(hits.size ? `${hits.size} people match this name: use the email instead` : "Nobody matches this name: use the email instead");
+  const id = [...hits][0], { data, error } = await sb.auth.admin.getUserById(id); if (error) throw new Error("user: " + error.message); return data.user;
+}
+export async function resetNext(sb, u, name) {
+  const pr = ck(await sb.from("profiles").select("role").eq("id", u.id).maybeSingle(), "profiles"); if (pr && pr.role === "owner") throw new Error("Owners are never reset");
+  const row = ck(await sb.from("intel").select("value").eq("key", "resetnext").maybeSingle(), "intel"), list = ((row || {}).value || {}).list || [];
+  const next = [{ id: u.id, at: new Date().toISOString(), name: name || "" }, ...list.filter(x => x.id !== u.id)];
+  ck(await sb.from("intel").upsert({ key: "resetnext", value: { list: next }, updated_at: new Date().toISOString() }, { onConflict: "key" }), "intel");
+  ck(await sb.from("audit_log").insert({ by: null, action: "Joining to start again at next sign-in", detail: `${name || "person " + u.id.slice(0, 8)} (on the owner's request)` }), "audit");
+  return { queued: true, lastSignIn: u.last_sign_in_at || null };
 }
 export async function status(sb, u) {
   const id = u.id, one = async (t, col, v, sel = "*") => ck(await sb.from(t).select(sel).eq(col, v).maybeSingle(), t);
@@ -42,10 +60,12 @@ export async function resetJoining(sb, u, why) {
 const note = o => { if (process.env.GITHUB_ACTIONS) console.log("::notice title=Admin result::" + JSON.stringify(o).replace(/%/g, "%25").replace(/\r?\n/g, " ")); };
 export async function main(env = process.env, sb) {
   sb = sb || createClient(env.SUPABASE_URL, env.SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
-  const action = env.ACTION, email = env.EMAIL, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
-  if (!["person-status", "reset-joining"].includes(action)) throw new Error("Unknown action " + action);
-  const u = await findUser(sb, email);
+  const action = env.ACTION, email = env.EMAIL, name = env.NAME, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
+  if (!["person-status", "reset-joining", "reset-next-login"].includes(action)) throw new Error("Unknown action " + action);
+  const u = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null;
+  if (!email && !name) throw new Error("Give an email or a name");
   if (!u) { const out = { email: mask(email), login: false, note: "No login with this email: the person has never signed in or signed up. Create the login in Supabase > Authentication > Users > Add user." }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "reset-next-login") { const st = await status(sb, u), out = { email: mask(email || u.email), name: st.name, step: st.step, ...(await resetNext(sb, u, st.name)) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "person-status") { const out = { email: mask(email), ...(await status(sb, u)) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   const r = await resetJoining(sb, u, why), out = { email: mask(email), ...r, now: (await status(sb, u)).step };
   console.log(JSON.stringify(out, null, 1)); note(out); return out;
