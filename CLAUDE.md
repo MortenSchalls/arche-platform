@@ -41,6 +41,10 @@ Read this before changing anything. These are business rules set by the owner, M
 - Fonts: Prata or Cinzel for headings, Hanken Grotesk for text. Logo in `shared/brand`.
 - Check every screen at 390 px phone width with no sideways scrolling (`tests/audit.js`).
 
+## Releases (Morten, 28 Oct 2026)
+- Changes go to the `staging` branch first (Vercel builds a preview there) and must pass the "Portal checks" on GitHub. The live portal (main) changes only when Morten says "release".
+- Work order for the training findings of 28 Oct 2026: 2 (prospects for new brokers), 1 (owner, broker and operations views the same), 3 (help for every field), 4 (operator agreement from Avinode linked to ours), 6 (full booking walkthrough in the academy, manual first), 5 (automated emails from Leads). Phone layout added the same day.
+
 ## Before you finish a change
 Run the tests for the part you changed (see README) and say what you ran.
 Update `docs/ARCHE-HANDOVER.md` (the file a new chat starts from) and the copy in the claude.ai project at `arche/arche-handover.md` at the end of each working session.
