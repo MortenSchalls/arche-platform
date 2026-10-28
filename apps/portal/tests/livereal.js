@@ -22,6 +22,7 @@ await N.evaluate(async l=>{await S.db.doc('config/live').set(l);},live);await N.
 ok('watcher sees a Watch banner',await N.evaluate(()=>!!document.querySelector('[data-lv="watch"]')));
 await N.click('[data-lv="watch"]');await N.waitForTimeout(1500);
 ok('on Team (not shared) the watcher sees a pause',await N.evaluate(()=>/did not share/.test(document.getElementById('lvMsg').textContent)));
+ok('the pause message is visible, not covered by the frame',await N.evaluate(()=>{const m=document.getElementById('lvMsg'),f=document.getElementById('lvFrame');return getComputedStyle(m).display!=='none'&&(getComputedStyle(f).visibility==='hidden'||!f.style.width);}));
 ok('owner bar says this page is not shared',await M.evaluate(()=>/Not shared/.test(document.getElementById('lvOwnerBar').textContent)));
 await M.evaluate(()=>{S.view='trips';render();});await M.waitForTimeout(600);
 await M.evaluate(()=>{const d=document.createElement('div');d.innerHTML='<p>Client Anna Example, anna@example.com, +65 6123 4567</p><input id="e_em" value="anna@example.com">';document.body.appendChild(d);});await M.waitForTimeout(1500);

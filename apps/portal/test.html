@@ -6685,7 +6685,7 @@ function vOnboarding(){
   async function push(force){
     if (LV.role !== "lead") return;
     const s = shareable();
-    if (!s.ok) { if (force || LV.sentPause !== s.why) { LV.sentPause = s.why; LV.last = ""; send("pause", {why: s.why}); } bar(); return; }
+    if (!s.ok) { if (force || LV.sentPause !== s.why) { LV.sentPause = s.why; LV.last = ""; send("pause", {why: s.why, name: S.myName || "The director"}); } bar(); return; }
     LV.sentPause = "";
     const html = snapshot(); if (!force && html === LV.last) return; LV.last = html;
     send("dom", {z: await gz(html), w: innerWidth, h: innerHeight, sx: scrollX, sy: scrollY, theme: document.documentElement.getAttribute("data-theme") || "light", cls: document.body.className, name: S.myName || "The director"});
@@ -6741,14 +6741,15 @@ function vOnboarding(){
   }
   function msg(t){ const e = document.getElementById("lvMsg"); if (e) { e.textContent = t; e.style.display = t ? "flex" : "none"; } }
   function geo(w, h){ const m = document.getElementById("lvMirror"); if (!m || !LV.frame || !w) return; LV.lastWH = [w, h]; const W = m.clientWidth - (LV.sylW || 0), H = m.clientHeight - 44 - (LV.sylH || 0), s = Math.min(W / w, H / h, 1.25);
+    const mg = document.getElementById("lvMsg"); if (mg) { mg.style.right = (LV.sylW || 0) + "px"; mg.style.bottom = (LV.sylH || 0) + "px"; }
     LV.frame.style.width = w + "px"; LV.frame.style.height = h + "px"; LV.frame.style.transform = `scale(${s})`; const ox = Math.max(0, (W - w * s) / 2); LV.frame.style.left = ox + "px"; LV.geo = {s, ox}; }
   async function show(p){
-    showMirror(); const html = await gunz(p.z), f = LV.frame; if (!f) return; msg(""); geo(p.w, p.h);
+    showMirror(); const html = await gunz(p.z), f = LV.frame; if (!f) return; msg(""); f.style.visibility = "visible"; geo(p.w, p.h);
     const d = f.contentDocument;
     if (!d.getElementById("lvBase")) { const head = Array.from(document.head.querySelectorAll("style,link[rel=stylesheet]")).map(n => n.outerHTML).join("");
       d.open(); d.write(`<!doctype html><html><head><meta charset="utf-8"><base id="lvBase" href="${location.href}">${head}<style>a,button,input,select,textarea,label,summary{pointer-events:none}</style></head><body></body></html>`); d.close(); }
     d.documentElement.setAttribute("data-theme", p.theme); d.body.className = p.cls || ""; d.body.innerHTML = html; f.contentWindow.scrollTo(p.sx || 0, p.sy || 0);
-    const w = document.getElementById("lvWho"); if (w) w.textContent = `● Watching ${p.name} live (contact details hidden)`;
+    LV.leader = p.name; const w = document.getElementById("lvWho"); if (w) w.textContent = `● Watching ${p.name} live (contact details hidden)`;
     if (!document.getElementById("lvSylWatch") && sylOf() && sylOf().on) sylCards();
   }
   const at = p => LV.geo ? [LV.geo.ox + p.x * LV.geo.s, 44 + p.y * LV.geo.s] : null;
@@ -6760,11 +6761,11 @@ function vOnboarding(){
       showMirror(); msg("Connecting…");
       LV.ch = await channel(l.id); LV.role = "watch";
       LV.ch.on("broadcast", {event: "dom"}, m => show(m.payload));
-      LV.ch.on("broadcast", {event: "pause"}, m => { msg(`${nm(l.owner)} is on ${m.payload.why}. The picture comes back when he returns to a shared page.`); if (LV.frame) LV.frame.contentDocument.body.innerHTML = ""; });
+      LV.ch.on("broadcast", {event: "pause"}, m => { msg(`${m.payload.name || LV.leader || "The director"} is on ${m.payload.why}. The picture comes back on a shared page.`); if (LV.frame) { LV.frame.contentDocument.body.innerHTML = ""; LV.frame.style.visibility = "hidden"; } if (LV.ptr) LV.ptr.hidden = true; });
       LV.ch.on("broadcast", {event: "ptr"}, m => dot(m.payload));
       LV.ch.on("broadcast", {event: "click"}, m => ripple(m.payload));
       LV.ch.on("broadcast", {event: "scroll"}, m => { if (LV.frame) LV.frame.contentWindow.scrollTo(m.payload.sx, m.payload.sy); });
-      LV.ch.on("broadcast", {event: "bye"}, () => msg(`${nm(l.owner)} stopped sharing.`));
+      LV.ch.on("broadcast", {event: "bye"}, () => { msg(`${LV.leader || "The director"} stopped sharing.`); if (LV.frame) LV.frame.style.visibility = "hidden"; });
       LV.ch.subscribe(st => { if (st === "SUBSCRIBED") { msg("Connected. Waiting for the screen…"); send("hello", {}); } else if (st === "CHANNEL_ERROR" || st === "TIMED_OUT") msg("Could not connect. Ask the director to check the live training set-up (SQL 0020)."); });
     } catch(e){ msg("Could not connect."); }
   }
@@ -6776,13 +6777,14 @@ function vOnboarding(){
     const l = S.live, open = liveOpen(l);
     const members = Object.entries(S.roster || {}).filter(([id, r]) => id !== S.uid && r && r.active !== false && r.role && r.role !== "owner").map(([id]) => id);
     const views = navItems().filter(([k]) => !NEVER[k]);
+    const F = S.lvForm = S.lvForm || {w: {}, s: {}, syl: "fam", h: 2};   // kept across re-renders while ticking
     if (open) return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small">Open until ${esc(fmtT(l.until))} for ${esc((l.watchers || []).map(nm).join(", "))}. Shared pages: ${esc((l.scope || []).map(k => (views.find(v => v[0] === k) || [k, k])[1]).join(", "))}.</p>
       <div class="row">${LV.role === "lead" ? `<button class="btn small danger" type="button" data-lv="stop">Stop sharing</button>` : `<button class="btn small primary" type="button" data-lv="resume">Share my screen now</button> <button class="btn small" type="button" data-lv="stop">End the session</button>`}</div></div>`;
     return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small muted">Let chosen members watch your screen live, with your pointer and clicks. Talk over a phone or Teams call. Only the pages you tick are shown; on any other page they see a pause. Always kept back: the investor and partner list, Security, Settings, and every email address and phone number (masked).</p>
-      <p class="small" style="margin:8px 0 4px"><b>Who may watch</b></p>${members.map(id => `<label class="check" for="lvw_${id}"><input type="checkbox" id="lvw_${id}" data-lvw="${id}"><span>${esc(nm(id))}</span></label>`).join("") || `<p class="small muted">No members yet.</p>`}
-      <p class="small" style="margin:8px 0 4px"><b>Pages to share</b></p>${views.map(([k, t]) => `<label class="check" for="lvs_${k}"><input type="checkbox" id="lvs_${k}" data-lvs="${k}"><span>${esc(t)}</span></label>`).join("")}
-      <p class="small" style="margin:8px 0 4px"><b>Syllabus</b> (you can switch it on or off while sharing)</p><div class="fgrid"><label class="f" for="lvSyl">Follow<select id="lvSyl"><option value="">No syllabus: just share the screen</option><option value="fam" selected>Familiarisation (first day)</option><option value="full">Full syllabus</option></select></label>
-      <label class="f" for="lvHours">Ends after<select id="lvHours"><option value="1">1 hour</option><option value="2" selected>2 hours</option><option value="4">4 hours</option><option value="8">8 hours</option></select></label></div>
+      <p class="small" style="margin:8px 0 4px"><b>Who may watch</b></p>${members.map(id => `<label class="check" for="lvw_${id}"><input type="checkbox" id="lvw_${id}" data-lvw="${id}" ${F.w[id] ? "checked" : ""}><span>${esc(nm(id))}</span></label>`).join("") || `<p class="small muted">No members yet.</p>`}
+      <p class="small" style="margin:8px 0 4px"><b>Pages to share</b></p>${views.map(([k, t]) => `<label class="check" for="lvs_${k}"><input type="checkbox" id="lvs_${k}" data-lvs="${k}" ${F.s[k] ? "checked" : ""}><span>${esc(t)}</span></label>`).join("")}
+      <p class="small" style="margin:8px 0 4px"><b>Syllabus</b> (you can switch it on or off while sharing)</p><div class="fgrid"><label class="f" for="lvSyl">Follow<select id="lvSyl">${[["", "No syllabus: just share the screen"], ["fam", "Familiarisation (first day)"], ["full", "Full syllabus"]].map(([v, t]) => `<option value="${v}" ${F.syl === v ? "selected" : ""}>${t}</option>`).join("")}</select></label>
+      <label class="f" for="lvHours">Ends after<select id="lvHours">${[1, 2, 4, 8].map(h => `<option value="${h}" ${F.h === h ? "selected" : ""}>${h} hour${h > 1 ? "s" : ""}</option>`).join("")}</select></label></div>
       <button class="btn small primary" type="button" data-lv="start">Start sharing</button></div>`;
   }
   function watcherBanner(){
@@ -6873,6 +6875,7 @@ function vOnboarding(){
       const side = m.clientWidth >= 900; wc.style.cssText = side ? "position:absolute;right:0;top:44px;bottom:0;width:320px;overflow:auto;background:#2a2d32;padding:16px;z-index:3;border-left:1px solid #474a50" : "position:absolute;left:0;right:0;bottom:0;height:42%;overflow:auto;background:#2a2d32;padding:14px;z-index:3;border-top:1px solid #474a50";
       wc.innerHTML = sylHtml(false); LV.sylW = side ? 320 : 0; LV.sylH = side ? 0 : Math.round(m.clientHeight * 0.42); }
     else { if (wc) wc.remove(); LV.sylW = 0; LV.sylH = 0; }
+    const mg = document.getElementById("lvMsg"); if (mg) { mg.style.right = (LV.sylW || 0) + "px"; mg.style.bottom = (LV.sylH || 0) + "px"; }
     if (LV.frame && LV.lastWH) geo(LV.lastWH[0], LV.lastWH[1]);
   }
   window.liveSylCards = sylCards;
@@ -6888,6 +6891,8 @@ function vOnboarding(){
       audit("Training lesson done", `${(S.live.watchers || []).map(nm).join(", ")} · ${L.t}`);
       sylSet({done: {...(s.done || {}), [L.id]: true}, idx: Math.min(C.lessons.length - 1, i + 1)}); return; }
   });
+  document.addEventListener("change", e => { const el = e.target, F = S.lvForm; if (!F || !el.closest || !el.closest("#lvPanel")) return;
+    if (el.dataset.lvw) F.w[el.dataset.lvw] = el.checked; else if (el.dataset.lvs) F.s[el.dataset.lvs] = el.checked; else if (el.id === "lvSyl") F.syl = el.value; else if (el.id === "lvHours") F.h = Number(el.value); });
   document.addEventListener("change", async e => { const el = e.target; if (!el.dataset || el.dataset.syl !== "course" || !S.isOwner) return; const course = el.value; sylSet({course, idx: 0, done: await sylLoadDone(course)}); });
 
   window.__liveTrain = LV;
