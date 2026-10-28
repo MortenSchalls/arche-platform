@@ -7,6 +7,7 @@
 //                                   keeps the login, leads, trips and training records (same as Team > Start joining again)
 //   ACTION=reset-next-login EMAIL=… or NAME=…   the same reset, done the next time the person signs in (api/resetcheck.mjs)
 //   ACTION=cancel-reset-next EMAIL=…  takes the person off that list again
+//   ACTION=alerts-status              read only: what the alert sender has open, how often each was sent, the last run
 //   ACTION=leads-status [EMAIL=…]     read only: counts of prospects by status, open leads per broker, the last rotation
 //   ACTION=set-name EMAIL=… NEW_NAME=…  corrects the name shown in the portal (not the name in a signed agreement)
 import { createClient } from "@supabase/supabase-js";
@@ -39,6 +40,12 @@ export async function resetNext(sb, u, name) {
   ck(await sb.from("intel").upsert({ key: "resetnext", value: { list: next }, updated_at: new Date().toISOString() }, { onConflict: "key" }), "intel");
   ck(await sb.from("audit_log").insert({ by: null, action: "Joining to start again at next sign-in", detail: `${name || "person " + u.id.slice(0, 8)} (on the owner's request)` }), "audit");
   return { queued: true, lastSignIn: u.last_sign_in_at || null };
+}
+export async function alertsStatus(sb) {
+  const rows = ck(await sb.from("alert_settings").select("id,data"), "alert_settings") || [];
+  const st = (rows.find(r => r.id === "status") || {}).data || {}, cfg = (rows.find(r => r.id === "settings") || {}).data || {};
+  const logs = rows.filter(r => r.id.startsWith("log:")).map(r => ({ key: r.id.slice(4).replace(/:[0-9a-f-]{20,}/g, ":…"), type: r.data.type, ref: r.data.ref, count: r.data.count, level: r.data.level, first: new Date(r.data.first).toISOString(), lastPush: r.data.lastPush ? new Date(r.data.lastPush).toISOString() : null }));
+  return { status: st, settings: { repeatMin: cfg.repeatMin, escalateMin: cfg.escalateMin, recipients: (cfg.recipients || []).map(r => ({ active: r.active !== false, events: Object.keys(r.events || {}).filter(k => r.events[k]) })), away: Object.keys(cfg.away || {}).length }, open: logs };
 }
 export async function leadsStatus(sb, u) {
   const prospects = ck(await sb.from("prospects").select("id,data"), "prospects") || [], leads = ck(await sb.from("leads").select("owner_id,id,data"), "leads") || [];
@@ -97,6 +104,7 @@ const note = o => { if (process.env.GITHUB_ACTIONS) console.log("::notice title=
 export async function main(env = process.env, sb) {
   sb = sb || createClient(env.SUPABASE_URL, env.SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
   const action = env.ACTION, email = env.EMAIL, name = env.NAME, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
+  if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (!["person-status", "reset-joining", "reset-next-login", "cancel-reset-next", "set-name"].includes(action)) throw new Error("Unknown action " + action);
   const u = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null;
