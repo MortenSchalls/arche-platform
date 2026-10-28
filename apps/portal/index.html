@@ -7106,7 +7106,7 @@ function trustMatrix(){
       <div class="stack">${flights(tripsF, asOps ? "queue" : "trips")}${asOps ? payments() : waiting(me)}${asBroker ? pool() : ""}</div></div>${ac}`;
   }
   const _vT = vToday;
-  vToday = function(){ const r = acting(); return r === "broker" || r === "ops" ? roleToday(r) : _vT(); };
+  vToday = function(){ const r = acting(); return r === "broker" || r === "ops" ? roleToday(r) : afterHead(_vT(), `<div style="margin-bottom:16px">${flights(allTrips(), "trips")}</div>`); };   // the owner sees every flight too (Morten, 28 Oct 2026)
   window.roleToday = roleToday;
 })();
 
@@ -7121,7 +7121,7 @@ function trustMatrix(){
     const reg = String(q.get("reg") || "").toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 10), ap = k => String(q.get(k) || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4);
     const from = ap("from"), to = ap("to"), time = /^\d{2}:\d{2}$/.test(q.get("time") || "") ? q.get("time") : "", dep = Date.parse(String(q.get("dep") || "").replace(/Z?$/, "Z"));
     if (!reg || from.length < 3 || to.length < 3) { toast("Tracking demo: registration, from and to are needed."); return; }
-    if (!confirm(`Add a TEST trip for the tracking demo?\n\n${from} → ${to} today on ${reg}, confirmed and paid, example client, price 0.\nIt is marked Example; remove it with Team > Remove example data.`)) return;
+    if (!q.get("auto") && !confirm(`Add a TEST trip for the tracking demo?\n\n${from} → ${to} today on ${reg}, confirmed and paid, example client, price 0.\nIt is marked Example; remove it with Team > Remove example data.`)) return;
     const today = new Date().toLocaleDateString("en-CA"), did = ("test-track-" + today + "-" + reg).toLowerCase(), at = now();
     const leg = {from, to, date: today, time, pax: 1};
     await S.db.doc(`desk/${S.uid}/deals/${did}`).set({example: true, created: at, updated: at, client: {name: "TEST tracking demo", company: "TEST tracking demo", email: "test@example.com"},
@@ -7131,11 +7131,22 @@ function trustMatrix(){
       legStatus: [{s: "dep", at: isNaN(dep) ? at : new Date(dep).toISOString(), note: "TEST: demo flight", set: at}],
       history: [{t: at, by: "ops", a: "TEST trip added for the tracking demo"}]});
     audit("TEST tracking demo trip added", `${reg} ${from}-${to} ${today}`);
+    if (q.get("auto")) { render(); toast("TEST trip on 9V-SNA added to Today for the tracking demo."); return; }
     S.sel = did; S.view = "trips"; render(); toast("TEST trip added. Scroll to Flight following and click a Track link.");
     setTimeout(() => { const f = document.getElementById("followPanel"); if (f) f.scrollIntoView({behavior: "smooth", block: "start"}); }, 900);
   }
+  /* Morten, 28 Oct 2026: "make a test trip and place it on my Today page". On 28 and 29 Oct 2026 only, the owner's first
+     portal opening adds the 9V-SNA trip once (marker config/trackdemo, so it never comes back after it is deleted). */
+  let autoTried = false;
+  async function auto(){
+    autoTried = true; const d = new Date().toLocaleDateString("en-CA"); if (d !== "2026-10-28" && d !== "2026-10-29") return;
+    const mk = await S.db.doc("config/trackdemo").get(); if (mk.exists) return;
+    await S.db.doc("config/trackdemo").set({done: now(), by: S.uid, reg: "9V-SNA"});
+    await make(new URLSearchParams("auto=1&reg=9V-SNA&from=WSSS&to=EGLL&time=13:12&dep=2026-10-28T05:12Z"));
+  }
   const _rn = renderNow;
   renderNow = function(){ _rn();
+    if (S.role === "owner" && !S.preview && S.db && !autoTried && S.desks && S.desks[S.uid]) setTimeout(() => auto().catch(e => console.warn("trackdemo", e)), 500);
     if (done || S.role !== "owner" || S.preview || !S.db) return;
     const q = new URLSearchParams(location.search); if (q.get("demo") !== "track") return;
     done = true; history.replaceState(null, "", location.pathname + location.hash);

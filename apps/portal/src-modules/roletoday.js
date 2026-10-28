@@ -56,6 +56,6 @@
       <div class="stack">${flights(tripsF, asOps ? "queue" : "trips")}${asOps ? payments() : waiting(me)}${asBroker ? pool() : ""}</div></div>${ac}`;
   }
   const _vT = vToday;
-  vToday = function(){ const r = acting(); return r === "broker" || r === "ops" ? roleToday(r) : _vT(); };
+  vToday = function(){ const r = acting(); return r === "broker" || r === "ops" ? roleToday(r) : afterHead(_vT(), `<div style="margin-bottom:16px">${flights(allTrips(), "trips")}</div>`); };   // the owner sees every flight too (Morten, 28 Oct 2026)
   window.roleToday = roleToday;
 })();
