@@ -1,8 +1,13 @@
 // Archē portal alerts (Vercel serverless function), Morten 26 Oct 2026.
-// Supabase calls this every 2 minutes (pg_cron, SQL 0014). It finds everything waiting for someone, sends a phone push
-// and an email to the people in Team > Alerts, and repeats until someone acts: push every "repeat" minutes, email at
-// most hourly, and after "escalate" minutes the next person in the list is added. Messages carry only the type and the
-// trip reference, never client names. Nothing secret is needed to call it: a run only sends what is due.
+// Supabase calls this every 2 minutes (pg_cron, SQL 0014). It finds everything waiting for someone and alerts the people
+// in Team > Alerts. Rules (Morten, 29 Oct 2026: 70 alerts in one night; "the alert is for urgent measures, not to cry wolf"):
+//   urgent  a booking to approve that departs within 48 hours; a delayed, diverted or cancelled flight. Phone push at once,
+//           day or night; repeated every 30 minutes, at most 4 times; the next person is added after "escalate" minutes.
+//   normal  a booking to approve, a new website enquiry, a supervised step, service recovery, departed or landed.
+//           One phone push and one reminder after 4 hours if still open; never between 22:00 and 07:00.
+//   low     a backup or rotation running late: no push.
+//   Everything still open goes into one morning summary email from 07:00 (time zone in Team > Alerts, default Bangkok).
+//   No other emails. Messages carry only the type and the trip reference, never client names.
 //   GET  ?vapid=1  the public key phones use to subscribe
 //   GET  ?status=1 which parts are set up (no secrets)
 //   POST {}        run the check (from pg_cron)
@@ -74,7 +79,9 @@ export function openItems(d, now = Date.now()) {
   for (const t of d.trips || []) {
     const x = t.data || {}, s = st[t.owner_id + "/" + t.id] || {}, ref = s.ref || t.id, a = s.approval || {};
     if (approvalOn && x.stage === "submitted" && s.state !== "returned" && !["issued", "clientPaid", "flown", "cancelled"].includes(s.state) && !(a.state === "approved" && Number(a.price) === Number(s.price)))
-      out.push({ key: `approve:${t.owner_id}:${t.id}`, type: "approve", ref, since: x.submittedAt || x.updated });
+      { const dep = ((x.trip || {}).legs || []).map(l => Date.parse((l.date || "") + "T" + (l.time || "00:00") + ":00Z")).filter(n => !isNaN(n)).sort((a, b) => a - b)[0];
+        const soon = !!dep && dep - now < 48 * 3600e3;
+        out.push({ key: `approve:${t.owner_id}:${t.id}`, type: "approve", ref, since: x.submittedAt || x.updated, urgency: soon ? "urgent" : "normal", what: soon ? "departs within 48 hours" : "" }); }
     if (s.state === "flown") {
       const r = x.rating || {}, base = s.flownDate ? Date.parse(s.flownDate + "T12:00:00Z") : 0;
       if (Number(r.overall) > 0 && Number(r.overall) <= 3 && !x.recovery) out.push({ key: `recovery:${t.owner_id}:${t.id}`, type: "recovery", ref, since: r.at || s.updatedAt, what: `client rated ${r.overall}/5` });
@@ -89,16 +96,19 @@ export function openItems(d, now = Date.now()) {
     const x = t.data || {}, s = st[t.owner_id + "/" + t.id] || {}, legs = (x.trip || {}).legs || [], ref = s.ref || t.id;
     (s.legStatus || []).forEach((e, i) => { if (!e || !LEG[e.s] || !e.set) return; const at = Date.parse(e.set); if (!(at > now - 6 * 3600e3)) return;
       const l = legs[i] || {}, air = c => String(c || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4);
-      out.push({ key: `flight:${t.owner_id}:${t.id}:${i}:${e.s}`, type: "flight", ref, since: e.set, once: true, broker: t.owner_id,
+      out.push({ key: `flight:${t.owner_id}:${t.id}:${i}:${e.s}`, type: "flight", ref, since: e.set, once: true, broker: t.owner_id, urgency: ["delay", "div", "canc"].includes(e.s) ? "urgent" : "normal",
         what: `${legs.length > 1 ? `leg ${i + 1} ` : ""}${air(l.from) && air(l.to) ? air(l.from) + "→" + air(l.to) + " " : ""}${LEG[e.s]}` }); });
   }
   for (const r of d.steps || []) if ((r.data || {}).status === "pending") out.push({ key: `steps:${r.owner_id}:${r.id}`, type: "steps", ref: r.data.ref || "", since: r.data.at, what: r.data.key });
   for (const e of d.web || []) { const x = e.data || {}; if (!x.handled) out.push({ key: `pool:web:${e.id}`, type: "pool", ref: "website " + (x.type === "callback" ? "call-back request" : "enquiry"), since: e.at || x.at }); }
   const iv = {}; (d.intel || []).forEach(r => iv[r.key] = r.value || {});
-  const late = (k, h, name) => { const at = (iv[k] || {}).lastRun; if (!at || now - Date.parse(at) > h * 3600e3) out.push({ key: `late:${k}`, type: "late", ref: name, since: at || null }); };
+  const late = (k, h, name) => { const at = (iv[k] || {}).lastRun; if (!at || now - Date.parse(at) > h * 3600e3) out.push({ key: `late:${k}`, type: "late", ref: name, since: at || null, urgency: "low" }); };
   late("backup", 26, "nightly backup"); late("assign", 7, "prospect rotation");
-  return out;
+  return out.map(i => ({ urgency: "normal", ...i }));
 }
+export const localHour = (now, tz) => { try { return +new Intl.DateTimeFormat("en-GB", { hour: "numeric", hourCycle: "h23", timeZone: tz || "Asia/Bangkok" }).format(new Date(now)); } catch (e) { return new Date(now).getUTCHours(); } };
+export const localDay = (now, tz) => { try { return new Intl.DateTimeFormat("en-CA", { timeZone: tz || "Asia/Bangkok" }).format(new Date(now)); } catch (e) { return new Date(now).toISOString().slice(0, 10); } };
+export const quiet = (now, tz) => { const h = localHour(now, tz); return h >= 22 || h < 7; };
 
 /* ---------- one run ---------- */
 export async function runAlerts(D, now = Date.now(), send = { push: sendPush, email: sendEmail }) {
@@ -112,7 +122,8 @@ export async function runAlerts(D, now = Date.now(), send = { push: sendPush, em
     const keep = R.filter(r => !off.has(r.uid)).map(r => byBackup[r.uid] ? { ...r, events: { ...(r.events || {}), ...Object.fromEntries(Object.entries(byBackup[r.uid]).filter(([, v]) => v)) } } : r);
     R = [...keep.filter(r => byBackup[r.uid]), ...keep.filter(r => !byBackup[r.uid])];
   }
-  const repeat = Math.max(5, Number(cfg.repeatMin) || 15) * MIN, escalate = Math.max(10, Number(cfg.escalateMin) || 30) * MIN, emailEvery = Math.max(60 * MIN, repeat);
+  const escalate = Math.max(10, Number(cfg.escalateMin) || 30) * MIN, tz = cfg.tz || "Asia/Bangkok", isQuiet = quiet(now, tz);
+  const URGENT_EVERY = 30 * MIN, URGENT_MAX = 4, NORMAL_AGAIN = 4 * 3600e3, NORMAL_MAX = 2;
   let v = await D.get("alert_settings", "vapid"); if (!v) { v = newVapid(); await D.put("alert_settings", "vapid", v); }
   const [trips, status, steps, web, intel, cfgRows, logs, subs] = await Promise.all([
     D.all("trips", "owner_id,id,data"), D.all("trip_status", "owner_id,id,data"), D.all("step_requests", "owner_id,id,data").catch(() => []),
@@ -121,31 +132,42 @@ export async function runAlerts(D, now = Date.now(), send = { push: sendPush, em
   const items = openItems({ trips, status, steps, web, intel, terms: (cfgRows[0] || {}).value }, now);
   const log = {}; logs.forEach(l => log[l.id.slice(4)] = l.data);
   let pushes = 0, emails = 0; const errors = [];
+  const pushDev = async (s, it, title, body) => { try { const code = await send.push(s.data, v, { title, body, tag: it.key, url: PORTAL + "/" }); if (code === 404 || code === 410) await D.del("push_subs", `owner_id=eq.${s.owner_id}&id=eq.${encodeURIComponent(s.id)}`); else if (code < 300) pushes++; else errors.push("push " + code); } catch (e) { errors.push("push " + e.message); } };
   for (const it of items) {
-    const L = log[it.key] || { first: now, count: 0 }; const age = now - L.first;
-    if (it.once) {   // a notice, not a task: sent once, no reminders or escalation
+    const L = log[it.key] || { first: now, count: 0 }, age = now - L.first;
+    if (it.once) {   // a notice, not a task: sent once, no reminders; departed or landed at night is not pushed
       if (L.count) continue;
-      const title = `Archē: ${TITLES[it.type]}`, body = `${it.ref} · ${it.what}. Open the portal for details.`;
+      if (it.urgency !== "urgent" && isQuiet) continue;
+      const title = `Archē${it.urgency === "urgent" ? " URGENT" : ""}: ${TITLES[it.type]}`, body = `${it.ref} · ${it.what}. Open the portal for details.`;
       const who = R.filter(r => (r.events || {})[it.type]), devs = subs.filter(s => who.some(r => r.uid && r.uid === s.owner_id) || s.owner_id === it.broker);
-      for (const s of devs) { try { const code = await send.push(s.data, v, { title, body, tag: it.key, url: PORTAL + "/" }); if (code === 404 || code === 410) await D.del("push_subs", `owner_id=eq.${s.owner_id}&id=eq.${encodeURIComponent(s.id)}`); else if (code < 300) pushes++; else errors.push("push " + code); } catch (e) { errors.push("push " + e.message); } }
-      for (const r of who) if (r.email) { const res = await send.email(r.email, title, `${body}\n\n${PORTAL}\n\nYou get this because you are on the alert list in Team > Alerts.`); if (res === "ok") emails++; else if (res !== "no-key") errors.push("email " + res); }
-      await D.put("alert_settings", "log:" + it.key, { first: now, count: 1, level: 0, type: it.type, ref: it.ref, lastPush: now, lastEmail: now });
+      for (const s of devs) await pushDev(s, it, title, body);
+      await D.put("alert_settings", "log:" + it.key, { first: now, count: 1, level: 0, type: it.type, ref: it.ref, urgency: it.urgency, lastPush: now });
       continue;
     }
-    const dueP = !L.lastPush || now - L.lastPush >= repeat, dueE = !L.lastEmail || now - L.lastEmail >= emailEvery;
-    if (!dueP && !dueE) continue;
-    const level = Math.floor(age / escalate);   // 0 = first person, 1 = add the second, …
+    if (it.urgency === "low") continue;   // only in the morning summary
+    const urgent = it.urgency === "urgent";
+    if (L.count >= (urgent ? URGENT_MAX : NORMAL_MAX)) continue;   // said enough: it stays in the morning summary until someone acts
+    if (!urgent && isQuiet) continue;   // nothing that can wait wakes anyone
+    if (L.lastPush && now - L.lastPush < (urgent ? URGENT_EVERY : NORMAL_AGAIN)) continue;
+    const level = urgent ? Math.floor(age / escalate) : 0;   // only urgent items add the next person
     const who = R.filter(r => (r.events || {})[it.type] || (level > 0 && (r.events || {}).escalate)).slice(0, level + 1);
-    const mins = Math.round((now - Date.parse(it.since || new Date(L.first).toISOString())) / MIN) || Math.round(age / MIN);
-    const title = `Archē: ${TITLES[it.type]}${L.count ? ` (reminder ${L.count})` : ""}`, body = `${it.ref}${it.what ? " · " + it.what : ""}${mins > 0 ? ` · waiting ${mins} min` : ""}. Open the portal to act.`;
-    for (const r of who) {
-      if (dueP && r.uid) for (const s of subs.filter(s => s.owner_id === r.uid)) {
-        try { const code = await send.push(s.data, v, { title, body, tag: it.key, url: PORTAL + "/" }); if (code === 404 || code === 410) await D.del("push_subs", `owner_id=eq.${s.owner_id}&id=eq.${encodeURIComponent(s.id)}`); else if (code < 300) pushes++; else errors.push("push " + code); } catch (e) { errors.push("push " + e.message); }
+    const title = `Archē${urgent ? " URGENT" : ""}: ${TITLES[it.type]}${L.count ? " (reminder)" : ""}`, body = `${it.ref}${it.what ? " · " + it.what : ""}. Open the portal to act.`;
+    for (const r of who) if (r.uid) for (const s of subs.filter(s => s.owner_id === r.uid)) await pushDev(s, it, title, body);
+    await D.put("alert_settings", "log:" + it.key, { ...L, count: L.count + 1, level, type: it.type, ref: it.ref, urgency: it.urgency, lastPush: now });
+  }
+  // the morning summary: one email from 07:00 local with everything still open, once a day
+  const tasks = items.filter(i => !i.once), day = localDay(now, tz);
+  if (tasks.length && localHour(now, tz) >= 7) {
+    const dg = (await D.get("alert_settings", "digest")) || {};
+    if (dg.day !== day) {
+      const line = i => `- ${TITLES[i.type]}: ${i.ref}${i.what ? " · " + i.what : ""}${i.since ? ` (since ${String(i.since).slice(0, 10)})` : ""}`;
+      for (const r of R.filter(r => r.email)) {
+        const mine = tasks.filter(i => (r.events || {})[i.type]); if (!mine.length) continue;
+        const res = await send.email(r.email, `Archē: ${mine.length} item${mine.length > 1 ? "s" : ""} waiting this morning`, `Good morning. Still waiting in the portal:\n\n${mine.map(line).join("\n")}\n\n${PORTAL}\n\nYou get this summary because you are on the alert list in Team > Alerts.`);
+        if (res === "ok") emails++; else if (res !== "no-key") errors.push("email " + res);
       }
-      if (dueE && r.email) { const res = await send.email(r.email, title, `${body}\n\n${PORTAL}\n\nYou get this because you are on the alert list in Team > Alerts.`); if (res === "ok") emails++; else if (res !== "no-key") errors.push("email " + res); }
+      await D.put("alert_settings", "digest", { day, at: now, items: tasks.length });
     }
-    const next = { ...L, count: L.count + 1, level, type: it.type, ref: it.ref, ...(dueP ? { lastPush: now } : {}), ...(dueE ? { lastEmail: now } : {}) };
-    await D.put("alert_settings", "log:" + it.key, next);
   }
   const open = new Set(items.map(i => "log:" + i.key));
   for (const l of logs) if (!open.has(l.id)) await D.del("alert_settings", `id=eq.${encodeURIComponent(l.id)}`);   // acted on: stop alerting
