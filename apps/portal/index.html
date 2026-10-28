@@ -3259,7 +3259,16 @@ function tailOf(t){ const r = String((((t || {}).d || {}).quote || {}).tail || "
 function trackUrls(r){ return [["Flightradar24", `https://www.flightradar24.com/data/aircraft/${r.toLowerCase()}`], ["FlightAware", `https://www.flightaware.com/live/flight/${r.replace(/-/g, "")}`], ["ADS-B Exchange", `https://globe.adsbexchange.com/?reg=${r}`]]; }
 function trackLinks(t){ const r = tailOf(t);
   if (!r) return `<p class="small muted" data-track="none">Add the aircraft registration to the quote to get tracking links.</p>`;
-  return `<p class="small" data-track="${esc(r)}">Track ${esc(r)}: ${trackUrls(r).map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${n}</a>`).join(" · ")}<br><span class="muted">Public trackers can be a few minutes behind, and some private aircraft are hidden. The operator's times are the record: enter them below.</span></p>`; }
+  return `<p class="small" data-track="${esc(r)}">Track ${esc(r)}: ${trackUrls(r).map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer" data-trk="1">${n}</a>`).join(" · ")}<br><span class="muted">Public trackers can be a few minutes behind, and some private aircraft are hidden. The operator's times are the record: enter them below.</span></p>`; }
+/* Track opens the tracker in one small window beside the portal (the trackers do not allow being shown inside other sites).
+   The same window is reused for the next flight (only the three trackers named here are opened this way); where pop-ups are blocked, or on phones, it opens as a normal tab. */
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest("a[data-trk]"); if (!a || e.ctrlKey || e.metaKey || e.shiftKey || innerWidth < 700) return;
+  const w = 620, h = Math.min(760, screen.availHeight - 80), left = Math.max(0, (screen.availLeft || 0) + screen.availWidth - w - 24), top = (screen.availTop || 0) + 40;
+  const old = window.__trkWin; if (old && !old.closed) { try { old.location.href = a.href; old.focus(); e.preventDefault(); return; } catch(err){} }   // one tracker window, reused
+  const win = window.open(a.href, "archeTrack", `popup=yes,width=${w},height=${h},left=${left},top=${top}`);
+  if (win) { e.preventDefault(); window.__trkWin = win; win.focus(); }
+});
 function allLanded(t){ const ls = legSt(t); return ls.length > 0 && ls.every(x => x.s === "land" || x.s === "canc") && ls.some(x => x.s === "land"); }
 function lastLanding(t){ const ls = legSt(t).filter(x => x.s === "land" && x.at); return ls.length ? ls.map(x => x.at).sort().slice(-1)[0] : null; }
 function acStatus(t){
@@ -7061,7 +7070,7 @@ function trustMatrix(){
     rows.sort((a, b) => (a.l.date + (a.l.time || "")).localeCompare(b.l.date + (b.l.time || "")));
     return `<div class="panel"><h2>Flights today and tomorrow (${rows.length})</h2>${rows.length ? `<div class="tbl"><table class="small"><thead><tr><th scope=col>When</th><th scope=col>Leg</th><th scope=col>Status</th><th scope=col>Client</th><th scope=col></th></tr></thead><tbody>${rows.map(x => { const ls = (legSt(x.t)[x.i] || {}), tl = typeof tailOf === "function" ? tailOf(x.t) : "";
         return `<tr><td>${x.day} ${esc(x.l.time || "")}</td><td><b>${esc(x.l.from)} → ${esc(x.l.to)}</b>${legsOf(x.t).length > 1 ? ` <span class="muted">leg ${x.i + 1} of ${legsOf(x.t).length}</span>` : ""}${tl ? `<br><span class="muted">${esc(tl)}</span>` : ""}</td><td>${typeof legChip === "function" ? legChip(ls) : ""}${ls.note ? `<br><span class="muted">${esc(ls.note)}</span>` : ""}</td><td>${esc(cl(x.t))}${goto === "queue" ? ` <span class="muted">· ${esc(nm(x.t.bid))}</span>` : ""}</td><td><a href="#" data-open="${x.t.bid}|${x.t.did}" data-goto="${goto}">Open</a>${tl ? ` · <a href="${esc(trackUrls(tl)[0][1])}" target="_blank" rel="noopener noreferrer" data-trk="1">Track</a>` : ""}</td></tr>`; }).join("")}</tbody></table></div>
-      <p class="small muted">Delayed, diverted and cancelled legs show in red. Track opens the aircraft on Flightradar24 by its registration (some private aircraft are hidden). Follow every leg until the last passenger has landed, then follow up with the client within 24 hours (manual 11.5).</p>` : `<p class="small muted">No flights today or tomorrow.</p>`}</div>`;
+      <p class="small muted">Delayed, diverted and cancelled legs show in red. Track opens the aircraft on Flightradar24 in a small window beside the portal (some private aircraft are hidden). Follow every leg until the last passenger has landed, then follow up with the client within 24 hours (manual 11.5).</p>` : `<p class="small muted">No flights today or tomorrow.</p>`}</div>`;
   }
   function waiting(me){
     const rows = [];

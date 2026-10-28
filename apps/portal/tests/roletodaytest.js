@@ -18,6 +18,13 @@ ok('broker sees the enquiry pool section',await B.evaluate(()=>/Open enquiries i
 ok('sections are collapsible',await B.evaluate(()=>document.querySelectorAll('#main div[data-clp]').length>=4&&!!document.querySelector('[data-clpall]')));
 ok('flight row shows the status in red with the note and registration',await B.evaluate(()=>{const c=[...document.querySelectorAll('#main .chip.c-returned')].find(x=>x.textContent==='Delayed');return !!c&&/Slot at 10:40/.test(document.querySelector('#main').innerText)&&/9V-EXA/.test(document.querySelector('#main').innerText);}));
 ok('Track link opens the aircraft by registration in a new tab',await B.evaluate(()=>{const a=document.querySelector('#main a[data-trk]');return !!a&&a.href==='https://www.flightradar24.com/data/aircraft/9v-exa'&&a.target==='_blank'&&/noopener/.test(a.rel);}));
+await B.click('[data-clpall="1"]');await B.waitForTimeout(300);
+await B.context().route('**/*flightradar24.com/**',r=>r.fulfill({status:200,contentType:'text/html',body:'<title>tracker</title>example'}));
+{const [pop]=await Promise.all([B.waitForEvent('popup',{timeout:5000}).catch(()=>null),B.click('#main a[data-trk]')]);
+ ok('Track opens a small window, not a new full tab',!!pop&&/flightradar24\.com\/data\/aircraft\/9v-exa/.test(pop.url())&&await pop.evaluate(()=>innerWidth<=700),pop&&pop.url());
+ ok('the portal stays on Today',await B.evaluate(()=>S.view==='today'));
+ const [pop2]=await Promise.all([B.waitForEvent('popup',{timeout:3000}).catch(()=>null),B.evaluate(()=>document.querySelector('#main a[data-trk]').click())]);
+ await B.waitForTimeout(500);ok('clicking Track again reuses the same window',!pop2&&!pop.isClosed());if(pop&&!pop.isClosed())await pop.close();}
 await B.click('[data-view="home"]');await B.waitForTimeout(800);ok('Dashboard button opens the Dashboard',await B.evaluate(()=>S.view==='home'));
 const O=await open('ops');await seed(O);await O.evaluate(()=>{S.view='today';render();});await O.waitForTimeout(1500);
 ok('operations lands on Today with its own sections',await O.evaluate(()=>navItems()[0][0]==='today'&&/Client payments outstanding/.test(document.querySelector('#main').innerText)));
