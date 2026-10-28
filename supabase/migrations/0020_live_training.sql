@@ -21,8 +21,9 @@ as $$
     where c.key = 'live'
       and public.is_member()
       and p_topic = 'train:' || (c.value ->> 'id')
-      and (c.value ->> 'until') ~ '^\d{4}-\d{2}-\d{2}T'
-      and (c.value ->> 'until')::timestamptz > now()
+      and case when (c.value ->> 'until') ~ '^\d{4}-\d{2}-\d{2}T'
+               then (c.value ->> 'until')::timestamptz > now()
+               else false end
       and (
         auth.uid()::text = c.value ->> 'owner'
         or (c.value -> 'watchers') ? auth.uid()::text
