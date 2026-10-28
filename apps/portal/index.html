@@ -3251,6 +3251,15 @@ const workDayAfter = iso => { const d = new Date(iso); do { d.setDate(d.getDate(
 const isSup = bid => !!((S.roster[bid] || (bid === S.uid ? S.myRoster : null) || {}).supervised);
 function legsOf(t){ return ((t.d.trip || {}).legs) || []; }
 function legSt(t){ const st = t.st || {}; const ls = st.legStatus || []; return legsOf(t).map((l, i) => ls[i] || {}); }
+/* tracking (Morten, 28 Oct 2026: "how do we all track the flight and status?"): the aircraft registration from the quote opens
+   public trackers; nothing about the client leaves the portal. Some private aircraft are hidden from public trackers. */
+function legChip(x){ const lab = (LEG_ST.find(s => s[0] === ((x || {}).s || "")) || LEG_ST[0])[1], s = (x || {}).s || "";
+  return `<span class="chip ${s === "land" ? "c-flown" : s === "delay" || s === "div" || s === "canc" ? "c-returned" : s === "dep" ? "c-quoted" : "c-enquiry"}">${lab}</span>`; }
+function tailOf(t){ const r = String((((t || {}).d || {}).quote || {}).tail || "").toUpperCase().replace(/\s+/g, ""); return /^[A-Z0-9][A-Z0-9-]{2,9}$/.test(r) ? r : ""; }
+function trackUrls(r){ return [["Flightradar24", `https://www.flightradar24.com/data/aircraft/${r.toLowerCase()}`], ["FlightAware", `https://www.flightaware.com/live/flight/${r.replace(/-/g, "")}`], ["ADS-B Exchange", `https://globe.adsbexchange.com/?reg=${r}`]]; }
+function trackLinks(t){ const r = tailOf(t);
+  if (!r) return `<p class="small muted" data-track="none">Add the aircraft registration to the quote to get tracking links.</p>`;
+  return `<p class="small" data-track="${esc(r)}">Track ${esc(r)}: ${trackUrls(r).map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${n}</a>`).join(" · ")}<br><span class="muted">Public trackers can be a few minutes behind, and some private aircraft are hidden. The operator's times are the record: enter them below.</span></p>`; }
 function allLanded(t){ const ls = legSt(t); return ls.length > 0 && ls.every(x => x.s === "land" || x.s === "canc") && ls.some(x => x.s === "land"); }
 function lastLanding(t){ const ls = legSt(t).filter(x => x.s === "land" && x.at); return ls.length ? ls.map(x => x.at).sort().slice(-1)[0] : null; }
 function acStatus(t){
@@ -3286,13 +3295,14 @@ function followBlock(t){
   if (!["issued","clientPaid","flown"].includes(t.stage)) return "";
   const legs = legsOf(t); if (!legs.length) return "";
   const ls = legSt(t), canEdit = isStaff() && acting() !== "broker" && !ownTrip(t) && !S.preview;
-  const rows = legs.map((l, i) => { const x = ls[i] || {}, lab = (LEG_ST.find(s => s[0] === (x.s || "")) || LEG_ST[0])[1];
+  const rows = legs.map((l, i) => { const x = ls[i] || {};
     return `<tr><td><b>${esc(l.from)} → ${esc(l.to)}</b><br><span class="muted small">${fmtD(l.date)} ${esc(l.time || "")}</span></td>
-      <td>${canEdit ? `<select id="lg_s${i}" style="width:auto" aria-label="Status, leg ${i + 1}">${LEG_ST.map(s => `<option value="${s[0]}" ${(x.s || "") === s[0] ? "selected" : ""}>${s[1]}</option>`).join("")}</select>` : `<span class="chip ${x.s === "land" ? "c-flown" : x.s === "delay" || x.s === "div" ? "c-review" : x.s === "canc" ? "c-cancelled" : x.s === "dep" ? "c-quoted" : "c-enquiry"}">${lab}</span>`}</td>
+      <td>${canEdit ? `<select id="lg_s${i}" style="width:auto" aria-label="Status, leg ${i + 1}">${LEG_ST.map(s => `<option value="${s[0]}" ${(x.s || "") === s[0] ? "selected" : ""}>${s[1]}</option>`).join("")}</select>` : legChip(x)}</td>
       <td>${canEdit ? `<input id="lg_t${i}" type="datetime-local" style="width:auto" value="${esc((x.at || "").slice(0, 16))}" aria-label="Time, leg ${i + 1}">` : (x.at ? `<span class="small">${fmtT(x.at)}</span>` : `<span class="muted small">–</span>`)}</td>
       <td>${canEdit ? `<input id="lg_n${i}" value="${esc(x.note || "")}" placeholder="Note to the broker" aria-label="Note, leg ${i + 1}">` : `<span class="small">${esc(x.note || "")}</span>`}</td></tr>`; }).join("");
   const done = allLanded(t), st = t.st || {};
   return `<div class="panel stack" id="followPanel"><h3 style="margin:0">Flight following</h3><p class="small muted">Follow every leg until the last passenger has landed (manual 11.5). Operations or the 24/7 desk enters the operator's times; tell the client at once about any change.</p>
+    ${trackLinks(t)}
     <div class="tbl"><table class="small"><thead><tr><th scope=col>Leg</th><th scope=col>Status</th><th scope=col>Local time</th><th scope=col>Note</th></tr></thead><tbody>${rows}</tbody></table></div>
     ${canEdit ? `<div class="row"><button class="btn small" type="button" data-ac="legSave">Save leg status</button>${done && st.clientPaid && !st.flownDate ? `<button class="btn small primary" type="button" data-ac="legFlown">Last leg landed: record flight</button>` : ""}</div>` : ""}
     ${done && !st.flownDate ? `<p class="small">All legs landed${st.clientPaid ? "" : "; record the client payment first, then the flight"}.</p>` : ""}</div>`;
@@ -3554,7 +3564,7 @@ document.addEventListener("click", async e => {
     const a = ac.dataset.ac, t = tripById(S.sel); if (!t) return;
     try {
       if (a === "legSave" || a === "legFlown") {
-        const ls = legsOf(t).map((l, i) => { const s = ($("lg_s" + i) || {}).value || "", tm = ($("lg_t" + i) || {}).value || "", n = ($("lg_n" + i) || {}).value || ""; return {s, at: tm ? new Date(tm).toISOString() : "", note: n.slice(0, 200)}; });
+        const ls = legsOf(t).map((l, i) => { const s = ($("lg_s" + i) || {}).value || "", tm = ($("lg_t" + i) || {}).value || "", n = ($("lg_n" + i) || {}).value || ""; const was = legSt(t)[i] || {}; return {s, at: tm ? new Date(tm).toISOString() : "", note: n.slice(0, 200), ...(s && s !== (was.s || "") ? {set: now()} : was.set && s === (was.s || "") ? {set: was.set} : {})}; });   // "set": when the status changed, for the flight alert
         const changed = ls.map((x, i) => x.s !== ((legSt(t)[i] || {}).s || "") ? `${legsOf(t)[i].from}→${legsOf(t)[i].to} ${(LEG_ST.find(s => s[0] === x.s) || LEG_ST[0])[1]}` : "").filter(Boolean).join(", ");
         const patch = {legStatus: ls};
         if (a === "legFlown") { const last = ls.filter(x => x.s === "land" && x.at).map(x => x.at).sort().slice(-1)[0]; if (!last) { toast("Enter the landing time of the last leg."); return; } patch.state = "flown"; patch.flownDate = last.slice(0, 10); }
@@ -5102,6 +5112,7 @@ const ALERT_EVENTS = {
   steps: "Supervised step waiting for an OK",
   pool: "New enquiry in the pool",
   recovery: "Service recovery or overdue follow-up",
+  flight: "Flight status change (departed, delayed, diverted, cancelled, landed)",
   late: "Backup or rotation late",
   escalate: "Escalation: nobody acted in time"
 };
@@ -7048,8 +7059,9 @@ function trustMatrix(){
     trips.filter(t => ["issued", "clientPaid", "flown"].includes(t.stage)).forEach(t => legsOf(t).forEach((l, i) => {
       if (l.date === t0 || l.date === t1) rows.push({t, l, i, day: l.date === t0 ? "Today" : "Tomorrow"}); }));
     rows.sort((a, b) => (a.l.date + (a.l.time || "")).localeCompare(b.l.date + (b.l.time || "")));
-    return `<div class="panel"><h2>Flights today and tomorrow (${rows.length})</h2>${rows.length ? `<div class="tbl"><table class="small"><thead><tr><th scope=col>When</th><th scope=col>Leg</th><th scope=col>Client</th><th scope=col></th></tr></thead><tbody>${rows.map(x => `<tr><td>${x.day} ${esc(x.l.time || "")}</td><td><b>${esc(x.l.from)} → ${esc(x.l.to)}</b>${legsOf(x.t).length > 1 ? ` <span class="muted">leg ${x.i + 1} of ${legsOf(x.t).length}</span>` : ""}</td><td>${esc(cl(x.t))}${goto === "queue" ? ` <span class="muted">· ${esc(nm(x.t.bid))}</span>` : ""}</td><td><a href="#" data-open="${x.t.bid}|${x.t.did}" data-goto="${goto}">Open</a></td></tr>`).join("")}</tbody></table></div>
-      <p class="small muted">Follow every leg until the last passenger has landed, then follow up with the client within 24 hours (manual 11.5).</p>` : `<p class="small muted">No flights today or tomorrow.</p>`}</div>`;
+    return `<div class="panel"><h2>Flights today and tomorrow (${rows.length})</h2>${rows.length ? `<div class="tbl"><table class="small"><thead><tr><th scope=col>When</th><th scope=col>Leg</th><th scope=col>Status</th><th scope=col>Client</th><th scope=col></th></tr></thead><tbody>${rows.map(x => { const ls = (legSt(x.t)[x.i] || {}), tl = typeof tailOf === "function" ? tailOf(x.t) : "";
+        return `<tr><td>${x.day} ${esc(x.l.time || "")}</td><td><b>${esc(x.l.from)} → ${esc(x.l.to)}</b>${legsOf(x.t).length > 1 ? ` <span class="muted">leg ${x.i + 1} of ${legsOf(x.t).length}</span>` : ""}${tl ? `<br><span class="muted">${esc(tl)}</span>` : ""}</td><td>${typeof legChip === "function" ? legChip(ls) : ""}${ls.note ? `<br><span class="muted">${esc(ls.note)}</span>` : ""}</td><td>${esc(cl(x.t))}${goto === "queue" ? ` <span class="muted">· ${esc(nm(x.t.bid))}</span>` : ""}</td><td><a href="#" data-open="${x.t.bid}|${x.t.did}" data-goto="${goto}">Open</a>${tl ? ` · <a href="${esc(trackUrls(tl)[0][1])}" target="_blank" rel="noopener noreferrer" data-trk="1">Track</a>` : ""}</td></tr>`; }).join("")}</tbody></table></div>
+      <p class="small muted">Delayed, diverted and cancelled legs show in red. Track opens the aircraft on Flightradar24 by its registration (some private aircraft are hidden). Follow every leg until the last passenger has landed, then follow up with the client within 24 hours (manual 11.5).</p>` : `<p class="small muted">No flights today or tomorrow.</p>`}</div>`;
   }
   function waiting(me){
     const rows = [];

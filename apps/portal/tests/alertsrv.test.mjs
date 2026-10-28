@@ -50,3 +50,21 @@ ok("status row written", r.open === items.length - 1 && !!M.tbl.alert_settings.f
 const M2 = mem(D0); M2.tbl.alert_settings[0].data.away = { own1: { until: new Date(now + 3600e3).toISOString(), backup: "own2" } };
 const sent2 = []; await runAlerts(M2, now, { push: async (s, vv, m) => { sent2.push(s.endpoint); return 201; }, email: async (to) => { sent2.push(to); return "ok"; } });
 ok("unavailable: alerts go to the backup, not the person away", sent2.length > 0 && sent2.every(x => x.endsWith("/2") || x === "two@example.com"));
+
+// flight following: one alert per leg status change, sent once, to chosen recipients and the trip's broker; no client name
+const D3 = { trips: [{ owner_id: "b1", id: "t9", data: { stage: "issued", client: { name: "Example Client" }, trip: { legs: [{ from: "WSSS", to: "VTBS" }, { from: "VTBS", to: "WSSS" }] } } }],
+  status: [{ owner_id: "b1", id: "t9", data: { state: "issued", ref: "AE-EX-9", legStatus: [{ s: "dep", at: ago(30), set: ago(5), note: "Example Client on board" }, { s: "", at: "" }] } }],
+  steps: [], web: [], intel: [{ key: "backup", value: { lastRun: ago(1) } }, { key: "assign", value: { lastRun: ago(1) } }], terms: { ownerApproval: true } };
+const f3 = openItems(D3, now).filter(i => i.type === "flight");
+ok("flight: departed leg found once, airports and reference only", f3.length === 1 && f3[0].what === "leg 1 WSSS→VTBS departed" && f3[0].ref === "AE-EX-9");
+const M3 = mem(D3); M3.tbl.alert_settings[0].data.recipients[0].events.flight = true; M3.tbl.push_subs.push({ owner_id: "b1", id: "d3", data: { endpoint: "https://push.example.com/broker", keys } });
+const s3 = []; const snd3 = { push: async (s, vv, m) => { s3.push(["push", s.endpoint, m.title + " " + m.body]); return 201; }, email: async (to, subj, txt) => { s3.push(["email", to, subj + " " + txt]); return "ok"; } };
+await runAlerts(M3, now, snd3);
+ok("flight: push to the owner who chose it and to the trip's broker, email to the owner", s3.some(x => x[1].endsWith("/1")) && s3.some(x => x[1].endsWith("/broker")) && s3.some(x => x[1] === "one@example.com") && !s3.some(x => x[1].endsWith("/2")));
+ok("flight: no client name or note in any message", s3.every(x => !/Example Client|on board/.test(x[2])));
+s3.length = 0; await runAlerts(M3, now + 20 * 60e3, snd3); await runAlerts(M3, now + 50 * 60e3, snd3);
+ok("flight: sent once, no reminders or escalation", s3.length === 0);
+M3.tbl.trip_status[0].data.legStatus[0] = { s: "delay", at: ago(1), set: ago(1) };
+s3.length = 0; await runAlerts(M3, now + 52 * 60e3, snd3);
+ok("flight: a new status sends a new alert", s3.some(x => /delayed/.test(x[2])));
+ok("flight: older than 6 hours is not sent", openItems(D3, now + 7 * 3600e3).filter(i => i.type === "flight").length === 0);

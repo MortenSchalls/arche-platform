@@ -7,6 +7,7 @@ const ALERT_EVENTS = {
   steps: "Supervised step waiting for an OK",
   pool: "New enquiry in the pool",
   recovery: "Service recovery or overdue follow-up",
+  flight: "Flight status change (departed, delayed, diverted, cancelled, landed)",
   late: "Backup or rotation late",
   escalate: "Escalation: nobody acted in time"
 };

@@ -67,7 +67,7 @@ async function sendEmail(to, subject, text) {
 
 /* ---------- what is waiting (types match Team > Alerts) ---------- */
 const TITLES = { approve: "Booking waiting for your approval", steps: "Supervised step waiting for an OK", pool: "New enquiry waiting",
-  recovery: "Service recovery or overdue follow-up", late: "Backup or rotation late", escalate: "Escalation" };
+  recovery: "Service recovery or overdue follow-up", flight: "Flight status change", late: "Backup or rotation late", escalate: "Escalation" };
 export function openItems(d, now = Date.now()) {
   const out = [], st = {}; (d.status || []).forEach(r => st[r.owner_id + "/" + r.id] = r.data || {});
   const approvalOn = ((d.terms || {}).ownerApproval) !== false;
@@ -80,6 +80,17 @@ export function openItems(d, now = Date.now()) {
       if (Number(r.overall) > 0 && Number(r.overall) <= 3 && !x.recovery) out.push({ key: `recovery:${t.owner_id}:${t.id}`, type: "recovery", ref, since: r.at || s.updatedAt, what: `client rated ${r.overall}/5` });
       if (!x.followUp && base && now > base + 24 * 3600e3) out.push({ key: `followup:${t.owner_id}:${t.id}`, type: "recovery", ref, since: new Date(base + 24 * 3600e3).toISOString(), what: "24-hour follow-up overdue" });
     }
+  }
+  // flight following: one alert per leg status change (departed, delayed, diverted, cancelled, landed), sent once within
+  // 6 hours of the change; to Team > Alerts entries that chose it and to the trip's broker's own devices. Airports and
+  // the trip reference only: never the client's name or the note.
+  const LEG = { dep: "departed", land: "landed", delay: "delayed", div: "diverted", canc: "cancelled" };
+  for (const t of d.trips || []) {
+    const x = t.data || {}, s = st[t.owner_id + "/" + t.id] || {}, legs = (x.trip || {}).legs || [], ref = s.ref || t.id;
+    (s.legStatus || []).forEach((e, i) => { if (!e || !LEG[e.s] || !e.set) return; const at = Date.parse(e.set); if (!(at > now - 6 * 3600e3)) return;
+      const l = legs[i] || {}, air = c => String(c || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4);
+      out.push({ key: `flight:${t.owner_id}:${t.id}:${i}:${e.s}`, type: "flight", ref, since: e.set, once: true, broker: t.owner_id,
+        what: `${legs.length > 1 ? `leg ${i + 1} ` : ""}${air(l.from) && air(l.to) ? air(l.from) + "→" + air(l.to) + " " : ""}${LEG[e.s]}` }); });
   }
   for (const r of d.steps || []) if ((r.data || {}).status === "pending") out.push({ key: `steps:${r.owner_id}:${r.id}`, type: "steps", ref: r.data.ref || "", since: r.data.at, what: r.data.key });
   for (const e of d.web || []) { const x = e.data || {}; if (!x.handled) out.push({ key: `pool:web:${e.id}`, type: "pool", ref: "website " + (x.type === "callback" ? "call-back request" : "enquiry"), since: e.at || x.at }); }
@@ -112,6 +123,15 @@ export async function runAlerts(D, now = Date.now(), send = { push: sendPush, em
   let pushes = 0, emails = 0; const errors = [];
   for (const it of items) {
     const L = log[it.key] || { first: now, count: 0 }; const age = now - L.first;
+    if (it.once) {   // a notice, not a task: sent once, no reminders or escalation
+      if (L.count) continue;
+      const title = `Archē: ${TITLES[it.type]}`, body = `${it.ref} · ${it.what}. Open the portal for details.`;
+      const who = R.filter(r => (r.events || {})[it.type]), devs = subs.filter(s => who.some(r => r.uid && r.uid === s.owner_id) || s.owner_id === it.broker);
+      for (const s of devs) { try { const code = await send.push(s.data, v, { title, body, tag: it.key, url: PORTAL + "/" }); if (code === 404 || code === 410) await D.del("push_subs", `owner_id=eq.${s.owner_id}&id=eq.${encodeURIComponent(s.id)}`); else if (code < 300) pushes++; else errors.push("push " + code); } catch (e) { errors.push("push " + e.message); } }
+      for (const r of who) if (r.email) { const res = await send.email(r.email, title, `${body}\n\n${PORTAL}\n\nYou get this because you are on the alert list in Team > Alerts.`); if (res === "ok") emails++; else if (res !== "no-key") errors.push("email " + res); }
+      await D.put("alert_settings", "log:" + it.key, { first: now, count: 1, level: 0, type: it.type, ref: it.ref, lastPush: now, lastEmail: now });
+      continue;
+    }
     const dueP = !L.lastPush || now - L.lastPush >= repeat, dueE = !L.lastEmail || now - L.lastEmail >= emailEvery;
     if (!dueP && !dueE) continue;
     const level = Math.floor(age / escalate);   // 0 = first person, 1 = add the second, …
