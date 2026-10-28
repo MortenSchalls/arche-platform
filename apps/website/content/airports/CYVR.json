@@ -1,0 +1,22 @@
+{
+ "icao": "CYVR",
+ "iata": null,
+ "name": "Vancouver International Airport",
+ "city": "Vancouver",
+ "country": "CA",
+ "tz": "America/Vancouver",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-28",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "hours"
+ ],
+ "notes": "Not opened: NAV CANADA Canada Flight Supplement / CAP and Transport Canada pages, and the airport authority site (yvr.ca; https://www.yvr.ca/en/about-yvr/noise blocked), were not reached: the web-search budget for the run ran out before an official URL could be found, and unlisted URLs were blocked by the fetch tool. Night restriction programme not verified."
+}

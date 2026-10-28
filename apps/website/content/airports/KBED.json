@@ -1,0 +1,39 @@
+{
+ "icao": "KBED",
+ "iata": null,
+ "name": "Laurence G. Hanscom Field",
+ "city": "Bedford (Boston)",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "noise": {
+   "v": "no night ban, but a nighttime field use charge for every operation 23:00-07:00 local (doubled after five in a year; Hanscom-based aircraft exempt); touch-and-go and use of APUs/GPUs outside hangars banned 23:00-07:00",
+   "src": "kbed-740cmr25",
+   "quote": "any aircraft operating at Hanscom between the hours of 11:00 P.M. and 7:00 A.M. (\"nighttime hours\")"
+  },
+  "max_aircraft": {
+   "v": "fixed-wing aircraft over 12,500 lb must meet FAR Part 36 noise rules; no commercial passenger service with aircraft of more than 60 seats",
+   "src": "kbed-740cmr25",
+   "quote": "shall conduct at Hanscom an operation in commercial air passenger service"
+  },
+  "hours": {
+   "v": "control tower 07:00-23:00 local",
+   "src": "kbed-faa-pilotinfo",
+   "quote": "KBED ATCT operates 0700L2300L"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew (regulation sets a night charge, not a ban)",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel"
+ ],
+ "notes": "Read 740 CMR 25.00 (Massport's Hanscom regulation, on mass.gov; no amendment date shown) and the FAA BED pilot handbook (undated). Massport web pages (massport.com rules, flight planning, operating fees, noise, State of Hanscom PDF) returned only bot-protection pages. Not opened: CBP KBED fact sheet (19 Feb 2026) https://www.cbp.gov/sites/default/files/2026-02/KBED%20GA%20Airport%20Fact%20Sheet%2020260219.pdf; FAA Chart Supplement (CS_NE_20260903.pdf). Runway lengths not found in a readable official source. Website wording: night flights are allowed but pay a night charge; do not call it a curfew. IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+}

@@ -1,0 +1,41 @@
+{
+ "icao": "KIAD",
+ "iata": null,
+ "name": "Washington Dulles International Airport",
+ "city": "Washington",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "four runways; longest 1C/19C and 1R/19L, each 11,500 ft (about 3,505 m); 12/30 is 10,500 ft, 1L/19R 9,400 ft",
+   "longest_m": 3505,
+   "src": "kiad-mwaa-overview",
+   "quote": "1C/19C 11,500 feet long and began service when Dulles opened in 1962."
+  },
+  "customs": {
+   "v": "CBP clears arriving general aviation aircraft 24 hours a day, 7 days a week; call CBP before leaving the foreign airport and at least 2 hours before arrival; landing permission valid +/-30 minutes",
+   "h24": true,
+   "src": "kiad-cbp-ga",
+   "quote": "Inspection services for the entrance/arrival of aircraft at KIAD are available 24 hours per day"
+  },
+  "handling": {
+   "v": "general aviation FBOs: Signature Flight Support (east side) and Jet Aviation (west side); CBP also lists Dulles Jet Center",
+   "src": "kiad-mwaa-overview",
+   "quote": "Signature Flight Support and Jet Aviation serve as the Fixed Base Operators for the general aviation community."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "hours",
+  "fuel",
+  "runway width"
+ ],
+ "notes": "Read the MWAA flydulles.com airport overview (undated) and the CBP KIAD fact sheet (17 Apr 2024, KIAD-0424). The MWAA noise page does not mention a curfew or night restrictions, but no source explicitly says there is none, so curfew is left missing. The flydulles noise FAQ page and FAA Chart Supplement (CS_NE_20260903.pdf) could not be opened. Metres are my conversion (1 ft = 0.3048 m). IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+}

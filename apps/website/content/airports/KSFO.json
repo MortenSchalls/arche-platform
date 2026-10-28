@@ -1,0 +1,42 @@
+{
+ "icao": "KSFO",
+ "iata": null,
+ "name": "San Francisco International Airport",
+ "city": "San Francisco",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "customs": {
+   "v": "CBP clears general aviation arrivals generally 08:00-22:00 (wheels down), 7 days a week, planeside at the Signature FBO; request at least one calendar day before arrival; landing permission valid +/-30 minutes",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "22:00"
+    ]
+   ],
+   "src": "ksfo-cbp-ga",
+   "quote": "generally available 7 days per week, 0800-2200 (wheels down)"
+  },
+  "handling": {
+   "v": "general aviation aircraft clear customs at the Signature FBO; there is no CBP office at the FBO",
+   "src": "ksfo-cbp-ga",
+   "quote": "Signature FBO"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "hours",
+  "fuel"
+ ],
+ "notes": "Read only the CBP KSFO fact sheet (29 May 2024, KSFO-0524); it does not state the time zone on the 0800-2200 line, local Pacific time is the natural reading. Not opened: FAA Chart Supplement (CS_SW_20260903.pdf) and SFO special notices https://aeronav.faa.gov/afd/02OCT2025/sw_SFO_notices_02OCT2025.pdf, FAA airport diagram https://www.faa.gov/aero_docs/dtpp/2608/00375SANFRANCISCO.PDF, FAA NASR page. The airport's own site (flysfo.com / fly.sfo.gov) gave no readable page; search budget ran out before runway facts were found. IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+}

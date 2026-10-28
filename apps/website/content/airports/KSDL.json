@@ -1,0 +1,71 @@
+{
+ "icao": "KSDL",
+ "iata": "SDL",
+ "name": "Scottsdale Airport",
+ "city": "Scottsdale",
+ "country": "US",
+ "tz": "America/Phoenix",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 3/21, 8,249 ft (about 2,514 m) x 100 ft; the city noted a runway closure 24-31 Oct (2026)",
+   "longest_m": 2514,
+   "src": "ksdl-pilot",
+   "quote": "8,249 ft."
+  },
+  "max_aircraft": {
+   "v": "runway weight limit 75,000 lb maximum certificated take-off weight; aircraft up to 100,000 lb MTOW may operate above 75,000 lb only with prior permission",
+   "src": "ksdl-pilot",
+   "quote": "75,000 lbs. Certificated Takeoff Weight"
+  },
+  "ppr": {
+   "v": "aircraft operating above 75,000 lb (MTOW 75,001-100,000 lb) need PPR on the Heavy Aircraft Operation PPR form, via Airport Operations",
+   "src": "ksdl-noise",
+   "quote": "must secure \"P.P.R.\""
+  },
+  "curfew": {
+   "v": "voluntary curfew 22:00-06:00 local (05:00-13:00 UTC; Arizona keeps UTC-7 all year); not a ban",
+   "windows_local": [
+    [
+     "22:00",
+     "06:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "ksdl-noise",
+   "quote": "Voluntary Curfew - 10 p.m. - 6 a.m."
+  },
+  "noise": {
+   "v": "touch-and-goes banned 21:30-06:00 and engine run-ups banned 22:00-07:00; intersection take-offs prohibited; non-Stage 3 aircraft asked to depart runway 3",
+   "src": "ksdl-noise",
+   "quote": "Touch-and-go operations prohibited between 9:30 p.m. and 6 a.m."
+  },
+  "customs": {
+   "v": "US Customs daily 09:00-19:00 local (16:00-02:00 UTC); the user fee must be prepaid online before arrival",
+   "h24": false,
+   "hours_local": [
+    [
+     "09:00",
+     "19:00"
+    ]
+   ],
+   "src": "ksdl-general",
+   "quote": "U.S. Customs service is currently available daily from 9 a.m. to 7 p.m."
+  },
+  "hours": {
+   "v": "airport operations open 24/7",
+   "src": "ksdl-general",
+   "quote": "Open 24/7"
+  }
+ },
+ "missing": [
+  "slots",
+  "fuel",
+  "deicing",
+  "tower hours",
+  "handling (FBO names)"
+ ],
+ "notes": "Read City of Scottsdale airport pages: Pilot Information (last updated 31 Jul 2026), Noise Abatement Procedures (29 May 2024), General Information (14 Oct 2026, shows IATA 'SDL'). Pilot Information gives customs as 1600Z-0200Z and the voluntary curfew as 0500Z-1300Z; I converted with UTC-7 (Arizona, no summer time), matching the 9 a.m.-7 p.m. and 10 p.m.-6 a.m. local times on the other pages. Runway 03/21 closure 'Oct. 24 - 31' shown without year on 28 Oct 2026; check NOTAMs. CBP fact sheet (https://www.cbp.gov/sites/default/files/2025-06/KSDL%20GA%20Airport%20Fact%20Sheet%2020250606.pdf) could not be opened. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened. Metres are my conversion (1 ft = 0.3048 m)."
+}

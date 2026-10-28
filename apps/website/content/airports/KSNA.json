@@ -1,0 +1,46 @@
+{
+ "icao": "KSNA",
+ "iata": null,
+ "name": "John Wayne Airport, Orange County",
+ "city": "Santa Ana (Orange County)",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "main runway 5,700 ft (about 1,737 m), used by airlines and general aviation; a 2,887 ft runway serves general aviation",
+   "longest_m": 1737,
+   "src": "ksna-about",
+   "quote": "the 5,700-foot main runway serves both commercial and general aviation aircraft"
+  },
+  "curfew": {
+   "v": "no curfew for general aviation: GA may operate 24 hours if it meets the General Aviation Noise Ordinance (GANO) limits, which are much stricter at night (departures before 07:00, 08:00 Sundays, or after 22:00; arrivals before 07:00, 08:00 Sundays, or after 23:00); the airline night curfew under the Access Plan does not apply to GA",
+   "none": true,
+   "src": "ksna-access-noise",
+   "quote": "General Aviation operations are permitted 24 hours daily subject to compliance with the daytime noise limits"
+  },
+  "noise": {
+   "v": "GANO compliance is mandatory; daytime limits 101.1-102.5 dB SENEL, night limits 86.7-87.6 dB SENEL at the monitoring stations; daytime is Mon-Sat 07:00-22:00 departures and 07:00-23:00 arrivals, Sundays from 08:00; three violations in three years can bar the owner, operator and aircraft for three years; older types (e.g. Gulfstream II/IIB/III, Learjet 23-29, HS125 with Viper engines) are presumed unable to comply and may not use the airport except in an emergency",
+   "src": "ksna-ga-flyer",
+   "quote": "Daytime Hours are (local time)"
+  },
+  "max_aircraft": {
+   "v": "aircraft presumed unable to meet GANO limits (including Gulfstream II, IIB, III; Learjet 23, 24, 25, 28, 29; HS125-1A-600 with Viper engines; Jetstar II; Piaggio P180) may not land, take off or be based at the airport, except in an emergency",
+   "src": "ksna-ga-flyer",
+   "quote": "are presumed incapable of meeting noise limitations defined in the GANO and are not permitted to land, tie down, takeoff or be based at the Airport, except in an emergency"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "ppr",
+  "hours",
+  "fuel",
+  "handling",
+  "runway width"
+ ],
+ "notes": "Runway lengths from the County's About JWA page (no runway designators given); metres are my conversion (1 ft = 0.3048 m). Curfew: the County's Access and Noise page says GA is permitted 24 hours subject to day and stricter night noise limits; this is recorded as no curfew for GA, but in practice the night SENEL limits (about 87 dB) are very strict, so check the aircraft's noise data before any night slot. The airline curfew hours under the Phase 2 Access Plan were not read. The GANO ordinance PDF (https://files.ocair.com/media/2021-02/general-aviation-noise-ordinance-gano-10-27-15_web.pdf) could not be opened; noise figures come from the airport's GA Noise Abatement flyer. The flyer list layout also mentions Jet Commander ambiguously; it is left out. No CBP fact sheet for KSNA was found; FAA Chart Supplement SW (https://aeronav.faa.gov/Upload_313-d/supplements/CS_SW_20260903.pdf) could not be opened. The IATA code was not shown on the sources read."
+}

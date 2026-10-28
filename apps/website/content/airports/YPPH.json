@@ -1,0 +1,39 @@
+{
+ "icao": "YPPH",
+ "iata": null,
+ "name": "Perth Airport",
+ "city": "Perth",
+ "country": "AU",
+ "tz": "Australia/Perth",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two runways, 03/21 (3,444 m × 45 m) and 06/24 (2,163 m × 45 m)",
+   "longest_m": 3444,
+   "src": "ypph-rds",
+   "quote": "TORA 3444 (11299)"
+  },
+  "curfew": {
+   "v": "no curfew (no restrictions on night movements) at Perth Airport, per Airservices",
+   "none": true,
+   "src": "ypph-airservices-faq",
+   "quote": "Why isn't there a curfew (restrictions on night movements) at Perth Airport?"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "max_aircraft",
+  "fuel",
+  "noise",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: RDS YPPH effective 09 Jul 2026 (runway 03/21 TORA 3444 m, 06/24 TORA 2163 m) and DAP aerodrome chart PPHAD01-186 (labels '3444 x 45' and '2163 x 45'). The ERSA facilities page could not be opened: https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YPPH_09JUL2026.pdf (blocked) and FAC_YPPH_27NOV2025.pdf (site error), so customs, fuel, slots, parking and handling are not verified. The no-curfew fact comes from an Airservices Engage Q&A heading on the Perth new runway project (the answer says curfews are set by the Department of Infrastructure); the Commonwealth curfew page lists only Sydney, Adelaide, Gold Coast and Essendon Fields. Western Australia has no daylight time (UTC+8)."
+}

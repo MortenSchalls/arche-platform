@@ -1,0 +1,24 @@
+{
+ "icao": "ZGSZ",
+ "iata": null,
+ "name": "Shenzhen Bao'an International Airport",
+ "city": "Shenzhen",
+ "country": "CN",
+ "tz": "Asia/Shanghai",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-28",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "hours",
+  "handling",
+  "permits"
+ ],
+ "notes": "Tried 28 Oct 2026: China eAIP (www.eaipchina.cn, www.aischina.com) - fetch blocked (permission not granted in time); only unofficial mirrors of old (2019) eAIP editions were found by search, which may not be used. No page of the operator's own website was found by search; the Shenzhen government airport listing (www.sz.gov.cn/xxgk/sydwxxgk/jt/jc/) redirected to http and was not opened. CAAC AIP AD 2 for this airport should be obtained (e.g. via a registered eAIP China account) and read before any rule is recorded."
+}

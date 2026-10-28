@@ -1,0 +1,63 @@
+{
+ "icao": "KASE",
+ "iata": "ASE",
+ "name": "Aspen-Pitkin County Airport (Sardy Field)",
+ "city": "Aspen",
+ "country": "US",
+ "tz": "America/Denver",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 15/33, 8,006 ft (about 2,440 m) long and 100 ft (about 30 m) wide; it slopes uphill about 2% to the southeast; field elevation 7,815 ft",
+   "longest_m": 2440,
+   "src": "kase-background",
+   "quote": "The runway was updated to its present size of 8,006 feet long by 100 feet wide"
+  },
+  "curfew": {
+   "v": "mandatory curfew: the airport is closed 23:00-07:00 local; Stage 3 jets may not land 23:00-07:00 or take off 22:30-07:00; Stage 2 aircraft may not fly at night at all; only emergency flights (medevac, search and rescue, firefighting) are exempt",
+   "windows_local": [
+    [
+     "22:30",
+     "07:00"
+    ]
+   ],
+   "src": "kase-limits",
+   "quote": "No Person shall depart from the Airport in an Aircraft that is certificated as Stage III between 10:30 P.M. and 7:00 A.M. local time."
+  },
+  "max_aircraft": {
+   "v": "no aircraft with a wingspan over 95 ft, or a maximum landing weight over 100,000 lb (dual wheel) or 160,000 lb (dual tandem); after the 2027 runway rebuild the wingspan limit is planned to rise to 118 ft",
+   "src": "kase-limits",
+   "quote": "Has a tip-to-tip wingspan of greater than 95 feet"
+  },
+  "ppr": {
+   "v": "take-offs on runway 15 need a signed waiver (through Atlantic Aviation); night VFR (30 minutes after sunset to 23:00) needs a pilot with a take-off or landing at Aspen in the last 12 months, an instrument rating and an IFR-equipped aircraft",
+   "src": "kase-approach",
+   "quote": "Runway 15 takeoffs requires a waiver to be signed by Atlantic Aviation."
+  },
+  "noise": {
+   "v": "Stage 1 aircraft banned; Stage 3 departures banned 22:30-07:00 (MST as stated); arrivals keep to the noise track with no more than 20 degrees of bank",
+   "src": "kase-noise",
+   "quote": "No Person shall depart from the Airport in an Aircraft that is certificated as Stage III between 2230 and 0700 MST."
+  },
+  "hours": {
+   "v": "airport closed 23:00-07:00 (stated as MST); control tower 07:00-20:00 (stated as MST). The airport will be fully closed from 4 Apr 2027 23:00 to 19 Nov 2027 19:00 for runway reconstruction (runway widened to 150 ft)",
+   "src": "kase-curfew",
+   "quote": "Airport Closed: 2300 – 0700 MST"
+  },
+  "handling": {
+   "v": "the airport names Atlantic Aviation as its fixed base operator",
+   "src": "kase-pilotinfo",
+   "quote": "Fixed Base Operator: Atlantic Aviation"
+  }
+ },
+ "missing": [
+  "customs",
+  "slots",
+  "fuel",
+  "deicing",
+  "runway (FAA Chart Supplement wording)"
+ ],
+ "notes": "Read the Aspen/Pitkin County Airport pilot pages (Aircraft Limitations 8 Sep 2023, Curfew 10 Aug 2023, Approach & Departure 14 Nov 2024, Noise Abatement 17 Sep 2026, High Altitude Safety 8 Sep 2023, Runway Reconstruction FAQs 1 Oct 2026, Redevelopment Background 23 Jun 2023). The curfew window recorded (22:30-07:00) is the Stage 3 jet departure ban; jet arrivals are banned 23:00-07:00; the airport pages state these as 'local time' and also as 'MST'. Night VFR rule and 2027 closure dates are from the Approach & Departure and Runway Reconstruction FAQ pages (2027 closure: 4 Apr 2027 23:00 to 19 Nov 2027 19:00); after reopening the wingspan limit is planned at 118 ft or less. Runway 8,006 x 100 ft from the airport's own pages; metres are my conversion (1 ft = 0.3048 m). No official page on customs was found; the airport site does not mention customs, so plan clearance at a port of entry first. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened; airport PDFs on aspenairport.com (2026 ordinance BOCC 016-2026, ASE_FAQ_v3.pdf) looped on an http/https redirect and were not read."
+}

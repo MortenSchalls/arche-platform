@@ -1,0 +1,37 @@
+{
+ "icao": "KDAL",
+ "iata": null,
+ "name": "Dallas Love Field",
+ "city": "Dallas",
+ "country": "US",
+ "tz": "America/Chicago",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "longest runway 13R/31L, 8,800 ft (about 2,682 m); 13L/31R 7,753 ft; all 150 ft wide (city document dated May 2011; the third runway listed then, 18/36, was not re-checked)",
+   "longest_m": 2682,
+   "src": "kdal-swppp",
+   "quote": "RWY 13R/31L (length: 8,800 feet)"
+  },
+  "noise": {
+   "v": "voluntary noise programme: jets and aircraft over 12,500 lb prefer runway 13R/31L at night (21:00-06:00); engine maintenance run-ups banned midnight-06:00 and voluntarily avoided 22:00-midnight",
+   "src": "kdal-noise",
+   "quote": "All jet aircraft are preferred to operate on Runway 13R/31L at night."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "curfew",
+  "hours",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "Dallas Love Field is owned by the City of Dallas, Department of Aviation (SWPPP General Information, May 2011). Runway data come from that 2011 city document; check against the current FAA Chart Supplement before publishing. Voluntary noise page and leaflet (no dates) give no curfew. The airport page International Arrivals & Customs (https://www.dallas-lovefield.com/airport-info/general-aviation/international-arrivals-and-customs) and the environmental FAQ failed to load (client error). FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened; CBP pages refused. Metres are my conversion (1 ft = 0.3048 m)."
+}

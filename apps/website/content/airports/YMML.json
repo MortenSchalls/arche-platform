@@ -1,0 +1,64 @@
+{
+ "icao": "YMML",
+ "iata": null,
+ "name": "Melbourne Airport",
+ "city": "Melbourne",
+ "country": "AU",
+ "tz": "Australia/Melbourne",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two runways, 16/34 (3,657 m × 60 m) and 09/27 (2,286 m × 45 m)",
+   "longest_m": 3657,
+   "src": "ymml-dap-ad",
+   "quote": "3657 x 60 ... 2286 x 45"
+  },
+  "hours": {
+   "v": "the airport operator calls Melbourne a 24-hour airport",
+   "src": "ymml-apam-masterplan",
+   "quote": "Australia's largest 24-hour gateway"
+  },
+  "customs": {
+   "v": "customs, immigration and quarantine at Melbourne Jet Base, 24 hours, with prior notice",
+   "h24": true,
+   "src": "ymml-ersa",
+   "quote": "Over the counter Customs, Immigration and Quarantine available H24 with PN."
+  },
+  "ppr": {
+   "v": "parking for visiting aircraft must be approved by the airport's Integrated Operations Centre at least 24 hours before arrival",
+   "src": "ymml-ersa",
+   "quote": "Parking of itinerant ACFT must be approved by the Integrated Operations Centre ... at least 24HR prior to ETA."
+  },
+  "handling": {
+   "v": "Melbourne Jet Base (MJB): full FBO and VIP services for aircraft up to 400,000 kg; open 24 hours with 2 hours' notice for aircraft up to 50,000 kg; hangar and private apron parking",
+   "src": "ymml-ersa",
+   "quote": "Melbourne Jet Base (MJB) - Full FBO services and VIP facilities for ACFT up to 400,000KG."
+  },
+  "max_aircraft": {
+   "v": "Melbourne Jet Base is open 24 hours with 2 hours' prior notice for aircraft up to 50,000 kg",
+   "src": "ymml-ersa",
+   "quote": "H24 with 2HR PN for Civil and MIL ACFT up to 50,000KG."
+  },
+  "fuel": {
+   "v": "Jet A-1 from Viva (19:00-16:00 UTC daily) and Skytanking (05:00-00:00 UTC daily); BP and Mobil also listed",
+   "src": "ymml-ersa",
+   "quote": "Skytanking: 0500-0000 UTC DLY. Phone 0439 000 021. JET A1."
+  },
+  "noise": {
+   "v": "noise abatement procedures apply (see AIP DAP)",
+   "src": "ymml-ersa",
+   "quote": "Noise Abatement Procedures (NAP) apply. Refer AIP DAP."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no explicit statement; airport calls itself 24-hour)",
+  "slots",
+  "noise procedure details",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: ERSA FAC YMML effective 09 Jul 2026 (newest edition found) and DAP aerodrome chart MMLAD01-187 (09 Jul 2026). The chart labels '3657 x 60' and '2286 x 45' are not tied to a designator in the text; the ERSA gives 16/34 as 60 m wide and 09/27 as 45 m wide, so 3,657 m is 16/34. The aerodrome operator per ERSA is Australia Pacific Airports (Melbourne) Pty Ltd. ERSA header says UTC +10; Melbourne uses daylight time (UTC+11) in summer; fuel hours are given in UTC and not converted. The Commonwealth curfew page (infrastructure.gov.au) lists curfews only at Sydney, Adelaide, Gold Coast and Essendon Fields, but does not state that Melbourne has none, so curfew is left out. The ERSA states no slot requirement for Melbourne. Customs H24 is for Melbourne Jet Base with prior notice."
+}

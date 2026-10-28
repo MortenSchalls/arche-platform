@@ -1,0 +1,64 @@
+{
+ "icao": "YBBN",
+ "iata": null,
+ "name": "Brisbane Airport",
+ "city": "Brisbane",
+ "country": "AU",
+ "tz": "Australia/Brisbane",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways: 01R/19L, 45 m wide, up to 3,560 m take-off run (19L; 3,500 m from 01R); 01L/19R, 60 m wide, 3,300 m",
+   "longest_m": 3560,
+   "src": "ybbn-rds",
+   "quote": "01L (4) 3300 (10827) 3360 (11023) (1.6%) 3300 (10827) 3300 (10827)"
+  },
+  "curfew": {
+   "v": "no curfew; the airport operator welcomed the federal decision to keep Brisbane curfew free (2014 statement)",
+   "none": true,
+   "src": "ybbn-bac-curfew",
+   "quote": "Brisbane Airport Corporation (BAC) welcomes the Federal Government's decision to keep Brisbane Airport curfew free."
+  },
+  "slots": {
+   "v": "every flight needs a slot from Airport Coordination Australia (ACA); slot holders on the GA apron must confirm their parking with the BAC Duty Manager before arrival",
+   "src": "ybbn-ersa",
+   "quote": "All flights operating into and out of Brisbane must obtain an Airport Coordination Australia"
+  },
+  "ppr": {
+   "v": "aircraft parking is requested from the airport operator by email or phone, 24 hours",
+   "src": "ybbn-ersa",
+   "quote": "ACFT parking requests email or PH AD OPR H24."
+  },
+  "max_aircraft": {
+   "v": "the southern taxilane of the GA apron takes aircraft up to 24 m wingspan",
+   "src": "ybbn-ersa",
+   "quote": "GA APN southern taxilane restricted to 24M MAX wingspan."
+  },
+  "fuel": {
+   "v": "Jet A-1 24 hours from BP Air Refuel, Ampol Aviation and Viva Energy (Jet Valet and GA, also Avgas)",
+   "src": "ybbn-ersa",
+   "quote": "Ampol Aviation: H24. PH: 0438 753 572. JET A1."
+  },
+  "noise": {
+   "v": "noise abatement procedures in AIP DAP; during SODPROPS outside 22:00-06:00 local, arrivals may be delayed up to 20 minutes",
+   "src": "ybbn-ersa",
+   "quote": "Refer AIP DAP."
+  },
+  "permits": {
+   "v": "aircraft carrying dangerous goods or livestock need 4 days' notice and prior approval",
+   "src": "ybbn-ersa",
+   "quote": "ACFT transporting dangerous goods or livestock require 4 days notice and prior approval."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "hours",
+  "handling (ERSA refers to the BNE website list)",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: ERSA FAC YBBN effective 09 Jul 2026 (newest found; also checked FAC 27 Nov 2025) and RDS YBBN effective 04 Sep 2025 (newest RDS found; a later RDS may exist). Runway widths from the ERSA. The current DAP aerodrome chart (BBNAD01, 27 Nov 2025 per DAP East checklist 09 Jul 2026) could not be opened: https://www.airservicesaustralia.com/aip/pending/dap/BBNAD01-185_27NOV2025.pdf (blocked). The ERSA has no customs/immigration line. The 'curfew free' statement is from 19 Mar 2014; the Commonwealth curfew page (2026) still lists only Sydney, Adelaide, Gold Coast and Essendon Fields - recheck with a current BAC page. Operator per ERSA: Brisbane Airport Corporation Pty Ltd. Queensland has no daylight time (UTC+10 all year)."
+}

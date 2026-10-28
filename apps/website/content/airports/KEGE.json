@@ -1,0 +1,37 @@
+{
+ "icao": "KEGE",
+ "iata": "EGE",
+ "name": "Eagle County Regional Airport",
+ "city": "Eagle (Vail)",
+ "country": "US",
+ "tz": "America/Denver",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 9,000 ft (about 2,743 m) long and 150 ft (about 46 m) wide; field elevation 6,547 ft",
+   "longest_m": 2743,
+   "src": "kege-stats",
+   "quote": "9,000 ft. L x 150 ft. W"
+  },
+  "handling": {
+   "v": "Signature Aviation is the FBO, on the south side of the airport",
+   "src": "kege-signature",
+   "quote": "Signature Aviation"
+  }
+ },
+ "missing": [
+  "customs",
+  "curfew",
+  "hours",
+  "slots",
+  "ppr",
+  "noise",
+  "max_aircraft",
+  "fuel",
+  "deicing",
+  "runway designation"
+ ],
+ "notes": "Only the airport's own site flyvail.com could be read (Statistics & Research and Signature Aviation pages, no dates shown); it states no curfew, customs or operating hours. The CBP fact sheet for Eagle County (KEGE GA Airport Fact Sheet, 1 Sep 2026, https://www.cbp.gov/sites/default/files/2026-09/KEGE%20GA%20Airport%20Fact%20Sheet%2020260901.pdf) exists but cbp.gov refused the fetch; eaglecounty.us/Airport and flyvail.com/general-aviation/ are robots-blocked. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened. Metres are my conversion (1 ft = 0.3048 m)."
+}

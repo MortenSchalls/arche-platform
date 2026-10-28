@@ -1,0 +1,55 @@
+{
+ "icao": "KPDK",
+ "iata": null,
+ "name": "DeKalb-Peachtree Airport",
+ "city": "Atlanta",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "longest runway 3R/21L, 6,001 ft x 100 ft (about 1,829 m); 21L has a 1,000 ft displaced threshold",
+   "longest_m": 1829,
+   "src": "kpdk-dekalb-ops",
+   "quote": "Runway 3R-21L Length: 6,001' × 100'"
+  },
+  "curfew": {
+   "v": "voluntary restriction 23:00-06:00 local every day (emergency and air-ambulance flights exempt); not a ban",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "kpdk-dekalb-ops",
+   "quote": "Voluntary Restriction: 11:00 PM - 6:00 AM daily"
+  },
+  "ppr": {
+   "v": "aircraft over 75,000 lb maximum take-off weight need prior permission from the airport (770-936-5440); also needed for operations while the tower is closed",
+   "src": "kpdk-dekalb-ops",
+   "quote": "Aircraft Over 75,000 lbs. MTOW: Contact 770-936-5440"
+  },
+  "hours": {
+   "v": "control tower 06:30-23:00 Monday to Friday and 07:00-23:00 Saturday and Sunday; outside these hours the airspace is uncontrolled",
+   "src": "kpdk-dekalb-ops",
+   "quote": "6:30 AM - 11:00 PM (Mon-Fri)"
+  },
+  "noise": {
+   "v": "noise monitors flag loud events (87 dBA Lmax at residential monitors, 96 dBA at the commercial one); operators get advisory letters, also for flying in the voluntary curfew; maintenance run-ups banned 22:00-07:00",
+   "src": "kpdk-dekalb-noise2025",
+   "quote": "set at 87 dBA Lmax or greater"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "handling (FBO names only as ramp frequencies)",
+  "fuel",
+  "runway strength (seen but not quoted verbatim)"
+ ],
+ "notes": "Read the DeKalb County airport operations page (no date; footer 2026), the county's 2025 noise report and the FAA PDK pilot information sheet (24 Jan 2023), which confirms tower hours. The CBP KPDK fact sheet (6 May 2024) at https://www.cbp.gov/sites/default/files/2024-05/kpdk_ga_airport_fact_sheet_20240506.pdf and its details page could not be opened, so customs is not verified. FAA Chart Supplement (CS_SE_20260903.pdf on aeronav.faa.gov) and FAA NASR airport page could not be opened. Metres are my conversion (1 ft = 0.3048 m). The operations page also lists runway strength (3R-21L single 46,000 lb, dual 75,000 lb) but this was not captured verbatim. IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+}

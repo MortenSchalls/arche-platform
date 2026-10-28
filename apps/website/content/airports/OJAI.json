@@ -1,0 +1,55 @@
+{
+ "icao": "OJAI",
+ "iata": null,
+ "name": "Queen Alia International Airport",
+ "city": "Amman",
+ "country": "JO",
+ "tz": "Asia/Amman",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways; 26L and 26R are each 3,660 m x 61 m",
+   "longest_m": 3660,
+   "src": "ojai-carc-aip",
+   "quote": "3660 x 61"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "ojai-carc-aip",
+   "quote": "Customs and immigration H24"
+  },
+  "hours": {
+   "v": "aerodrome administration, air traffic services, fuelling and handling 24 hours",
+   "src": "ojai-carc-aip",
+   "quote": "Aerodrome Administration   H24"
+  },
+  "fuel": {
+   "v": "Jet A-1",
+   "src": "ojai-carc-aip",
+   "quote": "Fuel : JET A1"
+  },
+  "deicing": {
+   "v": "de-icing on the cargo apron, taxiways J and E",
+   "src": "ojai-carc-aip",
+   "quote": "De-icing location: Cargo Apron. TWY J and TWY E"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published (AD 2.21: NIL)",
+   "src": "ojai-carc-aip",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "current AIP edition",
+  "runway 08L/08R dimensions",
+  "curfew",
+  "slots",
+  "ppr",
+  "general aviation parking"
+ ],
+ "notes": "Only an old CARC AIP AD 2 OJAI file could be read (pages dated 21 Jul 2016, AIRAC AMDT 13/2016, to 01 May 2017, AMDT 84/2017); values may have changed since. The 2026 AIRAC amendments on carc.gov.jo (e.g. https://carc.gov.jo/sites/default/files/inline-files/AIRAC AIP AMDT 27-2026.pdf) could not be opened (site blocks automated reading), so status is partial until the current AD 2 OJAI is read. No curfew or night restriction is stated; all services are H24. The 08L/08R rows did not show dimensions in the extracted text. IATA code not shown in the AIP pages read."
+}

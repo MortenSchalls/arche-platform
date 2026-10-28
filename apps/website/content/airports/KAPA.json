@@ -1,0 +1,50 @@
+{
+ "icao": "KAPA",
+ "iata": null,
+ "name": "Centennial Airport",
+ "city": "Denver",
+ "country": "US",
+ "tz": "America/Denver",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "three runways: 17L/35R about 10,000 ft (about 3,048 m) x 100 ft, 17R/35L 7,001 ft x 75 ft, 10/28 4,800 ft x 75 ft; runway 10 threshold displaced 400 ft",
+   "longest_m": 3048,
+   "src": "kapa-airfield",
+   "quote": "10,0001 ft"
+  },
+  "hours": {
+   "v": "control tower open 24 hours; airport operations staffed 24/7",
+   "src": "kapa-faa-kbyg",
+   "quote": "KAPA Tower Operates 24 Hours"
+  },
+  "customs": {
+   "v": "US Customs on demand 24/7 at 7601 S. Peoria St., D-16, user-fee based by MTOW; normal hours rotate every 4 weeks (for example Fri-Sun 07:00-22:00, weekdays 07:00-15:00 or 14:00-22:00); clearances outside normal hours are billed at twice the rate",
+   "h24": true,
+   "src": "kapa-services",
+   "quote": "Centennial Airport offers on-demand, 24/7 U.S. Customs services for international arrivals."
+  },
+  "noise": {
+   "v": "voluntary noise abatement guidelines; avoid flight training and ILS training 22:00-07:00; jets should use thrust reduction and minimise reverse thrust",
+   "src": "kapa-noise",
+   "quote": "Avoid flight training and ILS training operations between 10:00pm and 7:00am."
+  },
+  "handling": {
+   "v": "FBOs listed by the airport: jetCenters of Colorado, Modern Aviation, Signature Aviation (North and South)",
+   "src": "kapa-services",
+   "quote": "jetCenters of Colorado, Modern Aviation, Signature Aviation"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no official statement either way)",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "Read Centennial Airport (Arapahoe County Public Airport Authority, which 'owns and operates Centennial Airport') pages: Airfield Information, Airport Services, Discover KAPA (no dates; footer 2026) and Voluntary Noise Abatement Guidelines (updated 2025); the FAA Know Before You Go sheet posted there confirms 'KAPA Tower Operates 24 Hours'. The airfield table shows '10,0001 ft' for 17L/35R, an obvious typo; I record about 10,000 ft and use 3,048 m (conservative; 1 ft = 0.3048 m). No curfew is stated; the only night item is a voluntary training restraint. CBP fact sheet (https://www.cbp.gov/sites/default/files/2024-05/kapa_ga_airport_fact_sheet_20240529_0.pdf) could not be opened (cbp.gov refused). FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened. IATA code not shown on an official page read."
+}

@@ -1,0 +1,56 @@
+{
+ "icao": "KVNY",
+ "iata": null,
+ "name": "Van Nuys Airport",
+ "city": "Los Angeles",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways; the longer, 16R/34L, is 8,001 ft × 150 ft (about 2,439 m × 46 m); 16L/34R is 4,013 ft × 75 ft",
+   "longest_m": 2439,
+   "src": "kvny-faa-ad",
+   "quote": "8001 X 150"
+  },
+  "curfew": {
+   "v": "no departures 23:00–07:00 local (landings are not restricted). Exempt: aircraft with an FAA-listed takeoff noise level of 74 dBA or less, military and government emergency flights, and medical emergencies reported in writing within 72 hours. From 22:00 to 23:00 the same ban applies to aircraft that are not Stage 3",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "src": "kvny-lawa-rules-7",
+   "quote": "No aircraft may depart from Van Nuys Airport between the hours of 11:00 p.m. and 7:00 a.m. of the following day, except those aircraft listed below"
+  },
+  "noise": {
+   "v": "Stage 2 aircraft of 77 dBA or more may not be added or parked at VNY more than 30 days a year (non-addition rule, since 10 June 2000); Stage 3 aircraft are exempt. Voluntary Quieter Nights Program asks jets to avoid VNY 23:00–07:00. Jets use runway 16R and the full runway length for departure; no jet repetitive operations or training; no maintenance run-ups 19:00–07:00",
+   "src": "kvny-lawa-noise-page",
+   "quote": "encourages jet aircraft operators to avoid flights at VNY between 11 p.m. and 7 a.m. whenever possible"
+  },
+  "customs": {
+   "v": "CBP user-fee airport; clearance at the FIS (address given as Signature West FBO). Hours Pacific Time: Mon, Thu, Sun 09:00–20:30; Tue, Wed 15:00–20:30; Fri, Sat 09:00–14:30. Permission to land by phone within 24 hours of the arrival date, before leaving the foreign port; Signature West charges a customs fee",
+   "h24": false,
+   "src": "kvny-cbp-ga",
+   "quote": "Monday, Thursday, and Sunday, 0900-2030"
+  },
+  "hours": {
+   "v": "FAA lists VNY operating 06:00–22:45 local; runway 16L/34R is closed and unlit when the tower is closed. No airport-sponsored transient parking",
+   "src": "kvny-faa-kbyg",
+   "quote": "VNY Operates: 0600L-2245L"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "max_aircraft (weight limit)",
+  "handling (FBO list)",
+  "fuel",
+  "Chart Supplement entry"
+ ],
+ "notes": "Curfew and non-addition rule from LAWA VNY Rules and Regulations Section 7 (page marked 'Original 3/05', current on lawa.org); the 30-day parking limit for 77 dBA+ aircraft is in Section 5 of that document; the non-addition rule date is from LAWA's 2000 news release (kvny-lawa-nonaddition). The 74 dBA exemption refers to FAA Advisory Circular 36-3 noise levels: check each aircraft type before quoting a night departure. Runway sizes from the FAA airport diagram for cycle 22 Jan–19 Feb 2026 (the current-cycle diagram and the FAA Chart Supplement could not be opened: https://www.faa.gov/aero_docs/dtpp/2610/00552AD.PDF, https://aeronav.faa.gov/afd/03SEP2026/sw_311_03SEP2026.pdf and the Chart Supplement search page were blocked). ft to m conversion mine (1 ft = 0.3048 m). The FAA page says 'VNY Operates: 0600L-2245L' without saying whether this is the tower or the airport. CBP fact sheet is dated 18 Jun 2024. The full LAWA noise ordinance PDF linked from iflyvny.com was not opened."
+}

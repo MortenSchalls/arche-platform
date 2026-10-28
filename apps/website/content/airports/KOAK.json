@@ -1,0 +1,46 @@
+{
+ "icao": "KOAK",
+ "iata": "OAK",
+ "name": "Oakland International Airport",
+ "city": "Oakland",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "four runways (15/33, 12/30, 10R/28L, 10L/28R); the longest size shown on the FAA diagram is 10,520 ft x 150 ft (about 3,206 m x 46 m)",
+   "longest_m": 3206,
+   "src": "koak-faa-apd",
+   "quote": "10520 X 150"
+  },
+  "customs": {
+   "v": "CBP arrival inspections generally 7 days a week, 08:30-15:30; CBP office weekdays 06:00-18:00 and weekends 08:00-16:00 Pacific Time; permission to land must be requested at least 24 hours before arrival; outside these hours contact Westbay Cargo",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:30",
+     "15:30"
+    ]
+   ],
+   "src": "koak-cbp-ga",
+   "quote": "generally available 7 days per week, 0830-1530"
+  },
+  "ppr": {
+   "v": "for international arrivals, CBP permission to land at least 24 hours in advance",
+   "src": "koak-cbp-ga",
+   "quote": "at least 24 hours in advance of the anticipated arrival time"
+  }
+ },
+ "missing": [
+  "curfew",
+  "noise",
+  "slots",
+  "hours",
+  "fuel",
+  "handling",
+  "max_aircraft"
+ ],
+ "notes": "Runway designators and sizes are from the FAA airport diagram AL-294 (6 Aug-3 Sep 2026); the extracted text lists 6213 X 150, 10520 X 150 and 5457 X 150 without tying each to a runway, so only the longest size is recorded; metres are my conversion (1 ft = 0.3048 m). No Port of Oakland noise or night-rules page was found and read, so curfew is not recorded (do not show 'no curfew'). FAA Chart Supplement SW (3 Sep 2026, https://aeronav.faa.gov/Upload_313-d/supplements/CS_SW_20260903.pdf) could not be opened. A CBP KOAK sheet dated 3 Dec 2024 (https://www.cbp.gov/sites/default/files/2024-12/KOAK%20GA%20Airport%20Fact%20Sheet%2020241203.pdf) could not be opened; the 20 Nov 2024 sheet was used."
+}

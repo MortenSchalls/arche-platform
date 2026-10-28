@@ -1,0 +1,58 @@
+{
+ "icao": "SBSP",
+ "iata": null,
+ "name": "Congonhas - Deputado Freitas Nobre Airport",
+ "city": "São Paulo",
+ "country": "BR",
+ "tz": "America/Sao_Paulo",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two runways: 17R/35L 1,883 m × 45 m and 17L/35R 1,495 m × 45 m, asphalt",
+   "longest_m": 1883,
+   "src": "sbsp-decea-rotaer",
+   "quote": "( 1883x45 ASPH 590/F/C/X/T"
+  },
+  "curfew": {
+   "v": "closed 0200-0900 UTC (23:00-06:00 local, UTC-3); night operations only for seriously ill or injured patients, organ transport, search and rescue and military flights, requested by e-mail in advance",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "src": "sbsp-decea-rotaer",
+   "quote": "Para operação entre 0200/0900 UTC, o operador da aeronave deve solicitar"
+  },
+  "hours": {
+   "v": "aerodrome hours 0900-0200 UTC (06:00-23:00 local)",
+   "src": "sbsp-decea-rotaer",
+   "quote": "AD HR SER 0900-0200."
+  },
+  "ppr": {
+   "v": "general aviation must coordinate with COA SBSP at least 2 hours before operating, through the online form",
+   "src": "sbsp-decea-rotaer",
+   "quote": "ACFT aviação geral deverá COORD com antecedência mínima de 02 horas da sua operação."
+  },
+  "slots": {
+   "v": "when the airport is declared coordinated by NOTAM, a slot must be requested in advance",
+   "src": "sbsp-decea-rotaer",
+   "quote": "Mediante ativação de AD COOR por meio de NOTAM, há a necessidade de pedido prévio de SLOT."
+  },
+  "max_aircraft": {
+   "v": "only aircraft able to use both runways for take-off and landing (except scheduled passenger, medical and organ flights); fixed-wing aircraft need two pilots; no fixed-wing VFR flight plans, training or cargo flights; CAT A aircraft barred from 17L/35R at set times; taxiways S and O limited to 24 m wingspan",
+   "src": "sbsp-decea-rotaer",
+   "quote": "Somente poderão operar ACFT que possam utilizar as duas RWY para decolagem e pouso."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "fuel",
+  "handling",
+  "noise"
+ ],
+ "notes": "Read DECEA AISWEB ROTAER entry for SBSP (labelled D-AMDT 43/26; administrator AENA Brasil; UTC-3). ROTAER times are UTC; local times are my conversion with UTC-3 as stated in the entry (Brazil has no summer time). CAT A rule: 'Aeronaves CAT A proibido OPS LDG e TKOF na RWY 17L/35R de MON/TUE TIL FRI/SAT de 1000-1300 e 2200-0000' (UTC), with exceptions incl. MEDEVAC, military and RBAC 121/135. Two-pilot rule has an exception for some airline-pilot flights. SBSP may not be used as an alternate. The ROTAER entry does not list customs or fuel; the eAIP AD 2 SBSP was not read. Trip facts: 23:00-06:00 local closure, two pilots mandatory, 1,883 m runway."
+}

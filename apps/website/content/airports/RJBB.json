@@ -1,0 +1,35 @@
+{
+ "icao": "RJBB",
+ "iata": "KIX",
+ "name": "Kansai International Airport",
+ "city": "Osaka",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two runways: A 3,500 m and B 4,000 m (B opened 2 Aug 2007); widths not given",
+   "longest_m": 4000,
+   "src": "rjbb-mlit-kix",
+   "quote": "Runway B : 4,000 m×1 (Open Aug 2, 2007)"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "rjbb-mlit-kix",
+   "quote": "Hours of operation 24 hours."
+  }
+ },
+ "missing": [
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "runway width",
+  "fuel",
+  "handling",
+  "current AIP edition"
+ ],
+ "notes": "The Japan AIP (AIS Japan) needs a log-in and was not read; only the MLIT Civil Aviation Bureau page on Kansai (undated, content suggests about 2013) was used. It says KIX is 'the first 24-hour operated international airport in Japan'; no curfew is recorded because the source does not use those words. An MLIT business-jet promotion paper of Feb 2012 (https://www.mlit.go.jp/common/000192237.pdf) said slots and stands had spare capacity at any time, but it is too old to record as a current slot rule. CIQ (customs) hours for business jets were not found in an official source. IATA code KIX is shown on the MLIT page."
+}

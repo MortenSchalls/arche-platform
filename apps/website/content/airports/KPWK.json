@@ -1,0 +1,52 @@
+{
+ "icao": "KPWK",
+ "iata": null,
+ "name": "Chicago Executive Airport",
+ "city": "Chicago (Wheeling)",
+ "country": "US",
+ "tz": "America/Chicago",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "longest runway 16/34, 5,001 ft x 150 ft (about 1,524 m), with ILS to runway 16; runway 12/30 is 4,415 ft x 75 ft",
+   "longest_m": 1524,
+   "src": "kpwk-cea-safety",
+   "quote": "Runway 16/34 — 5,001-foot long by 150 foot wide precision runway served by an ILS to runway 16."
+  },
+  "hours": {
+   "v": "airport open to the public 24 hours a day",
+   "src": "kpwk-cea-safety",
+   "quote": "KPWK – Open to the public 24 hours a day with two runway options"
+  },
+  "customs": {
+   "v": "CBP general aviation clearance 11:00-19:00 Monday to Friday, closed weekends; arrivals outside these hours must be arranged by 17:00 the business day before; clearance must be requested by speaking to the Duty Officer (APIS or voicemail is not enough)",
+   "h24": false,
+   "hours_local": [
+    [
+     "11:00",
+     "19:00"
+    ]
+   ],
+   "src": "kpwk-cbp-port",
+   "quote": "Monday: 11:00-19:00CST"
+  },
+  "noise": {
+   "v": "runway 12/30 preferred 22:00-06:00 local; no turbine engine runs 22:00-07:00; NBAA departure procedures",
+   "src": "kpwk-cea-noise",
+   "quote": "No turbine engine runs between the hours of 10:00 p.m. to 7:00 a.m. local time all week."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "max_aircraft",
+  "fuel",
+  "tower hours"
+ ],
+ "notes": "Read the Chicago Executive Airport safety page (modified 15 Jul 2026), noise page (modified 29 Jan 2026) and the CBP port page 3983 (modified 19 Mar 2024). The CBP page labels the 11:00-19:00 hours 'CST' in one place and '(Eastern)' in another; recorded as local Central time per the 'CST' line, check with the port before relying on it. The CBP KPWK fact sheet (18 Dec 2025) https://www.cbp.gov/sites/default/files/2025-12/KPWK%20GA%20Airport%20Fact%20Sheet%2020251218.pdf could not be opened. The airport page says open 24 hours, but no source states there is no curfew, so curfew is left missing. A 2026 environmental assessment mentions decommissioning runway 6-24 (not read). Metres are my conversion (1 ft = 0.3048 m). IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+}

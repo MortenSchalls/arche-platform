@@ -1534,5 +1534,533 @@
   "url": "https://bigginhillairport.com/operations/fbo/",
   "publisher": "London Biggin Hill Airport Ltd",
   "checked": "2026-10-27"
+ },
+ "ltfm-dhmi-aip": {
+  "title": "AIP Turkey AD 2 LTFM Istanbul Airport, pages up to AIRAC AMDT 04/25 (17 Apr 2025) (checked 28 Oct 2026)",
+  "url": "https://www.dhmi.gov.tr/AIPDocuments/LT_AD_2_LTFM_en.pdf",
+  "publisher": "DHMI (General Directorate of State Airports Authority, Turkey)",
+  "checked": "2026-10-28"
+ },
+ "ojai-carc-aip": {
+  "title": "AIP Jordan AD 2 OJAI Amman/Queen Alia International, pages dated 21 Jul 2016 (AIRAC AMDT 13/2016) to 01 May 2017 (AMDT 84/2017) (checked 28 Oct 2026)",
+  "url": "https://carc.gov.jo/images/AIS/AerodromesAD/AD2_OJAI.pdf",
+  "publisher": "Civil Aviation Regulatory Commission, Jordan",
+  "checked": "2026-10-28"
+ },
+ "rjbb-mlit-kix": {
+  "title": "MLIT Civil Aviation Bureau page 'Kansai International Airport' (undated) (checked 28 Oct 2026)",
+  "url": "https://www.mlit.go.jp/koku/15_hf_000033.html",
+  "publisher": "Ministry of Land, Infrastructure, Transport and Tourism, Japan",
+  "checked": "2026-10-28"
+ },
+ "wiii-hubud-bandara": {
+  "title": "DG Civil Aviation airport data page 'Bandar Udara: Soekarno Hatta' (no data date; traffic labelled 2025) (checked 28 Oct 2026)",
+  "url": "https://hubud.dephub.go.id/bandara/222",
+  "publisher": "Directorate General of Civil Aviation, Ministry of Transportation, Indonesia",
+  "checked": "2026-10-28"
+ },
+ "wiii-otban1-profil": {
+  "title": "Airport Authority Office Region I airport profile, Jakarta International Soekarno-Hatta Airport (no data date) (checked 28 Oct 2026)",
+  "url": "https://otban-wil1.dephub.go.id/index.php/public/bandara/detail/30",
+  "publisher": "Kantor Otoritas Bandar Udara Wilayah I, Ministry of Transportation, Indonesia",
+  "checked": "2026-10-28"
+ },
+ "vobl-aai-eaip": {
+  "title": "India eAIP AD 2 VOBL Bengaluru/Kempegowda International, AIRAC AMDT 05-23 effective 10 Aug 2023 (checked 28 Oct 2026)",
+  "url": "https://aim-india.aai.aero/eaip-v2-6-2023/eAIP/IN-AD%202.1VOBL-en-GB.html",
+  "publisher": "Airports Authority of India, AIM",
+  "checked": "2026-10-28"
+ },
+ "nffn-fal-faq": {
+  "title": "Fiji Airports 'Frequently Asked Questions' page (undated) (checked 28 Oct 2026)",
+  "url": "https://fijiairports.com/frequently-asked-questions/",
+  "publisher": "Fiji Airports (Airports Fiji Limited)",
+  "checked": "2026-10-28"
+ },
+ "ymml-ersa": {
+  "title": "AIP Australia ERSA, FAC YMML Melbourne (effective 09 Jul 2026) (checked 28 Oct 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YMML_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-10-28"
+ },
+ "ymml-dap-ad": {
+  "title": "AIP Australia DAP, YMML Aerodrome Chart MMLAD01-187 (effective 09 Jul 2026) (checked 28 Oct 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/dap/MMLAD01-187_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-10-28"
+ },
+ "ymml-apam-masterplan": {
+  "title": "Melbourne Airport, Master Plan 2027 web page (undated) (checked 28 Oct 2026)",
+  "url": "https://melbourneairport.com.au/corporate/master-plan-2027",
+  "publisher": "Australia Pacific Airports (Melbourne) Pty Ltd",
+  "checked": "2026-10-28"
+ },
+ "ybbn-ersa": {
+  "title": "AIP Australia ERSA, FAC YBBN Brisbane (effective 09 Jul 2026) (checked 28 Oct 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YBBN_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-10-28"
+ },
+ "ybbn-rds": {
+  "title": "AIP Australia ERSA, RDS YBBN Brisbane runway distances (effective 04 Sep 2025) (checked 28 Oct 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YBBN_04SEP2025.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-10-28"
+ },
+ "ybbn-bac-curfew": {
+  "title": "Brisbane Airport Corporation newsroom, 'Right Decision for Queensland' (19 Mar 2014) (checked 28 Oct 2026)",
+  "url": "https://newsroom.bne.com.au/right-decision-for-queensland/",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-10-28"
+ },
+ "ypph-rds": {
+  "title": "AIP Australia ERSA, RDS YPPH Perth runway distances (effective 09 Jul 2026) (checked 28 Oct 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YPPH_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-10-28"
+ },
+ "ypph-dap-ad": {
+  "title": "AIP Australia DAP, YPPH Aerodrome Chart PPHAD01-186 (file dated 09 Jul 2026; chart shows 19 Mar 2026) (checked 28 Oct 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/dap/PPHAD01-186_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-10-28"
+ },
+ "ypph-airservices-faq": {
+  "title": "Airservices Engage, Perth Airport New Runway flight paths, Q&A (undated) (checked 28 Oct 2026)",
+  "url": "https://engage.airservicesaustralia.com/perth?tool=qanda",
+  "publisher": "Airservices Australia",
+  "checked": "2026-10-28"
+ },
+ "kvny-lawa-rules-7": {
+  "title": "LAWA, VNY Rules and Regulations, Section 7: Aircraft Noise Abatement Operating Procedures and Restrictions (page marked 'Original 3/05') (checked 28 Oct 2026)",
+  "url": "https://www.lawa.org/media/12273",
+  "publisher": "Los Angeles World Airports",
+  "checked": "2026-10-28"
+ },
+ "kvny-lawa-noise-page": {
+  "title": "Van Nuys Airport, Pilot information: Noise Restrictions (web page, undated) (checked 28 Oct 2026)",
+  "url": "https://www.iflyvny.com/pilot-information/noise-restrictions",
+  "publisher": "Los Angeles World Airports (Van Nuys Airport)",
+  "checked": "2026-10-28"
+ },
+ "kvny-lawa-nonaddition": {
+  "title": "LAWA news release: Van Nuys Airport adopts new noise restriction non-addition rule effective June 10 (2000) (checked 28 Oct 2026)",
+  "url": "https://lawa.org/news-releases/2000/news-release-50",
+  "publisher": "Los Angeles World Airports",
+  "checked": "2026-10-28"
+ },
+ "kvny-faa-kbyg": {
+  "title": "FAA, Van Nuys Airport (VNY) Know Before You Go page (last updated 30 Sep 2026) (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/vny",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "kvny-faa-ad": {
+  "title": "FAA d-TPP airport diagram, Van Nuys (VNY), AL-552, cycle 22 Jan 2026 to 19 Feb 2026 (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/aero_docs/dtpp/2601/00552AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "kvny-cbp-ga": {
+  "title": "CBP, Van Nuys Airport (KVNY) General Aviation fact sheet, 18 Jun 2024, publication KVNY-0624 (checked 28 Oct 2026)",
+  "url": "https://cbp.gov/sites/default/files/2024-06/KVNY%20GA%20Airport%20Fact%20Sheet%2020240618.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "kopf-mdad-facts": {
+  "title": "Miami-Dade Aviation Department, Miami-Opa locka Executive Airport facts page (web page, undated) (checked 28 Oct 2026)",
+  "url": "https://miami-airport.com/opalocka_facts.asp",
+  "publisher": "Miami-Dade Aviation Department",
+  "checked": "2026-10-28"
+ },
+ "kopf-faa-ad": {
+  "title": "FAA d-TPP airport diagram, Miami-Opa Locka Executive (OPF), AL-256, SE-3, 19 Mar 2026 to 16 Apr 2026 (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/aero_docs/dtpp/2603/00256AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "kopf-cbp-ga": {
+  "title": "CBP, Opa-locka Executive Airport (KOPF) General Aviation fact sheet, 22 Feb 2024, publication KOPF-0224 (checked 28 Oct 2026)",
+  "url": "https://cbp.gov/sites/default/files/assets/documents/2024-Feb/KOPF%20GA%20Airport%20Fact%20Sheet%2020240222.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "kfll-faa-aip-fl": {
+  "title": "FAA, United States AIP Part 3 AD 2 Florida (HTML; 29th edition 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published; amendment shown on page not stated): KFLL and KMIA (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_florida.html",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "kfll-cbp-ga": {
+  "title": "CBP, Fort Lauderdale-Hollywood International (KFLL) General Aviation fact sheet, 15 Feb 2024, publication KFLL-0224 (checked 28 Oct 2026)",
+  "url": "https://cbp.gov/sites/default/files/assets/documents/2024-Feb/KFLL%20GA%20Airport%20Fact%20Sheet%2020240215.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "kfll-bcad-10r-memo": {
+  "title": "Broward County Aviation Department letter: Voluntary User Program for Runway 10R/28L, 23 Apr 2015 (checked 28 Oct 2026)",
+  "url": "https://www.broward.org:443/Airport/Business/Documents/VoluntaryUserProgramRwy10R28LMemo.pdf",
+  "publisher": "Broward County Aviation Department",
+  "checked": "2026-10-28"
+ },
+ "kpbi-pbc-airport": {
+  "title": "Palm Beach County Department of Airports, President Donald J. Trump International Airport (DJT) page (web page, undated) (checked 28 Oct 2026)",
+  "url": "https://discover.pbc.gov/Airports/Pages/PBIA.aspx",
+  "publisher": "Palm Beach County Department of Airports",
+  "checked": "2026-10-28"
+ },
+ "kpbi-pbc-business": {
+  "title": "Palm Beach County Department of Airports, Business page (web page, undated) (checked 28 Oct 2026)",
+  "url": "https://discover.pbc.gov/Airports/Pages/Business.aspx",
+  "publisher": "Palm Beach County Department of Airports",
+  "checked": "2026-10-28"
+ },
+ "kpbi-cbp-ga": {
+  "title": "CBP, Palm Beach International (KPBI) General Aviation fact sheet, 7 Mar 2024, publication KPBI-0324 (checked 28 Oct 2026)",
+  "url": "https://cbp.gov/sites/default/files/assets/documents/2024-Mar/KPBI%20GA%20Airport%20Fact%20Sheet%2020240307.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "klas-faa-aip-nv": {
+  "title": "FAA, United States AIP Part 3 AD 2 Nevada (HTML; 29th edition 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published; amendment shown on page not stated): KLAS (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_nevada.html",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "klas-cbp-ga": {
+  "title": "CBP, Harry Reid International (KLAS) General Aviation fact sheet, 8 Aug 2024, publication KLAS-0824 (checked 28 Oct 2026)",
+  "url": "https://cbp.gov/sites/default/files/2024-08/KLAS%20GA%20Airport%20Fact%20Sheet%2020240808.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "kase-limits": {
+  "title": "Aspen/Pitkin County Airport, Pilot information: Aircraft Limitations (page modified 8 Sep 2023) (checked 28 Oct 2026)",
+  "url": "https://www.aspenairport.com/pilotinformation/operating-procedures/aircraft-limitations/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-10-28"
+ },
+ "kase-curfew": {
+  "title": "Aspen/Pitkin County Airport, Pilot information: Curfew (page modified 10 Aug 2023) (checked 28 Oct 2026)",
+  "url": "https://www.aspenairport.com/pilotinformation/operating-procedures/curfew/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-10-28"
+ },
+ "kase-approach": {
+  "title": "Aspen/Pitkin County Airport, Pilot information: Approach & Departure (page modified 14 Nov 2024) (checked 28 Oct 2026)",
+  "url": "https://www.aspenairport.com/pilotinformation/operating-procedures/approach-departure/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-10-28"
+ },
+ "kase-noise": {
+  "title": "Aspen/Pitkin County Airport, Noise Abatement Procedures (page modified 17 Sep 2026) (checked 28 Oct 2026)",
+  "url": "https://www.aspenairport.com/pilotinformation/operating-procedures/noise-abatement-procedures/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-10-28"
+ },
+ "kase-highalt": {
+  "title": "Aspen/Pitkin County Airport, High Altitude Safety (page modified 8 Sep 2023) (checked 28 Oct 2026)",
+  "url": "https://www.aspenairport.com/pilotinformation/operating-procedures/high-altitude-safety/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-10-28"
+ },
+ "kase-background": {
+  "title": "Aspen/Pitkin County Airport, Airport Redevelopment Background (page modified 23 Jun 2023) (checked 28 Oct 2026)",
+  "url": "https://www.aspenairport.com/airport-redevelopment-background/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-10-28"
+ },
+ "kase-runway-faq": {
+  "title": "Aspen/Pitkin County Airport, Runway Reconstruction FAQs (page modified 1 Oct 2026) (checked 28 Oct 2026)",
+  "url": "https://www.aspenairport.com/runway-reconstruction-faqs/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-10-28"
+ },
+ "kase-pilotinfo": {
+  "title": "Aspen/Pitkin County Airport, Pilot Information (page modified 26 Aug 2026) (checked 28 Oct 2026)",
+  "url": "https://www.aspenairport.com/pilotinformation/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-10-28"
+ },
+ "kege-stats": {
+  "title": "Eagle County Regional Airport, Statistics & Research (no date shown) (checked 28 Oct 2026)",
+  "url": "https://www.flyvail.com/about/statistics-research",
+  "publisher": "Eagle County Regional Airport (Eagle County)",
+  "checked": "2026-10-28"
+ },
+ "kege-signature": {
+  "title": "Eagle County Regional Airport, General aviation: Signature Aviation (no date shown) (checked 28 Oct 2026)",
+  "url": "https://www.flyvail.com/general-aviation/signature-aviation/",
+  "publisher": "Eagle County Regional Airport (Eagle County)",
+  "checked": "2026-10-28"
+ },
+ "kapa-airfield": {
+  "title": "Centennial Airport, Airfield Information (no date shown, footer 2026) (checked 28 Oct 2026)",
+  "url": "https://www.centennialairport.com/airfield-information",
+  "publisher": "Arapahoe County Public Airport Authority",
+  "checked": "2026-10-28"
+ },
+ "kapa-services": {
+  "title": "Centennial Airport, Airport Services (no date shown, footer 2026) (checked 28 Oct 2026)",
+  "url": "https://www.centennialairport.com/airport-services",
+  "publisher": "Arapahoe County Public Airport Authority",
+  "checked": "2026-10-28"
+ },
+ "kapa-noise": {
+  "title": "Centennial Airport, Voluntary Noise Abatement Guidelines (PDF, updated 2025) (checked 28 Oct 2026)",
+  "url": "https://www.centennialairport.com/files/762c86f77/30.+Noise+Abatement+Guidelines.pdf",
+  "publisher": "Arapahoe County Public Airport Authority",
+  "checked": "2026-10-28"
+ },
+ "kapa-faa-kbyg": {
+  "title": "FAA Know Before You Go, Centennial (KAPA), as posted by Centennial Airport (no date shown) (checked 28 Oct 2026)",
+  "url": "https://www.centennialairport.com/files/112abe355/23.+FAA+Know+Before+You+Go.pdf",
+  "publisher": "Federal Aviation Administration (posted by Arapahoe County Public Airport Authority)",
+  "checked": "2026-10-28"
+ },
+ "kapa-discover": {
+  "title": "Centennial Airport, Discover Centennial Airport (KAPA) (no date shown, footer 2026) (checked 28 Oct 2026)",
+  "url": "https://www.centennialairport.com/discover-centennial-airport-kapa",
+  "publisher": "Arapahoe County Public Airport Authority",
+  "checked": "2026-10-28"
+ },
+ "ksdl-pilot": {
+  "title": "Scottsdale Airport, Pilot Information (last updated 31 Jul 2026) (checked 28 Oct 2026)",
+  "url": "https://www.scottsdaleaz.gov/scottsdale-airport/pilot-information",
+  "publisher": "City of Scottsdale",
+  "checked": "2026-10-28"
+ },
+ "ksdl-noise": {
+  "title": "Scottsdale Airport, Noise Abatement Procedures (last updated 29 May 2024) (checked 28 Oct 2026)",
+  "url": "https://www.scottsdaleaz.gov/scottsdale-airport/pilot-information/noise-abatement-procedures",
+  "publisher": "City of Scottsdale",
+  "checked": "2026-10-28"
+ },
+ "ksdl-general": {
+  "title": "Scottsdale Airport, General Information (last updated 14 Oct 2026) (checked 28 Oct 2026)",
+  "url": "https://www.scottsdaleaz.gov/scottsdale-airport/general-information",
+  "publisher": "City of Scottsdale",
+  "checked": "2026-10-28"
+ },
+ "kdal-swppp": {
+  "title": "Dallas Love Field Storm Water Pollution Prevention Plan, 1.0 General Information (May 2011) (checked 28 Oct 2026)",
+  "url": "https://dallascityhall.com/departments/aviation/love_field/dal_swppp/GeneralInformation.pdf",
+  "publisher": "City of Dallas Department of Aviation",
+  "checked": "2026-10-28"
+ },
+ "kdal-noise": {
+  "title": "Dallas Love Field, Voluntary Noise Program (no date shown) (checked 28 Oct 2026)",
+  "url": "https://www.dallas-lovefield.com/airport-info/environmental/voluntary-noise-program",
+  "publisher": "City of Dallas Department of Aviation",
+  "checked": "2026-10-28"
+ },
+ "kdal-noise-pdf": {
+  "title": "Dallas Love Field, Voluntary Noise Control Program leaflet (no date shown) (checked 28 Oct 2026)",
+  "url": "https://dallascityhall.com/departments/aviation/DCH%20Document/pdfs/noise-resources/noiseinformation.pdf",
+  "publisher": "City of Dallas Department of Aviation",
+  "checked": "2026-10-28"
+ },
+ "kads-facts": {
+  "title": "Addison Airport, Services and Quick Facts (no date shown, footer 2026) (checked 28 Oct 2026)",
+  "url": "https://www.addisonairport.net/About-ADS/Services-and-Quick-Facts",
+  "publisher": "Town of Addison (Addison Airport)",
+  "checked": "2026-10-28"
+ },
+ "kads-customs": {
+  "title": "Addison Airport, U.S. Customs (no date shown, footer 2026) (checked 28 Oct 2026)",
+  "url": "https://www.addisonairport.net/General-Information/U.S.-Customs",
+  "publisher": "Town of Addison (Addison Airport)",
+  "checked": "2026-10-28"
+ },
+ "kads-faq": {
+  "title": "Addison Airport, Frequently Asked Questions (no date shown, footer 2026) (checked 28 Oct 2026)",
+  "url": "https://www.addisonairport.net/General-Information/Airport-Frequently-Asked-Questions",
+  "publisher": "Town of Addison (Addison Airport)",
+  "checked": "2026-10-28"
+ },
+ "kads-rules": {
+  "title": "Addison Airport Rules and Regulations, adopted by the Town of Addison City Council 14 Dec 2010 (checked 28 Oct 2026)",
+  "url": "https://www.addisonairport.net/files/sharedassets/airport/v/1/documents/rules_and_regulations.pdf",
+  "publisher": "Town of Addison",
+  "checked": "2026-10-28"
+ },
+ "kpdk-dekalb-ops": {
+  "title": "DeKalb County, DeKalb-Peachtree Airport: Airport Operations page (no date shown; footer (c) 2026) (checked 28 Oct 2026)",
+  "url": "https://dekalbcountyga.gov/departments/airport/airport-operations",
+  "publisher": "DeKalb County, Georgia",
+  "checked": "2026-10-28"
+ },
+ "kpdk-dekalb-noise2025": {
+  "title": "DeKalb-Peachtree Airport 2025 Annual Noise Report (short), calendar year 2025 (checked 28 Oct 2026)",
+  "url": "https://www.dekalbcountyga.gov/sites/default/files/users/user3595/2025%20Annual%20Noise%20Report%20Short.pdf",
+  "publisher": "DeKalb County, Georgia",
+  "checked": "2026-10-28"
+ },
+ "kpdk-faa-pilotinfo": {
+  "title": "FAA Dekalb-Peachtree Airport (PDK) Pilot Information, updated 24 Jan 2023 (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/sites/faa.gov/files/PDK%20Version%2001-24-23.pdf",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "kmdw-cda-flyquiet": {
+  "title": "Chicago Midway Airport Fly Quiet Program Manual 2026 (updated February 2026) (checked 28 Oct 2026)",
+  "url": "https://www.flychicago.com/SiteCollectionDocuments/Community/ArchivedPDFs/Noise/Midway/FQ/MDW%20Fly%20Quiet_Manual-2026.pdf",
+  "publisher": "Chicago Department of Aviation",
+  "checked": "2026-10-28"
+ },
+ "kpwk-cea-safety": {
+  "title": "Chicago Executive Airport: Airfield Safety Information page (last modified 15 Jul 2026) (checked 28 Oct 2026)",
+  "url": "https://chiexec.com/airfield-safety-information/",
+  "publisher": "Chicago Executive Airport",
+  "checked": "2026-10-28"
+ },
+ "kpwk-cea-noise": {
+  "title": "Chicago Executive Airport: Noise Abatement page (last modified 29 Jan 2026) (checked 28 Oct 2026)",
+  "url": "https://chiexec.com/noise-abatement/",
+  "publisher": "Chicago Executive Airport",
+  "checked": "2026-10-28"
+ },
+ "kpwk-cbp-port": {
+  "title": "CBP port page: Chicago Executive Airport, Wheeling, Illinois - 3983 (last modified 19 Mar 2024) (checked 28 Oct 2026)",
+  "url": "https://www.cbp.gov/about/contact/ports/chicago-executive-airport-wheeling-illinois-3983",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "kbed-740cmr25": {
+  "title": "740 CMR 25.00: Special Provisions, L.G. Hanscom Field (Massachusetts regulation; no amendment date shown) (checked 28 Oct 2026)",
+  "url": "https://www.mass.gov/doc/740-cmr-25-special-provisions-lg-hanscom-field/download",
+  "publisher": "Commonwealth of Massachusetts / Massachusetts Port Authority",
+  "checked": "2026-10-28"
+ },
+ "kbed-faa-pilotinfo": {
+  "title": "FAA Laurence G. Hanscom Field (BED) Pilot Handbook (no date shown) (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/flight_deck/pilot_info/bed.pdf",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "kiad-cbp-ga": {
+  "title": "CBP General Aviation Airport Fact Sheet, Washington Dulles (KIAD), 17 Apr 2024, KIAD-0424 (checked 28 Oct 2026)",
+  "url": "https://www.cbp.gov/sites/default/files/assets/documents/2024-Apr/KIAD%20GA%20Airport%20Fact%20Sheet%2020240417.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "kiad-mwaa-overview": {
+  "title": "flydulles.com Airport Overview (Metropolitan Washington Airports Authority; no date shown) (checked 28 Oct 2026)",
+  "url": "https://www.flydulles.com/airport-overview",
+  "publisher": "Metropolitan Washington Airports Authority",
+  "checked": "2026-10-28"
+ },
+ "ksfo-cbp-ga": {
+  "title": "CBP General Aviation Airport Fact Sheet, San Francisco International (KSFO), 29 May 2024, KSFO-0524 (checked 28 Oct 2026)",
+  "url": "https://cbp.gov/sites/default/files/2024-05/ksfo_ga_airport_fact_sheet_20240529.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "ksjc-faa-apd": {
+  "title": "FAA Airport Diagram AL-693, Norman Y Mineta San Jose Intl (SJC), cycle 30 Oct 2025 to 27 Nov 2025 (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/aero_docs/dtpp/2511/00693AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "ksjc-curfew": {
+  "title": "San José Mineta International Airport, Curfew Information page (no date shown; Schedule of Authorized Aircraft rev. Nov 2022) (checked 28 Oct 2026)",
+  "url": "https://www.flysanjose.com/noise/curfew",
+  "publisher": "City of San José, Airport Department",
+  "checked": "2026-10-28"
+ },
+ "ksjc-cbp-ga": {
+  "title": "CBP General Aviation Airport Fact Sheet, San Jose (KSJC), 25 Jul 2024, KSJC-0724 (checked 28 Oct 2026)",
+  "url": "https://cbp.gov/sites/default/files/2024-07/ksjc_ga_airport_fact_sheet_20240725.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "koak-faa-apd": {
+  "title": "FAA Airport Diagram AL-294, Oakland (OAK), effective 6 Aug 2026 to 3 Sep 2026 (checked 28 Oct 2026)",
+  "url": "https://www.faa.gov/aero_docs/dtpp/2608/00294AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-10-28"
+ },
+ "koak-cbp-ga": {
+  "title": "CBP General Aviation Airport Fact Sheet, Oakland (KOAK), 20 Nov 2024, KOAK-1124 (checked 28 Oct 2026)",
+  "url": "https://cbp.gov/sites/default/files/2024-11/koak_ga_airport_fact_sheet_20241120.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-10-28"
+ },
+ "ksna-about": {
+  "title": "John Wayne Airport, About JWA page (no date shown; footer 2026) (checked 28 Oct 2026)",
+  "url": "https://ocair.com/AboutJWA",
+  "publisher": "County of Orange, John Wayne Airport",
+  "checked": "2026-10-28"
+ },
+ "ksna-access-noise": {
+  "title": "John Wayne Airport, Access and Noise page (no date shown; footer 2026) (checked 28 Oct 2026)",
+  "url": "https://ocair.com/about/administration/access-noise",
+  "publisher": "County of Orange, John Wayne Airport",
+  "checked": "2026-10-28"
+ },
+ "ksna-ga-noise": {
+  "title": "John Wayne Airport, General Aviation Noise Abatement page (no date shown; footer 2026) (checked 28 Oct 2026)",
+  "url": "https://ocair.com/generalaviation/noise",
+  "publisher": "County of Orange, John Wayne Airport",
+  "checked": "2026-10-28"
+ },
+ "ksna-ga-flyer": {
+  "title": "John Wayne Airport, General Aviation Noise Abatement Program flyer (no date shown; file posted Aug 2022) (checked 28 Oct 2026)",
+  "url": "https://files.ocair.com/media/2022-08/11326_GA_Noise_Abatement_Program_Flyer_3.pdf",
+  "publisher": "County of Orange, John Wayne Airport",
+  "checked": "2026-10-28"
+ },
+ "mmmx-dgac-co-sa-30-12": {
+  "title": "DGAC Circular Obligatoria CO SA-30/12, Procedimiento para operaciones de aviación general con destino u origen al AICM, in force from 17 May 2012 (checked 28 Oct 2026)",
+  "url": "https://www.gob.mx/cms/uploads/attachment/file/650360/ciircular-interna-aviacion-general-aicm-v4-cosa-30-12.pdf",
+  "publisher": "Secretaría de Comunicaciones y Transportes, Dirección General de Aeronáutica Civil (gob.mx)",
+  "checked": "2026-10-28"
+ },
+ "mmun-asur-fbo": {
+  "title": "ASUR, Cancún Private Aviation FBO page (no date shown; footer 2019) (checked 28 Oct 2026)",
+  "url": "https://www.asur.com.mx/cancun-fbo-contrata-en-linea-0",
+  "publisher": "Grupo Aeroportuario del Sureste (ASUR)",
+  "checked": "2026-10-28"
+ },
+ "mmsd-gap-private": {
+  "title": "GAP, Los Cabos Aviación Privada page (no date shown; footer 2015) (checked 28 Oct 2026)",
+  "url": "https://www.aeropuertosgap.com.mx/es/los-cabos/aviacion-privada.html",
+  "publisher": "Grupo Aeroportuario del Pacífico (GAP)",
+  "checked": "2026-10-28"
+ },
+ "tffj-fr-aip": {
+  "title": "AIP France CAR-SAM-NAM, AD 2 TFFJ Saint-Barthélemy, AIRAC AMDT 10/26 effective 01 OCT 2026 (checked 28 Oct 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_01_OCT_2026/CAR-SAM-NAM/AIRAC-2026-10-01/pdf/FR-AD-2.TFFJ-fr-FR.pdf",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-10-28"
+ },
+ "tncm-dc-aip": {
+  "title": "Dutch Caribbean eAIP, AD 2 TNCM Sint Maarten, edition published 28 Nov 2024 (checked 28 Oct 2026)",
+  "url": "https://dc-ansp.org/eAIS/eAIP-Publications/2024-11-28/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html",
+  "publisher": "Dutch Caribbean Air Navigation Service Provider (DC-ANSP)",
+  "checked": "2026-10-28"
+ },
+ "tncm-sxm-private": {
+  "title": "Princess Juliana International Airport, Private Aviation page, undated (checked 28 Oct 2026)",
+  "url": "https://www.sxmairport.com/private-aviation.php",
+  "publisher": "Princess Juliana International Airport",
+  "checked": "2026-10-28"
+ },
+ "mynn-nad-faq": {
+  "title": "Lynden Pindling International Airport, FAQs page (checked 28 Oct 2026)",
+  "url": "https://nassaulpia.com/help/faqs/",
+  "publisher": "Nassau Airport Development Company (LPIA)",
+  "checked": "2026-10-28"
+ },
+ "mynn-nad-private": {
+  "title": "Lynden Pindling International Airport, Private Flight Services page, last modified 2 May 2025 (checked 28 Oct 2026)",
+  "url": "https://nassaulpia.com/flights/private-flight-services/",
+  "publisher": "Nassau Airport Development Company (LPIA)",
+  "checked": "2026-10-28"
+ },
+ "sbsp-decea-rotaer": {
+  "title": "AISWEB ROTAER entry SBSP Congonhas - Deputado Freitas Nobre, D-AMDT 43/26 (checked 28 Oct 2026)",
+  "url": "https://aisweb.decea.mil.br/?codigo=SBSP&i=aerodromos",
+  "publisher": "DECEA (Departamento de Controle do Espaço Aéreo), Brazil",
+  "checked": "2026-10-28"
  }
 }

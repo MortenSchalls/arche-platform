@@ -1,0 +1,62 @@
+{
+ "icao": "KSJC",
+ "iata": "SJC",
+ "name": "Norman Y. Mineta San José International Airport",
+ "city": "San José",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways, 12L/30R and 12R/30L, each 11,000 ft x 150 ft (about 3,353 m x 46 m)",
+   "longest_m": 3353,
+   "src": "ksjc-faa-apd",
+   "quote": "11000 X 150"
+  },
+  "curfew": {
+   "v": "noise-based curfew (since October 2003): Stage II aircraft may not operate 23:00-07:00 local; quieter Stage III aircraft at or below 89.0 EPNdB and some grandfathered Stage 3 jets on the airport's Schedule of Authorized Aircraft are treated separately for 23:30-06:30; check the aircraft against the schedule; exemptions for delays beyond the operator's control, emergencies and government aircraft; fine USD 2,500 per violation",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "src": "ksjc-curfew",
+   "quote": "FAR 36 Stage II aircraft may not operate between the hours of 11:00 p.m. and 7:00 a.m."
+  },
+  "noise": {
+   "v": "curfew violations are fined USD 2,500 per occurrence by administrative citation; engine run-ups are normally not allowed during curfew hours",
+   "src": "ksjc-curfew",
+   "quote": "$2,500 per occurrence"
+  },
+  "customs": {
+   "v": "CBP clears arriving aircraft 7 days a week, 09:00-18:00 (wheels down), plane-side at the FBO; permission to land must be requested at least 24 hours before arrival",
+   "h24": false,
+   "hours_local": [
+    [
+     "09:00",
+     "18:00"
+    ]
+   ],
+   "src": "ksjc-cbp-ga",
+   "quote": "are available 7 days per week, 0900-1800 (wheels down)"
+  },
+  "ppr": {
+   "v": "for international arrivals, CBP permission to land at least 24 hours before arrival",
+   "src": "ksjc-cbp-ga",
+   "quote": "Pilots must secure permission to land by contacting CBP at least 24 hours prior to arrival time at KSJC."
+  }
+ },
+ "missing": [
+  "customs (newer CBP fact sheet of 9 Feb 2026 not opened)",
+  "curfew detail (Schedule of Authorized Aircraft not opened)",
+  "slots",
+  "hours",
+  "fuel",
+  "handling",
+  "max_aircraft"
+ ],
+ "notes": "Runway sizes are from the FAA airport diagram AL-693 (cycle 30 Oct-27 Nov 2025; the newest cycle was not opened); metres are my conversion (1 ft = 0.3048 m). The curfew page wording read through the fetch tool says quieter Stage III aircraft (<= 89.0 EPNdB) 'can operate between the hours of 11:30 p.m. to 6:30 a.m.'; how this applies to each business jet depends on the Schedule of Authorized Aircraft (rev. Nov 2022, https://www.flysanjose.com/sites/default/files/CMarquez/SJC%20Authorized%20Aircraft%20Schedule%202022.pdf), which could not be opened. The portal window 23:00-07:00 is the Stage II rule and is the safe reading. CBP customs hours are from the 25 Jul 2024 sheet; a newer sheet (9 Feb 2026, https://www.cbp.gov/sites/default/files/2026-02/KSJC%20GA%20Airport%20Fact%20Sheet%2020260209.pdf) exists but could not be opened, so customs hours may have changed; the 2024 sheet does not state the time zone on the hours line. FAA Chart Supplement SW (3 Sep 2026, https://aeronav.faa.gov/Upload_313-d/supplements/CS_SW_20260903.pdf) could not be opened."
+}

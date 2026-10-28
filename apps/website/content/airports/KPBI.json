@@ -1,0 +1,54 @@
+{
+ "icao": "KPBI",
+ "iata": null,
+ "name": "President Donald J. Trump International Airport (formerly Palm Beach International)",
+ "city": "West Palm Beach",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "the largest runway is 10,000 ft × 150 ft (about 3,048 m × 46 m); runways shown are 10L-28R, 10R-28L and 14-32",
+   "longest_m": 3048,
+   "src": "kpbi-pbc-airport",
+   "quote": "10,000’ long by 150’ wide"
+  },
+  "customs": {
+   "v": "CBP clears aircraft 7 days a week 09:00–19:00 (office hours 08:00–20:00 Eastern Time); contact CBP at least 4 hours before leaving the foreign port; FIS facility on its own ramp, not attached to an FBO or the terminal",
+   "h24": false,
+   "hours_local": [
+    [
+     "09:00",
+     "19:00"
+    ]
+   ],
+   "src": "kpbi-cbp-ga",
+   "quote": "7 days per week, 0900-1900"
+  },
+  "hours": {
+   "v": "24-hour FAA control tower",
+   "src": "kpbi-pbc-business",
+   "quote": "The airport has a 24-hour control tower and a U.S. Customs & Border Protection port of entry facility."
+  },
+  "handling": {
+   "v": "three full-service FBOs (not named on the page); general aviation uses the south side of the field and may not use the north ramps without the Department's approval",
+   "src": "kpbi-pbc-airport",
+   "quote": "three full service fixed base operators"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (voluntary night restraint not verified)",
+  "noise",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "fuel",
+  "FBO names",
+  "Chart Supplement entry",
+  "AIP entry"
+ ],
+ "notes": "Operator is the Palm Beach County Department of Airports; its site now names the airport 'President Donald J. Trump International Airport' (DJT); CBP's fact sheet (7 Mar 2024) uses KPBI. The voluntary night restraint could not be verified: pbia.org/noise redirects to https://flydjt.org/noise/ and that page, and https://discover.pbc.gov/airports/pages/noise-abatement.aspx, were blocked; the two Part 150 documents opened were for Lantana (LNA), not this airport. The CBP sheet gives no time zone on the 0900-1900 line; Eastern Time is given for office hours. KPBI is not in the US AIP AD 2 Florida page. ft to m conversion mine (1 ft = 0.3048 m)."
+}

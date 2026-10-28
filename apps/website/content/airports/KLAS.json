@@ -1,0 +1,54 @@
+{
+ "icao": "KLAS",
+ "iata": null,
+ "name": "Harry Reid International",
+ "city": "Las Vegas",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-28",
+ "rules": {
+  "runway": {
+   "v": "four runways; the longest, 8L/26R, is 14,515 ft × 150 ft (about 4,424 m × 46 m); 8R/26L 10,526 ft, 1R/19L 9,771 ft, 1L/19R 8,988 ft, all 150 ft wide",
+   "longest_m": 4424,
+   "src": "klas-faa-aip-nv",
+   "quote": "14515 ft x 150 ft"
+  },
+  "hours": {
+   "v": "airport attended at all hours; tower 24 hours; ramp control 05:00–01:00 local",
+   "src": "klas-faa-aip-nv",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "noise": {
+   "v": "turbojet departures not permitted on runways 1R/19L or 1L/19R from 20:00 to 08:00 (time basis not stated), except for weather or operational need; minimal power on some departures",
+   "src": "klas-faa-aip-nv",
+   "quote": "TBJT DEPS NOT PMTD ON RWY 01R/19L OR RWY 01L/19R 2000-0800. XCPNS FOR WX OR OPNL NECESSITY."
+  },
+  "customs": {
+   "v": "CBP general aviation clearance (Pacific Time office): Sun, Tue, Thu, Fri 09:00–11:00; Mon, Wed, Sat 09:00–11:00 and 17:00–21:00; phone CBP at least 2 hours before arrival; user fee decal needed; the AIP says GA CBP reservations at least 12 hours ahead",
+   "h24": false,
+   "src": "klas-cbp-ga",
+   "quote": "0900-1100 and 1700-2100"
+  },
+  "ppr": {
+   "v": "all non-standard runway operations and use of taxiway H by aircraft with wingspan over 135 ft need PPR from the Department of Aviation",
+   "src": "klas-faa-aip-nv",
+   "quote": "ALL NON-STD RWY OPNS PPR FM DEPT OF AVN."
+  },
+  "handling": {
+   "v": "general aviation parking very limited; check availability with either FBO before the trip",
+   "src": "klas-faa-aip-nv",
+   "quote": "GA PRKG VERY LTD. FOR PRKG AVAILABILITY CTC EITHER FBO (702) 736-1830 OR (702) 739-1100."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no statement either way)",
+  "slots",
+  "max_aircraft",
+  "fuel",
+  "operator (named in an official sentence)"
+ ],
+ "notes": "US AIP Part 3 AD 2 Nevada, HTML, read 28 Oct 2026 (amendment shown on page not stated; 29th edition effective 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published). The AIP heading reads 'Harry Reid International' but a block below still says 'Mc Carran Intl'. The 2000-0800 turbojet line has no L or Z; recorded as noise, not a curfew. CBP fact sheet 8 Aug 2024; the AIP adds that GA CBP reservations are required at least 12 hours ahead ('GA CBP RSVNS ARE RQRD TO BE SMTD A MIN OF 12 HOURS IN ADVN'), which is stricter than the CBP sheet's 2 hours; follow the stricter. ft to m conversion mine (1 ft = 0.3048 m)."
+}
