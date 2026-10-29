@@ -4,8 +4,12 @@ Read this before changing anything. These are business rules set by the owner, M
 
 ## Money and pricing
 - All figures in USD.
-- Client price = (operator price + direct trip costs) ÷ 0.91, rounded up. Archē's margin is 9% of the price the client pays, as a rule (Morten, 25 Oct 2026; was 7%). A lower margin needs the director's approval.
-- Deposit 25% of the charter price (at least USD 2,500) on signature; balance 7 days before the first departure; full payment if departure is under 7 days away. Fixed-price extras are added to the balance; items at cost are invoiced after the flight with receipts, without margin.
+- Client price = (operator price + direct trip costs) ÷ 0.91, rounded up. Archē's margin is 9% of the price the client pays, as a rule (Morten, 25 Oct 2026; was 7%). 9% is the minimum; a different margin on a trip, higher or lower, only in special circumstances and only by Morten's decision, with the reason recorded (Morten, 29 Oct 2026).
+- Deposit 25% of the charter price (at least USD 2,500) on signature; balance 7 days before the first departure; full payment if departure is under 7 days away. Fixed-price extras are added to the balance; items at cost are invoiced after the flight with receipts, without margin. If the operator wants money earlier, or its cancellation charges rise earlier, the client pays earlier: each confirmation prints its own payment schedule (A3) (Morten, 29 Oct 2026).
+- Archē never pre-funds: the operator is paid only from cleared client money, never more than has been received, and never more than the operator price; Archē keeps its margin. The operator's contract is signed only once the client has signed and paid what the operator wants at that point. At every moment the client money held covers what Archē would owe the operator if the trip were cancelled then (Morten, 29 Oct 2026).
+- Cancellation: the client always pays the higher of Archē's scale (A9) and the operator's own charge plus Archē's fee; each confirmation prints the charges for that booking (Morten, 29 Oct 2026).
+- Insurance: Archē carries no liability insurance for its first months; all aircraft, passenger and third-party insurance is the operator's. Every trip needs the operator's certificate, at least USD 50M (jet) or 25M (turboprop), valid on every flight date, the aircraft on it, the route inside its cover, confirmed with the insurer or its broker (Morten, 29 Oct 2026).
+- Operator library: each operator's terms, insurance and trip figures (no client personal data, no bulk copy of Avinode data) are saved for Archē's own know-how and offered to prefill the next trip (Morten, 29 Oct 2026).
 - Clients pay only through a secure payment request from Archē's payment provider (provider still to be agreed). Paynode is removed everywhere and is not named in any text, page, course or document until Morten agrees otherwise (Morten, 26 Oct 2026). Never print, store or send bank details anywhere.
 
 ## Bookings

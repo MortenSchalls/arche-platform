@@ -34,10 +34,11 @@ jobs:
           node apps/portal/tests/reset.test.mjs
           node apps/portal/tests/me.test.mjs
           node apps/portal/tests/live.test.mjs
+          node apps/portal/tests/bookingplan.test.mjs
       - name: Portal screens (test version, example data)
         working-directory: apps/portal
         run: |
           python3 build_test.py
           (python3 -m http.server 8765 >/dev/null 2>&1 &) ; sleep 2
           set -o pipefail
-          for t in boottest roletodaytest invitetest seeastest profiletest altest rightstest inttest supervisortest livereal; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done
+          for t in boottest roletodaytest invitetest seeastest profiletest altest rightstest inttest supervisortest livereal bookingtest; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done
