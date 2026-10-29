@@ -84,7 +84,7 @@
     return nxt == null ? null : addDays(dep, -Math.ceil(nxt));
   }
   /* the operator deadline (Morten, 29 Oct 2026: "alerts 12 hours before due for operator as we are being liable if not
-     cancelled ... highest alert for all involved, same as AOG"). depAt = first departure (ISO date and time). Returns the
+     cancelled ... highest alert for all involved, same as AOG"; named "critical: operator deadline", 29 Oct 2026). depAt = first departure (ISO date and time). Returns the
      next moment the operator's charge or payment rises, what Archē must hold by then, and whether it is held:
      {at (ms), need, payNeed, short (client money missing), unpaid (money held but the operator not paid)} or null. */
   function deadline({depAt, nowMs, O, scale, pay, received, paid}){

@@ -1,4 +1,4 @@
-// Booking money on the server (Morten, 29 Oct 2026): critical (AOG) alerts from 12 hours before the operator's deadline
+// Booking money on the server (Morten, 29 Oct 2026): critical operator-deadline alerts from 12 hours before the operator's deadline
 // to everyone involved, overdue client payments, lapsed offers, payment reminders to clients (only when switched on),
 // and the cancellation notice. Example data only.
 import { openItems, runAlerts } from "../api/alerts.mjs";
@@ -48,7 +48,7 @@ const P = () => sent.filter(q => q[0] === "push"), E = () => sent.filter(q => q[
 const night = dl10 - 11 * H;   // 23:00 UTC = 06:00 Bangkok; then through the night
 const M = mem(JSON.parse(JSON.stringify(short)));
 await runAlerts(M, night, send);
-ok("critical: owner, operations and the trip's broker get the phone alert; nobody else", ["own", "ops", "broker"].every(k => P().some(q => q[1].endsWith("/" + k))) && !P().some(q => q[1].endsWith("/other")) && P().every(q => /CRITICAL \(AOG\)/.test(q[2])), P());
+ok("critical: owner, operations and the trip's broker get the phone alert; nobody else", ["own", "ops", "broker"].every(k => P().some(q => q[1].endsWith("/" + k))) && !P().some(q => q[1].endsWith("/other")) && P().every(q => /CRITICAL: operator deadline/.test(q[2])), P());
 ok("critical: an email at once to the alert list", E().filter(q => /CRITICAL/.test(q[2])).length === 1);
 sent.length = 0; await runAlerts(M, night + 5 * 60e3, send); ok("not again within 10 minutes", P().length === 0);
 sent.length = 0; for (let k = 1; k <= 9; k++) await runAlerts(M, night + k * 10 * 60e3 + 60e3, send);

@@ -7,7 +7,7 @@
 //           One phone push and one reminder after 4 hours if still open; never between 22:00 and 07:00.
 //   low     a backup or rotation running late: no push.
 //   critical (Morten, 29 Oct 2026: "alerts 12 hours before due for operator as we are being liable if not cancelled, this
-//           is extremely important to keep as highest alert for all involved, same as AOG in aviation"): from 12 hours
+//           is extremely important to keep as highest alert for all involved, same as AOG in aviation"; named "CRITICAL: operator deadline", as AOG is for aircraft): from 12 hours
 //           before the operator's charge or payment rises on a booking whose operator contract is signed, while the client
 //           money held does not cover it or the operator is not paid; and after such a deadline has passed. Everyone on
 //           the alert list, every owner and operations member and the trip's broker: phone every 10 minutes, day or night,
@@ -119,7 +119,7 @@ export function openItems(d, now = Date.now()) {
       out.push({ key: `flight:${t.owner_id}:${t.id}:${i}:${e.s}`, type: "flight", ref, since: e.set, once: true, broker: t.owner_id, urgency: ["delay", "div", "canc"].includes(e.s) ? "urgent" : "normal",
         what: `${legs.length > 1 ? `leg ${i + 1} ` : ""}${air(l.from) && air(l.to) ? air(l.from) + "→" + air(l.to) + " " : ""}${LEG[e.s]}` }); });
   }
-  // booking money (Morten, 29 Oct 2026): offer lapsed, client payment overdue, and the operator deadline (critical, like AOG)
+  // booking money (Morten, 29 Oct 2026): offer lapsed, client payment overdue, and the operator deadline (critical)
   const margin = Number((d.terms || {}).margin) || 0.09, utc = ms => new Date(ms).toISOString().slice(0, 16).replace("T", " ") + " UTC";
   for (const t of d.trips || []) {
     const x = t.data || {}, s = st[t.owner_id + "/" + t.id] || {}, m = tripMoney(x, s, margin, now); if (!m) continue;
@@ -171,10 +171,10 @@ export async function runAlerts(D, now = Date.now(), send = { push: sendPush, em
   let clientMails = 0;
   for (const it of items) {
     const L = log[it.key] || { first: now, count: 0 }, age = now - L.first;
-    if (it.urgency === "critical") {   // like AOG: everyone involved, day or night, until it is resolved
+    if (it.urgency === "critical") {   // the highest level: everyone involved, day or night, until it is resolved
       if (L.lastPush && now - L.lastPush < CRIT_EVERY) continue;
       const uids = new Set([...R.map(r => r.uid), ...(profiles || []).filter(p => ["owner", "ops"].includes(p.role)).map(p => p.id), it.broker].filter(Boolean));
-      const title = `Archē CRITICAL (AOG): ${TITLES[it.type]}`, body = `${it.ref} · ${it.what}.`;
+      const title = "Archē CRITICAL: operator deadline", body = `${it.ref} · ${it.what}.`;
       for (const s of subs.filter(s => uids.has(s.owner_id))) await pushDev(s, { ...it, key: it.key + ":" + L.count }, title, body);
       let lastEmail = L.lastEmail || 0;
       if (!lastEmail || now - lastEmail >= CRIT_MAIL) {

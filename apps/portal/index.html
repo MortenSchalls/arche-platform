@@ -7591,7 +7591,7 @@ function trustMatrix(){
     return nxt == null ? null : addDays(dep, -Math.ceil(nxt));
   }
   /* the operator deadline (Morten, 29 Oct 2026: "alerts 12 hours before due for operator as we are being liable if not
-     cancelled ... highest alert for all involved, same as AOG"). depAt = first departure (ISO date and time). Returns the
+     cancelled ... highest alert for all involved, same as AOG"; named "critical: operator deadline", 29 Oct 2026). depAt = first departure (ISO date and time). Returns the
      next moment the operator's charge or payment rises, what Archē must hold by then, and whether it is held:
      {at (ms), need, payNeed, short (client money missing), unpaid (money held but the operator not paid)} or null. */
   function deadline({depAt, nowMs, O, scale, pay, received, paid}){
@@ -7928,7 +7928,7 @@ function trustMatrix(){
   }
   window.bookBlock = bookBlock;
 
-  // ---------- deadlines, lapsed offers and the critical (AOG) alert (Morten, 29 Oct 2026) ----------
+  // ---------- deadlines, lapsed offers and the critical operator-deadline alert (Morten, 29 Oct 2026; called critical, not AOG, which is for aircraft) ----------
   const depAtOf = t => { const l = (((t.d.trip || {}).legs) || []).filter(x => x.date).sort((a, b) => (a.date + (a.time || "")).localeCompare(b.date + (b.time || "")))[0]; return l ? `${l.date}T${l.time || "00:00"}:00Z` : ""; };
   window.offerLapsed = t => { const st = t.st || {}, v = ((t.d.conf || {}).valid || {}).date; return !!(st.confIssued && !st.signed && v && v < today() && st.state !== "cancelled"); };
   const utc = ms => new Date(ms).toISOString().slice(0, 16).replace("T", " ") + " UTC";
@@ -7944,14 +7944,14 @@ function trustMatrix(){
     if (dl && dl.at - nowMs <= 12 * 3600e3 && (dl.short || dl.unpaid)) return {level: "aog", at: dl.at, text: dl.short ? `Client money missing ${usd(dl.need - m.received)}: cancel with the operator on Avinode before ${utc(dl.at)}, or collect it.` : `Pay the operator ${usd(dl.payNeed - m.paid)} before ${utc(dl.at)}.`};
     return null;
   };
-  const aogLine = t => { const a = aogOf(t); return a ? `<div class="note bad" style="border-width:2px"><b>CRITICAL (AOG).</b> ${esc(a.text)}</div>` : ""; };
+  const aogLine = t => { const a = aogOf(t); return a ? `<div class="note bad" style="border-width:2px"><b>CRITICAL: operator deadline.</b> ${esc(a.text)}</div>` : ""; };
   function aogAll(){ return allTrips().filter(t => (isStaff() || t.bid === S.uid) && !S.preview).map(t => ({t, a: aogOf(t)})).filter(x => x.a); }
   window.aogAll = aogAll;
   // a red bar on every page for everyone involved (operations, the owner, the trip's broker) until it is resolved
   const _rn = renderNow; renderNow = function(){ _rn(); const main = document.getElementById("main"); if (!main) return;
     const list = aogAll(), old = document.getElementById("aogBar"); if (old) old.remove(); if (!list.length) return;
     const d = document.createElement("div"); d.id = "aogBar";
-    d.innerHTML = `<div class="note bad" role="alert" style="border-width:2px;margin-bottom:12px"><b>CRITICAL (AOG): ${list.length} booking${list.length > 1 ? "s" : ""} at the operator's deadline.</b>${list.map(({t, a}) => `<div class="small" style="margin-top:4px">${esc(((t.d.client || {}).company || (t.d.client || {}).name || (t.st || {}).ref || ""))} · ${esc(a.text)} <a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open</a></div>`).join("")}</div>`;
+    d.innerHTML = `<div class="note bad" role="alert" style="border-width:2px;margin-bottom:12px"><b>CRITICAL: operator deadline on ${list.length} booking${list.length > 1 ? "s" : ""}.</b>${list.map(({t, a}) => `<div class="small" style="margin-top:4px">${esc(((t.d.client || {}).company || (t.d.client || {}).name || (t.st || {}).ref || ""))} · ${esc(a.text)} <a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open</a></div>`).join("")}</div>`;
     main.insertBefore(d, main.firstChild); };
 
   // ---------- the one-click cancellation ----------
@@ -8070,7 +8070,7 @@ function trustMatrix(){
     });
     allTrips().filter(t => t.d.opTerms && offerLapsed(t) && !(typeof ownTrip === "function" && ownTrip(t))).forEach(t => { const c = t.d.client || {};
       out.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div><p><b>Offer lapsed unsigned:</b> ${esc(c.company || c.name || (t.st || {}).ref || "")} · confirm the operator's hold or close it.</p><p class="small muted"><a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a></p></div></div>`); });
-    const aog = aogAll().map(({t, a}) => `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p><b>CRITICAL (AOG):</b> ${esc(((t.d.client || {}).company || (t.d.client || {}).name || ""))} · ${esc(a.text)}</p><p class="small muted"><a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a></p></div></div>`);
+    const aog = aogAll().map(({t, a}) => `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p><b>CRITICAL, operator deadline:</b> ${esc(((t.d.client || {}).company || (t.d.client || {}).name || ""))} · ${esc(a.text)}</p><p class="small muted"><a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a></p></div></div>`);
     return [...new Set([...aog, ...out])];
   }
   window.moneyFlags = moneyFlags;
@@ -8088,7 +8088,7 @@ function trustMatrix(){
         return `<tr><td>${esc(o.name)}<br><span class="muted">${esc((o.regs || []).join(", "))}</span></td><td>${tr.length} <span class="muted">(${flown} flown, margin ${avgM}%)</span></td><td>${(l.terms || {}).cancelNone ? "none stated" : esc(fmtRows((l.terms || {}).cancel))}</td><td>${esc(fmtRows((l.terms || {}).pay))}</td><td>${esc(i.insurer || "–")}${i.expiry ? `<br><span class="${i.expiry < today() ? "" : "muted"}">to ${esc(fmtD(i.expiry))}</span>` : ""}</td><td>${esc(fmtD(l.at))}<br><span class="muted">${esc(l.ref || "")}</span></td></tr>`; }).join("")}</tbody></table>` : `<p class="small">Empty until the first booking with operator terms is issued.</p>`}</div>`;
   }
   window.oplibPanel = libPanel;
-  if (typeof ALERT_EVENTS === "object") ALERT_EVENTS.money = "Booking money: client payment overdue, offer lapsed (critical AOG alerts reach everyone involved anyway)";
+  if (typeof ALERT_EVENTS === "object") ALERT_EVENTS.money = "Booking money: client payment overdue, offer lapsed (critical operator-deadline alerts reach everyone involved anyway)";
   function remindPanel(){
     if (!S.isOwner || S.preview || acting() !== "owner") return "";
     const A = S.alerts || {}, rm = A.clientReminders || {}, on = !!rm.on && rm.version === BP.REMIND_VERSION, co = S.company || {};
@@ -8097,7 +8097,7 @@ function trustMatrix(){
       <p class="small">${on ? `<b>On</b> since ${esc(fmtT(rm.at))}.` : "<b>Off.</b> Nothing is sent to clients."} When on, every client with a signed confirmation gets an email 3 days and 1 day before each payment in its schedule, until the money has cleared. Sent from operations@archeaviation.com, with a copy to the bookings address and replies going there.</p>
       <label class="f" for="rm_txt">The wording (example)<textarea id="rm_txt" rows="13" readonly>${esc(ex.subject + "\n\n" + ex.text)}</textarea></label>
       <div class="row">${on ? `<button class="btn small" type="button" data-rm="off">Turn reminders off</button>` : `<button class="btn small primary" type="button" data-rm="on">I approve this wording: turn reminders on</button>`}</div>
-      <h3 style="margin:10px 0 0">Critical (AOG)</h3><p class="small">From 12 hours before an operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, and after such a deadline has passed: everyone on the alert list, every owner and operations member and the trip's broker get a phone alert every 10 minutes, day or night, and an email every hour, and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled.</p></div>`;
+      <h3 style="margin:10px 0 0">Critical: operator deadline</h3><p class="small">From 12 hours before an operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, and after such a deadline has passed: everyone on the alert list, every owner and operations member and the trip's broker get a phone alert every 10 minutes, day or night, and an email every hour, and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled.</p></div>`;
   }
   if (typeof alertsPanel === "function") { const _ap = alertsPanel; alertsPanel = function(){ return _ap() + remindPanel(); }; }
   document.addEventListener("click", async e => {

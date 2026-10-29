@@ -157,18 +157,18 @@ await as('Test Operations');await p.evaluate(did=>{S.sel=did;S.view='trips';rend
 ok('operations cannot set a margin',!await p.$('#bk_mp'));
 await p.fill('#o_op','90000');await p.click('[data-act="opsSave"]');await p.waitForTimeout(800);
 t=await trip();ok('operations saving again keeps the owner\'s margin',t.st.price===Math.ceil(90000/0.88),t.st.price);
-// the critical (AOG) alert: the deadline arithmetic, and the red bar on every page for everyone involved
+// the critical operator-deadline alert: the deadline arithmetic, and the red bar on every page for everyone involved
 await p.evaluate(async did=>{const t=tripById(did);await statusWrite(t,{state:'issued',confIssued:{rev:1,at:now(),data:{}},signed:{at:now()},book:{...(t.st.book||{}),signedAt:now()},receipts:[{date:new Date().toISOString().slice(0,10),amount:45000}],payouts:[{date:new Date().toISOString().slice(0,10),amount:45000}],clientPaid:false,operatorPaid:false},'test: re-issued, half paid');},did);await p.waitForTimeout(800);
 const ag=await p.evaluate(did=>{const t=tripById(did);const leg=t.d.trip.legs[0];const dep=Date.parse(leg.date+'T'+leg.time+':00Z');const at10=dep-10*864e5;return {before:aogOf(t,at10-13*3600e3),in:aogOf(t,at10-11*3600e3),after:aogOf(t,at10+3600e3)};},did);
-ok('AOG: nothing 13 hours before the operator deadline',ag.before===null,ag.before);
-ok('AOG: 11 hours before, money missing: critical with the time to cancel by',ag.in&&ag.in.level==='aog'&&/cancel with the operator on Avinode before/.test(ag.in.text),ag.in);
-ok('AOG: after the deadline: exposure shown',ag.after&&ag.after.level==='passed'&&/exposed USD 45,000/.test(ag.after.text),ag.after);
-const bar=await p.evaluate(async()=>{const o=window.aogOf;window.aogOf=t=>t.d.client&&t.d.client.name==='Anna Example'?{level:'aog',text:'Client money missing USD 45,000: cancel with the operator on Avinode before 2026-11-28 10:00 UTC, or collect it.'}:null;S.view='prospects';render();await new Promise(r=>setTimeout(r,300));const x=!!document.getElementById('aogBar')&&/CRITICAL \(AOG\)/.test(document.getElementById('aogBar').textContent);window.__keepAog=o;return x;});
+ok('Critical: nothing 13 hours before the operator deadline',ag.before===null,ag.before);
+ok('Critical: 11 hours before, money missing: critical with the time to cancel by',ag.in&&ag.in.level==='aog'&&/cancel with the operator on Avinode before/.test(ag.in.text),ag.in);
+ok('Critical: after the deadline: exposure shown',ag.after&&ag.after.level==='passed'&&/exposed USD 45,000/.test(ag.after.text),ag.after);
+const bar=await p.evaluate(async()=>{const o=window.aogOf;window.aogOf=t=>t.d.client&&t.d.client.name==='Anna Example'?{level:'aog',text:'Client money missing USD 45,000: cancel with the operator on Avinode before 2026-11-28 10:00 UTC, or collect it.'}:null;S.view='prospects';render();await new Promise(r=>setTimeout(r,300));const x=!!document.getElementById('aogBar')&&/CRITICAL: operator deadline/.test(document.getElementById('aogBar').textContent);window.__keepAog=o;return x;});
 await shot('10-aog-bar','#aogBar');await p.evaluate(()=>{window.aogOf=window.__keepAog;render();});
-ok('AOG: a red bar on every page',bar);
+ok('Critical: a red bar on every page',bar);
 await as('Test Broker');
 const bar2=await p.evaluate(async()=>{const o=window.aogOf;window.aogOf=t=>t.d.client&&t.d.client.name==='Anna Example'?{level:'aog',text:'x'}:null;S.view='today';render();await new Promise(r=>setTimeout(r,300));const x=!!document.getElementById('aogBar');window.aogOf=o;render();return x;});
-ok('AOG: the trip\'s broker sees it too',bar2);
+ok('Critical: the trip\'s broker sees it too',bar2);
 // lapsed offer
 await as('Test Operations');await p.evaluate(did=>{S.view='trips';S.sel=did;render();},did);await p.waitForTimeout(600);
 const lap=await p.evaluate(async did=>{const t=tripById(did);await deskWrite(t,{conf:{...(t.d.conf||{}),valid:{date:'2020-01-01'}}},'test: old offer');await statusWrite(t,{signed:null},'test: unsigned');await new Promise(r=>setTimeout(r,800));const t2=tripById(did);return {l:offerLapsed(t2),flag:moneyFlags().some(x=>/Offer lapsed unsigned/.test(x))};},did);
