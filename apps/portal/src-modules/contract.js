@@ -25,7 +25,7 @@ function agrRender(a, opts){   // the full agreement, as signed or to be signed
     <tr><td>Archē email for notices</td><td>${esc(co.email || "")}</td></tr><tr><td>Start date</td><td>${esc(a.start ? fmtD(a.start) : "On Archē's countersignature")}</td></tr></table></div>`;
   const sig = (who, nm_, title, at) => `<p><b>${who}</b><br>Name: ${esc(nm_ || "–")}${title ? `<br>Title: ${esc(title)}` : ""}<br>Signed electronically: ${at ? esc(fmtT(at)) : "not yet"}</p>`;
   const s3 = `<h2>Schedule 3: Signatures</h2>${sig("Signed for and on behalf of " + esc(co.name || "Arche Executive Pte. Ltd."), a.counterName, a.counterTitle, a.counterAt)}${sig("Signed by the Consultant", a.signedName, "", a.signedAt)}${a.hash ? `<p class="small muted">Fingerprint of the signed text (SHA-256): <span class="mono" style="word-break:break-all">${esc(a.hash)}</span> · version ${esc(a.version || "")}</p>` : ""}`;
-  return `<div class="agrdoc" id="agrDoc"><h1>Independent Broker Consultancy Agreement</h1><p class="small muted">${esc(co.name || "Arche Executive Pte. Ltd.")} · version ${esc(a.version || AGR_VERSION)}</p>${agrFill(AGR_MAIN, co)}${s2}${s3}${agrFill(AGR_TAIL, co)}</div>`;
+  return `<div class="agrdoc" id="agrDoc"><h1>Independent Broker Consultancy Agreement</h1><p class="small muted">${esc(co.name || "Arche Executive Pte. Ltd.")} · version ${esc(a.signedAt ? (a.version || AGR_VERSION) : AGR_VERSION)}</p>${agrFill(AGR_MAIN, co)}${s2}${s3}${agrFill(AGR_TAIL, co)}</div>`;
 }
 async function agrHash(text){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join(""); }
 const agrText = html => { const d = document.createElement("div"); d.innerHTML = html; d.querySelectorAll(".small.muted").forEach(n => { if (/Fingerprint|version/.test(n.textContent)) n.remove(); }); d.querySelectorAll("input").forEach(i => i.replaceWith(document.createTextNode(i.value))); return d.textContent.replace(/\s+/g, " ").trim(); };
@@ -53,10 +53,10 @@ document.addEventListener("submit", async ev => {
   if (!$("ag_r1").checked || !$("ag_r2").checked) { toast("Tick both boxes to sign."); return; }
   const name = $("ag_name").value.trim();
   if (name.split(/\s+/).length < 2) { toast("Type your full legal name."); return; }
-  const signedAt = now(), rec = {...a, details, signedName: name, signedAt, signedUA: navigator.userAgent.slice(0, 200), company: {...S.company}};
+  const signedAt = now(), rec = {...a, version: AGR_VERSION, details, signedName: name, signedAt, signedUA: navigator.userAgent.slice(0, 200), company: {...S.company}};
   const html = agrRender(rec);
   try { const hash = await agrHash(agrText(html));
-    const ok = await window.__agrSign({details, signedName: name, signedAt, signedUA: rec.signedUA, company: rec.company, hash, html});
+    const ok = await window.__agrSign({version: AGR_VERSION, details, signedName: name, signedAt, signedUA: rec.signedUA, company: rec.company, hash, html});
     if (ok) { toast("Signed. Archē will countersign and open your portal."); S.agrOpen = false; render(); } else toast("This agreement can no longer be signed. Ask Archē Executive.");
   } catch(err){ toast("Could not sign. Try again."); }
 });

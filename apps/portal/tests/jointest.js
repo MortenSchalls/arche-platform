@@ -39,6 +39,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  T=await c.evaluate(()=>window.__T);
  const ag=T.agreements.find(r=>r.id===NEW).data;
  ok('signed with name, details, time and fingerprint', ag.status==='signed'&&ag.signedName==='Example New Broker'&&ag.details.territory==='Exampleland'&&/^[0-9a-f]{64}$/.test(ag.hash||'')&&(ag.html||'').includes('Example New Broker'));
+ ok('signed on the current agreement version, with the 4.4 wording', ag.version===await c.evaluate(()=>AGR_VERSION)&&/within 180 days after the last flight/.test(ag.html||''));
  ok('no horizontal scroll at 390 px on the agreement', await c.evaluate(()=>{S.agrOpen=true;render();return document.documentElement.scrollWidth<=innerWidth+1;}));
  o=await open(OWN,T,1400);await o.evaluate(()=>{S.view='onboarding';render();});await o.waitForTimeout(500);
  await o.fill('#ob_mail_'+NEW,'');await o.click('[data-approve]');await o.waitForTimeout(300);
