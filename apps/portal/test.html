@@ -891,7 +891,7 @@ function renderNow(){
   if (S.view === "conf" && document.activeElement && document.activeElement.closest && document.activeElement.closest("#confForm")) return;                                       // keep an open form intact while someone types; lists refresh when it closes
   const v = S.view, r = acting();
   let html = "";
-  if (r === "pending") html = vPending();
+  if (r === "pending") html = S.view === "profile" && typeof vProfile === "function" ? vProfile() : vPending();
   else if (r === "inactive" && S.myRoster && S.myRoster.offboard && typeof vLeaving === "function") html = vLeaving();
   else if (r === "inactive") html = `<div class="panel empty"><p><b>Your access to the portal has ended.</b></p><p class="small">Contact Archē Executive operations if you think this is a mistake.</p></div>`;
   else if (obNeeded()) html = vWelcome();
@@ -912,6 +912,7 @@ function renderNow(){
   else if (v === "rules") html = vRules();
   else if (v === "prospects") html = vProspects();
   else if (v === "leads") html = vLeads();
+  else if (v === "profile" && typeof vProfile === "function") html = vProfile();
   else if (v === "assistant") html = vAssistant();
   else if (v === "supervise") html = vSupervise();
   else if (v === "onboarding") html = S.isOwner ? vOnboarding() : "";
@@ -4797,7 +4798,7 @@ function vPending(){
   const s4 = step(5, "Read and sign your agreement", a && a.status === "sent" ? `<p class="small">Read it in full, fill in your details and sign it here.</p><div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="open">Read and sign</button></div>`
     : a && a.status !== "sent" ? `<p class="small">Signed on ${fmtT(a.signedAt)}.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="open">View your agreement</button></div>` : `<p class="small muted">After your assessment.</p>`, a ? (a.status === "sent" ? "now" : "done") : "");
   const s5 = step(6, "Countersignature and onboarding package", `<p class="small">Archē countersigns, creates your Archē email address and issues your onboarding package. Your portal opens straight after.</p>`, a && a.status === "signed" ? "now" : "");
-  return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p>${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
+  return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p><div class="row"><button class="btn small" type="button" data-pr="open">My profile and password</button></div>${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
 }
 
 /* the owner's card in Team: assessment, agreement, countersignature */
@@ -7474,7 +7475,7 @@ function trustMatrix(){
         <div class="row" style="grid-column:1/-1"><button class="btn primary" type="submit" ${S.invBusy ? "disabled" : ""}>${S.invBusy ? "Sending…" : "Send invitation"}</button></div></form>
       ${r ? (r.ok ? `<div class="note ${r.sent === "sent" ? "info" : "warn"} small" id="invResult"><p><b>${r.sent === "sent" ? `Invitation emailed to ${esc(r.email)}.` : `Login created for ${esc(r.email)}, but the email was ${esc(r.sent)}.`}</b></p>
           <p>${r.sent === "sent" ? "If it does not arrive (check spam), send the link yourself:" : "Send this personal link yourself, by WhatsApp or email:"}</p>
-          <div class="row"><button class="btn small" type="button" data-inv="copy">Copy the personal link</button></div><p class="muted">The link works once, for 24 hours. Send it only to this person.</p></div>`
+          <div class="row"><button class="btn small" type="button" data-inv="copy">Copy the personal link</button></div><p class="muted">The link works once and only for a short time. Send it only to this person.</p></div>`
         : `<div class="note warn small" id="invResult"><p>${esc(r.error || "Could not send the invitation.")}</p></div>`) : ""}
       ${list.length ? `<h3 style="margin:6px 0 0">Invitations: ${(() => { const st = S.invStates || {}, acc = list.filter(x => (st[x.email] || {}).accepted).length; return S.invStates ? `${list.length - acc} pending, ${acc} accepted` : "pending and accepted"; })()}</h3><div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
         return `<tr><td>${esc(x.name || "")}</td><td>${esc(x.email || "")}</td><td>${fmtT(x.at)}</td><td>${x.sent ? "Yes" : "No: link given to you"}</td><td>${!st ? `<span class="muted">Checking…</span>` : st.accepted ? `<span class="chip c-flown">Yes</span> <span class="muted">${fmtT(st.signedIn)}</span><br><span class="muted">${esc(st.step)}</span>` : `<span class="chip c-enquiry">Not yet</span><br><span class="muted">${esc(st.step)}</span>`}</td></tr>`; }).join("")}</tbody></table></div>` : ""}</div>`;
@@ -7556,5 +7557,67 @@ function trustMatrix(){
     if (S.asUser) { e.stopImmediatePropagation(); exit(); if (v) { S.preview = v; S.view = v === "ops" ? "queue" : "trips"; render(); } } }, true);
   document.addEventListener("click", e => { if (e.target.closest && e.target.closest("[data-asexit]")) { e.preventDefault(); exit(); } });
   window.__seeAs = {enter, exit};
+})();
+/* ---------- My profile (Morten, 29 Oct 2026: "a page where staff can insert and amend their own user profile and also
+   change password") ----------
+   Everyone signed in, including people still joining. Shows what Archē holds (name on the agreement, role, country,
+   Archē email, sign-in email: changed only by the owner) and lets the person change their own contact details and
+   their password. Saved through /api/me (only the allowed fields); the password through the sign-in service. */
+(function(){
+  const TZ = ["Asia/Bangkok", "Asia/Singapore", "Asia/Hong_Kong", "Asia/Tokyo", "Asia/Dubai", "Europe/London", "Europe/Copenhagen", "Europe/Bratislava", "Europe/Rome", "America/New_York"];
+  async function load(){
+    if (S.prLoading) return; S.prLoading = true;
+    try {
+      if (window.__sb && !window.__TEST_AS) { const u = (await window.__sb.auth.getUser()).data.user || {}; const {data} = await window.__sb.from("profiles").select("contract_name,role,base,data").eq("id", S.uid).maybeSingle();
+        S.pr = {email: u.email || "", name: (data || {}).contract_name || "", role: (data || {}).role || "", base: (data || {}).base || "", work: ((data || {}).data || {}).workEmail || "", self: ((data || {}).data || {}).self || {}}; }
+      else { const d = await S.db.doc("roster/" + S.uid).get(), x = d.exists ? d.data() : {}; S.pr = {email: "you@example.com", name: x.contractName || "", role: x.role || "", base: x.base || "", work: x.workEmail || "", self: x.self || {}}; }
+    } catch(e){ S.pr = {self: {}}; }
+    S.prLoading = false; render();
+  }
+  window.vProfile = function(){
+    if (!S.pr) { load(); return `<div class="panel"><h1>My profile</h1><p class="small muted">Loading…</p></div>`; }
+    const p = S.pr, s = p.self || {}, role = {owner: "Owner", ops: "Operations", broker: "Broker", consultant: "Charter consultant"}[p.role] || "Joining";
+    const f = (id, label, v, extra = "") => `<label class="f" for="${id}">${label}<input id="${id}" value="${esc(v || "")}" ${extra}></label>`;
+    return `<div class="head"><div><h1>My profile</h1><p class="muted small">Your details at Archē Executive, and your password.</p></div>${acting() === "pending" ? `<div class="row"><button class="btn" type="button" data-pr="back">Back to joining</button></div>` : ""}</div>
+      <div class="grid2"><div class="panel stack"><h2>What Archē holds</h2>
+        <table class="small"><tbody>
+          <tr><th scope=row style="text-align:left">Name on your agreement</th><td>${esc(p.name || "Not given yet")}</td></tr>
+          <tr><th scope=row style="text-align:left">Role</th><td>${esc(role)}</td></tr>
+          <tr><th scope=row style="text-align:left">Country you work from</th><td>${esc(p.base || "Not given yet")}</td></tr>
+          <tr><th scope=row style="text-align:left">Archē email</th><td>${esc(p.work || "Given when your agreement is countersigned")}</td></tr>
+          <tr><th scope=row style="text-align:left">Sign-in email</th><td>${esc(p.email || "")}</td></tr></tbody></table>
+        <p class="small muted">To correct any of these, message the owner. Your name must match your passport.</p></div>
+      <div class="stack"><form id="prForm" class="panel stack"><h2>Your contact details</h2><div class="fgrid">
+          ${f("pr_pref", "Name you like to be called", s.preferredName, 'autocomplete="nickname"')}
+          ${f("pr_mob", "Mobile, with country code", s.mobile, 'type="tel" autocomplete="tel" placeholder="+66 81 234 5678"')}
+          ${f("pr_wa", "WhatsApp, if different", s.whatsapp, 'type="tel" placeholder="+66 81 234 5678"')}
+          <label class="f" for="pr_tz">Your time zone<select id="pr_tz">${["", ...TZ].map(z => `<option value="${z}" ${s.timezone === z ? "selected" : ""}>${z ? z.replace("_", " ") : "Choose"}</option>`).join("")}</select></label>
+          ${f("pr_lang", "Languages you work in", s.languages, 'placeholder="English, Thai"')}
+          ${f("pr_av", "When you can usually be reached", s.availability, 'placeholder="Weekdays 09:00 to 18:00"')}</div>
+          <div class="row"><button class="btn primary" type="submit">Save my details</button></div>
+          <p class="small muted">Seen by Archē operations and the owner, to reach you about your trips. Never shown to clients.</p></form>
+        <form id="prPw" class="panel stack"><h2>Change password</h2><div class="fgrid">
+          <label class="f" for="pr_p1">New password (at least 10 characters)<input id="pr_p1" type="password" autocomplete="new-password"></label>
+          <label class="f" for="pr_p2">New password again<input id="pr_p2" type="password" autocomplete="new-password"></label></div>
+          <div class="row"><button class="btn" type="submit">Change password</button></div></form></div></div>`;
+  };
+  document.addEventListener("submit", async e => {
+    if (e.target.id === "prForm") { e.preventDefault();
+      const self = {preferredName: $("pr_pref").value, mobile: $("pr_mob").value, whatsapp: $("pr_wa").value, timezone: $("pr_tz").value, languages: $("pr_lang").value, availability: $("pr_av").value};
+      try {
+        if (window.__sb && !window.__TEST_AS) { const sess = (await window.__sb.auth.getSession()).data.session; const r = await fetch("/api/me", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({self})}); const j = await r.json().catch(() => ({})); if (!r.ok) { toast(j.error || "Could not save."); return; } S.pr.self = j.self; }
+        else { const cur = (await S.db.doc("roster/" + S.uid).get()).data() || {}; await S.db.doc("roster/" + S.uid).set({...cur, self: {...(cur.self || {}), ...self}}); S.pr.self = {...S.pr.self, ...self}; }
+        toast("Your details are saved."); render();
+      } catch(err){ toast("Could not save. Try again."); }
+      return; }
+    if (e.target.id === "prPw") { e.preventDefault();
+      const a = $("pr_p1").value, b = $("pr_p2").value;
+      if (a.length < 10) { toast("At least 10 characters."); return; } if (a !== b) { toast("The two passwords are different."); return; }
+      if (!window.__sb || window.__TEST_AS) { toast("Password changed (test version: nothing is changed)."); $("pr_p1").value = $("pr_p2").value = ""; return; }
+      const {error} = await window.__sb.auth.updateUser({password: a, data: {pw_set: true}});
+      if (error) { toast(error.message); return; } $("pr_p1").value = $("pr_p2").value = ""; toast("Password changed. Use it next time you sign in."); }
+  });
+  document.addEventListener("click", e => { const b = e.target.closest && e.target.closest("[data-pr]"); if (!b) return; e.preventDefault(); if (b.dataset.pr === "back") { S.view = "trips"; render(); } if (b.dataset.pr === "open") { S.view = "profile"; render(); } });
+  const _nav = navItems; navItems = function(){ const items = _nav(); return items.length && !items.some(i => i[0] === "profile") ? [...items, ["profile", "My profile"]] : items; };
 })();
 </script>

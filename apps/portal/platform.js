@@ -5,6 +5,7 @@
 (function () {
   "use strict";
   const CFG = window.ARCHE_CONFIG || {};
+  const RECOVERY = /type=recovery/.test(location.hash);   // arrived from a "choose a new password" email (api/reset.mjs)
   const sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseKey, { auth: { persistSession: true, detectSessionInUrl: true } });
   window.__sb = sb;
 
@@ -17,6 +18,7 @@
       // sign-in by email link, leads straight to choosing one; Microsoft sign-in does not need it
       const u = data.session.user || {}, viaMs = ((u.app_metadata || {}).provider || "") === "azure";
       let pw = false; try { pw = localStorage.getItem("arche.pwlogin") === "1"; } catch (e) {}
+      if (RECOVERY) { showSetPassword(data.session, false, true); return; }
       if (!viaMs && !(u.user_metadata || {}).pw_set) { showSetPassword(data.session, pw); return; }
       resolveReady(data.session); return;
     }
@@ -42,6 +44,7 @@
       <button type="button" class="alt" id="alSend">Email me a sign-in link</button>
       <input id="alPw" type="password" autocomplete="current-password" placeholder="Password, if you were given one" aria-label="Password">
       <button type="button" class="alt" id="alPwGo">Sign in with password</button>
+      <button type="button" id="alForgot" style="background:none;border:0;color:#c6cbd2;text-decoration:underline;text-transform:none;letter-spacing:0;font-weight:400;height:auto;margin-top:8px;font-size:13px">Forgot password?</button>
       <p class="msg" id="alMsg" aria-live="polite"></p>
       <p style="font-size:12px;color:#a8adb3">Access is for approved Archē Executive staff and brokers. After your first sign-in, the owner approves you.</p></div>`;
     (document.body ? Promise.resolve() : new Promise(r => addEventListener("DOMContentLoaded", r))).then(() => document.body.appendChild(box));
@@ -59,6 +62,13 @@
         if (error) { msg(/invalid/i.test(error.message) ? "Email or password not recognised." : error.message); return; }
         location.reload(); return;
       }
+      if (e.target.id === "alForgot") {
+        const em = document.getElementById("alEm").value.trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { msg("Type your email address above, then press Forgot password."); return; }
+        try { const r = await fetch("/api/reset", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: em }) }); const j = await r.json().catch(() => ({}));
+          msg(j.error || "If this email has an Archē login, a link to choose a new password is on its way. Check spam too."); } catch (err) { msg("Could not send just now. Try again in a minute."); }
+        return;
+      }
       if (e.target.id === "alSend") {
         const em = document.getElementById("alEm").value.trim();
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { msg("Enter your email address."); return; }
@@ -68,7 +78,7 @@
       }
     });
   }
-  function showSetPassword(session, temp) {
+  function showSetPassword(session, temp, reset) {
     const box = document.createElement("div");
     box.id = "archeSetPw";
     box.innerHTML = `<style>#archeSetPw{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#34373d;color:#f3f5f8;font-family:'Hanken Grotesk',system-ui,sans-serif;padding:16px}
@@ -78,8 +88,8 @@
       #archeSetPw button{background:linear-gradient(#fafbfc,#c6cbd2);color:#24262a;border:0;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer}
       #archeSetPw .msg{min-height:20px;font-size:13px;color:#a9bdd4}
       #archeSetPw h2{color:#f3f5f8;border:0;padding:0;font-family:Cinzel,serif;letter-spacing:.06em;font-size:20px}</style>
-      <div class="card" role="dialog" aria-labelledby="spH"><h2 id="spH" style="margin:0 0 6px;font-weight:500">Choose your own password</h2>
-      <p>${temp ? "You signed in with a temporary password. Choose" : "Set"} a password that only you know: at least 10 characters. From now on you sign in with your email and this password.</p>
+      <div class="card" role="dialog" aria-labelledby="spH"><h2 id="spH" style="margin:0 0 6px;font-weight:500">${reset ? "Choose a new password" : "Choose your own password"}</h2>
+      <p>${reset ? "Choose a new password that only you know" : temp ? "You signed in with a temporary password. Choose a password that only you know" : "Set a password that only you know"}: at least 10 characters. From now on you sign in with your email and this password.</p>
       <input id="spA" type="password" autocomplete="new-password" placeholder="New password" aria-label="New password">
       <input id="spB" type="password" autocomplete="new-password" placeholder="New password again" aria-label="New password again">
       <button type="button" id="spGo">Save and continue</button><p class="msg" id="spMsg" aria-live="polite"></p></div>`;
@@ -92,6 +102,7 @@
       const { error } = await sb.auth.updateUser({ password: a, data: { pw_set: true } });
       if (error) { m.textContent = error.message; return; }
       try { localStorage.removeItem("arche.pwlogin"); } catch (err) {}
+      if (reset) { history.replaceState(null, "", location.pathname); }
       location.reload();
     });
   }

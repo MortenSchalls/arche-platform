@@ -14,3 +14,5 @@ ok("not accepted: no login, or invited but never signed in", !inviteState(null).
 const acc = inviteState({ id: "u", last_sign_in_at: "2026-10-28T12:00:00Z" }, { active: false, data: {} }, null, null);
 ok("accepted: signed in, with the joining step", acc.accepted && acc.signedIn === "2026-10-28T12:00:00Z" && /offer, academy/.test(acc.step));
 ok("later steps shown: assessment, agreement, team", /assessment/.test(inviteState({ last_sign_in_at: "x" }, null, { data: {} }, null).step) && /Agreement signed/.test(inviteState({ last_sign_in_at: "x" }, null, null, { data: { status: "signed" } }).step) && inviteState({ last_sign_in_at: "x" }, { active: true, data: { roster: true } }).step === "On the team");
+ok("the permanent portal and academy addresses, for other devices", m.text.includes("https://portal.archeaviation.com\n") || m.text.includes("Your portal: https://portal.archeaviation.com"));
+ok("academy address and forgot-password hint in text and html", m.text.includes("/academy.html") && m.html.includes("/academy.html") && /Forgot password/.test(m.text));

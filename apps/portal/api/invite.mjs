@@ -19,7 +19,11 @@ export function inviteMail({ name, link, from }) {
     "Open your personal link below, choose your password, and you will see your joining steps:",
     "1. our offer to you", "2. the Archē Broker Academy, at your own pace", "3. your request for assessment", "4. your agreement, which you read and sign in the portal", "",
     link, "",
-    "The link works once and for 24 hours. If it has expired, reply to this email and we will send a new one.", "",
+    "The link works once and only for a short time. If it no longer works, reply to this email and we will send a new one.", "",
+    "Later, on any phone or computer:",
+    `- Your portal: ${PORTAL}`,
+    `- The Archē Broker Academy: ${PORTAL}/academy.html`,
+    "Sign in with this email address and the password you chose. Forgot it? Press \"Forgot password\" on the sign-in page.", "",
     `Kind regards,`, from || "Archē Executive", "Archē Executive"].join("\n");
   const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
   const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px">
@@ -29,7 +33,8 @@ export function inviteMail({ name, link, from }) {
 <p>Open your personal link, choose your password, and you will see your joining steps:</p>
 <ol><li>our offer to you</li><li>the Archē Broker Academy, at your own pace</li><li>your request for assessment</li><li>your agreement, which you read and sign in the portal</li></ol>
 <p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">OPEN YOUR PORTAL</a></p>
-<p style="font-size:13px;color:#5b6067">The link works once and for 24 hours. If it has expired, reply to this email and we will send a new one.</p>
+<p style="font-size:13px;color:#5b6067">The link works once and only for a short time. If it no longer works, reply to this email and we will send a new one.</p>
+<p style="font-size:13px"><b>Later, on any phone or computer:</b><br>Your portal: <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a><br>The Archē Broker Academy: <a href="${PORTAL}/academy.html">${PORTAL.replace(/^https:\/\//, "")}/academy.html</a><br>Sign in with this email address and the password you chose. Forgot it? Press "Forgot password" on the sign-in page.</p>
 <p>Kind regards,<br>${esc(from || "Archē Executive")}<br>Archē Executive</p></div>`;
   return { subject: "Your access to the Archē Executive broker portal", text, html };
 }
