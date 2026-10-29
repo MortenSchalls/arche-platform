@@ -16,3 +16,5 @@ ok("accepted: signed in, with the joining step", acc.accepted && acc.signedIn ==
 ok("later steps shown: assessment, agreement, team", /assessment/.test(inviteState({ last_sign_in_at: "x" }, null, { data: {} }, null).step) && /Agreement signed/.test(inviteState({ last_sign_in_at: "x" }, null, null, { data: { status: "signed" } }).step) && inviteState({ last_sign_in_at: "x" }, { active: true, data: { roster: true } }).step === "On the team");
 ok("the permanent portal and academy addresses, for other devices", m.text.includes("https://portal.archeaviation.com\n") || m.text.includes("Your portal: https://portal.archeaviation.com"));
 ok("academy address and forgot-password hint in text and html", m.text.includes("/academy.html") && m.html.includes("/academy.html") && /Forgot password/.test(m.text));
+const ag = inviteMail({ name: "Example Person", link: "https://example.com/again", from: "Example Owner", again: true });
+ok("send again: a new-link email, not the joining invitation", /new link/i.test(ag.subject) && ag.text.includes("https://example.com/again") && !/our offer to you/.test(ag.text) && /continue where you left off/.test(ag.text));

@@ -79,6 +79,7 @@
     });
   }
   function showSetPassword(session, temp, reset) {
+    const email = ((session || {}).user || {}).email || "";
     const box = document.createElement("div");
     box.id = "archeSetPw";
     box.innerHTML = `<style>#archeSetPw{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#34373d;color:#f3f5f8;font-family:'Hanken Grotesk',system-ui,sans-serif;padding:16px}
@@ -99,11 +100,27 @@
       const a = document.getElementById("spA").value, b = document.getElementById("spB").value, m = document.getElementById("spMsg");
       if (a.length < 10) { m.textContent = "At least 10 characters."; return; }
       if (a !== b) { m.textContent = "The two passwords are different."; return; }
-      const { error } = await sb.auth.updateUser({ password: a, data: { pw_set: true } });
-      if (error) { m.textContent = error.message; return; }
+      // the sign-in from the email link can run out while this page is open (Morten, 29 Oct 2026: "Auth session missing!");
+      // try to renew it first, and if that fails offer a fresh link to the same email instead of a dead end
+      let cur = null; try { cur = (await sb.auth.getSession()).data.session; if (!cur) cur = (await sb.auth.refreshSession()).data.session; } catch (err) {}
+      const { error } = cur ? await sb.auth.updateUser({ password: a, data: { pw_set: true } }) : { error: { name: "AuthSessionMissingError" } };
+      if (error) {
+        if (/session|expired|jwt|missing/i.test((error.name || "") + " " + (error.message || "")) && email) {
+          m.innerHTML = "This link has run out. <button type=\"button\" id=\"spNew\" style=\"margin-top:8px\">Send me a new link</button>";
+          return;
+        }
+        m.textContent = error.message; return;
+      }
       try { localStorage.removeItem("arche.pwlogin"); } catch (err) {}
       if (reset) { history.replaceState(null, "", location.pathname); }
       location.reload();
+    });
+    box.addEventListener("click", async e => {
+      if (e.target.id !== "spNew") return;
+      const m = document.getElementById("spMsg"); e.target.disabled = true;
+      try { await fetch("/api/reset", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email }) }); } catch (err) {}
+      try { await sb.auth.signOut(); } catch (err) {}
+      m.textContent = "A new link is on its way to " + email + ". Open it on this device (check spam), then choose your password.";
     });
   }
   gate();

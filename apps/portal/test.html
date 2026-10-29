@@ -7427,7 +7427,7 @@ function trustMatrix(){
     const rows = Object.entries(S.rjPeople || {}).filter(([id]) => id !== S.uid).sort((a, b) => nameOfP(...a).localeCompare(nameOfP(...b)));
     return `<div class="panel stack" id="rjPanel" style="margin-bottom:16px"><h2>Start joining again</h2>
       <p class="small muted">Sends one person back to step 1 (the offer), then the academy, assessment and agreement. Removes their request, agreement, academy progress and team access; their login stays. Their own leads and trips are kept.</p>
-      ${rows.length ? `<div class="tbl"><table class="small"><thead><tr><th scope=col>Person</th><th scope=col>Where they are</th><th scope=col>Last opened</th><th scope=col></th></tr></thead><tbody>${rows.map(([id, p]) => `<tr><td>${esc(nameOfP(id, p) || "Name not given yet")}<br><span class="muted">${esc(id.slice(0, 8))}</span></td><td>${esc(stageOf(p))}</td><td>${(S.access || {})[id] ? fmtT(S.access[id].lastSeen) : "–"}</td><td>${S.rjAsk === id ? `<button class="btn small danger" type="button" data-rj="yes|${id}">Yes, start again</button> <button class="btn small" type="button" data-rj="no|${id}">Keep</button>` : `<button class="btn small" type="button" data-rj="ask|${id}">Start joining again</button>`}</td></tr>`).join("")}</tbody></table></div>` : `<p class="small muted">Nobody has signed in yet apart from the owners.</p>`}</div>`;
+      ${rows.length ? `<div class="tbl"><table class="small"><thead><tr><th scope=col>Person</th><th scope=col>Where they are</th><th scope=col>Last opened</th><th scope=col></th></tr></thead><tbody>${rows.map(([id, p]) => `<tr><td>${esc(nameOfP(id, p) || "Name not given yet")}<br><span class="muted">${esc(((S.peopleEmails || {})[id] || {}).email || id.slice(0, 8))}</span></td><td>${esc(stageOf(p))}</td><td>${(S.access || {})[id] ? fmtT(S.access[id].lastSeen) : "–"}</td><td>${S.rjAsk === id ? `<button class="btn small danger" type="button" data-rj="yes|${id}">Yes, start again</button> <button class="btn small" type="button" data-rj="no|${id}">Keep</button>` : `<button class="btn small" type="button" data-rj="ask|${id}">Start joining again</button>`}</td></tr>`).join("")}</tbody></table></div>` : `<p class="small muted">Nobody has signed in yet apart from the owners.</p>`}</div>`;
   }
   async function reset(id){
     const p = (S.rjPeople || {})[id] || {}, who = nameOfP(id, p) || id.slice(0, 8), done = [];
@@ -7477,32 +7477,33 @@ function trustMatrix(){
           <p>${r.sent === "sent" ? "If it does not arrive (check spam), send the link yourself:" : "Send this personal link yourself, by WhatsApp or email:"}</p>
           <div class="row"><button class="btn small" type="button" data-inv="copy">Copy the personal link</button></div><p class="muted">The link works once and only for a short time. Send it only to this person.</p></div>`
         : `<div class="note warn small" id="invResult"><p>${esc(r.error || "Could not send the invitation.")}</p></div>`) : ""}
-      ${list.length ? `<h3 style="margin:6px 0 0">Invitations: ${(() => { const st = S.invStates || {}, acc = list.filter(x => (st[x.email] || {}).accepted).length; return S.invStates ? `${list.length - acc} pending, ${acc} accepted` : "pending and accepted"; })()}</h3><div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
-        return `<tr><td>${esc(x.name || "")}</td><td>${esc(x.email || "")}</td><td>${fmtT(x.at)}</td><td>${x.sent ? "Yes" : "No: link given to you"}</td><td>${!st ? `<span class="muted">Checking…</span>` : st.accepted ? `<span class="chip c-flown">Yes</span> <span class="muted">${fmtT(st.signedIn)}</span><br><span class="muted">${esc(st.step)}</span>` : `<span class="chip c-enquiry">Not yet</span><br><span class="muted">${esc(st.step)}</span>`}</td></tr>`; }).join("")}</tbody></table></div>` : ""}</div>`;
+      ${list.length ? `<h3 style="margin:6px 0 0">Invitations: ${(() => { const st = S.invStates || {}, acc = list.filter(x => (st[x.email] || {}).accepted).length; return S.invStates ? `${list.length - acc} pending, ${acc} accepted` : "pending and accepted"; })()}</h3><div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th><th scope=col></th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
+        return `<tr><td>${esc(x.name || "")}</td><td>${esc(x.email || "")}</td><td>${fmtT(x.at)}</td><td>${x.sent ? "Yes" : "No: link given to you"}</td><td>${!st ? `<span class="muted">Checking…</span>` : st.accepted ? `<span class="chip c-flown">Yes</span> <span class="muted">${fmtT(st.signedIn)}</span><br><span class="muted">${esc(st.step)}</span>` : `<span class="chip c-enquiry">Not yet</span><br><span class="muted">${esc(st.step)}</span>`}</td><td><button class="btn small" type="button" data-inv="again|${esc(x.email)}|${esc(x.name || "")}">Send again</button></td></tr>`; }).join("")}</tbody></table></div>` : ""}</div>`;
   }
   async function states(){   // who has accepted: asked at most once a minute while Team is open
-    if (S.invStBusy || (S.invStAt && Date.now() - S.invStAt < 60e3) || !(S.invites || []).length) return;
+    if (S.invStBusy || (S.invStAt && Date.now() - S.invStAt < 60e3)) return;
     S.invStBusy = true; S.invStAt = Date.now();
     try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
       const r = await fetch("/api/invite", {headers: {authorization: "Bearer " + ((sess || {}).access_token || "")}}); const j = await r.json().catch(() => ({}));
-      if (j.states) { S.invStates = j.states; render(); } } catch(e){}
+      if (j.states) { S.invStates = j.states; S.peopleEmails = j.people || S.peopleEmails || {}; render(); } } catch(e){}
     S.invStBusy = false;
   }
-  async function send(){
-    const name = ($("inv_name") || {}).value || "", email = ($("inv_mail") || {}).value || "";
+  async function send(again){
+    const name = again ? again.name : ($("inv_name") || {}).value || "", email = again ? again.email : ($("inv_mail") || {}).value || "";
     S.invForm = {name, email}; S.invBusy = true; S.invRes = null; render();
     try {
       const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
       const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim()})});
       const j = await r.json().catch(() => ({}));
       S.invRes = {...j, email: email.trim(), error: j.error || (r.ok ? "" : "The invitation service did not answer (" + r.status + ").")};
-      if (j.ok) { S.invForm = null; S.invLink = j.link || ""; toast(j.sent === "sent" ? "Invitation sent." : "Login created. Send the link yourself."); }
+      if (j.ok) { if (!again) S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; toast(j.sent === "sent" ? (again ? "New link sent to " + email + "." : "Invitation sent.") : "Login ready. Send the link yourself."); }
     } catch(e){ S.invRes = {ok: false, error: "The invitation service could not be reached. Try again."}; }
     S.invBusy = false; render();
   }
   document.addEventListener("submit", e => { if (e.target && e.target.id === "joinInvForm") { e.preventDefault(); if (!S.invBusy) send(); } });
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest("[data-inv]"); if (!b) return; e.preventDefault();
+    if (b.dataset.inv.startsWith("again|")) { const [, email, name] = b.dataset.inv.split("|"); if (!S.invBusy) send({email, name: name || email}); return; }
     if (b.dataset.inv === "copy") { try { await navigator.clipboard.writeText(S.invLink || ""); toast("Link copied. Send it only to this person."); } catch(err){ prompt("Copy this personal link:", S.invLink || ""); } }
   });
   const _vTeamInv = vTeam; vTeam = function(){ return afterHead(_vTeamInv(), panel()); };

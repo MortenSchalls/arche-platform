@@ -10,8 +10,20 @@ const FROM = process.env.INVITE_FROM || "Archē Executive <welcome@archeaviation
 const EMAIL_RX = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i;
 const clean = (s, n) => String(s || "").replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, n);
 
-export function inviteMail({ name, link, from }) {
+export function inviteMail({ name, link, from, again }) {
   const first = (name || "").split(/\s+/)[0] || "";
+  if (again) {   // a new link for someone who already has a login (lost access, link run out)
+    const text = [`Dear ${first || "colleague"},`, "", "Here is a new personal link to the Archē Executive broker portal. Open it and choose your password; you then continue where you left off.", "",
+      link, "", "The link works once and only for a short time. If it no longer works, reply to this email and we will send a new one.", "",
+      `Later, on any phone or computer: ${PORTAL} (sign in with this email address and your password; "Forgot password" is on the sign-in page).`, "",
+      "Kind regards,", from || "Archē Executive", "Archē Executive"].join("\n");
+    const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px"><p>Dear ${esc(first || "colleague")},</p><p>Here is a new personal link to the Archē Executive broker portal. Open it and choose your password; you then continue where you left off.</p>
+<p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">OPEN YOUR PORTAL</a></p>
+<p style="font-size:13px;color:#5b6067">The link works once and only for a short time. If it no longer works, reply to this email and we will send a new one.</p>
+<p style="font-size:13px">Later, on any phone or computer: <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a>. Sign in with this email address and your password; "Forgot password" is on the sign-in page.</p><p>Kind regards,<br>${esc(from || "Archē Executive")}<br>Archē Executive</p></div>`;
+    return { subject: "Your new link to the Archē Executive portal", text, html };
+  }
   const text = [`Dear ${first || "colleague"},`, "",
     "Archē Executive is a private jet charter broker based in Singapore. We arrange the right aircraft for clients across Asia and worldwide, from any operator, on any route.", "",
     "We are inviting a small group of people to build their own charter business with us, keeping up to 35% of the profit on every trip they sell.", "",
@@ -92,7 +104,9 @@ export default async function handler(req, res) {
         if (u) { prof = ((await sb(`/rest/v1/profiles?select=active,data&id=eq.${u.id}`)).body || [])[0] || null; join = ((await sb(`/rest/v1/join_requests?select=data&user_id=eq.${u.id}`)).body || [])[0] || null; agr = ((await sb(`/rest/v1/agreements?select=data&id=eq.${u.id}`)).body || [])[0] || null; }
         out[x.email] = inviteState(u, prof, join, agr);
       }
-      return res.status(200).json({ states: out });
+      // email addresses of everyone with a login, so Team can show who is who (owners only; never stored in the page)
+      const people = {}; for (let page = 1; page <= 20; page++) { const r = await sb(`/auth/v1/admin/users?page=${page}&per_page=200`); const list = (r.body && r.body.users) || []; list.forEach(u => people[u.id] = { email: u.email || "", lastSignIn: u.last_sign_in_at || null }); if (list.length < 200) break; }
+      return res.status(200).json({ states: out, people });
     }
 
     const b = req.body || {}, email = clean(b.email, 120).toLowerCase(), name = clean(b.name, 80);
@@ -100,8 +114,9 @@ export default async function handler(req, res) {
     if (!name || name.split(/\s+/).length < 2) return res.status(400).json({ error: "Enter the person's first and last name." });
 
     const existing = await findUser(email);
-    if (existing && existing.last_sign_in_at) return res.status(200).json({ ok: false, exists: true, error: "This person already has a login and has signed in. Use Start joining again if they should begin from the offer." });
-    const type = existing ? "magiclink" : "invite";
+    // new person: an invitation; invited but never signed in: a fresh sign-in link; already signed in before (lost access,
+    // link run out): a link to choose a new password, so "Send again" always works (Morten, 29 Oct 2026)
+    const type = !existing ? "invite" : existing.last_sign_in_at ? "recovery" : "magiclink", again = !!existing;
     const gl = await sb("/auth/v1/admin/generate_link", { method: "POST", body: JSON.stringify({ type, email, redirect_to: PORTAL + "/", data: { invited: true, name, invited_by: me.id } }) });
     const link = gl.body && (gl.body.action_link || (gl.body.properties || {}).action_link);
     if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the login (" + gl.status + ")." });
@@ -109,7 +124,7 @@ export default async function handler(req, res) {
     const ownerName = p.contract_name || "";
     let sent = "not sent: RESEND_API_KEY missing in Vercel";
     if (process.env.RESEND_API_KEY) {
-      const m = inviteMail({ name, link, from: ownerName });
+      const m = inviteMail({ name, link, from: ownerName, again });
       const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
         body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m })) });
       if (r.ok) sent = "sent"; else { let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {} sent = `not sent: refused by Resend (${r.status}${msg ? ": " + msg.slice(0, 120) : ""})`; }
