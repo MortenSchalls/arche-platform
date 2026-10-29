@@ -16,12 +16,14 @@ async function sb(path, opt = {}) {
 // what the cancellation records and says, from the rows (exported for the tests)
 export function cancellation(x, s, { reason, noticeDate, opCharge, margin = 0.09, company = {}, nowMs = Date.now() }) {
   const m = tripMoney(x, s, margin, nowMs); if (!m) throw new Error("Only issued bookings with operator terms can be cancelled here.");
-  const row = m.cancelRow || { amount: m.P, label: "Under 24 hours, or no-show" }, miss = m.firstMissing;
+  const row0 = m.cancelRow || { amount: m.P, label: "Under 24 hours, or no-show" }, miss = m.firstMissing;
+  // always the higher: the operator's actual charge (from its written confirmation) plus our fee, if above the table
+  const opC = Math.min(m.O, Math.max(0, Math.round(Number(opCharge) || 0))), row = { ...row0, amount: Math.max(row0.amount, opC ? opC + Math.max(0, m.P - m.O - m.D) : 0) };
   if (reason === "missing" && !miss) throw new Error("No client payment is overdue. For a client's written cancellation choose that reason.");
   const day = reason === "client" ? String(noticeDate || "").slice(0, 10) : new Date(nowMs).toISOString().slice(0, 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) throw new Error("Enter the date the client's written notice arrived.");
   const mail = BP.cancelText({ name: (x.client || {}).name, ref: s.ref || "", reason, missing: miss ? miss.cum - m.received : 0, missingDue: miss ? miss.due : "", charge: row.amount, period: row.label.toLowerCase(), received: m.received, phone: company.phone, email: company.email, noticeDate: day });
-  return { mail, record: { reason, noticeDate: day, clientCharge: row.amount, period: row.label, received: m.received, opCancelCharge: Math.max(0, Math.round(Number(opCharge) || 0)), refund: Math.max(0, m.received - row.amount), stillDue: Math.max(0, row.amount - m.received) } };
+  return { mail, record: { reason, noticeDate: day, clientCharge: row.amount, period: row.label, received: m.received, opCancelCharge: opC, refund: Math.max(0, m.received - row.amount), stillDue: Math.max(0, row.amount - m.received) } };
 }
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");

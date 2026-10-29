@@ -163,7 +163,8 @@ const ag=await p.evaluate(did=>{const t=tripById(did);const leg=t.d.trip.legs[0]
 ok('AOG: nothing 13 hours before the operator deadline',ag.before===null,ag.before);
 ok('AOG: 11 hours before, money missing: critical with the time to cancel by',ag.in&&ag.in.level==='aog'&&/cancel with the operator on Avinode before/.test(ag.in.text),ag.in);
 ok('AOG: after the deadline: exposure shown',ag.after&&ag.after.level==='passed'&&/exposed USD 45,000/.test(ag.after.text),ag.after);
-const bar=await p.evaluate(async()=>{const o=window.aogOf;window.aogOf=t=>t.d.client&&t.d.client.name==='Anna Example'?{level:'aog',text:'Client money missing USD 45,000: cancel with the operator on Avinode before 2026-11-28 10:00 UTC, or collect it.'}:null;S.view='prospects';render();await new Promise(r=>setTimeout(r,300));const x=!!document.getElementById('aogBar')&&/CRITICAL \(AOG\)/.test(document.getElementById('aogBar').textContent);window.aogOf=o;render();return x;});
+const bar=await p.evaluate(async()=>{const o=window.aogOf;window.aogOf=t=>t.d.client&&t.d.client.name==='Anna Example'?{level:'aog',text:'Client money missing USD 45,000: cancel with the operator on Avinode before 2026-11-28 10:00 UTC, or collect it.'}:null;S.view='prospects';render();await new Promise(r=>setTimeout(r,300));const x=!!document.getElementById('aogBar')&&/CRITICAL \(AOG\)/.test(document.getElementById('aogBar').textContent);window.__keepAog=o;return x;});
+await shot('10-aog-bar','#aogBar');await p.evaluate(()=>{window.aogOf=window.__keepAog;render();});
 ok('AOG: a red bar on every page',bar);
 await as('Test Broker');
 const bar2=await p.evaluate(async()=>{const o=window.aogOf;window.aogOf=t=>t.d.client&&t.d.client.name==='Anna Example'?{level:'aog',text:'x'}:null;S.view='today';render();await new Promise(r=>setTimeout(r,300));const x=!!document.getElementById('aogBar');window.aogOf=o;render();return x;});
@@ -181,14 +182,16 @@ await p.fill('#cx_date',new Date().toISOString().slice(0,10));await p.dispatchEv
 await p.fill('#cx_op','45000');await p.dispatchEvent('#cx_op','change');await p.waitForTimeout(500);
 ok('not before it is cancelled on Avinode',await p.evaluate(()=>document.querySelector('[data-bka="cancel"]').disabled));
 await p.check('#cx_av');await p.waitForTimeout(500);
+await p.evaluate(()=>{const d=[...document.querySelectorAll('#secBook details')].pop();d.id='cxShot';d.open=true;});await shot('11-cancel','#cxShot');
 ok('the notice says the client\'s written cancellation was received',/received in writing on/.test(await p.inputValue('#cx_txt')));
 await p.click('[data-bka="cancel"]');await p.waitForTimeout(1500);
-t=await trip();ok('cancelled: client charge from A9, operator charge recorded',t.stage==='cancelled'&&t.st.cancelled&&t.st.cancelled.clientCharge>0&&t.st.cancelled.opCancelCharge===45000&&t.st.cancelled.reason==='client',t.st.cancelled);
+t=await trip();ok('cancelled: the client pays the operator\'s actual charge plus our fee (higher than the table)',t.stage==='cancelled'&&t.st.cancelled&&t.st.cancelled.clientCharge===45000+(t.st.price-90000)&&t.st.cancelled.opCancelCharge===45000&&t.st.cancelled.reason==='client',t.st.cancelled);
 await p.waitForTimeout(800);
 const lib2=await p.evaluate(async()=>{const g=await S.db.doc('intel/oplib').get();return g.data();});
 ok('the library records the outcome',lib2.ops['example charter air'].trips.some(x=>x.outcome==='cancelled'&&x.opCancelCharge===45000),lib2.ops['example charter air'].trips.map(x=>[x.ref,x.outcome,x.opCancelCharge]));
 // Team > Alerts: reminders to clients only once the owner approves the wording
 await as('Test Owner');await p.evaluate(()=>{S.view='team';render();});await p.waitForTimeout(1000);
+await shot('12-reminders','#remindPanel');
 ok('Team > Alerts shows the reminder wording, off',!!await p.$('#remindPanel')&&/Off\./.test(await p.textContent('#remindPanel'))&&/is due by/.test(await p.inputValue('#rm_txt')));
 await p.click('[data-rm="on"]');await p.waitForTimeout(800);
 ok('the owner turns them on: version recorded',await p.evaluate(()=>!!(S.alerts.clientReminders||{}).on&&S.alerts.clientReminders.version===BP.REMIND_VERSION));

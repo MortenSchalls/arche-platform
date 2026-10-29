@@ -72,9 +72,13 @@ const R3 = mem(JSON.parse(JSON.stringify(base())), { clientReminders: { on: true
 sent.length = 0; await runAlerts(R3, Date.parse("2026-11-23T01:00:00Z"), send); ok("wording changed since the owner approved it: nothing sent", C().length === 0);
 // the cancellation notice
 const c = cancellation(x, { ...base(), receipts: [{ amount: 25000 }], payouts: [], book: {} }, { reason: "missing", opCharge: 13500, company: { phone: "+65 0000 0000", email: "charter@example.com" }, nowMs: Date.parse("2026-11-06T03:00:00Z") });
-ok("cancellation for missing money: the A9 charge for the period, what was received, still due", c.record.clientCharge === Math.ceil(98902 * 0.25) && c.record.received === 25000 && c.record.refund === 1 * 0 + Math.max(0, 25000 - Math.ceil(98902 * 0.25)) && /has not reached us/.test(c.mail.text) && /Cancellation charge under A9/.test(c.mail.text), c.record);
+ok("cancellation for missing money: the A9 charge for the period (ours 25% above the operator's 15% + fee), what was received", c.record.clientCharge === Math.ceil(98902 * 0.25) && c.record.received === 25000 && c.record.refund === 1 * 0 + Math.max(0, 25000 - Math.ceil(98902 * 0.25)) && /has not reached us/.test(c.mail.text) && /Cancellation charge under A9/.test(c.mail.text), c.record);
 const c2 = cancellation(x, base(), { reason: "client", noticeDate: "2026-11-20", opCharge: 45000, nowMs: Date.parse("2026-11-20T03:00:00Z") });
 ok("client's written cancellation inside 30 days: the operator's 50% plus our fee", c2.record.clientCharge === 45000 + (98902 - 90000) && /received in writing on 20 Nov 2026/.test(c2.mail.text) && c2.record.stillDue === 45000 + 8902 - 45000, c2.record);
+const c3 = cancellation(x, { ...base(), receipts: [{ amount: 25000 }], payouts: [], book: {} }, { reason: "missing", opCharge: 40000, nowMs: Date.parse("2026-11-06T03:00:00Z") });
+ok("the operator actually keeps more than the table: the client pays its charge plus our fee", c3.record.clientCharge === 40000 + 8902 && c3.record.opCancelCharge === 40000, c3.record);
+const c4 = cancellation(x, base(), { reason: "client", noticeDate: "2026-11-06", opCharge: 999999, nowMs: Date.parse("2026-11-06T03:00:00Z") });
+ok("an operator charge above its price is capped at its price", c4.record.opCancelCharge === 90000 && c4.record.clientCharge === 98902, c4.record);
 let thr = false; try { cancellation(x, base(), { reason: "missing", nowMs: Date.parse("2026-11-03T03:00:00Z") }); } catch (e) { thr = /No client payment is overdue/.test(e.message); }
 ok("no 'payment missing' cancellation while nothing is overdue", thr);
 process.exitCode = fails ? 1 : 0;

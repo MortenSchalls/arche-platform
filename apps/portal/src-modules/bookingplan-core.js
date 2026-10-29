@@ -117,7 +117,7 @@
       `Dear ${name || "Sir or Madam"},`, "",
       reason === "client" ? `We confirm the cancellation of charter confirmation ${ref}, received in writing on ${longDate(noticeDate)}.`
         : `The payment of ${money$(missing)} due ${missingDue === "signature" ? "on signature" : "by " + longDate(missingDue)} under the payment schedule of charter confirmation ${ref} (Part A, A3) has not reached us. Under A3 we therefore treat the booking as cancelled by the Charterer as of ${longDate(noticeDate)}.`, "",
-      `Cancellation charge under A9 (${period} before departure): ${money$(charge)}. Received from you: ${money$(received)}. ${money}`,
+      `Cancellation charge under A9 (${period} before departure; the higher of the scale and the Operator's own charge plus our fee): ${money$(charge)}. Received from you: ${money$(received)}. ${money}`,
       "Costs already committed under B12 are invoiced separately with receipts, if there are any.", "",
       `If you believe this is wrong, call your advisor at once on ${phone || "the number in your confirmation"}.`, "",
       "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
