@@ -14,6 +14,23 @@
   const sb = () => window.__sb;
   const liveOpen = l => !!(l && l.id && l.until && l.until > now());
   const amWatcher = l => liveOpen(l) && (l.watchers || []).includes(S.uid);
+  // who may share: the owner (acting as owner) and anyone with the "Train and share screen" right (Morten, 29 Oct 2026)
+  const canLead = () => !S.preview && (S.isOwner ? acting() === "owner" : typeof canRight === "function" && canRight("train"));
+  const mine = l => liveOpen(l) && l.owner === S.uid;
+  // only owners may write config: everyone else goes through /api/live, which makes the caller the one who shares
+  const viaApi = () => !S.isOwner && !window.__TEST_AS;
+  async function liveApi(action, body){
+    const sess = (await sb().auth.getSession()).data.session;
+    const r = await fetch("/api/live", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({action, ...(body || {})})});
+    const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || "Could not save. Try again."); return j;
+  }
+  async function liveEnd(){ if (viaApi()) await liveApi("end"); else await S.db.doc("config/live").set({ended: now(), by: S.uid}); if (!viaApi()) audit("Live training ended", ""); }
+  async function liveSyl(next){ if (viaApi()) return (await liveApi("syl", {syl: next.syl})).live; await S.db.doc("config/live").set(next); return next; }
+  async function lessonSave(course, L){
+    if (viaApi()) { await liveApi("lesson", {course, lesson: L.id, title: L.t}); return; }
+    for (const w of (S.live || {}).watchers || []) { try { await S.db.doc(`train/${w}/runs/syl-${course}-${L.id}`).set({kind: "syllabus", course, lesson: L.id, title: L.t, at: now(), by: S.uid}); } catch(err){} }
+    audit("Training lesson done", `${(S.live.watchers || []).map(who).join(", ")} · ${L.t}`);
+  }
   function watchCfg(){ if (S.liveW || typeof watchDoc !== "function") return; S.liveW = true;
     try { watchDoc("config/live", snap => { const v = snap.exists ? snap.data() : null; const was = S.live; S.live = v;
       if (LV.role === "watch" && !amWatcher(v)) stopWatch("The session has ended.");
@@ -99,7 +116,7 @@
     if (LV.role !== "lead") return;
     send("bye", {}); clearTimeout(LV.timer); if (LV.obs) { LV.obs.disconnect(); LV.obs = null; }
     try { await sb().removeChannel(LV.ch); } catch(e){} LV.ch = null; LV.role = ""; bar(); sylCards();
-    if (!quiet) { try { await S.db.doc("config/live").set({ended: now(), by: S.uid}); audit("Live training ended", ""); } catch(e){} }
+    if (!quiet) { try { await liveEnd(); } catch(e){} }
   }
   function bar(){
     let b = document.getElementById("lvOwnerBar");
@@ -159,8 +176,9 @@
 
   // ---------- owner panel (Team) and watcher banner (every page) ----------
   function ownerPanel(){
-    if (!S.isOwner || acting() !== "owner") return ""; watchCfg();
+    if (!canLead()) return ""; watchCfg();
     const l = S.live, open = liveOpen(l);
+    if (open && !mine(l)) return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small">${esc(l.ownerName || who(l.owner))} is running a live session until ${esc(fmtT(l.until))}. One session runs at a time.${S.isOwner ? "" : " You can start yours when it has ended."}</p>${S.isOwner ? `<div class="row"><button class="btn small" type="button" data-lv="stop">End that session</button></div>` : ""}</div>`;
     // everyone with access to the portal: the team list plus every active profile with a role (Morten, 28 Oct 2026)
     staffLoad();
     const members = [...new Set([...Object.entries(S.roster || {}).filter(([id, r]) => r && r.active !== false && r.role).map(([id]) => id), ...Object.keys(S.lvStaff || {})])].filter(id => id !== S.uid).sort((a, b) => who(a).localeCompare(who(b)));
@@ -168,7 +186,7 @@
     const F = S.lvForm = S.lvForm || {w: {}, s: {}, syl: "fam", h: 2};   // kept across re-renders while ticking
     if (open) return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small">Open until ${esc(fmtT(l.until))} for ${esc((l.watchers || []).map(who).join(", "))}. Shared pages: ${esc((l.scope || []).map(k => (views.find(v => v[0] === k) || [k, k])[1]).join(", "))}.</p>
       <div class="row">${LV.role === "lead" ? `<button class="btn small danger" type="button" data-lv="stop">Stop sharing</button>` : `<button class="btn small primary" type="button" data-lv="resume">Share my screen now</button> <button class="btn small" type="button" data-lv="stop">End the session</button>`}</div></div>`;
-    return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small muted">Let chosen members watch your screen live, with your pointer and clicks. Talk over a phone or Teams call. Only the pages you tick are shown; on any other page they see a pause. Always kept back: the investor and partner list, Security, Settings, and every email address and phone number (masked).</p>
+    return `<div class="panel" id="lvPanel" style="margin-bottom:16px"><h2>Live training</h2><p class="small muted">Let chosen people watch your screen live, with your pointer and clicks. Talk over a phone or Teams call. Only the pages you tick are shown; on any other page they see a pause. Always kept back: the investor and partner list, Security, Settings, and every email address and phone number (masked).</p>
       <p class="small" style="margin:8px 0 4px"><b>Who may watch</b></p>${members.map(id => `<label class="check" for="lvw_${id}"><input type="checkbox" id="lvw_${id}" data-lvw="${id}" ${F.w[id] ? "checked" : ""}><span>${esc(who(id))}${roleOf(id) ? ` <span class="small muted">· ${esc(roleOf(id))}</span>` : ""}</span></label>`).join("") || `<p class="small muted">No members yet.</p>`}
       <p class="small" style="margin:8px 0 4px"><b>Pages to share</b></p>${views.map(([k, t]) => `<label class="check" for="lvs_${k}"><input type="checkbox" id="lvs_${k}" data-lvs="${k}" ${F.s[k] ? "checked" : ""}><span>${esc(t)}</span></label>`).join("")}
       <p class="small" style="margin:8px 0 4px"><b>Syllabus</b> (you can switch it on or off while sharing)</p><div class="fgrid"><label class="f" for="lvSyl">Follow<select id="lvSyl">${[["", "No syllabus: just share the screen"], ["fam", "Familiarisation (first day)"], ["full", "Full syllabus"]].map(([v, t]) => `<option value="${v}" ${F.syl === v ? "selected" : ""}>${t}</option>`).join("")}</select></label>
@@ -180,18 +198,18 @@
   const roleOf = id => ROLE_NAME[((S.roster || {})[id] || {}).role || ((S.lvStaff || {})[id] || {}).role] || "";
   function staffLoad(){
     if (S.lvStaffAt && Date.now() - S.lvStaffAt < 60e3) return; S.lvStaffAt = Date.now();
-    (async () => { try { const {data} = await sb().from("profiles").select("id,role,active,contract_name").eq("active", true);
+    (async () => { try { const data = viaApi() ? ((await liveApi("people")).people || []).map(p => ({...p, contract_name: p.name})) : (await sb().from("profiles").select("id,role,active,contract_name").eq("active", true)).data;
       const o = {}; (data || []).forEach(r => { if (r.role && r.id !== S.uid) o[r.id] = {name: r.contract_name || "", role: r.role}; });
       if (JSON.stringify(o) !== JSON.stringify(S.lvStaff || {})) { S.lvStaff = o; render(); } } catch(e){} })();
   }
   function watcherBanner(){
     const l = S.live; if (!amWatcher(l) || LV.role === "watch") return "";
-    return `<div class="note info" style="margin-bottom:16px"><b>${esc(nm(l.owner))} is sharing his screen with you</b> (live training, until ${esc(fmtT(l.until))}). <button class="btn small primary" type="button" data-lv="watch">Watch</button></div>`;
+    return `<div class="note info" style="margin-bottom:16px"><b>${esc(l.ownerName || nm(l.owner))} is sharing their screen with you</b> (live training, until ${esc(fmtT(l.until))}). <button class="btn small primary" type="button" data-lv="watch">Watch</button></div>`;
   }
   // Training → Live training (owner): moved from Team (Morten, 28 Oct 2026)
-  const _trTabsLV = trTabs; trTabs = function(){ const h = _trTabsLV(); if (!S.isOwner || acting() !== "owner") return h; const t = S.trTab || "course";
+  const _trTabsLV = trTabs; trTabs = function(){ const h = _trTabsLV(); if (!canLead()) return h; const t = S.trTab || "course";
     return h.replace(/<\/div>$/, `<button class="btn ${t === "live" ? "primary" : ""}" type="button" role="tab" aria-selected="${t === "live"}" data-trtab="live">Live training</button></div>`); };
-  const _vTrainingLV = vTraining; vTraining = function(){ if ((S.trTab || "") !== "live" || !S.isOwner || acting() !== "owner") return _vTrainingLV();
+  const _vTrainingLV = vTraining; vTraining = function(){ if ((S.trTab || "") !== "live" || !canLead()) return _vTrainingLV();
     return `<div class="head"><div><h1>Training</h1><p class="muted small">Train someone live: they watch your screen in their own portal while you talk on the phone or Teams, with a syllabus if you want one.</p></div></div>` + trTabs() + ownerPanel(); };
   const _renderLV = renderNow; renderNow = function(){ watchCfg(); _renderLV(); const main = document.getElementById("main"); const ban = watcherBanner();
     if (main && ban && !document.getElementById("lvBanner")) { const d = document.createElement("div"); d.id = "lvBanner"; d.innerHTML = ban; main.insertBefore(d, main.firstChild); }
@@ -200,17 +218,20 @@
     const b = e.target.closest && e.target.closest("[data-lv]"); if (!b) return; const a = b.dataset.lv;
     if (a === "watch") { startWatch(); return; }
     if (a === "leave") { stopWatch(); return; }
-    if (!S.isOwner) return;
-    if (a === "stop") { await stopLead(false); if (liveOpen(S.live)) { try { await S.db.doc("config/live").set({ended: now(), by: S.uid}); audit("Live training ended", ""); } catch(err){} } render(); return; }
-    if (a === "resume") { startLead(S.live); return; }
+    if (!canLead()) return;
+    if (a === "stop") { await stopLead(false); if (liveOpen(S.live) && (mine(S.live) || S.isOwner)) { try { await liveEnd(); } catch(err){ toast(err.message || "Could not end."); } } render(); return; }
+    if (a === "resume") { if (mine(S.live)) startLead(S.live); return; }
     if (a === "start") {
       const watchers = [...document.querySelectorAll("[data-lvw]:checked")].map(x => x.dataset.lvw), scope = [...document.querySelectorAll("[data-lvs]:checked")].map(x => x.dataset.lvs);
       if (!watchers.length) { toast("Tick who may watch."); return; } if (!scope.length) { toast("Tick at least one page to share."); return; }
       const hours = Number(($("lvHours") || {}).value || 2), course = ($("lvSyl") || {}).value || "";
-      const l = {id: rid(), owner: S.uid, watchers, scope, at: now(), until: new Date(Date.now() + hours * 3600e3).toISOString(), syl: {on: !!course, course: course || "fam", idx: 0, done: {}}};
-      if (course) { S.live = l; l.syl.done = await sylLoadDone(course); const C = SYL[course]; const first = C.lessons.findIndex(x => !l.syl.done[x.id]); l.syl.idx = first < 0 ? 0 : first; }
-      try { await S.db.doc("config/live").set(l); S.live = l; audit("Live training started", `${watchers.map(who).join(", ")} · ${scope.join(", ")} · ${hours} h`); startLead(l); toast("Sharing. They see a Watch button in their portal."); render(); }
-      catch(err){ toast("Could not start. Try again."); }
+      let l = {id: rid(), owner: S.uid, ownerName: S.myName || "", watchers, scope, at: now(), until: new Date(Date.now() + hours * 3600e3).toISOString(), syl: {on: !!course, course: course || "fam", idx: 0, done: {}}};
+      try {
+        if (viaApi()) { l = (await liveApi("start", {live: {watchers, scope, hours, syl: l.syl}})).live; S.live = l; }
+        if (course) { S.live = l; l.syl.done = await sylLoadDone(course); const C = SYL[course]; const first = C.lessons.findIndex(x => !l.syl.done[x.id]); l.syl.idx = first < 0 ? 0 : first; if (viaApi()) l = await liveSyl(l); }
+        if (!viaApi()) { await S.db.doc("config/live").set(l); audit("Live training started", `${watchers.map(who).join(", ")} · ${scope.join(", ")} · ${hours} h`); }
+        S.live = l; startLead(l); toast("Sharing. They see a Watch button in their portal."); render(); }
+      catch(err){ toast(err.message && !/fetch/i.test(err.message) ? err.message : "Could not start. Try again."); }
     }
   });
 
@@ -244,9 +265,10 @@
   const sylOf = () => ((S.live || {}).syl) || null;
   const PAGES = {today: "Today", pool: "Enquiries", trips: "Trips", queue: "Operations", quotes: "Supplier quotes", prospects: "Prospects", commission: "Commission", control: "Control", assistant: "Assistant", team: "Team", training: "Training", help: "Help"};
   const pageName = k => PAGES[k] || ((navItems().find(v => v[0] === k) || [k, k])[1]);
-  async function sylSet(patch){ const l = S.live; if (!liveOpen(l) || !S.isOwner) return; const syl = {on: false, course: "fam", idx: 0, done: {}, ...(l.syl || {}), ...patch}; const next = {...l, syl};
-    try { await S.db.doc("config/live").set(next); S.live = next; render(); sylCards(); } catch(e){ toast("Could not save."); } }
+  async function sylSet(patch){ const l = S.live; if (!mine(l) || !canLead()) return; const syl = {on: false, course: "fam", idx: 0, done: {}, ...(l.syl || {}), ...patch}; const next = {...l, syl};
+    try { S.live = await liveSyl(next); render(); sylCards(); } catch(e){ toast("Could not save."); } }
   async function sylLoadDone(course){
+    if (viaApi()) { try { return (await liveApi("done", {course})).done || {}; } catch(e){ return {}; } }
     const out = {}; for (const w of (S.live || {}).watchers || []) { try { const q = await S.db.collection(`train/${w}/runs`).get(); q.docs.forEach(d => { if (d.id.startsWith(`syl-${course}-`)) out[d.id.slice(5 + course.length)] = true; }); } catch(e){} }
     return out;
   }
@@ -281,20 +303,19 @@
   }
   window.liveSylCards = sylCards;
   document.addEventListener("click", async e => {
-    const b = e.target.closest && e.target.closest("[data-syl]"); if (!b || !S.isOwner || b.tagName === "SELECT") return;
+    const b = e.target.closest && e.target.closest("[data-syl]"); if (!b || !canLead() || !mine(S.live) || b.tagName === "SELECT") return;
     const s = sylOf() || {}, C = SYL[s.course] || SYL.fam, i = s.idx || 0, L = C.lessons[i], a = b.dataset.syl;
     if (a === "go") { S.view = L.page; render(); return; }
     if (a === "toggle") { if (s.on) { sylSet({on: false}); return; } const course = s.course || "fam"; sylSet({on: true, course, done: {...(s.done || {}), ...(await sylLoadDone(course))}}); return; }
     if (a === "prev") { sylSet({idx: Math.max(0, i - 1)}); return; }
     if (a === "next") { sylSet({idx: Math.min(C.lessons.length - 1, i + 1)}); return; }
     if (a === "done") {
-      for (const w of (S.live || {}).watchers || []) { try { await S.db.doc(`train/${w}/runs/syl-${s.course || "fam"}-${L.id}`).set({kind: "syllabus", course: s.course || "fam", lesson: L.id, title: L.t, at: now(), by: S.uid}); } catch(err){} }
-      audit("Training lesson done", `${(S.live.watchers || []).map(who).join(", ")} · ${L.t}`);
+      try { await lessonSave(s.course || "fam", L); } catch(err){ toast("Could not save the lesson. Try again."); return; }
       sylSet({done: {...(s.done || {}), [L.id]: true}, idx: Math.min(C.lessons.length - 1, i + 1)}); return; }
   });
   document.addEventListener("change", e => { const el = e.target, F = S.lvForm; if (!F || !el.closest || !el.closest("#lvPanel")) return;
     if (el.dataset.lvw) F.w[el.dataset.lvw] = el.checked; else if (el.dataset.lvs) F.s[el.dataset.lvs] = el.checked; else if (el.id === "lvSyl") F.syl = el.value; else if (el.id === "lvHours") F.h = Number(el.value); });
-  document.addEventListener("change", async e => { const el = e.target; if (!el.dataset || el.dataset.syl !== "course" || !S.isOwner) return; const course = el.value; sylSet({course, idx: 0, done: await sylLoadDone(course)}); });
+  document.addEventListener("change", async e => { const el = e.target; if (!el.dataset || el.dataset.syl !== "course" || !canLead() || !mine(S.live)) return; const course = el.value; sylSet({course, idx: 0, done: await sylLoadDone(course)}); });
 
   window.__liveTrain = LV;
 })();

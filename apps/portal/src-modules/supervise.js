@@ -114,7 +114,7 @@ function supervisionPanel(){
       <td><label class="check" style="margin:0"><input type="checkbox" data-supall="${id}" ${p.supervised ? "checked" : ""}><span class="small">${p.supervised ? "Yes" : "No"}</span></label></td><td>${supAssignCell(id, p)}</td>
       ${GATE_KEYS.map(k => { if (!gateApplies(k, id)) return `<td class="muted">–</td>`; const s = gateStats(id, k), rel = !!(p.released || {})[k];
         return `<td>${!p.supervised ? `<span class="chip c-flown">Free</span>` : rel ? `<span class="chip c-flown">Released</span>` : `<span class="chip c-review">Needs your OK</span>`}<br><span class="muted">${s.ok} approved · ${s.ch} changes</span>${p.supervised ? `<br><button class="btn small" type="button" data-gate="${rel ? "resup" : "release"}" data-uid="${id}" data-key="${k}">${rel ? "Supervise again" : "Release"}</button>` : ""}</td>`; }).join("")}<td>${S.rightsReady === false ? `<span class="muted">After SQL 0012</span>` : rightsCells(id, p)}</td></tr>`).join("")}
-  </tbody></table><details class="small" style="margin-top:8px"><summary>What each step and right means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}${Object.keys(RIGHTS).map(r => `<li><b>${esc(RIGHTS[r].label)}</b> (supervisor right): ${esc(RIGHTS[r].desc)}</li>`).join("")}</ul><p class="muted" style="margin:6px 0 0">Releasing steps, giving rights and countersigning stay with you. Every supervisor decision is in the audit log with their name.</p></details></div>`;
+  </tbody></table><p class="small muted" style="margin:8px 0 0"><b>Supervisor</b> gives the three rights supervise steps, assess new people, and train and share screen in one go; untick single rights if needed.</p><details class="small" style="margin-top:8px"><summary>What each step and right means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}${Object.keys(RIGHTS).map(r => `<li><b>${esc(RIGHTS[r].label)}</b> (supervisor right): ${esc(RIGHTS[r].desc)}</li>`).join("")}</ul><p class="muted" style="margin:6px 0 0">Releasing steps, giving rights and countersigning stay with you. Every supervisor decision is in the audit log with their name.</p></details></div>`;
 }
 async function gateRelease(uid, key, on){
   const p = (S.roster || {})[uid]; if (!p) return;
@@ -142,8 +142,12 @@ document.addEventListener("change", async e => {
 const RIGHTS = {
   supervise: {label: "Supervise steps", desc: "Approve or send back supervised steps of others."},
   assess: {label: "Assess new people", desc: "See requests to join and academy progress, and send the agreement after a passed assessment. You countersign."},
-  approve: {label: "Approve bookings", desc: "Approve bookings before the confirmation is issued (operations only). Never their own trips, and someone else issues."}
+  approve: {label: "Approve bookings", desc: "Approve bookings before the confirmation is issued (operations only). Never their own trips, and someone else issues."},
+  train: {label: "Train and share screen", desc: "Run live training: share their own screen with the people they choose (Training → Live training), follow the syllabus and mark lessons done, and see the team's training results."}
 };
+/* a supervisor (Morten, 29 Oct 2026: "the supervisor to be able to do assessments and training, as well as sharing the
+   screens during bookings"): one switch in Team gives supervise, assess and train together */
+const SUP_SET = ["supervise", "assess", "train"];
 function canRight(r){ if (S.isOwner) return true; const me = rosterOf(S.uid); return me.active !== false && !!(me.rights || {})[r]; }
 const hasAnyRight = () => !S.isOwner && Object.keys(RIGHTS).some(canRight);
 function rightApplies(r, id){ return r === "approve" ? rosterOf(id).role === "ops" : true; }
@@ -183,9 +187,68 @@ function supPrompt(){
 })();
 
 /* owner: give or take rights in Team */
+function isSupervisor(p){ return SUP_SET.every(r => !!((p || {}).rights || {})[r]); }
 function rightsCells(id, p){
-  return Object.keys(RIGHTS).map(r => rightApplies(r, id) ? `<label class="check" style="margin:0 0 4px"><input type="checkbox" data-right="${r}" data-uid="${id}" ${(p.rights || {})[r] ? "checked" : ""}><span class="small">${esc(RIGHTS[r].label)}</span></label>` : "").join("");
+  const on = isSupervisor(p);
+  return `<label class="check" style="margin:0 0 6px"><input type="checkbox" data-supmake="${id}" ${on ? "checked" : ""}><span class="small"><b>Supervisor</b></span></label>` + Object.keys(RIGHTS).map(r => rightApplies(r, id) ? `<label class="check" style="margin:0 0 4px"><input type="checkbox" data-right="${r}" data-uid="${id}" ${(p.rights || {})[r] ? "checked" : ""}><span class="small">${esc(RIGHTS[r].label)}</span></label>` : "").join("") + `<button class="btn small" type="button" data-suptext="${id}" style="margin-top:4px">Text to send</button>`;
 }
+/* the explanation to send to a new supervisor (copy into WhatsApp or email) */
+function supText(id){
+  const p = (S.roster || {})[id] || {}, first = (p.contractName || nm(id)).split(" ")[0], rt = (S.terms || {}).supRate;
+  const r = Object.keys(RIGHTS).filter(k => (p.rights || {})[k] && rightApplies(k, id)), list = r.length ? r : SUP_SET;
+  const lines = {
+    supervise: "Supervise steps: while a new broker is supervised, some steps wait for an OK (quote to client, taking an enquiry, first contact with a prospect, and for operations payments and supplier quotes). You approve the step or send it back with a note.",
+    assess: "Assess new people: you see requests to join and academy progress, and send the agreement after a passed assessment. I countersign.",
+    approve: "Approve bookings: you approve bookings before the confirmation is issued, never your own trips.",
+    train: "Train: in Training → Live training you share your own screen in the portal with the people you choose, follow the training syllabus and mark lessons done. Talk over the phone or Teams at the same time. Contact details are hidden on the shared screen. You also see the team's training results."
+  };
+  const pay = supRate() > 0 ? `Pay: ${supPts(supRate())} of the gross profit on each booking approved while a broker you supervise is supervised and you are named as their supervisor, on top of your own commission${rt == null ? " (as in the agreement)" : ""}. I can forfeit it on a booking where a step you approved broke the rules.`
+    : "Pay for supervising: to be agreed with me in writing.";
+  return `Hi ${first},
+
+I would like you to be a supervisor at Archē Executive. What it means:
+
+${list.map(k => "- " + lines[k]).join("\n")}
+- You never decide on your own work. Every decision is logged with your name and I see it.
+
+${pay}
+
+You find it all under Supervision in the portal menu: ${location.origin}
+
+${S.myName || "Morten"}`;
+}
+function supTextPanel(){
+  const id = S.supTextFor; if (!id || !(S.roster || {})[id]) return "";
+  return `<div class="panel" id="supTextPanel" style="margin-bottom:16px"><h2>Text to send to ${esc((S.roster[id].contractName || nm(id)))}</h2><p class="small muted">Copy it into WhatsApp or an email. It lists the rights this person has now (all three supervisor rights if none are given yet) and the pay setting below.</p>
+    <textarea id="supTextBox" rows="16" readonly style="width:100%;font:inherit">${esc(supText(id))}</textarea>
+    <div class="row" style="margin-top:8px"><button class="btn small primary" type="button" data-supcopy="1">Copy</button><button class="btn small" type="button" data-supclose="1">Close</button></div></div>`;
+}
+/* the supervisor's pay: a setting the owner fills in when decided */
+function supPayPanel(){
+  const t = S.terms || {}, set = t.supRate != null && t.supRate !== "", v = set ? +(Number(t.supRate) * 100).toFixed(2) : "";
+  return `<div class="panel" id="supPay" style="margin-bottom:16px"><h2>Supervisor pay</h2><p class="small muted">Points of the gross profit on each booking approved while a supervised person has a named supervisor, on top of the supervisor's own commission. The agreement (Schedule 1) says ${supPts(SUP_RATE)}; ${set ? `now set to ${supRate() ? supPts(supRate()) : "0: to be agreed, no share is recorded"}` : "that rate applies now"}. Leave the box empty to use the agreement; 0 means to be agreed. A change applies to bookings approved from then on; for people who signed with ${supPts(SUP_RATE)}, agree the change in writing first.</p>
+    <div class="row"><label class="f" for="supRateIn" style="max-width:220px">Points of gross profit<input id="supRateIn" type="number" min="0" max="10" step="0.5" value="${v}" placeholder="${+(SUP_RATE * 100)} (agreement)"></label><button class="btn small primary" type="button" data-suprate="save">Save</button>${set ? `<button class="btn small" type="button" data-suprate="reset">Back to the agreement (${supPts(SUP_RATE)})</button>` : ""}</div></div>`;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-suptext],[data-supcopy],[data-supclose],[data-suprate]"); if (!b || !S.isOwner) return;
+  if (b.dataset.suptext) { S.supTextFor = b.dataset.suptext; render(); setTimeout(() => { const x = $("supTextPanel"); if (x) x.scrollIntoView({block: "start"}); }, 50); return; }
+  if (b.dataset.supclose) { S.supTextFor = null; render(); return; }
+  if (b.dataset.supcopy) { const x = $("supTextBox"); try { await navigator.clipboard.writeText(x.value); toast("Copied."); } catch(err){ x.focus(); x.select(); toast("Selected: press Ctrl+C (or Cmd+C) to copy."); } return; }
+  if (b.dataset.suprate) {
+    const raw = b.dataset.suprate === "reset" ? null : (($("supRateIn") || {}).value || "").trim();
+    const val = raw === null || raw === "" ? null : Number(raw) / 100;
+    if (val !== null && !(val >= 0 && val <= 0.1)) { toast("Use 0 to 10 points."); return; }
+    const t = {...(S.terms || {})}; if (val === null) delete t.supRate; else t.supRate = val;
+    try { await S.db.doc("config/terms").set(t); S.terms = t; audit("Supervisor pay changed", val === null ? `back to the agreement (${supPts(SUP_RATE)})` : val ? supPts(val) : "0: to be agreed"); toast("Saved."); render(); } catch(err){ toast("Could not save."); }
+  }
+});
+document.addEventListener("change", async e => {
+  const id = e.target.dataset && e.target.dataset.supmake; if (!id || !S.isOwner) return;
+  const p = (S.roster || {})[id]; if (!p) return;
+  const rights = {...(p.rights || {})}; SUP_SET.forEach(r => { if (e.target.checked) rights[r] = true; else delete rights[r]; });
+  try { await S.db.doc("roster/" + id).update({rights}); p.rights = rights; audit(e.target.checked ? "Made supervisor" : "Supervisor role taken back", `${nm(id)} · ${SUP_SET.map(r => RIGHTS[r].label).join(", ")}`); toast(e.target.checked ? "Saved. Use \"Text to send\" to tell them." : "Saved."); render(); }
+  catch(err){ toast("Could not save."); }
+});
 document.addEventListener("change", async e => {
   const r = e.target.dataset && e.target.dataset.right; if (!r || !S.isOwner) return;
   const id = e.target.dataset.uid, p = (S.roster || {})[id]; if (!p) return;
@@ -206,12 +269,16 @@ setInterval(() => {
    that time go to the supervisor (to Archē when an owner supervises). Recorded on the trip at approval. The owner can
    forfeit a supervisor's share on a booking where they approved a step that broke the rules. No automatic end:
    it stops when supervision is switched off. */
-const SUP_RATE = 0.03;
+const SUP_RATE = 0.03;   // the agreed rate (agreement Schedule 1); the owner can change it in Team (terms.supRate)
+const supRate = () => { const v = (S.terms || {}).supRate; return v == null || v === "" || !isFinite(Number(v)) ? SUP_RATE : Math.max(0, Math.min(0.1, Number(v))); };
+// 0 points = to be agreed: no share is recorded
+const supPts = r => `${+(r * 100).toFixed(2)} point${r === 0.01 ? "" : "s"}`;
 function ownerIds(){ return [...new Set([...(S.isOwner ? [S.uid] : []), ...Object.entries(S.roster || {}).filter(([, p]) => p.role === "owner").map(([id]) => id)])]; }
 function supShareFor(bid){
   const r = rosterOf(bid); if (!r || !r.supervised || !r.supervisor || r.supervisor === bid) return null;
   const sup = r.supervisor, sr = (S.roster || {})[sup], isOwnerSup = ownerIds().includes(sup) || (sr && sr.role === "owner");
-  return {uid: sup, rate: SUP_RATE, toArche: !!isOwnerSup, at: now()};
+  if (!supRate() && !isOwnerSup) return null;
+  return {uid: sup, rate: supRate(), toArche: !!isOwnerSup, at: now()};
 }
 function supCandidates(id){
   const owners = ownerIds().map(o => [o, o === S.uid ? (S.myName || "You") + " (owner)" : nm(o) + " (owner)"]);
@@ -221,7 +288,7 @@ function supCandidates(id){
 function supAssignCell(id, p){
   if (!p.supervised) return `<span class="muted">–</span>`;
   const c = supCandidates(id);
-  return `<select data-supby="${id}" aria-label="Supervisor for ${esc(p.contractName || nm(id))}" style="width:auto"><option value="">Not named</option>${c.map(([o, n]) => `<option value="${o}" ${p.supervisor === o ? "selected" : ""}>${esc(n)}</option>`).join("")}</select><br><span class="muted">${p.supervisor ? (ownerIds().includes(p.supervisor) ? "3 points to Archē" : "3 points to the supervisor") : "No share until named"}</span>`;
+  return `<select data-supby="${id}" aria-label="Supervisor for ${esc(p.contractName || nm(id))}" style="width:auto"><option value="">Not named</option>${c.map(([o, n]) => `<option value="${o}" ${p.supervisor === o ? "selected" : ""}>${esc(n)}</option>`).join("")}</select><br><span class="muted">${p.supervisor ? (ownerIds().includes(p.supervisor) ? supPts(supRate()) + " to Archē" : supPts(supRate()) + " to the supervisor") : "No share until named"}</span>`;
 }
 document.addEventListener("change", async e => {
   const id = e.target.dataset && e.target.dataset.supby; if (!id || !S.isOwner) return;
@@ -231,8 +298,8 @@ document.addEventListener("change", async e => {
 /* on the trip: who gets the share, and the owner's forfeit */
 function supShareBlock(t){
   const sh = t && t.st && t.st.supShare; if (!sh || !(isStaff() || sh.uid === S.uid) || S.preview) return "";
-  const gp = num(t.st.price) - num(t.st.opPrice) - num(t.st.direct), amt = gp * num(sh.rate || SUP_RATE);
-  return `<div class="note ${sh.forfeited ? "bad" : "info"} small"><b>Supervision share</b> (3 points, ${usd(amt)}): ${sh.toArche ? "stays with Archē (an owner supervised)" : sh.forfeited ? `forfeited ${fmtT(sh.forfeited.at)}: ${esc(sh.forfeited.reason || "")}` : `to ${esc(nm(sh.uid))}`}.
+  const gp = num(t.st.price) - num(t.st.opPrice) - num(t.st.direct), amt = gp * num(sh.rate == null ? SUP_RATE : sh.rate);
+  return `<div class="note ${sh.forfeited ? "bad" : "info"} small"><b>Supervision share</b> (${supPts(num(sh.rate == null ? SUP_RATE : sh.rate))}, ${usd(amt)}): ${sh.toArche ? "stays with Archē (an owner supervised)" : sh.forfeited ? `forfeited ${fmtT(sh.forfeited.at)}: ${esc(sh.forfeited.reason || "")}` : `to ${esc(nm(sh.uid))}`}.
     ${S.isOwner && !sh.toArche && !sh.forfeited ? `<div class="row" style="margin-top:6px"><input id="sf_why" placeholder="Rule broken (for the record)" style="max-width:320px"><button class="btn small danger" type="button" data-supfo="${t.did}">Forfeit the share</button></div>` : ""}</div>`;
 }
 document.addEventListener("click", async e => {
@@ -247,3 +314,21 @@ setInterval(() => {
   Object.keys(S.roster || {}).filter(id => id !== S.uid).forEach(bid => { const path = `status/${bid}/deals`; if (S.subs[path]) return;
     S.subs[path] = S.db.collection(path).onSnapshot(snap => { const o = {}; snap.docs.forEach(d => o[d.id] = d.data()); S.status[bid] = o; render(); }, () => {}); });
 }, 3000);
+/* supervisors (Morten, 29 Oct 2026): pay and the text to send sit with the rights in Team; supervisors with the
+   train or assess right see the team's training results (read through /api/live, which checks the right) */
+(function(){
+  const _sp = supervisionPanel; supervisionPanel = function(){ return supTextPanel() + _sp() + supPayPanel(); };
+  const _vSup = vSupervise; vSupervise = function(){ const h = _vSup(); if (!canRight("train")) return h;
+    return h + `<div class="panel" style="margin-bottom:16px"><h2>Training</h2><p class="small">Train people live: open <b>Training → Live training</b>, choose who watches and which pages, and share your screen while you talk on the phone or Teams. Contact details are hidden on the shared screen. The team's results are under <b>Training → Booking practice</b>.</p><button class="btn small" type="button" data-view="training">Open Training</button></div>`; };
+  const _vTrSup = vTraining; vTraining = function(){ const h = _vTrSup();
+    if (isStaff() || S.preview || S.view !== "training" || (S.trTab || "course") !== "book" || !(canRight("train") || canRight("assess"))) return h;
+    return h + `<div style="margin-top:16px">${trTeamPanel()}</div>`; };
+  const _trLoadAll = trLoadAll; trLoadAll = async function(){
+    if (isStaff() || window.__TEST_AS || !window.__sb) return _trLoadAll();
+    if (S.trLoading) return; S.trLoading = true;
+    try { const sess = (await window.__sb.auth.getSession()).data.session;
+      const r = await fetch("/api/live", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({action: "progress"})});
+      const j = await r.json().catch(() => ({})); (j.people || []).forEach(p => { if (p.name && !S.names[p.id]) S.names[p.id] = p.name; }); S.trAll = j.runs || {}; }
+    catch(e){ S.trAll = {}; }
+    S.trLoading = false; render(); };
+})();
