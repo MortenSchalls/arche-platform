@@ -83,7 +83,46 @@
     const t = diff(today, dep), nxt = [...rows(scale), ...rows(pay)].map(r => r.days).filter(d => d !== INF && d < t).sort((a, b) => b - a)[0];
     return nxt == null ? null : addDays(dep, -Math.ceil(nxt));
   }
-  const BP = {OUR, rows, pctAt, cancelTable, schedule, dueBy, exposure, maySign, mayPay, nextStep, addDays, diff, BUFFER};
+  /* the operator deadline (Morten, 29 Oct 2026: "alerts 12 hours before due for operator as we are being liable if not
+     cancelled ... highest alert for all involved, same as AOG"). depAt = first departure (ISO date and time). Returns the
+     next moment the operator's charge or payment rises, what Archē must hold by then, and whether it is held:
+     {at (ms), need, payNeed, short (client money missing), unpaid (money held but the operator not paid)} or null. */
+  function deadline({depAt, nowMs, O, scale, pay, received, paid}){
+    const dep = Date.parse(depAt); if (!dep) return null;
+    const steps = [...rows(scale), ...rows(pay)].map(r => r.days).filter(d => d !== INF).map(d => dep - d * 864e5).filter(t => t > nowMs).sort((a, b) => a - b);
+    if (!steps.length) return null;
+    const at = steps[0], tl = (dep - at) / 864e5 - 1e-6;   // just after the step
+    const payPct = rows(pay).filter(r => r.days === INF || tl < r.days).reduce((a, r) => a + r.pct, 0);
+    const payNeed = Math.ceil(n(O) * Math.min(payPct, 100) / 100), need = Math.max(exposure(O, scale, tl), payNeed);
+    return {at, need, payNeed, short: n(received) < need, unpaid: n(paid) < payNeed && n(received) >= payNeed};
+  }
+  /* the wording of the two messages to the client (one source for the portal, the server and Team > Alerts) */
+  const money$ = v => "USD " + Math.round(n(v)).toLocaleString("en-US");
+  const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const longDate = s => { if (!s) return ""; const [y, m, d] = String(s).slice(0, 10).split("-"); return `${+d} ${MON[+m - 1]} ${y}`; };
+  const REMIND_VERSION = "2026-10-29";
+  function reminderText({name, ref, amount, due, phone, email, days}){
+    return {subject: `Payment reminder: charter confirmation ${ref}`, text: [
+      `Dear ${name || "Sir or Madam"},`, "",
+      `This is a reminder for charter confirmation ${ref}: ${money$(amount)} is due by ${longDate(due)}${days === 1 ? " (tomorrow)" : ""}, under the payment schedule in your confirmation (Part A, A3).`, "",
+      "Please pay through the secure payment request we sent you for this booking. If you have already paid, thank you, and please ignore this message.", "",
+      "If the payment has not cleared by the due date, we may have to treat the booking as cancelled under A3, and the cancellation charges in A9 then apply.", "",
+      `We never send bank details by email or message. If you receive payment details any other way, do not pay: call us on ${phone || "the number in your confirmation"}.`, "",
+      "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
+  }
+  function cancelText({name, ref, reason, missing, missingDue, charge, period, received, phone, email, noticeDate}){
+    const diffAmt = n(received) - n(charge);
+    const money = diffAmt > 0 ? `We will refund ${money$(diffAmt)} through the payment account, to the account it came from.` : diffAmt < 0 ? `Still due: ${money$(-diffAmt)}, payable within 10 calendar days.` : "Nothing further is due either way.";
+    return {subject: `Cancellation: charter confirmation ${ref}`, text: [
+      `Dear ${name || "Sir or Madam"},`, "",
+      reason === "client" ? `We confirm the cancellation of charter confirmation ${ref}, received in writing on ${longDate(noticeDate)}.`
+        : `The payment of ${money$(missing)} due ${missingDue === "signature" ? "on signature" : "by " + longDate(missingDue)} under the payment schedule of charter confirmation ${ref} (Part A, A3) has not reached us. Under A3 we therefore treat the booking as cancelled by the Charterer as of ${longDate(noticeDate)}.`, "",
+      `Cancellation charge under A9 (${period} before departure): ${money$(charge)}. Received from you: ${money$(received)}. ${money}`,
+      "Costs already committed under B12 are invoiced separately with receipts, if there are any.", "",
+      `If you believe this is wrong, call your advisor at once on ${phone || "the number in your confirmation"}.`, "",
+      "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
+  }
+  const BP = {OUR, rows, pctAt, cancelTable, schedule, dueBy, exposure, maySign, mayPay, nextStep, deadline, addDays, diff, BUFFER, reminderText, cancelText, REMIND_VERSION, longDate, money$};
   root.BP = BP;
   if (typeof module !== "undefined" && module.exports) module.exports = BP;
 })(typeof window !== "undefined" ? window : globalThis);

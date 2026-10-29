@@ -7590,7 +7590,46 @@ function trustMatrix(){
     const t = diff(today, dep), nxt = [...rows(scale), ...rows(pay)].map(r => r.days).filter(d => d !== INF && d < t).sort((a, b) => b - a)[0];
     return nxt == null ? null : addDays(dep, -Math.ceil(nxt));
   }
-  const BP = {OUR, rows, pctAt, cancelTable, schedule, dueBy, exposure, maySign, mayPay, nextStep, addDays, diff, BUFFER};
+  /* the operator deadline (Morten, 29 Oct 2026: "alerts 12 hours before due for operator as we are being liable if not
+     cancelled ... highest alert for all involved, same as AOG"). depAt = first departure (ISO date and time). Returns the
+     next moment the operator's charge or payment rises, what Archē must hold by then, and whether it is held:
+     {at (ms), need, payNeed, short (client money missing), unpaid (money held but the operator not paid)} or null. */
+  function deadline({depAt, nowMs, O, scale, pay, received, paid}){
+    const dep = Date.parse(depAt); if (!dep) return null;
+    const steps = [...rows(scale), ...rows(pay)].map(r => r.days).filter(d => d !== INF).map(d => dep - d * 864e5).filter(t => t > nowMs).sort((a, b) => a - b);
+    if (!steps.length) return null;
+    const at = steps[0], tl = (dep - at) / 864e5 - 1e-6;   // just after the step
+    const payPct = rows(pay).filter(r => r.days === INF || tl < r.days).reduce((a, r) => a + r.pct, 0);
+    const payNeed = Math.ceil(n(O) * Math.min(payPct, 100) / 100), need = Math.max(exposure(O, scale, tl), payNeed);
+    return {at, need, payNeed, short: n(received) < need, unpaid: n(paid) < payNeed && n(received) >= payNeed};
+  }
+  /* the wording of the two messages to the client (one source for the portal, the server and Team > Alerts) */
+  const money$ = v => "USD " + Math.round(n(v)).toLocaleString("en-US");
+  const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const longDate = s => { if (!s) return ""; const [y, m, d] = String(s).slice(0, 10).split("-"); return `${+d} ${MON[+m - 1]} ${y}`; };
+  const REMIND_VERSION = "2026-10-29";
+  function reminderText({name, ref, amount, due, phone, email, days}){
+    return {subject: `Payment reminder: charter confirmation ${ref}`, text: [
+      `Dear ${name || "Sir or Madam"},`, "",
+      `This is a reminder for charter confirmation ${ref}: ${money$(amount)} is due by ${longDate(due)}${days === 1 ? " (tomorrow)" : ""}, under the payment schedule in your confirmation (Part A, A3).`, "",
+      "Please pay through the secure payment request we sent you for this booking. If you have already paid, thank you, and please ignore this message.", "",
+      "If the payment has not cleared by the due date, we may have to treat the booking as cancelled under A3, and the cancellation charges in A9 then apply.", "",
+      `We never send bank details by email or message. If you receive payment details any other way, do not pay: call us on ${phone || "the number in your confirmation"}.`, "",
+      "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
+  }
+  function cancelText({name, ref, reason, missing, missingDue, charge, period, received, phone, email, noticeDate}){
+    const diffAmt = n(received) - n(charge);
+    const money = diffAmt > 0 ? `We will refund ${money$(diffAmt)} through the payment account, to the account it came from.` : diffAmt < 0 ? `Still due: ${money$(-diffAmt)}, payable within 10 calendar days.` : "Nothing further is due either way.";
+    return {subject: `Cancellation: charter confirmation ${ref}`, text: [
+      `Dear ${name || "Sir or Madam"},`, "",
+      reason === "client" ? `We confirm the cancellation of charter confirmation ${ref}, received in writing on ${longDate(noticeDate)}.`
+        : `The payment of ${money$(missing)} due ${missingDue === "signature" ? "on signature" : "by " + longDate(missingDue)} under the payment schedule of charter confirmation ${ref} (Part A, A3) has not reached us. Under A3 we therefore treat the booking as cancelled by the Charterer as of ${longDate(noticeDate)}.`, "",
+      `Cancellation charge under A9 (${period} before departure): ${money$(charge)}. Received from you: ${money$(received)}. ${money}`,
+      "Costs already committed under B12 are invoiced separately with receipts, if there are any.", "",
+      `If you believe this is wrong, call your advisor at once on ${phone || "the number in your confirmation"}.`, "",
+      "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
+  }
+  const BP = {OUR, rows, pctAt, cancelTable, schedule, dueBy, exposure, maySign, mayPay, nextStep, deadline, addDays, diff, BUFFER, reminderText, cancelText, REMIND_VERSION, longDate, money$};
   root.BP = BP;
   if (typeof module !== "undefined" && module.exports) module.exports = BP;
 })(typeof window !== "undefined" ? window : globalThis);
@@ -7884,14 +7923,83 @@ function trustMatrix(){
       ${can && b.signedAt && m.paid < f.O ? `<div class="row" style="gap:6px;align-items:flex-end"><label class="f" for="bk_pa">Paid to the operator (USD)<input id="bk_pa" inputmode="decimal" value="${room || ""}"></label><label class="f" for="bk_pd">Paid on<input type="date" id="bk_pd" max="${dToday}"></label><button class="btn small" type="button" data-bka="payout" ${room > 0 ? "" : "disabled"}>Record operator payment</button></div>` : ""}
       ${(st.payouts || []).length ? `<p class="small muted">${st.payouts.map(r => `${usd(num(r.amount))} paid ${fmtD(r.date)}`).join(" · ")}</p>` : ""}
       ${m.received < cumDue && nxt ? `<div class="note bad small"><b>Client payment missing:</b> ${usd(cumDue - m.received)} was due. Cancel with the operator before ${esc(fmtD(nxt))}, when its charge or payment rises, unless the money has cleared.</div>` : ""}`;
-    return `<div class="panel stack" id="secBook" style="background:var(--raised)"><h2>Booking with the operator</h2>${pre}${marg}${post}</div>`;
+    const lapse = issued && offerLapsed(t) ? `<div class="note bad small"><b>Offer lapsed unsigned</b> (valid until ${esc(fmtD(((t.d.conf || {}).valid || {}).date))}). The operator's hold may have ended: confirm it with the operator before accepting a signature or money, or close the offer.</div>` : "";
+    return `<div class="panel stack" id="secBook" style="background:var(--raised)"><h2>Booking with the operator</h2>${aogLine(t)}${lapse}${pre}${marg}${post}${issued && can ? cancelPanel(t) : ""}</div>`;
   }
   window.bookBlock = bookBlock;
+
+  // ---------- deadlines, lapsed offers and the critical (AOG) alert (Morten, 29 Oct 2026) ----------
+  const depAtOf = t => { const l = (((t.d.trip || {}).legs) || []).filter(x => x.date).sort((a, b) => (a.date + (a.time || "")).localeCompare(b.date + (b.time || "")))[0]; return l ? `${l.date}T${l.time || "00:00"}:00Z` : ""; };
+  window.offerLapsed = t => { const st = t.st || {}, v = ((t.d.conf || {}).valid || {}).date; return !!(st.confIssued && !st.signed && v && v < today() && st.state !== "cancelled"); };
+  const utc = ms => new Date(ms).toISOString().slice(0, 16).replace("T", " ") + " UTC";
+  // {level: "aog" | "passed", text} for a booking whose operator contract is signed
+  window.aogOf = function(t, nowMs = Date.now()){
+    const st = t.st || {}; if (!t.d.opTerms || !st.confIssued || !(st.book || {}).signedAt || ["cancelled", "flown"].includes(st.state)) return null;
+    const pl = bookingPlan(t), m = money(t), depAt = depAtOf(t); if (!depAt) return null;
+    const dl = BP.deadline({depAt, nowMs, O: pl.f.O, scale: pl.scale, pay: pl.pay, received: m.received, paid: m.paid});
+    const tl = (Date.parse(depAt) - nowMs) / 864e5, payNow = BP.rows(pl.pay).filter(r => r.days === Infinity || tl < r.days).reduce((a, r) => a + r.pct, 0);
+    const owed = Math.max(BP.exposure(pl.f.O, pl.scale, tl), Math.ceil(pl.f.O * Math.min(payNow, 100) / 100)), payDue = Math.ceil(pl.f.O * Math.min(payNow, 100) / 100);
+    if (m.received < owed) return {level: "passed", text: `Operator deadline passed: Archē is exposed ${usd(owed - m.received)}. Cancel on Avinode now, or collect the money.`};
+    if (m.paid < payDue && m.received >= payDue) return {level: "passed", text: `Operator payment overdue: pay the operator ${usd(payDue - m.paid)} now from the client money held.`};
+    if (dl && dl.at - nowMs <= 12 * 3600e3 && (dl.short || dl.unpaid)) return {level: "aog", at: dl.at, text: dl.short ? `Client money missing ${usd(dl.need - m.received)}: cancel with the operator on Avinode before ${utc(dl.at)}, or collect it.` : `Pay the operator ${usd(dl.payNeed - m.paid)} before ${utc(dl.at)}.`};
+    return null;
+  };
+  const aogLine = t => { const a = aogOf(t); return a ? `<div class="note bad" style="border-width:2px"><b>CRITICAL (AOG).</b> ${esc(a.text)}</div>` : ""; };
+  function aogAll(){ return allTrips().filter(t => (isStaff() || t.bid === S.uid) && !S.preview).map(t => ({t, a: aogOf(t)})).filter(x => x.a); }
+  window.aogAll = aogAll;
+  // a red bar on every page for everyone involved (operations, the owner, the trip's broker) until it is resolved
+  const _rn = renderNow; renderNow = function(){ _rn(); const main = document.getElementById("main"); if (!main) return;
+    const list = aogAll(), old = document.getElementById("aogBar"); if (old) old.remove(); if (!list.length) return;
+    const d = document.createElement("div"); d.id = "aogBar";
+    d.innerHTML = `<div class="note bad" role="alert" style="border-width:2px;margin-bottom:12px"><b>CRITICAL (AOG): ${list.length} booking${list.length > 1 ? "s" : ""} at the operator's deadline.</b>${list.map(({t, a}) => `<div class="small" style="margin-top:4px">${esc(((t.d.client || {}).company || (t.d.client || {}).name || (t.st || {}).ref || ""))} · ${esc(a.text)} <a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open</a></div>`).join("")}</div>`;
+    main.insertBefore(d, main.firstChild); };
+
+  // ---------- the one-click cancellation ----------
+  function cancelInputs(t){ const r = ($("cx_reason") || {}).value || (money(t).received < BP.dueBy(bookingPlan(t).sched, today()) ? "missing" : "client"); return {reason: r, noticeDate: ($("cx_date") || {}).value || today(), opCharge: num(($("cx_op") || {}).value), avinode: !!($("cx_av") || {}).checked}; }
+  window.cancelPreview = function(t, inp){
+    const pl = bookingPlan(t), m = money(t), co = S.company || {}, depAt = depAtOf(t), tl = depAt ? (Date.parse(depAt) - Date.now()) / 864e5 : 0;
+    const row = pl.cancel.find(r => tl < r.hi && tl >= r.lo) || {amount: pl.f.P, label: "Under 24 hours, or no-show"};
+    let miss = null; for (const i of pl.sched) { const late = i.due === "signature" ? !!(t.st || {}).signed && Date.now() > Date.parse(t.st.signed.at) + 864e5 : i.due < today(); if (late && m.received < i.cum) { miss = i; break; } }
+    const mail = BP.cancelText({name: (t.d.client || {}).name, ref: (t.st || {}).ref || "", reason: inp.reason, missing: miss ? miss.cum - m.received : 0, missingDue: miss ? miss.due : "", charge: row.amount, period: row.label.toLowerCase(), received: m.received, phone: co.phone, email: co.email, noticeDate: inp.reason === "client" ? inp.noticeDate : today()});
+    return {mail, row, miss, received: m.received};
+  };
+  function cancelPanel(t){
+    if (["cancelled", "flown"].includes(t.stage)) return "";
+    const inp = S.cxIn && S.cxIn.did === t.did ? S.cxIn : {did: t.did, ...cancelInputs(t)}, pv = cancelPreview(t, inp), q = t.d.quote || {};
+    const a = aogOf(t), dl = a && a.at ? ` before ${utc(a.at)}` : "";
+    return `<details class="small" style="margin-top:10px" ${a || inp.open ? "open" : ""}><summary><b>Cancel this booking</b> ${a ? '<span class="chip c-returned">Do it now</span>' : ""}</summary>
+      <div class="fgrid"><label class="f" for="cx_reason">Reason<select id="cx_reason" data-cx="1"><option value="missing" ${inp.reason === "missing" ? "selected" : ""}>Client payment missing (A3)</option><option value="client" ${inp.reason === "client" ? "selected" : ""}>The client cancelled in writing (A9)</option></select></label>
+      ${inp.reason === "client" ? `<label class="f" for="cx_date">The client's notice arrived on<input type="date" id="cx_date" data-cx="1" value="${esc(inp.noticeDate)}" max="${today()}"></label>` : ""}</div>
+      <p style="margin:6px 0">Client charge now (A9, ${esc(pv.row.label.toLowerCase())}): <b>${usd(pv.row.amount)}</b> · received ${usd(pv.received)} · ${pv.received > pv.row.amount ? "refund " + usd(pv.received - pv.row.amount) : pv.received < pv.row.amount ? "still due " + usd(pv.row.amount - pv.received) : "nothing either way"}.</p>
+      <ol style="margin:4px 0 6px 18px;padding:0"><li>Cancel on Avinode${q.avinode ? ", trip " + esc(q.avinode) : ""}${esc(dl)}, and get the operator's written confirmation of its charge.</li><li>Enter the operator's charge and tick that it is cancelled on Avinode.</li><li>Press the button: the notice below goes to the client (copy to the bookings address) and the cancellation is recorded.</li></ol>
+      <div class="fgrid"><label class="f" for="cx_op">The operator's cancellation charge (USD)<input id="cx_op" data-cx="1" inputmode="decimal" value="${inp.opCharge || ""}"></label></div>
+      <label class="check"><input type="checkbox" id="cx_av" data-cx="1" ${inp.avinode ? "checked" : ""}><span>Cancelled on Avinode, the operator's confirmation received</span></label>
+      <label class="f" for="cx_txt">The notice to the client<textarea id="cx_txt" rows="12" readonly>${esc(pv.mail.subject + "\n\n" + pv.mail.text)}</textarea></label>
+      ${inp.reason === "missing" && !pv.miss ? `<p class="small muted">No client payment is overdue: choose the client's written cancellation, or wait.</p>` : ""}
+      <button class="btn small danger" type="button" data-bka="cancel" ${inp.avinode && (inp.reason !== "missing" || pv.miss) ? "" : "disabled"}>Send the notice to the client and record the cancellation</button></details>`;
+  }
+  document.addEventListener("change", e => { const el = e.target; if (!el.dataset || !el.dataset.cx) return; const t = tripById(S.sel); if (!t) return;
+    S.cxIn = {did: t.did, open: true, ...cancelInputs(t)}; render(); });
+  document.addEventListener("click", async e => {
+    const b = e.target.closest && e.target.closest('#secBook [data-bka="cancel"]'); if (!b) return; e.stopImmediatePropagation();
+    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another operations member or the owner must do this on your own trip."); return; }
+    const inp = cancelInputs(t); if (!inp.avinode) { toast("Cancel on Avinode first, then tick it."); return; }
+    b.disabled = true;
+    try {
+      if (local()) { const pv = cancelPreview(t, inp), m = money(t);
+        await statusWrite(t, {state: "cancelled", opCancelCharge: inp.opCharge, cancelled: {reason: inp.reason, noticeDate: inp.reason === "client" ? inp.noticeDate : today(), clientCharge: pv.row.amount, period: pv.row.label, received: m.received, opCancelCharge: inp.opCharge, refund: Math.max(0, m.received - pv.row.amount), stillDue: Math.max(0, pv.row.amount - m.received), at: now(), by: S.uid, avinode: true, noticeSentAt: null}}, "Cancelled (test version: no email sent)");
+        toast("Cancelled. Test version: no email was sent."); }
+      else { const j = await api("/api/notice", {bid: t.bid, did: t.did, ...inp}); toast(`Cancelled. The notice went to the client. Client charge ${usd(j.record.clientCharge)}.`); }
+      audit("Booking cancelled", `${(t.st || {}).ref || t.did} · ${inp.reason}`); S.cxIn = null;
+      setTimeout(() => { const t2 = tripById(S.sel); if (t2) libSave(t2, "cancelled"); }, 1500);
+    } catch(err){ toast(err.message || "Could not cancel. Try again."); b.disabled = false; }
+  }, true);
   // the old one-click payment buttons give way to the amounts above on trips with operator terms
   const _ops = opsBlock;
   opsBlock = function(t){ let h = _ops(t); if (!t.d.opTerms) return h;
     return h.replace(/<label class="f" for="o_cpd">[\s\S]*?data-act="clientPaid">Record client payment<\/button>/, "").replace(/<p class="small muted">Record the client's payment once the signed contract is saved above\.<\/p>/, "")
-      .replace(/<label class="f" for="o_opd">[\s\S]*?data-act="operatorPaid">Record operator payment<\/button>/, ""); };
+      .replace(/<label class="f" for="o_opd">[\s\S]*?data-act="operatorPaid">Record operator payment<\/button>/, "")
+      .replace(/<div class="row"><button class="btn danger small" type="button" data-act="cancelAsk">Cancel trip<\/button><\/div><div id="cancelBox"><\/div>/, (t.st || {}).confIssued ? "" : "$&"); };
 
   async function stWrite(t, patch, line){ await statusWrite(t, patch, line); }
   document.addEventListener("change", async e => {
@@ -7958,7 +8066,10 @@ function trustMatrix(){
         let acc = 0; (pl.pay || []).forEach(x => { const w = x.days === "booking" ? d0 : BP.addDays(pl.dep, -Math.ceil(num(x.days) * (x.unit === "hours" ? 1 / 24 : 1))); if (w <= when) acc += num(x.pct); });
         const want = Math.ceil(pl.f.O * Math.min(acc, 100) / 100); if (when <= BP.addDays(d0, 3) && m.paid < want) out.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div><p><b>Operator payment due ${esc(fmtD(when))}:</b> ${nmC} · ${usd(want - m.paid)} (from client money held: ${usd(m.received - m.paid)}).</p><p class="small muted"><a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a></p></div></div>`); });
     });
-    return [...new Set(out)];
+    allTrips().filter(t => t.d.opTerms && offerLapsed(t) && !(typeof ownTrip === "function" && ownTrip(t))).forEach(t => { const c = t.d.client || {};
+      out.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div><p><b>Offer lapsed unsigned:</b> ${esc(c.company || c.name || (t.st || {}).ref || "")} · confirm the operator's hold or close it.</p><p class="small muted"><a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a></p></div></div>`); });
+    const aog = aogAll().map(({t, a}) => `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p><b>CRITICAL (AOG):</b> ${esc(((t.d.client || {}).company || (t.d.client || {}).name || ""))} · ${esc(a.text)}</p><p class="small muted"><a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a></p></div></div>`);
+    return [...new Set([...aog, ...out])];
   }
   window.moneyFlags = moneyFlags;
   const _vT = vToday; vToday = function(){ const fl = moneyFlags(); return afterHead(_vT(), fl.length ? `<div class="panel" style="margin-bottom:16px" id="moneyPanel"><h2>Money on bookings (${fl.length})</h2>${fl.join("")}</div>` : ""); };
@@ -7975,6 +8086,24 @@ function trustMatrix(){
         return `<tr><td>${esc(o.name)}<br><span class="muted">${esc((o.regs || []).join(", "))}</span></td><td>${tr.length} <span class="muted">(${flown} flown, margin ${avgM}%)</span></td><td>${(l.terms || {}).cancelNone ? "none stated" : esc(fmtRows((l.terms || {}).cancel))}</td><td>${esc(fmtRows((l.terms || {}).pay))}</td><td>${esc(i.insurer || "–")}${i.expiry ? `<br><span class="${i.expiry < today() ? "" : "muted"}">to ${esc(fmtD(i.expiry))}</span>` : ""}</td><td>${esc(fmtD(l.at))}<br><span class="muted">${esc(l.ref || "")}</span></td></tr>`; }).join("")}</tbody></table>` : `<p class="small">Empty until the first booking with operator terms is issued.</p>`}</div>`;
   }
   window.oplibPanel = libPanel;
+  if (typeof ALERT_EVENTS === "object") ALERT_EVENTS.money = "Booking money: client payment overdue, offer lapsed (critical AOG alerts reach everyone involved anyway)";
+  function remindPanel(){
+    if (!S.isOwner || S.preview || acting() !== "owner") return "";
+    const A = S.alerts || {}, rm = A.clientReminders || {}, on = !!rm.on && rm.version === BP.REMIND_VERSION, co = S.company || {};
+    const ex = BP.reminderText({name: "Anna Example", ref: "AE-261101-123", amount: 45000, due: BP.addDays(today(), 3), phone: co.phone, email: co.email, days: 3});
+    return `<div class="panel" id="remindPanel" style="margin-bottom:16px"><h2>Payment reminders to clients</h2>
+      <p class="small">${on ? `<b>On</b> since ${esc(fmtT(rm.at))}.` : "<b>Off.</b> Nothing is sent to clients."} When on, every client with a signed confirmation gets an email 3 days and 1 day before each payment in its schedule, until the money has cleared. Sent from operations@archeaviation.com, with a copy to the bookings address and replies going there.</p>
+      <label class="f" for="rm_txt">The wording (example)<textarea id="rm_txt" rows="13" readonly>${esc(ex.subject + "\n\n" + ex.text)}</textarea></label>
+      <div class="row">${on ? `<button class="btn small" type="button" data-rm="off">Turn reminders off</button>` : `<button class="btn small primary" type="button" data-rm="on">I approve this wording: turn reminders on</button>`}</div>
+      <h3 style="margin:10px 0 0">Critical (AOG)</h3><p class="small">From 12 hours before an operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, and after such a deadline has passed: everyone on the alert list, every owner and operations member and the trip's broker get a phone alert every 10 minutes, day or night, and an email every hour, and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled.</p></div>`;
+  }
+  if (typeof alertsPanel === "function") { const _ap = alertsPanel; alertsPanel = function(){ return _ap() + remindPanel(); }; }
+  document.addEventListener("click", async e => {
+    const b = e.target.closest && e.target.closest("[data-rm]"); if (!b || !S.isOwner) return;
+    const on = b.dataset.rm === "on", A = S.alerts || {recipients: []};
+    const next = {...A, clientReminders: on ? {on: true, version: BP.REMIND_VERSION, at: now(), by: S.uid} : {on: false, at: now(), by: S.uid}};
+    if (typeof alertSave === "function") await alertSave(next, on ? `Payment reminders to clients turned on (wording ${BP.REMIND_VERSION} approved)` : "Payment reminders to clients turned off");
+  });
   // the owner's approval card: margin by the rule (or the owner's own decision), operator terms complete
   if (typeof apChecks === "function") { const _apc = apChecks; apChecks = function(t){
     const out = _apc(t).filter(x => !/^Margin /.test(x[1])), st = t.st || {}, f = apFigures(t), ex = st.marginEx;

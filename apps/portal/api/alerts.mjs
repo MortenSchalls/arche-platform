@@ -6,6 +6,14 @@
 //   normal  a booking to approve, a new website enquiry, a supervised step, service recovery, departed or landed.
 //           One phone push and one reminder after 4 hours if still open; never between 22:00 and 07:00.
 //   low     a backup or rotation running late: no push.
+//   critical (Morten, 29 Oct 2026: "alerts 12 hours before due for operator as we are being liable if not cancelled, this
+//           is extremely important to keep as highest alert for all involved, same as AOG in aviation"): from 12 hours
+//           before the operator's charge or payment rises on a booking whose operator contract is signed, while the client
+//           money held does not cover it or the operator is not paid; and after such a deadline has passed. Everyone on
+//           the alert list, every owner and operations member and the trip's broker: phone every 10 minutes, day or night,
+//           with no limit, and an email every hour, until the money clears, the operator is paid or the booking is cancelled.
+//   Payment reminders to clients 3 days and 1 day before each payment in the confirmation's schedule, only while the
+//   owner has switched them on in Team > Alerts (wording approved there), sent once each.
 //   Everything still open goes into one morning summary email from 07:00 (time zone in Team > Alerts, default Bangkok).
 //   No other emails. Messages carry only the type and the trip reference, never client names.
 //   GET  ?vapid=1  the public key phones use to subscribe
@@ -16,6 +24,7 @@
 //   SUPABASE_URL, SUPABASE_SECRET_KEY (server key), SUPABASE_PUBLISHABLE_KEY, RESEND_API_KEY,
 //   optional ALERT_FROM (default "Archē Alerts <onboarding@resend.dev>"), PORTAL_URL (default https://portal.archeaviation.com)
 import crypto from "node:crypto";
+import { tripMoney, BP } from "../server/money.mjs";
 
 const PORTAL = process.env.PORTAL_URL || "https://portal.archeaviation.com";
 const b64u = b => Buffer.from(b).toString("base64url");
@@ -70,9 +79,20 @@ async function sendEmail(to, subject, text) {
   return `refused by Resend (${r.status}${m ? ": " + m.slice(0, 160) : ""})`;
 }
 
+// to a client: from Archē's domain, replies and a copy to the company's bookings address
+export async function sendClient(to, mail, company) {
+  if (!process.env.RESEND_API_KEY) return "no-key";
+  const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
+    body: JSON.stringify({ from: process.env.CLIENT_FROM || "Archē Executive <operations@archeaviation.com>", to: [to], ...(company ? { bcc: [company], reply_to: company } : {}), subject: mail.subject, text: mail.text }) });
+  if (r.ok) return "ok";
+  let m = ""; try { m = (await r.json()).message || ""; } catch (e) {}
+  return `refused by Resend (${r.status}${m ? ": " + m.slice(0, 160) : ""})`;
+}
+
 /* ---------- what is waiting (types match Team > Alerts) ---------- */
 const TITLES = { approve: "Booking waiting for your approval", steps: "Supervised step waiting for an OK", pool: "New enquiry waiting",
-  recovery: "Service recovery or overdue follow-up", flight: "Flight status change", late: "Backup or rotation late", escalate: "Escalation" };
+  recovery: "Service recovery or overdue follow-up", flight: "Flight status change", late: "Backup or rotation late", escalate: "Escalation",
+  money: "Booking money" };
 export function openItems(d, now = Date.now()) {
   const out = [], st = {}; (d.status || []).forEach(r => st[r.owner_id + "/" + r.id] = r.data || {});
   const approvalOn = ((d.terms || {}).ownerApproval) !== false;
@@ -99,6 +119,19 @@ export function openItems(d, now = Date.now()) {
       out.push({ key: `flight:${t.owner_id}:${t.id}:${i}:${e.s}`, type: "flight", ref, since: e.set, once: true, broker: t.owner_id, urgency: ["delay", "div", "canc"].includes(e.s) ? "urgent" : "normal",
         what: `${legs.length > 1 ? `leg ${i + 1} ` : ""}${air(l.from) && air(l.to) ? air(l.from) + "→" + air(l.to) + " " : ""}${LEG[e.s]}` }); });
   }
+  // booking money (Morten, 29 Oct 2026): offer lapsed, client payment overdue, and the operator deadline (critical, like AOG)
+  const margin = Number((d.terms || {}).margin) || 0.09, utc = ms => new Date(ms).toISOString().slice(0, 16).replace("T", " ") + " UTC";
+  for (const t of d.trips || []) {
+    const x = t.data || {}, s = st[t.owner_id + "/" + t.id] || {}, m = tripMoney(x, s, margin, now); if (!m) continue;
+    const ref = s.ref || t.id, k = `${t.owner_id}:${t.id}`;
+    if (m.lapsed) out.push({ key: `money-lapse:${k}`, type: "money", ref, since: ((x.conf || {}).valid || {}).date, broker: t.owner_id, what: "offer expired unsigned: confirm the operator's hold or close the offer" });
+    if (m.missing > 0 && m.firstMissing) out.push({ key: `money-due:${k}:${m.firstMissing.due}`, type: "money", ref, since: m.firstMissing.due === "signature" ? (s.signed || {}).at : m.firstMissing.due, urgency: "urgent", broker: t.owner_id, what: `client payment overdue: ${BP.money$(m.missing)}` });
+    const dl = m.deadline;
+    if (dl && dl.at - now <= 12 * 3600e3 && (dl.short || dl.unpaid)) out.push({ key: `money-aog:${k}:${dl.at}`, type: "money", ref, urgency: "critical", broker: t.owner_id, since: new Date(dl.at - 12 * 3600e3).toISOString(),
+      what: dl.short ? `client money missing ${BP.money$(dl.need - m.received)}: cancel with the operator on Avinode before ${utc(dl.at)}, or collect it` : `pay the operator ${BP.money$(dl.payNeed - m.paid)} before ${utc(dl.at)}` });
+    if (m.exposedNow > 0) out.push({ key: `money-passed:${k}`, type: "money", ref, urgency: "critical", broker: t.owner_id, since: new Date(now).toISOString(), what: `operator deadline passed: Archē is exposed ${BP.money$(m.exposedNow)}. Cancel on Avinode now, or collect the money` });
+    else if (m.unpaidNow) out.push({ key: `money-pay:${k}`, type: "money", ref, urgency: "critical", broker: t.owner_id, since: new Date(now).toISOString(), what: "operator payment overdue: pay the operator now from the client money held" });
+  }
   for (const r of d.steps || []) if ((r.data || {}).status === "pending") out.push({ key: `steps:${r.owner_id}:${r.id}`, type: "steps", ref: r.data.ref || "", since: r.data.at, what: r.data.key });
   for (const e of d.web || []) { const x = e.data || {}; if (!x.handled) out.push({ key: `pool:web:${e.id}`, type: "pool", ref: "website " + (x.type === "callback" ? "call-back request" : "enquiry"), since: e.at || x.at }); }
   const iv = {}; (d.intel || []).forEach(r => iv[r.key] = r.value || {});
@@ -123,18 +156,34 @@ export async function runAlerts(D, now = Date.now(), send = { push: sendPush, em
     R = [...keep.filter(r => byBackup[r.uid]), ...keep.filter(r => !byBackup[r.uid])];
   }
   const escalate = Math.max(10, Number(cfg.escalateMin) || 30) * MIN, tz = cfg.tz || "Asia/Bangkok", isQuiet = quiet(now, tz);
-  const URGENT_EVERY = 30 * MIN, URGENT_MAX = 4, NORMAL_AGAIN = 4 * 3600e3, NORMAL_MAX = 2;
+  const URGENT_EVERY = 30 * MIN, URGENT_MAX = 4, NORMAL_AGAIN = 4 * 3600e3, NORMAL_MAX = 2, CRIT_EVERY = 10 * MIN, CRIT_MAIL = 60 * MIN;
   let v = await D.get("alert_settings", "vapid"); if (!v) { v = newVapid(); await D.put("alert_settings", "vapid", v); }
-  const [trips, status, steps, web, intel, cfgRows, logs, subs] = await Promise.all([
+  const [trips, status, steps, web, intel, cfgRows, logs, subs, profiles, sentRows] = await Promise.all([
     D.all("trips", "owner_id,id,data"), D.all("trip_status", "owner_id,id,data"), D.all("step_requests", "owner_id,id,data").catch(() => []),
-    D.all("website_enquiries", "id,at,data").catch(() => []), D.all("intel", "key,value"), D.all("config", "key,value", "&key=eq.terms"),
-    D.all("alert_settings", "id,data", "&id=like.log:*"), D.all("push_subs", "owner_id,id,data").catch(() => [])]);
-  const items = openItems({ trips, status, steps, web, intel, terms: (cfgRows[0] || {}).value }, now);
+    D.all("website_enquiries", "id,at,data").catch(() => []), D.all("intel", "key,value"), D.all("config", "key,value", "&key=in.(terms,company)"),
+    D.all("alert_settings", "id,data", "&id=like.log:*"), D.all("push_subs", "owner_id,id,data").catch(() => []),
+    D.all("profiles", "id,role,active", "&active=eq.true").catch(() => []), D.all("alert_settings", "id", "&id=like.sent:*").catch(() => [])]);
+  const cfgOf = k => ((cfgRows || []).find(r => r.key === k) || {}).value || {};
+  const items = openItems({ trips, status, steps, web, intel, terms: cfgOf("terms") }, now);
   const log = {}; logs.forEach(l => log[l.id.slice(4)] = l.data);
   let pushes = 0, emails = 0; const errors = [];
   const pushDev = async (s, it, title, body) => { try { const code = await send.push(s.data, v, { title, body, tag: it.key, url: PORTAL + "/" }); if (code === 404 || code === 410) await D.del("push_subs", `owner_id=eq.${s.owner_id}&id=eq.${encodeURIComponent(s.id)}`); else if (code < 300) pushes++; else errors.push("push " + code); } catch (e) { errors.push("push " + e.message); } };
+  let clientMails = 0;
   for (const it of items) {
     const L = log[it.key] || { first: now, count: 0 }, age = now - L.first;
+    if (it.urgency === "critical") {   // like AOG: everyone involved, day or night, until it is resolved
+      if (L.lastPush && now - L.lastPush < CRIT_EVERY) continue;
+      const uids = new Set([...R.map(r => r.uid), ...(profiles || []).filter(p => ["owner", "ops"].includes(p.role)).map(p => p.id), it.broker].filter(Boolean));
+      const title = `Archē CRITICAL (AOG): ${TITLES[it.type]}`, body = `${it.ref} · ${it.what}.`;
+      for (const s of subs.filter(s => uids.has(s.owner_id))) await pushDev(s, { ...it, key: it.key + ":" + L.count }, title, body);
+      let lastEmail = L.lastEmail || 0;
+      if (!lastEmail || now - lastEmail >= CRIT_MAIL) {
+        for (const r of R.filter(r => r.email)) { const res = await send.email(r.email, title, `${body}\n\nThis is the highest alert. It repeats every 10 minutes by phone and every hour by email until the client money has cleared, the operator is paid or the booking is cancelled.\n\n${PORTAL}`); if (res === "ok") emails++; else if (res !== "no-key") errors.push("email " + res); }
+        lastEmail = now;
+      }
+      await D.put("alert_settings", "log:" + it.key, { ...L, count: L.count + 1, level: 9, type: it.type, ref: it.ref, urgency: it.urgency, lastPush: now, lastEmail });
+      continue;
+    }
     if (it.once) {   // a notice, not a task: sent once, no reminders; departed or landed at night is not pushed
       if (L.count) continue;
       if (it.urgency !== "urgent" && isQuiet) continue;
@@ -169,9 +218,29 @@ export async function runAlerts(D, now = Date.now(), send = { push: sendPush, em
       await D.put("alert_settings", "digest", { day, at: now, items: tasks.length });
     }
   }
+  // payment reminders to clients: 3 days and 1 day before each payment, once each, only while the owner has them on
+  const rem = cfg.clientReminders || {};
+  if (rem.on && rem.version === BP.REMIND_VERSION) {
+    const sent = new Set((sentRows || []).map(r => r.id)), co = cfgOf("company"), margin = Number(cfgOf("terms").margin) || 0.09, st = {};
+    (status || []).forEach(r => st[r.owner_id + "/" + r.id] = r.data || {});
+    const today = new Date(now).toISOString().slice(0, 10);
+    for (const t of trips || []) {
+      const x = t.data || {}, s = st[t.owner_id + "/" + t.id] || {}, m = tripMoney(x, s, margin, now), to = ((x.client || {}).email || "").trim();
+      if (!m || !m.signed || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) continue;
+      for (const i of m.sched) {
+        if (i.due === "signature" || m.received >= i.cum) continue;
+        const days = BP.diff(today, i.due); if (days !== 3 && days !== 1) continue;
+        const id = `sent:remind:${t.owner_id}:${t.id}:${i.due}:${days}`; if (sent.has(id)) continue;
+        const mail = BP.reminderText({ name: (x.client || {}).name, ref: s.ref || t.id, amount: i.cum - m.received, due: i.due, phone: co.phone, email: co.email, days });
+        const res = await (send.client || sendClient)(to, mail, co.email);
+        if (res === "ok") { clientMails++; await D.put("alert_settings", id, { at: new Date(now).toISOString(), ref: s.ref || t.id, due: i.due, days }); }
+        else if (res !== "no-key") errors.push("client email " + res);
+      }
+    }
+  }
   const open = new Set(items.map(i => "log:" + i.key));
   for (const l of logs) if (!open.has(l.id)) await D.del("alert_settings", `id=eq.${encodeURIComponent(l.id)}`);   // acted on: stop alerting
-  const statusRow = { lastRun: new Date(now).toISOString(), open: items.length, pushes, emails, errors: errors.slice(0, 5), email: !!process.env.RESEND_API_KEY, push: true };
+  const statusRow = { lastRun: new Date(now).toISOString(), open: items.length, pushes, emails, clientMails, critical: items.filter(i => i.urgency === "critical").length, errors: errors.slice(0, 5), email: !!process.env.RESEND_API_KEY, push: true };
   await D.put("alert_settings", "status", statusRow);
   return statusRow;
 }

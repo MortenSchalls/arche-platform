@@ -35,6 +35,7 @@ jobs:
           node apps/portal/tests/me.test.mjs
           node apps/portal/tests/live.test.mjs
           node apps/portal/tests/bookingplan.test.mjs
+          node apps/portal/tests/moneyalerts.test.mjs
       - name: Portal screens (test version, example data)
         working-directory: apps/portal
         run: |
