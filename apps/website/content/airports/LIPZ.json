@@ -7,12 +7,40 @@
  "tz": "Europe/Rome",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "slots": {
    "v": "a coordinated airport (slot allocation by Assoclearance)",
    "src": "enac-slot",
    "quote": "ha classificato come aeroporti coordinati gli scali di: ... Venezia"
+  },
+  "handling": {
+   "v": "private flights are handled by Venice General Aviation, the airport's ground handling provider and FBO; handling slots are booked with it",
+   "src": "vce-private-jets",
+   "names": [
+    "Venice General Aviation"
+   ],
+   "quote": "Book your ground handling slot with Venice General Aviation, the official ground handling provider at Venice Airport."
+  },
+  "fuel": {
+   "v": "Jet A-1 from Levorato Marcevaggi and Carboil; major fuel cards accepted",
+   "src": "vce-private-jets",
+   "quote": "Suppliers: Levorato Marcevaggi and Carboil."
+  },
+  "deicing": {
+   "v": "de-icing and snow/ice removal offered for private flights",
+   "src": "vce-private-jets",
+   "quote": "De-icing and snow/ice removal to maintain operational safety in all weather conditions."
+  },
+  "catering": {
+   "v": "catering prepared by selected chefs",
+   "src": "vce-private-jets",
+   "quote": "High-level catering, with customised meals prepared by selected chefs to ensure an excellent gastronomic experience."
+  },
+  "hours": {
+   "v": "the airport closes from 24:00 to 04:00 under ENAC ordinance 6/2015 (stated on the passenger information page; it does not say whether flights are barred)",
+   "src": "vce-info-generali",
+   "quote": "L’Aeroporto di Venezia chiude dalle 24:00 alle 04:00, come previsto dall’ordinanza ENAC 6/2015."
   }
  },
  "missing": [
@@ -24,11 +52,7 @@
   "curfew",
   "ppr",
   "max_aircraft",
-  "handling",
-  "hours",
-  "noise",
-  "fuel",
-  "deicing"
+  "noise"
  ],
- "notes": "ENAV eAIP needs an ENAV account and could not be opened. SAVE's Airport Regulations (Ed. 2 Amdt 2, SAVE 15/11/2023, ENAC adoption 06/12/2023) have a General Aviation section (2.17) and a General Aviation Terminal, but the reader returned only the table of contents for those parts. The SAVE 2025 charges list (from 1 Aug 2025) mentions no opening hours or GA rules."
+ "notes": "ENAV eAIP needs an ENAV account and could not be opened. SAVE's Airport Regulations (Ed. 2 Amdt 2, SAVE 15/11/2023, ENAC adoption 06/12/2023) have a General Aviation section (2.17) and a General Aviation Terminal, but the reader returned only the table of contents for those parts. The SAVE 2025 charges list (from 1 Aug 2025) mentions no opening hours or GA rules. Re-researched 2026-10-29: 29 Oct 2026: SAVE's site moved to veneziaairport.it. The passenger page's 24:00-04:00 closure (ENAC ordinance 6/2015) concerns the terminal (no stay without a next-day ticket); the ordinance itself was not read, so no curfew was recorded. Fuel suppliers differ between SAVE's pages: the private-jets page says Levorato Marcevaggi and Carboil, the Venice General Aviation page says 'Levorato & Marcevaggi and SKY Tanking'; re-check before quoting. The handler page names an address only (Viale Galileo Galilei 30, Venezia), no distance from the city. Do not name companies on the public site (site rule). The SAVE airport regulations (2023) and ga.veneziaairport.it block automated readers."
 }

@@ -1,0 +1,38 @@
+{
+ "icao": "FSIA",
+ "iata": null,
+ "name": "Seychelles International Airport",
+ "city": "Mahé",
+ "country": "SC",
+ "tz": "Indian/Mahe",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "permits": {
+   "v": "private flights must apply 72 hours in advance to the Seychelles Civil Aviation Authority (fltclearance@scaa.sc); non-scheduled flights need permission from the SCAA Chief Executive Officer not less than 72 hours in advance",
+   "src": "sc-aip-2019",
+   "quote": "is to be submitted 72 hours in advance to the following contacts:"
+  },
+  "noise": {
+   "v": "no APU start-up or run-up on the international apron and NPA between 15:00 and 03:00 UTC (19:00-07:00 local), except as part of arrival and departure procedures",
+   "src": "sc-aip-amdt-1-15",
+   "quote": "No auxiliary power unit (APU) start up or run up between 1500 UTC and 0300 UTC on the international apron and NPA"
+  }
+ },
+ "missing": [
+  "iata",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "fuel"
+ ],
+ "notes": "The newest SCAA AIP found online is the GEN volume with checklist AIP AMDT 1/19 (30 Apr 2019); it lists AD 2 FSIA pages but does not contain them. AD 2 FSIA-1 (30 Apr 19), -2 (02 Mar 17) and -3 (30 Mar 17), which hold location, operator, hours and probably runway data, could not be found online. The noise rule is from AD 2 FSIA-11 in AIRAC AMDT 1/15 (8 Jan 2015); the 2019 checklist still lists page 11 at 08 JAN 15, so it was current then. The ARP in GEN 2.7 is printed with stray spaces (055 31 18.67E); coordinates converted from it. Local time UTC+4, no DST. General aviation aircraft are marshalled to a small-aircraft parking area (AD 2.20, page dated 2015, later revised 2018, so not used as a fact). Morten: please obtain the current Seychelles AIP AD 2 FSIA from SCAA."
+}

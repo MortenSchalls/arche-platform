@@ -7,7 +7,7 @@
  "tz": "Asia/Jerusalem",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "three runways; the longest, 08/26, is 4,062 m long and 45 m wide",
@@ -29,5 +29,5 @@
   "max_aircraft (only in a superseded AIP edition; current edition not read)",
   "notable (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "IMPORTANT: the only LLBG AD 2 page that could be opened is the AIRAC edition of 15 Jun 2023. The Israel eAIP index shows AIRAC AMDT 001/2026 (6 Aug 2026) as currently effective, but its LLBG page could not be opened. All LLBG facts must be re-checked against the 2026 edition before publishing. All AD 2.20/2.21 times are local (summer = Israel daylight time). Exact GA restricted periods quoted in v come from the same para 6.1 (summer 05:00-08:00, 14:00-18:00 & 00:01-01:40; winter 05:30-08:00 & 00:01-01:40). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, curfew, noise, slots, permits, max_aircraft, notable)."
+ "notes": "IMPORTANT: the only LLBG AD 2 page that could be opened is the AIRAC edition of 15 Jun 2023. The Israel eAIP index shows AIRAC AMDT 001/2026 (6 Aug 2026) as currently effective, but its LLBG page could not be opened. All LLBG facts must be re-checked against the 2026 edition before publishing. All AD 2.20/2.21 times are local (summer = Israel daylight time). Exact GA restricted periods quoted in v come from the same para 6.1 (summer 05:00-08:00, 14:00-18:00 & 00:01-01:40; winter 05:30-08:00 & 00:01-01:40). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, curfew, noise, slots, permits, max_aircraft, notable). Re-researched 2026-10-29: 29 Oct 2026: no new official source could be read. The Israel eAIP index (https://e-aip.azurefd.net/) was not approved for opening in this session, and web searches surfaced no 2026 LLBG AD 2 page or Israel Airports Authority page on general/business aviation (only news, Wikipedia copies and trip-support sites, which are not used). News reports mention operating limits at Ben Gurion in 2026; check current NOTAMs before any trip."
 }

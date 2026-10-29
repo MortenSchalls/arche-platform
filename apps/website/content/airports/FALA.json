@@ -1,0 +1,52 @@
+{
+ "icao": "FALA",
+ "iata": null,
+ "name": "Lanseria International Airport",
+ "city": "Johannesburg",
+ "country": "ZA",
+ "tz": "Africa/Johannesburg",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours",
+   "src": "za-eaip-2022-04-fala",
+   "quote": "AD Operational hours: H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "za-eaip-2022-04-fala",
+   "quote": "H24, TEL: (011) 367 0300"
+  },
+  "runway": {
+   "v": "one runway, 07/25, 2,996 m long and 45 m wide",
+   "longest_m": 2996,
+   "src": "za-eaip-2022-04-fala",
+   "quote": "2996 x 45"
+  },
+  "noise": {
+   "v": "no engine testing between 1700 and 0300 (AIP times)",
+   "src": "za-eaip-2022-04-fala",
+   "quote": "No engine testing may be performed daily between 1700 and 0300 on the AD."
+  },
+  "handling": {
+   "v": "the airport lists NAC and ExecuJet as FBOs, and MH Aviation Services for ground handling",
+   "src": "fala-airport-services",
+   "quote": "ExecuJet South Africa is based at Lanseria International Airport near Johannesburg"
+  },
+  "fuel": {
+   "v": "Jet A-1 by hydrant on the main apron and by bowser; between 19:00 and 05:00 refuelling only on the main apron",
+   "src": "fala-airport-services",
+   "quote": "Please note between 19:00 and 05:00 refuelling will only be done on the main apron."
+  }
+ },
+ "missing": [
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft"
+ ],
+ "notes": "No AMDT 2026 replacement pages for FALA AD 2 were found. Coordinates, operator, hours, customs, runway and the engine-testing rule come from the eAIP edition valid from 15 Oct 2022 (newest full page that could be opened); please confirm against the consolidated 'Aerodromes (15_OCT_2026)' PDF on caa.co.za, which could not be opened here. The airport's own pilot page (modified 21 Jul 2026) says technical status must be confirmed via the latest SACAA publication, and its 'technical data' is an image that could not be read. The airport's services page says the tower and approach service runs 24 hours and ground movement control 05h45-19h00 daily. The 2022 AIP gives a four-hour stand-time limit (apron approval beyond that) and says only class B and smaller aircraft may use apron A; exact words not captured, so not recorded. IATA code not stated by the sources read."
+}

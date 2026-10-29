@@ -7,7 +7,7 @@
  "tz": "Asia/Riyadh",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "three runways; the longest, 16C/34C and 16L/34R, are 4,000 m long and 60 m wide (16R/34L is 3,800 m)",
@@ -29,5 +29,5 @@
   "notable (only in a superseded AIP edition; current edition not read)",
   "noise (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "Source is the AD 2 page from AIP AMDT 07/25 (3 Apr 2025), the newest OEJN page that could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective; its pages could not be opened; re-check before publishing. The page states no night restriction, PPR, slot rule or Hajj/Umrah rule. Fuel line in the AIP ('Turbine JP1 and JP4') left out as it looks outdated. Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, notable, noise)."
+ "notes": "Source is the AD 2 page from AIP AMDT 07/25 (3 Apr 2025), the newest OEJN page that could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective; its pages could not be opened; re-check before publishing. The page states no night restriction, PPR, slot rule or Hajj/Umrah rule. Fuel line in the AIP ('Turbine JP1 and JP4') left out as it looks outdated. Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, notable, noise). Re-researched 2026-10-29: 29 Oct 2026: no new official source could be read. The current Saudi eAIP (AIRAC AMDT 10/26) is blocked from this session (aimss.sans.com.sa refused by the network proxy). Searches for the Jeddah Airports Company's own business-aviation page returned only directories and broker sites, which are not used."
 }

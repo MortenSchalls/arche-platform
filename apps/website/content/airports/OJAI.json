@@ -7,13 +7,13 @@
  "tz": "Asia/Amman",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
-   "v": "two parallel runways; 26L and 26R are each 3,660 m x 61 m",
-   "longest_m": 3660,
-   "src": "ojai-carc-aip",
-   "quote": "3660 x 61"
+   "v": "two parallel runways: 08L/26R is 3,668 m long and 61 m wide, 08R/26L is 3,660 m long and 61 m wide",
+   "longest_m": 3668,
+   "src": "jo-aip-amdt-26-2026",
+   "quote": "26R 3668 4507 3814 3668 Nil"
   },
   "customs": {
    "v": "customs and immigration 24 hours",
@@ -44,12 +44,11 @@
  },
  "missing": [
   "iata",
-  "current AIP edition",
-  "runway 08L/08R dimensions",
+  "current AIP edition (other AD 2 OJAI pages)",
   "curfew",
   "slots",
   "ppr",
   "general aviation parking"
  ],
- "notes": "Only an old CARC AIP AD 2 OJAI file could be read (pages dated 21 Jul 2016, AIRAC AMDT 13/2016, to 01 May 2017, AMDT 84/2017); values may have changed since. The 2026 AIRAC amendments on carc.gov.jo (e.g. https://carc.gov.jo/sites/default/files/inline-files/AIRAC AIP AMDT 27-2026.pdf) could not be opened (site blocks automated reading), so status is partial until the current AD 2 OJAI is read. No curfew or night restriction is stated; all services are H24. The 08L/08R rows did not show dimensions in the extracted text. IATA code not shown in the AIP pages read."
+ "notes": "Only an old CARC AIP AD 2 OJAI file could be read (pages dated 21 Jul 2016, AIRAC AMDT 13/2016, to 01 May 2017, AMDT 84/2017); values may have changed since. The 2026 AIRAC amendments on carc.gov.jo (e.g. https://carc.gov.jo/sites/default/files/inline-files/AIRAC AIP AMDT 27-2026.pdf) could not be opened (site blocks automated reading), so status is partial until the current AD 2 OJAI is read. No curfew or night restriction is stated; all services are H24. The 08L/08R rows did not show dimensions in the extracted text. IATA code not shown in the AIP pages read. Re-researched 2026-10-29: 29 Oct 2026: AIRAC AIP AMDT 26/2026 (published 9 Apr 2026, effective 14 May 2026) replaces pages 2.OJAI-13 (AD 2.12 runway characteristics) and 2.OJAI-14 (AD 2.13 declared distances). These show 08L/26R as 3,668 x 61 m and 08R/26L as 3,660 x 61 m (TORA/LDA 3,668 and 3,660 m), so the existing runway fact ('26L and 26R each 3,660 m') is replaced; longest is now 3,668 m. The PDF text is multi-column; dimensions were paired to runways by matching the declared-distance rows. Later amendments AMDT 27/2026 and 28/2026 on carc.gov.jo could not be opened (the site blocks automated reading), so they may change OJAI pages again. AMDT 119/26 (non-AIRAC, 1 Feb 2026) has no AD 2 OJAI pages. A second copy of AD2_OJAI.pdf (carc.gov.jo/sites/default/files/inline-files/AD2_OJAI.pdf) is dated 1 May 2008 (AMDT 49/2008), older than the file already used; its hangar entry says main door 21 x 69 m 'PPR', which is about hangar use, not aircraft arrival, so not recorded."
 }

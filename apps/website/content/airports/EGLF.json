@@ -7,7 +7,7 @@
  "tz": "Europe/London",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "one runway, 06/24, 45 m wide; longest take-off run available 2,063 m (runway 24)",
@@ -75,5 +75,5 @@
   "ppr",
   "customs hours"
  ],
- "notes": "UK AIP could not be read. The operator's airfield-specs page shows an ARP 'Lat: 51,1631N, Long: 0,004639W', which is evidently malformed, so it is not used. Runway length given as the longest TORA (2,063 m); total concrete incl. starter strip is 2608 m and ASDA up to 2,590 m (runway 06) per the same page. The 80 t figure in the report is an observation, so do not publish it as a rule without the AIP or planning consent text. The 'quote' strings came back through a fetch tool with a short-quote limit; spot-check wording before publishing. | 2026-10-27 run: UK AIP not readable. The operator's Airfield Specs page shows the ARP as 'Lat: 51,1631N, Long: 0,004639W' - the format is unclear, so no decimal coordinates were recorded. No slot or PPR text found on the operator site."
+ "notes": "UK AIP could not be read. The operator's airfield-specs page shows an ARP 'Lat: 51,1631N, Long: 0,004639W', which is evidently malformed, so it is not used. Runway length given as the longest TORA (2,063 m); total concrete incl. starter strip is 2608 m and ASDA up to 2,590 m (runway 06) per the same page. The 80 t figure in the report is an observation, so do not publish it as a rule without the AIP or planning consent text. The 'quote' strings came back through a fetch tool with a short-quote limit; spot-check wording before publishing. | 2026-10-27 run: UK AIP not readable. The operator's Airfield Specs page shows the ARP as 'Lat: 51,1631N, Long: 0,004639W' - the format is unclear, so no decimal coordinates were recorded. No slot or PPR text found on the operator site. Re-researched 2026-10-29: 2026-10-29 run: UK AIP (nats-uk.ead-it.com) blocked by the session's network proxy, so AIP AD 2 EGLF could not be read. Operator pages read: Rules and Regulations (no PPR, slot or customs-hours text), Airfield Specs (ARP still shown as 'Lat: 51,1631N, Long: 0,004639W', malformed, not used), For Passengers and Pets (says 'Our on-site customs, immigration and screening service ensures speedy clearance' but gives no hours, so customs is not recorded as a fact). Operator home page could not be fetched."
 }

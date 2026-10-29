@@ -7,7 +7,7 @@
  "tz": "Europe/Madrid",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "hours": {
    "v": "open 24 hours",
@@ -56,5 +56,5 @@
   "curfew",
   "ppr"
  ],
- "notes": "Source is the ENAIRE AIP amendment page for AD 2 LEPA/LESJ dated 03-SEP-26 (Amdt 2026/410); the current consolidated AD 2 page could not be opened. Night hours are given without UTC/LT marking (Spanish AIP normally uses UTC; if UTC both seasons equal 23:00-07:00 local) - not converted. The night rules restrict training, APU and reverse thrust; no ban on movements was found, but absence is not stated, so curfew is left missing. Footnote (1) on hours: foreign state/military aircraft need PPR 72 h ahead (not relevant to charter). GA ramp agents also listed: Aviapartner, General Aviation Service, Gestair, Jetland Executive Services, Mallorcair, Melendez, Sky Valet Spain."
+ "notes": "Source is the ENAIRE AIP amendment page for AD 2 LEPA/LESJ dated 03-SEP-26 (Amdt 2026/410); the current consolidated AD 2 page could not be opened. Night hours are given without UTC/LT marking (Spanish AIP normally uses UTC; if UTC both seasons equal 23:00-07:00 local) - not converted. The night rules restrict training, APU and reverse thrust; no ban on movements was found, but absence is not stated, so curfew is left missing. Footnote (1) on hours: foreign state/military aircraft need PPR 72 h ahead (not relevant to charter). GA ramp agents also listed: Aviapartner, General Aviation Service, Gestair, Jetland Executive Services, Mallorcair, Melendez, Sky Valet Spain. Re-researched 2026-10-29: Re-read Amdt 2026/410 AD 2 LEPA: AD 2.20 and AD 2.21 contain no ban on night movements and no PPR for general or business aviation (PPR 72 hours is only for foreign state aircraft). The night-hours times (V: 2100-0500, I: 2200-0600) carry no UTC/LT label, while the same page marks local times explicitly as 'LT' elsewhere (e.g. 'HR 0730-1430 LT'); this suggests the unmarked times are UTC but the AIP section does not say so. Also in AD 2.20: from 1 May to 31 October, aircraft cruising slower than 220 kt are restricted 0530-0700 and 1600-1830 (no time label)."
 }

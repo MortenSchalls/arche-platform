@@ -7,7 +7,7 @@
  "tz": "Asia/Dubai",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "runway 12/30, 4,500 m long and 60 m wide",
@@ -34,16 +34,20 @@
    "v": "Chapter 2 (older, noisier) aircraft may not operate; the authorities may restrict some operations in noise-sensitive hours with prior notice",
    "src": "dwc-cou-ga-s24",
    "quote": "Chapter 2 (Noise Certification Requirements) aircraft are not allowed to operate to Dubai World Central (DWC)."
+  },
+  "ppr": {
+   "v": "landing permission and traffic rights must be applied for before operating to Dubai, before slots are requested from ACL (no lead time stated)",
+   "src": "dwc-cou-ga-s24",
+   "quote": "Application for landing permission and traffic rights to operate to Dubai should be directed"
   }
  },
  "missing": [
   "location",
   "customs",
   "curfew",
-  "ppr",
   "hours",
   "AIP AD 2.20 local regulations",
   "geo"
  ],
- "notes": "The text pages of UAE AIP AD 2 OMDW could not be opened (only charts were reachable), so customs hours, aerodrome hours, distance from the city and AD 2.20 rules are not verified. Facts from the chart are AIRAC 08/2026 (effective 6 Aug 2026). The DWC General Aviation Conditions of Use found is the Northern Summer 2024 edition (Dubai Airports, hosted by the slot coordinator ACL); a newer edition may exist, so re-check FBO list and slot rules before publishing. The chart's runway 13/31 dimensions were not stated in the extracted text. The 'noise-sensitive hours' are not defined in the source: do not state a curfew. | 2026-10-27 run: No new OMDW text could be read this run: the UAE AIP AD 2 OMDW PDF was blocked (URL not reachable through the research tool), and no current DWC GA Conditions of Use (newer than Summer 2024) was found. The only new fact comes from the OMDB AIP (AD 2.20.6.3)."
+ "notes": "The text pages of UAE AIP AD 2 OMDW could not be opened (only charts were reachable), so customs hours, aerodrome hours, distance from the city and AD 2.20 rules are not verified. Facts from the chart are AIRAC 08/2026 (effective 6 Aug 2026). The DWC General Aviation Conditions of Use found is the Northern Summer 2024 edition (Dubai Airports, hosted by the slot coordinator ACL); a newer edition may exist, so re-check FBO list and slot rules before publishing. The chart's runway 13/31 dimensions were not stated in the extracted text. The 'noise-sensitive hours' are not defined in the source: do not state a curfew. | 2026-10-27 run: No new OMDW text could be read this run: the UAE AIP AD 2 OMDW PDF was blocked (URL not reachable through the research tool), and no current DWC GA Conditions of Use (newer than Summer 2024) was found. The only new fact comes from the OMDB AIP (AD 2.20.6.3). Re-researched 2026-10-29: 2026-10-29 run: the UAE GCAA eAIP (gcaa.gov.ae) could not be reached at all (proxy refused the connection; the research tool refused the URLs), so customs, hours, location, geo and AD 2.20 are still unverified. Searches found no DWC General Aviation Conditions of Use newer than Northern Summer 2024 (effective 31 Mar 2024, replaces Northern Winter 2023); that edition (clause 3.12) says landing permission and traffic rights go to the Dubai Civil Aviation Authority's Air Transport & International Affairs Sector first and that the operator or FBO then applies to ACL for slots, with fees on some permits; it gives no lead time, no airport hours, no customs hours and no curfew (only undefined 'noise sensitive hours', clause 3.10(a)). The only 24/7 item in it is the Airport Operations Control Centre contact, which is not an airport-hours statement."
 }

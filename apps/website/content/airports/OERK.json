@@ -7,7 +7,7 @@
  "tz": "Asia/Riyadh",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "two parallel runways, 15L/33R and 15R/33L, each 4,205 m long and 60 m wide",
@@ -19,6 +19,11 @@
    "v": "listed by the slot coordinator ACL as an IATA Level 3 (coordinated) airport; the page does not say how this applies to business aviation",
    "src": "acl-ruh",
    "quote": "IATA Designation Level 3"
+  },
+  "handling": {
+   "v": "a private aviation terminal opened at the airport in December 2018 (operator of the terminal not named)",
+   "src": "riyadh-airports-pat-2018",
+   "quote": "\"Riyadh Airports\" launched the New Private Aviation Terminal today in King Khalid International Airport in Riyadh"
   }
  },
  "missing": [
@@ -29,10 +34,9 @@
   "iata (not shown in the AIP; RUH is from the ACL slot coordinator page)",
   "customs (only in a superseded AIP edition; current edition not read)",
   "hours (only in a superseded AIP edition; current edition not read)",
-  "handling (only in a superseded AIP edition; current edition not read)",
   "fuel (only in a superseded AIP edition; current edition not read)",
   "noise (only in a superseded AIP edition; current edition not read)",
   "notable (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "Source is the AD 2 page from AIRAC AIP AMDT 02/26 (19 Feb 2026), the newest edition whose OERK page could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective, but its frame-based pages could not be opened; re-check before publishing. The AD 2 page states no night restriction, PPR or slot rule; AD 2.20 GA section says GA parks on the GA area and calls Ground North for start-up. Page header reads 'AIP for Specimen' (the SANS HTML template). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, fuel, noise, notable)."
+ "notes": "Source is the AD 2 page from AIRAC AIP AMDT 02/26 (19 Feb 2026), the newest edition whose OERK page could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective, but its frame-based pages could not be opened; re-check before publishing. The AD 2 page states no night restriction, PPR or slot rule; AD 2.20 GA section says GA parks on the GA area and calls Ground North for start-up. Page header reads 'AIP for Specimen' (the SANS HTML template). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, fuel, noise, notable). Re-researched 2026-10-29: 29 Oct 2026: the current Saudi eAIP (AIRAC AMDT 10/26) still could not be opened: direct connection to aimss.sans.com.sa is refused by this session's network proxy and the AD 2 page URL was not approved. Private aviation terminal: Riyadh Airports news of 10 Dec 2018 gives its floor area as 2,617 m2; the GACA news of 9 Dec 2018 says 3,000 m2 and 100 passengers per hour. The two official figures differ, so no size is recorded. Neither page names who runs the terminal or its hours, or says whether customs is inside it."
 }

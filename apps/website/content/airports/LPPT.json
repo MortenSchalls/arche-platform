@@ -6,11 +6,11 @@
  "country": "PT",
  "tz": "Europe/Lisbon",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-27",
+ "status": "verified",
+ "checked": "2026-10-29",
  "rules": {
   "curfew": {
-   "v": "by law no landings or take-offs between 00:00 and 06:00 UTC (23:00–05:00 UTC in summer), i.e. midnight to 06:00 local; Lisboa has a limited exception regime: a night flight must be coordinated at least one day ahead with the IATA slot coordinator and the aircraft must hold an ICAO Annex 16 Chapter 3 noise certificate",
+   "v": "no landings or take-offs between 00:00 and 06:00 UTC (23:00–05:00 UTC in summer), i.e. midnight to 06:00 local, except force majeure; this applies only to civil subsonic jets of 34,000 kg maximum take-off mass or more, or with more than 19 passenger seats; a limited number of night movements is allowed by government deliberation",
    "windows_local": [
     [
      "00:00",
@@ -18,8 +18,8 @@
     ]
    ],
    "approval": true,
-   "src": "pt-aip-ad11",
-   "quote": "On Airports and/or Aerodromes landing and/or take-off is forbidden by Law between 00:00 (23:00) and 06:00 (05:00)"
+   "src": "pt-aip-lppt",
+   "quote": "This restriction is only applicable to civil subsonic jet aeroplanes"
   },
   "slots": {
    "v": "night flights under the exception regime must be coordinated at least one day in advance with the IATA airport slot coordinator",
@@ -30,19 +30,43 @@
    "v": "night flights under the exception regime need an ICAO Annex 16, Vol I, Chapter 3 noise certificate",
    "src": "pt-aip-ad11",
    "quote": "have a noise certificate according with ICAO Annex 16, Vol I, Chapt 3."
+  },
+  "runway": {
+   "v": "one runway, 02/20, 3,707 m long and 45 m wide",
+   "longest_m": 3707,
+   "src": "pt-aip-lppt",
+   "quote": "3707 x 45 M"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "pt-aip-lppt",
+   "quote": "H24"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "pt-aip-lppt",
+   "quote": "H24 *"
+  },
+  "ppr": {
+   "v": "airport slots for non-based carriers allow at most 2 hours of parking; longer parking needs prior approval from Lisboa Airport Management",
+   "src": "pt-aip-lppt",
+   "quote": "Parking periods exceeding this interval, only upon prior approval from Lisboa Airport Management."
+  },
+  "handling": {
+   "v": "a slot request must name the ground handling agent at LPPT and give full contact details of a local representative in Lisbon",
+   "src": "pt-aip-lppt",
+   "quote": "Ground handling agent at LPPT, name and full contact of local representative in Lisbon"
+  },
+  "fuel": {
+   "v": "Jet A1",
+   "src": "pt-aip-lppt",
+   "quote": "JET A1"
   }
  },
  "missing": [
-  "geo",
-  "operator",
-  "location",
-  "runway",
-  "customs",
-  "ppr",
   "max_aircraft",
-  "handling",
-  "hours",
   "iata"
  ],
- "notes": "The LPPT AD 2 PDF on ais.nav.pt is blocked to WebFetch (robots), and the AD 2 HTML page could not be opened (permission not given in time). Only the national night rule in AD 1.1.6 was read. Exception-regime airports named there: 'Lisboa (LPPT), Porto (LPPR), Madeira (LPMA), Porto Santo (LPPS) and Ponta Delgada (LPPD)'. Times: the AIP gives UTC with summer UTC in brackets; both equal 00:00–06:00 local. AD 1.1.6 gives no number for the night movements allowed."
+ "notes": "The LPPT AD 2 PDF on ais.nav.pt is blocked to WebFetch (robots), and the AD 2 HTML page could not be opened (permission not given in time). Only the national night rule in AD 1.1.6 was read. Exception-regime airports named there: 'Lisboa (LPPT), Porto (LPPR), Madeira (LPMA), Porto Santo (LPPS) and Ponta Delgada (LPPD)'. Times: the AIP gives UTC with summer UTC in brackets; both equal 00:00–06:00 local. AD 1.1.6 gives no number for the night movements allowed. Re-researched 2026-10-29: AD 2 LPPT (valid from 01 Oct 2026) narrows the national night rule already on file: the 00:00-06:00 local ban applies only to civil subsonic jets with MTOM of 34,000 kg or more or more than 19 passenger seats (crew-only seats excluded). Lighter business jets with 19 seats or fewer are therefore outside the ban, but they still need a slot at this fully coordinated airport. The curfew fact replaces the AD 1.1 one. The AIP times are UTC with summer UTC in brackets; both equal 00:00-06:00 local all year. The AIP shows no IATA code (only ICAO, AFS and SITA addresses) and no general aviation terminal. Based aircraft may park up to 18 hours; longer needs the Airport Director's approval. Taxilane wingspan limits exist (e.g. 48 m on taxilanes A1-A3, M1, K, Y) but no single largest-aircraft rule for business aviation was found. ANA's aeroportolisboa.pt business page as read had no business-aviation or Lisbon handling content."
 }

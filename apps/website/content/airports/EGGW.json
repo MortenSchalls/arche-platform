@@ -7,7 +7,7 @@
  "tz": "Europe/London",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "one runway, 2.16 km long",
@@ -38,10 +38,9 @@
    "quote": "Each specific aircraft type is assigned Quota points based on how noisy it is."
   },
   "slots": {
-   "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator (ACL)",
-   "src": "acl-faqs",
-   "context": "Listed by ACL among UK Level 3 (coordinated) airports; ACL Luton page: 'London Luton Airport was formally declared as Level 3 effective Summer 2013.'",
-   "quote": "London Luton (LTN)"
+   "v": "every fixed-wing flight needs a runway slot allocated in advance; at short notice outside ACL's hours, contact the airport's Operations Control Centre",
+   "src": "lla-cou-2026",
+   "quote": "no fixed wing aircraft flight is permitted to operate without the prior allocation of a runway slot."
   },
   "handling": {
    "v": "business aviation handled by Signature Flight Support (two sites) and Harrods Aviation",
@@ -55,11 +54,10 @@
  },
  "missing": [
   "geo",
-  "location",
   "runway designation, width and exact length in m",
   "customs",
   "ppr",
   "max_aircraft"
  ],
- "notes": "UK AIP could not be read. 'none': true for curfew means only that the operator states there is no ban on night flights; night restrictions (older jets banned, quota count, 79 dB(A) night noise limit) still apply, so do not write 'no restrictions'. The night period hours were not found on a readable page. ACL pages do not say explicitly that business aviation needs slots, only that Luton is Level 3. Handling company names: the website rule says the site names no companies except authorities, airport operators and cited sources, so these are for internal use. | 2026-10-27 run: UK AIP not readable. Night quota times are from Luton Local Rule 1 on the ACL site, marked 'Adopted: 2015' (still the published rule). Night shoulder period also defined: departures 05:50-06:45, arrivals 06:00-07:00 local. Luton's 'Procedures for Requesting Prior Permission to Operate' PDF could not be opened (see unreadable)."
+ "notes": "UK AIP could not be read. 'none': true for curfew means only that the operator states there is no ban on night flights; night restrictions (older jets banned, quota count, 79 dB(A) night noise limit) still apply, so do not write 'no restrictions'. The night period hours were not found on a readable page. ACL pages do not say explicitly that business aviation needs slots, only that Luton is Level 3. Handling company names: the website rule says the site names no companies except authorities, airport operators and cited sources, so these are for internal use. | 2026-10-27 run: UK AIP not readable. Night quota times are from Luton Local Rule 1 on the ACL site, marked 'Adopted: 2015' (still the published rule). Night shoulder period also defined: departures 05:50-06:45, arrivals 06:00-07:00 local. Luton's 'Procedures for Requesting Prior Permission to Operate' PDF could not be opened (see unreadable). Re-researched 2026-10-29: 2026-10-29 run: UK AIP blocked by the session's network proxy. Slots replaced: the old quote was only a name in an ACL list; the airport's Charges and Conditions of Use 2026 (V7, effective 1 Jan 2026) states the slot rule directly. Same document names the operator as London Luton Airport Operations Limited (company 03491213) and says Border Force handles customs and immigration, but gives no customs hours. The 32 miles in 'location' is the airport's own travel-page figure (likely road distance, no compass direction), not the AIP figure. The runway article of 30 Mar 2026 gives only '2.16km', no designation or width. 'Procedures for Requesting Prior Permission to Operate' (LTN-PPO5 v1.4) and the VFR Operating Pack 2025 PDFs could not be opened (see unreadable)."
 }

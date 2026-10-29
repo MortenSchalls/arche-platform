@@ -6,8 +6,8 @@
  "country": "CH",
  "tz": "Europe/Zurich",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-27",
+ "status": "verified",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "one runway, 03/21, 1,840 m long and 40 m wide, asphalt/concrete",
@@ -46,17 +46,43 @@
    "v": "operators must check that the aircraft type's noise class is allowed at Samedan",
    "src": "lszs-briefing-2025",
    "quote": "Make sure that the type of aircraft (noise class) is allowed to operate at Samedan airport."
+  },
+  "customs": {
+   "v": "customs clearance available at all times during opening hours (summer 08:00-19:00 local; winter 08:00 local until the end of evening civil twilight)",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "19:00"
+    ]
+   ],
+   "src": "lszs-operating-times",
+   "quote": "Customs clearance is available at all times during the hours of operation."
+  },
+  "handling": {
+   "v": "the airport company itself provides ground handling, under its standard ground handling agreement",
+   "src": "lszs-ground-handling",
+   "names": [
+    "Engadin Airport AG"
+   ],
+   "quote": "Engadine Airport offers all its guests a comprehensive bespoke service"
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas",
+   "src": "lszs-ground-handling",
+   "quote": "fueling (A1/Avgas)"
+  },
+  "deicing": {
+   "v": "de-icing with type 1 fluid",
+   "src": "lszs-ground-handling",
+   "quote": "de-icing (type 1)"
   }
  },
  "missing": [
   "iata",
   "geo",
-  "customs",
   "slots",
-  "max_aircraft",
-  "handling",
-  "fuel",
-  "deicing"
+  "max_aircraft"
  ],
- "notes": "Source is the operator's pilot familiarization briefing (v09/2025), which itself says to use the official AIP/VFR manual for flight preparation; the Swiss eAIP (skybriefing) is paid and was not used. Hours are given in UTC: summer 0600-1700Z = 08:00-19:00 CEST; winter opens 0700Z = 08:00 CET and closes 30 min after sunset, so the winter closure starts earlier than 19:00 (windows_local shows the summer window only; winter evening closure varies with sunset). Elevation 5,600 ft AMSL (2022 briefing v7.10: 'Elevation 5‘600 ft AMSL'). The briefing header shows coordinates 46°32'6\"N 9°53'6\"E, but not as an AIP ARP, so geo was left out."
+ "notes": "Source is the operator's pilot familiarization briefing (v09/2025), which itself says to use the official AIP/VFR manual for flight preparation; the Swiss eAIP (skybriefing) is paid and was not used. Hours are given in UTC: summer 0600-1700Z = 08:00-19:00 CEST; winter opens 0700Z = 08:00 CET and closes 30 min after sunset, so the winter closure starts earlier than 19:00 (windows_local shows the summer window only; winter evening closure varies with sunset). Elevation 5,600 ft AMSL (2022 briefing v7.10: 'Elevation 5‘600 ft AMSL'). The briefing header shows coordinates 46°32'6\"N 9°53'6\"E, but not as an AIP ARP, so geo was left out. Re-researched 2026-10-29: 29 Oct 2026: Operating-times page (modified 13 Dec 2025): 'Summer schedule: from 08:00 to 19:00 local time (LT)'; 'Winter schedule: from 08:00 local time (LT) till the end of evening civil twilight'; open 365 days a year. Customs hours follow these, so the winter evening end varies (hours_local shows the summer window). Customs is provided by the federal customs office (FOCBS) per the customs page (modified 5 Aug 2026). Ground handling page modified 26 Dec 2025; it does not say whether handling is mandatory. During WEF Davos (Jan 2026) PPR was mandatory for flights to/from LSZS (event-only; check the airport's WEF page each year). An old airport-hosted copy of the AIP (2016) exists at aip.engadin-airport.ch but is superseded and blocked to readers. Do not name the handler company on the public site (site rule)."
 }

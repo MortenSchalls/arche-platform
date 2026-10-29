@@ -1,0 +1,54 @@
+{
+ "icao": "GMMX",
+ "iata": null,
+ "name": "Marrakech Ménara Airport",
+ "city": "Marrakech",
+ "country": "MA",
+ "tz": "Africa/Casablanca",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 3,100 m long and 45 m wide",
+   "longest_m": 3100,
+   "src": "ma-aip-gmmx",
+   "quote": "3100 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "ma-aip-gmmx",
+   "quote": "H24"
+  },
+  "hours": {
+   "v": "air traffic services 24 hours; airport administration office Monday to Friday 08:30-16:30 local",
+   "src": "ma-aip-gmmx",
+   "quote": "LUN-VEN : 0830-1630 (Heure Locale)"
+  },
+  "handling": {
+   "v": "handling is mandatory for business and general aviation",
+   "src": "ma-aip-gmmx",
+   "quote": "Assistance en escale obligatoire pour l'aviation d'affaires et générale"
+  },
+  "fuel": {
+   "v": "Jet A1 and Avgas 100LL, fuelling 24 hours",
+   "src": "ma-aip-gmmx",
+   "quote": "JET A1 - AVGAS 100LL"
+  },
+  "ppr": {
+   "v": "every night stop needs the aerodrome commander's authorisation 24 hours ahead (scheduled flights and Royal liaison aircraft exempt)",
+   "src": "ma-aip-gmmx",
+   "quote": "Tout night stop devra faire l'objet d'une autorisation du commandant d'aérodrome 24 heures à l'avance."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "max_aircraft",
+  "noise",
+  "deicing"
+ ],
+ "notes": "The night-stop rule is about aircraft parking overnight, not a ban on night movements; no curfew text was found, but the AIP does not say 'no curfew', so curfew stays unverified. De-icing is listed as NIL. Handlers listed in AD 2.23 include Jetex Executive Aviation Morocco, Swissport and RAM Handling (list, not one quotable sentence). Pages carry AIRAC AMDT 13/24 (26 Dec 2024) and AMDT 09/25 (04 Sep 2025) for AD 2.8/2.12/2.13. The live eAIP file was read; 2026 amendments 02/26, 03/26 and 06/26 exist but the GEN 0.4 page checklist could not be opened to confirm no later GMMX change. Runway direction 10/28, PCN and aircraft-over-35 t U-turn rule are in AD 2.12/2.20. Aircraft without radio are prohibited."
+}

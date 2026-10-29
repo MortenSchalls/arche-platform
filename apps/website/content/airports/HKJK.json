@@ -1,0 +1,28 @@
+{
+ "icao": "HKJK",
+ "iata": null,
+ "name": "Jomo Kenyatta International Airport",
+ "city": "Nairobi",
+ "country": "KE",
+ "tz": "Africa/Nairobi",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-29",
+ "rules": {},
+ "missing": [
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise",
+  "fuel",
+  "geo"
+ ],
+ "notes": "No official source could be read. Tried: the Kenya CAA eAIP portal (eaip.kcaa.or.ke): the AIP, AMDT and Schedule pages opened but give no AD 2 HKJK link and no amendment dates; the eAIP root page needed a permission that was not given in time. Kenya Airports Authority pages for JKIA (kaa.go.ke/airports/jkia/ and two older JKIA pages) failed with a client error; the KAA home page has no runway or hours. Morten may need to download AD 2 HKJK from the KCAA eAIP in a browser."
+}

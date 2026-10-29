@@ -7,7 +7,7 @@
  "tz": "Europe/Rome",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "hours": {
    "v": "open 24 hours (H24)",
@@ -33,7 +33,6 @@
  },
  "missing": [
   "iata",
-  "operator (no verbatim operator statement; the data is published by SEA S.p.A.)",
   "customs",
   "curfew",
   "ppr",
@@ -42,5 +41,5 @@
   "fuel",
   "deicing"
  ],
- "notes": "ENAV eAIP (AIP Italia) needs an ENAV account and could not be opened, so customs, night rules and GA rules from AD 2 are missing. All facts except slots come from SEA's 'Technical data' page (no date; © 2026). The page does not say whether the handler hours and the Tuesday closure are UTC or local; the bracketed times appear to be the summer values; they are copied as written, not converted. The SEA noise action plan only mentions an engine-run ban 22:00-05:00 and a national night-flight decree (D.P.R. 476/99) without terms, so no curfew was recorded. Slot quote from ENAC page (updated 14/11/2024); the coordinator is Assoclearance ('l’associazione Assoclearance che è stata incaricata del coordinamento'). Whether GA needs a slot is not stated there."
+ "notes": "ENAV eAIP (AIP Italia) needs an ENAV account and could not be opened, so customs, night rules and GA rules from AD 2 are missing. All facts except slots come from SEA's 'Technical data' page (no date; © 2026). The page does not say whether the handler hours and the Tuesday closure are UTC or local; the bracketed times appear to be the summer values; they are copied as written, not converted. The SEA noise action plan only mentions an engine-run ban 22:00-05:00 and a national night-flight decree (D.P.R. 476/99) without terms, so no curfew was recorded. Slot quote from ENAC page (updated 14/11/2024); the coordinator is Assoclearance ('l’associazione Assoclearance che è stata incaricata del coordinamento'). Whether GA needs a slot is not stated there. Re-researched 2026-10-29: 29 Oct 2026: SEA Airport Regulations Linate, Edition 5.0 (RS/LIN/5.0, December 2024; English text, Italian prevails): 'OPERABILITY H24'. Section 2.2.1: 'Arriving flights in positioning between 22:00 LT and 06:40 LT will only be authorised after confirmation by the Airport Managing Company' (stand/gate availability); it is written for airline positioning flights, so it was not recorded as a business-aviation curfew. The West Apron has '6 for narrow-body aircraft' stands '(maximum wingspan of 48 metres)', but the text does not say the West Apron is the GA apron, so max_aircraft was not recorded. The regulations' technical annexes (Ed. 5.0, 13 Dec 2024) and the Linate Airport Manual chapters read have no GA, customs, fuel or de-icing rules. The full English regulations text (132,811 characters) could only be read in part."
 }

@@ -7,7 +7,7 @@
  "tz": "Asia/Dubai",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "slots": {
    "v": "an IATA level 2 (schedules facilitated) airport, with Airport Coordination Limited (ACL) as facilitator",
@@ -27,5 +27,5 @@
   "noise",
   "AIP AD 2.20 local regulations"
  ],
- "notes": "The UAE AIP AD 2 OMAA text PDF was blocked, and older OMAA chart PDFs found by search no longer exist on the GCAA site. The airport's own site (abudhabiairport.ae) was blocked. Slot level comes from the slot coordinator ACL's airport page, which lists capacity declarations up to Summer 2027 (page metadata dated 2016, so content is maintained but the page carries no edit date). GA/business aviation rules at AUH are not verified; Abu Dhabi's dedicated business-aviation airport is Al Bateen (OMAD)."
+ "notes": "The UAE AIP AD 2 OMAA text PDF was blocked, and older OMAA chart PDFs found by search no longer exist on the GCAA site. The airport's own site (abudhabiairport.ae) was blocked. Slot level comes from the slot coordinator ACL's airport page, which lists capacity declarations up to Summer 2027 (page metadata dated 2016, so content is maintained but the page carries no edit date). GA/business aviation rules at AUH are not verified; Abu Dhabi's dedicated business-aviation airport is Al Bateen (OMAD). Re-researched 2026-10-29: 2026-10-29 run: none of the missing fields could be verified. The GCAA eAIP was unreachable; Abu Dhabi Airports' pages (adairports.ae Who we are, Our expertise, Operation partners) give no runway, hours, customs, curfew or handling details for AUH (the partners page only lists ground handling as a service and a 'Head of General Aviation Services', with no provider named). Outside this run's missing list but verified on the operator's own page (source adairports-who), in case the owner wants them added: operator, 'five commercial airports in the emirate: Zayed International Airport, Al Ain International Airport,' (Abu Dhabi Airports operates it); location, 'at its current location 50km off Abu Dhabi island'."
 }

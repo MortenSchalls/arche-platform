@@ -1,0 +1,47 @@
+{
+ "icao": "FACT",
+ "iata": null,
+ "name": "Cape Town International Airport",
+ "city": "Cape Town",
+ "country": "ZA",
+ "tz": "Africa/Johannesburg",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours",
+   "src": "za-eaip-2022-01-fact",
+   "quote": "AD Operational hours: H24"
+  },
+  "runway": {
+   "v": "longest runway 01/19, 3,201 m long and 61 m wide; second runway 16/34, 1,701 m × 46 m",
+   "longest_m": 3201,
+   "src": "za-eaip-2022-01-fact",
+   "quote": "3201 x 61"
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas 100",
+   "src": "za-eaip-2022-01-fact",
+   "quote": "Fuel grades: JET A1, AVGAS 100"
+  },
+  "ppr": {
+   "v": "non-scheduled flights that need the main apron must tell the ACSA apron office",
+   "src": "za-eaip-2022-01-fact",
+   "quote": "Operators of non-scheduled flights requiring use of the main apron must inform ACSA apron office"
+  },
+  "noise": {
+   "v": "no jet take-offs from runway/taxiway intersections and no engine run-ups between 2000 and 0400 (AIP times), except in an emergency",
+   "src": "za-aip-amdt4-26-fact",
+   "quote": "No jet aircraft to use RWY/TWY intersection for take off between 2000 to 0400."
+  }
+ },
+ "missing": [
+  "customs",
+  "curfew",
+  "slots",
+  "handling",
+  "max_aircraft"
+ ],
+ "notes": "AIP South Africa AMDT 4/26 (effective 15 Oct 2026) replaced pages AD 2-FACT-15 to 17 only (AD 2.20-2.22: GA area, helicopters, noise). Coordinates, operator, location, hours, runways, fuel and the non-scheduled apron rule come from the eAIP edition valid from 15 Jan 2022, the newest full page that could be opened; please confirm against the consolidated 'Aerodromes (15_OCT_2026)' PDF on caa.co.za (could not be opened here). ACSA has a runway re-alignment programme at Cape Town, so the runway figures in particular need that check. Customs not recorded: the 2022 page says only 'Services available during scheduled operations', which gives no hours. The 2000-0400 rule covers intersection take-offs and engine run-ups only; it is not a curfew, and the AIP did not say whether the times are UTC or local (UTC+2, no DST). The 2022 AIP lists cargo handling up to a B747 freighter and says aircraft with a wingspan of 52 m or more must use apron taxiways to reach stands. IATA code not stated by the sources read."
+}

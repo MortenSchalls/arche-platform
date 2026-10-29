@@ -7,7 +7,7 @@
  "tz": "Europe/London",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "hours": {
    "v": "aerodrome open 06:30-22:00 on weekdays, 06:30-12:30 on Saturdays and 12:30-22:00 on Sundays (local time, winter 2026/27 season)",
@@ -53,8 +53,7 @@
   "location",
   "runway",
   "customs hours",
-  "ppr lead time",
-  "slot coordination level"
+  "ppr lead time"
  ],
- "notes": "UK AIP (aurora.nats.co.uk) could not be read (robots disallowed / permission timeout), so runway, ARP and location are missing. Hours are from the ACL winter 2026/27 capacity declaration (season ends late March 2027); summer hours may differ and 25 Dec 2026 the airport is closed. Operator name not confirmed from a quotable sentence (site footer shows London City Airport Ltd)."
+ "notes": "UK AIP (aurora.nats.co.uk) could not be read (robots disallowed / permission timeout), so runway, ARP and location are missing. Hours are from the ACL winter 2026/27 capacity declaration (season ends late March 2027); summer hours may differ and 25 Dec 2026 the airport is closed. Operator name not confirmed from a quotable sentence (site footer shows London City Airport Ltd). Re-researched 2026-10-29: 2026-10-29 run: UK AIP blocked by the session's network proxy. Slots replaced so it now also carries the coordination level ('Level 3') from ACL's London City airport-info page; that page's metadata says it was last modified 12 Aug 2016, so check it is still current before publishing. The ACL page calls it the 'London City Jet Centre' while the airport's own site says 'Private Jet Centre'. londoncityairport.com About pages returned an error, so operator, location and runway are still missing; the ACL winter 2022/23 capacity declaration has no runway data. ACL's London City page (last modified 2016) says Level 3 (fully coordinated); not used to replace the existing slots rule because the page is old."
 }

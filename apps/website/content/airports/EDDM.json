@@ -7,7 +7,7 @@
  "tz": "Europe/Berlin",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "two runways, each 4 km long and 60 m wide",
@@ -50,5 +50,5 @@
   "max_aircraft",
   "fuel"
  ],
- "notes": "DFS AIP could not be read (robots block), so runway and location come from the operator's site; widths/lengths are as the operator states them (4 km). Coordinates not recorded because the AIP ARP could not be read (the operator's 2016 facts sheet gives 48°21'17\" N, 11°47'15\" E). Night rules: the bonus list also limits scheduled/charter night flights to max. 28 per night under an annual quota. GAT operating hours 06:00-22:00 (office 05:30-22:00) per the operator, but these are the terminal's hours, not the airport's."
+ "notes": "DFS AIP could not be read (robots block), so runway and location come from the operator's site; widths/lengths are as the operator states them (4 km). Coordinates not recorded because the AIP ARP could not be read (the operator's 2016 facts sheet gives 48°21'17\" N, 11°47'15\" E). Night rules: the bonus list also limits scheduled/charter night flights to max. 28 per night under an annual quota. GAT operating hours 06:00-22:00 (office 05:30-22:00) per the operator, but these are the terminal's hours, not the airport's. Re-researched 2026-10-29: 29 Oct 2026: DFS basic AIP (aip.dfs.de) still could not be opened, and the operator's GAT page was not fetched (permission request not answered). The operator's passport-control page gives no customs hours or general-aviation information. Nothing new verified."
 }

@@ -7,7 +7,7 @@
  "tz": "Europe/Berlin",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "hours": {
    "v": "flight operating hours 05:00 to 23:00 local time",
@@ -38,7 +38,6 @@
  },
  "missing": [
   "geo",
-  "operator",
   "location",
   "runway length/width (longest_m)",
   "customs",
@@ -46,5 +45,5 @@
   "max_aircraft",
   "handling"
  ],
- "notes": "DFS AIP could not be read (robots block) and the web-search budget ran out before Fraport's facts page for runway lengths and its general-aviation page were found. Night ban from the operator (Fraport) pages; the page says CEST, but the rule is in local time all year."
+ "notes": "DFS AIP could not be read (robots block) and the web-search budget ran out before Fraport's facts page for runway lengths and its general-aviation page were found. Night ban from the operator (Fraport) pages; the page says CEST, but the rule is in local time all year. Re-researched 2026-10-29: 29 Oct 2026: Fraport's runway-system page names four runways (Northwest 25R/07L, South 25L/07R, Center 25C/07C, West 18) but gives no lengths or widths; no current official Fraport facts sheet or general-aviation page was found (only a 2018 facts leaflet, not used). DFS AIP still unreadable."
 }

@@ -7,7 +7,7 @@
  "tz": "Europe/Dublin",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "longest runway 10L/28R, 3,109 m long and 45 m wide (three runways in all)",
@@ -45,14 +45,17 @@
    "v": "de-icing on request from Swissport and Aer Lingus",
    "src": "ie-aip-eidw",
    "quote": "On request from Swissport and Aer Lingus"
+  },
+  "slots": {
+   "v": "slot-coordinated airport; every operator needs a slot from Airport Coordination Ltd (ACL) before flying to or from Dublin",
+   "src": "dub-charges-2026",
+   "quote": "No Operator shall operate to or from Dublin without having first obtained a slot from Airport Coordination Ltd. (ACL),"
   }
  },
  "missing": [
-  "operator (AIP AD 2.2 does not name it in the text read)",
   "curfew (no explicit 'no curfew' statement; only a runway-specific night rule, recorded under noise)",
-  "slots",
   "ppr",
   "max_aircraft"
  ],
- "notes": "Edition: Irish eAIP effective 14 May 2026, the newest found online; a later AIRAC may be in force. The 10L/28R night rule applies to that runway only, so it is recorded under noise, not curfew. US Customs and Border Protection preclearance is by prior negotiation (0700-1700). dublinairport.com had no official GA/business-aviation page found by search."
+ "notes": "Edition: Irish eAIP effective 14 May 2026, the newest found online; a later AIRAC may be in force. The 10L/28R night rule applies to that runway only, so it is recorded under noise, not curfew. US Customs and Border Protection preclearance is by prior negotiation (0700-1700). dublinairport.com had no official GA/business-aviation page found by search. Re-researched 2026-10-29: The Irish eAIP edition on file (14 May 2026) is superseded for EIDW: AIRAC AIP Amdt 008/26 (effective 6 Aug 2026) reissued EIDW AD 2 pages 1-44, changing AD 2.9, 2.19, 2.22 and 2.23 (not 2.2, 2.3 or 2.20). The newer HTML page could not be opened, so the recorded facts were not re-checked against it; later amendments after Aug 2026 were not checked. The 2026 charges document (effective 29 Mar 2026 - 27 Mar 2027) defines night for noise charges as 23:00-06:59:59 and gives no night operating ban."
 }

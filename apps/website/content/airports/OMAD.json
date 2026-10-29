@@ -7,7 +7,7 @@
  "tz": "Asia/Dubai",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "one runway, 13/31, 3.2 km long (width not stated by the operator)",
@@ -45,5 +45,5 @@
   "runway width",
   "AIP AD 2 (all items)"
  ],
- "notes": "All facts are from the operator's own websites (albateenairport.ae, adairports.ae); the UAE AIP AD 2 OMAD text could not be found or opened, so no AIP coordinates. Runway length is the operator's rounded '3.2km' (longest_m 3200 is therefore approximate). '24/7' is an operating-hours statement, not an explicit 'no night restriction', so curfew is left missing. The site lists 'Customs and immigration facilitation' only as a handling service, with no hours. Stand counts differ between sites (50 on albateenairport.ae, 54 on adairports.ae): only the 50 figure from the airport's own spec table is used. The site footer shows a ground-handling logo named 'Munawala' but gives no name in text, so it is not recorded."
+ "notes": "All facts are from the operator's own websites (albateenairport.ae, adairports.ae); the UAE AIP AD 2 OMAD text could not be found or opened, so no AIP coordinates. Runway length is the operator's rounded '3.2km' (longest_m 3200 is therefore approximate). '24/7' is an operating-hours statement, not an explicit 'no night restriction', so curfew is left missing. The site lists 'Customs and immigration facilitation' only as a handling service, with no hours. Stand counts differ between sites (50 on albateenairport.ae, 54 on adairports.ae): only the 50 figure from the airport's own spec table is used. The site footer shows a ground-handling logo named 'Munawala' but gives no name in text, so it is not recorded. Re-researched 2026-10-29: 2026-10-29 run: nothing new verified. The GCAA eAIP was unreachable; the airport's 'At the Airport' page (albateenairport.ae/en/AtTheAirport) now returns 'Page not found'. Abu Dhabi Airports' Who we are page (source adairports-who) now says AZI has 'stand capacity for up to 54 private jets' and calls it 'the first dedicated business aviation and private jet airport' in MENA; the existing 50-stand figure from the airport's own spec table is kept. It also says AZI is 'Strategically positioned in the heart of Abu Dhabi' (location, not in this run's missing list)."
 }

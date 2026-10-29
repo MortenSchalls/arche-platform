@@ -7,7 +7,7 @@
  "tz": "Europe/Madrid",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "hours": {
    "v": "open 24 hours",
@@ -50,11 +50,15 @@
    "v": "Jet A-1",
    "src": "es-aip-lebl",
    "quote": "JET A-1."
+  },
+  "ppr": {
+   "v": "in the summer season, aircraft of ICAO code letter D or larger staying between 05:00 and 10:59 UTC must give notice at least 15 days before arrival (stay limited to 36 hours)",
+   "src": "es-amdt-lebl-408",
+   "quote": "scheduled to stay between 05:00 and 10:59 UTC, must notify this operation"
   }
  },
  "missing": [
-  "curfew",
-  "ppr"
+  "curfew"
  ],
- "notes": "Night-time noise operating restrictions are in AD 2-LEBL item 21.1 sections 5 and 6, which the HTML page as read did not contain (the 15,000 kg 07:00-11:30 rule time basis not stated; excludes ambulance, emergency, State and some public service flights). The night runway configuration is not a curfew. Ramp-0 is for corporate and private aircraft only. Header shows WEF 01-OCT-26 and WEF 03-SEP-26."
+ "notes": "Night-time noise operating restrictions are in AD 2-LEBL item 21.1 sections 5 and 6, which the HTML page as read did not contain (the 15,000 kg 07:00-11:30 rule time basis not stated; excludes ambulance, emergency, State and some public service flights). The night runway configuration is not a curfew. Ramp-0 is for corporate and private aircraft only. Header shows WEF 01-OCT-26 and WEF 03-SEP-26. Re-researched 2026-10-29: AD 2.21 (Amdt 408/26) defines night as 2300-0700 LT. It found no ban on movements at night, only runway limits: at night, RWY 24R/06L may be used only by aircraft that ask for it and can justify needing the longer runway, and reverse thrust above idle is forbidden on RWY 06L/24R and 02. The AIP does not say there is no curfew, so curfew stays missing. Amdt 408/26 pages are dated 09-JUL-26; the consolidated HTML page (WEF 01-OCT-26) may be newer but could not be reopened (permission prompt not answered). The consolidated LEBL PDF on aip.enaire.es is stale (pages WEF 11-JUL-24, AIRAC AMDT 06/24, showing the old 0700-0959 summer arrival window): do not use it."
 }

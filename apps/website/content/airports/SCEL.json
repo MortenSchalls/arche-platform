@@ -1,0 +1,45 @@
+{
+ "icao": "SCEL",
+ "iata": null,
+ "name": "Arturo Merino Benítez International Airport",
+ "city": "Santiago",
+ "country": "CL",
+ "tz": "America/Santiago",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest is 17R/35L, 3,800 m long and 45 m wide (17L/35R is 3,750 m × 55 m)",
+   "longest_m": 3800,
+   "src": "cl-aip-scel",
+   "quote": "3.800 x 45"
+  },
+  "hours": {
+   "v": "aerodrome and air traffic services open 24 hours",
+   "src": "cl-aip-scel",
+   "quote": "H24"
+  },
+  "handling": {
+   "v": "handling on request from the handling companies",
+   "src": "cl-aip-scel",
+   "quote": "A requerimiento a las Empresas de Handling"
+  },
+  "fuel": {
+   "v": "Jet A1 available",
+   "src": "cl-aip-scel",
+   "quote": "Jet A1/OIL 2380 y 2197"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "deicing"
+ ],
+ "notes": "Customs hours are not stated as hours in AD 2.3, only the 2-hour request rule, so customs.h24 is left unset. AD 2.3 also says: 'Operadores Aéreos deberán informar al SAG con 12 horas de antelación al arribo de su aeronave' (agriculture/livestock service must be told 12 hours before arrival). AD 2.8: 'La DGAC no dispone de estacionamientos para larga estadía' (no long-stay parking from DGAC; category C or larger aircraft staying over 24 hours use aprons run by third parties - paraphrase, not quoted). The AIP mentions an 'FBO Santiago' hangar only in helicopter routing. The web reader stopped at page AD 2 SCEL-25 (AD 2.20); AD 2.21 noise and any night rules were not read. The Vol I AD index (checked 29 Oct 2026) lists this same file; pages AD 2.12 onward are AMDT 67, effective 06 Aug 2026. AIP lists DGAC as administration; the Nuevo Pudahuel concession was not checked."
+}

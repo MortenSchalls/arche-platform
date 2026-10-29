@@ -6,10 +6,10 @@
   "checked": "2026-10-27"
  },
  "sg-aip-amdt-03-2026": {
-  "title": "Singapore AIP Amendment 03/2026 (effective 14 May 2026): \"Seletar Airport Nil\"",
+  "title": "Singapore AIP Amendment 03/2026 (effective 14 May 2026), with GEN 1.2-1 (dated 02 Oct 2025) on Changi slots",
   "url": "https://www.caas.gov.sg/docs/default-source/docs---ats/singapore-aip-amendment-03-2026.pdf",
   "publisher": "Civil Aviation Authority of Singapore",
-  "checked": "2026-10-27"
+  "checked": "2026-10-29"
  },
  "icao-chicago": {
   "title": "Convention on International Civil Aviation (Chicago, 1944), Articles 5 and 7",
@@ -49,9 +49,9 @@
  },
  "sg-aip-wsss": {
   "title": "Singapore AIP, AD 2 WSSS Singapore Changi Intl (valid from 09 Jul 2026)",
-  "url": "https://aim-sg.caas.gov.sg/aim-content/uploads/aip/15-JUL-2026/AIP/2026-07-09-000000/html/eAIP/SG-AD-2-WSSS-en-GB.html",
+  "url": "https://aim-sg.caas.gov.sg/aim-content/uploads/aip/09-JUL-2026/AIP/2026-07-09-000000/html/eAIP/SG-AD-2-WSSS-en-GB.html",
   "publisher": "Civil Aviation Authority of Singapore",
-  "checked": "2026-10-27"
+  "checked": "2026-10-29"
  },
  "sg-sup-2026-002": {
   "title": "Singapore AIRAC AIP SUP 002/2026, Changi updated information and data for RWY 02R/20L (effective 19 Feb 2026)",
@@ -141,7 +141,7 @@
   "title": "Al Maktoum International / Dubai World Central (DWC) Conditions of Use, General Aviation, Northern Summer 2024 (effective 31 Mar 2024)",
   "url": "https://www.acl-uk.org/wp-content/uploads/2024/05/conditions_of_use_dubai_world_central_dwc_general_aviation_s24.pdf",
   "publisher": "Dubai Airports Corporation (hosted by Airport Coordination Limited)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-29"
  },
  "teb-flight-crew-handbook": {
   "title": "Flight Crew Handbook, Teterboro Airport Quiet Flying Program (cover 4/25)",
@@ -318,10 +318,10 @@
   "checked": "2026-10-27"
  },
  "aca-bizav": {
-  "title": "Aéroport Nice Côte d'Azur, Business aviation and helicopters (page undated; checked 2026-10-27)",
+  "title": "Aéroport Nice Côte d'Azur, Business aviation and helicopters (page undated; checked 2026-10-29)",
   "url": "https://btob.nice.aeroport.fr/business-aviation-and-helicopters",
   "publisher": "Aéroports de la Côte d'Azur",
-  "checked": "2026-10-27"
+  "checked": "2026-10-29"
  },
  "aca-runway-2021": {
   "title": "Aéroport Nice Côte d'Azur news, Nice Côte d'Azur airport is renovating its northern runway (12 Jan 2021)",
@@ -954,10 +954,10 @@
   "checked": "2026-10-27"
  },
  "adairports-who": {
-  "title": "Abu Dhabi Airports, Who we are (no page date shown; checked 27 Oct 2026)",
-  "url": "https://www.adairports.ae/en/About-us/Who-we-are",
+  "title": "Abu Dhabi Airports, Who we are (no page date shown; checked 29 Oct 2026)",
+  "url": "https://adairports.ae/en/about-us/who-we-are",
   "publisher": "Abu Dhabi Airports",
-  "checked": "2026-10-27"
+  "checked": "2026-10-29"
  },
  "acl-auh": {
   "title": "ACL airport information, Zayed International Airport (AUH) (page lists capacity declarations to S27; checked 27 Oct 2026)",
@@ -1002,10 +1002,10 @@
   "checked": "2026-10-27"
  },
  "ch-sil-lsgg": {
-  "title": "FOCA/BAZL, SIL object sheet Genève (14 Nov 2018) (not the current edition; current edition could not be opened)",
-  "url": "https://www.bazl.admin.ch/dam/de/sd-web/NMs189uuXWMg/geneve-du-14-11-2018.pdf",
+  "title": "FOCA/BAZL, SIL object sheet Genève (14 Nov 2018; the only Geneva sheet listed on FOCA's page, checked 29 Oct 2026)",
+  "url": "https://www.bazl.admin.ch/dam/fr/sd-web/NMs189uuXWMg/geneve-du-14-11-2018.pdf",
   "publisher": "Swiss Federal Office of Civil Aviation (FOCA/BAZL)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-29"
  },
  "ch-bazl-lsgg": {
   "title": "FOCA/BAZL, Flughafen Genf airport page (no date shown; checked 27 Oct 2026)",
@@ -1170,10 +1170,10 @@
   "checked": "2026-10-27"
  },
  "fra-runways": {
-  "title": "Fraport, Runway system and operating hours (checked 27 Oct 2026, no page date)",
+  "title": "Fraport, Runway system and operating hours (checked 29 Oct 2026, no page date; footer ©2004-2026)",
   "url": "https://www.fraport.com/en/sustainability/dialog-with-neighbors/noise-and-air/flight-operations/runway-system-and-operating-hours.html",
   "publisher": "Fraport AG",
-  "checked": "2026-10-27"
+  "checked": "2026-10-29"
  },
  "fra-hours": {
   "title": "Fraport, Hours of operation (checked 27 Oct 2026, no page date)",
@@ -2062,5 +2062,263 @@
   "url": "https://aisweb.decea.mil.br/?codigo=SBSP&i=aerodromos",
   "publisher": "DECEA (Departamento de Controle do Espaço Aéreo), Brazil",
   "checked": "2026-10-28"
+ },
+ "lla-directions": {
+  "title": "London Luton Airport, How to get to and from London Luton Airport (no date shown; checked 29 Oct 2026)",
+  "url": "https://www.london-luton.co.uk/to-and-from-lla/directions-to-lla",
+  "publisher": "London Luton Airport Operations Limited",
+  "checked": "2026-10-29"
+ },
+ "lla-cou-2026": {
+  "title": "London Luton Airport, Charges and Conditions of Use 2026 V7 (effective 1 Jan 2026)",
+  "url": "https://eu-assets.contentstack.com/v3/assets/blt4d5e17844b60f82b/blt6aa5ba62affc8f2a/6a3e39e5033cbc1aa59fe018/Charges_and_Conditions_of_Use_2026_V7.pdf",
+  "publisher": "London Luton Airport Operations Limited",
+  "checked": "2026-10-29"
+ },
+ "acl-lcy-info": {
+  "title": "ACL, airport info: London City (LCY) (page last modified 12 Aug 2016; checked 29 Oct 2026)",
+  "url": "https://www.acl-uk.org/airport-info-details/?aid=8",
+  "publisher": "Airport Coordination Limited (UK slot coordinator)",
+  "checked": "2026-10-29"
+ },
+ "stn-noise-overview": {
+  "title": "London Stansted Airport, Noise Overview (no date shown, page footer 2026; checked 29 Oct 2026)",
+  "url": "https://www.stanstedairport.com/community/noise/noise-overview/",
+  "publisher": "Stansted Airport Limited",
+  "checked": "2026-10-29"
+ },
+ "ch-bafu-fluglaerm": {
+  "title": "BAFU (Federal Office for the Environment), Fluglärm (published 18 Nov 2025; checked 29 Oct 2026)",
+  "url": "https://www.bafu.admin.ch/de/fluglaerm",
+  "publisher": "Swiss Federal Office for the Environment (BAFU)",
+  "checked": "2026-10-29"
+ },
+ "zrh-betriebsreglement-2026": {
+  "title": "Betriebsreglement für den Flughafen Zürich vom 30. Juni 2011 (Stand 20 March 2026)",
+  "url": "https://media.flughafen-zuerich.ch/-/jssmedia/airport/portal/dokumente/das-unternehmen/politics-and-responsibility/politics-and-economy/betriebskonzepte/betriebsreglement_flughafen_zuerich_2026.pdf",
+  "publisher": "Flughafen Zürich AG (approved by FOCA)",
+  "checked": "2026-10-29"
+ },
+ "zrh-winterops-2025": {
+  "title": "Winter Operation at Zurich Airport, Issue 1.0 / Revision 24 (01 Oct 2025)",
+  "url": "https://media.flughafen-zuerich.ch/-/jssmedia/airport/portal/dokumente/business/airlines-and-handling/flight-operations/winter-operations/winter_operations_2025.pdf?vs=1&rev=aaa2df33ef2f4706b1e776a4043dc237&sc_lang=en&sc_site=dxp-portal",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-29"
+ },
+ "lszs-operating-times": {
+  "title": "Engadin Airport, Operating times (modified 13 Dec 2025; checked 29 Oct 2026)",
+  "url": "https://www.engadin-airport.ch/en/operating-times/",
+  "publisher": "Engadin Airport AG",
+  "checked": "2026-10-29"
+ },
+ "lszs-ground-handling": {
+  "title": "Engadin Airport, Ground Handling (modified 26 Dec 2025; checked 29 Oct 2026)",
+  "url": "https://www.engadin-airport.ch/en/ground-handling/",
+  "publisher": "Engadin Airport AG",
+  "checked": "2026-10-29"
+ },
+ "sea-lin-regs-5": {
+  "title": "SEA, Airport Regulations for Milan Linate Airport, Edition 5.0 (RS/LIN/5.0, December 2024; English translation)",
+  "url": "https://milanairports.com/sites/default/files/2025-05/Airport%20Regulations%20-%20Milan%20Linate%20-Edition%205.0.pdf",
+  "publisher": "SEA S.p.A.",
+  "checked": "2026-10-29"
+ },
+ "vce-private-jets": {
+  "title": "Venice Airport, Private jets at Venice Airport (© 2025; checked 29 Oct 2026)",
+  "url": "https://www.veneziaairport.it/en_gb/flights/private-jets",
+  "publisher": "SAVE S.p.A.",
+  "checked": "2026-10-29"
+ },
+ "vce-info-generali": {
+  "title": "Aeroporto di Venezia, Informazioni generali (© 2025; checked 29 Oct 2026)",
+  "url": "https://www.veneziaairport.it/it_it/in-aeroporto/info-generali",
+  "publisher": "SAVE S.p.A.",
+  "checked": "2026-10-29"
+ },
+ "nce-arrete-2010": {
+  "title": "Arrêté du 2 mars 2010 portant restriction d'exploitation de l'aérodrome de Nice-Côte d'Azur (Alpes-Maritimes), in force 31 Oct 2010 (original published text; Art. 1 (V) later modified by arrêté of 12 Feb 2018)",
+  "url": "https://www.cohor.org/wp-content/uploads/2023/02/NCE-Arrete-du-02-mars-2010.pdf",
+  "publisher": "French Government (Journal officiel), copy hosted by COHOR",
+  "checked": "2026-10-29"
+ },
+ "fr-arrete-2018-02-12": {
+  "title": "Arrêté du 12 février 2018 portant modification de divers arrêtés portant restriction d'exploitation d'aérodrome (Légifrance version of 14 Mar 2021)",
+  "url": "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000036686180/2021-03-14",
+  "publisher": "Légifrance (French Government)",
+  "checked": "2026-10-29"
+ },
+ "fr-aip-lfkj-2026-08": {
+  "title": "AIP France eAIP, AD 2 LFKJ Ajaccio Napoléon Bonaparte (eAIP edition 06 AUG 2026, AIRAC 2026-08-06) (not confirmed against the 01 OCT / 29 OCT 2026 editions, which could not be opened)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_06_AUG_2026/FRANCE/AIRAC-2026-08-06/html/eAIP/FR-AD-2.LFKJ-fr-FR.html",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-10-29"
+ },
+ "es-amdt-lebl-408": {
+  "title": "ENAIRE AIP España, Amendment 408/26, AD 2 LEBL Barcelona-El Prat (pages dated 09-JUL-26)",
+  "url": "https://aip.enaire.es/aip/contenido_AMDT/LE_Amdt_2026_408_AD_2_LEBL_en.pdf",
+  "publisher": "ENAIRE (Spanish AIS)",
+  "checked": "2026-10-29"
+ },
+ "pt-aip-lppt": {
+  "title": "AIP Portugal, AD 2 LPPT Lisboa / Humberto Delgado (valid from 01 Oct 2026)",
+  "url": "https://ais.nav.pt/wp-content/uploads/AIS_Files/eAIP_Current/eAIP_Online/eAIP/html/eAIP/LP-AD-2.LPPT-en-PT.html",
+  "publisher": "NAV Portugal, E.P.E.",
+  "checked": "2026-10-29"
+ },
+ "ber-gat": {
+  "title": "BER, General Aviation Terminal (checked 29 Oct 2026, no page date)",
+  "url": "https://ber.berlin-airport.de/en/cafes-shops-service/sgs-poi/552-general-aviation-terminal-t1.html",
+  "publisher": "Flughafen Berlin Brandenburg GmbH",
+  "checked": "2026-10-29"
+ },
+ "ber-facilities": {
+  "title": "Flughafen Berlin Brandenburg GmbH, Airport facilities BER fact sheet (as of November 2022)",
+  "url": "https://corporate.berlin-airport.de/content/dam/corporate/en/unternehmen-presse/ber/flughafenanlagen-ber-en.pdf",
+  "publisher": "Flughafen Berlin Brandenburg GmbH",
+  "checked": "2026-10-29"
+ },
+ "dub-charges-2026": {
+  "title": "Dublin Airport Charges 2026, terms and conditions (effective 29 Mar 2026 - 27 Mar 2027)",
+  "url": "https://www.dublinairport.com/docs/default-source/airport-charges/dublin-airport-charges-2026-terms-and-conditionsd544fcac09d84ff493e63c2a4952331e.pdf?sfvrsn=bcfddf85_0",
+  "publisher": "daa plc",
+  "checked": "2026-10-29"
+ },
+ "cz-aip-lkpr-amd12-26": {
+  "title": "AIP Czech Republic, AD 2 LKPR Praha/Ruzyně text (AIP AMDT 12/26, effective 29 Oct 2026)",
+  "url": "https://aim.rlp.cz/ais_data/aip/archiv/261029amd012/a2-pr-text.pdf",
+  "publisher": "Air Navigation Services of the Czech Republic (ANS CR)",
+  "checked": "2026-10-29"
+ },
+ "cz-aip-gen21": {
+  "title": "AIP Czech Republic, GEN 2.1 Measuring system, time system (page dated 7 Aug 2025, AMDT 9/25; current valid file)",
+  "url": "https://aim.rlp.cz/ais_data/aip/data/valid/g2-1.pdf",
+  "publisher": "Air Navigation Services of the Czech Republic (ANS CR)",
+  "checked": "2026-10-29"
+ },
+ "hia-runway-works": {
+  "title": "Hamad International Airport, Eastern Runway Remediation Works (no page date shown; footer copyright 2026; checked 29 Oct 2026)",
+  "url": "https://dohahamadairport.com/eastern-runway-remediation-works",
+  "publisher": "Hamad International Airport",
+  "checked": "2026-10-29"
+ },
+ "riyadh-airports-pat-2018": {
+  "title": "Riyadh Airports news: Riyadh Airports launches the New Private Aviation Terminal (10 Dec 2018)",
+  "url": "https://riyadhairports.com/en/mediacentre/news/riyadh-airports-launches-the-new-private-aviation-terminal",
+  "publisher": "Riyadh Airports Company",
+  "checked": "2026-10-29"
+ },
+ "bh-mtt-bia": {
+  "title": "Ministry of Transportation and Telecommunications, Bahrain International Airport page (last updated 21 Sep 2025)",
+  "url": "https://mtt.gov.bh/bahrain-international-airport",
+  "publisher": "Ministry of Transportation and Telecommunications, Kingdom of Bahrain",
+  "checked": "2026-10-29"
+ },
+ "jo-aip-amdt-26-2026": {
+  "title": "AIP Jordan, AIRAC AIP AMDT 26/2026 (published 9 Apr 2026, effective 14 May 2026), pages 2.OJAI-13 and 2.OJAI-14",
+  "url": "https://carc.gov.jo/sites/default/files/inline-files/airac-aip-amdt-26-2026.pdf",
+  "publisher": "Civil Aviation Regulatory Commission, Jordan",
+  "checked": "2026-10-29"
+ },
+ "mo-aip-amdt-51": {
+  "title": "AIP Macao Amendment 51 (28 May 2026), GEN 1.2 Entry, transit and departure of aircraft",
+  "url": "https://www.aacm.gov.mo/static/2026/05/28/42593c8a-1d26-48c1-bce4-6e43ddc911c7.pdf",
+  "publisher": "Civil Aviation Authority, Macao SAR (AACM)",
+  "checked": "2026-10-29"
+ },
+ "mia-capacity": {
+  "title": "Macau International Airport, Airport Capacity (no page date shown; copyright 2021; checked 29 Oct 2026)",
+  "url": "https://www.macau-airport.com/en/about-us/about-mia/airport-capacity",
+  "publisher": "CAM - Macau International Airport Co. Ltd.",
+  "checked": "2026-10-29"
+ },
+ "mia-concessionaire": {
+  "title": "Macau International Airport, Airport Concessionaire (no page date shown; checked 29 Oct 2026)",
+  "url": "https://www.macau-airport.com/en/about-us/about-mia/airport-concessionaire",
+  "publisher": "CAM - Macau International Airport Co. Ltd.",
+  "checked": "2026-10-29"
+ },
+ "ar-aa2000-fbo": {
+  "title": "Aeropuertos Argentina, FBO page (Ezeiza FBO VIPCLUB) (page undated, checked 29 Oct 2026)",
+  "url": "https://www.aeropuertosargentina.com/es/sobre-nosotros/fbo",
+  "publisher": "Aeropuertos Argentina S.A.",
+  "checked": "2026-10-29"
+ },
+ "cl-aip-scel": {
+  "title": "AIP Chile Vol I, AD 2 SCEL Santiago/Arturo Merino Benítez (AMDT 63, 15 May 2025; AD 2.12 onward AMDT 67, effective 06 Aug 2026)",
+  "url": "https://aipchile.dgac.gob.cl/dasa/aip_chile_con_contenido/ais/3%20AD%20Parte%203/AD%202a%20Aeropuertos/8%20-AD%202%20SCEL.pdf",
+  "publisher": "Dirección General de Aeronáutica Civil (DGAC), Chile",
+  "checked": "2026-10-29"
+ },
+ "ma-aip-gmmx": {
+  "title": "AIP Maroc, AD 2 GMMX Marrakech/Ménara (AIRAC AMDT 13/24, 26 Dec 2024; AD 2.8/2.12/2.13 AIRAC AMDT 09/25, 04 Sep 2025)",
+  "url": "https://siamaroc.onda.ma/eaip/AD/AD2GMMX.pdf",
+  "publisher": "SIA Maroc, Office National des Aéroports (ONDA)",
+  "checked": "2026-10-29"
+ },
+ "eg-cac-ga": {
+  "title": "Cairo Airport Company, General Aviation Services page (page undated, checked 29 Oct 2026)",
+  "url": "https://www.cairo-airport.com/general_aviation_services.asp",
+  "publisher": "Cairo Airport Company",
+  "checked": "2026-10-29"
+ },
+ "za-aip-amdt4-26-faor": {
+  "title": "AIP South Africa, AD 2 FAOR O R Tambo International, replacement pages AD 2-FAOR-1 to 4 and 17 to 19 (AMDT 4/26, effective 15 Oct 2026)",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FAOR_EN.pdf",
+  "publisher": "South African Civil Aviation Authority",
+  "checked": "2026-10-29"
+ },
+ "za-aip-amdt4-26-fact": {
+  "title": "AIP South Africa, AD 2 FACT Cape Town International, replacement pages AD 2-FACT-15 to 17 (AMDT 4/26, effective 15 Oct 2026)",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FACT_EN.pdf",
+  "publisher": "South African Civil Aviation Authority",
+  "checked": "2026-10-29"
+ },
+ "za-eaip-2022-10-faor": {
+  "title": "AIP South Africa (eAIP), AD 2 FAOR O R Tambo International (valid from 15 Oct 2022)",
+  "url": "https://cad.atns.co.za/SmartAIM/EAipPackages/15-OCT-22/2022-10-15-000000/html/eAIP/FA-AD-2-FAOR-en-US.html",
+  "publisher": "South African Civil Aviation Authority (eAIP hosted by ATNS)",
+  "checked": "2026-10-29"
+ },
+ "za-eaip-2022-04-fala": {
+  "title": "AIP South Africa (eAIP), AD 2 FALA Lanseria International (valid from 15 Apr 2022)",
+  "url": "https://cad.atns.co.za/SmartAIM/EAipPackages/15-APR-22/2022-04-15-000000/html/eAIP/FA-AD-2-FALA-en-US.html",
+  "publisher": "South African Civil Aviation Authority (eAIP hosted by ATNS)",
+  "checked": "2026-10-29"
+ },
+ "za-eaip-2022-01-fact": {
+  "title": "AIP South Africa (eAIP), AD 2 FACT Cape Town International (valid from 15 Jan 2022)",
+  "url": "https://cad.atns.co.za/SmartAIM/EAipPackages/15-JAN-22/2022-01-15-000000/html/eAIP/FA-AD-2-FACT-en-US.html",
+  "publisher": "South African Civil Aviation Authority (eAIP hosted by ATNS)",
+  "checked": "2026-10-29"
+ },
+ "fala-airport-services": {
+  "title": "Lanseria International Airport, Pilot and aviation info: Airport services (page checked 29 Oct 2026)",
+  "url": "https://lanseria.co.za/corporate/pilot-and-aviation-info/airport-services/",
+  "publisher": "Lanseria International Airport",
+  "checked": "2026-10-29"
+ },
+ "faan-mmia": {
+  "title": "FAAN, MMIA Lagos airport page (page modified 1 Sep 2026)",
+  "url": "https://faan.gov.ng/mmia-lagos/",
+  "publisher": "Federal Airports Authority of Nigeria",
+  "checked": "2026-10-29"
+ },
+ "mu-aip-fimp": {
+  "title": "Mauritius eAIP, AD 2 FIMP Sir Seewoosagur Ramgoolam International (eAIP set '12_11_2024_updated', no effective date shown on page)",
+  "url": "https://civil-aviation.govmu.org/eAIP/eAIPMauritius_12_11_2024_updated/eAIPMauritius_12_11_2024_updated/final/2017-08-17-Non-AIRAC/html/eAIP/AD-2.FIMP-en-GB.html",
+  "publisher": "Department of Civil Aviation, Republic of Mauritius",
+  "checked": "2026-10-29"
+ },
+ "sc-aip-2019": {
+  "title": "Seychelles AIP, GEN volume (checklist AIP AMDT 1/19, 30 Apr 2019; GEN 1.2 pages dated 01 Apr 07 and 30 Apr 18)",
+  "url": "https://www.scaa.sc/files/AIP%20Seychelles.pdf",
+  "publisher": "Seychelles Civil Aviation Authority",
+  "checked": "2026-10-29"
+ },
+ "sc-aip-amdt-1-15": {
+  "title": "Seychelles AIP AIRAC AMDT 1/15, AD 2 FSIA pages (effective 8 Jan 2015)",
+  "url": "https://www.scaa.sc/files/AIRAC%20AMDT%2001-15.pdf",
+  "publisher": "Seychelles Civil Aviation Authority",
+  "checked": "2026-10-29"
  }
 }

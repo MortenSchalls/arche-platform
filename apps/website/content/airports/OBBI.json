@@ -7,7 +7,7 @@
  "tz": "Asia/Bahrain",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "main runway 12L/30R, 3,964 m long and 60 m wide; the second runway 12R/30L (2,530 m x 45 m) is listed as not available",
@@ -29,5 +29,5 @@
   "max_aircraft (only in a superseded AIP edition; current edition not read)",
   "notable (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "Source is the Bahrain/Qatar eAIP AD 2 OBBI page effective 4 Sep 2025, the newest that could be opened. The Bahrain AIM site shows AIRAC 02/26 (9 Jul 2026) as current, but that page could not be opened; re-check before publishing. WebFetch returned only AD 2.1 to AD 2.12 of the page, so AD 2.20 to 2.22 (local rules, noise, night, slots) could not be read. AD 2.3 'AD operator' hours read 'SUN - THU 04:00 - 11:15' (office hours, time basis not shown) and were not recorded as airport hours. Facts from the superseded edition other than runway, location and operator were not used (customs, handling, fuel, max_aircraft, notable)."
+ "notes": "Source is the Bahrain/Qatar eAIP AD 2 OBBI page effective 4 Sep 2025, the newest that could be opened. The Bahrain AIM site shows AIRAC 02/26 (9 Jul 2026) as current, but that page could not be opened; re-check before publishing. WebFetch returned only AD 2.1 to AD 2.12 of the page, so AD 2.20 to 2.22 (local rules, noise, night, slots) could not be read. AD 2.3 'AD operator' hours read 'SUN - THU 04:00 - 11:15' (office hours, time basis not shown) and were not recorded as airport hours. Facts from the superseded edition other than runway, location and operator were not used (customs, handling, fuel, max_aircraft, notable). Re-researched 2026-10-29: 29 Oct 2026: searches found Bahrain eAIP editions only up to 2025 (newest indexed OBBI page: 2024-10-31 AIRAC); no 2026 OBBI page link could be found or opened. The Ministry of Transportation and Telecommunications airport page (last updated 21 Sep 2025) names the operator but says nothing about hours, private aviation, curfew or slots. The Awal Private Aviation Terminal is mentioned only in news and ACI pages, not on an operator or authority page that could be read, so it is not recorded."
 }

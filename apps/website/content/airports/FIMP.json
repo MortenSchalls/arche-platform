@@ -1,0 +1,63 @@
+{
+ "icao": "FIMP",
+ "iata": null,
+ "name": "Sir Seewoosagur Ramgoolam International Airport",
+ "city": "Plaine Magnien",
+ "country": "MU",
+ "tz": "Indian/Mauritius",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "runway": {
+   "v": "one runway, 14/32, 3,040 m long and 45 m wide (runway 14 threshold displaced 330 m)",
+   "longest_m": 3040,
+   "src": "mu-aip-fimp",
+   "quote": "3040 X 45"
+  },
+  "customs": {
+   "v": "customs and immigration as operationally required (\"HO\"), not stated as 24 hours",
+   "h24": false,
+   "src": "mu-aip-fimp",
+   "quote": "HO"
+  },
+  "hours": {
+   "v": "air traffic services 24 hours (H24); the airport operator's office is open Monday to Friday 04:45-12:00 UTC (08:45-16:00 local) and closed weekends and holidays",
+   "src": "mu-aip-fimp",
+   "quote": "MON-FRI : 0445-1200 SAT, SUN + HOL: CLOSED"
+  },
+  "fuel": {
+   "v": "Jet A1, 24 hours, with at least 12 hours' notice outside 02:00-19:00 UTC (06:00-23:00 local)",
+   "src": "mu-aip-fimp",
+   "quote": "Service available 24 HR with at least 12 HR PN if operating outside 0200 - 1900 UTC"
+  },
+  "handling": {
+   "v": "handling available 24 hours; hangar space for general aviation at YU Lounge, and at Air Mauritius",
+   "src": "mu-aip-fimp",
+   "quote": "Hangar space is available at Air Mauritius & at YU Lounge for General Aviation"
+  },
+  "max_aircraft": {
+   "v": "general aviation apron is bays 41-48; code C or larger aircraft should not be parked on bays 46, 47 and 48; Code F aircraft (e.g. A380) use the main apron",
+   "src": "mu-aip-fimp",
+   "quote": "Avoid parking of code C (or higher) aircraft on BAY 46, 47 and 48 on the General Aviation Apron"
+  },
+  "deicing": {
+   "v": "no de-icing facilities",
+   "src": "mu-aip-fimp",
+   "quote": "Nil"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published (AD 2.21 nil)",
+   "src": "mu-aip-fimp",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "permits"
+ ],
+ "notes": "The AIP page shows no effective date or amendment number; it sits in the eAIP set labelled 'eAIPMauritius_12_11_2024_updated'. Newer editions exist (eAIP 16 Dec 2024 PDF; Non-AIRAC AMDT 1/25 effective 15 May 2025) but could not be opened, so a later amendment may change these values. Customs 'HO' means available to meet operational requirements, not a fixed timetable. Local time is UTC+4 (no DST). No night restriction is stated in AD 2 FIMP; curfew left missing rather than 'none'."
+}

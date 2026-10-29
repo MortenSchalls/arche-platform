@@ -7,7 +7,7 @@
  "tz": "Europe/Paris",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "one paved runway, 18/36, 2,020 m long and 45 m wide (plus a 700 m grass strip)",
@@ -30,5 +30,5 @@
   "ppr (only in a superseded AIP edition; current edition not read)",
   "notable (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "All AIP facts from AIP France AD 2 LFLB (AIRAC AMDT 04/25, 17 APR 2025) as republished by DIRCAM; the current SIA edition could not be opened, so changes since April 2025 are possible. ATS hours are in UTC; the French AIP convention is one hour earlier in summer, giving 08:00-21:00 local, but that convention line was not quoted for this page. No explicit night closure is stated. Stands are limited by wingspan and length (largest stands Z1/Z3: 21 m by 30 m), not by weight. COHOR facilitation applies mid-December to mid-April (winter season). Facts from the superseded edition other than runway, location and operator were not used (customs, handling, hours, ppr, notable)."
+ "notes": "All AIP facts from AIP France AD 2 LFLB (AIRAC AMDT 04/25, 17 APR 2025) as republished by DIRCAM; the current SIA edition could not be opened, so changes since April 2025 are possible. ATS hours are in UTC; the French AIP convention is one hour earlier in summer, giving 08:00-21:00 local, but that convention line was not quoted for this page. No explicit night closure is stated. Stands are limited by wingspan and length (largest stands Z1/Z3: 21 m by 30 m), not by weight. COHOR facilitation applies mid-December to mid-April (winter season). Facts from the superseded edition other than runway, location and operator were not used (customs, handling, hours, ppr, notable). Re-researched 2026-10-29: 2026-10-29 run: the newest LFLB AD 2 page found by search was 'valide à partir du 02 OCT 2025' (eAIP 30 OCT 2025 edition), but it failed to load; the 01 OCT 2026 edition exists (chart files under eAIP_01_OCT_2026/.../Cartes/LFLB) but the AD 2 page could not be opened. SUP AIP 148/26 (Tour de France restricted zone, 22 Jul 2026 only) has no airport rules. The operator's own site could not be found by search."
 }

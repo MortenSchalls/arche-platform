@@ -1,0 +1,33 @@
+{
+ "icao": "SAEZ",
+ "iata": null,
+ "name": "Ministro Pistarini International Airport (Ezeiza)",
+ "city": "Buenos Aires",
+ "country": "AR",
+ "tz": "America/Argentina/Buenos_Aires",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "handling": {
+   "v": "business jets and air taxis use the FBO VIPCLUB, a separate terminal with its own access to the airport",
+   "src": "ar-aa2000-fbo",
+   "quote": "Ofrece un servicio diferenciado para la atención de las aeronaves de aviación ejecutiva y taxis aéreos, mediante una terminal con acceso independiente al aeropuerto."
+  }
+ },
+ "missing": [
+  "geo",
+  "iata",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "hours",
+  "fuel"
+ ],
+ "notes": "The Argentine AIP (ANAC, ais.anac.gob.ar) could not be read: the session proxy refused the host and the web reader is blocked by the site's robots rules. All AD 2 facts (coordinates, runway, hours, customs, night rules) still need the AD 2 SAEZ PDF; Morten may download it from ais.anac.gob.ar. The FBO page lists customs (Aduana), Migraciones and other control bodies as present at the FBO terminal and shows a list of authorised handlers only as logos (not quotable text). Aeropuertos Argentina's Ezeiza pages did not state hours, distance or that the company operates EZE, so operator is left unverified."
+}

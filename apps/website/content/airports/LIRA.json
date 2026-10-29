@@ -7,7 +7,7 @@
  "tz": "Europe/Rome",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "curfew": {
    "v": "private and commercial flights only between 06:00 and 23:00 local; outside these hours PPRs are issued only for emergency, ambulance and state flights",
@@ -52,5 +52,5 @@
   "fuel",
   "deicing"
  ],
- "notes": "ENAV eAIP needs an ENAV account and could not be opened; ADR's passenger GA services page blocks automated reading. Facts come from ADR's Ciampino Airport Regulations (English translation, rev. 2, updated 16/10/2025; the Italian text prevails). The 61-movement cap is a daily cap on GA PPRs, filed under max_aircraft for want of a better key. Night limits at Ciampino have been the subject of court cases; re-check before quoting to clients."
+ "notes": "ENAV eAIP needs an ENAV account and could not be opened; ADR's passenger GA services page blocks automated reading. Facts come from ADR's Ciampino Airport Regulations (English translation, rev. 2, updated 16/10/2025; the Italian text prevails). The 61-movement cap is a daily cap on GA PPRs, filed under max_aircraft for want of a better key. Night limits at Ciampino have been the subject of court cases; re-check before quoting to clients. Re-researched 2026-10-29: 29 Oct 2026: No new verified facts. The Ciampino Airport Regulations (rev. 2, 16 Oct 2025) say refuelling is in the Airport Manual ('Refuelling See Airport Manual'); the noise/APU sections listed in the contents could not be read (reader cut off the text). The operator is stated there: 'prepared for the Airport of Ciampino by Aeroporti di Roma SpA, as the Airport Managing Company'. Terminal hours given (departures 03:00-23:00, arrivals 06:00-24:00) are terminal, not aerodrome, hours. ADR's airport manual (PA Generale rev. 24, 2 Sep 2024) and GA services page block automated readers. 'CIA' in the regulations glossary is the airport's abbreviation, not stated as its IATA code."
 }

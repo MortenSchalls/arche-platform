@@ -1,0 +1,33 @@
+{
+ "icao": "HECA",
+ "iata": null,
+ "name": "Cairo International Airport",
+ "city": "Cairo",
+ "country": "EG",
+ "tz": "Africa/Cairo",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "handling": {
+   "v": "private jets are handled at Terminal 1, Hall 4",
+   "src": "eg-cac-ga",
+   "quote": "Terminal1- hall4, which is dedicated to Private Jet services"
+  }
+ },
+ "missing": [
+  "geo",
+  "iata",
+  "operator",
+  "location",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "hours",
+  "fuel"
+ ],
+ "notes": "Egypt's AIP (NANSC) is not published openly online; only a NOTAM summary PDF on nansceg.net was found. All AD 2 facts need the AIP from NANSC. The Cairo Airport Company general-aviation page is undated and looks old (it mentions jets 'up to the G5' and fees in USD); treat the Hall 4 fact as needing a recheck with the airport before publishing. Fees on that page were deliberately not recorded (no prices rule)."
+}

@@ -7,7 +7,7 @@
  "tz": "Europe/Paris",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "one runway, 02/20, 2,300 m long and 45 m wide",
@@ -19,16 +19,44 @@
    "v": "IATA Level 1; operators ask their handling agent to request slots from COHOR",
    "src": "cohor-lfkj",
    "quote": "Aircraft operators contact their handling agent who is in charge to request airport slots to COHOR."
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours, with 48 hours' prior notice (PPR) for all business and private flights",
+   "h24": true,
+   "src": "fr-aip-lfkj-2026-08",
+   "quote": "H24 - PPR 48 HR for all business and private flights."
+  },
+  "ppr": {
+   "v": "48 hours' prior notice to customs for business and private flights; ground handling is compulsory for all VFR and IFR flights",
+   "src": "fr-aip-lfkj-2026-08",
+   "quote": "Pour des raisons de sécurité d'exploitation et de sureté, l'assistance est obligatoire pour les vols VFR et IFR."
+  },
+  "hours": {
+   "v": "air traffic services 24 hours",
+   "src": "fr-aip-lfkj-2026-08",
+   "quote": "ATS H24"
+  },
+  "handling": {
+   "v": "general and business aviation handled by Casavia; handling hours 06:00-19:00 in summer and 08:00-16:00 in winter (as published, AIP times are UTC)",
+   "names": [
+    "Casavia"
+   ],
+   "src": "fr-aip-lfkj-2026-08",
+   "quote": "AVIATION GENERALE ET D'AFFAIRES : ETE : 0600-1900, HIVER : 0800-1600"
+  },
+  "max_aircraft": {
+   "v": "taxiway B takes wingspans up to 65 m; most other taxiways are limited to 36 m wingspan",
+   "src": "fr-aip-lfkj-2026-08",
+   "quote": "TWY B : envergure MAX 65 m,"
+  },
+  "noise": {
+   "v": "noise-abatement climb: maximum climb gradient to 400 ft, then reduced-noise thrust up to 3,000 ft",
+   "src": "fr-aip-lfkj-2026-08",
+   "quote": "Jusqu'à 400 ft AAL, adopter la pente maximale. Ensuite, afficher la poussée moindre bruit jusqu'à 3000 ft."
   }
  },
  "missing": [
-  "customs (only in a superseded AIP edition; current edition not read)",
-  "ppr (only in a superseded AIP edition; current edition not read)",
-  "curfew (only in a superseded AIP edition; current edition not read)",
-  "hours (only in a superseded AIP edition; current edition not read)",
-  "handling (only in a superseded AIP edition; current edition not read)",
-  "max_aircraft (only in a superseded AIP edition; current edition not read)",
-  "noise (only in a superseded AIP edition; current edition not read)"
+  "curfew (AIP AD 2.20-2.22 of the 06 AUG 2026 edition gives no timed curfew, but does not state that there is none)"
  ],
- "notes": "Source page is in the SIA eAIP edition of 19 FEB 2026 (page valid from 22 JAN 2026); the current 01 OCT 2026 edition of this page could not be opened, so a later change cannot be ruled out. Mandatory handling quote: 'l'assistance est obligatoire pour les vols VFR et IFR.' Handling agent: 'Casavia (assistant escale)'. No timed night curfew is stated in AD 2.20-2.22; the night rule recorded is a specific approach restriction, not a closure. Summer UTC+2, winter UTC+1. Facts from the superseded edition other than runway, location and operator were not used (customs, ppr, curfew, hours, handling, max_aircraft, noise)."
+ "notes": "Source page is in the SIA eAIP edition of 19 FEB 2026 (page valid from 22 JAN 2026); the current 01 OCT 2026 edition of this page could not be opened, so a later change cannot be ruled out. Mandatory handling quote: 'l'assistance est obligatoire pour les vols VFR et IFR.' Handling agent: 'Casavia (assistant escale)'. No timed night curfew is stated in AD 2.20-2.22; the night rule recorded is a specific approach restriction, not a closure. Summer UTC+2, winter UTC+1. Facts from the superseded edition other than runway, location and operator were not used (customs, ppr, curfew, hours, handling, max_aircraft, noise). Re-researched 2026-10-29: 2026-10-29 run: facts from the SIA eAIP edition of 06 AUG 2026 (newer than the 19 FEB 2026 page used before); the 01 OCT and 29 OCT 2026 editions could not be opened, so a change since August cannot be ruled out. The page has no AMDT/page date. Night restrictions are operational only: 'Les approches à vue pour atterrissage en piste 20 sont interdites de nuit.' and 'KILO apron not usable at night.' Operators of aircraft with more than 30 passenger seats must file in advance with DSAC/SE. AD administration hours: 'ETE/SUM : 0300-2200 HIV/WIN : 0500-2300' (UTC). Fuel 100LL and JET A1; fuel hours 0500-1900 UTC with extension on request. AIP times are UTC (convention line: 'AIP France : UTC HIV ; HOR ETE : - 1HR'). Movements are requested from COHOR by e-mail."
 }

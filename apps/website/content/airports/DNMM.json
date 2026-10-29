@@ -1,0 +1,28 @@
+{
+ "icao": "DNMM",
+ "iata": "LOS",
+ "name": "Murtala Muhammed International Airport",
+ "city": "Lagos",
+ "country": "NG",
+ "tz": "Africa/Lagos",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-29",
+ "rules": {},
+ "missing": [
+  "geo",
+  "operator",
+  "runway",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "hours",
+  "noise",
+  "fuel",
+  "permits"
+ ],
+ "notes": "Only the FAAN airport page could be read (page modified 1 Sep 2026; it does not state the operator in plain words, although it is FAAN's own page). The Nigerian AIP (NAMA) and NCAA pages could not be opened (nama.gov.ng and ncaa.gov.ng were blocked / permission not granted), so no AD 2 data (coordinates, runway, hours, customs, night rules) is recorded. Morten: please download the Nigeria AIP AD 2 DNMM pages at the latest AIRAC."
+}

@@ -6,8 +6,8 @@
  "country": "FR",
  "tz": "Europe/Paris",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-27",
+ "status": "verified",
+ "checked": "2026-10-29",
  "rules": {
   "hours": {
    "v": "open 24 hours",
@@ -50,11 +50,21 @@
    "v": "minimum handling is compulsory and must be arranged (PPR) before leaving the departure airport (VFR chart text)",
    "src": "fr-vac-lfmn",
    "quote": "Minimum handling compulsory PPR before departure from origin AD."
+  },
+  "curfew": {
+   "v": "night ban for noisier jets only (Chapter 3 jets with a cumulative margin under 13 EPNdB, and jets not meeting Chapter 3/4): no landing 23:30-06:15 and no take-off 23:15-06:00 local (stand times); quieter aircraft are not banned; exceptions for medical, humanitarian, state and safety flights, and ministerial derogations",
+   "windows_local": [
+    [
+     "23:15",
+     "06:15"
+    ]
+   ],
+   "src": "nce-arrete-2010",
+   "quote": "atterrir entre 23 h 30 et 6 h 15, heures locales d’arrivée sur l’aire de stationnement ;"
   }
  },
  "missing": [
-  "max_aircraft",
-  "curfew (only in a superseded AIP edition; current edition not read)"
+  "max_aircraft"
  ],
- "notes": "French eAIP (SIA) and Légifrance (arrêté of 2 March 2010 on Nice night restrictions) could not be opened. Operator news item (12 Jan 2021) says the northern runway measures 2,420 m; southern runway length not stated, so longest runway not verified. The 'noise' and 'notable' quotes came back paraphrased by the fetch tool (e.g. 'APU use is limited to 30 minutes'); re-check exact wording. The handler licence text on the page dates from 2014-2022 and may be out of date. COHOR page last modified 2 Oct 2026. Do not name companies on the public site (site rule). | 2026-10-27 run: Current SIA eAIP HTML (01 OCT 2026) not openable; ARP, runways and night rule from AIP France AD 2 LFMN (AIRAC AMDT 06/25, 12 JUN 2025) as republished by DIRCAM; location, customs, PPR from the SIA VAC atlas, 01 OCT 2026 edition. The night rule is a ban on noisy aircraft classes only, not a full closure; times are stated in local time. VFR restriction times are UTC winter (SUM -1 HR = same local time, 11:00-14:00 local). Facts from the superseded edition other than runway, location and operator were not used (curfew)."
+ "notes": "French eAIP (SIA) and Légifrance (arrêté of 2 March 2010 on Nice night restrictions) could not be opened. Operator news item (12 Jan 2021) says the northern runway measures 2,420 m; southern runway length not stated, so longest runway not verified. The 'noise' and 'notable' quotes came back paraphrased by the fetch tool (e.g. 'APU use is limited to 30 minutes'); re-check exact wording. The handler licence text on the page dates from 2014-2022 and may be out of date. COHOR page last modified 2 Oct 2026. Do not name companies on the public site (site rule). | 2026-10-27 run: Current SIA eAIP HTML (01 OCT 2026) not openable; ARP, runways and night rule from AIP France AD 2 LFMN (AIRAC AMDT 06/25, 12 JUN 2025) as republished by DIRCAM; location, customs, PPR from the SIA VAC atlas, 01 OCT 2026 edition. The night rule is a ban on noisy aircraft classes only, not a full closure; times are stated in local time. VFR restriction times are UTC winter (SUM -1 HR = same local time, 11:00-14:00 local). Facts from the superseded edition other than runway, location and operator were not used (curfew). Re-researched 2026-10-29: 2026-10-29 run: curfew taken from the arrêté of 2 March 2010 (in force 31 Oct 2010), original published text as hosted by the slot coordinator COHOR; take-off quote: 'décoller entre 23 h 15 et 6 heures, heures locales de départ de l’aire de stationnement.' The ban applies only to noisier jet classes (Part IV: 'avec une marge cumulée inférieure à 13 EPNdB ne peut :'), so most modern business jets are not affected; portal should treat it as a class restriction, not a full closure. Légifrance lists the arrêté of 12 Feb 2018 (LEGITEXT000036686180) as modifying 'art. 1 (V)' of the Nice arrêté; the new wording could not be read, so a change to Part V cannot be ruled out (Parts II-IV with the times are not listed as modified). Times are local, no DST conversion needed. Engine tests banned 21:00-06:00 local (Part VII). A separate arrêté of 28 July 2023 on APU use at Nice exists on Légifrance (not read). The current SIA eAIP LFMN page (11 JUN 2026 edition found by search) could not be fetched; the operator page states no maximum aircraft size."
 }

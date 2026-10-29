@@ -7,7 +7,7 @@
  "tz": "Asia/Hong_Kong",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "runway": {
    "v": "three parallel runways (07L/25R, 07C/25C, 07R/25L), each 3,800 m long and 60 m wide",
@@ -55,5 +55,5 @@
   "max_aircraft",
   "lead time for the CAD prior approval"
  ],
- "notes": "Noise window converted from UTC (1500-2300 UTC) to Hong Kong time (UTC+8); Hong Kong has no daylight saving time. The AIP page read is the 4 Sep 2025 amendment inside the eaip_20250710 package; newer packages (e.g. eaip_20260806) exist on ais.gov.hk but their AD 2 VHHH text page could not be opened from here, so re-check before publishing. The airport authority's 2021 press release confirms HKBAC operates the business aircraft facilities at HKIA (source hk-aahk-hkbac). AD 2.20 stand list for the HKBAC apron is printed with a typo in the AIP (\"StandStands X1X2, X456 and Stand X458\"), so stand numbers are not used."
+ "notes": "Noise window converted from UTC (1500-2300 UTC) to Hong Kong time (UTC+8); Hong Kong has no daylight saving time. The AIP page read is the 4 Sep 2025 amendment inside the eaip_20250710 package; newer packages (e.g. eaip_20260806) exist on ais.gov.hk but their AD 2 VHHH text page could not be opened from here, so re-check before publishing. The airport authority's 2021 press release confirms HKBAC operates the business aircraft facilities at HKIA (source hk-aahk-hkbac). AD 2.20 stand list for the HKBAC apron is printed with a typo in the AIP (\"StandStands X1X2, X456 and Stand X458\"), so stand numbers are not used. Re-researched 2026-10-29: Re-read of the 4 Sep 2025 AD 2 VHHH page: AD 2.20 gives no slot rules, no lead time for the Director-General's prior approval, and no size limits for the business-aviation apron; it states noise mitigation 1500-2300 UTC only. The eAIP history page (package eaip_20260514) lists AIRAC amendments 3/26 (19 Mar 2026) to 7/26 (9 Jul 2026), and a package eaip_20260806 exists, so the 4 Sep 2025 page used for the existing facts is superseded and must be re-checked against the current amendment before publishing. CAD's 'Schedule Coordination Guidelines for HKIA' could not be fetched (robots). AIC 29/19 (slots via the Hong Kong Schedule Coordination Office, 3 days ahead) covers helicopters only and was not used."
 }

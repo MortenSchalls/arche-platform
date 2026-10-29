@@ -7,7 +7,7 @@
  "tz": "Europe/Berlin",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-29",
  "rules": {
   "curfew": {
    "v": "no take-offs or landings from 23:30 to 05:30 local time (exceptions: emergencies, safety diversions, relief, medical, state flights, weekday mail and some delayed/early scheduled flights); 23:00-24:00 and 05:00-06:00 count against an annual night quota; jets over 20,000 kg from 22:00 to 06:00 must be at least 10 EPNdB below the noise limits",
@@ -24,18 +24,26 @@
    "v": "Level 3 coordinated airport; general aviation flights need a slot from the German airport coordinator (Fluko)",
    "src": "fluko-ga",
    "quote": "Coordination of General Aviation flights is required at the following Level 3 airports:"
+  },
+  "runway": {
+   "v": "two parallel runways; the longest is the southern runway, 4,000 m long and 60 m wide (northern runway 3,600 m)",
+   "longest_m": 4000,
+   "src": "ber-facilities",
+   "quote": "The southern runway is 4,000 metres long and 60 metres wide."
+  },
+  "handling": {
+   "v": "General Aviation Terminal in Service Area North, by the access road to Terminal 1, run by BAS Berlin Aviation Service GmbH for the airport company",
+   "src": "ber-gat",
+   "quote": "is operated by BAS Berlin Aviation Service GmbH as the contracted service provider of Flughafen Berlin Brandenburg GmbH."
   }
  },
  "missing": [
   "geo",
-  "operator",
   "location",
-  "runway",
   "customs",
   "hours",
   "ppr",
-  "max_aircraft",
-  "handling"
+  "max_aircraft"
  ],
- "notes": "Night rules from the operating permit extract (section XI) published by the Brandenburg aviation authority LuBB. Deviations need approval by that authority in justified single cases; an ATC clearance does not replace it. DFS AIP unreadable and the operator site (ber.berlin-airport.de) could not be reached before the search budget ran out."
+ "notes": "Night rules from the operating permit extract (section XI) published by the Brandenburg aviation authority LuBB. Deviations need approval by that authority in justified single cases; an ATC clearance does not replace it. DFS AIP unreadable and the operator site (ber.berlin-airport.de) could not be reached before the search budget ran out. Re-researched 2026-10-29: Runway figures come from the operator's facilities fact sheet dated November 2022 (the newest edition found; DFS AIP unreadable). The northern runway's width is not stated. The same fact sheet describes the core night period as 'from midnight to 5.00 am' for regular scheduled flights, which differs from the 23:30-05:30 ban in the LuBB operating-permit extract already on file; the LuBB rule is kept (authority source, applies since the south runway opened), but Morten may want the AIP checked. GAT opening hours are not stated on the operator's page."
 }

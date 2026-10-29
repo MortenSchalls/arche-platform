@@ -1,0 +1,66 @@
+{
+ "icao": "FAOR",
+ "iata": null,
+ "name": "O R Tambo International Airport",
+ "city": "Johannesburg",
+ "country": "ZA",
+ "tz": "Africa/Johannesburg",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-29",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours",
+   "src": "za-aip-amdt4-26-faor",
+   "quote": "AD Operator H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "za-aip-amdt4-26-faor",
+   "quote": "Customs and immigration H24"
+  },
+  "handling": {
+   "v": "ground handling available 24 hours",
+   "src": "za-aip-amdt4-26-faor",
+   "quote": "Handling H24"
+  },
+  "fuel": {
+   "v": "Jet A-1 only",
+   "src": "za-aip-amdt4-26-faor",
+   "quote": "Fuel grades: Jet A1 only"
+  },
+  "deicing": {
+   "v": "no de-icing facilities",
+   "src": "za-aip-amdt4-26-faor",
+   "quote": "De-icing facilities NIL"
+  },
+  "max_aircraft": {
+   "v": "the AIP lists handling capability up to the Boeing 747 freighter and Airbus A380",
+   "src": "za-aip-amdt4-26-faor",
+   "quote": "Capable of handling 74F/A380."
+  },
+  "noise": {
+   "v": "no runway-intersection take-offs between 2000 and 0400 (AIP times), and no engine run-ups in that period without prior permission",
+   "src": "za-aip-amdt4-26-faor",
+   "quote": "No RWY intersection take-off BTN 2000 to 0400."
+  },
+  "runway": {
+   "v": "longest runway 03L/21R, 4,421 m long and 60 m wide; second runway 03R/21L, 3,405 m × 60 m",
+   "longest_m": 4421,
+   "src": "za-eaip-2022-10-faor",
+   "quote": "4421 x 60"
+  },
+  "ppr": {
+   "v": "parking stands are not guaranteed for unscheduled aircraft that arrive without prior notification",
+   "src": "za-eaip-2022-10-faor",
+   "quote": "PRKG stands are not guaranteed to unscheduled ACFT operating without prior notification."
+  }
+ },
+ "missing": [
+  "curfew",
+  "slots",
+  "permits"
+ ],
+ "notes": "Latest readable official text: AIP South Africa AMDT 4/26 (effective 15 Oct 2026) replacement pages AD 2-FAOR-1 to 4 and 17 to 19 (AD 2.1-2.8 and 2.20-2.24). Runway (AD 2.12) and the parking/prior-notification rule are NOT on those replacement pages; they come from the eAIP edition valid from 15 Oct 2022, the newest full AD 2 page that could be opened. Please confirm both against the consolidated 'Aerodromes (15_OCT_2026)' PDF on caa.co.za (could not be opened here). The 2022 page also says unscheduled aircraft should notify the apron office 24 hours ahead and that parking over 14 hours needs written permission, but those exact words were not captured, so they are not recorded. The 2000-0400 restriction is on intersection take-offs and engine run-ups only; it is not a curfew. The AIP did not say whether these times are UTC or local (South Africa is UTC+2, no DST). No official statement on slots or a night curfew was found. The 2022 page names Bidair, Menzies and Swissport as handling agents, not recorded until confirmed in the 2026 edition. IATA code not stated by the sources read."
+}
