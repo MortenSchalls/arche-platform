@@ -19,6 +19,7 @@ const rt=`(function(){const t=setInterval(()=>{const s=window.__sb;if(!s)return;
  await p.evaluate(()=>{S.view='team';render();});await p.waitForTimeout(600);
  await p.evaluate(()=>{const b=[...document.querySelectorAll('button')].find(x=>/Expand all/i.test(x.textContent));if(b)b.click();});await p.waitForTimeout(300);
  ok('a Supervisor switch for each person',await p.evaluate(ids=>ids.every(id=>!!document.querySelector(`[data-supmake="${id}"]`)),[B1,B2,B3]));
+ ok('the switch and Text to send sit under the name, seen without scrolling',await p.evaluate(id=>{const x=document.querySelector(`[data-supmake="${id}"]`),t=document.querySelector(`[data-suptext="${id}"]`);const r=x.getBoundingClientRect(),q=t.getBoundingClientRect();return x.closest('td')===x.closest('tr').firstElementChild&&r.right<=innerWidth&&q.right<=innerWidth;},B1));
  ok('the right "Train and share screen" can be given on its own',await p.evaluate(id=>!!document.querySelector(`[data-right="train"][data-uid="${id}"]`),B3));
  await p.check(`[data-supmake="${B3}"]`);await p.waitForTimeout(500);
  let T=await p.evaluate(()=>window.__T);let r3=T.profiles.find(x=>x.id===B3).data.rights||{};

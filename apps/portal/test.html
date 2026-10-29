@@ -5123,11 +5123,11 @@ function supervisionPanel(){
     ${S.reqReady ? "" : `<div class="note info small">Step approval starts once the SQL step "supervised steps (0011)" above has run. Until then nothing is held back.</div>`}`;
   if (!ros.length) return head + `<p class="small muted">Nobody approved yet.</p></div>`;
   return head + `<table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th><th scope=col>Supervisor</th>${GATE_KEYS.map(k => `<th scope=col>${esc(GATES[k].label)}</th>`).join("")}<th scope=col>Supervisor rights</th></tr></thead><tbody>
-    ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Operations" : p.role === "consultant" ? "Charter consultant" : "Broker")}</span></td>
+    ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Operations" : p.role === "consultant" ? "Charter consultant" : "Broker")}</span>${S.rightsReady === false ? "" : supNameCell(id, p)}</td>
       <td><label class="check" style="margin:0"><input type="checkbox" data-supall="${id}" ${p.supervised ? "checked" : ""}><span class="small">${p.supervised ? "Yes" : "No"}</span></label></td><td>${supAssignCell(id, p)}</td>
       ${GATE_KEYS.map(k => { if (!gateApplies(k, id)) return `<td class="muted">–</td>`; const s = gateStats(id, k), rel = !!(p.released || {})[k];
         return `<td>${!p.supervised ? `<span class="chip c-flown">Free</span>` : rel ? `<span class="chip c-flown">Released</span>` : `<span class="chip c-review">Needs your OK</span>`}<br><span class="muted">${s.ok} approved · ${s.ch} changes</span>${p.supervised ? `<br><button class="btn small" type="button" data-gate="${rel ? "resup" : "release"}" data-uid="${id}" data-key="${k}">${rel ? "Supervise again" : "Release"}</button>` : ""}</td>`; }).join("")}<td>${S.rightsReady === false ? `<span class="muted">After SQL 0012</span>` : rightsCells(id, p)}</td></tr>`).join("")}
-  </tbody></table><p class="small muted" style="margin:8px 0 0"><b>Supervisor</b> gives the three rights supervise steps, assess new people, and train and share screen in one go; untick single rights if needed.</p><details class="small" style="margin-top:8px"><summary>What each step and right means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}${Object.keys(RIGHTS).map(r => `<li><b>${esc(RIGHTS[r].label)}</b> (supervisor right): ${esc(RIGHTS[r].desc)}</li>`).join("")}</ul><p class="muted" style="margin:6px 0 0">Releasing steps, giving rights and countersigning stay with you. Every supervisor decision is in the audit log with their name.</p></details></div>`;
+  </tbody></table><p class="small muted" style="margin:8px 0 0"><b>Supervisor</b> (under each name) gives the three rights supervise steps, assess new people, and train and share screen in one go; untick single rights if needed.</p><details class="small" style="margin-top:8px"><summary>What each step and right means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}${Object.keys(RIGHTS).map(r => `<li><b>${esc(RIGHTS[r].label)}</b> (supervisor right): ${esc(RIGHTS[r].desc)}</li>`).join("")}</ul><p class="muted" style="margin:6px 0 0">Releasing steps, giving rights and countersigning stay with you. Every supervisor decision is in the audit log with their name.</p></details></div>`;
 }
 async function gateRelease(uid, key, on){
   const p = (S.roster || {})[uid]; if (!p) return;
@@ -5202,8 +5202,11 @@ function supPrompt(){
 /* owner: give or take rights in Team */
 function isSupervisor(p){ return SUP_SET.every(r => !!((p || {}).rights || {})[r]); }
 function rightsCells(id, p){
-  const on = isSupervisor(p);
-  return `<label class="check" style="margin:0 0 6px"><input type="checkbox" data-supmake="${id}" ${on ? "checked" : ""}><span class="small"><b>Supervisor</b></span></label>` + Object.keys(RIGHTS).map(r => rightApplies(r, id) ? `<label class="check" style="margin:0 0 4px"><input type="checkbox" data-right="${r}" data-uid="${id}" ${(p.rights || {})[r] ? "checked" : ""}><span class="small">${esc(RIGHTS[r].label)}</span></label>` : "").join("") + `<button class="btn small" type="button" data-suptext="${id}" style="margin-top:4px">Text to send</button>`;
+  return Object.keys(RIGHTS).map(r => rightApplies(r, id) ? `<label class="check" style="margin:0 0 4px"><input type="checkbox" data-right="${r}" data-uid="${id}" ${(p.rights || {})[r] ? "checked" : ""}><span class="small">${esc(RIGHTS[r].label)}</span></label>` : "").join("");
+}
+/* next to the name, so it is seen without scrolling (Morten, 29 Oct 2026: "why is it hidden and we need to scroll?") */
+function supNameCell(id, p){
+  return `<div class="row" style="gap:8px;margin-top:6px;flex-wrap:wrap"><label class="check" style="margin:0"><input type="checkbox" data-supmake="${id}" ${isSupervisor(p) ? "checked" : ""}><span class="small"><b>Supervisor</b></span></label><button class="btn small" type="button" data-suptext="${id}">Text to send</button></div>`;
 }
 /* the explanation to send to a new supervisor (copy into WhatsApp or email) */
 function supText(id){
