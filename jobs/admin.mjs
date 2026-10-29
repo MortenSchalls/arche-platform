@@ -10,6 +10,7 @@
 //   ACTION=trim-leads EMAIL=… [KEEP=10]   starter pace (Morten, 29 Oct 2026, for Natalia): keep KEEP open leads (her base
 //                                   country first, then Thailand, Singapore, the rest of Asia), the others back to the pool,
 //                                   and the first-contact clock restarts on the ones kept
+//   ACTION=people-status              read only: everyone with a login (masked email), last sign-in, joining step, team
 //   ACTION=alerts-status              read only: what the alert sender has open, how often each was sent, the last run
 //   ACTION=leads-status [EMAIL=…]     read only: counts of prospects by status, open leads per broker, the last rotation
 //   ACTION=set-name EMAIL=… NEW_NAME=…  corrects the name shown in the portal (not the name in a signed agreement)
@@ -66,6 +67,14 @@ export async function trimLeads(sb, u, keep = 10, now = Date.now()) {
   ck(await sb.from("audit_log").insert({ by: null, action: "Starter pace applied", detail: `${prof.contract_name || "broker"}: kept ${kept.length} leads (clock restarted), ${returned} back to the pool (on the owner's request)` }), "audit");
   const byCountry = kept.reduce((a, l) => { const k = (l.data || {}).country || "?"; a[k] = (a[k] || 0) + 1; return a; }, {});
   return { base: prof.base || "", kept: kept.length, keptCountries: byCountry, returned, firstContactDue: due };
+}
+export async function peopleStatus(sb) {
+  const out = []; let page = 1;
+  for (; page <= 20; page++) { const { data, error } = await sb.auth.admin.listUsers({ page, perPage: 200 }); if (error) throw new Error("users: " + error.message);
+    for (const u of data.users || []) { const st = await status(sb, u); out.push({ email: mask(u.email), name: st.name, created: String(u.created_at || "").slice(0, 16), lastSignIn: u.last_sign_in_at ? String(u.last_sign_in_at).slice(0, 16) : null, confirmed: st.confirmed, step: st.step, passwordSet: !!((u.user_metadata || {}).pw_set) || ((u.app_metadata || {}).provider === "azure") }); }
+    if ((data.users || []).length < 200) break; }
+  const inv = ck(await sb.from("intel").select("value").eq("key", "invites").maybeSingle(), "intel");
+  return { people: out, invites: (((inv || {}).value || {}).list || []).map(x => ({ name: x.name, email: mask(x.email), at: x.at, sent: x.sent })) };
 }
 export async function alertsStatus(sb) {
   const rows = ck(await sb.from("alert_settings").select("id,data"), "alert_settings") || [];
@@ -131,6 +140,7 @@ export async function main(env = process.env, sb) {
   sb = sb || createClient(env.SUPABASE_URL, env.SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
   const action = env.ACTION, email = env.EMAIL, name = env.NAME, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
   if (action === "trim-leads") { const u0 = await findUser(sb, email); if (!u0) throw new Error("No login with this email"); const out = { email: mask(email), ...(await trimLeads(sb, u0, Math.max(1, Math.min(40, Number(env.KEEP) || 10)))) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "people-status") { const out = await peopleStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (!["person-status", "reset-joining", "reset-next-login", "cancel-reset-next", "set-name"].includes(action)) throw new Error("Unknown action " + action);
