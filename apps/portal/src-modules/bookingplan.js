@@ -168,7 +168,7 @@
   function previewHtml(t){
     if (!t.d.opTerms) return "";
     const pl = bookingPlan(t); if (!pl.f.P || !pl.dep) return `<p class="small muted">The client's charges and payment dates appear here once the operator price and the first flight date are in.</p>`;
-    return `<div class="grid2" style="gap:12px;margin-top:8px"><div><p class="small" style="margin:0 0 4px"><b>If the client cancels</b> (A9: the higher of our scale and the operator's charge plus our fee)</p><table class="small"><tbody>${pl.cancel.map(r => `<tr><td>${esc(r.label)}</td><td class="n">${r.pctOfPrice}%</td><td class="n">${usd(r.amount)}${r.operatorHigher ? ' <span class="muted">(operator)</span>' : ""}</td></tr>`).join("")}</tbody></table></div>
+    return `<div class="stack" style="gap:12px;margin-top:8px"><div><p class="small" style="margin:0 0 4px"><b>If the client cancels</b> (A9: the higher of our scale and the operator's charge plus our fee)</p><table class="small"><tbody>${pl.cancel.map(r => `<tr><td>${esc(r.label)}</td><td class="n">${r.pctOfPrice}%</td><td class="n">${usd(r.amount)}${r.operatorHigher ? ' <span class="muted">(operator)</span>' : ""}</td></tr>`).join("")}</tbody></table></div>
       <div><p class="small" style="margin:0 0 4px"><b>The client pays</b> (A3 for this booking)</p><table class="small"><tbody>${pl.sched.map((x, i, all) => `<tr><td>${x.due === "signature" ? "On signature" : (i === all.length - 1 ? "Balance by " : "By ") + fmtD(x.due)}</td><td class="n">${usd(x.amount)}</td><td class="small muted">${esc(x.why.join(", "))}</td></tr>`).join("")}</tbody></table></div></div>`;
   }
   window.opTermsBlock = function(t){
@@ -253,7 +253,7 @@
     if (typeof ownTrip === "function" && ownTrip(t)) return "";
     const st = t.st || {}, b = st.book || {}, issued = !!st.confIssued, pl = bookingPlan(t), m = money(t), f = pl.f;
     const own = S.isOwner && acting() === "owner", can = staffOn(t);
-    const dt = v => v ? String(v).slice(0, 16) : "";
+    const dt = v => { if (!v) return ""; const x = new Date(v); return isNaN(x) ? "" : new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 16); };   // shown in local time
     const need = bookNeeds(t);
     // before issue
     const pre = `<div class="fgrid">

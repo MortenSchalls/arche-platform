@@ -13,6 +13,7 @@ const fill=async(id,v)=>{await p.fill('#'+id,v);await p.dispatchEvent('#'+id,'ch
 const lastToast=()=>toasts[toasts.length-1]||'';
 const trip=()=>p.evaluate(()=>{const t=tripById(S.sel);return {d:t.d,st:t.st||{},stage:t.stage};});
 const dep=new Date(Date.now()+40*864e5).toISOString().slice(0,10), dep2=new Date(Date.now()+41*864e5).toISOString().slice(0,10);
+const S_=process.env.SHOTS, shot=async(n,sel)=>{if(!S_)return;await p.setViewportSize({width:1300,height:2400});await p.waitForTimeout(400);const el=await p.$(sel);if(el)await el.screenshot({path:S_+'/'+n+'.png'});await p.setViewportSize({width:1300,height:1000});};
 await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await as('Test Broker');
 // a trip with a complete operator safety record (tier 1), quote and documents
 await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);await p.click('[data-act="new"]');await p.waitForTimeout(800);
@@ -64,7 +65,7 @@ ok('more than 30 days: our 25% (higher than the operator\'s 15% plus fee)',pl.ca
 ok('schedule: on signature at least what the operator wants at signing (50%)',pl.sched[0].due==='signature'&&pl.sched[0].cum>=45000,pl.sched);
 ok('schedule: 90,000 before the operator\'s second payment, two days early',pl.sched.some(x=>x.cum>=90000&&x.due!=='signature'&&x.due<=new Date(Date.parse(dep)-12*864e5).toISOString().slice(0,10)),pl.sched);
 ok('schedule ends at the full price',pl.sched[pl.sched.length-1].cum===pl.f.P,pl.sched);
-if(process.env.SHOTS){await p.locator('#secOpTerms').screenshot({path:process.env.SHOTS+'/ot.png'});await p.setViewportSize({width:390,height:900});await p.waitForTimeout(500);await p.locator('#secOpTerms').screenshot({path:process.env.SHOTS+'/ot390.png'});ok('phone: no sideways scrolling',await p.evaluate(()=>document.documentElement.scrollWidth<=391),await p.evaluate(()=>document.documentElement.scrollWidth));await p.setViewportSize({width:1300,height:1000});}
+if(process.env.SHOTS){await shot('1-broker-terms','#secOpTerms');await p.setViewportSize({width:390,height:900});await p.waitForTimeout(500);await p.locator('#secOpTerms').screenshot({path:process.env.SHOTS+'/ot390.png'});ok('phone: no sideways scrolling',await p.evaluate(()=>document.documentElement.scrollWidth<=391),await p.evaluate(()=>document.documentElement.scrollWidth));await p.setViewportSize({width:1300,height:1000});}
 ok('the preview shows both tables',/If the client cancels/.test(await p.textContent('#secOpTerms'))&&/The client pays/.test(await p.textContent('#secOpTerms')));
 // send to operations
 await p.evaluate(()=>{const c=tripById(S.sel).d.checks||{};});
@@ -85,12 +86,14 @@ await p.evaluate(async()=>{const t=tripById(S.sel);await deskWrite(t,{docs:[...t
 await p.check('#secBook [data-bkc]');await p.waitForTimeout(600);
 ok('offer expiry later than the hold is refused',await p.evaluate(h=>bookNeeds(tripById(S.sel),new Date(Date.parse(h)+5*864e5).toISOString().slice(0,10)).some(x=>/offer expiry/.test(x)),hold));
 ok('everything for issuing is in',await p.evaluate(h=>bookNeeds(tripById(S.sel),h.slice(0,10)).length===0,hold),await p.evaluate(()=>bookNeeds(tripById(S.sel))));
+await shot('3-ops-before-issue','#secBook');
 // the confirmation carries this booking's schedule and charges
 const conf=await p.evaluate(()=>{const t=tripById(S.sel);const data=confData(t,confDraftFrom(t),null);const ev=CONF.evaluate(data);return {sched:ev.cc.sched,deposit:ev.cc.deposit,html:CONF.html(data,true),ckIns:data.ck.ins,ckTerms:data.ck.terms};});
 ok('confirmation: schedule from the plan',Array.isArray(conf.sched)&&conf.sched[0].cum>=45000&&conf.deposit===conf.sched[0].amount,conf.sched);
 ok('confirmation: A3 says the schedule applies when the operator wants money earlier',/payment schedule apply/.test(conf.html));
 ok('confirmation: A9 table charges the operator\'s higher amount',conf.html.includes(r30.label)&&conf.html.includes('USD '+r30.amount.toLocaleString('en-US')));
 ok('confirmation: insurance and terms ticks come from the record',conf.ckIns&&conf.ckTerms);
+if(S_){await p.click('[data-act="openConf"]');await p.waitForTimeout(1500);await shot('4-confirmation','#confPages');await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(600);}
 // issue (status written directly: the PDF needs the browser's PDF library) and the client signs
 await p.evaluate(async()=>{const t=tripById(S.sel);await statusWrite(t,{state:'issued',ref:'AE-TEST-1',issuedAt:now(),confIssued:{rev:1,at:now(),data:{}}},'test: issued');});await p.waitForTimeout(800);
 ok('no operator contract signature before the client signs',await p.evaluate(()=>{const b=document.querySelector('[data-bka="signed"]');return !!b&&b.disabled;}));
@@ -100,10 +103,11 @@ await fill('bk_ra','25000');await fill('bk_rd',new Date().toISOString().slice(0,
 t=await trip();ok('client money recorded with amount and date',(t.st.receipts||[]).length===1&&t.st.receipts[0].amount===25000,t.st.receipts);
 ok('not covered: operator contract cannot be signed',await p.evaluate(()=>document.querySelector('[data-bka="signed"]').disabled));
 ok('Today: client payment missing, with the date to cancel before',await p.evaluate(()=>moneyFlags().some(x=>/Client payment missing/.test(x))));
+if(S_){await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(600);await shot('6-today-money','#moneyPanel');await p.evaluate(did=>{S.view='trips';S.sel=did;render();},did);await p.waitForTimeout(600);}
 await fill('bk_ra','24000');await fill('bk_rd',new Date().toISOString().slice(0,10));await p.click('[data-bka="receipt"]');await p.waitForTimeout(800);
 ok('covered now: the sign button is open',await p.evaluate(()=>!document.querySelector('[data-bka="signed"]').disabled));
 ok('Today says sign the operator\'s contract',await p.evaluate(()=>moneyFlags().some(x=>/Sign the operator's contract/.test(x))));
-if(process.env.SHOTS){await p.locator('#secBook').screenshot({path:process.env.SHOTS+'/bk.png'});}
+await shot('5-client-money','#secBook');
 await p.click('[data-bka="signed"]');await p.waitForTimeout(800);
 t=await trip();ok('operator contract signed recorded',!!(t.st.book||{}).signedAt);
 // pay the operator: never more than received
@@ -117,6 +121,7 @@ await fill('bk_ra',String(rest));await fill('bk_rd',new Date().toISOString().sli
 t=await trip();ok('paid in full: stage Client paid',t.stage==='clientPaid'&&t.st.clientPaid===true,t.stage);
 await fill('bk_pa','45000');await fill('bk_pd',new Date().toISOString().slice(0,10));await p.click('[data-bka="payout"]');await p.waitForTimeout(800);
 t=await trip();ok('operator paid in full, never above its price',t.st.operatorPaid===true&&t.st.payouts.reduce((a,x)=>a+x.amount,0)===90000,t.st.payouts);
+await shot('7-paid','#secBook');
 ok('nothing more can be paid',await p.evaluate(()=>!document.querySelector('[data-bka="payout"]')));
 // the library
 await p.evaluate(()=>oplibSave(tripById(S.sel),'issued'));await p.waitForTimeout(800);
@@ -127,6 +132,7 @@ const ent=lib.ops[k].trips[0];
 ok('library: no client name, email or phone',!/Anna|anna@example/.test(JSON.stringify(lib)));
 const tt=await trip();const se=entryFrom(tt.d,tt.st,'issued',ent.at);
 ok('library: the server builds the same entry as the portal',JSON.stringify({...se,ref:se.ref||ent.ref})===JSON.stringify(ent),{server:se,portal:ent});
+if(S_){await p.evaluate(()=>{S.view='control';render();});await p.waitForTimeout(1200);await p.evaluate(()=>{const x=[...document.querySelectorAll('.panel')].find(e=>/Operator library/.test(e.querySelector('h2')?.textContent||''));if(x)x.id='libShot';});await shot('8-library','#libShot');await p.evaluate(did=>{S.view='trips';S.sel=did;render();},did);await p.waitForTimeout(600);}
 // a new trip with the same operator is offered the terms on file
 await as('Test Broker');await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);await p.click('[data-act="new"]');await p.waitForTimeout(800);
 await p.fill('#e_cn','Ben Example');await p.fill('#e_em','ben@example.com');await p.fill('#e_ct','Singapore');
@@ -145,6 +151,7 @@ const r2=await p.evaluate(async()=>{const t=tripById(S.sel);await statusWrite(t,
 ok('the owner can set another margin on the trip',r2);
 await p.evaluate(()=>{document.querySelector('#secBook details').open=true;});await p.fill('#bk_mp','12');await p.fill('#bk_mr','Example: repeat client, director decision');await p.click('[data-bka="margin"]');await p.waitForTimeout(800);
 t=await trip();ok('trip margin 12%: price recomputed, reason kept',t.st.marginEx&&Math.abs(t.st.marginEx.pct-0.12)<1e-9&&t.st.price===Math.ceil(90000/0.88),t.st);
+await shot('9-owner-margin','#secBook');
 ok('the approval card shows the owner\'s margin as decided',await p.evaluate(()=>apChecks(tripById(S.sel)).some(x=>x[0]&&/set by the owner/.test(x[1]))));
 await as('Test Operations');await p.evaluate(did=>{S.sel=did;S.view='trips';render();},did);await p.waitForTimeout(600);
 ok('operations cannot set a margin',!await p.$('#bk_mp'));
