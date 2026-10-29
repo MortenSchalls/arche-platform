@@ -13,6 +13,7 @@ Read this before changing anything. These are business rules set by the owner, M
 - Clients pay only through a secure payment request from Archē's payment provider (provider still to be agreed). Paynode is removed everywhere and is not named in any text, page, course or document until Morten agrees otherwise (Morten, 26 Oct 2026). Never print, store or send bank details anywhere.
 
 ## Bookings
+- Simplicity first (Morten, 29 Oct 2026): "We need simplicity and fast flexible bookings, we cannot lose to complex portals." Every step is asked once, by the person who has the information; no double tasks or overlapping procedures; the portal fills in and checks what it can.
 - The owner approves every booking before a confirmation is issued (switch in Today; on by default). A price change after approval sends it back.
 - Four-eyes rule: nobody prices, issues or records payment on their own trip (the owner is exempt).
 - Brokers can set only enquiry, quoted, submitted or cancelled. Money stages come from operations.
