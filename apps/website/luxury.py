@@ -65,8 +65,15 @@ def services_detail():
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px 48px;margin:40px 0 0">{"".join(col(*s) for s in SERVICES)}</div>
 </div></section><!--/ae:lux-->'''
 
+# On board photos: shown only when all six are in apps/website/images (licensed, docs/IMAGE-REGISTER.md); the car
+# photo we already own (journey-4: car at the aircraft) is used for "Cars".
+OB_PHOTO = {"Catering": "onboard-catering", "Cars": "journey-4", "Private terminal": "onboard-terminal",
+            "Pets": "onboard-pets", "Luggage and equipment": "onboard-luggage", "Occasions": "onboard-occasions"}
+
 def onboard():
-    tile = lambda i, t, d: (f'<div style="padding:26px 0 0;border-top:1px solid rgba(243,245,248,0.18)"><span style="{NUM}">{i:02d}</span>'
+    pics = all(os.path.exists(os.path.join(HERE, "images", f + ".webp")) for f in OB_PHOTO.values())
+    img = lambda t: (f'<img src="/img/{OB_PHOTO[t]}.webp" alt="" loading="lazy" decoding="async" style="display:block;width:100%;aspect-ratio:3/2;object-fit:cover;margin:0 0 18px">' if pics else "")
+    tile = lambda i, t, d: (f'<div style="padding:26px 0 0;border-top:1px solid rgba(243,245,248,0.18)">{img(t)}<span style="{NUM}">{i:02d}</span>'
                             f'<h3 style="{H3}">{t}</h3><p style="margin:10px 0 0;font-size:16.5px;line-height:1.7;color:#c6cbd2">{d}</p></div>')
     return f'''<!--ae:lux--><section id="onboard" data-ae="lux" style="{LINE}"><div style="{WRAP}">
 <span style="{EYE}">On board</span><h2 style="{H2}">The flight, arranged around you.</h2>

@@ -98,3 +98,66 @@ Shopping list, about 30 iStock photos:
 Once the photos are on your Mac, I add them to the city, region and airport pages and to a photo grid on Destinations. Each page gets a header photo like the menu pages.
 
 Sources: globaljet.aero/en (read 30 Oct 2026); Lighthouse 12.2.1 on the staging build; Archē build checks.
+
+---
+
+# Final audit after the improvements, 30 Oct 2026 (afternoon)
+
+## Done without needing approval
+
+- **Destinations approved (Morten):** all 39 guide pages are published pages, no draft marks; they go into the sitemap at launch.
+- **Speed:**
+  - each language loads only its own font;
+  - English no longer downloads the 125 KB translation file;
+  - the home hero has a phone-size photo (36 KB) loaded first;
+  - page-head photos load first;
+  - photos lower on the page load only when about to be seen;
+  - the watermark is WebP.
+  - Lighthouse phone test, home page: 52 to 79; contact page: 75; guide pages: 98 (tested without the compression Vercel adds, so the live figures will be better).
+- **Design:**
+  - "Request a quote" always visible in the top menu;
+  - the quote form is now also on Contact;
+  - "Check availability" in the aircraft finder opens the quote form;
+  - the name and phone fields in step 2 of the quote form are now visible;
+  - quote-form labels raised from 11 to 12 px;
+  - menu links split four and three so nothing overlaps from 1280 px up.
+- **Search:** page and breadcrumb data on every menu page, in all four languages; one main title per page.
+- **Photos, ready to receive:**
+  - every guide page and the Destinations cards show a header photo as soon as a file named after the page is placed in apps/website/images/places/, for example cities-tokyo.webp;
+  - the six On board tiles show photos once all six are there; the car photo we own is already assigned.
+- **Security:**
+  - forms and statistics accept only our own website and our own preview addresses (before: any .vercel.app site);
+  - existing protections confirmed: flood guards in the database, honeypot field, size limits, content security policy, HSTS, no framing, no outside scripts.
+- **Privacy (Singapore PDPA, EU/UK GDPR, Thai PDPA):**
+  - the privacy notice now covers the empty-leg alerts and the news opt-in, the legal grounds for EU/UK visitors, transfers outside the visitor's country (Singapore and the United States), security measures, retention for each kind of data, the further rights under GDPR, the Data Protection Officer contact, children, and changes;
+  - "Last updated" is 30 October 2026;
+  - the last browser-storage write (language preference) has been removed, so the notice's "nothing stored in your browser" is true;
+  - statistics remain cookieless, store no network address and honour Do Not Track and Global Privacy Control.
+- **Checks run:**
+  - 62 pages at desktop and phone width (124 page views): no script errors, no failed files, no sideways scrolling, exactly one top menu and one main title on every page, no text under 12 px apart from the logo wordmark;
+  - 0 broken links;
+  - quote form, call-back, empty-leg alerts, aircraft finder, How it works stepper, menu and language menu all tested (form sending simulated, nothing sent).
+
+## Waiting for Morten (in this order)
+
+1. **Real phone number and UEN.** The site shows +65 0000 0000 on every page, in the WhatsApp link and in the business data Google reads. Nothing else blocks launch more.
+2. **Reply-time promise.** The home page description says "Replies within 15 minutes, 24/7"; the thank-you message says "usually within the hour". Pick one that the desk can always meet. Suggested: "Replies at any hour, usually within the hour."
+3. **Founder note (draft, needs your wording OK and a portrait):** "Archē Executive was founded by Morten Schalls Jørgensen, a Danish aviation executive with 33 years in the industry, fifteen of them in Southeast Asia. A licensed EASA Part-66 aircraft engineer, he has built and run aircraft maintenance organisations approved by authorities in Europe, the United Kingdom, the UAE and India. That is why we check the operator behind every aircraft before you see a quote."
+4. **Privacy notice, counsel review.**
+   - The notice is updated to match what the site does; a lawyer should confirm it.
+   - Three points for counsel:
+     - whether a Thai-language version is needed for Thai PDPA;
+     - whether an EU representative (GDPR Article 27) is needed, since the site has Europe pages;
+     - whether the providers' data processing terms are in place for Vercel, Supabase and Resend.
+5. **Photos (last):**
+   - 39 place photos, file names below;
+   - 5 On board photos: onboard-catering, onboard-terminal, onboard-pets, onboard-luggage, onboard-occasions.
+   - iStock standard licence as before; crop with place_photos.py and record in docs/IMAGE-REGISTER.md.
+   - Places show the place: skyline, landmark or airport. No yachts, limousine fleets or hotels as services.
+   - Place-photo file names, in apps/website/images/places/: airports-dubai-world-central, airports-farnborough, airports-hong-kong-international, airports-singapore-changi, airports-singapore-seletar, airports-sydney, airports-teterboro, cities-bangkok, cities-dubai, cities-geneva, cities-hong-kong, cities-kuala-lumpur, cities-london, cities-new-york, cities-nice, cities-paris, cities-phuket, cities-seoul, cities-singapore, cities-sydney, cities-taipei, cities-tokyo, countries-india, countries-japan, countries-malaysia, countries-maldives, countries-south-korea, countries-sri-lanka, countries-taiwan, countries-thailand, countries-vietnam, guides-cabotage, guides-charter-price, guides-empty-legs, guides-operator-safety-audits, regions-asia-pacific, regions-europe, regions-middle-east, regions-north-america (each .webp).
+
+## Known limits (not bugs)
+
+- The page template is still assembled in the browser. That is why the content security policy allows inline and eval scripts and why menu pages are heavier than guide pages. Building finished pages at build time would remove both; it is a larger piece of work for after launch.
+- The Menu and language drop-downs close when clicked again, not on an outside click (no extra scripts, by rule).
+- The guides are English only; their language menu leads to the home page in that language.
