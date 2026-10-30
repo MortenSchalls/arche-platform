@@ -3,6 +3,27 @@ const AE_M = ['January','February','March','April','May','June','July','August',
 const AE_N = Object.fromEntries(AE_M.map((m, i) => [m, i + 1]));
 const AE_TH = Object.fromEntries(AE_M.map((m, i) => [m, ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'][i]]));
 const ROWS = [
+// ae:pages rows (pages.py, from i18n_pages.json)
+['Discover','สำรวจ','探索','ご案内'],
+['Private aviation, in detail.','การบินส่วนตัว ในทุกรายละเอียด','私人航空，细致入微。','プライベート航空を、細部まで。'],
+['Charter, advisory and fleet coordination.','เช่าเหมาลำ ที่ปรึกษา และการประสานงานฝูงบิน','包机、咨询与机队协调。','チャーター、アドバイザリー、フリート調整。'],
+['Three services. One standard.','สามบริการ หนึ่งมาตรฐาน','三项服务。一个标准。','3つのサービス。ひとつの基準。'],
+['Private charter, aviation advisory and fleet coordination, each run by senior aviation people and held to the same checks.','เช่าเหมาลำส่วนตัว ที่ปรึกษาด้านการบิน และการประสานงานฝูงบิน ทุกบริการดูแลโดยผู้มีประสบการณ์ด้านการบินระดับอาวุโส และผ่านการตรวจสอบมาตรฐานเดียวกัน','私人包机、航空咨询和机队协调，均由资深航空人士负责，并遵循同样的审核标准。','プライベートチャーター、航空アドバイザリー、フリート調整。いずれも経験豊かな航空の専門家が担当し、同じ基準で確認します。'],
+['Private charter, advisory and fleet coordination','เช่าเหมาลำส่วนตัว ที่ปรึกษา และการประสานงานฝูงบิน','私人包机、咨询与机队协调','プライベートチャーター、アドバイザリー、フリート調整'],
+['Private jet charter, aviation advisory and fleet coordination from Singapore, worldwide. Every operator checked before you see a quote.','บริการเช่าเหมาลำเครื่องบินส่วนตัว ที่ปรึกษาด้านการบิน และการประสานงานฝูงบิน จากสิงคโปร์สู่ทั่วโลก ผู้ให้บริการทุกรายผ่านการตรวจสอบก่อนท่านจะได้รับใบเสนอราคา','从新加坡出发、通达全球的私人飞机包机、航空咨询和机队协调。在您收到报价之前，每家运营商都已经过审核。','シンガポールから世界へ、プライベートジェットのチャーター、航空アドバイザリー、フリート調整。見積もりの前に、すべての運航会社を確認します。'],
+['The right aircraft for the trip.','เครื่องบินที่เหมาะกับการเดินทาง','适合这次行程的飞机。','その旅にふさわしい機体を。'],
+['From light jets to ultra-long-range. We hold no fleet, so we suggest what fits your trip and find it upon availability.','ตั้งแต่เครื่องบินขนาดเล็กไปจนถึงพิสัยไกลพิเศษ เราไม่มีฝูงบินของตัวเอง จึงแนะนำสิ่งที่เหมาะกับการเดินทางของท่าน และจัดหาให้ตามความพร้อมให้บริการ','从轻型公务机到超远程公务机。我们没有自有机队，因此只推荐适合您行程的机型，并视可用情况为您寻找。','ライトジェットから超長距離機まで。自社機材を持たないからこそ、旅に合う機体をご提案し、空き状況に応じてお探しします。'],
+['Private jet categories and aircraft','ประเภทและรุ่นของเครื่องบินส่วนตัว','私人飞机类别与机型','プライベートジェットのクラスと機種'],
+['Find the private jet category that fits your trip: passengers, range and cabin, suggested upon availability. Archē Executive holds no fleet.','ค้นหาประเภทเครื่องบินส่วนตัวที่เหมาะกับการเดินทางของท่าน ทั้งจำนวนผู้โดยสาร พิสัยการบิน และห้องโดยสาร แนะนำตามความพร้อมให้บริการ Archē Executive ไม่มีฝูงบินของตัวเอง','找到适合您行程的私人飞机类别：乘客人数、航程与客舱，视可用情况推荐。Archē Executive 没有自有机队。','人数、航続距離、客室から、旅に合うプライベートジェットのクラスを。空き状況に応じてご提案します。Archē Executiveは自社機材を保有していません。'],
+['Effortless for you. Thorough behind the scenes.','ง่ายสำหรับท่าน ละเอียดในทุกขั้นตอนเบื้องหลัง','对您轻松从容，幕后一丝不苟。','お客様には軽やかに。舞台裏では徹底して。'],
+['Five steps from your first message to landing, with one advisor and every operator checked before you commit.','ห้าขั้นตอนตั้งแต่ข้อความแรกจนถึงการลงจอด กับที่ปรึกษาคนเดียว และผู้ให้บริการทุกรายผ่านการตรวจสอบก่อนท่านตัดสินใจ','从第一条消息到落地共五步，由一位顾问负责，在您决定之前每家运营商都已审核。','最初のご連絡から着陸まで5つのステップ。担当は一人のアドバイザー、運航会社はご決定前にすべて確認します。'],
+['How private jet charter works','การเช่าเหมาลำเครื่องบินส่วนตัวทำงานอย่างไร','私人飞机包机如何运作','プライベートジェット・チャーターの流れ'],
+['From first message to landing in five steps: tell us the trip, we source and vet, you confirm, we handle the details, you fly.','จากข้อความแรกจนถึงการลงจอดในห้าขั้นตอน: บอกเราเรื่องการเดินทาง เราจัดหาและตรวจสอบ ท่านยืนยัน เราดูแลรายละเอียด และท่านออกเดินทาง','从第一条消息到落地共五步：告诉我们行程，我们寻找并审核，您确认，我们处理细节，您启程。','最初のご連絡から着陸まで5つのステップ。旅程をお知らせいただき、私たちが探して確認し、お客様が確定し、私たちが細部を手配し、ご出発です。'],
+['At your service, at any hour.','พร้อมให้บริการท่าน ทุกเวลา','随时为您效劳。','いつでも、お客様のために。'],
+['Call, message or write to our private client desk, day or night, wherever you are.','โทร ส่งข้อความ หรือเขียนถึงฝ่ายดูแลลูกค้าส่วนตัวของเรา ทั้งกลางวันและกลางคืน ไม่ว่าท่านจะอยู่ที่ใด','无论您身在何处，白天或夜晚，都可致电、发消息或写信给我们的私人客户服务台。','昼夜を問わず、どこからでも、お電話、メッセージ、メールでプライベートクライアントデスクへ。'],
+['Contact the private client desk','ติดต่อฝ่ายดูแลลูกค้าส่วนตัว','联系私人客户服务台','プライベートクライアントデスクへのお問い合わせ'],
+['Reach Archē Executive\'s private client desk at any hour by phone, WhatsApp or email, or ask for a call back.','ติดต่อฝ่ายดูแลลูกค้าส่วนตัวของ Archē Executive ได้ทุกเวลา ทางโทรศัพท์ WhatsApp หรืออีเมล หรือขอให้เราโทรกลับ','可随时通过电话、WhatsApp 或电子邮件联系 Archē Executive 私人客户服务台，或请我们回电。','Archē Executiveのプライベートクライアントデスクへは、電話、WhatsApp、メールでいつでもご連絡いただけます。折り返しのお電話も承ります。'],
+// /ae:pages
 // ae:lux rows (luxury.py, from i18n_luxury.json)
 ['Each service, in detail','รายละเอียดแต่ละบริการ','每项服务详解','各サービスの詳細'],
 ['What you can expect from us.','สิ่งที่ท่านวางใจได้จากเรา','您可以期待我们做到的。','私たちがお約束すること。'],
@@ -39,7 +60,7 @@ const ROWS = [
 ['Occasions','โอกาสพิเศษ','特别时刻','特別な日に'],
 ['Flowers, a cake or a favourite bottle on board for a birthday or a celebration.','ดอกไม้ เค้ก หรือเครื่องดื่มโปรดบนเครื่อง สำหรับวันเกิดหรืองานฉลอง','生日或庆祝时，机上可备鲜花、蛋糕或您喜爱的酒。','お誕生日やお祝いに、機内でお花やケーキ、お好みの一本をご用意します。'],
 ['Every request depends on the aircraft, the operator, the airport and local rules. Any cost is agreed with you before departure.','ทุกคำขอขึ้นอยู่กับเครื่องบิน ผู้ให้บริการ สนามบิน และกฎท้องถิ่น ค่าใช้จ่ายใด ๆ จะตกลงกับท่านก่อนออกเดินทาง','每项要求都取决于飞机、运营商、机场和当地规定。任何费用都会在出发前与您商定。','ご要望は機材、運航会社、空港、現地の規則によります。費用が生じる場合は出発前にご相談します。'],
-['One advisor from your first message to your last landing.','ที่ปรึกษาคนเดียว ตั้งแต่ข้อความแรกจนถึงการลงจอดครั้งสุดท้าย','从您的第一条消息到最后一次落地，始终由同一位顾问负责。','最初のご連絡から最後の着陸まで、一人のアドバイザーが担当します。'],
+['Any aircraft. Any hour. One advisor.','ทุกเครื่องบิน ทุกเวลา ที่ปรึกษาคนเดียว','任何飞机。任何时刻。一位顾问。','あらゆる機体を。いつでも。一人のアドバイザーが。'],
 // /ae:lux
 // ae:home rows (home_extras.py, from i18n_home.json)
 ['A broker, not an airline: we find and check the operator; the operator flies your trip.','เราเป็นนายหน้า ไม่ใช่สายการบิน เราค้นหาและตรวจสอบผู้ให้บริการ ส่วนผู้ให้บริการเป็นผู้ทำการบินให้ท่าน','我们是包机经纪公司，而非航空公司：我们寻找并审核运营商，由运营商执飞您的航班。','私たちは航空会社ではなくブローカーです。運航会社を探して確認し、その運航会社がお客様のフライトを運航します。'],

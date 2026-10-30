@@ -34,6 +34,7 @@ S = 240                 # pixels per metre, the same for every type
 PERSON = 1.80
 FLOOR = 800             # floor line; the page fades the outer 16% left/right, 14% top and 20% bottom
 LINE, SOFT, ACCENT, INK, MUTED = "#dbe4ee", "#93a0b0", "#a9bdd4", "#f3f5f8", "#a3a9b1"
+GREEN = "#39ff8f"   # fuselage outline, highlight green with a soft glow (Morten, 30 Oct 2026: "stand out more and more premium")
 
 def font_face():
     css = ""
@@ -81,12 +82,13 @@ def drawing(h, w, h_imp, w_imp, src):
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
          f'<style>{font_face()} text{{font-family:HG,sans-serif}}</style>',
          '<defs><radialGradient id="bg" cx="52%" cy="52%" r="62%"><stop offset="0" stop-color="#40434a"/><stop offset="1" stop-color="#373a40"/></radialGradient>'
-         f'<clipPath id="cab"><path d="{cabin}"/></clipPath></defs>',
+         f'<clipPath id="cab"><path d="{cabin}"/></clipPath>'
+         '<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>',
          f'<rect width="{W}" height="{H}" fill="url(#bg)"/>',
          # fuselage skin and cabin lining
          f'<g fill="none" stroke="{LINE}">',
-         f'<ellipse cx="{cx}" cy="{cy:.1f}" rx="{ox:.1f}" ry="{oy:.1f}" stroke-width="3.2"/>',
-         f'<ellipse cx="{cx}" cy="{cy:.1f}" rx="{ox - 9:.1f}" ry="{oy - 9:.1f}" stroke-width="1" stroke-opacity="0.45"/>',
+         f'<ellipse cx="{cx}" cy="{cy:.1f}" rx="{ox:.1f}" ry="{oy:.1f}" stroke="{GREEN}" stroke-width="3.6" filter="url(#glow)"/>',
+         f'<ellipse cx="{cx}" cy="{cy:.1f}" rx="{ox - 9:.1f}" ry="{oy - 9:.1f}" stroke="{GREEN}" stroke-width="1" stroke-opacity="0.5"/>',
          f'<path d="{cabin}" stroke-width="2.2" stroke-opacity="0.9" fill="#ffffff" fill-opacity="0.035"/>',
          f'<line x1="{cx - fx:.1f}" y1="{FLOOR + under:.1f}" x2="{cx + fx:.1f}" y2="{FLOOR + under:.1f}" stroke-width="1" stroke-opacity="0.4"/>',
          '</g>',

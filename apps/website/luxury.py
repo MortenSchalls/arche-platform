@@ -6,7 +6,8 @@ What GlobalJet does well and we answer here, with our own three services only an
   2. the cabin experience (their reviews talk about catering, amenities, care on board) -> "On board, as you wish":
      the details we already arrange (journey step 4: catering, cars, FBO, passports and manifests), always through the
      operator and confirmed before departure. No reviews (CLAUDE.md), no partner companies, no prices, no fleet.
-  3. their "any plane, any time, any place" line -> our rule line as a quiet statement before Contact.
+  3. their "any plane, any time, any place" line -> our slogan "Any aircraft. Any hour. One advisor." (Morten's choice,
+     30 Oct 2026) in large type before Contact, with the rule line "Any aircraft, any route, upon availability." under it.
 Layout, colours and fonts are the Design file's (Prata headings, Hanken Grotesk text, the same thin rules); no images,
 no scripts. Runs after home_extras.py. Idempotent: every block is replaced on each build.
 Translations: i18n_luxury.json (Thai, Chinese, Japanese), one row per text, checked on every build."""
@@ -77,8 +78,8 @@ def onboard():
 def statement():
     return f'''<!--ae:lux--><section id="statement" data-ae="lux" style="{LINE}"><div style="{WRAP};text-align:center">
 <span style="{EYE}">Archē Executive</span>
-<p style="margin:18px auto 0;max-width:900px;font-family:Prata,Georgia,serif;font-size:clamp(26px,3.6vw,48px);line-height:1.25;color:#f3f5f8">Any aircraft, any route, upon availability.</p>
-<p style="margin:18px auto 0;max-width:620px;font-size:16px;line-height:1.7;color:#c6cbd2">One advisor from your first message to your last landing.</p>
+<p style="margin:18px auto 0;max-width:900px;font-family:Prata,Georgia,serif;font-size:clamp(32px,5vw,68px);line-height:1.15;letter-spacing:0.01em;color:#f3f5f8">Any aircraft. Any hour. One advisor.</p>
+<p style="margin:22px auto 0;max-width:620px;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#a9bdd4">Any aircraft, any route, upon availability.</p>
 </div></section><!--/ae:lux-->'''
 
 def _after_section(s, sid, block):
@@ -93,7 +94,7 @@ def texts():
     out = ["Each service, in detail", "What you can expect from us.", "Three services, each run by senior aviation people. This is what each one means in practice.",
            "On board", "The flight, arranged around you.", "Tell us once how you like to travel. We arrange the details with the operator and confirm them with you before departure.",
            "Every request depends on the aircraft, the operator, the airport and local rules. Any cost is agreed with you before departure.",
-           "One advisor from your first message to your last landing."]
+           "Any aircraft. Any hour. One advisor."]
     for _, _, lead, _, items in SERVICES: out += [lead] + items
     for t, d in ONBOARD: out += [t, d]
     return out
