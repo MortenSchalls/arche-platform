@@ -43,7 +43,9 @@ def build():
         slot, ext = os.path.splitext(f)
         if ext.lower() not in (".webp", ".jpg", ".jpeg", ".png"): continue
         shutil.copy(os.path.join(img_dir, f), os.path.join(OUT, "img", f))
-        slots[slot] = {"u": "img/" + f, "s": 1, "x": 0, "y": 0}
+        import hashlib   # the file's content in its address, so a changed picture is never served from an old browser cache
+        v = hashlib.sha1(open(os.path.join(img_dir, f), "rb").read()).hexdigest()[:8]
+        slots[slot] = {"u": "img/" + f + "?v=" + v, "s": 1, "x": 0, "y": 0}
         print("  picture replaced:", slot)
     slots.pop("advisor-portrait", None)   # no advisor photo on the site (see contact panel below)
     json.dump(slots, open(os.path.join(OUT, "image-slots.state.json"), "w", encoding="utf-8"))
@@ -53,7 +55,7 @@ def build():
     # also accept pictures served from our own img/ folder (replacement pictures), not only embedded data
     chk = "if (stored && stored.u && !/^data:image\\//i.test(stored.u)) stored = null;"
     assert slot.count(chk) == 1
-    slot = slot.replace(chk, "if (stored && stored.u && !/^(data:image\\/|img\\/[\\w.-]+$)/i.test(stored.u)) stored = null;")
+    slot = slot.replace(chk, "if (stored && stored.u && !/^(data:image\\/|img\\/[\\w.-]+(\\?v=\\w+)?$)/i.test(stored.u)) stored = null;")
     # pictures load only when they are about to be seen (sections of other pages stay hidden and never load them)
     for a in ('<img part="image" alt="" draggable="false" style="display:none">', '<img class="ghost" alt="" draggable="false">'):
         assert slot.count(a) == 1, a
