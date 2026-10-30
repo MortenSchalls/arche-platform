@@ -886,7 +886,7 @@ function renderNow(){
   const roleLabel = {owner:"Owner", ops:"Operations", broker:"Broker", pending:"Awaiting access", inactive:"Access ended"}[acting()] || "";
   const th = S.theme || "light";
   const themeSel = `<select id="themeSel" class="themesel" aria-label="Colour theme" title="Day is easier on the eyes in daylight and long sessions; Night for low light"><option value="light" ${th === "light" ? "selected" : ""}>Day</option><option value="dark" ${th === "dark" ? "selected" : ""}>Night</option><option value="system" ${th === "system" ? "selected" : ""}>Follow device</option></select>`;
-  $("who").innerHTML = themeSel + `<span class="rolechip">${esc(roleLabel)}${S.preview ? " · preview" : ""}</span>` + (S.role === "owner" ? `<select id="previewSel" aria-label="Preview the portal as" style="width:auto;padding:4px 8px;font-size:12px;background:transparent;color:var(--brand-ink);border-color:rgba(233,238,244,.4)"><option value="">Owner view</option><option value="ops" ${S.preview==="ops"?"selected":""}>Preview: operations</option><option value="broker" ${S.preview==="broker"?"selected":""}>Preview: broker</option></select>` : "");
+  $("who").innerHTML = themeSel + `<span class="rolechip">${esc(roleLabel)}${S.preview ? " · preview" : ""}</span>` + (S.role === "owner" ? `<select id="previewSel" aria-label="Preview the portal as" style="width:auto;padding:4px 8px;font-size:12px;background:transparent;color:var(--brand-ink);border-color:rgba(233,238,244,.4)"><option value="">Owner view</option><option value="ops" ${S.preview==="ops"?"selected":""}>Preview: operations</option><option value="broker" ${S.preview==="broker"?"selected":""}>Preview: broker</option></select> <a href="#" data-act="website" style="color:var(--brand-ink);font-size:12px;border:1px solid rgba(233,238,244,.4);padding:4px 8px;text-decoration:none;white-space:nowrap" title="Opens the locked archeaviation.com without the Vercel login">Website ↗</a>` : "");
   if (S.editing) return;
   if (S.view === "conf" && document.activeElement && document.activeElement.closest && document.activeElement.closest("#confForm")) return;                                       // keep an open form intact while someone types; lists refresh when it closes
   const v = S.view, r = acting();
@@ -2932,7 +2932,7 @@ function badges(){
 function renderShell(items){
   const b = badges(), r = acting();
   const label = (k, l) => `${l}${b[k] ? ` <span class="badge" aria-label="${b[k]} to do">${b[k]}</span>` : ""}`;
-  $("nav").innerHTML = items.map(([k, l]) => `<button type="button" data-view="${k}" ${S.view === k ? 'aria-current="page"' : ""}>${label(k, l)}</button>`).join("");
+  $("nav").innerHTML = items.map(([k, l]) => `<button type="button" data-view="${k}" ${S.view === k ? 'aria-current="page"' : ""}>${label(k, l)}</button>`).join("") + (r === "owner" && S.role === "owner" ? `<button type="button" data-act="website">Website ↗</button>` : "");
   const prim = (PRIMARY[r] || []).filter(k => items.some(i => i[0] === k));
   const tb = $("tabbar"); if (tb) tb.innerHTML = prim.map(k => `<button type="button" data-view="${k}" ${S.view === k ? 'aria-current="page"' : ""}>${label(k, SHORT[k] || k)}</button>`).join("") + (items.length > prim.length ? `<button type="button" data-act="menu" aria-expanded="${!!S.menuOpen}">More</button>` : "");
   document.querySelector(".bar").classList.toggle("open", !!S.menuOpen);
@@ -8350,4 +8350,19 @@ function trustMatrix(){
     return out; }; }
   const _vControl = vControl; vControl = function(){ return _vControl() + libPanel(); };
 })();
+/* ---------- Website: private look for the owner (30 Oct 2026) ----------
+   Header button "Website ↗" (owner only). Asks /api/website for the address with Vercel's protection bypass and opens
+   the locked archeaviation.com in a new tab, with no Vercel login. */
+document.addEventListener("click", async ev => {
+  const b = ev.target.closest && ev.target.closest('[data-act="website"]'); if (!b) return;
+  ev.preventDefault();
+  const w = window.open("about:blank", "_blank");   // opened at once, so phones do not block it
+  try {
+    const sess = (await window.__sb.auth.getSession()).data.session;
+    const r = await fetch("/api/website", { method: "POST", headers: { authorization: "Bearer " + (sess ? sess.access_token : "") } });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.url) throw new Error(j.error || "Could not open the website.");
+    if (w) { try { w.opener = null; } catch (e) {} w.location.replace(j.url); } else location.href = j.url;
+  } catch (e) { if (w) w.close(); if (typeof toast === "function") toast(e.message || String(e)); else alert(e.message || String(e)); }
+});
 </script>

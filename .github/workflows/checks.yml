@@ -33,6 +33,7 @@ jobs:
           node apps/portal/tests/invitemail.test.mjs
           node apps/portal/tests/reset.test.mjs
           node apps/portal/tests/me.test.mjs
+          node apps/portal/tests/website.test.mjs
           node apps/portal/tests/live.test.mjs
           node apps/portal/tests/bookingplan.test.mjs
           node apps/portal/tests/moneyalerts.test.mjs

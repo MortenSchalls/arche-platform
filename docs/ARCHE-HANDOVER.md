@@ -361,3 +361,6 @@ Archē notes in the claude.ai project. Others there are Navoryx or Origin work.
 - Claude runs the tests for the part it changed and says what it ran. The commit lines name Claude and the session.
 - Final files are saved to the Mac "Final versions" folder. Real data is never stored in the repository.
 - Notices: Claude asks first; Morten publishes.
+
+Private website link in the portal, 30 Oct 2026 (Morten: "Give me access to the website through a link in my portal, as I am logged in there I don't need to log in again"): owner-only "Website ↗" in the portal header (desktop) and in the Menu (phone). src-modules/websitelink.js opens a tab at once and asks apps/portal/api/website.mjs, which checks the sign-in (Supabase /auth/v1/user) and the owner role, then returns https://archeaviation.com/?x-vercel-protection-bypass=…&x-vercel-set-bypass-cookie=true; Vercel sets a bypass cookie, so the whole locked site opens without the Vercel login. Everyone else still meets Vercel Authentication. Needs (Morten, Vercel dashboard, never in chat): website project → Settings → Deployment Protection → Protection Bypass for Automation → create a secret; portal project → Environment Variables → WEBSITE_BYPASS_SECRET = that secret (Production), then a new portal deployment. Test: apps/portal/tests/website.test.mjs (in CI).
+
