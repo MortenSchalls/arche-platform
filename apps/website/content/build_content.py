@@ -256,7 +256,7 @@ def page_html(p, F, S, P):
 <div><span class="k">This page</span><p>Facts checked on {datetime.date.fromisoformat(checked).strftime('%-d %B %Y')} against the sources listed. Rules change; the operator confirms the current rules for your flight.</p><p>{html.escape(company.NAME)} · {html.escape(company.ADDRESS)}</p></div></div>
 <div class="b"><span>© {datetime.date.today().year} Archē Executive</span><span>Singapore · Worldwide</span></div>
 </div><div class="bl"><a href="https://portal.archeaviation.com" rel="nofollow">Broker login</a></div></div></footer>
-{'' if company.LAUNCHED else '<style>body{padding-bottom:34px}</style><div class="testbar">Test website · not public · ' + ('draft page, waiting for approval' if p.get('draft') else 'list of pages' if p['type'] == 'hub' else 'approved page') + '</div>'}
+{'' if company.LAUNCHED or not p.get('draft') else '<style>body{padding-bottom:34px}</style><div class="testbar">Draft · waiting for approval</div>'}
 <script src="/track.js" defer></script>
 </body>
 </html>
