@@ -169,6 +169,7 @@ window.archeSend = function (data) {
     sys.path.insert(0, os.path.join(HERE, 'content')); import build_content; build_content.run()   # verified content pages (27 Oct 2026)
     import home_extras; home_extras.run()   # home page: standard, destinations, dates, alerts, quote step 2 (27 Oct 2026)
     import seo_security; seo_security.run()   # search, speed, security headers, statistics (26 Oct 2026)
+    import header_nav; header_nav.run()   # the footer menu also in the header, wide screens (30 Oct 2026)
 
 
 if __name__ == "__main__":
