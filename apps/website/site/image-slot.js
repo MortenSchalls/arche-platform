@@ -501,7 +501,7 @@
       root.innerHTML =
         '<style>' + stylesheet + '</style>' +
         '<div class="frame" part="frame">' +
-        '  <img part="image" alt="" draggable="false" style="display:none">' +
+        '  <img loading="lazy" decoding="async" part="image" alt="" draggable="false" style="display:none">' +
         '  <div class="empty" part="empty">' + icon +
         '    <div class="cap"></div>' +
         '    <div class="sub">or <u>browse files</u></div></div>' +
@@ -516,7 +516,7 @@
         // (photographer + Unsplash), built per-render in _render().
         '<span class="credit" part="credit"></span>' +
         '<div class="spill" popover="manual" data-dc-edit-transparent>' +
-        '  <img class="ghost" alt="" draggable="false">' +
+        '  <img loading="lazy" decoding="async" class="ghost" alt="" draggable="false">' +
         '  <div class="handle" data-c="nw"></div><div class="handle" data-c="ne"></div>' +
         '  <div class="handle" data-c="sw"></div><div class="handle" data-c="se"></div>' +
         '</div>' +

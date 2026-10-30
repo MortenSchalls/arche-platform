@@ -155,6 +155,8 @@ def run(verbose=True):
             t = re.sub(r'<link rel="stylesheet" href="/nav.css"[^>]*>', "", t)
             t = re.sub(r'<div class="ae-nav-pad"></div>', "", t)
             page, lang, here = page_of(rel)
+            if page == "privacy" and 'name="description"' not in t:   # search basics the privacy page lacked
+                t = t.replace("</head>", '<meta name="description" content="How Archē Executive uses the details you give us: what we keep, why, for how long, and how to ask us to delete them."><link rel="canonical" href="https://archeaviation.com/privacy.html"></head>', 1)
             t = t.replace("</head>", '<link rel="stylesheet" href="/nav.css"></head>', 1)
             m = re.search(r"<body[^>]*>", t)
             pad = '<div class="ae-nav-pad"></div>' if page in ("terms", "privacy") else ""

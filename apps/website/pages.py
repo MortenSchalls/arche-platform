@@ -65,7 +65,8 @@ def css(page, show):
 
 def phead(slug):
     eye, h1, lead, img = PAGES[slug][:4]
-    if not img: return ""
+    if not img:   # no photo head (Services): the page still has one title for search engines and screen readers
+        return (f'<!--ae:pages--><h1 class="ae-phead" data-ae="pages" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0">{h1}</h1><!--/ae:pages-->')
     return (f'<!--ae:pages--><section class="ae-phead" data-ae="pages" style="position:relative;min-height:clamp(440px,64vh,660px);display:flex;align-items:flex-end;overflow:hidden;background:#2b2e33 url(/img/{img}) center/cover no-repeat">'
             '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,32,36,0.62) 0%,rgba(30,32,36,0.30) 45%,rgba(43,46,51,0.97) 100%)"></div>'
             '<div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:190px 40px clamp(48px,6vw,84px);box-sizing:border-box">'
@@ -165,7 +166,11 @@ def run(verbose=True):
         for slug, (eye, h1, lead, img, title, desc, show) in PAGES.items():
             t = statement_last(links(s, lang, True))
             t = re.sub(r'(<section(?: data-dc-tpl="\d+")? id="top")', lambda m: phead(slug) + m.group(1), t)
-            assert t.count('class="ae-phead"') == (2 if img else 0), f"{slug}: page head not placed ({lang})"
+            m = re.search(r'<section data-dc-tpl="\d+" id="top".*?</section>', t, re.S)   # the hidden home hero keeps no h1 here
+            t = t[:m.start()] + m.group(0).replace("<h1 ", '<p role="presentation" ').replace("</h1>", "</p>") + t[m.end():]
+            m = re.search(r'<section id="top".*?</section>', t, re.S)
+            if m: t = t[:m.start()] + m.group(0).replace("<h1 ", '<p role="presentation" ').replace("</h1>", "</p>") + t[m.end():]
+            assert t.count('class="ae-phead"') == 2, f"{slug}: page head not placed ({lang})"
             t = t.replace("location.href = (l === 'en' ? '/' : '/' + l) + location.hash",
                           f"location.href = (l === 'en' ? '/{slug}/' : '/{slug}/' + l + '/')")
             t = re.sub(r"<head>", '<head><base href="/">', t, count=1)

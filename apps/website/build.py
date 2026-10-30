@@ -54,6 +54,10 @@ def build():
     chk = "if (stored && stored.u && !/^data:image\\//i.test(stored.u)) stored = null;"
     assert slot.count(chk) == 1
     slot = slot.replace(chk, "if (stored && stored.u && !/^(data:image\\/|img\\/[\\w.-]+$)/i.test(stored.u)) stored = null;")
+    # pictures load only when they are about to be seen (sections of other pages stay hidden and never load them)
+    for a in ('<img part="image" alt="" draggable="false" style="display:none">', '<img class="ghost" alt="" draggable="false">'):
+        assert slot.count(a) == 1, a
+        slot = slot.replace(a, a.replace("<img ", '<img loading="lazy" decoding="async" '))
     open(os.path.join(OUT, "image-slot.js"), "w", encoding="utf-8").write(slot)
 
     s = open(os.path.join(SRC, "Arche Executive v7.dc.html"), encoding="utf-8").read()
