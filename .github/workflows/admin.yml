@@ -7,14 +7,14 @@ on:
       action:
         description: "What to do"
         type: choice
-        options: [person-status, reset-joining, reset-next-login, cancel-reset-next, set-name, leads-status, alerts-status, trim-leads, people-status]
+        options: [person-status, reset-joining, reset-next-login, cancel-reset-next, set-name, leads-status, alerts-status, trim-leads, people-status, remove-test-trip, close-test-enquiries]
         default: person-status
       email:
         description: "The person's login email (or leave empty and give the name)"
         type: string
         required: false
       name:
-        description: "The person's name, if no email is given"
+        description: "The person's name, if no email is given (remove-test-trip: the trip id; close-test-enquiries: the cut-off date YYYY-MM-DD)"
         type: string
         required: false
       new_name:
