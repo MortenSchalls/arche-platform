@@ -62,7 +62,7 @@
   "/regions/asia-pacific/",
   "/countries/japan/"
  ],
- "draft": true,
+ "draft": false, "approved": "30 Oct 2026, Morten",
  "type": "country",
  "region": "/regions/asia-pacific/"
 }

@@ -78,7 +78,7 @@
   "/regions/asia-pacific/",
   "/guides/cabotage/"
  ],
- "draft": true,
+ "draft": false, "approved": "30 Oct 2026, Morten",
  "type": "city",
  "events": "phuket",
  "region": "/regions/asia-pacific/"

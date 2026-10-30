@@ -70,7 +70,7 @@
   "/guides/operator-safety-audits/",
   "/guides/cabotage/"
  ],
- "draft": true,
+ "draft": false, "approved": "30 Oct 2026, Morten",
  "type": "city",
  "events": "geneva",
  "region": "/regions/europe/"

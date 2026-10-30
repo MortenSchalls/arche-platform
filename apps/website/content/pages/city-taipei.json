@@ -65,7 +65,7 @@
   "/cities/hong-kong/",
   "/regions/asia-pacific/"
  ],
- "draft": true,
+ "draft": false, "approved": "30 Oct 2026, Morten",
  "type": "city",
  "region": "/regions/asia-pacific/"
 }

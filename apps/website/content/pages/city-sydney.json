@@ -65,7 +65,7 @@
   "/regions/asia-pacific/",
   "/guides/charter-price/"
  ],
- "draft": true,
+ "draft": false, "approved": "30 Oct 2026, Morten",
  "type": "city",
  "events": "sydney",
  "region": "/regions/asia-pacific/"

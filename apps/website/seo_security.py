@@ -124,6 +124,8 @@ def vercel():
     import company
     hs.insert(0, {"source": "/(.*)", "headers": SECURITY + ([] if company.LAUNCHED else [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}])})
     hs.append({"source": "/api/(.*)", "headers": [{"key": "Cache-Control", "value": "no-store"}, {"key": "X-Robots-Tag", "value": "noindex"}]})
+    for src in ("/img/(.*)", "/assets/(.*)"):   # pictures and logos: kept a week by browsers (file names are not versioned)
+        hs.append({"source": src, "headers": [{"key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400"}]})
     seen, out = set(), []
     for h in hs:
         k = json.dumps(h, sort_keys=True)

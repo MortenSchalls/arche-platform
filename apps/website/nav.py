@@ -23,8 +23,8 @@ T = {  # the menu's words, as in i18n.js
     "Request a quote": ("ขอใบเสนอราคา", "获取报价", "お見積り依頼"),
 }
 MENU_PAGES = ["services", "aircraft", "how-it-works", "contact"]
-LEFT = [("services", "Services"), ("aircraft", "Aircraft"), ("how-it-works", "How it works")]
-RIGHT = [("destinations", "Destinations"), ("contact", "Contact"), ("terms", "Terms of business"), ("privacy", "Privacy")]
+LEFT = [("services", "Services"), ("aircraft", "Aircraft"), ("how-it-works", "How it works"), ("destinations", "Destinations")]
+RIGHT = [("contact", "Contact"), ("terms", "Terms of business"), ("privacy", "Privacy")]   # four and three, so the quote button fits
 SKIP = ("api", "logo-export", "vendor", "assets")
 
 def say(x, l): return x if l == "en" else T[x][LANGS.index(l) - 1]
@@ -71,11 +71,12 @@ def header(page, lang, langs_here):
     panel = "".join(a(s, n) for s, n in [("home", "Home")] + LEFT + RIGHT)
     return (f'<!--ae:nav--><header class="ae-nav" data-ae="nav"><div class="ae-nav-bar">'
             f'<details class="ae-nav-menu"><summary><span class="ae-burger" aria-hidden="true"></span>{say("Menu", lang)}</summary>'
-            f'<nav class="ae-nav-panel" aria-label="{say("Menu", lang)}">{panel}<a class="ae-nav-cta" href="{url("home", lang)}#top">{say("Request a quote", lang)}</a></nav></details>'
+            f'<nav class="ae-nav-panel" aria-label="{say("Menu", lang)}">{panel}<a class="ae-nav-cta" href="{url("contact", lang)}#top">{say("Request a quote", lang)}</a></nav></details>'
             f'<nav class="ae-nav-links l" aria-label="Main">{"".join(a(s, n) for s, n in LEFT)}</nav>'
             f'<a class="ae-nav-brand" href="{url("home", lang)}" aria-label="Archē Executive">{LOGO}<span class="w">ARCHĒ</span><span class="x">EXECUTIVE</span></a>'
             f'<nav class="ae-nav-links r" aria-label="More">{"".join(a(s, n) for s, n in RIGHT)}</nav>'
-            f'<details class="ae-nav-lang"><summary>{LABEL[lang]}</summary><div>{langs}</div></details>'
+            f'<div class="ae-nav-end"><a class="ae-nav-quote" href="{url("contact", lang)}#top">{say("Request a quote", lang)}</a>'
+            f'<details class="ae-nav-lang"><summary>{LABEL[lang]}</summary><div>{langs}</div></details></div>'
             '</div></header><!--/ae:nav-->')
 
 CSS = """/* One top menu on every page (nav.py, 30 Oct 2026) */
@@ -102,12 +103,14 @@ CSS = """/* One top menu on every page (nav.py, 30 Oct 2026) */
 .ae-nav-panel a{padding:13px 0;border-bottom:1px solid rgba(243,245,248,0.08);font-family:Prata,Georgia,serif;font-size:22px;line-height:1.3;color:#f3f5f8}
 .ae-nav-panel a[aria-current="page"]{color:#a9bdd4}
 .ae-nav-panel a.ae-nav-cta{margin-top:22px;padding:14px 22px;border:1px solid rgba(243,245,248,0.45);text-align:center;font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase}
-.ae-nav-lang{grid-column:5;position:relative;justify-self:end}
+.ae-nav-end{grid-column:5;justify-self:end;display:flex;align-items:center;gap:22px}.ae-nav-lang{position:relative}
+.ae-nav a.ae-nav-quote{padding:10px 16px;border:1px solid rgba(243,245,248,0.5);color:#f3f5f8;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap}.ae-nav a.ae-nav-quote:hover{background:#f3f5f8;color:#2b2e33}
 .ae-nav-lang>summary::after{content:"\\25BE";margin-left:6px;color:#a9bdd4;font-size:10px}
 .ae-nav-lang>div{position:absolute;right:0;top:calc(100% + 6px);display:flex;flex-direction:column;gap:10px;padding:14px 18px;background:rgba(40,43,48,0.97);border:1px solid rgba(169,189,212,0.25);min-width:110px;font-size:13px;letter-spacing:0.08em}
 .ae-nav-lang a[aria-current="true"]{color:#f3f5f8}
-@media (max-width:1279px){.ae-nav-links{display:none}.ae-nav-bar{grid-template-columns:1fr auto 1fr}.ae-nav-brand{grid-column:2}.ae-nav-lang{grid-column:3}}
-@media (max-width:600px){.ae-nav-bar{padding:8px 16px;column-gap:12px}.ae-nav-brand .w{font-size:20px}.ae-nav-brand svg{width:84px;height:20px}.ae-nav-brand .x{font-size:8.5px}
+@media (max-width:1279px){.ae-nav-links{display:none}.ae-nav-bar{grid-template-columns:1fr auto 1fr}.ae-nav-brand{grid-column:2}.ae-nav-end{grid-column:3}}
+@media (max-width:1439px) and (min-width:1280px){.ae-nav-links{gap:13px;font-size:11.5px;letter-spacing:0.1em}.ae-nav-bar{column-gap:18px;padding:10px 24px}}
+@media (max-width:600px){.ae-nav a.ae-nav-quote{display:none}.ae-nav-bar{padding:8px 16px;column-gap:12px}.ae-nav-brand .w{font-size:20px}.ae-nav-brand svg{width:84px;height:20px}.ae-nav-brand .x{font-size:8.5px}
  .ae-nav-menu>summary{gap:10px}.ae-nav-panel{left:-16px;width:100vw;padding:12px 16px 24px;border-right:0}}
 /* the page's own header (home and menu pages) gives way to this one */
 #dc-root header,#dc-prerender header,header.top{display:none!important}
@@ -118,6 +121,7 @@ html{scroll-padding-top:96px}
 /* home: the cabin photo as the hero (Morten, 30 Oct 2026) */
 html[data-ae-page="home"] #top{background:linear-gradient(180deg,rgba(36,38,43,0.55) 0%,rgba(36,38,43,0.30) 38%,rgba(36,38,43,0.55) 70%,rgba(59,63,70,0.96) 100%),url(/img/why-photo.webp) center/cover no-repeat!important}
 html[data-ae-page="home"] #top .hero-content p{color:#e2e6ea!important}
+@media (max-width:900px){html[data-ae-page="home"] #top{background:linear-gradient(180deg,rgba(36,38,43,0.55) 0%,rgba(36,38,43,0.30) 38%,rgba(36,38,43,0.55) 70%,rgba(59,63,70,0.96) 100%),url(/img/why-photo-m.webp) center/cover no-repeat!important}}
 /* the compass and jet watermark, fixed in the middle of the screen on every page while the page scrolls */
 #top .arche-rose,#top .arche-rose+div[aria-hidden="true"],.hero .rose,.hero .jet{display:none!important}
 .ae-wm{position:fixed;left:0;right:0;top:88px;bottom:0;z-index:900;pointer-events:none;display:flex;align-items:center;justify-content:center}
@@ -141,6 +145,20 @@ def page_of(rel):
     me = "/" + "/".join(parts[:-1]) + "/"
     return page, "en", lambda l: me if l == "en" else url("home", l)
 
+FONTS = "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&amp;family=Prata&amp;family=Hanken+Grotesk:wght@300;400;500;600"
+NOTO = {"th": "&amp;family=Noto+Sans+Thai:wght@300;400;500", "zh": "&amp;family=Noto+Sans+SC:wght@300;400;500", "ja": "&amp;family=Noto+Sans+JP:wght@300;400;500"}
+
+def speed(t, page, lang):
+    """Speed on phones: each language loads only its own script's font (the Chinese and Japanese font lists alone are
+    large), the hero photo is fetched first on Home, and the hidden template watermark is no longer preloaded."""
+    t = re.sub(r'href="https://fonts\.googleapis\.com/css2\?family=Cinzel[^"]*"', f'href="{FONTS}{NOTO.get(lang, "")}&amp;display=swap"', t)
+    t = t.replace('<link rel="preload" as="image" href="/assets/jet-line-watermark-wide.png">', "")
+    t = re.sub(r'<link rel="preload" as="image" href="/img/why-photo[^"]*"[^>]*>', "", t)
+    if page == "home":
+        t = t.replace("</head>", '<link rel="preload" as="image" href="/img/why-photo-m.webp" media="(max-width:900px)" fetchpriority="high">'
+                                 '<link rel="preload" as="image" href="/img/why-photo.webp" media="(min-width:901px)" fetchpriority="high"></head>', 1)
+    return t
+
 def run(verbose=True):
     open(os.path.join(SITE, "nav.css"), "w", encoding="utf-8").write(CSS + TYPE)
     n = 0
@@ -157,6 +175,7 @@ def run(verbose=True):
             page, lang, here = page_of(rel)
             if page == "privacy" and 'name="description"' not in t:   # search basics the privacy page lacked
                 t = t.replace("</head>", '<meta name="description" content="How Archē Executive uses the details you give us: what we keep, why, for how long, and how to ask us to delete them."><link rel="canonical" href="https://archeaviation.com/privacy.html"></head>', 1)
+            t = speed(t, page, lang)
             t = t.replace("</head>", '<link rel="stylesheet" href="/nav.css"></head>', 1)
             m = re.search(r"<body[^>]*>", t)
             pad = '<div class="ae-nav-pad"></div>' if page in ("terms", "privacy") else ""

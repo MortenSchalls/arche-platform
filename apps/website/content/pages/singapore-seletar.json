@@ -1,7 +1,7 @@
 {
  "path": "/airports/singapore-seletar/",
  "type": "airport",
- "draft": true,
+ "draft": false, "approved": "30 Oct 2026, Morten",
  "title": "Seletar Airport (WSSL), Singapore, for private jets",
  "description": "Seletar Airport, Singapore: runway, customs and immigration, night curfew, aircraft size limits and how private flights clear, from the official Singapore AIP.",
  "eyebrow": "Airport guide · Singapore",

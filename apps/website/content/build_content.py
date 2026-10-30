@@ -98,6 +98,7 @@ header.top .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:cent
 .hero .rose img{display:block;width:100%;height:auto}
 .hero .jet{position:absolute;left:50%;top:150px;transform:translateX(-50%);width:min(1400px,110vw);aspect-ratio:2252/887;background:url(/assets/jet-line-watermark-wide.png) center/contain no-repeat;opacity:.16;pointer-events:none;-webkit-mask-image:linear-gradient(#000 0%,#000 50%,transparent 100%);mask-image:linear-gradient(#000 0%,#000 50%,transparent 100%)}
 .hero .in{position:relative;max-width:880px;margin:0 auto;text-align:center;padding-top:clamp(300px,26vw,400px)}
+.hero.photo{background-size:cover;background-position:center;min-height:clamp(480px,70vh,720px);display:flex;align-items:flex-end}.hero.photo .in{padding-top:180px}.hero.photo .lead{color:#e2e6ea}
 .crumbs{font-size:13px;letter-spacing:.12em;color:var(--muted);margin-bottom:18px}.crumbs a{color:var(--muted)}
 .eyebrow{display:inline-block;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
 h1{margin:18px 0 18px;font:400 clamp(34px,4.6vw,60px)/1.12 Prata,Georgia,serif;letter-spacing:-.005em;background:linear-gradient(176deg,#fff 0%,#eef2f6 40%,#b4c0cd 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance}
@@ -135,7 +136,7 @@ footer .b{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;fon
 footer .bl{text-align:right;padding:0 0 28px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}footer .bl a{color:var(--muted)}
 .cols.one{grid-template-columns:1fr}
 .hub h2{scroll-margin-top:24px}.hub .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px;margin:0 0 8px}
-.hub .grid a{display:block;border:1px solid var(--line);background:rgba(243,245,248,.03);padding:20px 22px;color:var(--text)}.hub .grid a:hover{text-decoration:none;border-color:var(--accent)}
+.hub .grid a{display:block;border:1px solid var(--line);background:rgba(243,245,248,.03);padding:20px 22px;color:var(--text)}.hub .grid a.ph{padding:0 0 20px}.hub .grid a.ph i{display:block;aspect-ratio:16/9;background:center/cover no-repeat;margin-bottom:16px}.hub .grid a.ph b,.hub .grid a.ph span{margin:0 22px;display:block}.hub .grid a:hover{text-decoration:none;border-color:var(--accent)}
 .hub .grid b{display:block;color:var(--ink);font:400 19px/1.3 Prata,Georgia,serif;margin-bottom:6px}.hub .grid span{font-size:14.5px;line-height:1.55;display:block}
 .draft{display:inline-block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid #d9a441;color:#e8c27a;padding:2px 8px;margin-bottom:8px}
 .testbar{position:fixed;left:0;right:0;bottom:0;z-index:9;background:#d9a441;color:#2b2e33;font:600 12px/1.4 'Hanken Grotesk',sans-serif;letter-spacing:.06em;text-align:center;padding:6px 12px}
@@ -161,6 +162,13 @@ def fill(t, F, S, refs, plain=False):
         out.append(fh); last = m.end()
     out.append(html.escape(t[last:]))
     return "".join(out).replace("&amp;#", "&#")
+
+PLACES = os.path.join(HERE, "..", "images", "places")   # licensed place photos, one per page: <path with dashes>.webp
+
+def photo(p):
+    """URL of the page's own place photo, if one has been added (images/places/cities-tokyo.webp for /cities/tokyo/)."""
+    f = p["path"].strip("/").replace("/", "-") + ".webp"
+    return "/img/places/" + f if os.path.exists(os.path.join(PLACES, f)) else ""
 
 def page_html(p, F, S, P):
     refs = []
@@ -224,7 +232,7 @@ def page_html(p, F, S, P):
 <a class="brand" href="/" aria-label="Archē Executive home">{LOGO.format(w=150, h=36, id='lg1', s1=3, s2=1.8)}<span class="w">ARCHĒ</span><span class="x">EXECUTIVE</span></a>
 <div class="nav-r"><a href="/#contact">Contact</a><a class="tel" href="tel:{tel}">{html.escape(phone)}</a></div>
 </div></div></header>
-<section class="hero"><div class="rose" aria-hidden="true"><img src="/assets/compass-rose.svg" alt=""></div><div class="jet" aria-hidden="true"></div>
+<section class="hero{' photo' if photo(p) else ''}"{(' style="background-image:linear-gradient(180deg,rgba(36,38,43,.55),rgba(36,38,43,.35) 45%,rgba(59,63,70,.97)),url(' + photo(p) + ')"') if photo(p) else ''}><div class="rose" aria-hidden="true"><img src="/assets/compass-rose.svg" alt=""></div><div class="jet" aria-hidden="true"></div>
 <div class="wrap"><div class="in">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> · {'<span>Destinations</span>' if p["type"] == "hub" else '<a href="/destinations/#' + p["type"] + '">' + section[0] + '</a>'}</nav>
 <span class="eyebrow">{html.escape(p['eyebrow'])}</span>
@@ -299,7 +307,7 @@ def hub(F, S, pub, verbose=True):
     for t, name in GROUPS:
         xs = sorted([p for p in pub if p["type"] == t], key=lambda p: p["h1"])
         if not xs: continue
-        cards = "".join(f'<a href="{p["path"]}">{"" if company.LAUNCHED or not p.get("draft") else "<em class=draft>Draft</em>"}<b>{html.escape(p["h1"])}</b><span>{html.escape(fill(p["lead"], F, S, [], plain=True))}</span></a>' for p in xs)
+        cards = "".join(f'<a href="{p["path"]}"{" class=ph" if photo(p) else ""}>{("<i style=background-image:url(" + photo(p) + ")></i>") if photo(p) else ""}{"" if company.LAUNCHED or not p.get("draft") else "<em class=draft>Draft</em>"}<b>{html.escape(p["h1"])}</b><span>{html.escape(fill(p["lead"], F, S, [], plain=True))}</span></a>' for p in xs)
         secs.append(f'<h2 id="{t}">{name}</h2><div class="grid">{cards}</div>')
     p = {"path": "/destinations/", "type": "hub", "title": "Private jet destinations, airports and guides", "draft": False,
          "description": "Guides to private flights by region, city and airport, and how charter works, each checked against official sources with the date it was checked.",
@@ -324,6 +332,10 @@ def portal_rules(S, verbose=True):
     if verbose: print(f"  portal: airport-rules.json with {len(A)} airports")
 
 def run(verbose=True):
+    if os.path.isdir(PLACES):   # place photos go out with the site
+        os.makedirs(os.path.join(SITE, "img", "places"), exist_ok=True)
+        for f in os.listdir(PLACES):
+            if f.endswith(".webp"): shutil.copy(os.path.join(PLACES, f), os.path.join(SITE, "img", "places", f))
     S, F, P = load()
     check_excluded(); check_sources(S); check_facts(F, S)
     import check_airports; check_airports.run(verbose)

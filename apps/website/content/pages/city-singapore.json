@@ -70,7 +70,7 @@
   "/airports/singapore-changi/",
   "/regions/asia-pacific/"
  ],
- "draft": true,
+ "draft": false, "approved": "30 Oct 2026, Morten",
  "type": "city",
  "events": "singapore",
  "region": "/regions/asia-pacific/"

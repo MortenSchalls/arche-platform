@@ -41,7 +41,7 @@ PAGES = {
                 "Call, message or write to our private client desk, day or night, wherever you are.",
                 "break-3.webp", "Contact the private client desk",
                 "Reach Archē Executive's private client desk at any hour by phone, WhatsApp or email, or ask for a call back.",
-                ["#contact"]),
+                ["#top", "#contact"]),   # the quote form from the home hero sits right under the page head
 }
 HOME_SHOW = ["#top", "[data-screen-label=\"Intro\"]", "#services", ".ar-band[data-ar=\"services\"]", "#why", ".ar-trio", "#discover", "#dates"]
 TILES = [("services", "Services", "Charter, advisory and fleet coordination.", "svc-charter.webp"),
@@ -60,6 +60,10 @@ def css(page, show):
     return (f'<style id="ae-pages-css">html[data-ae-page="{page}"] div:has(> footer)>*:not({keep}){{display:none!important}}'
             + (f'html[data-ae-page="{page}"] {show[0]}{{padding-top:0!important;border-top:0!important}}'
                f'html[data-ae-page="{page}"] {show[0]}>div:first-child{{padding-top:{top}!important}}' if page != "home" else "") +
+            ('html[data-ae-page="contact"] #top{min-height:0!important;background:none!important;padding:0!important}'
+               'html[data-ae-page="contact"] #top>div:not(.hero-content){display:none!important}'
+               'html[data-ae-page="contact"] #top .hero-content{padding:clamp(40px,5vw,72px) 40px 8px!important}'
+               'html[data-ae-page="contact"] #top .hero-content>div:first-child{display:none!important}' if page == "contact" else "") +
             '.ae-tile:hover .ae-tile-img{transform:scale(1.04)}.ae-tile-img{transition:transform 1.2s ease}'
             '@media (max-width:600px){.ae-phead>div:last-child,#discover>div{padding-left:20px!important;padding-right:20px!important}}</style>')
 

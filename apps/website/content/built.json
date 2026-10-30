@@ -1,197 +1,197 @@
 [
  {
   "path": "/airports/dubai-world-central/",
-  "draft": true,
+  "draft": false,
   "words": 463
  },
  {
   "path": "/airports/farnborough/",
-  "draft": true,
+  "draft": false,
   "words": 390
  },
  {
   "path": "/airports/hong-kong-international/",
-  "draft": true,
+  "draft": false,
   "words": 500
  },
  {
   "path": "/airports/singapore-changi/",
-  "draft": true,
+  "draft": false,
   "words": 454
  },
  {
   "path": "/airports/sydney/",
-  "draft": true,
+  "draft": false,
   "words": 428
  },
  {
   "path": "/airports/teterboro/",
-  "draft": true,
+  "draft": false,
   "words": 461
  },
  {
   "path": "/guides/cabotage/",
-  "draft": true,
+  "draft": false,
   "words": 707
  },
  {
   "path": "/cities/bangkok/",
-  "draft": true,
+  "draft": false,
   "words": 535
  },
  {
   "path": "/cities/dubai/",
-  "draft": true,
+  "draft": false,
   "words": 527
  },
  {
   "path": "/cities/geneva/",
-  "draft": true,
+  "draft": false,
   "words": 536
  },
  {
   "path": "/cities/hong-kong/",
-  "draft": true,
+  "draft": false,
   "words": 530
  },
  {
   "path": "/cities/kuala-lumpur/",
-  "draft": true,
+  "draft": false,
   "words": 495
  },
  {
   "path": "/cities/london/",
-  "draft": true,
+  "draft": false,
   "words": 580
  },
  {
   "path": "/cities/new-york/",
-  "draft": true,
+  "draft": false,
   "words": 627
  },
  {
   "path": "/cities/nice/",
-  "draft": true,
+  "draft": false,
   "words": 619
  },
  {
   "path": "/cities/paris/",
-  "draft": true,
+  "draft": false,
   "words": 400
  },
  {
   "path": "/cities/phuket/",
-  "draft": true,
+  "draft": false,
   "words": 710
  },
  {
   "path": "/cities/seoul/",
-  "draft": true,
+  "draft": false,
   "words": 536
  },
  {
   "path": "/cities/singapore/",
-  "draft": true,
+  "draft": false,
   "words": 521
  },
  {
   "path": "/cities/sydney/",
-  "draft": true,
+  "draft": false,
   "words": 500
  },
  {
   "path": "/cities/taipei/",
-  "draft": true,
+  "draft": false,
   "words": 417
  },
  {
   "path": "/cities/tokyo/",
-  "draft": true,
+  "draft": false,
   "words": 502
  },
  {
   "path": "/countries/india/",
-  "draft": true,
+  "draft": false,
   "words": 543
  },
  {
   "path": "/countries/japan/",
-  "draft": true,
+  "draft": false,
   "words": 597
  },
  {
   "path": "/countries/malaysia/",
-  "draft": true,
+  "draft": false,
   "words": 534
  },
  {
   "path": "/countries/maldives/",
-  "draft": true,
+  "draft": false,
   "words": 476
  },
  {
   "path": "/countries/south-korea/",
-  "draft": true,
+  "draft": false,
   "words": 497
  },
  {
   "path": "/countries/sri-lanka/",
-  "draft": true,
+  "draft": false,
   "words": 446
  },
  {
   "path": "/countries/taiwan/",
-  "draft": true,
+  "draft": false,
   "words": 458
  },
  {
   "path": "/countries/thailand/",
-  "draft": true,
+  "draft": false,
   "words": 537
  },
  {
   "path": "/countries/vietnam/",
-  "draft": true,
+  "draft": false,
   "words": 510
  },
  {
   "path": "/guides/charter-price/",
-  "draft": true,
+  "draft": false,
   "words": 575
  },
  {
   "path": "/guides/empty-legs/",
-  "draft": true,
+  "draft": false,
   "words": 633
  },
  {
   "path": "/guides/operator-safety-audits/",
-  "draft": true,
+  "draft": false,
   "words": 951
  },
  {
   "path": "/regions/asia-pacific/",
-  "draft": true,
+  "draft": false,
   "words": 447
  },
  {
   "path": "/regions/europe/",
-  "draft": true,
+  "draft": false,
   "words": 399
  },
  {
   "path": "/regions/middle-east/",
-  "draft": true,
+  "draft": false,
   "words": 340
  },
  {
   "path": "/regions/north-america/",
-  "draft": true,
+  "draft": false,
   "words": 404
  },
  {
   "path": "/airports/singapore-seletar/",
-  "draft": true,
+  "draft": false,
   "words": 613
  }
 ]
