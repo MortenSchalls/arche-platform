@@ -193,7 +193,7 @@ div:has(> #why-photo), .ar-moved{display:none !important}
       <div data-dc-tpl="381" style="position: relative; width: 100%; aspect-ratio: 16 / 9; background: rgba(243, 245, 248, 0.03);">
         
           <div data-dc-tpl="383" style="position: absolute; inset: 0px; display: block;">
-            <image-slot data-dc-tpl="384" id="office-singapore" data-filled="" shape="rect" fit="cover" placeholder="Office photo · Singapore · 16:9 · min 1600 × 900 px"></image-slot>
+            <image-slot data-dc-tpl="384" id="office-singapore" shape="rect" fit="cover" placeholder="Office photo · Singapore · 16:9 · min 1600 × 900 px" data-filled=""></image-slot>
           </div>
         
       </div>
@@ -769,7 +769,7 @@ class Component extends DCLogic {
   componentDidMount() { if (this.state.lang === 'en') { document.documentElement.lang = 'en'; window.__archeI18n = 'en'; } this.applyFont();
   }
   componentDidUpdate() { const k = this.state.lang + '|' + this.props.bodyFont + '|' + this.props.headingFont; if (k !== this._lk) { this._lk = k; this.applyFont(); } }
-  setLang(l) { if (window.__ARCHE_LANG && l !== window.__ARCHE_LANG) { location.href = (l === 'en' ? '/contact/' : '/contact/' + l + '/'); return; } this.setState({ lang: l }); try { localStorage.setItem('arche-lang', l); } catch (e) {} }
+  setLang(l) { if (window.__ARCHE_LANG && l !== window.__ARCHE_LANG) { location.href = (l === 'en' ? '/contact/' : '/contact/' + l + '/'); return; } this.setState({ lang: l }); }
   state = {
     step: 'route', trip: 'oneway',
     legs: [{ from: '', to: '', date: '', time: '' }],

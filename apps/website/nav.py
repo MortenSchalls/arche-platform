@@ -161,6 +161,7 @@ def speed(t, page, lang):
                "if (this.i18n) this.i18n.apply(this.state.lang); else if (this.state.lang !== 'en' && !this._i18nWait) { this._i18nWait = 1; import('./i18n.js').then(m => { this.i18n = m; this.applyFont(); }).catch(e => console.warn('i18n', e)); }", t)
     t = re.sub(r"componentDidMount\(\) \{\s*this\.applyFont\(\);\s*import\('\./i18n\.js'\)\.then\(m => \{ this\.i18n = m; this\.applyFont\(\); \}\)\.catch\(e => console\.warn\('i18n', e\)\);",
                "componentDidMount() { if (this.state.lang === 'en') { document.documentElement.lang = 'en'; window.__archeI18n = 'en'; } this.applyFont();", t)
+    t = t.replace(" try { localStorage.setItem('arche-lang', l); } catch (e) {}", "")   # nothing is stored in the browser (privacy notice)
     if page == "home":
         t = t.replace("</head>", '<link rel="preload" as="image" href="/img/why-photo-m.webp" media="(max-width:900px)" fetchpriority="high">'
                                  '<link rel="preload" as="image" href="/img/why-photo.webp" media="(min-width:901px)" fetchpriority="high"></head>', 1)

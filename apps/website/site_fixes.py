@@ -16,7 +16,7 @@ NOTICE = ["Archē Executive is a private company registered in Singapore. It arr
   "Archē Executive 是一家在新加坡注册的私营公司，以客户代理人的身份安排包机航班，并非航空运营人。每个航班均依据您报价单中所列运营商的航空运营人合格证（AOC）执飞，并受该运营商所属航空主管机构的规则约束。",
   "Archē Executive はシンガポールで登記された民間企業で、お客様の代理人としてチャーター便を手配します。航空運送事業者ではありません。各フライトは、お見積書に記載された運航会社の航空運送事業許可（AOC）のもと、その運航会社を所管する航空当局の規則に従って運航されます。"]
 PAY = []   # the source texts (sections.py) already say "a secure payment link"
-PRIVACY_DATE = "26 October 2026"   # change when the privacy notice text changes
+PRIVACY_DATE = "30 October 2026"   # change when the privacy notice text changes
 CITY = r"(?:Singapore|สิงคโปร์|新加坡|シンガポール)"
 EXCL = json.load(open(os.path.join(HERE, "content", "excluded.json"), encoding="utf-8"))
 def drop_excluded_airports(t):

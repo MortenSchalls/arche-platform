@@ -86,7 +86,7 @@ div:has(> #why-photo), .ar-moved{display:none !important}
   </div>
   <div data-dc-tpl="168" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px;">
       <div data-dc-tpl="169" style="position: relative; aspect-ratio: 4 / 5; background: transparent; overflow: hidden;">
-        <image-slot data-dc-tpl="170" id="svc-charter" data-filled="" shape="rect" fit="cover" placeholder="Private Charter · 4:5 portrait · min 1600 × 2000 px"></image-slot>
+        <image-slot data-dc-tpl="170" id="svc-charter" shape="rect" fit="cover" placeholder="Private Charter · 4:5 portrait · min 1600 × 2000 px" data-filled=""></image-slot>
         <div data-dc-tpl="171" style="position: absolute; left: 0px; right: 0px; bottom: 0px; height: 60%; background: linear-gradient(rgba(59, 63, 70, 0) 0%, rgba(59, 63, 70, 0.92) 100%); pointer-events: none;"></div>
         <div data-dc-tpl="172" style="position: absolute; left: 32px; right: 32px; bottom: 32px; display: flex; flex-direction: column; gap: 12px; pointer-events: none;">
           <span data-dc-tpl="173" style="font-size: 11px; letter-spacing: 0.3em; color: rgb(169, 189, 212);">01</span>
@@ -95,7 +95,7 @@ div:has(> #why-photo), .ar-moved{display:none !important}
         </div>
       </div>
       <div data-dc-tpl="176" style="position: relative; aspect-ratio: 4 / 5; background: transparent; overflow: hidden;">
-        <image-slot data-dc-tpl="177" id="svc-advisory" data-filled="" shape="rect" fit="cover" placeholder="Aviation Advisory · 4:5 portrait · min 1600 × 2000 px"></image-slot>
+        <image-slot data-dc-tpl="177" id="svc-advisory" shape="rect" fit="cover" placeholder="Aviation Advisory · 4:5 portrait · min 1600 × 2000 px" data-filled=""></image-slot>
         <div data-dc-tpl="178" style="position: absolute; left: 0px; right: 0px; bottom: 0px; height: 60%; background: linear-gradient(rgba(59, 63, 70, 0) 0%, rgba(59, 63, 70, 0.92) 100%); pointer-events: none;"></div>
         <div data-dc-tpl="179" style="position: absolute; left: 32px; right: 32px; bottom: 32px; display: flex; flex-direction: column; gap: 12px; pointer-events: none;">
           <span data-dc-tpl="180" style="font-size: 11px; letter-spacing: 0.3em; color: rgb(169, 189, 212);">02</span>
@@ -104,7 +104,7 @@ div:has(> #why-photo), .ar-moved{display:none !important}
         </div>
       </div>
       <div data-dc-tpl="183" style="position: relative; aspect-ratio: 4 / 5; background: transparent; overflow: hidden;">
-        <image-slot data-dc-tpl="184" id="svc-fleet" data-filled="" shape="rect" fit="cover" placeholder="Fleet Coordination · 4:5 portrait · min 1600 × 2000 px"></image-slot>
+        <image-slot data-dc-tpl="184" id="svc-fleet" shape="rect" fit="cover" placeholder="Fleet Coordination · 4:5 portrait · min 1600 × 2000 px" data-filled=""></image-slot>
         <div data-dc-tpl="185" style="position: absolute; left: 0px; right: 0px; bottom: 0px; height: 60%; background: linear-gradient(rgba(59, 63, 70, 0) 0%, rgba(59, 63, 70, 0.92) 100%); pointer-events: none;"></div>
         <div data-dc-tpl="186" style="position: absolute; left: 32px; right: 32px; bottom: 32px; display: flex; flex-direction: column; gap: 12px; pointer-events: none;">
           <span data-dc-tpl="187" style="font-size: 11px; letter-spacing: 0.3em; color: rgb(169, 189, 212);">03</span>
@@ -687,7 +687,7 @@ class Component extends DCLogic {
   componentDidMount() { if (this.state.lang === 'en') { document.documentElement.lang = 'en'; window.__archeI18n = 'en'; } this.applyFont();
   }
   componentDidUpdate() { const k = this.state.lang + '|' + this.props.bodyFont + '|' + this.props.headingFont; if (k !== this._lk) { this._lk = k; this.applyFont(); } }
-  setLang(l) { if (window.__ARCHE_LANG && l !== window.__ARCHE_LANG) { location.href = (l === 'en' ? '/services/' : '/services/' + l + '/'); return; } this.setState({ lang: l }); try { localStorage.setItem('arche-lang', l); } catch (e) {} }
+  setLang(l) { if (window.__ARCHE_LANG && l !== window.__ARCHE_LANG) { location.href = (l === 'en' ? '/services/' : '/services/' + l + '/'); return; } this.setState({ lang: l }); }
   state = {
     step: 'route', trip: 'oneway',
     legs: [{ from: '', to: '', date: '', time: '' }],
