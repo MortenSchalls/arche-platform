@@ -128,7 +128,7 @@ html[data-ae-page="home"] #top .hero-content p{color:#e2e6ea!important}
 /* the original proportions of the home hero: jet 63% of the compass width, its tail on the compass ring */
 .ae-wm>i{position:relative;display:block;width:min(100vw - 32px,100vh - 150px,1440px);aspect-ratio:1}
 .ae-wm>i::before{content:"";position:absolute;inset:0;background:url(/assets/compass-rose.svg) center/contain no-repeat;opacity:0.075}
-.ae-wm>i::after{content:"";position:absolute;left:18.5%;top:-2.6%;width:63%;aspect-ratio:2252/887;background:url(/assets/jet-line-watermark-wide.png) center/contain no-repeat;opacity:0.11}
+.ae-wm>i::after{content:"";position:absolute;left:18.5%;top:-2.6%;width:63%;aspect-ratio:2252/887;background:url(/assets/jet-line-watermark-wide.webp) center/contain no-repeat;opacity:0.11}
 @media print{.ae-wm{display:none}}
 """
 
@@ -154,6 +154,11 @@ def speed(t, page, lang):
     t = re.sub(r'href="https://fonts\.googleapis\.com/css2\?family=Cinzel[^"]*"', f'href="{FONTS}{NOTO.get(lang, "")}&amp;display=swap"', t)
     t = t.replace('<link rel="preload" as="image" href="/assets/jet-line-watermark-wide.png">', "")
     t = re.sub(r'<link rel="preload" as="image" href="/img/why-photo[^"]*"[^>]*>', "", t)
+    # English needs no translation file (125 KB): it is loaded only when the page is in another language
+    t = re.sub(r"if \(this\.i18n\) this\.i18n\.apply\(this\.state\.lang\);",
+               "if (this.i18n) this.i18n.apply(this.state.lang); else if (this.state.lang !== 'en' && !this._i18nWait) { this._i18nWait = 1; import('./i18n.js').then(m => { this.i18n = m; this.applyFont(); }).catch(e => console.warn('i18n', e)); }", t)
+    t = re.sub(r"componentDidMount\(\) \{\s*this\.applyFont\(\);\s*import\('\./i18n\.js'\)\.then\(m => \{ this\.i18n = m; this\.applyFont\(\); \}\)\.catch\(e => console\.warn\('i18n', e\)\);",
+               "componentDidMount() { if (this.state.lang === 'en') { document.documentElement.lang = 'en'; window.__archeI18n = 'en'; } this.applyFont();", t)
     if page == "home":
         t = t.replace("</head>", '<link rel="preload" as="image" href="/img/why-photo-m.webp" media="(max-width:900px)" fetchpriority="high">'
                                  '<link rel="preload" as="image" href="/img/why-photo.webp" media="(min-width:901px)" fetchpriority="high"></head>', 1)
@@ -161,6 +166,8 @@ def speed(t, page, lang):
 
 def run(verbose=True):
     open(os.path.join(SITE, "nav.css"), "w", encoding="utf-8").write(CSS + TYPE)
+    from PIL import Image   # the watermark drawing as WebP (79 KB instead of 127 KB)
+    Image.open(os.path.join(SITE, "assets", "jet-line-watermark-wide.png")).save(os.path.join(SITE, "assets", "jet-line-watermark-wide.webp"), "WEBP", quality=82, method=6)
     n = 0
     for root, dirs, files in os.walk(SITE):
         if os.path.relpath(root, SITE).split(os.sep)[0] in SKIP: continue

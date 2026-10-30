@@ -81,7 +81,7 @@ def phead(slug):
 def discover(lang):
     tile = lambda s, name, line, img: (
         f'<a class="ae-tile" href="{url(s, lang)}" style="position:relative;display:block;min-height:clamp(260px,30vw,420px);overflow:hidden;text-decoration:none;border:1px solid rgba(243,245,248,0.12)">'
-        f'<span class="ae-tile-img" style="position:absolute;inset:0;background:#2b2e33 url(/img/{img}) center/cover no-repeat"></span>'
+        f'<img class="ae-tile-img" src="/img/{img}" alt="" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#2b2e33">'
         '<span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,32,36,0.05) 30%,rgba(30,32,36,0.88) 100%)"></span>'
         f'<span style="position:absolute;left:28px;right:28px;bottom:26px;display:block"><span style="display:block;font-family:Hanken Grotesk,system-ui,sans-serif;font-weight:300;font-size:clamp(24px,2.2vw,28.8px);line-height:1.12;letter-spacing:-0.015em;color:#f3f5f8">{name}</span>'
         f'<span style="display:block;margin-top:8px;font-size:16px;line-height:1.6;color:#d5d9de">{line}</span>'
@@ -143,7 +143,15 @@ def head(t, slug, lang, title, desc):
     for l, h in HREFLANG.items():
         t = re.sub(rf'(<link rel="alternate" hreflang="{h}" href=")[^"]*', lambda m: m.group(1) + BASE + url(slug, l), t, count=1)
     t = re.sub(r'(<link rel="alternate" hreflang="x-default" href=")[^"]*', lambda m: m.group(1) + BASE + url(slug, "en"), t, count=1)
-    return t
+    # the page itself and its place in the site, for search engines
+    ld = {"@context": "https://schema.org", "@graph": [
+        {"@type": "WebPage", "@id": BASE + url(slug, lang), "url": BASE + url(slug, lang), "name": title, "description": desc,
+         "inLanguage": HREFLANG[lang], "isPartOf": {"@type": "WebSite", "name": "Archē Executive", "url": BASE + "/"}},
+        {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Archē Executive", "item": BASE + url("home", lang)},
+            {"@type": "ListItem", "position": 2, "name": title, "item": BASE + url(slug, lang)}]}]}
+    t = re.sub(r'<script type="application/ld\+json" data-ae="page">.*?</script>', "", t, flags=re.S)
+    return t.replace("</head>", '<script type="application/ld+json" data-ae="page">' + json.dumps(ld, ensure_ascii=False) + "</script></head>", 1)
 
 def tr_rows():
     return json.load(open(os.path.join(HERE, "i18n_pages.json"), encoding="utf-8"))["rows"]
@@ -180,6 +188,7 @@ def run(verbose=True):
             t = re.sub(r"<head>", '<head><base href="/">', t, count=1)
             t = t.replace("</head>", css(slug, show) + "</head>", 1).replace("<html", f'<html data-ae-page="{slug}"', 1)
             t = head(t, slug, lang, say(title, lang), say(desc, lang))
+            if img: t = t.replace("</head>", f'<link rel="preload" as="image" href="/img/{img}" fetchpriority="high"></head>', 1)   # the page head photo first
             out = os.path.join(SITE, slug, "" if lang == "en" else lang, "index.html")
             os.makedirs(os.path.dirname(out), exist_ok=True)
             open(out, "w", encoding="utf-8").write(prune(t, show))
