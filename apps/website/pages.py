@@ -24,7 +24,7 @@ EYE = "font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;color:#a9
 PAGES = {
     "services": ("Services", "Three services. One standard.",
                  "Private charter, aviation advisory and fleet coordination, each run by senior aviation people and held to the same checks.",
-                 "why-photo.webp", "Private charter, advisory and fleet coordination",
+                 None, "Private charter, advisory and fleet coordination",   # no photo head: the three service photos are the hero (Morten, 30 Oct 2026)
                  "Private jet charter, aviation advisory and fleet coordination from Singapore, worldwide. Every operator checked before you see a quote.",
                  ["#services", "#services-detail", "#onboard", "#standard"]),
     "aircraft": ("Aircraft", "The right aircraft for the trip.",
@@ -44,7 +44,7 @@ PAGES = {
                 ["#contact"]),
 }
 HOME_SHOW = ["#top", "[data-screen-label=\"Intro\"]", "#services", ".ar-band[data-ar=\"services\"]", "#why", ".ar-trio", "#discover", "#dates"]
-TILES = [("services", "Services", "Charter, advisory and fleet coordination.", "why-photo.webp"),
+TILES = [("services", "Services", "Charter, advisory and fleet coordination.", "svc-charter.webp"),
          ("aircraft", "Aircraft", "Find the aircraft that fits the trip.", "journey-3.webp"),
          ("how-it-works", "How it works", "From first message to landing.", "journey-5.webp"),
          ("destinations", "Destinations", "Know the rules before you fly.", "break-1.webp")]
@@ -55,15 +55,17 @@ def url(slug, lang):
     return f"/{slug}/" + ("" if lang == "en" else lang + "/")
 
 def css(page, show):
+    top = "clamp(56px,6vw,88px)" if PAGES.get(page, (0, 0, 0, 1))[3] else "calc(88px + clamp(48px,6vw,96px))"   # below the fixed menu
     keep = ",".join(["header", "footer", "#statement", ".ae-phead"] + show)
     return (f'<style id="ae-pages-css">html[data-ae-page="{page}"] div:has(> footer)>*:not({keep}){{display:none!important}}'
             + (f'html[data-ae-page="{page}"] {show[0]}{{padding-top:0!important;border-top:0!important}}'
-               f'html[data-ae-page="{page}"] {show[0]}>div:first-child{{padding-top:clamp(56px,6vw,88px)!important}}' if page != "home" else "") +
+               f'html[data-ae-page="{page}"] {show[0]}>div:first-child{{padding-top:{top}!important}}' if page != "home" else "") +
             '.ae-tile:hover .ae-tile-img{transform:scale(1.04)}.ae-tile-img{transition:transform 1.2s ease}'
             '@media (max-width:600px){.ae-phead>div:last-child,#discover>div{padding-left:20px!important;padding-right:20px!important}}</style>')
 
 def phead(slug):
     eye, h1, lead, img = PAGES[slug][:4]
+    if not img: return ""
     return (f'<!--ae:pages--><section class="ae-phead" data-ae="pages" style="position:relative;min-height:clamp(440px,64vh,660px);display:flex;align-items:flex-end;overflow:hidden;background:#2b2e33 url(/img/{img}) center/cover no-repeat">'
             '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,32,36,0.62) 0%,rgba(30,32,36,0.30) 45%,rgba(43,46,51,0.97) 100%)"></div>'
             '<div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:190px 40px clamp(48px,6vw,84px);box-sizing:border-box">'
@@ -163,7 +165,7 @@ def run(verbose=True):
         for slug, (eye, h1, lead, img, title, desc, show) in PAGES.items():
             t = statement_last(links(s, lang, True))
             t = re.sub(r'(<section(?: data-dc-tpl="\d+")? id="top")', lambda m: phead(slug) + m.group(1), t)
-            assert t.count('class="ae-phead"') == 2, f"{slug}: page head not placed ({lang})"
+            assert t.count('class="ae-phead"') == (2 if img else 0), f"{slug}: page head not placed ({lang})"
             t = t.replace("location.href = (l === 'en' ? '/' : '/' + l) + location.hash",
                           f"location.href = (l === 'en' ? '/{slug}/' : '/{slug}/' + l + '/')")
             t = re.sub(r"<head>", '<head><base href="/">', t, count=1)
