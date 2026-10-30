@@ -170,8 +170,8 @@ window.archeSend = function (data) {
     import home_extras; home_extras.run()   # home page: standard, destinations, dates, alerts, quote step 2 (27 Oct 2026)
     import luxury; luxury.run()   # home page: services in detail, on board, statement (30 Oct 2026)
     import seo_security; seo_security.run()   # search, speed, security headers, statistics (26 Oct 2026)
-    import header_nav; header_nav.run()   # the footer menu also in the header, wide screens (30 Oct 2026)
     import pages; pages.run()   # one page per menu item, all four languages (30 Oct 2026)
+    import nav; nav.run()   # one fixed top menu on every page, watermark, home hero photo (30 Oct 2026)
 
 
 if __name__ == "__main__":
