@@ -7,7 +7,7 @@
  "tz": "Europe/Berlin",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-30",
  "rules": {
   "curfew": {
    "v": "no take-offs or landings from 23:30 to 05:30 local time (exceptions: emergencies, safety diversions, relief, medical, state flights, weekday mail and some delayed/early scheduled flights); 23:00-24:00 and 05:00-06:00 count against an annual night quota; jets over 20,000 kg from 22:00 to 06:00 must be at least 10 EPNdB below the noise limits",
@@ -24,18 +24,23 @@
    "v": "Level 3 coordinated airport; general aviation flights need a slot from the German airport coordinator (Fluko)",
    "src": "fluko-ga",
    "quote": "Coordination of General Aviation flights is required at the following Level 3 airports:"
+  },
+  "runway": {
+   "v": "two parallel runways: the southern runway (06R/24L since 3 Oct 2024) is 4,000 m long and 60 m wide; the northern runway (06L/24R) is 3,600 m long",
+   "longest_m": 4000,
+   "src": "ber-factsheet-2022",
+   "quote": "The southern runway is 4,000 metres long and 60 metres wide."
   }
  },
  "missing": [
   "geo",
   "operator",
   "location",
-  "runway",
   "customs",
   "hours",
   "ppr",
   "max_aircraft",
   "handling"
  ],
- "notes": "Night rules from the operating permit extract (section XI) published by the Brandenburg aviation authority LuBB. Deviations need approval by that authority in justified single cases; an ATC clearance does not replace it. DFS AIP unreadable and the operator site (ber.berlin-airport.de) could not be reached before the search budget ran out."
+ "notes": "Night rules from the operating permit extract (section XI) published by the Brandenburg aviation authority LuBB. Deviations need approval by that authority in justified single cases; an ATC clearance does not replace it. DFS AIP unreadable and the operator site (ber.berlin-airport.de) could not be reached before the search budget ran out. | 2026-10-30 run: runway lengths from the operator's fact sheet (as of Nov 2022); runway designators from the FBB press release of 1 Oct 2024 ('Die Nordbahn 25R/07L wird zur 24R/06L und die Südbahn 07R/25L wird zur 06R/24L.'). The fact sheet's night-flight text (no regular scheduled flights midnight-05:00) differs from the LuBB permit extract (23:30-05:30) already recorded; the permit is kept. Could not open: German fact sheet June 2025 (corporate.berlin-airport.de .../flughafenanlagen-ber.pdf, permission not given), FBB GAT page corporate.berlin-airport.de/en/business-partners/airlines-and-handling/general-aviation-terminal.html (permission not given), ber.berlin-airport.de GAT page (site error). Customs, hours, PPR, size limits and GA handling still not found."
 }

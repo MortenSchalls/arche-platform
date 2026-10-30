@@ -7,7 +7,7 @@
  "tz": "Europe/Madrid",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-30",
  "rules": {
   "hours": {
    "v": "open 24 hours",
@@ -50,11 +50,15 @@
    "v": "Jet A-1",
    "src": "es-amdt-lepa",
    "quote": "CIV: JET A-1."
+  },
+  "ppr": {
+   "v": "the AIP states no general prior-permission rule for business aviation; only code letter F aircraft (A124, B748, A388) need the airport authority's prior permission to arrive or stay. From 1 April to 30 September general aviation slot requests must include both the arrival and the departure flight",
+   "src": "es-aip-lepa-2026-10",
+   "quote": "Neither the arrival nor the permanence of any code letter F aircraft will be authorized"
   }
  },
  "missing": [
-  "curfew",
-  "ppr"
+  "curfew"
  ],
- "notes": "Source is the ENAIRE AIP amendment page for AD 2 LEPA/LESJ dated 03-SEP-26 (Amdt 2026/410); the current consolidated AD 2 page could not be opened. Night hours are given without UTC/LT marking (Spanish AIP normally uses UTC; if UTC both seasons equal 23:00-07:00 local) - not converted. The night rules restrict training, APU and reverse thrust; no ban on movements was found, but absence is not stated, so curfew is left missing. Footnote (1) on hours: foreign state/military aircraft need PPR 72 h ahead (not relevant to charter). GA ramp agents also listed: Aviapartner, General Aviation Service, Gestair, Jetland Executive Services, Mallorcair, Melendez, Sky Valet Spain."
+ "notes": "Source is the ENAIRE AIP amendment page for AD 2 LEPA/LESJ dated 03-SEP-26 (Amdt 2026/410); the current consolidated AD 2 page could not be opened. Night hours are given without UTC/LT marking (Spanish AIP normally uses UTC; if UTC both seasons equal 23:00-07:00 local) - not converted. The night rules restrict training, APU and reverse thrust; no ban on movements was found, but absence is not stated, so curfew is left missing. Footnote (1) on hours: foreign state/military aircraft need PPR 72 h ahead (not relevant to charter). GA ramp agents also listed: Aviapartner, General Aviation Service, Gestair, Jetland Executive Services, Mallorcair, Melendez, Sky Valet Spain. | 2026-10-30 run: read the current ENAIRE AD 2 LEPA/LESJ PDF (WEF 29-OCT-26). Curfew: AD 2.21 defines night hours (V: 2100-0500, I: 2200-0600, no UTC/LT marking) and bans training flights, engine run-ups and reverse thrust above idle at night, and RWY 24L take-offs; it neither bans night movements nor states that there is no night restriction, so curfew stays missing. PPR: the only PPR in AD 2.20 is for foreign state/military aircraft (72 h) and code letter F aircraft. Also in AD 2.20: from 1 May to 31 October use of the airport is restricted daily 0530-1930 for aircraft with cruising speed below 220 kt (except State, hospital and SAR aircraft) - time basis not stated; relevant to slow piston/turboprop types. Code F limited to A124, B748, A388 on RWY 06L/24R."
 }

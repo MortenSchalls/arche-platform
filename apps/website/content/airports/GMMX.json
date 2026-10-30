@@ -1,0 +1,59 @@
+{
+ "icao": "GMMX",
+ "iata": null,
+ "name": "Marrakech Ménara International Airport",
+ "city": "Marrakech",
+ "country": "MA",
+ "tz": "Africa/Casablanca",
+ "tier": 1,
+ "status": "verified",
+ "checked": "2026-10-30",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 3,100 m × 45 m, bitumen",
+   "longest_m": 3100,
+   "src": "ma-aip-gmmx-2025",
+   "quote": "10 95,87° 3100 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "ma-aip-gmmx-2025",
+   "quote": "Customs and immigration H24"
+  },
+  "hours": {
+   "v": "air traffic services H24; airport administration office Mon-Fri 08:30-16:30 local",
+   "src": "ma-aip-gmmx-2025",
+   "quote": "Services de la circulation aérienne / ATS H24"
+  },
+  "ppr": {
+   "v": "night-stop (overnight) flights need authorisation from the airport authority 24 hours ahead",
+   "src": "ma-aip-gmmx-2025",
+   "quote": "Night stop flights must have an authorization from the airport authority 24 hours prior."
+  },
+  "handling": {
+   "v": "handling mandatory for business and general aviation; handlers listed in the AIP: Jetex Executive Aviation Morocco, Swissport Maroc, RAM Handling",
+   "src": "ma-aip-gmmx-2025",
+   "quote": "Handling mandatory for business and general aviation"
+  },
+  "fuel": {
+   "v": "Jet A1 and Avgas 100LL; fuelling H24",
+   "src": "ma-aip-gmmx-2025",
+   "quote": "JET A1 - AVGAS 100LL"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "ma-aip-gmmx-2025",
+   "quote": "De-icing facilities NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "noise",
+  "max_aircraft",
+  "catering"
+ ],
+ "notes": "Source: Morocco eAIP (ONDA SIA) AD 2 GMMX; pages carry mixed dates, latest seen 04 SEP 2025 (AIRAC AMDT 09/25), others 26 DEC 2024 (AMDT 13/24) and 28 DEC 2023 (AMDT 13/23). The AIC A01/26 checklist (09 Jan 2026) was opened but lists no AD 2 page dates, so it could not confirm that no later amendment changed GMMX. The AD 2 text seen gives no curfew or night ban (ATS H24); curfew left out rather than recorded as none. The 'night stop' authorisation is about aircraft staying overnight; the AIP says scheduled and Royal liaison flights are not affected. Fire category CAT 9. AD 2.20: aircraft over 35 t must make the 180° turn on the turn-around area at the runway end. AD 2.23: stands A2, A4 and A6 can't be used by A319; stands F1A/F1B for code A or B aircraft only. IATA not shown in the AIP; the ONDA airport pages (onda.ma) could not be opened. Quotes taken via a page-reading tool; the AD 2.3 hours were asked for verbatim and returned as 'MON-FRI : 0830-1630 (local time)'."
+}

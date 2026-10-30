@@ -6,8 +6,8 @@
  "country": "PT",
  "tz": "Europe/Lisbon",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-27",
+ "status": "verified",
+ "checked": "2026-10-30",
  "rules": {
   "curfew": {
    "v": "by law no landings or take-offs between 00:00 and 06:00 UTC (23:00–05:00 UTC in summer), i.e. midnight to 06:00 local; Lisboa has a limited exception regime: a night flight must be coordinated at least one day ahead with the IATA slot coordinator and the aircraft must hold an ICAO Annex 16 Chapter 3 noise certificate",
@@ -30,19 +30,44 @@
    "v": "night flights under the exception regime need an ICAO Annex 16, Vol I, Chapter 3 noise certificate",
    "src": "pt-aip-ad11",
    "quote": "have a noise certificate according with ICAO Annex 16, Vol I, Chapt 3."
+  },
+  "runway": {
+   "v": "one runway, 02/20, 3,707 m long and 45 m wide",
+   "longest_m": 3707,
+   "src": "pt-aip-lppt",
+   "quote": "3707X45"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "pt-aip-lppt",
+   "quote": "H24"
+  },
+  "hours": {
+   "v": "aerodrome administration 24 hours, through the Airport Duty Manager",
+   "src": "pt-aip-lppt",
+   "quote": "* Through Airport Duty Manager"
+  },
+  "handling": {
+   "v": "ground handling and fuelling 24 hours; the AIP names SPdH and Portway as the handlers for cargo arrangements",
+   "src": "pt-aip-lppt",
+   "quote": "Prior arrangements with SPdH and/or Portway"
+  },
+  "ppr": {
+   "v": "airport slots for non-based carriers allow at most 2 hours of parking; longer parking needs prior approval from Lisboa Airport Management",
+   "src": "pt-aip-lppt",
+   "quote": "Parking periods exceeding this interval, only upon prior approval from Lisboa Airport Management."
+  },
+  "max_aircraft": {
+   "v": "some areas of the airfield are not available for Code F aircraft movements; the temporary parking area (stand 351) takes up to Code E aircraft",
+   "src": "pt-aip-lppt",
+   "quote": "Some of the areas of the airfield are not currently available for Code F aircraft movements."
   }
  },
  "missing": [
   "geo",
-  "operator",
   "location",
-  "runway",
-  "customs",
-  "ppr",
-  "max_aircraft",
-  "handling",
-  "hours",
   "iata"
  ],
- "notes": "The LPPT AD 2 PDF on ais.nav.pt is blocked to WebFetch (robots), and the AD 2 HTML page could not be opened (permission not given in time). Only the national night rule in AD 1.1.6 was read. Exception-regime airports named there: 'Lisboa (LPPT), Porto (LPPR), Madeira (LPMA), Porto Santo (LPPS) and Ponta Delgada (LPPD)'. Times: the AIP gives UTC with summer UTC in brackets; both equal 00:00–06:00 local. AD 1.1.6 gives no number for the night movements allowed."
+ "notes": "The LPPT AD 2 PDF on ais.nav.pt is blocked to WebFetch (robots), and the AD 2 HTML page could not be opened (permission not given in time). Only the national night rule in AD 1.1.6 was read. Exception-regime airports named there: 'Lisboa (LPPT), Porto (LPPR), Madeira (LPMA), Porto Santo (LPPS) and Ponta Delgada (LPPD)'. Times: the AIP gives UTC with summer UTC in brackets; both equal 00:00–06:00 local. AD 1.1.6 gives no number for the night movements allowed. | 2026-10-30 run: read the AD 2 LPPT HTML page of the current eAIP (no effective date on the page; the eAIP menu shows 'Effective 15 MAY 2025'; the latest amendment found, AIRAC 006-26 effective 06 Aug 2026, changes LPPT charts/approach items only, not these rules). AD 2.2 names the operator 'ANA Aeroportos de Portugal, SA'; no IATA code shown. The page ends before the AD 2.24 chart list; AD 2.20 shows no GA-specific PPR or handling obligation. Fuel JET A1 (not recorded as a rule this run). De-icing and hangar space for visiting aircraft: not available per AD 2.4."
 }

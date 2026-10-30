@@ -1,0 +1,51 @@
+{
+ "icao": "SCEL",
+ "iata": null,
+ "name": "Arturo Merino Benítez International Airport",
+ "city": "Santiago",
+ "country": "CL",
+ "tz": "America/Santiago",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-30",
+ "rules": {
+  "runway": {
+   "v": "two runways: 17R/35L 3,800 m × 45 m and 17L/35R 3,750 m × 55 m, asphalt",
+   "longest_m": 3800,
+   "src": "cl-aip-scel-2026",
+   "quote": "3.800 x 45"
+  },
+  "hours": {
+   "v": "aerodrome operator H24 and ATS H24",
+   "src": "cl-aip-scel-2026",
+   "quote": "ATS /ATS H24"
+  },
+  "permits": {
+   "v": "crew must request customs entry control and immigration inspection 2 hours before the flight or arrival; aircraft operators must tell SAG (agriculture and health service) 12 hours before arrival",
+   "src": "cl-aip-scel-2026",
+   "quote": "Crew must request entry control service 02 hours prior to flight or arrival"
+  },
+  "handling": {
+   "v": "handling on request to the handling companies",
+   "src": "cl-aip-scel-2026",
+   "quote": "Upon request to the Handling Companies"
+  },
+  "fuel": {
+   "v": "Jet A1 available",
+   "src": "cl-aip-scel-2026",
+   "quote": "Jet A1/OIL 2380 y 2197"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "noise",
+  "max_aircraft",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Source: AIP Chile Vol I AD 2 SCEL (DGAC), pages dated 15 MAY 2025 (AMDT 63) to 06 AUG 2026 (AMDT 67); DGAC IFIS page for SCEL also read (runway RWY H24, ATS 0000-2359 daily). Customs hours are not stated; the AIP only says service must be requested 2 hours ahead, so customs is left out (not marked H24). The text read covered AD 2.1-2.20 (and ended partway); AD 2.21 noise and AD 2.23 were not seen, so curfew, noise and slots stay missing. De-icing: AD 2.3 says NO but AD 2.4 says 'De icing facilities YES'; conflict, not recorded. AD 2.8: category C or larger aircraft staying over 24 hours must park on third-party aprons ('deberán hacerlo en plataformas administradas por terceros'); DGAC has no long-stay parking. AD 2.20: aircraft of 25,000 kg or more may not make 180° turns on the runway. Temporary: NOTAM A3086/26 limits RWY 17R (MON-SAT 1000-2300 EXC HOL) 30 Oct-14 Nov 2026 for asphalt repairs; SUP S16/2026 works 13-24 Oct 2026. Quotes taken via a page-reading tool."
+}

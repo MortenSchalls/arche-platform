@@ -6,8 +6,8 @@
  "country": "SG",
  "tz": "Asia/Singapore",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-27",
+ "status": "verified",
+ "checked": "2026-10-30",
  "rules": {
   "customs": {
    "v": "customs and immigration open 24 hours",
@@ -24,15 +24,34 @@
    "v": "prior permission needed only for aircraft without radio",
    "src": "sg-aip-wsss",
    "quote": "Prior permission required for aircraft not equipped with radiotelephony."
+  },
+  "runway": {
+   "v": "three parallel runways (02L/20R, 02C/20C, 02R/20L), each 4,000 m long and 60 m wide; 02R/20L has scheduled maintenance closures 17:00-21:00 UTC (01:00-05:00 local) every Tuesday and Friday",
+   "longest_m": 4000,
+   "src": "sg-aip-wsss",
+   "quote": "RWY 02L ... 4000m X 60m; RWY 02C ... 4000m X 60m; RWY 02R ... 4000m X 60m. Scheduled Closure of RWY 02R/20L BTN 1700-2100UTC on every TUES and FRI of the month (preventive maintenance work)."
+  },
+  "slots": {
+   "v": "slot needed for every flight: apply to the Changi Slot Coordinator (Changi Airport Group) at least 72 hours before the flight, by Slot Clearance Request, or General (Aviation) Clearance Request for operators without a 2-letter IATA code; for flights under 24 hours away also tell CAG Airside Operations",
+   "src": "sg-caas-foreign-operators",
+   "quote": "A Slot Clearance Request (SCR) to the Changi Slot Coordinator (CSC) minimally 72 hours prior ... General (Aviation) Clearance Request (GCR) to the Changi Slot Coordinator (CSC) ... in addition to submitting the SCR/GCR, operators/agents must also inform the Airside Operations Section of CAG"
+  },
+  "noise": {
+   "v": "departures on runway 20R restricted 16:00-22:00 UTC (00:00-06:00 local); arrivals on 02L/20R in that window may use no more than idle reverse thrust unless needed for safety; not a curfew",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "src": "sg-aip-wsss",
+   "quote": "Departures on RWY 20R are restricted between 1600-2200UTC. ... Unless it is necessary for operational or safety reasons, when using engine reverse, arrivals on RWY 02L/20R between 1600-2200UTC may not exceed idle reverse thrust."
   }
  },
  "missing": [
   "iata",
-  "runway (AD 2.12 not readable, see unreadable)",
-  "curfew",
-  "slots",
-  "handling",
-  "noise (AD 2.21 not readable)"
+  "curfew (AIP AD 2.20/2.21 state no curfew and do not state that there is none)",
+  "handling (AIP AD 2.4 names no ground handlers; no official CAG page found)"
  ],
- "notes": "Arrival window converted from 0900-1559 UTC to Singapore time (UTC+8, no daylight saving). The AIP SUP 002/2026 (sg-sup-2026-002) gives RWY 02R/20L a full-length declared distance of 4,000 m but no width, and says that runway was closed to civil use from 19 Feb to 5 Aug 2026; the longest runway and widths were not verified. The AIP page read is valid from 09 Jul 2026 (folder 15-JUL-2026); the fetch tool only read the page up to AD 2.11."
+ "notes": "Arrival window converted from 0900-1559 UTC to Singapore time (UTC+8, no daylight saving). The AIP SUP 002/2026 (sg-sup-2026-002) gives RWY 02R/20L a full-length declared distance of 4,000 m but no width, and says that runway was closed to civil use from 19 Feb to 5 Aug 2026; the longest runway and widths were not verified. The AIP page read is valid from 09 Jul 2026 (folder 15-JUL-2026); the fetch tool only read the page up to AD 2.11. | 2026-10-30 run: re-opened the AIP AD 2 WSSS page (valid from 09 Jul 2026, folder 15-JUL-2026; no AIP amendment after 03/2026 of 14 May 2026 was found) and read AD 2.12, 2.20, 2.21. AD 2.12 now gives all three runways as 4000m X 60m; the 2026 closure of 02R/20L in SUP 002/2026 ended 5 Aug 2026 and AD 2.12/2.13 show no civil-use restriction. Noise window converted from 1600-2200 UTC to Singapore time (UTC+8, no daylight saving). Slots from the CAAS page Requirements for Foreign Air Operators (no page date). AIP GEN 1.2 (12 Jun 2025 edition, AMDT 03/2025) also says operators should keep ground time to no more than 24 hours after the arrival slot and that propeller aircraft are not permitted at Changi, but GEN 1.2-1 and 1.2-2 were reissued on 2 Oct 2025 and 14 May 2026 and the current pages could not be found, so those two points are not used; re-check before publishing (propeller ban matters for turboprop trips). Handling: no official handler list found; the AIP AD 2.4 only names SIAEC/ST Aerospace for hangars."
 }

@@ -7,7 +7,7 @@
  "tz": "Europe/Berlin",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-30",
  "rules": {
   "hours": {
    "v": "flight operating hours 05:00 to 23:00 local time",
@@ -34,6 +34,11 @@
    "v": "Level 3 coordinated airport; general aviation flights need a slot from the German airport coordinator (Fluko)",
    "src": "fluko-ga",
    "quote": "Coordination of General Aviation flights is required at the following Level 3 airports:"
+  },
+  "handling": {
+   "v": "business and private aircraft are handled at the General Aviation Terminal (GAT) by Fraport Executive Aviation (Fraport Ground Services); terminal services 06:00-22:00 daily, at other times with prior permission (H24 PPR), FBO 24 hours; the terminal has its own customs and passenger inspection facility",
+   "src": "fra-gs-business-areas",
+   "quote": "The Executive Aviation Terminal Services can be reached daily between 6 a.m. and 10 p.m.; H24 PPR; FBO 24h"
   }
  },
  "missing": [
@@ -43,8 +48,7 @@
   "runway length/width (longest_m)",
   "customs",
   "ppr",
-  "max_aircraft",
-  "handling"
+  "max_aircraft"
  ],
- "notes": "DFS AIP could not be read (robots block) and the web-search budget ran out before Fraport's facts page for runway lengths and its general-aviation page were found. Night ban from the operator (Fraport) pages; the page says CEST, but the rule is in local time all year."
+ "notes": "DFS AIP could not be read (robots block) and the web-search budget ran out before Fraport's facts page for runway lengths and its general-aviation page were found. Night ban from the operator (Fraport) pages; the page says CEST, but the rule is in local time all year. | 2026-10-30 run: Fraport Ground Services business-areas page read (GAT handling; own customs facility at the GAT, but customs hours not stated, so customs stays missing). Could not open: Fraport runway system page (permission not given), Fraport Executive Aviation conditions-of-use PDFs (URL too long for the fetch tool). The Fraport airport-expansion page gives only the Northwest runway (2,800 m), not the longest runway. Frankfurt passenger customs desk hours (frankfurt-airport.com) are for terminal passengers, not GA, so not used."
 }

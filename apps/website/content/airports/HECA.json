@@ -1,0 +1,24 @@
+{
+ "icao": "HECA",
+ "iata": null,
+ "name": "Cairo International Airport",
+ "city": "Cairo",
+ "country": "EG",
+ "tz": "Africa/Cairo",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-30",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "curfew",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel"
+ ],
+ "notes": "No official source with the airport's rules could be read. No public online Egypt AIP (AD 2 HECA) was found by search. Cairo Airport Company 'Airport Information' page (cairo-airport.com/en-us/Airport/Airport-Information) opened but gives only history (no runway lengths, hours, customs or codes); its Terminal Information page is blocked (robots disallowed). Owner: obtain AD 2 HECA from the Egyptian AIS (NANSC / Egyptian Civil Aviation Authority)."
+}

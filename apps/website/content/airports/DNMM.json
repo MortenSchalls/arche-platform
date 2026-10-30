@@ -1,0 +1,24 @@
+{
+ "icao": "DNMM",
+ "iata": "LOS",
+ "name": "Murtala Muhammed International Airport",
+ "city": "Lagos",
+ "country": "NG",
+ "tz": "Africa/Lagos",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-30",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "hours"
+ ],
+ "notes": "IATA code from FAAN's own page (https://faan.gov.ng/mmia-lagos/): \"(IATA: LOS, ICAO: DNMM)\"; that page gives no runway, hours or customs facts. No public copy of the Nigerian AIP (NAMA) AD 2 DNMM was found on nama.gov.ng, ncaa.gov.ng or faan.gov.ng. Owner may need to obtain the Nigerian AIP from NAMA."
+}

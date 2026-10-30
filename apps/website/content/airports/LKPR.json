@@ -6,8 +6,8 @@
  "country": "CZ",
  "tz": "Europe/Prague",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-27",
+ "status": "verified",
+ "checked": "2026-10-30",
  "rules": {
   "runway": {
    "v": "two runways; the longest is 06/24, 3,715 m long and 45 m wide (12/30 is 3,250 m × 45 m)",
@@ -45,14 +45,33 @@
    "v": "the operator states a limited number of coordinated operations in the night period and restricted access for aircraft without ICAO Annex 16 noise certification; details in AIP LKPR AD 2.21",
    "src": "prg-noise",
    "quote": "Limited number of coordinated operations in night time period."
+  },
+  "curfew": {
+   "v": "from 2100 to 0500 UTC (summer 2000 to 0400 UTC), i.e. 22:00-06:00 local all year: aircraft over 45 t MTOW may not take off or land unless their type is on the airport's list of types permitted for night operation; aircraft up to 45 t MTOW are permitted if they meet noise categories 1 to 9 (GEN 4.1); the number of night flights is limited; other exemptions only from the aerodrome operator on request; delayed departures and arrivals allowed until 2200 UTC (summer 2100 UTC), i.e. 23:00 local",
+   "windows_local": [
+    [
+     "22:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "cz-aip-lkpr-text-2026",
+   "quote": "Take-offs and landings of aircraft with MTOW less or equal to 45 t are permitted from 2100 (2000) to 0500 (0400)."
+  },
+  "slots": {
+   "v": "coordinated airport; arrival and departure slots must be requested before every flight (except emergency, life-saving and search-and-rescue flights); slot coordination H24",
+   "src": "cz-aip-lkpr-text-2026",
+   "quote": "PRAHA/Ruzyně Airport is a co-ordinated airport."
+  },
+  "max_aircraft": {
+   "v": "available for aircraft up to Boeing 747-400 size (wingspan 65 m, length 71 m); larger types only under the conditions of AD 2.20 para 5",
+   "src": "cz-aip-lkpr-text-2026",
+   "quote": "LKPR is available for aircraft up to size of Boeing 747-400 (wingspan 65 m, fuselage length 71 m)."
   }
  },
  "missing": [
-  "curfew",
-  "slots",
   "ppr",
-  "max_aircraft",
   "iata"
  ],
- "notes": "The ANS CR HTML page (effective 1 Oct 2026) ends after AD 2.17; AD 2.18–2.24 (local regulations, noise and night rules) are in a separate PDF that could not be opened (permission not given in time). The airport page confirms a night limit but gives no times, so no curfew window is recorded. Bell Textron Prague is listed as 'Executive Aircraft Handling' and Time Air as 'Business Aviation Handling'."
+ "notes": "The ANS CR HTML page (effective 1 Oct 2026) ends after AD 2.17; AD 2.18–2.24 (local regulations, noise and night rules) are in a separate PDF that could not be opened (permission not given in time). The airport page confirms a night limit but gives no times, so no curfew window is recorded. Bell Textron Prague is listed as 'Executive Aircraft Handling' and Time Air as 'Business Aviation Handling'. | 2026-10-30 run: read the AD 2 LKPR text PDF (data/valid; AD 2.21 night rules on page AD 2-LKPR-1-16 stamped 06 AUG 26 AMDT 9/26; AD 2.20 pages stamped 07 AUG 25 AIRAC AMDT 6/25; other pages up to 29 OCT 26 AMDT 12/26). Night rule wording for aircraft over 45 t: 'are not permitted from 2100 (2000) to 0500 (0400)' unless on the night-operations list (published on prg.aero, movement area page). Times converted using AIP GEN 2.1 (eAIP effective 29 Oct 2026): AIP times are UTC, bracketed hours apply in summer (CEST, UTC+2), winter CET UTC+1, so both give 22:00-06:00 local. Curfew marked 'approval' because business jets up to 45 t MTOW with a noise category may operate at night within the limited number of flights. No GA-specific PPR found in AD 2.20 (slots apply to all flights). IATA code not stated in the AIP. HTML AD 2 page could not be opened this run (permission not given)."
 }

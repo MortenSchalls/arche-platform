@@ -6,8 +6,8 @@
  "country": "IE",
  "tz": "Europe/Dublin",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-27",
+ "status": "verified",
+ "checked": "2026-10-30",
  "rules": {
   "runway": {
    "v": "longest runway 10L/28R, 3,109 m long and 45 m wide (three runways in all)",
@@ -45,14 +45,20 @@
    "v": "de-icing on request from Swissport and Aer Lingus",
    "src": "ie-aip-eidw",
    "quote": "On request from Swissport and Aer Lingus"
+  },
+  "slots": {
+   "v": "slot-coordinated (Level 3) airport: no operator may fly to or from Dublin without first obtaining a slot from Airport Coordination Ltd (ACL), the designated coordinator",
+   "src": "daa-charges-2026",
+   "coordination_level": 3,
+   "quote": "Dublin Airport is a slot-coordinated airport. Operators must obtain approval for all proposed services at Dublin Airport. No Operator shall operate to or from Dublin without having first obtained a slot from Airport Coordination Ltd. (ACL), which is the designated airport coordinator.",
+   "level_src": "acl-faqs",
+   "level_quote": "DUB | Dublin – Coordinated (Level 3)"
   }
  },
  "missing": [
-  "operator (AIP AD 2.2 does not name it in the text read)",
   "curfew (no explicit 'no curfew' statement; only a runway-specific night rule, recorded under noise)",
-  "slots",
   "ppr",
   "max_aircraft"
  ],
- "notes": "Edition: Irish eAIP effective 14 May 2026, the newest found online; a later AIRAC may be in force. The 10L/28R night rule applies to that runway only, so it is recorded under noise, not curfew. US Customs and Border Protection preclearance is by prior negotiation (0700-1700). dublinairport.com had no official GA/business-aviation page found by search."
+ "notes": "Edition: Irish eAIP effective 14 May 2026, the newest found online; a later AIRAC may be in force. The 10L/28R night rule applies to that runway only, so it is recorded under noise, not curfew. US Customs and Border Protection preclearance is by prior negotiation (0700-1700). dublinairport.com had no official GA/business-aviation page found by search. | 2026-10-30 run: AirNav Ireland lists the eAIP of 29 OCT 2026 as current, but that edition (index and AD 2 EIDW page) could not be opened; the newest EIDW page read was valid from 06 AUG 2026 (AIRAC Amdt 009/26, eff. 03 Sep 2026, changed only AD 2.22 for EIDW). In that edition AD 2.2 names no operator and AD 2.20 has no slot, PPR, general-aviation or general night-curfew text; size limits found are per taxiway/apron only (e.g. TWY K Code E, A340 prohibited on TWY K), so max_aircraft stays missing. Operator: the daa 'Dublin Airport Charges 2026' terms (effective 29 Mar 2026 - 27 Mar 2027) say 'daa plc (\"daa\") is involved in airport management' and 'In Ireland, it is currently responsible for the management of Cork and Dublin airports.' Slots: added from those terms and ACL's FAQ list (Level 3). The terms do not say separately how business aviation requests slots; check with ACL. ACL's DUB W26 parameters PDF had no GA text. Curfew: no explicit night-curfew or 'no curfew' statement found in AIP or daa terms; the North Runway planning night-flight conditions were not researched from an official source and are not recorded. Status set to verified: runway, customs (H24) and hours (H24) are recorded from the AIP; curfew is still listed as missing."
 }
