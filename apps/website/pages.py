@@ -57,6 +57,8 @@ def url(slug, lang):
 def css(page, show):
     keep = ",".join(["header", "footer", "#statement", ".ae-phead"] + show)
     return (f'<style id="ae-pages-css">html[data-ae-page="{page}"] div:has(> footer)>*:not({keep}){{display:none!important}}'
+            + (f'html[data-ae-page="{page}"] {show[0]}{{padding-top:0!important;border-top:0!important}}'
+               f'html[data-ae-page="{page}"] {show[0]}>div:first-child{{padding-top:clamp(56px,6vw,88px)!important}}' if page != "home" else "") +
             '.ae-tile:hover .ae-tile-img{transform:scale(1.04)}.ae-tile-img{transition:transform 1.2s ease}'
             '@media (max-width:600px){.ae-phead>div:last-child,#discover>div{padding-left:20px!important;padding-right:20px!important}}</style>')
 
