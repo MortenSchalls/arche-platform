@@ -168,6 +168,7 @@ window.archeSend = function (data) {
     import site_fixes; site_fixes.run()   # one office, notice, payment line, contact routes (26 Oct 2026)
     sys.path.insert(0, os.path.join(HERE, 'content')); import build_content; build_content.run()   # verified content pages (27 Oct 2026)
     import home_extras; home_extras.run()   # home page: standard, destinations, dates, alerts, quote step 2 (27 Oct 2026)
+    import luxury; luxury.run()   # home page: services in detail, on board, statement (30 Oct 2026)
     import seo_security; seo_security.run()   # search, speed, security headers, statistics (26 Oct 2026)
     import header_nav; header_nav.run()   # the footer menu also in the header, wide screens (30 Oct 2026)
 
