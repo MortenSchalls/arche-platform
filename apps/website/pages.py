@@ -71,15 +71,15 @@ def phead(slug):
             '<div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:190px 40px clamp(48px,6vw,84px);box-sizing:border-box">'
             f'<span style="{EYE}">{eye}</span>'
             f'<h1 style="margin:16px 0 18px;max-width:980px;font-family:Prata,Georgia,serif;font-weight:400;font-size:clamp(36px,5.4vw,74px);line-height:1.08;color:#f3f5f8">{h1}</h1>'
-            f'<p style="margin:0;max-width:680px;font-size:17px;line-height:1.7;color:#d5d9de">{lead}</p></div></section><!--/ae:pages-->')
+            f'<p style="margin:0;max-width:680px;font-size:18px;line-height:1.65;color:#d5d9de">{lead}</p></div></section><!--/ae:pages-->')
 
 def discover(lang):
     tile = lambda s, name, line, img: (
         f'<a class="ae-tile" href="{url(s, lang)}" style="position:relative;display:block;min-height:clamp(260px,30vw,420px);overflow:hidden;text-decoration:none;border:1px solid rgba(243,245,248,0.12)">'
         f'<span class="ae-tile-img" style="position:absolute;inset:0;background:#2b2e33 url(/img/{img}) center/cover no-repeat"></span>'
         '<span style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,32,36,0.05) 30%,rgba(30,32,36,0.88) 100%)"></span>'
-        f'<span style="position:absolute;left:28px;right:28px;bottom:26px;display:block"><span style="display:block;font-family:Prata,Georgia,serif;font-size:clamp(24px,2.4vw,32px);line-height:1.2;color:#f3f5f8">{name}</span>'
-        f'<span style="display:block;margin-top:8px;font-size:15px;line-height:1.6;color:#d5d9de">{line}</span>'
+        f'<span style="position:absolute;left:28px;right:28px;bottom:26px;display:block"><span style="display:block;font-family:Hanken Grotesk,system-ui,sans-serif;font-weight:300;font-size:clamp(24px,2.2vw,28.8px);line-height:1.12;letter-spacing:-0.015em;color:#f3f5f8">{name}</span>'
+        f'<span style="display:block;margin-top:8px;font-size:16px;line-height:1.6;color:#d5d9de">{line}</span>'
         '<span aria-hidden="true" style="display:block;margin-top:14px;width:36px;border-top:1px solid rgba(243,245,248,0.6)"></span></span></a>')
     return (f'<!--ae:pages--><section id="discover" data-ae="pages" style="border-top:1px solid rgba(243,245,248,0.12)"><div style="max-width:1440px;margin:0 auto;padding:clamp(56px,6vw,96px) 40px;box-sizing:border-box">'
             f'<span style="{EYE}">Discover</span><h2 style="margin:14px 0 36px;font-family:Prata,Georgia,serif;font-weight:400;font-size:clamp(28px,3.4vw,44px);line-height:1.15;color:#f3f5f8">Private aviation, in detail.</h2>'

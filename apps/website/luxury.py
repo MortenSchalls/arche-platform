@@ -16,12 +16,12 @@ HERE = os.path.dirname(os.path.abspath(__file__)); SITE = os.path.join(HERE, "si
 
 EYE = "font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;color:#a9bdd4"
 H2 = "margin:14px 0 18px;font-family:Prata,Georgia,serif;font-weight:400;font-size:clamp(28px,3.4vw,44px);line-height:1.15;color:#f3f5f8"
-TXT = "margin:0;font-size:16px;line-height:1.7;color:#c6cbd2;max-width:760px"
+TXT = "margin:0;font-size:17px;line-height:1.7;color:#c6cbd2;max-width:760px"
 WRAP = "max-width:1440px;margin:0 auto;padding:clamp(56px,6vw,96px) 40px;box-sizing:border-box"
 LINE = "border-top:1px solid rgba(243,245,248,0.12)"
-NUM = "display:block;font-size:11.5px;letter-spacing:0.22em;color:#a9bdd4"
-H3 = "margin:10px 0 0;font-family:Prata,Georgia,serif;font-weight:400;font-size:clamp(21px,2vw,26px);line-height:1.25;color:#f3f5f8"
-ITEM = "display:block;padding:12px 0;border-bottom:1px solid rgba(243,245,248,0.08);font-size:15.5px;line-height:1.6;color:#c6cbd2"
+NUM = "display:block;font-size:12.5px;font-weight:500;letter-spacing:0.22em;color:#a9bdd4"
+H3 = "margin:10px 0 0;font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:400;font-size:clamp(21px,1.8vw,24px);line-height:1.2;letter-spacing:-0.01em;color:#f3f5f8"   # sub-headings in the Design file's sans, like the service cards
+ITEM = "display:block;padding:12px 0;border-bottom:1px solid rgba(243,245,248,0.08);font-size:16.5px;line-height:1.6;color:#c6cbd2"
 
 SERVICES = [
     ("01", "Private Charter", "One trip or a full season of travel.", "#svc-charter", [
@@ -57,7 +57,7 @@ ONBOARD = [
 def services_detail():
     col = lambda n, name, lead, href, items: (
         f'<div style="padding-top:22px;border-top:1px solid rgba(243,245,248,0.3)"><span style="{NUM}">{n}</span>'
-        f'<h3 style="{H3}">{name}</h3><p style="margin:8px 0 14px;font-size:15px;line-height:1.6;color:#a3a9b1;font-style:italic">{lead}</p>'
+        f'<h3 style="{H3}">{name}</h3><p style="margin:8px 0 14px;font-size:16px;line-height:1.6;color:#b1b6bd;font-style:italic">{lead}</p>'
         + "".join(f'<span style="{ITEM}">{x}</span>' for x in items) + '</div>')
     return f'''<!--ae:lux--><section id="services-detail" data-ae="lux" style="{LINE}"><div style="{WRAP}">
 <span style="{EYE}">Each service, in detail</span><h2 style="{H2}">What you can expect from us.</h2>
@@ -67,19 +67,19 @@ def services_detail():
 
 def onboard():
     tile = lambda i, t, d: (f'<div style="padding:26px 0 0;border-top:1px solid rgba(243,245,248,0.18)"><span style="{NUM}">{i:02d}</span>'
-                            f'<h3 style="{H3}">{t}</h3><p style="margin:10px 0 0;font-size:15.5px;line-height:1.7;color:#c6cbd2">{d}</p></div>')
+                            f'<h3 style="{H3}">{t}</h3><p style="margin:10px 0 0;font-size:16.5px;line-height:1.7;color:#c6cbd2">{d}</p></div>')
     return f'''<!--ae:lux--><section id="onboard" data-ae="lux" style="{LINE}"><div style="{WRAP}">
 <span style="{EYE}">On board</span><h2 style="{H2}">The flight, arranged around you.</h2>
 <p style="{TXT}">Tell us once how you like to travel. We arrange the details with the operator and confirm them with you before departure.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:40px 56px;margin:40px 0 0">{"".join(tile(i + 1, *o) for i, o in enumerate(ONBOARD))}</div>
-<p style="margin:36px 0 0;font-size:13px;line-height:1.7;color:#a3a9b1;max-width:760px">Every request depends on the aircraft, the operator, the airport and local rules. Any cost is agreed with you before departure.</p>
+<p style="margin:36px 0 0;font-size:14px;line-height:1.7;color:#b1b6bd;max-width:760px">Every request depends on the aircraft, the operator, the airport and local rules. Any cost is agreed with you before departure.</p>
 </div></section><!--/ae:lux-->'''
 
 def statement():
     return f'''<!--ae:lux--><section id="statement" data-ae="lux" style="{LINE}"><div style="{WRAP};text-align:center">
 <span style="{EYE}">Archē Executive</span>
 <p style="margin:18px auto 0;max-width:900px;font-family:Prata,Georgia,serif;font-size:clamp(32px,5vw,68px);line-height:1.15;letter-spacing:0.01em;color:#f3f5f8">Any aircraft. Any hour. One advisor.</p>
-<p style="margin:22px auto 0;max-width:620px;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#a9bdd4">Any aircraft, any route, upon availability.</p>
+<p style="margin:22px auto 0;max-width:620px;font-size:13px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#a9bdd4">Any aircraft, any route, upon availability.</p>
 </div></section><!--/ae:lux-->'''
 
 def _after_section(s, sid, block):

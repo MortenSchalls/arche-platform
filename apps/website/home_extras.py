@@ -14,7 +14,7 @@ import company
 
 EYE = "font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;color:#a9bdd4"
 H2 = "margin:14px 0 18px;font-family:Prata,Georgia,serif;font-weight:400;font-size:clamp(28px,3.4vw,44px);line-height:1.15;color:#f3f5f8"
-TXT = "margin:0 0 12px;font-size:16px;line-height:1.7;color:#c6cbd2;max-width:760px"
+TXT = "margin:0 0 12px;font-size:17px;line-height:1.7;color:#c6cbd2;max-width:760px"
 CARD = "display:block;padding:20px 22px;border:1px solid rgba(243,245,248,0.14);background:rgba(243,245,248,0.03);color:#c6cbd2;text-decoration:none"
 WRAP = "max-width:1440px;margin:0 auto;padding:clamp(56px,6vw,96px) 40px;box-sizing:border-box"
 LINE = "border-top:1px solid rgba(243,245,248,0.12)"

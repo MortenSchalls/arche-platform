@@ -40,6 +40,31 @@ LOGO = ('<svg width="104" height="25" viewBox="0 0 300 72" fill="none" aria-hidd
         '<path d="M56 42 C 92 50, 120 51, 150 51 C 180 51, 208 50, 244 42" stroke="url(#aenl)" stroke-width="2"/>'
         '<path d="M150 4 L157 18 L150 32 L143 18 Z" fill="url(#aenl)"/></svg>')
 
+def _sel(sizes, extra=""):
+    return ",".join(f'[style*="font-size: {x}px"]{extra},[style*="font-size:{x}px"]{extra}' for x in sizes)
+
+# One type system for every page (Morten, 30 Oct 2026: "no consistency anymore on the fonts and the styles and sizes").
+# Readers are mostly senior decision makers, often on a phone: Prata only for page and section titles and the slogan,
+# Hanken Grotesk for everything else; body text 17 px (16 px on phones) at regular weight, never light, because thin
+# text on a dark background is the first thing older eyes lose; nothing under 14 px except the spaced capitals of
+# labels and menus (12.5 px, medium weight); one size for every section title.
+SMALL = (10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5)
+TYPE = ("/* type system (nav.py) */\n"
+    "body,#dc-root,#dc-prerender{font-weight:400}\n"
+    # light weight only for large display text
+    + ",".join(f'[style*="font-weight: 300"]{s},[style*="font-weight:300"]{s}' for s in (':not([style*="font-size: 2"]):not([style*="font-size: 3"]):not([style*="font-size: 4"]):not([style*="font-size: 6"]):not([style*="clamp"])',))
+    + "{font-weight:400!important}\n"
+    # spaced capitals: labels, eyebrows, menus
+    + _sel(SMALL, '[style*="uppercase"]') + "{font-size:12.5px!important;font-weight:500!important}\n"
+    # small running text up to 14 px, 14-14.5 to 15 px, 15-16 to 16.5 px
+    + _sel(SMALL, ':not([style*="uppercase"])') + "{font-size:14px!important}\n"
+    + _sel((14, 14.5), ':not([style*="uppercase"])') + "{font-size:15px!important}\n"
+    + _sel((15, 15.5, 16), ':not([style*="uppercase"])') + "{font-size:16.5px!important}\n"
+    + ":is(p,li,dd)" + _sel((15, 15.5, 16)).replace(",", ",:is(p,li,dd)") + "{font-size:17px!important;line-height:1.7!important}\n"
+    # one size for page titles (section titles: polish.py already sets one size for every h2)
+    + "html[data-ae-page] h1{font-size:clamp(40px,5vw,68px)!important;line-height:1.1!important}\n"
+    + "@media (max-width:600px){html[data-ae-page] p,html[data-ae-page] li{font-size:16px!important}html[data-ae-page] h1{font-size:36px!important}}\n")
+
 def header(page, lang, langs_here):
     a = lambda slug, name: (f'<a href="{url(slug, lang)}"' + (' aria-current="page"' if slug == page else "") + f'>{say(name, lang)}</a>')
     langs = "".join(f'<a href="{langs_here(l)}" lang="{l}"' + (' aria-current="true"' if l == lang else "") + f'>{LABEL[l]}</a>' for l in LANGS)
@@ -117,7 +142,7 @@ def page_of(rel):
     return page, "en", lambda l: me if l == "en" else url("home", l)
 
 def run(verbose=True):
-    open(os.path.join(SITE, "nav.css"), "w", encoding="utf-8").write(CSS)
+    open(os.path.join(SITE, "nav.css"), "w", encoding="utf-8").write(CSS + TYPE)
     n = 0
     for root, dirs, files in os.walk(SITE):
         if os.path.relpath(root, SITE).split(os.sep)[0] in SKIP: continue
