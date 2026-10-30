@@ -68,7 +68,7 @@
  "rewrites": [
   {
    "source": "/website/:path*",
-   "destination": "/api/site?p=:path*"
+   "destination": "/api/website?p=:path*"
   }
  ],
  "redirects": [

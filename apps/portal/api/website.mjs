@@ -1,10 +1,13 @@
 // Private look at the locked website from the portal (Morten, 30 Oct 2026: "Give me access to the website through a link
 // in my portal, as I am logged in there I don't need to log in again on the website").
 // POST with the owner's sign-in token. Checks the sign-in and the owner role, then sets a 30-day owner pass (HttpOnly
-// cookie, signed with the portal's server key) and answers with /website/, the private copy served by api/site.mjs.
+// cookie, signed with the portal's server key) and answers with /website/. GET serves that private copy (api/_site/serve.mjs);
+// one function for both, because the Vercel plan allows 12 functions.
 import { COOKIE, DAYS, makePass } from "./_site/gate.mjs";
+import serveSite from "./_site/serve.mjs";
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
+  if (req.method === "GET" || req.method === "HEAD") return serveSite(req, res);   // portal.archeaviation.com/website/... (vercel.json)
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
   const URL_ = process.env.SUPABASE_URL, KEY = process.env.SUPABASE_SECRET_KEY;
   if (!URL_ || !KEY) return res.status(503).json({ error: "not set up" });

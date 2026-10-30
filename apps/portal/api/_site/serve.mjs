@@ -1,8 +1,8 @@
 // The locked website, privately inside the portal (Morten, 30 Oct 2026). portal.archeaviation.com/website/... is
-// rewritten here (vercel.json). Served only with a valid owner pass (cookie set by /api/website); everyone else goes
+// rewritten to /api/website (GET), which hands over here. Served only with a valid owner pass (cookie set by /api/website); everyone else goes
 // to the portal. The forms are switched off in this copy, so nothing is sent from it. Files: api/_site/data.mjs.
-import FILES from "./_site/data.mjs";
-import { COOKIE, readCookie, validPass } from "./_site/gate.mjs";
+import FILES from "./data.mjs";
+import { COOKIE, readCookie, validPass } from "./gate.mjs";
 const TYPES = { html: "text/html; charset=utf-8", css: "text/css; charset=utf-8", js: "text/javascript; charset=utf-8", json: "application/json",
   svg: "image/svg+xml", xml: "application/xml", txt: "text/plain; charset=utf-8", webp: "image/webp", png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webmanifest: "application/manifest+json" };
 export function resolve(p) {

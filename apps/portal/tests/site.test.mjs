@@ -1,5 +1,5 @@
 // Private website copy in the portal: owner pass, every page served, forms off, no pass = no site. Example data only.
-import site, { resolve } from "../api/site.mjs";
+import site, { resolve } from "../api/_site/serve.mjs";
 import website from "../api/website.mjs";
 import { makePass, validPass } from "../api/_site/gate.mjs";
 import FILES from "../api/_site/data.mjs";
@@ -30,3 +30,6 @@ const run = async role => { globalThis.fetch = async u => /auth\/v1\/user/.test(
 r = await run("owner"); ok("owner gets the pass cookie and /website/", r.code === 200 && r.body.url === "/website/" && /ae_site=\d{13}\.[\w-]{43}; Path=\/website;.*HttpOnly; Secure/.test(r.headers["set-cookie"]), r);
 r = await run("broker"); ok("a broker gets no pass", r.code === 403 && !r.headers["set-cookie"], r);
 r = await run(null); ok("not signed in gets no pass", r.code === 401 && !r.headers["set-cookie"], r);
+const r2 = await call(website, { method: "GET", url: "/api/website?p=services/", headers: { cookie: "ae_site=" + makePass(KEY) } });
+ok("the same function serves the copy on GET", r2.code === 200 && /Three services/.test(zlib.gunzipSync(r2.raw).toString()));
+ok("12 functions at most (Vercel plan)", (await import("node:fs")).readdirSync(new URL("../api/", import.meta.url)).filter(f => /\.(m?js|ts)$/.test(f) && !f.startsWith("_")).length <= 12);
