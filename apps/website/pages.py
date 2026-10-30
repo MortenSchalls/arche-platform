@@ -101,8 +101,8 @@ def statement_last(t):
 
 def links(t, lang, sub):
     for a, slug in ANCHOR.items(): t = t.replace(f'href="#{a}"', f'href="{url(slug, lang)}"')
-    if sub:   # the logo and "why" go back to the home page in the same language
-        t = t.replace('href="#top"', f'href="{url("home", lang)}"').replace('href="#why"', f'href="{url("home", lang)}#why"')
+    if sub:   # quote links go to the quote form on Contact; "why" to the home page, in the same language
+        t = t.replace('href="#top"', f'href="{url("contact", lang)}#top"')   # "Check availability" and other quote links: the quote form.replace('href="#why"', f'href="{url("home", lang)}#why"')
     return t
 
 def sections(s):

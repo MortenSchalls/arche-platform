@@ -48,7 +48,7 @@ def _sel(sizes, extra=""):
 # Hanken Grotesk for everything else; body text 17 px (16 px on phones) at regular weight, never light, because thin
 # text on a dark background is the first thing older eyes lose; nothing under 14 px except the spaced capitals of
 # labels and menus (12.5 px, medium weight); one size for every section title.
-SMALL = (10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5)
+SMALL = (9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5)
 TYPE = ("/* type system (nav.py) */\n"
     "body,#dc-root,#dc-prerender{font-weight:400}\n"
     # light weight only for large display text
@@ -56,6 +56,8 @@ TYPE = ("/* type system (nav.py) */\n"
     + "{font-weight:400!important}\n"
     # spaced capitals: labels, eyebrows, menus
     + _sel(SMALL, '[style*="uppercase"]') + "{font-size:12.5px!important;font-weight:500!important}\n"
+    + 'section#top input:not([type=date]):not([type=time]):not([placeholder]){border-bottom:1px solid rgba(243,245,248,0.35)!important;min-height:34px}section#top input:focus{outline:none;border-bottom-color:#f3f5f8!important}\n'   # name and phone fields visible
+    + 'section#top span[style*="font-size: 9px"],section#top span[style*="font-size:9px"],section#top label>span{font-size:12px!important}\n'   # quote form labels
     # small running text up to 14 px, 14-14.5 to 15 px, 15-16 to 16.5 px
     + _sel(SMALL, ':not([style*="uppercase"])') + "{font-size:14px!important}\n"
     + _sel((14, 14.5), ':not([style*="uppercase"])') + "{font-size:15px!important}\n"
@@ -89,7 +91,7 @@ CSS = """/* One top menu on every page (nav.py, 30 Oct 2026) */
 .ae-nav-links a[aria-current="page"]{color:#f3f5f8;border-bottom-color:rgba(243,245,248,0.6)}
 .ae-nav-brand{display:flex;flex-direction:column;align-items:center;gap:2px;grid-column:3}
 .ae-nav-brand .w{font-family:Cinzel,serif;font-size:24px;line-height:1.15;letter-spacing:0.22em;font-weight:600;padding-left:0.24em;background:linear-gradient(178deg,#fff 0%,#d6e0eb 34%,#9db2ca 70%,#e4ebf2 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ae-nav-brand .x{font-size:9.5px;font-weight:600;letter-spacing:0.8em;padding-left:0.8em;color:#c6cbd2}
+.ae-nav-brand .x{font-size:10.5px;font-weight:600;letter-spacing:0.8em;padding-left:0.8em;color:#c6cbd2}
 .ae-nav details>summary{list-style:none;cursor:pointer;white-space:nowrap;color:#f3f5f8;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;padding:8px 2px}
 .ae-nav details>summary::-webkit-details-marker{display:none}
 .ae-nav-menu{grid-column:1;position:relative}

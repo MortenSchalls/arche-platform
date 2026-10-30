@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
   let origin = "";
   try { origin = new URL(req.headers.origin || req.headers.referer || "").host; } catch (e) {}
-  if (!/^(?:www\.)?archeaviation\.com$|\.vercel\.app$|^localhost(?::\d+)?$/.test(origin)) return res.status(403).json({ error: "Not allowed" });
+  if (!/^(?:www\.)?archeaviation\.com$|^arche-platform-[a-z0-9-]+\.vercel\.app$|^localhost(?::\d+)?$/.test(origin)) return res.status(403).json({ error: "Not allowed" });
   const b = req.body || {};
   if (JSON.stringify(b).length > 8000) return res.status(413).json({ error: "Too large" });
   if (b.website) return res.status(200).json({ ok: true });            // honeypot field for bots

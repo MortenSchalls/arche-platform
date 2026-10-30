@@ -2,7 +2,7 @@
 // The IP address is never stored or passed on; only the country and city that Vercel derives from it.
 // Environment variables (Vercel → website project): SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY
 const KINDS = new Set(["view", "section", "call", "whatsapp", "email", "portal", "language", "finder", "quote_start", "callback_start", "quote_sent", "callback_sent", "leave"]);
-const HOSTS = /^(?:www\.)?archeaviation\.com$|\.vercel\.app$|^localhost(?::\d+)?$/;
+const HOSTS = /^(?:www\.)?archeaviation\.com$|^arche-platform-[a-z0-9-]+\.vercel\.app$|^localhost(?::\d+)?$/;
 const clean = (v, n) => String(v ?? "").replace(/[^\p{L}\p{N} ._\-\/@:+]/gu, "").trim().slice(0, n);
 
 export default async function handler(req, res) {
