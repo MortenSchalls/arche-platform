@@ -178,6 +178,7 @@ window.archeSend = function (data) {
     import seo_security; seo_security.run()   # search, speed, security headers, statistics (26 Oct 2026)
     import pages; pages.run()   # one page per menu item, all four languages (30 Oct 2026)
     import nav; nav.run()   # one fixed top menu on every page, watermark, home hero photo (30 Oct 2026)
+    import portal_preview; portal_preview.run()   # private copy of the site for the owner inside the portal (30 Oct 2026)
 
 
 if __name__ == "__main__":

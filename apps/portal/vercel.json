@@ -64,5 +64,23 @@
     }
    ]
   }
+ ],
+ "rewrites": [
+  {
+   "source": "/website/:path*",
+   "destination": "/api/site?p=:path*"
+  }
+ ],
+ "redirects": [
+  {
+   "source": "/website",
+   "destination": "/website/",
+   "permanent": false
+  },
+  {
+   "source": "/api/_site/:path*",
+   "destination": "/",
+   "permanent": false
+  }
  ]
 }
