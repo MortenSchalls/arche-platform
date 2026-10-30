@@ -5,16 +5,18 @@ const ID = "00000000-0000-4000-8000-0000000000e1";
 function fake() {
   const T = { profiles: [{ id: ID, role: "broker", active: true, contract_name: "Example Person", data: { roster: true } }, { id: "own", role: "owner", active: true, data: {} }],
     join_requests: [{ user_id: ID, data: { contractName: "Example Person" } }], agreements: [{ id: ID, data: { status: "active" } }], academy_progress: [{ id: ID, data: { completedAt: "2026-10-20" } }],
-    access_log: [{ owner_id: ID, data: { lastSeen: "2026-10-28T09:00:00Z" } }], audit_log: [], intel: [], config: [{ key: "assign", value: { firstTouchHours: 24 } }],
+    access_log: [{ owner_id: ID, data: { lastSeen: "2026-10-28T09:00:00Z" } }], audit_log: [],
+    trips: [{ owner_id: ID, id: "test1", data: { stage: "submitted" } }, { owner_id: ID, id: "paid1", data: { stage: "submitted" } }], trip_status: [{ owner_id: ID, id: "test1", data: { state: "review" } }, { owner_id: ID, id: "paid1", data: { state: "issued", receipts: [{ amount: 1 }] } }],
+    website_enquiries: [{ id: "w1", at: "2026-10-26T02:00:00Z", data: { type: "quote" } }, { id: "w2", at: "2026-10-28T09:00:00Z", data: { type: "quote" } }, { id: "w3", at: "2026-10-30T09:00:00Z", data: { type: "quote" } }, { id: "w4", at: "2026-10-20T09:00:00Z", data: { handled: true } }], intel: [], config: [{ key: "assign", value: { firstTouchHours: 24 } }],
     leads: ["Japan", "Thailand", "Hong Kong", "Singapore", "Thailand"].map((c, i) => ({ owner_id: ID, id: "p" + i, data: { org: "Example Org " + i, country: c, status: "assigned", log: [] } })),
     prospects: [0, 1, 2, 3, 4].map(i => ({ id: "p" + i, data: { org: "Example Org " + i, status: "assigned", assignedTo: ID } })) };
   const users = [{ id: ID, email: "example.person@example.com", email_confirmed_at: "2026-10-01", created_at: "2026-10-01", last_sign_in_at: "2026-10-28T09:00:00Z" }];
   const q = (t) => { let rows = T[t], filt = [], op = "select", patch = null, ins = null;
-    const api = { select() { return api; }, eq(c, v) { filt.push([c, v]); return api; }, delete() { op = "delete"; return api; }, update(p) { op = "update"; patch = p; return api; },
+    const api = { select() { return api; }, eq(c, v) { filt.push(r => r[c] === v); return api; }, lt(c, v) { filt.push(r => r[c] < v); return api; }, delete() { op = "delete"; return api; }, update(p) { op = "update"; patch = p; return api; },
       insert(r) { T[t].push(r); return Promise.resolve({ data: [r], error: null }); },
       upsert(r) { T[t] = T[t].filter(x => x.key !== r.key); T[t].push(r); return Promise.resolve({ data: [r], error: null }); },
-      maybeSingle() { return Promise.resolve({ data: T[t].filter(r => filt.every(([c, v]) => r[c] === v))[0] || null, error: null }); },
-      then(res, rej) { const hit = T[t].filter(r => filt.every(([c, v]) => r[c] === v));
+      maybeSingle() { return Promise.resolve({ data: T[t].filter(r => filt.every(f => f(r)))[0] || null, error: null }); },
+      then(res, rej) { const hit = T[t].filter(r => filt.every(f => f(r)));
         if (op === "delete") T[t] = T[t].filter(r => !hit.includes(r)); if (op === "update") hit.forEach(r => Object.assign(r, patch));
         return Promise.resolve({ data: hit, error: null }).then(res, rej); } };
     return api; };
@@ -45,3 +47,12 @@ let own = false; sb.auth.admin.listUsers = async () => ({ data: { users: [{ id: 
 ok("an owner is never reset", own);
 let threw = false; try { await main({ ACTION: "delete-everything", EMAIL: "x@example.com" }, sb); } catch (e) { threw = true; }
 ok("only the listed actions run", threw);
+
+{ const sb2 = fake();
+  const r1 = await main({ ACTION: "remove-test-trip", NAME: "test1" }, sb2);
+  ok("test trip removed with its status, logged", r1.removed && !sb2.T.trips.some(x => x.id === "test1") && !sb2.T.trip_status.some(x => x.id === "test1") && sb2.T.audit_log.some(a => a.action === "Test trip removed"));
+  let refused = false; try { await main({ ACTION: "remove-test-trip", NAME: "paid1" }, sb2); } catch (e) { refused = /Money or a flight/.test(e.message); }
+  ok("a trip with client money recorded is never removed", refused && sb2.T.trips.some(x => x.id === "paid1"));
+  const r2 = await main({ ACTION: "close-test-enquiries", NAME: "2026-10-29" }, sb2);
+  ok("open website enquiries before the date closed as handled, later ones untouched, nothing deleted", r2.closed === 2 && sb2.T.website_enquiries.length === 4 && sb2.T.website_enquiries.find(x => x.id === "w1").data.handled && !sb2.T.website_enquiries.find(x => x.id === "w3").data.handled);
+}

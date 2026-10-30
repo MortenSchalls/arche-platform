@@ -30,7 +30,7 @@ console.log('F owner:',toasts.slice(-1), await p.evaluate(()=>document.querySele
 await as('Test Broker');await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(800);
 for (const k of ["audit"]) { await p.click('#ck_'+k); await p.waitForTimeout(400); }
 console.log('G audit ticked:',await p.isChecked('#ck_audit'),' submit disabled:',await p.evaluate(()=>document.querySelector('[data-act="submit"]').disabled), await p.evaluate(()=>(document.querySelector('#secSend + p')||{}).innerText));
-await (await p.$('#secSafety')).screenshot({path:'SF_panel.png'});
+await (await p.$('#secSafety')).screenshot({path:require('os').tmpdir()+'/SF_panel.png'});
 // suspension
 await as('Test Owner');await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(800);
 await p.evaluate(()=>document.querySelector('#secSafety details').open=true);await p.fill('#sf_sn','Runway excursion 26 Oct, under review');await p.click('[data-sfa="suspend"]');await p.waitForTimeout(1200);

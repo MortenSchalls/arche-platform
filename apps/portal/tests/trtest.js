@@ -1,15 +1,14 @@
-const {chromium}=require('playwright');const fs=require('fs');
-const mock=fs.readFileSync('mock2.js','utf8');
-const html=fs.readFileSync('archē-broker-portal.html','utf8').replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js');
-const seed=JSON.parse(fs.readFileSync('seed4.json','utf8'));
-const mk=(f,uid,owner,edit,sd)=>fs.writeFileSync(f,'<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"></head><body>'+html.replace('<script>\n"use strict";',`<script>window.__SEED=${JSON.stringify(sd)};window.__OWNER=${owner};window.__EDIT=${edit};window.__UID="${uid}";${mock}</script><script>\n"use strict";`)+'</body></html>');
-mk('ttr.html','demo-broker',false,false,seed);
+// Booking practice (Training): whole training bookings with traps, grading and isolation from real data. Runs on the
+// test version (example data). Needs the test page on localhost:8765.
+const {chromium}=require('playwright');
 const R={};const ok=(k,v)=>{R[k]=v;console.log((v?'PASS ':'FAIL ')+k);};
 (async()=>{const b=await chromium.launch();const errs=[];const p=await b.newPage({viewport:{width:1400,height:950}});p.on('pageerror',e=>errs.push(e.message));
-await p.goto('http://localhost:8765/ttr.html');await p.waitForTimeout(2500);
-await p.click('#nav [data-view="training"]');await p.waitForTimeout(300);
+const as=async(pg,who)=>{await pg.selectOption('select',{label:who});await pg.waitForTimeout(2500);};
+await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await as(p,'Test Broker');
+await p.evaluate(()=>{S.view='training';S.trTab='book';render();});await p.waitForTimeout(400);
 ok('training opens for a broker', /Training mode/.test(await p.textContent('#main')));
-const before=await p.evaluate(()=>JSON.stringify(Object.keys(window.__store).filter(k=>!k.startsWith('train/')).sort()));
+const snap=()=>p.evaluate(()=>JSON.stringify({trips:allTrips().map(t=>t.did).sort(),leads:Object.keys(S.leads||{}).sort()}));
+const before=await snap();
 async function run(sc, o){
   await p.click(`[data-tr="start"][data-sc="${sc}"]`);await p.waitForTimeout(300);
   await p.click('[data-tr="next"]');await p.waitForTimeout(250);
@@ -41,12 +40,10 @@ await p.fill('#tr_dep',String(cc.deposit));await p.fill('#tr_bal',cc.balanceDue)
 ok('payment request answers graded correct', await p.evaluate(()=>{const n=trRun().pn;return n.depOk&&n.dateOk&&n.opOk;}));
 await p.click('[data-tr="next"]');await p.waitForTimeout(300);await p.click('[data-tr="finish"]');await p.waitForTimeout(300);
 const sc1=await p.evaluate(()=>trRun().score);ok('s1 perfect run scores 100 ('+sc1+')', sc1===100);
-await p.screenshot({path:'tr_s1_score.png'});
 // s4 cabotage trap
 x=await run('s4',{from:'KOPF',to:'KTEB',pax:5,cat:'Super-midsize jet',pickTrap:true});
 ok('cabotage trap returned', x.review.crit.some(c=>/cabotage/i.test(c)));
 ok('return costs first-time bonus', await p.evaluate(()=>trRun().returns)===1);
-await p.screenshot({path:'tr_s4_return.png'});
 // fix: back to Avinode, choose clean, resubmit
 await p.click('[data-tr="goto"][data-to="2"]');await p.waitForTimeout(300);
 const cleanIdx=await p.evaluate(()=>trRun().offers.findIndex(o=>!o.trap));await p.check('#tr_o'+cleanIdx);await p.click('[data-tr="pick"]');await p.waitForTimeout(300);
@@ -65,17 +62,13 @@ ok('decline exercise scores ('+await p.evaluate(()=>trRun().score)+')', (await p
 x=await run('s6',{from:'LTFM',to:'LFMN',pax:4,cat:'Midsize jet'});
 ok('sending the red-flag trip is returned', x.review.crit.some(c=>/Russia/.test(c)));
 // isolation
-const after=await p.evaluate(()=>JSON.stringify(Object.keys(window.__store).filter(k=>!k.startsWith('train/')).sort()));
-ok('nothing outside train/ was written', before===after);
-ok('no real trip, commission or lead touched', await p.evaluate(()=>!Object.keys(window.__store).some(k=>/^(desk|status|payouts|leads|audit)\//.test(k)&&/TRN|r[0-9a-z]{6,}/.test(k))));
+const after=await snap();
+ok('no real trip or lead was created or changed', before===after);
 // owner sees team training
-const st=await p.evaluate(()=>window.__store);mk('ttro.html','u_owner',true,true,st);
-const q=await b.newPage({viewport:{width:1400,height:950}});q.on('pageerror',e=>errs.push('O:'+e.message));await q.goto('http://localhost:8765/ttro.html');await q.waitForTimeout(2500);
-await q.evaluate(()=>{S.view='training';render();});await q.waitForTimeout(1200);
-ok('owner sees team training table', /Team training/.test(await q.textContent('#main'))&&/Example Broker|Broker/.test(await q.textContent('#main')));
+await as(p,'Test Owner');await p.evaluate(()=>{S.trAll=null;S.view='training';S.trTab='book';render();});await p.waitForTimeout(1500);
+ok('owner sees team training table', /Team training/.test(await p.textContent('#main'))&&/Test Broker/.test(await p.textContent('#main')));
 // phone
-const m=await b.newPage({viewport:{width:390,height:844},hasTouch:true,isMobile:true});await m.goto('http://localhost:8765/ttr.html');await m.waitForTimeout(2000);
-await m.evaluate(()=>{S.view='training';S.trSel=Object.keys(S.trRuns)[0];render();});await m.waitForTimeout(500);
+const m=await b.newPage({viewport:{width:390,height:844},hasTouch:true,isMobile:true});await m.goto('http://localhost:8765/test.html');await m.waitForTimeout(3000);await as(m,'Test Broker');
+await m.evaluate(()=>{S.view='training';S.trTab='book';S.trSel=Object.keys(S.trRuns||{})[0]||null;render();});await m.waitForTimeout(500);
 ok('no sideways scroll on phone', await m.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1));
-await m.screenshot({path:'tr_phone.png'});
-console.log('errors',errs);console.log(Object.values(R).every(Boolean)?'ALL PASS':'SOME FAILED');await b.close();})();
+ok('no page errors',!errs.length);if(errs.length)console.log(errs.slice(0,5));const all=Object.values(R).every(Boolean);console.log(all?'ALL PASS':'SOME FAILED');await b.close();process.exit(all?0:1);})();

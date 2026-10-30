@@ -6885,7 +6885,10 @@ function vOnboarding(){
   document.addEventListener("click", e => {
     const all = e.target.closest && e.target.closest("[data-clpall]");
     if (all) { const open = all.dataset.clpall === "1"; document.querySelectorAll("#main [data-clp]:not(button):not(h2):not(h3)").forEach(p => { st[p.dataset.clp] = !open; set(p, !open); }); save(); return; }
-    const t = e.target.closest && e.target.closest("[data-clp],[data-clp-title]"); if (!t || t.closest("a,select,input,label") || (e.target.closest("button") && !e.target.closest(".clpbtn"))) return;
+    // only the heading (or its ▾/▸ button) opens and closes a section; a click on a box, field, link or button inside it
+    // never does (30 Oct 2026: ticking a box in a section closed the section)
+    if (!e.target.closest || e.target.closest("a,select,input,label,textarea") || (e.target.closest("button") && !e.target.closest(".clpbtn"))) return;
+    const t = e.target.closest("button.clpbtn,[data-clp-title]"); if (!t) return;
     const p = t.closest("div[data-clp]"); if (!p) return;
     const k = p.dataset.clp; st[k] = !st[k]; if (!st[k]) delete st[k]; save(); set(p, !!st[k]);
   });

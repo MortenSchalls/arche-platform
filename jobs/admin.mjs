@@ -14,6 +14,10 @@
 //   ACTION=alerts-status              read only: what the alert sender has open, how often each was sent, the last run
 //   ACTION=leads-status [EMAIL=…]     read only: counts of prospects by status, open leads per broker, the last rotation
 //   ACTION=set-name EMAIL=… NEW_NAME=…  corrects the name shown in the portal (not the name in a signed agreement)
+//   ACTION=remove-test-trip NAME=<trip id>   removes a test trip and its status (Morten, 30 Oct 2026); refused once any
+//                                   client money, payment or flight is recorded on it
+//   ACTION=close-test-enquiries NAME=<YYYY-MM-DD>   marks website enquiries received before that date and still open as
+//                                   handled, as test data (Morten, 30 Oct 2026); nothing is deleted
 import { createClient } from "@supabase/supabase-js";
 
 const mask = e => String(e || "").trim().toLowerCase().replace(/^(.).*?(@.*)$/, "$1***$2");
@@ -134,12 +138,36 @@ export async function resetJoining(sb, u, why) {
   ck(await sb.from("audit_log").insert({ by: null, action: "Joining started again", detail: `${before.name || "person " + id.slice(0, 8)}: ${done.join(", ") || "nothing to remove"} (${why})` }), "audit");
   return { before: before.step, removed: done };
 }
+export async function removeTestTrip(sb, id, why) {
+  if (!/^[\w-]{3,80}$/.test(id)) throw new Error("Give the trip id in NAME");
+  const trips = ck(await sb.from("trips").select("owner_id,id,data").eq("id", id), "trips");
+  if (!trips.length) return { trip: id, removed: false, note: "No trip with this id" };
+  const out = [];
+  for (const t of trips) {
+    const st = (ck(await sb.from("trip_status").select("data").eq("owner_id", t.owner_id).eq("id", id), "status")[0] || {}).data || {};
+    if ((st.receipts || []).length || (st.payouts || []).length || st.clientPaid || st.operatorPaid || st.state === "flown") throw new Error("Money or a flight is recorded on this trip: not removed");
+    ck(await sb.from("trip_status").delete().eq("owner_id", t.owner_id).eq("id", id).select(), "status");
+    ck(await sb.from("trips").delete().eq("owner_id", t.owner_id).eq("id", id).select(), "trips");
+    out.push({ stage: (t.data || {}).stage || "", state: st.state || "" });
+  }
+  ck(await sb.from("audit_log").insert({ by: null, action: "Test trip removed", detail: `${id} (${why})` }), "audit");
+  return { trip: id, removed: true, was: out };
+}
+export async function closeTestEnquiries(sb, before, why) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(before)) throw new Error("Give the cut-off date in NAME, as YYYY-MM-DD");
+  const rows = ck(await sb.from("website_enquiries").select("id,at,data").lt("at", before + "T00:00:00Z"), "enquiries").filter(r => !(r.data || {}).handled);
+  for (const r of rows) ck(await sb.from("website_enquiries").update({ data: { ...(r.data || {}), handled: true, handledAt: new Date().toISOString(), handledNote: "test data, closed by the owner's request" } }).eq("id", r.id).select(), "enquiries");
+  if (rows.length) ck(await sb.from("audit_log").insert({ by: null, action: "Test website enquiries closed", detail: `${rows.length} received before ${before} (${why})` }), "audit");
+  return { before, closed: rows.length, received: rows.map(r => String(r.at || "").slice(0, 10)) };
+}
 // the result also goes into a job annotation, which Claude reads through the GitHub API (the plain log is not reachable from its workspace)
 const note = o => { if (process.env.GITHUB_ACTIONS) console.log("::notice title=Admin result::" + JSON.stringify(o).replace(/%/g, "%25").replace(/\r?\n/g, " ")); };
 export async function main(env = process.env, sb) {
   sb = sb || createClient(env.SUPABASE_URL, env.SUPABASE_SECRET_KEY, { auth: { persistSession: false } });
   const action = env.ACTION, email = env.EMAIL, name = env.NAME, why = `on the owner's request, GitHub run ${env.GITHUB_RUN_ID || "local"}`;
   if (action === "trim-leads") { const u0 = await findUser(sb, email); if (!u0) throw new Error("No login with this email"); const out = { email: mask(email), ...(await trimLeads(sb, u0, Math.max(1, Math.min(40, Number(env.KEEP) || 10)))) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "remove-test-trip") { const out = await removeTestTrip(sb, String(name || "").trim(), why); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "close-test-enquiries") { const out = await closeTestEnquiries(sb, String(name || "").trim(), why); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "people-status") { const out = await peopleStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
