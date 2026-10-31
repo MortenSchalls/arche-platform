@@ -13,6 +13,10 @@
 //   ACTION=people-status              read only: everyone with a login (masked email), last sign-in, joining step, team
 //   ACTION=alerts-status              read only: what the alert sender has open, how often each was sent, the last run
 //   ACTION=leads-status [EMAIL=…]     read only: counts of prospects by status, open leads per broker, the last rotation
+//   ACTION=owner-to-joining EMAIL=… or NAME=…  (Morten, 31 Oct 2026, for his wife: "remove her as owner now and we add her
+//                                   later as owner, for now she joins like any other") an owner becomes a person joining:
+//                                   owner rights off, then the same reset as reset-joining (offer first). Refused if it would
+//                                   leave no other active owner. Her login is kept; she is made owner again later in Supabase.
 //   ACTION=set-name EMAIL=… NEW_NAME=…  corrects the name shown in the portal (not the name in a signed agreement)
 //   ACTION=remove-test-trip NAME=<trip id>   removes a test trip and its status (Morten, 30 Oct 2026); refused once any
 //                                   client money, payment or flight is recorded on it
@@ -138,6 +142,26 @@ export async function resetJoining(sb, u, why) {
   ck(await sb.from("audit_log").insert({ by: null, action: "Joining started again", detail: `${before.name || "person " + id.slice(0, 8)}: ${done.join(", ") || "nothing to remove"} (${why})` }), "audit");
   return { before: before.step, removed: done };
 }
+export async function ownerToJoining(sb, u, why) {
+  const pr = ck(await sb.from("profiles").select("role,active,contract_name").eq("id", u.id).maybeSingle(), "profiles");
+  if (!pr || pr.role !== "owner") throw new Error("This person is not an owner");
+  const others = (ck(await sb.from("profiles").select("id,role,active").eq("role", "owner"), "profiles") || []).filter(p => p.id !== u.id && p.active);
+  if (!others.length) throw new Error("Refused: no other active owner would be left");
+  ck(await sb.from("profiles").update({ role: "broker", active: false, book: false, supervised: false }).eq("id", u.id).select(), "profiles");
+  // off the alert recipients (owners receive alerts)
+  try { const a = ck(await sb.from("alert_settings").select("id,data").eq("id", "settings").maybeSingle(), "alert_settings");
+    if (a && ((a.data || {}).recipients || []).some(r => r.uid === u.id)) ck(await sb.from("alert_settings").update({ data: { ...a.data, recipients: a.data.recipients.filter(r => r.uid !== u.id) } }).eq("id", "settings").select(), "alert_settings"); } catch (e) {}
+  ck(await sb.from("audit_log").insert({ by: null, action: "Owner rights removed: joining like any other", detail: `${pr.contract_name || "owner " + u.id.slice(0, 8)} (${why})` }), "audit");
+  const r = await resetJoining(sb, u, why);
+  return { was: "owner", removed: ["owner rights", ...r.removed] };
+}
+async function findOwner(sb, email, name) {
+  if (email) return findUser(sb, email);
+  const n = String(name || "").trim().toLowerCase(); if (n.length < 3) throw new Error("Give the email or the name");
+  const hits = (ck(await sb.from("profiles").select("id,contract_name,role").eq("role", "owner"), "profiles") || []).filter(p => String(p.contract_name || "").toLowerCase().includes(n));
+  if (hits.length !== 1) throw new Error(hits.length ? "More than one owner matches: use the email" : "No owner matches this name: use the email");
+  const { data, error } = await sb.auth.admin.getUserById(hits[0].id); if (error) throw new Error("user: " + error.message); return data.user;
+}
 export async function removeTestTrip(sb, id, why) {
   if (!/^[\w-]{3,80}$/.test(id)) throw new Error("Give the trip id in NAME");
   const trips = ck(await sb.from("trips").select("owner_id,id,data").eq("id", id), "trips");
@@ -168,6 +192,7 @@ export async function main(env = process.env, sb) {
   if (action === "trim-leads") { const u0 = await findUser(sb, email); if (!u0) throw new Error("No login with this email"); const out = { email: mask(email), ...(await trimLeads(sb, u0, Math.max(1, Math.min(40, Number(env.KEEP) || 10)))) }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "remove-test-trip") { const out = await removeTestTrip(sb, String(name || "").trim(), why); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "close-test-enquiries") { const out = await closeTestEnquiries(sb, String(name || "").trim(), why); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "owner-to-joining") { const u0 = await findOwner(sb, email, name); if (!u0) throw new Error("No login found"); const r0 = await ownerToJoining(sb, u0, why), out = { email: mask(u0.email), ...r0, now: (await status(sb, u0)).step }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "people-status") { const out = await peopleStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }

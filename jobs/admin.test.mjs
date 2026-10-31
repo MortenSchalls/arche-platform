@@ -56,3 +56,14 @@ ok("only the listed actions run", threw);
   const r2 = await main({ ACTION: "close-test-enquiries", NAME: "2026-10-29" }, sb2);
   ok("open website enquiries before the date closed as handled, later ones untouched, nothing deleted", r2.closed === 2 && sb2.T.website_enquiries.length === 4 && sb2.T.website_enquiries.find(x => x.id === "w1").data.handled && !sb2.T.website_enquiries.find(x => x.id === "w3").data.handled);
 }
+// owner to joining (31 Oct 2026)
+{ const sb2 = fake(); sb2.T.profiles.push({ id: "own2", role: "owner", active: true, contract_name: "Example Owner Two", data: {} }); sb2.T.alert_settings = [{ id: "settings", data: { recipients: [{ uid: "own2" }, { uid: "own" }] } }];
+  const users2 = [{ id: "own2", email: "owner.two@example.com", created_at: "2026-10-01" }]; sb2.auth.admin.getUserById = async id => ({ data: { user: users2.find(u => u.id === id) || { id } }, error: null });
+  const r2 = await main({ ACTION: "owner-to-joining", NAME: "Owner Two" }, sb2);
+  const p2 = sb2.T.profiles.find(p => p.id === "own2");
+  ok("owner to joining: owner rights off, back at the offer, off the alert list", p2.role === "broker" && p2.active === false && r2.removed[0] === "owner rights" && sb2.T.alert_settings[0].data.recipients.length === 1);
+  let refused = false; try { const sb3 = fake(); await main({ ACTION: "owner-to-joining", NAME: "" , EMAIL: "" }, sb3); } catch (e) { refused = true; }
+  ok("owner to joining needs a name or email", refused);
+  let last = false; try { const sb4 = fake(); sb4.T.profiles = [{ id: "solo", role: "owner", active: true, contract_name: "Only Owner", data: {} }]; sb4.auth.admin.getUserById = async id => ({ data: { user: { id } }, error: null }); await main({ ACTION: "owner-to-joining", NAME: "Only Owner" }, sb4); } catch (e) { last = /no other active owner/.test(e.message); }
+  ok("refused when it would leave no other owner", last); }
+
