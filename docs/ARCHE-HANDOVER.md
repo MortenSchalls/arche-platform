@@ -212,6 +212,8 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
 
 ## 8. Open items
 
+- 31 Oct 2026: owner four-eyes released to live (0a6189e). Website phone layout (bc9d8e8, `apps/website/site-fixes.css`, phones up to 760 px: photo-led hero, compact quote form, swipeable services and trip-feature rows, 2x2 discover tiles, 20px gutter) is on staging; goes live when Morten says "release".
+
 The dated launch steps (UEN, bank, payments, Avinode, Singapore number, email, insurance quote, test payment, group 1, launch, then ACA and operator ratings) are in Team → To do for you, sorted by due date.
  (also on the portal task list and in `docs/ROADMAP.md`)
 
