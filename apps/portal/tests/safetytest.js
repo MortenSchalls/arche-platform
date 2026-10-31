@@ -13,14 +13,15 @@ const leg=p.locator('.leg').first();await leg.locator('[data-l="from"]').fill('W
 await p.fill('#q_op','Example Jets Pte Ltd');await p.selectOption('#q_oc','SG');await p.fill('#q_ac','Challenger 650');await p.fill('#q_tl','9V-ABC');await p.fill('#q_pr','40000');
 await p.click('#edForm button[type=submit]');await p.waitForTimeout(1800);const did=await p.evaluate(()=>S.sel);
 console.log('A safety head:',await p.evaluate(()=>document.querySelector('#secSafety .note').innerText));
-await p.click('#ck_audit');await p.waitForTimeout(500);console.log('B audit tick blocked:',!(await p.isChecked('#ck_audit')),toasts.slice(-1));
+console.log('B audit tick set by the portal, not by hand:',await p.isDisabled('#ck_audit'),!(await p.isChecked('#ck_audit')));
 await sel('sf_aud','isbao-1');await sel('sf_cls','jet');await sel('sf_2p','no');await fill('sf_ins','20000000');await sel('sf_hist','clear');
 console.log('C red:',await p.evaluate(()=>document.querySelector('#secSafety .note').innerText));
 await sel('sf_2p','yes');await fill('sf_ins','60000000');
 for(const k of ['aocAuth','insInsurer','sms','noAdverse','refs']){await p.check('#sf83_'+k);await p.waitForTimeout(300);}
 await fill('sf_cap','4000');await fill('sf_capt','300');await fill('sf_fo','1500');
 console.log('D needs:',await p.evaluate(()=>document.querySelector('#secSafety .note').innerText));
-for (const k of ["never","risk","aoc","audit","route"]) { await p.click('#ck_'+k); await p.waitForTimeout(250); }
+await p.evaluate(async()=>{const t=tripById(S.sel);await deskWrite(t,{docs:[...(t.d.docs||[]),{id:"xa",name:"aoc.pdf",kind:"AOC",at:now()}]},"test: AOC");});await p.waitForTimeout(600);
+for (const k of ["route"]) { await p.click('#ck_'+k); await p.waitForTimeout(250); }
 // insurance and operator terms come from the Operator terms and insurance record (29 Oct 2026)
 await p.evaluate(async()=>{const t=tripById(S.sel);const o={cancel:[{days:14,unit:"days",pct:50}],pay:[{days:"booking",pct:100}],ins:{insurer:"Example Insurer",expiry:"2030-12-31",regOn:"yes",territory:"yes",how:"Email from the insurer",verifiedAt:new Date().toISOString().slice(0,10)}};await deskWrite(t,{opTerms:o,docs:[...(t.d.docs||[]),{id:"xi",name:"ins.pdf",kind:"Insurance certificate",at:now()}],checks:{...(t.d.checks||{}),ins:true,terms:true}},"test: operator terms");});await p.waitForTimeout(600);
 console.log('E audit ticked?',await p.isChecked('#ck_audit'),' submit disabled:',await p.evaluate(()=>document.querySelector('[data-act="submit"]').disabled));
@@ -28,7 +29,7 @@ await as('Test Owner');await p.evaluate(d=>{S.view='trips';S.filter='all';S.sel=
 await p.fill('#sf_apn','IS-BAO Stage 1 renewed 2026, two broker references, crew hours confirmed');await p.click('[data-sfa="approve"]');await p.waitForTimeout(1000);
 console.log('F owner:',toasts.slice(-1), await p.evaluate(()=>document.querySelector('#secSafety .note').innerText));
 await as('Test Broker');await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(800);
-for (const k of ["audit"]) { await p.click('#ck_'+k); await p.waitForTimeout(400); }
+await p.waitForTimeout(800);
 console.log('G audit ticked:',await p.isChecked('#ck_audit'),' submit disabled:',await p.evaluate(()=>document.querySelector('[data-act="submit"]').disabled), await p.evaluate(()=>(document.querySelector('#secSend + p')||{}).innerText));
 await (await p.$('#secSafety')).screenshot({path:require('os').tmpdir()+'/SF_panel.png'});
 // suspension

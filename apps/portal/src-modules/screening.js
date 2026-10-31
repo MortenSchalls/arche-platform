@@ -7,7 +7,13 @@
    A possible match stops the booking: only the owner can record a decision after checking the details. */
 (function(){
   S.scr = S.scr || {};
-  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}; return [c.name, c.company, q.operator].filter(x => x && String(x).trim()); };
+  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}; return [...new Set([c.name, c.company, c.payer, q.operator].filter(x => x && String(x).trim()))]; };
+  // the broker's automatic screen (saved with the trip) is reused when it covers the same names and is under 48 hours old,
+  // so operations does not run it again; operations adds passengers and owners and saves the record (31 Oct 2026)
+  const brokerScreen = (t, names) => { const b = t.d.screen || {}; if (!b.at || !(b.results || []).length) return null;
+    if (Date.now() - new Date(b.at).getTime() > 48 * 3600e3) return null;
+    const have = new Map(b.results.map(r => [key(r.name), r])); if (!names.every(n => have.has(key(n)))) return null;
+    return {text: names.join("\n"), results: names.map(n => ({...have.get(key(n)), name: n})), lists: b.lists || [], at: b.listsAt || b.at, stale: false, failed: [], logId: b.logId || null, fromBroker: true}; };
   const key = s => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
   window.screenOk = function(t, st){
     const s = (st || {}).screen; if (!s) return false;
@@ -16,11 +22,14 @@
     return tripNames(t).filter(n => n !== (t.d.quote || {}).operator).every(n => done.has(key(n)));   // charterer and company on the trip now were screened
   };
   window.screenBlock = function(t, st){
-    const s = st.screen, live = S.scr[t.did] || {}, ok = screenOk(t, st);
+    const s = st.screen, ok = screenOk(t, st);
+    if (!S.scr[t.did] && !ok) { const b = brokerScreen(t, tripNames(t)); if (b) S.scr[t.did] = b; else { S.scr[t.did] = {auto: true}; setTimeout(() => autoRun(t), 0); } }
+    const live = S.scr[t.did] || {};
     const pre = live.text !== undefined ? live.text : ((s && s.names) || tripNames(t)).join("\n");
     const res = live.results ? `<table class="small" style="margin-top:8px"><thead><tr><th>Name</th><th>Result</th></tr></thead><tbody>${live.results.map(r => `<tr><td>${esc(r.name)}</td><td>${r.result === "no match" ? "No match" : `<b>Possible match</b>: ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}`}</td></tr>`).join("")}</tbody></table>
       <p class="small muted">Lists: ${esc((live.lists || []).join(", "))}, loaded ${esc(fmtT(live.at))}${live.stale ? " · <b>older than 48 hours</b>: also check the official search pages below" : ""}${(live.failed || []).length ? " · could not load " + esc(live.failed.join(", ")) : ""}.</p>
-      <button class="btn small primary" type="button" data-scr="save|${esc(t.did)}">Save this screening record</button>` : "";
+      ${live.fromBroker ? `<p class="small muted">Screened automatically when the broker saved the trip. Add passengers, owners of 25% or more and the aircraft owner above if they are not listed yet, then save.</p>` : ""}
+      <button class="btn small primary" type="button" data-scr="save|${esc(t.did)}">Save this screening record</button>` : (live.running ? `<p class="small muted">Screening the names…</p>` : "");
     const rec = s ? `<div class="note ${s.outcome === "clear" ? "ok" : "bad"} small" style="margin-top:8px">Recorded ${esc(fmtT(s.at))} by ${esc(nm(s.by))}: <b>${s.outcome === "clear" ? "no match" : "possible match"}</b> · ${s.names.length} names · ${esc((s.lists || []).join(", "))}${s.ownerDecision ? ` · owner decision: <b>${esc(s.ownerDecision.verdict)}</b> (${esc(s.ownerDecision.note)})` : ""}${!ok && s.outcome === "clear" ? " · <b>the charterer or company has changed since: screen again</b>" : ""}</div>` : "";
     const decide = s && s.outcome === "possible match" && !s.ownerDecision ? (S.isOwner && acting() === "owner" ? `<div class="fgrid" style="margin-top:8px"><label class="f wide" for="scr_note">Owner decision after checking dates of birth, nationality and addresses against the listing<input id="scr_note" placeholder="e.g. different person: listed person born 1961, our client born 1985"></label></div><div class="row"><button class="btn small" type="button" data-scr="proceed|${esc(t.did)}">Not the listed person: proceed</button><button class="btn small danger" type="button" data-scr="stop|${esc(t.did)}">Stop the booking</button></div>` : `<div class="note bad small">Stop. Do not tell the client why and take no payment. The owner decides (manual 3.2).</div>`) : "";
     return `<div class="panel" style="margin:12px 0;padding:16px"><h3 style="margin-top:0">Sanctions screening</h3>
@@ -30,6 +39,19 @@
       <a class="small" href="https://sanctionssearch.ofac.treas.gov/" target="_blank" rel="noopener">OFAC search</a> · <a class="small" href="https://www.sanctionsmap.eu/" target="_blank" rel="noopener">EU map</a> · <a class="small" href="https://search-uk-sanctions-list.service.gov.uk/" target="_blank" rel="noopener">UK list</a> · <a class="small" href="https://main.un.org/securitycouncil/content/un-sc-consolidated-list" target="_blank" rel="noopener">UN list</a></div>
       ${res}${rec}${decide}</div>`;
   };
+  // screen automatically when operations opens a trip without a current record (no button press needed)
+  async function autoRun(t){
+    const did = t.did, names = tripNames(t); if (!names.length || (S.scr[did] || {}).results) return;
+    S.scr[did] = {...(S.scr[did] || {}), running: true};
+    try {
+      const s = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
+      const r = await fetch("/api/screen", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + (s ? s.access_token : "")}, body: JSON.stringify({names, log: "operations", tripOwner: t.bid, tripId: did})});
+      const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status);
+      j.results.forEach((x, i) => { x.name = names[i]; });
+      S.scr[did] = {text: names.join("\n"), results: j.results, lists: j.lists, at: j.at, stale: j.stale, failed: j.failed, logId: j.logId || null};
+    } catch(e){ S.scr[did] = {auto: true, failed: true}; }
+    render();
+  }
   document.addEventListener("input", ev => { const el = ev.target.closest("[data-scrtext]"); if (el) { S.scr[el.dataset.scrtext] = {...(S.scr[el.dataset.scrtext] || {}), text: el.value, results: null}; } });
   document.addEventListener("click", async ev => {
     const b = ev.target.closest("[data-scr]"); if (!b) return; ev.preventDefault();
