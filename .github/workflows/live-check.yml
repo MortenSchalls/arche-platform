@@ -1,0 +1,13 @@
+name: Live check (diagnostic)
+on:
+  push:
+    branches: ["diag/**"]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          for u in /website/ /website /website/services/ "/api/website" "/api/website?p=" "/api/me" /index.html; do
+            echo "=== $u"; curl -s -o /tmp/b -D - -X GET "https://portal.archeaviation.com$u" | grep -iE "^(HTTP|location|x-vercel-id|x-matched-path|content-type|server)" ; head -c 200 /tmp/b; echo; done
