@@ -8741,7 +8741,8 @@ document.addEventListener("click", async ev => {
     });
     return Object.values(book).sort((a, b) => b.value - a.value || b.trips - a.trips);
   };
-  const successors = leaver => Object.entries(S.roster || {}).filter(([id, p]) => id !== leaver && p.active !== false && !p.offboard && ["broker", "consultant", "ops", "owner"].includes(p.role)).map(([id, p]) => [id, p.contractName || nm(id)]);
+  // the owner can take clients and leads too (Morten, 31 Oct 2026: "I should be able to rotate clients and lead to me also")
+  const successors = leaver => [[S.uid, "Me (" + ((S.myName || nm(S.uid) || "owner").split(" ")[0]) + ")"], ...Object.entries(S.roster || {}).filter(([id, p]) => id !== leaver && id !== S.uid && p.active !== false && !p.offboard && ["broker", "consultant", "ops", "owner"].includes(p.role)).map(([id, p]) => [id, p.contractName || nm(id)])];
   S.hoLead = S.hoLead || {};
   function leadState(to, leadId){
     const k = to + "/" + leadId; if (S.hoLead[k] === undefined) { S.hoLead[k] = null; S.db.doc(`leads/${to}/items/${leadId}`).get().then(d => { S.hoLead[k] = d.exists ? d.data() : false; render(); }).catch(() => { S.hoLead[k] = false; }); }
@@ -8754,6 +8755,7 @@ document.addEventListener("click", async ev => {
     const open = book.filter(b => !ho[b.id]).length;
     return `<details ${open ? "open" : ""} style="margin-top:8px"><summary class="small"><b>Client handover</b> · ${book.length - open} of ${book.length} clients handed over (agreement clause 8.5)</summary>
       <p class="small muted">Name the broker who takes over each client. They get the client as their own lead with a call due within 48 hours; ${esc(p.contractName || nm(id))} introduces them personally before access ends.</p>
+      ${open ? `<div class="row" style="margin:6px 0"><button class="btn small" type="button" data-ho="allme" data-uid="${id}">Hand all ${open} to me</button></div>` : ""}
       <div class="tbl"><table class="small"><thead><tr><th scope=col>Client</th><th scope=col>Trips</th><th scope=col>Billed</th><th scope=col>Last</th><th scope=col>Successor</th><th scope=col>Status</th></tr></thead><tbody>
       ${book.map(b => { const h = ho[b.id], c = h ? leadState(h.to, h.leadId) : null;
         return `<tr><td>${esc(b.name)}${b.contact ? `<br><span class="muted">${esc(b.contact)}</span>` : ""}</td><td>${b.trips}${b.flown ? ` (${b.flown} flown)` : ""}</td><td>${b.value ? usd(b.value) : "–"}</td><td>${b.last ? fmtD(b.last) : "–"}</td>
@@ -8768,23 +8770,70 @@ document.addEventListener("click", async ev => {
   const _of = offboardForm;
   offboardForm = function(id){ return _of(id).replace("Open trips stay with you to finish (clause 8.4).", "Open trips stay with you to finish (clause 8.4). Then hand over each client to a named broker in the leaving file (clause 8.5)."); };
 
-  document.addEventListener("click", async e => {
-    const b = e.target.closest && e.target.closest('[data-ho="give"]'); if (!b || !S.isOwner) return; e.preventDefault();
-    const id = b.dataset.uid, k = b.dataset.k, p = (S.roster || {})[id]; if (!p || !p.offboard) return;
-    const to = ($(`ho_${id}_${k}`) || {}).value; if (!to) { toast("Choose who takes over this client."); return; }
-    const c = clientBook(id).find(x => x.id === k); if (!c) return;
-    const at = now(), due = new Date(Date.now() + H48).toISOString(), leadId = "ho" + Date.now().toString(36) + k.slice(1, 5), from = p.contractName || nm(id), toName = (S.roster[to] || {}).contractName || nm(to);
+  // hand one client to a successor: an own lead with a 48-hour call; recorded in the leaving file
+  async function giveClient(id, k, to, quiet){
+    const p = (S.roster || {})[id]; if (!p || !p.offboard) return false;
+    const c = clientBook(id).find(x => x.id === k); if (!c) return false;
+    const at = now(), due = new Date(Date.now() + H48).toISOString(), leadId = "ho" + Date.now().toString(36) + k.slice(1, 5), from = p.contractName || nm(id), toName = to === S.uid ? (S.myName || nm(to)) : ((S.roster[to] || {}).contractName || nm(to));
     const lead = {own: true, imported: false, org: c.name, segment: "", kind: "client", country: c.country, region: typeof AE_ENGINE === "object" && AE_ENGINE.regionOf ? AE_ENGINE.regionOf(c.country) : "", city: "", website: "",
       source: `Client handover from ${from} (agreement clause 8.5)`, why: `Existing Archē client: ${c.trips} trip${c.trips === 1 ? "" : "s"}${c.flown ? `, ${c.flown} flown` : ""}${c.value ? `, ${usd(c.value)} billed` : ""}${c.last ? `, last ${fmtD(c.last)}` : ""}. Call within 48 hours: introduce yourself, confirm anything open, and agree how they like to be served.`,
       approach: "", avenues: [c.contact ? {type: "Contact", label: c.contact, url: ""} : null, c.email ? {type: "Email", label: c.email, url: ""} : null, c.phone ? {type: "Phone", label: c.phone, url: ""} : null].filter(Boolean),
       status: "new", added: at, assignedAt: at, sourcedBy: id, handover: {from: id, fromName: from, at, due, by: S.uid}, log: []};
     try {
       await S.db.doc(`leads/${to}/items/${leadId}`).set(lead);
-      const o = {...p.offboard, handover: {...(p.offboard.handover || {}), [k]: {to, toName, name: c.name, at, due, leadId}}};
+      const cur = ((S.roster || {})[id] || p).offboard;
+      const o = {...cur, handover: {...(cur.handover || {}), [k]: {to, toName, name: c.name, at, due, leadId}}};
       await S.db.doc("roster/" + id).update({offboard: JSON.parse(JSON.stringify(o))});
-      audit("Client handed over", `${c.name}: ${from} → ${toName}`); toast(`${c.name} handed over to ${toName}. Call due within 48 hours.`);
-    } catch(err){ toast("Could not hand over the client. Try again."); }
+      if (S.roster[id]) S.roster[id] = {...S.roster[id], offboard: o};
+      audit("Client handed over", `${c.name}: ${from} → ${toName}`); if (!quiet) toast(`${c.name} handed over to ${toName}. Call due within 48 hours.`);
+      return true;
+    } catch(err){ if (!quiet) toast("Could not hand over the client. Try again."); return false; }
+  }
+  window.handAllToMe = async function(id){
+    const p = (S.roster || {})[id]; if (!p || !p.offboard) return 0; let n = 0;
+    for (const b of clientBook(id)) if (!((S.roster[id] || p).offboard.handover || {})[b.id]) { if (await giveClient(id, b.id, S.uid, true)) n++; }
+    return n;
+  };
+  document.addEventListener("click", async e => {
+    const b = e.target.closest && e.target.closest('[data-ho="give"],[data-ho="allme"]'); if (!b || !S.isOwner) return; e.preventDefault();
+    const id = b.dataset.uid;
+    if (b.dataset.ho === "allme") { const n = await handAllToMe(id); toast(n ? `${n} client${n === 1 ? "" : "s"} handed over to you. Calls due within 48 hours.` : "Nothing left to hand over."); render(); return; }
+    const k = b.dataset.k, to = ($(`ho_${id}_${k}`) || {}).value; if (!to) { toast("Choose who takes over this client."); return; }
+    await giveClient(id, k, to); render();
   });
+
+  /* ---- Lock now (Morten, 31 Oct 2026: "lock all access with immediate effect ... fraud, or any other of the things that I can
+     terminate with immediate effect"): agreement clause 8.3. One action: access off at once (the database refuses every
+     request from that login from the next one), rights and alerts removed, open enquiries back to the pool, prospects back
+     to rotation, their own leads and every client to the owner, and the file marked Locked with the reason. Open trips stay
+     with the owner to finish. No notice to members. ---- */
+  const _of2 = offboardForm;
+  offboardForm = function(id){
+    return _of2(id).replace('<option value="breach">Today, for breach (clause 8.3)</option>', '<option value="breach">Today, for breach (clause 8.3)</option><option value="lock">Lock now: fraud or another clause 8.3 ground (everything off at once, all clients and leads to me)</option>');
+  };
+  const _run = offboardRun;
+  offboardRun = async function(id, mode, reason){
+    if (mode !== "lock") return _run(id, mode, reason);
+    await _run(id, "breach", "LOCKED: " + reason);
+    let p = (S.roster || {})[id];
+    try { const d = await S.db.doc("roster/" + id).get(); if (d.exists) { p = d.data(); S.roster[id] = p; } } catch(e){}
+    if (!p || !p.offboard) { toast("Locked, but the leaving file could not be read. Hand the clients over in Onboarding."); return; }
+    try { const o = {...p.offboard, mode: "lock", locked: {at: now(), by: S.uid, reason}}; await S.db.doc("roster/" + id).update({offboard: JSON.parse(JSON.stringify(o)), active: false}); S.roster[id] = {...p, offboard: o, active: false}; } catch(e){}
+    const n = await handAllToMe(id);
+    audit("Access locked with immediate effect", `${nm(id)} · ${reason}`);
+    toast(`Locked. Access is off now; ${n} client${n === 1 ? "" : "s"} and their own leads moved to you.`); render();
+  };
+  // a red Lock now button next to each active member in Team
+  if (typeof vTeam === "function") {
+    const _vt = vTeam;
+    vTeam = function(){ return _vt().replace(/(<button class="btn small danger" type="button" data-offboard="([^"]+)">[^<]*<\/button>)/g, (m, btn, id) => btn + ` <button class="btn small danger" type="button" data-lock="${id}" title="Fraud or another clause 8.3 ground">Lock now</button>`); };
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest && e.target.closest("[data-lock]"); if (!b || !S.isOwner) return; e.preventDefault();
+    S.offboardId = b.dataset.lock; S.lockPick = true; S.view = "onboarding"; render();
+    setTimeout(() => { const m = $("off_mode"); if (m) { m.value = "lock"; const w = $("off_why"); if (w) w.focus(); } const el = document.getElementById("intakePanel"); if (el) el.scrollIntoView({behavior: "smooth"}); }, 50);
+  });
+
   document.addEventListener("change", async e => {
     const el = e.target; if (!el.dataset || el.dataset.ho !== "intro" || !S.isOwner) return;
     const id = el.dataset.uid, k = el.dataset.k, p = (S.roster || {})[id]; if (!p || !p.offboard || !(p.offboard.handover || {})[k]) return;

@@ -30,6 +30,19 @@ ok(/Client handover from .*: call Example Holdings by/.test(await p.innerText('#
 // the leaver's Today (still in notice)
 await as('Test Broker');await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(1200);
 ok(/Introduce .* to Example Holdings personally/.test(await p.innerText('#main')),'leaver sees the introduction task during notice');
+// the owner can take a client too, and hand all the rest to themselves
+await as('Test Owner');await p.evaluate(()=>{S.view='onboarding';render();});await p.waitForTimeout(1000);
+ok(await p.evaluate(B=>{const k=clientBook(B)[1].id;const sel=document.getElementById(`ho_${B}_${k}`);return !!sel&&[...sel.options].some(o=>o.value===S.uid&&/^Me/.test(o.text));},A3),'owner can choose Me as successor');
+await p.click(`[data-ho="allme"][data-uid="${A3}"]`);await p.waitForTimeout(1500);
+ok(await p.evaluate(async B=>{const h=S.roster[B].offboard.handover;const q=await S.db.collection(`leads/${S.uid}/items`).get();return Object.keys(h).length===2&&q.docs.some(d=>(d.data().handover||{}).from===B&&d.data().org==='Ben Example');},A3),'Hand all to me: the remaining client becomes the owner\'s lead');
+// lock now with immediate effect
+await p.evaluate(async B=>{const n=new Date().toISOString();await S.db.doc(`desk/${B}/deals/k1`).set({client:{name:'Carl Example',company:'Example Fraud Test Co'},trip:{legs:[{from:'WSSS',to:'VTBD',date:'2026-12-20',pax:2}]},quote:{operator:'Example Air',opPrice:15000},created:n,updated:n,stage:'quoted'});},A4);
+await p.waitForTimeout(800);
+ok(await p.evaluate(()=>{S.view='team';render();return !!document.querySelector('[data-lock]');}),'Team shows Lock now');
+await p.click(`[data-lock="${A4}"]`);await p.waitForTimeout(800);
+ok(await p.evaluate(()=>document.getElementById('off_mode').value==='lock'),'Lock now opens the form with Lock selected');
+await p.fill('#off_why','Example: suspected fraud');await p.click('#offForm button[type=submit]');await p.waitForTimeout(3000);
+ok(await p.evaluate(B=>{const r=S.roster[B];return r.active===false&&r.offboard.locked&&r.offboard.locked.reason==='Example: suspected fraud'&&Object.keys(r.offboard.handover||{}).length===1&&!Object.keys(r.rights||{}).length;},A4),'locked: access off at once, rights removed, client handed to the owner, reason kept',await p.evaluate(B=>S.roster[B],A4));
 // agreement text
 ok(await p.evaluate(()=>AGR_VERSION==='2026-10-31.1'&&/8\.5 Client handover/.test(AGR_MAIN)&&/2\.8 Clients and information from earlier work/.test(AGR_MAIN)&&/8\.10 Insurance/.test(AGR_MAIN)),'agreement 2026-10-31.1 has 2.8 and 8.5, later clauses renumbered');
 console.log('errs',errs);ok(!errs.length,'no page errors');console.log(fail?'FAILED '+fail:'ALL PASS');await b.close();process.exit(fail?1:0)})();
