@@ -1,14 +1,11 @@
-name: Live check (diagnostic)
-on:
-  push:
-    branches: ["diag/**"]
-permissions:
-  contents: read
+name: Probe list sources
+on: [push]
+permissions: { contents: read }
 jobs:
-  check:
-    runs-on: ubuntu-24.04
+  probe:
+    runs-on: ubuntu-latest
     steps:
-      - run: |
-          for u in /website/ /website/services/ /website/img/ac-g650.webp /zz2/x; do
-            h=$(curl -s -o /tmp/b -D - -X GET "https://portal.archeaviation.com$u" | grep -iE "^(HTTP|location|x-matched-path|content-type)" | tr -d '\r' | tr '\n' ' ')
-            echo "::notice title=$u::$h | $(head -c 120 /tmp/b | tr -d '\r\n%')"; done
+      - uses: actions/checkout@v4
+      - run: node probe.mjs
+      - uses: actions/upload-artifact@v4
+        with: { name: probe, path: out/ }
