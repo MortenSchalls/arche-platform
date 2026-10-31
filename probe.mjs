@@ -1,26 +1,16 @@
 import tls from "node:tls"; import https from "node:https"; import crypto from "node:crypto";
 const note = (k, s) => console.log(`::notice title=${k}::` + String(s).replace(/%/g, "%25").replace(/\r?\n/g, "%0A").slice(0, 3800));
-// MOHA: incomplete certificate chain -> fetch the intermediate named in the leaf certificate (AIA), then verify normally
-function leaf(host) { return new Promise((res, rej) => { const s = tls.connect(443, host, {servername: host, rejectUnauthorized: false}, () => { const c = s.getPeerCertificate(true); s.end(); res(c); }); s.on("error", rej); }); }
-function get(url, ca) { return new Promise((res, rej) => { https.get(url, {ca, headers: {"user-agent": "Mozilla/5.0 (compatible; ArcheExecutive-sanctions-screen/1.0)"}}, r => { const b = []; r.on("data", d => b.push(d)); r.on("end", () => res({status: r.statusCode, headers: r.headers, body: Buffer.concat(b)})); }).on("error", rej); }); }
-try {
-  const c = await leaf("admin.moha.gov.my"); const aia = (c.infoAccess || {})["CA Issuers - URI"] || [];
-  let s = "leaf " + c.subject.CN + " issuer " + c.issuer.CN + " aia " + aia.join(",") + "\n";
-  const der = (await (await fetch(aia[0])).arrayBuffer()); const pem = new crypto.X509Certificate(Buffer.from(der)).toString();
-  const ca = [...tls.rootCertificates, pem];
-  const r = await get("https://admin.moha.gov.my/index.php/en/senarai-kementerian-dalam-negeri", ca);
-  const t = r.body.toString(); s += `page ${r.status} ${t.length}\nlinks: ` + [...new Set([...t.matchAll(/href="([^"]*)"/g)].map(m => m[1]).filter(h => /pdf|xml|sekatan|senarai|html/i.test(h)))].slice(0, 30).join(" ; ");
-  note("moha", s);
-  const links = [...t.matchAll(/href="([^"]*\.(?:xml|pdf)[^"]*)"/gi)].map(m => new URL(m[1].replace(/&amp;/g, "&"), "https://admin.moha.gov.my/").href);
-  for (const u of links.slice(0, 4)) { try { const x = await get(u, ca); note("moha-file", `${u}\n${x.status} ${x.headers["content-type"]} ${x.body.length}B ${x.headers["last-modified"] || ""}\n` + x.body.slice(0, 1200).toString().replace(/[^\x20-\x7e\n]/g, ".")); } catch (e) { note("moha-file", u + " ERR " + e.message); } }
-} catch (e) { note("moha", "ERR " + e.message); }
-// TSOFA: the statute site needs JavaScript; load it in a real browser
-try {
-  const pw = await import("playwright"); const b = await pw.chromium.launch(); const p = await b.newPage();
-  await p.goto("https://sso.agc.gov.sg/Act/TSFA2002?ProvIds=Sc1-#Sc1-", {waitUntil: "networkidle", timeout: 60000}); await p.waitForTimeout(5000);
-  const txt = await p.evaluate(() => document.body.innerText); const html = await p.content();
-  note("tsofa", `title ${await p.title()} len ${txt.length}\n` + txt.slice(0, 1500));
-  const i = txt.indexOf("FIRST SCHEDULE"); note("tsofa-sched", txt.slice(Math.max(0, i), i + 3000));
-  note("tsofa-pdf", [...new Set([...html.matchAll(/href="([^"]*(?:Pdf|pdf)[^"]*)"/g)].map(m => m[1]))].slice(0, 10).join(" ; "));
-  await b.close();
-} catch (e) { note("tsofa", "ERR " + e.message); }
+const UA = {"user-agent": "Mozilla/5.0 (compatible; ArcheExecutive-sanctions-screen/1.0)"};
+let ca = null;
+async function chain(host) { if (ca) return ca; const c = await new Promise((res, rej) => { const s = tls.connect(443, host, {servername: host, rejectUnauthorized: false}, () => { const c = s.getPeerCertificate(true); s.end(); res(c); }); s.on("error", rej); });
+  const aia = ((c.infoAccess || {})["CA Issuers - URI"] || [])[0]; const der = Buffer.from(await (await fetch(aia)).arrayBuffer()); ca = [...tls.rootCertificates, new crypto.X509Certificate(der).toString()]; return ca; }
+function get(url) { return new Promise(async (res, rej) => { https.get(url, {ca: await chain(new URL(url).hostname), headers: UA}, r => { const b = []; r.on("data", d => b.push(d)); r.on("end", () => res({status: r.statusCode, headers: r.headers, body: Buffer.concat(b)})); }).on("error", rej); }); }
+for (const u of ["https://www.moha.gov.my/index.php/en/senarai-kementerian-dalam-negeri", "https://moha.gov.my/index.php/en/senarai-kementerian-dalam-negeri", "https://www.moha.gov.my/utama/index.php/en/component/content/article/350-list-of-ministries-of-home-affairs"]) {
+  try { const r = await get(u); const t = r.body.toString(); note("moha " + u.slice(8, 50), `${r.status} ${t.length} loc=${r.headers.location || ""}\n` + [...new Set([...t.matchAll(/href="([^"]*)"/g)].map(m => m[1]).filter(h => /pdf|xml|sekatan|senarai|\.htm/i.test(h)))].slice(0, 25).join(" ; ")); } catch (e) { note("moha " + u.slice(8, 50), "ERR " + e.message); } }
+// TSOFA: CloudFront refuses GitHub's addresses. Ask the Internet Archive to take a fresh copy, then read its latest copy.
+const T = "https://sso.agc.gov.sg/Act/TSFA2002?WholeDoc=1";
+try { const r = await fetch("https://web.archive.org/save/" + T, {headers: UA, redirect: "manual"}); note("spn", `${r.status} loc=${r.headers.get("location") || ""} cl=${r.headers.get("content-location") || ""}`); } catch (e) { note("spn", "ERR " + e.message); }
+try { const a = await (await fetch("https://archive.org/wayback/available?url=" + encodeURIComponent(T))).json(); const s = a.archived_snapshots.closest; note("wb-avail", JSON.stringify(a));
+  if (s) { const raw = s.url.replace(/\/web\/(\d+)\//, "/web/$1id_/"); const r = await fetch(raw, {headers: UA}); const h = await r.text(); const txt = h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, "").replace(/<[^>]+>/g, "\n").replace(/\n\s*\n+/g, "\n");
+    const i = txt.search(/FIRST SCHEDULE/i); note("wb-sched", `${r.status} ${h.length} at ${i}\n` + txt.slice(Math.max(0, i), i + 3000)); } } catch (e) { note("wb", "ERR " + e.message); }
+try { const cdx = await (await fetch("https://web.archive.org/cdx/search/cdx?url=sso.agc.gov.sg/Act/TSFA2002*&output=json&limit=-15&fl=timestamp,original,statuscode")).text(); note("cdx", cdx.slice(0, 2000)); } catch (e) { note("cdx", "ERR " + e.message); }
