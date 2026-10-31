@@ -7,7 +7,7 @@
  "tz": "Europe/Berlin",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-30",
  "rules": {
   "runway": {
    "v": "two runways, each 4 km long and 60 m wide",
@@ -40,6 +40,11 @@
    "v": "General Aviation Terminal (GAT) run by Flughafen München GmbH; companies listed there include ExecuJet Europe GmbH, Signature Flight Support - SFS Munich GmbH & Co. KG, MAS Munich Aviation Service, AHS München Aviation Handling Services GmbH and Lufthansa Technik AG",
    "src": "muc-gat",
    "quote": "there is no obligation to handle passengers and aircraft at the General Aviation Terminal!"
+  },
+  "fuel": {
+   "v": "refuelling by Skytanking Munich GmbH & Co. KG (arranged via the General Aviation Terminal); AVGAS 100LL is not available at Munich",
+   "src": "muc-gat-2026-10-30",
+   "quote": "AVGAS 100LL (aviation fuel) is not available at Munich airport."
   }
  },
  "missing": [
@@ -47,8 +52,7 @@
   "customs",
   "hours",
   "ppr",
-  "max_aircraft",
-  "fuel"
+  "max_aircraft"
  ],
- "notes": "DFS AIP could not be read (robots block), so runway and location come from the operator's site; widths/lengths are as the operator states them (4 km). Coordinates not recorded because the AIP ARP could not be read (the operator's 2016 facts sheet gives 48°21'17\" N, 11°47'15\" E). Night rules: the bonus list also limits scheduled/charter night flights to max. 28 per night under an annual quota. GAT operating hours 06:00-22:00 (office 05:30-22:00) per the operator, but these are the terminal's hours, not the airport's."
+ "notes": "DFS AIP could not be read (robots block), so runway and location come from the operator's site; widths/lengths are as the operator states them (4 km). Coordinates not recorded because the AIP ARP could not be read (the operator's 2016 facts sheet gives 48°21'17\" N, 11°47'15\" E). Night rules: the bonus list also limits scheduled/charter night flights to max. 28 per night under an annual quota. GAT operating hours 06:00-22:00 (office 05:30-22:00) per the operator, but these are the terminal's hours, not the airport's. | 2026-10-30 run: re-read the operator's GAT page (fuel found; no customs, PPR or size limits stated there; GAT handles aircraft over two tons). Night-flight page gives no airport operating hours. Customs office page (m.munich-airport.de) blocked by robots. DFS AIP not tried again (robots block). Jet fuel grade not stated on the operator page."
 }

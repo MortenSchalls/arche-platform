@@ -1,0 +1,24 @@
+{
+ "icao": "SAEZ",
+ "iata": null,
+ "name": "Ministro Pistarini International Airport (Ezeiza)",
+ "city": "Buenos Aires",
+ "country": "AR",
+ "tz": "America/Argentina/Buenos_Aires",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-30",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "curfew",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel"
+ ],
+ "notes": "No current official source with the airport's rules could be read. ANAC AIS Argentina (ais.anac.gob.ar) blocks automated reading (robots disallowed on /descarga/ files); the AIP index page https://ais.anac.gob.ar/aip did not open. No AD 2 SAEZ file was found by search. The ORSNA works page (argentina.gob.ar/orsna/obras-en-aeropuertos-del-sna/ezeiza-1) opened but only mentions the secondary runway 17-35 (3,105 m) in a works description; a 2018 government news item gives the main runway as 3,300 m × 60 m; neither is a current rules source, so nothing was recorded. Aeropuertos Argentina (aa2000.com.ar) pages found were passenger pages only. Owner: download AD 2 SAEZ from ais.anac.gob.ar."
+}

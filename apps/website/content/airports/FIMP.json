@@ -1,0 +1,39 @@
+{
+ "icao": "FIMP",
+ "iata": null,
+ "name": "Sir Seewoosagur Ramgoolam International Airport",
+ "city": "Plaine Magnien",
+ "country": "MU",
+ "tz": "Indian/Mauritius",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-10-30",
+ "rules": {
+  "runway": {
+   "v": "one runway, 14/32, 3,040 m × 45 m; 3,370 m × 45 m for take-off from runway 14 when the starter extension is used (TORA 3,370 m with starter extension) (AIP footnote: \"** These figures include the Starter Extension.\")",
+   "longest_m": 3370,
+   "src": "mu-aip-fimp-2022",
+   "quote": "3370 x 45**"
+  },
+  "hours": {
+   "v": "air traffic services H24; aerodrome administration office Mon-Fri 04:45-12:00 UTC (08:45-16:00 local), closed weekends and holidays",
+   "src": "mu-aip-fimp-2022",
+   "quote": "Air Traffic Services H24"
+  },
+  "fuel": {
+   "v": "Jet A1",
+   "src": "mu-eaip-fimp-2024",
+   "quote": "Jet A1, Turbo Oil 2380, ASTO 390, Skydrol 500B"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling"
+ ],
+ "notes": "Sources: DCA Mauritius AIP AD 2-FIMP page dated 21 APR 22 (AMDT 01/22) and the DCA eAIP package labelled 12_11_2024_updated (AD 2 FIMP page, no effective date shown on the page); both agree on runway and fuel. A newer DCA eAIP edition dated 2025-05-15 (Non-AIRAC AMDT 1-25) exists but could not be opened: https://civil-aviation.govmu.org/eAIP/eAIPMauritius/final/2025-05-15/html/cover-en-GB.html (site error). Customs and immigration are given as \"HO\" (ICAO: service available to meet operational requirements), not as fixed hours, so customs was not recorded. No night curfew, PPR or slot rule appears in the AD 2 text read, but the AIP does not say explicitly that there is none, so curfew is left out. Quotes come from a summarising fetch tool and may need checking against the PDF. Local time is UTC+4 (no DST)."
+}

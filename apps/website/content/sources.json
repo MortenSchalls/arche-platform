@@ -39,7 +39,7 @@
   "title": "Hong Kong eAIP, AD 2 VHHH Hong Kong International (amendment effective 04 Sep 2025, package eaip_20250710)",
   "url": "https://www.ais.gov.hk/eaip_20250710/2025-09-04-000000/html/eAIP/VH-AD-2-VHHH-en-US.html",
   "publisher": "Civil Aviation Department, Hong Kong",
-  "checked": "2026-10-27"
+  "checked": "2026-10-30"
  },
  "hk-aahk-hkbac": {
   "title": "Airport Authority Signs Agreement on $400 Million Expansion of Hong Kong Business Aviation Centre (press release, 27 Apr 2021)",
@@ -51,7 +51,7 @@
   "title": "Singapore AIP, AD 2 WSSS Singapore Changi Intl (valid from 09 Jul 2026)",
   "url": "https://aim-sg.caas.gov.sg/aim-content/uploads/aip/15-JUL-2026/AIP/2026-07-09-000000/html/eAIP/SG-AD-2-WSSS-en-GB.html",
   "publisher": "Civil Aviation Authority of Singapore",
-  "checked": "2026-10-27"
+  "checked": "2026-10-30"
  },
  "sg-sup-2026-002": {
   "title": "Singapore AIRAC AIP SUP 002/2026, Changi updated information and data for RWY 02R/20L (effective 19 Feb 2026)",
@@ -240,10 +240,10 @@
   "checked": "2026-10-27"
  },
  "acl-faqs": {
-  "title": "Airport Coordination Limited, FAQs (last modified 15 Jun 2026)",
+  "title": "Airport Coordination Limited, FAQs: Which airports are currently served by ACL? (last modified 15 Jun 2026)",
   "url": "https://www.acl-uk.org/faqs/",
   "publisher": "Airport Coordination Limited (UK slot coordinator)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-30"
  },
  "acl-luton": {
   "title": "Airport Coordination Limited, Luton (published 16 Aug 2016, modified 12 Oct 2016)",
@@ -879,7 +879,7 @@
   "title": "Macao SAR Government Portal, PS-1956B Flight Approval for Non-Scheduled Air Services (last modified 6 Jul 2026)",
   "url": "https://www.gov.mo/en/services/ps-1956/ps-1956b/",
   "publisher": "Macao SAR Government / Civil Aviation Authority (AACM)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-30"
  },
  "kr-aip-rkss": {
   "title": "Korea eAIP, AD 2 RKSS Seoul/Gimpo International (package 19 Feb 2025 AIRAC; no effective date printed on page)",
@@ -942,10 +942,10 @@
   "checked": "2026-10-27"
  },
  "jp-mlit-bizjet": {
-  "title": "ビジネスジェット機（外国籍機）の各種申請手続き (Application procedures for foreign-registered business jets, 1 Oct 2026)",
+  "title": "ビジネスジェット機（外国籍機）の各種申請手続き (Application procedures for foreign-registered business jets, 1 Oct 2026; designated-airport table as of R8.10)",
   "url": "https://www.mlit.go.jp/koku/content/001762020.pdf",
   "publisher": "Civil Aviation Bureau, International Aviation Division, MLIT",
-  "checked": "2026-10-27"
+  "checked": "2026-10-30"
  },
  "jp-mlit-press-2023": {
   "title": "MLIT press release: shorter application deadline for foreign business jets for tourism (1 Jun 2023)",
@@ -1290,10 +1290,10 @@
   "checked": "2026-10-27"
  },
  "cohor-lflb": {
-  "title": "COHOR, Chambéry Airport (CMF/LFLB) airport page (last modified 9 Oct 2026)",
+  "title": "COHOR, Chambéry Airport (CMF/LFLB) airport page (last modified 9 Oct 2026; re-checked 30 Oct 2026)",
   "url": "https://www.cohor.org/en/airports/chambery-cmf-lflb/",
   "publisher": "COHOR (French slot coordinator)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-30"
  },
  "sa-aip-oerk": {
   "title": "Saudi Arabia eAIP, AD 2 OERK Riyadh - King Khaled International (AIRAC AIP AMDT 02/26, effective 19 Feb 2026) (not the current edition; current edition could not be opened)",
@@ -2062,5 +2062,167 @@
   "url": "https://aisweb.decea.mil.br/?codigo=SBSP&i=aerodromos",
   "publisher": "DECEA (Departamento de Controle do Espaço Aéreo), Brazil",
   "checked": "2026-10-28"
+ },
+ "ber-factsheet-2022": {
+  "title": "Flughafen Berlin Brandenburg GmbH, BER airport facilities fact sheet (as of November 2022)",
+  "url": "https://corporate.berlin-airport.de/content/dam/corporate/en/unternehmen-presse/ber/flughafenanlagen-ber-en.pdf",
+  "publisher": "Flughafen Berlin Brandenburg GmbH (airport operator)",
+  "checked": "2026-10-30"
+ },
+ "ber-rwy-rename-2024": {
+  "title": "FBB press release 'Start- und Landebahnen des BER werden umbenannt' (1 Oct 2024)",
+  "url": "https://corporate.berlin-airport.de/de/unternehmen-presse/presseportal/pressemitteilungen/2024-10-01-slb-umbenennung.html",
+  "publisher": "Flughafen Berlin Brandenburg GmbH (airport operator)",
+  "checked": "2026-10-30"
+ },
+ "fra-gs-business-areas": {
+  "title": "Fraport Ground Services, Business Areas – Executive Aviation / GAT (no page date; © 2004-2026 Fraport AG; checked 30 Oct 2026)",
+  "url": "https://fraport-groundservices.com/en/business-areas.html",
+  "publisher": "Fraport AG (airport operator)",
+  "checked": "2026-10-30"
+ },
+ "muc-gat-2026-10-30": {
+  "title": "Munich Airport, General Aviation Terminal / GAT (no page date; © 2026; checked 30 Oct 2026)",
+  "url": "https://www.munich-airport.com/general-aviation-terminal-gat-3636498",
+  "publisher": "Flughafen München GmbH",
+  "checked": "2026-10-30"
+ },
+ "acl-lcy-info": {
+  "title": "ACL, Airport info details: London City (LCY), Level 3; lists W26 v2 and S27 capacity declarations (checked 30 Oct 2026)",
+  "url": "https://www.acl-uk.org/airport-info-details/?aid=8",
+  "publisher": "Airport Coordination Limited (UK slot coordinator)",
+  "checked": "2026-10-30"
+ },
+ "daa-charges-2026": {
+  "title": "daa, Dublin Airport Charges 2026 including Terms & Conditions of Use (effective 29 March 2026 - 27 March 2027)",
+  "url": "https://www.dublinairport.com/docs/default-source/airport-charges/dublin-airport-charges-2026-terms-and-conditionsd544fcac09d84ff493e63c2a4952331e.pdf?sfvrsn=bcfddf85_0",
+  "publisher": "daa plc (Dublin Airport)",
+  "checked": "2026-10-30"
+ },
+ "mu-aip-fimp-2022": {
+  "title": "Mauritius AIP AD 2-FIMP, AMDT 01/22, dated 21 APR 2022",
+  "url": "https://civil-aviation.govmu.org/Documents/Aeronautical%20Information%20Publication/AIP/MAY%202022/AD%202%20-%20FIMP-1.pdf",
+  "publisher": "Department of Civil Aviation, Republic of Mauritius",
+  "checked": "2026-10-30"
+ },
+ "mu-eaip-fimp-2024": {
+  "title": "Mauritius eAIP AD 2 FIMP (package 'eAIPMauritius_12_11_2024_updated', no effective date on page)",
+  "url": "https://civil-aviation.govmu.org/eAIP/eAIPMauritius_12_11_2024_updated/eAIPMauritius_12_11_2024_updated/final/2017-08-17-Non-AIRAC/html/eAIP/AD-2.FIMP-en-GB.html",
+  "publisher": "Department of Civil Aviation, Republic of Mauritius",
+  "checked": "2026-10-30"
+ },
+ "ma-aip-gmmx-2025": {
+  "title": "AIP Maroc AD 2 GMMX Marrakech/Ménara (pages to 04 SEP 2025, AIRAC AMDT 09/25)",
+  "url": "https://siamaroc.onda.ma/eaip/AD/AD2GMMX.pdf",
+  "publisher": "Office National Des Aéroports (ONDA), SIA Maroc",
+  "checked": "2026-10-30"
+ },
+ "es-aip-lepa-2026-10": {
+  "title": "ENAIRE AIP España, AD 2 LEPA/LESJ Palma de Mallorca (PDF, WEF 29-OCT-26)",
+  "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEPA_LESJ/LE_AD_2_LEPA_LESJ_en.pdf",
+  "publisher": "ENAIRE (Spanish AIS)",
+  "checked": "2026-10-30"
+ },
+ "cohor-lfkj-2": {
+  "title": "COHOR, Ajaccio Napoleon Bonaparte (AJA/LFKJ) airport page (last modified 22 Aug 2023; checked 30 Oct 2026)",
+  "url": "https://www.cohor.org/en/?p=16248665",
+  "publisher": "COHOR (French slot coordinator)",
+  "checked": "2026-10-30"
+ },
+ "fr-arrete-nce-2010": {
+  "title": "Arrêté du 2 mars 2010 portant restriction d'exploitation de l'aérodrome de Nice-Côte d'Azur (NOR DEVA1004739A), in force 31 Oct 2010, official text as published by COHOR (uploaded Feb 2023); later amendments not checked (Légifrance not opened)",
+  "url": "https://www.cohor.org/wp-content/uploads/2023/02/NCE-Arrete-du-02-mars-2010.pdf",
+  "publisher": "Ministry of Ecology / DGAC (French Republic), published by COHOR",
+  "checked": "2026-10-30"
+ },
+ "sea-lin-rds-5": {
+  "title": "SEA, Regolamento di Scalo Milano Linate, Ed. 5.0 (RS/LIN/5.0, 13 Dec 2024; ENAC ref. ENAC-ALM-16/12/2024-0185135-P)",
+  "url": "https://milanairports.com/sites/default/files/RdS%20Ed.%205.0_13dicembre2024.PDF",
+  "publisher": "SEA S.p.A.",
+  "checked": "2026-10-30"
+ },
+ "sea-lin-ma-cap22": {
+  "title": "SEA, Manuale di Aeroporto Linate (MA/LIN/RE139) Part E, Cap. 22 Stoccaggio e gestione del carburante, Ed. 2 Rev. 2 (20 Jan 2025)",
+  "url": "https://milanairports.com/sites/default/files/2025-01/CAP%2022%20LIN%20ed2%20rev2.pdf",
+  "publisher": "SEA S.p.A.",
+  "checked": "2026-10-30"
+ },
+ "cz-aip-lkpr-text-2026": {
+  "title": "AIP Czech Republic, AD 2 LKPR Praha/Ruzyně text PDF (valid set; pages stamped 07 AUG 25 AMDT 6/25 to 29 OCT 26 AMDT 12/26; AD 2.21 page 06 AUG 26 AMDT 9/26)",
+  "url": "https://aim.rlp.cz/ais_data/aip/data/valid/a2-pr-text.pdf",
+  "publisher": "Air Navigation Services of the Czech Republic (ANS CR)",
+  "checked": "2026-10-30"
+ },
+ "cz-aip-gen21": {
+  "title": "AIP Czech Republic, GEN 2.1 Measuring system, time reference (eAIP effective 29 Oct 2026)",
+  "url": "https://aim.rlp.cz/eaip/html/eAIP/LK-GEN-2.1-en-GB.html",
+  "publisher": "Air Navigation Services of the Czech Republic (ANS CR)",
+  "checked": "2026-10-30"
+ },
+ "pt-aip-lppt": {
+  "title": "AIP Portugal, AD 2 LPPT Lisboa/Humberto Delgado, current eAIP HTML (no date on page; eAIP menu 'Effective 15 MAY 2025'; latest amendment found AIRAC 006-26, 06 Aug 2026)",
+  "url": "https://ais.nav.pt/wp-content/uploads/AIS_Files/eAIP_Current/eAIP_Online/eAIP/html/eAIP/LP-AD-2.LPPT-en-PT.html",
+  "publisher": "NAV Portugal, E.P.E.",
+  "checked": "2026-10-30"
+ },
+ "ch-bazl-lszs": {
+  "title": "FOCA/BAZL, Aéroport régional de Samedan airport page (no date shown; checked 30 Oct 2026)",
+  "url": "https://www.bazl.admin.ch/fr/aeroport-regional-samedan",
+  "publisher": "Swiss Federal Office of Civil Aviation (FOCA/BAZL)",
+  "checked": "2026-10-30"
+ },
+ "lszs-customs": {
+  "title": "Engadin Airport, Customs page (undated; checked 30 Oct 2026)",
+  "url": "https://engadin-airport.ch/en/?p=844",
+  "publisher": "Engadin Airport AG",
+  "checked": "2026-10-30"
+ },
+ "lszs-ground-handling": {
+  "title": "Engadin Airport, Ground Handling page (undated; checked 30 Oct 2026)",
+  "url": "https://www.engadin-airport.ch/en/?p=1345",
+  "publisher": "Engadin Airport AG",
+  "checked": "2026-10-30"
+ },
+ "lszs-handling-tariff": {
+  "title": "Engadin Airport, Tariffs for handling & special services (file 'Tarife fuer Handling ab 1.12.25', uploaded Jan 2026; document text says 'Valid as of 01.12.2009')",
+  "url": "https://www.engadin-airport.ch/wp-content/uploads/2026/01/Tarife-fuer-Handling-ab-1.12.25.pdf",
+  "publisher": "Engadin Airport AG",
+  "checked": "2026-10-30"
+ },
+ "jo-aip-amdt-26-2026": {
+  "title": "AIP Jordan, AIRAC AIP AMDT 26/2026 (effective 14 May 2026), replacing AD 2.OJAI-13 and AD 2.OJAI-14 (Queen Alia runway characteristics and declared distances)",
+  "url": "https://carc.gov.jo/sites/default/files/inline-files/airac-aip-amdt-26-2026.pdf",
+  "publisher": "Civil Aviation Regulatory Commission, Jordan",
+  "checked": "2026-10-30"
+ },
+ "cl-aip-scel-2026": {
+  "title": "AIP Chile Vol I AD 2 SCEL Arturo Merino Benítez (pages to 06 AUG 2026, AMDT NR 67)",
+  "url": "https://aipchile.dgac.gob.cl/dasa/aip_chile_con_contenido/ais/3%20AD%20Parte%203/AD%202a%20Aeropuertos/8%20-AD%202%20SCEL.pdf",
+  "publisher": "Dirección General de Aeronáutica Civil (DGAC) Chile",
+  "checked": "2026-10-30"
+ },
+ "hk-cad-sc-guidelines": {
+  "title": "Schedule Coordination Guidelines for Hong Kong International Airport, Issue 14.1 (September 2018)",
+  "url": "https://www.cad.gov.hk/reports/SC Guidelines for HKIA.pdf",
+  "publisher": "Civil Aviation Department, Hong Kong",
+  "checked": "2026-10-30"
+ },
+ "hk-cad-charter": {
+  "title": "Scheduled / Charter / Private Flight (no page date shown; checked 30 Oct 2026)",
+  "url": "https://www.cad.gov.hk/english/charter.html",
+  "publisher": "Civil Aviation Department, Hong Kong",
+  "checked": "2026-10-30"
+ },
+ "mia-capacity": {
+  "title": "Airport Capacity, About MIA (no update date shown; page displays 31/10/2026; checked 30 Oct 2026)",
+  "url": "https://www.macau-airport.com/en/about-us/about-mia/airport-capacity",
+  "publisher": "CAM - Macau International Airport Co. Ltd.",
+  "checked": "2026-10-30"
+ },
+ "sg-caas-foreign-operators": {
+  "title": "Requirements for Foreign Air Operators (no page date shown; checked 30 Oct 2026)",
+  "url": "https://www.caas.gov.sg/operations-safety/air-operations/foreign-air-operators",
+  "publisher": "Civil Aviation Authority of Singapore",
+  "checked": "2026-10-30"
  }
 }

@@ -1,0 +1,25 @@
+{
+ "icao": "FACT",
+ "iata": null,
+ "name": "Cape Town International Airport",
+ "city": "Cape Town",
+ "country": "ZA",
+ "tz": "Africa/Johannesburg",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-30",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "hours"
+ ],
+ "notes": "Current South African AIP is the 15 OCT 2026 edition published by SACAA (Aerodromes PDF on caasanwebsitestorage.blob.core.windows.net, plus separate AD 2 amendment files per airport), but the storage domain could not be opened (permission not granted). The ATNS eAIP (cad.atns.co.za) only showed editions up to 2022, which are superseded, so no rule was recorded from them. Could not open: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FACT_EN.pdf (listed on https://www.caa.co.za/industry-information/aip-amendments/)."
+}

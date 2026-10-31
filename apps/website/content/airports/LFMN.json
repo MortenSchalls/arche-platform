@@ -7,7 +7,7 @@
  "tz": "Europe/Paris",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-30",
  "rules": {
   "hours": {
    "v": "open 24 hours",
@@ -50,11 +50,30 @@
    "v": "minimum handling is compulsory and must be arranged (PPR) before leaving the departure airport (VFR chart text)",
    "src": "fr-vac-lfmn",
    "quote": "Minimum handling compulsory PPR before departure from origin AD."
+  },
+  "curfew": {
+   "v": "night restriction for noisier jets only, not a full closure: jets not certified to ICAO Annex 16 Chapter 3 or 4, or Chapter 3 jets with a cumulative margin below 13 EPNdB, may not land 23:30-06:15 or take off 23:15-06:00 local (on-block/off-block times); exceptions for medical, humanitarian, safety, state and government flights; no engine tests 21:00-06:00",
+   "windows_local": [
+    [
+     "23:15",
+     "06:15"
+    ]
+   ],
+   "landing_ban_local": [
+    "23:30",
+    "06:15"
+   ],
+   "takeoff_ban_local": [
+    "23:15",
+    "06:00"
+   ],
+   "applies_to": "jet aircraft not Chapter 3/4 certified, or Chapter 3 with cumulative margin below 13 EPNdB",
+   "src": "fr-arrete-nce-2010",
+   "quote": "– atterrir entre 23 h 30 et 6 h 15, heures locales d’arrivée sur l’aire de stationnement ; – décoller entre 23 h 15 et 6 heures, heures locales de départ de l’aire de stationnement."
   }
  },
  "missing": [
-  "max_aircraft",
-  "curfew (only in a superseded AIP edition; current edition not read)"
+  "max_aircraft"
  ],
- "notes": "French eAIP (SIA) and Légifrance (arrêté of 2 March 2010 on Nice night restrictions) could not be opened. Operator news item (12 Jan 2021) says the northern runway measures 2,420 m; southern runway length not stated, so longest runway not verified. The 'noise' and 'notable' quotes came back paraphrased by the fetch tool (e.g. 'APU use is limited to 30 minutes'); re-check exact wording. The handler licence text on the page dates from 2014-2022 and may be out of date. COHOR page last modified 2 Oct 2026. Do not name companies on the public site (site rule). | 2026-10-27 run: Current SIA eAIP HTML (01 OCT 2026) not openable; ARP, runways and night rule from AIP France AD 2 LFMN (AIRAC AMDT 06/25, 12 JUN 2025) as republished by DIRCAM; location, customs, PPR from the SIA VAC atlas, 01 OCT 2026 edition. The night rule is a ban on noisy aircraft classes only, not a full closure; times are stated in local time. VFR restriction times are UTC winter (SUM -1 HR = same local time, 11:00-14:00 local). Facts from the superseded edition other than runway, location and operator were not used (curfew)."
+ "notes": "French eAIP (SIA) and Légifrance (arrêté of 2 March 2010 on Nice night restrictions) could not be opened. Operator news item (12 Jan 2021) says the northern runway measures 2,420 m; southern runway length not stated, so longest runway not verified. The 'noise' and 'notable' quotes came back paraphrased by the fetch tool (e.g. 'APU use is limited to 30 minutes'); re-check exact wording. The handler licence text on the page dates from 2014-2022 and may be out of date. COHOR page last modified 2 Oct 2026. Do not name companies on the public site (site rule). | 2026-10-27 run: Current SIA eAIP HTML (01 OCT 2026) not openable; ARP, runways and night rule from AIP France AD 2 LFMN (AIRAC AMDT 06/25, 12 JUN 2025) as republished by DIRCAM; location, customs, PPR from the SIA VAC atlas, 01 OCT 2026 edition. The night rule is a ban on noisy aircraft classes only, not a full closure; times are stated in local time. VFR restriction times are UTC winter (SUM -1 HR = same local time, 11:00-14:00 local). Facts from the superseded edition other than runway, location and operator were not used (curfew). | 2026-10-30 run: Current SIA eAIP and VAC PDFs could not be opened (permission not granted for the URLs). Curfew added from the arrêté of 2 March 2010 (official text, copy published by COHOR); it bans landings 23:30-06:15 and take-offs 23:15-06:00 local only for jets without Chapter 3/4 certification or with a cumulative margin below 13 EPNdB (art. 1 II-IV, IV from 30 Oct 2011). windows_local is the union of both windows; check the aircraft's noise certificate rather than treating it as a closure. Amendments after 2010 could not be ruled out (Légifrance not opened). Status kept partial: runway still comes from the superseded AIP edition (AMDT 06/25). max_aircraft not found."
 }

@@ -7,12 +7,33 @@
  "tz": "Asia/Macau",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-30",
  "rules": {
   "handling": {
    "v": "TAG Aviation (Macau) runs a 24-hour business-aviation FBO, the airport's second FBO (opened January 2019)",
    "src": "mia-tag-2019",
    "quote": "the second commercial/general aviation fixed base operator (FBO) of Macau International Airport"
+  },
+  "runway": {
+   "v": "one runway, 16/34, 45 m wide plus two 7.5 m shoulders; length 3,360 m (runway 34) and 3,285 m (runway 16)",
+   "longest_m": 3360,
+   "src": "mia-capacity",
+   "quote": "Runway 34 3,360m; Runway 16 3,285m; Width: both runways 45m + (2x7.5)m"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "src": "mia-capacity",
+   "quote": "Operating Hours 24 hours"
+  },
+  "max_aircraft": {
+   "v": "all types up to the Boeing 747-400; 25 apron stands, 15 of them business jet stands",
+   "src": "mia-capacity",
+   "quote": "Type of Aircraft Serviced All types up to B747-400 ... Apron Stands 25 ... Business Jet Stands 15"
+  },
+  "permits": {
+   "v": "non-scheduled flights need a flight authorisation from the Civil Aviation Authority (AACM), applied for by the operator or agent through the Flight Application System; processing takes 3 working days after all documents are in",
+   "src": "mo-gov-ps1956b",
+   "quote": "It takes 3 working days to complete the authorization process"
   }
  },
  "missing": [
@@ -20,14 +41,11 @@
   "geo",
   "operator",
   "location",
-  "runway",
   "customs",
   "curfew",
   "slots",
-  "ppr",
-  "max_aircraft",
-  "hours",
+  "ppr (airport PPR not found; AACM flight authorisation recorded under permits)",
   "noise"
  ],
- "notes": "AIP Macao (AACM) is not available online; only the Hong Kong eAIP page (procedures in HK airspace) could be read. Handling fact is from the airport company's 2019 news pages; the name of the first FBO was not found on the operator's site, and current FBO list should be re-checked before publishing. Checked 2026-10-27."
+ "notes": "AIP Macao (AACM) is not available online; only the Hong Kong eAIP page (procedures in HK airspace) could be read. Handling fact is from the airport company's 2019 news pages; the name of the first FBO was not found on the operator's site, and current FBO list should be re-checked before publishing. Checked 2026-10-27. | 2026-10-30 run: AIP Macao still not found online; the Hong Kong eAIP VMMC page (16 Apr 2026) says only 'Refer to AIP Macao' for hours and runways. Runway, hours and aircraft size taken from the airport company's Airport Capacity page (page shows the date 31/10/2026, which looks like the current date, not an update date). The two runway lengths are per direction of the single runway 16/34. Flight authorisation from the Macao government portal PS-1956B (last modified 6 Jul 2026). Customs hours, curfew and slots not found on official pages; the 2019 news item says the second FBO gives 24/7 service but says nothing about customs."
 }

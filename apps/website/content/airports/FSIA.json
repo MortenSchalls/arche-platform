@@ -1,0 +1,25 @@
+{
+ "icao": "FSIA",
+ "iata": null,
+ "name": "Seychelles International Airport",
+ "city": "Mahé",
+ "country": "SC",
+ "tz": "Indian/Mahe",
+ "tier": 1,
+ "status": "unavailable",
+ "checked": "2026-10-30",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "hours"
+ ],
+ "notes": "SCAA's NOTAM list of 01 OCT 2025 (https://www.scaa.sc/files/October%202025.pdf) gives the latest amendments as \"AIRAC AIP Amendments: 02/25 WEF 12 JUNE 25\" and \"AIP Amendment: 02/25 WEF 1ST OCT 25\", but these amended AD 2 FSIA pages are not on scaa.sc. The AIP file on scaa.sc (https://www.scaa.sc/files/AIP%20Seychelles.pdf, GEN pages 2017-2019) did not contain readable AD 2 FSIA text, and older FSIA amendment files (2010-2015) are superseded. Seychelles Airports Authority site (seychellesairports.sc) has no Mahé airport facts page found. Owner may need to request the current AIP AD 2 FSIA from SCAA AIS."
+}

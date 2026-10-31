@@ -1,13 +1,13 @@
 {
  "icao": "LSZS",
- "iata": null,
+ "iata": "SMV",
  "name": "Engadin Airport (Samedan)",
  "city": "St. Moritz / Samedan",
  "country": "CH",
  "tz": "Europe/Zurich",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-27",
+ "status": "verified",
+ "checked": "2026-10-30",
  "rules": {
   "runway": {
    "v": "one runway, 03/21, 1,840 m long and 40 m wide, asphalt/concrete",
@@ -46,17 +46,34 @@
    "v": "operators must check that the aircraft type's noise class is allowed at Samedan",
    "src": "lszs-briefing-2025",
    "quote": "Make sure that the type of aircraft (noise class) is allowed to operate at Samedan airport."
+  },
+  "customs": {
+   "v": "Swiss customs (FOCBS) services available during the airport's operating hours; not 24 hours",
+   "h24": false,
+   "hours_local": "during airport operating hours",
+   "src": "lszs-customs",
+   "quote": "services at the Engadine Airport are available during operating hours"
+  },
+  "handling": {
+   "v": "handling by the airport is obligatory for all aircraft over 4,000 kg all year (and for helicopters up to 4,000 kg Dec-Apr)",
+   "src": "lszs-handling-tariff",
+   "quote": "Obligatory for all aircrafts > 4`000 kg Jan – Dec"
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas available through the airport's ground handling",
+   "src": "lszs-ground-handling",
+   "quote": "fueling (A1/Avgas)"
+  },
+  "deicing": {
+   "v": "Type 1 de-icing offered by the airport's ground handling; the tariff lists categories up to Gulfstream IV/V, Global Express and a special category for Boeing 737",
+   "src": "lszs-ground-handling",
+   "quote": "de-icing (type 1)"
   }
  },
  "missing": [
-  "iata",
   "geo",
-  "customs",
   "slots",
-  "max_aircraft",
-  "handling",
-  "fuel",
-  "deicing"
+  "max_aircraft"
  ],
- "notes": "Source is the operator's pilot familiarization briefing (v09/2025), which itself says to use the official AIP/VFR manual for flight preparation; the Swiss eAIP (skybriefing) is paid and was not used. Hours are given in UTC: summer 0600-1700Z = 08:00-19:00 CEST; winter opens 0700Z = 08:00 CET and closes 30 min after sunset, so the winter closure starts earlier than 19:00 (windows_local shows the summer window only; winter evening closure varies with sunset). Elevation 5,600 ft AMSL (2022 briefing v7.10: 'Elevation 5‘600 ft AMSL'). The briefing header shows coordinates 46°32'6\"N 9°53'6\"E, but not as an AIP ARP, so geo was left out."
+ "notes": "Source is the operator's pilot familiarization briefing (v09/2025), which itself says to use the official AIP/VFR manual for flight preparation; the Swiss eAIP (skybriefing) is paid and was not used. Hours are given in UTC: summer 0600-1700Z = 08:00-19:00 CEST; winter opens 0700Z = 08:00 CET and closes 30 min after sunset, so the winter closure starts earlier than 19:00 (windows_local shows the summer window only; winter evening closure varies with sunset). Elevation 5,600 ft AMSL (2022 briefing v7.10: 'Elevation 5‘600 ft AMSL'). The briefing header shows coordinates 46°32'6\"N 9°53'6\"E, but not as an AIP ARP, so geo was left out. | 2026-10-30 run: Swiss eAIP (skybriefing, paid) not tried again beyond a search (no open link); BAZG customs-aerodrome list (20.12.2023) gives only phone contacts, no hours. Added from operator pages: customs (FOCBS services during operating hours, quote under 125 chars as the reader limited quote length), fuel (A1/Avgas), de-icing (type 1), and mandatory handling over 4,000 kg from the handling tariff. Caution: the tariff file is named 'ab 1.12.25' and was uploaded Jan 2026, but its text says 'Valid as of 01.12.2009'; the de-icing tariff (CHF 6.50/litre fluid, categories up to Boeing 737) is from that file. IATA SMV from the FOCA/BAZL Samedan page (ch-bazl-lszs): 'Code IATA : SMV'. Status set to verified: runway, curfew/hours (briefing v09/2025) and customs now recorded from operator sources; the official AIP was not read."
 }
