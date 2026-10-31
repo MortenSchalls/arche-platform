@@ -6,4 +6,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: which pdftotext || (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils)
       - run: node probe.mjs
