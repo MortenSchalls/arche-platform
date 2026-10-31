@@ -7,7 +7,7 @@
  "tz": "Europe/Rome",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-30",
+ "checked": "2026-10-31",
  "rules": {
   "hours": {
    "v": "open 24 hours (H24)",
@@ -44,9 +44,12 @@
    "quote": "Voli in posizionamento in arrivo tra h 22.00 LT e h 06.40 LT saranno autorizzati solo previa conferma del Gestore aeroportuale"
   },
   "max_aircraft": {
-   "v": "only point-to-point scheduled flights with narrow-body aircraft; no long stays; 40 stands (34 North apron, 6 West apron) for narrow-body aircraft, maximum wingspan 48 m; at most 32 stands for night stops",
+   "v": "only point-to-point scheduled flights with narrow-body aircraft; no long stays; 40 stands (34 North apron, 6 West apron) for narrow-body aircraft, maximum wingspan 48 m; at most 32 stands for night stops; on the West (general aviation) apron, stands 51, 52 and 54-56 take up to ICAO code C with 34 m wingspan (stand 53: 32 m) and parking areas GA1-GA3 up to code B",
    "src": "sea-lin-rds-5",
-   "quote": "(massima apertura alare 48 metri)."
+   "quote": "(massima apertura alare 48 metri).",
+   "west_apron_src": "sea-lin-ol-west-3",
+   "west_apron_quote": "Stand 51, 52, 54, 55, 56 (aeromobili fino a ICAO CODE C, max wing span 34m)",
+   "west_apron_max_wingspan_m": 34
   },
   "fuel": {
    "v": "fuel supplied by third-party into-plane suppliers (tanker trucks) under contract with SEA; suppliers must cover airport operations 24 hours and must also fuel carriers that are not their customers",
@@ -63,5 +66,5 @@
   "deicing",
   "curfew (national night-flight rules, D.P.R. 476/99, not read)"
  ],
- "notes": "ENAV eAIP (AIP Italia) needs an ENAV account and could not be opened, so customs, night rules and GA rules from AD 2 are missing. All facts except slots come from SEA's 'Technical data' page (no date; © 2026). The page does not say whether the handler hours and the Tuesday closure are UTC or local; the bracketed times appear to be the summer values; they are copied as written, not converted. The SEA noise action plan only mentions an engine-run ban 22:00-05:00 and a national night-flight decree (D.P.R. 476/99) without terms, so no curfew was recorded. Slot quote from ENAC page (updated 14/11/2024); the coordinator is Assoclearance ('l’associazione Assoclearance che è stata incaricata del coordinamento'). Whether GA needs a slot is not stated there. | 2026-10-30 run: ENAV eAIP not openable (search found no public AD 2 LIML link). Added from SEA's Regolamento di Scalo Linate Ed. 5.0 (13 Dec 2024), sect. 2.2.1 coordinated-airport parameters: 'OPERABILITA' H24'; 'Sono ammessi solo i voli di linea point-to-point con aeromobili tipo narrow-body o corridoio singolo.'; 'Non sono ammesse lunghe soste.'; traffic includes 'aviazione generale compreso aerotaxi'; stands quote and 'Massimo 32 piazzole disponibili per le soste notturne.' These parameters are written for the commercial aprons; whether the West GA apron has its own limits is not stated in the part that could be read (the reader stopped at p. 27, so sect. 3.5.3 GA terminal and 3.8.12 de-icing were not read). Fuel grade (Jet A-1) is not stated in Cap. 22. Customs, PPR, noise and de-icing still missing."
+ "notes": "ENAV eAIP (AIP Italia) needs an ENAV account and could not be opened, so customs, night rules and GA rules from AD 2 are missing. All facts except slots come from SEA's 'Technical data' page (no date; © 2026). The page does not say whether the handler hours and the Tuesday closure are UTC or local; the bracketed times appear to be the summer values; they are copied as written, not converted. The SEA noise action plan only mentions an engine-run ban 22:00-05:00 and a national night-flight decree (D.P.R. 476/99) without terms, so no curfew was recorded. Slot quote from ENAC page (updated 14/11/2024); the coordinator is Assoclearance ('l’associazione Assoclearance che è stata incaricata del coordinamento'). Whether GA needs a slot is not stated there. | 2026-10-30 run: ENAV eAIP not openable (search found no public AD 2 LIML link). Added from SEA's Regolamento di Scalo Linate Ed. 5.0 (13 Dec 2024), sect. 2.2.1 coordinated-airport parameters: 'OPERABILITA' H24'; 'Sono ammessi solo i voli di linea point-to-point con aeromobili tipo narrow-body o corridoio singolo.'; 'Non sono ammesse lunghe soste.'; traffic includes 'aviazione generale compreso aerotaxi'; stands quote and 'Massimo 32 piazzole disponibili per le soste notturne.' These parameters are written for the commercial aprons; whether the West GA apron has its own limits is not stated in the part that could be read (the reader stopped at p. 27, so sect. 3.5.3 GA terminal and 3.8.12 de-icing were not read). Fuel grade (Jet A-1) is not stated in Cap. 22. Customs, PPR, noise and de-icing still missing. | 2026-10-31 run: ENAV eAIP still not public. West apron limits added from SEA's Lettera di Operazioni 'Procedure Operative Piazzale Ovest' Rev 3.0 (16 May 2022, Airport Manual Cap. 14 Att. 4; the newest edition found): GA flights there need a prior, mandatory choice of handler; refuelling only on stands 51-56. English Airport Regulations Ed. 5.0 read: the reader reached only Chapters 1-3 (sect. 3.5.3 GA terminal, 3.8.12 de-icing and 5.3.4 night operations not reached). Customs, PPR, noise and de-icing still missing."
 }

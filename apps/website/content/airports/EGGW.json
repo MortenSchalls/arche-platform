@@ -7,7 +7,7 @@
  "tz": "Europe/London",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "one runway, 2.16 km long",
@@ -61,5 +61,5 @@
   "ppr",
   "max_aircraft"
  ],
- "notes": "UK AIP could not be read. 'none': true for curfew means only that the operator states there is no ban on night flights; night restrictions (older jets banned, quota count, 79 dB(A) night noise limit) still apply, so do not write 'no restrictions'. The night period hours were not found on a readable page. ACL pages do not say explicitly that business aviation needs slots, only that Luton is Level 3. Handling company names: the website rule says the site names no companies except authorities, airport operators and cited sources, so these are for internal use. | 2026-10-27 run: UK AIP not readable. Night quota times are from Luton Local Rule 1 on the ACL site, marked 'Adopted: 2015' (still the published rule). Night shoulder period also defined: departures 05:50-06:45, arrivals 06:00-07:00 local. Luton's 'Procedures for Requesting Prior Permission to Operate' PDF could not be opened (see unreadable)."
+ "notes": "UK AIP could not be read. 'none': true for curfew means only that the operator states there is no ban on night flights; night restrictions (older jets banned, quota count, 79 dB(A) night noise limit) still apply, so do not write 'no restrictions'. The night period hours were not found on a readable page. ACL pages do not say explicitly that business aviation needs slots, only that Luton is Level 3. Handling company names: the website rule says the site names no companies except authorities, airport operators and cited sources, so these are for internal use. | 2026-10-27 run: UK AIP not readable. Night quota times are from Luton Local Rule 1 on the ACL site, marked 'Adopted: 2015' (still the published rule). Night shoulder period also defined: departures 05:50-06:45, arrivals 06:00-07:00 local. Luton's 'Procedures for Requesting Prior Permission to Operate' PDF could not be opened (see unreadable). | 2026-10-31 run: UK AIP (aurora.nats.co.uk) again not readable (permission request not answered). The operator's Operations publications page lists 'Procedures for Requesting Prior Permission to Operate' (LTN-PPO5 v1.4, on eu-assets.contentstack.com) and Arrival/Departure Codes of Practice, but the document host could not be opened. Business & private aviation page re-read: no customs, PPR or size rules. No rules changed."
 }

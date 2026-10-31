@@ -1,33 +1,46 @@
 {
  "icao": "OEJN",
- "iata": null,
+ "iata": "JED",
  "name": "King Abdulaziz International Airport",
  "city": "Jeddah",
  "country": "SA",
  "tz": "Asia/Riyadh",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "three runways; the longest, 16C/34C and 16L/34R, are 4,000 m long and 60 m wide (16R/34L is 3,800 m)",
    "longest_m": 4000,
    "src": "sa-aip-oejn",
    "quote": "4000 x 60"
+  },
+  "slots": {
+   "v": "no carrier may operate without slots from the slot coordinator ACL and prior landing permission from GACA; the document defines general aviation but does not say directly whether GA flights need slots",
+   "src": "jed-cou-2025",
+   "quote": "No Carrier shall operate to or from KAIA without first obtaining Slots from ACL and prior landing permission from GACA."
+  },
+  "permits": {
+   "v": "ad hoc flights need prior GACA landing permission and traffic rights; ad hoc and charter helicopter flights are not permitted at JED",
+   "src": "jed-cou-2025",
+   "quote": "These flights are subject to prior GACA landing permission and traffic rights."
+  },
+  "noise": {
+   "v": "Chapter 2 (older, noisier) aircraft are prohibited",
+   "src": "jed-cou-2025",
+   "quote": "Aircraft defined in ICAO Annex 16 as \"Noise Chapter 2\" are prohibited from operating at KAIA."
   }
  },
  "missing": [
-  "curfew",
-  "slots",
+  "curfew (no night restriction stated in AIP or Conditions of Use)",
   "ppr",
   "max_aircraft",
   "handling agent names",
-  "iata (not shown in the AIP)",
+  "GA slot rule (CoU does not say whether GA needs slots)",
   "customs (only in a superseded AIP edition; current edition not read)",
   "hours (only in a superseded AIP edition; current edition not read)",
   "handling (only in a superseded AIP edition; current edition not read)",
-  "notable (only in a superseded AIP edition; current edition not read)",
-  "noise (only in a superseded AIP edition; current edition not read)"
+  "notable (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "Source is the AD 2 page from AIP AMDT 07/25 (3 Apr 2025), the newest OEJN page that could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective; its pages could not be opened; re-check before publishing. The page states no night restriction, PPR, slot rule or Hajj/Umrah rule. Fuel line in the AIP ('Turbine JP1 and JP4') left out as it looks outdated. Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, notable, noise)."
+ "notes": "Source is the AD 2 page from AIP AMDT 07/25 (3 Apr 2025), the newest OEJN page that could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective; its pages could not be opened; re-check before publishing. The page states no night restriction, PPR, slot rule or Hajj/Umrah rule. Fuel line in the AIP ('Turbine JP1 and JP4') left out as it looks outdated. Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, notable, noise). | 2026-10-31 run: slots, permits, noise and IATA code JED are from the King Abdulaziz International Airport Conditions of Use (publication 08 Oct 2025, GACA approval 06 Oct 2025, effective 60 days after publication; hosted by ACL). The CoU states no operating hours, curfew or size limit; charter/ad hoc flights go to the Hajj Terminal by default per ACL's JED S26 capacity declaration (not recorded as a rule). Saudi eAIP current edition still not reachable."
 }

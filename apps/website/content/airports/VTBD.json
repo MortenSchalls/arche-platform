@@ -1,13 +1,13 @@
 {
  "icao": "VTBD",
- "iata": null,
+ "iata": "DMK",
  "name": "Bangkok/ Don Mueang International Airport",
  "city": "Bangkok",
  "country": "TH",
  "tz": "Asia/Bangkok",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "two runways; the longest, 03L/21R, is 3,700 m long and 60 m wide",
@@ -30,15 +30,23 @@
    "v": "MJETS Limited is listed as handling agent for private aircraft only, alongside AOT Ground Aviation Services (AOTGA)",
    "src": "th-aip-vtbd",
    "quote": "MJETS LIMITED ... Private Aircraft only; AOT GROUND AVIATION SERVICES CO., LTD. (AOTGA)"
+  },
+  "slots": {
+   "v": "Level 3 (coordinated) airport: slots are coordinated by CAAT and non-scheduled flights must obtain a slot (business aviation applies with a General Aviation Clearance Request, GCR)",
+   "src": "th-aip-gen12",
+   "quote": "L3 | DMK/VTBD | Coordination | CAAT; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+  },
+  "permits": {
+   "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
+   "src": "th-aip-gen12",
+   "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
   }
  },
  "missing": [
-  "iata",
   "curfew",
-  "slots",
-  "ppr",
+  "ppr (no airport PPR text found in AD 2.1-2.19; AD 2.20 not read)",
   "max_aircraft",
   "noise"
  ],
- "notes": "Read from the eAIP edition effective 14 May 2026; the reading covered AD 2.1 to AD 2.18 and no slot, PPR, noise or night-restriction text was found there; AD 2.20 and later were not read. Newer AIRAC editions (6 Aug 2026, 3 Sep 2026) could not be opened. The AIP also mentions a 'GA Aviation Channel (Private aircraft) and AOTGA Premium Lounge' contact. IATA code is not given in the AIP."
+ "notes": "Read from the eAIP edition effective 14 May 2026; the reading covered AD 2.1 to AD 2.18 and no slot, PPR, noise or night-restriction text was found there; AD 2.20 and later were not read. Newer AIRAC editions (6 Aug 2026, 3 Sep 2026) could not be opened. The AIP also mentions a 'GA Aviation Channel (Private aircraft) and AOTGA Premium Lounge' contact. IATA code is not given on the AD 2 page; it is taken from the GEN 1.2 slot table. 31 Oct 2026: IATA code, slots and flight-permit lead time added from AIP GEN 1.2 (AIRAC 4 Sep 2025; the AMDT 08/26 page list, 6 Aug 2026, shows no GEN 1.2 change). The current AD 2 pages (AMDT 09/26, 3 Sep 2026) could not be opened (fetch not permitted)."
 }

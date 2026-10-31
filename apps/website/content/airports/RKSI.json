@@ -7,7 +7,7 @@
  "tz": "Asia/Seoul",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "four runways; the longest, 16L/34R, is 4,000 m long and 60 m wide",
@@ -45,5 +45,5 @@
   "max_aircraft",
   "handling agent / business aviation terminal names"
  ],
- "notes": "Page read is the 8 Jan 2026 Korean eAIP package (no effective date printed on the page). AD 2.21 was not in the text returned, so no curfew statement either way."
+ "notes": "Page read is the 8 Jan 2026 Korean eAIP package (no effective date printed on the page). AD 2.21 was not in the text returned, so no curfew statement either way. | 2026-10-31 run: the newest RKSI page found is the 21 Jan 2026 AIRAC package (aim.koca.go.kr/eaipPub/Package/2026-01-21-AIRAC/html/eAIP/KR-AD-2.RKSI-en-GB.html), but it is robots-blocked. Re-read the 8 Jan 2026 page: the text returned is cut off at about 93,000 characters, inside the AD 2.20 push-back tables, so AD 2.21 (noise and night rules) could still not be read. AD 2.20 confirms training flights, light sport aircraft, ultralights and lighter-than-air are prohibited. Incheon Airport Corporation page (airport.kr/co_en/4389) only says the FBO area has a dedicated terminal, apron and hangars for business aviation."
 }

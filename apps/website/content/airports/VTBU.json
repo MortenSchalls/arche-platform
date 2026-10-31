@@ -1,13 +1,13 @@
 {
  "icao": "VTBU",
- "iata": null,
+ "iata": "UTP",
  "name": "Rayong/ U-Tapao Rayong Pattaya International Airport",
  "city": "Rayong",
  "country": "TH",
  "tz": "Asia/Bangkok",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "one runway, 18/36, 3,505 m long and 60 m wide",
@@ -30,16 +30,24 @@
    "v": "no noise abatement procedures listed",
    "src": "th-aip-vtbu",
    "quote": "Noise abatement (AD 2.21): NIL"
+  },
+  "slots": {
+   "v": "Level 2 (schedule facilitated) airport: CAAT facilitates schedules and non-scheduled flights must obtain a slot",
+   "src": "th-aip-gen12",
+   "quote": "UTP/VTBU | Rayong/ U-Tapao Rayong Pattaya International Airport | Facilitation | CAAT; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+  },
+  "permits": {
+   "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
+   "src": "th-aip-gen12",
+   "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
   }
  },
  "missing": [
-  "iata",
   "curfew",
-  "slots",
   "ppr",
   "max_aircraft",
   "handling",
   "notable"
  ],
- "notes": "The newest VTBU AD 2 page that could be opened is the AIRAC edition effective 17 Apr 2025; 2026 editions were not found or could not be opened, so recheck before publishing. The AIP names no handling agent or business aviation terminal and says nothing on GA, slots or PPR. There is a local flying restriction near the gas separation plant (2,000 ft), not a night rule. No official U-Tapao airport or Royal Thai Navy page could be found; the search turned up only broker and directory sites. IATA code is not given in the AIP."
+ "notes": "The newest VTBU AD 2 page that could be opened is the AIRAC edition effective 17 Apr 2025; 2026 editions were not found or could not be opened, so recheck before publishing. The AIP names no handling agent or business aviation terminal and says nothing on GA, slots or PPR. There is a local flying restriction near the gas separation plant (2,000 ft), not a night rule. No official U-Tapao airport or Royal Thai Navy page could be found; the search turned up only broker and directory sites. IATA code is not given on the AD 2 page; it is taken from the GEN 1.2 slot table. 31 Oct 2026: IATA code, slots and flight-permit lead time added from AIP GEN 1.2 (AIRAC 4 Sep 2025; the AMDT 08/26 page list, 6 Aug 2026, shows no GEN 1.2 change). The current AD 2 pages (AMDT 09/26, 3 Sep 2026) could not be opened (fetch not permitted). The AMDT 08/26 page list shows VTBU AD 2 pages reissued in 2026 (19 Feb, 19 Mar and 14 May 2026), so the runway, customs, hours and noise rules above come from a superseded edition (17 Apr 2025) and need rechecking."
 }

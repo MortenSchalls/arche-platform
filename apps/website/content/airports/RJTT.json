@@ -7,7 +7,7 @@
  "tz": "Asia/Tokyo",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-30",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "four runways; the longest, C, is 3,360 m long and 60 m wide",
@@ -40,5 +40,5 @@
   "max_aircraft",
   "noise"
  ],
- "notes": "The website names no companies other than authorities, airport operators and sources, so the handling_list is for internal use only. The Japanese AIP (aisjapan.mlit.go.jp) could not be opened. The runway/outline sheet (tcab-haneda-outline) shows no date. An undated MLIT business jet pamphlet says daytime business jet movements at Haneda are limited to 8 per day; it was not used because it is undated and likely out of date. Japan has no daylight saving time. | 2026-10-30 run: IATA code HND from the MLIT designated-airport table (R8.10, i.e. Oct 2026) in jp-mlit-bizjet, row '2 東京国際空港 HND RJTT 24H 国' under columns 空港名 ３レター ４レター 運用時間 設置管理. Permits from the same MLIT document (1 Oct 2026). The Haneda Business Aviation Gate page (tokyo-haneda.com, no date) says the gate at Terminal 3 is open 24 hours and has CIQ facilities, but not CIQ hours, so customs stays missing. Business jet slots: only the MLIT press release of 22 Apr 2016 (kouku19_hh_000056: 16 movements a day within the government/non-scheduled slot pool, parking up to 5 days) was found; not used because it is ten years old. The Japanese AIP was not reachable via search."
+ "notes": "The website names no companies other than authorities, airport operators and sources, so the handling_list is for internal use only. The Japanese AIP (aisjapan.mlit.go.jp) could not be opened. The runway/outline sheet (tcab-haneda-outline) shows no date. An undated MLIT business jet pamphlet says daytime business jet movements at Haneda are limited to 8 per day; it was not used because it is undated and likely out of date. Japan has no daylight saving time. | 2026-10-30 run: IATA code HND from the MLIT designated-airport table (R8.10, i.e. Oct 2026) in jp-mlit-bizjet, row '2 東京国際空港 HND RJTT 24H 国' under columns 空港名 ３レター ４レター 運用時間 設置管理. Permits from the same MLIT document (1 Oct 2026). The Haneda Business Aviation Gate page (tokyo-haneda.com, no date) says the gate at Terminal 3 is open 24 hours and has CIQ facilities, but not CIQ hours, so customs stays missing. Business jet slots: only the MLIT press release of 22 Apr 2016 (kouku19_hh_000056: 16 movements a day within the government/non-scheduled slot pool, parking up to 5 days) was found; not used because it is ten years old. The Japanese AIP was not reachable via search. | 2026-10-31 run: re-checked the Haneda business jet gate page (Japanese text version): 'Operating hours 24 hours' and a dedicated CIQ facility, but no CIQ hours, so customs stays missing. An undated MLIT overview (mlit.go.jp/koku/content/001446649.pdf, latest entry 2017) gives 16 daytime business-jet movements a day (06:00-22:59) and parking up to 5 days; not used because it is undated and old. Japanese AIP still not read."
 }

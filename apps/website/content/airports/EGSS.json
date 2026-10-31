@@ -7,7 +7,7 @@
  "tz": "Europe/London",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "one runway, 3,049 m long and 46 m wide",
@@ -55,5 +55,5 @@
   "ppr",
   "max_aircraft"
  ],
- "notes": "UK AIP not readable. Night quota period: the airport and DfT give 23:30-06:00; the ACL scheduling declaration states it as '2330 - 0600 (GMT)', so in summer (BST) the ACL figures would be one hour later in local time - check before quoting summer times. The night quota is a cap on numbers and noise points, not a ban. Handling quote is a list of names taken from the page, not one sentence."
+ "notes": "UK AIP not readable. Night quota period: the airport and DfT give 23:30-06:00; the ACL scheduling declaration states it as '2330 - 0600 (GMT)', so in summer (BST) the ACL figures would be one hour later in local time - check before quoting summer times. The night quota is a cap on numbers and noise points, not a ban. Handling quote is a list of names taken from the page, not one sentence. | 2026-10-31 run: UK AIP (aurora.nats.co.uk) again not readable (permission request not answered). The airport's Aerodrome Manual page lists 'London Stansted Aerodrome Manual 2026' (effective 01/06/2026, v1) on assets.live.dxp.maginfrastructure.com, but that host could not be opened; it should hold runway designation, de-icing and aircraft limits. General Aviation and Conditions of Use pages give no PPR, customs or size rules (the rules are in yearly PDFs not opened)."
 }

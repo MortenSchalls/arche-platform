@@ -7,7 +7,7 @@
  "tz": "Europe/Oslo",
  "tier": 1,
  "status": "unavailable",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {},
  "missing": [
   "geo",
@@ -24,5 +24,5 @@
   "noise",
   "notable"
  ],
- "notes": "Unavailable: the Avinor eAIP pages found by search (2025-09-04 and 2025-11-27 AIRAC) now show only an 'outdated AIP' notice, and the current AIP index page and the 2026-09-03 AIRAC page could not be opened (permission not granted in time). No facts recorded; IATA code shown is from the task list, not verified from the AIP."
+ "notes": "Unavailable: the Avinor eAIP pages found by search (2025-09-04 and 2025-11-27 AIRAC) now show only an 'outdated AIP' notice, and the current AIP index page and the 2026-09-03 AIRAC page could not be opened (permission not granted in time). No facts recorded; IATA code shown is from the task list, not verified from the AIP. | 2026-10-31 run: still unavailable. Avinor AIRAC table shows AMDT 05/2026 (effective 3 Sep 2026) current and 06/2026 due 26 Nov 2026. The 2025-11-27 ENGM page shows only an 'outdated AIP' notice pointing to https://avinor.no/en/ais/aipnorway/; that page and https://aim-prod.avinor.no/no/AIP/ (linked from partner.avinor.no/en/ais/aip/) could not be opened (permission not granted). Avinor's private-flights page has no Oslo rules."
 }

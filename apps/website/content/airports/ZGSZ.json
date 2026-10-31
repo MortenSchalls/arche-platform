@@ -7,7 +7,7 @@
  "tz": "Asia/Shanghai",
  "tier": 1,
  "status": "unavailable",
- "checked": "2026-10-28",
+ "checked": "2026-10-31",
  "rules": {},
  "missing": [
   "iata",
@@ -20,5 +20,5 @@
   "handling",
   "permits"
  ],
- "notes": "Tried 28 Oct 2026: China eAIP (www.eaipchina.cn, www.aischina.com) - fetch blocked (permission not granted in time); only unofficial mirrors of old (2019) eAIP editions were found by search, which may not be used. No page of the operator's own website was found by search; the Shenzhen government airport listing (www.sz.gov.cn/xxgk/sydwxxgk/jt/jc/) redirected to http and was not opened. CAAC AIP AD 2 for this airport should be obtained (e.g. via a registered eAIP China account) and read before any rule is recorded."
+ "notes": "Tried 28 Oct 2026: China eAIP (www.eaipchina.cn, www.aischina.com) - fetch blocked (permission not granted in time); only unofficial mirrors of old (2019) eAIP editions were found by search, which may not be used. No page of the operator's own website was found by search; the Shenzhen government airport listing (www.sz.gov.cn/xxgk/sydwxxgk/jt/jc/) redirected to http and was not opened. CAAC AIP AD 2 for this airport should be obtained (e.g. via a registered eAIP China account) and read before any rule is recorded. Tried again 31 Oct 2026: China eAIP still not readable (registration needed; search finds only unofficial 2019 mirrors, not used); no operator page with runway, hours, customs or business-aviation facts was found by search. Status stays unavailable. A Shenzhen Municipal Transport Bureau page (www.sz.gov.cn, 11 Feb 2025) says the airfield is code 4F with two long parallel runways and a third under construction, with no lengths or hours; not recorded because it is not the AIP, the operator or the CAAC."
 }

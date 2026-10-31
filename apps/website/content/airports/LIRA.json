@@ -7,7 +7,7 @@
  "tz": "Europe/Rome",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "curfew": {
    "v": "private and commercial flights only between 06:00 and 23:00 local; outside these hours PPRs are issued only for emergency, ambulance and state flights",
@@ -52,5 +52,5 @@
   "fuel",
   "deicing"
  ],
- "notes": "ENAV eAIP needs an ENAV account and could not be opened; ADR's passenger GA services page blocks automated reading. Facts come from ADR's Ciampino Airport Regulations (English translation, rev. 2, updated 16/10/2025; the Italian text prevails). The 61-movement cap is a daily cap on GA PPRs, filed under max_aircraft for want of a better key. Night limits at Ciampino have been the subject of court cases; re-check before quoting to clients."
+ "notes": "ENAV eAIP needs an ENAV account and could not be opened; ADR's passenger GA services page blocks automated reading. Facts come from ADR's Ciampino Airport Regulations (English translation, rev. 2, updated 16/10/2025; the Italian text prevails). The 61-movement cap is a daily cap on GA PPRs, filed under max_aircraft for want of a better key. Night limits at Ciampino have been the subject of court cases; re-check before quoting to clients. | 2026-10-31 run: ENAV eAIP not public. ADR's Ciampino Airport Manual page and 'Manuale di Aeroporto' PDF (PA-GENERALE rev 24, 2 Sep 2024) refuse automated reading (robots disallowed), so runway, aerodrome hours, fuel and de-icing stay missing. ADR Service Charter 2026 (on ENAC site) gives only passenger-terminal hours (departures 24h, arrivals 06:00-24:00) and '15 km dal centro di Roma'; not used as rules."
 }

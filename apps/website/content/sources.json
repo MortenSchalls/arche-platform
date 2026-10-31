@@ -93,7 +93,7 @@
   "title": "Business Jet Operations, Narita International Airport Corporation (no page date shown)",
   "url": "https://www.narita-airport.jp/en/company/business/bj/",
   "publisher": "Narita International Airport Corporation",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "naa-bj-coord": {
   "title": "Information on Stand Vacancies for Business Jet Partners and Coordinating Office (no page date shown)",
@@ -135,7 +135,7 @@
   "title": "Dubai International (DXB) Conditions of Use for General Aviation, Northern Winter 2025 (effective 26 Oct 2025, ref DXB GA NW 25)",
   "url": "https://www.acl-uk.org/wp-content/uploads/2025/11/conditions_of_use_dubai_international_dxb_general_aviation_w25.pdf",
   "publisher": "Dubai Airports Corporation (hosted by Airport Coordination Limited, the slot coordinator named in the AIP)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "dwc-cou-ga-s24": {
   "title": "Al Maktoum International / Dubai World Central (DWC) Conditions of Use, General Aviation, Northern Summer 2024 (effective 31 Mar 2024)",
@@ -192,10 +192,10 @@
   "checked": "2026-10-27"
  },
  "fab-specs": {
-  "title": "Farnborough Airport, Airfield Specs (page undated; checked 2026-10-27)",
+  "title": "Farnborough Airport, Airfield Specs (page undated; checked 2026-10-31)",
   "url": "https://www.farnboroughairport.com/airport/airfield-specs",
   "publisher": "Farnborough Airport",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "fab-contact": {
   "title": "Farnborough Airport, Contact Us / Find Us, opening times (page undated; checked 2026-10-27)",
@@ -216,10 +216,10 @@
   "checked": "2026-10-27"
  },
  "lla-bizav": {
-  "title": "London Luton Airport, Business & private aviation (page undated, © 2026; checked 2026-10-27)",
+  "title": "London Luton Airport, Business & private aviation (page undated, © 2026; checked 2026-10-31)",
   "url": "https://www.london-luton.co.uk/corporate/business-private-aviation",
   "publisher": "London Luton Airport Operations Limited",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "lla-noise-faq": {
   "title": "London Luton Airport, Noise – Frequently Asked Questions (page undated; checked 2026-10-27)",
@@ -261,13 +261,13 @@
   "title": "London Biggin Hill Airport, Operations (last modified 8 May 2025)",
   "url": "https://bigginhillairport.com/operations/",
   "publisher": "London Biggin Hill Airport",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "bqh-ga": {
-  "title": "London Biggin Hill Airport, General Aviation/PPR (page undated; checked 2026-10-27)",
+  "title": "London Biggin Hill Airport, General Aviation/PPR (last modified 23 Apr 2024; checked 2026-10-31)",
   "url": "https://bigginhillairport.com/operations/general-aviation/",
   "publisher": "London Biggin Hill Airport",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "bromley-bqh": {
   "title": "London Borough of Bromley, Biggin Hill Airport (last modified 27 Mar 2024)",
@@ -702,10 +702,10 @@
   "checked": "2026-10-27"
  },
  "th-aip-gen12": {
-  "title": "Thailand eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIRAC effective 4 Sep 2025)",
+  "title": "Thailand eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIRAC effective 4 Sep 2025; no GEN 1.2 change listed in AMDT 08/26, 6 Aug 2026)",
   "url": "https://aip.caat.or.th/2025-09-04-AIRAC/html/eAIP/VT-GEN-1.2-en-GB.html",
   "publisher": "Civil Aviation Authority of Thailand",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "pg-airport-business": {
   "title": "Bangkok Airways investor relations, Airport Business (no page date shown; copyright 2026; checked 27 Oct 2026)",
@@ -945,7 +945,7 @@
   "title": "ビジネスジェット機（外国籍機）の各種申請手続き (Application procedures for foreign-registered business jets, 1 Oct 2026; designated-airport table as of R8.10)",
   "url": "https://www.mlit.go.jp/koku/content/001762020.pdf",
   "publisher": "Civil Aviation Bureau, International Aviation Division, MLIT",
-  "checked": "2026-10-30"
+  "checked": "2026-10-31"
  },
  "jp-mlit-press-2023": {
   "title": "MLIT press release: shorter application deadline for foreign business jets for tourism (1 Jun 2023)",
@@ -1170,10 +1170,10 @@
   "checked": "2026-10-27"
  },
  "fra-runways": {
-  "title": "Fraport, Runway system and operating hours (checked 27 Oct 2026, no page date)",
+  "title": "Fraport, Runway system and operating hours (no page date; re-checked 31 Oct 2026)",
   "url": "https://www.fraport.com/en/sustainability/dialog-with-neighbors/noise-and-air/flight-operations/runway-system-and-operating-hours.html",
   "publisher": "Fraport AG",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "fra-hours": {
   "title": "Fraport, Hours of operation (checked 27 Oct 2026, no page date)",
@@ -1203,13 +1203,13 @@
   "title": "ENAIRE AIP España, AD 2 LEBL Barcelona-El Prat (WEF 01-OCT-26)",
   "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEBL/LE_AD_2_LEBL_en.html",
   "publisher": "ENAIRE (Spanish AIS)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "es-aip-leib": {
   "title": "ENAIRE AIP España, AD 2 LEIB Ibiza (WEF 09-JUL-26)",
   "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEIB/LE_AD_2_LEIB_en.html",
   "publisher": "ENAIRE (Spanish AIS)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "es-amdt-lepa": {
   "title": "ENAIRE AIP España, Amendment 2026/410, AD 2 LEPA/LESJ Palma de Mallorca (page dated 03-SEP-26)",
@@ -1308,10 +1308,10 @@
   "checked": "2026-10-27"
  },
  "acl-ruh": {
-  "title": "ACL slot coordination, airport information: King Khalid International Airport (RUH), checked 27 Oct 2026",
+  "title": "ACL slot coordination, airport information: King Khalid International Airport (RUH), checked 31 Oct 2026",
   "url": "https://www.acl-uk.org/airport-info-details/?aid=73",
   "publisher": "Airport Coordination Limited (slot coordinator)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "bh-aip-obbi": {
   "title": "AIP Kingdom of Bahrain and State of Qatar, AD 2 OBBI Bahrain International (AIRAC effective 4 Sep 2025) (not the current edition; current edition could not be opened)",
@@ -1446,10 +1446,10 @@
   "checked": "2026-10-27"
  },
  "lcy-pjc-services": {
-  "title": "London City Airport Private Jet Centre, Services (checked 27 Oct 2026)",
+  "title": "London City Airport Private Jet Centre, Services (checked 31 Oct 2026)",
   "url": "https://privatejetcentre.londoncityairport.com/services",
   "publisher": "London City Airport",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "stn-facts": {
   "title": "London Stansted Airport, Facts and figures (checked 27 Oct 2026)",
@@ -1488,10 +1488,10 @@
   "checked": "2026-10-27"
  },
  "fab-rules": {
-  "title": "Farnborough Airport, Rules and Regulations (undated, checked 27 Oct 2026)",
+  "title": "Farnborough Airport, Rules and Regulations (undated, checked 31 Oct 2026)",
   "url": "https://www.farnboroughairport.com/legal/rules-and-regulations",
   "publisher": "Farnborough Airport Ltd",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "acl-ltn-lr1": {
   "title": "ACL, London Luton Airport Local Rule 1 - night movements and night noise quota (adopted 2015, current on ACL site 27 Oct 2026)",
@@ -2224,5 +2224,143 @@
   "url": "https://www.caas.gov.sg/operations-safety/air-operations/foreign-air-operators",
   "publisher": "Civil Aviation Authority of Singapore",
   "checked": "2026-10-30"
+ },
+ "fab-aircraft-services": {
+  "title": "Farnborough Airport, Aircraft Services (page undated; checked 2026-10-31)",
+  "url": "https://www.farnboroughairport.com/airport/aircraft-services",
+  "publisher": "Farnborough Airport Ltd",
+  "checked": "2026-10-31"
+ },
+ "gva-reglement-2025": {
+  "title": "Règlement d'exploitation de l'aéroport international de Genève du 31 mai 2001 (état le 1er janvier 2025)",
+  "url": "https://www.gva.ch/content/dam/gva-aem/documents/professionals/aviation-priv%C3%A9e/r%C3%A8glementations-de-gen%C3%A8ve-a%C3%A9roport/Reglement-d-exploitation-au-1er-janvier-2025-Aeroport-International-de-Geneve.pdf",
+  "publisher": "République et canton de Genève, published by Genève Aéroport",
+  "checked": "2026-10-31"
+ },
+ "zrh-winter-ops-2025": {
+  "title": "Flughafen Zürich, Winter Operation at Zurich Airport, Issue 1.0 Revision 24 (01.11.2025)",
+  "url": "https://media.flughafen-zuerich.ch/-/jssmedia/airport/portal/dokumente/business/airlines-and-handling/flight-operations/winter-operations/winter_operations_2025.pdf?vs=1&rev=9cd0763b4f594a6585f0e1de3527a149&sc_lang=de&sc_site=dxp-portal",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-31"
+ },
+ "zrh-general-aviation-en": {
+  "title": "Flughafen Zürich, General aviation (flight operations; © 2026; checked 31 Oct 2026)",
+  "url": "https://www.flughafen-zuerich.ch/en/business/airlines-and-handling/flight-operations/general-aviation",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-31"
+ },
+ "sea-lin-ol-west-3": {
+  "title": "SEA, Lettera di Operazioni Linate, Procedure Operative Piazzale Ovest, Rev 3.0 (16 May 2022; Airport Manual Cap. 14 Att. 4)",
+  "url": "https://milanairports.com/sites/default/files/2024-03/ALL%204%20CAP%2014%20MDA%20LIN%20OL%20WEST%20APRON%203.0.pdf",
+  "publisher": "SEA S.p.A.",
+  "checked": "2026-10-31"
+ },
+ "sea-lin-rds-5-en": {
+  "title": "SEA, Airport Regulations for Milan Linate Airport, Edition 5.0 (English translation, uploaded May 2025)",
+  "url": "https://milanairports.com/sites/default/files/2025-05/Airport%20Regulations%20-%20Milan%20Linate%20-Edition%205.0.pdf",
+  "publisher": "SEA S.p.A.",
+  "checked": "2026-10-31"
+ },
+ "save-regs-2026": {
+  "title": "SAVE, Venice Airport 'Marco Polo' Airport Regulations, Ed. 2 Amdt 3 (SAVE 16 Feb 2026; ENAC adoption 24 Mar 2026, Order 2/2026)",
+  "url": "https://www.enac.gov.it/app/uploads/2026/04/Regolamento-di-Scalo-VCE-Ed.2-Em.3-EN_Rev.-2026.02.16.pdf",
+  "publisher": "SAVE S.p.A., published by ENAC",
+  "checked": "2026-10-31"
+ },
+ "muc-fbo-2025-09": {
+  "title": "Flughafenbenutzungsordnung für den Flughafen München (Stand 19.09.2025, approved by the Bavarian State Ministry, Az. 56-3727-2-2)",
+  "url": "https://www.munich-airport.com/_b/0000000000000001406873bb58a2fbaa/fbo2010.pdf",
+  "publisher": "Flughafen München GmbH",
+  "checked": "2026-10-31"
+ },
+ "fra-aur-2024": {
+  "title": "Fraport, C2.1 Airport User Regulations for Frankfurt Airport (version 1.4, in force 15 Mar 2024)",
+  "url": "https://sslapps.fraport.de/webportalAVS/pdf/Airport-user-regulations.pdf",
+  "publisher": "Fraport AG",
+  "checked": "2026-10-31"
+ },
+ "ber-factsheet-2025-06": {
+  "title": "Flughafen Berlin Brandenburg GmbH, Flughafenanlagen BER fact sheet (Stand Juni 2025)",
+  "url": "https://corporate.berlin-airport.de/content/dam/corporate/de/unternehmen-presse/ber/flughafenanlagen-ber.pdf",
+  "publisher": "Flughafen Berlin Brandenburg GmbH (airport operator)",
+  "checked": "2026-10-31"
+ },
+ "ber-gat-poi": {
+  "title": "BER, General Aviation Terminal T1 page (no page date; checked 31 Oct 2026)",
+  "url": "https://ber.berlin-airport.de/en/cafes-shops-service/sgs-poi/552-general-aviation-terminal-t1.html",
+  "publisher": "Flughafen Berlin Brandenburg GmbH (airport operator)",
+  "checked": "2026-10-31"
+ },
+ "es-amdt-leib-2026-406": {
+  "title": "ENAIRE AIP España, Amendment 406/26, AD 2 LEIB Ibiza (page dated 14-MAY-26)",
+  "url": "https://aip.enaire.es/aip/contenido_AMDT/LE_Amdt_2026_406_AD_2_LEIB_en.pdf",
+  "publisher": "ENAIRE (Spanish AIS)",
+  "checked": "2026-10-31"
+ },
+ "ceq-arrete-2022": {
+  "title": "Arrêté du 9 mai 2022 modifiant l'arrêté du 6 décembre 1995 (Cannes-Mandelieu), NOR TRAA2210347A, JORF 12 May 2022, copy on the operator's site",
+  "url": "https://www.cannes.aeroport.fr/content/download/42268/file/Arrete-9-mai-2022%20.pdf?inLanguage=fre-FR",
+  "publisher": "French Republic (DGAC), published by Aéroports de la Côte d'Azur",
+  "checked": "2026-10-31"
+ },
+ "acl-ruh-local-rule-s27": {
+  "title": "Riyadh Airports Company, Local Rule S27: Training and Technical Stop Flights, Winter 2026 & Summer 2027 (issue date 30 Sep 2026)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2026/10/W26-S27-RUH-Local-Rule.pdf",
+  "publisher": "Riyadh Airports Company (hosted by Airport Coordination Limited)",
+  "checked": "2026-10-31"
+ },
+ "jed-cou-2025": {
+  "title": "King Abdulaziz International Airport Conditions of Use (publication 08 Oct 2025, GACA approval 06 Oct 2025, effective 60 days after publication)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2025/12/King-Abdulaziz-International-Airport_Conditions-of-Use.pdf",
+  "publisher": "Jeddah Airports Company / KAIA, approved by GACA (hosted by Airport Coordination Limited)",
+  "checked": "2026-10-31"
+ },
+ "iaa-llbg-aero-info": {
+  "title": "Aeronautical Information, Ben Gurion Airport (operating limitations, slot coordination, private flights; no page date shown; checked 31 Oct 2026)",
+  "url": "https://www.iaa.gov.il/en/about/aeronautical-information/",
+  "publisher": "Israel Airports Authority",
+  "checked": "2026-10-31"
+ },
+ "mo-aip-ad-2025-08": {
+  "title": "AIP Macao Part 3 Aerodromes (AD), incl. AD 2 VMMC Macau International (file posted 12 Aug 2025; pages dated 2007 to 7 Aug 2025, latest AIRAC AMDT 02/25)",
+  "url": "https://www.aacm.gov.mo/static/2025/08/12/7babb8c0-af0e-4229-a242-2790998bee3b.pdf",
+  "publisher": "Civil Aviation Authority of Macao SAR (AACM)",
+  "checked": "2026-10-31"
+ },
+ "kix-operator-outline": {
+  "title": "Kansai International Airport, Kansai Airports business site (no page date shown; latest entry Mar 2025)",
+  "url": "https://www.kansai-airports.co.jp/en/business/airports-kix/",
+  "publisher": "Kansai Airports",
+  "checked": "2026-10-31"
+ },
+ "kix-tamayura": {
+  "title": "Premium Gate Tamayura, business jet facility at KIX (no page date shown)",
+  "url": "https://www.kansai-airports.co.jp/en/business/for-business-kix/tamayura/",
+  "publisher": "Kansai Airports",
+  "checked": "2026-10-31"
+ },
+ "naa-premiergate-app": {
+  "title": "Premier Gate - ご利用方法 (how to use Premier Gate; no page date shown)",
+  "url": "https://www.narita-airport.jp/ja/company/business/bj/premiergate/app/",
+  "publisher": "Narita International Airport Corporation",
+  "checked": "2026-10-31"
+ },
+ "naa-premiergate-guide": {
+  "title": "Business Aviation Terminal - Premier Gate, guide PDF (no date shown)",
+  "url": "https://www.narita-airport.jp/files/1aaf83567d75b7d35695fa788d7b3f0bf52814d6cd0ce9116ac51e5c9bebbfa6",
+  "publisher": "Narita International Airport Corporation",
+  "checked": "2026-10-31"
+ },
+ "bh-bac-infrastructure": {
+  "title": "Bahrain International Airport Infrastructure (no page date shown; footer 2026)",
+  "url": "https://www.bahrainairport.bh/corporate/bahrain-international-airport-infrastructure/",
+  "publisher": "Bahrain Airport Company",
+  "checked": "2026-10-31"
+ },
+ "th-aip-amdt-08-26": {
+  "title": "Thailand AIRAC AIP AMDT 08/26 (effective 6 Aug 2026), amendment summary and list of effective pages",
+  "url": "https://aip.caat.or.th/2026-08-06-AIRAC/pdf/VT-amdt-en-GB.pdf",
+  "publisher": "Civil Aviation Authority of Thailand",
+  "checked": "2026-10-31"
  }
 }

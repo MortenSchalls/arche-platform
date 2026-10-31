@@ -1,13 +1,13 @@
 {
  "icao": "RJAA",
- "iata": null,
+ "iata": "NRT",
  "name": "Narita International Airport",
  "city": "Tokyo",
  "country": "JP",
  "tz": "Asia/Tokyo",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "runway A, 4,000 m long and 60 m wide; runway B is currently 2,500 m by 60 m",
@@ -38,21 +38,28 @@
    "quote": "Slot application is necessary for flying business jets in Narita International Airport."
   },
   "handling": {
-   "v": "Premier Gate, an exclusive terminal for business jets with its own customs and immigration",
+   "v": "Premier Gate, an exclusive terminal for business jets with its own customs and immigration; reception open 05:00-23:00; book its use by 15:00 (Japan time) the day before",
    "src": "naa-premiergate",
-   "quote": "Premier Gate is an exclusive terminal for business jets with CIQ facilities."
+   "quote": "Premier Gate is an exclusive terminal for business jets with CIQ facilities. ... Premier Gate Reception (5:00～23:00) ... ご利用日の前日15時までに",
+   "src_extra": [
+    "naa-premiergate-guide",
+    "naa-premiergate-app"
+   ]
+  },
+  "hours": {
+   "v": "airport operating hours 06:00-24:00 local",
+   "src": "jp-mlit-bizjet",
+   "quote": "1 成田国際空港 NRT RJAA 6:00～24:00 空港会社"
   }
  },
  "missing": [
-  "iata",
   "geo (Japan AIP not reachable)",
   "location (distance from Tokyo not stated on official pages read)",
-  "customs hours",
-  "hours",
+  "customs hours (Premier Gate has CIQ facilities; CIQ hours not stated)",
   "ppr",
   "max_aircraft",
   "noise",
-  "slot lead time"
+  "slot lead time (slots via the Tokyo Regional Civil Aviation Bureau Narita coordinating office, phone 24 hours; no lead time stated)"
  ],
- "notes": "Curfew times come from the NAA Japanese curfew page (no page date; it cites the change of 27 Oct 2019). Flexible operation: runway A 24:00-24:30, runway B 23:00-24:00, only for unavoidable delays. Runway B also has a limit of 10 movements between 22:00 and 23:00. Narita's runway B extension and new runway C are planned; re-check the curfew page before publishing. Handling_list is for internal use only (the website names no companies). NAA also asks operators to send aircraft, insurance and other documents before flying in (naa-bj-private-docs); no deadline is stated."
+ "notes": "Curfew times come from the NAA Japanese curfew page (no page date; it cites the change of 27 Oct 2019). Flexible operation: runway A 24:00-24:30, runway B 23:00-24:00, only for unavoidable delays. Runway B also has a limit of 10 movements between 22:00 and 23:00. Narita's runway B extension and new runway C are planned; re-check the curfew page before publishing. Handling_list is for internal use only (the website names no companies). NAA also asks operators to send aircraft, insurance and other documents before flying in (naa-bj-private-docs); no deadline is stated. | 2026-10-31 run: IATA NRT and operating hours 06:00-24:00 from the MLIT designated-airport table (as of R8.10 = Oct 2026, jp-mlit-bizjet). Premier Gate reception hours from the undated NAA Premier Gate guide PDF (naa-premiergate-guide); same-day booking deadline from the NAA Japanese Premier Gate how-to-use page (naa-premiergate-app, no date). Both handling sources listed in src_extra. NAA stand-vacancy page: slots and stands are coordinated by the Tokyo Regional Civil Aviation Bureau Narita office (ATS Flight Information Officer Operations Room), contact 24 hours; no lead time. An undated MLIT overview (mlit.go.jp/koku/content/001446649.pdf, latest entry 2017) gives older facts (no daily business-jet movement limit since Oct 2011, parking up to 30 days); not used."
 }

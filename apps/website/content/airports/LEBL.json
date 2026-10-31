@@ -7,7 +7,7 @@
  "tz": "Europe/Madrid",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "hours": {
    "v": "open 24 hours",
@@ -53,8 +53,8 @@
   }
  },
  "missing": [
-  "curfew",
-  "ppr"
+  "curfew (night noise restrictions are in AD 2-LEBL item 21 sections 5, 6 and 8, which the fetched page text did not contain)",
+  "ppr (no PPR stated in the parts read; slot rules recorded instead)"
  ],
- "notes": "Night-time noise operating restrictions are in AD 2-LEBL item 21.1 sections 5 and 6, which the HTML page as read did not contain (the 15,000 kg 07:00-11:30 rule time basis not stated; excludes ambulance, emergency, State and some public service flights). The night runway configuration is not a curfew. Ramp-0 is for corporate and private aircraft only. Header shows WEF 01-OCT-26 and WEF 03-SEP-26."
+ "notes": "Night-time noise operating restrictions are in AD 2-LEBL item 21.1 sections 5 and 6, which the HTML page as read did not contain (the 15,000 kg 07:00-11:30 rule time basis not stated; excludes ambulance, emergency, State and some public service flights). The night runway configuration is not a curfew. Ramp-0 is for corporate and private aircraft only. Header shows WEF 01-OCT-26 and WEF 03-SEP-26. | 2026-10-31 run: re-read the ENAIRE HTML page (header WEF 01-OCT-26 / 03-SEP-26) in two parts; item 21 (noise abatement) was not in the converted text, only cross-references to it (night use of RWY 24R/06L in item 21 para 5; noise operating restrictions in item 21 section 8). No PPR wording found; non-regular GA operators must request arrival and associated departure slots, stay limited to 96 hours. The ENAIRE PDF at aip.enaire.es/aip/contenido_AIP/AD/AD2/LEBL/LE_AD_2_LEBL_en.pdf returned pages dated 2023-2024 (older than the HTML) and was not used. Owner may download the full current AD 2-LEBL PDF from ENAIRE to read item 21."
 }

@@ -7,7 +7,7 @@
  "tz": "Asia/Taipei",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "two runways; the longest, 05R/23L, is 3,800 m long and 60 m wide",
@@ -45,5 +45,5 @@
   "max_aircraft (only stand/taxiway wingspan limits stated)",
   "handling agent / business aviation terminal names"
  ],
- "notes": "Times converted from UTC to Taiwan time (UTC+8, no daylight saving). Page read is AIRAC AIP AMDT 01-26 (19 Mar 2026). The eAIP home page shows AMDT 04/26 effective 01 Oct 2026 as current and AMDT 05/26 from 29 Oct 2026; those packages could not be opened."
+ "notes": "Times converted from UTC to Taiwan time (UTC+8, no daylight saving). Page read is AIRAC AIP AMDT 01-26 (19 Mar 2026). The eAIP home page shows AMDT 04/26 effective 01 Oct 2026 as current and AMDT 05/26 from 29 Oct 2026; those packages could not be opened. Tried again 31 Oct 2026: the CAA Taiwan eAIP (ais.caa.gov.tw) could not be fetched (permission not granted), and search found no operator page with slot, PPR or business-aviation rules; nothing changed."
 }

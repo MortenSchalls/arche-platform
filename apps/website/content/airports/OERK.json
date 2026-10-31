@@ -1,13 +1,13 @@
 {
  "icao": "OERK",
- "iata": null,
+ "iata": "RUH",
  "name": "King Khaled International Airport",
  "city": "Riyadh",
  "country": "SA",
  "tz": "Asia/Riyadh",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "two parallel runways, 15L/33R and 15R/33L, each 4,205 m long and 60 m wide",
@@ -16,23 +16,31 @@
    "quote": "4205 x 60"
   },
   "slots": {
-   "v": "listed by the slot coordinator ACL as an IATA Level 3 (coordinated) airport; the page does not say how this applies to business aviation",
+   "v": "an IATA Level 3 (coordinated) airport; slot coordinator is Airport Coordination Limited (ACL). The page does not say how this applies to business aviation",
    "src": "acl-ruh",
-   "quote": "IATA Designation Level 3"
+   "quote": "King Khalid International Airport is designated as a Coordinated airport (Level 3)"
+  },
+  "hours": {
+   "v": "open 24 hours a day, every day of the year (as stated on the slot coordinator's airport page; not a customs-hours statement)",
+   "src": "acl-ruh",
+   "quote": "King Khalid International Airport is open 24 hours a day, 7 days a week, year round"
+  },
+  "permits": {
+   "v": "technical-stop flights are not permitted at Riyadh in the Winter 2026 and Summer 2027 seasons (parking stands reduced by rehabilitation works); training flights need Riyadh Airports Company approval",
+   "src": "acl-ruh-local-rule-s27",
+   "quote": "are not permitted at King Khalid International Airport during Winter 2026 & Summer 2027 seasons."
   }
  },
  "missing": [
-  "curfew",
+  "curfew (no night-restriction statement found; '24 hours' is not an explicit 'no curfew')",
   "ppr",
   "max_aircraft",
   "handling agent names",
-  "iata (not shown in the AIP; RUH is from the ACL slot coordinator page)",
   "customs (only in a superseded AIP edition; current edition not read)",
-  "hours (only in a superseded AIP edition; current edition not read)",
   "handling (only in a superseded AIP edition; current edition not read)",
   "fuel (only in a superseded AIP edition; current edition not read)",
   "noise (only in a superseded AIP edition; current edition not read)",
   "notable (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "Source is the AD 2 page from AIRAC AIP AMDT 02/26 (19 Feb 2026), the newest edition whose OERK page could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective, but its frame-based pages could not be opened; re-check before publishing. The AD 2 page states no night restriction, PPR or slot rule; AD 2.20 GA section says GA parks on the GA area and calls Ground North for start-up. Page header reads 'AIP for Specimen' (the SANS HTML template). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, fuel, noise, notable)."
+ "notes": "Source is the AD 2 page from AIRAC AIP AMDT 02/26 (19 Feb 2026), the newest edition whose OERK page could be opened. The Saudi eAIP history page shows AIRAC AMDT 10/26 (1 Oct 2026) as currently effective, but its frame-based pages could not be opened; re-check before publishing. The AD 2 page states no night restriction, PPR or slot rule; AD 2.20 GA section says GA parks on the GA area and calls Ground North for start-up. Page header reads 'AIP for Specimen' (the SANS HTML template). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, handling, fuel, noise, notable). | 2026-10-31 run: IATA code RUH, Level 3 and 24-hour opening are from ACL's RUH airport page; the technical-stop ban is from the Riyadh Airports Company local rule 'Training and Technical Stop Flights' (issue date 30 Sep 2026, hosted by ACL). Saudi eAIP current edition (AIRAC AMDT 10/26) still not reachable."
 }

@@ -7,7 +7,7 @@
  "tz": "Europe/Paris",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-30",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "one paved runway, 18/36, 2,020 m long and 45 m wide (plus a 700 m grass strip)",
@@ -34,5 +34,5 @@
   "ppr (only in a superseded AIP edition; current edition not read)",
   "notable (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "All AIP facts from AIP France AD 2 LFLB (AIRAC AMDT 04/25, 17 APR 2025) as republished by DIRCAM; the current SIA edition could not be opened, so changes since April 2025 are possible. ATS hours are in UTC; the French AIP convention is one hour earlier in summer, giving 08:00-21:00 local, but that convention line was not quoted for this page. No explicit night closure is stated. Stands are limited by wingspan and length (largest stands Z1/Z3: 21 m by 30 m), not by weight. COHOR facilitation applies mid-December to mid-April (winter season). Facts from the superseded edition other than runway, location and operator were not used (customs, handling, hours, ppr, notable). | 2026-10-30 run: The current SIA eAIP could not be opened (editions found by search: 09 JUL 2026 and 06 AUG 2026, both superseded; not used). Hours added from COHOR (page modified 9 Oct 2026): 07:00-20:59 LT; the page does not tie this to a season. This differs by one hour from the AIP-based reading in the earlier note (08:00-21:00 local), so confirm with the airport before planning early or late movements. No curfew, customs, PPR or size limits on the COHOR page."
+ "notes": "All AIP facts from AIP France AD 2 LFLB (AIRAC AMDT 04/25, 17 APR 2025) as republished by DIRCAM; the current SIA edition could not be opened, so changes since April 2025 are possible. ATS hours are in UTC; the French AIP convention is one hour earlier in summer, giving 08:00-21:00 local, but that convention line was not quoted for this page. No explicit night closure is stated. Stands are limited by wingspan and length (largest stands Z1/Z3: 21 m by 30 m), not by weight. COHOR facilitation applies mid-December to mid-April (winter season). Facts from the superseded edition other than runway, location and operator were not used (customs, handling, hours, ppr, notable). | 2026-10-30 run: The current SIA eAIP could not be opened (editions found by search: 09 JUL 2026 and 06 AUG 2026, both superseded; not used). Hours added from COHOR (page modified 9 Oct 2026): 07:00-20:59 LT; the page does not tie this to a season. This differs by one hour from the AIP-based reading in the earlier note (08:00-21:00 local), so confirm with the airport before planning early or late movements. No curfew, customs, PPR or size limits on the COHOR page. | 2026-10-31 run: the current SIA eAIP (AIRAC 29 OCT 2026 edition) could not be opened (permission not granted); web search found only superseded editions (latest 06 AUG 2026). No new official source found on the operator or COHOR sites; rules unchanged."
 }

@@ -7,7 +7,7 @@
  "tz": "Europe/Berlin",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-30",
+ "checked": "2026-10-31",
  "rules": {
   "curfew": {
    "v": "no take-offs or landings from 23:30 to 05:30 local time (exceptions: emergencies, safety diversions, relief, medical, state flights, weekday mail and some delayed/early scheduled flights); 23:00-24:00 and 05:00-06:00 count against an annual night quota; jets over 20,000 kg from 22:00 to 06:00 must be at least 10 EPNdB below the noise limits",
@@ -28,8 +28,16 @@
   "runway": {
    "v": "two parallel runways: the southern runway (06R/24L since 3 Oct 2024) is 4,000 m long and 60 m wide; the northern runway (06L/24R) is 3,600 m long",
    "longest_m": 4000,
-   "src": "ber-factsheet-2022",
-   "quote": "The southern runway is 4,000 metres long and 60 metres wide."
+   "src": "ber-factsheet-2025-06",
+   "quote": "Die südliche Start- und Landebahn ist 4.000 Meter lang und 60 Meter breit."
+  },
+  "handling": {
+   "v": "the General Aviation Terminal (Terminal 1 area) is operated by BAS Berlin Aviation Service GmbH as the airport's contracted service provider",
+   "names": [
+    "BAS Berlin Aviation Service GmbH"
+   ],
+   "src": "ber-gat-poi",
+   "quote": "operated by BAS Berlin Aviation Service GmbH as the contracted service provider of Flughafen Berlin Brandenburg GmbH."
   }
  },
  "missing": [
@@ -39,8 +47,7 @@
   "customs",
   "hours",
   "ppr",
-  "max_aircraft",
-  "handling"
+  "max_aircraft"
  ],
- "notes": "Night rules from the operating permit extract (section XI) published by the Brandenburg aviation authority LuBB. Deviations need approval by that authority in justified single cases; an ATC clearance does not replace it. DFS AIP unreadable and the operator site (ber.berlin-airport.de) could not be reached before the search budget ran out. | 2026-10-30 run: runway lengths from the operator's fact sheet (as of Nov 2022); runway designators from the FBB press release of 1 Oct 2024 ('Die Nordbahn 25R/07L wird zur 24R/06L und die Südbahn 07R/25L wird zur 06R/24L.'). The fact sheet's night-flight text (no regular scheduled flights midnight-05:00) differs from the LuBB permit extract (23:30-05:30) already recorded; the permit is kept. Could not open: German fact sheet June 2025 (corporate.berlin-airport.de .../flughafenanlagen-ber.pdf, permission not given), FBB GAT page corporate.berlin-airport.de/en/business-partners/airlines-and-handling/general-aviation-terminal.html (permission not given), ber.berlin-airport.de GAT page (site error). Customs, hours, PPR, size limits and GA handling still not found."
+ "notes": "Night rules from the operating permit extract (section XI) published by the Brandenburg aviation authority LuBB. Deviations need approval by that authority in justified single cases; an ATC clearance does not replace it. DFS AIP unreadable and the operator site (ber.berlin-airport.de) could not be reached before the search budget ran out. | 2026-10-30 run: runway lengths from the operator's fact sheet (as of Nov 2022); runway designators from the FBB press release of 1 Oct 2024 ('Die Nordbahn 25R/07L wird zur 24R/06L und die Südbahn 07R/25L wird zur 06R/24L.'). The fact sheet's night-flight text (no regular scheduled flights midnight-05:00) differs from the LuBB permit extract (23:30-05:30) already recorded; the permit is kept. Could not open: German fact sheet June 2025 (corporate.berlin-airport.de .../flughafenanlagen-ber.pdf, permission not given), FBB GAT page corporate.berlin-airport.de/en/business-partners/airlines-and-handling/general-aviation-terminal.html (permission not given), ber.berlin-airport.de GAT page (site error). Customs, hours, PPR, size limits and GA handling still not found. | 2026-10-31 run: runway now from the German fact sheet 'Flughafenanlagen BER' (Stand Juni 2025); it gives the north runway as 3,600 m (no width) and no operating hours, customs, GAT, size limits or PPR. Its night text ('Reguläre Linienflüge sind in der Kernnachtzeit von 0 bis 5 Uhr ausgeschlossen.') concerns scheduled flights; the LuBB permit (23:30-05:30) is kept. GAT operator from the airport's GAT page (no opening hours or customs stated there). Ground-handling page lists commercial handlers only. DFS AIP still unreadable."
 }

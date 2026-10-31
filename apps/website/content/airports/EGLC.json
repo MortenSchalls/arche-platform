@@ -7,7 +7,7 @@
  "tz": "Europe/London",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-30",
+ "checked": "2026-10-31",
  "rules": {
   "hours": {
    "v": "aerodrome open 06:30-22:00 on weekdays, 06:30-12:30 on Saturdays and 12:30-22:00 on Sundays (local time, winter 2026/27 season)",
@@ -60,5 +60,5 @@
   "customs hours",
   "ppr lead time"
  ],
- "notes": "UK AIP (aurora.nats.co.uk) could not be read (robots disallowed / permission timeout), so runway, ARP and location are missing. Hours are from the ACL winter 2026/27 capacity declaration (season ends late March 2027); summer hours may differ and 25 Dec 2026 the airport is closed. Operator name not confirmed from a quotable sentence (site footer shows London City Airport Ltd). | 2026-10-30 run: UK AIP (aurora.nats.co.uk) again not readable (permission timeout). Slot coordination level added to the slots rule: ACL lists London City as Level 3 (coordinated); ACL's London City page says business aviation slot requests go to the London City Jet Centre, which liaises with ACL for runway slots. ACL now shows an LCY W26 Capacity Declaration v2 (uploaded July 2026); its operating hours and weekend movement limits match the existing hours/curfew rules (it adds a limit of 280 movements on any weekend). Runway, ARP, location, operator, customs hours and PPR lead time still not found on the airport's own pages (Private Jet Centre services page, master plan page; the 'About LCY' page failed to load)."
+ "notes": "UK AIP (aurora.nats.co.uk) could not be read (robots disallowed / permission timeout), so runway, ARP and location are missing. Hours are from the ACL winter 2026/27 capacity declaration (season ends late March 2027); summer hours may differ and 25 Dec 2026 the airport is closed. Operator name not confirmed from a quotable sentence (site footer shows London City Airport Ltd). | 2026-10-30 run: UK AIP (aurora.nats.co.uk) again not readable (permission timeout). Slot coordination level added to the slots rule: ACL lists London City as Level 3 (coordinated); ACL's London City page says business aviation slot requests go to the London City Jet Centre, which liaises with ACL for runway slots. ACL now shows an LCY W26 Capacity Declaration v2 (uploaded July 2026); its operating hours and weekend movement limits match the existing hours/curfew rules (it adds a limit of 280 movements on any weekend). Runway, ARP, location, operator, customs hours and PPR lead time still not found on the airport's own pages (Private Jet Centre services page, master plan page; the 'About LCY' page failed to load). | 2026-10-31 run: UK AIP (aurora.nats.co.uk) again not readable (permission request not answered). londoncityairport.com 'About LCY' pages failed to load again; master plan page gives no runway data (its 'Opening Hours' 04:45-22:00 / Sat 04:45-13:00 / Sun 10:30-22:00 are the ACL scheduling hours, not used). Private Jet Centre services page re-read: lists fuel and slot booking, no lead time. Runway, customs and PPR lead time still missing."
 }

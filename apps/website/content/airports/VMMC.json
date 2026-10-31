@@ -7,7 +7,7 @@
  "tz": "Asia/Macau",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-30",
+ "checked": "2026-10-31",
  "rules": {
   "handling": {
    "v": "TAG Aviation (Macau) runs a 24-hour business-aviation FBO, the airport's second FBO (opened January 2019)",
@@ -34,6 +34,33 @@
    "v": "non-scheduled flights need a flight authorisation from the Civil Aviation Authority (AACM), applied for by the operator or agent through the Flight Application System; processing takes 3 working days after all documents are in",
    "src": "mo-gov-ps1956b",
    "quote": "It takes 3 working days to complete the authorization process"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours (AIP page dated 23 May 2017)",
+   "h24": true,
+   "src": "mo-aip-ad-2025-08",
+   "quote": "Customs and immigration H24"
+  },
+  "fuel": {
+   "v": "Jet A-1 (AVTUR); all A 'even' stands and all B stands have hydrant fuel",
+   "src": "mo-aip-ad-2025-08",
+   "quote": "Fuel types: AVTUR JET A1"
+  },
+  "noise": {
+   "v": "ICAO Annex 16 Chapter 2 (noisiest, older) aircraft only case by case and not between 00:00 and 08:00 local; engine runs above ground idle normally not permitted 22:00-07:00 local; departures on runway 34 and landings on runway 16 allowed at any time, with routing limits to reduce noise over Zhuhai",
+   "windows_local": [
+    [
+     "00:00",
+     "08:00"
+    ]
+   ],
+   "src": "mo-aip-ad-2025-08",
+   "quote": "For Chapter 2 noise aircraft, operation time between 00:00 - 08:00 local time is not allowed."
+  },
+  "deicing": {
+   "v": "no de-icing (AD 2.4: NIL)",
+   "src": "mo-aip-ad-2025-08",
+   "quote": "NIL"
   }
  },
  "missing": [
@@ -41,11 +68,9 @@
   "geo",
   "operator",
   "location",
-  "customs",
-  "curfew",
-  "slots",
-  "ppr (airport PPR not found; AACM flight authorisation recorded under permits)",
-  "noise"
+  "curfew (AIP restricts only Chapter 2 aircraft at night, recorded under noise; no general curfew or 'no curfew' statement found)",
+  "slots (no slot or schedule coordination wording in AIP AD 2.20-2.23)",
+  "ppr (airport PPR not found; AACM flight authorisation recorded under permits)"
  ],
- "notes": "AIP Macao (AACM) is not available online; only the Hong Kong eAIP page (procedures in HK airspace) could be read. Handling fact is from the airport company's 2019 news pages; the name of the first FBO was not found on the operator's site, and current FBO list should be re-checked before publishing. Checked 2026-10-27. | 2026-10-30 run: AIP Macao still not found online; the Hong Kong eAIP VMMC page (16 Apr 2026) says only 'Refer to AIP Macao' for hours and runways. Runway, hours and aircraft size taken from the airport company's Airport Capacity page (page shows the date 31/10/2026, which looks like the current date, not an update date). The two runway lengths are per direction of the single runway 16/34. Flight authorisation from the Macao government portal PS-1956B (last modified 6 Jul 2026). Customs hours, curfew and slots not found on official pages; the 2019 news item says the second FBO gives 24/7 service but says nothing about customs."
+ "notes": "AIP Macao (AACM) is not available online; only the Hong Kong eAIP page (procedures in HK airspace) could be read. Handling fact is from the airport company's 2019 news pages; the name of the first FBO was not found on the operator's site, and current FBO list should be re-checked before publishing. Checked 2026-10-27. | 2026-10-30 run: AIP Macao still not found online; the Hong Kong eAIP VMMC page (16 Apr 2026) says only 'Refer to AIP Macao' for hours and runways. Runway, hours and aircraft size taken from the airport company's Airport Capacity page (page shows the date 31/10/2026, which looks like the current date, not an update date). The two runway lengths are per direction of the single runway 16/34. Flight authorisation from the Macao government portal PS-1956B (last modified 6 Jul 2026). Customs hours, curfew and slots not found on official pages; the 2019 news item says the second FBO gives 24/7 service but says nothing about customs. | 2026-10-31 run: AIP Macao Part 3 (AD) found on aacm.gov.mo (file posted 12 Aug 2025; cover AD 0.6-1 dated 16 Jul 2020 AMDT 38; pages carry dates from 2007 up to 7 Aug 2025, AIRAC AMDT 02/25), source mo-aip-ad-2025-08. AACM also posted GEN 0.1 dated 20 Aug 2026, so a newer AD file may exist; the AACM AIP index page (aacm.gov.mo/zh-hant/industry-page/DataCompilation/AIP) could not be opened. Customs/AD hours are on page AD2-VMMC-2 (23 May 2017), noise on AD2-VMMC-25 (13 Jul 2023). The AIP lists runway 16/34 as 3360 x 45 m in AD 2.12; the runway rule from the airport company (3,360 m runway 34 / 3,285 m runway 16, probably available lengths) is kept. AIP AD 2.4 hangar space: 'Limited & unheated, up to B747-400'; apron remark: 'Load limit for a B747-400 taking off is 395 900 kg.'"
 }

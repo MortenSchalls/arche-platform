@@ -7,16 +7,16 @@
  "tz": "Europe/Zurich",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "hours": {
    "v": "open at all times, subject to the night-flight rules",
-   "src": "gva-reglement",
+   "src": "gva-reglement-2025",
    "quote": "L’aéroport est ouvert en permanence sous réserve des prescriptions applicables aux vols de nuit."
   },
   "curfew": {
-   "v": "any planned commercial take-off or landing between 22:00 and 06:00 needs the airport operator's prior approval",
-   "src": "gva-reglement",
+   "v": "any planned commercial take-off or landing between 22:00 and 06:00 needs the airport operator's prior approval (through slot coordination or case by case); night movements may carry higher charges",
+   "src": "gva-reglement-2025",
    "windows_local": [
     [
      "22:00",
@@ -24,7 +24,7 @@
     ]
    ],
    "approval": true,
-   "quote": "tout mouvement commercial planifié entre 22 h et 6 h (atterrissage ou décollage) devra avoir été préalablement soumis à l’approbation de l’exploitant"
+   "quote": "tout mouvement commercial planifié entre 22 h et 6 h"
   },
   "noise": {
    "v": "noise quotas apply to the night period 22:00-05:59; for business and general aviation they cover take-offs after 22:00 by aircraft in noise classes IV and V",
@@ -65,5 +65,5 @@
   "exact OSIA art. 39 curfew hours",
   "notable (only in a superseded AIP edition; current edition not read)"
  ],
- "notes": "Swiss eAIP is a paid product on skybriefing.com and was not read; the federal OSIA text on fedlex could not be opened. The 22:00-06:00 window is the period in which planned commercial movements need prior approval (operating regulations, état 8 Jan 2018 / 1 Jan 2025 versions), not a stated total closure; do not call it a curfew. The handler list is the airport's 'private aviation contacts' list and includes brokers (e.g. LunaJets) that are not handlers; the page also has a 'Show more' button so the list may be incomplete. Partner pages also exist for Signature Flight Support, Swissport Executive Aviation Geneva and Dassault Aviation Business Services (not opened). Do not name companies on the public site (site rule). | 2026-10-27 run: Only new facts for merge. IATA code GVA from the FOCA/BAZL airport page (quote in iata_src). The FOCA SIL object sheet (14 Nov 2018) says operating hours follow OSIA art. 39 ff. but does not give the clock times, and adds that new long-haul flights planned for 22:00-24:00 must use the quietest long-haul aircraft. Fedlex (OSIA text) and the Swiss eAIP (skybriefing, paid) could not be read, so runway, ARP, customs and the exact art. 39 hours stay missing. Slot Coordination Switzerland: GA/BA cannot request airport slots from it at Geneva; all GA/BA flights need mandatory airport movement permission (PPR) via the handling agent (already in the existing file). Facts from the superseded edition other than runway, location and operator were not used (notable)."
+ "notes": "Swiss eAIP is a paid product on skybriefing.com and was not read; the federal OSIA text on fedlex could not be opened. The 22:00-06:00 window is the period in which planned commercial movements need prior approval (operating regulations, état 8 Jan 2018 / 1 Jan 2025 versions), not a stated total closure; do not call it a curfew. The handler list is the airport's 'private aviation contacts' list and includes brokers (e.g. LunaJets) that are not handlers; the page also has a 'Show more' button so the list may be incomplete. Partner pages also exist for Signature Flight Support, Swissport Executive Aviation Geneva and Dassault Aviation Business Services (not opened). Do not name companies on the public site (site rule). | 2026-10-27 run: Only new facts for merge. IATA code GVA from the FOCA/BAZL airport page (quote in iata_src). The FOCA SIL object sheet (14 Nov 2018) says operating hours follow OSIA art. 39 ff. but does not give the clock times, and adds that new long-haul flights planned for 22:00-24:00 must use the quietest long-haul aircraft. Fedlex (OSIA text) and the Swiss eAIP (skybriefing, paid) could not be read, so runway, ARP, customs and the exact art. 39 hours stay missing. Slot Coordination Switzerland: GA/BA cannot request airport slots from it at Geneva; all GA/BA flights need mandatory airport movement permission (PPR) via the handling agent (already in the existing file). Facts from the superseded edition other than runway, location and operator were not used (notable). | 2026-10-31 run: current operating regulations (état 1 Jan 2025, Art. 4) read; hours and curfew rules now cite that edition. Art. 4 al. 2 says OSIA art. 39/39a set the night restriction period; the regulation itself gives no clock times for it. The regulation states no runway, size limit, de-icing or customs hours. Fedlex OSIA text not found through search; Swiss eAIP (skybriefing, paid) not read. Runway, customs and max_aircraft still missing."
 }

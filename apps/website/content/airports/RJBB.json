@@ -7,29 +7,32 @@
  "tz": "Asia/Tokyo",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
-   "v": "two runways: A 3,500 m and B 4,000 m (B opened 2 Aug 2007); widths not given",
+   "v": "two runways: A 3,500 m x 60 m and B 4,000 m x 60 m",
    "longest_m": 4000,
-   "src": "rjbb-mlit-kix",
-   "quote": "Runway B : 4,000 m×1 (Open Aug 2, 2007)"
+   "src": "kix-operator-outline",
+   "quote": "B (2nd) runway • Length: 4,000 m • Width: 60 m"
   },
   "hours": {
    "v": "open 24 hours",
    "src": "rjbb-mlit-kix",
    "quote": "Hours of operation 24 hours."
+  },
+  "handling": {
+   "v": "Premium Gate Tamayura, a dedicated business jet facility in Terminal 2, with its own CIQ and security; open all day",
+   "src": "kix-tamayura",
+   "quote": "Premium Gate Tamayura is a dedicated business jet facility located within KIX Terminal 2 Building. ... Operation time All day"
   }
  },
  "missing": [
-  "customs",
-  "curfew",
+  "customs (Tamayura has dedicated CIQ and is open all day, but CIQ hours are not stated)",
+  "curfew (24-hour airport; no source says there is no curfew)",
   "slots",
   "ppr",
-  "runway width",
   "fuel",
-  "handling",
   "current AIP edition"
  ],
- "notes": "The Japan AIP (AIS Japan) needs a log-in and was not read; only the MLIT Civil Aviation Bureau page on Kansai (undated, content suggests about 2013) was used. It says KIX is 'the first 24-hour operated international airport in Japan'; no curfew is recorded because the source does not use those words. An MLIT business-jet promotion paper of Feb 2012 (https://www.mlit.go.jp/common/000192237.pdf) said slots and stands had spare capacity at any time, but it is too old to record as a current slot rule. CIQ (customs) hours for business jets were not found in an official source. IATA code KIX is shown on the MLIT page."
+ "notes": "The Japan AIP (AIS Japan) needs a log-in and was not read; only the MLIT Civil Aviation Bureau page on Kansai (undated, content suggests about 2013) was used. It says KIX is 'the first 24-hour operated international airport in Japan'; no curfew is recorded because the source does not use those words. An MLIT business-jet promotion paper of Feb 2012 (https://www.mlit.go.jp/common/000192237.pdf) said slots and stands had spare capacity at any time, but it is too old to record as a current slot rule. CIQ (customs) hours for business jets were not found in an official source. IATA code KIX is shown on the MLIT page. | 2026-10-31 run: runway widths from Kansai Airports (operator) page 'Kansai International Airport' (no page date, latest entry Mar 2025; source kix-operator-outline), which also says the airport has '24h operations'. MLIT designated-airport table (Oct 2026, jp-mlit-bizjet) confirms '4 関西国際空港 KIX RJBB 24H 空港会社'. Business jet facility from the Premium Gate Tamayura page (no page date). The MLIT permit document says operators must finish slot and stand coordination at the airport before applying, but gives no KIX slot rule."
 }

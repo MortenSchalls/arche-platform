@@ -7,27 +7,67 @@
  "tz": "Asia/Jerusalem",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "three runways; the longest, 08/26, is 4,062 m long and 45 m wide",
    "longest_m": 4062,
    "src": "il-aip-llbg",
    "quote": "4 062 x 45"
+  },
+  "hours": {
+   "v": "open 24 hours a day, 7 days a week (with a night take-off curfew, see curfew)",
+   "src": "iaa-llbg-aero-info",
+   "quote": "The airport is open and provides services 24/7."
+  },
+  "curfew": {
+   "v": "night take-off curfew: summer season (last Sunday of March to last Saturday of October) 01:40-05:00 local, winter season (last Sunday of October to last Saturday of March) 01:40-05:30 local; last slot that can be allocated before the curfew is 01:20; landing limitations every day 01:00-01:45 local; take-offs from 05:00 (summer) or 05:30 (winter) to 06:00 only within AIP noise limits",
+   "windows_local": [
+    [
+     "01:40",
+     "05:30"
+    ]
+   ],
+   "windows_local_summer": [
+    [
+     "01:40",
+     "05:00"
+    ]
+   ],
+   "windows_local_winter": [
+    [
+     "01:40",
+     "05:30"
+    ]
+   ],
+   "applies_to": "take-offs",
+   "src": "iaa-llbg-aero-info",
+   "quote": "Due to environmental noise issues, a takeoff curfew is in place. ... Summer season: from 01:40 to 05:00 ... Winter season: from 01:40 to 05:30 ... The final allocatable slot before the “night curfew” is 01:20. ... Landing limitations: every day between 01:00 – 01:45 local time."
+  },
+  "slots": {
+   "v": "slots needed; private (GA/BA) flights request slots in GCR format from the IAA slot planning department (office Sunday-Thursday 08:00-16:00 local, closed on Jewish holidays; outside office hours via airport operations)",
+   "src": "iaa-llbg-aero-info",
+   "quote": "Request for slots for private flights (GA/BA) must be submitted in the GCR format"
+  },
+  "permits": {
+   "v": "private flights need an operational approval from the Civil Aviation Authority Supervision Division, a security approval from the Aviation Security Operations Center (by email), and an approved contract with a ground services provider at the airport",
+   "src": "iaa-llbg-aero-info",
+   "quote": "Operational approval from the Civil Aviation Authority Supervision Division ... security approval from the Aviation Security Operations Center via email ... Approval of contract with a ground services provider operating at the airport"
+  },
+  "handling": {
+   "v": "an operator must use one of the three ground service companies at the airport: AHS, LAU or QAS",
+   "src": "iaa-llbg-aero-info",
+   "quote": "An airline is obligated to liaise with one of the three ground services companies"
   }
  },
  "missing": [
-  "ppr",
-  "handling",
-  "iata (not shown in the AIP)",
+  "ppr (no PPR wording on the IAA page; GA operating hours and parking time limits are in AIP AD 2 LLBG, current edition not read)",
+  "iata (not shown in an official source read)",
   "customs (only in a superseded AIP edition; current edition not read)",
-  "hours (only in a superseded AIP edition; current edition not read)",
-  "curfew (only in a superseded AIP edition; current edition not read)",
-  "noise (only in a superseded AIP edition; current edition not read)",
-  "slots (only in a superseded AIP edition; current edition not read)",
-  "permits (only in a superseded AIP edition; current edition not read)",
+  "noise (AIP noise thresholds for 05:00/05:30-06:00 take-offs; current edition not read)",
   "max_aircraft (only in a superseded AIP edition; current edition not read)",
-  "notable (only in a superseded AIP edition; current edition not read)"
+  "GA parking time limit (AIP AD 2 LLBG, current edition not read)",
+  "runway (from the 15 Jun 2023 AIP edition; re-check against the current edition)"
  ],
- "notes": "IMPORTANT: the only LLBG AD 2 page that could be opened is the AIRAC edition of 15 Jun 2023. The Israel eAIP index shows AIRAC AMDT 001/2026 (6 Aug 2026) as currently effective, but its LLBG page could not be opened. All LLBG facts must be re-checked against the 2026 edition before publishing. All AD 2.20/2.21 times are local (summer = Israel daylight time). Exact GA restricted periods quoted in v come from the same para 6.1 (summer 05:00-08:00, 14:00-18:00 & 00:01-01:40; winter 05:30-08:00 & 00:01-01:40). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, curfew, noise, slots, permits, max_aircraft, notable)."
+ "notes": "IMPORTANT: the only LLBG AD 2 page that could be opened is the AIRAC edition of 15 Jun 2023. The Israel eAIP index shows AIRAC AMDT 001/2026 (6 Aug 2026) as currently effective, but its LLBG page could not be opened. All LLBG facts must be re-checked against the 2026 edition before publishing. All AD 2.20/2.21 times are local (summer = Israel daylight time). Exact GA restricted periods quoted in v come from the same para 6.1 (summer 05:00-08:00, 14:00-18:00 & 00:01-01:40; winter 05:30-08:00 & 00:01-01:40). Facts from the superseded edition other than runway, location and operator were not used (customs, hours, curfew, noise, slots, permits, max_aircraft, notable). | 2026-10-31 run: hours, curfew, slots, permits and handling from the Israel Airports Authority (airport operator) page 'Aeronautical Information' for Ben Gurion (no page date shown; source iaa-llbg-aero-info). The curfew applies to take-offs; windows_local holds the wider winter window (01:40-05:30); the winter season began on 25 Oct 2026. The page refers to AIP Israel (AD 2 LLBG) for GA operating-hour limits and parking time, which were not read. The current eAIP (AIRAC AMDT 001/2026) could still not be opened: the 2023 eAIP URL on e-aip.azurefd.net was refused (permission request not answered) and no 2026 LLBG page was found by search. Customs hours remain unverified."
 }

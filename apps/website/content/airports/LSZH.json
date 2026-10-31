@@ -7,7 +7,7 @@
  "tz": "Europe/Zurich",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "hours": {
    "v": "operating hours 06:00 to 23:30",
@@ -41,6 +41,16 @@
    "v": "operators must use one of the handling agents listed in AIP Switzerland for LSZH (unless self-handling is authorised); the airport names BHS Aviation Switzerland AG, Cat Air Service AG, Jet Aviation AG, Motorfluggruppe Zürich, SWISS PRIVILEGE AVIATION SERVICES GmbH and Travelcoup as business-aviation FBOs",
    "src": "zrh-business-aviation",
    "quote": "Der Handling-Anbieter (FBO) ihrer Wahl kümmert sich um die gesamte Organisation ihres Fluges"
+  },
+  "deicing": {
+   "v": "de-icing by Swissport at the remote de-icing pads Charlie and Foxtrott (preferred) or on stand; dnata and Jet Aviation de-ice on stand only; Jet Aviation is the contact for business and general aviation",
+   "src": "zrh-winter-ops-2025",
+   "providers": [
+    "Swissport",
+    "dnata",
+    "Jet Aviation"
+   ],
+   "quote": "Deicing operations at remote Deicing pads (RDP) are to be prioritised."
   }
  },
  "missing": [
@@ -52,8 +62,7 @@
   "ppr",
   "max_aircraft",
   "noise",
-  "fuel",
-  "deicing"
+  "fuel"
  ],
- "notes": "Swiss eAIP (skybriefing) is paid and was not used. ICAO LSZH and IATA ZRH from the FOCA/BAZL airport page. Slot rule: Slot Coordination Switzerland states GA/BA slots cannot be requested from it; IFR slots come via dispatcher or FBO, VFR via the airport's VFR slot tool (Zurich Airport GA page: 'You need a valid airport slot before departure and/or arrival.'). Handling rule quote (slotcoordination.ch): 'Operators are obliged to choose one of the handling agents listed in AIP Switzerland LSZH'. Runway 34 length comes from a diagram label in the airport's 2023 runway-extension fact sheet; extensions of runways 28 and 32 were planned, so re-check after any change."
+ "notes": "Swiss eAIP (skybriefing) is paid and was not used. ICAO LSZH and IATA ZRH from the FOCA/BAZL airport page. Slot rule: Slot Coordination Switzerland states GA/BA slots cannot be requested from it; IFR slots come via dispatcher or FBO, VFR via the airport's VFR slot tool (Zurich Airport GA page: 'You need a valid airport slot before departure and/or arrival.'). Handling rule quote (slotcoordination.ch): 'Operators are obliged to choose one of the handling agents listed in AIP Switzerland LSZH'. Runway 34 length comes from a diagram label in the airport's 2023 runway-extension fact sheet; extensions of runways 28 and 32 were planned, so re-check after any change. | 2026-10-31 run: de-icing added from 'Winter Operation at Zurich Airport' Issue 1.0 Rev 24 (cover 01.11.2025); a winter 2026/27 revision may appear in November 2026, re-check then. Airport GA page (EN) re-read: 'You need a valid airport slot before departure and/or arrival.'; a flight plan must be filed at least 30 minutes before departure to confirm the slot. Customs, PPR, noise, fuel and max_aircraft still missing; Swiss eAIP (skybriefing, paid) not read."
 }

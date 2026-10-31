@@ -1,13 +1,13 @@
 {
  "icao": "VTBS",
- "iata": null,
+ "iata": "BKK",
  "name": "Bangkok/ Suvarnabhumi International Airport",
  "city": "Bangkok",
  "country": "TH",
  "tz": "Asia/Bangkok",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "three runways; the two longest, 01/19 and 02L/20R, are each 4,000 m long and 60 m wide",
@@ -30,16 +30,24 @@
    "v": "ground handling by WFS Bangkok Air Ground Handling (BFS Ground) and Thai Airways International; no business aviation terminal is named in the AIP",
    "src": "th-aip-vtbs",
    "quote": "Worldwide Flight Services Bangkok Air Ground Handling Co., Ltd. (BFS Ground); Thai Airways International Public Co.Ltd. (TG)"
+  },
+  "slots": {
+   "v": "Level 3 (coordinated) airport: slots are coordinated by CAAT and non-scheduled flights must obtain a slot (business aviation applies with a General Aviation Clearance Request, GCR)",
+   "src": "th-aip-gen12",
+   "quote": "L3 | BKK/VTBS | Coordination | CAAT; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+  },
+  "permits": {
+   "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
+   "src": "th-aip-gen12",
+   "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
   }
  },
  "missing": [
-  "iata",
   "curfew",
-  "slots",
-  "ppr",
+  "ppr (no airport PPR text found in AD 2.1-2.19; AD 2.20 not read)",
   "max_aircraft",
   "noise",
   "notable"
  ],
- "notes": "The eAIP HTML page for VTBS (AIRAC 14 May 2026) ends at AD 2.19; AD 2.20 Local aerodrome regulations and AD 2.21 Noise abatement are not on that page, so slots, PPR, GA parking and night rules could not be verified. Newer AIRAC editions exist (AMDT 08/26 effective 6 Aug 2026; AMDT 09/26 effective 3 Sep 2026) but their AD 2 pages could not be opened; recheck before publishing. The AIP lists no business aviation terminal or FBO at VTBS. IATA code is not given in the AIP."
+ "notes": "The eAIP HTML page for VTBS (AIRAC 14 May 2026) ends at AD 2.19; AD 2.20 Local aerodrome regulations and AD 2.21 Noise abatement are not on that page, so slots, PPR, GA parking and night rules could not be verified. Newer AIRAC editions exist (AMDT 08/26 effective 6 Aug 2026; AMDT 09/26 effective 3 Sep 2026) but their AD 2 pages could not be opened; recheck before publishing. The AIP lists no business aviation terminal or FBO at VTBS. IATA code is not given on the AD 2 page; it is taken from the GEN 1.2 slot table. 31 Oct 2026: IATA code, slots and flight-permit lead time added from AIP GEN 1.2 (AIRAC 4 Sep 2025; the AMDT 08/26 page list, 6 Aug 2026, shows no GEN 1.2 change). The current AD 2 pages (AMDT 09/26, 3 Sep 2026) could not be opened (fetch not permitted). AMDT 08/26 (6 Aug 2026) reissued the VTBS pages for AD 2.4 Handling and AD 2.20 Local aerodrome regulations; the handling rule here is from the 14 May 2026 page and must be rechecked against the current edition."
 }

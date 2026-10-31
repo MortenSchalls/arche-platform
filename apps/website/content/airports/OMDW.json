@@ -7,7 +7,7 @@
  "tz": "Asia/Dubai",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "runway 12/30, 4,500 m long and 60 m wide",
@@ -45,5 +45,5 @@
   "AIP AD 2.20 local regulations",
   "geo"
  ],
- "notes": "The text pages of UAE AIP AD 2 OMDW could not be opened (only charts were reachable), so customs hours, aerodrome hours, distance from the city and AD 2.20 rules are not verified. Facts from the chart are AIRAC 08/2026 (effective 6 Aug 2026). The DWC General Aviation Conditions of Use found is the Northern Summer 2024 edition (Dubai Airports, hosted by the slot coordinator ACL); a newer edition may exist, so re-check FBO list and slot rules before publishing. The chart's runway 13/31 dimensions were not stated in the extracted text. The 'noise-sensitive hours' are not defined in the source: do not state a curfew. | 2026-10-27 run: No new OMDW text could be read this run: the UAE AIP AD 2 OMDW PDF was blocked (URL not reachable through the research tool), and no current DWC GA Conditions of Use (newer than Summer 2024) was found. The only new fact comes from the OMDB AIP (AD 2.20.6.3)."
+ "notes": "The text pages of UAE AIP AD 2 OMDW could not be opened (only charts were reachable), so customs hours, aerodrome hours, distance from the city and AD 2.20 rules are not verified. Facts from the chart are AIRAC 08/2026 (effective 6 Aug 2026). The DWC General Aviation Conditions of Use found is the Northern Summer 2024 edition (Dubai Airports, hosted by the slot coordinator ACL); a newer edition may exist, so re-check FBO list and slot rules before publishing. The chart's runway 13/31 dimensions were not stated in the extracted text. The 'noise-sensitive hours' are not defined in the source: do not state a curfew. | 2026-10-27 run: No new OMDW text could be read this run: the UAE AIP AD 2 OMDW PDF was blocked (URL not reachable through the research tool), and no current DWC GA Conditions of Use (newer than Summer 2024) was found. The only new fact comes from the OMDB AIP (AD 2.20.6.3). | 2026-10-31 run: nothing new verified. GCAA AIP index shows AIRAC 11/2026 (2026-P10, effective 29 Oct 2026) as current, but https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2026-P10/pdf/AD-2.OMDW.pdf could not be opened (blocked). ACL search shows no DWC GA Conditions of Use newer than Summer 2024."
 }
