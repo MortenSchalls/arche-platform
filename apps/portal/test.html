@@ -1013,10 +1013,11 @@ function historyOf(t){ return [...(t.d.history || []), ...((t.st && t.st.history
 function submitReady(d){ const q = d.quote || {}; return !!(d.client && d.client.name && d.trip && (d.trip.legs || []).length && num(q.opPrice) > 0 && BROKER_CHECKS.every(([k]) => d.checks && d.checks[k])); }
 
 /* ---------- operations block inside a trip file ---------- */
-const ownTrip = t => S.role === "ops" && t && t.bid === S.uid;
+// four-eyes on your own trip: operations and owners alike (Morten, 31 Oct 2026: "As there are two owners, even owners if they act as brokers needs 4 eyes")
+const ownTrip = t => (S.role === "ops" || S.isOwner) && !!t && t.bid === S.uid;
 function opsBlock(t){
   const st = t.st || {}, q = t.d.quote || {}, stage = t.stage;
-  if (ownTrip(t)) return `<div class="note info small"><b>Your own trip.</b> Another operations member or the owner checks it, issues the confirmation and records payments. Nobody confirms or records money on their own booking.</div>`;
+  if (ownTrip(t)) return `<div class="note info small"><b>Your own trip.</b> Another operations member or another owner checks it, issues the confirmation and records payments. Nobody confirms or records money on their own booking.</div>`;
   if (stage === "enquiry" || stage === "quoted") return `<div class="note info small">The broker has not sent this trip to operations yet.</div>`;
   const issued = ["issued","clientPaid","flown"].includes(stage);
   const opPrice = st.opPrice ?? q.opPrice, direct = st.direct ?? q.direct;
@@ -1331,7 +1332,7 @@ async function act(a, el){
       await deskWrite(t, {stage:"submitted", submittedAt: now()}, "Sent to operations"); toast("Sent to operations"); return; }
     if (a === "withdraw") { await deskWrite(t, {stage:"cancelled"}, "Withdrawn by broker"); toast("Trip withdrawn"); return; }
     if (a === "upload") { await uploadDoc(t); return; }
-    if (["opsSave","issue","return","clientPaid","operatorPaid","flown","cancelYes"].includes(a) && ownTrip(t)) { toast("Another operations member or the owner must do this on your own trip."); return; }
+    if (["opsSave","issue","return","clientPaid","operatorPaid","flown","cancelYes"].includes(a) && ownTrip(t)) { toast("Another operations member or another owner must do this on your own trip."); return; }
     if (a === "opsSave" || a === "issue") {
       const op = num($("o_op").value), dc = num($("o_dir").value), pn = $("o_pn").value.trim(), kyc = $("o_kyc").checked;
       const patch = {opPrice:op, direct:dc, price:(typeof tripPrice === "function" ? tripPrice(t, op, dc) : priceOf(op, dc)), paynodeRef:pn, pay:!!pn, kyc, state: t.st && t.st.state === "returned" ? "review" : (t.st && t.st.state) || "review"};
@@ -2200,7 +2201,7 @@ async function saveConfDraft(){
 }
 async function issueConf(btn){
   const t = tripById(S.sel); const st = t.st || {};
-  if (ownTrip(t)) { toast("Another operations member or the owner must issue your own trip."); return; }
+  if (ownTrip(t)) { toast("Another operations member or another owner must issue your own trip."); return; }
   const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by operations"); if (!st.kyc) missing.push("KYC"); if (typeof screenOk === "function" && !screenOk(t, st)) missing.push("sanctions screening record"); if (!st.paynodeRef) missing.push("payment request reference");
   if (missing.length) { toast("Save these in the operations panel first: " + missing.join(", ")); return; }
   const rev = st.confIssued ? (st.confRev || 1) + 1 : 1;
@@ -3032,7 +3033,7 @@ function sigBlock(t){
   </div>`;
 }
 function sigSendSync(el, t){
-  if (ownTrip(t)) { toast("Another operations member or the owner handles your own trip."); return false; }
+  if (ownTrip(t)) { toast("Another operations member or another owner handles your own trip."); return false; }
   const to = ($("sg_to").value || "").trim();
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(to)) { toast("Enter the charterer's email first."); return false; }
   const remind = el.dataset.sigmail === "remind";
@@ -3046,7 +3047,7 @@ function sigSendSync(el, t){
   return true;
 }
 async function sigSave(t){
-  if (ownTrip(t)) { toast("Another operations member or the owner handles your own trip."); return; }
+  if (ownTrip(t)) { toast("Another operations member or another owner handles your own trip."); return; }
   const f = $("sg_file").files[0], name = $("sg_name").value.trim(); if (!f) return;
   if (!/pdf$/i.test(f.type || f.name)) { toast("Choose the signed PDF."); return; }
   if (!name) { toast("Enter who signed, then choose the file again."); $("sg_file").value = ""; return; }
@@ -3934,7 +3935,7 @@ function apCard(t, compact){
     <div class="row" style="gap:6px">${chk.map(([ok, l]) => `<span class="chip ${ok ? "c-flown" : "c-returned"}" style="white-space:normal;height:auto;text-align:left">${esc(l)}</span>`).join("")}</div>
     ${flags.map(x => `<div class="note warn small">${esc(x)}</div>`).join("")}
     ${(d.trip && d.trip.notes) ? `<p class="small muted">Broker notes: ${esc(d.trip.notes)}</p>` : ""}
-    ${(S.isOwner || (typeof canRight === "function" && canRight("approve") && t.bid !== S.uid)) && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
+    ${(S.isOwner || (typeof canRight === "function" && canRight("approve"))) && t.bid !== S.uid && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
     <div class="row"><button class="btn primary" type="button" data-ap="ok" data-id="${t.bid}|${t.did}">Approve booking</button><button class="btn" type="button" data-ap="no" data-id="${t.bid}|${t.did}">Ask for changes</button>${compact ? `<a class="btn" href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a>` : ""}</div>
     <p class="small muted">Approving lets operations issue the confirmation once KYC, the payment request and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> Operations can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
 }
@@ -3979,7 +3980,7 @@ document.addEventListener("click", e => {
 }, true);
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-ap]"); if (!b || !(S.isOwner || (typeof canRight === "function" && canRight("approve")))) return;
-  { const [bb] = (b.dataset.id || "").split("|"); if (!S.isOwner && bb === S.uid) { toast("You cannot approve your own trip."); return; } }
+  { const [bb] = (b.dataset.id || "").split("|"); if (bb === S.uid) { toast("You cannot approve your own trip. Another owner or a supervisor with the approval right approves it."); return; } }
   const [bid, did] = b.dataset.id.split("|"), t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
   const note = ((document.getElementById("ap_n_" + did) || {}).value || "").trim();
   try {
@@ -6122,7 +6123,7 @@ function vOnboarding(){
   document.addEventListener("click", async ev => {
     const b = ev.target.closest("[data-scr]"); if (!b) return; ev.preventDefault();
     const [a, did] = b.dataset.scr.split("|"); const t = tripById(did); if (!t) return;
-    if (ownTrip(t) && a !== "run") { toast("Another operations member or the owner must record the screening on your own trip."); return; }
+    if (ownTrip(t) && a !== "run") { toast("Another operations member or another owner must record the screening on your own trip."); return; }
     const box = $("scr_names_" + did), names = (box ? box.value : "").split("\n").map(x => x.trim()).filter(Boolean);
     if (a === "run") {
       if (!names.length) { toast("Add the names to screen."); return; }
@@ -8303,7 +8304,7 @@ function trustMatrix(){
     S.cxIn = {did: t.did, open: true, ...cancelInputs(t)}; render(); });
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest('#secBook [data-bka="cancel"]'); if (!b) return; e.stopImmediatePropagation();
-    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another operations member or the owner must do this on your own trip."); return; }
+    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another operations member or another owner must do this on your own trip."); return; }
     const inp = cancelInputs(t); if (!inp.avinode) { toast("Cancel on Avinode first, then tick it."); return; }
     b.disabled = true;
     try {
@@ -8341,7 +8342,7 @@ function trustMatrix(){
         const ex = {pct, reason: why, by: S.uid, at: now()}, price = tripPrice({st: {marginEx: ex}}, st.opPrice, st.direct);
         await stWrite(t, {marginEx: ex, price}, `Margin for this trip set by the owner: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip margin set by the owner", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Margin ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
       return; }
-    if (!staffOn(t)) { toast("Another operations member or the owner must do this on your own trip."); return; }
+    if (!staffOn(t)) { toast("Another operations member or another owner must do this on your own trip."); return; }
     try {
       if (a === "doc") { const fl = ($("bkFile") || {}).files && $("bkFile").files[0]; if (!fl) { toast("Choose the contract file first."); return; }
         const assets = await __arche.use("assets"); if (!assets) { toast("Document upload is not available here."); return; }

@@ -56,7 +56,7 @@
   document.addEventListener("click", async ev => {
     const b = ev.target.closest("[data-scr]"); if (!b) return; ev.preventDefault();
     const [a, did] = b.dataset.scr.split("|"); const t = tripById(did); if (!t) return;
-    if (ownTrip(t) && a !== "run") { toast("Another operations member or the owner must record the screening on your own trip."); return; }
+    if (ownTrip(t) && a !== "run") { toast("Another operations member or another owner must record the screening on your own trip."); return; }
     const box = $("scr_names_" + did), names = (box ? box.value : "").split("\n").map(x => x.trim()).filter(Boolean);
     if (a === "run") {
       if (!names.length) { toast("Add the names to screen."); return; }

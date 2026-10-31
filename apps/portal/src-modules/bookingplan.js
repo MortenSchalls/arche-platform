@@ -349,7 +349,7 @@
     S.cxIn = {did: t.did, open: true, ...cancelInputs(t)}; render(); });
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest('#secBook [data-bka="cancel"]'); if (!b) return; e.stopImmediatePropagation();
-    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another operations member or the owner must do this on your own trip."); return; }
+    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another operations member or another owner must do this on your own trip."); return; }
     const inp = cancelInputs(t); if (!inp.avinode) { toast("Cancel on Avinode first, then tick it."); return; }
     b.disabled = true;
     try {
@@ -387,7 +387,7 @@
         const ex = {pct, reason: why, by: S.uid, at: now()}, price = tripPrice({st: {marginEx: ex}}, st.opPrice, st.direct);
         await stWrite(t, {marginEx: ex, price}, `Margin for this trip set by the owner: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip margin set by the owner", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Margin ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
       return; }
-    if (!staffOn(t)) { toast("Another operations member or the owner must do this on your own trip."); return; }
+    if (!staffOn(t)) { toast("Another operations member or another owner must do this on your own trip."); return; }
     try {
       if (a === "doc") { const fl = ($("bkFile") || {}).files && $("bkFile").files[0]; if (!fl) { toast("Choose the contract file first."); return; }
         const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available here."); return; }

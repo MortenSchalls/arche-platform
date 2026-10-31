@@ -48,7 +48,7 @@ function apCard(t, compact){
     <div class="row" style="gap:6px">${chk.map(([ok, l]) => `<span class="chip ${ok ? "c-flown" : "c-returned"}" style="white-space:normal;height:auto;text-align:left">${esc(l)}</span>`).join("")}</div>
     ${flags.map(x => `<div class="note warn small">${esc(x)}</div>`).join("")}
     ${(d.trip && d.trip.notes) ? `<p class="small muted">Broker notes: ${esc(d.trip.notes)}</p>` : ""}
-    ${(S.isOwner || (typeof canRight === "function" && canRight("approve") && t.bid !== S.uid)) && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
+    ${(S.isOwner || (typeof canRight === "function" && canRight("approve"))) && t.bid !== S.uid && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
     <div class="row"><button class="btn primary" type="button" data-ap="ok" data-id="${t.bid}|${t.did}">Approve booking</button><button class="btn" type="button" data-ap="no" data-id="${t.bid}|${t.did}">Ask for changes</button>${compact ? `<a class="btn" href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a>` : ""}</div>
     <p class="small muted">Approving lets operations issue the confirmation once KYC, the payment request and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> Operations can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
 }
@@ -93,7 +93,7 @@ document.addEventListener("click", e => {
 }, true);
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-ap]"); if (!b || !(S.isOwner || (typeof canRight === "function" && canRight("approve")))) return;
-  { const [bb] = (b.dataset.id || "").split("|"); if (!S.isOwner && bb === S.uid) { toast("You cannot approve your own trip."); return; } }
+  { const [bb] = (b.dataset.id || "").split("|"); if (bb === S.uid) { toast("You cannot approve your own trip. Another owner or a supervisor with the approval right approves it."); return; } }
   const [bid, did] = b.dataset.id.split("|"), t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
   const note = ((document.getElementById("ap_n_" + did) || {}).value || "").trim();
   try {
