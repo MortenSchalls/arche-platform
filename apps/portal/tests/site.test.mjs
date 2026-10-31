@@ -33,3 +33,8 @@ r = await run(null); ok("not signed in gets no pass", r.code === 401 && !r.heade
 const r2 = await call(website, { method: "GET", url: "/api/website?p=services/", headers: { cookie: "ae_site=" + makePass(KEY) } });
 ok("the same function serves the copy on GET", r2.code === 200 && /Three services/.test(zlib.gunzipSync(r2.raw).toString()));
 ok("12 functions at most (Vercel plan)", (await import("node:fs")).readdirSync(new URL("../api/", import.meta.url)).filter(f => /\.(m?js|ts)$/.test(f) && !f.startsWith("_")).length <= 12);
+const r3 = await call(site, { url: "/website/services/", query: {}, headers: { cookie: "ae_site=" + makePass(KEY) } });
+ok("works when the platform passes the original address", r3.code === 200 && /Three services/.test(zlib.gunzipSync(r3.raw).toString()));
+const r4 = await call(site, { url: "/api/website?p=", query: { p: "contact/" }, headers: { cookie: "ae_site=" + makePass(KEY) } });
+ok("works with the page in the parsed query", r4.code === 200 && /Contact the private client desk/.test(zlib.gunzipSync(r4.raw).toString()));
+ok("the rewrite uses the pattern Vercel accepts (checked live 31 Oct 2026)", JSON.parse((await import("node:fs")).readFileSync(new URL("../vercel.json", import.meta.url))).rewrites.some(r => r.source === "/website/(.*)" && r.destination === "/api/website?p=$1"));

@@ -18,7 +18,9 @@ export default async function handler(req, res) {
   res.setHeader("Cache-Control", "private, no-store");
   res.setHeader("X-Robots-Tag", "noindex, nofollow");
   const url = new URL(req.url, "https://portal.archeaviation.com");
-  const p = url.searchParams.get("p") || "";
+  // the page asked for: from the rewrite (?p=), or from the address itself if the platform passes the original one
+  const q = req.query && typeof req.query.p === "string" ? req.query.p : null;
+  const p = q ?? url.searchParams.get("p") ?? (url.pathname.startsWith("/website/") ? decodeURIComponent(url.pathname.slice(9)) : "");
   if (!validPass(readCookie(req.headers.cookie), process.env.SUPABASE_SECRET_KEY)) { res.statusCode = 302; res.setHeader("Location", "/"); return res.end(); }
   if (/^api\//.test(p)) { res.statusCode = 403; res.setHeader("Content-Type", "application/json"); return res.end(JSON.stringify({ error: "Preview only: forms are switched off in the portal copy of the website. Nothing was sent." })); }
   const f = resolve(p);

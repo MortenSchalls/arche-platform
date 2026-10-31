@@ -67,32 +67,8 @@
  ],
  "rewrites": [
   {
-   "source": "/website/:path*",
-   "destination": "/api/website?p=:path*"
-  },
-  {
-   "source": "/zz1/:path*",
-   "destination": "/api/website?p=:path*"
-  },
-  {
-   "source": "/zz2/(.*)",
+   "source": "/website/(.*)",
    "destination": "/api/website?p=$1"
-  },
-  {
-   "source": "/zz3/:path*",
-   "destination": "/api/website"
-  },
-  {
-   "source": "/zz4",
-   "destination": "/api/website"
-  },
-  {
-   "source": "/zz5/:path*",
-   "destination": "/index.html"
-  },
-  {
-   "source": "/zz6/:path*",
-   "destination": "/api/website.mjs?p=:path*"
   }
  ],
  "redirects": [
