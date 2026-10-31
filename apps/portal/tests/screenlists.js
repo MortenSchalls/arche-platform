@@ -1,0 +1,26 @@
+// Asian and aviation lists in the trip checks, FAA tail check and ECB rate (31 Oct 2026). Example data only; /api/screen mocked.
+const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1300,height:1000}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
+let fail=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fail++;};
+await p.route('**/api/screen',async r=>{const j=JSON.parse(r.request().postData()||'{}');
+  if(j.tails&&!(j.names||[]).length)return r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({faa:{at:'2026-10-31T00:00:00Z',url:'x',tails:{N650EX:['Other Example Charter LLC','CL-650']}}})});
+  const res=j.names.map(n=>/Quickrich/i.test(n)?{name:n,result:'alert',hits:[{listed:'quickrich example exchange',list:'MAS Investor Alert',kind:'alert'}]}:/Banned/i.test(n)?{name:n,result:'possible match',hits:[{listed:'example banned airways',list:'EU Air Safety List',kind:'aviation'}]}:{name:n,result:'no match',hits:[]});
+  r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({at:'2026-10-31T00:00:00Z',lists:['UN (100)','MAS Investor Alert (60)'],failed:[],aslStates:['Exampleland','Singapore'],results:res})});});
+await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);
+await p.selectOption('select',{label:'Test Broker'});await p.waitForTimeout(2500);
+await p.evaluate(()=>{S.fx={date:'2026-10-30',usdPer:{EUR:1.1172,SGD:0.7448}};S.view='trips';render();});await p.waitForTimeout(400);
+await p.click('[data-act="new"]');await p.waitForTimeout(800);
+await p.fill('#e_cn','Anna Example');await p.fill('#e_co','Quickrich Example Exchange');await p.fill('#e_em','anna@example.com');await p.fill('#e_ct','Singapore');
+const leg=p.locator('.leg').first();await leg.locator('[data-l="from"]').fill('WSSL');await leg.locator('[data-l="to"]').fill('VTSP');await leg.locator('[data-l="date"]').fill('2026-11-20');await leg.locator('[data-l="time"]').fill('10:00');await leg.locator('[data-l="pax"]').fill('4');
+await p.fill('#q_op','Example Banned Airways');await p.selectOption('#q_oc','SG');await p.fill('#q_ac','Challenger 650');await p.fill('#q_tl','N650EX');
+await p.selectOption('#q_cur','SGD');await p.waitForTimeout(300);
+ok(await p.inputValue('#q_rate')==='0.7448','rate filled from the ECB reference rate');
+await p.fill('#q_rate','0.80');await p.dispatchEvent('#q_rate','input');await p.waitForTimeout(200);
+ok(/7\.4% away/.test(await p.innerText('.fxnote')),'a rate far from the ECB rate is flagged on the field');
+await p.fill('#q_amt','50000');await p.dispatchEvent('#q_amt','input');
+await p.click('#edForm button[type=submit]');await p.waitForTimeout(2000);
+const tc=await p.evaluate(()=>{const t=tripById(S.sel);return tripChecks(t.d,t.st).map(x=>x.sev+' '+x.key+' '+x.text.replace(/<[^>]+>/g,''));});
+ok(tc.some(x=>/^amber alert\|Quickrich/.test(x)&&/MAS Investor Alert List/.test(x)),'MAS alert-list hit is amber, not red');
+ok(tc.some(x=>/^red name\|Example Banned Airways/.test(x)&&/EU Air Safety List/.test(x)),'operator on the EU Air Safety List is red');
+ok(tc.some(x=>/^amber asl\|SG/.test(x)),'operator state with an EU whole-state ban is amber');
+ok(tc.some(x=>/^amber faa\|N650EX/.test(x)&&/Other Example Charter LLC/.test(x)),'US tail listed under another Part 135 certificate is amber');
+console.log('errs',errs);ok(!errs.length,'no page errors');console.log(fail?'FAILED '+fail:'ALL PASS');await b.close();process.exit(fail?1:0)})();

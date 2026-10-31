@@ -1146,7 +1146,7 @@ function vSettings(){
     <label class="f" for="co_sn">Authorised signatory<input id="co_sn" value="${esc(S.company.signName || "")}"></label>
     <label class="f" for="co_st">Signatory title<input id="co_st" value="${esc(S.company.signTitle || "")}"></label>
   </div><div class="row"><button class="btn primary" type="submit">Save company details</button></div></form>
-  <div class="panel stack" style="max-width:640px;margin-top:16px"><h2>Backup</h2><p class="small muted">Everything in the portal (trips, confirmations, payments, commission, prospects, leads, team and settings) is kept in this portal's own database on claude.ai. Uploaded documents and issued PDFs are kept in its file store. Download a full copy of the database as a JSON file and keep it outside claude.ai.</p>
+  <div class="panel stack" style="max-width:640px;margin-top:16px"><h2>Backup</h2><p class="small muted">Everything in the portal (trips, confirmations, payments, commission, prospects, leads, team and settings) is kept in this portal's own database${LIVE_PLATFORM ? "" : " on claude.ai"}. Uploaded documents and issued PDFs are kept in its file store. Download a full copy of the database as a JSON file and keep it ${LIVE_PLATFORM ? "somewhere safe" : "outside claude.ai"}.</p>
     <p class="small">${S.backup && S.backup.lastExport ? "Last backup downloaded " + fmtT(S.backup.lastExport) : "No backup downloaded yet."}</p>
     <div class="row"><button class="btn primary" type="button" data-act="backup">Download full backup</button></div>
     ${LIVE_PLATFORM ? `<h3 style="margin-top:12px">Nightly backup</h3>
@@ -1158,9 +1158,26 @@ function vSettings(){
     <div class="row"><button class="btn" type="button" data-act="driveSync" ${S.driveBusy ? "disabled" : ""}>Back up to Google Drive now</button></div>
 `}
     ${restorePanel()}
-    <h3 style="margin-top:12px">Keeping background jobs running</h3><p class="small muted">The daily research, the 3-hourly rotation and the nightly backup run as scheduled tasks on your claude.ai account and share its usage limit. If the limit is reached, a job waits for the next run and Today shows it as late, with a button to run it from here. To stop that happening, turn on usage credits in claude.ai Settings &gt; Usage with a monthly cap. Before launch, the portal's records should also move to a hosted database so nothing depends on one account.</p></div>
+    ${LIVE_PLATFORM ? `<h3 style="margin-top:12px">Background jobs</h3><p class="small muted">The daily sanctions screen, airport data, operator audit lists, rotation and nightly backup run on GitHub (Portal jobs). They cost nothing. If one fails, Today shows it as late.</p>` : `<h3 style="margin-top:12px">Keeping background jobs running</h3><p class="small muted">The daily research, the 3-hourly rotation and the nightly backup run as scheduled tasks on your claude.ai account and share its usage limit. If the limit is reached, a job waits for the next run and Today shows it as late, with a button to run it from here. To stop that happening, turn on usage credits in claude.ai Settings &gt; Usage with a monthly cap. Before launch, the portal's records should also move to a hosted database so nothing depends on one account.</p>`}
+    ${LIVE_PLATFORM ? aiSpendPanel() : ""}</div>
   ${launchPanel()}`;
 }
+// AI spend this month and the monthly cap (Morten, 31 Oct 2026: spend capped and shown; dropped if it does not pay for itself)
+function aiSpendPanel(){
+  const a = S.aiSpend;
+  if (a === undefined) { S.aiSpend = null; fetch("/api/ai", {method: "GET"}).then(r => r.ok ? r.json() : null).then(j => { S.aiSpend = j || false; render(); }).catch(() => { S.aiSpend = false; render(); }); }
+  const pct = a && a.capUsd ? Math.min(100, Math.round(a.spentUsd / a.capUsd * 100)) : 0;
+  return `<h3 style="margin-top:12px">AI spend</h3>
+    ${!a ? `<p class="small muted">${a === false ? "Could not read the AI spend." : "Reading…"}</p>` : `<p class="small">${a.configured ? "" : "The AI is switched off (no key set). "}This month (${esc(a.month)}): USD ${a.spentUsd.toFixed(2)} of USD ${a.capUsd} · ${a.calls} calls</p>
+    <div class="meter" role="img" aria-label="${pct}% of this month's AI budget used" style="height:8px;border-radius:4px;background:var(--line);overflow:hidden;max-width:360px"><div style="width:${pct}%;height:100%;background:${pct >= 90 ? "var(--red, #c0392b)" : "var(--accent)"}"></div></div>
+    <form class="row" data-form="aicap" style="margin-top:6px"><label class="f" for="ai_cap" style="max-width:220px">Monthly cap (USD)<input id="ai_cap" type="number" min="0" step="5" value="${a.capUsd}"></label><button class="btn small" type="submit">Save cap</button></form>
+    <p class="small muted">When the cap is reached the AI pauses until the next month. Free official sources are used first; the AI only where nothing else can check.</p>`}`;
+}
+document.addEventListener("submit", async e => {
+  if (!e.target.matches || !e.target.matches('[data-form="aicap"]')) return; e.preventDefault();
+  const v = Math.max(0, Math.round(+$("ai_cap").value || 0)); if (!S.isOwner) { toast("Only the owner sets the cap."); return; }
+  try { await S.db.doc("config/aicap").set({usd: v}); audit("AI monthly cap changed", "USD " + v); S.aiSpend = undefined; toast("AI cap saved: USD " + v + " a month."); render(); } catch (err) { toast("Could not save the cap."); }
+});
 function vRules(){
   return `<div class="panel stack" style="max-width:760px"><h1>Portal rules</h1>
   <ol class="stack" style="padding-left:20px;margin:0">
@@ -1399,6 +1416,7 @@ async function runAI(kind, t, outEl, btns){
 const aiErr = c => ({not_granted: LIVE_PLATFORM ? "Sign in again to use the AI." : "The co-pilot needs your permission to use Claude. Allow it when asked, or in the artifact's Permissions menu.", rate_limited:"Too many requests right now. Try again in a minute.", sampling_disabled:"Claude is not available for this account.",
   ai_setup:"The AI is not switched on yet: the Anthropic API key is not set in Vercel." + (S.isOwner ? " Owner: Vercel > portal project > Settings > Environment Variables > ANTHROPIC_API_KEY, then redeploy." : " The owner has been told."),
   ai_credit:"The AI is paused: the Anthropic API account has no credit left." + (S.isOwner ? " Owner: top up at console.anthropic.com > Billing." : " The owner has been told."),
+  ai_cap:"This month's AI budget is used up, so the AI is paused until next month." + (S.isOwner ? " Owner: raise the monthly cap in Settings if it pays for itself." : " The owner has been told."),
   ai_key:"The AI is paused: the Anthropic API key in Vercel is not valid." + (S.isOwner ? " Owner: create a new key in console.anthropic.com and replace it in Vercel." : " The owner has been told.")}[c] || "The co-pilot could not answer. Try again.");
 function aiBlock(t){
   return `<div class="panel stack ai"><div class="row" style="justify-content:space-between"><h2 style="margin:0">AI co-pilot</h2>${scoreChip(winScore(t))}</div>
@@ -6164,7 +6182,23 @@ function vOnboarding(){
     if (placeRed(c.country)) add("place|client", "red", null, `Client's country (${esc(c.country)}) is a sanctioned place. Archē does not take this trip.`);
     if (placeRed(c.payer)) add("place|payer", "red", null, `The payer (${esc(c.payer)}) names a sanctioned place. Archē does not take this trip.`);
     const scr = d.screen || {}, rel = (st || {}).sanctionsRelease;   // only owner/operations can write trip status
-    (scr.results || []).filter(r => r.result !== "no match").forEach(r => { const ok = rel && (rel.names || []).includes(r.name); add("name|" + r.name, ok ? "green" : "red", null, ok ? `Possible match on ${esc(r.name)} released by the owner: ${esc(rel.note)}` : `Possible sanctions match: <b>${esc(r.name)}</b> resembles ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}. The trip stops until the owner checks it.`); });
+    const lst = r => esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "));
+    (scr.results || []).filter(r => r.result !== "no match").forEach(r => { const ok = rel && (rel.names || []).includes(r.name);
+      // MAS Investor Alert List (Singapore): a warning to check, not a sanctions match; EU Air Safety List: the operator is banned (never sell, Module 2.4)
+      if (r.result === "alert") { add("alert|" + r.name, ok ? "green" : "amber", null, ok ? `Alert-list match on ${esc(r.name)} released by the owner: ${esc(rel.note)}` : `<b>${esc(r.name)}</b> resembles a name on the MAS Investor Alert List (Singapore): ${lst(r)}. Check it is not the same company before going further (mas.gov.sg/investor-alert-list).`); return; }
+      const asl = r.hits.some(h => h.kind === "aviation");
+      add("name|" + r.name, ok ? "green" : "red", null, ok ? `Possible match on ${esc(r.name)} released by the owner: ${esc(rel.note)}` : asl ? `<b>${esc(r.name)}</b> resembles a carrier on the EU Air Safety List: ${lst(r)}. Archē never sells an operator on that list (Module 2.4). The trip stops until the owner checks it.` : `Possible sanctions match: <b>${esc(r.name)}</b> resembles ${lst(r)}. The trip stops until the owner checks it.`); });
+    // EU Air Safety List bans every carrier certified by some states (list read by the daily screen)
+    if (oc && (scr.aslStates || []).some(x => x.toLowerCase().replace(/\s+/g, " ").trim() === String(cname(oc)).toLowerCase())) add("asl|" + oc, "amber", null, `The EU Air Safety List bans all carriers certified in ${esc(cname(oc))}, with named exceptions. Check this operator is an exception before using it (transport.ec.europa.eu, EU Air Safety List).`);
+    // US tail: is it on this operator's FAA Part 135 certificate? (FAA OpSpec D085 list, read daily)
+    const tail = String(q.tail || "").toUpperCase().replace(/[^A-Z0-9]/g, ""), fa = d.faa;
+    if (/^N[0-9A-Z]{1,5}$/.test(tail) && fa && fa.tail === tail) {
+      const words = x => String(x || "").toLowerCase().replace(/\b(inc|llc|ltd|corp|co|dba|the|aviation|air|jet|jets|charter|services)\b|[^a-z0-9 ]/g, " ").split(/\s+/).filter(w => w.length > 2);
+      const wa = words(q.operator), wb = fa.holder ? words(fa.holder[0]) : [], same = wa.length && wb.length && (wa.every(w => wb.includes(w)) || wb.every(w => wa.includes(w)));
+      if (!fa.holder) add("faa|" + tail, "amber", null, `${esc(tail)} is not on any FAA Part 135 certificate in the FAA list of ${esc(fmtD(fa.at))}. Ask the operator which certificate it flies under before quoting.`);
+      else if (!same) add("faa|" + tail, "amber", null, `${esc(tail)} (${esc(fa.holder[1])}) is listed under ${esc(fa.holder[0])}, not ${esc(q.operator || "the operator")}, in the FAA Part 135 list of ${esc(fmtD(fa.at))}. Confirm who operates the flight.`);
+      else add("faa|" + tail, "green", null, `${esc(tail)} is on ${esc(fa.holder[0])}'s FAA Part 135 certificate (FAA list of ${esc(fmtD(fa.at))}).`);
+    }
     if (!scr.at && (c.name || c.company)) add("name|unscreened", "grey", null, "Names not screened yet: save the trip to screen them.");
     legs.forEach((l, i) => {
       const n = i + 1, A = APT.by[l.from], B = APT.by[l.to], RA = (TC.rules || {airports: {}}).airports[l.from], RB = (TC.rules || {airports: {}}).airports[l.to];
@@ -6233,7 +6267,7 @@ function vOnboarding(){
       clearTimeout(TC.timer[el.id]); const v = el.value.trim();
       if (v.length < 4) { if (el.id !== "e_py" || !placeRed(el.value)) mark(el, ""); return; }
       TC.timer[el.id] = setTimeout(async () => {
-        try { const j = await screenNames([v]); const r = j.results[0]; TC.live[v] = r; if (el.value.trim() === v) mark(el, r.result === "no match" ? "" : `Possible sanctions match: resembles ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}. The trip will stop until the owner checks it.`); }
+        try { const j = await screenNames([v]); const r = j.results[0]; TC.live[v] = r; if (el.value.trim() === v) mark(el, r.result === "no match" ? "" : r.result === "alert" ? `Resembles a name on the MAS Investor Alert List: ${esc(r.hits.map(h => h.listed).join("; "))}. Check it is not the same company.` : `Possible sanctions match: resembles ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}. The trip will stop until the owner checks it.`); }
         catch(e){ /* screening not available: the save step records it as not screened */ }
       }, 800);
     }
@@ -6247,8 +6281,12 @@ function vOnboarding(){
     const c = body.client || {}, names = [c.name, c.company, c.payer, (body.quote || {}).operator].map(x => String(x || "").trim()).filter(x => x.length >= 3);
     const prevNames = ((body.screen || {}).results || []).map(r => r.name).join("|");
     if (names.length && names.join("|") !== prevNames) {
-      try { const j = await screenNames(names, ids ? {log: "trip", tripOwner: ids.bid, tripId: ids.did} : null); body.screen = {at: now(), lists: j.lists, listsAt: j.at, results: j.results, logId: j.logId || null}; }
+      try { const j = await screenNames(names, ids ? {log: "trip", tripOwner: ids.bid, tripId: ids.did} : null); body.screen = {at: now(), lists: j.lists, listsAt: j.at, results: j.results, logId: j.logId || null, aslStates: j.aslStates || []}; }
       catch(e){ body.screen = {at: null, error: String(e.message || e).slice(0, 120), results: []}; }
+    }
+    const tail = String((body.quote || {}).tail || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (/^N[0-9A-Z]{1,5}$/.test(tail) && (body.faa || {}).tail !== tail) {
+      try { const j = await screenNames([], {tails: [tail]}); body.faa = {tail, holder: j.faa.tails[tail], at: j.faa.at}; } catch(e){ /* list not loaded: no check shown */ }
     }
     const {red} = tripBlockers(body, {});
     if (red.length) { if (!["enquiry", "quoted"].includes(body.stage)) body.stage = "quoted"; toast(`Saved. ${red.length} red item${red.length > 1 ? "s" : ""}: the trip cannot go further. See Trip checks.`); }
@@ -8450,5 +8488,29 @@ document.addEventListener("click", async ev => {
     toast(`This tick follows ${a.from}. Complete it there.`);
     const s = $(a.sec); if (s) s.scrollIntoView({block: "start", behavior: "smooth"});
   }, true);
+})();
+/* ---------- Exchange rates for quotes in other currencies (Morten, 31 Oct 2026: checked in the background, free official
+   sources first). The daily screen job saves the ECB euro reference rates as USD per unit (config/fx). The rate field is
+   filled from it when empty, and a rate more than 3% away from the ECB rate is flagged on the field, with the date. ---------- */
+(function(){
+  const fx = () => (S.fx && S.fx.usdPer) ? S.fx : null;
+  let watching = false;
+  const watch = () => { if (watching || !S.db) return; watching = true; try { watchDoc("config/fx", snap => { if (snap.exists) S.fx = snap.data(); }); } catch(e){ watching = false; } };
+  function note(){
+    const c = $("q_cur"), r = $("q_rate"); if (!c || !r) return;
+    let m = r.parentElement.querySelector(".fxnote"); if (!m) { m = document.createElement("span"); m.className = "fxnote small"; m.style.cssText = "display:block;margin-top:4px"; r.parentElement.appendChild(m); }
+    const f = fx(), ecb = f && f.usdPer[c.value];
+    if (c.value === "USD" || !ecb) { m.textContent = ""; m.style.color = ""; return; }
+    const v = num(r.value), off = v ? Math.abs(v / ecb - 1) : 0;
+    m.textContent = `ECB reference rate ${fmtD(f.date)}: ${ecb.toFixed(4)} USD` + (v && off > 0.03 ? ` · your rate is ${(off * 100).toFixed(1)}% away: check it against the operator's quote.` : "");
+    m.style.color = v && off > 0.03 ? "var(--warn, #b7791f)" : "var(--muted)";
+  }
+  document.addEventListener("change", e => {
+    if (!e.target || e.target.id !== "q_cur") return; watch();
+    // the portal's own currency handler runs after this one (it waits for another step), so the fill happens a moment later
+    setTimeout(() => { const r = $("q_rate"), f = fx(); if (r && !r.disabled && !r.value && f && f.usdPer[e.target.value]) { r.value = String(f.usdPer[e.target.value]); if (typeof curSync === "function") curSync(); } note(); }, 0);
+  });
+  document.addEventListener("input", e => { if (e.target && (e.target.id === "q_rate" || e.target.id === "q_amt")) note(); });
+  document.addEventListener("focusin", e => { if (e.target && e.target.closest && e.target.closest("#edForm")) { watch(); note(); } });
 })();
 </script>

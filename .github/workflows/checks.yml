@@ -28,7 +28,7 @@ jobs:
       - name: Server checks (alerts, admin actions)
         run: |
           node apps/portal/tests/alertsrv.test.mjs "$NODE_PATH/http_ece"
-          (cd jobs && node admin.test.mjs)
+          (cd jobs && node admin.test.mjs && node screen.test.mjs && node lists.test.mjs && node regimes.test.mjs && node audits.test.mjs && node test.mjs)
           node apps/portal/tests/resetcheck.test.mjs
           node apps/portal/tests/invitemail.test.mjs
           node apps/portal/tests/reset.test.mjs
@@ -43,4 +43,4 @@ jobs:
           python3 build_test.py
           (python3 -m http.server 8765 >/dev/null 2>&1 &) ; sleep 2
           set -o pipefail
-          for t in boottest roletodaytest invitetest seeastest profiletest altest rightstest inttest supervisortest livereal bookingtest trtest aftercaretest jointest audit; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done
+          for t in boottest roletodaytest invitetest seeastest profiletest altest rightstest inttest supervisortest livereal bookingtest trtest aftercaretest jointest screenlists safetytest audit colorscan; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done

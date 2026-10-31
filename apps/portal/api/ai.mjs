@@ -6,11 +6,25 @@
 
 const MODELS = { quick: "claude-haiku-4-5-20251001", default: "claude-sonnet-5-5", complex: "claude-opus-5-5" };
 const MAX_CHARS = 60000;
+// Monthly spend cap (Morten, 31 Oct 2026: every paid call must justify its cost, spend capped and shown).
+// Spend this month is kept in config "aispend" {month, usd, calls}; the cap in config "aicap" {usd} (owner, Settings), default USD 25.
+// Cost is estimated from the tokens Anthropic reports, at list prices per million tokens (input, output); check them against
+// anthropic.com/pricing when prices change.
+const PRICE = { quick: [1, 5], default: [3, 15], complex: [5, 25] };
+const DEFAULT_CAP = 25;
+const SECRET = process.env.SUPABASE_SECRET_KEY;
+async function cfg(SB, key) { if (!SECRET) return null; const r = await fetch(`${SB}/rest/v1/config?key=eq.${key}&select=value`, { headers: { apikey: SECRET, authorization: `Bearer ${SECRET}` } }); return r.ok ? ((await r.json())[0] || {}).value || null : null; }
+async function cfgSet(SB, key, value) { if (!SECRET) return; await fetch(`${SB}/rest/v1/config`, { method: "POST", headers: { apikey: SECRET, authorization: `Bearer ${SECRET}`, "content-type": "application/json", prefer: "resolution=merge-duplicates" }, body: JSON.stringify({ key, value, updated_at: new Date().toISOString() }) }); }
+const month = () => new Date().toISOString().slice(0, 7);
 const hits = new Map(); // simple per-user limit: 30 calls a minute per server instance
 
 export default async function handler(req, res) {
   // status check for the owner's to-do list: says only whether a key is set, never the key
-  if (req.method === "GET") return res.status(200).json({ configured: !!process.env.ANTHROPIC_API_KEY });
+  if (req.method === "GET") {
+    const SBg = process.env.SUPABASE_URL; let spend = null, cap = DEFAULT_CAP;
+    try { const sp = await cfg(SBg, "aispend"), c = await cfg(SBg, "aicap"); if (sp && sp.month === month()) spend = sp; if (c && +c.usd >= 0) cap = +c.usd; } catch (e) {}
+    return res.status(200).json({ configured: !!process.env.ANTHROPIC_API_KEY, month: month(), spentUsd: spend ? Math.round(spend.usd * 100) / 100 : 0, calls: spend ? spend.calls : 0, capUsd: cap });
+  }
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
   const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, "");
   if (!token) return res.status(401).json({ error: "Sign in first" });
@@ -28,6 +42,10 @@ export default async function handler(req, res) {
   const now = Date.now(), list = (hits.get(u.id) || []).filter(t => now - t < 60000);
   if (list.length >= 30) return res.status(429).json({ error: "Too many requests" });
   list.push(now); hits.set(u.id, list);
+
+  const sp0 = await cfg(SB, "aispend").catch(() => null), cap0 = await cfg(SB, "aicap").catch(() => null);
+  const spent = sp0 && sp0.month === month() ? +sp0.usd || 0 : 0, cap = cap0 && +cap0.usd >= 0 ? +cap0.usd : DEFAULT_CAP;
+  if (spent >= cap) return res.status(402).json({ error: "cap", detail: `This month's AI budget of USD ${cap} is used up. The owner can raise it in Settings.` });
 
   const { input, tier = "default", json = false } = req.body || {};
   let messages = typeof input === "string" ? [{ role: "user", content: input }] : Array.isArray(input) ? input : null;
@@ -52,6 +70,9 @@ export default async function handler(req, res) {
     return res.status(502).json({ error: credit ? "credit" : badKey ? "key" : "AI error", detail: credit ? "The Anthropic account has no credit left" : badKey ? "The Anthropic API key in Vercel is not valid" : ("Anthropic API " + r.status) });
   }
   const out = await r.json();
+  const pr = PRICE[MODELS[tier] ? tier : "default"], u2 = out.usage || {};
+  const cost = ((u2.input_tokens || 0) * pr[0] + (u2.output_tokens || 0) * pr[1]) / 1e6;
+  await cfgSet(SB, "aispend", { month: month(), usd: spent + cost, calls: (sp0 && sp0.month === month() ? sp0.calls || 0 : 0) + 1 }).catch(() => {});
   const text = (out.content || []).filter(c => c.type === "text").map(c => c.text).join("");
   return res.status(200).json({ text, truncated: out.stop_reason === "max_tokens" });
 }

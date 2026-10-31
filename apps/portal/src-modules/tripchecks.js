@@ -32,7 +32,23 @@
     if (placeRed(c.country)) add("place|client", "red", null, `Client's country (${esc(c.country)}) is a sanctioned place. Archē does not take this trip.`);
     if (placeRed(c.payer)) add("place|payer", "red", null, `The payer (${esc(c.payer)}) names a sanctioned place. Archē does not take this trip.`);
     const scr = d.screen || {}, rel = (st || {}).sanctionsRelease;   // only owner/operations can write trip status
-    (scr.results || []).filter(r => r.result !== "no match").forEach(r => { const ok = rel && (rel.names || []).includes(r.name); add("name|" + r.name, ok ? "green" : "red", null, ok ? `Possible match on ${esc(r.name)} released by the owner: ${esc(rel.note)}` : `Possible sanctions match: <b>${esc(r.name)}</b> resembles ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}. The trip stops until the owner checks it.`); });
+    const lst = r => esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "));
+    (scr.results || []).filter(r => r.result !== "no match").forEach(r => { const ok = rel && (rel.names || []).includes(r.name);
+      // MAS Investor Alert List (Singapore): a warning to check, not a sanctions match; EU Air Safety List: the operator is banned (never sell, Module 2.4)
+      if (r.result === "alert") { add("alert|" + r.name, ok ? "green" : "amber", null, ok ? `Alert-list match on ${esc(r.name)} released by the owner: ${esc(rel.note)}` : `<b>${esc(r.name)}</b> resembles a name on the MAS Investor Alert List (Singapore): ${lst(r)}. Check it is not the same company before going further (mas.gov.sg/investor-alert-list).`); return; }
+      const asl = r.hits.some(h => h.kind === "aviation");
+      add("name|" + r.name, ok ? "green" : "red", null, ok ? `Possible match on ${esc(r.name)} released by the owner: ${esc(rel.note)}` : asl ? `<b>${esc(r.name)}</b> resembles a carrier on the EU Air Safety List: ${lst(r)}. Archē never sells an operator on that list (Module 2.4). The trip stops until the owner checks it.` : `Possible sanctions match: <b>${esc(r.name)}</b> resembles ${lst(r)}. The trip stops until the owner checks it.`); });
+    // EU Air Safety List bans every carrier certified by some states (list read by the daily screen)
+    if (oc && (scr.aslStates || []).some(x => x.toLowerCase().replace(/\s+/g, " ").trim() === String(cname(oc)).toLowerCase())) add("asl|" + oc, "amber", null, `The EU Air Safety List bans all carriers certified in ${esc(cname(oc))}, with named exceptions. Check this operator is an exception before using it (transport.ec.europa.eu, EU Air Safety List).`);
+    // US tail: is it on this operator's FAA Part 135 certificate? (FAA OpSpec D085 list, read daily)
+    const tail = String(q.tail || "").toUpperCase().replace(/[^A-Z0-9]/g, ""), fa = d.faa;
+    if (/^N[0-9A-Z]{1,5}$/.test(tail) && fa && fa.tail === tail) {
+      const words = x => String(x || "").toLowerCase().replace(/\b(inc|llc|ltd|corp|co|dba|the|aviation|air|jet|jets|charter|services)\b|[^a-z0-9 ]/g, " ").split(/\s+/).filter(w => w.length > 2);
+      const wa = words(q.operator), wb = fa.holder ? words(fa.holder[0]) : [], same = wa.length && wb.length && (wa.every(w => wb.includes(w)) || wb.every(w => wa.includes(w)));
+      if (!fa.holder) add("faa|" + tail, "amber", null, `${esc(tail)} is not on any FAA Part 135 certificate in the FAA list of ${esc(fmtD(fa.at))}. Ask the operator which certificate it flies under before quoting.`);
+      else if (!same) add("faa|" + tail, "amber", null, `${esc(tail)} (${esc(fa.holder[1])}) is listed under ${esc(fa.holder[0])}, not ${esc(q.operator || "the operator")}, in the FAA Part 135 list of ${esc(fmtD(fa.at))}. Confirm who operates the flight.`);
+      else add("faa|" + tail, "green", null, `${esc(tail)} is on ${esc(fa.holder[0])}'s FAA Part 135 certificate (FAA list of ${esc(fmtD(fa.at))}).`);
+    }
     if (!scr.at && (c.name || c.company)) add("name|unscreened", "grey", null, "Names not screened yet: save the trip to screen them.");
     legs.forEach((l, i) => {
       const n = i + 1, A = APT.by[l.from], B = APT.by[l.to], RA = (TC.rules || {airports: {}}).airports[l.from], RB = (TC.rules || {airports: {}}).airports[l.to];
@@ -101,7 +117,7 @@
       clearTimeout(TC.timer[el.id]); const v = el.value.trim();
       if (v.length < 4) { if (el.id !== "e_py" || !placeRed(el.value)) mark(el, ""); return; }
       TC.timer[el.id] = setTimeout(async () => {
-        try { const j = await screenNames([v]); const r = j.results[0]; TC.live[v] = r; if (el.value.trim() === v) mark(el, r.result === "no match" ? "" : `Possible sanctions match: resembles ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}. The trip will stop until the owner checks it.`); }
+        try { const j = await screenNames([v]); const r = j.results[0]; TC.live[v] = r; if (el.value.trim() === v) mark(el, r.result === "no match" ? "" : r.result === "alert" ? `Resembles a name on the MAS Investor Alert List: ${esc(r.hits.map(h => h.listed).join("; "))}. Check it is not the same company.` : `Possible sanctions match: resembles ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}. The trip will stop until the owner checks it.`); }
         catch(e){ /* screening not available: the save step records it as not screened */ }
       }, 800);
     }
@@ -115,8 +131,12 @@
     const c = body.client || {}, names = [c.name, c.company, c.payer, (body.quote || {}).operator].map(x => String(x || "").trim()).filter(x => x.length >= 3);
     const prevNames = ((body.screen || {}).results || []).map(r => r.name).join("|");
     if (names.length && names.join("|") !== prevNames) {
-      try { const j = await screenNames(names, ids ? {log: "trip", tripOwner: ids.bid, tripId: ids.did} : null); body.screen = {at: now(), lists: j.lists, listsAt: j.at, results: j.results, logId: j.logId || null}; }
+      try { const j = await screenNames(names, ids ? {log: "trip", tripOwner: ids.bid, tripId: ids.did} : null); body.screen = {at: now(), lists: j.lists, listsAt: j.at, results: j.results, logId: j.logId || null, aslStates: j.aslStates || []}; }
       catch(e){ body.screen = {at: null, error: String(e.message || e).slice(0, 120), results: []}; }
+    }
+    const tail = String((body.quote || {}).tail || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (/^N[0-9A-Z]{1,5}$/.test(tail) && (body.faa || {}).tail !== tail) {
+      try { const j = await screenNames([], {tails: [tail]}); body.faa = {tail, holder: j.faa.tails[tail], at: j.faa.at}; } catch(e){ /* list not loaded: no check shown */ }
     }
     const {red} = tripBlockers(body, {});
     if (red.length) { if (!["enquiry", "quoted"].includes(body.stage)) body.stage = "quoted"; toast(`Saved. ${red.length} red item${red.length > 1 ? "s" : ""}: the trip cannot go further. See Trip checks.`); }

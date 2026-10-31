@@ -5,7 +5,8 @@
 // Saved screenings (body.log = "trip" or "operations") are written to screen_log (SQL 0018) by this server only.
 // Environment (Vercel): SUPABASE_URL, SUPABASE_SECRET_KEY, SUPABASE_PUBLISHABLE_KEY
 const SB = (process.env.SUPABASE_URL || "").replace(/\/$/, ""), SECRET = process.env.SUPABASE_SECRET_KEY, PK = process.env.SUPABASE_PUBLISHABLE_KEY || SECRET;
-let cache = null;   // { at, lists, failed, names: Map }
+let cache = null;   // { at, lists, failed, names: Map, kinds, aslStates }
+let KINDS = null, tailCache = null;
 
 const SUFFIX = /\b(ltd|limited|pte|pvt|private|llc|l\.l\.c|inc|incorporated|co|corp|corporation|company|plc|sa|s\.a|ag|gmbh|bv|b\.v|nv|srl|s\.r\.l|spa|s\.p\.a|jsc|ojsc|pjsc|cjsc|oao|ooo|zao|fze|fzco|fzc|llp|lp|sdn|bhd|pt|tbk|kk|the|and|&)\b/g;
 // words that say what a company does, not who it is: a listed name made only of these is not a match on its own
@@ -32,7 +33,9 @@ export function check(names, index) {
         if (hits.length >= 5) break;
       }
     }
-    out.push({ name: raw, result: hits.length ? "possible match" : "no match", hits });
+    // a hit only on an alert list (MAS Investor Alert List) is a warning to check, not a sanctions match (31 Oct 2026)
+    hits.forEach(h => { h.kind = (KINDS || {})[h.list] || "sanctions"; });
+    out.push({ name: raw, result: !hits.length ? "no match" : hits.every(h => h.kind === "alert") ? "alert" : "possible match", hits });
   }
   return out;
 }
@@ -42,8 +45,16 @@ async function index() {
   const r = await fetch(`${SB}/storage/v1/object/sanctions/index.json`, { headers: { apikey: SECRET, authorization: `Bearer ${SECRET}` } });
   if (!r.ok) throw new Error("index not available (" + r.status + ")");
   const j = await r.json();
-  cache = { at: j.at, lists: j.lists || [], failed: j.failed || [], names: new Map(Object.entries(j.names || {})), loaded: Date.now() };
+  cache = { at: j.at, lists: j.lists || [], failed: j.failed || [], names: new Map(Object.entries(j.names || {})), kinds: j.kinds || {}, aslStates: j.aslStates || [], loaded: Date.now() };
+  KINDS = cache.kinds;
   return cache;
+}
+// FAA Part 135 aircraft list (daily job): which certificate holder a US tail flies under
+async function tails() {
+  if (tailCache && Date.now() - tailCache.loaded < 6 * 3600e3) return tailCache;
+  const r = await fetch(`${SB}/storage/v1/object/sanctions/faa135.json`, { headers: { apikey: SECRET, authorization: `Bearer ${SECRET}` } });
+  if (!r.ok) throw new Error("FAA list not available");
+  const j = await r.json(); tailCache = { at: j.at, url: j.url, tails: j.tails || {}, loaded: Date.now() }; return tailCache;
 }
 
 export default async function handler(req, res) {
@@ -58,6 +69,11 @@ export default async function handler(req, res) {
   const prof = pr.ok ? (await pr.json())[0] : null;
   if (!prof || !prof.active || !["owner", "ops", "broker"].includes(prof.role)) return res.status(403).json({ error: "Members only" });
   const names = (Array.isArray((req.body || {}).names) ? req.body.names : []).map(x => String(x || "").slice(0, 160)).filter(x => x.trim()).slice(0, 40);
+  const regs = (Array.isArray((req.body || {}).tails) ? req.body.tails : []).map(x => String(x || "").toUpperCase().replace(/[^A-Z0-9]/g, "")).filter(x => /^N[0-9A-Z]{1,5}$/.test(x)).slice(0, 10);
+  if (!names.length && regs.length) {
+    try { const t = await tails(); return res.status(200).json({ faa: { at: t.at, url: t.url, tails: Object.fromEntries(regs.map(x => [x, t.tails[x] || null])) } }); }
+    catch (e) { return res.status(503).json({ error: "The FAA Part 135 list is not loaded yet." }); }
+  }
   if (!names.length) return res.status(400).json({ error: "No names" });
   let ix;
   try { ix = await index(); } catch (e) { return res.status(503).json({ error: "The sanctions lists are not loaded yet. The daily screen job must run once (GitHub → Actions → Portal jobs → screen)." }); }
@@ -67,11 +83,11 @@ export default async function handler(req, res) {
   const b = req.body || {}, purpose = ["trip", "operations"].includes(b.log) ? b.log : null;
   if (purpose && !(purpose === "operations" && !["owner", "ops"].includes(prof.role))) {
     const row = { by: u.id, role: prof.role, trip_owner: /^[0-9a-f-]{36}$/i.test(b.tripOwner || "") ? b.tripOwner : null, trip_id: String(b.tripId || "").slice(0, 60), purpose,
-      names, results, outcome: results.some(r => r.result !== "no match") ? "possible match" : "clear", lists: ix.lists, lists_at: ix.at, stale: ageH > 48 };
+      names, results, outcome: results.some(r => r.result !== "no match") ? "possible match" : "clear", lists: ix.lists, lists_at: ix.at, stale: ageH > 48 };   // an alert-list hit is logged as a possible match (SQL 0018 allows two outcomes)
     try {
       const w = await fetch(`${SB}/rest/v1/screen_log`, { method: "POST", headers: { apikey: SECRET, authorization: `Bearer ${SECRET}`, "content-type": "application/json", prefer: "return=representation" }, body: JSON.stringify(row) });
       if (w.ok) { logId = ((await w.json())[0] || {}).id || null; logged = true; }
     } catch (e) { /* the log table is missing until SQL 0018 runs; the screening still works */ }
   }
-  return res.status(200).json({ at: ix.at, stale: ageH > 48, lists: ix.lists, failed: ix.failed, results, logged, logId });
+  return res.status(200).json({ at: ix.at, stale: ageH > 48, lists: ix.lists, failed: ix.failed, aslStates: ix.aslStates, results, logged, logId });
 }
