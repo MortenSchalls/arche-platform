@@ -14,6 +14,7 @@ Read this before changing anything. These are business rules set by the owner, M
 
 ## Bookings
 - Simplicity first (Morten, 29 Oct 2026): "We need simplicity and fast flexible bookings, we cannot lose to complex portals." Every step is asked once, by the person who has the information; no double tasks or overlapping procedures; the portal fills in and checks what it can.
+- Background checks (Morten, 31 Oct 2026): anything the portal can check against a source (official registry or list, data file, API, or AI web research) is checked in the background while the person works, as part of that step, never as a separate manual task; a discrepancy is flagged on the item itself, with the source and the date checked. The same applies across the whole portal. Efficient, flexible and fast; less is more as long as every aspect is covered. Every paid service or AI call must justify its cost: free official sources first, spend capped and shown, and dropped if it does not pay for itself.
 - The owner approves every booking before a confirmation is issued (switch in Today; on by default). A price change after approval sends it back.
 - Four-eyes rule: nobody prices, issues or records payment on their own trip (the owner is exempt).
 - Brokers can set only enquiry, quoted, submitted or cancelled. Money stages come from operations.
