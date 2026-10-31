@@ -9,6 +9,6 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - run: |
-          for u in /website/ /website /website/services/ "/api/website" "/api/website?p=" "/api/me" /index.html; do
+          for u in /website/ /website/services/ /zz1/ /zz1/services/ /zz2/services/ /zz3/x /zz4 /zz5/x /zz6/services/; do
             h=$(curl -s -o /tmp/b -D - -X GET "https://portal.archeaviation.com$u" | grep -iE "^(HTTP|location|x-matched-path|content-type)" | tr -d '\r' | tr '\n' ' ')
             echo "::notice title=$u::$h | $(head -c 120 /tmp/b | tr -d '\r\n%')"; done
