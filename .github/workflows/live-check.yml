@@ -10,4 +10,5 @@ jobs:
     steps:
       - run: |
           for u in /website/ /website /website/services/ "/api/website" "/api/website?p=" "/api/me" /index.html; do
-            echo "=== $u"; curl -s -o /tmp/b -D - -X GET "https://portal.archeaviation.com$u" | grep -iE "^(HTTP|location|x-vercel-id|x-matched-path|content-type|server)" ; head -c 200 /tmp/b; echo; done
+            h=$(curl -s -o /tmp/b -D - -X GET "https://portal.archeaviation.com$u" | grep -iE "^(HTTP|location|x-matched-path|content-type)" | tr -d '\r' | tr '\n' ' ')
+            echo "::notice title=$u::$h | $(head -c 120 /tmp/b | tr -d '\r\n%')"; done
