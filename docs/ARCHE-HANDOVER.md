@@ -372,3 +372,4 @@ Company formation, Singapore (Morten, 31 Oct 2026, KYC questionnaire with Ottavi
 - DPO: Morten, contact privacy@archeaviation.com (public), business phone once available.
 - KYC figures given (plans, from the 9% base case at about 1.30 SGD/USD): Year 1 client billings about SGD 15.6M (Archē margin about SGD 1.4M; accountant to decide which counts as revenue), profit before tax about SGD 570,000; headcount Singapore 0 (resident director via corporate services), outside Singapore about 15 (director, about 10 commission-based brokers, 2-4 operations). No cryptocurrency.
 - Processing: KYC and incorporation documents 7-10 days.
+- Full questionnaire and answers, and the outline for Archē's own client/operator/broker KYC: project doc claude/company-formation-kyc-2026-10-31.md.
