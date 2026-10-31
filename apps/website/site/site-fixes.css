@@ -36,3 +36,70 @@ section#top button { min-width: 32px; min-height: 32px; }
 section#top + section { padding-top: clamp(72px, 8vw, 120px) !important; padding-bottom: clamp(72px, 8vw, 120px) !important; }
 section#services, section#why, section#why + section { padding-bottom: clamp(64px, 7vw, 112px) !important; }
 section#fleet, section#journey, section#contact { padding-top: clamp(64px, 7vw, 104px) !important; padding-bottom: clamp(64px, 7vw, 104px) !important; }
+
+/* Phone layout, 31 Oct 2026 (Morten: "a 1-1 of the browser version"): photo-led hero with a slim
+   quote form, rows of three become swipeable rows like the desktop, one 20px gutter throughout. */
+@media (max-width: 760px) {
+  #services, #why, #discover > div, #dates > div, #statement > div, footer > div, section#top + section { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* hero: the photo shows above the words, as on desktop; the form is one compact card */
+  section#top { min-height: 100svh !important; }
+  section#top > .hero-content { padding: 108px 20px 28px !important; gap: 22px !important; }
+  section#top > .hero-content > div:first-child { gap: 14px !important; }
+  section#top h1 { font-size: 34px !important; line-height: 1.14 !important; }
+  section#top > .hero-content > div:first-child > p:not([data-ae]) { font-size: 16px !important; line-height: 1.55 !important; }
+  section#top > .hero-content > div:first-child > p[data-ae] { margin: 0 !important; font-size: 11.5px !important; letter-spacing: .06em !important; }
+  section#top > .hero-content > div:last-child { box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 24px 48px rgba(0,0,0,.35) !important; }
+  section#top > .hero-content > div:last-child > div:first-child { padding: 0 14px !important; }
+  section#top > .hero-content > div:last-child > div:first-child button { padding: 10px 0 !important; min-height: 40px; font-size: 11px !important; letter-spacing: .2em !important; }
+  section#top > .hero-content > div:last-child > div:first-child > div { gap: 20px !important; }
+  section#top > .hero-content > div:last-child div[style*="grid-template-columns"] { grid-template-columns: 1fr 1fr !important; }
+  section#top > .hero-content > div:last-child div[style*="grid-template-columns"] > * { padding: 8px 14px !important; gap: 2px !important; min-width: 0; border-bottom: 1px solid rgba(243,245,248,.12); }
+  section#top > .hero-content > div:last-child div[style*="grid-template-columns"] > *:nth-child(2n) { border-right: 0 !important; }
+  section#top > .hero-content > div:last-child label { gap: 2px !important; }
+  section#top > .hero-content > div:last-child input:not([type="range"]) { min-height: 34px !important; font-size: 16px !important; min-width: 0; }
+  section#top > .hero-content > div:last-child input::placeholder { font-size: 13px; }
+  section#top > .hero-content > div:last-child div[style*="grid-template-columns"] button:not(.scp0) { width: 34px !important; height: 34px !important; min-width: 34px; min-height: 34px; }
+  section#top > .hero-content > div:last-child button.scp0 { order: 99; }
+  section#top > .hero-content > div:last-child div[style*="grid-template-columns"]:has(> :last-child:nth-child(odd)) > button.scp0 { grid-column: 1 / -1; }
+  section#top > .hero-content > div:last-child button.scp0 { min-height: 52px !important; padding: 0 12px !important; border-bottom: 0 !important; }
+
+  section#top + section { gap: 24px !important; }
+  #dates a { padding: 16px 18px !important; }
+  /* who we are / why: no desktop column gaps stacked on top of each other */
+  #why > div:first-child { gap: 22px !important; padding-top: 44px !important; }
+  #why > div:first-child > div:last-child { padding-top: 0 !important; font-size: 18px !important; gap: 16px !important; }
+  #why > div[style*="grid"] { gap: 36px !important; margin-top: 48px !important; }
+
+  /* services: three cards side by side, swiped like a row */
+  #services > div:last-child { display: flex !important; gap: 12px !important; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 0 20px 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  #services > div:last-child::-webkit-scrollbar { display: none; }
+  #services > div:last-child > div { flex: 0 0 80%; scroll-snap-align: center; }
+  #services > div:last-child > div > div:last-child { left: 22px !important; right: 22px !important; bottom: 24px !important; gap: 8px !important; }
+  #services > div:last-child > div > div:last-child > span:nth-child(2) { font-size: 24px !important; }
+  #services > div:last-child > div > div:last-child > span:nth-child(3) { font-size: 14px !important; line-height: 1.5 !important; }
+  #services > div:last-child > div > div:nth-last-child(2) { height: 75% !important; }
+
+  /* what every trip includes: the same swipeable row */
+  .ar-trio { padding: 0 0 72px !important; }
+  .ar-trio .ar-k { padding: 0 20px; }
+  .ar-trio .ar-g { display: flex !important; gap: 12px !important; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 20px 4px; scrollbar-width: none; }
+  .ar-trio .ar-g::-webkit-scrollbar { display: none; }
+  .ar-trio .ar-g > figure { flex: 0 0 76%; scroll-snap-align: center; margin: 0; }
+  .ar-trio .ar-img { aspect-ratio: 4 / 5 !important; height: auto !important; }
+
+  /* discover: four tiles as a 2 x 2 grid, as compact as the desktop row */
+  #discover > div > div { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  #discover .ae-tile { min-height: 200px !important; }
+  #discover .ae-tile > span:last-child { left: 14px !important; right: 14px !important; bottom: 14px !important; }
+  #discover .ae-tile > span:last-child > span:first-child { font-size: 19px !important; }
+  #discover .ae-tile > span:last-child > span:nth-child(2) { font-size: 12.5px !important; line-height: 1.4 !important; }
+
+  /* closing line keeps its size, as on desktop */
+  html[data-ae-page] #statement p:first-of-type { font-size: 30px !important; line-height: 1.2 !important; }
+  html[data-ae-page] #statement p:last-of-type { font-size: 11.5px !important; }
+
+  /* footer links in two tidy columns */
+  footer nav { display: grid !important; grid-template-columns: 1fr 1fr; gap: 0 16px !important; text-align: center; font-size: 11.5px !important; }
+  footer > div { padding-top: 56px !important; gap: 36px !important; }
+}
