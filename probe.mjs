@@ -1,11 +1,12 @@
-import { readXlsx } from "./xlsx.mjs";
-const UA = {"user-agent": "Mozilla/5.0 (compatible; ArcheExecutive-sanctions-screen/1.0)", accept: "*/*"};
-const get = async u => { const r = await fetch(u, {headers: UA}); return {r, b: Buffer.from(await r.arrayBuffer())}; };
+const UA = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36", accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "accept-language": "en-GB,en;q=0.9"};
 const note = (k, s) => console.log(`::notice title=${k}::` + s.replace(/%/g, "%25").replace(/\r?\n/g, "%0A").slice(0, 3800));
-{ const {r, b} = await get("https://www.mof.go.jp/policy/international_policy/gaitame_kawase/gaitame/economic_sanctions/shisantouketsu20261030.xlsx");
-  const sh = readXlsx(b); let s = `${r.status} ${b.length}\n`; for (const x of sh) { s += `[${x.name}] ${x.rows.length}\n`; const hi = x.rows.findIndex(rw => rw.length > 4); s += x.rows.slice(0, 3).concat(x.rows.slice(hi, hi + 4)).map(rw => rw.slice(0, 12).map(c => String(c).slice(0, 40)).join(" | ")).join("\n") + "\n"; }
-  note("mof", s.slice(0, 3700)); }
-{ const {b} = await get("https://aps.amlo.go.th/aps/public/thailandlist/search?un_name=&un_registration_number=&passport_no=&un_id=");
-  const t = b.toString(); const trs = [...t.matchAll(/<tr[\s\S]*?<\/tr>/g)].map(m => m[0]); note("amlo", `trs ${trs.length}\n` + trs.slice(0, 3).map(x => x.replace(/\s+/g, " ").slice(0, 900)).join("\n---\n") + "\npaging: " + [...new Set([...t.matchAll(/[?&]page=\d+|pagination[^>]{0,80}|ทั้งหมด[^<]{0,60}/g)].map(m => m[0]))].slice(0, 6).join(" ; ")); }
-{ const {b} = await get("https://transport.ec.europa.eu/document/download/67b75752-d144-4366-9f4a-c04157840211_en?filename=air-safety-list.xlsx");
-  const a = readXlsx(b)[0]; note("easaA", a.rows.slice(6, 40).map(rw => rw.slice(0, 5).map(c => String(c).slice(0, 50)).join(" | ")).join("\n")); }
+async function go(k, u, pats = []) { try { const r = await fetch(u, {headers: UA, redirect: "follow"}); const b = Buffer.from(await r.arrayBuffer()); const t = b.toString("utf8");
+  let s = `${r.status} ${r.headers.get("content-type")} ${b.length}B ${r.url}\n`; for (const p of pats) s += `/${p}/: ` + [...new Set([...t.matchAll(new RegExp(p, "gi"))].map(m => m[0]))].slice(0, 12).join(" ; ") + "\n";
+  s += "HEAD: " + t.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 900); note(k, s); } catch (e) { note(k, "ERR " + e.message + " " + (e.cause && e.cause.code)); } }
+await go("moha-admin", "https://admin.moha.gov.my/index.php/en/senarai-kementerian-dalam-negeri", ["href=\"[^\"]*\\.(pdf|xml|xlsx?|html?)[^\"]*\"", "href=\"[^\"]*[Ss]ekatan[^\"]*\""]);
+await go("moha-www", "https://moha.gov.my/index.php/en/senarai-kementerian-dalam-negeri", ["href=\"[^\"]*\\.(pdf|xml|xlsx?)[^\"]*\""]);
+await go("sso-whole", "https://sso.agc.gov.sg/Act/TSFA2002?WholeDoc=1");
+await go("sso-pdf", "https://sso.agc.gov.sg/Act/TSFA2002/Pdf");
+await go("egazette", "https://www.egazette.gov.sg/", ["[^\"' ]*Suppression[^\"' ]*"]);
+await go("wayback-tsofa", "https://archive.org/wayback/available?url=sso.agc.gov.sg/Act/TSFA2002");
+await go("mas-tfs", "https://www.mas.gov.sg/regulation/anti-money-laundering/targeted-financial-sanctions/lists-of-designated-individuals-and-entities", ["href=\"[^\"]*(pdf|TSFA|tsofa|Sc1)[^\"]*\""]);
