@@ -1,7 +1,7 @@
 const note = (k, s) => console.log(`::notice title=${k}::` + String(s).replace(/%/g, "%25").replace(/\r?\n/g, "%0A").slice(0, 3800));
 try {
 const r = await fetch("https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.xml"); const x = await r.text(); note("len", r.status + " " + x.length + " " + x.slice(0, 300));
-const days = [...x.matchAll(/<Cube time='(\d{4}-\d\d-\d\d)'>([\s\S]*?)<\/Cube>/g)].map(m => { const g = c => +((m[2].match(new RegExp(`currency='${c}' rate='([\\d.]+)'`)) || [])[1]); return { d: m[1], thb: g("THB") / g("USD") }; }).filter(o => o.thb > 0);
+const days = [...x.matchAll(/<Cube time=["'](\d{4}-\d\d-\d\d)["']>([\s\S]*?)<\/Cube>/g)].map(m => { const g = c => +((m[2].match(new RegExp(`currency=["']${c}["'] rate=["']([\\d.]+)["']`)) || [])[1]); return { d: m[1], thb: g("THB") / g("USD") }; }).filter(o => o.thb > 0);
 const last = days[0].d, end = new Date(last), start = new Date(end); start.setFullYear(start.getFullYear() - 3);
 const win = days.filter(o => new Date(o.d) > start);
 const avg = win.reduce((a, o) => a + o.thb, 0) / win.length;
