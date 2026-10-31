@@ -1,11 +1,11 @@
 /* ---------- Broker intake and leaving (Morten, 26 Oct 2026) ----------
    - Ready to sign: no agreement is sent until company, bank, client payments and Avinode are ticked (insurance is
-     being arranged; clause 8.9 says so).
+     being arranged; the agreement's Insurance clause says so).
    - Supervision limit: at most N people supervised at once (default 6); others wait.
    - Country check: a candidate from a country Archē has no broker in needs a counsel check before the agreement.
    - Assessment list: candidates name 10–20 organisations they can reach; they become their own leads at countersignature.
    - Leaving: one tick ends the engagement (now, or after 30 days' notice), takes access away, frees their enquiries and
-     leads, removes rights and alerts, and asks them to confirm deletion of Archē data within 7 days (clause 8.5).
+     leads, removes rights and alerts, and asks them to confirm deletion of Archē data within 7 days (clause "On ending" of the agreement).
    - I'm unavailable: alerts go to a backup person for a set time.
    - 24-hour contacts: operator operations line and handler phone on every trip before the confirmation.
    Settings live in config/intake (owner writes). */
@@ -53,7 +53,7 @@ function intakeTeamPanel(){
   return `<div class="panel" style="margin-bottom:16px" id="intakePanel"><h2>Ready to sign brokers</h2>
     <p class="small muted">Candidates can register, read the offer and do the academy at any time. Agreements go out only when all four are ticked.</p>
     ${Object.entries(INTAKE_READY).map(([k, l]) => `<label class="check" for="ir_${k}"><input type="checkbox" id="ir_${k}" data-intake="ready" data-k="${k}" ${R[k] ? "checked" : ""}><span>${esc(l)}</span></label>`).join("")}
-    <label class="check" for="ir_ins"><input type="checkbox" id="ir_ins" data-intake="ready" data-k="insurance" ${R.insurance ? "checked" : ""}><span>Insurance in place (optional now; when ticked, tell signed brokers in writing, as clause 8.9 promises)</span></label>
+    <label class="check" for="ir_ins"><input type="checkbox" id="ir_ins" data-intake="ready" data-k="insurance" ${R.insurance ? "checked" : ""}><span>Insurance in place (optional now; when ticked, tell signed brokers in writing, as the agreement's Insurance clause promises)</span></label>
     <p class="small">${intakeReady() ? `<span class="chip c-flown">Ready</span> Agreements can be sent.` : `<span class="chip c-review">Not ready</span> Agreements are held back.`}</p>
     <div class="row"><label class="f" for="ir_cap" style="max-width:280px">People in supervision at the same time (now ${n})<input id="ir_cap" type="number" min="1" max="50" value="${cap}"></label><button class="btn small" type="button" data-intake="cap">Save limit</button></div>
     ${leavers.length ? `<h3 style="margin:12px 0 4px">Leaving</h3>${leavers.map(([id, p]) => offboardCard(id, p)).join("")}` : ""}
@@ -110,13 +110,13 @@ async function offboardSweep(){
   }
   setTimeout(() => { S.offSweep = false; }, 10 * 60e3);
 }
-/* the person who left: one screen to confirm deletion (clause 8.5) */
+/* the person who left: one screen to confirm deletion (clause "On ending" of the agreement) */
 function vLeaving(){
   if (S.db && !S.subs["join/" + S.uid]) watchDoc("join/" + S.uid, snap => { S.myJoin = snap.exists ? snap.data() : null; render(); });
   const o = (S.myRoster || {}).offboard || {}, done = ((S.myLeave || S.myJoin || {}).kind === "leaving") ? (S.myLeave || S.myJoin).confirmedAt : null;
   return `<div class="panel stack" style="max-width:640px"><h1>Your engagement has ended</h1>
     <p>Your agreement with Archē Executive ended on ${fmtD(o.endDate)}. Thank you for your work.</p>
-    <p class="small">Under clause 8.5, return or delete all Archē information and client data you hold (emails, notes, files, contacts, messages) by ${fmtD(o.deleteBy)}, and confirm it here. Commission on bookings approved before the end date is paid as clause 8.4 sets out.</p>
+    <p class="small">Under the agreement (clause "On ending"), return or delete all Archē information and client data you hold (emails, notes, files, contacts, messages) by ${fmtD(o.deleteBy)}, and confirm it here. Commission on bookings approved before the end date is paid as clause 8.4 sets out.</p>
     ${done ? `<div class="note ok small">Confirmed ${fmtT(done)}. Nothing else is needed.</div>` : `<label class="check" for="lv_ok"><input type="checkbox" id="lv_ok"><span>I have returned or deleted all Archē information and client data, and kept no copies.</span></label><div class="row"><button class="btn primary" type="button" data-intake="leaveOk">Confirm</button></div>`}</div>`;
 }
 /* ---------- I'm unavailable: alerts go to a backup ---------- */
@@ -185,7 +185,7 @@ function leaveTodayFlags(){
   if (!S.isOwner) return [];
   return Object.entries(S.roster || {}).filter(([, p]) => p.offboard && !p.offboard.closed).flatMap(([id, p]) => {
     const o = p.offboard, out = [];
-    if (!o.confirmedAt && o.deleteBy && Date.now() > Date.parse(o.deleteBy)) out.push(`${p.contractName || nm(id)} has not confirmed deleting Archē data (due ${fmtD(o.deleteBy)}). Remind them in writing (clause 8.5).`);
+    if (!o.confirmedAt && o.deleteBy && Date.now() > Date.parse(o.deleteBy)) out.push(`${p.contractName || nm(id)} has not confirmed deleting Archē data (due ${fmtD(o.deleteBy)}). Remind them in writing (clause "On ending" of the agreement).`);
     if (Object.keys(OFF_EXT).some(k => !(o.ext || {})[k]) && (p.active === false)) out.push(`${p.contractName || nm(id)} left: tick the mailbox, WhatsApp and Avinode steps in Team.`);
     return out;
   });
