@@ -60,6 +60,6 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await c.fill('#ob_p','+65 0000 0001');await c.waitForTimeout(100);
  ok('signature shows name, phone and Archē email', await c.evaluate(()=>{const t=document.getElementById('obSig').innerText;return t.includes('Example New Broker')&&t.includes('+65 0000 0001')&&t.includes('new.broker@example.com')&&t.includes('000000000X');}));
  await c.check('#ob_c1');await c.check('#ob_c2');await c.click('[data-ob=ack]');await c.waitForTimeout(600);
- ok('confirming opens the desk', await c.evaluate(()=>!!(S.obAck&&S.obAck.ackAt)&&S.view==='home'));
+ ok('confirming opens the desk', await c.evaluate(()=>!!(S.obAck&&S.obAck.ackAt)&&S.view==='today'));
  console.log('ERRORS',JSON.stringify(errs));await b.close();
  if(!process.env.KEEP) for (const f of fs.readdirSync('.').filter(f=>f.startsWith('t_j_'))) fs.unlinkSync(f);})();

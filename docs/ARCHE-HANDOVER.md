@@ -193,11 +193,11 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
 
   Signed in the portal.
 - **Training manual:** Word v3_8 is the master. The broker academy and external academy are rebuilt from it.
-- **Budget V2 (Excel):**
+- **Budget V2 (Excel), latest 31 Oct 2026 (`..._V2_Broker_Plan_5x5.xlsx`):**
   - revenue-scaled admin
-  - broker plan: 3 brokers in month 1, 10 by month 6, then +3 a month to 100
+  - broker plan: 5 brokers in month 1, +5 a month to 100 (month 20)
   - 9% margin
-  - 10-year net about USD 114.5 M (year 1 about USD 1.33 M)
+  - 10-year net about USD 126.2 M (year 1 about USD 3.54 M)
   - caution: from year 3 the volume exceeds LunaJets
 - Email signature, meeting backgrounds, go-live SQL, owner SQL and prospect imports.
   Prospect files hold real data: **do not share**.
@@ -341,7 +341,14 @@ Checks 27 Oct 2026 (late morning): the four handling agents wrongly flagged by t
 - AI spend cap: api/ai.mjs counts estimated spend in config/aispend; cap config/aicap (default USD 25/month) shown and set in Settings; AI pauses at the cap.
 - Reports view (owner, operations; src-modules/reports.js): charts (booked value and gross profit by month, trips by stage, trip-check health, gross profit by broker) and downloads (trips, payments, commission, compliance, operator library) as CSV, one Excel workbook, or print-to-PDF; no client email/phone or prospect contacts; downloads logged.
 - CI now also runs the jobs tests, lists.test, screenlists, reportstest, safetytest and colorscan.
-- Pending: the Word manual (master) still describes the four pre-issue ticks as manual and operations screening as a button: update manual 3.2 and Appendix A.1, then rebuild academies. Less-is-more items not done yet: merging Dashboard into Today for brokers and operations, one place for alerts.
+- Same day, second round (Morten: "For the lists not automated, see if we can get updated pdf ... always latest version as a work around ... update related documents and procedures/training ... merge today for brokers and operations"):
+  - Singapore TSOFA First Schedule: sso.agc.gov.sg blocks servers (CloudFront 403 / robot check). The screen job asks the Internet Archive to copy the official PDF of the Act (web.archive.org/save), reads that copy (pdftotext; jobs.yml installs poppler for the screen job) and records the copy's date ("official PDF of 2026-10-31"); a copy older than 14 days counts as failed. 34 names on 31 Oct (version in force from 26 Aug 2026).
+  - Malaysia MOHA: the site's certificate chain is incomplete; the job fetches the intermediate named in the certificate (AIA, GlobalSign) and reads the XML list (link found on the list page; names and other names only, no ID numbers or addresses).
+  - Any list that cannot be read keeps its names from the last good index for up to 14 days, marked "kept from <date>" (Team → Sanctions watch shows lists read and not read).
+  - Today replaces the Dashboard for brokers and operations (one start page: tasks, flights, waiting, then Progress this month; old links to Dashboard land on Today).
+  - Manual 3.9 (file name still v3_8): 3.2 lists and automatic screening, H.2 Today, H.6 background checks, H.8 automatic ticks, H.9 operations screening, H.19a Reports, H.19 AI spend, B.6 lists, version line; PDF, both academies and the portal academy rebuilt.
+  - Budget: 5 brokers in month 1, +5 a month to 100 (Morten 31 Oct): Archē_Executive_Budget_Model_V2_Broker_Plan_5x5.xlsx (in the cloud workspace out/; send to the Mac "Final versions" when the bridge is on). 10-yr net retained 126.22M (was 114.47M); Y1 3.54M, Y2 12.13M, Y3 15.15M, Y4 14.06M, Y10 13.50M; lowest cash 48,247 (month 1); 301 hired, 201 leavers over 10 years. Caveat: Y1 bills 74.6M, about 6× the base demand scenario; from Y3 about 1.5× LunaJets 2025.
+- Open: a notice to members about the automatic ticks and Today (CLAUDE.md: ask Morten first; none added). One place for alerts not done yet.
 
 ## 9. Planning notes in the project (claude/…)
 

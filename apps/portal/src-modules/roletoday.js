@@ -1,6 +1,6 @@
 /* ---------- Today for brokers and operations (Morten, 28 Oct 2026: "can we have a Today page for each function") ----------
-   The first page brokers and operations see: what needs them today, in the order to do it. The Dashboard stays for
-   progress and figures. Built only from what the portal already records; every line opens the trip or lead.
+   The first page brokers and operations see: what needs them today, in the order to do it, then progress and figures.
+   The separate Dashboard is merged into Today (Morten, 31 Oct 2026: "merge today for brokers and operations"): one page. Built only from what the portal already records; every line opens the trip or lead.
    Broker: tasks (returned files, quotes, follow-ups, leads due), flights today and tomorrow on their trips,
      aftercare, work waiting on operations or the director, open enquiries in the pool, notices.
    Operations: tasks (files to check, signatures, payments, operator payments, flights to record), flights today and
@@ -8,7 +8,10 @@
    Every section can be collapsed (collapse.js). */
 (function(){
   const _nav = navItems;
-  navItems = function(){ const r = acting(), items = _nav(); return (r === "broker" || r === "ops") && !items.some(i => i[0] === "today") ? [["today", "Today"], ...items] : items; };
+  navItems = function(){ const r = acting(), items = _nav(); if (r !== "broker" && r !== "ops") return items;
+    const rest = items.filter(i => i[0] !== "home" && i[0] !== "today"); return [["today", "Today"], ...rest]; };
+  if (typeof PRIMARY === "object") { PRIMARY.broker = PRIMARY.broker.map(k => k === "home" ? "today" : k); PRIMARY.ops = PRIMARY.ops.map(k => k === "home" ? "today" : k); }
+  if (typeof badges === "function") { const _b = badges; badges = function(){ const b = _b(), r = acting(); if ((r === "broker" || r === "ops") && b.home) { b.today = (b.today || 0) + b.home; delete b.home; } return b; }; }
   const localISO = (ms) => new Date(ms).toLocaleDateString("en-CA");          // the user's own calendar date, YYYY-MM-DD
   const cl = t => (t.d.client && (t.d.client.company || t.d.client.name)) || "Client";
   const firstLeg = t => (legsOf(t)[0] || {}).date || "";
@@ -42,6 +45,12 @@
     return `<div class="panel"><h2>Client payments outstanding (${rows.length})</h2>${rows.length ? `<div class="tasks">${rows.map(x => `<button type="button" class="task s${x.late || x.now ? 0 : 1}" data-open="${x.t.bid}|${x.t.did}" data-goto="queue"><span class="dot" aria-hidden="true"></span><span>${esc(cl(x.t))}: first flight ${x.first ? fmtD(x.first) : "–"}${x.due ? ", " + esc(x.due) : ""}${x.late ? " · overdue" : ""}</span></button>`).join("")}</div>
       <p class="small muted">Deposit 25% (at least USD 2,500) on signature; balance 7 days before the first departure; the full amount if departure is within 7 days. Payment only by the secure payment request.</p>` : `<p class="small muted">No confirmed trip is waiting for client payment.</p>`}</div>`;
   }
+  // progress and figures (formerly the Dashboard): built by vHome, shown under the day's work
+  function progress(){
+    try { vHome(); } catch(e){ return ""; }
+    const p = window.__homeParts || {}; if (!p.kp && !p.opsKp && !p.chart && !p.team) return "";
+    return `<h2 style="margin-top:22px">Progress this month</h2>${p.kp || ""}${p.opsKp || ""}${p.chart || p.team ? `<div class="grid2">${p.chart ? `<div class="stack">${p.chart}</div>` : ""}<div class="stack">${p.team || ""}</div></div>` : ""}`;
+  }
   function roleToday(r){
     const me = S.uid, asBroker = r === "broker" || S.alsoBroker, asOps = r === "ops";
     const tasks = tasksFor(asBroker ? me : null, asOps), urgent = tasks.filter(x => x.sev <= 1).length;
@@ -49,11 +58,12 @@
     const nFl = tripsF.filter(t => ["issued", "clientPaid", "flown"].includes(t.stage)).reduce((n, t) => n + legsOf(t).filter(l => l.date === t0 || l.date === t1).length, 0);
     const nRev = asOps ? allTrips().filter(t => t.stage === "review" && !ownTrip(t)).length : myTrips(me).filter(t => t.stage === "review").length;
     const ac = typeof acTaskPanel === "function" ? acTaskPanel(asOps && isStaff()) : "";
-    return `<div class="head"><div><h1>Today</h1><p class="muted small">${new Date().toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long"})} · what needs you today, most urgent first. Your progress and figures are on the Dashboard.</p></div><div class="row"><button class="btn" type="button" data-view="home">Dashboard</button></div></div>
+    return `<div class="head"><div><h1>Today</h1><p class="muted small">${new Date().toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long"})} · what needs you today, most urgent first; your progress and figures below.</p></div>${asBroker ? `<div class="row"><button class="btn primary" type="button" data-act="new">New enquiry</button></div>` : ""}</div>
+      ${typeof myReqPanel === "function" ? myReqPanel() : ""}${typeof supPrompt === "function" ? supPrompt() : ""}
       ${typeof noticePanel === "function" ? noticePanel() : ""}
       <div class="kpis"><div class="kpi"><div class="l">Urgent</div><div class="v">${urgent}</div></div><div class="kpi"><div class="l">All tasks</div><div class="v">${tasks.length}</div></div><div class="kpi"><div class="l">Flights today and tomorrow</div><div class="v">${nFl}</div></div><div class="kpi"><div class="l">${asOps ? "Files to check" : "With operations"}</div><div class="v">${nRev}</div></div></div>
       <div class="grid2"><div class="panel"><h2>Your tasks (${tasks.length})</h2>${taskList(tasks)}</div>
-      <div class="stack">${flights(tripsF, asOps ? "queue" : "trips")}${asOps ? payments() : waiting(me)}${asBroker ? pool() : ""}</div></div>${ac}`;
+      <div class="stack">${flights(tripsF, asOps ? "queue" : "trips")}${asOps ? payments() : waiting(me)}${asBroker ? pool() : ""}</div></div>${ac}${progress()}`;
   }
   const _vT = vToday;
   vToday = function(){ const r = acting(); return r === "broker" || r === "ops" ? roleToday(r) : afterHead(_vT(), `<div style="margin-bottom:16px">${flights(allTrips(), "trips")}</div>`); };   // the owner sees every flight too (Morten, 28 Oct 2026)

@@ -2710,6 +2710,10 @@ function vHome(){
   const team = rows.length ? `<div class="panel"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Team this month</h2><select id="dashMetric" aria-label="Compare by" style="width:auto">${[["points","Points"],["confirmed","Confirmed trips"],["enquiries","Enquiries"],["adds","Prospects added"],["perf","Follow-up score"]].map(([k, l]) => `<option value="${k}" ${S.dashMetric === k ? "selected" : ""}>${l}</option>`).join("")}</select></div>
     ${hbars(rows.map((x, i) => ({id:x.id, k:label(x, i), v:num(x[S.dashMetric || "points"])})).sort((a, b) => b.v - a.v), v => String(Math.round(v)), me)}
     <p class="small muted">Points: 3 per organisation you add, 1 per lead contacted per day, 1 per contact route you add or correct (up to ${cfgA().updatePointsCap} a month), 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold. Adding prospects also earns you a bigger share of new leads.</p></div>` : "";
+  // progress and figures, shown on Today for brokers and operations (Dashboard merged into Today, Morten 31 Oct 2026)
+  const opsKp = asOps ? (() => { const q = allTrips(); const c = s => q.filter(t => t.stage === s && !ownTrip(t)).length; return `<div class="kpis"><div class="kpi"><div class="l">Waiting for operations</div><div class="v">${c("review")}</div></div><div class="kpi"><div class="l">Confirmed, client not paid</div><div class="v">${c("issued")}</div></div><div class="kpi"><div class="l">Paid, waiting to fly</div><div class="v">${c("clientPaid")}</div></div></div>`; })() : "";
+  const chart = asBroker ? `<div class="panel"><h2>Trips confirmed, last 6 months</h2>${barChart(hist, v => String(v), {label:"Trips confirmed per month", highlight: mLabel(month)})}</div>` : "";
+  window.__homeParts = {kp, opsKp, chart, team};
   const tasks = tasksFor(asBroker ? me : null, asOps);
   return `<div class="head"><div><h1>${esc(meName ? meName.split(" (")[0] : "Dashboard")}</h1><p class="muted small">${new Date().toLocaleDateString("en-GB", {weekday:"long", day:"numeric", month:"long"})} · your progress and everything outstanding.</p></div>${asBroker ? `<div class="row"><button class="btn primary" type="button" data-act="new">New enquiry</button></div>` : ""}</div>
   ${kp}
@@ -4403,7 +4407,7 @@ const CR_TRY = {
   access: ["owner", "Switch between Test Owner, Test Operations and Test Broker in the orange bar and compare the menus."],
   testversion: ["broker", "Press Reset test data (twice), then switch to Test Broker 2 and back."],
   phone: ["broker", "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar."],
-  dashboard: ["broker", "As Test Broker, open Home and read the progress tiles and the Outstanding list."],
+  dashboard: ["broker", "As Test Broker, open Today: work Your tasks from the top, then read Progress this month."],
   help: ["broker", "Open Help and search the guide for a word such as cancellation."],
   ai: ["broker", "Open Assistant to see where questions go. Answers work only in the real portal."],
   leads: ["owner", "As Test Owner, assign Example Family Office to Test Broker. Then switch to Test Broker, open it in My leads and log a contact with a proper note."],
@@ -4923,7 +4927,7 @@ document.addEventListener("click", async e => {
     if (!($("ob_c1") || {}).checked || !($("ob_c2") || {}).checked) { toast("Tick both boxes to confirm."); return; }
     if (!f.name || !f.phone) { toast("Type your name and direct phone for the signature first."); return; }
     const d = {kind: "onboarding", ackAt: now(), conduct: true, sig: {name: f.name, phone: f.phone}};
-    try { await S.db.doc(`train/${S.uid}/runs/onboarding`).set(d); S.obAck = d; audit("Onboarding package confirmed", f.name); S.view = "home"; toast("Welcome aboard. Your desk is open."); render(); }
+    try { await S.db.doc(`train/${S.uid}/runs/onboarding`).set(d); S.obAck = d; audit("Onboarding package confirmed", f.name); S.view = "today"; toast("Welcome aboard. Your desk is open."); render(); }
     catch(err){ toast("Could not save. Try again."); }
   }
 });
@@ -6034,9 +6038,9 @@ function vOnboarding(){
   const LIST = {"OFAC SDN": "United States (OFAC)", "UN": "United Nations", "EU": "European Union", "UK": "United Kingdom"};
   function panel(){
     if (!S.isOwner || acting() !== "owner") return ""; load(); const d = S.sw.data;
-    const head = `<div class="panel" style="margin-bottom:16px"><h2>Sanctions watch</h2><p class="small muted">Every Monday the portal reads the official UN, US, EU and UK sanctions lists. A new or ended sanctions programme, or a list that cannot be read, shows here so the website's excluded places, the manual and KYC stay current. People and companies are screened on every booking and operator against the same lists.</p>`;
+    const head = `<div class="panel" style="margin-bottom:16px"><h2>Sanctions watch</h2><p class="small muted">Every Monday the portal reads the official UN, US, EU and UK sanctions lists. A new or ended sanctions programme, or a list that cannot be read, shows here so the website's excluded places, the manual and KYC stay current. People and companies are screened every day and on every booking against those lists plus Singapore (TSOFA First Schedule, read from the official PDF), Australia, Japan, Malaysia and Thailand; the MAS Investor Alert List and the EU Air Safety List are warnings.</p>`;
     if (!S.sw.loaded) return head + `<p class="small muted">Loading…</p></div>`;
-    const sc = S.sw.screen, scLine = sc ? `<p class="small">Daily screen of operators and partners: last run ${esc(fmtT(sc.lastRun))}, ${sc.screened} screened, possible matches: <b>${esc((sc.possible || []).join(", ") || "none")}</b>. Name index for booking screens: ${sc.indexSize} names.${(Date.now() - Date.parse(sc.lastRun)) > 48 * 3600e3 ? ` <b>Older than 48 hours: check the job in GitHub Actions.</b>` : ""}</p>` : `<p class="small"><b>The daily screen has not run yet.</b> Booking screens need it: GitHub → Actions → Portal jobs → Run workflow → screen.</p>`;
+    const sc = S.sw.screen, scLine = sc ? `<p class="small">Daily screen of operators and partners: last run ${esc(fmtT(sc.lastRun))}, ${sc.screened} screened, possible matches: <b>${esc((sc.possible || []).join(", ") || "none")}</b>. Name index for booking screens: ${sc.indexSize} names.${(sc.lists || {}).loaded ? `<br>Lists read: ${esc(sc.lists.loaded.join(" · "))}.` : ""}${((sc.lists || {}).failed || []).length ? ` <b>Not read this time: ${esc(sc.lists.failed.join(", "))}</b> (the last good copy stays in use).` : ""}${(Date.now() - Date.parse(sc.lastRun)) > 48 * 3600e3 ? ` <b>Older than 48 hours: check the job in GitHub Actions.</b>` : ""}</p>` : `<p class="small"><b>The daily screen has not run yet.</b> Booking screens need it: GitHub → Actions → Portal jobs → Run workflow → screen.</p>`;
     if (!d) return head + scLine + `<p class="small">Programme watch not run yet. The first run on Monday stores today's programmes as the starting point. To run it now: GitHub → Actions → Portal jobs → Run workflow → regimes.</p></div>`;
     const lists = Object.entries(d.latest || {}).map(([k, v]) => `${LIST[k] || k}: ${v.length} programmes`).join(" · ");
     const open = (d.open || []).map(c => `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p>${esc(LIST[c.list] || c.list)}: ${c.added.length ? "new " + esc(c.added.join(", ")) : ""}${c.added.length && c.removed.length ? "; " : ""}${c.removed.length ? "ended " + esc(c.removed.join(", ")) : ""}</p><p class="small muted">Seen ${esc(fmtD(c.at))}</p></div></div>`).join("");
@@ -7059,7 +7063,7 @@ function vOnboarding(){
   const SYL = {
     fam: {t: "Familiarisation (first day)", lessons: [
       {id: "f1", t: "Welcome: what Archē Executive is and how we work", page: "today", min: 15, show: ["We are a broker, not an airline: a licensed operator flies every trip and is named in the quote and the agreement", "Our price: operator price and direct costs divided by 0.91 (9% margin); the director approves lower margins", "The director approves every booking before a confirmation is issued", "Four eyes: nobody prices, issues or records payment on their own trip"], check: "Explain in your own words what a broker does and who flies the aircraft."},
-      {id: "f2", t: "Finding your way in the portal", page: "help", min: 15, show: ["The menu and your Dashboard", "Help and Portal rules: where the answers are", "Day and Night themes", "Notices: read them and press \"I have read this\""], check: "Find the Portal rules page and the Help page on your own."},
+      {id: "f2", t: "Finding your way in the portal", page: "help", min: 15, show: ["The menu and your Today page", "Help and Portal rules: where the answers are", "Day and Night themes", "Notices: read them and press \"I have read this\""], check: "Find the Portal rules page and the Help page on your own."},
       {id: "f3", t: "Enquiries: the website and the enquiry pool", page: "pool", min: 20, show: ["Website enquiries arrive in the portal: reply within 15 minutes", "Open enquiries: taking an enquiry from the pool", "While you are supervised, some steps wait for the director's OK"], check: "Where does a new website enquiry appear, and how fast do we reply?"},
       {id: "f4", t: "A trip: the form and the steps guide", page: "trips", min: 25, show: ["New enquiry: client, legs, aircraft category, operator quote", "Fields marked * are needed before operations", "\"Steps to book this trip\": what is done, what is missing, who does it", "Save often; the trip keeps its history"], check: "Create a practice trip in the test portal and read its steps list aloud."},
       {id: "f5", t: "Checks that stop a trip", page: "trips", min: 25, show: ["Trip checks: red stops the trip, amber must be confirmed in writing", "Sanctions, cabotage, night curfews and the never-sell list", "Operator safety: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3", "Any other operator: an Archē-approved operator or the director's approval; the safety line for the quote"], check: "Name the three accepted audits and what happens with any other operator."},
@@ -7485,8 +7489,8 @@ function trustMatrix(){
 })();
 
 /* ---------- Today for brokers and operations (Morten, 28 Oct 2026: "can we have a Today page for each function") ----------
-   The first page brokers and operations see: what needs them today, in the order to do it. The Dashboard stays for
-   progress and figures. Built only from what the portal already records; every line opens the trip or lead.
+   The first page brokers and operations see: what needs them today, in the order to do it, then progress and figures.
+   The separate Dashboard is merged into Today (Morten, 31 Oct 2026: "merge today for brokers and operations"): one page. Built only from what the portal already records; every line opens the trip or lead.
    Broker: tasks (returned files, quotes, follow-ups, leads due), flights today and tomorrow on their trips,
      aftercare, work waiting on operations or the director, open enquiries in the pool, notices.
    Operations: tasks (files to check, signatures, payments, operator payments, flights to record), flights today and
@@ -7494,7 +7498,10 @@ function trustMatrix(){
    Every section can be collapsed (collapse.js). */
 (function(){
   const _nav = navItems;
-  navItems = function(){ const r = acting(), items = _nav(); return (r === "broker" || r === "ops") && !items.some(i => i[0] === "today") ? [["today", "Today"], ...items] : items; };
+  navItems = function(){ const r = acting(), items = _nav(); if (r !== "broker" && r !== "ops") return items;
+    const rest = items.filter(i => i[0] !== "home" && i[0] !== "today"); return [["today", "Today"], ...rest]; };
+  if (typeof PRIMARY === "object") { PRIMARY.broker = PRIMARY.broker.map(k => k === "home" ? "today" : k); PRIMARY.ops = PRIMARY.ops.map(k => k === "home" ? "today" : k); }
+  if (typeof badges === "function") { const _b = badges; badges = function(){ const b = _b(), r = acting(); if ((r === "broker" || r === "ops") && b.home) { b.today = (b.today || 0) + b.home; delete b.home; } return b; }; }
   const localISO = (ms) => new Date(ms).toLocaleDateString("en-CA");          // the user's own calendar date, YYYY-MM-DD
   const cl = t => (t.d.client && (t.d.client.company || t.d.client.name)) || "Client";
   const firstLeg = t => (legsOf(t)[0] || {}).date || "";
@@ -7528,6 +7535,12 @@ function trustMatrix(){
     return `<div class="panel"><h2>Client payments outstanding (${rows.length})</h2>${rows.length ? `<div class="tasks">${rows.map(x => `<button type="button" class="task s${x.late || x.now ? 0 : 1}" data-open="${x.t.bid}|${x.t.did}" data-goto="queue"><span class="dot" aria-hidden="true"></span><span>${esc(cl(x.t))}: first flight ${x.first ? fmtD(x.first) : "–"}${x.due ? ", " + esc(x.due) : ""}${x.late ? " · overdue" : ""}</span></button>`).join("")}</div>
       <p class="small muted">Deposit 25% (at least USD 2,500) on signature; balance 7 days before the first departure; the full amount if departure is within 7 days. Payment only by the secure payment request.</p>` : `<p class="small muted">No confirmed trip is waiting for client payment.</p>`}</div>`;
   }
+  // progress and figures (formerly the Dashboard): built by vHome, shown under the day's work
+  function progress(){
+    try { vHome(); } catch(e){ return ""; }
+    const p = window.__homeParts || {}; if (!p.kp && !p.opsKp && !p.chart && !p.team) return "";
+    return `<h2 style="margin-top:22px">Progress this month</h2>${p.kp || ""}${p.opsKp || ""}${p.chart || p.team ? `<div class="grid2">${p.chart ? `<div class="stack">${p.chart}</div>` : ""}<div class="stack">${p.team || ""}</div></div>` : ""}`;
+  }
   function roleToday(r){
     const me = S.uid, asBroker = r === "broker" || S.alsoBroker, asOps = r === "ops";
     const tasks = tasksFor(asBroker ? me : null, asOps), urgent = tasks.filter(x => x.sev <= 1).length;
@@ -7535,11 +7548,12 @@ function trustMatrix(){
     const nFl = tripsF.filter(t => ["issued", "clientPaid", "flown"].includes(t.stage)).reduce((n, t) => n + legsOf(t).filter(l => l.date === t0 || l.date === t1).length, 0);
     const nRev = asOps ? allTrips().filter(t => t.stage === "review" && !ownTrip(t)).length : myTrips(me).filter(t => t.stage === "review").length;
     const ac = typeof acTaskPanel === "function" ? acTaskPanel(asOps && isStaff()) : "";
-    return `<div class="head"><div><h1>Today</h1><p class="muted small">${new Date().toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long"})} · what needs you today, most urgent first. Your progress and figures are on the Dashboard.</p></div><div class="row"><button class="btn" type="button" data-view="home">Dashboard</button></div></div>
+    return `<div class="head"><div><h1>Today</h1><p class="muted small">${new Date().toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long"})} · what needs you today, most urgent first; your progress and figures below.</p></div>${asBroker ? `<div class="row"><button class="btn primary" type="button" data-act="new">New enquiry</button></div>` : ""}</div>
+      ${typeof myReqPanel === "function" ? myReqPanel() : ""}${typeof supPrompt === "function" ? supPrompt() : ""}
       ${typeof noticePanel === "function" ? noticePanel() : ""}
       <div class="kpis"><div class="kpi"><div class="l">Urgent</div><div class="v">${urgent}</div></div><div class="kpi"><div class="l">All tasks</div><div class="v">${tasks.length}</div></div><div class="kpi"><div class="l">Flights today and tomorrow</div><div class="v">${nFl}</div></div><div class="kpi"><div class="l">${asOps ? "Files to check" : "With operations"}</div><div class="v">${nRev}</div></div></div>
       <div class="grid2"><div class="panel"><h2>Your tasks (${tasks.length})</h2>${taskList(tasks)}</div>
-      <div class="stack">${flights(tripsF, asOps ? "queue" : "trips")}${asOps ? payments() : waiting(me)}${asBroker ? pool() : ""}</div></div>${ac}`;
+      <div class="stack">${flights(tripsF, asOps ? "queue" : "trips")}${asOps ? payments() : waiting(me)}${asBroker ? pool() : ""}</div></div>${ac}${progress()}`;
   }
   const _vT = vToday;
   vToday = function(){ const r = acting(); return r === "broker" || r === "ops" ? roleToday(r) : afterHead(_vT(), `<div style="margin-bottom:16px">${flights(allTrips(), "trips")}</div>`); };   // the owner sees every flight too (Morten, 28 Oct 2026)

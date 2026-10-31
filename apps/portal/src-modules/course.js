@@ -17,7 +17,7 @@ const CR_TRY = {
   access: ["owner", "Switch between Test Owner, Test Operations and Test Broker in the orange bar and compare the menus."],
   testversion: ["broker", "Press Reset test data (twice), then switch to Test Broker 2 and back."],
   phone: ["broker", "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar."],
-  dashboard: ["broker", "As Test Broker, open Home and read the progress tiles and the Outstanding list."],
+  dashboard: ["broker", "As Test Broker, open Today: work Your tasks from the top, then read Progress this month."],
   help: ["broker", "Open Help and search the guide for a word such as cancellation."],
   ai: ["broker", "Open Assistant to see where questions go. Answers work only in the real portal."],
   leads: ["owner", "As Test Owner, assign Example Family Office to Test Broker. Then switch to Test Broker, open it in My leads and log a contact with a proper note."],

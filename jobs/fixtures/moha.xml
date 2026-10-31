@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xmlResponse>
+<section type="A. INDIVIDUAL">
+<entry id="1">
+<field name="(1)&#10;No.">1</field>
+<field name="(3)&#10;Name">Example Malaysian Person0</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">Exalias Kilo Lima</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="2">
+<field name="(1)&#10;No.">2</field>
+<field name="(3)&#10;Name">Example Malaysian Person1</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="3">
+<field name="(1)&#10;No.">3</field>
+<field name="(3)&#10;Name">Example Malaysian Person2</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="4">
+<field name="(1)&#10;No.">4</field>
+<field name="(3)&#10;Name">Example Malaysian Person3</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="5">
+<field name="(1)&#10;No.">5</field>
+<field name="(3)&#10;Name">Example Malaysian Person4</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="6">
+<field name="(1)&#10;No.">6</field>
+<field name="(3)&#10;Name">Example Malaysian Person5</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="7">
+<field name="(1)&#10;No.">7</field>
+<field name="(3)&#10;Name">Example Malaysian Person6</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="8">
+<field name="(1)&#10;No.">8</field>
+<field name="(3)&#10;Name">Example Malaysian Person7</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="9">
+<field name="(1)&#10;No.">9</field>
+<field name="(3)&#10;Name">Example Malaysian Person8</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="10">
+<field name="(1)&#10;No.">10</field>
+<field name="(3)&#10;Name">Example Malaysian Person9</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="11">
+<field name="(1)&#10;No.">11</field>
+<field name="(3)&#10;Name">Example Malaysian Person10</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="12">
+<field name="(1)&#10;No.">12</field>
+<field name="(3)&#10;Name">Example Malaysian Person11</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="13">
+<field name="(1)&#10;No.">13</field>
+<field name="(3)&#10;Name">Example Malaysian Person12</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="14">
+<field name="(1)&#10;No.">14</field>
+<field name="(3)&#10;Name">Example Malaysian Person13</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="15">
+<field name="(1)&#10;No.">15</field>
+<field name="(3)&#10;Name">Example Malaysian Person14</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="16">
+<field name="(1)&#10;No.">16</field>
+<field name="(3)&#10;Name">Example Malaysian Person15</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="17">
+<field name="(1)&#10;No.">17</field>
+<field name="(3)&#10;Name">Example Malaysian Person16</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="18">
+<field name="(1)&#10;No.">18</field>
+<field name="(3)&#10;Name">Example Malaysian Person17</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="19">
+<field name="(1)&#10;No.">19</field>
+<field name="(3)&#10;Name">Example Malaysian Person18</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="20">
+<field name="(1)&#10;No.">20</field>
+<field name="(3)&#10;Name">Example Malaysian Person19</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="21">
+<field name="(1)&#10;No.">21</field>
+<field name="(3)&#10;Name">Example Malaysian Person20</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="22">
+<field name="(1)&#10;No.">22</field>
+<field name="(3)&#10;Name">Example Malaysian Person21</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="23">
+<field name="(1)&#10;No.">23</field>
+<field name="(3)&#10;Name">Example Malaysian Person22</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="24">
+<field name="(1)&#10;No.">24</field>
+<field name="(3)&#10;Name">Example Malaysian Person23</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="25">
+<field name="(1)&#10;No.">25</field>
+<field name="(3)&#10;Name">Example Malaysian Person24</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="26">
+<field name="(1)&#10;No.">26</field>
+<field name="(3)&#10;Name">Example Malaysian Person25</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="27">
+<field name="(1)&#10;No.">27</field>
+<field name="(3)&#10;Name">Example Malaysian Person26</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="28">
+<field name="(1)&#10;No.">28</field>
+<field name="(3)&#10;Name">Example Malaysian Person27</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="29">
+<field name="(1)&#10;No.">29</field>
+<field name="(3)&#10;Name">Example Malaysian Person28</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="30">
+<field name="(1)&#10;No.">30</field>
+<field name="(3)&#10;Name">Example Malaysian Person29</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="31">
+<field name="(1)&#10;No.">31</field>
+<field name="(3)&#10;Name">Example Malaysian Person30</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="32">
+<field name="(1)&#10;No.">32</field>
+<field name="(3)&#10;Name">Example Malaysian Person31</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="33">
+<field name="(1)&#10;No.">33</field>
+<field name="(3)&#10;Name">Example Malaysian Person32</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="34">
+<field name="(1)&#10;No.">34</field>
+<field name="(3)&#10;Name">Example Malaysian Person33</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="35">
+<field name="(1)&#10;No.">35</field>
+<field name="(3)&#10;Name">Example Malaysian Person34</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="36">
+<field name="(1)&#10;No.">36</field>
+<field name="(3)&#10;Name">Example Malaysian Person35</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="37">
+<field name="(1)&#10;No.">37</field>
+<field name="(3)&#10;Name">Example Malaysian Person36</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="38">
+<field name="(1)&#10;No.">38</field>
+<field name="(3)&#10;Name">Example Malaysian Person37</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="39">
+<field name="(1)&#10;No.">39</field>
+<field name="(3)&#10;Name">Example Malaysian Person38</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+<entry id="40">
+<field name="(1)&#10;No.">40</field>
+<field name="(3)&#10;Name">Example Malaysian Person39</field>
+<field name="(7)&#10;Place of Birth">Examplecity</field>
+<field name="(8)&#10;Other Names">-</field>
+<field name="(12)&#10;Address">1 Example Road</field>
+</entry>
+</section>
+<section type="B. ENTITY">
+<entry id="1">
+<field name="(1)&#10;No.">1</field>
+<field name="(3)&#10;Name of Entity">Example Front Organisation Mike</field>
+</entry>
+</section>
+</xmlResponse>

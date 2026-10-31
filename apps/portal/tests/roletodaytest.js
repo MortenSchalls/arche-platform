@@ -11,7 +11,9 @@ const seed=async p=>p.evaluate(async([d1,d2])=>{const B='00000000-0000-4000-8000
   await S.db.doc(`status/${B}/deals/x2`).set({state:'review'});},[tomorrow,in10]);
 const B=await open('broker');await seed(B);await B.waitForTimeout(1500);await B.reload();await B.waitForTimeout(3000);
 ok('broker lands on Today',await B.evaluate(()=>S.view==='today'&&/^Today/.test(document.querySelector('#main h1').textContent)));
-ok('Today is first in the broker menu, Dashboard still there',await B.evaluate(()=>navItems()[0][0]==='today'&&navItems().some(i=>i[0]==='home')));
+ok('Today is first in the broker menu, no separate Dashboard',await B.evaluate(()=>navItems()[0][0]==='today'&&!navItems().some(i=>i[0]==='home')));
+ok('Today shows progress this month (formerly the Dashboard)',await B.evaluate(()=>/Progress this month[\s\S]*Standard bookings this month[\s\S]*Trips confirmed, last 6 months/i.test(document.querySelector('#main').innerText)));
+ok('New enquiry button on Today',await B.evaluate(()=>!!document.querySelector('#main [data-act="new"]')));
 ok('broker sees the flight tomorrow',await B.evaluate(()=>/Tomorrow 10:00[\s\S]*WSSL → VTSP[\s\S]*Example Holdings/.test(document.querySelector('#main').innerText)));
 ok('broker sees the file waiting on operations',await B.evaluate(()=>/With operations: Ben Example/.test(document.querySelector('#main').innerText)));
 ok('broker sees the enquiry pool section',await B.evaluate(()=>/Open enquiries in the pool/.test(document.querySelector('#main').innerText)));
@@ -25,10 +27,11 @@ await B.context().route('**/*flightradar24.com/**',r=>r.fulfill({status:200,cont
  ok('the portal stays on Today',await B.evaluate(()=>S.view==='today'));
  const [pop2]=await Promise.all([B.waitForEvent('popup',{timeout:3000}).catch(()=>null),B.evaluate(()=>document.querySelector('#main a[data-trk]').click())]);
  await B.waitForTimeout(500);ok('clicking Track again reuses the same window',!pop2&&!pop.isClosed());if(pop&&!pop.isClosed())await pop.close();}
-await B.click('[data-view="home"]');await B.waitForTimeout(800);ok('Dashboard button opens the Dashboard',await B.evaluate(()=>S.view==='home'));
+await B.evaluate(()=>{S.view='home';render();});await B.waitForTimeout(500);ok('an old Dashboard link lands on Today',await B.evaluate(()=>S.view==='today'));
 const O=await open('ops');await seed(O);await O.evaluate(()=>{S.view='today';render();});await O.waitForTimeout(1500);
 ok('operations lands on Today with its own sections',await O.evaluate(()=>navItems()[0][0]==='today'&&/Client payments outstanding/.test(document.querySelector('#main').innerText)));
 ok('operations sees the payment with the balance date',await O.evaluate(()=>/Example Holdings: first flight/.test(document.querySelector('#main').innerText)));
+ok('operations Today shows the operations figures and no Dashboard',await O.evaluate(()=>/Progress this month[\s\S]*Waiting for operations/i.test(document.querySelector('#main').innerText)&&!navItems().some(i=>i[0]==='home')));
 ok('operations sees the file to check',await O.evaluate(()=>/Files to check/i.test(document.querySelector('#main').innerText)));
 ok('flight following has tracking links (Flightradar24, FlightAware, ADS-B Exchange)',await O.evaluate(()=>{const t=allTrips().find(t=>t.did==='x1');const h=followBlock(t);return /data-track="9V-EXA"/.test(h)&&h.includes('flightaware.com/live/flight/9VEXA')&&h.includes('globe.adsbexchange.com/?reg=9V-EXA');}));
 ok('no registration: the file asks for it',await O.evaluate(()=>{const t=allTrips().find(t=>t.did==='x1');return /Add the aircraft registration/.test(trackLinks({d:{quote:{}}}))&&/Add the aircraft registration/.test(trackLinks({d:{quote:{tail:'bad reg!!'}}}));}));

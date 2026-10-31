@@ -50,6 +50,9 @@ jobs:
         if: env.JOB == 'audits'
         working-directory: jobs
         run: npm install --no-save --no-audit --no-fund playwright@1.56.0 && npx playwright install --with-deps chromium
+      - name: PDF reader for the Singapore TSOFA list
+        if: env.JOB == 'screen'
+        run: which pdftotext || (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils)
       - name: Run ${{ env.JOB }}
         working-directory: jobs
         run: |

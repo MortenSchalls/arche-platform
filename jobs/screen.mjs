@@ -30,8 +30,24 @@ export async function ecbRates(fetchFn = fetch) {
   return { date, usdPer: usd, source: "European Central Bank euro reference rates", url: ECB };
 }
 
-export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null, storeFile = null) {
+export async function run(db, fetchFn = fetch, log = console.log, nowIso = new Date().toISOString(), store = null, storeFile = null, loadPrev = null) {
   const lists = await loadLists(fetchFn, log);
+  // a list that cannot be read today keeps its names from the last good index (up to 14 days), so a site being down never
+  // removes names from the screen; it is reported as kept, with the date
+  if (lists.failed.length && loadPrev) {
+    try { const prev = await loadPrev(); const age = prev && prev.at ? (Date.parse(nowIso) - Date.parse(prev.at)) / 864e5 : 99;
+      const keptFrom = (prev && prev.kept) || {};
+      for (const id of [...lists.failed]) {
+        const since = keptFrom[id] || (prev && prev.at), old = since ? (Date.parse(nowIso) - Date.parse(since)) / 864e5 : 99;
+        const names = Object.entries((prev && prev.names) || {}).filter(([, l]) => l === id);
+        if (!names.length || old > 14 || age > 14) continue;
+        names.forEach(([n, l]) => { if (!lists.names.has(n)) lists.names.set(n, l); });
+        lists.failed = lists.failed.filter(x => x !== id); lists.loaded.push(`${id} (${names.length}, kept from ${String(since).slice(0, 10)})`);
+        (lists.kept = lists.kept || {})[id] = since;
+        if (id === "EU Air Safety List" && prev.aslStates) lists.extra = { ...(lists.extra || {}), [id]: prev.aslStates };
+      }
+    } catch (e) { log("  previous index not read: " + e.message); }
+  }
   if (!lists.names.size) throw new Error("No sanctions list could be downloaded: " + lists.failed.join(", "));
   const listsInfo = { loaded: lists.loaded, failed: lists.failed, at: nowIso };
 
@@ -56,7 +72,7 @@ export async function run(db, fetchFn = fetch, log = console.log, nowIso = new D
   }
 
   // name index for on-demand booking screens: normalised name -> list
-  const index = { at: nowIso, lists: listsInfo.loaded, failed: listsInfo.failed, kinds: KIND, aslStates: (lists.extra || {})["EU Air Safety List"] || [], names: Object.fromEntries(lists.names) };
+  const index = { at: nowIso, lists: listsInfo.loaded, failed: listsInfo.failed, kept: lists.kept || {}, kinds: KIND, aslStates: (lists.extra || {})["EU Air Safety List"] || [], names: Object.fromEntries(lists.names) };
   if (store) await store(JSON.stringify(index));
 
   let faa = null, fx = null;   // rates go to config/fx: every member reads config (brokers quote in other currencies)
@@ -82,6 +98,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const r = await db.sb.storage.from("sanctions").upload(name, new Blob([body], { type: "application/json" }), { upsert: true, contentType: "application/json" });
       if (r.error) throw new Error(name + " upload: " + r.error.message);
     };
-    return run(db, fetch, console.log, new Date().toISOString(), store, storeFile);
+    const loadPrev = async () => { const r = await db.sb.storage.from("sanctions").download("index.json"); if (r.error) throw new Error(r.error.message); return JSON.parse(await r.data.text()); };
+    return run(db, fetch, console.log, new Date().toISOString(), store, storeFile, loadPrev);
   });
 }

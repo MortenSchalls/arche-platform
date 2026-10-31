@@ -174,7 +174,7 @@ document.addEventListener("click", async e => {
     if (!($("ob_c1") || {}).checked || !($("ob_c2") || {}).checked) { toast("Tick both boxes to confirm."); return; }
     if (!f.name || !f.phone) { toast("Type your name and direct phone for the signature first."); return; }
     const d = {kind: "onboarding", ackAt: now(), conduct: true, sig: {name: f.name, phone: f.phone}};
-    try { await S.db.doc(`train/${S.uid}/runs/onboarding`).set(d); S.obAck = d; audit("Onboarding package confirmed", f.name); S.view = "home"; toast("Welcome aboard. Your desk is open."); render(); }
+    try { await S.db.doc(`train/${S.uid}/runs/onboarding`).set(d); S.obAck = d; audit("Onboarding package confirmed", f.name); S.view = "today"; toast("Welcome aboard. Your desk is open."); render(); }
     catch(err){ toast("Could not save. Try again."); }
   }
 });
