@@ -7,12 +7,17 @@
  "tz": "Pacific/Fiji",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "hours": {
    "v": "open 24 hours, 7 days",
    "src": "nffn-fal-faq",
    "quote": "Nadi International Airport operates 24/7."
+  },
+  "permits": {
+   "v": "an operator not based in Fiji needs a Foreign Air Operator Certificate of Competency from CAAF for air transport services to, from or within Fiji, except for no more than two take-offs or two landings in Fiji in any 28 consecutive days, or medical emergencies",
+   "src": "fj-caaf-foa",
+   "quote": "no person not domiciled in Fiji shall conduct an air transport service to, from or within Fiji ... Foreign Air Operator Certificate of Competency granted by CAAF"
   }
  },
  "missing": [
@@ -26,5 +31,5 @@
   "handling",
   "AIP AD 2"
  ],
- "notes": "The Fiji AIP is not published online; CAAF AIC 03/22 (19 May 2022) says copies are obtained from the Aeronautical Information Service (AISO@fijiairports.com.fj). The airportsfiji.com AIS page gave no AIP link and airportsfiji.com/aboutus.php failed to open. Fiji Airports' Nadi page and the Civil Aviation Master Plan 2026-2031 (Ministry of Tourism and Civil Aviation) give no runway dimensions or curfew. Only the 24/7 operating statement on Fiji Airports' FAQ page is recorded; it is an operator page, not the AIP. Operator: Airports Fiji Limited (airportsfiji.com, 'manages and operates')."
+ "notes": "The Fiji AIP is not published online; CAAF AIC 03/22 (19 May 2022) says copies are obtained from the Aeronautical Information Service (AISO@fijiairports.com.fj). The airportsfiji.com AIS page gave no AIP link and airportsfiji.com/aboutus.php failed to open. Fiji Airports' Nadi page and the Civil Aviation Master Plan 2026-2031 (Ministry of Tourism and Civil Aviation) give no runway dimensions or curfew. Only the 24/7 operating statement on Fiji Airports' FAQ page is recorded; it is an operator page, not the AIP. Operator: Airports Fiji Limited (airportsfiji.com, 'manages and operates'). 1 Nov 2026: added a permits rule from the CAAF 'Foreign Air Operator Certification Requirements' page (modified 24 Mar 2025); the page gives no notice period and does not say how charters are classed. CAAF AIC 04/11 (28 Jul 2011) covers only Fiji-based operators of foreign aircraft. No official runway, customs or curfew source found online; the Fiji AIP still has to be ordered from the AIS."
 }

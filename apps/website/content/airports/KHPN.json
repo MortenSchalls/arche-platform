@@ -7,7 +7,7 @@
  "tz": "America/New_York",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-01",
  "rules": {
   "curfew": {
    "v": "a voluntary request not to fly between midnight and 06:30 every day, not a mandatory curfew",
@@ -42,6 +42,16 @@
    "v": "FBOs named by CBP for customs clearance: Signature-West, Million Air and Atlantic-East",
    "src": "cbp-khpn-ga",
    "quote": "Arriving aircraft will be processed at Signature-West, Million Air or Atlantic-East FBOs."
+  },
+  "ppr": {
+   "v": "aircraft with a certified maximum gross weight over 120,000 lb need the Airport Manager's prior permission to land or take off; engine run-ups need the Manager's permission; aircraft for hire need a permit from the Manager (County law ch. 712, s. 712.421 and 712.411)",
+   "src": "khpn-rules",
+   "quote": "No aircraft with a certified maximum gross weight in excess of 120,000 pounds shall land or take off at the airport without prior permission of the Manager."
+  },
+  "max_aircraft": {
+   "v": "over 120,000 lb certified maximum gross weight only with the Manager's prior permission; the passenger terminal is built for 240 passengers per half hour and at most four aircraft may be scheduled on the terminal ramp at once (airline terminal rules, s. 712.462)",
+   "src": "khpn-rules",
+   "quote": "No aircraft with a certified maximum gross weight in excess of 120,000 pounds shall land or take off at the airport without prior permission of the Manager."
   }
  },
  "missing": [
@@ -49,9 +59,7 @@
   "operator",
   "runway",
   "slots",
-  "ppr",
-  "max_aircraft",
   "hours"
  ],
- "notes": "The FAA Chart Supplement could not be opened. The FAA airport diagram (AL-651, on faa.gov and the county site) shows 'RWY 16-34', 'RWY 11-29', '6549 X 150' and '4451 X 150', but the extracted text does not tie each size to a runway, so the runway fact is left out; check the diagram visually before publishing. The airport site names 'Advanced Authorization to operate' as a noise programme but the page reached did not explain it, so PPR is not stated. The county noise page and general page show no date (footer '© 2026'). The airport domain now in use is airport.westchestercountyny.gov (the brief's airport.westchestergov.com also resolves). CBP fact sheet dated 26 Mar 2024."
+ "notes": "The FAA Chart Supplement could not be opened. The FAA airport diagram (AL-651, on faa.gov and the county site) shows 'RWY 16-34', 'RWY 11-29', '6549 X 150' and '4451 X 150', but the extracted text does not tie each size to a runway, so the runway fact is left out; check the diagram visually before publishing. The airport site names 'Advanced Authorization to operate' as a noise programme but the page reached did not explain it, so PPR is not stated. The county noise page and general page show no date (footer '© 2026'). The airport domain now in use is airport.westchestercountyny.gov (the brief's airport.westchestergov.com also resolves). CBP fact sheet dated 26 Mar 2024. 1 Nov 2026: added the 120,000 lb prior-permission rule and terminal limits from the County's Airport Rules & Regulations (ch. 712, PDF in the airport site's 2026 folder, no date; the tool returned the s. 712.421(7) sentence in two parts, joined here). The rules show no curfew or hours limit. The FAA airport diagram (https://www.faa.gov/aero_docs/dtpp/2608/00651AD.PDF) failed to load (client error), so runway is still missing; the airport's Airport Data page lists no runway figures."
 }

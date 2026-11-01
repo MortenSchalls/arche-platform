@@ -7,7 +7,7 @@
  "tz": "America/Mazatlan",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "handling": {
    "v": "the operator GAP lists PRIMESKY, a private FBO inside Los Cabos airport",
@@ -24,5 +24,5 @@
   "hours",
   "fuel"
  ],
- "notes": "IATA SJD and ICAO MMSD are shown on GAP's private aviation page ('Codigo IATA SJD, código OACI MMSD'). Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMSD) could not be read (site refuses automated reading, robots). GAP's 'Sobre el aeropuerto' page gives no runway, hours or customs data."
+ "notes": "IATA SJD and ICAO MMSD are shown on GAP's private aviation page ('Codigo IATA SJD, código OACI MMSD'). Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMSD) could not be read (site refuses automated reading, robots). GAP's 'Sobre el aeropuerto' page gives no runway, hours or customs data. 1 Nov 2026: nothing new verified. GAP pages https://www.aeropuertosgap.com.mx/es/los-cabos.html and https://www.aeropuertosgap.com.mx/en/los-cabos-3.html give no runway, hours or customs data; GAP 20-F for 2020 on sec.gov read in part, no Los Cabos runway data found. AIP AD 2 MMSD on aipmexico.seneam.gob.mx still blocked."
 }

@@ -6,9 +6,15 @@
  "country": "AR",
  "tz": "America/Argentina/Buenos_Aires",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-30",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-01",
+ "rules": {
+  "handling": {
+   "v": "Aeropuertos Argentina runs FBO VIPCLUB at Ezeiza, a terminal with its own access for business aviation and air taxis, with space for all control agencies (ANAC, PSA, customs, Senasa, immigration)",
+   "src": "saez-aa2000-fbo",
+   "quote": "una terminal con acceso independiente al aeropuerto"
+  }
+ },
  "missing": [
   "iata",
   "runway",
@@ -17,8 +23,7 @@
   "hours",
   "slots",
   "ppr",
-  "handling",
   "fuel"
  ],
- "notes": "No current official source with the airport's rules could be read. ANAC AIS Argentina (ais.anac.gob.ar) blocks automated reading (robots disallowed on /descarga/ files); the AIP index page https://ais.anac.gob.ar/aip did not open. No AD 2 SAEZ file was found by search. The ORSNA works page (argentina.gob.ar/orsna/obras-en-aeropuertos-del-sna/ezeiza-1) opened but only mentions the secondary runway 17-35 (3,105 m) in a works description; a 2018 government news item gives the main runway as 3,300 m × 60 m; neither is a current rules source, so nothing was recorded. Aeropuertos Argentina (aa2000.com.ar) pages found were passenger pages only. Owner: download AD 2 SAEZ from ais.anac.gob.ar."
+ "notes": "No current official source with the airport's rules could be read. ANAC AIS Argentina (ais.anac.gob.ar) blocks automated reading (robots disallowed on /descarga/ files); the AIP index page https://ais.anac.gob.ar/aip did not open. No AD 2 SAEZ file was found by search. The ORSNA works page (argentina.gob.ar/orsna/obras-en-aeropuertos-del-sna/ezeiza-1) opened but only mentions the secondary runway 17-35 (3,105 m) in a works description; a 2018 government news item gives the main runway as 3,300 m × 60 m; neither is a current rules source, so nothing was recorded. Aeropuertos Argentina (aa2000.com.ar) pages found were passenger pages only. Owner: download AD 2 SAEZ from ais.anac.gob.ar. 1 Nov 2026: added handling from the Aeropuertos Argentina FBO page (undated; it also says 'espacios asignados para la totalidad de los Organismos Oficiales de control intervinientes', naming Aduana and Migraciones, but gives no hours, so customs is not recorded). ANAC AIS still blocks reading: SUP A 66/2026 for SAEZ https://ais.anac.gob.ar/descarga/sup-69a99987d237c failed (robots disallowed). Owner: download AD 2 SAEZ and SUP A 66/2026 from ais.anac.gob.ar."
 }

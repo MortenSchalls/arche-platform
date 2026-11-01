@@ -7,7 +7,7 @@
  "tz": "America/New_York",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "four runways; longest 1C/19C and 1R/19L, each 11,500 ft (about 3,505 m); 12/30 is 10,500 ft, 1L/19R 9,400 ft",
@@ -25,6 +25,21 @@
    "v": "general aviation FBOs: Signature Flight Support (east side) and Jet Aviation (west side); CBP also lists Dulles Jet Center",
    "src": "kiad-mwaa-overview",
    "quote": "Signature Flight Support and Jet Aviation serve as the Fixed Base Operators for the general aviation community."
+  },
+  "hours": {
+   "v": "airport attended all months, all days, all hours (24 hours)",
+   "src": "kiad-faa-aip-dc",
+   "quote": "2.3.1 All Months, All Days, All Hours"
+  },
+  "fuel": {
+   "v": "fuel types 100LL and Jet A",
+   "src": "kiad-faa-aip-dc",
+   "quote": "2.4.2 Fuel Types: 100LL A"
+  },
+  "noise": {
+   "v": "engine run-ups 22:00-07:00 local need prior approval from airport operations; flight training 22:00-07:00 is prohibited",
+   "src": "kiad-faa-aip-dc",
+   "quote": "ENGINE RUN-UPS BTW 2200L & 0700L REQUIRE PRIOR APPROVAL FM ARPT OPS."
   }
  },
  "missing": [
@@ -32,10 +47,7 @@
   "curfew",
   "slots",
   "ppr",
-  "max_aircraft",
-  "hours",
-  "fuel",
-  "runway width"
+  "max_aircraft"
  ],
- "notes": "Read the MWAA flydulles.com airport overview (undated) and the CBP KIAD fact sheet (17 Apr 2024, KIAD-0424). The MWAA noise page does not mention a curfew or night restrictions, but no source explicitly says there is none, so curfew is left missing. The flydulles noise FAQ page and FAA Chart Supplement (CS_NE_20260903.pdf) could not be opened. Metres are my conversion (1 ft = 0.3048 m). IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+ "notes": "Read the MWAA flydulles.com airport overview (undated) and the CBP KIAD fact sheet (17 Apr 2024, KIAD-0424). The MWAA noise page does not mention a curfew or night restrictions, but no source explicitly says there is none, so curfew is left missing. The flydulles noise FAQ page and FAA Chart Supplement (CS_NE_20260903.pdf) could not be opened. Metres are my conversion (1 ft = 0.3048 m). IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code. 1 Nov 2026: read the FAA US AIP Part 3 AD 2 page for KIAD (filed under 'District of Columbia'; no edition date shown on the page). Added hours, fuel ('A' read as Jet A) and night run-up/training rules. The AIP runway table gives 01C/19C and 01R/19L 11500 ft x 150 ft, 01L/19R 9400 ft x 150 ft and 12/30 10501 ft x 150 ft (all runways 150 ft wide); the runway rule from flydulles.com is kept. The AIP also limits some taxiways by wingspan (e.g. taxilane A between A1 and A5 not for wingspan over 118 ft; TWY E1 under 79 ft) and lists ARFF Index E. The AIP remarks say nothing about a curfew, PPR or slots, so curfew stays missing."
 }

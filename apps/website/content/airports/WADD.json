@@ -7,7 +7,7 @@
  "tz": "Asia/Makassar",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "one runway, 3,000 m long and 45 m wide",
@@ -19,6 +19,11 @@
    "v": "critical aircraft is the Airbus A380-800 (aerodrome code 4E)",
    "src": "id-dgca-wadd",
    "quote": "Critical Aircraft: AIRBUS A-380-800 ... Klasifikasi 4E"
+  },
+  "hours": {
+   "v": "airport closed for Nyepi (Balinese Day of Silence): in 2026 from 06:00 local on 19 March to 06:00 local on 20 March (all domestic and international flights stopped); the date changes each year, check the NOTAM",
+   "src": "id-kemenhub-nyepi-2026",
+   "quote": "akan dihentikan sementara mulai Kamis, 19 Maret 2026 pukul 06.00 WITA hingga Jumat, 20 Maret 2026 pukul 06.00 WITA."
   }
  },
  "missing": [
@@ -28,9 +33,9 @@
   "slots",
   "ppr",
   "handling",
-  "hours",
+  "hours (normal daily opening hours)",
   "noise",
   "notable"
  ],
- "notes": "Indonesian AIP (aimindonesia.dephub.go.id) needs a login and blocks automated access, so no AD 2 data. Facts are from the DGCA (Hubud Kemenhub) airport register, which shows no update date. Coordinates converted from DMS (LS = south, BT = east)."
+ "notes": "Indonesian AIP (aimindonesia.dephub.go.id) needs a login and blocks automated access, so no AD 2 data. Facts are from the DGCA (Hubud Kemenhub) airport register, which shows no update date. Coordinates converted from DMS (LS = south, BT = east). 1 Nov 2026: added the Nyepi closure from the Ministry of Transportation news of 15 Mar 2026 (quote in Indonesian; WITA = UTC+8 = local time). The ministry page says all domestic and international flights stop; it names no exceptions. Re-read the DGCA register (hubud.kemenhub.go.id/bandara/11): it still shows 'Runway (-)' with no designation and no hours; operator PT. Angkasa Pura Indonesia; customs, immigration and quarantine offices listed without hours. Could not be opened: https://ngurahrai.injourneyairports.id/ (operator site). The regional authority page https://hubud.kemenhub.go.id/obu/denpasar has no airport hours."
 }

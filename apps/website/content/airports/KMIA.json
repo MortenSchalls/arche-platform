@@ -1,13 +1,13 @@
 {
  "icao": "KMIA",
- "iata": null,
+ "iata": "MIA",
  "name": "Miami International",
  "city": "Miami",
  "country": "US",
  "tz": "America/New_York",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "four runways; the longest, 9/27, is 13,016 ft × 150 ft (about 3,967 m × 46 m); 8R/26L 10,506 × 200 ft, 12/30 9,360 × 150 ft, 8L/26R 8,600 × 150 ft",
@@ -34,16 +34,24 @@
    "v": "all turbojets must fly the NADP-2 noise abatement departure profile from all runways; runways 8L/26R and 12/30 closed 03:00–12:00 UTC (23:00–08:00 local in summer, EDT UTC-4; 22:00–07:00 in winter, EST UTC-5) when 8R/26L and 9/27 are in use",
    "src": "kfll-faa-aip-fl",
    "quote": "ALL TBJT ACFT ARE REQD TO USE DSNT NOISE ABATEMENT DEP PROFILE (NADP-2) FROM ALL RWYS."
+  },
+  "customs": {
+   "v": "CBP at the General Aviation Center (GAC), 3550 NW 57th Avenue, open 7 days a week, 24 hours (Eastern Time); contact CBP at least 2 hours before leaving the foreign airport; all aircraft must block at the CBP ramp unless the tower authorises otherwise; the inspection facility is not at an FBO or the main terminal",
+   "h24": true,
+   "src": "kmia-cbp-ga",
+   "quote": "Regular Office Hours 7 days per week, 24 hours per day Eastern Time (ET)"
+  },
+  "handling": {
+   "v": "the General Aviation Center (GAC) is run by the Miami-Dade Aviation Department and serves private flights every day, 24/7 (phones, restrooms, information and a lounge only); CBP is in the GAC",
+   "src": "kmia-mdad-gac",
+   "quote": "The General Aviation Center (GAC), which is operated by the Miami-Dade Aviation Department"
   }
  },
  "missing": [
-  "iata",
-  "customs hours",
   "curfew (no statement either way)",
   "slots",
   "handling (FBO names)",
-  "fuel",
-  "operator (named in an official sentence)"
+  "fuel"
  ],
- "notes": "US AIP Part 3 AD 2 Florida, HTML, read 28 Oct 2026 (amendment shown on page not stated; 29th edition effective 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published). The AIP says only 'US CBP AND EAPIS AVBL.' with no hours, so customs is not recorded; the CBP KMIA fact sheet was not found because the web search budget ran out. Airport contact is listed at the Miami-Dade Aviation Department. Local-time conversion of the 0300-1200Z runway closure is mine. ft to m conversion mine (1 ft = 0.3048 m)."
+ "notes": "US AIP Part 3 AD 2 Florida, HTML, read 28 Oct 2026 (amendment shown on page not stated; 29th edition effective 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published). The AIP says only 'US CBP AND EAPIS AVBL.' with no hours, so customs is not recorded; Airport contact is listed at the Miami-Dade Aviation Department. Local-time conversion of the 0300-1200Z runway closure is mine. ft to m conversion mine (1 ft = 0.3048 m). 1 Nov 2026: added customs (CBP KMIA fact sheet, 5 Sep 2024: 24 h, 2 h notice) and the GAC (Miami-Dade Aviation Department general aviation page, which names the operator). IATA 'MIA' is from the Miami-Dade Aviation Department page, which writes 'Miami International Airport (MIA)'; the CBP sheet gives no IATA code. The FAA AIP Florida page could not be re-opened today (permission request not answered), so the AIP rules were kept as read on 28 Oct."
 }

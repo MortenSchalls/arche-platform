@@ -7,7 +7,7 @@
  "tz": "Australia/Perth",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "two runways, 03/21 (3,444 m × 45 m) and 06/24 (2,163 m × 45 m)",
@@ -20,20 +20,45 @@
    "none": true,
    "src": "ypph-airservices-faq",
    "quote": "Why isn't there a curfew (restrictions on night movements) at Perth Airport?"
+  },
+  "slots": {
+   "v": "every flight needs an IATA slot from the Capacity Optimisation Group (COG), under AIP ENR 1.9",
+   "src": "ypph-ersa",
+   "quote": "All flights operating into and out of Perth must obtain an IATA slot from the Capacity Optimisation Group (COG) in accordance with AIP ENR 1.9."
+  },
+  "handling": {
+   "v": "GA and itinerant operators must appoint a ground handling agent 48 hours before operating; FBOs: Revesco Aviation (FBO and VIP lounge 24 hours, customs/quarantine with prior notice) and Airflite (private aircraft, 24 hours)",
+   "src": "ypph-ersa",
+   "quote": "GA and itinerant operators must appoint a ground handling agent 48HR prior to OPR at Perth. ... Revesco Aviation: FBO services and VIP lounge H24. Civil and MIL ACFT, customs/AQIS with PN"
+  },
+  "fuel": {
+   "v": "Jet A-1 24 hours from Air BP (also F34, Avgas); Viva Energy Aviation Jet A-1 04:00-01:00 local daily",
+   "src": "ypph-ersa",
+   "quote": "AIR BP: H24 ... JET A1, F34, AVGAS. ... Viva Energy Aviation: 0400-0100 Local DLY. ... JET A1."
+  },
+  "max_aircraft": {
+   "v": "the GA taxilane is for aircraft of 19,000 kg and 24 m wingspan and below; all apron operations follow the operator's parking plans",
+   "src": "ypph-ersa",
+   "quote": "a. ACFT 19,000KG/24M MAX wingspan and BLW (i) GA Taxilane. ... All OPS on Perth Airport APN areas must be in accordance with relevant ACFT PRKG plans."
+  },
+  "noise": {
+   "v": "noise abatement procedures apply (see AIP DAP)",
+   "src": "ypph-ersa",
+   "quote": "Noise Abatement Procedures (NAP) apply. Refer AIP DAP."
+  },
+  "permits": {
+   "v": "aircraft must enter or leave Australia at a designated international airport unless permission was given first; non-scheduled international flights must also contact the Department of Infrastructure (DITRDCA) before the flight",
+   "src": "au-abf-aircraft",
+   "quote": "All Aircraft must enter or depart Australia at an airport that is designated as an international airport"
   }
  },
  "missing": [
   "iata",
-  "customs",
+  "customs (ERSA gives customs/quarantine via the FBO 'with PN' but no hours)",
   "hours",
-  "slots",
   "ppr",
-  "handling",
-  "max_aircraft",
-  "fuel",
-  "noise",
   "deicing",
   "catering"
  ],
- "notes": "Read: RDS YPPH effective 09 Jul 2026 (runway 03/21 TORA 3444 m, 06/24 TORA 2163 m) and DAP aerodrome chart PPHAD01-186 (labels '3444 x 45' and '2163 x 45'). The ERSA facilities page could not be opened: https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YPPH_09JUL2026.pdf (blocked) and FAC_YPPH_27NOV2025.pdf (site error), so customs, fuel, slots, parking and handling are not verified. The no-curfew fact comes from an Airservices Engage Q&A heading on the Perth new runway project (the answer says curfews are set by the Department of Infrastructure); the Commonwealth curfew page lists only Sydney, Adelaide, Gold Coast and Essendon Fields. Western Australia has no daylight time (UTC+8)."
+ "notes": "Read: RDS YPPH effective 09 Jul 2026 (runway 03/21 TORA 3444 m, 06/24 TORA 2163 m) and DAP aerodrome chart PPHAD01-186 (labels '3444 x 45' and '2163 x 45'). The ERSA facilities page could not be opened: https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YPPH_09JUL2026.pdf (blocked) and FAC_YPPH_27NOV2025.pdf (site error), so customs, fuel, slots, parking and handling are not verified. The no-curfew fact comes from an Airservices Engage Q&A heading on the Perth new runway project (the answer says curfews are set by the Department of Infrastructure); the Commonwealth curfew page lists only Sydney, Adelaide, Gold Coast and Essendon Fields. Western Australia has no daylight time (UTC+8). 1 Nov 2026: opened ERSA FAC YPPH 09 Jul 2026 (newest found; earlier FAC 19 Mar 2026 also listed). Added slots (COG), handling (agent needed 48 h ahead; Revesco and Airflite), fuel, GA taxilane limit and noise; ERSA lines joined with '...' in quotes. Operator per ERSA: Perth Airport Pty Ltd. The ERSA states no aerodrome hours and no customs hours. Added the ABF permits rule (page updated 20 Oct 2026). GA taxilane wording is a restriction-list line; read as a limit."
 }

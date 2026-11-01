@@ -7,7 +7,7 @@
  "tz": "Australia/Sydney",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "three runways, each 45 m wide; the longest is 3,962 m",
@@ -46,6 +46,11 @@
    "v": "noise abatement procedures and the curfew apply",
    "src": "au-ersa-yssy",
    "quote": "Noise Abatement Procedures (NAP) and Curfew applies. Refer AIP DAP."
+  },
+  "permits": {
+   "v": "aircraft must enter or leave Australia at a designated international airport unless permission was given first; non-scheduled international flights must also contact the Department of Infrastructure (DITRDCA) before the flight",
+   "src": "au-abf-aircraft",
+   "quote": "All Aircraft must enter or depart Australia at an airport that is designated as an international airport"
   }
  },
  "missing": [
@@ -56,5 +61,5 @@
   "ppr",
   "runway designation of the longest runway"
  ],
- "notes": "The ERSA entry is dated 9 Jul 2026, which was the newest edition found. The 3,962 m runway's designator could not be read reliably from the DAP chart text (ERSA lists 07/25, 16L/34R and 16R/34L, all 45 m wide), so the designator is left out. The ERSA states no distance from the city, no customs hours and no general opening hours. The curfew wording comes from Compilation No. 7 of the Curfew Act (16 Dec 2020); the latest compilation (C2024C00497, 14 Oct 2024) could not be read as text, so recheck section 6 against it. The 80-movement cap comes from the Demand Management Act compilation of 14 Jan 2011; the latest version was not checked. Under the DITRDCA page, the curfew shoulder hours are 11 pm to midnight and 5 am to 6 am, with limits on international passenger arrivals between 5 and 6 am. The curfew is legally enforceable, and dispensations are granted only in exceptional circumstances. Sydney observes daylight saving time (AEDT, UTC+11, in summer; ERSA header says UTC +10); the curfew is set in local time. Extra 'curfew_jets', 'curfew_direction' and 'movement_cap' keys were added under facts."
+ "notes": "The ERSA entry is dated 9 Jul 2026, which was the newest edition found. The 3,962 m runway's designator could not be read reliably from the DAP chart text (ERSA lists 07/25, 16L/34R and 16R/34L, all 45 m wide), so the designator is left out. The ERSA states no distance from the city, no customs hours and no general opening hours. The curfew wording comes from Compilation No. 7 of the Curfew Act (16 Dec 2020); the latest compilation (C2024C00497, 14 Oct 2024) could not be read as text, so recheck section 6 against it. The 80-movement cap comes from the Demand Management Act compilation of 14 Jan 2011; the latest version was not checked. Under the DITRDCA page, the curfew shoulder hours are 11 pm to midnight and 5 am to 6 am, with limits on international passenger arrivals between 5 and 6 am. The curfew is legally enforceable, and dispensations are granted only in exceptional circumstances. Sydney observes daylight saving time (AEDT, UTC+11, in summer; ERSA header says UTC +10); the curfew is set in local time. Extra 'curfew_jets', 'curfew_direction' and 'movement_cap' keys were added under facts. 1 Nov 2026: re-read ERSA FAC YSSY 09 Jul 2026 (still the newest found): it has no customs/immigration line, no aerodrome hours (only 'ARO OPS (24HR)') and no PPR; the only prior approval is for Class 1 explosives. Added a country-wide permits rule from the Australian Border Force 'Aircraft requirements' page (updated 20 Oct 2026). Customs hours, IATA and PPR still not found on an official page; sydneyairport.com.au had no business-aviation page in search results."
 }

@@ -7,7 +7,7 @@
  "tz": "Australia/Brisbane",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "two parallel runways: 01R/19L, 45 m wide, up to 3,560 m take-off run (19L; 3,500 m from 01R); 01L/19R, 60 m wide, 3,300 m",
@@ -60,5 +60,5 @@
   "deicing",
   "catering"
  ],
- "notes": "Read: ERSA FAC YBBN effective 09 Jul 2026 (newest found; also checked FAC 27 Nov 2025) and RDS YBBN effective 04 Sep 2025 (newest RDS found; a later RDS may exist). Runway widths from the ERSA. The current DAP aerodrome chart (BBNAD01, 27 Nov 2025 per DAP East checklist 09 Jul 2026) could not be opened: https://www.airservicesaustralia.com/aip/pending/dap/BBNAD01-185_27NOV2025.pdf (blocked). The ERSA has no customs/immigration line. The 'curfew free' statement is from 19 Mar 2014; the Commonwealth curfew page (2026) still lists only Sydney, Adelaide, Gold Coast and Essendon Fields - recheck with a current BAC page. Operator per ERSA: Brisbane Airport Corporation Pty Ltd. Queensland has no daylight time (UTC+10 all year)."
+ "notes": "Read: ERSA FAC YBBN effective 09 Jul 2026 (newest found; also checked FAC 27 Nov 2025) and RDS YBBN effective 04 Sep 2025 (newest RDS found; a later RDS may exist). Runway widths from the ERSA. The current DAP aerodrome chart (BBNAD01, 27 Nov 2025 per DAP East checklist 09 Jul 2026) could not be opened: https://www.airservicesaustralia.com/aip/pending/dap/BBNAD01-185_27NOV2025.pdf (blocked). The ERSA has no customs/immigration line. The 'curfew free' statement is from 19 Mar 2014; the Commonwealth curfew page (2026) still lists only Sydney, Adelaide, Gold Coast and Essendon Fields - recheck with a current BAC page. Operator per ERSA: Brisbane Airport Corporation Pty Ltd. Queensland has no daylight time (UTC+10 all year). 1 Nov 2026: no new official source for customs or hours found; bne.com.au search gave no current curfew or GA page. The ABF 'Aircraft requirements' page (au-abf-aircraft, 20 Oct 2026) says aircraft must enter or leave Australia at a designated international airport; not added as the permits rule already holds the dangerous-goods line."
 }

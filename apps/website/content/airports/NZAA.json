@@ -6,17 +6,28 @@
  "country": "NZ",
  "tz": "Pacific/Auckland",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-28",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-01",
+ "rules": {
+  "slots": {
+   "v": "general aviation and business aviation need a valid landing and/or parking slot during declared peak congestion periods; flying without one can mean a ban from those periods for at least 30 days",
+   "src": "nzaa-cou",
+   "quote": "without first obtaining a valid landing and/or parking slot during periods of peak congestion"
+  },
+  "handling": {
+   "v": "operators must self-handle (with the airport's written consent and licence) or appoint a third-party ground handling agent",
+   "src": "nzaa-cou",
+   "quote": "You are required to either self handle, or appoint third party ground handling agents."
+  }
+ },
  "missing": [
   "iata",
   "runway",
   "curfew",
   "customs",
-  "slots",
   "ppr",
-  "hours"
+  "hours",
+  "NZ AIP AD 2"
  ],
- "notes": "Not opened: the NZ AIP AD 2 page https://www.aip.net.nz/assets/AIP/Aerodromes-AD1/AERODROMES/NZAA_AD2.pdf and the CAA NZ AIP index https://www.aviation.govt.nz/airspace-and-aerodromes/air-navigation/aip/ were blocked by the fetch tool (URL not cleared), and the web-search budget for the run ran out. Auckland Airport's own site was not reached."
+ "notes": "1 Nov 2026: added slots (clause 5.7) and handling (clause 6.1) from Auckland Airport's Conditions of Use effective 30 Oct 2022 (the current version on corporate.aucklandairport.co.nz). The Conditions of Use state no hours, no curfew and no aircraft size limits (clause 7.1 sets minimum insurance by MTOW, from USD 30M up to 10,000 kg). Auckland Airport's noise page mentions only a 10 dB night weighting (22:00-07:00) for noise measurement, not a flight restriction. Not opened (permission not granted in time): NZ AIP https://www.aip.net.nz/, https://www.aip.net.nz/assets/AIP/Aerodromes-AD1/AERODROMES/NZAA_AD2.pdf and http://www.aip.net.nz/NavWalk.aspx?section=CHARTS. Runway, curfew, customs and hours still need the AIP. 28 Oct 2026: AIP and CAA NZ AIP index were blocked."
 }

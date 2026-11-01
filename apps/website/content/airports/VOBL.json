@@ -7,7 +7,7 @@
  "tz": "Asia/Kolkata",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "two parallel runways, 09L/27R and 09R/27L, each 4,000 m x 45 m",
@@ -55,5 +55,5 @@
   "ppr",
   "general aviation parking"
  ],
- "notes": "Read AAI India eAIP AD 2 VOBL, AIRAC AMDT 05-23 effective 10 Aug 2023 (the newest edition found); the current edition could not be located because aim-india.aai.aero (home) and aai.aero pages could not be opened (permission not given / site blocks reading), so status is partial until the current AD 2 VOBL is checked. AD 2.3 gives ATS H24; no curfew or night restriction is stated. AD 2.20 covers the nearby Yelahanka (VOYK) air base and does not mention slots or general aviation. IATA code not shown on the page read."
+ "notes": "Read AAI India eAIP AD 2 VOBL, AIRAC AMDT 05-23 effective 10 Aug 2023 (the newest edition found); the current edition could not be located because aim-india.aai.aero (home) and aai.aero pages could not be opened (permission not given / site blocks reading), so status is partial until the current AD 2 VOBL is checked. AD 2.3 gives ATS H24; no curfew or night restriction is stated. AD 2.20 covers the nearby Yelahanka (VOYK) air base and does not mention slots or general aviation. IATA code not shown on the page read. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: aim-india.aai.aero AD 2 VOBL (not attempted after the AAI site was refused). Rules above unchanged; still needs the current AD 2 pages."
 }

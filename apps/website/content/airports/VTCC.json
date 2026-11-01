@@ -1,13 +1,13 @@
 {
  "icao": "VTCC",
- "iata": null,
+ "iata": "CNX",
  "name": "Chiang Mai International Airport",
  "city": "Chiang Mai",
  "country": "TH",
  "tz": "Asia/Bangkok",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "one runway, 18/36, 3,400 m long and 45 m wide (3,100 m available for landing on runway 18)",
@@ -38,12 +38,11 @@
   }
  },
  "missing": [
-  "iata",
   "curfew",
   "slots",
   "ppr",
   "max_aircraft",
   "business-aviation terminal (FBO)"
  ],
- "notes": "Runway, hours and coordinate quotes are AIP table cells joined with their row labels, not running text. AIP quotes come from tagged eAIP cells (database tags stripped). No curfew or night restriction appears in AD 2.20/2.21, but the AIP does not state 'no curfew', so curfew is left missing. Thai GEN 1.2 says slots are required at Level 2 and Level 3 airports; VTCC's slot level was not verified. Latest AIRAC found online was 14 May 2026; a later one may exist. Checked 2026-10-27."
+ "notes": "Runway, hours and coordinate quotes are AIP table cells joined with their row labels, not running text. AIP quotes come from tagged eAIP cells (database tags stripped). No curfew or night restriction appears in AD 2.20/2.21, but the AIP does not state 'no curfew', so curfew is left missing. Thai GEN 1.2 says slots are required at Level 2 and Level 3 airports; VTCC's slot level was not verified. Latest AIRAC found online was 14 May 2026; a later one may exist. Checked 2026-10-27. 1 Nov 2026: IATA code CNX added from the AOT Chiang Mai airport page ('Chiang Mai International Airport (CNX)'; page undated); the same page gives passenger terminal 'Service Hour : 06:00 – 24:00' (terminal only; the AIP gives the aerodrome as H24). AMDT 08/26 page checklist shows VTCC pages dated 9 JUL 26, so VTCC changed in AIRAC AMDT 07/26 (9 Jul 2026), after the 14 May 2026 edition used here: recheck all VTCC rules against the 9 Jul 2026 or later edition. Could not be opened: https://aip.caat.or.th/2026-07-09-AIRAC/html/eAIP/VT-AD-2.VTCC-en-GB.html, https://aip.caat.or.th/2026-05-14-AIRAC/html/eAIP/VT-AD-2.VTCC-en-GB.html (re-read), https://aip.caat.or.th/2026-07-09-AIRAC/pdf/VT-amdt-en-GB.pdf."
 }

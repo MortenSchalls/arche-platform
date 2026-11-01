@@ -7,7 +7,7 @@
  "tz": "America/Chicago",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "longest runway 13R/31L, 8,800 ft (about 2,682 m); 13L/31R 7,753 ft; all 150 ft wide (city document dated May 2011; the third runway listed then, 18/36, was not re-checked)",
@@ -19,11 +19,22 @@
    "v": "voluntary noise programme: jets and aircraft over 12,500 lb prefer runway 13R/31L at night (21:00-06:00); engine maintenance run-ups banned midnight-06:00 and voluntarily avoided 22:00-midnight",
    "src": "kdal-noise",
    "quote": "All jet aircraft are preferred to operate on Runway 13R/31L at night."
+  },
+  "customs": {
+   "v": "CBP office hours Monday to Friday 08:00-17:00 local (Central); CBP says arrival inspection is generally available 7 days a week, 24 hours, but weekend, holiday and after-hours arrivals must be arranged by 16:30 CST on the workday before; contact CBP at least 1 hour before leaving the foreign airport; aircraft taxi to the CBP inspection facility (not at an FBO); user fee airport",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "17:00"
+    ]
+   ],
+   "src": "kdal-customs",
+   "quote": "Monday through Friday, 8 am - 5 pm local time"
   }
  },
  "missing": [
   "iata",
-  "customs",
   "curfew",
   "hours",
   "slots",
@@ -33,5 +44,5 @@
   "fuel",
   "deicing"
  ],
- "notes": "Dallas Love Field is owned by the City of Dallas, Department of Aviation (SWPPP General Information, May 2011). Runway data come from that 2011 city document; check against the current FAA Chart Supplement before publishing. Voluntary noise page and leaflet (no dates) give no curfew. The airport page International Arrivals & Customs (https://www.dallas-lovefield.com/airport-info/general-aviation/international-arrivals-and-customs) and the environmental FAQ failed to load (client error). FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened; CBP pages refused. Metres are my conversion (1 ft = 0.3048 m)."
+ "notes": "Dallas Love Field is owned by the City of Dallas, Department of Aviation (SWPPP General Information, May 2011). Runway data come from that 2011 city document; check against the current FAA Chart Supplement before publishing. Voluntary noise page and leaflet (no dates) give no curfew. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened; Metres are my conversion (1 ft = 0.3048 m). 1 Nov 2026: added customs from the airport's International Arrivals & Customs page (no date) and the CBP KDAL fact sheet (17 Apr 2024, KDAL-0424). Recorded h24 false with weekday office hours because nights and weekends need arranging the workday before. The FAA airport diagram (https://www.faa.gov/aero_docs/dtpp/2608/00106AD.PDF) failed to load (client error); the FAA US AIP Texas page covers only KDFW, KELP and KIAH, not KDAL. Curfew and airport hours still not found in an official source. The CBP KDAL fact sheet also says arrival inspection is 'generally available seven days per week, 24 hours per day' subject to permission to land, gives a plus or minus 30 minute tolerance on permission to land, says KDAL is a user fee airport, and asks for advance notice of live animals, weapons, hunting trophies or commercial imports."
 }

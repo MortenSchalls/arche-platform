@@ -7,7 +7,7 @@
  "tz": "America/Nassau",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "hours": {
    "v": "the airport operates 24/7; individual services and counters have their own hours",
@@ -31,5 +31,5 @@
   "fuel",
   "max_aircraft"
  ],
- "notes": "No Bahamas AIP (AD 2 MYNN) could be found online from an official Bahamian source. Read the Nassau Airport Development Company site (FAQs; Private Flight Services, modified 2 May 2025; Customs & Immigration page, modified 26 Feb 2026, gives no hours for private flights). The FAA IFIM Bahamas page (dated 1 Nov 2014) was read but not used because it is out of date. The FAQ gives terminal security hours (06:00-22:00) for passengers, not customs hours for private aircraft. Owner should obtain the Bahamas AIP from the Bahamas Civil Aviation Authority / Air Navigation Services Division."
+ "notes": "No Bahamas AIP (AD 2 MYNN) could be found online from an official Bahamian source. Read the Nassau Airport Development Company site (FAQs; Private Flight Services, modified 2 May 2025; Customs & Immigration page, modified 26 Feb 2026, gives no hours for private flights). The FAA IFIM Bahamas page (dated 1 Nov 2014) was read but not used because it is out of date. The FAQ gives terminal security hours (06:00-22:00) for passengers, not customs hours for private aircraft. Owner should obtain the Bahamas AIP from the Bahamas Civil Aviation Authority / Air Navigation Services Division. 1 Nov 2026: searched again for a Bahamas AIP (Bahamas CAA, caabahamas.com): none found online. nassaulpia.com Developments page (modified 5 Jun 2025) says 'Two Intersecting Runways' but gives no lengths, so runway stays missing. FAA IFIM Bahamas page still dated 1 Nov 2014 (says MYNN open H24 and PPR 48 h for private flights outside published hours) - not used, out of date. Owner should obtain the AD 2 MYNN pages from the Bahamas CAA."
 }

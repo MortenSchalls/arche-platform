@@ -7,7 +7,7 @@
  "tz": "Asia/Kolkata",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-01",
  "rules": {
   "customs": {
    "v": "customs and immigration 24 hours",
@@ -39,5 +39,5 @@
   "hours (only aerodrome office hours stated)",
   "noise"
  ],
- "notes": "Converted from UTC to India time (UTC+5:30, no daylight saving). Page read is India AIP AMDT 05-25 (effective 02 Oct 2025); a newer amendment (AMDT 04-26, 14 May 2026) exists for VIDP, so VABB may be superseded. The AIP still lists Jet Airways and NACIL hangars; check before using."
+ "notes": "Converted from UTC to India time (UTC+5:30, no daylight saving). Page read is India AIP AMDT 05-25 (effective 02 Oct 2025); a newer amendment (AMDT 04-26, 14 May 2026) exists for VIDP, so VABB may be superseded. The AIP still lists Jet Airways and NACIL hangars; check before using. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://aim-india.aai.aero/eAIP_Archive/02-10-2025/eAIP/IN-AD%202.1VABB-en-GB.html (read on to AD 2.12). Rules above unchanged; still needs the current AD 2 pages."
 }

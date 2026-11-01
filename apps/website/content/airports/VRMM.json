@@ -7,7 +7,7 @@
  "tz": "Indian/Maldives",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "runway 3,400 m long",
@@ -28,5 +28,5 @@
   "noise",
   "runway width and designation"
  ],
- "notes": "The Maldives AIP AD 2 pages on macl.aero are loaded by script and could not be opened (cover page effective 15 Oct 2026 is listed). Coordinates are from the CAA's list of aerodromes (updated 20 Feb 2022), not the AIP. NOTAM A0208/26 closes RWY 18/36 daily 1900-2359 UTC (00:00-04:59 Maldives time, UTC+5, no DST) from 1 Aug to 31 Oct 2026 for maintenance; temporary, do not publish as a permanent fact. Checked 2026-10-27."
+ "notes": "The Maldives AIP AD 2 pages on macl.aero are loaded by script and could not be opened (cover page effective 15 Oct 2026 is listed). Coordinates are from the CAA's list of aerodromes (updated 20 Feb 2022), not the AIP. NOTAM A0208/26 closes RWY 18/36 daily 1900-2359 UTC (00:00-04:59 Maldives time, UTC+5, no DST) from 1 Aug to 31 Oct 2026 for maintenance; temporary, do not publish as a permanent fact. Checked 2026-10-27. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://www.macl.aero/. Rules above unchanged; still needs the current AD 2 pages."
 }

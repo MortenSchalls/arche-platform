@@ -7,7 +7,7 @@
  "tz": "America/Chicago",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "longest runway 16/34, 5,001 ft x 150 ft (about 1,524 m), with ILS to runway 16; runway 12/30 is 4,415 ft x 75 ft",
@@ -36,6 +36,11 @@
    "v": "runway 12/30 preferred 22:00-06:00 local; no turbine engine runs 22:00-07:00; NBAA departure procedures",
    "src": "kpwk-cea-noise",
    "quote": "No turbine engine runs between the hours of 10:00 p.m. to 7:00 a.m. local time all week."
+  },
+  "handling": {
+   "v": "three FBOs: Ascension Global Aviation, Atlantic Aviation and Signature Aviation",
+   "src": "kpwk-cea-resources",
+   "quote": "Ascension Global Aviation; Atlantic Aviation; Signature Aviation"
   }
  },
  "missing": [
@@ -43,10 +48,8 @@
   "curfew",
   "slots",
   "ppr",
-  "handling",
   "max_aircraft",
-  "fuel",
-  "tower hours"
+  "fuel"
  ],
- "notes": "Read the Chicago Executive Airport safety page (modified 15 Jul 2026), noise page (modified 29 Jan 2026) and the CBP port page 3983 (modified 19 Mar 2024). The CBP page labels the 11:00-19:00 hours 'CST' in one place and '(Eastern)' in another; recorded as local Central time per the 'CST' line, check with the port before relying on it. The CBP KPWK fact sheet (18 Dec 2025) https://www.cbp.gov/sites/default/files/2025-12/KPWK%20GA%20Airport%20Fact%20Sheet%2020251218.pdf could not be opened. The airport page says open 24 hours, but no source states there is no curfew, so curfew is left missing. A 2026 environmental assessment mentions decommissioning runway 6-24 (not read). Metres are my conversion (1 ft = 0.3048 m). IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+ "notes": "Read the Chicago Executive Airport safety page (modified 15 Jul 2026), noise page (modified 29 Jan 2026) and the CBP port page 3983 (modified 19 Mar 2024). The CBP page labels the 11:00-19:00 hours 'CST' in one place and '(Eastern)' in another; recorded as local Central time per the 'CST' line, check with the port before relying on it. The CBP KPWK fact sheet (18 Dec 2025) https://www.cbp.gov/sites/default/files/2025-12/KPWK%20GA%20Airport%20Fact%20Sheet%2020251218.pdf could not be opened. The airport page says open 24 hours, but no source states there is no curfew, so curfew is left missing. A 2026 environmental assessment mentions decommissioning runway 6-24 (not read). Metres are my conversion (1 ft = 0.3048 m). IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code. 1 Nov 2026: added the FBO list from the Chicago Executive Airport resources page (modified 29 Jan 2026; quote joins the three list items). The FAA Know Before You Go sheet (kpwk-faa-kbyg, undated) gives tower hours '0600L-2200L M-F, 0700L-2200L Sat/Sun' and says the airspace becomes Class E when the tower is closed; it does not mention a curfew. The CBP KPWK fact sheet (18 Dec 2025) was not found by search and is still not opened. Curfew, fuel, slots, PPR and max aircraft still missing."
 }

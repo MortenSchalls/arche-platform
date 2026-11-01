@@ -6,17 +6,33 @@
  "country": "CA",
  "tz": "America/Toronto",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-28",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-01",
+ "rules": {
+  "curfew": {
+   "v": "Open 24 hours for propeller aircraft and jets under 45,000 kg. Jets over 45,000 kg: take-offs only 07:00-midnight and landings only 07:00-01:00 local; ADM may grant exemptions only for medical emergencies, delays beyond the carrier's control, bad weather and some scheduled flights. Window shown is for jets over 45,000 kg (e.g. large-cabin jets); smaller jets have no night limit",
+   "windows_local": [
+    [
+     "00:00",
+     "07:00"
+    ]
+   ],
+   "src": "cyul-adm-climat-sonore",
+   "quote": "YUL Montréal-Trudeau est ouvert 24 heures par jour pour les avions à hélices et les jets de moins de 45 000 kilogrammes. ... les heures normales d’exploitation sont de 7h00 à minuit pour les décollages ... de 7h00 à 1h00 pour les atterrissages.",
+   "approval": true
+  },
+  "hours": {
+   "v": "Airport open 24 hours for propeller aircraft and jets under 45,000 kg MTOW",
+   "src": "cyul-adm-climat-sonore",
+   "quote": "YUL Montréal-Trudeau est ouvert 24 heures par jour pour les avions à hélices et les jets de moins de 45 000 kilogrammes."
+  }
+ },
  "missing": [
   "iata",
   "runway",
-  "curfew",
   "customs",
   "slots",
-  "ppr",
-  "hours"
+  "ppr"
  ],
- "notes": "Not opened: NAV CANADA Canada Flight Supplement / CAP and Transport Canada pages, and the airport authority site (admtl.com), were not reached: the web-search budget for the run ran out before an official URL could be found, and unlisted URLs were blocked by the fetch tool. Night restriction programme not verified."
+ "notes": "Night rules from ADM's noise management action plan page (admtl.com/fr/consultation, 'Opérations nocturnes'; plan of 2019, last update February 2022). The curfew window 00:00-07:00 applies to jets over 45,000 kg (landings allowed until 01:00); jets under 45,000 kg and props may operate 24 hours. 1 Nov 2026: added curfew and hours. Could not be opened: https://www.admtl.com/en (fetch tool blocked), https://www.admtl.com/organisation/partenariats-commerciaux/apercu-yul and https://admtl.com/fr/affaires/developpement-services-aeriens (site error); CBSA new directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA. Transport Canada page tdih-cdit.tc.canada.ca/en/node/277 gives no runway data. Runway and customs not verified. 1 Nov 2026 (review): curfew marked approval:true so the portal shows amber, not red: the limit applies only to jets over 45,000 kg and ADM can grant exemptions; confirm the aircraft's weight with the operator."
 }

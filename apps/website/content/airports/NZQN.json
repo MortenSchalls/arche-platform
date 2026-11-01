@@ -6,17 +6,48 @@
  "country": "NZ",
  "tz": "Pacific/Auckland",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-28",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-01",
+ "rules": {
+  "hours": {
+   "v": "the airport operates 07:00 to 22:00 daily, under Civil Aviation Authority rules",
+   "src": "nzqn-qac-ops",
+   "quote": "Under Civil Aviation Authority rules, Queenstown Airport operates between 07:00 and 22:00 daily."
+  },
+  "curfew": {
+   "v": "no movements outside the operating hours of 07:00 to 22:00 local (the operator states the airport operates only between these times)",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "src": "nzqn-qac-ops",
+   "quote": "Under Civil Aviation Authority rules, Queenstown Airport operates between 07:00 and 22:00 daily."
+  },
+  "ppr": {
+   "v": "general aviation aircraft over 5,700 kg MCTOW and other non-scheduled flights must send a movement request by email or the website before operating; the airport then allocates parking if it can take the flight",
+   "src": "nzqn-acou",
+   "quote": "For non-Regular Air Transport Operations and General Aviation operations with aircraft that exceed 5700kg MCTOW, you must submit a movement request to us by email or website prior to operating."
+  },
+  "handling": {
+   "v": "aircraft parking on the main apron must nominate a licensed ground handling agent; the airport may require one wherever you park; irregular operations of aircraft 5,700 kg MCTOW or more are directed to a ground handler (Queenstown Corporate Jet Services named)",
+   "src": "nzqn-acou",
+   "quote": "You are required to nominate a licensed Ground Handling Agent(s) for the provision of Ground Handling Services"
+  },
+  "slots": {
+   "v": "Queenstown is a schedules-facilitated airport (the document says Level 3) under the IATA Worldwide Scheduling Guidelines, for regular air transport; general aviation over 5,700 kg uses the movement request",
+   "src": "nzqn-acou",
+   "quote": "Queenstown is classified as a Schedules Facilitated Airport (Level 3) in accordance with the airport levels classifications contained in the IATA Worldwide Scheduling Guidelines."
+  }
+ },
  "missing": [
   "iata",
   "runway",
-  "curfew",
   "customs",
-  "slots",
-  "ppr",
-  "hours"
+  "fuel",
+  "max_aircraft",
+  "NZ AIP AD 2"
  ],
- "notes": "Not opened: the NZ AIP AD 2 page https://www.aip.net.nz/assets/AIP/Aerodromes-AD1/AERODROMES/NZQN_AD2.pdf and the CAA NZ AIP index https://www.aviation.govt.nz/airspace-and-aerodromes/air-navigation/aip/ were blocked by the fetch tool (URL not cleared), and the web-search budget for the run ran out. Queenstown Airport's Aeronautical Conditions of Use (https://queenstownairport.co.nz/media/Corporate/Aerodrome%20compliance%20documents/Aeronautical-Conditions-Of-Use-ACOU-ZQN-v4.pdf) returned a site error. Night and aircraft rules not verified."
+ "notes": "1 Nov 2026: added hours, curfew, ppr, handling and slots from Queenstown Airport's own pages: the 'Airport operations' page (operates 07:00-22:00 daily under CAA rules) and the Aeronautical Conditions of Use (in effect 1 Nov 2022, Version 2.2 of 1 Jul 2024; clause 5.3 movement request, clause 6.1 schedules facilitated, clause 14.1 ground handling agent). The curfew window is taken from the stated operating hours; the page uses no word 'curfew'. Only airlines certified for after-dark operations (Air New Zealand, Jetstar, Qantas, Virgin Australia per the page) fly after dark. Not opened (permission not granted in time): NZ AIP https://www.aip.net.nz/ and https://www.aip.net.nz/assets/AIP/Aerodromes-AD1/AERODROMES/NZQN_AD2.pdf, and the CAA booklet https://www.queenstownairport.co.nz/media/ahlhvgrz/in_out_and_around_queenstown.pdf. The old ACOU v4 URL and the v05 URL under /media/Corporate/ gave site errors. Runway, customs and fuel still need the AIP. NZ observes daylight time (NZDT UTC+13 in summer)."
 }

@@ -7,7 +7,7 @@
  "tz": "America/Santiago",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-30",
+ "checked": "2026-11-01",
  "rules": {
   "runway": {
    "v": "two runways: 17R/35L 3,800 m × 45 m and 17L/35R 3,750 m × 55 m, asphalt",
@@ -47,5 +47,5 @@
   "deicing",
   "catering"
  ],
- "notes": "Source: AIP Chile Vol I AD 2 SCEL (DGAC), pages dated 15 MAY 2025 (AMDT 63) to 06 AUG 2026 (AMDT 67); DGAC IFIS page for SCEL also read (runway RWY H24, ATS 0000-2359 daily). Customs hours are not stated; the AIP only says service must be requested 2 hours ahead, so customs is left out (not marked H24). The text read covered AD 2.1-2.20 (and ended partway); AD 2.21 noise and AD 2.23 were not seen, so curfew, noise and slots stay missing. De-icing: AD 2.3 says NO but AD 2.4 says 'De icing facilities YES'; conflict, not recorded. AD 2.8: category C or larger aircraft staying over 24 hours must park on third-party aprons ('deberán hacerlo en plataformas administradas por terceros'); DGAC has no long-stay parking. AD 2.20: aircraft of 25,000 kg or more may not make 180° turns on the runway. Temporary: NOTAM A3086/26 limits RWY 17R (MON-SAT 1000-2300 EXC HOL) 30 Oct-14 Nov 2026 for asphalt repairs; SUP S16/2026 works 13-24 Oct 2026. Quotes taken via a page-reading tool."
+ "notes": "Source: AIP Chile Vol I AD 2 SCEL (DGAC), pages dated 15 MAY 2025 (AMDT 63) to 06 AUG 2026 (AMDT 67); DGAC IFIS page for SCEL also read (runway RWY H24, ATS 0000-2359 daily). Customs hours are not stated; the AIP only says service must be requested 2 hours ahead, so customs is left out (not marked H24). The text read covered AD 2.1-2.20 (and ended partway); AD 2.21 noise and AD 2.23 were not seen, so curfew, noise and slots stay missing. De-icing: AD 2.3 says NO but AD 2.4 says 'De icing facilities YES'; conflict, not recorded. AD 2.8: category C or larger aircraft staying over 24 hours must park on third-party aprons ('deberán hacerlo en plataformas administradas por terceros'); DGAC has no long-stay parking. AD 2.20: aircraft of 25,000 kg or more may not make 180° turns on the runway. Temporary: NOTAM A3086/26 limits RWY 17R (MON-SAT 1000-2300 EXC HOL) 30 Oct-14 Nov 2026 for asphalt repairs; SUP S16/2026 works 13-24 Oct 2026. Quotes taken via a page-reading tool. 1 Nov 2026: the AIP AD 2 SCEL PDF could not be reopened (permission not answered): https://aipchile.dgac.gob.cl/dasa/aip_chile_con_contenido/ais/3%20AD%20Parte%203/AD%202a%20Aeropuertos/8%20-AD%202%20SCEL.pdf , so AD 2.21 (noise) and AD 2.20 slots are still unread. AIP Vol II SCEL Local Procedures (DGAC, AMDT 97, 8 Aug 2024) read: preferred segregated runway use 17L arrivals / 17R departures 0600-2200 local; no curfew, slot or PPR rule on that page; nothing recorded from it."
 }
