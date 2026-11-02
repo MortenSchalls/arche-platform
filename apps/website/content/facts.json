@@ -4456,5 +4456,100 @@
   "v": "training circuits only 09:00-21:00 weekdays and 09:00-17:00 weekends and bank holidays",
   "src": "bqh-noise",
   "quote": "Monday to Friday: 09.00 to 21.00 hours (Local time)"
+ },
+ "id.clearance": {
+  "v": "a flight clearance from the Government of Indonesia to cross or land, made up of a diplomatic clearance, a security clearance and a flight approval",
+  "src": "id-pm35-2021",
+  "quote": "Izin Terbang (Flight Clearance) adalah izin melintas dan/atau mendarat ... yang terdiri atas Diplomatic Clearance, Security Clearance dan Flight Approval."
+ },
+ "id.security": {
+  "v": "the security clearance is a flight approval from the defence minister, it covers unscheduled foreign civil aircraft including private flights, and it is applied for electronically through the Commander of the Armed Forces",
+  "src": "id-permenhan-3-2024",
+  "quote": "Security Clearance means a flight approval from the minister administering government affairs in the field of defence."
+ },
+ "id.slot": {
+  "v": "the application attaches a recommendation on slot time",
+  "src": "id-permenhan-3-2024",
+  "quote": "recommendations for the allocation of flight time availability (slot time)"
+ },
+ "id.customs_airports": {
+  "v": "a 2025 Transport Ministry decree (KM 37) sets 36 public airports as international airports, among them Bali and Halim in Jakarta",
+  "src": "id-dgca-km37",
+  "quote": "36 ( tiga puluh enam) bandar udara umum sebagai bandar udara internasional"
+ },
+ "id.nyepi": {
+  "v": "Monday, 8 March 2027",
+  "src": "id-setneg-skb-2027",
+  "quote": "Senin, 8 Maret 2027: Hari Suci Nyepi (Tahun Baru Saka 1949)"
+ },
+ "wihh.intl": {
+  "v": "international flights are only for non-scheduled commercial and non-commercial air transport (state aircraft also allowed)",
+  "src": "id-dgca-km37",
+  "quote": "penerbangan luar negeri hanya diperuntukkan bagi angkutan udara niaga tidak berjadwal, angkutan udara bukan niaga"
+ },
+ "mo.lead": {
+  "v": "at least 3 working days before the operation date",
+  "src": "mo-aip-gen-2026",
+  "quote": "at least 3 working days before the anticipated operation date of the non-scheduled air services."
+ },
+ "mo.slots": {
+  "v": "time slots are applied for separately with the Macao Airport Slots Coordinator, and the operator or its handling agent is responsible for both the permit and the slot",
+  "src": "mo-aip-gen-2026",
+  "quote": "please file separately for approval by the Macao Airport Slots Coordinator"
+ },
+ "mo.handling": {
+  "v": "operators of private aircraft on international flights must use a recognised ground handling agent",
+  "src": "mo-aip-gen-2026",
+  "quote": "shall employ the services of a recognised ground handling agent"
+ },
+ "vmmc.operator": {
+  "v": "CAM - Macau International Airport Co. Ltd.",
+  "src": "mo-aip-gen-2026",
+  "quote": "CAM - Macau International Airport Co. Ltd., Airport Operations Department"
+ },
+ "vmmc.runway": {
+  "v": "one runway, 16/34, 45 m wide plus two 7.5 m shoulders; length 3,360 m (runway 34) and 3,285 m (runway 16)",
+  "src": "mia-capacity",
+  "quote": "Runway 34 3,360m; Runway 16 3,285m; Width: both runways 45m + (2x7.5)m"
+ },
+ "vmmc.hours": {
+  "v": "open 24 hours",
+  "src": "mia-capacity",
+  "quote": "Operating Hours 24 hours"
+ },
+ "vmmc.customs": {
+  "v": "customs and immigration 24 hours (AIP page dated 23 May 2017)",
+  "src": "mo-aip-ad-2025-08",
+  "quote": "Customs and immigration H24"
+ },
+ "vmmc.max_aircraft": {
+  "v": "all types up to the Boeing 747-400; 25 apron stands, 15 of them business jet stands",
+  "src": "mia-capacity",
+  "quote": "Type of Aircraft Serviced All types up to B747-400 ... Apron Stands 25 ... Business Jet Stands 15"
+ },
+ "vmmc.noise": {
+  "v": "ICAO Annex 16 Chapter 2 (noisiest, older) aircraft only case by case and not between 00:00 and 08:00 local; engine runs above ground idle normally not permitted 22:00-07:00 local; departures on runway 34 and landings on runway 16 allowed at any time, with routing limits to reduce noise over Zhuhai",
+  "src": "mo-aip-ad-2025-08",
+  "quote": "For Chapter 2 noise aircraft, operation time between 00:00 - 08:00 local time is not allowed."
+ },
+ "ev.dxb_artdubai_2027": {
+  "v": "9–11 April 2027 (preview days 7–8 April)",
+  "src": "artdubai-2027",
+  "quote": "taking place at Madinat Jumeirah, Dubai, from 9–11 April, with preview days on 7–8 April 2027."
+ },
+ "ev.gva_artgeneve_2027": {
+  "v": "28–31 January 2027",
+  "src": "artgeneve-home",
+  "quote": "Art Genève, the Modern and Contemporary Art Exhibition, 28–31 January 2027, Palexpo"
+ },
+ "ev.lon_ascot_2027": {
+  "v": "15–19 June 2027",
+  "src": "ascot-royal-2027",
+  "quote": "15- 19 June 2027"
+ },
+ "wadd.nyepi": {
+  "v": "in 2026, all domestic and international flights stopped from 06:00 local on 19 March to 06:00 local on 20 March",
+  "src": "id-kemenhub-nyepi-2026",
+  "quote": "akan dihentikan sementara mulai Kamis, 19 Maret 2026 pukul 06.00 WITA hingga Jumat, 20 Maret 2026 pukul 06.00 WITA."
  }
 }

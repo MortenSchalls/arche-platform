@@ -35,6 +35,11 @@
   "words": 707
  },
  {
+  "path": "/cities/bali/",
+  "draft": true,
+  "words": 399
+ },
+ {
   "path": "/cities/bangkok/",
   "draft": false,
   "words": 535
@@ -42,12 +47,12 @@
  {
   "path": "/cities/dubai/",
   "draft": false,
-  "words": 527
+  "words": 539
  },
  {
   "path": "/cities/geneva/",
   "draft": false,
-  "words": 536
+  "words": 543
  },
  {
   "path": "/cities/hong-kong/",
@@ -62,7 +67,12 @@
  {
   "path": "/cities/london/",
   "draft": false,
-  "words": 580
+  "words": 588
+ },
+ {
+  "path": "/cities/macau/",
+  "draft": true,
+  "words": 485
  },
  {
   "path": "/cities/new-york/",
@@ -113,6 +123,11 @@
   "path": "/countries/india/",
   "draft": false,
   "words": 543
+ },
+ {
+  "path": "/countries/indonesia/",
+  "draft": true,
+  "words": 573
  },
  {
   "path": "/countries/japan/",

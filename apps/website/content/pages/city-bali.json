@@ -1,0 +1,68 @@
+{
+ "path": "/cities/bali/",
+ "title": "Private jet charter to and from Bali: airport and Nyepi",
+ "description": "Private flights to and from Bali: I Gusti Ngurah Rai airport, the Nyepi closure and the clearances Indonesia asks for, from official sources.",
+ "eyebrow": "City guide · Bali",
+ "h1": "Private flights to and from Bali",
+ "lead": "Bali's airport stops all flights for the Day of Silence, and Indonesia asks for clearances first. What to plan for, from the authorities' own pages.",
+ "glance": [
+  [
+   "Airport code",
+   "wadd.icao"
+  ],
+  [
+   "Runway",
+   "wadd.runway"
+  ],
+  [
+   "Next Nyepi",
+   "id.nyepi"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "The airport",
+   "p": [
+    "I Gusti Ngurah Rai International Airport lies {{wadd.location}} and is run by {{wadd.operator}}. It has {{wadd.runway}}; its {{wadd.max_aircraft}}."
+   ]
+  },
+  {
+   "h": "Nyepi, the Day of Silence",
+   "p": [
+    "Plan around Nyepi. The last notice from the Ministry of Transportation: {{wadd.nyepi}}. The date changes each year.",
+    "The next Nyepi is on {{id.nyepi}}. We ask the operator to confirm the closure times for that date as soon as they are published."
+   ]
+  },
+  {
+   "h": "Clearances",
+   "p": [
+    "A foreign private or charter aircraft needs {{id.clearance}}. Our Indonesia guide sets out the rules."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Bali",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet land in Bali during Nyepi?",
+   "a": "Plan for no. The last notice: {{wadd.nyepi}}. The next Nyepi is on {{id.nyepi}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/countries/indonesia/",
+  "/cities/singapore/",
+  "/regions/asia-pacific/"
+ ],
+ "draft": true,
+ "type": "city",
+ "region": "/regions/asia-pacific/"
+}

@@ -2614,5 +2614,53 @@
   "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FAOR_EN.pdf",
   "publisher": "South African Civil Aviation Authority (SACAA)",
   "checked": "2026-11-01"
+ },
+ "id-pm35-2021": {
+  "title": "Indonesia, Minister of Transportation Regulation PM 35 of 2021 on air transport (State Gazette 2021 No. 582)",
+  "url": "https://www.peraturan.go.id/files/bn582-2021.pdf",
+  "publisher": "Ministry of Law, Republic of Indonesia (peraturan.go.id)",
+  "checked": "2026-11-02"
+ },
+ "id-permenhan-3-2024": {
+  "title": "Indonesia, Minister of Defence Regulation No. 3 of 2024 on Security Clearance (English translation; the text shows the year only)",
+  "url": "https://www.peraturan.go.id/files2/permenhan-no-3-tahun-2024_terjemah.pdf",
+  "publisher": "Ministry of Law, Republic of Indonesia (peraturan.go.id)",
+  "checked": "2026-11-02"
+ },
+ "id-dgca-km37": {
+  "title": "DGCA news: Transport Ministry Decree KM 37 of 2025 on international airports (11 Aug 2025)",
+  "url": "https://hubud.kemenhub.go.id/hubud/website/berita/4770",
+  "publisher": "Direktorat Jenderal Perhubungan Udara",
+  "checked": "2026-11-02"
+ },
+ "id-setneg-skb-2027": {
+  "title": "Joint ministerial decree on national holidays 2027 (published 15 Sep 2026)",
+  "url": "https://setneg.go.id/baca/index/inilah_skb_3_menteri_libur_nasional_dan_cuti_bersama_2027",
+  "publisher": "Ministry of State Secretariat, Republic of Indonesia",
+  "checked": "2026-11-02"
+ },
+ "mo-aip-gen-2026": {
+  "title": "AIP Macao Part 1 General (file posted 25 Aug 2026; GEN 0.1 dated 20 Aug 2026; GEN 1.2 dated 28 May 2026, AMDT 51)",
+  "url": "https://www.aacm.gov.mo/static/2026/08/25/e144ac8d-581e-499b-a8e0-a8dbb964a304.pdf?filename=%E7%AC%AC%E4%B8%80%E9%83%A8%E4%BB%BD+-+%E7%B8%BD%E5%89%87+%28GEN%29",
+  "publisher": "Civil Aviation Authority of Macao SAR (AACM)",
+  "checked": "2026-11-02"
+ },
+ "artdubai-2027": {
+  "title": "Art Dubai: Applications are open for Art Dubai 2027 (27 Aug 2026)",
+  "url": "https://www.artdubai.ae/blog/applications-for-art-dubai-2027-open/",
+  "publisher": "Art Dubai",
+  "checked": "2026-11-02"
+ },
+ "artgeneve-home": {
+  "title": "Art Genève home page (checked 2 Nov 2026)",
+  "url": "https://artgeneve.ch/en/home/",
+  "publisher": "Art Genève",
+  "checked": "2026-11-02"
+ },
+ "ascot-royal-2027": {
+  "title": "Royal Ascot page (checked 2 Nov 2026)",
+  "url": "https://www.ascot.com/royal-ascot",
+  "publisher": "Ascot Racecourse",
+  "checked": "2026-11-02"
  }
 }
