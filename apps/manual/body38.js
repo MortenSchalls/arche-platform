@@ -1058,7 +1058,7 @@ push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["The portal says it could not open", "Open it from claude.ai while signed in, using the link you were given. A copied link opened in another browser profile will not sign you in."], ["I am stuck on Request sent", "The director has not approved you yet. Ask the director; approval needs your contract and academy code."], ["I see Access ended", "Your access was ended. Contact Archē operations if you think this is a mistake."], ["I cannot see a trip or lead a colleague mentions", "Brokers see only their own trips and leads. Ask operations."]]));
 push(sp());
 push(H3('Tips and tricks'));
-push(BL(["Use the same claude.ai account every time: your trips and leads are tied to it.", "Bookmark the portal link on your phone; every page works on a small screen."]));
+push(BL(["Use the same claude.ai account every time: your trips and leads are tied to it.", "Bookmark the portal link on your phone; every page works on a small screen.", "Owners: Team > Invite someone to join shows where each person is in joining: the step they are on out of nine, the academy modules passed, a progress bar and when they last signed in. Log opens every step with its date, newest first."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.2 Today (brokers and operations)"));
 push(P([bo('Who uses it: '),r("Brokers, consultants and operations")]));
