@@ -212,6 +212,8 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
 
 ## 8. Open items
 
+- 2 Nov 2026: budget Archē_Executive_Budget_Model_V2_2026-11-02.xlsx in Final versions (31 Oct file in Archive/Final versions 2026-11-02): Monthly labels realigned (were one row off), broker plan on Inputs rows 147–149 (Demand row 23 now formulas), dropdowns on B3/B138, full recalc on open, V1/V2/V3 snapshot refreshed; audit: all 143 inputs perturbed, 0 errors, 10-year net 126,058,823 unchanged. Staging (not released): aircraft finder pictures load at once; trip form required marks inline, return-leg button. Open: website content pages and terms/privacy are English only (Morten to decide on translating ~40 pages); live P&L in Reports once Morten calls the budget final.
+
 - 2 Nov 2026 (staging): joining log now includes history: earlier invitations from the audit log, academy start, live training lessons, notices read, and (after Morten runs SQL 0021 `join_auth_events`, on his Today list) every sign-in grouped by day, password set/changed and account created. Server-only function; no IP addresses.
 
 - 2 Nov 2026 (staging, not released): website quote form puts the return date beside the outbound date on every screen size; Team > Invitations shows each person's exact joining progress (step of 9, academy modules, bar, last sign-in) with a Log to open, also for people joining without a Team invitation (`api/invite.mjs` joinProgress); the first opening of the offer is recorded (train/<uid>/runs/offer). Manual H.1 tip added (docx in the repo rebuilt; the copy in Final versions on the Mac still needs replacing).
