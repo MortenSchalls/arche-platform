@@ -85,7 +85,7 @@ export function inviteState(u, prof, join, agr) {
 // beyond what Team already shows.
 const ACADEMY_PATHS = { broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam"], consultant: ["m0","m1","m2","lab","m3","m4","m5","m12","m13","exam"] };
 const ACADEMY_TITLES = { m0: "0 Aviation for brokers", m1: "1 Archē Executive and the broker's role", m2: "2 Where we may and may not sell", lab: "2L Lab: the trip risk screen", m3: "3 Compliance: KYC, sanctions, fraud", m4: "4 Our clients", m5: "5 Enquiry intake and qualification", m6: "6 Flight feasibility and trip planning", m7: "7 Aircraft knowledge: long-range jets", m8: "8 Sourcing on Avinode and operator vetting", m9: "9 Pricing and quoting", m10: "10 Contract, payment and settlement", book: "10P Practical: the booking form", m11: "11 Trip operations and the 24/7 desk", m12: "12 Selling and the consultant desk", m13: "13 Case studies", m14: "14 Assessment and certification", exam: "Written exam" };
-export function joinProgress({ invite = {}, user = null, prof = null, join = null, agr = null, prog = null, ack = null, offer = null, audits = [] } = {}) {
+export function joinProgress({ invite = {}, user = null, prof = null, join = null, agr = null, prog = null, ack = null, offer = null, audits = [], runs = [], authEvents = null } = {}) {
   const jd = (join && join.data) || {}, a = (agr && agr.data) || {}, pd = (prof && prof.data) || {}, ob = (pd.roster || {}).onboarding || {};
   const p = (prog && prog.data) || null, role = (p && p.role) || jd.role || "broker", path = ACADEMY_PATHS[role] || ACADEMY_PATHS.broker;
   const mods = (p && p.mods) || {}, passed = path.filter(k => mods[k] && mods[k].passed), next = path.find(k => !(mods[k] && mods[k].passed));
@@ -108,9 +108,26 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   const pct = Math.round(((done + (cur && cur.k === "academy" ? cur.part || 0 : 0)) / steps.length) * 100);
   const label = cur ? `Step ${steps.indexOf(cur) + 1} of ${steps.length}: ${cur.t}${cur.note ? " (" + cur.note + ")" : ""}` : "Done: on the desk";
   const log = [];
-  sends.forEach((x, i) => log.push({ at: x.at, t: i ? "Invitation sent again" + (x.sent ? "" : " (link given to the owner)") : "Invited" + (x.sent ? "; email sent" : "; email not sent, link given to the owner") }));
-  if (firstIn) log.push({ at: firstIn, t: "Opened the invitation and set a password" });
-  if (signedIn && signedIn !== firstIn) log.push({ at: signedIn, t: "Last signed in" });
+  // invitations: the list on Team, plus earlier ones found in the audit log (the list kept only the latest before 2 Nov 2026)
+  const near = (a, b) => Math.abs(new Date(a) - new Date(b)) < 5 * 60e3;
+  const invAudits = (audits || []).filter(x => x.action === "Invitation to join" && x.t && !sends.some(y => near(y.at, x.t))).map(x => ({ at: x.t, sent: /email sent/.test(x.detail || "") }));
+  const allSends = [...sends, ...invAudits].sort((a, b) => String(a.at).localeCompare(String(b.at)));
+  if (allSends.length > 1 && steps[0].k === "invited" && !steps[0].note) steps[0].note = `link sent ${allSends.length} times`;
+  allSends.forEach((x, i) => log.push({ at: x.at, t: i ? "Invitation sent again" + (x.sent ? "" : " (link given to the owner)") : "Invited" + (x.sent ? "; email sent" : "; email not sent, link given to the owner") }));
+  // sign-in history kept by Supabase (SQL 0021): every sign-in, grouped by day, and account events
+  const AUTH = { user_signedup: "Login created", user_invited: "Invitation link created", invite_accepted: "Opened the invitation", user_confirmation_requested: "Asked to confirm the email", user_recovery_requested: "Asked for a new password link", user_updated_password: "Set or changed the password", user_modified: "Account details changed", logout: "Signed out", user_repeated_signup: "Tried to sign up again", user_deleted: "Login deleted" };
+  if (Array.isArray(authEvents) && authEvents.length) {
+    const days = {};
+    authEvents.forEach(e => { if (e.action === "login") { const d = String(e.at).slice(0, 10); (days[d] = days[d] || []).push(e.at); } else if (AUTH[e.action]) log.push({ at: e.at, t: AUTH[e.action] }); });
+    Object.values(days).forEach(ts => { ts.sort(); log.push({ at: ts[ts.length - 1], t: ts.length > 1 ? `Signed in ${ts.length} times that day (first ${String(ts[0]).slice(11, 16)} UTC)` : "Signed in" }); });
+  } else {
+    if (firstIn) log.push({ at: firstIn, t: "Opened the invitation and set a password" });
+    if (signedIn && signedIn !== firstIn) log.push({ at: signedIn, t: "Last signed in" });
+  }
+  if (prog && prog.created_at) log.push({ at: prog.created_at, t: "Started the academy" });
+  (runs || []).forEach(r => { const d = r.data || {};
+    if (d.kind === "syllabus" && d.at) log.push({ at: d.at, t: "Live training lesson: " + String(d.title || d.lesson || "").slice(0, 80) });
+    else if (/^notice-/.test(r.id || "") && (d.at || r.updated_at)) log.push({ at: d.at || r.updated_at, t: "Read a notice from Archē" }); });
   if (offer && offer.data && offer.data.at) log.push({ at: offer.data.at, t: "Opened the offer" });
   path.forEach(k => { const m = mods[k]; if (m && m.passedAt) log.push({ at: m.passedAt, t: `Academy: passed ${ACADEMY_TITLES[k] || k}${m.best ? ` (${m.best}%` + (m.attempts > 1 ? `, ${m.attempts} attempts)` : ")") : ""}` }); else if (m && m.at && !m.passed) log.push({ at: m.at, t: `Academy: tried ${ACADEMY_TITLES[k] || k}, not passed yet (best ${m.best || 0}%)` }); });
   if (p && p.completedAt) log.push({ at: p.completedAt, t: "Academy completed" });
@@ -119,9 +136,9 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   if (a.signedAt) log.push({ at: a.signedAt, t: "Signed the agreement" });
   if (a.counterAt || ob.issuedAt) log.push({ at: a.counterAt || ob.issuedAt, t: "Countersigned; onboarding package issued" });
   if (ack && ack.data && ack.data.ackAt) log.push({ at: ack.data.ackAt, t: "Confirmed the onboarding package; desk opened" });
-  (audits || []).forEach(x => { if (!/^Invitation to join$/.test(x.action || "")) log.push({ at: x.t, t: x.action + (x.detail ? ": " + String(x.detail).slice(0, 160) : "") }); });
+  (audits || []).forEach(x => { if (x.action !== "Invitation to join") log.push({ at: x.t, t: x.action + (x.detail ? ": " + String(x.detail).slice(0, 160) : "") }); });
   log.sort((x, y) => String(y.at || "").localeCompare(String(x.at || "")));
-  return { done, of: steps.length, pct, label, steps, log: log.slice(0, 80), lastSeen: signedIn };
+  return { done, of: steps.length, pct, label, steps, log: log.slice(0, 150), lastSeen: signedIn, history: Array.isArray(authEvents) ? "full" : "partial" };
 }
 async function owner(req) {
   const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, ""), PK = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_SECRET_KEY;
@@ -142,37 +159,36 @@ export default async function handler(req, res) {
     if (req.method === "GET") {   // who has accepted (owners only)
       const cur = await sb("/rest/v1/intel?select=value&key=eq.invites"), list = (((cur.body || [])[0] || {}).value || {}).list || [];
       const out = {};
+      const arr = r => Array.isArray(r) ? r : [];
+      const one = async path => arr((await sb(path)).body)[0] || null;
+      // everything recorded about one person's joining, with dates (history included where the records keep it)
+      const gather = async (u, x, prof) => {
+        const join = await one(`/rest/v1/join_requests?select=data,at&user_id=eq.${u.id}`), agr = await one(`/rest/v1/agreements?select=data,created_at&id=eq.${u.id}`);
+        const prog = await one(`/rest/v1/academy_progress?select=data,created_at&id=eq.${u.id}`);
+        const runs = arr((await sb(`/rest/v1/training_runs?select=id,data,updated_at&owner_id=eq.${u.id}`)).body);
+        const nm = String(x.name || "").replace(/[^\p{L}\p{N} .'-]/gu, "").trim();
+        const audits = nm.length >= 3 ? arr((await sb(`/rest/v1/audit_log?select=t,action,detail&detail=ilike.*${encodeURIComponent(nm)}*&order=t.desc&limit=60`)).body) : [];
+        // sign-in history kept by Supabase (needs SQL 0021; without it the log uses the other records only)
+        const ae = await sb("/rest/v1/rpc/join_auth_events", { method: "POST", body: JSON.stringify({ p_uid: u.id, p_email: String(u.email || x.email || "").toLowerCase() }) });
+        return { ...inviteState(u, prof, join, agr), progress: joinProgress({ invite: x, user: u, prof, join, agr, prog, ack: runs.find(r => r.id === "onboarding") || null, offer: runs.find(r => r.id === "offer") || null, runs, audits, authEvents: ae.ok ? arr(ae.body) : null }) };
+      };
       for (const x of list.slice(0, 30)) {
         const u = await findUser(String(x.email || "").toLowerCase());
-        let prof = null, join = null, agr = null;
-        if (u) { prof = ((await sb(`/rest/v1/profiles?select=active,data&id=eq.${u.id}`)).body || [])[0] || null; join = ((await sb(`/rest/v1/join_requests?select=data&user_id=eq.${u.id}`)).body || [])[0] || null; agr = ((await sb(`/rest/v1/agreements?select=data&id=eq.${u.id}`)).body || [])[0] || null; }
-        let prog = null, ack = null, offer = null, audits = [];
-        if (u) {
-          prog = ((await sb(`/rest/v1/academy_progress?select=data&id=eq.${u.id}`)).body || [])[0] || null;
-          const runs = (await sb(`/rest/v1/training_runs?select=id,data&owner_id=eq.${u.id}&id=in.(onboarding,offer)`)).body || [];
-          ack = runs.find(r => r.id === "onboarding") || null; offer = runs.find(r => r.id === "offer") || null;
-          const nm = String(x.name || "").replace(/[^\p{L}\p{N} .'-]/gu, "").trim();
-          if (nm.length >= 3) audits = (await sb(`/rest/v1/audit_log?select=t,action,detail&detail=ilike.*${encodeURIComponent(nm)}*&order=t.desc&limit=30`)).body || [];
-        }
-        out[x.email] = { ...inviteState(u, prof, join, agr), progress: joinProgress({ invite: x, user: u, prof, join, agr, prog, ack, offer, audits: Array.isArray(audits) ? audits : [] }) };
+        if (!u) { out[x.email] = { ...inviteState(null), progress: joinProgress({ invite: x }) }; continue; }
+        const prof = await one(`/rest/v1/profiles?select=active,data&id=eq.${u.id}`);
+        out[x.email] = await gather(u, x, prof);
       }
       // email addresses of everyone with a login, so Team can show who is who (owners only; never stored in the page)
       const people = {}, users = []; for (let page = 1; page <= 20; page++) { const r = await sb(`/auth/v1/admin/users?page=${page}&per_page=200`); const ul = (r.body && r.body.users) || []; ul.forEach(u => { people[u.id] = { email: u.email || "", lastSignIn: u.last_sign_in_at || null }; users.push(u); }); if (ul.length < 200) break; }
       // people joining who were not invited from Team (an earlier starter package, or sent back to joining): shown too
       const extra = [], listed = new Set(list.slice(0, 30).map(x => String(x.email || "").toLowerCase()));
-      const joining = (await sb("/rest/v1/profiles?select=id,role,active,contract_name,data&active=eq.false&role=neq.owner")).body || [];
-      for (const pr of (Array.isArray(joining) ? joining : []).slice(0, 30)) {
+      const joining = arr((await sb("/rest/v1/profiles?select=id,role,active,contract_name,data&active=eq.false&role=neq.owner")).body);
+      for (const pr of joining.slice(0, 30)) {
         if (pr.data && pr.data.roster) continue;   // left the team: not joining
         const u = users.find(z => z.id === pr.id); if (!u || !u.email || listed.has(u.email.toLowerCase())) continue;
         const name = pr.contract_name || ((u.user_metadata || {}).name) || u.email.split("@")[0];
-        const x = { email: u.email.toLowerCase(), name, at: u.created_at, notInvited: true };
-        const join = ((await sb(`/rest/v1/join_requests?select=data,at&user_id=eq.${u.id}`)).body || [])[0] || null, agr = ((await sb(`/rest/v1/agreements?select=data&id=eq.${u.id}`)).body || [])[0] || null;
-        const prog = ((await sb(`/rest/v1/academy_progress?select=data&id=eq.${u.id}`)).body || [])[0] || null;
-        const runs = (await sb(`/rest/v1/training_runs?select=id,data&owner_id=eq.${u.id}&id=in.(onboarding,offer)`)).body || [];
-        const nm = String(name).replace(/[^\p{L}\p{N} .'-]/gu, "").trim();
-        const audits = nm.length >= 3 ? (await sb(`/rest/v1/audit_log?select=t,action,detail&detail=ilike.*${encodeURIComponent(nm)}*&order=t.desc&limit=30`)).body || [] : [];
-        extra.push(x);
-        out[x.email] = { ...inviteState(u, pr, join, agr), progress: joinProgress({ invite: { at: u.created_at, first: u.created_at, sends: [] }, user: u, prof: pr, join, agr, prog, ack: (Array.isArray(runs) ? runs : []).find(r => r.id === "onboarding") || null, offer: (Array.isArray(runs) ? runs : []).find(r => r.id === "offer") || null, audits: Array.isArray(audits) ? audits : [] }) };
+        const x = { email: u.email.toLowerCase(), name, at: u.created_at, first: u.created_at, sends: [], notInvited: true };
+        extra.push(x); out[x.email] = await gather(u, x, pr);
       }
       return res.status(200).json({ states: out, people, extra });
     }

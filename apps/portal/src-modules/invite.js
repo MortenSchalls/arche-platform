@@ -32,7 +32,7 @@
   function invLog(x, pg){
     const steps = `<ol class="small" style="margin:0;padding-left:20px">${pg.steps.map(s => `<li style="margin:2px 0">${s.done ? '<span class="chip c-flown">Done</span>' : s === pg.steps.find(z => !z.done) ? '<span class="chip c-review">Now</span>' : '<span class="chip c-enquiry">Next</span>'} <b>${esc(s.t)}</b>${s.at ? ` <span class="muted">${fmtT(s.at)}</span>` : ""}${s.note ? ` <span class="muted">· ${esc(s.note)}</span>` : ""}</li>`).join("")}</ol>`;
     const log = pg.log.length ? `<ul class="small" style="margin:0;padding-left:18px">${pg.log.map(l => `<li style="margin:2px 0"><span class="muted mono">${l.at ? fmtT(l.at) : "no date"}</span> ${esc(l.t)}</li>`).join("")}</ul>` : `<p class="small muted">Nothing recorded yet.</p>`;
-    return `<div class="fgrid" id="invLog_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}" style="align-items:start"><div><h3 style="margin:4px 0">Steps: ${esc(x.name || x.email)}</h3>${steps}</div><div><h3 style="margin:4px 0">Log, newest first</h3>${log}</div></div>`;
+    return `<div class="fgrid" id="invLog_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}" style="align-items:start"><div><h3 style="margin:4px 0">Steps: ${esc(x.name || x.email)}</h3>${steps}</div><div><h3 style="margin:4px 0">Log, newest first</h3>${log}${pg.history === "partial" ? `<p class="small muted" style="margin-top:6px">Every sign-in and password change appears here once SQL 0021 (joining history) has run: see your list on Today.</p>` : ""}</div></div>`;
   }
   async function states(){   // who has accepted: asked at most once a minute while Team is open
     if (S.invStBusy || (S.invStAt && Date.now() - S.invStAt < 60e3)) return;

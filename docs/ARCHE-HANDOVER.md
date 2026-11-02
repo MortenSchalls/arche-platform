@@ -212,6 +212,8 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
 
 ## 8. Open items
 
+- 2 Nov 2026 (staging): joining log now includes history: earlier invitations from the audit log, academy start, live training lessons, notices read, and (after Morten runs SQL 0021 `join_auth_events`, on his Today list) every sign-in grouped by day, password set/changed and account created. Server-only function; no IP addresses.
+
 - 2 Nov 2026 (staging, not released): website quote form puts the return date beside the outbound date on every screen size; Team > Invitations shows each person's exact joining progress (step of 9, academy modules, bar, last sign-in) with a Log to open, also for people joining without a Team invitation (`api/invite.mjs` joinProgress); the first opening of the offer is recorded (train/<uid>/runs/offer). Manual H.1 tip added (docx in the repo rebuilt; the copy in Final versions on the Mac still needs replacing).
 
 - 31 Oct 2026: owner four-eyes released to live (0a6189e). Website phone layout (bc9d8e8, `apps/website/site-fixes.css`, phones up to 760 px: photo-led hero, compact quote form, swipeable services and trip-feature rows, 2x2 discover tiles, 20px gutter) is on staging; goes live when Morten says "release".
