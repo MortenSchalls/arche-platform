@@ -618,6 +618,8 @@ input:not([type=checkbox]):not([type=radio]):not([type=file]),select{height:var(
 .legs .leg{display:grid;grid-template-columns:minmax(150px,2fr) minmax(150px,2fr) minmax(140px,1.3fr) minmax(110px,1fr) minmax(100px,.8fr) auto;gap:10px;align-items:end;margin-bottom:26px}
 @media (max-width:760px){.legs .leg{grid-template-columns:1fr 1fr;row-gap:28px;padding-bottom:12px;border-bottom:1px solid var(--line)}.legs .leg > label.f:nth-child(-n+2){grid-column:1/-1}.legs .leg > .btn{justify-self:start}}
 .legs .leg > label.f{position:relative}
+.legs .leg:only-child > [data-act="delLeg"]{visibility:hidden}
+label.f > .flab{display:block}
 .legs .leg .apthint{position:absolute;left:0;right:0;top:100%;margin-top:3px;min-height:0}
 .legs .leg > .btn{align-self:end;min-height:var(--ctl)}
 label.f > span.small,label.f > .apthint,label.f > .muted{text-transform:none;letter-spacing:normal;font-size:12px;line-height:1.35}
@@ -1211,7 +1213,7 @@ function openEditor(t){
       <label class="f" for="e_ct">Country of residence<input id="e_ct" value="${esc(c.country || "")}"></label>
       <label class="f" for="e_py">Who pays (if not the client)<input id="e_py" value="${esc(c.payer || "")}"></label></div></div>
     <div><h3>Trip</h3><div class="legs" id="legs">${legs.map((l, i) => legRow(l, i)).join("")}</div>
-      <button class="btn small" type="button" data-act="addLeg">Add leg</button>
+      <div class="row" style="gap:8px"><button class="btn small" type="button" data-act="addLeg">Add leg</button><button class="btn small" type="button" data-act="addReturn">Add the return leg</button></div>
       <div class="fgrid" style="margin-top:10px">
       <label class="f" for="e_cat">Aircraft category<select id="e_cat">${["","Turboprop","Light jet","Midsize jet","Super-midsize jet","Heavy jet","Ultra-long-range jet","VIP airliner"].map(x => `<option ${tr.category === x ? "selected" : ""}>${x}</option>`).join("")}</select></label>
       <label class="f wide" for="e_nt">Requests and notes<textarea id="e_nt">${esc(tr.notes || "")}</textarea></label></div></div>
@@ -1326,6 +1328,11 @@ async function act(a, el){
     if (a === "edit") { openEditor(t); return; }
     if (a === "closeEd") { S.editing = false; S.fromLead = null; S.fromPool = null; render(); return; }
     if (a === "addLeg") { const box = $("legs"); box.insertAdjacentHTML("beforeend", legRow({}, box.children.length)); return; }
+    if (a === "addReturn") { const box = $("legs"), rows = [...box.querySelectorAll(".leg")], g = (r, k) => (r.querySelector(`[data-l="${k}"]`) || {}).value || "";
+      const first = rows[0], last = rows[rows.length - 1];
+      if (!first || !g(first, "from") || !g(last, "to")) { toast("Fill in From and To on the first leg first."); return; }
+      box.insertAdjacentHTML("beforeend", legRow({from: g(last, "to"), to: g(first, "from"), pax: g(last, "pax")}, rows.length));
+      const nr = box.lastElementChild, d = nr && nr.querySelector('[data-l="date"]'); if (d) d.focus(); toast("Return leg added: choose its date and time."); return; }
     if (a === "delLeg") { const box = $("legs"); if (box.children.length > 1) el.closest(".leg").remove(); return; }
     if (a === "submit") { if (gated("quote") && !(gateReq(S.uid, "quote", t.did) || {}).status) { if (await gateHold("quote", t.did, quoteFp(t), `${(t.d.client || {}).company || (t.d.client || {}).name || "Client"}: client price ${usd(priceOf((t.d.quote || {}).opPrice, (t.d.quote || {}).direct))}`, "", {tripBid: t.bid, tripDid: t.did})) return; }
       else if (gated("quote")) { const r = gateReq(S.uid, "quote", t.did); if (!(r.status === "approved" && r.fp === quoteFp(t))) { toast(r.status === "pending" ? "Your quote is waiting for the director's OK." : r.status === "changes" ? "The director asked for changes to the quote. Change it and save to ask again." : "The quote changed since the director's OK. Save it to ask again."); return; } }
@@ -6486,7 +6493,9 @@ function vOnboarding(){
 
   // the trip form: required marks and a live list of what is still missing
   const REQ_IDS = ["e_cn", "e_ct", "q_op", "q_oc", "q_ac", "q_pr"];
-  function star(el){ const lab = el && el.closest("label"); if (lab && !lab.querySelector(".req-star")) { const s = document.createElement("span"); s.className = "req-star"; s.textContent = "*"; s.title = "Needed to send to operations"; lab.insertBefore(s, lab.firstChild.nextSibling); } }
+  function star(el){ const lab = el && el.closest("label"); if (lab && !lab.querySelector(".req-star")) { const s = document.createElement("span"); s.className = "req-star"; s.textContent = "*"; s.title = "Needed to send to operations";
+    // the mark sits on the same line as the label text, so required fields line up with the others
+    const t = lab.firstChild; if (t && t.nodeType === 3) { const w = document.createElement("span"); w.className = "flab"; lab.insertBefore(w, t); w.appendChild(t); w.appendChild(s); } else lab.insertBefore(s, lab.firstChild.nextSibling); } }
   function formBody(){
     const f = $("edForm"); if (!f) return null;
     const v = id => (($(id) || {}).value || "").trim();

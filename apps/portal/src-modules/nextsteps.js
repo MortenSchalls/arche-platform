@@ -155,7 +155,9 @@
 
   // the trip form: required marks and a live list of what is still missing
   const REQ_IDS = ["e_cn", "e_ct", "q_op", "q_oc", "q_ac", "q_pr"];
-  function star(el){ const lab = el && el.closest("label"); if (lab && !lab.querySelector(".req-star")) { const s = document.createElement("span"); s.className = "req-star"; s.textContent = "*"; s.title = "Needed to send to operations"; lab.insertBefore(s, lab.firstChild.nextSibling); } }
+  function star(el){ const lab = el && el.closest("label"); if (lab && !lab.querySelector(".req-star")) { const s = document.createElement("span"); s.className = "req-star"; s.textContent = "*"; s.title = "Needed to send to operations";
+    // the mark sits on the same line as the label text, so required fields line up with the others
+    const t = lab.firstChild; if (t && t.nodeType === 3) { const w = document.createElement("span"); w.className = "flab"; lab.insertBefore(w, t); w.appendChild(t); w.appendChild(s); } else lab.insertBefore(s, lab.firstChild.nextSibling); } }
   function formBody(){
     const f = $("edForm"); if (!f) return null;
     const v = id => (($(id) || {}).value || "").trim();

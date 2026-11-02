@@ -1138,6 +1138,7 @@
           // (the pick path's credit/credit-href setAttributes) need this
           // flag, not complete, to know a load is in flight.
           this._loadPending = true;
+          if (this.closest && this.closest('#fleet, #top, .ae-phead')) { this._img.loading = 'eager'; this._img.fetchPriority = this.closest('#fleet') && this.getBoundingClientRect().width ? 'high' : 'auto'; }
           this._img.src = url;
           this._ghost.src = url;
         } else {
@@ -1223,3 +1224,9 @@
     customElements.define('image-slot', ImageSlot);
   }
 })();
+
+// warm the aircraft finder: once the page is idle, fetch every aircraft picture so moving the slider shows it at once
+(function(){ var go = function(){ fetch('image-slots.state.json').then(function(r){ return r.json(); }).then(function(s){
+  if (!document.querySelector('#fleet')) return; Object.keys(s).filter(function(k){ return /^ac-/.test(k) && s[k] && s[k].u; }).forEach(function(k){ var i = new Image(); i.decoding = 'async'; i.src = '/' + s[k].u; }); }).catch(function(){}); };
+  var idle = window.requestIdleCallback || function(f){ setTimeout(f, 1200); };
+  if (document.readyState === 'complete') idle(go); else window.addEventListener('load', function(){ idle(go); }); })();
