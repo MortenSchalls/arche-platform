@@ -2662,5 +2662,29 @@
   "url": "https://www.ascot.com/royal-ascot",
   "publisher": "Ascot Racecourse",
   "checked": "2026-11-02"
+ },
+ "zrh-noise-charges-2026-11": {
+  "title": "Zurich Airport - Noise charges (read 2026-11-02)",
+  "url": "https://www.flughafen-zuerich.ch/en/company/responsibility/noise-and-sound-insulation/noise-categories/noise-charges",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-11-02"
+ },
+ "vce-ga-page": {
+  "title": "Venice General Aviation, your trusted handler (Venice Airport, undated, read 2026-11-02)",
+  "url": "https://www.veneziaairport.it/en_gb/flights/private-jets/general-aviation",
+  "publisher": "SAVE S.p.A. (Venice Airport operator)",
+  "checked": "2026-11-02"
+ },
+ "dwc-cou-ga-s25": {
+  "title": "Conditions of Use, Dubai World Central (DWC) General Aviation, Northern Summer 2025 (effective 30 March 2025)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2025/04/conditions_of_use_dubai_world_central_dwc_general_aviation_s25.pdf",
+  "publisher": "Airport Coordination Limited (slot coordinator for Dubai Airports)",
+  "checked": "2026-11-02"
+ },
+ "hk-aip-vhhh-2026-10": {
+  "title": "AIP Hong Kong, AD 2 VHHH (page dated 6 Aug 2026, effective 1 Oct 2026)",
+  "url": "https://www.ais.gov.hk/eaip_20261001/2026-10-01-000000/html/eAIP/VH-AD-2-VHHH-en-US.html",
+  "publisher": "Civil Aviation Department, Hong Kong",
+  "checked": "2026-11-02"
  }
 }

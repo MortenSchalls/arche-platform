@@ -7,7 +7,7 @@
  "tz": "Asia/Kuala_Lumpur",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-02",
  "rules": {
   "customs": {
    "v": "customs and immigration open 24 hours",
@@ -36,5 +36,5 @@
   "noise",
   "handling agent names"
  ],
- "notes": "The eAIP page (AIRAC 6 Aug 2026) only loaded up to AD 2.9; runway, local regulations and noise sections could not be read. The old PDF AD 2 on aip.caam.gov.my dates from 2008-2011 and was not used. Customs and aerodrome are H24. 1 Nov 2026: read the newest edition, AIRAC 29 Oct 2026 (https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html). The page text is again cut off in AD 2.9 (the AD 2.8 taxiway/apron tables are very long), so runway (AD 2.12), local rules (AD 2.20) and noise (AD 2.21) still could not be read; Morten may need to download the AD 2 WMKK pages. Handling updated from that edition. Its AD 2.3 hours rows show only database markup with '24', so customs and hours are kept from the 6 Aug 2026 edition. The AIP refers to runways 14L/32R and 14R/32L (lengths not read)."
+ "notes": "The eAIP page (AIRAC 6 Aug 2026) only loaded up to AD 2.9; runway, local regulations and noise sections could not be read. The old PDF AD 2 on aip.caam.gov.my dates from 2008-2011 and was not used. Customs and aerodrome are H24. 1 Nov 2026: read the newest edition, AIRAC 29 Oct 2026 (https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html). The page text is again cut off in AD 2.9 (the AD 2.8 taxiway/apron tables are very long), so runway (AD 2.12), local rules (AD 2.20) and noise (AD 2.21) still could not be read; Morten may need to download the AD 2 WMKK pages. Handling updated from that edition. Its AD 2.3 hours rows show only database markup with '24', so customs and hours are kept from the 6 Aug 2026 edition. The AIP refers to runways 14L/32R and 14R/32L (lengths not read). | 2026-11-02 run: Re-read 19 May 2026 eAIP WMKK page (79k characters) from offset 60000 and 72000: only taxiway/apron pavement tables; AD 2.12, 2.20, 2.21 not in the readable text. Nothing new."
 }

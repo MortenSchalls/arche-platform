@@ -7,7 +7,7 @@
  "tz": "Asia/Bangkok",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-31",
+ "checked": "2026-11-02",
  "rules": {
   "runway": {
    "v": "two runways; the longest, 03L/21R, is 3,700 m long and 60 m wide",
@@ -48,5 +48,5 @@
   "max_aircraft",
   "noise"
  ],
- "notes": "Read from the eAIP edition effective 14 May 2026; the reading covered AD 2.1 to AD 2.18 and no slot, PPR, noise or night-restriction text was found there; AD 2.20 and later were not read. Newer AIRAC editions (6 Aug 2026, 3 Sep 2026) could not be opened. The AIP also mentions a 'GA Aviation Channel (Private aircraft) and AOTGA Premium Lounge' contact. IATA code is not given on the AD 2 page; it is taken from the GEN 1.2 slot table. 31 Oct 2026: IATA code, slots and flight-permit lead time added from AIP GEN 1.2 (AIRAC 4 Sep 2025; the AMDT 08/26 page list, 6 Aug 2026, shows no GEN 1.2 change). The current AD 2 pages (AMDT 09/26, 3 Sep 2026) could not be opened (fetch not permitted)."
+ "notes": "Read from the eAIP edition effective 14 May 2026; the reading covered AD 2.1 to AD 2.18 and no slot, PPR, noise or night-restriction text was found there; AD 2.20 and later were not read. Newer AIRAC editions (6 Aug 2026, 3 Sep 2026) could not be opened. The AIP also mentions a 'GA Aviation Channel (Private aircraft) and AOTGA Premium Lounge' contact. IATA code is not given on the AD 2 page; it is taken from the GEN 1.2 slot table. 31 Oct 2026: IATA code, slots and flight-permit lead time added from AIP GEN 1.2 (AIRAC 4 Sep 2025; the AMDT 08/26 page list, 6 Aug 2026, shows no GEN 1.2 change). The current AD 2 pages (AMDT 09/26, 3 Sep 2026) could not be opened (fetch not permitted). | 2026-11-02 run: aip.caat.or.th landing shows AMDT 11/26 effective 29 Oct 2026 as current (https://aip.caat.or.th/2026-10-29-AIRAC/html/index-en-GB.html) but the index is frame-based and the AD 2 pages could not be found by search. Only a 2020 VTBD page (superseded) gave AD 2.20 text; not used. AD 2.20/2.21 still unread."
 }

@@ -7,7 +7,7 @@
  "tz": "Asia/Jakarta",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-02",
  "rules": {
   "runway": {
    "v": "one runway, 3,000 m long and 45 m wide",
@@ -31,5 +31,5 @@
   "hours",
   "noise"
  ],
- "notes": "No AIP data (Indonesian AIP login-only). The 2025 DGCA notice does not say what stays at Halim (charter, private); do not state that. Halim is also an air force base; not confirmed by the DGCA register page, so not stated. 1 Nov 2026: no new official source could be read. Could not be opened: https://hubud.kemenhub.go.id/bandara/122 (re-read); no Airport Authority Office profile page for Halim was found by search."
+ "notes": "No AIP data (Indonesian AIP login-only). The 2025 DGCA notice does not say what stays at Halim (charter, private); do not state that. Halim is also an air force base; not confirmed by the DGCA register page, so not stated. 1 Nov 2026: no new official source could be read. Could not be opened: https://hubud.kemenhub.go.id/bandara/122 (re-read); no Airport Authority Office profile page for Halim was found by search. | 2026-11-02 run: Nothing new; no new official source found by search."
 }

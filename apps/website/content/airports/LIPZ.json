@@ -7,12 +7,17 @@
  "tz": "Europe/Rome",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-31",
+ "checked": "2026-11-02",
  "rules": {
   "slots": {
    "v": "a coordinated airport (slot allocation by Assoclearance)",
    "src": "enac-slot",
    "quote": "ha classificato come aeroporti coordinati gli scali di: ... Venezia"
+  },
+  "fuel": {
+   "v": "Jet A-1 fuel is listed among the services on the operator's general aviation page (the page does not say where it is supplied)",
+   "src": "vce-ga-page",
+   "quote": "Jet A1 fuel will be supplied by"
   }
  },
  "missing": [
@@ -27,8 +32,7 @@
   "handling",
   "hours",
   "noise",
-  "fuel",
   "deicing"
  ],
- "notes": "ENAV eAIP needs an ENAV account and could not be opened. SAVE's Airport Regulations (Ed. 2 Amdt 2, SAVE 15/11/2023, ENAC adoption 06/12/2023) have a General Aviation section (2.17) and a General Aviation Terminal, but the reader returned only the table of contents for those parts. The SAVE 2025 charges list (from 1 Aug 2025) mentions no opening hours or GA rules. | 2026-10-31 run: a newer edition of SAVE's Airport Regulations exists: Ed. 2 Amdt 3 (SAVE 16 Feb 2026, ENAC adoption 24 Mar 2026, Order 2/2026), on the ENAC site. The reader again returned only the table of contents and Chapter 1 (GA section 2.17, refuelling 5.2, de-icing 5.3 not reached). ga.veniceairport.it refuses automated reading. ENAC list of certified handlers at Venice was read but its certificates are mostly past their expiry dates, so it was not used. No rules added."
+ "notes": "ENAV eAIP needs an ENAV account and could not be opened. SAVE's Airport Regulations (Ed. 2 Amdt 2, SAVE 15/11/2023, ENAC adoption 06/12/2023) have a General Aviation section (2.17) and a General Aviation Terminal, but the reader returned only the table of contents for those parts. The SAVE 2025 charges list (from 1 Aug 2025) mentions no opening hours or GA rules. | 2026-10-31 run: a newer edition of SAVE's Airport Regulations exists: Ed. 2 Amdt 3 (SAVE 16 Feb 2026, ENAC adoption 24 Mar 2026, Order 2/2026), on the ENAC site. The reader again returned only the table of contents and Chapter 1 (GA section 2.17, refuelling 5.2, de-icing 5.3 not reached). ga.veniceairport.it refuses automated reading. ENAC list of certified handlers at Venice was read but its certificates are mostly past their expiry dates, so it was not used. No rules added. | 2026-11-02 run: Operator page veneziaairport.it/en_gb/flights/private-jets/general-aviation read: fuel statement added (Jet A-1 supplied on site; supplier names not recorded). It states no hours, customs, PPR, size limits or runway. ENAC copy of Airport Regulations Ed. 2 Amdt 3 could not be fetched (client error). Other fields still missing."
 }
