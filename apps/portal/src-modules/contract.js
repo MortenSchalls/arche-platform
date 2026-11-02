@@ -108,7 +108,10 @@ document.addEventListener("click", async ev => {
   if (a === "print") { document.body.classList.add("printing-agr"); setTimeout(() => { window.print(); document.body.classList.remove("printing-agr"); }, 50); return; }
   if (a === "open") { S.agrOpen = true; render(); scrollTo(0, 0); return; }
   if (a === "close") { S.agrOpen = false; render(); return; }
-  if (a === "offer") { S.offerOpen = !S.offerOpen; render(); return; }
+  if (a === "offer") { S.offerOpen = !S.offerOpen; render();
+    // the owner sees when the offer was first opened (joining progress, Team > Invitations)
+    if (S.offerOpen && S.uid && !S.preview && !S.offerSeen) { S.offerSeen = true; S.db.doc(`train/${S.uid}/runs/offer`).get().then(d => { if (!d.exists) S.db.doc(`train/${S.uid}/runs/offer`).set({at: now()}); }).catch(() => {}); }
+    return; }
   if (a === "view") { S.agrView = id; render(); return; }
   if (a === "closeview") { S.agrView = null; render(); return; }
   if (!S.isOwner && !(a === "send" && typeof canRight === "function" && canRight("assess") && id !== S.uid)) return;
