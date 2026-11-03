@@ -6,9 +6,15 @@
  "country": "NG",
  "tz": "Africa/Lagos",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-30",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-03",
+ "rules": {
+  "hours": {
+   "v": "International and cargo terminals open 24 hours daily. This is terminal hours, not a statement of aerodrome or ATC hours.",
+   "src": "dnmm-faan-intl",
+   "quote": "Murtala Muhammed International Airport. International and Cargo terminals open 24 hours daily."
+  }
+ },
  "missing": [
   "runway",
   "curfew",
@@ -20,5 +26,5 @@
   "fuel",
   "hours"
  ],
- "notes": "IATA code from FAAN's own page (https://faan.gov.ng/mmia-lagos/): \"(IATA: LOS, ICAO: DNMM)\"; that page gives no runway, hours or customs facts. No public copy of the Nigerian AIP (NAMA) AD 2 DNMM was found on nama.gov.ng, ncaa.gov.ng or faan.gov.ng. Owner may need to obtain the Nigerian AIP from NAMA."
+ "notes": "IATA code from FAAN's own page (https://faan.gov.ng/mmia-lagos/): \"(IATA: LOS, ICAO: DNMM)\"; that page gives no runway, hours or customs facts. No public copy of the Nigerian AIP (NAMA) AD 2 DNMM was found on nama.gov.ng, ncaa.gov.ng or faan.gov.ng. Owner may need to obtain the Nigerian AIP from NAMA. | 2026-11-03 run: FAAN page modified 2023-03-14; it has no runway, customs, handling or fuel facts. No public Nigerian AIP AD 2 DNMM found on nama.gov.ng, ncaa.gov.ng or faan.gov.ng."
 }

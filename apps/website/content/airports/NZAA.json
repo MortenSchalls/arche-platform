@@ -7,7 +7,7 @@
  "tz": "Pacific/Auckland",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "rules": {
   "slots": {
    "v": "general aviation and business aviation need a valid landing and/or parking slot during declared peak congestion periods; flying without one can mean a ban from those periods for at least 30 days",
@@ -18,16 +18,35 @@
    "v": "operators must self-handle (with the airport's written consent and licence) or appoint a third-party ground handling agent",
    "src": "nzaa-cou",
    "quote": "You are required to either self handle, or appoint third party ground handling agents."
+  },
+  "runway": {
+   "v": "runway 05R/23L is 3,635 m long and 75 m wide including shoulders, Code F capable (operator's draft master plan; AIP declared distances not read)",
+   "longest_m": 3635,
+   "src": "nzaa-masterplan-2025",
+   "quote": "Runway 05R/23L measures 3,635 metres by 75 metres (including shoulders) and is capable of handling Code F aircraft."
+  },
+  "customs": {
+   "v": "not open-ended: non-scheduled and private flights must arrive during Customs working hours unless there are extenuating circumstances; arriving outside them needs approval at least 5 working days ahead; the hours are not defined. Auckland is a listed Customs Place and Place of First Arrival",
+   "h24": false,
+   "src": "nz-customs-nonsched",
+   "quote": "You must arrive during working hours unless there are extenuating circumstances."
+  },
+  "ppr": {
+   "v": "non-scheduled general aviation flights need specific written permission from the airport company, and an authorised ground handler (CAA booklet, revised March 2023)",
+   "src": "nzaa-caa-booklet",
+   "quote": "Non-scheduled operations by general aviation aircraft require specific written permission from the airport company"
+  },
+  "permits": {
+   "v": "a foreign charter needs a New Zealand Foreign Air Operator's Certificate under CAR Part 129 (allow up to 90 days), unless it is a single landing and single take-off within any 28 days",
+   "src": "nz-caa-foreign-ops",
+   "quote": "they are classified as Air Transport Operations (ATO) and require certification under Civil Aviation Rule (CAR) 129. ... Permitted is a single landing and a single takeoff within any 28-day period without any certification."
   }
  },
  "missing": [
   "iata",
-  "runway",
   "curfew",
-  "customs",
-  "ppr",
   "hours",
   "NZ AIP AD 2"
  ],
- "notes": "1 Nov 2026: added slots (clause 5.7) and handling (clause 6.1) from Auckland Airport's Conditions of Use effective 30 Oct 2022 (the current version on corporate.aucklandairport.co.nz). The Conditions of Use state no hours, no curfew and no aircraft size limits (clause 7.1 sets minimum insurance by MTOW, from USD 30M up to 10,000 kg). Auckland Airport's noise page mentions only a 10 dB night weighting (22:00-07:00) for noise measurement, not a flight restriction. Not opened (permission not granted in time): NZ AIP https://www.aip.net.nz/, https://www.aip.net.nz/assets/AIP/Aerodromes-AD1/AERODROMES/NZAA_AD2.pdf and http://www.aip.net.nz/NavWalk.aspx?section=CHARTS. Runway, curfew, customs and hours still need the AIP. 28 Oct 2026: AIP and CAA NZ AIP index were blocked."
+ "notes": "1 Nov 2026: added slots (clause 5.7) and handling (clause 6.1) from Auckland Airport's Conditions of Use effective 30 Oct 2022 (the current version on corporate.aucklandairport.co.nz). The Conditions of Use state no hours, no curfew and no aircraft size limits (clause 7.1 sets minimum insurance by MTOW, from USD 30M up to 10,000 kg). Auckland Airport's noise page mentions only a 10 dB night weighting (22:00-07:00) for noise measurement, not a flight restriction. Not opened (permission not granted in time): NZ AIP https://www.aip.net.nz/, https://www.aip.net.nz/assets/AIP/Aerodromes-AD1/AERODROMES/NZAA_AD2.pdf and http://www.aip.net.nz/NavWalk.aspx?section=CHARTS. Runway, curfew, customs and hours still need the AIP. 28 Oct 2026: AIP and CAA NZ AIP index were blocked. | 3 Nov 2026: Customs also wants passenger details and Form C1A at least 3 hours before departure, and at least 2 hours' (preferably 24 hours') notice before leaving; levies are on the page (updated 18 Jul 2025). The CAA page also says a Ministry air services licence is needed, conditional on the certificate. Curfew and aerodrome hours still not found: the airport's general information page gives terminal hours only (international terminal 24 hours), which are not recorded as a rule. NZ AIP: AD2 PDF refused https://www.aip.net.nz/assets/AIP/Aerodromes-AD1/AERODROMES/NZAA_AD2.pdf, and the chart PDF https://www.aip.net.nz/assets/AIP/Aerodrome-Charts/Auckland-NZAA/NZAA_53.04_53.05.pdf returned only the site's conditions of use (a click-through page), so the owner has to download them."
 }

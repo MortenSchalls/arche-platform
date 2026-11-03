@@ -7,7 +7,7 @@
  "tz": "America/Toronto",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "rules": {
   "curfew": {
    "v": "Open 24 hours for propeller aircraft and jets under 45,000 kg. Jets over 45,000 kg: take-offs only 07:00-midnight and landings only 07:00-01:00 local; ADM may grant exemptions only for medical emergencies, delays beyond the carrier's control, bad weather and some scheduled flights. Window shown is for jets over 45,000 kg (e.g. large-cabin jets); smaller jets have no night limit",
@@ -34,5 +34,5 @@
   "slots",
   "ppr"
  ],
- "notes": "Night rules from ADM's noise management action plan page (admtl.com/fr/consultation, 'Opérations nocturnes'; plan of 2019, last update February 2022). The curfew window 00:00-07:00 applies to jets over 45,000 kg (landings allowed until 01:00); jets under 45,000 kg and props may operate 24 hours. 1 Nov 2026: added curfew and hours. Could not be opened: https://www.admtl.com/en (fetch tool blocked), https://www.admtl.com/organisation/partenariats-commerciaux/apercu-yul and https://admtl.com/fr/affaires/developpement-services-aeriens (site error); CBSA new directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA. Transport Canada page tdih-cdit.tc.canada.ca/en/node/277 gives no runway data. Runway and customs not verified. 1 Nov 2026 (review): curfew marked approval:true so the portal shows amber, not red: the limit applies only to jets over 45,000 kg and ADM can grant exemptions; confirm the aircraft's weight with the operator."
+ "notes": "Night rules from ADM's noise management action plan page (admtl.com/fr/consultation, 'Opérations nocturnes'; plan of 2019, last update February 2022). The curfew window 00:00-07:00 applies to jets over 45,000 kg (landings allowed until 01:00); jets under 45,000 kg and props may operate 24 hours. 1 Nov 2026: added curfew and hours. Could not be opened: https://www.admtl.com/en (fetch tool blocked), https://www.admtl.com/organisation/partenariats-commerciaux/apercu-yul and https://admtl.com/fr/affaires/developpement-services-aeriens (site error); CBSA new directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA. Transport Canada page tdih-cdit.tc.canada.ca/en/node/277 gives no runway data. Runway and customs not verified. 1 Nov 2026 (review): curfew marked approval:true so the portal shows amber, not red: the limit applies only to jets over 45,000 kg and ADM can grant exemptions; confirm the aircraft's weight with the operator. | 3 Nov 2026: nothing new. Could not be opened: https://www.admtl.com/en-CA/guide and https://admtl.com/fr/adm/services-aeriens/fret-aerien/YUL (site errors). CBSA directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA&id=395 needs JavaScript. Runway and customs not verified."
 }

@@ -2400,10 +2400,10 @@
   "checked": "2026-11-01"
  },
  "au-abf-aircraft": {
-  "title": "Australian Border Force, 'Aircraft requirements' (last updated 20 Oct 2026)",
+  "title": "Aircraft entering and departing Australia (last updated 20 Oct 2026)",
   "url": "https://www.abf.gov.au/entering-and-leaving-australia/aircraft-requirements",
-  "publisher": "Australian Border Force, Australian Government",
-  "checked": "2026-11-01"
+  "publisher": "Australian Border Force",
+  "checked": "2026-11-03"
  },
  "nzqn-qac-ops": {
   "title": "Queenstown Airport, 'Airport operations' page (undated; checked 1 Nov 2026)",
@@ -2598,10 +2598,10 @@
   "checked": "2026-11-01"
  },
  "sbgr-decea-rotaer": {
-  "title": "AISWEB ROTAER entry SBGR Guarulhos - Governador André Franco Montoro, D-AMDT 26/26 (checked 1 Nov 2026)",
+  "title": "AISWEB ROTAER entry SBGR Guarulhos - Governador André Franco Montoro, D-AMDT 26/26 (checked 3 Nov 2026)",
   "url": "https://aisweb.decea.mil.br/?i=aerodromos&codigo=SBGR",
   "publisher": "DECEA (Departamento de Controle do Espaço Aéreo), Brazil",
-  "checked": "2026-11-01"
+  "checked": "2026-11-03"
  },
  "saez-aa2000-fbo": {
   "title": "Aeropuertos Argentina, FBO page (FBO VIPCLUB Ezeiza), undated (checked 1 Nov 2026)",
@@ -2686,5 +2686,323 @@
   "url": "https://www.ais.gov.hk/eaip_20261001/2026-10-01-000000/html/eAIP/VH-AD-2-VHHH-en-US.html",
   "publisher": "Civil Aviation Department, Hong Kong",
   "checked": "2026-11-02"
+ },
+ "fala-sacaa-adc": {
+  "title": "SACAA Aerodrome Chart FALA AD-01, EFF 20 JUN 19",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aeronautical-charts/FALA_AERODROME%20CHART_AD-01.pdf",
+  "publisher": "South African Civil Aviation Authority",
+  "checked": "2026-11-03"
+ },
+ "fala-lanseria-services": {
+  "title": "Lanseria International Airport: Airport Service Offerings (page modified 2025-01-14)",
+  "url": "https://lanseria.co.za/corporate/pilot-and-aviation-info/airport-services/",
+  "publisher": "Lanseria International Airport",
+  "checked": "2026-11-03"
+ },
+ "fact-sacaa-ad2-amdt426": {
+  "title": "AIP South Africa AD 2-FACT-15 to 17, AMDT 4/26, 15 OCT 26",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FACT_EN.pdf",
+  "publisher": "South African Civil Aviation Authority",
+  "checked": "2026-11-03"
+ },
+ "fact-acsa-slot-request": {
+  "title": "ACSA: Slot Request (no date shown)",
+  "url": "https://www.airports.co.za/about-us/airline-services/slot-request",
+  "publisher": "Airports Company South Africa",
+  "checked": "2026-11-03"
+ },
+ "dnmm-faan-intl": {
+  "title": "FAAN: International Airports (page modified 2023-03-14)",
+  "url": "https://faan.gov.ng/international-airports/",
+  "publisher": "Federal Airports Authority of Nigeria",
+  "checked": "2026-11-03"
+ },
+ "lgav-aia-presentation": {
+  "title": "Athens International Airport Corporate Investor Presentation, December 2024",
+  "url": "https://investors.aia.gr/userfiles/0954d64f-148d-4743-a207-b10e00cab4be/CorporatePresentation9M24.pdf",
+  "publisher": "Athens International Airport S.A.",
+  "checked": "2026-11-03"
+ },
+ "lgav-aia-ground-handling": {
+  "title": "Athens International Airport: Ground handling (no date shown)",
+  "url": "https://www.aia.gr/en/business/ground-handling",
+  "publisher": "Athens International Airport S.A.",
+  "checked": "2026-11-03"
+ },
+ "engm-avinor-opr-hrs": {
+  "title": "Avinor AIP Norway Operational Hours, revised per AIRAC 29 OCT 2026",
+  "url": "https://aim-prod.avinor.no/no/OperationalHours/View/Index/84/ops_hrs.html",
+  "publisher": "Avinor",
+  "checked": "2026-11-03"
+ },
+ "engm-avinor-ad-manual": {
+  "title": "Aerodrome Manual Oslo Airport v3.1, valid from 30.10.2026",
+  "url": "https://partner.avinor.no/siteassets/flyside/oslo-lufthavn/flyplassmanualen/aerodrome-manual---oslo-airport-v3-1.pdf",
+  "publisher": "Avinor Oslo Airport",
+  "checked": "2026-11-03"
+ },
+ "engm-avinor-noise": {
+  "title": "Avinor: Noise reduction at Oslo Airport (no date shown)",
+  "url": "https://www.avinor.no/en/airport/oslo/about-oslo-airport/environment-oslo-airport/aircraft-noise/",
+  "publisher": "Avinor",
+  "checked": "2026-11-03"
+ },
+ "vabb-adani-about": {
+  "title": "About Mumbai Airport (BOM), undated page (mentions FY2024-25)",
+  "url": "https://csmia-mumbai.adaniairports.com/en/about-us",
+  "publisher": "Adani Airports / Mumbai International Airport Limited (airport operator)",
+  "checked": "2026-11-03"
+ },
+ "au-abf-nppc-guide": {
+  "title": "NPPC Airport Guide (July 2026)",
+  "url": "https://www.abf.gov.au/crossing/files/nppc-airport-guide.pdf",
+  "publisher": "Australian Border Force",
+  "checked": "2026-11-03"
+ },
+ "au-airservices-curfews": {
+  "title": "Airport curfews (last modified 1 Jul 2025)",
+  "url": "https://www.airservicesaustralia.com/about-us/about-our-operations/airport-curfews/",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-03"
+ },
+ "yssy-operating": {
+  "title": "Operating at Sydney Airport (no date shown; Slot Management Scheme 2025)",
+  "url": "https://www.sydneyairport.com.au/corporate/partner-with-us/aviation-opportunities/operating-at-sydney-airport",
+  "publisher": "Sydney Airport",
+  "checked": "2026-11-03"
+ },
+ "ybbn-adms": {
+  "title": "Airport Demand Management Scheme, Version 2.2 (9 Jan 2026)",
+  "url": "https://www.bne.com.au/media/23961/download?inline=",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "ybbn-aviation-services": {
+  "title": "Aviation Services and Charges (page changed 3 Aug 2026)",
+  "url": "https://www.bne.com.au/corporate/partner-with-us/aviation-services-and-charges",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "ybbn-ga-precinct": {
+  "title": "General Aviation precinct (page changed 4 Dec 2025)",
+  "url": "https://www.bne.com.au/property/our-airport-city/precincts/general-aviation",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "ybbn-noise": {
+  "title": "Understanding Runway Operations & Noise (page changed 1 Oct 2026)",
+  "url": "https://www.bne.com.au/corporate/community-and-environment/runway-operations-noise/understanding-runway-operations-noise",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "ypph-noise-summary": {
+  "title": "Perth Airport Aircraft Noise Management Summary (copyright 2016)",
+  "url": "https://www.perthairport.com.au/-/media/Files/CORPORATE/Perth-Airport-Aircraft-Noise-Management-Summary.pdf?la=en",
+  "publisher": "Perth Airport Pty Ltd",
+  "checked": "2026-11-03"
+ },
+ "nz-customs-nonsched": {
+  "title": "Private and non-scheduled flights (page updated 18 Jul 2025)",
+  "url": "https://www.customs.govt.nz/travel-to-and-from-new-zealand/private-and-non-scheduled-flights",
+  "publisher": "New Zealand Customs Service",
+  "checked": "2026-11-03"
+ },
+ "nz-caa-foreign-ops": {
+  "title": "Guidance for foreign operators (no date shown; footer 2026)",
+  "url": "https://www.aviation.govt.nz/licensing-and-certification/operators/air-operations/foreign-air-operators/guidance-for-foreign-operators/",
+  "publisher": "Civil Aviation Authority of New Zealand",
+  "checked": "2026-11-03"
+ },
+ "nzaa-caa-booklet": {
+  "title": "In, out, and around Auckland (revised March 2023)",
+  "url": "https://www.aviation.govt.nz/assets/publications/gaps/In-Out-and-Around-Auckland-web.pdf",
+  "publisher": "Civil Aviation Authority of New Zealand",
+  "checked": "2026-11-03"
+ },
+ "nzaa-masterplan-2025": {
+  "title": "Auckland Airport Draft Master Plan Summary 2025",
+  "url": "https://corporate.aucklandairport.co.nz/content/dam/aia/files/corporate/futureakl/akl-master-plan-summary-2025.pdf",
+  "publisher": "Auckland Airport",
+  "checked": "2026-11-03"
+ },
+ "nzqn-masterplan-2023": {
+  "title": "Queenstown Airport Master Plan, draft (May 2023)",
+  "url": "https://www.queenstownairport.co.nz/media/tidjmwoa/qac-2023-full-draft-master-plan.pdf",
+  "publisher": "Queenstown Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "nzqn-annual-report-2026": {
+  "title": "Annual Report, year ending 30 June 2026",
+  "url": "https://www.queenstownairport.co.nz/media/5qgdgqzn/2026-queenstown-airport-annual-report.pdf",
+  "publisher": "Queenstown Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "nzqn-caa-booklet": {
+  "title": "In, out, and around Queenstown (revised September 2024)",
+  "url": "https://www.aviation.govt.nz/assets/publications/gaps/In_Out_and_Around_Queenstown.pdf",
+  "publisher": "Civil Aviation Authority of New Zealand",
+  "checked": "2026-11-03"
+ },
+ "nffn-mowp-2020": {
+  "title": "Method of Working Plan, Nadi mill and fill and SEST works (Aug/Sep 2020)",
+  "url": "https://airportsfiji.com/nadi-mill-and-fill-and-sest-mowp.pdf",
+  "publisher": "Fiji Airports",
+  "checked": "2026-11-03"
+ },
+ "fj-customs-act-2023": {
+  "title": "Customs Act 1986, revised up to 1 Aug 2023",
+  "url": "https://www.frcs.org.fj/wp-content/uploads/2023/09/Customs-Act-1986-Revised-1st-August-2023.pdf",
+  "publisher": "Fiji Revenue and Customs Service",
+  "checked": "2026-11-03"
+ },
+ "fj-customs-regs-2013": {
+  "title": "Customs Regulations 1986, revised 1 Feb 2013",
+  "url": "https://www.frcs.org.fj/wp-content/uploads/2012/10/Customs_-Regulations-_1986_-Revised_1st-February-2013.pdf",
+  "publisher": "Fiji Revenue and Customs Service",
+  "checked": "2026-11-03"
+ },
+ "khpn-faa-ad-2610": {
+  "title": "FAA airport diagram, White Plains (HPN), AL-651, NE-2, valid 1 Oct 2026 to 29 Oct 2026",
+  "url": "https://aeronav.faa.gov/d-tpp/2610/00651AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "khpn-noise-faqs": {
+  "title": "Westchester County Airport, Noise FAQs (no date shown, footer 2026)",
+  "url": "https://airport.westchestercountyny.gov/about-us/environmental-management-system/noise-faqs",
+  "publisher": "Westchester County Airport",
+  "checked": "2026-11-03"
+ },
+ "kpbi-djt-name-faqs": {
+  "title": "Name Change FAQs (no page date; change effective 9 Jul 2026, IATA change 18 Aug 2026)",
+  "url": "https://flydjt.org/about/name-change-faqs/",
+  "publisher": "Palm Beach County Department of Airports",
+  "checked": "2026-11-03"
+ },
+ "kpbi-djt-noise-faq": {
+  "title": "Noise FAQ (no date shown, footer 2026)",
+  "url": "https://flydjt.org/noise/faq/",
+  "publisher": "Palm Beach County Department of Airports",
+  "checked": "2026-11-03"
+ },
+ "kmia-faa-cs-2026-09": {
+  "title": "FAA Chart Supplement Southeast US, page 141, edition 3 Sep 2026 to 29 Oct 2026",
+  "url": "https://aeronav.faa.gov/afd/03SEP2026/se_141_03SEP2026.pdf",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "kdal-general-aviation": {
+  "title": "Dallas Love Field, General Aviation (no date shown)",
+  "url": "https://www.dallas-lovefield.com/airport-info/general-aviation",
+  "publisher": "City of Dallas, Dallas Love Field",
+  "checked": "2026-11-03"
+ },
+ "kase-winter-safety": {
+  "title": "Aspen/Pitkin County Airport, Winter Safety (page updated 1 Oct 2020)",
+  "url": "https://www.aspenairport.com/pilotinformation/operating-procedures/winter-safety/",
+  "publisher": "Aspen/Pitkin County Airport",
+  "checked": "2026-11-03"
+ },
+ "kege-amp-ch2": {
+  "title": "Eagle County Regional Airport Master Plan, Chapter 2 Inventory (final, file dated 05-2025; data about late 2022)",
+  "url": "https://flyege.com/wp-content/uploads/2025/08/05-2025-EGE-AMP-Chapter-2-Inventory-Final.pdf",
+  "publisher": "Eagle County Regional Airport",
+  "checked": "2026-11-03"
+ },
+ "kege-rules-2014": {
+  "title": "Eagle County Regional Airport Rules and Regulations, May 2014",
+  "url": "https://flyege.com/wp-content/uploads/2024/01/EGE-Rules-and-Regulations-50514.pdf",
+  "publisher": "Eagle County Regional Airport",
+  "checked": "2026-11-03"
+ },
+ "kmdw-cda-facility": {
+  "title": "Chicago Department of Aviation, Facility Data (no date shown)",
+  "url": "https://www.flychicago.com/business/CDA/factsfigures/Pages/facility.aspx",
+  "publisher": "Chicago Department of Aviation",
+  "checked": "2026-11-03"
+ },
+ "kpwk-cea-rules": {
+  "title": "Chicago Executive Airport Primary Guiding Documents, Rules and Regulations (09/15/06)",
+  "url": "https://www.chiexec.com/wp-content/uploads/2017/09/Rules-And-Regulations1.pdf",
+  "publisher": "Chicago Executive Airport",
+  "checked": "2026-11-03"
+ },
+ "kbed-faa-flightdeck": {
+  "title": "FAA Flight Deck: Laurence G. Hanscom Field (BED), last updated 10 Aug 2026",
+  "url": "https://www.faa.gov/flight_deck/bed",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "kiad-mwaa-overview-dulles": {
+  "title": "Overview of Dulles (undated; mentions Master Plan update adopted July 2025)",
+  "url": "https://www.mwaa.com/overview-dulles",
+  "publisher": "Metropolitan Washington Airports Authority",
+  "checked": "2026-11-03"
+ },
+ "koak-faa-flightdeck": {
+  "title": "FAA Flight Deck: Oakland San Francisco Bay Airport (OAK), last updated 1 Oct 2026",
+  "url": "https://www.faa.gov/flight_deck/oak",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "koak-fbo": {
+  "title": "Fixed-Base Operators (FBO), Oakland San Francisco Bay Airport (page modified 27 Aug 2026)",
+  "url": "https://www.iflyoak.com/visit/education/general-aviation/fixed-base-operators/",
+  "publisher": "Port of Oakland",
+  "checked": "2026-11-03"
+ },
+ "ksjc-faa-flightdeck": {
+  "title": "FAA Flight Deck: Norman Y. Mineta San Jose International Airport (SJC), last updated 25 Jun 2026",
+  "url": "https://www.faa.gov/flight_deck/sjc",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "ksna-gano": {
+  "title": "General Aviation Noise Ordinance, Orange County Codified Ordinances Art. 3 (file dated 27 Oct 2015; latest amendment seen 9 Sep 2004)",
+  "url": "https://files.ocair.com/media/2021-02/general-aviation-noise-ordinance-gano-10-27-15_web.pdf?VersionId=nBc4Qb2rCmxE7pNV9gA8uT9nxjaDm7mx",
+  "publisher": "County of Orange / John Wayne Airport",
+  "checked": "2026-11-03"
+ },
+ "ksna-noise-faq": {
+  "title": "Access & Noise FAQs, John Wayne Airport (footer 2026)",
+  "url": "https://www.ocair.com/about/administration/access-noise/access-noise-faqs/",
+  "publisher": "John Wayne Airport, Orange County",
+  "checked": "2026-11-03"
+ },
+ "ksna-ga-services": {
+  "title": "General Aviation Services, John Wayne Airport (footer 2026)",
+  "url": "https://www.ocair.com/business/general-aviation/services/",
+  "publisher": "John Wayne Airport, Orange County",
+  "checked": "2026-11-03"
+ },
+ "ksna-access-plan": {
+  "title": "Phase 2 Commercial Airline Access Plan and Regulation (as amended through 1 Jan 2021)",
+  "url": "https://files.ocair.com/media/2021-02/Access-Plan_2021-01_web.pdf?VersionId=n5OrJQ1oL939ZdAsxI79Izoowxg7xpZ4",
+  "publisher": "County of Orange / John Wayne Airport",
+  "checked": "2026-11-03"
+ },
+ "cyyz-gtaa-aro": {
+  "title": "Toronto Pearson: Airport Reservation Office (ARO), page undated; states changes effective 21 Oct 2025",
+  "url": "https://www.torontopearson.com/en/operators-at-pearson/getting-started/aro",
+  "publisher": "Greater Toronto Airports Authority",
+  "checked": "2026-11-03"
+ },
+ "cyvr-yvr-runway-slots-faq": {
+  "title": "YVR: Runway Slots, Frequently Asked Questions, page undated",
+  "url": "https://www.yvr.ca/en/business/work-with-yvr/runway-slots/frequently-asked-questions",
+  "publisher": "Vancouver Airport Authority",
+  "checked": "2026-11-03"
+ },
+ "mynn-caab-gov-aerodromes": {
+  "title": "Civil Aviation Authority Bahamas: Register of Bahamas Government Aerodromes, undated; data from Bahamas AIP Fifth Edition, Amendment 01/2022",
+  "url": "https://caabahamas.com/wp-content/uploads/2022/02/CAA-B-Register-of-Government-Owned-Aerodromes.pdf",
+  "publisher": "Civil Aviation Authority Bahamas",
+  "checked": "2026-11-03"
+ },
+ "mynn-caab-faqs": {
+  "title": "Civil Aviation Authority Bahamas: FAQs, page undated (footer copyright 2026)",
+  "url": "https://caabahamas.com/faqs/",
+  "publisher": "Civil Aviation Authority Bahamas",
+  "checked": "2026-11-03"
  }
 }

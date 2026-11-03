@@ -7,7 +7,7 @@
  "tz": "America/Chicago",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "rules": {
   "runway": {
    "v": "longest runway 13R/31L, 8,800 ft (about 2,682 m); 13L/31R 7,753 ft; all 150 ft wide (city document dated May 2011; the third runway listed then, 18/36, was not re-checked)",
@@ -31,6 +31,11 @@
    ],
    "src": "kdal-customs",
    "quote": "Monday through Friday, 8 am - 5 pm local time"
+  },
+  "handling": {
+   "v": "four full-service FBOs named by the airport: Signature Flight Support, Atlantic Aviation, Jet Aviation and Business Jet; their services include fuel",
+   "src": "kdal-general-aviation",
+   "quote": "Four full service Fixed Based Operators (FBOs) at Love Field provide general aviation users with a wide scope of services."
   }
  },
  "missing": [
@@ -40,9 +45,8 @@
   "slots",
   "ppr",
   "max_aircraft",
-  "handling",
   "fuel",
   "deicing"
  ],
- "notes": "Dallas Love Field is owned by the City of Dallas, Department of Aviation (SWPPP General Information, May 2011). Runway data come from that 2011 city document; check against the current FAA Chart Supplement before publishing. Voluntary noise page and leaflet (no dates) give no curfew. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened; Metres are my conversion (1 ft = 0.3048 m). 1 Nov 2026: added customs from the airport's International Arrivals & Customs page (no date) and the CBP KDAL fact sheet (17 Apr 2024, KDAL-0424). Recorded h24 false with weekday office hours because nights and weekends need arranging the workday before. The FAA airport diagram (https://www.faa.gov/aero_docs/dtpp/2608/00106AD.PDF) failed to load (client error); the FAA US AIP Texas page covers only KDFW, KELP and KIAH, not KDAL. Curfew and airport hours still not found in an official source. The CBP KDAL fact sheet also says arrival inspection is 'generally available seven days per week, 24 hours per day' subject to permission to land, gives a plus or minus 30 minute tolerance on permission to land, says KDAL is a user fee airport, and asks for advance notice of live animals, weapons, hunting trophies or commercial imports."
+ "notes": "Dallas Love Field is owned by the City of Dallas, Department of Aviation (SWPPP General Information, May 2011). Runway data come from that 2011 city document; check against the current FAA Chart Supplement before publishing. Voluntary noise page and leaflet (no dates) give no curfew. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened; Metres are my conversion (1 ft = 0.3048 m). 1 Nov 2026: added customs from the airport's International Arrivals & Customs page (no date) and the CBP KDAL fact sheet (17 Apr 2024, KDAL-0424). Recorded h24 false with weekday office hours because nights and weekends need arranging the workday before. The FAA airport diagram (https://www.faa.gov/aero_docs/dtpp/2608/00106AD.PDF) failed to load (client error); the FAA US AIP Texas page covers only KDFW, KELP and KIAH, not KDAL. Curfew and airport hours still not found in an official source. The CBP KDAL fact sheet also says arrival inspection is 'generally available seven days per week, 24 hours per day' subject to permission to land, gives a plus or minus 30 minute tolerance on permission to land, says KDAL is a user fee airport, and asks for advance notice of live animals, weapons, hunting trophies or commercial imports. | 3 Nov 2026: a newer CBP KDAL sheet dated 5 Nov 2025 exists (https://www.cbp.gov/sites/default/files/2025-11/KDAL%20GA%20Airport%20Fact%20Sheet%2020251105.pdf) but failed to load, so the customs rule still rests on the Apr 2024 sheet and may be out of date. FAA diagram (https://aeronav.faa.gov/d-tpp/2603/00106ad.pdf) failed to load, NFDC is robots-blocked, the environmental FAQs page (https://www.dallas-lovefield.com/airport-info/environmental/faqs) failed, and the City's Love Field FAQs say nothing on curfew or hours. No fuel types found."
 }

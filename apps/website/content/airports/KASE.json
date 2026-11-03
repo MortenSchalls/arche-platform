@@ -7,7 +7,7 @@
  "tz": "America/Denver",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "rules": {
   "runway": {
    "v": "one runway, 15/33, 8,006 ft (about 2,440 m) long and 100 ft (about 30 m) wide; it slopes uphill about 2% to the southeast; field elevation 7,815 ft",
@@ -50,14 +50,18 @@
    "v": "the airport names Atlantic Aviation as its fixed base operator",
    "src": "kase-pilotinfo",
    "quote": "Fixed Base Operator: Atlantic Aviation"
+  },
+  "deicing": {
+   "v": "the airport has a de-ice pad with the run-up area, east of taxiway Alpha; combined area 96,407 sq ft",
+   "src": "kase-winter-safety",
+   "quote": "Aspen/Pitkin County Airport has a de-ice pad which is located in conjunction with the run-up area, east of taxiway Alpha;"
   }
  },
  "missing": [
   "customs",
   "slots",
   "fuel",
-  "deicing",
   "runway (FAA Chart Supplement wording)"
  ],
- "notes": "Read the Aspen/Pitkin County Airport pilot pages (Aircraft Limitations 8 Sep 2023, Curfew 10 Aug 2023, Approach & Departure 14 Nov 2024, Noise Abatement 17 Sep 2026, High Altitude Safety 8 Sep 2023, Runway Reconstruction FAQs 1 Oct 2026, Redevelopment Background 23 Jun 2023). The curfew window recorded (22:30-07:00) is the Stage 3 jet departure ban; jet arrivals are banned 23:00-07:00; the airport pages state these as 'local time' and also as 'MST'. Night VFR rule and 2027 closure dates are from the Approach & Departure and Runway Reconstruction FAQ pages (2027 closure: 4 Apr 2027 23:00 to 19 Nov 2027 19:00); after reopening the wingspan limit is planned at 118 ft or less. Runway 8,006 x 100 ft from the airport's own pages; metres are my conversion (1 ft = 0.3048 m). No official page on customs was found; the airport site does not mention customs, so plan clearance at a port of entry first. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened; airport PDFs on aspenairport.com (2026 ordinance BOCC 016-2026, ASE_FAQ_v3.pdf) looped on an http/https redirect and were not read. 1 Nov 2026: searched again for an official customs statement (airport site, CBP fact sheets); none found, so customs stays missing. Nothing added."
+ "notes": "Read the Aspen/Pitkin County Airport pilot pages (Aircraft Limitations 8 Sep 2023, Curfew 10 Aug 2023, Approach & Departure 14 Nov 2024, Noise Abatement 17 Sep 2026, High Altitude Safety 8 Sep 2023, Runway Reconstruction FAQs 1 Oct 2026, Redevelopment Background 23 Jun 2023). The curfew window recorded (22:30-07:00) is the Stage 3 jet departure ban; jet arrivals are banned 23:00-07:00; the airport pages state these as 'local time' and also as 'MST'. Night VFR rule and 2027 closure dates are from the Approach & Departure and Runway Reconstruction FAQ pages (2027 closure: 4 Apr 2027 23:00 to 19 Nov 2027 19:00); after reopening the wingspan limit is planned at 118 ft or less. Runway 8,006 x 100 ft from the airport's own pages; metres are my conversion (1 ft = 0.3048 m). No official page on customs was found; the airport site does not mention customs, so plan clearance at a port of entry first. FAA Chart Supplement / d-TPP (aeronav.faa.gov), FAA NFDC airport data (nfdc.faa.gov, robots-blocked) and ADIP (adip.faa.gov) could not be opened; airport PDFs on aspenairport.com (2026 ordinance BOCC 016-2026, ASE_FAQ_v3.pdf) looped on an http/https redirect and were not read. 1 Nov 2026: searched again for an official customs statement (airport site, CBP fact sheets); none found, so customs stays missing. Nothing added. | 3 Nov 2026: de-ice pad from the airport's Winter Safety page (updated 1 Oct 2020, so check for the 2027 rebuild). Pitkin County's 2026 lease ordinance text (https://pitkincounty.com/DocumentCenter/View/35554/ACR) is an unnumbered draft that only says a spring 2027 closure is expected, so nothing taken from it. Fuel and customs not found; the FAA Chart Supplement page for Aspen did not surface in search, and sw_330_07AUG2025 failed to load."
 }

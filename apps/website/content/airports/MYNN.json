@@ -7,7 +7,7 @@
  "tz": "America/Nassau",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "rules": {
   "hours": {
    "v": "the airport operates 24/7; individual services and counters have their own hours",
@@ -18,18 +18,31 @@
    "v": "the airport's private flight page names two FBOs: Odyssey Aviation and Jet Nassau",
    "src": "mynn-nad-private",
    "quote": "Odyssey Aviation is a network of privately owned FBOs and Ground Handling Service Stations"
+  },
+  "runway": {
+   "v": "Runway 14/32, 10,925 ft x 150 ft (3,330 m x 46 m), asphalt. The airport has a second, intersecting runway that this register does not list, so its length is unknown (register based on Bahamas AIP 5th edition, AMDT 01/2022; a newer edition exists).",
+   "longest_m": 3330,
+   "src": "mynn-caab-gov-aerodromes",
+   "quote": "10925 X 150ASPHALT"
+  },
+  "fuel": {
+   "v": "Jet A1 and Avgas",
+   "src": "mynn-caab-gov-aerodromes",
+   "quote": "ASPHALT JET A1 AVGAS"
+  },
+  "permits": {
+   "v": "Commercial charter into or from The Bahamas needs an Annual Licence from Air Transport Licensing or, for operations less than 2 times in 30 days, an Ad-Hoc Approval Permit. A flight not for gainful consideration needs no permit",
+   "src": "mynn-caab-faqs",
+   "quote": "Apply for an Ad-Hoc Approval Permit granted the operation occurs less than 2 times within a 30-day period."
   }
  },
  "missing": [
   "iata",
-  "runway",
   "customs",
   "curfew",
   "slots",
   "ppr",
-  "permits",
-  "fuel",
   "max_aircraft"
  ],
- "notes": "No Bahamas AIP (AD 2 MYNN) could be found online from an official Bahamian source. Read the Nassau Airport Development Company site (FAQs; Private Flight Services, modified 2 May 2025; Customs & Immigration page, modified 26 Feb 2026, gives no hours for private flights). The FAA IFIM Bahamas page (dated 1 Nov 2014) was read but not used because it is out of date. The FAQ gives terminal security hours (06:00-22:00) for passengers, not customs hours for private aircraft. Owner should obtain the Bahamas AIP from the Bahamas Civil Aviation Authority / Air Navigation Services Division. 1 Nov 2026: searched again for a Bahamas AIP (Bahamas CAA, caabahamas.com): none found online. nassaulpia.com Developments page (modified 5 Jun 2025) says 'Two Intersecting Runways' but gives no lengths, so runway stays missing. FAA IFIM Bahamas page still dated 1 Nov 2014 (says MYNN open H24 and PPR 48 h for private flights outside published hours) - not used, out of date. Owner should obtain the AD 2 MYNN pages from the Bahamas CAA."
+ "notes": "No Bahamas AIP (AD 2 MYNN) could be found online from an official Bahamian source. Read the Nassau Airport Development Company site (FAQs; Private Flight Services, modified 2 May 2025; Customs & Immigration page, modified 26 Feb 2026, gives no hours for private flights). The FAA IFIM Bahamas page (dated 1 Nov 2014) was read but not used because it is out of date. The FAQ gives terminal security hours (06:00-22:00) for passengers, not customs hours for private aircraft. Owner should obtain the Bahamas AIP from the Bahamas Civil Aviation Authority / Air Navigation Services Division. 1 Nov 2026: searched again for a Bahamas AIP (Bahamas CAA, caabahamas.com): none found online. nassaulpia.com Developments page (modified 5 Jun 2025) says 'Two Intersecting Runways' but gives no lengths, so runway stays missing. FAA IFIM Bahamas page still dated 1 Nov 2014 (says MYNN open H24 and PPR 48 h for private flights outside published hours) - not used, out of date. Owner should obtain the AD 2 MYNN pages from the Bahamas CAA. | 3 Nov 2026: read the CAA Bahamas government aerodrome register (undated, data from AIP Fifth Edition AMDT 01/2022; the CAA's private register cites a newer Seventh Edition AMDT 01/2024, so check runway and fuel against the current AIP). longest_m is the one runway listed; it was converted from feet (x 0.3048). The row also shows '24HRS' and port of entry 'YES', with neither column defined, so customs hours are not recorded. Runway 14/32 was rehabilitated (NAD release 26 Mar 2025); no length given. The FAQ does not mention foreign operators specifically; it gives ad-hoc processing as 3 hours on weekdays (applications 09:00-14:00) and 6 hours on weekends and holidays. Still no AD 2 MYNN found online."
 }

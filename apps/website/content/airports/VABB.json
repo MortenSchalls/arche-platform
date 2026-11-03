@@ -1,13 +1,13 @@
 {
  "icao": "VABB",
- "iata": null,
+ "iata": "BOM",
  "name": "Chhatrapati Shivaji Maharaj International Airport",
  "city": "Mumbai",
  "country": "IN",
  "tz": "Asia/Kolkata",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "rules": {
   "customs": {
    "v": "customs and immigration 24 hours",
@@ -32,12 +32,11 @@
   }
  },
  "missing": [
-  "iata (AIP page does not state it)",
   "runway (AD 2.12 beyond the text read; the aerodrome chart labels are ambiguous)",
   "curfew",
   "max_aircraft",
   "hours (only aerodrome office hours stated)",
   "noise"
  ],
- "notes": "Converted from UTC to India time (UTC+5:30, no daylight saving). Page read is India AIP AMDT 05-25 (effective 02 Oct 2025); a newer amendment (AMDT 04-26, 14 May 2026) exists for VIDP, so VABB may be superseded. The AIP still lists Jet Airways and NACIL hangars; check before using. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://aim-india.aai.aero/eAIP_Archive/02-10-2025/eAIP/IN-AD%202.1VABB-en-GB.html (read on to AD 2.12). Rules above unchanged; still needs the current AD 2 pages."
+ "notes": "Converted from UTC to India time (UTC+5:30, no daylight saving). Page read is India AIP AMDT 05-25 (effective 02 Oct 2025); a newer amendment (AMDT 04-26, 14 May 2026) exists for VIDP, so VABB may be superseded. The AIP still lists Jet Airways and NACIL hangars; check before using. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://aim-india.aai.aero/eAIP_Archive/02-10-2025/eAIP/IN-AD%202.1VABB-en-GB.html (read on to AD 2.12). Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: all AAI eAIP URLs on aim-india.aai.aero now redirect to another host, aim-india.aai.aero.in, and the reader refused that host (permission request not answered), so no AIP page could be read and nothing was added from the AIP. The host's ownership was not verified. Blocked: https://aim-india.aai.aero/eaip/eaip-v2-05-2025/eAIP/VABB-ADC.pdf; no 2026 AD 2 VABB page was found by search, though a 2026 edition exists. IATA code from the operator's page (vabb-adani-about): 'IATA: BOM, ICAO: VABB'. The operator's general aviation page (https://csmia-mumbai.adaniairports.com/en/business/general-aviation) describes a general aviation terminal with customs and immigration and lists 'Coordination for Temporary Landing Permit (TLP)', with no hours, handler names or parking, so no rule was recorded."
 }

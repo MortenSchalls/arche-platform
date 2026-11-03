@@ -7,7 +7,7 @@
  "tz": "Australia/Brisbane",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "rules": {
   "runway": {
    "v": "two parallel runways: 01R/19L, 45 m wide, up to 3,560 m take-off run (19L; 3,500 m from 01R); 01L/19R, 60 m wide, 3,300 m",
@@ -22,9 +22,9 @@
    "quote": "Brisbane Airport Corporation (BAC) welcomes the Federal Government's decision to keep Brisbane Airport curfew free."
   },
   "slots": {
-   "v": "every flight needs a slot from Airport Coordination Australia (ACA); slot holders on the GA apron must confirm their parking with the BAC Duty Manager before arrival",
-   "src": "ybbn-ersa",
-   "quote": "All flights operating into and out of Brisbane must obtain an Airport Coordination Australia"
+   "v": "all operators need a slot from Capacity Optimisation Group (COG) before flying into or out of Brisbane; from 15 Jan 2026, slots between 00:00 and 03:59 local go only to aircraft certified to ICAO Annex 16 Chapter 14 noise levels, except historic slots as at that date, state and humanitarian flights and certain domestic freight; 'ad hoc movements' rank first on the General Aviation Apron",
+   "src": "ybbn-adms",
+   "quote": "All operators will require a slot allocation by COG before operating a flight into and out of Brisbane Airport. ... With effect from 15 January 2026, Sensitive Hours Slots will only be allocated to Night-time Noise Compliant Aircraft"
   },
   "ppr": {
    "v": "aircraft parking is requested from the airport operator by email or phone, 24 hours",
@@ -50,6 +50,16 @@
    "v": "aircraft carrying dangerous goods or livestock need 4 days' notice and prior approval",
    "src": "ybbn-ersa",
    "quote": "ACFT transporting dangerous goods or livestock require 4 days notice and prior approval."
+  },
+  "hours": {
+   "v": "the general aviation precinct offers airside access to charter flights 24/7 (precinct statement; the aerodrome's own hours are not stated)",
+   "src": "ybbn-ga-precinct",
+   "quote": "offers direct airside access to charter flight operations 24/7."
+  },
+  "handling": {
+   "v": "anyone doing ground handling on common user aprons must hold an Airport Operating Licence from the airport",
+   "src": "ybbn-aviation-services",
+   "quote": "Any operator wishing to conduct Ground Handling on common user aprons are required to hold an Airport Operating Licence."
   }
  },
  "missing": [
@@ -60,5 +70,5 @@
   "deicing",
   "catering"
  ],
- "notes": "Read: ERSA FAC YBBN effective 09 Jul 2026 (newest found; also checked FAC 27 Nov 2025) and RDS YBBN effective 04 Sep 2025 (newest RDS found; a later RDS may exist). Runway widths from the ERSA. The current DAP aerodrome chart (BBNAD01, 27 Nov 2025 per DAP East checklist 09 Jul 2026) could not be opened: https://www.airservicesaustralia.com/aip/pending/dap/BBNAD01-185_27NOV2025.pdf (blocked). The ERSA has no customs/immigration line. The 'curfew free' statement is from 19 Mar 2014; the Commonwealth curfew page (2026) still lists only Sydney, Adelaide, Gold Coast and Essendon Fields - recheck with a current BAC page. Operator per ERSA: Brisbane Airport Corporation Pty Ltd. Queensland has no daylight time (UTC+10 all year). 1 Nov 2026: no new official source for customs or hours found; bne.com.au search gave no current curfew or GA page. The ABF 'Aircraft requirements' page (au-abf-aircraft, 20 Oct 2026) says aircraft must enter or leave Australia at a designated international airport; not added as the permits rule already holds the dangerous-goods line."
+ "notes": "Read: ERSA FAC YBBN effective 09 Jul 2026 (newest found; also checked FAC 27 Nov 2025) and RDS YBBN effective 04 Sep 2025 (newest RDS found; a later RDS may exist). Runway widths from the ERSA. The current DAP aerodrome chart (BBNAD01, 27 Nov 2025 per DAP East checklist 09 Jul 2026) could not be opened: https://www.airservicesaustralia.com/aip/pending/dap/BBNAD01-185_27NOV2025.pdf (blocked). The ERSA has no customs/immigration line. The 'curfew free' statement is from 19 Mar 2014; the Commonwealth curfew page (2026) still lists only Sydney, Adelaide, Gold Coast and Essendon Fields - recheck with a current BAC page. Operator per ERSA: Brisbane Airport Corporation Pty Ltd. Queensland has no daylight time (UTC+10 all year). 1 Nov 2026: no new official source for customs or hours found; bne.com.au search gave no current curfew or GA page. The ABF 'Aircraft requirements' page (au-abf-aircraft, 20 Oct 2026) says aircraft must enter or leave Australia at a designated international airport; not added as the permits rule already holds the dangerous-goods line. | 3 Nov 2026: slots rule REPLACED: the ERSA (9 Jul 2026) names Airport Coordination Australia, but BAC's Demand Management Scheme v2.2 (9 Jan 2026, listed as current on a BAC page changed 3 Aug 2026) names COG, so the operator's scheme was used; the earlier ERSA line that GA apron slot holders confirm parking with the BAC Duty Manager should be rechecked. The 00:00-03:59 limit is not a curfew but can stop an older jet at night, and the scheme lists no general aviation exemption. ABF: NPPC 'Not Required' at Brisbane per the July 2026 guide; contact local ABF and Agriculture no later than 72 hours before the flight; no customs hours found. Curfew rule kept: Airservices (1 Jul 2025) lists only Adelaide, Essendon, Gold Coast and Sydney as having legislated curfews, and BAC's noise page (1 Oct 2026) prefers night traffic over the bay 10 pm to 6 am. The handling rule names no agents and the BNE list was not found, so that item stays missing. The 2026 Master Plan was refused: https://www.bne.com.au/media/29448/download?inline"
 }

@@ -7,7 +7,7 @@
  "tz": "Australia/Perth",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "rules": {
   "runway": {
    "v": "two runways, 03/21 (3,444 m × 45 m) and 06/24 (2,163 m × 45 m)",
@@ -50,15 +50,24 @@
    "v": "aircraft must enter or leave Australia at a designated international airport unless permission was given first; non-scheduled international flights must also contact the Department of Infrastructure (DITRDCA) before the flight",
    "src": "au-abf-aircraft",
    "quote": "All Aircraft must enter or depart Australia at an airport that is designated as an international airport"
+  },
+  "hours": {
+   "v": "the airport operates 24 hours a day, seven days a week (operator's document, copyright 2016)",
+   "src": "ypph-noise-summary",
+   "quote": "Perth Airport operates 24 hours a day, seven days a week,"
+  },
+  "ppr": {
+   "v": "border notice only: non-scheduled flights must contact the local Australian Border Force and the Department of Agriculture no later than 72 hours before arrival or departure; NPPC approval is not required at Perth (NPPC Airport Guide, July 2026)",
+   "src": "au-abf-aircraft",
+   "quote": "no later than 72 hours prior to the arrival or departure of the intended flight for non-NPPC applications."
   }
  },
  "missing": [
   "iata",
   "customs (ERSA gives customs/quarantine via the FBO 'with PN' but no hours)",
-  "hours",
   "ppr",
   "deicing",
   "catering"
  ],
- "notes": "Read: RDS YPPH effective 09 Jul 2026 (runway 03/21 TORA 3444 m, 06/24 TORA 2163 m) and DAP aerodrome chart PPHAD01-186 (labels '3444 x 45' and '2163 x 45'). The ERSA facilities page could not be opened: https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YPPH_09JUL2026.pdf (blocked) and FAC_YPPH_27NOV2025.pdf (site error), so customs, fuel, slots, parking and handling are not verified. The no-curfew fact comes from an Airservices Engage Q&A heading on the Perth new runway project (the answer says curfews are set by the Department of Infrastructure); the Commonwealth curfew page lists only Sydney, Adelaide, Gold Coast and Essendon Fields. Western Australia has no daylight time (UTC+8). 1 Nov 2026: opened ERSA FAC YPPH 09 Jul 2026 (newest found; earlier FAC 19 Mar 2026 also listed). Added slots (COG), handling (agent needed 48 h ahead; Revesco and Airflite), fuel, GA taxilane limit and noise; ERSA lines joined with '...' in quotes. Operator per ERSA: Perth Airport Pty Ltd. The ERSA states no aerodrome hours and no customs hours. Added the ABF permits rule (page updated 20 Oct 2026). GA taxilane wording is a restriction-list line; read as a limit."
+ "notes": "Read: RDS YPPH effective 09 Jul 2026 (runway 03/21 TORA 3444 m, 06/24 TORA 2163 m) and DAP aerodrome chart PPHAD01-186 (labels '3444 x 45' and '2163 x 45'). The ERSA facilities page could not be opened: https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YPPH_09JUL2026.pdf (blocked) and FAC_YPPH_27NOV2025.pdf (site error), so customs, fuel, slots, parking and handling are not verified. The no-curfew fact comes from an Airservices Engage Q&A heading on the Perth new runway project (the answer says curfews are set by the Department of Infrastructure); the Commonwealth curfew page lists only Sydney, Adelaide, Gold Coast and Essendon Fields. Western Australia has no daylight time (UTC+8). 1 Nov 2026: opened ERSA FAC YPPH 09 Jul 2026 (newest found; earlier FAC 19 Mar 2026 also listed). Added slots (COG), handling (agent needed 48 h ahead; Revesco and Airflite), fuel, GA taxilane limit and noise; ERSA lines joined with '...' in quotes. Operator per ERSA: Perth Airport Pty Ltd. The ERSA states no aerodrome hours and no customs hours. Added the ABF permits rule (page updated 20 Oct 2026). GA taxilane wording is a restriction-list line; read as a limit. | 3 Nov 2026: the ppr rule is the border notice, not an airport PPR, so 'ppr' stays on the missing list; no customs hours found. The operator's 2016 summary agrees with the runway lengths on file and says Perth runs 24/7; it is old, so recheck it. Refused at the site: Airport Operating Protocol v3 (Jan 2025) https://www.perthairport.com.au/-/media/Files/CORPORATE/terms/Perth-Airport-Operating-Protocol.pdf, Conditions of Use https://www.perthairport.com.au/-/media/Files/CORPORATE/Work-with-us/Airport-charges/Conditions-of-Use-for-Aeronautical-Services-and-Facilities-Perth-Airport-Final.pdf and Operational Procedures https://www.perthairport.com.au/home/corporate/work-with-us/operating-at-perth-airport/operational-procedures. The readable Conditions of Use is dated 1 Jul 2011 and was not used."
 }
