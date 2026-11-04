@@ -20,7 +20,7 @@ function vInvestors(){
   const list = all.filter(p => (!F.track || p.track === F.track) && (!F.for || p.for === F.for) && (!F.status || (p.status || "new") === F.status)
     && (!F.potential || (p.potential || "Not scored") === F.potential) && (!F.interest || (pr(p).interests || []).includes(F.interest))
     && (!F.industry || (pr(p).industries || []).includes(F.industry)) && (!F.ticket || pr(p).ticket === F.ticket)
-    && (!q || [p.org, p.type, p.country, p.city, p.why, p.track, ...(pr(p).industries || [])].join(" ").toLowerCase().includes(q)))
+    && (!q || [p.org, p.type, p.country, p.city, p.why, p.track, ...(pr(p).industries || [])].join(" ").toLowerCase().includes(q)) && (typeof irFilter !== "function" || irFilter(p, F.ir)))
     .sort((a, b) => (a.status === "review" ? -1 : 0) - (b.status === "review" ? -1 : 0) || (b.score || 0) - (a.score || 0) || String(b.added || "").localeCompare(String(a.added || "")));
   const uniq = arr => [...new Set(arr.filter(Boolean))].sort();
   const counts = {High: 0, Medium: 0, Low: 0}; all.forEach(p => { if (counts[p.potential] !== undefined) counts[p.potential]++; });
@@ -30,6 +30,7 @@ function vInvestors(){
     <div class="row"><button class="btn" type="button" data-inv="new">Add investor or partner</button><button class="btn" type="button" data-inv="imp">Import list</button></div></div>
   <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
   <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${st ? `last run ${fmtT(st.lastRun)} · ${st.lastAdded || 0} added · next focus: ${esc(st.nextFocus || "rotating")}<br>${esc(st.note || "")}` : "runs every morning with the other research and covers three areas a day and adds up to 45 investors or partners, each with its public source, evidence and a sanctions pre-screen."}</div>
+  ${typeof irOverview === "function" ? irOverview(all) : ""}
   <div class="kpis">${["High", "Medium", "Low"].map(k => `<button type="button" class="kpi kbtn" data-inv="pot" data-pot="${k}" aria-pressed="${F.potential === k}"><div class="l">${k} potential</div><div class="v">${counts[k]}</div></button>`).join("")}</div>
   <div class="panel filters">
     <label class="f" for="if_q">Search<input id="if_q" data-invf="q" value="${esc(F.q)}" placeholder="Name, country, type…"></label>
@@ -58,6 +59,7 @@ function invDetail(p){
     <div><h3>How to approach</h3><p>${esc(p.approach || "")}</p></div>
     <div><h3>Contact routes</h3>${avenuesHtml(p)}</div>
     ${contactsHtml(p, "inv", p.id)}
+    ${typeof irPanel === "function" ? irPanel(p) : ""}
     <div><h3>Source</h3><p class="small">${p.source ? `<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>` : "Added by hand"}${p.aiReviewed ? ` · AI reviewed ${fmtD(p.aiReviewed)}` : ""}${p.movedFrom ? ` · moved from the shared prospect list ${fmtD(p.movedAt)}` : ""}</p></div>
     <div><h3>Sanctions</h3><p class="small">${sc ? `Automatic check ${fmtD(sc.at)} against ${esc((sc.lists || []).join(", ") || "no lists")}: <b>${esc(sc.result)}</b>${(sc.hits || []).length ? ` (${sc.hits.map(h => esc(h.name) + " ≈ " + esc(h.listed) + " on " + esc(h.list)).join("; ")})` : ""}.` : "Not checked yet: the morning run screens it."} Screen the organisation and its owners yourself before any agreement.</p></div>
     <div class="row"><label class="f" for="invStatus" style="flex:1">Status<select id="invStatus">${Object.entries(INV_STATUS).map(([k, v]) => `<option value="${k}" ${(p.status || "new") === k ? "selected" : ""}>${v}</option>`).join("")}</select></label><button class="btn primary" type="button" data-inv="status" data-id="${esc(p.id)}">Save status</button></div>

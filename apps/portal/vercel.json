@@ -69,6 +69,10 @@
   {
    "source": "/website/(.*)",
    "destination": "/api/website?p=$1"
+  },
+  {
+   "source": "/api/ir",
+   "destination": "/api/invite?nx=ir"
   }
  ],
  "redirects": [
@@ -79,6 +83,11 @@
   },
   {
    "source": "/api/_site/:path*",
+   "destination": "/",
+   "permanent": false
+  },
+  {
+   "source": "/api/_nx/:path*",
    "destination": "/",
    "permanent": false
   }

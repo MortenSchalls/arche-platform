@@ -66,8 +66,14 @@ export async function sweep(db, log = () => {}, now = Date.now()) {
   for (const r of await db.all("owner_prospects")) {
     if (r.id === "_status") continue;
     const d = r.data || {}; if (!(d.contacts || []).length) continue;
-    const t = tidy(d.contacts, d.org, lastLog(d));
-    if (t.removed) { await db.set("owner/" + r.id, { ...d, contacts: t.kept }); removed += t.removed; }
+    const ir = d.ir || {}, last = [lastLog(d), lastLog(ir)].sort().pop();   // Navoryx investor relations activity counts too
+    const t = tidy(d.contacts, d.org, last);
+    if (t.removed) {
+      // a removed person's investor-relations entries go with them (access, requests); the record's history stays anonymous
+      const gone = new Set((d.contacts || []).filter(c => !t.kept.includes(c)).map(c => String(c.email || "").toLowerCase()).filter(Boolean));
+      const nir = d.ir ? { ...ir, access: Object.fromEntries(Object.entries(ir.access || {}).filter(([k]) => !gone.has(k))), requests: (ir.requests || []).filter(q => !gone.has(String(q.email || "").toLowerCase())) } : undefined;
+      await db.set("owner/" + r.id, { ...d, contacts: t.kept, ...(nir ? { ir: nir } : {}) }); removed += t.removed;
+    }
   }
   return { removed, merged };
 }

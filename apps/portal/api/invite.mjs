@@ -5,6 +5,7 @@
 // the owner can send it another way if the email fails. The person clicks it, chooses a password and lands on step 1 of
 // joining (the offer). The inviting owner gets a hidden copy (BCC). Owners only; written to the audit log. Environment as for /api/alerts:
 //   SUPABASE_URL, SUPABASE_SECRET_KEY, SUPABASE_PUBLISHABLE_KEY, RESEND_API_KEY; optional INVITE_FROM, PORTAL_URL.
+import { irHandler } from "./_nx/ir.mjs";
 const PORTAL = process.env.PORTAL_URL || "https://portal.archeaviation.com";
 const FROM = process.env.INVITE_FROM || "Archē Executive <welcome@archeaviation.com>";
 const EMAIL_RX = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i;
@@ -204,6 +205,7 @@ export default async function handler(req, res) {
   if (req.method !== "POST" && req.method !== "GET") return res.status(405).json({ error: "GET or POST" });
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SECRET_KEY) return res.status(503).json({ error: "SUPABASE_URL or SUPABASE_SECRET_KEY missing in Vercel" });
   try {
+    if ((req.query || {}).nx === "ir") return await irHandler(req, res, { sb, owner });   // Navoryx investor relations (api/_nx/ir.mjs)
     const o = await owner(req); if (o.error) return res.status(o.code).json({ error: o.error });
     const { me, p } = o;
     if (req.method === "GET") {   // who has accepted (owners only)
