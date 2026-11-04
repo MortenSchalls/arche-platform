@@ -7,7 +7,7 @@
  "tz": "Europe/Madrid",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-02",
+ "checked": "2026-11-04",
  "rules": {
   "hours": {
    "v": "open 24 hours in summer and until 31 October; from 1 November open 0630-2300, with extension on 1 hour prior permission",
@@ -60,5 +60,5 @@
  "missing": [
   "curfew (the AIP states no night ban and no 'no curfew' statement; from 1 November the aerodrome is open only 0630-2300, extension with 1 hour PPR, recorded under hours)"
  ],
- "notes": "V/I in the AIP mean summer/winter season. The page does not state whether 0630-2300 and 2200-0500 are UTC or local; the Spanish AIP normally gives times in UTC unless marked LT (if UTC, the winter hours are 07:30-00:00 local) - not converted here. The winter closure outside aerodrome hours is not a noise curfew. Customs 'HR AD' means same hours as the aerodrome, so H24 in summer. Page header shows WEF 09-JUL-26 and WEF 11-JUN-26. | 2026-10-31 run: re-read the ENAIRE AD 2 LEIB page (header still WEF 09-JUL-26 / 11-JUN-26) and Amendment 406/26 (page dated 14-MAY-26): hours, customs, reverse-thrust rule unchanged; engine tests I: 0630-2259, V: 0530-2159 UTC; 'ARR/DEP of jet aircraft under VFR are not authorized'; no night movement ban and no night-hours definition. Winter hours from 1 November apply now (time basis not marked; engine-test times on the same page are marked UTC). | 2026-11-02 run: nothing new; not re-fetched. Curfew stays missing (no night ban stated)."
+ "notes": "V/I in the AIP mean summer/winter season. The page does not state whether 0630-2300 and 2200-0500 are UTC or local; the Spanish AIP normally gives times in UTC unless marked LT (if UTC, the winter hours are 07:30-00:00 local) - not converted here. The winter closure outside aerodrome hours is not a noise curfew. Customs 'HR AD' means same hours as the aerodrome, so H24 in summer. Page header shows WEF 09-JUL-26 and WEF 11-JUN-26. | 2026-10-31 run: re-read the ENAIRE AD 2 LEIB page (header still WEF 09-JUL-26 / 11-JUN-26) and Amendment 406/26 (page dated 14-MAY-26): hours, customs, reverse-thrust rule unchanged; engine tests I: 0630-2259, V: 0530-2159 UTC; 'ARR/DEP of jet aircraft under VFR are not authorized'; no night movement ban and no night-hours definition. Winter hours from 1 November apply now (time basis not marked; engine-test times on the same page are marked UTC). | 2026-11-02 run: nothing new; not re-fetched. Curfew stays missing (no night ban stated). | 2026-11-04 run: Ministry noise action plan Phase IV, public-information version (Oct 2024, https://cdn.transportes.gob.es/portal-web-transportes/ministerio/participacion-publica/no-normativo/aviacion/ruido-fase-iv/PAR_IP_Aeropuerto_de_Ibiza.pdf) says 'Su horario de servicio es de 24H en verano y de 7:30h a 0:00h en invierno', which fits the AIP's 0630-2300 being UTC, and 'Actualmente no existen restricciones operativas en el Aeropuerto de Ibiza'; curfew.none not set because the winter hours still limit night use and the wording is not a night statement."
 }

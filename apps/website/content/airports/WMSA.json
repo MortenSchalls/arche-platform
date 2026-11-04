@@ -7,7 +7,7 @@
  "tz": "Asia/Kuala_Lumpur",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-02",
+ "checked": "2026-11-04",
  "rules": {
   "runway": {
    "v": "one runway, 15/33, 3,782 m long and 45 m wide",
@@ -46,14 +46,23 @@
    "v": "no noise abatement procedures published",
    "src": "my-aip-wmsa-2026-10",
    "quote": "AD 2.21 Noise Abatement: NIL"
+  },
+  "slots": {
+   "v": "under civil non-scheduled flights, the AIP says airlines must get slot time confirmation from National Slot Coordination Malaysia (NSCM) before applying to CAAM; it says 'airlines' and does not mention private aircraft separately",
+   "src": "my-aip-gen12",
+   "quote": "All airlines operating to all airports in Malaysia must contact National Slot Coordination Malaysia (NSCM) for slot time confirmation in IATA SCR format before submitting to CAAM"
+  },
+  "permits": {
+   "v": "non-scheduled flights need prior permission through NOSAS or AEROFILE; apply at least 3 working days ahead or approval may not be processed in time",
+   "src": "my-aip-gen12",
+   "quote": "Prior permission must be sought and obtained either by NOSAS or AEROFILE system.; Flight approval might not be processed in time if the application is less than three (3) working days."
   }
  },
  "missing": [
   "iata (not stated in the AIP)",
   "curfew (no night restriction for business aviation stated)",
-  "slots",
   "ppr (aircraft)",
   "handling agent names"
  ],
- "notes": "AIP times are UTC; Malaysia is UTC+8 with no DST, so conversions are fixed. A later edition (AIRAC 6 Aug 2026 / 11 Aug 2026) exists but its WMSA page could not be opened; facts are from the 19 May 2026 edition. Slots for all Malaysian airports are covered at country level (GEN 1.2, NSCM). 1 Nov 2026: re-read the newest edition, AIRAC 29 Oct 2026: runway, customs (2300-1500 UTC = 07:00-23:00 local), terminal hours and noise unchanged; added the N1 stand limit and the hours for scheduled commercial jets (2200-1400 UTC = 06:00-22:00 local; the AIP sets no such limit for non-scheduled or business flights). AD 2.20 has no curfew, slot or PPR text for business aviation, but does not say 'no curfew', so curfew stays missing. Also in AD 2.20: taxiways D, J, L and M are for day operations only; aircraft without two-way radio need prior permission; departures may be regulated at peak hours. AD 2.4 remarks now read 'NIL'; the handling line is kept from the 19 May 2026 edition. | 2026-11-02 run: Nothing new; no further source searched."
+ "notes": "AIP times are UTC; Malaysia is UTC+8 with no DST, so conversions are fixed. A later edition (AIRAC 6 Aug 2026 / 11 Aug 2026) exists but its WMSA page could not be opened; facts are from the 19 May 2026 edition. Slots for all Malaysian airports are covered at country level (GEN 1.2, NSCM). 1 Nov 2026: re-read the newest edition, AIRAC 29 Oct 2026: runway, customs (2300-1500 UTC = 07:00-23:00 local), terminal hours and noise unchanged; added the N1 stand limit and the hours for scheduled commercial jets (2200-1400 UTC = 06:00-22:00 local; the AIP sets no such limit for non-scheduled or business flights). AD 2.20 has no curfew, slot or PPR text for business aviation, but does not say 'no curfew', so curfew stays missing. Also in AD 2.20: taxiways D, J, L and M are for day operations only; aircraft without two-way radio need prior permission; departures may be regulated at peak hours. AD 2.4 remarks now read 'NIL'; the handling line is kept from the 19 May 2026 edition. | 2026-11-02 run: Nothing new; no further source searched. | 2026-11-04 run: 4 Nov 2026: slots and permits added from GEN 1.2 (eAIP 11 Aug 2026; a newer GEN 1.2 was not found). AD 2 not re-read."
 }

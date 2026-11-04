@@ -7,13 +7,13 @@
  "tz": "Asia/Dubai",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-02",
+ "checked": "2026-11-04",
  "rules": {
   "runway": {
-   "v": "one runway, 13/31, 3.2 km long (width not stated by the operator)",
-   "longest_m": 3200,
-   "src": "azi-aviation",
-   "quote": "Run away 13/31 | 3.2km, CAT 1 ILS/GNSS/VOR/DME"
+   "v": "one runway, 13/31, 3,202 m long and 45 m wide",
+   "longest_m": 3202,
+   "src": "uae-aip-omad-p08",
+   "quote": "13 128° / 126° 3202 x 45"
   },
   "hours": {
    "v": "operating 24/7",
@@ -34,16 +34,38 @@
    "v": "Jetex runs the FBO, opened in 2023",
    "src": "azi-executive",
    "quote": "The Jetex FBO, opened in 2023, adds another layer of luxury."
+  },
+  "customs": {
+   "v": "customs and immigration open 24 hours",
+   "h24": true,
+   "src": "uae-aip-omad-p08",
+   "quote": "2 Customs and immigration H24"
+  },
+  "ppr": {
+   "v": "aircraft larger than code 4D need prior approval from OMAD Operations; the AIP's local regulations (AD 2.20) state no other prior-permission rule",
+   "src": "uae-aip-omad-p08",
+   "quote": "Larger aircraft require prior approval from OMAD Operations."
+  },
+  "fuel": {
+   "v": "Jet A by fuel truck; AVGAS 100 LL also listed",
+   "src": "uae-aip-omad-p08",
+   "quote": "Jet A: Fueller"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "uae-aip-omad-p08",
+   "quote": "11 De-icing NIL"
+  },
+  "noise": {
+   "v": "Abu Dhabi Island (area OMR 66) is a noise abatement area: overflights below 2,000 ft are restricted 18:30-02:00 UTC (22:30-06:00 local, fixed UTC+4). This limits overflight, not the airport's night movements",
+   "src": "uae-aip-omad-p08",
+   "quote": "The area OMR 66 (ABU DHABI ISLAND) is primarily a noise abatement area and restricted for over flights below 2000"
   }
  },
  "missing": [
   "geo",
-  "customs",
   "curfew",
-  "ppr",
-  "noise",
-  "runway width",
-  "AIP AD 2 (all items)"
+  "current-edition AD 2 OMAD (AIRAC 11/2026, effective 29 Oct 2026, not opened; values are from AIRAC 09/2026)"
  ],
- "notes": "All facts are from the operator's own websites (albateenairport.ae, adairports.ae); the UAE AIP AD 2 OMAD text could not be found or opened, so no AIP coordinates. Runway length is the operator's rounded '3.2km' (longest_m 3200 is therefore approximate). '24/7' is an operating-hours statement, not an explicit 'no night restriction', so curfew is left missing. The site lists 'Customs and immigration facilitation' only as a handling service, with no hours. Stand counts differ between sites (50 on albateenairport.ae, 54 on adairports.ae): only the 50 figure from the airport's own spec table is used. The site footer shows a ground-handling logo named 'Munawala' but gives no name in text, so it is not recorded. | 2026-10-31 run: nothing new verified; albateenairport.ae 'At the Airport' page returns 404, current UAE AIP AD 2 OMAD not reachable. | 2026-11-02 run: GCAA AIP html AD-2.OMAD (2026-P04) found by search but fetch failed at the site (client_error); not opened. Nothing new."
+ "notes": "All facts are from the operator's own websites (albateenairport.ae, adairports.ae); the UAE AIP AD 2 OMAD text could not be found or opened, so no AIP coordinates. Runway length is the operator's rounded '3.2km' (longest_m 3200 is therefore approximate). '24/7' is an operating-hours statement, not an explicit 'no night restriction', so curfew is left missing. The site lists 'Customs and immigration facilitation' only as a handling service, with no hours. Stand counts differ between sites (50 on albateenairport.ae, 54 on adairports.ae): only the 50 figure from the airport's own spec table is used. The site footer shows a ground-handling logo named 'Munawala' but gives no name in text, so it is not recorded. | 2026-10-31 run: nothing new verified; albateenairport.ae 'At the Airport' page returns 404, current UAE AIP AD 2 OMAD not reachable. | 2026-11-02 run: GCAA AIP html AD-2.OMAD (2026-P04) found by search but fetch failed at the site (client_error); not opened. Nothing new. | 2026-11-04 run: read UAE AIP AD 2 OMAD in the 2026-P08 package (AIRAC 09/2026, 3 Sep 2026), not the current AIRAC 11/2026; runway corrected from the operator's rounded 3.2 km to 3,202 x 45 m; aerodrome ATS, fuel and handling H24 but no statement of no curfew, so curfew stays missing; IATA code not listed in the AIP."
 }

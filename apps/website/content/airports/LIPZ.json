@@ -7,7 +7,7 @@
  "tz": "Europe/Rome",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-02",
+ "checked": "2026-11-04",
  "rules": {
   "slots": {
    "v": "a coordinated airport (slot allocation by Assoclearance)",
@@ -18,21 +18,47 @@
    "v": "Jet A-1 fuel is listed among the services on the operator's general aviation page (the page does not say where it is supplied)",
    "src": "vce-ga-page",
    "quote": "Jet A1 fuel will be supplied by"
+  },
+  "runway": {
+   "v": "main runway 04R/22L, 3,300 m long and 45 m wide (plus two 15 m shoulders); the parallel 04L/22R is 2,780 m x 45 m and the two cannot be used at the same time",
+   "longest_m": 3300,
+   "src": "it-save-vce-par-2024",
+   "quote": "Lunghezza in metri 3300"
+  },
+  "hours": {
+   "v": "service hours 24 hours (SAVE, July 2024). The operator's general-information page says the airport is closed from midnight to 04:00 under ENAC ordinance 6/2015; that passage is about staying in the terminal and does not mention aircraft movements",
+   "src": "it-save-vce-par-2024",
+   "quote": "Orario di servizio h 24",
+   "terminal_src": "vce-general-info",
+   "terminal_quote": "Venice Airport is closed from midnight to 4:00 AM, as required by ENAC ordinance 6/2015."
+  },
+  "curfew": {
+   "v": "national rule: civil movements banned 23:00-06:00 local at civil airports open to civil traffic, except state, medical and emergency flights; other night flights only if authorised by ministerial decree. The decree names no airport; whether such a decree covers Venice was not found, so check before any night flight",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "it-dpr-476-1999",
+   "quote": "sono vietati i movimenti aerei civili negli aeroporti civili e militari, aperti al traffico civile, dalle ore 23 alle ore 6 locali."
+  },
+  "noise": {
+   "v": "existing measures include no engine tests at night and no reverse thrust above the minimum allowed (hours of the reverse ban not stated)",
+   "src": "it-save-vce-par-2024",
+   "quote": "divieto di prove motori in periodo notturno"
   }
  },
  "missing": [
   "iata",
   "geo",
   "location",
-  "runway",
   "customs",
-  "curfew",
   "ppr",
   "max_aircraft",
   "handling",
-  "hours",
-  "noise",
   "deicing"
  ],
- "notes": "ENAV eAIP needs an ENAV account and could not be opened. SAVE's Airport Regulations (Ed. 2 Amdt 2, SAVE 15/11/2023, ENAC adoption 06/12/2023) have a General Aviation section (2.17) and a General Aviation Terminal, but the reader returned only the table of contents for those parts. The SAVE 2025 charges list (from 1 Aug 2025) mentions no opening hours or GA rules. | 2026-10-31 run: a newer edition of SAVE's Airport Regulations exists: Ed. 2 Amdt 3 (SAVE 16 Feb 2026, ENAC adoption 24 Mar 2026, Order 2/2026), on the ENAC site. The reader again returned only the table of contents and Chapter 1 (GA section 2.17, refuelling 5.2, de-icing 5.3 not reached). ga.veniceairport.it refuses automated reading. ENAC list of certified handlers at Venice was read but its certificates are mostly past their expiry dates, so it was not used. No rules added. | 2026-11-02 run: Operator page veneziaairport.it/en_gb/flights/private-jets/general-aviation read: fuel statement added (Jet A-1 supplied on site; supplier names not recorded). It states no hours, customs, PPR, size limits or runway. ENAC copy of Airport Regulations Ed. 2 Amdt 3 could not be fetched (client error). Other fields still missing."
+ "notes": "ENAV eAIP needs an ENAV account and could not be opened. SAVE's Airport Regulations (Ed. 2 Amdt 2, SAVE 15/11/2023, ENAC adoption 06/12/2023) have a General Aviation section (2.17) and a General Aviation Terminal, but the reader returned only the table of contents for those parts. The SAVE 2025 charges list (from 1 Aug 2025) mentions no opening hours or GA rules. | 2026-10-31 run: a newer edition of SAVE's Airport Regulations exists: Ed. 2 Amdt 3 (SAVE 16 Feb 2026, ENAC adoption 24 Mar 2026, Order 2/2026), on the ENAC site. The reader again returned only the table of contents and Chapter 1 (GA section 2.17, refuelling 5.2, de-icing 5.3 not reached). ga.veniceairport.it refuses automated reading. ENAC list of certified handlers at Venice was read but its certificates are mostly past their expiry dates, so it was not used. No rules added. | 2026-11-02 run: Operator page veneziaairport.it/en_gb/flights/private-jets/general-aviation read: fuel statement added (Jet A-1 supplied on site; supplier names not recorded). It states no hours, customs, PPR, size limits or runway. ENAC copy of Airport Regulations Ed. 2 Amdt 3 could not be fetched (client error). Other fields still missing. | 2026-11-04 run: runway, hours and noise come from SAVE's noise action plan summary (18 Jul 2024), which cites D.P.R. 476/99 without hours; curfew comes from the decree's original text (the consolidated Normattiva version refused reading). The newest Airport Regulations (Ed. 2 Amdt 3) reader text ends at about 123,000 characters in Chapter 1, so section 2.17 cannot be reached."
 }

@@ -705,7 +705,7 @@
   "title": "Thailand eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIRAC effective 4 Sep 2025; no GEN 1.2 change listed in AMDT 08/26, 6 Aug 2026)",
   "url": "https://aip.caat.or.th/2025-09-04-AIRAC/html/eAIP/VT-GEN-1.2-en-GB.html",
   "publisher": "Civil Aviation Authority of Thailand",
-  "checked": "2026-10-31"
+  "checked": "2026-11-04"
  },
  "pg-airport-business": {
   "title": "Bangkok Airways investor relations, Airport Business (no page date shown; copyright 2026; checked 27 Oct 2026)",
@@ -729,7 +729,7 @@
   "title": "AIP Malaysia, GEN 1.2 Entry, transit and departure of aircraft (eAIP effective 11 Aug 2026)",
   "url": "https://aip.caam.gov.my/aip/eAIP/2026-08-11/html/eAIP/WM-GEN-1.2-en-MS.html",
   "publisher": "Civil Aviation Authority of Malaysia",
-  "checked": "2026-10-27"
+  "checked": "2026-11-04"
  },
  "id-dgca-wadd": {
   "title": "DGCA Indonesia airport register: I Gusti Ngurah Rai (page undated, checked 1 Nov 2026)",
@@ -2643,7 +2643,7 @@
   "title": "AIP Macao Part 1 General (file posted 25 Aug 2026; GEN 0.1 dated 20 Aug 2026; GEN 1.2 dated 28 May 2026, AMDT 51)",
   "url": "https://www.aacm.gov.mo/static/2026/08/25/e144ac8d-581e-499b-a8e0-a8dbb964a304.pdf?filename=%E7%AC%AC%E4%B8%80%E9%83%A8%E4%BB%BD+-+%E7%B8%BD%E5%89%87+%28GEN%29",
   "publisher": "Civil Aviation Authority of Macao SAR (AACM)",
-  "checked": "2026-11-02"
+  "checked": "2026-11-04"
  },
  "artdubai-2027": {
   "title": "Art Dubai: Applications are open for Art Dubai 2027 (27 Aug 2026)",
@@ -2685,7 +2685,7 @@
   "title": "AIP Hong Kong, AD 2 VHHH (page dated 6 Aug 2026, effective 1 Oct 2026)",
   "url": "https://www.ais.gov.hk/eaip_20261001/2026-10-01-000000/html/eAIP/VH-AD-2-VHHH-en-US.html",
   "publisher": "Civil Aviation Department, Hong Kong",
-  "checked": "2026-11-02"
+  "checked": "2026-11-04"
  },
  "fala-sacaa-adc": {
   "title": "SACAA Aerodrome Chart FALA AD-01, EFF 20 JUN 19",
@@ -3004,5 +3004,77 @@
   "url": "https://caabahamas.com/faqs/",
   "publisher": "Civil Aviation Authority Bahamas",
   "checked": "2026-11-03"
+ },
+ "uk-nats-typea-index": {
+  "title": "NATS UK, Type A charts index (runway and date per aerodrome, read 4 Nov 2026)",
+  "url": "https://nats-uk.ead-it.com/cms-nats/opencms/en/Charts/type-a-charts/",
+  "publisher": "NATS",
+  "checked": "2026-11-04"
+ },
+ "uk-typea-eglf-20260505": {
+  "title": "NATS, Type A chart Farnborough RWY 06-24 (effective 05 May 2026)",
+  "url": "https://nats-uk.ead-it.com/cms-nats/export/sites/default/en/Charts/type-a-charts/NATS_AIM_TypeA_Farnborough-EGLF_06-24.pdf",
+  "publisher": "NATS",
+  "checked": "2026-11-04"
+ },
+ "uk-typea-egkb-20261102": {
+  "title": "NATS, Type A chart Biggin Hill RWY 03-21 (effective 02 Nov 2026)",
+  "url": "https://nats-uk.ead-it.com/cms-nats/export/sites/default/en/Charts/type-a-charts/NATS_AIM_TypeA_BigginHill-EGKB_03-21.pdf",
+  "publisher": "NATS",
+  "checked": "2026-11-04"
+ },
+ "ch-bafu-night-20251118": {
+  "title": "Federal Office for the Environment (BAFU/OFEV), Bruit du trafic aérien, section Interdiction des vols de nuit (published 18 Nov 2025)",
+  "url": "https://www.bafu.admin.ch/fr/bruit-trafic-aerien",
+  "publisher": "Swiss Federal Office for the Environment",
+  "checked": "2026-11-04"
+ },
+ "zrh-betriebsreglement-20260320": {
+  "title": "Betriebsreglement für den Flughafen Zürich vom 30. Juni 2011 (Stand am 20. März 2026)",
+  "url": "https://media.flughafen-zuerich.ch/-/jssmedia/airport/portal/dokumente/das-unternehmen/politics-and-responsibility/politics-and-economy/betriebskonzepte/betriebsreglement_flughafen_zuerich_2026.pdf",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-11-04"
+ },
+ "cmf-plan-your-flight": {
+  "title": "Chambéry Savoie Mont Blanc Airport, Plan your flight (page undated; checked 4 Nov 2026)",
+  "url": "https://www.chambery-airport.com/en/professionals/plan-your-flight",
+  "publisher": "Chambéry Savoie Mont Blanc Airport",
+  "checked": "2026-11-04"
+ },
+ "uae-aip-omad-p08": {
+  "title": "UAE AIP, AD 2 OMAD Abu Dhabi/Al Bateen Executive (2026-P08 package; pages AIRAC AMDT 01/2025 to 09/2026, latest 03 Sep 2026; not the current AIRAC 11/2026)",
+  "url": "https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2026-P08/pdf/AD-2.OMAD.pdf",
+  "publisher": "General Civil Aviation Authority, UAE",
+  "checked": "2026-11-04"
+ },
+ "kix-airline-partners": {
+  "title": "For Airline Partners - Kansai International Airport (KIX) (no page date shown)",
+  "url": "https://www.kansai-airports.co.jp/en/business/airlinepartners/",
+  "publisher": "Kansai Airports",
+  "checked": "2026-11-04"
+ },
+ "it-dpr-476-1999": {
+  "title": "D.P.R. 9 November 1999 n. 476, amending D.P.R. 496/1997 on the ban on night flights (original text, in force 18 Dec 1999)",
+  "url": "https://www.normattiva.it/eli/id/1999/12/17/099G0544/ORIGINAL",
+  "publisher": "Normattiva (Italian Government)",
+  "checked": "2026-11-04"
+ },
+ "it-save-vce-par-2024": {
+  "title": "Venice Marco Polo noise action plan, D.Lgs. 194/05, non-technical summary (18 Jul 2024)",
+  "url": "https://ambiente.veneziaairport.it/upload/files/sito_ambiente/rumore/archivio_documenti/relazione_piano_dazione_vce_2024_sintesi_nt_aeroporto.pdf",
+  "publisher": "SAVE S.p.A. (Venice Airport operator)",
+  "checked": "2026-11-04"
+ },
+ "vce-general-info": {
+  "title": "Venice Airport, General information (undated, read 2026-11-04)",
+  "url": "https://www.veneziaairport.it/en_gb/at-the-airport/general-info",
+  "publisher": "SAVE S.p.A. (Venice Airport operator)",
+  "checked": "2026-11-04"
+ },
+ "za-aip-gen-20261015": {
+  "title": "South African AIP, GEN (General), file dated 15 Oct 2026; GEN 1.2 pages effective 15 Jul 2024 and 15 Oct 2025",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/General%20(15_OCT_2026).pdf",
+  "publisher": "South African Civil Aviation Authority (SACAA)",
+  "checked": "2026-11-04"
  }
 }

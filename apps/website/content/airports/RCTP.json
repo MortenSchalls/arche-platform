@@ -7,7 +7,7 @@
  "tz": "Asia/Taipei",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-02",
+ "checked": "2026-11-04",
  "rules": {
   "runway": {
    "v": "two runways; the longest, 05R/23L, is 3,800 m long and 60 m wide",
@@ -45,5 +45,5 @@
   "max_aircraft (only stand/taxiway wingspan limits stated)",
   "handling agent / business aviation terminal names"
  ],
- "notes": "Times converted from UTC to Taiwan time (UTC+8, no daylight saving). Page read is AIRAC AIP AMDT 01-26 (19 Mar 2026). The eAIP home page shows AMDT 04/26 effective 01 Oct 2026 as current and AMDT 05/26 from 29 Oct 2026; those packages could not be opened. Tried again 31 Oct 2026: the CAA Taiwan eAIP (ais.caa.gov.tw) could not be fetched (permission not granted), and search found no operator page with slot, PPR or business-aviation rules; nothing changed. | 2026-11-02 run: ais.caa.gov.tw landing page shows AIRAC AIP AMDT 05/26 (effective 29 Oct 2026) as current; its index (https://ais.caa.gov.tw/eaip/AIRAC%20AIP%20AMDT%2005-26_2026_10_29%5Cindex.html) could not be opened (client error). Search found only older GEN 1.2 (2023). Nothing added."
+ "notes": "Times converted from UTC to Taiwan time (UTC+8, no daylight saving). Page read is AIRAC AIP AMDT 01-26 (19 Mar 2026). The eAIP home page shows AMDT 04/26 effective 01 Oct 2026 as current and AMDT 05/26 from 29 Oct 2026; those packages could not be opened. Tried again 31 Oct 2026: the CAA Taiwan eAIP (ais.caa.gov.tw) could not be fetched (permission not granted), and search found no operator page with slot, PPR or business-aviation rules; nothing changed. | 2026-11-02 run: ais.caa.gov.tw landing page shows AIRAC AIP AMDT 05/26 (effective 29 Oct 2026) as current; its index (https://ais.caa.gov.tw/eaip/AIRAC%20AIP%20AMDT%2005-26_2026_10_29%5Cindex.html) could not be opened (client error). Search found only older GEN 1.2 (2023). Nothing added. | 2026-11-04 run: ais.caa.gov.tw home page confirms AMDT 05/26 (29 Oct 2026) as current; its package was not opened (earlier run got a client error, not retried). AMDT 02/26 (14 May 2026) lists only met equipment and hot spots 4 and 5 for RCTP; amendments 03-05/26 not read. Slot-coordination regulation K0090049 (2005) names no airport and speaks only of airlines; SUP 06/26 (ATFM, from 16 Mar 2026) does not name RCTP. Nothing added."
 }
