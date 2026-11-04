@@ -62,7 +62,7 @@ window.supabase = { createClient() {
     }
     return api;
   }
-  const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: { pw_set: true } }, access_token: "x" };
+  const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: { pw_set: true, name: "Example Tester" } }, access_token: "x" };
   return {
     from: q,
     rpc: async (fn) => (window.__MISSING_FN || []).includes(fn) ? { data: null, error: { code: "PGRST202", message: "Could not find the function public." + fn } } : { data: false, error: null },
@@ -3485,7 +3485,7 @@ function trTeamPanel(){
   return `<div class="panel tbl"><h2>Team training</h2><table class="small"><thead><tr><th scope=col>Person</th><th scope=col class="n">Runs done</th><th scope=col class="n">Average</th><th scope=col class="n">Exercises passed (80+)</th><th scope=col>Last</th></tr></thead><tbody>${rows.map(x => `<tr><td>${esc(nm(x.bid))}</td><td class="n">${x.n}</td><td class="n">${x.avg ?? "–"}</td><td class="n">${x.sc} of ${TR_SC.length}</td><td>${x.last ? fmtD(x.last) : "–"}</td></tr>`).join("") || `<tr><td colspan="5" class="muted">No training yet.</td></tr>`}</tbody></table></div>`;
 }
 async function trLoadAll(){ if (S.trLoading) return; S.trLoading = true; const out = {};
-  for (const bid of [...new Set([...Object.keys(S.roster), S.uid])]) { try { const q = await S.db.collection(`train/${bid}/runs`).get(); if (q.docs.length) { out[bid] = {}; q.docs.forEach(d => { if (d.id !== "course" && d.id !== "onboarding" && !d.id.startsWith("notice-")) out[bid][d.id] = d.data(); }); } } catch(e){} }
+  for (const bid of [...new Set([...Object.keys(S.roster), S.uid])]) { try { const q = await S.db.collection(`train/${bid}/runs`).get(); if (q.docs.length) { out[bid] = {}; q.docs.forEach(d => { if (!["course","onboarding","offer","academy"].includes(d.id) && !d.id.startsWith("notice-")) out[bid][d.id] = d.data(); }); } } catch(e){} }
   S.trAll = out; S.trLoading = false; render(); }
 
 async function trAct(a, el){
@@ -4811,6 +4811,30 @@ function obLoadProg(id){
   S.obProg = S.obProg || {}; if (id in S.obProg) return; S.obProg[id] = undefined;
   S.db.doc("progress/" + id).get().then(d => { S.obProg[id] = d.exists ? d.data() : null; }, () => { S.obProg[id] = null; }).finally(() => render());
 }
+/* the academy steps in order, with the reading time the academy itself shows (tests/acadplantest.js keeps them in step
+   with the academy build). Used for "continue where you left off" on the joining page and in reminders (Morten, 4 Nov 2026). */
+const OB_ACAD = {
+  paths: {broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam"], consultant: ["m0","m1","m2","lab","m3","m4","m5","m12","m13","exam"]},
+  steps: {m0: ["Module 0 · Aviation for brokers", 21], m1: ["Module 1 · Archē Executive and the broker's role", 13], m2: ["Module 2 · Where we may and may not sell", 23],
+    lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
+    m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
+    m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
+    m11: ["Module 11 · Trip operations and the 24/7 desk", 12], m12: ["Module 12 · Selling and the consultant desk", 7], m13: ["Module 13 · Case studies", 9],
+    m14: ["Module 14 · Assessment and certification", 14], exam: ["Written exam", 0]}
+};
+function obNext(p){
+  const role = (p && p.role) || "broker", path = OB_ACAD.paths[role] || OB_ACAD.paths.broker, mods = (p && p.mods) || {};
+  const passed = path.filter(k => mods[k] && mods[k].passed).length, id = path.find(k => !(mods[k] && mods[k].passed));
+  if (!id) return {done: true, passed, of: path.length};
+  const [title, min] = OB_ACAD.steps[id] || [id, 0], m = mods[id];
+  return {id, title, min, tried: !!m, best: m ? m.best || 0 : 0, passed, of: path.length, left: path.slice(path.indexOf(id)).reduce((t, k) => t + ((OB_ACAD.steps[k] || [])[1] || 0), 0)};
+}
+const obNextText = n => `${n.title}${n.min ? ` · about ${n.min} min` : ""}`;
+function obAcadBtn(p){
+  const n = obNext(p);
+  if (n.done) return `<a class="btn small" href="academy.test.html#cert" data-acad="go">View your completion record</a>`;
+  return `<a class="btn small primary" href="${p ? "academy.test.html#" + n.id : "academy.test.html"}" data-acad="go">${!p ? "Start the academy" : n.tried ? "Try it again" : "Continue where you left off"}</a>`;
+}
 function obProgLine(p){
   if (p === undefined) return "Academy: loading…";
   if (!p) return "Academy: not started";
@@ -4826,9 +4850,20 @@ function vPending(){
   if (S.agrOpen && S.myAgr) return vAgreementSign();
   const p = S.obProg[S.uid], done = !!(p && p.completedAt), a = S.myAgr;
   const step = (n, title, body, state) => `<div class="flag"><span class="sev ${state === "now" ? "med" : "low"}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${n}. ${title}</b>${state === "done" ? ' <span class="chip c-flown">Done</span>' : ""}</p>${body}</div></div>`;
-  if (S.offerOpen === undefined) S.offerOpen = !S.myJoin && !a;
-  const s0 = step(1, "Your offer: up to 35% of every trip, no cap", `<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="offer">${S.offerOpen ? "Hide the offer" : "Read the offer"}</button></div>${S.offerOpen ? `<div class="agrdoc" style="margin-top:10px">${OFFER_HTML}</div>` : ""}`, "");
-  const s1 = step(2, "Complete the Archē Broker Academy", `<p class="small">Sign in to the academy with this same login. Your progress is saved as you go.</p><p class="small muted">${esc(obProgLine(p))}</p><div class="row" style="margin-top:6px"><a class="btn small ${done ? "" : "primary"}" href="academy.test.html">Open the Broker Academy</a></div>`, done ? "done" : "now");
+  // the offer is open on the first visit; once read here, or once the academy has started, it folds away so the next
+  // step sits at the top (Morten, 4 Nov 2026: why invitees stop at step 2)
+  let seenHere = false; try { seenHere = localStorage.getItem("arche.offerSeen." + S.uid) === "1"; } catch(e) {}
+  if (S.offerOpen === undefined && p !== undefined) S.offerOpen = !S.myJoin && !a && !p && !seenHere;
+  const offerOpen = !!S.offerOpen;
+  if (offerOpen && S.uid && !S.preview && !S.offerSeen) {   // the owner sees when the offer was first read (Team > Invitations)
+    S.offerSeen = true; try { localStorage.setItem("arche.offerSeen." + S.uid, "1"); } catch(e) {}
+    S.db.doc(`train/${S.uid}/runs/offer`).get().then(d => { if (!d.exists) S.db.doc(`train/${S.uid}/runs/offer`).set({at: now()}); }).catch(() => {});
+  }
+  const n = obNext(p), nextLine = !done && p !== undefined ? `<p class="small"><b>${p ? "Next" : "First"}:</b> ${esc(obNextText(n))}</p>` : "";
+  const s0 = step(1, "Your offer: up to 35% of every trip, no cap", `<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="offer">${offerOpen ? "Hide the offer" : "Read the offer"}</button></div>${offerOpen ? `<div class="agrdoc" style="margin-top:10px">${OFFER_HTML}</div>` : ""}`, "");
+  const s1 = step(2, "Complete the Archē Broker Academy", `<p class="small">It opens with the login you are using now, so there is no second sign-in. Your progress is saved as you go, and you can stop and come back at any time.</p><p class="small muted">${esc(obProgLine(p))}</p>${nextLine}<div class="row" style="margin-top:6px">${obAcadBtn(p)}</div>`, done ? "done" : "now");
+  // the next step at the top of the page, so nobody has to scroll past the offer to find it
+  const top = !done && !S.myJoin && !a && p !== undefined ? `<div class="note info" id="obNext"><p><b>Your next step:</b> ${p ? "continue the Archē Broker Academy" : "start the Archē Broker Academy"}. ${esc(obNextText(n))}${p && n.passed ? ` · ${n.passed} of ${n.of} done` : ""}.</p><div class="row" style="margin-top:6px">${obAcadBtn(p)}</div></div>` : "";
   const s2 = S.myJoin
     ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "operations" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
     : step(3, "Ask for your assessment", `<p class="small">When the academy is complete, send your request with your academy completion code.</p>
@@ -4847,7 +4882,7 @@ function vPending(){
   const s4 = step(5, "Read and sign your agreement", a && a.status === "sent" ? `<p class="small">Read it in full, fill in your details and sign it here.</p><div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="open">Read and sign</button></div>`
     : a && a.status !== "sent" ? `<p class="small">Signed on ${fmtT(a.signedAt)}.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="open">View your agreement</button></div>` : `<p class="small muted">After your assessment.</p>`, a ? (a.status === "sent" ? "now" : "done") : "");
   const s5 = step(6, "Countersignature and onboarding package", `<p class="small">Archē countersigns, creates your Archē email address and issues your onboarding package. Your portal opens straight after.</p>`, a && a.status === "signed" ? "now" : "");
-  return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p><div class="row"><button class="btn small" type="button" data-pr="open">My profile and password</button></div>${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
+  return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p><div class="row"><button class="btn small" type="button" data-pr="open">My profile and password</button></div>${top}${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
 }
 
 /* the owner's card in Team: assessment, agreement, countersignature */
@@ -7694,16 +7729,34 @@ function trustMatrix(){
           <p>${r.sent === "sent" ? "If it does not arrive (check spam), send the link yourself:" : "Send this personal link yourself, by WhatsApp or email:"}</p>
           <div class="row"><button class="btn small" type="button" data-inv="copy">Copy the personal link</button></div><p class="muted">The link works once and only for a short time. Send it only to this person.</p></div>`
         : `<div class="note warn small" id="invResult"><p>${esc(r.error || "Could not send the invitation.")}</p></div>`) : ""}
-      ${list.length ? `<h3 style="margin:6px 0 0">Invitations: ${(() => { const st = S.invStates || {}, acc = list.filter(x => (st[x.email] || {}).accepted).length; return S.invStates ? `${list.length - acc} pending, ${acc} accepted` : "pending and accepted"; })()}</h3><div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th><th scope=col>Progress</th><th scope=col></th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
+      ${list.length ? `<h3 style="margin:6px 0 0">Invitations: ${(() => { const st = S.invStates || {}, acc = list.filter(x => (st[x.email] || {}).accepted).length; return S.invStates ? `${list.length - acc} pending, ${acc} accepted` : "pending and accepted"; })()}</h3>${(() => { const st = S.invStates || {}, due = list.filter(x => { const g = (st[x.email] || {}).progress; return g && g.remind && g.remind.due; }), pw = list.filter(x => ((st[x.email] || {}).progress || {}).alert);
+        return due.length || pw.length ? `<div class="note info small" id="invTodo">${due.length ? `<p><b>Reminders ready: ${due.length}.</b> ${due.map(x => esc(x.name || x.email)).join(", ")} ${due.length > 1 ? "have" : "has"} been quiet for ${S.invRemDays || 3} days or more. Press Remind to read the email, then Send. Nothing goes out without you.</p>` : ""}${pw.length ? `<p><b>Password never set: ${pw.map(x => esc(x.name || x.email)).join(", ")}.</b> Press Send again to email a new password link.</p>` : ""}</div>` : ""; })()}<div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th><th scope=col>Progress</th><th scope=col></th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
         const pg = st && st.progress, open = (S.invLog || {})[x.email];
         return `<tr><td>${esc(x.name || "")}</td><td>${esc(x.email || "")}</td><td>${fmtT(x.first || x.at)}${x.first && x.at && x.first !== x.at ? `<br><span class="muted">again ${fmtT(x.at)}</span>` : ""}</td><td><span class="invm">Email sent: </span>${x.notInvited ? `<span class="muted">Not invited from Team</span>` : x.sent ? "Yes" : "No: link given to you"}</td><td><span class="invm">Accepted: </span>${!st ? `<span class="muted">Checking…</span>` : st.accepted ? `<span class="chip c-flown">Yes</span> <span class="muted">${fmtT(st.signedIn)}</span>` : `<span class="chip c-enquiry">Not yet</span>`}${pg ? "" : `<br><span class="muted">${esc(st ? st.step : "")}</span>`}</td>
-          <td style="min-width:200px">${pg ? invBar(pg) : `<span class="muted">${st ? "" : "Checking…"}</span>`}</td><td><div class="row" style="flex-wrap:nowrap">${pg ? `<button class="btn small" type="button" data-inv="log|${esc(x.email)}" aria-expanded="${open ? "true" : "false"}">${open ? "Hide log" : "Log"}</button>` : ""}<button class="btn small" type="button" data-inv="again|${esc(x.email)}|${esc(x.name || "")}">Send again</button></div></td></tr>
+          <td style="min-width:200px">${pg ? invBar(pg) + invFlags(x, pg) : `<span class="muted">${st ? "" : "Checking…"}</span>`}</td><td><div class="row" style="flex-wrap:nowrap">${pg ? `<button class="btn small" type="button" data-inv="log|${esc(x.email)}" aria-expanded="${open ? "true" : "false"}">${open ? "Hide log" : "Log"}</button>` : ""}<button class="btn small" type="button" data-inv="again|${esc(x.email)}|${esc(x.name || "")}">Send again</button></div></td></tr>
+          ${pg && (S.invRem || {})[x.email] && pg.remind ? `<tr class="invlog"><td colspan="7">${invRemind(x, pg)}</td></tr>` : ""}
           ${pg && open ? `<tr class="invlog"><td colspan="7">${invLog(x, pg)}</td></tr>` : ""}`; }).join("")}</tbody></table></div>` : ""}</div>`;
   }
   // exact progress: a bar, the step they are on, and a log the owner can open (Morten, 2 Nov 2026)
   function invBar(pg){
     return `<div class="small"><div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pg.pct}" aria-label="Joining progress" style="height:6px;background:var(--line, rgba(127,127,127,.25));border-radius:3px;overflow:hidden;margin:2px 0 6px"><div style="height:100%;width:${Math.max(2, pg.pct)}%;background:var(--primary-bg)"></div></div>
       <b>${pg.pct}%</b> · ${pg.done} of ${pg.of} steps<br><span>${esc(pg.label)}</span>${pg.lastSeen ? `<br><span class="muted">Last signed in ${fmtT(pg.lastSeen)}</span>` : ""}</div>`;
+  }
+  // flags under the bar: no password set; reminder ready (Morten, 4 Nov 2026)
+  function invFlags(x, pg){
+    const r = pg.remind, out = [];
+    if (pg.alert) out.push(`<span class="chip c-review">No password set</span> <span class="muted">Send again gives a new password link</span>`);
+    if (r && r.next) out.push(`<span class="muted">Next: ${esc(r.next.title)}${r.next.min ? ` · about ${r.next.min} min` : ""}</span>`);
+    if (r && r.due) out.push(`<span class="chip c-enquiry">Quiet ${r.quiet} days</span> <button class="btn small" type="button" data-inv="remind|${esc(x.email)}" aria-expanded="${(S.invRem || {})[x.email] ? "true" : "false"}">Remind</button>`);
+    else if (r && r.lastSent) out.push(`<span class="muted">Reminder sent ${fmtT(r.lastSent)}</span>`);
+    return out.length ? `<div class="small" style="margin-top:4px;display:flex;flex-direction:column;gap:3px">${out.map(o => `<div>${o}</div>`).join("")}</div>` : "";
+  }
+  function invRemind(x, pg){
+    const r = pg.remind;
+    return `<div class="stack small" id="invRem_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}"><h3 style="margin:4px 0">Reminder to ${esc(x.name || x.email)}</h3>
+      <p class="muted">Subject: Your next step with Archē Executive. Sent from Archē's welcome address; replies come to you, and you get a hidden copy. Their personal link is added when you send.${r.sent ? ` Sent before: ${r.sent} time${r.sent > 1 ? "s" : ""}, last ${fmtT(r.lastSent)}.` : ""}</p>
+      <pre style="white-space:pre-wrap;font:inherit;margin:0;padding:10px;border:1px solid var(--line, rgba(127,127,127,.25));border-radius:6px">${esc(r.preview || "")}</pre>
+      <div class="row"><button class="btn small primary" type="button" data-inv="remindsend|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy ? "disabled" : ""}>Send this reminder</button><button class="btn small" type="button" data-inv="remind|${esc(x.email)}">Cancel</button></div></div>`;
   }
   function invLog(x, pg){
     const steps = `<ol class="small" style="margin:0;padding-left:20px">${pg.steps.map(s => `<li style="margin:2px 0">${s.done ? '<span class="chip c-flown">Done</span>' : s === pg.steps.find(z => !z.done) ? '<span class="chip c-review">Now</span>' : '<span class="chip c-enquiry">Next</span>'} <b>${esc(s.t)}</b>${s.at ? ` <span class="muted">${fmtT(s.at)}</span>` : ""}${s.note ? ` <span class="muted">· ${esc(s.note)}</span>` : ""}</li>`).join("")}</ol>`;
@@ -7718,15 +7771,16 @@ function trustMatrix(){
       if (j.states) { S.invStates = j.states; S.invExtra = j.extra || []; S.peopleEmails = j.people || S.peopleEmails || {}; render(); } } catch(e){}
     S.invStBusy = false;
   }
-  async function send(again){
+  async function send(again, mode){
     const name = again ? again.name : ($("inv_name") || {}).value || "", email = again ? again.email : ($("inv_mail") || {}).value || "";
     S.invForm = {name, email}; S.invBusy = true; S.invRes = null; render();
     try {
       const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
-      const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim()})});
+      const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim(), ...(mode ? {mode} : {})})});
       const j = await r.json().catch(() => ({}));
       S.invRes = {...j, email: email.trim(), error: j.error || (r.ok ? "" : "The invitation service did not answer (" + r.status + ").")};
-      if (j.ok) { if (!again) S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; toast(j.sent === "sent" ? (again ? "New link sent to " + email + "." : "Invitation sent.") : "Login ready. Send the link yourself."); }
+      if (j.ok && mode === "remind") { S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; (S.invRem || {})[email] = false; S.invRes = j.sent === "sent" ? null : S.invRes; toast(j.sent === "sent" ? "Reminder sent to " + email + "." : "Reminder not emailed (" + j.sent + "). Send the link yourself."); }
+      else if (j.ok) { if (!again) S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; toast(j.sent === "sent" ? (again ? "New link sent to " + email + "." : "Invitation sent.") : "Login ready. Send the link yourself."); }
     } catch(e){ S.invRes = {ok: false, error: "The invitation service could not be reached. Try again."}; }
     S.invBusy = false; render();
   }
@@ -7734,6 +7788,8 @@ function trustMatrix(){
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest("[data-inv]"); if (!b) return; e.preventDefault();
     if (b.dataset.inv.startsWith("log|")) { const em = b.dataset.inv.slice(4); S.invLog = S.invLog || {}; S.invLog[em] = !S.invLog[em]; if (S.invLog[em]) S.invStAt = 0; render(); return; }
+    if (b.dataset.inv.startsWith("remind|")) { const em = b.dataset.inv.slice(7); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em]; render(); return; }
+    if (b.dataset.inv.startsWith("remindsend|")) { const [, email, name] = b.dataset.inv.split("|"); if (!S.invBusy) send({email, name: name || email}, "remind"); return; }
     if (b.dataset.inv.startsWith("again|")) { const [, email, name] = b.dataset.inv.split("|"); if (!S.invBusy) send({email, name: name || email}); return; }
     if (b.dataset.inv === "copy") { try { await navigator.clipboard.writeText(S.invLink || ""); toast("Link copied. Send it only to this person."); } catch(err){ prompt("Copy this personal link:", S.invLink || ""); } }
   });

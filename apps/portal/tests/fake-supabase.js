@@ -24,7 +24,7 @@ window.supabase = { createClient() {
     }
     return api;
   }
-  const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: { pw_set: true } }, access_token: "x" };
+  const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: { pw_set: true, name: "Example Tester" } }, access_token: "x" };
   return {
     from: q,
     rpc: async (fn) => (window.__MISSING_FN || []).includes(fn) ? { data: null, error: { code: "PGRST202", message: "Could not find the function public." + fn } } : { data: false, error: null },

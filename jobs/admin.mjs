@@ -103,6 +103,7 @@ export async function joiningReport(sb) {
     out.push({ ...row, accountCreated: d(u.created_at), linkOpened: d(u.email_confirmed_at || u.confirmed_at), lastSignIn: d(u.last_sign_in_at),
       passwordSet: !!((u.user_metadata || {}).pw_set), portalLastSeen: acc ? d((acc.data || {}).lastSeen || acc.updated_at) : null,
       offerOpened: d(((runs.find(r => r.id === "offer") || {}).data || {}).at),
+      academyPage: (() => { const v = (runs.find(r => r.id === "academy") || {}).data; return v ? { first: d(v.first), last: d(v.last), opened: v.count || 0, failedSignIns: v.fails || 0 } : null; })(),
       academy: prog ? { started: d(prog.created_at), lastActivity: d(prog.updated_at), role: ((prog.data || {}).role) || null, modulesTried: tried.length, modulesPassed: tried.filter(t => t.passed).length, completed: d(((prog.data || {}).completedAt)), modules: tried } : "not opened",
       askedForAssessment: join ? d((join.data || {}).at || join.at) : null, agreement: agr ? ((agr.data || {}).status || "?") : null, onTeam: !!(prof && prof.active && (prof.data || {}).roster) });
   }

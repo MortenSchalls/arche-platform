@@ -47,6 +47,30 @@ function obLoadProg(id){
   S.obProg = S.obProg || {}; if (id in S.obProg) return; S.obProg[id] = undefined;
   S.db.doc("progress/" + id).get().then(d => { S.obProg[id] = d.exists ? d.data() : null; }, () => { S.obProg[id] = null; }).finally(() => render());
 }
+/* the academy steps in order, with the reading time the academy itself shows (tests/acadplantest.js keeps them in step
+   with the academy build). Used for "continue where you left off" on the joining page and in reminders (Morten, 4 Nov 2026). */
+const OB_ACAD = {
+  paths: {broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam"], consultant: ["m0","m1","m2","lab","m3","m4","m5","m12","m13","exam"]},
+  steps: {m0: ["Module 0 · Aviation for brokers", 21], m1: ["Module 1 · Archē Executive and the broker's role", 13], m2: ["Module 2 · Where we may and may not sell", 23],
+    lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
+    m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
+    m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
+    m11: ["Module 11 · Trip operations and the 24/7 desk", 12], m12: ["Module 12 · Selling and the consultant desk", 7], m13: ["Module 13 · Case studies", 9],
+    m14: ["Module 14 · Assessment and certification", 14], exam: ["Written exam", 0]}
+};
+function obNext(p){
+  const role = (p && p.role) || "broker", path = OB_ACAD.paths[role] || OB_ACAD.paths.broker, mods = (p && p.mods) || {};
+  const passed = path.filter(k => mods[k] && mods[k].passed).length, id = path.find(k => !(mods[k] && mods[k].passed));
+  if (!id) return {done: true, passed, of: path.length};
+  const [title, min] = OB_ACAD.steps[id] || [id, 0], m = mods[id];
+  return {id, title, min, tried: !!m, best: m ? m.best || 0 : 0, passed, of: path.length, left: path.slice(path.indexOf(id)).reduce((t, k) => t + ((OB_ACAD.steps[k] || [])[1] || 0), 0)};
+}
+const obNextText = n => `${n.title}${n.min ? ` · about ${n.min} min` : ""}`;
+function obAcadBtn(p){
+  const n = obNext(p);
+  if (n.done) return `<a class="btn small" href="academy.html#cert" data-acad="go">View your completion record</a>`;
+  return `<a class="btn small primary" href="${p ? "academy.html#" + n.id : "academy.html"}" data-acad="go">${!p ? "Start the academy" : n.tried ? "Try it again" : "Continue where you left off"}</a>`;
+}
 function obProgLine(p){
   if (p === undefined) return "Academy: loading…";
   if (!p) return "Academy: not started";
@@ -62,9 +86,20 @@ function vPending(){
   if (S.agrOpen && S.myAgr) return vAgreementSign();
   const p = S.obProg[S.uid], done = !!(p && p.completedAt), a = S.myAgr;
   const step = (n, title, body, state) => `<div class="flag"><span class="sev ${state === "now" ? "med" : "low"}" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${n}. ${title}</b>${state === "done" ? ' <span class="chip c-flown">Done</span>' : ""}</p>${body}</div></div>`;
-  if (S.offerOpen === undefined) S.offerOpen = !S.myJoin && !a;
-  const s0 = step(1, "Your offer: up to 35% of every trip, no cap", `<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="offer">${S.offerOpen ? "Hide the offer" : "Read the offer"}</button></div>${S.offerOpen ? `<div class="agrdoc" style="margin-top:10px">${OFFER_HTML}</div>` : ""}`, "");
-  const s1 = step(2, "Complete the Archē Broker Academy", `<p class="small">Sign in to the academy with this same login. Your progress is saved as you go.</p><p class="small muted">${esc(obProgLine(p))}</p><div class="row" style="margin-top:6px"><a class="btn small ${done ? "" : "primary"}" href="academy.html" target="_blank" rel="noopener">Open the Broker Academy</a></div>`, done ? "done" : "now");
+  // the offer is open on the first visit; once read here, or once the academy has started, it folds away so the next
+  // step sits at the top (Morten, 4 Nov 2026: why invitees stop at step 2)
+  let seenHere = false; try { seenHere = localStorage.getItem("arche.offerSeen." + S.uid) === "1"; } catch(e) {}
+  if (S.offerOpen === undefined && p !== undefined) S.offerOpen = !S.myJoin && !a && !p && !seenHere;
+  const offerOpen = !!S.offerOpen;
+  if (offerOpen && S.uid && !S.preview && !S.offerSeen) {   // the owner sees when the offer was first read (Team > Invitations)
+    S.offerSeen = true; try { localStorage.setItem("arche.offerSeen." + S.uid, "1"); } catch(e) {}
+    S.db.doc(`train/${S.uid}/runs/offer`).get().then(d => { if (!d.exists) S.db.doc(`train/${S.uid}/runs/offer`).set({at: now()}); }).catch(() => {});
+  }
+  const n = obNext(p), nextLine = !done && p !== undefined ? `<p class="small"><b>${p ? "Next" : "First"}:</b> ${esc(obNextText(n))}</p>` : "";
+  const s0 = step(1, "Your offer: up to 35% of every trip, no cap", `<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="offer">${offerOpen ? "Hide the offer" : "Read the offer"}</button></div>${offerOpen ? `<div class="agrdoc" style="margin-top:10px">${OFFER_HTML}</div>` : ""}`, "");
+  const s1 = step(2, "Complete the Archē Broker Academy", `<p class="small">It opens with the login you are using now, so there is no second sign-in. Your progress is saved as you go, and you can stop and come back at any time.</p><p class="small muted">${esc(obProgLine(p))}</p>${nextLine}<div class="row" style="margin-top:6px">${obAcadBtn(p)}</div>`, done ? "done" : "now");
+  // the next step at the top of the page, so nobody has to scroll past the offer to find it
+  const top = !done && !S.myJoin && !a && p !== undefined ? `<div class="note info" id="obNext"><p><b>Your next step:</b> ${p ? "continue the Archē Broker Academy" : "start the Archē Broker Academy"}. ${esc(obNextText(n))}${p && n.passed ? ` · ${n.passed} of ${n.of} done` : ""}.</p><div class="row" style="margin-top:6px">${obAcadBtn(p)}</div></div>` : "";
   const s2 = S.myJoin
     ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "operations" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
     : step(3, "Ask for your assessment", `<p class="small">When the academy is complete, send your request with your academy completion code.</p>
@@ -83,7 +118,7 @@ function vPending(){
   const s4 = step(5, "Read and sign your agreement", a && a.status === "sent" ? `<p class="small">Read it in full, fill in your details and sign it here.</p><div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="open">Read and sign</button></div>`
     : a && a.status !== "sent" ? `<p class="small">Signed on ${fmtT(a.signedAt)}.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="open">View your agreement</button></div>` : `<p class="small muted">After your assessment.</p>`, a ? (a.status === "sent" ? "now" : "done") : "");
   const s5 = step(6, "Countersignature and onboarding package", `<p class="small">Archē countersigns, creates your Archē email address and issues your onboarding package. Your portal opens straight after.</p>`, a && a.status === "signed" ? "now" : "");
-  return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p>${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
+  return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p><div class="row"><button class="btn small" type="button" data-pr="open">My profile and password</button></div>${top}${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
 }
 
 /* the owner's card in Team: assessment, agreement, countersignature */

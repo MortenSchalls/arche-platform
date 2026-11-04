@@ -2,7 +2,7 @@
 
 The one file to start a new chat from. It says what Archē is, where everything is, the rules we work by, what is built,
 what is decided and what is still open. Claude updates it at the end of every working session.
-Last updated: 26 Oct 2026. Company formation requested 26 Oct 2026 via corporate services (about a week); then bank KYB, client payment provider and Avinode in parallel; launch target 1 Dec 2026. Peer rating: project note `claude/arche-setup-vs-peers-2026-10-26.md`.
+Last updated: 4 Nov 2026 (joining fixes). Earlier: 26 Oct 2026. Company formation requested 26 Oct 2026 via corporate services (about a week); then bank KYB, client payment provider and Avinode in parallel; launch target 1 Dec 2026. Peer rating: project note `claude/arche-setup-vs-peers-2026-10-26.md`.
 
 **To continue in a new chat:** attach this file (or open the "Archē Executive" project, where it is kept) and say
 "Continue the Archē work from the handover file". Claude reads it, then `CLAUDE.md` and `docs/ROADMAP.md` in the
@@ -211,6 +211,8 @@ How to run: Team → To do for you → **Copy SQL** → Supabase → SQL Editor 
 - **Kasper, Sam:** Origin (Navoryx) people, not Archē.
 
 ## 8. Open items
+
+- 4 Nov 2026 (staging, not released): why invitees stop at step 2. Read-only joining report (admin job `joining-report`): 9 invited; 7 signed in, only Jan opened the academy (passed Module 0, 28 Oct); nobody signed in since 1 Nov; Marina signed in but never set a password; Chayanun and Nikita never opened the link. Fixes: (1) joining page shows "Your next step" at the top and opens the academy in the same tab, no second-sign-in wording; the offer is open on the first visit and folds away once read or once the academy has started; first viewing of the offer is now recorded (it was only recorded on a click). (2) "Continue where you left off" goes straight to the next module (`academy.html#m1`) and names it with its length (`OB_ACAD` in onboard.js and `ACADEMY_MIN` in api/invite.mjs, checked against the academy build by `tests/acadplantest.js`); the academy keeps that link after the saved progress arrives (page.html `HASH0`, build.py) and fills the trainee's name from the login. (3) Team > Invitations: "Reminders ready" after 3 quiet days with the next step; Remind shows the email, Send this reminder sends it (POST /api/invite `mode: "remind"`, sign-in link, or a new password link for someone who never set one; reply-to the owner; logged as "Joining reminder"); nothing goes automatically. (4) "No password set" flag (Marina): Send again emails a new password link; Morten presses it. (5) Academy page records each signed-in visit and failed password sign-ins on that device (`train/<uid>/runs/academy`), shown in the joining log and the admin report. SQL 0021 still to run for full sign-in history.
 
 - 2 Nov 2026, budget LOCKED by Morten: Final versions / Archē_Executive_Budget_Model_V2_2026-11-02.xlsx (31 Oct and all attempts in Archive/Final versions 2026-11-02). Results identical to 31 Oct (10-year net USD 126,058,823). Every sheet follows B3 and B141; hidden USD engine sheets; Checks tab; built natively (never via LibreOffice) with a calcChain, because Excel on Morten's Mac ran out of resources on the old 985-step chains. Scripts and audit: tools/budget-rebuild. Lesson: test in Morten's Excel before anything goes into Final versions.
 

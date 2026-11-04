@@ -82,6 +82,10 @@ def build():
     # inside a claude.ai artifact the viewer owns window.claude, so the test version uses its own name
     out = out.replace("window.claude", "window.__arche").replace("claude.use", "__arche.use").replace('<script src="platform.js"></script>', '<script src="platform.test.js"></script>')
     out = out.replace('href="academy.html" target="_blank" rel="noopener"', 'href="academy.test.html"')
+    # the joining page's academy buttons (same tab, straight to the next module) go to the test academy too
+    for a, b in [('? "academy.html#" + n.id : "academy.html"', '? "academy.test.html#" + n.id : "academy.test.html"'), ('href="academy.html#cert"', 'href="academy.test.html#cert"')]:
+        assert out.count(a) == 1, a
+        out = out.replace(a, b)
     plat = (HERE / "platform.js").read_text(encoding="utf-8")
     use_old = 'window.claude = Object.freeze({ use: async name => { await ready; return caps[name] ?? null; } });'
     assert use_old in plat
