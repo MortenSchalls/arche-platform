@@ -353,7 +353,7 @@ async function initPlatform(){
       catch(e) { P.ref = null; setSync("local"); }
     } else setSync("local");
   } catch(e) { setSync("local"); }
-  renderMap(); if (VIEW.id === "home" || VIEW.id === "start" || VIEW.id === "records") render();
+  renderMap(); if (ST.name && HASH0.length > 1 && (VIEW.id === "start" || VIEW.id === "home" || VIEW.id === HASH0.slice(1))) route(HASH0); else if (VIEW.id === "start" && ST.name) go("home"); else if (VIEW.id === "home" || VIEW.id === "start" || VIEW.id === "records") render();
 }
 
 /* ---------- helpers ---------- */
@@ -586,7 +586,10 @@ function go(id){
   if (window.innerWidth <= 900) { $("map").classList.add("closed"); $("mapBtn").setAttribute("aria-expanded","false"); }
   renderMap(); render(); window.scrollTo({top:0});
 }
-function route(){ const h = (location.hash||"").slice(1); go(h && /^[a-z0-9]+$/.test(h) ? h : (ST.name ? "home" : "start")); }
+// a link straight to a module (the joining page's "Continue where you left off", 4 Nov 2026) must survive the first,
+// local render, which runs before the saved progress and name arrive from the portal
+const HASH0 = location.hash;
+function route(h0){ const h = ((h0 !== undefined ? h0 : location.hash)||"").slice(1); go(h && /^[a-z0-9]+$/.test(h) ? h : (ST.name ? "home" : "start")); }
 function render(opt){ renderView(); legal(); if (!(opt && opt.quiet)) AUDIO.screen(); }
 function renderView(){
   const v = $("view"), id = VIEW.id;

@@ -65,7 +65,8 @@ def build(ed, content, out, test):
     s=open('page.html').read()
     a="  renderMap(); route();\n}\n\n/* ---------- helpers"
     assert s.count(a)==1
-    s=s.replace(a,"  renderMap(); if (VIEW.id === \"home\" || VIEW.id === \"start\" || VIEW.id === \"records\") render();\n}\n\n/* ---------- helpers")
+    # once the saved name arrives, someone who landed on the start form goes where their link pointed (or the overview)
+    s=s.replace(a,"  renderMap(); if (ST.name && HASH0.length > 1 && (VIEW.id === \"start\" || VIEW.id === \"home\" || VIEW.id === HASH0.slice(1))) route(HASH0); else if (VIEW.id === \"start\" && ST.name) go(\"home\"); else if (VIEW.id === \"home\" || VIEW.id === \"start\" || VIEW.id === \"records\") render();\n}\n\n/* ---------- helpers")
     s=s.replace('__LOGO__',logo).replace('__CONTENT__',open(content).read()+'\n/*__PHOTOS__*/').replace('"__ED__"','"%s"'%ed)
     assert s.count('/* ---------- map ---------- */')==1
     s=s.replace('/* ---------- map ---------- */', open('figs.js').read()+'\n/* ---------- map ---------- */')

@@ -51,6 +51,30 @@ export function inviteMail({ name, link, from, again }) {
   return { subject: "Your access to the Archē Executive broker portal", text, html };
 }
 
+// a friendly reminder after 3 quiet days (Morten, 4 Nov 2026): the owner sees it ready in Team > Invitations, reads it and
+// presses Send; nothing goes out on its own. It names the next step and carries a fresh personal link (a new password
+// link for someone who never set one). Replies go to the owner, so "not for me" is one reply away.
+export function remindMail({ name, link, from, next, pwSet, started }) {
+  const first = (name || "").split(/\s+/)[0] || "";
+  const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const step = next ? `${next.title}${next.min ? ` (about ${next.min} minutes)` : ""}` : "";
+  const lead = started ? "You have made a good start on the Archē Broker Academy, and your place is kept for you." : "Your place in the Archē Executive broker programme is ready when you are.";
+  const nx = step ? `Your next step: ${step}.` : "Your next step is waiting on your joining page.";
+  const how = pwSet === false ? "Open your personal link below and choose your password; your joining page then shows the next step, and \"Continue where you left off\" opens the academy at the right place."
+    : "Open your personal link below; it signs you in to your joining page, and \"Continue where you left off\" opens the academy at the right place.";
+  const text = [`Dear ${first || "colleague"},`, "", lead, "", nx, "You can stop and come back at any time; your progress is saved as you go.", "", how, "", link, "",
+    "The link works once and only for a short time. Later, sign in at " + PORTAL + " with this email address and your password.", "",
+    "If you have decided not to go ahead, just reply to this email and we will not send further reminders.", "",
+    "Kind regards,", from || "Archē Executive", "Archē Executive"].join("\n");
+  const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px"><p>Dear ${esc(first || "colleague")},</p><p>${esc(lead)}</p>
+<p><b>${esc(nx)}</b><br>You can stop and come back at any time; your progress is saved as you go.</p><p>${esc(how)}</p>
+<p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">CONTINUE WHERE YOU LEFT OFF</a></p>
+<p style="font-size:13px;color:#5b6067">The link works once and only for a short time. Later, sign in at <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a> with this email address and your password.</p>
+<p style="font-size:13px;color:#5b6067">If you have decided not to go ahead, just reply to this email and we will not send further reminders.</p><p>Kind regards,<br>${esc(from || "Archē Executive")}<br>Archē Executive</p></div>`;
+  return { subject: "Your next step with Archē Executive", text, html };
+}
+export const REMIND_DAYS = 3;
+
 // the inviting owner gets a hidden copy (BCC) of every invitation (Morten, 28 Oct 2026) and the person's replies
 export function inviteRequest({ from, to, owner, mail }) {
   const o = owner && EMAIL_RX.test(owner) && owner.toLowerCase() !== to ? [owner] : undefined;
@@ -62,6 +86,7 @@ async function sb(path, opt = {}) {
   const body = await r.json().catch(() => null);
   return { ok: r.ok, status: r.status, body };
 }
+const arrFirst = b => (Array.isArray(b) ? b[0] : null) || null;
 async function findUser(email) {
   for (let page = 1; page <= 20; page++) {
     const r = await sb(`/auth/v1/admin/users?page=${page}&per_page=200`); if (!r.ok) throw new Error("users " + r.status);
@@ -85,7 +110,14 @@ export function inviteState(u, prof, join, agr) {
 // beyond what Team already shows.
 const ACADEMY_PATHS = { broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam"], consultant: ["m0","m1","m2","lab","m3","m4","m5","m12","m13","exam"] };
 const ACADEMY_TITLES = { m0: "0 Aviation for brokers", m1: "1 Archē Executive and the broker's role", m2: "2 Where we may and may not sell", lab: "2L Lab: the trip risk screen", m3: "3 Compliance: KYC, sanctions, fraud", m4: "4 Our clients", m5: "5 Enquiry intake and qualification", m6: "6 Flight feasibility and trip planning", m7: "7 Aircraft knowledge: long-range jets", m8: "8 Sourcing on Avinode and operator vetting", m9: "9 Pricing and quoting", m10: "10 Contract, payment and settlement", book: "10P Practical: the booking form", m11: "11 Trip operations and the 24/7 desk", m12: "12 Selling and the consultant desk", m13: "13 Case studies", m14: "14 Assessment and certification", exam: "Written exam" };
-export function joinProgress({ invite = {}, user = null, prof = null, join = null, agr = null, prog = null, ack = null, offer = null, audits = [], runs = [], authEvents = null } = {}) {
+const ACADEMY_MIN = { m0: 21, m1: 13, m2: 23, m3: 12, m4: 5, m5: 8, m6: 16, m7: 5, m8: 13, m9: 15, m10: 15, m11: 12, m12: 7, m13: 9, m14: 14 };
+export const academyNext = (p, role) => {
+  const path = ACADEMY_PATHS[(p && p.role) || role || "broker"] || ACADEMY_PATHS.broker, mods = (p && p.mods) || {}, id = path.find(k => !(mods[k] && mods[k].passed));
+  if (!id) return null;
+  const t = ACADEMY_TITLES[id] || id, mm = t.match(/^(\d+) (.*)$/), title = mm ? `Module ${mm[1]} · ${mm[2]}` : t.replace(/^\S+ (?=Lab|Practical)/, "");
+  return { id, title, min: ACADEMY_MIN[id] || 0 };
+};
+export function joinProgress({ invite = {}, user = null, prof = null, join = null, agr = null, prog = null, ack = null, offer = null, audits = [], runs = [], authEvents = null, now = new Date() } = {}) {
   const jd = (join && join.data) || {}, a = (agr && agr.data) || {}, pd = (prof && prof.data) || {}, ob = (pd.roster || {}).onboarding || {};
   const p = (prog && prog.data) || null, role = (p && p.role) || jd.role || "broker", path = ACADEMY_PATHS[role] || ACADEMY_PATHS.broker;
   const mods = (p && p.mods) || {}, passed = path.filter(k => mods[k] && mods[k].passed), next = path.find(k => !(mods[k] && mods[k].passed));
@@ -121,7 +153,7 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
     authEvents.forEach(e => { if (e.action === "login") { const d = String(e.at).slice(0, 10); (days[d] = days[d] || []).push(e.at); } else if (AUTH[e.action]) log.push({ at: e.at, t: AUTH[e.action] }); });
     Object.values(days).forEach(ts => { ts.sort(); log.push({ at: ts[ts.length - 1], t: ts.length > 1 ? `Signed in ${ts.length} times that day (first ${String(ts[0]).slice(11, 16)} UTC)` : "Signed in" }); });
   } else {
-    if (firstIn) log.push({ at: firstIn, t: "Opened the invitation and set a password" });
+    if (firstIn) log.push({ at: firstIn, t: (user.user_metadata || {}).pw_set ? "Opened the invitation and set a password" : "Opened the invitation" });
     if (signedIn && signedIn !== firstIn) log.push({ at: signedIn, t: "Last signed in" });
   }
   if (prog && prog.created_at) log.push({ at: prog.created_at, t: "Started the academy" });
@@ -137,8 +169,26 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   if (a.counterAt || ob.issuedAt) log.push({ at: a.counterAt || ob.issuedAt, t: "Countersigned; onboarding package issued" });
   if (ack && ack.data && ack.data.ackAt) log.push({ at: ack.data.ackAt, t: "Confirmed the onboarding package; desk opened" });
   (audits || []).forEach(x => { if (x.action !== "Invitation to join") log.push({ at: x.t, t: x.action + (x.detail ? ": " + String(x.detail).slice(0, 160) : "") }); });
+  // the academy page: when it was opened signed in, and failed password sign-ins there before that (make_academy.py)
+  const av = (((runs || []).find(r => r.id === "academy") || {}).data) || null;
+  if (av && av.first) log.push({ at: av.first, t: "Opened the academy for the first time" });
+  if (av && av.last && av.count > 1) log.push({ at: av.last, t: `Opened the academy (${av.count} times in all)` });
+  if (av && av.fails) log.push({ at: av.lastFailAt || av.last, t: `${av.fails} failed password sign-in${av.fails > 1 ? "s" : ""} on the academy page before getting in` });
+  // reminders sent from Team
+  const rem = (invite.reminders || []).slice().sort((a, b) => String(a.at).localeCompare(String(b.at)));
+  rem.forEach(x => log.push({ at: x.at, t: "Reminder sent" + (x.sent ? "" : " (email not sent)") }));
   log.sort((x, y) => String(y.at || "").localeCompare(String(x.at || "")));
-  return { done, of: steps.length, pct, label, steps, log: log.slice(0, 150), lastSeen: signedIn, history: Array.isArray(authEvents) ? "full" : "partial" };
+  // a password never set: the person signed in by link but the "choose your password" step was not finished
+  const um = (user && user.user_metadata) || {}, viaMs = ((user && user.app_metadata) || {}).provider === "azure";
+  const pwSet = !user ? null : !!(um.pw_set || viaMs);
+  const alert = user && signedIn && !pwSet ? "Signed in but never set a password: use Send again for a new password link" : "";
+  // quiet for 3 days or more, not yet asking for assessment: a reminder is ready for the owner to send
+  const stamps = [invAt, ...sends.map(x => x.at), signedIn, p && (p.updated || null), av && av.last, offer && offer.data && offer.data.at, ...rem.map(x => x.at)].filter(Boolean).map(String).sort();
+  const lastActive = stamps[stamps.length - 1] || null, quiet = lastActive ? Math.floor((now - new Date(lastActive)) / 864e5) : 0;
+  const atJoin = !onTeam && !join && !a.status, nextStep = academyNext(p, role);
+  const remind = atJoin && user ? { due: quiet >= REMIND_DAYS, quiet, lastActive, sent: rem.length, lastSent: rem.length ? rem[rem.length - 1].at : null, next: nextStep,
+    preview: remindMail({ name: invite.name || um.name || "", link: "[personal sign-in link]", from: "[your name]", next: nextStep, pwSet, started: !!p }).text } : null;
+  return { done, of: steps.length, pct, label, steps, log: log.slice(0, 150), lastSeen: signedIn, history: Array.isArray(authEvents) ? "full" : "partial", pwSet, alert, remind };
 }
 async function owner(req) {
   const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, ""), PK = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_SECRET_KEY;
@@ -198,6 +248,32 @@ export default async function handler(req, res) {
     if (!name || name.split(/\s+/).length < 2) return res.status(400).json({ error: "Enter the person's first and last name." });
 
     const existing = await findUser(email);
+    const remind = b.mode === "remind";
+    if (remind) {
+      if (!existing) return res.status(400).json({ error: "This person has no login yet. Use Send invitation." });
+      const pwSet = !!((existing.user_metadata || {}).pw_set || ((existing.app_metadata || {}).provider === "azure"));
+      // a sign-in link for people with a password; a new password link for those who signed in but never set one
+      const rtype = existing.last_sign_in_at && !pwSet ? "recovery" : "magiclink";
+      const gl = await sb("/auth/v1/admin/generate_link", { method: "POST", body: JSON.stringify({ type: rtype, email, redirect_to: PORTAL + "/" }) });
+      const link = gl.body && (gl.body.action_link || (gl.body.properties || {}).action_link);
+      if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the link (" + gl.status + ")." });
+      const prog = arrFirst((await sb(`/rest/v1/academy_progress?select=data&id=eq.${existing.id}`)).body);
+      const pd = (prog && prog.data) || null;
+      let sent = "not sent: RESEND_API_KEY missing in Vercel";
+      if (process.env.RESEND_API_KEY) {
+        const m = remindMail({ name, link, from: p.contract_name || "", next: academyNext(pd), pwSet, started: !!pd });
+        const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
+          body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m })) });
+        if (r.ok) sent = "sent"; else { let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {} sent = `not sent: refused by Resend (${r.status}${msg ? ": " + msg.slice(0, 120) : ""})`; }
+      }
+      const at = new Date().toISOString(), masked = email.replace(/^(.).*?(@.*)$/, "$1***$2");
+      await sb("/rest/v1/audit_log", { method: "POST", headers: { prefer: "return=minimal" }, body: JSON.stringify({ by: me.id, action: "Joining reminder", detail: `${name} · ${masked} · email ${sent === "sent" ? "sent" : "not sent"}` }) });
+      const cur = await sb("/rest/v1/intel?select=value&key=eq.invites"), list = (((cur.body || [])[0] || {}).value || {}).list || [];
+      const next = list.map(x => x.email === email ? { ...x, reminders: [...(x.reminders || []), { at, sent: sent === "sent", by: me.id }].slice(-20) } : x);
+      if (!list.some(x => x.email === email)) next.unshift({ email, name, at: existing.created_at, first: existing.created_at, sends: [], notInvited: true, reminders: [{ at, sent: sent === "sent", by: me.id }] });
+      await sb("/rest/v1/intel?on_conflict=key", { method: "POST", headers: { prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify({ key: "invites", value: { list: next.slice(0, 100) }, updated_at: at }) });
+      return res.status(200).json({ ok: true, sent, link, remind: true });
+    }
     // new person: an invitation; invited but never signed in: a fresh sign-in link; already signed in before (lost access,
     // link run out): a link to choose a new password, so "Send again" always works (Morten, 29 Oct 2026)
     const type = !existing ? "invite" : existing.last_sign_in_at ? "recovery" : "magiclink", again = !!existing;

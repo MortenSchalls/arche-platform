@@ -84,6 +84,31 @@ export async function peopleStatus(sb) {
   const inv = ck(await sb.from("intel").select("value").eq("key", "invites").maybeSingle(), "intel");
   return { people: out, invites: (((inv || {}).value || {}).list || []).map(x => ({ name: x.name, email: mask(x.email), at: x.at, sent: x.sent })) };
 }
+// Read-only: where each invited person is in joining (Morten, 4 Nov 2026). Emails masked; no personal data beyond Team.
+export async function joiningReport(sb) {
+  const inv = ck(await sb.from("intel").select("value").eq("key", "invites").maybeSingle(), "intel"), list = (((inv || {}).value || {}).list || []);
+  const users = []; for (let page = 1; page <= 20; page++) { const { data, error } = await sb.auth.admin.listUsers({ page, perPage: 200 }); if (error) throw new Error("users: " + error.message); users.push(...(data.users || [])); if ((data.users || []).length < 200) break; }
+  const d = x => x ? String(x).slice(0, 16).replace("T", " ") : null;
+  const out = [];
+  for (const x of list) {
+    const u = users.find(z => String(z.email || "").toLowerCase() === String(x.email || "").toLowerCase());
+    const row = { name: x.name, email: mask(x.email), invited: d(x.first || x.at), lastInvite: d(x.at), timesSent: (x.sends || []).length || 1 };
+    if (!u) { out.push({ ...row, login: "none" }); continue; }
+    const one = async (t, col, v, sel = "*") => ck(await sb.from(t).select(sel).eq(col, v).maybeSingle(), t);
+    const [prog, join, agr, prof] = await Promise.all([one("academy_progress", "id", u.id, "data,created_at,updated_at"), one("join_requests", "user_id", u.id, "data,at"), one("agreements", "id", u.id, "data"), one("profiles", "id", u.id, "role,active,data")]);
+    const runs = ck(await sb.from("training_runs").select("id,data,updated_at").eq("owner_id", u.id), "training_runs") || [];
+    const acc = ((await sb.from("access_log").select("data,updated_at").eq("owner_id", u.id)).data || [])[0] || null;
+    const mods = ((prog || {}).data || {}).mods || {};
+    const tried = Object.entries(mods).map(([k, m]) => ({ module: k, passed: !!m.passed, best: m.best || 0, attempts: m.attempts || 0, at: d(m.passedAt || m.at) }));
+    out.push({ ...row, accountCreated: d(u.created_at), linkOpened: d(u.email_confirmed_at || u.confirmed_at), lastSignIn: d(u.last_sign_in_at),
+      passwordSet: !!((u.user_metadata || {}).pw_set), portalLastSeen: acc ? d((acc.data || {}).lastSeen || acc.updated_at) : null,
+      offerOpened: d(((runs.find(r => r.id === "offer") || {}).data || {}).at),
+      academyPage: (() => { const v = (runs.find(r => r.id === "academy") || {}).data; return v ? { first: d(v.first), last: d(v.last), opened: v.count || 0, failedSignIns: v.fails || 0 } : null; })(),
+      academy: prog ? { started: d(prog.created_at), lastActivity: d(prog.updated_at), role: ((prog.data || {}).role) || null, modulesTried: tried.length, modulesPassed: tried.filter(t => t.passed).length, completed: d(((prog.data || {}).completedAt)), modules: tried } : "not opened",
+      askedForAssessment: join ? d((join.data || {}).at || join.at) : null, agreement: agr ? ((agr.data || {}).status || "?") : null, onTeam: !!(prof && prof.active && (prof.data || {}).roster) });
+  }
+  return { invited: out.length, report: out };
+}
 export async function alertsStatus(sb) {
   const rows = ck(await sb.from("alert_settings").select("id,data"), "alert_settings") || [];
   const st = (rows.find(r => r.id === "status") || {}).data || {}, cfg = (rows.find(r => r.id === "settings") || {}).data || {};
@@ -193,6 +218,7 @@ export async function main(env = process.env, sb) {
   if (action === "remove-test-trip") { const out = await removeTestTrip(sb, String(name || "").trim(), why); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "close-test-enquiries") { const out = await closeTestEnquiries(sb, String(name || "").trim(), why); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "owner-to-joining") { const u0 = await findOwner(sb, email, name); if (!u0) throw new Error("No login found"); const r0 = await ownerToJoining(sb, u0, why), out = { email: mask(u0.email), ...r0, now: (await status(sb, u0)).step }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "joining-report") { const out = await joiningReport(sb); console.log(JSON.stringify(out, null, 1)); note({ invited: out.invited, report: out.report.map(r => ({ n: r.name, in: r.lastSignIn, pw: r.passwordSet, seen: r.portalLastSeen, offer: r.offerOpened, ac: typeof r.academy === "string" ? r.academy : { s: r.academy.started, last: r.academy.lastActivity, tried: r.academy.modulesTried, passed: r.academy.modulesPassed } })) }); return out; }
   if (action === "people-status") { const out = await peopleStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }

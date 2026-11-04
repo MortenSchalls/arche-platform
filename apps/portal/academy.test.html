@@ -60,7 +60,7 @@ window.supabase = { createClient() {
     }
     return api;
   }
-  const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: { pw_set: true } }, access_token: "x" };
+  const session = { user: { id: window.__UID, email: "test@example.com", user_metadata: { pw_set: true, name: "Example Tester" } }, access_token: "x" };
   return {
     from: q,
     rpc: async (fn) => (window.__MISSING_FN || []).includes(fn) ? { data: null, error: { code: "PGRST202", message: "Could not find the function public." + fn } } : { data: false, error: null },
@@ -423,7 +423,7 @@ async function initPlatform(){
       catch(e) { P.ref = null; setSync("local"); }
     } else setSync("local");
   } catch(e) { setSync("local"); }
-  renderMap(); if (VIEW.id === "home" || VIEW.id === "start" || VIEW.id === "records") render();
+  renderMap(); if (ST.name && HASH0.length > 1 && (VIEW.id === "start" || VIEW.id === "home" || VIEW.id === HASH0.slice(1))) route(HASH0); else if (VIEW.id === "start" && ST.name) go("home"); else if (VIEW.id === "home" || VIEW.id === "start" || VIEW.id === "records") render();
 }
 
 /* ---------- helpers ---------- */
@@ -656,7 +656,10 @@ function go(id){
   if (window.innerWidth <= 900) { $("map").classList.add("closed"); $("mapBtn").setAttribute("aria-expanded","false"); }
   renderMap(); render(); window.scrollTo({top:0});
 }
-function route(){ const h = (location.hash||"").slice(1); go(h && /^[a-z0-9]+$/.test(h) ? h : (ST.name ? "home" : "start")); }
+// a link straight to a module (the joining page's "Continue where you left off", 4 Nov 2026) must survive the first,
+// local render, which runs before the saved progress and name arrive from the portal
+const HASH0 = location.hash;
+function route(h0){ const h = ((h0 !== undefined ? h0 : location.hash)||"").slice(1); go(h && /^[a-z0-9]+$/.test(h) ? h : (ST.name ? "home" : "start")); }
 function render(opt){ renderView(); legal(); if (!(opt && opt.quiet)) AUDIO.screen(); }
 function renderView(){
   const v = $("view"), id = VIEW.id;
@@ -1355,3 +1358,23 @@ initPlatform();
 })();
 </script>
 <a href="test.html" style="position:fixed;right:12px;bottom:12px;z-index:50;font:600 12px/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;background:#2b2e33;color:#f3f5f8;padding:10px 14px;border-radius:4px;text-decoration:none">Back to the portal</a>
+<script>
+(function(){
+  var sb = window.__sb; if (!sb) return; var K = "arche.acadFails";
+  var pw = sb.auth.signInWithPassword && sb.auth.signInWithPassword.bind(sb.auth);
+  if (pw) sb.auth.signInWithPassword = function(a){ return pw(a).then(function(r){ try { if (r && r.error) { localStorage.setItem(K, String((+localStorage.getItem(K) || 0) + 1)); localStorage.setItem(K + "At", new Date().toISOString()); } } catch(e) {} return r; }); };
+  sb.auth.getSession().then(function(x){
+    var s = x && x.data && x.data.session; if (!s) return;
+    var name = (s.user.user_metadata || {}).name || "";
+    var fill = function(n){ var el = document.getElementById("nm"); if (el && !el.value && name) el.value = name; if (n > 0) setTimeout(function(){ fill(n - 1); }, 400); }; fill(15);
+    window.__arche.use("db").then(function(db){
+      if (!db) return; var ref = db.doc("train/" + s.user.id + "/runs/academy"), t = new Date().toISOString(), f = 0, fa = null;
+      try { f = +localStorage.getItem(K) || 0; fa = localStorage.getItem(K + "At"); } catch(e) {}
+      return ref.get().then(function(d){
+        var o = d.exists ? d.data() : {}, fails = (o.fails || 0) + f;
+        return ref.set({kind: "academy-visit", first: o.first || t, last: t, count: (o.count || 0) + 1, fails: fails, lastFailAt: f ? fa : (o.lastFailAt || null)});
+      }).then(function(){ try { localStorage.removeItem(K); localStorage.removeItem(K + "At"); } catch(e) {} });
+    }).catch(function(){});
+  });
+})();
+</script>

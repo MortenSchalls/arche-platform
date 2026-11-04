@@ -60,6 +60,18 @@ def build():
     for a in ('<img part="image" alt="" draggable="false" style="display:none">', '<img class="ghost" alt="" draggable="false">'):
         assert slot.count(a) == 1, a
         slot = slot.replace(a, a.replace("<img ", '<img loading="lazy" decoding="async" '))
+    # the aircraft finder and the page head show at once (Morten, 2 Nov 2026: "find my aircraft takes too long to load"):
+    # their pictures load straight away, and the finder's other aircraft are fetched while the browser is idle
+    EAGER_A = "          this._loadPending = true;\n          this._img.src = url;"
+    assert slot.count(EAGER_A) == 1
+    slot = slot.replace(EAGER_A, "          this._loadPending = true;\n          if (this.closest && this.closest('#fleet, #top, .ae-phead')) { this._img.loading = 'eager'; this._img.fetchPriority = this.closest('#fleet') && this.getBoundingClientRect().width ? 'high' : 'auto'; }\n          this._img.src = url;")
+    slot += """
+// warm the aircraft finder: once the page is idle, fetch every aircraft picture so moving the slider shows it at once
+(function(){ var go = function(){ fetch('image-slots.state.json').then(function(r){ return r.json(); }).then(function(s){
+  if (!document.querySelector('#fleet')) return; Object.keys(s).filter(function(k){ return /^ac-/.test(k) && s[k] && s[k].u; }).forEach(function(k){ var i = new Image(); i.decoding = 'async'; i.src = '/' + s[k].u; }); }).catch(function(){}); };
+  var idle = window.requestIdleCallback || function(f){ setTimeout(f, 1200); };
+  if (document.readyState === 'complete') idle(go); else window.addEventListener('load', function(){ idle(go); }); })();
+"""
     open(os.path.join(OUT, "image-slot.js"), "w", encoding="utf-8").write(slot)
 
     s = open(os.path.join(SRC, "Arche Executive v7.dc.html"), encoding="utf-8").read()
