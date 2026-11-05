@@ -4704,8 +4704,10 @@ document.addEventListener("click", async e => {
     if (!el.dataset.armed) { el.dataset.armed = "1"; el.textContent = "Click again: delete their details"; setTimeout(() => { if (el.isConnected) { delete el.dataset.armed; el.textContent = "Opted out"; } }, 6000); return; }
     try {
       for (const h of await ctHashes(c, rec.org)) await S.db.doc("optouts/" + h).set({at: now()});
-      const list = rec.contacts.filter((_, j) => j !== i);
-      await ctSave(where, id, {contacts: list, optedOutNote: `A contact opted out on ${fmtD(now())}. Their details were deleted.`});
+      const list = rec.contacts.filter((_, j) => j !== i), em = String(c.email || "").toLowerCase();
+      // Navoryx investor relations: their access and requests go with them (Morten, 5 Nov 2026)
+      const ir = where === "inv" && rec.ir && em ? {ir: {...rec.ir, access: Object.fromEntries(Object.entries(rec.ir.access || {}).filter(([k]) => k !== em)), requests: (rec.ir.requests || []).filter(q => String(q.email || "").toLowerCase() !== em), log: [...(rec.ir.log || []), {t: now(), note: "A contact opted out: their access and requests were deleted"}].slice(-200)}} : {};
+      await ctSave(where, id, {contacts: list, ...ir, optedOutNote: `A contact opted out on ${fmtD(now())}. Their details were deleted.`});
       if (where !== "inv") audit("Business contact opted out", rec.org || id);
       toast("Deleted. They will not be added again, in any list.");
     } catch (err) { toast(err.code === "permission_denied" ? "Opt-outs are not set up yet (run 0005 in Supabase)." : "Could not save. Try again."); }

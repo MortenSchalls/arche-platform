@@ -42,6 +42,8 @@ await p.click('[data-invsel="i003"]');await p.waitForTimeout(300);
 ok('openings and codes counted per address',/cy@example-lender.com[\s\S]*1 code · 2 openings/.test(await txt('#irBox')));
 p.bodies=[];await p.click('[data-ir="revoke"]');await p.click('[data-ir="revoke"]');await p.waitForTimeout(500);
 ok('withdraw access (two clicks)',p.bodies.length===1&&p.bodies[0].action==='revoke'&&p.bodies[0].email==='cy@example-lender.com');
+await p.click('[data-invsel="i001"]');await p.waitForTimeout(300);await p.evaluate(()=>{S.ctShown={'inv:i001':true};render();});await p.waitForTimeout(200);await p.click('[data-ct="opt"][data-id="i001"]');await p.click('[data-ct="opt"][data-id="i001"]');await p.waitForTimeout(600);
+ok('opt-out deletes the contact and their investor access and requests',await p.evaluate(()=>{const r=S.inv.i001;return !(r.contacts||[]).length&&!((r.ir||{}).access||{})['ann@example-fo.com']&&/opted out/.test(JSON.stringify(r.ir.log));}));
 await p.setViewportSize({width:390,height:900});await p.waitForTimeout(400);ok('no sideways scroll at 390 px',await p.evaluate(()=>document.documentElement.scrollWidth<=390));await p.close();
 p=await open('broker');await p.evaluate(()=>{S.view='prospects';S.pSec='inv';render();});await p.waitForTimeout(400);
 ok('brokers see no investor relations',await p.evaluate(()=>!document.getElementById('irBox')&&!document.querySelector('[data-irf]')));await p.close();

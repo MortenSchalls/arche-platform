@@ -51,3 +51,11 @@ for (const [label, last, kept] of [["recent briefing opening keeps the contact",
   await sweep(db, () => {});
   ok(label, kept ? saved === null : saved && saved.contacts.length === 0 && !saved.ir.access["old@example-office.com"] && !!saved.ir.access["@example-office.com"] && saved.ir.requests.length === 0);
 }
+const mi = irMail("invite", { name: "Ann Example", site: "https://example.com", sourceType: "Business card or meeting" });
+ok("invitation says where we have the details and offers removal; link opens at Already approved", /We have your details from our meeting\. If you would rather not hear from us again/.test(mi.text) && mi.text.includes("https://example.com/investor-relations/#approved"));
+ok("unknown source leaves a placeholder that blocks sending", /\[say where we have your details from\]/.test(irMail("invite", { name: "X" }).text));
+ok("approval (they asked) has no removal line", !/We have your details/.test(irMail("approve", { name: "Bob" }).text));
+{ process.env.NAVORYX_IR_FROM = "Example <ir@example.com>"; process.env.NAVORYX_RESEND_KEY = "k"; const out2 = {}; const res2 = { status(c) { out2.c = c; return this; }, json(j) { out2.j = j; return this; } };
+  const sb2 = async () => ({ ok: true, body: [{ id: "i1", data: { contacts: [{ name: "A", email: "a@b.com" }] } }] });
+  await irHandler({ method: "POST", headers: {}, body: { action: "send", id: "i1", email: "a@b.com", subject: "S", text: "Dear A,\n\nWe have your details [say where we have your details from]. More text here to pass the length." } }, res2, { sb: sb2, owner: async () => ({ me: { id: "u" } }) });
+  ok("a [placeholder] left in the text is refused before sending", out2.c === 400 && /placeholder/.test(out2.j.error)); }

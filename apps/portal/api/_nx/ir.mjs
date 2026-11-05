@@ -96,15 +96,19 @@ export function giveAccess(data, key, at, how) {
 }
 
 // default wording; the owner reads and may change it in the portal before pressing Send
-export function irMail(kind, { name, site }) {
-  const first = (name || "").split(/\s+/)[0] || "", page = `${site || "https://navoryx-executive.com"}/investor-relations/`;
+// where we have a contact's details from, said in every first message (portal rule: source + opt-out)
+const FROM_WHERE = { "Organisation's own website": "from your organisation's website", "Licensed professional database": "from a licensed professional directory", "Business card or meeting": "from our meeting" };
+export function irMail(kind, { name, site, sourceType }) {
+  const first = (name || "").split(/\s+/)[0] || "", page = `${site || "https://navoryx-executive.com"}/investor-relations/#approved`;
+  const origin = FROM_WHERE[sourceType] || "[say where we have your details from]";
   const body = kind === "approve"
     ? ["Thank you for your interest in Navoryx Executive.", "",
        "Your access to our private investor briefing is ready. On the investor page, enter this email address under \"Already approved\" to receive a one-time code:", page, "",
        "The code is valid for ten minutes and opens the briefing for twelve hours. You may request a new code whenever you wish."]
     : ["Navoryx Executive flies its own Bombardier Global fleet, rooted in Asian culture, with the world as its destination. Some of what we are building is shared only in private, with a small circle of investors and lenders.", "",
        "You are invited to read our private investor briefing. On the investor page, enter this email address under \"Already approved\" to receive a one-time code:", page, "",
-       "The code is valid for ten minutes and opens the briefing for twelve hours."];
+       "The code is valid for ten minutes and opens the briefing for twelve hours.", "",
+       `We have your details ${origin}. If you would rather not hear from us again, reply to say so and we will delete them.`];
   return { subject: kind === "approve" ? "Navoryx Executive: your access to the investor briefing" : "Navoryx Executive: a private invitation",
     text: [`Dear ${first || "Sir or Madam"},`, "", ...body, "",
       "Nothing in the briefing or in this email is an offer of securities or any other investment.", "",
@@ -148,7 +152,7 @@ export async function irHandler(req, res, { sb, owner }) {
   }
   if (b.action === "draft") {
     const c = ((row.data || {}).contacts || []).find(x => String(x.email || "").toLowerCase() === target) || {};
-    return res.status(200).json(irMail(b.kind === "approve" ? "approve" : "invite", { name: c.name || "", site: process.env.NAVORYX_SITE }));
+    return res.status(200).json(irMail(b.kind === "approve" ? "approve" : "invite", { name: c.name || "", site: process.env.NAVORYX_SITE, sourceType: c.sourceType }));
   }
   if (b.action === "approve") { await save(row.id, giveAccess(row.data, target, at, "plain")); await audit("Access given, no email"); return res.status(200).json({ ok: true, sent: "not sent (as chosen)" }); }
   if (b.action !== "send") return res.status(400).json({ error: "action" });
@@ -157,6 +161,7 @@ export async function irHandler(req, res, { sb, owner }) {
   if (!FROM || !KEY) return res.status(503).json({ error: "Not sent: NAVORYX_IR_FROM and a Resend key are needed in the portal's Vercel settings. Use \"Give access without email\" meanwhile." });
   const subject = clean(b.subject, 160), text = String(b.text || "").replace(/\r/g, "").slice(0, 6000);
   if (!subject || text.length < 40) return res.status(400).json({ error: "The email needs a subject and a text." });
+  if (/\[[^\]]*\]/.test(text)) return res.status(400).json({ error: "The email still has a [placeholder] to fill in." });
   const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${KEY}`, "content-type": "application/json" },
     body: JSON.stringify({ from: FROM, to: [target], reply_to: process.env.NAVORYX_IR_REPLY || undefined, subject, text, html: htmlOf(text) }) });
   if (!r.ok) { let m = ""; try { m = (await r.json()).message || ""; } catch (e) {} return res.status(502).json({ error: `Not sent: refused by Resend (${r.status}${m ? ": " + m.slice(0, 120) : ""}). Access not given.` }); }
