@@ -152,6 +152,30 @@
    "venue": "",
    "start": "2027-05-28",
    "end": "2027-06-19"
+  },
+  {
+   "key": "ev.dxb_artdubai_2027",
+   "city": "dubai",
+   "name": "Art Dubai",
+   "venue": "at Madinat Jumeirah",
+   "start": "2027-04-09",
+   "end": "2027-04-11"
+  },
+  {
+   "key": "ev.gva_artgeneve_2027",
+   "city": "geneva",
+   "name": "Art Genève",
+   "venue": "at Palexpo",
+   "start": "2027-01-28",
+   "end": "2027-01-31"
+  },
+  {
+   "key": "ev.lon_ascot_2027",
+   "city": "london",
+   "name": "Royal Ascot",
+   "venue": "at Ascot Racecourse",
+   "start": "2027-06-15",
+   "end": "2027-06-19"
   }
  ]
 }

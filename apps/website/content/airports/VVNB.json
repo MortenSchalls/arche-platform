@@ -7,7 +7,7 @@
  "tz": "Asia/Ho_Chi_Minh",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-02",
  "rules": {
   "runway": {
    "v": "two runways; the longest, 11R/29L, is 3,800 m long and 45 m wide",
@@ -36,5 +36,5 @@
   "handling",
   "noise"
  ],
- "notes": "Runway, hours and coordinate quotes are AIP table cells joined with their row labels, not running text. Only the 2023 AIP edition (effective 30 Mar 2023) could be opened; newer editions exist but were blocked or redirected. Re-check before publishing. The end of AD 2.20 and AD 2.21 were not read. AD 2.4 names no handling agents. Checked 2026-10-27."
+ "notes": "Runway, hours and coordinate quotes are AIP table cells joined with their row labels, not running text. Only the 2023 AIP edition (effective 30 Mar 2023) could be opened; newer editions exist but were blocked or redirected. Re-check before publishing. The end of AD 2.20 and AD 2.21 were not read. AD 2.4 names no handling agents. Checked 2026-10-27. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: aim.vatm.vn AD 2 VVNB (not attempted after the VATM site was refused). Rules above unchanged; still needs the current AD 2 pages. | 2026-11-02 run: aim.vatm.vn 2023 edition re-read: page text ends inside AD 2.20 (stand 2H, hangar apron table), so AD 2.21-2.23 cannot be read there; no curfew, slot or PPR text in the part read. vnaic.vn is robots-blocked. Nothing new."
 }

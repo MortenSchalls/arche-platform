@@ -7,7 +7,7 @@
  "tz": "America/Sao_Paulo",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-04",
  "rules": {
   "runway": {
    "v": "two runways: 17R/35L 1,883 m × 45 m and 17L/35R 1,495 m × 45 m, asphalt",
@@ -54,5 +54,5 @@
   "handling",
   "noise"
  ],
- "notes": "Read DECEA AISWEB ROTAER entry for SBSP (labelled D-AMDT 43/26; administrator AENA Brasil; UTC-3). ROTAER times are UTC; local times are my conversion with UTC-3 as stated in the entry (Brazil has no summer time). CAT A rule: 'Aeronaves CAT A proibido OPS LDG e TKOF na RWY 17L/35R de MON/TUE TIL FRI/SAT de 1000-1300 e 2200-0000' (UTC), with exceptions incl. MEDEVAC, military and RBAC 121/135. Two-pilot rule has an exception for some airline-pilot flights. SBSP may not be used as an alternate. The ROTAER entry does not list customs or fuel; the eAIP AD 2 SBSP was not read. Trip facts: 23:00-06:00 local closure, two pilots mandatory, 1,883 m runway."
+ "notes": "Read DECEA AISWEB ROTAER entry for SBSP (labelled D-AMDT 43/26; administrator AENA Brasil; UTC-3). ROTAER times are UTC; local times are my conversion with UTC-3 as stated in the entry (Brazil has no summer time). CAT A rule: 'Aeronaves CAT A proibido OPS LDG e TKOF na RWY 17L/35R de MON/TUE TIL FRI/SAT de 1000-1300 e 2200-0000' (UTC), with exceptions incl. MEDEVAC, military and RBAC 121/135. Two-pilot rule has an exception for some airline-pilot flights. SBSP may not be used as an alternate. The ROTAER entry does not list customs or fuel; the eAIP AD 2 SBSP was not read. Trip facts: 23:00-06:00 local closure, two pilots mandatory, 1,883 m runway. 1 Nov 2026: searched for customs and fuel for SBSP; ANAC news page on new general aviation rules at Congonhas (2025) https://www.gov.br/anac/pt-br/noticias/2025/pousos-e-decolagens-da-aviacao-geral-em-congonhas-terao-novas-regras showed a human-verification page and could not be read. Nothing added; eAIP AD 2 SBSP still not read. | 2026-11-04 run: Aena Brasil notice (29 Jul 2025) says ANAC moved slot allocation at Congonhas to Aena in May 2025 and that new general aviation slot rules were in consultation to 7 Sep 2025; the final rules were not found, and the ANAC page shows a human check."
 }

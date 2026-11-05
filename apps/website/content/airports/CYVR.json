@@ -6,17 +6,38 @@
  "country": "CA",
  "tz": "America/Vancouver",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-28",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-03",
+ "rules": {
+  "curfew": {
+   "v": "Night period midnight-06:00 local: departures of jets rated over 34,000 kg MTOW need YVR's prior approval; flights carrying passengers or cargo from YVR are approved, ferry and refuelling-stop departures generally refused. No restriction stated for arrivals or lighter jets",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "cyvr-yvr-night-ops",
+   "quote": "A prior approval requirement for departures of jet aircraft rated over 34,000 kg."
+  },
+  "noise": {
+   "v": "North runway 08L/26R closed every night 22:00-07:00 except emergencies and south airfield maintenance; south runway 08R/26L and crosswind 13/31 remain",
+   "src": "cyvr-yvr-noise-report-2024",
+   "quote": "the north runway is closed every night between the hours of 10:00 PM and 7:00 AM"
+  },
+  "slots": {
+   "v": "YVR is an IATA Level 3 slot-coordinated airport: all commercial, charter, cargo and general or business aviation operators must have a pre-approved runway slot. GA/BA slots are booked only through the Online Coordination System (OCS); the page says to book through OCS or your FBO. Visiting operators can book within 72 hours of the flight, based operators within 14 days. VFR helicopters are exempt",
+   "src": "cyvr-yvr-runway-slots-faq",
+   "quote": "All commercial, charter, cargo, and GA/BA operators must book slots."
+  }
+ },
  "missing": [
   "iata",
   "runway",
-  "curfew",
   "customs",
-  "slots",
   "ppr",
   "hours"
  ],
- "notes": "Not opened: NAV CANADA Canada Flight Supplement / CAP and Transport Canada pages, and the airport authority site (yvr.ca; https://www.yvr.ca/en/about-yvr/noise blocked), were not reached: the web-search budget for the run ran out before an official URL could be found, and unlisted URLs were blocked by the fetch tool. Night restriction programme not verified."
+ "notes": "Night rules from YVR's Night Time Operations FAQ (no page date) and the 2024 Aeronautical Noise Management Report (March 2025), which states the same 34,000 kg rule for midnight-06:00. Requests via YVR Noise Management. 1 Nov 2026: added curfew (approval) and noise. Runway lengths not found on yvr.ca pages read (noise report and planespotting guide give designations only). Could not be opened: CBSA new directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA; earlier https://www.yvr.ca/en/about-yvr/noise blocked. NAV CANADA CFS not freely online. | 3 Nov 2026: slots from YVR's Runway Slots FAQ (undated; the full exemption list is on the ARO page, https://www.yvr.ca/en/business/work-with-yvr/airport-reservation-office/frequently-asked-questions, which failed with a site error). Runway lengths still not found: the Airside Traffic Directives (April 2026), 2019 fact sheet and 2027 master plan give none for the existing runways. CBSA directory needs JavaScript, so customs not verified."
 }

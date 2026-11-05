@@ -6,17 +6,47 @@
  "country": "CA",
  "tz": "America/Toronto",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-28",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-03",
+ "rules": {
+  "runway": {
+   "v": "Five main runways; longest 05/23, 3,390 m x 61 m (11,120 ft); 15L/33R 3,369 m; 06L/24R 2,956.5 m; 15R/33L 2,770.5 m; 06R/24L 2,744 m",
+   "longest_m": 3390,
+   "src": "cyyz-gtaa-fast-facts",
+   "quote": "Runway 05-23 measures 3,390 x 61 metres (11,120 x 200 feet)"
+  },
+  "curfew": {
+   "v": "Restricted hours 00:30-06:29 local: every arrival or departure needs the GTAA's express permission (Transport Canada night flight budget); medevac allowed with prior RMU approval; no extensions for Chapter 2 or non-noise-certificated aircraft. Day-of requests by phone to the GTAA RMU; written requests up to 30 days ahead",
+   "windows_local": [
+    [
+     "00:30",
+     "06:29"
+    ]
+   ],
+   "approval": true,
+   "src": "ca-gtaa-restricted-hours-2019",
+   "quote": "Operations at Toronto Pearson International Airport are restricted between the hours of 00:30 and 06:29 local. ... Air Operators planning to arrive or depart within the restricted hours must have the express permission of the GTAA"
+  },
+  "noise": {
+   "v": "Chapter 2 aircraft may operate only 07:00 to midnight; all engine run-ups need GTAA pre-approval",
+   "src": "cyyz-gtaa-operating-restrictions",
+   "quote": "they're only permitted to operate from 7:00 am until midnight"
+  },
+  "slots": {
+   "v": "General and business aviation flights need a reservation from the GTAA Airport Reservation Office, through the OCS portal or an FBO. First come, first served. Requests open 72 hours before the flight (30 days for YYZ-based GA/BA tenants). Since 21 Oct 2025 the flight must operate within 30 minutes either side of the booked time",
+   "src": "cyyz-gtaa-aro",
+   "quote": "all GA/BA operations must occur within +/- 30 minutes of the booking reservation."
+  },
+  "hours": {
+   "v": "Normal general and business aviation hours 06:30-00:29 local; 00:30-06:29 local falls under the Night Flight Program (see curfew)",
+   "src": "cyyz-gtaa-aro",
+   "quote": "during the normal operating hours of 0630-0029 local YYZ."
+  }
+ },
  "missing": [
   "iata",
-  "runway",
-  "curfew",
   "customs",
-  "slots",
-  "ppr",
-  "hours"
+  "ppr"
  ],
- "notes": "Not opened: NAV CANADA Canada Flight Supplement / CAP and Transport Canada pages, and the airport authority site (torontopearson.com), were not reached: the web-search budget for the run ran out before an official URL could be found, and unlisted URLs were blocked by the fetch tool. Night restriction programme not verified."
+ "notes": "Runway lengths from the GTAA Fast Facts page (no page date). Night rules from the GTAA Restricted Hours Operating Policy v4.1 dated 29 May 2019 (latest edition found); the operating restrictions page (no date) gives the same 00:30-06:29 window. The policy's GA Night Pool is only for Toronto Pearson based GA operators; a visiting charter needs a GTAA night approval (RMU). 1 Nov 2026: added runway, curfew (approval needed), noise. Not found or not opened: CBSA directory of offices (old page https://www.cbsa-asfc.gc.ca/do-rb/services/aoe-eng.html moved; new directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA could not be opened), so customs hours not verified; NAV CANADA CFS not freely online. IATA code not stated on an official page read. | 3 Nov 2026: read the GTAA ARO page (undated; changes effective 21 Oct 2025). It does not name charter flights separately, so confirm with the ARO that a charter is treated as GA/BA. Customs still not verified: the CBSA directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA&id=853 opens but needs JavaScript, so no office data could be read; the old CBSA page only points to it (modified 31 Mar 2026). IATA not called IATA on the pages read."
 }

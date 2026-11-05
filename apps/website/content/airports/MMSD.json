@@ -7,7 +7,7 @@
  "tz": "America/Mazatlan",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-03",
  "rules": {
   "handling": {
    "v": "the operator GAP lists PRIMESKY, a private FBO inside Los Cabos airport",
@@ -24,5 +24,5 @@
   "hours",
   "fuel"
  ],
- "notes": "IATA SJD and ICAO MMSD are shown on GAP's private aviation page ('Codigo IATA SJD, código OACI MMSD'). Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMSD) could not be read (site refuses automated reading, robots). GAP's 'Sobre el aeropuerto' page gives no runway, hours or customs data."
+ "notes": "IATA SJD and ICAO MMSD are shown on GAP's private aviation page ('Codigo IATA SJD, código OACI MMSD'). Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMSD) could not be read (site refuses automated reading, robots). GAP's 'Sobre el aeropuerto' page gives no runway, hours or customs data. 1 Nov 2026: nothing new verified. GAP pages https://www.aeropuertosgap.com.mx/es/los-cabos.html and https://www.aeropuertosgap.com.mx/en/los-cabos-3.html give no runway, hours or customs data; GAP 20-F for 2020 on sec.gov read in part, no Los Cabos runway data found. AIP AD 2 MMSD on aipmexico.seneam.gob.mx still blocked. | 3 Nov 2026: AIP AD 2 MMSD (https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_2/59_MMSD/AD_2-MMSD-2.pdf) refused (robots). A DOF resolution changing the airport's minimum ordinary operating hours (2 Apr 2015, https://www.dof.gob.mx/nota_detalle.php?codigo=5387668&fecha=02/04/2015) exists but was refused (robots), so hours not verified. Anexo 4 RGCE 2026 lists the San José del Cabo customs section for import and export of goods (Mon-Fri 08:00-17:00); not recorded as customs. GAP's private aviation page names the FBO Primesky, no runway, hours or customs."
 }

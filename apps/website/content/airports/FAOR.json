@@ -6,20 +6,44 @@
  "country": "ZA",
  "tz": "Africa/Johannesburg",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-30",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-04",
+ "rules": {
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "za-aip-faor-amdt-4-26",
+   "quote": "Customs and immigration H24"
+  },
+  "hours": {
+   "v": "aerodrome operator, ATS, fuelling and handling all 24 hours",
+   "src": "za-aip-faor-amdt-4-26",
+   "quote": "AD Operator H24"
+  },
+  "fuel": {
+   "v": "Jet A-1 only",
+   "src": "za-aip-faor-amdt-4-26",
+   "quote": "Fuel grades: Jet A1 only"
+  },
+  "noise": {
+   "v": "no runway intersection take-offs 2000-0400; no engine run-ups 2000-0400 without the airport manager's prior permission (except emergency) (times as printed in the AIP)",
+   "src": "za-aip-faor-amdt-4-26",
+   "quote": "No RWY intersection take-off BTN 2000 to 0400."
+  },
+  "permits": {
+   "v": "foreign aircraft flying non-scheduled for hire need a Foreign Operators Permit, unless carrying up to 8 passengers or less than 1,000 kg of cargo or mail (those still need overflight and landing clearance from the Department of Transport). Business, private and other listed flights are exempt and apply for a landing clearance; general flights apply 3 working days before the flight",
+   "src": "za-aip-gen-20261015",
+   "quote": "up to 8 passengers or less than 1000KG do not require a foreign operators permit ... The following flights are exempt from obtaining foreign operators permits and should apply for a landing clearance"
+  }
+ },
  "missing": [
   "iata",
   "runway",
   "curfew",
-  "customs",
   "slots",
   "ppr",
   "max_aircraft",
-  "handling",
-  "fuel",
-  "hours"
+  "handling"
  ],
- "notes": "Current South African AIP is the 15 OCT 2026 edition published by SACAA (Aerodromes PDF on caasanwebsitestorage.blob.core.windows.net, plus separate AD 2 amendment files per airport), but the storage domain could not be opened (permission not granted). The ATNS eAIP (cad.atns.co.za) only showed editions up to 2022, which are superseded, so no rule was recorded from them. Could not open: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FAOR_EN.pdf (listed on https://www.caa.co.za/industry-information/aip-amendments/). ACSA's O.R. Tambo 'about' page was read but gives no runway, hours or customs facts."
+ "notes": "1 Nov 2026: read the SACAA AIP amendment file for FAOR (AD 2 FAOR pages, effective 15 OCT 26, AMDT 4/26) https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FAOR_EN.pdf . It holds only the amended pages (AD 2-FAOR-2 to -4 and -17 onward): AD 2.3 hours, AD 2.4 fuel, AD 2.20 and AD 2.21. AD 2.12 runway dimensions are not in it, so runway stays missing. AD 2.20 has no slot, PPR or general aviation rule; AD 2.21 limits intersection take-offs and run-ups 2000-0400 (times as printed; whether UTC or local was not checked; not a curfew). The AIP does not show the IATA code. Still not opened: the full Aerodromes AIP https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF (listed on https://www.caa.co.za/industry-information/aip-amendments/). The ATNS eAIP (cad.atns.co.za) only has editions to 2022 (superseded). ACSA's O.R. Tambo 'about' page gives no runway, hours or customs facts. | 2026-11-04 run: read AIP GEN (file dated 15 Oct 2026), GEN 1.2 pages effective 15 Jul 24 and 15 Oct 25: permits recorded; GEN 1.2 has no slot requirement. The full Aerodromes AIP was not returned by search and the SACAA amendments page refused, so runway stays missing."
 }

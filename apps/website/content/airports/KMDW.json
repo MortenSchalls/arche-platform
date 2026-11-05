@@ -7,13 +7,13 @@
  "tz": "America/Chicago",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-28",
+ "checked": "2026-11-03",
  "rules": {
   "runway": {
-   "v": "longest runway 6,522 ft x 150 ft (about 1,988 m), as shown on the runway diagram in the Fly Quiet manual",
+   "v": "four runways; the longest is 13L-31R, 6,522 ft x 150 ft (about 1,988 m), for air carriers; 4R-22L 6,445 x 150 ft (air carrier); 4L-22R 5,507 x 150 ft and 13R-31L 3,859 x 60 ft (general aviation)",
    "longest_m": 1988,
-   "src": "kmdw-cda-flyquiet",
-   "quote": "(6,522' X 150')"
+   "src": "kmdw-cda-facility",
+   "quote": "6,522 ft"
   },
   "curfew": {
    "v": "voluntary nighttime curfew for air carriers 00:00-06:00 local; the manual says nothing about business or charter flights at night",
@@ -31,17 +31,36 @@
    "v": "voluntary Fly Quiet Program: expedite climb through 1,500 ft MSL 22:00-06:00, night preferential runways; maintenance run-ups not allowed 22:00-07:00 weeknights and 22:00-09:00 weekends",
    "src": "kmdw-cda-flyquiet",
    "quote": "The Fly Quiet Program is a voluntary program."
+  },
+  "customs": {
+   "v": "CBP clears general aviation 7 days a week, 08:00-24:00 Central Time; permission to land must be requested before departure and at least 24 hours before arrival; landing permission valid +/-30 minutes; park at either FBO (Atlantic Aviation or Signature); Midway has no General Aviation Facility",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "24:00"
+    ]
+   ],
+   "src": "kmdw-cbp-ga-2024",
+   "quote": "Regular Office Hours 7 days per week, 0800-2400 Central Time (CT)"
+  },
+  "ppr": {
+   "v": "for international arrivals, CBP permission to land at least 24 hours before arrival",
+   "src": "kmdw-cbp-ga-2024",
+   "quote": "at least 24 hours in advance of the anticipated arrival time at KMDW."
+  },
+  "handling": {
+   "v": "two FBOs: Atlantic Aviation and Signature Flight Support",
+   "src": "kmdw-cda-fbo",
+   "quote": "Atlantic Aviation; Signature Flight Support"
   }
  },
  "missing": [
   "iata",
-  "customs",
   "slots",
-  "ppr",
-  "handling",
   "hours",
   "max_aircraft",
   "fuel"
  ],
- "notes": "Read the Chicago Department of Aviation's Midway Fly Quiet Program Manual 2026 (updated Feb 2026). The diagram lists 6,522, 6,446, 5,507 and 3,859 ft runways without tying each size to a runway number, so only the longest length is recorded; metres are my conversion (1 ft = 0.3048 m). Not opened: CBP KMDW fact sheet (4 Mar 2026) https://www.cbp.gov/sites/default/files/2026-03/KMDW%20GA%20Airport%20Fact%20Sheet%2020260304.pdf, the older one (6 May 2024), and the CBP port page https://www.cbp.gov/about/contact/ports/midway-international-airport-chicago-illinois-3910; FAA Chart Supplement (CS_EC_20260903.pdf) not opened. IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code."
+ "notes": "Read the Chicago Department of Aviation's Midway Fly Quiet Program Manual 2026 (updated Feb 2026). The diagram lists 6,522, 6,446, 5,507 and 3,859 ft runways without tying each size to a runway number, so only the longest length is recorded; metres are my conversion (1 ft = 0.3048 m). Not opened: CBP KMDW fact sheet (4 Mar 2026) https://www.cbp.gov/sites/default/files/2026-03/KMDW%20GA%20Airport%20Fact%20Sheet%2020260304.pdf, the older one (6 May 2024), and the CBP port page https://www.cbp.gov/about/contact/ports/midway-international-airport-chicago-illinois-3910; FAA Chart Supplement (CS_EC_20260903.pdf) not opened. IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code. 1 Nov 2026: added customs hours and the 24-hour landing-permission rule from the CBP KMDW fact sheet of 6 May 2024 (KMDW-0524), and the FBO list from the Chicago Department of Aviation FBO page (the handling quote joins the two list items). The newer CBP sheet of 4 Mar 2026 (https://www.cbp.gov/sites/default/files/2026-03/KMDW%20GA%20Airport%20Fact%20Sheet%2020260304.pdf) still could not be opened, so customs hours may have changed; check before relying on them. The FAA US AIP Illinois page covers only KORD, not KMDW. The flychicago.com page titles show '(MDW)' but do not call it the IATA code, so iata stays null. Runway designators, fuel, slots and hours are still missing. | 3 Nov 2026: runway rule replaced with the Chicago Department of Aviation's Facility Data table (no date), which ties sizes to runway numbers; the 2026 Fly Quiet diagram shows 6,446 ft where this table shows 6,445 ft for the second runway. Not opened: CBP sheet of 4 Mar 2026 (https://www.cbp.gov/sites/default/files/2026-03/KMDW%20GA%20Airport%20Fact%20Sheet%2020260304.pdf, permission request not answered), so customs hours may have changed; FAA diagram (https://aeronav.faa.gov/d-tpp/2608/00081AD.PDF) failed to load. Slots, hours, aircraft limits, fuel and IATA still not found."
 }

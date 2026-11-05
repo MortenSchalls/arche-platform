@@ -1,0 +1,71 @@
+{
+ "path": "/countries/indonesia/",
+ "title": "Private jet charter to Indonesia: permits and rules",
+ "description": "Private flights to Indonesia: flight clearance, security clearance, international airports, Bali and Halim in Jakarta, from official sources.",
+ "eyebrow": "Country guide · Indonesia",
+ "h1": "Private flights to and from Indonesia",
+ "lead": "Private and charter flights to Indonesia need several clearances before they fly. Which ones, who grants them, and what they mean for your trip.",
+ "glance": [
+  [
+   "Authority",
+   "id.authority"
+  ],
+  [
+   "Clearance",
+   "id.clearance"
+  ],
+  [
+   "Flight approval",
+   "id.permit"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Clearances before you fly",
+   "p": [
+    "A foreign private or charter aircraft needs {{id.clearance}}. On the civil aviation side the authority is the {{id.authority}}, and {{id.permit}}.",
+    "On the defence side, {{id.security}}. In addition, {{id.slot}}.",
+    "We could not read an official lead time for these flights, so this page gives none. We ask the operator to apply as soon as your dates are firm."
+   ]
+  },
+  {
+   "h": "Airports",
+   "p": [
+    "International airports: {{id.customs_airports}}.",
+    "Bali's airport, I Gusti Ngurah Rai, lies {{wadd.location}} and has {{wadd.runway}}. Halim Perdanakusuma lies {{wihh.location}} and has {{wihh.runway}}; at Halim, {{wihh.intl}}. Both are run by {{wihh.operator}}.",
+    "Bali's airport also stops for the Day of Silence: {{wadd.nyepi}}. The next one is on {{id.nyepi}}; our Bali guide has more."
+   ]
+  },
+  {
+   "h": "Who applies for the clearances",
+   "p": [
+    "The operator that flies your trip applies, usually through its handling agent or a flight-permit service. You do not need to deal with the authorities yourself. What you can do is give us final names, passport details and times early, because late changes can mean a new application."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Indonesia",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Which airports in Indonesia take private flights from abroad?",
+   "a": "{{id.customs_airports}}. At Halim, {{wihh.intl}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/cities/bali/",
+  "/regions/asia-pacific/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "country",
+ "region": "/regions/asia-pacific/"
+}

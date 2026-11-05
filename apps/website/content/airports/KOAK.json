@@ -6,8 +6,8 @@
  "country": "US",
  "tz": "America/Los_Angeles",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-28",
+ "status": "verified",
+ "checked": "2026-11-03",
  "rules": {
   "runway": {
    "v": "four runways (15/33, 12/30, 10R/28L, 10L/28R); the longest size shown on the FAA diagram is 10,520 ft x 150 ft (about 3,206 m x 46 m)",
@@ -31,16 +31,43 @@
    "v": "for international arrivals, CBP permission to land at least 24 hours in advance",
    "src": "koak-cbp-ga",
    "quote": "at least 24 hours in advance of the anticipated arrival time"
+  },
+  "hours": {
+   "v": "airport attended all months, all days, all hours (24 hours)",
+   "src": "koak-faa-aip-ca",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "fuel": {
+   "v": "fuel types 100LL and Jet A",
+   "src": "koak-faa-aip-ca",
+   "quote": "100LL A"
+  },
+  "noise": {
+   "v": "preferential runway use program 22:00-06:00 (preferred arrival 28L, departures 10R or 28R); a 24-hour noise abatement procedure applies to turbojet and turbofan aircraft (avoid departing 28L/28R or landing 10R/10L); procedures do not apply in emergencies or when runway 12/30 is closed",
+   "src": "koak-faa-aip-ca",
+   "quote": "PREFERENTIAL RWY USE PROGRAM IN EFFECT 2200-0600."
+  },
+  "curfew": {
+   "v": "no ban found; voluntary noise abatement programme 22:00-07:00 Monday to Saturday and 22:00-08:00 Sunday; the airport prefers jets to depart runway 30",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "koak-faa-flightdeck",
+   "quote": "Oakland Airport has a voluntary noise abatement program from Monday-Saturday between 2200L-0700L"
+  },
+  "handling": {
+   "v": "two FBOs listed by the airport: KaiserAir, Inc. and Signature Aviation; Signature services are available 24 hours a day",
+   "src": "koak-fbo",
+   "quote": "Signature Aviation is a fixed-base operator with services available 24 hours a day."
   }
  },
  "missing": [
-  "curfew",
-  "noise",
   "slots",
-  "hours",
-  "fuel",
-  "handling",
   "max_aircraft"
  ],
- "notes": "Runway designators and sizes are from the FAA airport diagram AL-294 (6 Aug-3 Sep 2026); the extracted text lists 6213 X 150, 10520 X 150 and 5457 X 150 without tying each to a runway, so only the longest size is recorded; metres are my conversion (1 ft = 0.3048 m). No Port of Oakland noise or night-rules page was found and read, so curfew is not recorded (do not show 'no curfew'). FAA Chart Supplement SW (3 Sep 2026, https://aeronav.faa.gov/Upload_313-d/supplements/CS_SW_20260903.pdf) could not be opened. A CBP KOAK sheet dated 3 Dec 2024 (https://www.cbp.gov/sites/default/files/2024-12/KOAK%20GA%20Airport%20Fact%20Sheet%2020241203.pdf) could not be opened; the 20 Nov 2024 sheet was used."
+ "notes": "Runway designators and sizes are from the FAA airport diagram AL-294 (6 Aug-3 Sep 2026); the extracted text lists 6213 X 150, 10520 X 150 and 5457 X 150 without tying each to a runway, so only the longest size is recorded; metres are my conversion (1 ft = 0.3048 m). No Port of Oakland noise or night-rules page was found and read, so curfew is not recorded (do not show 'no curfew'). FAA Chart Supplement SW (3 Sep 2026, https://aeronav.faa.gov/Upload_313-d/supplements/CS_SW_20260903.pdf) could not be opened. A CBP KOAK sheet dated 3 Dec 2024 (https://www.cbp.gov/sites/default/files/2024-12/KOAK%20GA%20Airport%20Fact%20Sheet%2020241203.pdf) could not be opened; the 20 Nov 2024 sheet was used. 1 Nov 2026: read the FAA US AIP Part 3 AD 2 California page (no edition date shown). Added hours, fuel ('A' read as Jet A) and noise rules from the AIP general remarks. The AIP runway table ties 10520 ft x 150 ft to runway 12/30 (10R/28L 6213 x 150, 10L/28R 5457 x 150, 15/33 3376 x 75; 15/33 closed to air carrier aircraft); the diagram-based runway rule is kept. ARFF Index D. Some taxiways are limited to 12,500 lb. The AIP remarks do not mention a curfew or PPR, so curfew stays missing (do not show 'no curfew'). | 3 Nov 2026: read the FAA Flight Deck page for OAK (last updated 1 Oct 2026) and the airport's FBO page (modified 27 Aug 2026). The FAA page does not say whether the voluntary programme differs between North and South Field, and it notes taxiway weight limits (H and G 12,500 lb; K 33,000 lb single wheel, 45,000 lb dual). Refused by robots: North Field pilot sheet (https://www.iflyoak.com/wp-content/uploads/2025/07/Pilot-Information-Sheet-2025_rev4.pdf), Airport Rules and Regulations (https://www.iflyoak.com/wp-content/uploads/2024/03/Airport-Rules-and-Regulations-2018-2-1.pdf) and Minimum Standards PDF. Slots and max aircraft still missing."
 }

@@ -6,20 +6,34 @@
  "country": "ZA",
  "tz": "Africa/Johannesburg",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-30",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-03",
+ "rules": {
+  "runway": {
+   "v": "Runway 07/25, 2996 m x 45 m, asphalt. (SACAA chart effective 20 Jun 2019; check against the current AIP).",
+   "longest_m": 2996,
+   "src": "fala-sacaa-adc",
+   "quote": "2996 x 45m ASPHALT"
+  },
+  "fuel": {
+   "v": "Jet A1 by hydrant on the main apron and by bowser. Between 19:00 and 05:00 refuelling is on the main apron only.",
+   "src": "fala-lanseria-services",
+   "quote": "Jet A1 refuelling by means of Hydrant on main apron and bowsers. Please note between 19:00 and 05:00 refuelling will only be done on the main apron."
+  },
+  "hours": {
+   "v": "Tower and approach control 24 hours. Ground movement control 05:45 to 19:00 daily.",
+   "src": "fala-lanseria-services",
+   "quote": "Tower and Approach control service: 24 hours; Ground movement control service: [05h45 – 19h00] daily"
+  }
+ },
  "missing": [
   "iata",
-  "runway",
   "curfew",
   "customs",
   "slots",
   "ppr",
   "max_aircraft",
-  "handling",
-  "fuel",
-  "hours"
+  "handling"
  ],
- "notes": "Current South African AIP is the 15 OCT 2026 edition published by SACAA (Aerodromes PDF on caasanwebsitestorage.blob.core.windows.net, plus separate AD 2 amendment files per airport), but the storage domain could not be opened (permission not granted). The ATNS eAIP (cad.atns.co.za) only showed editions up to 2022, which are superseded, so no rule was recorded from them. Could not open: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALA_EN.pdf (listed on https://www.caa.co.za/industry-information/aip-amendments/)."
+ "notes": "Current South African AIP is the 15 OCT 2026 edition published by SACAA (Aerodromes PDF on caasanwebsitestorage.blob.core.windows.net, plus separate AD 2 amendment files per airport), but the storage domain could not be opened (permission not granted). The ATNS eAIP (cad.atns.co.za) only showed editions up to 2022, which are superseded, so no rule was recorded from them. Could not open: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALA_EN.pdf (listed on https://www.caa.co.za/industry-information/aip-amendments/). | 2026-11-03 run: runway is from the SACAA chart dated EFF 20 JUN 19, not AD 2.12, so check it against the current AIP; AIP GEN (15 OCT 2026) lists Lanseria as a port of entry and customs aerodrome but gives no hours, so no customs rule. Refused: https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALA_EN.pdf and https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF (the 15 JAN 2026 edition also failed); owner can download them."
 }

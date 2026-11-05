@@ -1,13 +1,13 @@
 {
  "icao": "VTSP",
- "iata": null,
+ "iata": "HKT",
  "name": "Phuket/ Phuket International Airport",
  "city": "Phuket",
  "country": "TH",
  "tz": "Asia/Bangkok",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-04",
  "rules": {
   "runway": {
    "v": "one runway, 09/27, 45 m wide; 3,000 m long from runway 09 and 3,100 m from runway 27",
@@ -50,11 +50,15 @@
    "v": "no noise abatement procedures listed",
    "src": "th-aip-vtsp",
    "quote": "NIL"
+  },
+  "permits": {
+   "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
+   "src": "th-aip-gen12",
+   "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
   }
  },
  "missing": [
-  "iata",
   "curfew"
  ],
- "notes": "Read from the eAIP edition effective 14 May 2026. Newer AIRAC editions (6 Aug 2026, 3 Sep 2026) could not be opened; recheck. Runway 27 has a 100 m displaced area, which is why the lengths differ by direction. No engine start-up is allowed on Apron E. No night restriction was found in the sections read (AD 2.23 onward was not fully read). IATA code is not given in the AIP. The 'max_aircraft' field holds stand allocation only; the AIP gives no weight limit for business aviation."
+ "notes": "Read from the eAIP edition effective 14 May 2026. Newer AIRAC editions (6 Aug 2026, 3 Sep 2026) could not be opened; recheck. Runway 27 has a 100 m displaced area, which is why the lengths differ by direction. No engine start-up is allowed on Apron E. No night restriction was found in the sections read (AD 2.23 onward was not fully read). IATA code is not given in the AIP. The 'max_aircraft' field holds stand allocation only; the AIP gives no weight limit for business aviation. 1 Nov 2026: IATA code HKT added from the AOT Phuket airport page ('Phuket International Airport (HKT)'; page undated). AIRAC AMDT 08/26 (6 Aug 2026) lists no VTSP change and its page checklist shows VTSP pages dated 16 Apr 26, so the 14 May 2026 edition was still current then. Re-read AD 2.20 of the 14 May 2026 edition: no curfew or night ban found in the part that loads (the page is cut off in A-CDM section 12.3.4, so AD 2.21-2.23 still not read); engine testing only 2300-1400 UTC (06:00-21:00 local) at stand 99. Could not be opened: https://aip.caat.or.th/ (index), https://aip.caat.or.th/2026-09-03-AIRAC/html/eAIP/VT-AD-2.VTSP-en-GB.html, AMDT 09/26, 07/26 and 06/26 summaries (https://aip.caat.or.th/2026-09-03-AIRAC/pdf/VT-amdt-en-GB.pdf and the 2026-07-09 / 2026-06-11 ones). | 2026-11-02 run: Re-read AD 2.21-2.23 of the 31 Oct 2024 edition (older, not used for rules): noise NIL, no curfew text; AD 2.23 has only Apron E taxiing for private jets. Newer editions not opened; curfew stays missing. | 2026-11-04 run: 4 Nov 2026: permits added from GEN 1.2 (AIRAC 4 Sep 2025; AMDT 09-11/26 lists could not be opened), which also lists HKT/VTSP as L3 Coordination, CAAT. 16 Apr 2026 AD 2 page (138,529 characters) read from offsets 60000, 115000 and 130000: stops in AD 2.20 A-CDM section 12.3.5.2, so AD 2.21-2.23 not read; no curfew text in AD 2.20, curfew stays missing."
 }

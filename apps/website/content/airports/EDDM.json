@@ -6,8 +6,8 @@
  "country": "DE",
  "tz": "Europe/Berlin",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-30",
+ "status": "verified",
+ "checked": "2026-10-31",
  "rules": {
   "runway": {
    "v": "two runways, each 4 km long and 60 m wide",
@@ -45,14 +45,26 @@
    "v": "refuelling by Skytanking Munich GmbH & Co. KG (arranged via the General Aviation Terminal); AVGAS 100LL is not available at Munich",
    "src": "muc-gat-2026-10-30",
    "quote": "AVGAS 100LL (aviation fuel) is not available at Munich airport."
+  },
+  "hours": {
+   "v": "airport open 24 hours a day; flights 22:00-06:00 are restricted for noise (details in AIP Germany AD 2 EDDM)",
+   "src": "muc-fbo-2025-09",
+   "quote": "Der Flughafen ist 24 h täglich in Betrieb."
+  },
+  "ppr": {
+   "v": "prior permission of the airport operator (PPR) is needed only for aeroplanes of 2,000 kg maximum take-off mass or less and for flights under visual flight rules; IFR business jets above 2,000 kg need no PPR under the user regulations (slot still required)",
+   "src": "muc-fbo-2025-09",
+   "quote": "ist die Benutzung nur mit vorheriger Zustimmung des Flughafenunternehmens gestattet (PPR)."
+  },
+  "max_aircraft": {
+   "v": "aerodrome reference code 4F (largest aircraft types); no general weight limit in the user regulations",
+   "src": "muc-fbo-2025-09",
+   "quote": "Flughafenreferenzcode 4 F"
   }
  },
  "missing": [
   "geo (DFS AIP ARP not readable)",
-  "customs",
-  "hours",
-  "ppr",
-  "max_aircraft"
+  "customs (user regulations say only that Munich is an approved customs airport; customs hours not found)"
  ],
- "notes": "DFS AIP could not be read (robots block), so runway and location come from the operator's site; widths/lengths are as the operator states them (4 km). Coordinates not recorded because the AIP ARP could not be read (the operator's 2016 facts sheet gives 48°21'17\" N, 11°47'15\" E). Night rules: the bonus list also limits scheduled/charter night flights to max. 28 per night under an annual quota. GAT operating hours 06:00-22:00 (office 05:30-22:00) per the operator, but these are the terminal's hours, not the airport's. | 2026-10-30 run: re-read the operator's GAT page (fuel found; no customs, PPR or size limits stated there; GAT handles aircraft over two tons). Night-flight page gives no airport operating hours. Customs office page (m.munich-airport.de) blocked by robots. DFS AIP not tried again (robots block). Jet fuel grade not stated on the operator page."
+ "notes": "DFS AIP could not be read (robots block), so runway and location come from the operator's site; widths/lengths are as the operator states them (4 km). Coordinates not recorded because the AIP ARP could not be read (the operator's 2016 facts sheet gives 48°21'17\" N, 11°47'15\" E). Night rules: the bonus list also limits scheduled/charter night flights to max. 28 per night under an annual quota. GAT operating hours 06:00-22:00 (office 05:30-22:00) per the operator, but these are the terminal's hours, not the airport's. | 2026-10-30 run: re-read the operator's GAT page (fuel found; no customs, PPR or size limits stated there; GAT handles aircraft over two tons). Night-flight page gives no airport operating hours. Customs office page (m.munich-airport.de) blocked by robots. DFS AIP not tried again (robots block). Jet fuel grade not stated on the operator page. | 2026-10-31 run: read the Flughafenbenutzungsordnung (airport user regulations) Stand 19.09.2025, approved by the Bavarian State Ministry: 24 h operation (Teil II 2.1.4), PPR for aircraft up to 2,000 kg MTOM and VFR flights only (Teil II 2.1.2; exceptions emergency, SAR, police, safety landings), 'Der Flughafen ist als Zollflughafen zugelassen' (Teil I 4; no hours, so customs not recorded as a rule), reference code 4F and runways 08L/26R and 08R/26L each 4,000 x 60 m (Teil I 6). The PPR sentence was read in two fragments ('Flugzeugen bis einschließlich 2000 kg Höchstabflugmasse und Flugzeugen, die nach Sichtflugregeln verkehren, ... ist die Benutzung nur mit vorheriger Zustimmung des Flughafenunternehmens gestattet (PPR).'). Status set verified: runway, hours, curfew, slots, PPR recorded; customs hours still open."
 }

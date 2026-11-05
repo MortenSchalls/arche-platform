@@ -3,45 +3,20 @@
  "queue": [
   {
    "type": "country",
-   "name": "Indonesia",
-   "airports": [
-    "WADD",
-    "WIHH"
-   ],
-   "note": "research 27 Oct 2026 was thin (official AIP pages not readable); re-research before writing"
-  },
-  {
-   "type": "country",
    "name": "Philippines",
    "airports": [
     "RPLL",
     "RPLC"
    ],
-   "note": "research 27 Oct 2026 was thin (official AIP pages not readable); re-research before writing"
+   "note": "Tried 2 Nov 2026: national AIP (ais.caap.gov.ph) still not readable, and no official page gives the entry permit rule. Do not write the page until GEN 1.2 or a CAAP rule is readable or Morten supplies it; if still blocked, take the next entry."
   },
   {
    "type": "country",
    "name": "Cambodia",
    "airports": [
-    "VDPP"
+    "VDTI"
    ],
-   "note": "research 27 Oct 2026 was thin (official AIP pages not readable); re-research before writing"
-  },
-  {
-   "type": "city",
-   "name": "Bali",
-   "airports": [
-    "WADD"
-   ],
-   "note": "research 27 Oct 2026 was thin (official AIP pages not readable); re-research before writing"
-  },
-  {
-   "type": "city",
-   "name": "Macau",
-   "airports": [
-    "VMMC"
-   ],
-   "note": "research 27 Oct 2026 was thin (official AIP pages not readable); re-research before writing"
+   "note": "Tried 2 Nov 2026: eAIP (aim.cats.com.kh/eaip/) needs a login. VDPP closed in Sep 2025 for Techo (VDTI), so research VDTI. Do not write the page until GEN 1.2 is readable or Morten supplies it; if still blocked, take the next entry."
   },
   {
    "type": "city",

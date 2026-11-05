@@ -1,0 +1,63 @@
+{
+ "path": "/cities/macau/",
+ "title": "Private jet charter to and from Macau: permits and airport",
+ "description": "Private flights to and from Macau: the flight authorisation, slots, handling and airport rules, from AIP Macao and the Civil Aviation Authority.",
+ "eyebrow": "City guide · Macau",
+ "h1": "Private flights to and from Macau",
+ "lead": "Flights to Macau need the Civil Aviation Authority's approval first, and a slot is applied for separately. What that means for your trip.",
+ "glance": [
+  [
+   "Authority",
+   "mo.authority"
+  ],
+  [
+   "Apply",
+   "mo.lead"
+  ],
+  [
+   "Airport",
+   "vmmc.hours"
+  ]
+ ],
+ "sections": [
+  {
+   "h": "Permission and slots",
+   "p": [
+    "Permission comes from the {{mo.authority}}: {{mo.permit}}. The two official texts word the timing differently: AIP Macao asks for the application {{mo.lead}}, so we treat that as the minimum.",
+    "Slots are a separate step: {{mo.slots}}. Also, {{mo.handling}}."
+   ]
+  },
+  {
+   "h": "The airport",
+   "p": [
+    "Macau International Airport is run by {{vmmc.operator}}. It is {{vmmc.hours}}, with {{vmmc.customs}}. It has {{vmmc.runway}}. Its capacity: {{vmmc.max_aircraft}}.",
+    "Night and noise rules: {{vmmc.noise}}."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Macau",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and ask the operator to apply for the permits early, because the authority's answer decides the schedule. Any aircraft, any route, upon availability.",
+    "Permit rules change. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "How far ahead should a flight to Macau be arranged?",
+   "a": "AIP Macao asks for the application {{mo.lead}}, and the slot is a separate request. We ask the operator to apply as soon as your dates are firm."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/cities/hong-kong/",
+  "/regions/asia-pacific/",
+  "/guides/operator-safety-audits/"
+ ],
+ "draft": true,
+ "type": "city",
+ "region": "/regions/asia-pacific/"
+}

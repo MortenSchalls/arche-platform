@@ -7,7 +7,7 @@
  "tz": "Asia/Manila",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-02",
  "rules": {
   "runway": {
    "v": "two runways; the main one, 06/24, is 3,737 m long and 60 m wide; 13/31 is 2,258 m long and 45 m wide",
@@ -37,5 +37,5 @@
   "noise",
   "notable (GA peak-hour limits reported in news could not be confirmed from an official source)"
  ],
- "notes": "Philippine AIP needs a registered account (ais.caap.gov.ph), so no AD 2 data. NAIA has been run by a concessionaire since the O&M start date; the 2016 MIAA rules on flight advisories and FBOs may have been replaced by the concessionaire's rules - check before publishing. News reports of private-jet limits at NAIA are not used."
+ "notes": "Philippine AIP needs a registered account (ais.caap.gov.ph), so no AD 2 data. NAIA has been run by a concessionaire since the O&M start date; the 2016 MIAA rules on flight advisories and FBOs may have been replaced by the concessionaire's rules - check before publishing. News reports of private-jet limits at NAIA are not used. 1 Nov 2026: re-read the MIAA NAIA PPP Information Memorandum (18 Sep 2023): no IATA code, hours, curfew, customs or GA rules in it; it says the runway system 'is currently limited to handling up to 40 commercial aircraft traffic movements (ATMs) per hour' (2023). The New NAIA Infra Corp. site (https://newnaia.com.ph/about-us/about-naia) gives no hours, IATA code or GA rules. Philippine AIP still needs a login. Private-jet limits at NAIA are only in news reports (Jan 2025), not used. | 2026-11-02 run: newnaia.com.ph about page re-read: metadata only, no hours, IATA or GA rules. Nothing new."
 }

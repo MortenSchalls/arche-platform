@@ -6,8 +6,8 @@
  "country": "DE",
  "tz": "Europe/Berlin",
  "tier": 1,
- "status": "partial",
- "checked": "2026-10-30",
+ "status": "verified",
+ "checked": "2026-10-31",
  "rules": {
   "hours": {
    "v": "flight operating hours 05:00 to 23:00 local time",
@@ -39,16 +39,28 @@
    "v": "business and private aircraft are handled at the General Aviation Terminal (GAT) by Fraport Executive Aviation (Fraport Ground Services); terminal services 06:00-22:00 daily, at other times with prior permission (H24 PPR), FBO 24 hours; the terminal has its own customs and passenger inspection facility",
    "src": "fra-gs-business-areas",
    "quote": "The Executive Aviation Terminal Services can be reached daily between 6 a.m. and 10 p.m.; H24 PPR; FBO 24h"
+  },
+  "runway": {
+   "v": "four runways: 07C/25C 4,000 m by 60 m (take-off and landing), 07R/25L 4,000 m by 45 m (take-off and landing), 18 West 4,000 m by 45 m (take-off only), 07L/25R Northwest 2,800 m by 45 m (landing only)",
+   "longest_m": 4000,
+   "src": "fra-aur-2024",
+   "quote": "4000 x 60 m (13123 x 197 ft.)"
+  },
+  "max_aircraft": {
+   "v": "aerodrome reference code 4E; restrictions for larger code letters are in AIP Germany AD 2 EDDF",
+   "src": "fra-aur-2024",
+   "quote": "Aerodrome reference code 4E."
+  },
+  "ppr": {
+   "v": "the airport user regulations set no PPR for flights; operators are asked to announce flights to and from Frankfurt well in advance; the General Aviation Terminal outside 06:00-22:00 is by prior permission (see handling)",
+   "src": "fra-aur-2024",
+   "quote": "should therefore, including in their own interests, announce their intentions to fly to and from Frankfurt well in advance"
   }
  },
  "missing": [
   "geo",
-  "operator",
-  "location",
-  "runway length/width (longest_m)",
-  "customs",
-  "ppr",
-  "max_aircraft"
+  "customs (user regulations say only that Frankfurt is an approved customs airport; GAT customs hours not found)",
+  "night-flight detail in AIP Germany AD 2 EDDF (DFS AIP not readable)"
  ],
- "notes": "DFS AIP could not be read (robots block) and the web-search budget ran out before Fraport's facts page for runway lengths and its general-aviation page were found. Night ban from the operator (Fraport) pages; the page says CEST, but the rule is in local time all year. | 2026-10-30 run: Fraport Ground Services business-areas page read (GAT handling; own customs facility at the GAT, but customs hours not stated, so customs stays missing). Could not open: Fraport runway system page (permission not given), Fraport Executive Aviation conditions-of-use PDFs (URL too long for the fetch tool). The Fraport airport-expansion page gives only the Northwest runway (2,800 m), not the longest runway. Frankfurt passenger customs desk hours (frankfurt-airport.com) are for terminal passengers, not GA, so not used."
+ "notes": "DFS AIP could not be read (robots block) and the web-search budget ran out before Fraport's facts page for runway lengths and its general-aviation page were found. Night ban from the operator (Fraport) pages; the page says CEST, but the rule is in local time all year. | 2026-10-30 run: Fraport Ground Services business-areas page read (GAT handling; own customs facility at the GAT, but customs hours not stated, so customs stays missing). Could not open: Fraport runway system page (permission not given), Fraport Executive Aviation conditions-of-use PDFs (URL too long for the fetch tool). The Fraport airport-expansion page gives only the Northwest runway (2,800 m), not the longest runway. Frankfurt passenger customs desk hours (frankfurt-airport.com) are for terminal passengers, not GA, so not used. | 2026-10-31 run: read Fraport C2.1 Airport User Regulations, version 1.4 in force 15 Mar 2024: runways (I 1.2), reference code 4E (I 1.7), 'The airport is approved as a customs and medical services airport' (I 1.11; no hours, so customs not recorded as a rule), operating hours '24 hours' (I 1.8; flight operations are still limited by the night ban recorded under curfew), no PPR clause. The runway quote was read through the fetch tool; the exact line layout of the PDF table may differ. Re-read the Fraport runway-system page (night ban 23:00-05:00 local confirmed; flights scheduled before 23:00 may still land until midnight; after midnight delayed flights must divert). Status set verified: runway, hours, curfew, slots, handling recorded; customs hours still open."
 }

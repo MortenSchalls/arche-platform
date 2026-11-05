@@ -93,7 +93,7 @@
   "title": "Business Jet Operations, Narita International Airport Corporation (no page date shown)",
   "url": "https://www.narita-airport.jp/en/company/business/bj/",
   "publisher": "Narita International Airport Corporation",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "naa-bj-coord": {
   "title": "Information on Stand Vacancies for Business Jet Partners and Coordinating Office (no page date shown)",
@@ -135,7 +135,7 @@
   "title": "Dubai International (DXB) Conditions of Use for General Aviation, Northern Winter 2025 (effective 26 Oct 2025, ref DXB GA NW 25)",
   "url": "https://www.acl-uk.org/wp-content/uploads/2025/11/conditions_of_use_dubai_international_dxb_general_aviation_w25.pdf",
   "publisher": "Dubai Airports Corporation (hosted by Airport Coordination Limited, the slot coordinator named in the AIP)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "dwc-cou-ga-s24": {
   "title": "Al Maktoum International / Dubai World Central (DWC) Conditions of Use, General Aviation, Northern Summer 2024 (effective 31 Mar 2024)",
@@ -192,10 +192,10 @@
   "checked": "2026-10-27"
  },
  "fab-specs": {
-  "title": "Farnborough Airport, Airfield Specs (page undated; checked 2026-10-27)",
+  "title": "Farnborough Airport, Airfield Specs (page undated; checked 2026-10-31)",
   "url": "https://www.farnboroughairport.com/airport/airfield-specs",
   "publisher": "Farnborough Airport",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "fab-contact": {
   "title": "Farnborough Airport, Contact Us / Find Us, opening times (page undated; checked 2026-10-27)",
@@ -216,10 +216,10 @@
   "checked": "2026-10-27"
  },
  "lla-bizav": {
-  "title": "London Luton Airport, Business & private aviation (page undated, © 2026; checked 2026-10-27)",
+  "title": "London Luton Airport, Business & private aviation (page undated, © 2026; checked 2026-10-31)",
   "url": "https://www.london-luton.co.uk/corporate/business-private-aviation",
   "publisher": "London Luton Airport Operations Limited",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "lla-noise-faq": {
   "title": "London Luton Airport, Noise – Frequently Asked Questions (page undated; checked 2026-10-27)",
@@ -261,13 +261,13 @@
   "title": "London Biggin Hill Airport, Operations (last modified 8 May 2025)",
   "url": "https://bigginhillairport.com/operations/",
   "publisher": "London Biggin Hill Airport",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "bqh-ga": {
-  "title": "London Biggin Hill Airport, General Aviation/PPR (page undated; checked 2026-10-27)",
+  "title": "London Biggin Hill Airport, General Aviation/PPR (last modified 23 Apr 2024; checked 2026-10-31)",
   "url": "https://bigginhillairport.com/operations/general-aviation/",
   "publisher": "London Biggin Hill Airport",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "bromley-bqh": {
   "title": "London Borough of Bromley, Biggin Hill Airport (last modified 27 Mar 2024)",
@@ -387,13 +387,13 @@
   "title": "Thailand eAIP, AD 2 VTSP Phuket (AIRAC effective 14 May 2026)",
   "url": "https://aip.caat.or.th/2026-05-14-AIRAC/html/eAIP/VT-AD-2.VTSP-en-GB.html",
   "publisher": "Civil Aviation Authority of Thailand (CAAT)",
-  "checked": "2026-10-27"
+  "checked": "2026-11-01"
  },
  "au-ersa-yssy": {
   "title": "AIP Australia ERSA, FAC YSSY Sydney/Kingsford Smith (effective 09 Jul 2026)",
   "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YSSY_09JUL2026.pdf",
   "publisher": "Airservices Australia",
-  "checked": "2026-10-27"
+  "checked": "2026-11-01"
  },
  "au-dap-yssy-ad": {
   "title": "AIP Australia DAP, YSSY Aerodrome Chart SSYAD01-187 (effective 09 Jul 2026)",
@@ -702,10 +702,10 @@
   "checked": "2026-10-27"
  },
  "th-aip-gen12": {
-  "title": "Thailand eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIRAC effective 4 Sep 2025)",
+  "title": "Thailand eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIRAC effective 4 Sep 2025; no GEN 1.2 change listed in AMDT 08/26, 6 Aug 2026)",
   "url": "https://aip.caat.or.th/2025-09-04-AIRAC/html/eAIP/VT-GEN-1.2-en-GB.html",
   "publisher": "Civil Aviation Authority of Thailand",
-  "checked": "2026-10-27"
+  "checked": "2026-11-04"
  },
  "pg-airport-business": {
   "title": "Bangkok Airways investor relations, Airport Business (no page date shown; copyright 2026; checked 27 Oct 2026)",
@@ -729,13 +729,13 @@
   "title": "AIP Malaysia, GEN 1.2 Entry, transit and departure of aircraft (eAIP effective 11 Aug 2026)",
   "url": "https://aip.caam.gov.my/aip/eAIP/2026-08-11/html/eAIP/WM-GEN-1.2-en-MS.html",
   "publisher": "Civil Aviation Authority of Malaysia",
-  "checked": "2026-10-27"
+  "checked": "2026-11-04"
  },
  "id-dgca-wadd": {
-  "title": "DGCA Indonesia airport register: I Gusti Ngurah Rai (page undated, checked 27 Oct 2026)",
+  "title": "DGCA Indonesia airport register: I Gusti Ngurah Rai (page undated, checked 1 Nov 2026)",
   "url": "https://hubud.kemenhub.go.id/bandara/11",
   "publisher": "Direktorat Jenderal Perhubungan Udara, Kementerian Perhubungan",
-  "checked": "2026-10-27"
+  "checked": "2026-11-01"
  },
  "id-dgca-wihh": {
   "title": "DGCA Indonesia airport register: Halim Perdana Kusuma (page undated, checked 27 Oct 2026)",
@@ -765,7 +765,7 @@
   "title": "NAIA PPP Project Information Memorandum (posted 18 Sep 2023)",
   "url": "https://www.miaa.gov.ph/images/stories/Bidding/20230918-information-memorandum-naia-ppp.pdf",
   "publisher": "Manila International Airport Authority",
-  "checked": "2026-10-27"
+  "checked": "2026-11-01"
  },
  "miaa-mc06-2016": {
   "title": "MIAA Memorandum Circular, Series of 2016: Policy guidelines for aeronautical fees and charges (dated 1 Jun 2016)",
@@ -945,7 +945,7 @@
   "title": "ビジネスジェット機（外国籍機）の各種申請手続き (Application procedures for foreign-registered business jets, 1 Oct 2026; designated-airport table as of R8.10)",
   "url": "https://www.mlit.go.jp/koku/content/001762020.pdf",
   "publisher": "Civil Aviation Bureau, International Aviation Division, MLIT",
-  "checked": "2026-10-30"
+  "checked": "2026-10-31"
  },
  "jp-mlit-press-2023": {
   "title": "MLIT press release: shorter application deadline for foreign business jets for tourism (1 Jun 2023)",
@@ -1170,10 +1170,10 @@
   "checked": "2026-10-27"
  },
  "fra-runways": {
-  "title": "Fraport, Runway system and operating hours (checked 27 Oct 2026, no page date)",
+  "title": "Fraport, Runway system and operating hours (no page date; re-checked 31 Oct 2026)",
   "url": "https://www.fraport.com/en/sustainability/dialog-with-neighbors/noise-and-air/flight-operations/runway-system-and-operating-hours.html",
   "publisher": "Fraport AG",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "fra-hours": {
   "title": "Fraport, Hours of operation (checked 27 Oct 2026, no page date)",
@@ -1203,13 +1203,13 @@
   "title": "ENAIRE AIP España, AD 2 LEBL Barcelona-El Prat (WEF 01-OCT-26)",
   "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEBL/LE_AD_2_LEBL_en.html",
   "publisher": "ENAIRE (Spanish AIS)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "es-aip-leib": {
   "title": "ENAIRE AIP España, AD 2 LEIB Ibiza (WEF 09-JUL-26)",
   "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEIB/LE_AD_2_LEIB_en.html",
   "publisher": "ENAIRE (Spanish AIS)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "es-amdt-lepa": {
   "title": "ENAIRE AIP España, Amendment 2026/410, AD 2 LEPA/LESJ Palma de Mallorca (page dated 03-SEP-26)",
@@ -1308,10 +1308,10 @@
   "checked": "2026-10-27"
  },
  "acl-ruh": {
-  "title": "ACL slot coordination, airport information: King Khalid International Airport (RUH), checked 27 Oct 2026",
+  "title": "ACL slot coordination, airport information: King Khalid International Airport (RUH), checked 31 Oct 2026",
   "url": "https://www.acl-uk.org/airport-info-details/?aid=73",
   "publisher": "Airport Coordination Limited (slot coordinator)",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "bh-aip-obbi": {
   "title": "AIP Kingdom of Bahrain and State of Qatar, AD 2 OBBI Bahrain International (AIRAC effective 4 Sep 2025) (not the current edition; current edition could not be opened)",
@@ -1446,10 +1446,10 @@
   "checked": "2026-10-27"
  },
  "lcy-pjc-services": {
-  "title": "London City Airport Private Jet Centre, Services (checked 27 Oct 2026)",
+  "title": "London City Airport Private Jet Centre, Services (checked 31 Oct 2026)",
   "url": "https://privatejetcentre.londoncityairport.com/services",
   "publisher": "London City Airport",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "stn-facts": {
   "title": "London Stansted Airport, Facts and figures (checked 27 Oct 2026)",
@@ -1488,10 +1488,10 @@
   "checked": "2026-10-27"
  },
  "fab-rules": {
-  "title": "Farnborough Airport, Rules and Regulations (undated, checked 27 Oct 2026)",
+  "title": "Farnborough Airport, Rules and Regulations (undated, checked 31 Oct 2026)",
   "url": "https://www.farnboroughairport.com/legal/rules-and-regulations",
   "publisher": "Farnborough Airport Ltd",
-  "checked": "2026-10-27"
+  "checked": "2026-10-31"
  },
  "acl-ltn-lr1": {
   "title": "ACL, London Luton Airport Local Rule 1 - night movements and night noise quota (adopted 2015, current on ACL site 27 Oct 2026)",
@@ -1986,10 +1986,10 @@
   "checked": "2026-10-28"
  },
  "ksna-about": {
-  "title": "John Wayne Airport, About JWA page (no date shown; footer 2026) (checked 28 Oct 2026)",
+  "title": "John Wayne Airport, JWA Overview page (no date shown; footer 2026) (checked 1 Nov 2026)",
   "url": "https://ocair.com/AboutJWA",
   "publisher": "County of Orange, John Wayne Airport",
-  "checked": "2026-10-28"
+  "checked": "2026-11-01"
  },
  "ksna-access-noise": {
   "title": "John Wayne Airport, Access and Noise page (no date shown; footer 2026) (checked 28 Oct 2026)",
@@ -2034,10 +2034,10 @@
   "checked": "2026-10-28"
  },
  "tncm-dc-aip": {
-  "title": "Dutch Caribbean eAIP, AD 2 TNCM Sint Maarten, edition published 28 Nov 2024 (checked 28 Oct 2026)",
+  "title": "Dutch Caribbean eAIP, AD 2 TNCM Sint Maarten, edition published 28 Nov 2024 (re-read 1 Nov 2026)",
   "url": "https://dc-ansp.org/eAIS/eAIP-Publications/2024-11-28/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html",
   "publisher": "Dutch Caribbean Air Navigation Service Provider (DC-ANSP)",
-  "checked": "2026-10-28"
+  "checked": "2026-11-01"
  },
  "tncm-sxm-private": {
   "title": "Princess Juliana International Airport, Private Aviation page, undated (checked 28 Oct 2026)",
@@ -2224,5 +2224,857 @@
   "url": "https://www.caas.gov.sg/operations-safety/air-operations/foreign-air-operators",
   "publisher": "Civil Aviation Authority of Singapore",
   "checked": "2026-10-30"
+ },
+ "fab-aircraft-services": {
+  "title": "Farnborough Airport, Aircraft Services (page undated; checked 2026-10-31)",
+  "url": "https://www.farnboroughairport.com/airport/aircraft-services",
+  "publisher": "Farnborough Airport Ltd",
+  "checked": "2026-10-31"
+ },
+ "gva-reglement-2025": {
+  "title": "Règlement d'exploitation de l'aéroport international de Genève du 31 mai 2001 (état le 1er janvier 2025)",
+  "url": "https://www.gva.ch/content/dam/gva-aem/documents/professionals/aviation-priv%C3%A9e/r%C3%A8glementations-de-gen%C3%A8ve-a%C3%A9roport/Reglement-d-exploitation-au-1er-janvier-2025-Aeroport-International-de-Geneve.pdf",
+  "publisher": "République et canton de Genève, published by Genève Aéroport",
+  "checked": "2026-10-31"
+ },
+ "zrh-winter-ops-2025": {
+  "title": "Flughafen Zürich, Winter Operation at Zurich Airport, Issue 1.0 Revision 24 (01.11.2025)",
+  "url": "https://media.flughafen-zuerich.ch/-/jssmedia/airport/portal/dokumente/business/airlines-and-handling/flight-operations/winter-operations/winter_operations_2025.pdf?vs=1&rev=9cd0763b4f594a6585f0e1de3527a149&sc_lang=de&sc_site=dxp-portal",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-31"
+ },
+ "zrh-general-aviation-en": {
+  "title": "Flughafen Zürich, General aviation (flight operations; © 2026; checked 31 Oct 2026)",
+  "url": "https://www.flughafen-zuerich.ch/en/business/airlines-and-handling/flight-operations/general-aviation",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-10-31"
+ },
+ "sea-lin-ol-west-3": {
+  "title": "SEA, Lettera di Operazioni Linate, Procedure Operative Piazzale Ovest, Rev 3.0 (16 May 2022; Airport Manual Cap. 14 Att. 4)",
+  "url": "https://milanairports.com/sites/default/files/2024-03/ALL%204%20CAP%2014%20MDA%20LIN%20OL%20WEST%20APRON%203.0.pdf",
+  "publisher": "SEA S.p.A.",
+  "checked": "2026-10-31"
+ },
+ "sea-lin-rds-5-en": {
+  "title": "SEA, Airport Regulations for Milan Linate Airport, Edition 5.0 (English translation, uploaded May 2025)",
+  "url": "https://milanairports.com/sites/default/files/2025-05/Airport%20Regulations%20-%20Milan%20Linate%20-Edition%205.0.pdf",
+  "publisher": "SEA S.p.A.",
+  "checked": "2026-10-31"
+ },
+ "save-regs-2026": {
+  "title": "SAVE, Venice Airport 'Marco Polo' Airport Regulations, Ed. 2 Amdt 3 (SAVE 16 Feb 2026; ENAC adoption 24 Mar 2026, Order 2/2026)",
+  "url": "https://www.enac.gov.it/app/uploads/2026/04/Regolamento-di-Scalo-VCE-Ed.2-Em.3-EN_Rev.-2026.02.16.pdf",
+  "publisher": "SAVE S.p.A., published by ENAC",
+  "checked": "2026-10-31"
+ },
+ "muc-fbo-2025-09": {
+  "title": "Flughafenbenutzungsordnung für den Flughafen München (Stand 19.09.2025, approved by the Bavarian State Ministry, Az. 56-3727-2-2)",
+  "url": "https://www.munich-airport.com/_b/0000000000000001406873bb58a2fbaa/fbo2010.pdf",
+  "publisher": "Flughafen München GmbH",
+  "checked": "2026-10-31"
+ },
+ "fra-aur-2024": {
+  "title": "Fraport, C2.1 Airport User Regulations for Frankfurt Airport (version 1.4, in force 15 Mar 2024)",
+  "url": "https://sslapps.fraport.de/webportalAVS/pdf/Airport-user-regulations.pdf",
+  "publisher": "Fraport AG",
+  "checked": "2026-10-31"
+ },
+ "ber-factsheet-2025-06": {
+  "title": "Flughafen Berlin Brandenburg GmbH, Flughafenanlagen BER fact sheet (Stand Juni 2025)",
+  "url": "https://corporate.berlin-airport.de/content/dam/corporate/de/unternehmen-presse/ber/flughafenanlagen-ber.pdf",
+  "publisher": "Flughafen Berlin Brandenburg GmbH (airport operator)",
+  "checked": "2026-10-31"
+ },
+ "ber-gat-poi": {
+  "title": "BER, General Aviation Terminal T1 page (no page date; checked 31 Oct 2026)",
+  "url": "https://ber.berlin-airport.de/en/cafes-shops-service/sgs-poi/552-general-aviation-terminal-t1.html",
+  "publisher": "Flughafen Berlin Brandenburg GmbH (airport operator)",
+  "checked": "2026-10-31"
+ },
+ "es-amdt-leib-2026-406": {
+  "title": "ENAIRE AIP España, Amendment 406/26, AD 2 LEIB Ibiza (page dated 14-MAY-26)",
+  "url": "https://aip.enaire.es/aip/contenido_AMDT/LE_Amdt_2026_406_AD_2_LEIB_en.pdf",
+  "publisher": "ENAIRE (Spanish AIS)",
+  "checked": "2026-10-31"
+ },
+ "ceq-arrete-2022": {
+  "title": "Arrêté du 9 mai 2022 modifiant l'arrêté du 6 décembre 1995 (Cannes-Mandelieu), NOR TRAA2210347A, JORF 12 May 2022, copy on the operator's site",
+  "url": "https://www.cannes.aeroport.fr/content/download/42268/file/Arrete-9-mai-2022%20.pdf?inLanguage=fre-FR",
+  "publisher": "French Republic (DGAC), published by Aéroports de la Côte d'Azur",
+  "checked": "2026-10-31"
+ },
+ "acl-ruh-local-rule-s27": {
+  "title": "Riyadh Airports Company, Local Rule S27: Training and Technical Stop Flights, Winter 2026 & Summer 2027 (issue date 30 Sep 2026)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2026/10/W26-S27-RUH-Local-Rule.pdf",
+  "publisher": "Riyadh Airports Company (hosted by Airport Coordination Limited)",
+  "checked": "2026-10-31"
+ },
+ "jed-cou-2025": {
+  "title": "King Abdulaziz International Airport Conditions of Use (publication 08 Oct 2025, GACA approval 06 Oct 2025, effective 60 days after publication)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2025/12/King-Abdulaziz-International-Airport_Conditions-of-Use.pdf",
+  "publisher": "Jeddah Airports Company / KAIA, approved by GACA (hosted by Airport Coordination Limited)",
+  "checked": "2026-10-31"
+ },
+ "iaa-llbg-aero-info": {
+  "title": "Aeronautical Information, Ben Gurion Airport (operating limitations, slot coordination, private flights; no page date shown; checked 31 Oct 2026)",
+  "url": "https://www.iaa.gov.il/en/about/aeronautical-information/",
+  "publisher": "Israel Airports Authority",
+  "checked": "2026-10-31"
+ },
+ "mo-aip-ad-2025-08": {
+  "title": "AIP Macao Part 3 Aerodromes (AD), incl. AD 2 VMMC Macau International (file posted 12 Aug 2025; pages dated 2007 to 7 Aug 2025, latest AIRAC AMDT 02/25)",
+  "url": "https://www.aacm.gov.mo/static/2025/08/12/7babb8c0-af0e-4229-a242-2790998bee3b.pdf",
+  "publisher": "Civil Aviation Authority of Macao SAR (AACM)",
+  "checked": "2026-10-31"
+ },
+ "kix-operator-outline": {
+  "title": "Kansai International Airport, Kansai Airports business site (no page date shown; latest entry Mar 2025)",
+  "url": "https://www.kansai-airports.co.jp/en/business/airports-kix/",
+  "publisher": "Kansai Airports",
+  "checked": "2026-10-31"
+ },
+ "kix-tamayura": {
+  "title": "Premium Gate Tamayura, business jet facility at KIX (no page date shown)",
+  "url": "https://www.kansai-airports.co.jp/en/business/for-business-kix/tamayura/",
+  "publisher": "Kansai Airports",
+  "checked": "2026-10-31"
+ },
+ "naa-premiergate-app": {
+  "title": "Premier Gate - ご利用方法 (how to use Premier Gate; no page date shown)",
+  "url": "https://www.narita-airport.jp/ja/company/business/bj/premiergate/app/",
+  "publisher": "Narita International Airport Corporation",
+  "checked": "2026-10-31"
+ },
+ "naa-premiergate-guide": {
+  "title": "Business Aviation Terminal - Premier Gate, guide PDF (no date shown)",
+  "url": "https://www.narita-airport.jp/files/1aaf83567d75b7d35695fa788d7b3f0bf52814d6cd0ce9116ac51e5c9bebbfa6",
+  "publisher": "Narita International Airport Corporation",
+  "checked": "2026-10-31"
+ },
+ "bh-bac-infrastructure": {
+  "title": "Bahrain International Airport Infrastructure (no page date shown; footer 2026)",
+  "url": "https://www.bahrainairport.bh/corporate/bahrain-international-airport-infrastructure/",
+  "publisher": "Bahrain Airport Company",
+  "checked": "2026-10-31"
+ },
+ "th-aip-amdt-08-26": {
+  "title": "Thailand AIRAC AIP AMDT 08/26 (effective 6 Aug 2026), amendment summary and list of effective pages",
+  "url": "https://aip.caat.or.th/2026-08-06-AIRAC/pdf/VT-amdt-en-GB.pdf",
+  "publisher": "Civil Aviation Authority of Thailand",
+  "checked": "2026-11-01"
+ },
+ "vtsp-aot-about": {
+  "title": "AOT Phuket International Airport, About Us (page undated; checked 1 Nov 2026)",
+  "url": "https://phuket.airportthai.co.th/about-us",
+  "publisher": "Airports of Thailand Public Company Limited",
+  "checked": "2026-11-01"
+ },
+ "vtcc-aot-about": {
+  "title": "AOT Chiang Mai International Airport, About Us (page undated; checked 1 Nov 2026)",
+  "url": "https://chiangmai.airportthai.co.th/about-us",
+  "publisher": "Airports of Thailand Public Company Limited",
+  "checked": "2026-11-01"
+ },
+ "my-aip-wmkk-2026-10": {
+  "title": "AIP Malaysia, AD 2 WMKK KL International/Sepang (eAIP AIRAC effective 29 Oct 2026)",
+  "url": "https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html",
+  "publisher": "Civil Aviation Authority of Malaysia",
+  "checked": "2026-11-01"
+ },
+ "my-aip-wmsa-2026-10": {
+  "title": "AIP Malaysia, AD 2 WMSA Subang/Sultan Abdul Aziz Shah (eAIP AIRAC effective 29 Oct 2026)",
+  "url": "https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMSA-en-MS.html",
+  "publisher": "Civil Aviation Authority of Malaysia",
+  "checked": "2026-11-01"
+ },
+ "id-kemenhub-nyepi-2026": {
+  "title": "Kemenhub news: Kemenhub Sesuaikan Operasional Transportasi Jelang Hari Raya Nyepi di Bali (15 Mar 2026)",
+  "url": "https://kemenhub.go.id/post/read/kemenhub-sesuaikan-operasional-transportasi-jelang-hari-raya-nyepi-di-bali",
+  "publisher": "Kementerian Perhubungan Republik Indonesia (Ministry of Transportation)",
+  "checked": "2026-11-01"
+ },
+ "ypph-ersa": {
+  "title": "AIP Australia ERSA, FAC YPPH Perth (effective 09 Jul 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YPPH_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-01"
+ },
+ "au-abf-aircraft": {
+  "title": "Aircraft entering and departing Australia (last updated 20 Oct 2026)",
+  "url": "https://www.abf.gov.au/entering-and-leaving-australia/aircraft-requirements",
+  "publisher": "Australian Border Force",
+  "checked": "2026-11-03"
+ },
+ "nzqn-qac-ops": {
+  "title": "Queenstown Airport, 'Airport operations' page (undated; checked 1 Nov 2026)",
+  "url": "https://www.queenstownairport.co.nz/corporate/airport-operations/",
+  "publisher": "Queenstown Airport Corporation",
+  "checked": "2026-11-01"
+ },
+ "nzqn-acou": {
+  "title": "Queenstown Airport Aeronautical Conditions of Use (in effect from 1 Nov 2022; Version 2.2, 1 Jul 2024)",
+  "url": "https://www.queenstownairport.co.nz/media/a35jdlcq/aeronautical-conditions-of-use-acou-zqn-v05.pdf",
+  "publisher": "Queenstown Airport Corporation",
+  "checked": "2026-11-01"
+ },
+ "nzaa-cou": {
+  "title": "Auckland Airport Conditions of Use (effective from 30 Oct 2022)",
+  "url": "https://corporate.aucklandairport.co.nz/-/media/Files/Airfield-Information/CoU/22Auckland-Airport-Updated-Conditions-of-Use-Final.ashx",
+  "publisher": "Auckland International Airport Limited",
+  "checked": "2026-11-01"
+ },
+ "fj-caaf-foa": {
+  "title": "Civil Aviation Authority of Fiji, 'Foreign Air Operator Certification Requirements' (page modified 24 Mar 2025)",
+  "url": "https://www.caaf.org.fj/?p=408",
+  "publisher": "Civil Aviation Authority of Fiji",
+  "checked": "2026-11-01"
+ },
+ "kmia-cbp-ga": {
+  "title": "US CBP, Miami International Airport General Aviation Fact Sheet (KMIA), 5 Sep 2024, publication KMIA-0924",
+  "url": "https://cbp.gov/sites/default/files/2024-09/KMIA%20GA%20Airport%20Fact%20Sheet%2020240905.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-11-01"
+ },
+ "kmia-mdad-gac": {
+  "title": "Miami-Dade Aviation Department, General Aviation page (no date shown; read 1 Nov 2026)",
+  "url": "https://www.miami-airport.com/general_aviation.asp",
+  "publisher": "Miami-Dade Aviation Department",
+  "checked": "2026-11-01"
+ },
+ "kege-cbp-ga": {
+  "title": "US CBP, Eagle County Regional Airport GA Airport Fact Sheet (KEGE), 25 Oct 2024, publication KEGE-1024",
+  "url": "https://cbp.gov/sites/default/files/2024-10/KEGE%20GA%20Airport%20Fact%20Sheet%2020241025.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-11-01"
+ },
+ "kege-customs": {
+  "title": "Eagle County Regional Airport, US Customs page (last modified 27 Dec 2023; read 1 Nov 2026)",
+  "url": "https://flyege.com/general-aviation/us-customs/",
+  "publisher": "Eagle County Regional Airport (Eagle County)",
+  "checked": "2026-11-01"
+ },
+ "kpdk-cbp-ga": {
+  "title": "US CBP, Dekalb-Peachtree Airport GA Airport Fact Sheet (KPDK), 6 May 2024, publication KPDK-0524",
+  "url": "https://cbp.gov/sites/default/files/2024-05/kpdk_ga_airport_fact_sheet_20240506.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-11-01"
+ },
+ "kdal-cbp-ga": {
+  "title": "US CBP, Dallas Love Field Airport GA Airport Fact Sheet (KDAL), 17 Apr 2024, publication KDAL-0424",
+  "url": "https://www.cbp.gov/sites/default/files/assets/documents/2024-Apr/KDAL%20GA%20Airport%20Fact%20Sheet%2020240417.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-11-01"
+ },
+ "kdal-customs": {
+  "title": "Dallas Love Field, International Arrivals & Customs page (no date shown; read 1 Nov 2026)",
+  "url": "https://dallas-lovefield.com/airport-info/general-aviation/international-arrivals-and-customs",
+  "publisher": "City of Dallas, Department of Aviation",
+  "checked": "2026-11-01"
+ },
+ "khpn-rules": {
+  "title": "Westchester County, Airport Rules & Regulations, Laws of Westchester County ch. 712 (PDF in 2026 folder, no date shown; read 1 Nov 2026)",
+  "url": "https://airport.westchestercountyny.gov/images/stories/pdfs/2026/rulesandregulations.pdf",
+  "publisher": "Westchester County",
+  "checked": "2026-11-01"
+ },
+ "kpbi-pbc-noise": {
+  "title": "Palm Beach County Department of Airports, Noise Abatement page (no date shown; read 1 Nov 2026)",
+  "url": "https://discover.pbc.gov/Airports/Pages/Noise-Abatement.aspx",
+  "publisher": "Palm Beach County Department of Airports",
+  "checked": "2026-11-01"
+ },
+ "kmdw-cbp-ga-2024": {
+  "title": "CBP General Aviation Airport Fact Sheet, Chicago Midway (KMDW), 6 May 2024, KMDW-0524 (newer 4 Mar 2026 sheet not opened) (checked 1 Nov 2026)",
+  "url": "https://cbp.gov/sites/default/files/2024-05/kmdw_ga_airport_fact_sheet_20240506.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-11-01"
+ },
+ "kmdw-cda-fbo": {
+  "title": "Fixed Base Operators | Chicago Midway International Airport (no date shown) (checked 1 Nov 2026)",
+  "url": "https://www.flychicago.com/midway/myflight/FBO/pages/default.aspx",
+  "publisher": "Chicago Department of Aviation",
+  "checked": "2026-11-01"
+ },
+ "kpwk-cea-resources": {
+  "title": "Chicago Executive Airport: Resources For Flying Through CEA page (last modified 29 Jan 2026) (checked 1 Nov 2026)",
+  "url": "https://chiexec.com/?p=7836",
+  "publisher": "Chicago Executive Airport",
+  "checked": "2026-11-01"
+ },
+ "kpwk-faa-kbyg": {
+  "title": "FAA Chicago Executive (PWK) Know Before You Go sheet (no date shown) (checked 1 Nov 2026)",
+  "url": "https://www.faa.gov/flight_deck/pilot_info/pwk.pdf",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-01"
+ },
+ "kbed-faa-apd": {
+  "title": "FAA d-TPP airport diagram, Laurence G Hanscom Fld (BED), AL-626, NE-1, 3 Sep 2026 to 1 Oct 2026 (checked 1 Nov 2026)",
+  "url": "https://www.faa.gov/aero_docs/dtpp/2609/00626AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-01"
+ },
+ "kiad-faa-aip-dc": {
+  "title": "FAA, United States AIP Part 3 AD 2 District of Columbia (HTML; no edition date shown on page): KIAD Washington Dulles International (checked 1 Nov 2026)",
+  "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_district_of_columbia.html",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-01"
+ },
+ "ksfo-faa-apd": {
+  "title": "FAA d-TPP airport diagram, San Francisco Intl (SFO), AL-375, SW-2, 1 Oct 2026 to 29 Oct 2026 (checked 1 Nov 2026)",
+  "url": "https://aeronav.faa.gov/d-tpp/2610/00375AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-01"
+ },
+ "koak-faa-aip-ca": {
+  "title": "FAA, United States AIP Part 3 AD 2 California (HTML; no edition date shown on page): KFAT, KLAX, KOAK, KONT (checked 1 Nov 2026)",
+  "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_california.html",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-01"
+ },
+ "ksjc-fbo": {
+  "title": "San José Mineta International Airport, Fixed Base Operators page (no date shown) (checked 1 Nov 2026)",
+  "url": "https://www.flysanjose.com/business/sjc-general-aviation/fbo",
+  "publisher": "City of San José, Airport Department",
+  "checked": "2026-11-01"
+ },
+ "cyyz-gtaa-fast-facts": {
+  "title": "Toronto Pearson: Fast Facts (runways), page undated, read 1 Nov 2026",
+  "url": "https://www.torontopearson.com/en/corporate/media/fast-facts",
+  "publisher": "Greater Toronto Airports Authority",
+  "checked": "2026-11-01"
+ },
+ "ca-gtaa-restricted-hours-2019": {
+  "title": "GTAA Restricted Hours Operating Policy, version 4.1, 29 May 2019",
+  "url": "https://cdn.torontopearson.com/-/media/project/pearson/content/community/noise-management/pdfs/gtaa-restricted-hours-operating-policy-v4-1.pdf?modified=20191031171717&la=en",
+  "publisher": "Greater Toronto Airports Authority",
+  "checked": "2026-11-01"
+ },
+ "cyyz-gtaa-operating-restrictions": {
+  "title": "Toronto Pearson: Airport Noise Restrictions (operating restrictions), page undated",
+  "url": "https://www.torontopearson.com/en/community/noise-management/noise-management-program/operating-restrictions",
+  "publisher": "Greater Toronto Airports Authority",
+  "checked": "2026-11-01"
+ },
+ "cyul-adm-climat-sonore": {
+  "title": "ADM: Plan d'action sur la gestion du climat sonore (Opérations nocturnes), updated February 2022",
+  "url": "https://www.admtl.com/fr/consultation",
+  "publisher": "Aéroports de Montréal",
+  "checked": "2026-11-01"
+ },
+ "cyvr-yvr-night-ops": {
+  "title": "YVR Noise FAQ: Night Time Operations, page undated",
+  "url": "https://www.yvr.ca/en/about-yvr/noise-management/noise-faqs/night-time-operations",
+  "publisher": "Vancouver Airport Authority",
+  "checked": "2026-11-01"
+ },
+ "cyvr-yvr-noise-report-2024": {
+  "title": "YVR 2024 Aeronautical Noise Management Report, March 2025",
+  "url": "https://www.yvr.ca/-/media/yvr/documents/noise-documents/annual-noise-reports/final_2024-yvr-noise-management-annual-report.pdf",
+  "publisher": "Vancouver Airport Authority",
+  "checked": "2026-11-01"
+ },
+ "mmmx-sacm-informe-2024": {
+  "title": "Servicios Aeroportuarios de la Ciudad de México: Informe de Gestión Gubernamental 2018-2024, 17 Sep 2024",
+  "url": "https://www.aicm.com.mx/obligaciones/Archivos/InformeDeGestionGubernamentalSACM.pdf",
+  "publisher": "Aeropuerto Internacional de la Ciudad de México (SACM)",
+  "checked": "2026-11-01"
+ },
+ "mmto-ait-nosotros": {
+  "title": "Aeropuerto Internacional de Toluca: Nosotros, page undated",
+  "url": "https://www.aeropuertodetoluca.com.mx/tramiteTIAS/about.html",
+  "publisher": "Administradora Mexiquense del Aeropuerto Internacional de Toluca",
+  "checked": "2026-11-01"
+ },
+ "mmun-asur-nuestros-aeropuertos": {
+  "title": "ASUR: Nuestros Aeropuertos (Cancún data table), page undated",
+  "url": "https://www.asur.com.mx/nuestros-aeropuertos",
+  "publisher": "Grupo Aeroportuario del Sureste (ASUR)",
+  "checked": "2026-11-01"
+ },
+ "mmun-asur-fbo-servicios": {
+  "title": "ASUR: Cancún - Servicios FBO, page undated",
+  "url": "https://www.asur.com.mx/cancun-servicios-fbo",
+  "publisher": "Grupo Aeroportuario del Sureste (ASUR)",
+  "checked": "2026-11-01"
+ },
+ "sbgr-decea-rotaer": {
+  "title": "AISWEB ROTAER entry SBGR Guarulhos - Governador André Franco Montoro, D-AMDT 26/26 (checked 3 Nov 2026)",
+  "url": "https://aisweb.decea.mil.br/?i=aerodromos&codigo=SBGR",
+  "publisher": "DECEA (Departamento de Controle do Espaço Aéreo), Brazil",
+  "checked": "2026-11-03"
+ },
+ "saez-aa2000-fbo": {
+  "title": "Aeropuertos Argentina, FBO page (FBO VIPCLUB Ezeiza), undated (checked 1 Nov 2026)",
+  "url": "https://www.aeropuertosargentina.com/es/sobre-nosotros/fbo",
+  "publisher": "Aeropuertos Argentina (airport operator)",
+  "checked": "2026-11-01"
+ },
+ "za-aip-faor-amdt-4-26": {
+  "title": "South African AIP, AD 2 FAOR O R Tambo International, amended pages AMDT 4/26 effective 15 Oct 2026",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FAOR_EN.pdf",
+  "publisher": "South African Civil Aviation Authority (SACAA)",
+  "checked": "2026-11-01"
+ },
+ "id-pm35-2021": {
+  "title": "Indonesia, Minister of Transportation Regulation PM 35 of 2021 on air transport (State Gazette 2021 No. 582)",
+  "url": "https://www.peraturan.go.id/files/bn582-2021.pdf",
+  "publisher": "Ministry of Law, Republic of Indonesia (peraturan.go.id)",
+  "checked": "2026-11-02"
+ },
+ "id-permenhan-3-2024": {
+  "title": "Indonesia, Minister of Defence Regulation No. 3 of 2024 on Security Clearance (English translation; the text shows the year only)",
+  "url": "https://www.peraturan.go.id/files2/permenhan-no-3-tahun-2024_terjemah.pdf",
+  "publisher": "Ministry of Law, Republic of Indonesia (peraturan.go.id)",
+  "checked": "2026-11-02"
+ },
+ "id-dgca-km37": {
+  "title": "DGCA news: Transport Ministry Decree KM 37 of 2025 on international airports (11 Aug 2025)",
+  "url": "https://hubud.kemenhub.go.id/hubud/website/berita/4770",
+  "publisher": "Direktorat Jenderal Perhubungan Udara",
+  "checked": "2026-11-02"
+ },
+ "id-setneg-skb-2027": {
+  "title": "Joint ministerial decree on national holidays 2027 (published 15 Sep 2026)",
+  "url": "https://setneg.go.id/baca/index/inilah_skb_3_menteri_libur_nasional_dan_cuti_bersama_2027",
+  "publisher": "Ministry of State Secretariat, Republic of Indonesia",
+  "checked": "2026-11-02"
+ },
+ "mo-aip-gen-2026": {
+  "title": "AIP Macao Part 1 General (file posted 25 Aug 2026; GEN 0.1 dated 20 Aug 2026; GEN 1.2 dated 28 May 2026, AMDT 51)",
+  "url": "https://www.aacm.gov.mo/static/2026/08/25/e144ac8d-581e-499b-a8e0-a8dbb964a304.pdf?filename=%E7%AC%AC%E4%B8%80%E9%83%A8%E4%BB%BD+-+%E7%B8%BD%E5%89%87+%28GEN%29",
+  "publisher": "Civil Aviation Authority of Macao SAR (AACM)",
+  "checked": "2026-11-04"
+ },
+ "artdubai-2027": {
+  "title": "Art Dubai: Applications are open for Art Dubai 2027 (27 Aug 2026)",
+  "url": "https://www.artdubai.ae/blog/applications-for-art-dubai-2027-open/",
+  "publisher": "Art Dubai",
+  "checked": "2026-11-02"
+ },
+ "artgeneve-home": {
+  "title": "Art Genève home page (checked 2 Nov 2026)",
+  "url": "https://artgeneve.ch/en/home/",
+  "publisher": "Art Genève",
+  "checked": "2026-11-02"
+ },
+ "ascot-royal-2027": {
+  "title": "Royal Ascot page (checked 2 Nov 2026)",
+  "url": "https://www.ascot.com/royal-ascot",
+  "publisher": "Ascot Racecourse",
+  "checked": "2026-11-02"
+ },
+ "zrh-noise-charges-2026-11": {
+  "title": "Zurich Airport - Noise charges (read 2026-11-02)",
+  "url": "https://www.flughafen-zuerich.ch/en/company/responsibility/noise-and-sound-insulation/noise-categories/noise-charges",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-11-02"
+ },
+ "vce-ga-page": {
+  "title": "Venice General Aviation, your trusted handler (Venice Airport, undated, read 2026-11-02)",
+  "url": "https://www.veneziaairport.it/en_gb/flights/private-jets/general-aviation",
+  "publisher": "SAVE S.p.A. (Venice Airport operator)",
+  "checked": "2026-11-02"
+ },
+ "dwc-cou-ga-s25": {
+  "title": "Conditions of Use, Dubai World Central (DWC) General Aviation, Northern Summer 2025 (effective 30 March 2025)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2025/04/conditions_of_use_dubai_world_central_dwc_general_aviation_s25.pdf",
+  "publisher": "Airport Coordination Limited (slot coordinator for Dubai Airports)",
+  "checked": "2026-11-02"
+ },
+ "hk-aip-vhhh-2026-10": {
+  "title": "AIP Hong Kong, AD 2 VHHH (page dated 6 Aug 2026, effective 1 Oct 2026)",
+  "url": "https://www.ais.gov.hk/eaip_20261001/2026-10-01-000000/html/eAIP/VH-AD-2-VHHH-en-US.html",
+  "publisher": "Civil Aviation Department, Hong Kong",
+  "checked": "2026-11-04"
+ },
+ "fala-sacaa-adc": {
+  "title": "SACAA Aerodrome Chart FALA AD-01, EFF 20 JUN 19",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aeronautical-charts/FALA_AERODROME%20CHART_AD-01.pdf",
+  "publisher": "South African Civil Aviation Authority",
+  "checked": "2026-11-03"
+ },
+ "fala-lanseria-services": {
+  "title": "Lanseria International Airport: Airport Service Offerings (page modified 2025-01-14)",
+  "url": "https://lanseria.co.za/corporate/pilot-and-aviation-info/airport-services/",
+  "publisher": "Lanseria International Airport",
+  "checked": "2026-11-03"
+ },
+ "fact-sacaa-ad2-amdt426": {
+  "title": "AIP South Africa AD 2-FACT-15 to 17, AMDT 4/26, 15 OCT 26",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FACT_EN.pdf",
+  "publisher": "South African Civil Aviation Authority",
+  "checked": "2026-11-03"
+ },
+ "fact-acsa-slot-request": {
+  "title": "ACSA: Slot Request (no date shown)",
+  "url": "https://www.airports.co.za/about-us/airline-services/slot-request",
+  "publisher": "Airports Company South Africa",
+  "checked": "2026-11-03"
+ },
+ "dnmm-faan-intl": {
+  "title": "FAAN: International Airports (page modified 2023-03-14)",
+  "url": "https://faan.gov.ng/international-airports/",
+  "publisher": "Federal Airports Authority of Nigeria",
+  "checked": "2026-11-03"
+ },
+ "lgav-aia-presentation": {
+  "title": "Athens International Airport Corporate Investor Presentation, December 2024",
+  "url": "https://investors.aia.gr/userfiles/0954d64f-148d-4743-a207-b10e00cab4be/CorporatePresentation9M24.pdf",
+  "publisher": "Athens International Airport S.A.",
+  "checked": "2026-11-03"
+ },
+ "lgav-aia-ground-handling": {
+  "title": "Athens International Airport: Ground handling (no date shown)",
+  "url": "https://www.aia.gr/en/business/ground-handling",
+  "publisher": "Athens International Airport S.A.",
+  "checked": "2026-11-03"
+ },
+ "engm-avinor-opr-hrs": {
+  "title": "Avinor AIP Norway Operational Hours, revised per AIRAC 29 OCT 2026",
+  "url": "https://aim-prod.avinor.no/no/OperationalHours/View/Index/84/ops_hrs.html",
+  "publisher": "Avinor",
+  "checked": "2026-11-03"
+ },
+ "engm-avinor-ad-manual": {
+  "title": "Aerodrome Manual Oslo Airport v3.1, valid from 30.10.2026",
+  "url": "https://partner.avinor.no/siteassets/flyside/oslo-lufthavn/flyplassmanualen/aerodrome-manual---oslo-airport-v3-1.pdf",
+  "publisher": "Avinor Oslo Airport",
+  "checked": "2026-11-03"
+ },
+ "engm-avinor-noise": {
+  "title": "Avinor: Noise reduction at Oslo Airport (no date shown)",
+  "url": "https://www.avinor.no/en/airport/oslo/about-oslo-airport/environment-oslo-airport/aircraft-noise/",
+  "publisher": "Avinor",
+  "checked": "2026-11-03"
+ },
+ "vabb-adani-about": {
+  "title": "About Mumbai Airport (BOM), undated page (mentions FY2024-25)",
+  "url": "https://csmia-mumbai.adaniairports.com/en/about-us",
+  "publisher": "Adani Airports / Mumbai International Airport Limited (airport operator)",
+  "checked": "2026-11-03"
+ },
+ "au-abf-nppc-guide": {
+  "title": "NPPC Airport Guide (July 2026)",
+  "url": "https://www.abf.gov.au/crossing/files/nppc-airport-guide.pdf",
+  "publisher": "Australian Border Force",
+  "checked": "2026-11-03"
+ },
+ "au-airservices-curfews": {
+  "title": "Airport curfews (last modified 1 Jul 2025)",
+  "url": "https://www.airservicesaustralia.com/about-us/about-our-operations/airport-curfews/",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-03"
+ },
+ "yssy-operating": {
+  "title": "Operating at Sydney Airport (no date shown; Slot Management Scheme 2025)",
+  "url": "https://www.sydneyairport.com.au/corporate/partner-with-us/aviation-opportunities/operating-at-sydney-airport",
+  "publisher": "Sydney Airport",
+  "checked": "2026-11-03"
+ },
+ "ybbn-adms": {
+  "title": "Airport Demand Management Scheme, Version 2.2 (9 Jan 2026)",
+  "url": "https://www.bne.com.au/media/23961/download?inline=",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "ybbn-aviation-services": {
+  "title": "Aviation Services and Charges (page changed 3 Aug 2026)",
+  "url": "https://www.bne.com.au/corporate/partner-with-us/aviation-services-and-charges",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "ybbn-ga-precinct": {
+  "title": "General Aviation precinct (page changed 4 Dec 2025)",
+  "url": "https://www.bne.com.au/property/our-airport-city/precincts/general-aviation",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "ybbn-noise": {
+  "title": "Understanding Runway Operations & Noise (page changed 1 Oct 2026)",
+  "url": "https://www.bne.com.au/corporate/community-and-environment/runway-operations-noise/understanding-runway-operations-noise",
+  "publisher": "Brisbane Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "ypph-noise-summary": {
+  "title": "Perth Airport Aircraft Noise Management Summary (copyright 2016)",
+  "url": "https://www.perthairport.com.au/-/media/Files/CORPORATE/Perth-Airport-Aircraft-Noise-Management-Summary.pdf?la=en",
+  "publisher": "Perth Airport Pty Ltd",
+  "checked": "2026-11-03"
+ },
+ "nz-customs-nonsched": {
+  "title": "Private and non-scheduled flights (page updated 18 Jul 2025)",
+  "url": "https://www.customs.govt.nz/travel-to-and-from-new-zealand/private-and-non-scheduled-flights",
+  "publisher": "New Zealand Customs Service",
+  "checked": "2026-11-03"
+ },
+ "nz-caa-foreign-ops": {
+  "title": "Guidance for foreign operators (no date shown; footer 2026)",
+  "url": "https://www.aviation.govt.nz/licensing-and-certification/operators/air-operations/foreign-air-operators/guidance-for-foreign-operators/",
+  "publisher": "Civil Aviation Authority of New Zealand",
+  "checked": "2026-11-03"
+ },
+ "nzaa-caa-booklet": {
+  "title": "In, out, and around Auckland (revised March 2023)",
+  "url": "https://www.aviation.govt.nz/assets/publications/gaps/In-Out-and-Around-Auckland-web.pdf",
+  "publisher": "Civil Aviation Authority of New Zealand",
+  "checked": "2026-11-03"
+ },
+ "nzaa-masterplan-2025": {
+  "title": "Auckland Airport Draft Master Plan Summary 2025",
+  "url": "https://corporate.aucklandairport.co.nz/content/dam/aia/files/corporate/futureakl/akl-master-plan-summary-2025.pdf",
+  "publisher": "Auckland Airport",
+  "checked": "2026-11-03"
+ },
+ "nzqn-masterplan-2023": {
+  "title": "Queenstown Airport Master Plan, draft (May 2023)",
+  "url": "https://www.queenstownairport.co.nz/media/tidjmwoa/qac-2023-full-draft-master-plan.pdf",
+  "publisher": "Queenstown Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "nzqn-annual-report-2026": {
+  "title": "Annual Report, year ending 30 June 2026",
+  "url": "https://www.queenstownairport.co.nz/media/5qgdgqzn/2026-queenstown-airport-annual-report.pdf",
+  "publisher": "Queenstown Airport Corporation",
+  "checked": "2026-11-03"
+ },
+ "nzqn-caa-booklet": {
+  "title": "In, out, and around Queenstown (revised September 2024)",
+  "url": "https://www.aviation.govt.nz/assets/publications/gaps/In_Out_and_Around_Queenstown.pdf",
+  "publisher": "Civil Aviation Authority of New Zealand",
+  "checked": "2026-11-03"
+ },
+ "nffn-mowp-2020": {
+  "title": "Method of Working Plan, Nadi mill and fill and SEST works (Aug/Sep 2020)",
+  "url": "https://airportsfiji.com/nadi-mill-and-fill-and-sest-mowp.pdf",
+  "publisher": "Fiji Airports",
+  "checked": "2026-11-03"
+ },
+ "fj-customs-act-2023": {
+  "title": "Customs Act 1986, revised up to 1 Aug 2023",
+  "url": "https://www.frcs.org.fj/wp-content/uploads/2023/09/Customs-Act-1986-Revised-1st-August-2023.pdf",
+  "publisher": "Fiji Revenue and Customs Service",
+  "checked": "2026-11-03"
+ },
+ "fj-customs-regs-2013": {
+  "title": "Customs Regulations 1986, revised 1 Feb 2013",
+  "url": "https://www.frcs.org.fj/wp-content/uploads/2012/10/Customs_-Regulations-_1986_-Revised_1st-February-2013.pdf",
+  "publisher": "Fiji Revenue and Customs Service",
+  "checked": "2026-11-03"
+ },
+ "khpn-faa-ad-2610": {
+  "title": "FAA airport diagram, White Plains (HPN), AL-651, NE-2, valid 1 Oct 2026 to 29 Oct 2026",
+  "url": "https://aeronav.faa.gov/d-tpp/2610/00651AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "khpn-noise-faqs": {
+  "title": "Westchester County Airport, Noise FAQs (no date shown, footer 2026)",
+  "url": "https://airport.westchestercountyny.gov/about-us/environmental-management-system/noise-faqs",
+  "publisher": "Westchester County Airport",
+  "checked": "2026-11-03"
+ },
+ "kpbi-djt-name-faqs": {
+  "title": "Name Change FAQs (no page date; change effective 9 Jul 2026, IATA change 18 Aug 2026)",
+  "url": "https://flydjt.org/about/name-change-faqs/",
+  "publisher": "Palm Beach County Department of Airports",
+  "checked": "2026-11-03"
+ },
+ "kpbi-djt-noise-faq": {
+  "title": "Noise FAQ (no date shown, footer 2026)",
+  "url": "https://flydjt.org/noise/faq/",
+  "publisher": "Palm Beach County Department of Airports",
+  "checked": "2026-11-03"
+ },
+ "kmia-faa-cs-2026-09": {
+  "title": "FAA Chart Supplement Southeast US, page 141, edition 3 Sep 2026 to 29 Oct 2026",
+  "url": "https://aeronav.faa.gov/afd/03SEP2026/se_141_03SEP2026.pdf",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "kdal-general-aviation": {
+  "title": "Dallas Love Field, General Aviation (no date shown)",
+  "url": "https://www.dallas-lovefield.com/airport-info/general-aviation",
+  "publisher": "City of Dallas, Dallas Love Field",
+  "checked": "2026-11-03"
+ },
+ "kase-winter-safety": {
+  "title": "Aspen/Pitkin County Airport, Winter Safety (page updated 1 Oct 2020)",
+  "url": "https://www.aspenairport.com/pilotinformation/operating-procedures/winter-safety/",
+  "publisher": "Aspen/Pitkin County Airport",
+  "checked": "2026-11-03"
+ },
+ "kege-amp-ch2": {
+  "title": "Eagle County Regional Airport Master Plan, Chapter 2 Inventory (final, file dated 05-2025; data about late 2022)",
+  "url": "https://flyege.com/wp-content/uploads/2025/08/05-2025-EGE-AMP-Chapter-2-Inventory-Final.pdf",
+  "publisher": "Eagle County Regional Airport",
+  "checked": "2026-11-03"
+ },
+ "kege-rules-2014": {
+  "title": "Eagle County Regional Airport Rules and Regulations, May 2014",
+  "url": "https://flyege.com/wp-content/uploads/2024/01/EGE-Rules-and-Regulations-50514.pdf",
+  "publisher": "Eagle County Regional Airport",
+  "checked": "2026-11-03"
+ },
+ "kmdw-cda-facility": {
+  "title": "Chicago Department of Aviation, Facility Data (no date shown)",
+  "url": "https://www.flychicago.com/business/CDA/factsfigures/Pages/facility.aspx",
+  "publisher": "Chicago Department of Aviation",
+  "checked": "2026-11-03"
+ },
+ "kpwk-cea-rules": {
+  "title": "Chicago Executive Airport Primary Guiding Documents, Rules and Regulations (09/15/06)",
+  "url": "https://www.chiexec.com/wp-content/uploads/2017/09/Rules-And-Regulations1.pdf",
+  "publisher": "Chicago Executive Airport",
+  "checked": "2026-11-03"
+ },
+ "kbed-faa-flightdeck": {
+  "title": "FAA Flight Deck: Laurence G. Hanscom Field (BED), last updated 10 Aug 2026",
+  "url": "https://www.faa.gov/flight_deck/bed",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "kiad-mwaa-overview-dulles": {
+  "title": "Overview of Dulles (undated; mentions Master Plan update adopted July 2025)",
+  "url": "https://www.mwaa.com/overview-dulles",
+  "publisher": "Metropolitan Washington Airports Authority",
+  "checked": "2026-11-03"
+ },
+ "koak-faa-flightdeck": {
+  "title": "FAA Flight Deck: Oakland San Francisco Bay Airport (OAK), last updated 1 Oct 2026",
+  "url": "https://www.faa.gov/flight_deck/oak",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "koak-fbo": {
+  "title": "Fixed-Base Operators (FBO), Oakland San Francisco Bay Airport (page modified 27 Aug 2026)",
+  "url": "https://www.iflyoak.com/visit/education/general-aviation/fixed-base-operators/",
+  "publisher": "Port of Oakland",
+  "checked": "2026-11-03"
+ },
+ "ksjc-faa-flightdeck": {
+  "title": "FAA Flight Deck: Norman Y. Mineta San Jose International Airport (SJC), last updated 25 Jun 2026",
+  "url": "https://www.faa.gov/flight_deck/sjc",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-03"
+ },
+ "ksna-gano": {
+  "title": "General Aviation Noise Ordinance, Orange County Codified Ordinances Art. 3 (file dated 27 Oct 2015; latest amendment seen 9 Sep 2004)",
+  "url": "https://files.ocair.com/media/2021-02/general-aviation-noise-ordinance-gano-10-27-15_web.pdf?VersionId=nBc4Qb2rCmxE7pNV9gA8uT9nxjaDm7mx",
+  "publisher": "County of Orange / John Wayne Airport",
+  "checked": "2026-11-03"
+ },
+ "ksna-noise-faq": {
+  "title": "Access & Noise FAQs, John Wayne Airport (footer 2026)",
+  "url": "https://www.ocair.com/about/administration/access-noise/access-noise-faqs/",
+  "publisher": "John Wayne Airport, Orange County",
+  "checked": "2026-11-03"
+ },
+ "ksna-ga-services": {
+  "title": "General Aviation Services, John Wayne Airport (footer 2026)",
+  "url": "https://www.ocair.com/business/general-aviation/services/",
+  "publisher": "John Wayne Airport, Orange County",
+  "checked": "2026-11-03"
+ },
+ "ksna-access-plan": {
+  "title": "Phase 2 Commercial Airline Access Plan and Regulation (as amended through 1 Jan 2021)",
+  "url": "https://files.ocair.com/media/2021-02/Access-Plan_2021-01_web.pdf?VersionId=n5OrJQ1oL939ZdAsxI79Izoowxg7xpZ4",
+  "publisher": "County of Orange / John Wayne Airport",
+  "checked": "2026-11-03"
+ },
+ "cyyz-gtaa-aro": {
+  "title": "Toronto Pearson: Airport Reservation Office (ARO), page undated; states changes effective 21 Oct 2025",
+  "url": "https://www.torontopearson.com/en/operators-at-pearson/getting-started/aro",
+  "publisher": "Greater Toronto Airports Authority",
+  "checked": "2026-11-03"
+ },
+ "cyvr-yvr-runway-slots-faq": {
+  "title": "YVR: Runway Slots, Frequently Asked Questions, page undated",
+  "url": "https://www.yvr.ca/en/business/work-with-yvr/runway-slots/frequently-asked-questions",
+  "publisher": "Vancouver Airport Authority",
+  "checked": "2026-11-03"
+ },
+ "mynn-caab-gov-aerodromes": {
+  "title": "Civil Aviation Authority Bahamas: Register of Bahamas Government Aerodromes, undated; data from Bahamas AIP Fifth Edition, Amendment 01/2022",
+  "url": "https://caabahamas.com/wp-content/uploads/2022/02/CAA-B-Register-of-Government-Owned-Aerodromes.pdf",
+  "publisher": "Civil Aviation Authority Bahamas",
+  "checked": "2026-11-03"
+ },
+ "mynn-caab-faqs": {
+  "title": "Civil Aviation Authority Bahamas: FAQs, page undated (footer copyright 2026)",
+  "url": "https://caabahamas.com/faqs/",
+  "publisher": "Civil Aviation Authority Bahamas",
+  "checked": "2026-11-03"
+ },
+ "uk-nats-typea-index": {
+  "title": "NATS UK, Type A charts index (runway and date per aerodrome, read 4 Nov 2026)",
+  "url": "https://nats-uk.ead-it.com/cms-nats/opencms/en/Charts/type-a-charts/",
+  "publisher": "NATS",
+  "checked": "2026-11-04"
+ },
+ "uk-typea-eglf-20260505": {
+  "title": "NATS, Type A chart Farnborough RWY 06-24 (effective 05 May 2026)",
+  "url": "https://nats-uk.ead-it.com/cms-nats/export/sites/default/en/Charts/type-a-charts/NATS_AIM_TypeA_Farnborough-EGLF_06-24.pdf",
+  "publisher": "NATS",
+  "checked": "2026-11-04"
+ },
+ "uk-typea-egkb-20261102": {
+  "title": "NATS, Type A chart Biggin Hill RWY 03-21 (effective 02 Nov 2026)",
+  "url": "https://nats-uk.ead-it.com/cms-nats/export/sites/default/en/Charts/type-a-charts/NATS_AIM_TypeA_BigginHill-EGKB_03-21.pdf",
+  "publisher": "NATS",
+  "checked": "2026-11-04"
+ },
+ "ch-bafu-night-20251118": {
+  "title": "Federal Office for the Environment (BAFU/OFEV), Bruit du trafic aérien, section Interdiction des vols de nuit (published 18 Nov 2025)",
+  "url": "https://www.bafu.admin.ch/fr/bruit-trafic-aerien",
+  "publisher": "Swiss Federal Office for the Environment",
+  "checked": "2026-11-04"
+ },
+ "zrh-betriebsreglement-20260320": {
+  "title": "Betriebsreglement für den Flughafen Zürich vom 30. Juni 2011 (Stand am 20. März 2026)",
+  "url": "https://media.flughafen-zuerich.ch/-/jssmedia/airport/portal/dokumente/das-unternehmen/politics-and-responsibility/politics-and-economy/betriebskonzepte/betriebsreglement_flughafen_zuerich_2026.pdf",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-11-04"
+ },
+ "cmf-plan-your-flight": {
+  "title": "Chambéry Savoie Mont Blanc Airport, Plan your flight (page undated; checked 4 Nov 2026)",
+  "url": "https://www.chambery-airport.com/en/professionals/plan-your-flight",
+  "publisher": "Chambéry Savoie Mont Blanc Airport",
+  "checked": "2026-11-04"
+ },
+ "uae-aip-omad-p08": {
+  "title": "UAE AIP, AD 2 OMAD Abu Dhabi/Al Bateen Executive (2026-P08 package; pages AIRAC AMDT 01/2025 to 09/2026, latest 03 Sep 2026; not the current AIRAC 11/2026)",
+  "url": "https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2026-P08/pdf/AD-2.OMAD.pdf",
+  "publisher": "General Civil Aviation Authority, UAE",
+  "checked": "2026-11-04"
+ },
+ "kix-airline-partners": {
+  "title": "For Airline Partners - Kansai International Airport (KIX) (no page date shown)",
+  "url": "https://www.kansai-airports.co.jp/en/business/airlinepartners/",
+  "publisher": "Kansai Airports",
+  "checked": "2026-11-04"
+ },
+ "it-dpr-476-1999": {
+  "title": "D.P.R. 9 November 1999 n. 476, amending D.P.R. 496/1997 on the ban on night flights (original text, in force 18 Dec 1999)",
+  "url": "https://www.normattiva.it/eli/id/1999/12/17/099G0544/ORIGINAL",
+  "publisher": "Normattiva (Italian Government)",
+  "checked": "2026-11-04"
+ },
+ "it-save-vce-par-2024": {
+  "title": "Venice Marco Polo noise action plan, D.Lgs. 194/05, non-technical summary (18 Jul 2024)",
+  "url": "https://ambiente.veneziaairport.it/upload/files/sito_ambiente/rumore/archivio_documenti/relazione_piano_dazione_vce_2024_sintesi_nt_aeroporto.pdf",
+  "publisher": "SAVE S.p.A. (Venice Airport operator)",
+  "checked": "2026-11-04"
+ },
+ "vce-general-info": {
+  "title": "Venice Airport, General information (undated, read 2026-11-04)",
+  "url": "https://www.veneziaairport.it/en_gb/at-the-airport/general-info",
+  "publisher": "SAVE S.p.A. (Venice Airport operator)",
+  "checked": "2026-11-04"
+ },
+ "za-aip-gen-20261015": {
+  "title": "South African AIP, GEN (General), file dated 15 Oct 2026; GEN 1.2 pages effective 15 Jul 2024 and 15 Oct 2025",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/General%20(15_OCT_2026).pdf",
+  "publisher": "South African Civil Aviation Authority (SACAA)",
+  "checked": "2026-11-04"
  }
 }

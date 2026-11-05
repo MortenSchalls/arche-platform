@@ -7,7 +7,7 @@
  "tz": "Asia/Kuala_Lumpur",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-04",
  "rules": {
   "customs": {
    "v": "customs and immigration open 24 hours",
@@ -21,20 +21,29 @@
    "quote": "AD Operator: H24 ... ATS: H24"
   },
   "handling": {
-   "v": "by prior arrangement (no agents named in the AIP pages read)",
-   "src": "my-aip-wmkk",
-   "quote": "Handling: Prior arrangement."
+   "v": "handling services 24 hours, by prior arrangement with the aerodrome administration (no agents named)",
+   "src": "my-aip-wmkk-2026-10",
+   "quote": "Handling services available H 24 & by prior arrangement with the aerodrome administration."
+  },
+  "slots": {
+   "v": "under civil non-scheduled flights, the AIP says airlines must get slot time confirmation from National Slot Coordination Malaysia (NSCM) before applying to CAAM; it says 'airlines' and does not mention private aircraft separately",
+   "src": "my-aip-gen12",
+   "quote": "All airlines operating to all airports in Malaysia must contact National Slot Coordination Malaysia (NSCM) for slot time confirmation in IATA SCR format before submitting to CAAM"
+  },
+  "permits": {
+   "v": "non-scheduled flights need prior permission through NOSAS or AEROFILE; apply at least 3 working days ahead or approval may not be processed in time",
+   "src": "my-aip-gen12",
+   "quote": "Prior permission must be sought and obtained either by NOSAS or AEROFILE system.; Flight approval might not be processed in time if the application is less than three (3) working days."
   }
  },
  "missing": [
   "iata (not stated in the AIP)",
   "runway (AD 2.12 not readable, page cut off at AD 2.9)",
   "curfew",
-  "slots",
   "ppr",
   "max_aircraft",
   "noise",
   "handling agent names"
  ],
- "notes": "The eAIP page (AIRAC 6 Aug 2026) only loaded up to AD 2.9; runway, local regulations and noise sections could not be read. The old PDF AD 2 on aip.caam.gov.my dates from 2008-2011 and was not used. Customs and aerodrome are H24."
+ "notes": "The eAIP page (AIRAC 6 Aug 2026) only loaded up to AD 2.9; runway, local regulations and noise sections could not be read. The old PDF AD 2 on aip.caam.gov.my dates from 2008-2011 and was not used. Customs and aerodrome are H24. 1 Nov 2026: read the newest edition, AIRAC 29 Oct 2026 (https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html). The page text is again cut off in AD 2.9 (the AD 2.8 taxiway/apron tables are very long), so runway (AD 2.12), local rules (AD 2.20) and noise (AD 2.21) still could not be read; Morten may need to download the AD 2 WMKK pages. Handling updated from that edition. Its AD 2.3 hours rows show only database markup with '24', so customs and hours are kept from the 6 Aug 2026 edition. The AIP refers to runways 14L/32R and 14R/32L (lengths not read). | 2026-11-02 run: Re-read 19 May 2026 eAIP WMKK page (79k characters) from offset 60000 and 72000: only taxiway/apron pavement tables; AD 2.12, 2.20, 2.21 not in the readable text. Nothing new. | 2026-11-04 run: 4 Nov 2026: slots and permits added from GEN 1.2 (eAIP 11 Aug 2026; a newer GEN 1.2 was not found). AD 0.6 (6 Aug 2026) links the WMKK page with anchors, but the link to AD 2.12 was refused and the 25 Mar 2025 page failed; runway, AD 2.20 and AD 2.21 still unread."
 }

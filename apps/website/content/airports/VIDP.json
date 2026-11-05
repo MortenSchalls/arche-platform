@@ -7,7 +7,7 @@
  "tz": "Asia/Kolkata",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-03",
  "rules": {
   "customs": {
    "v": "customs and immigration 24 hours",
@@ -31,5 +31,5 @@
   "hours (only aerodrome office hours stated)",
   "noise"
  ],
- "notes": "Page read is India AIP AMDT 04-26 (effective 14 May 2026). The page is long and the text returned stopped inside AD 2.10 obstacles, so AD 2.12 runways, AD 2.20 local rules and AD 2.21 noise were not read. The AIP refers to the airport's own general aviation page (newdelhiairport.in) for the DACN procedure; not opened."
+ "notes": "Page read is India AIP AMDT 04-26 (effective 14 May 2026). The page is long and the text returned stopped inside AD 2.10 obstacles, so AD 2.12 runways, AD 2.20 local rules and AD 2.21 noise were not read. The AIP refers to the airport's own general aviation page (newdelhiairport.in) for the DACN procedure; not opened. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html (read on to AD 2.12, 2.20, 2.21); web search found no newdelhiairport.in general aviation page. Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: all AAI eAIP URLs on aim-india.aai.aero now redirect to another host, aim-india.aai.aero.in, and the reader refused that host (permission request not answered), so no AIP page could be read and nothing was added from the AIP. The host's ownership was not verified. Blocked URL: https://aim-india.aai.aero.in/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html. Operator page https://www.newdelhiairport.in/faq/ refused automated reading (robots)."
 }

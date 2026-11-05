@@ -6,23 +6,64 @@
  "country": "NO",
  "tz": "Europe/Oslo",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-10-27",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-03",
+ "rules": {
+  "runway": {
+   "v": "Runway 01L/19R 3600 m x 45 m; runway 01R/19L 2950 m x 45 m.",
+   "longest_m": 3600,
+   "src": "engm-avinor-ad-manual",
+   "quote": "01L: 3600 x 45 M; 19R: 3600 x 45 M; 01R: 2950 x 45 M; 19L: 2950 x 45 M"
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours.",
+   "h24": true,
+   "src": "engm-avinor-opr-hrs",
+   "quote": "Oslo/Gardermoen | ENGM | H24"
+  },
+  "slots": {
+   "v": "All flights must have allocated arrival and departure times.",
+   "src": "engm-avinor-ad-manual",
+   "quote": "All flights operating at Oslo Airport, Gardermoen are subject to compulsory allocation of arrival and departure times."
+  },
+  "max_aircraft": {
+   "v": "Aerodrome reference code 4E on all runways. Code F operations are described in AIP Norway ENGM AD 2.23, which could not be read.",
+   "src": "engm-avinor-ad-manual",
+   "quote": "The AD reference code is 4E for all runways."
+  },
+  "handling": {
+   "v": "Ground handling is compulsory.",
+   "src": "engm-avinor-ad-manual",
+   "quote": "Ground handling is compulsory at Oslo Airport."
+  },
+  "hours": {
+   "v": "Air traffic services 24 hours.",
+   "src": "engm-avinor-opr-hrs",
+   "quote": "Oslo/Gardermoen | ENGM | H24"
+  },
+  "noise": {
+   "v": "At night, reverse thrust beyond idle after landing is not permitted. The page does not give the night hours.",
+   "src": "engm-avinor-noise",
+   "quote": "During the night period, reversing of jet engines beyond \"idle reverse\" after landing is not permitted."
+  },
+  "fuel": {
+   "v": "Jet A1 and F34 24 hours. 100LL on request at set hours.",
+   "src": "engm-avinor-opr-hrs",
+   "quote": "JET A1: H24, F34: H24, 100LL: MON - FRI: AVBL O/R 0500 - 2300 (0400 - 2200),"
+  },
+  "deicing": {
+   "v": "An agreement with a de-icing operator is required before engine start for departure.",
+   "src": "engm-avinor-ad-manual",
+   "quote": "An agreement on ACFT de-icing must be established with a de-icing operator prior to engine start-up for departure."
+  }
+ },
  "missing": [
   "geo",
   "operator",
   "location",
-  "runway",
-  "customs",
   "curfew",
-  "slots",
   "ppr",
-  "max_aircraft",
-  "handling",
-  "hours",
-  "noise",
   "notable"
  ],
- "notes": "Unavailable: the Avinor eAIP pages found by search (2025-09-04 and 2025-11-27 AIRAC) now show only an 'outdated AIP' notice, and the current AIP index page and the 2026-09-03 AIRAC page could not be opened (permission not granted in time). No facts recorded; IATA code shown is from the task list, not verified from the AIP."
+ "notes": "Unavailable: the Avinor eAIP pages found by search (2025-09-04 and 2025-11-27 AIRAC) now show only an 'outdated AIP' notice, and the current AIP index page and the 2026-09-03 AIRAC page could not be opened (permission not granted in time). No facts recorded; IATA code shown is from the task list, not verified from the AIP. | 2026-10-31 run: still unavailable. Avinor AIRAC table shows AMDT 05/2026 (effective 3 Sep 2026) current and 06/2026 due 26 Nov 2026. The 2025-11-27 ENGM page shows only an 'outdated AIP' notice pointing to https://avinor.no/en/ais/aipnorway/; that page and https://aim-prod.avinor.no/no/AIP/ (linked from partner.avinor.no/en/ais/aip/) could not be opened (permission not granted). Avinor's private-flights page has no Oslo rules. | 2026-11-03 run: read Avinor Operational Hours (AIRAC 29 OCT 2026) and Aerodrome Manual v3.1 (header valid from 30.10.2026; amendments table says 22.10.2026); the manual also says training use is prohibited, and H24 in handling and de-icing comes from the Operational Hours page. Curfew not recorded: refused https://aim-prod.avinor.no/no/AIP/View/Index/155/2026-09-03-AIRAC/html/eAIP/EN-AD-2.ENGM-en-GB.html and https://aim-prod.avinor.no/no/AIP/, failed https://lovdata.no/dokument/LF/forskrift/2015-12-17-1857 (the night noise regulation); owner can download them."
 }
