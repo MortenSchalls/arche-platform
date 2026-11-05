@@ -13,6 +13,8 @@
 //   falls back to RESEND_API_KEY: the sender's domain must be verified in that Resend account), NAVORYX_SITE (optional).
 import crypto from "node:crypto";
 
+// where the owner's preview opens until the site is launched (then set NAVORYX_PREVIEW_SITE to the live address)
+export const PREVIEW_SITE = "https://navoryx-website-git-staging-arche-platform.vercel.app";
 export const IR_STAGES = { prospect: "Prospect", invited: "Invited", requested: "Asked for access", approved: "Access given",
   opened: "Briefing opened", conversation: "Conversation", nda: "NDA signed", documents: "Documents shared", committed: "Committed", notnow: "Not now" };
 const ORDER = Object.keys(IR_STAGES);
@@ -139,6 +141,13 @@ export async function irHandler(req, res, { sb, owner }) {
   }
 
   const o = await owner(req); if (o.error) return res.status(o.code).json({ error: o.error });
+  if (b.action === "preview") {   // owner opens the briefing without a code (Morten, 5 Nov 2026); a 5-minute signed link
+    if (!process.env.NAVORYX_IR_KEY) return res.status(503).json({ error: "NAVORYX_IR_KEY is missing in the portal's Vercel settings." });
+    const exp = String(Date.now() + 5 * 60000), sig = crypto.createHmac("sha256", process.env.NAVORYX_IR_KEY).update(`preview|${exp}`).digest("base64url");
+    const site = (process.env.NAVORYX_PREVIEW_SITE || PREVIEW_SITE).replace(/\/$/, "");
+    await sb("/rest/v1/audit_log", { method: "POST", headers: { prefer: "return=minimal" }, body: JSON.stringify({ by: o.me.id, action: "Investor relations", detail: "Briefing preview opened" }) });
+    return res.status(200).json({ url: `${site}/api/ir?a=preview&t=${exp}.${sig}` });
+  }
   const rows = await all(), row = rows.find(r => r.id === clean(b.id, 20)); if (!row) return res.status(404).json({ error: "Record not found." });
   const target = clean(b.email, 200).toLowerCase();
   if (!EMAIL_RX.test(target) && !/^@[^@\s]+\.[a-z]{2,}$/i.test(target)) return res.status(400).json({ error: "Enter a valid email address or @domain." });

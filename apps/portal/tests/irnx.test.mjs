@@ -59,3 +59,11 @@ ok("approval (they asked) has no removal line", !/We have your details/.test(irM
   const sb2 = async () => ({ ok: true, body: [{ id: "i1", data: { contacts: [{ name: "A", email: "a@b.com" }] } }] });
   await irHandler({ method: "POST", headers: {}, body: { action: "send", id: "i1", email: "a@b.com", subject: "S", text: "Dear A,\n\nWe have your details [say where we have your details from]. More text here to pass the length." } }, res2, { sb: sb2, owner: async () => ({ me: { id: "u" } }) });
   ok("a [placeholder] left in the text is refused before sending", out2.c === 400 && /placeholder/.test(out2.j.error)); }
+{ process.env.NAVORYX_IR_KEY = "k-example-123"; const out3 = {}; const res3 = { status(c) { out3.c = c; return this; }, json(j) { out3.j = j; return this; } };
+  const crypto = await import("node:crypto"); let audited = "";
+  await irHandler({ method: "POST", headers: {}, body: { action: "preview" } }, res3, { sb: async (path, init) => { if (path.includes("audit_log")) audited = init.body; return { ok: true, body: [] }; }, owner: async () => ({ me: { id: "u" } }) });
+  const m = String((out3.j || {}).url).match(/a=preview&t=(\d{13})\.([\w-]+)$/);
+  ok("owner preview: a 5-minute link signed with the shared key, audited without names", out3.c === 200 && m && Number(m[1]) - Date.now() <= 5 * 60000 && Number(m[1]) > Date.now()
+    && m[2] === crypto.createHmac("sha256", "k-example-123").update(`preview|${m[1]}`).digest("base64url") && /Briefing preview opened/.test(audited));
+  await irHandler({ method: "POST", headers: {}, body: { action: "preview" } }, res3, { sb: async () => ({ ok: true, body: [] }), owner: async () => ({ code: 403, error: "Owners only" }) });
+  ok("preview needs an owner", out3.c === 403); }

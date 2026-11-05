@@ -19,6 +19,8 @@ let p=await open('owner');
 const txt=async s=>p.evaluate(s=>(document.querySelector(s)||{}).innerText||'',s);
 ok('overview: waiting for you 1, access given 1, opened 1, waiting line 1',await p.evaluate(()=>{const v=k=>(document.querySelector(`[data-irf="${k}"] .v`)||{}).innerText;return v('wait')==='1'&&v('given')==='1'&&v('opened')==='1'&&v('line')==='1';}));
 ok('waiting line per version',/Waiting line, in order of interest: Income 1 · Income and time aboard 0/.test(await txt('.panel')+(await p.evaluate(()=>document.body.innerText))));
+p.bodies=[];await p.click('[data-ir="preview"]');await p.waitForTimeout(500);
+ok('Open the briefing asks the portal for a preview link',p.bodies.some(b=>b.action==='preview'));
 await p.click('[data-irf="wait"]');await p.waitForTimeout(300);
 ok('filter "waiting for you" shows only the request',await p.evaluate(()=>[...document.querySelectorAll('[data-invsel]')].map(r=>r.dataset.invsel).join()==='i002'));
 await p.click('[data-invsel="i002"]');await p.waitForTimeout(300);

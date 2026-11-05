@@ -23,7 +23,7 @@ function irOverview(all){
   const per = k => line.filter(p => (irOf(p).interest || "undecided") === k).length;
   const btn = (k, l, v) => `<button type="button" class="kpi kbtn" data-irf="${k}" aria-pressed="${F.ir === k}"><div class="l">${l}</div><div class="v">${v}</div></button>`;
   return `<div class="panel" style="margin-bottom:12px"><h2 style="margin:0 0 6px">Navoryx investor relations</h2>
-    <p class="small muted">Who may open the private investor briefing on the Navoryx website. Requests from its investor page arrive here with their sanctions result; nobody gets access until you give it.</p>
+    <p class="small muted"><button class="btn small" type="button" data-ir="preview" style="float:right;margin:0 0 6px 12px">Open the briefing</button>Who may open the private investor briefing on the Navoryx website. Requests from its investor page arrive here with their sanctions result; nobody gets access until you give it.</p>
     <div class="kpis">${btn("wait", "Asked for access, waiting for you", n.wait)}${btn("given", "Access given", n.given)}${btn("opened", "Opened the briefing", n.opened)}${btn("line", "Waiting line", line.length)}</div>
     ${line.length ? `<p class="small">Waiting line, in order of interest: ${["income", "time", "both", "undecided"].map(k => `${IR_INT[k]} ${per(k)}`).join(" · ")}</p>` : ""}</div>`;
 }
@@ -62,6 +62,12 @@ document.addEventListener("click", async e => {
   if (f && invOwner()) { const F = S.invF || (S.invF = {q:"", track:"", for:"", status:"", potential:"", interest:"", industry:"", ticket:""}); F.ir = F.ir === f.dataset.irf ? "" : f.dataset.irf; render(); return; }
   const el = e.target.closest("[data-ir]"); if (!el || !invOwner()) return;
   const a = el.dataset.ir, id = el.dataset.id, em = el.dataset.em, p = id && (S.inv || {})[id];
+  if (a === "preview") {   // opens the briefing as investors see it, no code; counted as your preview, not an investor opening
+    const w = window.open("", "_blank");
+    try { const j = await irApi({action: "preview"}); if (w) w.location.href = j.url; else location.href = j.url; }
+    catch (err) { if (w) w.close(); toast(String(err.message || err)); }
+    return;
+  }
   if (a === "cancel") { S.irC = null; render(); return; }
   if (a === "save" && p) {
     const stage = $("irStage").value, interest = $("irInt").value; if (!IR_ST[stage] || !IR_INT[interest]) return;

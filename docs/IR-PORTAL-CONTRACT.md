@@ -29,7 +29,7 @@ Rule (Morten, 5 Nov 2026): both sides stay aligned so that nothing on one side b
 
 ## Owner calls inside the portal (signed in as owner)
 
-`draft` (returns the email wording), `send` (sends one email, then gives access), `approve` (access without email), `revoke` (withdraw access). The text sent is the owner's edited text; a `[placeholder]` left in it is refused.
+`draft` (returns the email wording), `send` (sends one email, then gives access), `approve` (access without email), `revoke` (withdraw access). `preview` returns a link that opens the briefing for the owner without a code: `<site>/api/ir?a=preview&t=<exp>.<sig>`, where `exp` is a millisecond time at most 5 minutes ahead and `sig` = HMAC-SHA256(shared key, `preview|<exp>`) in base64url. The website checks it with `PORTAL_IR_KEY`, opens an owner session (`owner-preview`, 12 hours) and never counts it as an investor opening. `<site>` is `NAVORYX_PREVIEW_SITE`, or the staging address until launch. The text sent is the owner's edited text; a `[placeholder]` left in it is refused.
 
 ## Data on each investor record (`data.ir`)
 
@@ -42,11 +42,11 @@ An opt-out, or 12 months without contact (`jobs/lib/contacts.mjs`), deletes the 
 | Portal project | Navoryx project |
 |---|---|
 | `NAVORYX_IR_KEY` (shared key) | `PORTAL_IR_KEY` (the same value) |
-| `NAVORYX_IR_FROM`, `NAVORYX_RESEND_KEY`, `NAVORYX_IR_REPLY`, `NAVORYX_SITE` | `PORTAL_IR_URL`, `IR_SECRET`, `RESEND_API_KEY`, `IR_FROM`, `IR_NOTIFY`, `IR_ALLOWLIST` (optional) |
+| `NAVORYX_IR_FROM`, `NAVORYX_RESEND_KEY`, `NAVORYX_IR_REPLY`, `NAVORYX_SITE`, `NAVORYX_PREVIEW_SITE` (optional; at launch set to the live address) | `PORTAL_IR_URL`, `IR_SECRET`, `RESEND_API_KEY`, `IR_FROM`, `IR_NOTIFY`, `IR_ALLOWLIST` (optional) |
 
 ## Tests that guard the contract
 
-- Website: `npm test` (`tests/ir.test.mjs`, "portal engine" test: apply filed, approval opens a code, events logged, withdrawal ends access, portal down fails closed).
+- Website: `npm test` (`tests/ir.test.mjs`: "portal engine" test (apply filed, approval opens a code, events logged, withdrawal ends access, portal down fails closed) and "owner preview" test (signed link, expiry, wrong key)). `/api/ir?a=health` shows which settings are present (yes/no only).
 - Portal: `node apps/portal/tests/irnx.test.mjs` (server) and `node apps/portal/tests/irtest.js` (screens). Both run in the portal's GitHub "Portal checks".
 
 ## Wording rules shared by both
