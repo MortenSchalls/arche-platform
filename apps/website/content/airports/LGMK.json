@@ -7,7 +7,7 @@
  "tz": "Europe/Athens",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-02",
+ "checked": "2026-11-05",
  "rules": {
   "ppr": {
    "v": "prior permission (PPR, parking authorisation) is mandatory for all general and business aviation flights; it can be requested up to 14 calendar days before arrival and must be cleared through a licensed ground handler",
@@ -25,9 +25,19 @@
    "quote": "All PPR requests must be cleared through a Ground Handling Service Provider with a valid category 1 License"
   },
   "hours": {
-   "v": "open every day 00:00 to 23:59, with extensions possible on specific dates",
-   "src": "jmk-ga",
-   "quote": "Every Day 00:00 – 23:59"
+   "v": "Not open all day in winter. Mon, Tue, Thu 08:30-18:30; Wed and Fri 07:30-18:30; Sat 08:30-12:30 and 18:00-22:00; Sun 08:30-19:00; exceptions Sun 1 Nov 08:30-22:30 and Fri 25 Dec 08:30-12:30; may be extended on specific dates for individual flights. Runway suspended 24 hours every Thursday, 00:01-23:59 local, 19 Nov 2026 to 18 Mar 2027, except dates exempted by the operator (23, 24, 31 Dec 2026; 6, 7 Jan 2027). Summer 2027 (28 Mar to 30 Oct 2027): every day 00:00-23:59 per the slot coordinator",
+   "src": "jmk-ga-2026-11",
+   "quote": "Mon, Tue, Thu 08:30 – 18:30",
+   "also": [
+    {
+     "src": "fg-runway-works-2026",
+     "quote": "For 24hrs every Thursday 00:01 – 23:59*"
+    },
+    {
+     "src": "hsca-timetables-s27",
+     "quote": "Every Day 00:00 – 23:59"
+    }
+   ]
   }
  },
  "missing": [
@@ -39,5 +49,5 @@
   "max_aircraft",
   "noise"
  ],
- "notes": "No AIP page could be read (see LGAV). The 40-minute ground-time rule is stated for summer 2025 in PPR Handbook v9.0 (12 May 2025); check whether a newer handbook repeats it for 2026 before quoting it as current. The operator's hours line ('Every Day 00:00 – 23:59') comes from jmk-airport.gr, which shows no page date; it is not a customs/immigration hours statement. | 2026-10-31 run: nothing new verified; jmk-airport.gr GA page could not be re-opened (permission not granted), no PPR Handbook newer than v9.0 found, HASP eAIP AD 2 LGMK not found. | 2026-11-02 run: AIP Greece AD 2 LGMK: ypa.gr PDF (dated 26 JAN 2023, superseded) and hcaa.gr airport page fail with a redirect loop; current AIP at aisgr.hasp.gov.gr (AMDT 09/26 effective 29 OCT 2026) is listed only as an ISO download, and the AD 2 LGMK page was not returned by search. Nothing recorded."
+ "notes": "No AIP page could be read (see LGAV). The 40-minute ground-time rule is stated for summer 2025 in PPR Handbook v9.0 (12 May 2025); check whether a newer handbook repeats it for 2026 before quoting it as current. The operator's hours line ('Every Day 00:00 – 23:59') comes from jmk-airport.gr, which shows no page date; it is not a customs/immigration hours statement. | 2026-10-31 run: nothing new verified; jmk-airport.gr GA page could not be re-opened (permission not granted), no PPR Handbook newer than v9.0 found, HASP eAIP AD 2 LGMK not found. | 2026-11-02 run: AIP Greece AD 2 LGMK: ypa.gr PDF (dated 26 JAN 2023, superseded) and hcaa.gr airport page fail with a redirect loop; current AIP at aisgr.hasp.gov.gr (AMDT 09/26 effective 29 OCT 2026) is listed only as an ISO download, and the AD 2 LGMK page was not returned by search. Nothing recorded. 5 Nov 2026: 2026-11-05 run: hours CHANGED. The operator's GA page no longer reads 'Every Day 00:00 – 23:59'; it shows the schedule now recorded, with no validity dates. Reading it as winter 2026/27 is my inference from its exceptions (1 Nov 2026 is a Sunday, 25 Dec 2026 a Friday). Outside these hours is not recorded as a curfew because no source calls it one; check before any early or late slot. Operator's release of 8 Sep 2026: the exempt dates' footnote applies to the Mykonos and Mitilene weekly closures; terminal services stay open; emergency helicopter flights continue. HSCA levels page confirms Level 3 summer and Level 1 winter, GA/BA allocation Yes. Runway length not stated in any page read (environmental bulletin URL too long to fetch). HSCA S27 parameters PDF has no readable text."
 }

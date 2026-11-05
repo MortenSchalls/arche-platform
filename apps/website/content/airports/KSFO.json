@@ -7,7 +7,7 @@
  "tz": "America/Los_Angeles",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-03",
+ "checked": "2026-11-05",
  "rules": {
   "customs": {
    "v": "CBP clears general aviation arrivals generally 08:00-22:00 (wheels down), 7 days a week, planeside at the Signature FBO; request at least one calendar day before arrival; landing permission valid +/-30 minutes",
@@ -31,17 +31,20 @@
    "longest_m": 3618,
    "src": "ksfo-faa-apd",
    "quote": "11870X200"
+  },
+  "slots": {
+   "v": "FAA IATA Level 2 (schedule facilitated) airport; designated hours 06:00-23:00 Pacific (13:00-06:00 UTC). FAA says it is primarily concerned with scheduled and other regularly conducted commercial flights; the notice does not mention general aviation or charters",
+   "src": "faa-slots-fr-2026-10",
+   "quote": "For LAX and SFO, from 0600 to 2300 Pacific Time (1300 to 0600 UTC)"
   }
  },
  "missing": [
   "iata",
   "curfew",
-  "slots",
   "ppr",
   "max_aircraft",
-  "noise",
   "hours",
   "fuel"
  ],
- "notes": "Read only the CBP KSFO fact sheet (29 May 2024, KSFO-0524); it does not state the time zone on the 0800-2200 line, local Pacific time is the natural reading. Not opened: FAA Chart Supplement (CS_SW_20260903.pdf) and SFO special notices https://aeronav.faa.gov/afd/02OCT2025/sw_SFO_notices_02OCT2025.pdf, FAA airport diagram https://www.faa.gov/aero_docs/dtpp/2608/00375SANFRANCISCO.PDF, FAA NASR page. The airport's own site (flysfo.com / fly.sfo.gov) gave no readable page; search budget ran out before runway facts were found. IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code. 1 Nov 2026: added runways from the FAA airport diagram AL-375 (cycle 1 Oct-29 Oct 2026; the 29 Oct cycle was not found). The diagram text lists 11870X200, 11381X200 and two garbled sizes (read as 8650 and 7650 x 200 on the 4 Sep 2025 cycle) without tying each to a runway, so only the longest size is used; metres are my conversion (1 ft = 0.3048 m). KSFO is not on the FAA US AIP California AD 2 page (it covers KFAT, KLAX, KOAK, KONT). No SFO noise or night-rules page on flysfo.com was found by search; curfew still missing. | 3 Nov 2026: nothing new could be read. A newer CBP sheet of 28 May 2026 exists (https://www.cbp.gov/sites/default/files/2026-05/KSFO%20GA%20Airport%20Fact%20Sheet%2020260528.pdf) but was refused, so the 29 May 2024 customs hours may have changed. The airport's new site fly.sfo.gov gave fetch errors (https://fly.sfo.gov/about/airport-operations/policies-regulations/runway-constraints, https://fly.sfo.gov/about/community-noise), and FAA Flight Deck SFO (https://www.faa.gov/flight_deck/sfo) was blocked; these should hold the night and noise rules. Curfew still missing."
+ "notes": "Read only the CBP KSFO fact sheet (29 May 2024, KSFO-0524); it does not state the time zone on the 0800-2200 line, local Pacific time is the natural reading. Not opened: FAA Chart Supplement (CS_SW_20260903.pdf) and SFO special notices https://aeronav.faa.gov/afd/02OCT2025/sw_SFO_notices_02OCT2025.pdf, FAA airport diagram https://www.faa.gov/aero_docs/dtpp/2608/00375SANFRANCISCO.PDF, FAA NASR page. The airport's own site (flysfo.com / fly.sfo.gov) gave no readable page; search budget ran out before runway facts were found. IATA code left null: the official pages read show only the FAA identifier, not a stated IATA code. 1 Nov 2026: added runways from the FAA airport diagram AL-375 (cycle 1 Oct-29 Oct 2026; the 29 Oct cycle was not found). The diagram text lists 11870X200, 11381X200 and two garbled sizes (read as 8650 and 7650 x 200 on the 4 Sep 2025 cycle) without tying each to a runway, so only the longest size is used; metres are my conversion (1 ft = 0.3048 m). KSFO is not on the FAA US AIP California AD 2 page (it covers KFAT, KLAX, KOAK, KONT). No SFO noise or night-rules page on flysfo.com was found by search; curfew still missing. | 3 Nov 2026: nothing new could be read. A newer CBP sheet of 28 May 2026 exists (https://www.cbp.gov/sites/default/files/2026-05/KSFO%20GA%20Airport%20Fact%20Sheet%2020260528.pdf) but was refused, so the 29 May 2024 customs hours may have changed. The airport's new site fly.sfo.gov gave fetch errors (https://fly.sfo.gov/about/airport-operations/policies-regulations/runway-constraints, https://fly.sfo.gov/about/community-noise), and FAA Flight Deck SFO (https://www.faa.gov/flight_deck/sfo) was blocked; these should hold the night and noise rules. Curfew still missing. 5 Nov 2026: FAA Chart Supplement SFO special notices read in the edition of 3 Sep to 29 Oct 2026 only (superseded); the 29 Oct 2026 file (https://aeronav.faa.gov/afd/29OCT2026/sw_SFO_notices_29OCT2026.pdf) was refused. The notices state no curfew; curfew stays missing. Also from the notices: APUs at domestic terminals prohibited 22:00-06:00 with exceptions. FAA Level 2 page (updated 27 Nov 2024) calls participation voluntary, per the tool's summary only. Failed: fly.sfo.gov runway constraints, CBP sheet of 28 May 2026 (customs hours may have changed). Noise: the voluntary night runway programme is in the FAA Chart Supplement notices of 3 Sep 2026; the edition of 29 Oct 2026 could not be opened, so not recorded."
 }

@@ -1,13 +1,13 @@
 {
  "icao": "LGAV",
- "iata": null,
+ "iata": "ATH",
  "name": "Athens International Airport",
  "city": "Athens",
  "country": "GR",
  "tz": "Europe/Athens",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-03",
+ "checked": "2026-11-05",
  "rules": {
   "curfew": {
    "v": "No curfew; the airport operates 24 hours (operator's statement, December 2024).",
@@ -16,14 +16,43 @@
    "quote": "24h Operation with No Curfew"
   },
   "hours": {
-   "v": "24-hour operation (operator's statement, December 2024).",
-   "src": "lgav-aia-presentation",
+   "v": "24-hour operation (operator's statement, May 2026).",
+   "src": "lgav-aia-pres-0526",
    "quote": "24-hr operations"
   },
   "handling": {
    "v": "The airport company awards and supervises ground handling and does not run it itself; its page lists the handling companies, without saying which serve business aviation.",
    "src": "lgav-aia-ground-handling",
    "quote": "Athens International Airport (AIA) is responsible for the award and supervision of Ground Handling services."
+  },
+  "slots": {
+   "v": "Temporarily fully coordinated (Level 3) because of runway works, for winter 2026/27 (25 Oct 2026 to 27 Mar 2027) and summer 2027. GA/BA flights get slots from the slot coordinator (HSCA) under its rules; aircraft-registration-only flights must use a representative. Western runway system closed 5 Nov to 18 Dec 2026 and 18 to 23 Feb 2027; on it, take-offs only up to ICAO Cat C 3 Jan to 17 Feb 2027",
+   "src": "lgav-hsca-w26-l3",
+   "quote": "temporarily designated as a Level 3 (Fully Coordinated) airport for W26",
+   "also": [
+    {
+     "src": "lgav-hsca-s27-l3",
+     "quote": "ATH will be temporarily designated as a Level 3 (Fully Coordinated) airport for the S27 season."
+    },
+    {
+     "src": "hsca-gaba-page",
+     "quote": "Airport slots for General & Business Aviation flights must be cleared according to the issued Rules and Guidelines."
+    },
+    {
+     "src": "lgav-hsca-w26-params",
+     "quote": "05/11/2026 -18/12/2026 - Western Runway System Closed"
+    }
+   ]
+  },
+  "ppr": {
+   "v": "Winter 2026/27: GA/BA slot requests are taken no earlier than 7 days before the flight. Maximum ground time 90 minutes, minimum 20. Longer stays, or aircraft types not declared for the stand, need a PPR apron clearance from the airport first, and its confirmation goes in the slot request. A change to a larger type needs new airport approval. Helicopters are exempt",
+   "src": "lgav-hsca-gaba-local-w26",
+   "quote": "maximum Ground Time at Athens International Airport up to 90 minutes"
+  },
+  "max_aircraft": {
+   "v": "GA/BA stands, winter 2026/27: 4 Category B up to 17 m wingspan; 3 Category B from 17 m up to 23.72 m; 2 Category C for Global 5000-8000, G500-G800, FA6X, FA7X and FA8X, with 90 minutes between a departure and the next arrival. This is a stand limit for GA/BA flights; other Category C to F stands are for commercial traffic unless noted, and the airport's overall maximum aircraft was not read",
+   "src": "lgav-hsca-w26-params",
+   "quote": "CAT C: 2 Category C apron stands are exclusively for allocation of GA-BA flights"
   }
  },
  "missing": [
@@ -32,11 +61,7 @@
   "location",
   "runway",
   "customs",
-  "slots",
-  "ppr",
-  "max_aircraft",
-  "noise",
-  "iata"
+  "noise"
  ],
- "notes": "No official source could be read. The HASP eAIP site (aisgr.hasp.gov.gr) puts the AIP behind a 'user check' page and no LGAV AD 2 file URL could be found by search (only LGMT files of the AIRAC 05/26 edition, effective 11 Jun 2026, showed up). The HCAA copy at ypa.gr (AD 2 LGAV, page date 23 Feb 2023) loops between https and http and could not be opened, and is old anyway. aia.gr search found no business-aviation, slot or night-rule page. The shared web-search budget ran out before more tries. | 2026-10-31 run: still unavailable. No HASP eAIP AD 2 LGAV URL found by search; aia.gr search found no GA/business-aviation rules page (an AIA 'GABA Rules Ed5.6' PDF exists only on a third-party blog, not used). | 2026-11-03 run: curfew and hours come from a December 2024 investor presentation, not the AIP, so check them against AD 2 LGAV. Current AIP is AMDT 09/26 (effective 29 OCT 2026), only as a multi-part ZIP (https://aisgr.hasp.gov.gr/iso-cell2), and the guessed AD 2 LGAV PDF was refused; AIP SUP 01/22 on GA/BA slots expired 30 SEP 2022 and does not list LGAV, so no slot rule."
+ "notes": "No official source could be read. The HASP eAIP site (aisgr.hasp.gov.gr) puts the AIP behind a 'user check' page and no LGAV AD 2 file URL could be found by search (only LGMT files of the AIRAC 05/26 edition, effective 11 Jun 2026, showed up). The HCAA copy at ypa.gr (AD 2 LGAV, page date 23 Feb 2023) loops between https and http and could not be opened, and is old anyway. aia.gr search found no business-aviation, slot or night-rule page. The shared web-search budget ran out before more tries. | 2026-10-31 run: still unavailable. No HASP eAIP AD 2 LGAV URL found by search; aia.gr search found no GA/business-aviation rules page (an AIA 'GABA Rules Ed5.6' PDF exists only on a third-party blog, not used). | 2026-11-03 run: curfew and hours come from a December 2024 investor presentation, not the AIP, so check them against AD 2 LGAV. Current AIP is AMDT 09/26 (effective 29 OCT 2026), only as a multi-part ZIP (https://aisgr.hasp.gov.gr/iso-cell2), and the guessed AD 2 LGAV PDF was refused; AIP SUP 01/22 on GA/BA slots expired 30 SEP 2022 and does not list LGAV, so no slot rule. 5 Nov 2026: 2026-11-05 run: slots, PPR and stand limits from HSCA (Greek slot coordinator) W26 parameters and ATH GABA local rule (Sep/Oct 2026). IATA from HSCA airport levels table (ATH, ICAO LGAV). Summer 2026 was Level 2, with Level 3 only 17 to 22 Sep 2026. Curfew quote stays from Dec 2024; the May 2026 presentation repeats 24-hr operations without the word curfew, so still check against AD 2 LGAV. HSCA's page points to GA/BA Rules Ed. 5.6; only Ed. 5.4 surfaced and it was refused, so PPR comes from the airport local rule alone. AIA pages say two runways with no lengths. Operator is Athens International Airport S.A. (operator's own page), left under missing because it is not a rule key."
 }

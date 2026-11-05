@@ -318,10 +318,10 @@
   "checked": "2026-10-27"
  },
  "aca-bizav": {
-  "title": "Aéroport Nice Côte d'Azur, Business aviation and helicopters (page undated; checked 2026-10-27)",
+  "title": "Aéroport Nice Côte d'Azur, Business aviation and helicopters (page undated; re-read 5 Nov 2026)",
   "url": "https://btob.nice.aeroport.fr/business-aviation-and-helicopters",
   "publisher": "Aéroports de la Côte d'Azur",
-  "checked": "2026-10-27"
+  "checked": "2026-11-05"
  },
  "aca-runway-2021": {
   "title": "Aéroport Nice Côte d'Azur news, Nice Côte d'Azur airport is renovating its northern runway (12 Jan 2021)",
@@ -3076,5 +3076,197 @@
   "url": "https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/General%20(15_OCT_2026).pdf",
   "publisher": "South African Civil Aviation Authority (SACAA)",
   "checked": "2026-11-04"
+ },
+ "faa-slots-fr-2026-10": {
+  "title": "Federal Register notice, schedule information for ORD, JFK, LAX, EWR and SFO, Summer 2027 season, 91 FR 64733, published 9 Oct 2026",
+  "url": "https://www.federalregister.gov/documents/2026/10/09/2026-20784/notice-of-submission-deadline-for-schedule-information-for-chicago-ohare-international-airport-john",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-05"
+ },
+ "kpbi-djt-ga": {
+  "title": "Palm Beach County General Aviation page (no date shown; footer 2026)",
+  "url": "https://flydjt.org/general-aviation/",
+  "publisher": "Palm Beach County Department of Airports",
+  "checked": "2026-11-05"
+ },
+ "kdal-faa-apd-2611": {
+  "title": "FAA d-TPP airport diagram, Dallas Love (DAL), AL-106, SC-2, 29 Oct 2026 to 26 Nov 2026",
+  "url": "https://aeronav.faa.gov/d-tpp/2611/00106AD.PDF",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-05"
+ },
+ "kdal-auditor-2021": {
+  "title": "City of Dallas, Office of the City Auditor, Audit of the Department of Aviation's Noise Abatement Program, final report, 2 Mar 2021",
+  "url": "https://dallascityhall.com/departments/auditor/DCH%20Documents/Audit%20of%20the%20Department%20of%20Aviation's%20Noise%20Abatement%20Program%20.pdf",
+  "publisher": "City of Dallas",
+  "checked": "2026-11-05"
+ },
+ "kase-contingency-2026": {
+  "title": "Aspen/Pitkin County Airport, Emergency Contingency Plan (plan submitted 19 May 2026; page modified 3 Sep 2026)",
+  "url": "https://www.aspenairport.com/about-aspen-airport/administration/emergency-contingency-plan/",
+  "publisher": "Aspen/Pitkin County Airport (Pitkin County)",
+  "checked": "2026-11-05"
+ },
+ "ca-cta-air-charters-guide": {
+  "title": "Canadian Transportation Agency: International Air Charters: A Guide, page modified 14 Dec 2020",
+  "url": "https://otc-cta.gc.ca/eng/publication/international-air-charters-a-guide",
+  "publisher": "Canadian Transportation Agency",
+  "checked": "2026-11-05"
+ },
+ "cyvr-yvr-noise-plan-2014": {
+  "title": "YVR 2014-2018 Noise Management Plan, 2014 (old edition; latest found that gives runway lengths)",
+  "url": "https://www.yvr.ca/-/media/yvr/documents/noise-documents/2014-yvr-noise-management-plan.pdf?la=en",
+  "publisher": "Vancouver Airport Authority",
+  "checked": "2026-11-05"
+ },
+ "mx-afac-bases-nivel3-2026": {
+  "title": "AFAC: Bases Generales para la asignación de horarios de aterrizaje y despegue ... saturación Nivel 3, published after 9 Jun 2026 (exact date not shown in text read)",
+  "url": "https://sidof.segob.gob.mx/notas/docFuente/5796164",
+  "publisher": "Agencia Federal de Aviación Civil, in the Diario Oficial de la Federación (SIDOF)",
+  "checked": "2026-11-05"
+ },
+ "sbgr-gru-declaracao-w26": {
+  "title": "GRU Airport: Declaração de Capacidade de Infraestrutura Aeroportuária, season W26 (25 Oct 2026 to 27 Mar 2027), dated 3 and 10 Apr 2026",
+  "url": "https://www.gru.com.br/pt/SBGR/W26.pdf",
+  "publisher": "GRU Airport (airport operator)",
+  "checked": "2026-11-05"
+ },
+ "saez-gob-pista-2018": {
+  "title": "Argentina government notice: Finalizó la obra de reconstrucción de la pista principal de Ezeiza, 16 Apr 2018 (old; nothing newer readable)",
+  "url": "https://www.argentina.gob.ar/noticias/finalizo-la-obra-de-reconstruccion-de-la-pista-principal-de-ezeiza",
+  "publisher": "Gobierno de Argentina",
+  "checked": "2026-11-05"
+ },
+ "eddb-zoll-office": {
+  "title": "Zoll, Hauptzollamt Potsdam, Zollamt Flughafen Berlin Brandenburg office page (no page date; checked 5 Nov 2026)",
+  "url": "https://www.zoll.de/SharedDocs/Dienststellen/DE/1_DSSD_Importer/Hauptzollamt/HZA_Potsdam/ZA/ZA_Flughafen_Berlin_Brandenburg_3703/ZA_Flughafen_Berlin_Brandenburg_3703.html?nn=243282",
+  "publisher": "German Customs (Zoll)",
+  "checked": "2026-11-05"
+ },
+ "eddb-fbo-a8-v97": {
+  "title": "Aerodrome Manual EDDB, Chapter A.8 General Terms and Conditions of Use (FBO), version 9.7, in force 1 May 2022, as linked on the operator's Regulations page",
+  "url": "https://corporate.berlin-airport.de/content/dam/corporate/en/geschaeftspartner/ordnungen-antraege/flugplatzhandbuch/eddb-a8-en.pdf",
+  "publisher": "Flughafen Berlin Brandenburg GmbH (airport operator)",
+  "checked": "2026-11-05"
+ },
+ "jmk-ga-2026-11": {
+  "title": "Mykonos Airport, General Aviation / Business Aviation page, as read 5 Nov 2026 (no page date or validity dates shown)",
+  "url": "https://www.jmk-airport.gr/en/category-detailed/ctg_id-582/nd_id-1635",
+  "publisher": "Mykonos Airport (Fraport Greece)",
+  "checked": "2026-11-05"
+ },
+ "fg-runway-works-2026": {
+  "title": "Fraport Greece, Runway construction works at the airports of Corfu, Mitilene and Mykonos (8 Sep 2026)",
+  "url": "https://www.fraport-greece.com/en/media-center/news1/2026/runway-construction-works-at-the-airports-of-corfu--cfu---mitile.html",
+  "publisher": "Fraport Greece (airport operator)",
+  "checked": "2026-11-05"
+ },
+ "hsca-timetables-s27": {
+  "title": "HSCA, S27 operating hours of Greek airports (issue date 28 Sep 2026)",
+  "url": "https://hsca.gr/hsca-files/timetables_s27.pdf",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-05"
+ },
+ "lgav-hsca-w26-l3": {
+  "title": "HSCA, ATH W26 Temporary Level 3 Designation (9 Apr 2026)",
+  "url": "https://hsca.gr/ath-w26-temporary-level-3-designation/",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-05"
+ },
+ "lgav-hsca-s27-l3": {
+  "title": "HSCA, ATH S27 Temporary Level 3 Designation (14 Sep 2026)",
+  "url": "https://hsca.gr/ath-s27-temporary-level-3-designation/",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-05"
+ },
+ "hsca-gaba-page": {
+  "title": "HSCA, General & Business Aviation page (last modified 1 Apr 2026)",
+  "url": "https://hsca.gr/general-business-aviation/",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-05"
+ },
+ "lgav-hsca-w26-params": {
+  "title": "HSCA, W26 coordination parameters for ATH (August 2026), with GABA local rule (September 2026)",
+  "url": "https://hsca.gr/hsca-files/W26PARAMETERS.pdf",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-05"
+ },
+ "lgav-hsca-gaba-local-w26": {
+  "title": "HSCA, Local Rules for GABA slot coordination at ATH, Winter 2026/27 (published 2 Oct 2026)",
+  "url": "https://hsca.gr/hsca-files/AIA_W26-27_Local_Rules.pdf",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-05"
+ },
+ "lgav-aia-pres-0526": {
+  "title": "Athens International Airport S.A. Corporate Presentation, May 2026",
+  "url": "https://media.aia.gr/assets/aiaportal/media/root/investors/financial%20information/corporate%20presentation/corporate-presentation_0526.pdf",
+  "publisher": "Athens International Airport S.A.",
+  "checked": "2026-11-05"
+ },
+ "engm-avinor-noise-report-2026-02": {
+  "title": "Avinor Oslo lufthavn, Støy- og traséovervåkningsanlegget, Månedsrapport februar 2026 (dated 24 Mar 2026); restates the noise regulation, which itself could not be opened",
+  "url": "https://www.avinor.no/siteassets/flyplasser/oslo-lufthavn/om-oslo-lufthavn/miljo-og-lokalsamfunn/miljorapporter/rapporter-fra-stoy--og-traseovervakningsanlegget/2026/stoyrapport-02---februar.pdf",
+  "publisher": "Avinor Oslo Airport",
+  "checked": "2026-11-05"
+ },
+ "za-fop-about": {
+  "title": "Foreign Operator Permit site, About Us (no date shown; checked 5 Nov 2026)",
+  "url": "https://fop.caa.co.za/About-FOP/",
+  "publisher": "South African Civil Aviation Authority domain (fop.caa.co.za)",
+  "checked": "2026-11-05"
+ },
+ "mv-caa-faq": {
+  "title": "Civil Aviation Authority FAQ, general aviation and non-scheduled flights (page undated, footer 2026)",
+  "url": "https://www.caa.gov.mv/faq",
+  "publisher": "Maldives Civil Aviation Authority",
+  "checked": "2026-11-05"
+ },
+ "mv-caa-aerodromes-2022": {
+  "title": "List of aerodromes in the Maldives (updated 20 Feb 2022; newest dated list found)",
+  "url": "https://www.caa.gov.mv/attachments/9PQpPUGeQkIBxYlwkTKTZK3yBtrTztnkN4fBckD0.pdf",
+  "publisher": "Maldives Civil Aviation Authority",
+  "checked": "2026-11-05"
+ },
+ "id-hubud-slot-2025": {
+  "title": "Slot Time Penerbangan, Menjaga Keteraturan Langit Indonesia (1 Oct 2025)",
+  "url": "https://hubud.kemenhub.go.id/hubud/website/berita/4788",
+  "publisher": "Direktorat Jenderal Perhubungan Udara, Kementerian Perhubungan",
+  "checked": "2026-11-05"
+ },
+ "id-hubud-layanan": {
+  "title": "Deskripsi Layanan: Persetujuan Terbang / Flight Approval, Angkutan Udara Niaga Tidak Berjadwal dan Bukan Niaga Luar Negeri (undated)",
+  "url": "https://hubud.kemenhub.go.id/deskripsi-layanan",
+  "publisher": "Direktorat Jenderal Perhubungan Udara, Kementerian Perhubungan",
+  "checked": "2026-11-05"
+ },
+ "ph-caap-pcar-10-2025": {
+  "title": "Philippine Civil Aviation Regulations Part 10, Commercial Air Transport by Foreign Air Carriers (July 2025 edition)",
+  "url": "https://www.caap.gov.ph/wp-content/uploads/2025/07/PART-10-Commercial-Air-Transport-by-Foreign-Air-Carriers-within-Republic-of-the-Philippines.pdf",
+  "publisher": "Civil Aviation Authority of the Philippines",
+  "checked": "2026-11-05"
+ },
+ "vn-caa-slot-levels-2026": {
+  "title": "Công bố danh sách các cảng hàng không Việt Nam theo cấp độ điều phối (13 Jul 2026)",
+  "url": "https://caa.gov.vn/slot-vietnam/cong-bo-danh-sach-cac-cang-hang-khong-viet-nam-theo-cap-do-dieu-phoi-20260713112655808.htm",
+  "publisher": "Cục Hàng không Việt Nam (Civil Aviation Authority of Viet Nam)",
+  "checked": "2026-11-05"
+ },
+ "au-syd-aviation-enthusiasts": {
+  "title": "Sydney Airport, Aviation enthusiasts page (undated)",
+  "url": "https://www.sydneyairport.com.au/corporate/sustainability/supporting-our-people-and-communities/aviation-enthusiasts",
+  "publisher": "Sydney Airport",
+  "checked": "2026-11-05"
+ },
+ "au-syd-ga-cou-2026": {
+  "title": "General and Business Aviation (GA/BA) Conditions of Use, Version 1.0 (May 2026)",
+  "url": "https://assets.ctfassets.net/v228i5y5k0x4/17XJJkjWqSfGmH3sSL6Y9O/8d02342fb6e4cccb0d8f801e10535adf/General_and_Business_Aviation_-_COU.pdf",
+  "publisher": "Sydney Airport",
+  "checked": "2026-11-05"
+ },
+ "nzqn-masterplan-dec2023": {
+  "title": "Queenstown Airport Master Plan (December 2023)",
+  "url": "https://www.queenstownairport.co.nz/media/plsbuqc1/qac-231207-master-plan.pdf",
+  "publisher": "Queenstown Airport Corporation",
+  "checked": "2026-11-05"
  }
 }

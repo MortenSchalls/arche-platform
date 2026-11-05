@@ -7,7 +7,7 @@
  "tz": "Africa/Johannesburg",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-03",
+ "checked": "2026-11-05",
  "rules": {
   "slots": {
    "v": "Coordinated airport by government designation. ATNS coordinates on weekdays, 08:00 to 16:00 local. The page does not say whether charter or private flights need slots.",
@@ -18,6 +18,11 @@
    "v": "No jet take-offs from a runway/taxiway intersection and no engine run-ups (except in an emergency) between 2000 and 0400; the page does not say whether these times are UTC or local.",
    "src": "fact-sacaa-ad2-amdt426",
    "quote": "No jet aircraft to use RWY/TWY intersection for take off between 2000 to 0400. No engine run-ups shall be allowed between 2000 to 0400, unless in an emergency."
+  },
+  "permits": {
+   "v": "Foreign (non-South African) carriers need a Foreign Operator Permit for scheduled or non-scheduled commercial international services. Class IV services with up to 8 passengers or 1,000 kg, and no carriage within South Africa, are exempt from the permit but need special permission from the National Department of Transport before filing a flight plan. National rule; no notice period on the page",
+   "src": "za-fop-about",
+   "quote": "All non- South African air carriers that wish to undertake scheduled or non scheduled commercial international air services"
   }
  },
  "missing": [
@@ -31,5 +36,5 @@
   "fuel",
   "hours"
  ],
- "notes": "Current South African AIP is the 15 OCT 2026 edition published by SACAA (Aerodromes PDF on caasanwebsitestorage.blob.core.windows.net, plus separate AD 2 amendment files per airport), but the storage domain could not be opened (permission not granted). The ATNS eAIP (cad.atns.co.za) only showed editions up to 2022, which are superseded, so no rule was recorded from them. Could not open: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FACT_EN.pdf (listed on https://www.caa.co.za/industry-information/aip-amendments/). | 2026-11-03 run: AMDT 4/26 (15 OCT 26) was readable only for pages AD 2-FACT-15 to 17; the only readable runway figures are AMDT 2/22 pages (3201 x 61 m, 15 APR 22), superseded, so not recorded. AIP GEN (15 OCT 2026) lists Cape Town as a port of entry and customs aerodrome but gives no hours. Failed: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-charts/FACT%20AD-01%20AERODROME%20CHART%20v2.0.pdf; owner can download them."
+ "notes": "Current South African AIP is the 15 OCT 2026 edition published by SACAA (Aerodromes PDF on caasanwebsitestorage.blob.core.windows.net, plus separate AD 2 amendment files per airport), but the storage domain could not be opened (permission not granted). The ATNS eAIP (cad.atns.co.za) only showed editions up to 2022, which are superseded, so no rule was recorded from them. Could not open: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FACT_EN.pdf (listed on https://www.caa.co.za/industry-information/aip-amendments/). | 2026-11-03 run: AMDT 4/26 (15 OCT 26) was readable only for pages AD 2-FACT-15 to 17; the only readable runway figures are AMDT 2/22 pages (3201 x 61 m, 15 APR 22), superseded, so not recorded. AIP GEN (15 OCT 2026) lists Cape Town as a port of entry and customs aerodrome but gives no hours. Failed: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-charts/FACT%20AD-01%20AERODROME%20CHART%20v2.0.pdf; owner can download them. 5 Nov 2026: 2026-11-05 run: permit rule from the FOP site (undated). ACSA's Cape Town page has no runway, hours, customs or GA text. SARS customs list names the airport with no hours. ATNS eAIP search still shows only 2021 and 2022 editions (superseded, not used). BMA ports-of-entry pages refused by robots rule."
 }

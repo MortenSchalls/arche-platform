@@ -7,7 +7,7 @@
  "tz": "Asia/Makassar",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-02",
+ "checked": "2026-11-05",
  "rules": {
   "runway": {
    "v": "one runway, 3,000 m long and 45 m wide",
@@ -24,18 +24,28 @@
    "v": "airport closed for Nyepi (Balinese Day of Silence): in 2026 from 06:00 local on 19 March to 06:00 local on 20 March (all domestic and international flights stopped); the date changes each year, check the NOTAM",
    "src": "id-kemenhub-nyepi-2026",
    "quote": "akan dihentikan sementara mulai Kamis, 19 Maret 2026 pukul 06.00 WITA hingga Jumat, 20 Maret 2026 pukul 06.00 WITA."
+  },
+  "slots": {
+   "v": "a slot is a main requirement for a flight approval; slots for non-scheduled flights are managed by the airport operator and the air navigation provider (AirNav), not the scheduled-flight slot office (country-wide statement, 1 Oct 2025; Bali is not named)",
+   "src": "id-hubud-slot-2025",
+   "quote": "termasuk slot untuk penerbangan tidak berjadwal, dikelola oleh pengelola bandar udara dan pengelola pelayanan navigasi ... Slot yang telah diberikan kepada maskapai menjadi salah satu syarat utama dalam pengajuan persetujuan penerbangan"
+  },
+  "permits": {
+   "v": "foreign non-scheduled commercial and non-commercial flights need a Flight Approval, applied for at least 3 working days before the flight (issued within 3 working days of a complete application); the file includes the operator's AOC or OC, registration, airworthiness, pilot licences, third-party liability insurance, manifest, charter contract, slot recommendation, and diplomatic and security clearance (country-wide)",
+   "src": "id-hubud-layanan",
+   "quote": "Pemohon mengajukan permohonan Persetujuan Terbang (Flight Approval) paling lambat 3 (tiga) hari kerja ... Rekomendasi alokasi ketersediaan waktu terbang (slot time) dari pengelola slot di Indonesia; ... Telah memiliki Izin Diplomatik (Diplomatic Clearance) dan Izin Keamanan (Security Clearance)."
   }
  },
  "missing": [
   "runway designation",
   "customs",
   "curfew",
-  "slots",
   "ppr",
   "handling",
   "hours (normal daily opening hours)",
   "noise",
-  "notable"
+  "notable",
+  "AIP AD 2 (slot lead time at this airport)"
  ],
- "notes": "Indonesian AIP (aimindonesia.dephub.go.id) needs a login and blocks automated access, so no AD 2 data. Facts are from the DGCA (Hubud Kemenhub) airport register, which shows no update date. Coordinates converted from DMS (LS = south, BT = east). 1 Nov 2026: added the Nyepi closure from the Ministry of Transportation news of 15 Mar 2026 (quote in Indonesian; WITA = UTC+8 = local time). The ministry page says all domestic and international flights stop; it names no exceptions. Re-read the DGCA register (hubud.kemenhub.go.id/bandara/11): it still shows 'Runway (-)' with no designation and no hours; operator PT. Angkasa Pura Indonesia; customs, immigration and quarantine offices listed without hours. Could not be opened: https://ngurahrai.injourneyairports.id/ (operator site). The regional authority page https://hubud.kemenhub.go.id/obu/denpasar has no airport hours. | 2026-11-02 run: Nothing new; no new official source found by search."
+ "notes": "Indonesian AIP (aimindonesia.dephub.go.id) needs a login and blocks automated access, so no AD 2 data. Facts are from the DGCA (Hubud Kemenhub) airport register, which shows no update date. Coordinates converted from DMS (LS = south, BT = east). 1 Nov 2026: added the Nyepi closure from the Ministry of Transportation news of 15 Mar 2026 (quote in Indonesian; WITA = UTC+8 = local time). The ministry page says all domestic and international flights stop; it names no exceptions. Re-read the DGCA register (hubud.kemenhub.go.id/bandara/11): it still shows 'Runway (-)' with no designation and no hours; operator PT. Angkasa Pura Indonesia; customs, immigration and quarantine offices listed without hours. Could not be opened: https://ngurahrai.injourneyairports.id/ (operator site). The regional authority page https://hubud.kemenhub.go.id/obu/denpasar has no airport hours. | 2026-11-02 run: Nothing new; no new official source found by search. 5 Nov 2026: added slots and permits from DGCA pages (country-wide; the quotes are excerpts joined with '...' because the reader limits quote length). The DGCA FAQ also says there are 20 licensed Flight Clearance agents. The Bea Cukai Ngurah Rai FAQ gives no customs hours. Operator site pages, ap1.co.id and airnavindonesia.co.id were refused (robots). AIP still needs a login."
 }

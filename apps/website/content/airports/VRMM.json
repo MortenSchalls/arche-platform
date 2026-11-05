@@ -7,13 +7,23 @@
  "tz": "Indian/Maldives",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-03",
+ "checked": "2026-11-05",
  "rules": {
   "runway": {
    "v": "runway 3,400 m long",
    "src": "macl-home",
    "longest_m": 3400,
    "quote": "Runway3,400m"
+  },
+  "permits": {
+   "v": "The Maldives CAA takes general aviation permit applications in three categories: IP international private (tourism, medevac), IT technical stop, IF international ferry. Velana is among the airports it lists for general aviation. Aircraft registered 4X may not fly in or out, and direct flights between Israel and the Maldives are not permitted. A foreign operator may fly up to 9 non-scheduled flights under a One-off Approval, or until the CAA decides its application if sooner. No lead time is stated.",
+   "src": "mv-caa-faq",
+   "quote": "Aircrafts with ICAO registration (4X) are not allowed to fly in and out of the Maldives. ... Direct Flights are not permitted between Israel and Maldives (vice versa). ... A foreign operator may perform up to 9 (nine) non-scheduled flights from the date of the first flight ... under a One-off Approval or until MCAA has taken a decision on the application, whichever comes sooner."
+  },
+  "max_aircraft": {
+   "v": "aerodrome reference code 4E in the CAA list of aerodromes (updated 20 Feb 2022); this is a design code, not a stated ban on larger aircraft",
+   "src": "mv-caa-aerodromes-2022",
+   "quote": "Velana International Airport Maldives Airports Company Ltd. 4E VRMM MLE"
   }
  },
  "missing": [
@@ -22,11 +32,12 @@
   "curfew",
   "slots",
   "ppr",
-  "max_aircraft",
+  "max_aircraft (only aerodrome code 4E known, from a 2022 list; no stated limit)",
   "handling",
   "hours",
   "noise",
-  "runway width and designation"
+  "runway width and designation",
+  "permit lead time"
  ],
- "notes": "The Maldives AIP AD 2 pages on macl.aero are loaded by script and could not be opened (cover page effective 15 Oct 2026 is listed). Coordinates are from the CAA's list of aerodromes (updated 20 Feb 2022), not the AIP. NOTAM A0208/26 closes RWY 18/36 daily 1900-2359 UTC (00:00-04:59 Maldives time, UTC+5, no DST) from 1 Aug to 31 Oct 2026 for maintenance; temporary, do not publish as a permanent fact. Checked 2026-10-27. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://www.macl.aero/. Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: https://www.macl.aero/air-navigation-services/aip says that with effect from 1 November 2026 the AIP, NOTAMs and AICs are published by Maldives National Air Traffic Services (MNATS), not MACL, so look there for AD 2 VRMM. https://mnats.aero refused (permission request not answered) and https://mnats.aero/airtrafficservice returned a client error; the MACL aviation development page gave no hours, curfew or customs facts. Nothing added."
+ "notes": "The Maldives AIP AD 2 pages on macl.aero are loaded by script and could not be opened (cover page effective 15 Oct 2026 is listed). Coordinates are from the CAA's list of aerodromes (updated 20 Feb 2022), not the AIP. NOTAM A0208/26 closes RWY 18/36 daily 1900-2359 UTC (00:00-04:59 Maldives time, UTC+5, no DST) from 1 Aug to 31 Oct 2026 for maintenance; temporary, do not publish as a permanent fact. Checked 2026-10-27. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://www.macl.aero/. Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: https://www.macl.aero/air-navigation-services/aip says that with effect from 1 November 2026 the AIP, NOTAMs and AICs are published by Maldives National Air Traffic Services (MNATS), not MACL, so look there for AD 2 VRMM. https://mnats.aero refused (permission request not answered) and https://mnats.aero/airtrafficservice returned a client error; the MACL aviation development page gave no hours, curfew or customs facts. Nothing added. 5 Nov 2026: 2026-11-05 run: added permits from the CAA FAQ page (undated, footer 2026) and aerodrome code 4E from the CAA list. The list of general aviation airports on the FAQ was read as a summary, so that part is not in the quote. In the 4E quote the reader joined table cells that were split across lines. A second, undated CAA list (https://caa.gov.mv/attachments/Ps1uB54nHDXtJqEUOgg6bAf4d02AwtH2t2GwpyEL.pdf) also shows 4E and Certified. mnats.aero and velana.macl.aero were refused (permission not answered), so AD 2 VRMM is still unread. MACL Airside Driving Handbook (Edition 6, effective 26 Jul 2025) gave no runway dimensions, hours or night rules. National Air Transport Facilitation Programme v1.0 and MCAR-CAT 2025/R-46 (first 100,000 of about 112,800 characters read) gave nothing usable."
 }

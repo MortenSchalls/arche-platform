@@ -7,7 +7,7 @@
  "tz": "America/Mexico_City",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-03",
+ "checked": "2026-11-05",
  "rules": {
   "runway": {
    "v": "Longest runway in Mexico, 4.2 km (operator's rounded figure; exact length and width not stated)",
@@ -25,5 +25,5 @@
   "fuel",
   "handling"
  ],
- "notes": "IATA TLC and runway from the airport operator's site (aeropuertodetoluca.com.mx, 'Nosotros' page of the TIAS section, no date). The 4.2 km figure is rounded; take exact length from AIP AD 2.12 before a performance-critical trip. The operator's FAQ page (modified 3 Aug 2026) gives no hours or GA data. 1 Nov 2026: added runway and IATA. Could not be opened: Mexico AIP on aipmexico.seneam.gob.mx (fetch tool blocked), https://www.aeropuertodetoluca.com.mx/corporativo-historia (site error), https://comunicaciones.edomex.gob.mx/node/513 (robots). The SCT 'El Mirador' page only gives the 1984 runway (3,000 m), not used. | 3 Nov 2026: AIP AD 2 MMTO (https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_2/67_MMTO/AD_2-MMTO-2.pdf) refused (robots); https://www.anam.gob.mx/aduana-toluca/ failed (site error). Anexo 4 RGCE 2026 lists the Aduana de Toluca for import and export of goods (Mon-Fri 08:00-20:00, Sat 09:00-17:00) with no airport entry; not recorded as customs. The airport tariff published with effect from 25 Apr 2024 (https://sidof.segob.gob.mx/notas/docFuente/5724659) gives fees only."
+ "notes": "IATA TLC and runway from the airport operator's site (aeropuertodetoluca.com.mx, 'Nosotros' page of the TIAS section, no date). The 4.2 km figure is rounded; take exact length from AIP AD 2.12 before a performance-critical trip. The operator's FAQ page (modified 3 Aug 2026) gives no hours or GA data. 1 Nov 2026: added runway and IATA. Could not be opened: Mexico AIP on aipmexico.seneam.gob.mx (fetch tool blocked), https://www.aeropuertodetoluca.com.mx/corporativo-historia (site error), https://comunicaciones.edomex.gob.mx/node/513 (robots). The SCT 'El Mirador' page only gives the 1984 runway (3,000 m), not used. | 3 Nov 2026: AIP AD 2 MMTO (https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_2/67_MMTO/AD_2-MMTO-2.pdf) refused (robots); https://www.anam.gob.mx/aduana-toluca/ failed (site error). Anexo 4 RGCE 2026 lists the Aduana de Toluca for import and export of goods (Mon-Fri 08:00-20:00, Sat 09:00-17:00) with no airport entry; not recorded as customs. The airport tariff published with effect from 25 Apr 2024 (https://sidof.segob.gob.mx/notas/docFuente/5724659) gives fees only. 5 Nov 2026: nothing new. AIP https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_2/67_MMTO/AD_2-MMTO-2.pdf?1599540120= refused (robots). Concession title (DOF 18 Aug 2006, https://www.gob.mx/cms/uploads/attachment/file/602584/aeropuerto-de-toluca-e.pdf) gives code 4D, no hours, runway or customs. El Mirador page only repeats the 1984 runway. The Bases Nivel 3 name only AICM as saturated in the part read, nothing about Toluca."
 }

@@ -7,7 +7,7 @@
  "tz": "America/Sao_Paulo",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-03",
+ "checked": "2026-11-05",
  "rules": {
   "runway": {
    "v": "two runways: 10L/28R 3,700 m × 45 m and 10R/28L 3,000 m × 45 m, asphalt",
@@ -34,14 +34,19 @@
    "v": "General aviation, including air taxi, must tell the airport when coordinating which airport-accredited handling company will look after the aircraft, and what means are available to remove the aircraft after an incident or accident; a tow fork is mandatory. No handler is named",
    "src": "sbgr-decea-rotaer",
    "quote": "Empresa de handling credenciada no AP responsável pelo atendimento da ACFT"
+  },
+  "slots": {
+   "v": "Season W26 (25 Oct 2026 to 27 Mar 2027), GRU capacity declaration: non-regular flights must be requested at least 3 working days ahead, on the airport's non-regular operations form. Group II (general and executive aviation) may be restricted in the busiest Group I hours, no hours stated; taxi in / taxi out operation; long-stay GA positions subject to availability. The declaration does not say whether this 3-day rule covers executive or air taxi flights (ROTAER gives 6 or 24 hours' coordination for GA): ask the airport",
+   "src": "sbgr-gru-declaracao-w26",
+   "quote": "Voos não-regulares devem ser solicitados respeitando o prazo mínimo de 03 (três) dias úteis"
   }
  },
  "missing": [
   "iata",
   "customs",
   "curfew",
-  "slots",
-  "fuel"
+  "fuel",
+  "slots: whether executive or air taxi flights need an ANAC slot"
  ],
- "notes": "28 Oct 2026: DECEA eAIP AD 2 SBGR (AIRAC A 13-2026) gave a server error on 28 Oct 2026; full AIP PDFs were binary. 1 Nov 2026: read the DECEA AISWEB ROTAER entry for SBGR (D-AMDT 26/26; header 'AD INTL PUB/MIL GRU Airport 24/NE UTC-3'). Added runway, ppr (coordination), max_aircraft (parking and ground time) and hours (turboprop/piston restriction). ROTAER times are UTC; local times are my conversion with UTC-3 (Brazil has no summer time). Parking quote in full: 'PRKG de ACFT da aviação civil geral somente no pátio NR 12 e mediante AUTH do centro de controle operacional' ... 'permanência MAX no solo 2HR.' Coordination contact in ROTAER: ag.coa@gru.com.br. Fixed-wing VFR flight plans to or from SBGR are prohibited (except Brazilian military); flight plans may not be filed by radio. Training flights prohibited. The entry shows 'AD INTL' but no customs hours, and no fuel line; '24/NE' is not explained, so customs and curfew are not recorded. 'GRU Airport' is the operator's name, not stated as IATA code. Owner should download the current eAIP AD 2 SBGR from AISWEB for customs and fuel. | 3 Nov 2026: re-read ROTAER (D-AMDT 26/26, AISWEB AMDT 44/26). Apron item 04 says 'AUTH voos de carga e voos não regulares somente 0300/0900' and '1500/2100' (UTC), without the page read making clear which apron or whether charters are affected: ask the airport (ag.coa@gru.com.br) when coordinating. No customs, fuel, or slot text. Could not be read: eAIP AD 2 SBGR A 13-2026 (https://aisweb.decea.mil.br/eaip/A%2013-2026_2026_07_09/eAIP/AD%202%20SBGR-en-GB.html, site error); ANAC GRU capacity declaration W26 (https://www.gov.br/anac/pt-br/assuntos/regulados/empresas-aereas/slot/aeroportos/GRU/declaracao-de-capacidade/Declaracao_de_Capacidade_GRU_W26.pdf, human check page), so whether GA needs a slot is not verified. ANAC Resolution 682/2022 leaves the modalities that must request slots to each airport's declaration. ROTAER Cap 1-2 (25 May 2017) does not explain '24/NE'."
+ "notes": "28 Oct 2026: DECEA eAIP AD 2 SBGR (AIRAC A 13-2026) gave a server error on 28 Oct 2026; full AIP PDFs were binary. 1 Nov 2026: read the DECEA AISWEB ROTAER entry for SBGR (D-AMDT 26/26; header 'AD INTL PUB/MIL GRU Airport 24/NE UTC-3'). Added runway, ppr (coordination), max_aircraft (parking and ground time) and hours (turboprop/piston restriction). ROTAER times are UTC; local times are my conversion with UTC-3 (Brazil has no summer time). Parking quote in full: 'PRKG de ACFT da aviação civil geral somente no pátio NR 12 e mediante AUTH do centro de controle operacional' ... 'permanência MAX no solo 2HR.' Coordination contact in ROTAER: ag.coa@gru.com.br. Fixed-wing VFR flight plans to or from SBGR are prohibited (except Brazilian military); flight plans may not be filed by radio. Training flights prohibited. The entry shows 'AD INTL' but no customs hours, and no fuel line; '24/NE' is not explained, so customs and curfew are not recorded. 'GRU Airport' is the operator's name, not stated as IATA code. Owner should download the current eAIP AD 2 SBGR from AISWEB for customs and fuel. | 3 Nov 2026: re-read ROTAER (D-AMDT 26/26, AISWEB AMDT 44/26). Apron item 04 says 'AUTH voos de carga e voos não regulares somente 0300/0900' and '1500/2100' (UTC), without the page read making clear which apron or whether charters are affected: ask the airport (ag.coa@gru.com.br) when coordinating. No customs, fuel, or slot text. Could not be read: eAIP AD 2 SBGR A 13-2026 (https://aisweb.decea.mil.br/eaip/A%2013-2026_2026_07_09/eAIP/AD%202%20SBGR-en-GB.html, site error); ANAC GRU capacity declaration W26 (https://www.gov.br/anac/pt-br/assuntos/regulados/empresas-aereas/slot/aeroportos/GRU/declaracao-de-capacidade/Declaracao_de_Capacidade_GRU_W26.pdf, human check page), so whether GA needs a slot is not verified. ANAC Resolution 682/2022 leaves the modalities that must request slots to each airport's declaration. ROTAER Cap 1-2 (25 May 2017) does not explain '24/NE'. 5 Nov 2026: read the GRU Airport capacity declaration W26 (capacity dated 3 Apr 2026, operating conditions 10 Apr 2026). Other quotes: 'as aeronaves do Grupo II poderão ter suas operações restritas nas faixas horárias de maior movimento'; 'Para aeronaves do Grupo II – Aviação Geral e Executiva, a operação será “taxi in/taxi out”'. It lists 14 Group II parking positions and runway capacity 60 per hour by default. It gives no customs hours. Receita Federal pages for ALF/GRU (guarulhos-alf and alf-gru) give no hours; https://normas.receita.fazenda.gov.br/sijut2consulta/link.action?idAto=115001 returned no text. The ANAC-hosted W26 PDF noted earlier is not needed."
 }

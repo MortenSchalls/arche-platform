@@ -7,7 +7,7 @@
  "tz": "Africa/Johannesburg",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-03",
+ "checked": "2026-11-05",
  "rules": {
   "runway": {
    "v": "Runway 07/25, 2996 m x 45 m, asphalt. (SACAA chart effective 20 Jun 2019; check against the current AIP).",
@@ -24,6 +24,11 @@
    "v": "Tower and approach control 24 hours. Ground movement control 05:45 to 19:00 daily.",
    "src": "fala-lanseria-services",
    "quote": "Tower and Approach control service: 24 hours; Ground movement control service: [05h45 – 19h00] daily"
+  },
+  "permits": {
+   "v": "Foreign (non-South African) carriers need a Foreign Operator Permit for scheduled or non-scheduled commercial international services. Class IV services with up to 8 passengers or 1,000 kg, and no carriage within South Africa, are exempt from the permit but need special permission from the National Department of Transport before filing a flight plan. National rule; no notice period on the page",
+   "src": "za-fop-about",
+   "quote": "All non- South African air carriers that wish to undertake scheduled or non scheduled commercial international air services"
   }
  },
  "missing": [
@@ -35,5 +40,5 @@
   "max_aircraft",
   "handling"
  ],
- "notes": "Current South African AIP is the 15 OCT 2026 edition published by SACAA (Aerodromes PDF on caasanwebsitestorage.blob.core.windows.net, plus separate AD 2 amendment files per airport), but the storage domain could not be opened (permission not granted). The ATNS eAIP (cad.atns.co.za) only showed editions up to 2022, which are superseded, so no rule was recorded from them. Could not open: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALA_EN.pdf (listed on https://www.caa.co.za/industry-information/aip-amendments/). | 2026-11-03 run: runway is from the SACAA chart dated EFF 20 JUN 19, not AD 2.12, so check it against the current AIP; AIP GEN (15 OCT 2026) lists Lanseria as a port of entry and customs aerodrome but gives no hours, so no customs rule. Refused: https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALA_EN.pdf and https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF (the 15 JAN 2026 edition also failed); owner can download them."
+ "notes": "Current South African AIP is the 15 OCT 2026 edition published by SACAA (Aerodromes PDF on caasanwebsitestorage.blob.core.windows.net, plus separate AD 2 amendment files per airport), but the storage domain could not be opened (permission not granted). The ATNS eAIP (cad.atns.co.za) only showed editions up to 2022, which are superseded, so no rule was recorded from them. Could not open: https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF and https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALA_EN.pdf (listed on https://www.caa.co.za/industry-information/aip-amendments/). | 2026-11-03 run: runway is from the SACAA chart dated EFF 20 JUN 19, not AD 2.12, so check it against the current AIP; AIP GEN (15 OCT 2026) lists Lanseria as a port of entry and customs aerodrome but gives no hours, so no customs rule. Refused: https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALA_EN.pdf and https://caasanwebsitestorage.blob.core.windows.net/aeronautical-information-publication/Aerodromes%20%2815_OCT_2026%29.PDF (the 15 JAN 2026 edition also failed); owner can download them. 5 Nov 2026: 2026-11-05 run: permit rule from the FOP site (undated). Operator's airport-info page (modified 21 Jul 2026) names the border agencies but no hours; technical data there is an image. SARS customs list names Lanseria with no hours. Operator's General T&Cs PDF (undated, 2020 upload path) has no hours, curfew, slots or size limit and was not used. BMA ports-of-entry pages refused by robots rule. ATNS NOTAM summary of 19 Nov 2025 is out of date and not used."
 }

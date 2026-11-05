@@ -7,7 +7,7 @@
  "tz": "America/Vancouver",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-03",
+ "checked": "2026-11-05",
  "rules": {
   "curfew": {
    "v": "Night period midnight-06:00 local: departures of jets rated over 34,000 kg MTOW need YVR's prior approval; flights carrying passengers or cargo from YVR are approved, ferry and refuelling-stop departures generally refused. No restriction stated for arrivals or lighter jets",
@@ -30,14 +30,25 @@
    "v": "YVR is an IATA Level 3 slot-coordinated airport: all commercial, charter, cargo and general or business aviation operators must have a pre-approved runway slot. GA/BA slots are booked only through the Online Coordination System (OCS); the page says to book through OCS or your FBO. Visiting operators can book within 72 hours of the flight, based operators within 14 days. VFR helicopters are exempt",
    "src": "cyvr-yvr-runway-slots-faq",
    "quote": "All commercial, charter, cargo, and GA/BA operators must book slots."
+  },
+  "permits": {
+   "v": "Canadian Transportation Agency: non-scheduled international services to and from Canada are licensed by the Agency (exemptions to the licence duty exist; that notice was not read). For a licensed airline with aircraft under 15,900 kg MCTOW, no charter permit, notices or reports, except a foreign licensee flying between Canada and a country other than its home country, which must apply for a charter permit. At 15,900 kg or more the rule depends on route and passengers or goods; check the CTA guide. Guide page last modified 14 Dec 2020",
+   "src": "ca-cta-air-charters-guide",
+   "quote": "you do not have to apply for a charter permit or send us any notices or reports."
+  },
+  "runway": {
+   "v": "South runway 08R/26L 11,500 ft (about 3,505 m), north 08L/26R 9,940 ft (about 3,030 m), crosswind 7,300 ft (about 2,225 m; called 12/30 then, 13/31 in newer YVR documents). Metres converted from feet (x 0.3048). From the 2014-2018 plan, an old document: the latest found that gives lengths",
+   "longest_m": 3505,
+   "src": "cyvr-yvr-noise-plan-2014",
+   "quote": "the 11,500 feet south runway (08R/26L); the 9,940 feet north runway (08L/26R); and the 7,300 feet crosswind runway (12/30)"
   }
  },
  "missing": [
   "iata",
-  "runway",
   "customs",
   "ppr",
-  "hours"
+  "hours",
+  "current runway lengths (only the 2014-2018 plan found)"
  ],
- "notes": "Night rules from YVR's Night Time Operations FAQ (no page date) and the 2024 Aeronautical Noise Management Report (March 2025), which states the same 34,000 kg rule for midnight-06:00. Requests via YVR Noise Management. 1 Nov 2026: added curfew (approval) and noise. Runway lengths not found on yvr.ca pages read (noise report and planespotting guide give designations only). Could not be opened: CBSA new directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA; earlier https://www.yvr.ca/en/about-yvr/noise blocked. NAV CANADA CFS not freely online. | 3 Nov 2026: slots from YVR's Runway Slots FAQ (undated; the full exemption list is on the ARO page, https://www.yvr.ca/en/business/work-with-yvr/airport-reservation-office/frequently-asked-questions, which failed with a site error). Runway lengths still not found: the Airside Traffic Directives (April 2026), 2019 fact sheet and 2027 master plan give none for the existing runways. CBSA directory needs JavaScript, so customs not verified."
+ "notes": "Night rules from YVR's Night Time Operations FAQ (no page date) and the 2024 Aeronautical Noise Management Report (March 2025), which states the same 34,000 kg rule for midnight-06:00. Requests via YVR Noise Management. 1 Nov 2026: added curfew (approval) and noise. Runway lengths not found on yvr.ca pages read (noise report and planespotting guide give designations only). Could not be opened: CBSA new directory https://do-rb.cbsa-asfc.cloud-nuage.canada.ca/?lang=en_CA; earlier https://www.yvr.ca/en/about-yvr/noise blocked. NAV CANADA CFS not freely online. | 3 Nov 2026: slots from YVR's Runway Slots FAQ (undated; the full exemption list is on the ARO page, https://www.yvr.ca/en/business/work-with-yvr/airport-reservation-office/frequently-asked-questions, which failed with a site error). Runway lengths still not found: the Airside Traffic Directives (April 2026), 2019 fact sheet and 2027 master plan give none for the existing runways. CBSA directory needs JavaScript, so customs not verified. 5 Nov 2026: added permits from the CTA charter guide (modified 14 Dec 2020) and CTA licences page (modified 20 Jan 2026). Transport Canada, Foreign air operations (modified 28 Aug 2020): \"All foreign air operators flying over Canadian airspace need a certificate\"; the tool paraphrased the rest as foreign operators running international commercial air transport to Canada needing TCCA authorisation, so the certificate need is noted here, not as a rule: confirm the operator holds the Foreign Air Operator Certificate. CBSA Memorandum D2-5-1 (30 Sep 2025): \"All aircraft arriving in Canada from a foreign point of origin must land at an airport designated for CBSA clearance\"; hours \"may vary\" by airport and it points to the CBSA directory, so no airport hours; the tool's summary of para 8 (charter into unrestricted airport: advance notice to the CTA, coordination with Transport Canada and the airport, time-slot approval) was paraphrased, read the memo before relying on it. TP 15048 (modified 12 Feb 2025) reporting by phone 2 to 48 hours ahead is written for general aviation; its AOE/15 option is for non-paying travellers, so it does not settle charters. Runway from YVR's 2014-2018 Noise Management Plan: no newer official page with lengths found, check against the current CFS for performance-critical trips. https://www.yvr.ca/en/passengers/shop-dine-and-services/399 (CBSA) failed (site error)."
 }

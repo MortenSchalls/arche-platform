@@ -7,23 +7,29 @@
  "tz": "America/Argentina/Buenos_Aires",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-01",
+ "checked": "2026-11-05",
  "rules": {
   "handling": {
    "v": "Aeropuertos Argentina runs FBO VIPCLUB at Ezeiza, a terminal with its own access for business aviation and air taxis, with space for all control agencies (ANAC, PSA, customs, Senasa, immigration)",
    "src": "saez-aa2000-fbo",
    "quote": "una terminal con acceso independiente al aeropuerto"
+  },
+  "runway": {
+   "v": "Main runway 11-29, 3,300 m x 60 m, as stated in a government notice of 16 Apr 2018 on its reconstruction (old source; AIP not readable)",
+   "longest_m": 3300,
+   "src": "saez-gob-pista-2018",
+   "quote": "a lo largo de sus 3.300 mts y a lo ancho de sus 60 mts"
   }
  },
  "missing": [
   "iata",
-  "runway",
   "customs",
   "curfew",
   "hours",
   "slots",
   "ppr",
-  "fuel"
+  "fuel",
+  "current AIP runway data"
  ],
- "notes": "No current official source with the airport's rules could be read. ANAC AIS Argentina (ais.anac.gob.ar) blocks automated reading (robots disallowed on /descarga/ files); the AIP index page https://ais.anac.gob.ar/aip did not open. No AD 2 SAEZ file was found by search. The ORSNA works page (argentina.gob.ar/orsna/obras-en-aeropuertos-del-sna/ezeiza-1) opened but only mentions the secondary runway 17-35 (3,105 m) in a works description; a 2018 government news item gives the main runway as 3,300 m × 60 m; neither is a current rules source, so nothing was recorded. Aeropuertos Argentina (aa2000.com.ar) pages found were passenger pages only. Owner: download AD 2 SAEZ from ais.anac.gob.ar. 1 Nov 2026: added handling from the Aeropuertos Argentina FBO page (undated; it also says 'espacios asignados para la totalidad de los Organismos Oficiales de control intervinientes', naming Aduana and Migraciones, but gives no hours, so customs is not recorded). ANAC AIS still blocks reading: SUP A 66/2026 for SAEZ https://ais.anac.gob.ar/descarga/sup-69a99987d237c failed (robots disallowed). Owner: download AD 2 SAEZ and SUP A 66/2026 from ais.anac.gob.ar."
+ "notes": "No current official source with the airport's rules could be read. ANAC AIS Argentina (ais.anac.gob.ar) blocks automated reading (robots disallowed on /descarga/ files); the AIP index page https://ais.anac.gob.ar/aip did not open. No AD 2 SAEZ file was found by search. The ORSNA works page (argentina.gob.ar/orsna/obras-en-aeropuertos-del-sna/ezeiza-1) opened but only mentions the secondary runway 17-35 (3,105 m) in a works description; a 2018 government news item gives the main runway as 3,300 m × 60 m; neither is a current rules source, so nothing was recorded. Aeropuertos Argentina (aa2000.com.ar) pages found were passenger pages only. Owner: download AD 2 SAEZ from ais.anac.gob.ar. 1 Nov 2026: added handling from the Aeropuertos Argentina FBO page (undated; it also says 'espacios asignados para la totalidad de los Organismos Oficiales de control intervinientes', naming Aduana and Migraciones, but gives no hours, so customs is not recorded). ANAC AIS still blocks reading: SUP A 66/2026 for SAEZ https://ais.anac.gob.ar/descarga/sup-69a99987d237c failed (robots disallowed). Owner: download AD 2 SAEZ and SUP A 66/2026 from ais.anac.gob.ar. 5 Nov 2026: runway recorded from the 2018 Argentine government notice because nothing newer could be read (the 1 Nov run left it out for this reason); check AD 2 SAEZ and SUP A 66/2026 for displaced thresholds or closures. AIP files on ais.anac.gob.ar/descarga not retried: robots refused them earlier; search surfaced no AD 2 SAEZ file. Aeropuertos Argentina Ezeiza organismos page gives no hours. A 2021 notice on the new Delta taxiway extension gave no runway dimensions. Earlier note: an ORSNA works page gives secondary runway 17-35 as 3,105 m, so 11-29 is taken as longest."
 }
