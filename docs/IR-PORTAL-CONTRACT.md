@@ -29,7 +29,7 @@ Rule (Morten, 5 Nov 2026): both sides stay aligned so that nothing on one side b
 
 ## Owner calls inside the portal (signed in as owner)
 
-`draft` (returns the email wording), `send` (sends one email, then gives access), `approve` (access without email), `revoke` (withdraw access). `preview` returns a link that opens the briefing for the owner without a code: `<site>/api/ir?a=preview&t=<exp>.<sig>`, where `exp` is a millisecond time at most 5 minutes ahead and `sig` = HMAC-SHA256(shared key, `preview|<exp>`) in base64url. The website checks it with `PORTAL_IR_KEY`, opens an owner session (`owner-preview`, 12 hours) and never counts it as an investor opening. `<site>` is `NAVORYX_PREVIEW_SITE`, or the staging address until launch. The text sent is the owner's edited text; a `[placeholder]` left in it is refused.
+`draft` (returns the email wording), `send` (sends one email, then gives access), `approve` (access without email), `revoke` (withdraw access). `preview` returns a link that opens the briefing for the owner without a code: `<site>/api/ir?a=preview&t=<exp>.<sig>`, where `exp` is a millisecond time at most 5 minutes ahead and `sig` = HMAC-SHA256(shared key, `preview|<exp>`) in base64url. The website checks it with `PORTAL_IR_KEY`, opens an owner session (`owner-preview`, 30 days on that browser, through a same-site step page because the session cookie is SameSite=Strict) and never counts it as an investor opening. `<site>` is `NAVORYX_PREVIEW_SITE`, or the staging address until launch. The text sent is the owner's edited text; a `[placeholder]` left in it is refused.
 
 ## Data on each investor record (`data.ir`)
 
