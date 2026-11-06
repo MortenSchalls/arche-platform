@@ -1,16 +1,15 @@
 {
  "icao": "VCBI",
- "iata": null,
+ "iata": "CMB",
  "name": "Bandaranaike International Airport",
  "city": "Colombo",
  "country": "LK",
  "tz": "Asia/Colombo",
  "tier": 1,
  "status": "unavailable",
- "checked": "2026-11-03",
+ "checked": "2026-11-06",
  "rules": {},
  "missing": [
-  "iata",
   "geo",
   "operator",
   "location",
@@ -24,5 +23,5 @@
   "hours",
   "noise"
  ],
- "notes": "Every Sri Lanka AIP AD 2 VCBI page (airport.lk, aimibsrilanka.lk) is blocked to automated reading (robots.txt). Only the name is confirmed, from AIP ENR 1.10 (updated 21 Mar 2024): 'KATUNAYAKE / Bandaranaike Intl. Airport Colombo'. Needs manual reading of AD 2 VCBI. Checked 2026-10-27. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: airport.lk / caa.lk (not attempted; web reading was refused this run). Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: refused automated reading (robots): https://www.aimibsrilanka.lk/eaip/AIP_2501/Eurocontrol/SRI%20LANKA/2025-06-12-NON%20AIRAC/html/eAIP/EN-AD-2.VCBI-en-EN.html and https://www.airport.lk/aasl/AIS/AMDT%20WEB/AIP%20FROM%2021%20MAR%202024/PDF/VCBI%20AD%202-1%20TO%202-95.pdf. A newer edition exists at path AIP_2601/.../2026-06-11-AIRAC on aimibsrilanka.lk (its GEN 3.5 page was also refused). Nothing added; needs a manual read of AD 2 VCBI."
+ "notes": "Every Sri Lanka AIP AD 2 VCBI page (airport.lk, aimibsrilanka.lk) is blocked to automated reading (robots.txt). Only the name is confirmed, from AIP ENR 1.10 (updated 21 Mar 2024): 'KATUNAYAKE / Bandaranaike Intl. Airport Colombo'. Needs manual reading of AD 2 VCBI. Checked 2026-10-27. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: airport.lk / caa.lk (not attempted; web reading was refused this run). Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: refused automated reading (robots): https://www.aimibsrilanka.lk/eaip/AIP_2501/Eurocontrol/SRI%20LANKA/2025-06-12-NON%20AIRAC/html/eAIP/EN-AD-2.VCBI-en-EN.html and https://www.airport.lk/aasl/AIS/AMDT%20WEB/AIP%20FROM%2021%20MAR%202024/PDF/VCBI%20AD%202-1%20TO%202-95.pdf. A newer edition exists at path AIP_2601/.../2026-06-11-AIRAC on aimibsrilanka.lk (its GEN 3.5 page was also refused). Nothing added; needs a manual read of AD 2 VCBI. | 2026-11-06 run: IATA CMB from the CAASL list 'Land and Water Aerodromes of Sri Lanka' (lk-caasl-aerodromes, undated): 'Katunayake (CMB) VCBI' under International Airports, 'IATA three letter code are given in brackets'. No current AD 2 VCBI URL surfaced by search (only 2022 PDFs on airport.lk, superseded); rules still need a manual read of AD 2 VCBI (aimibsrilanka.lk)."
 }

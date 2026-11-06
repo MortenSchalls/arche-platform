@@ -7,7 +7,7 @@
  "tz": "Africa/Cairo",
  "tier": 1,
  "status": "unavailable",
- "checked": "2026-11-03",
+ "checked": "2026-11-06",
  "rules": {},
  "missing": [
   "iata",
@@ -20,5 +20,5 @@
   "handling",
   "fuel"
  ],
- "notes": "No official source with the airport's rules could be read. No public online Egypt AIP (AD 2 HECA) was found by search. Cairo Airport Company 'Airport Information' page (cairo-airport.com/en-us/Airport/Airport-Information) opened but gives only history (no runway lengths, hours, customs or codes); its Terminal Information page is blocked (robots disallowed). Owner: obtain AD 2 HECA from the Egyptian AIS (NANSC / Egyptian Civil Aviation Authority). | 2026-11-03 run: nothing recorded. Cairo Airport's page http://www.cairo-airport.com/general_aviation_services.asp describes Hall 4 for private jets \"up to the G5\" but carries only a 2004 copyright and no hours, customs or fuel, so it is too old to use. No public AD 2 HECA found."
+ "notes": "No official source with the airport's rules could be read. No public online Egypt AIP (AD 2 HECA) was found by search. Cairo Airport Company 'Airport Information' page (cairo-airport.com/en-us/Airport/Airport-Information) opened but gives only history (no runway lengths, hours, customs or codes); its Terminal Information page is blocked (robots disallowed). Owner: obtain AD 2 HECA from the Egyptian AIS (NANSC / Egyptian Civil Aviation Authority). | 2026-11-03 run: nothing recorded. Cairo Airport's page http://www.cairo-airport.com/general_aviation_services.asp describes Hall 4 for private jets \"up to the G5\" but carries only a 2004 copyright and no hours, customs or fuel, so it is too old to use. No public AD 2 HECA found. | 2026-11-06 run: nothing recorded. Web reading was blocked this run: WebFetch permission requests were not answered, and the network proxy refused downloads (HTTP 403) from every official host tried (caasanwebsitestorage.blob.core.windows.net, aipchile.dgac.gob.cl, gcaa.gov.ae, aisweb.decea.mil.br); only web search worked, which gives no source text. Not re-read: Egyptian AIS (NANSC / ECAA) for AD 2 HECA."
 }

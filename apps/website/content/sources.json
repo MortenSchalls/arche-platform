@@ -267,7 +267,7 @@
   "title": "London Biggin Hill Airport, General Aviation/PPR (last modified 23 Apr 2024; checked 2026-10-31)",
   "url": "https://bigginhillairport.com/operations/general-aviation/",
   "publisher": "London Biggin Hill Airport",
-  "checked": "2026-10-31"
+  "checked": "2026-11-06"
  },
  "bromley-bqh": {
   "title": "London Borough of Bromley, Biggin Hill Airport (last modified 27 Mar 2024)",
@@ -339,7 +339,7 @@
   "title": "Aéroport Cannes Mandelieu, Airport (opening hours table; page undated; checked 2026-10-27)",
   "url": "https://en.cannes.aeroport.fr/airport",
   "publisher": "Aéroports de la Côte d'Azur",
-  "checked": "2026-10-27"
+  "checked": "2026-11-06"
  },
  "ceq-env": {
   "title": "Aéroport Cannes Mandelieu, Environment – Achievements and highlights (page undated; checked 2026-10-27)",
@@ -1077,7 +1077,7 @@
   "title": "Aeroporti di Roma, Ciampino Airport Regulations, English translation, rev. 2 (updated 16 Oct 2025)",
   "url": "https://m.adr.it/documents/d/aeroporti-di-roma-en/reg_cia_inglese_agg-16-10-2025-pdf",
   "publisher": "Aeroporti di Roma SpA",
-  "checked": "2026-10-27"
+  "checked": "2026-11-06"
  },
  "save-regs": {
   "title": "SAVE, Venice Airport 'Marco Polo' Airport Regulations, Ed. 2 Amdt 2 (SAVE 15 Nov 2023; ENAC adoption 6 Dec 2023)",
@@ -2259,7 +2259,7 @@
   "title": "SEA, Airport Regulations for Milan Linate Airport, Edition 5.0 (English translation, uploaded May 2025)",
   "url": "https://milanairports.com/sites/default/files/2025-05/Airport%20Regulations%20-%20Milan%20Linate%20-Edition%205.0.pdf",
   "publisher": "SEA S.p.A.",
-  "checked": "2026-10-31"
+  "checked": "2026-11-06"
  },
  "save-regs-2026": {
   "title": "SAVE, Venice Airport 'Marco Polo' Airport Regulations, Ed. 2 Amdt 3 (SAVE 16 Feb 2026; ENAC adoption 24 Mar 2026, Order 2/2026)",
@@ -2319,7 +2319,7 @@
   "title": "Aeronautical Information, Ben Gurion Airport (operating limitations, slot coordination, private flights; no page date shown; checked 31 Oct 2026)",
   "url": "https://www.iaa.gov.il/en/about/aeronautical-information/",
   "publisher": "Israel Airports Authority",
-  "checked": "2026-10-31"
+  "checked": "2026-11-06"
  },
  "mo-aip-ad-2025-08": {
   "title": "AIP Macao Part 3 Aerodromes (AD), incl. AD 2 VMMC Macau International (file posted 12 Aug 2025; pages dated 2007 to 7 Aug 2025, latest AIRAC AMDT 02/25)",
@@ -3039,7 +3039,7 @@
   "title": "Chambéry Savoie Mont Blanc Airport, Plan your flight (page undated; checked 4 Nov 2026)",
   "url": "https://www.chambery-airport.com/en/professionals/plan-your-flight",
   "publisher": "Chambéry Savoie Mont Blanc Airport",
-  "checked": "2026-11-04"
+  "checked": "2026-11-06"
  },
  "uae-aip-omad-p08": {
   "title": "UAE AIP, AD 2 OMAD Abu Dhabi/Al Bateen Executive (2026-P08 package; pages AIRAC AMDT 01/2025 to 09/2026, latest 03 Sep 2026; not the current AIRAC 11/2026)",
@@ -3268,5 +3268,83 @@
   "url": "https://www.queenstownairport.co.nz/media/plsbuqc1/qac-231207-master-plan.pdf",
   "publisher": "Queenstown Airport Corporation",
   "checked": "2026-11-05"
+ },
+ "hk-aip-vhhh-2026-10-29": {
+  "title": "AIP Hong Kong, AD 2 VHHH Hong Kong International (page dated 3 Sep 2026, valid from 29 Oct 2026, package eaip_20261001)",
+  "url": "https://www.ais.gov.hk/eaip_20261001/2026-10-29-000000/html/eAIP/VH-AD-2-VHHH-en-US.html",
+  "publisher": "Civil Aviation Department, Hong Kong (AIS)",
+  "checked": "2026-11-06"
+ },
+ "tw-aip-rctp-2026-08": {
+  "title": "Taipei FIR eAIP, AD 2 RCTP Taipei/Taiwan Taoyuan Intl, Chinese version (AIRAC AIP AMDT 03/26, effective 6 Aug 2026)",
+  "url": "https://ais.caa.gov.tw/eaip/AIRAC%20AIP%20AMDT%2003-26_2026_08_06/eAIP/RC-AD%202%20RCTP%20%E8%87%BA%E7%81%A3%E6%A1%83%E5%9C%92%E5%9C%8B%E9%9A%9BTAIPEI-TAIWAN%20TAOYUAN%20INTL-zh-TW.html",
+  "publisher": "Civil Aeronautics Administration, Taiwan",
+  "checked": "2026-11-06"
+ },
+ "caat-nac-bkk-w26": {
+  "title": "Notice of Airport Capacity (NAC) BKK/VTBS, Winter 2026/2027, Rev.01 (effective 25 Oct 2026 - 27 Mar 2027)",
+  "url": "https://www.caat.or.th/wp-content/uploads/2026/06/BKK_NAC_W26_Rev.01.pdf",
+  "publisher": "Civil Aviation Authority of Thailand (slot coordinator)",
+  "checked": "2026-11-06"
+ },
+ "caat-nac-cnx-w26": {
+  "title": "Notice of Airport Capacity (NAC) CNX/VTCC, Winter 2026/2027, Rev.01 (effective 25 Oct 2026 - 27 Mar 2027)",
+  "url": "https://www.caat.or.th/wp-content/uploads/2026/06/CNX_NAC_W26_Rev.01.pdf",
+  "publisher": "Civil Aviation Authority of Thailand (slot coordinator)",
+  "checked": "2026-11-06"
+ },
+ "lk-caasl-aerodromes": {
+  "title": "Land and Water Aerodromes of Sri Lanka (undated)",
+  "url": "https://www.caa.lk/images/pdf/downloads/Aiports.pdf",
+  "publisher": "Civil Aviation Authority of Sri Lanka",
+  "checked": "2026-11-06"
+ },
+ "naa-premiergate-fac": {
+  "title": "Premier Gate - Facilities, Narita Airport business jet terminal (no page date shown)",
+  "url": "https://www.narita-airport.jp/en/company/business/bj/premiergate/fac/",
+  "publisher": "Narita International Airport Corporation",
+  "checked": "2026-11-06"
+ },
+ "zrh-runway-ext-2026": {
+  "title": "Zurich Airport, Extensions to runways 28 and 32 (page undated, © 2026; planning applications submitted March 2026)",
+  "url": "https://www.flughafen-zuerich.ch/en/company/flughafen-zuerich/airport-development/current-construction-projects/extensions-to-runways-28-and-32",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-11-06"
+ },
+ "zrh-service-providers": {
+  "title": "Zurich Airport, Our service providers (fuel, ground handling, catering, cargo; page undated, © 2026)",
+  "url": "https://www.flughafen-zuerich.ch/en/business/airlines-and-handling/aviation-development/service-providers",
+  "publisher": "Flughafen Zürich AG",
+  "checked": "2026-11-06"
+ },
+ "zrh-zollreglement-2023": {
+  "title": "Zollreglement für den Flughafen Zürich vom 01. Juli 2023 (Stand 01.07.2023)",
+  "url": "https://media.flughafen-zuerich.ch/-/jssmedia/airport/portal/dokumente/passagiere/fliegen/gepaeck-und-ablaeufe/zollreglement_2023.pdf?vs=1&rev=aa6c847a3f0f404b962261ccbd353c30&sc_lang=en&sc_site=dxp-portal",
+  "publisher": "Flughafen Zürich AG / Swiss Federal Office for Customs and Border Security",
+  "checked": "2026-11-06"
+ },
+ "sea-lin-ma-cap24": {
+  "title": "SEA, Manuale di Aeroporto Linate (MA/LIN/RE139) Part E, Cap. 24 Procedure per le operazioni invernali (snow plan and de-icing), Ed. 2 Rev. 3 (08 Jan 2024)",
+  "url": "https://milanairports.com/sites/default/files/2025-05/CAP%2024%20LIN%20ED2%20REV3_0.pdf",
+  "publisher": "SEA Società Esercizi Aeroportuali S.p.A.",
+  "checked": "2026-11-06"
+ },
+ "vce-private-flights": {
+  "title": "Venice Airport, Private flights (handlers and services list; undated, read 2026-11-06)",
+  "url": "https://www.veniceairport.it/en/private-flights.html",
+  "publisher": "SAVE S.p.A.",
+  "checked": "2026-11-06"
+ },
+ "vce-ga-handling-reservation": {
+  "title": "Venezia General Aviation FBO, Handling Reservation (undated, read 2026-11-06)",
+  "url": "https://ga.veneziaairport.it/en/handling-reservation.html",
+  "publisher": "SAVE S.p.A.",
+  "checked": "2026-11-06"
+ },
+ "uae-aip-omaa-adc-2026-06": {
+  "title": "UAE AIP, OMAA AD 2-21A Aerodrome Chart, Abu Dhabi/Zayed International (chart file 2026-06, in 2026-P04 package; no AIRAC date on chart)",
+  "url": "https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2026-P04/graphics/OMAA-AD-2-21A_2026-06.pdf",
+  "publisher": "General Civil Aviation Authority (UAE)",
+  "checked": "2026-11-06"
  }
 }

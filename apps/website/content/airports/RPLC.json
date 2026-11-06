@@ -7,7 +7,7 @@
  "tz": "Asia/Manila",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-06",
  "rules": {
   "runway": {
    "v": "main runway 02R/20L, 3,200 m long and 61 m wide",
@@ -28,5 +28,5 @@
   "hours",
   "noise"
  ],
- "notes": "No AIP data (Philippine AIP login-only). CIAC's overview is undated (file posted 2020-09, text refers to events up to Nov 2022). The 'one hour from Metro Manila' is CIAC's travel-time claim, not a distance."
+ "notes": "No AIP data (Philippine AIP login-only). CIAC's overview is undated (file posted 2020-09, text refers to events up to Nov 2022). The 'one hour from Metro Manila' is CIAC's travel-time claim, not a distance. | 2026-11-06 run: Searched CAAP and the operator site clarkinternationalairport.com: news (5 Jul 2024) and flights pages use 'CRK' but never call it the IATA code, and give no hours, customs, GA or slot text; Philippine AIP still not public (CAAP AIS portal login). Nothing added."
 }

@@ -7,7 +7,7 @@
  "tz": "Europe/London",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-04",
+ "checked": "2026-11-06",
  "rules": {
   "runway": {
    "v": "runway 03/21, 1,806 m long and 45 m wide",
@@ -84,5 +84,5 @@
   "customs hours",
   "ppr lead time"
  ],
- "notes": "UK AIP could not be read. Coordinates are from the operator's page, not the AIP ARP; replace with the AIP value when available. Operator specs page last modified 23 Apr 2024; Bromley Council page last modified 27 Mar 2024. Operator page says 'no runway slots required'. Do not name the FBO on the public site (site rule). | 2026-10-27 run: IATA code BQH and ARP taken from the operator's Airfield Specification page ('EGKB/BQH'); UK AIP not readable. ARP 51°19'51\"N 000°01'57\"E converted to decimal. | 2026-10-31 run: UK AIP (aurora.nats.co.uk) again not readable (permission request not answered). General Aviation/PPR page re-read (last modified 23 Apr 2024): pre-notification is booked via bigginbooking.com; no lead time stated; the page calls the airport 'a Port of Entry' but gives no customs hours, so customs is still missing. Operations page (last modified 8 May 2025) unchanged ('no runway slots required'). | 2026-11-02 run: UK AIP not opened. No new official source found for customs hours or PPR lead time. No rules changed. | 2026-11-04 run: NATS Type A chart RWY 03-21 (effective 02 Nov 2026) read: '1806m x 45m GROOVED MACADAM', same as the existing rule, so no change. Customs hours and PPR lead time still missing."
+ "notes": "UK AIP could not be read. Coordinates are from the operator's page, not the AIP ARP; replace with the AIP value when available. Operator specs page last modified 23 Apr 2024; Bromley Council page last modified 27 Mar 2024. Operator page says 'no runway slots required'. Do not name the FBO on the public site (site rule). | 2026-10-27 run: IATA code BQH and ARP taken from the operator's Airfield Specification page ('EGKB/BQH'); UK AIP not readable. ARP 51°19'51\"N 000°01'57\"E converted to decimal. | 2026-10-31 run: UK AIP (aurora.nats.co.uk) again not readable (permission request not answered). General Aviation/PPR page re-read (last modified 23 Apr 2024): pre-notification is booked via bigginbooking.com; no lead time stated; the page calls the airport 'a Port of Entry' but gives no customs hours, so customs is still missing. Operations page (last modified 8 May 2025) unchanged ('no runway slots required'). | 2026-11-02 run: UK AIP not opened. No new official source found for customs hours or PPR lead time. No rules changed. | 2026-11-04 run: NATS Type A chart RWY 03-21 (effective 02 Nov 2026) read: '1806m x 45m GROOVED MACADAM', same as the existing rule, so no change. Customs hours and PPR lead time still missing. | 2026-11-06 run: NATS eAIP blocked (permission not answered). Operator 'About' page read: 'A designated UK Port of Entry, no runway slots' and 'Border Agency on site', but no customs hours, so customs not recorded. General Aviation/PPR page re-read (modified 23 Apr 2024): no lead time. No rules changed."
 }

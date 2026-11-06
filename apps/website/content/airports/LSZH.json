@@ -7,7 +7,7 @@
  "tz": "Europe/Zurich",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-04",
+ "checked": "2026-11-06",
  "rules": {
   "hours": {
    "v": "operating hours 06:00 to 23:30",
@@ -29,10 +29,12 @@
    "also_quote": "Les décollages et les atterrissages de vols non commerciaux sont interdits entre 22 heures et 6 heures."
   },
   "runway": {
-   "v": "longest runway, runway 34, is 3,700 m long",
+   "v": "three runways: 16/34 3,700 m, 14/32 3,300 m and 10/28 2,500 m long (extensions of 28 and 32 approved, works not before 2030)",
    "longest_m": 3700,
-   "src": "zrh-pisten-2023",
-   "quote": "Piste 34 (3’700 m)"
+   "src": "zrh-runway-ext-2026",
+   "quote": "with the current system of three runways: 16/34 at 3'700 metres long, 14/32 at 3'300 metres long and 10/28 at 2'500 metres long.",
+   "also_src": "zrh-pisten-2023",
+   "also_quote": "Piste 34 (3’700 m)"
   },
   "slots": {
    "v": "every IFR movement needs an airport slot before departure or arrival, including positioning, training and maintenance flights; IFR slots come via the dispatcher or handling agent (FBO)",
@@ -58,17 +60,32 @@
    "v": "noise charges by noise category; extra surcharges for take-offs and landings in the shoulder hours and at night (e.g. take-off 00:00-06:00 local carries the highest surcharge)",
    "src": "zrh-noise-charges-2026-11",
    "quote": "In addition, noise surcharges are applied depending on the shoulder hour or night time period."
+  },
+  "fuel": {
+   "v": "fuel companies listed by the airport: BP, Colt, Enilive, Kuwait Petroleum Aviation, Shell, SOCAR, Swiss International AG, TotalEnergies and Vitol",
+   "src": "zrh-service-providers",
+   "suppliers": [
+    "BP Europa SE",
+    "Colt International Europe SARL",
+    "Enilive Suisse S.A.",
+    "Kuwait Petroleum Aviation (Switzerland) Ltd",
+    "SHELL (Switzerland) AG",
+    "SOCAR Energy Switzerland GmbH",
+    "Swiss International AG",
+    "TotalEnergies Aviation Suisse SA",
+    "Vitol Aviation Switzerland AG"
+   ],
+   "quote": "BP Europa SE ... Colt International Europe SARL ... Enilive Suisse S.A. ... Kuwait Petroleum Aviation (Switzerland) Ltd ... SHELL (Switzerland) AG ... SOCAR Energy Switzerland GmbH ... Swiss International AG ... TotalEnergies Aviation Suisse SA ... Vitol Aviation Switzerland AG"
   }
  },
  "missing": [
   "geo",
   "operator",
   "location",
-  "runway width and designation pair",
-  "customs",
+  "runway width",
+  "customs hours (customs regulation of 1 Jul 2023 says GA/BA passengers clear at the GAC customs passage but gives no hours for it)",
   "ppr",
-  "max_aircraft",
-  "fuel"
+  "max_aircraft"
  ],
- "notes": "Swiss eAIP (skybriefing) is paid and was not used. ICAO LSZH and IATA ZRH from the FOCA/BAZL airport page. Slot rule: Slot Coordination Switzerland states GA/BA slots cannot be requested from it; IFR slots come via dispatcher or FBO, VFR via the airport's VFR slot tool (Zurich Airport GA page: 'You need a valid airport slot before departure and/or arrival.'). Handling rule quote (slotcoordination.ch): 'Operators are obliged to choose one of the handling agents listed in AIP Switzerland LSZH'. Runway 34 length comes from a diagram label in the airport's 2023 runway-extension fact sheet; extensions of runways 28 and 32 were planned, so re-check after any change. | 2026-10-31 run: de-icing added from 'Winter Operation at Zurich Airport' Issue 1.0 Rev 24 (cover 01.11.2025); a winter 2026/27 revision may appear in November 2026, re-check then. Airport GA page (EN) re-read: 'You need a valid airport slot before departure and/or arrival.'; a flight plan must be filed at least 30 minutes before departure to confirm the slot. Customs, PPR, noise, fuel and max_aircraft still missing; Swiss eAIP (skybriefing, paid) not read. | 2026-11-02 run: Noise added from the airport's noise charges page (general charge page, does not mention business aviation). Customs page lists only two customs offices in the terminal with no hours; customs regulation PDF (Zollvorschriften) not opened. PPR, fuel, max_aircraft, runway width not found. | 2026-11-04 run: Betriebsreglement (Stand 20 Mar 2026) read: Anhang 1 Art. 11-15 night rules added to the curfew rule; 'Charterverkehr' is not defined in the parts read; no runway dimensions, PPR term, customs hours or general size limit. Terminal Regulations 2026 PDF failed to load."
+ "notes": "Swiss eAIP (skybriefing) is paid and was not used. ICAO LSZH and IATA ZRH from the FOCA/BAZL airport page. Slot rule: Slot Coordination Switzerland states GA/BA slots cannot be requested from it; IFR slots come via dispatcher or FBO, VFR via the airport's VFR slot tool (Zurich Airport GA page: 'You need a valid airport slot before departure and/or arrival.'). Handling rule quote (slotcoordination.ch): 'Operators are obliged to choose one of the handling agents listed in AIP Switzerland LSZH'. Runway 34 length comes from a diagram label in the airport's 2023 runway-extension fact sheet; extensions of runways 28 and 32 were planned, so re-check after any change. | 2026-10-31 run: de-icing added from 'Winter Operation at Zurich Airport' Issue 1.0 Rev 24 (cover 01.11.2025); a winter 2026/27 revision may appear in November 2026, re-check then. Airport GA page (EN) re-read: 'You need a valid airport slot before departure and/or arrival.'; a flight plan must be filed at least 30 minutes before departure to confirm the slot. Customs, PPR, noise, fuel and max_aircraft still missing; Swiss eAIP (skybriefing, paid) not read. | 2026-11-02 run: Noise added from the airport's noise charges page (general charge page, does not mention business aviation). Customs page lists only two customs offices in the terminal with no hours; customs regulation PDF (Zollvorschriften) not opened. PPR, fuel, max_aircraft, runway width not found. | 2026-11-04 run: Betriebsreglement (Stand 20 Mar 2026) read: Anhang 1 Art. 11-15 night rules added to the curfew rule; 'Charterverkehr' is not defined in the parts read; no runway dimensions, PPR term, customs hours or general size limit. Terminal Regulations 2026 PDF failed to load. | 2026-11-06 run: Airport page 'Extensions to runways 28 and 32' (© 2026; planning applications March 2026) read: runway rule now gives all three runways with designations, same 3,700 m longest. Fuel added from the airport's 'Our service providers' page (fuel companies). Zollreglement Flughafen Zürich (in force 1 Jul 2023) read: GA/BA movements notified via AIMS+, handling agent emails customs the day before; GA/BA 22:00-05:00 movements phoned to customs; passengers clear at GAC G6; no customs hours for GA, so customs not recorded as a rule. Swiss eAIP confirmed paid (skybriefing eAIP access CHF 92.50/12 months), not read. PPR, max_aircraft, runway width still missing."
 }

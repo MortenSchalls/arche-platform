@@ -7,7 +7,7 @@
  "tz": "Asia/Shanghai",
  "tier": 1,
  "status": "unavailable",
- "checked": "2026-11-03",
+ "checked": "2026-11-06",
  "rules": {},
  "missing": [
   "iata",
@@ -20,5 +20,5 @@
   "handling",
   "permits"
  ],
- "notes": "Tried 28 Oct 2026: China eAIP (www.eaipchina.cn, www.aischina.com) - fetch blocked (permission not granted in time); only unofficial mirrors of old (2019) eAIP editions were found by search, which may not be used. No page of the operator's own website (gbiac.net) was found by search; nothing official read. CAAC AIP AD 2 for this airport should be obtained (e.g. via a registered eAIP China account) and read before any rule is recorded. Tried again 31 Oct 2026: China eAIP still not readable (registration needed; search finds only unofficial 2019 mirrors, not used); no operator page with runway, hours, customs or business-aviation facts was found by search. Status stays unavailable. | 3 Nov 2026: operator home page https://www.baiyunairport.com/byairport-web/index?_locale=en_US returned no runway, hours, customs or business aviation facts. Nothing added. China eAIP not retried (registration needed); it needs a registered account and a manual read of AD 2."
+ "notes": "Tried 28 Oct 2026: China eAIP (www.eaipchina.cn, www.aischina.com) - fetch blocked (permission not granted in time); only unofficial mirrors of old (2019) eAIP editions were found by search, which may not be used. No page of the operator's own website (gbiac.net) was found by search; nothing official read. CAAC AIP AD 2 for this airport should be obtained (e.g. via a registered eAIP China account) and read before any rule is recorded. Tried again 31 Oct 2026: China eAIP still not readable (registration needed; search finds only unofficial 2019 mirrors, not used); no operator page with runway, hours, customs or business-aviation facts was found by search. Status stays unavailable. | 3 Nov 2026: operator home page https://www.baiyunairport.com/byairport-web/index?_locale=en_US returned no runway, hours, customs or business aviation facts. Nothing added. China eAIP not retried (registration needed); it needs a registered account and a manual read of AD 2. | 2026-11-06 run: China eAIP https://www.eaipchina.cn/dataset not opened (permission request not answered). Operator's 2025 annual report summary (Shanghai Stock Exchange filing, 30 Apr 2026, https://star.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-30/600004_20260430_U3M8.pdf) says T3 and the fifth runway opened on 30 Oct 2025 and the airport now runs five commercial runways ('成为中国民航首个五条商用跑道运行的机场'); no lengths, so no runway rule recorded (exchange filing, not the operator's site). The full 2025 annual report (http://big5.sse.com.cn/.../600004_20260430_ZSRN.pdf) was not opened (https->http redirect). Nothing added."
 }

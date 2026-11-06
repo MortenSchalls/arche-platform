@@ -1,13 +1,13 @@
 {
  "icao": "VTSG",
- "iata": null,
+ "iata": "KBV",
  "name": "Krabi Airport",
  "city": "Krabi",
  "country": "TH",
  "tz": "Asia/Bangkok",
  "tier": 1,
  "status": "partial",
- "checked": "2026-10-27",
+ "checked": "2026-11-06",
  "rules": {
   "runway": {
    "v": "one runway, 14/32, 3,000 m long and 45 m wide",
@@ -38,9 +38,9 @@
    "quote": "On request"
   },
   "slots": {
-   "v": "Level 2 airport under Thai slot rules; non-scheduled flights must obtain slots",
+   "v": "Level 2 (schedule facilitated) airport: schedules facilitated by the Department of Airports (DOA); non-scheduled flights must obtain slots",
    "src": "th-aip-gen12",
-   "quote": "Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+   "quote": "KBV/VTSG | Krabi/Krabi Airport | Facilitation | DOA; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
   },
   "ppr": {
    "v": "non-scheduled flights need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead",
@@ -54,11 +54,10 @@
   }
  },
  "missing": [
-  "iata (not stated in AIP)",
   "curfew",
   "max_aircraft",
   "handling agent names",
   "business-aviation terminal"
  ],
- "notes": "AIP times are UTC; local = UTC+7 (Thailand has no daylight saving). Read from the 12 Jun 2025 AIRAC because newer packages (incl. 14 May 2026) could not be opened from this session; re-check against the current AIRAC before publishing. Slot level list is in GEN 1.2 section 3.2."
+ "notes": "AIP times are UTC; local = UTC+7 (Thailand has no daylight saving). Read from the 12 Jun 2025 AIRAC because newer packages (incl. 14 May 2026) could not be opened from this session; re-check against the current AIRAC before publishing. Slot level list is in GEN 1.2 section 3.2. | 2026-11-06 run: IATA KBV and facilitator DOA from GEN 1.2 (AIRAC 4 Sep 2025, th-aip-gen12) slot table. AMDT 08/26 checklist (6 Aug 2026) shows 12 VTSG AD 2 pages reissued (incl. 2-VTSG-1-1, 1-3, 1-6, 1-7), so the rules from the 12 Jun 2025 edition need rechecking. Current AD 2 not opened: https://aip.caat.or.th/ (WebFetch permission not granted; curl via proxy 403). No Krabi capacity notice found on caat.or.th."
 }

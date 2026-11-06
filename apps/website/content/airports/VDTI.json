@@ -7,7 +7,7 @@
  "tz": "Asia/Phnom_Penh",
  "tier": 1,
  "status": "unavailable",
- "checked": "2026-10-27",
+ "checked": "2026-11-06",
  "rules": {},
  "missing": [
   "iata",
@@ -24,5 +24,5 @@
   "hours",
   "noise"
  ],
- "notes": "Techo (VDTI) is the current Phnom Penh airport; VDPP is closed, so it is not listed. The Cambodian eAIP (aim.cats.com.kh) needs a log-in, so no AD 2 data could be verified. A Cambodian government page (Economic Diplomacy unit, 20 Oct 2025, reprinting a Kiripost article) gives a 4,000 m x 60 m runway, about 20-26 km south of Phnom Penh, managed by CAIC with VINCI Airports; this is a news reprint, not the AIP, so it is not used as a fact. Checked 2026-10-27."
+ "notes": "Techo (VDTI) is the current Phnom Penh airport; VDPP is closed, so it is not listed. The Cambodian eAIP (aim.cats.com.kh) needs a log-in, so no AD 2 data could be verified. A Cambodian government page (Economic Diplomacy unit, 20 Oct 2025, reprinting a Kiripost article) gives a 4,000 m x 60 m runway, about 20-26 km south of Phnom Penh, managed by CAIC with VINCI Airports; this is a news reprint, not the AIP, so it is not used as a fact. Checked 2026-10-27. | 2026-11-06 run: nothing recorded. Web reading was blocked this run: WebFetch permission requests were not answered, and the network proxy refused downloads (HTTP 403) from every official host tried (caasanwebsitestorage.blob.core.windows.net, aipchile.dgac.gob.cl, gcaa.gov.ae, aisweb.decea.mil.br); only web search worked, which gives no source text. Note: the task brief named VDTI as Chiang Rai / Mae Fah Luang (Thailand); that is wrong, Chiang Rai is VTCT. This file stays Techo International, Phnom Penh (Cambodia). Not opened: https://aim.cats.com.kh/eaip.html (log-in needed in earlier runs)."
 }
