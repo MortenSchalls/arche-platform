@@ -7,16 +7,21 @@
  "tz": "America/Mazatlan",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-05",
+ "checked": "2026-11-07",
  "rules": {
   "handling": {
    "v": "the operator GAP lists PRIMESKY, a private FBO inside Los Cabos airport",
    "src": "mmsd-gap-private",
    "quote": "PREMIUM PRIVATE FBO"
+  },
+  "runway": {
+   "v": "One runway 16-34, effective length 3,000 m x 45 m (60 m including paved shoulders). The same filing plans a second runway of 3,120 m x 45 m; whether it is built was not checked. From an undated environmental impact statement (filed 2020) by AFAC; check AIP AD 2.12 before a performance-critical trip",
+   "longest_m": 3000,
+   "src": "mmsd-afac-mia-2020",
+   "quote": "La pista existente tiene una longitud efectiva de 3000 metros y 45 metros de anchura"
   }
  },
  "missing": [
-  "runway",
   "customs",
   "curfew",
   "slots",
@@ -24,5 +29,5 @@
   "hours",
   "fuel"
  ],
- "notes": "IATA SJD and ICAO MMSD are shown on GAP's private aviation page ('Codigo IATA SJD, código OACI MMSD'). Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMSD) could not be read (site refuses automated reading, robots). GAP's 'Sobre el aeropuerto' page gives no runway, hours or customs data. 1 Nov 2026: nothing new verified. GAP pages https://www.aeropuertosgap.com.mx/es/los-cabos.html and https://www.aeropuertosgap.com.mx/en/los-cabos-3.html give no runway, hours or customs data; GAP 20-F for 2020 on sec.gov read in part, no Los Cabos runway data found. AIP AD 2 MMSD on aipmexico.seneam.gob.mx still blocked. | 3 Nov 2026: AIP AD 2 MMSD (https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_2/59_MMSD/AD_2-MMSD-2.pdf) refused (robots). A DOF resolution changing the airport's minimum ordinary operating hours (2 Apr 2015, https://www.dof.gob.mx/nota_detalle.php?codigo=5387668&fecha=02/04/2015) exists but was refused (robots), so hours not verified. Anexo 4 RGCE 2026 lists the San José del Cabo customs section for import and export of goods (Mon-Fri 08:00-17:00); not recorded as customs. GAP's private aviation page names the FBO Primesky, no runway, hours or customs. 5 Nov 2026: nothing new. Two DOF items surfaced by a search on the airport's operating hours were refused (robots), content unknown: https://dof.gob.mx/nota_detalle.php?codigo=5526346&fecha=13%2F06%2F2018 and https://www.dof.gob.mx/nota_detalle_popup.php?codigo=5585985. https://www.proyectosmexico.gob.mx/proyecto_inversion/302-aeropuerto-de-los-cabos/ refused (robots). Older GAP annual reports appeared in search; not opened, as they are out of date and a runway figure from them would not be better than the blocked AIP."
+ "notes": "IATA SJD and ICAO MMSD are shown on GAP's private aviation page ('Codigo IATA SJD, código OACI MMSD'). Mexico AIP (aipmexico.seneam.gob.mx, AD 2 MMSD) could not be read (site refuses automated reading, robots). GAP's 'Sobre el aeropuerto' page gives no runway, hours or customs data. 1 Nov 2026: nothing new verified. GAP pages https://www.aeropuertosgap.com.mx/es/los-cabos.html and https://www.aeropuertosgap.com.mx/en/los-cabos-3.html give no runway, hours or customs data; GAP 20-F for 2020 on sec.gov read in part, no Los Cabos runway data found. AIP AD 2 MMSD on aipmexico.seneam.gob.mx still blocked. | 3 Nov 2026: AIP AD 2 MMSD (https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_2/59_MMSD/AD_2-MMSD-2.pdf) refused (robots). A DOF resolution changing the airport's minimum ordinary operating hours (2 Apr 2015, https://www.dof.gob.mx/nota_detalle.php?codigo=5387668&fecha=02/04/2015) exists but was refused (robots), so hours not verified. Anexo 4 RGCE 2026 lists the San José del Cabo customs section for import and export of goods (Mon-Fri 08:00-17:00); not recorded as customs. GAP's private aviation page names the FBO Primesky, no runway, hours or customs. 5 Nov 2026: nothing new. Two DOF items surfaced by a search on the airport's operating hours were refused (robots), content unknown: https://dof.gob.mx/nota_detalle.php?codigo=5526346&fecha=13%2F06%2F2018 and https://www.dof.gob.mx/nota_detalle_popup.php?codigo=5585985. https://www.proyectosmexico.gob.mx/proyecto_inversion/302-aeropuerto-de-los-cabos/ refused (robots). Older GAP annual reports appeared in search; not opened, as they are out of date and a runway figure from them would not be better than the blocked AIP. | 7 Nov 2026: added runway from the AFAC environmental impact statement 'Ampliación de la Capacidad del Aeropuerto Internacional de Los Cabos, B.C.S.' (SEMARNAT file 03BS2020V0025, no date in the text; filed 2020), which names one runway 16-34 and plans a 'Segunda Pista' of 3.12 km; it states night-operation visual aids but no hours or customs. Could not be opened: AIP AD 2 MMSD https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_2/59_MMSD/AD_2-MMSD-2.pdf (permission request not answered, blocked)."
 }

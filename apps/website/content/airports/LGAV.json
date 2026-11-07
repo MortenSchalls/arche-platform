@@ -7,7 +7,7 @@
  "tz": "Europe/Athens",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-05",
+ "checked": "2026-11-07",
  "rules": {
   "curfew": {
    "v": "No curfew; the airport operates 24 hours (operator's statement, December 2024).",
@@ -18,7 +18,13 @@
   "hours": {
    "v": "24-hour operation (operator's statement, May 2026).",
    "src": "lgav-aia-pres-0526",
-   "quote": "24-hr operations"
+   "quote": "24-hr operations",
+   "also": [
+    {
+     "src": "lgav-aia-company",
+     "quote": "Operates 24-hour 365 days"
+    }
+   ]
   },
   "handling": {
    "v": "The airport company awards and supervises ground handling and does not run it itself; its page lists the handling companies, without saying which serve business aviation.",
@@ -63,5 +69,5 @@
   "customs",
   "noise"
  ],
- "notes": "No official source could be read. The HASP eAIP site (aisgr.hasp.gov.gr) puts the AIP behind a 'user check' page and no LGAV AD 2 file URL could be found by search (only LGMT files of the AIRAC 05/26 edition, effective 11 Jun 2026, showed up). The HCAA copy at ypa.gr (AD 2 LGAV, page date 23 Feb 2023) loops between https and http and could not be opened, and is old anyway. aia.gr search found no business-aviation, slot or night-rule page. The shared web-search budget ran out before more tries. | 2026-10-31 run: still unavailable. No HASP eAIP AD 2 LGAV URL found by search; aia.gr search found no GA/business-aviation rules page (an AIA 'GABA Rules Ed5.6' PDF exists only on a third-party blog, not used). | 2026-11-03 run: curfew and hours come from a December 2024 investor presentation, not the AIP, so check them against AD 2 LGAV. Current AIP is AMDT 09/26 (effective 29 OCT 2026), only as a multi-part ZIP (https://aisgr.hasp.gov.gr/iso-cell2), and the guessed AD 2 LGAV PDF was refused; AIP SUP 01/22 on GA/BA slots expired 30 SEP 2022 and does not list LGAV, so no slot rule. 5 Nov 2026: 2026-11-05 run: slots, PPR and stand limits from HSCA (Greek slot coordinator) W26 parameters and ATH GABA local rule (Sep/Oct 2026). IATA from HSCA airport levels table (ATH, ICAO LGAV). Summer 2026 was Level 2, with Level 3 only 17 to 22 Sep 2026. Curfew quote stays from Dec 2024; the May 2026 presentation repeats 24-hr operations without the word curfew, so still check against AD 2 LGAV. HSCA's page points to GA/BA Rules Ed. 5.6; only Ed. 5.4 surfaced and it was refused, so PPR comes from the airport local rule alone. AIA pages say two runways with no lengths. Operator is Athens International Airport S.A. (operator's own page), left under missing because it is not a rule key."
+ "notes": "No official source could be read. The HASP eAIP site (aisgr.hasp.gov.gr) puts the AIP behind a 'user check' page and no LGAV AD 2 file URL could be found by search (only LGMT files of the AIRAC 05/26 edition, effective 11 Jun 2026, showed up). The HCAA copy at ypa.gr (AD 2 LGAV, page date 23 Feb 2023) loops between https and http and could not be opened, and is old anyway. aia.gr search found no business-aviation, slot or night-rule page. The shared web-search budget ran out before more tries. | 2026-10-31 run: still unavailable. No HASP eAIP AD 2 LGAV URL found by search; aia.gr search found no GA/business-aviation rules page (an AIA 'GABA Rules Ed5.6' PDF exists only on a third-party blog, not used). | 2026-11-03 run: curfew and hours come from a December 2024 investor presentation, not the AIP, so check them against AD 2 LGAV. Current AIP is AMDT 09/26 (effective 29 OCT 2026), only as a multi-part ZIP (https://aisgr.hasp.gov.gr/iso-cell2), and the guessed AD 2 LGAV PDF was refused; AIP SUP 01/22 on GA/BA slots expired 30 SEP 2022 and does not list LGAV, so no slot rule. 5 Nov 2026: 2026-11-05 run: slots, PPR and stand limits from HSCA (Greek slot coordinator) W26 parameters and ATH GABA local rule (Sep/Oct 2026). IATA from HSCA airport levels table (ATH, ICAO LGAV). Summer 2026 was Level 2, with Level 3 only 17 to 22 Sep 2026. Curfew quote stays from Dec 2024; the May 2026 presentation repeats 24-hr operations without the word curfew, so still check against AD 2 LGAV. HSCA's page points to GA/BA Rules Ed. 5.6; only Ed. 5.4 surfaced and it was refused, so PPR comes from the airport local rule alone. AIA pages say two runways with no lengths. Operator is Athens International Airport S.A. (operator's own page), left under missing because it is not a rule key. | 7 Nov 2026: operator's company page (aia.gr/en/corporate/the-company, undated) added as a second source for 24-hour operation ('Operates 24-hour 365 days'); it says two independent runways 'of sufficient length for operations by any aircraft type' but gives no lengths, so runway stays missing. Its facts-and-figures and international-travellers pages give no runway, customs or GA rules. HSCA GA/BA Rules Ed. 5.6 (April 2026) surfaced only on a third-party blog, not on hsca.gr, so not used; hsca.gr/coordination/local-rules/ could not be opened (permission not answered). HASP AD 2 LGAV still not found."
 }

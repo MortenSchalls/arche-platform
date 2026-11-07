@@ -1,13 +1,13 @@
 {
  "icao": "VIDP",
- "iata": null,
+ "iata": "DEL",
  "name": "Indira Gandhi International Airport",
  "city": "Delhi",
  "country": "IN",
  "tz": "Asia/Kolkata",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-05",
+ "checked": "2026-11-07",
  "rules": {
   "customs": {
    "v": "customs and immigration 24 hours",
@@ -19,11 +19,15 @@
    "v": "non-scheduled flights need a valid Delhi Approach Arrival Clearance Number (DACN), applied for from the airport's operations control centre",
    "src": "in-aip-vidp",
    "quote": "Non-Sked flights not permitted to operate at IGI Airport without a valid Delhi APCH ARR CLR NR (DACN)"
+  },
+  "runway": {
+   "v": "four runways: 11R/29L 4,430 m x 60 m, 11L/29R 4,400 m x 45 m, 10/28 3,813 m x 45 m, 09/27 2,816 m x 45 m",
+   "longest_m": 4430,
+   "src": "vidp-dial-factsheet",
+   "quote": "11L-29R (4400m / 45 Meter Width) 11R-29L (4430m / 60 Meter Width) 10-28 (3813 m / 45 m) 09-27 (2816 m / 45 m)"
   }
  },
  "missing": [
-  "iata (AIP page does not state it)",
-  "runway (AD 2.12 beyond the text the fetch tool could read)",
   "curfew",
   "slots",
   "max_aircraft",
@@ -31,5 +35,5 @@
   "hours (only aerodrome office hours stated)",
   "noise"
  ],
- "notes": "Page read is India AIP AMDT 04-26 (effective 14 May 2026). The page is long and the text returned stopped inside AD 2.10 obstacles, so AD 2.12 runways, AD 2.20 local rules and AD 2.21 noise were not read. The AIP refers to the airport's own general aviation page (newdelhiairport.in) for the DACN procedure; not opened. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html (read on to AD 2.12, 2.20, 2.21); web search found no newdelhiairport.in general aviation page. Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: all AAI eAIP URLs on aim-india.aai.aero now redirect to another host, aim-india.aai.aero.in, and the reader refused that host (permission request not answered), so no AIP page could be read and nothing was added from the AIP. The host's ownership was not verified. Blocked URL: https://aim-india.aai.aero.in/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html. Operator page https://www.newdelhiairport.in/faq/ refused automated reading (robots). 5 Nov 2026: 2026-11-05 run: nothing new verified. Search shows a newer AIP edition path (https://aim-india.aai.aero/eaip/eaip-v2-09-2026/eAIP/IN-AD%202.1VIDP-en-GB.html), but it redirects to aim-india.aai.aero.in, which was refused (permission not answered). That host's ownership is still unverified. Search also shows the operator's GA procedures PDF (https://www.newdelhiairport.in/pdf/ga-operational-procedures.pdf), likely the best source for slots, DACN and parking; it and the operator's factsheet are blocked by robots rules. A person could open both in a browser."
+ "notes": "Page read is India AIP AMDT 04-26 (effective 14 May 2026). The page is long and the text returned stopped inside AD 2.10 obstacles, so AD 2.12 runways, AD 2.20 local rules and AD 2.21 noise were not read. The AIP refers to the airport's own general aviation page (newdelhiairport.in) for the DACN procedure; not opened. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html (read on to AD 2.12, 2.20, 2.21); web search found no newdelhiairport.in general aviation page. Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: all AAI eAIP URLs on aim-india.aai.aero now redirect to another host, aim-india.aai.aero.in, and the reader refused that host (permission request not answered), so no AIP page could be read and nothing was added from the AIP. The host's ownership was not verified. Blocked URL: https://aim-india.aai.aero.in/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html. Operator page https://www.newdelhiairport.in/faq/ refused automated reading (robots). 5 Nov 2026: 2026-11-05 run: nothing new verified. Search shows a newer AIP edition path (https://aim-india.aai.aero/eaip/eaip-v2-09-2026/eAIP/IN-AD%202.1VIDP-en-GB.html), but it redirects to aim-india.aai.aero.in, which was refused (permission not answered). That host's ownership is still unverified. Search also shows the operator's GA procedures PDF (https://www.newdelhiairport.in/pdf/ga-operational-procedures.pdf), likely the best source for slots, DACN and parking; it and the operator's factsheet are blocked by robots rules. A person could open both in a browser. | 7 Nov 2026: added runways and IATA code from the operator's fact sheet (site.newdelhiairport.in/medias/factsheet, undated, traffic figures 2023-24; 'IATA / ICAO CODE: DEL / VIDP'); operator figures, not the AIP, so check against AD 2.12 when the eAIP opens. The operator's GA blog page gives capacity of 150 private jet movements a day, no hours or customs text. Not opened: https://www.newdelhiairport.in/business/general-aviation/ (robots), https://aera.gov.in/uploads/stack_holder/17404882544901.pdf (robots), https://aim-india.aai.aero/eaip/eaip-v2-09-2026/eAIP/IN-AD%202.1VIDP-en-GB.html (permission not answered; redirects to aim-india.aai.aero.in)."
 }

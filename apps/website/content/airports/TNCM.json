@@ -7,7 +7,7 @@
  "tz": "America/Lower_Princes",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-05",
+ "checked": "2026-11-07",
  "rules": {
   "runway": {
    "v": "one runway, 10/28, 2,300 m × 45 m",
@@ -51,14 +51,18 @@
    "v": "no noise abatement procedures",
    "src": "tncm-dc-aip",
    "quote": "No procedures in place"
+  },
+  "ppr": {
+   "v": "all private aircraft need prior landing clearance and must clear customs and immigration on arrival (operator's statement; the AIP read has no PPR rule)",
+   "src": "tncm-sxm-services",
+   "quote": "All private aircraft require prior landing clearance and must clear customs and immigration upon arrival."
   }
  },
  "missing": [
   "iata",
   "curfew",
-  "ppr",
   "max_aircraft",
-  "latest AIP amendment (02-26, 6 Aug 2026)"
+  "current AIP amendment (AD 2 TNCM pages replaced 17 Apr 2025 by AMDT 02-25; latest 02-26, 6 Aug 2026, not read)"
  ],
- "notes": "AIP read: DC-ANSP eAIP edition folder dated 28 Nov 2024 (no effective date printed on the page). The newer DC-ANSP eAIP AIRAC AMDT 02-26 (6 Aug 2026) TNCM page could not be opened (permission not granted): https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2002-26_2026_08_06/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html - check it before relying on hours. The 07:00-21:00 LT hours are ATS/service hours, not a stated curfew; AD 2.15 also shows 'OTHER 1100-0100 UTC'. Operator named in AIP: Princess Juliana International Airport Operating Company. The airport site uses 'SXM' but does not label it the IATA code. 1 Nov 2026: re-read the 28 Nov 2024 eAIP AD 2 TNCM; AD 2.20 has no PPR, night, curfew, slot or size rule, so curfew, ppr and max_aircraft stay missing (AD 2.12 gives PCN 60/F/B/X/T for RWY 10/28, no aircraft type). The AMDT 02-26 page still could not be opened (permission not answered): https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2002-26_2026_08_06/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html . sxmairport.com private aviation page https://www.sxmairport.com/airport-services/private-aviation failed (site error); its St Maarten Airport page writes 'Princess Juliana International Airport (SXM)' but does not call it the IATA code, so iata stays null. | 3 Nov 2026: https://www.sxmairport.com/private-aviation.php opened and repeats the landing clearance and slot approval rule; it gives no hours, night or size rule. AMDT 02-26 AD 2 TNCM (https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2002-26_2026_08_06/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html) and the new AIS site https://aim.dc-ansp.org/ could not be opened (permission not answered). The owner should check the current amendment for hours. 5 Nov 2026: nothing new. Tried other eAIP editions: https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2001-26_2026_04_16/Cover%20Page-en-US.html and .../AIRAC%20AMDT%2005-25_2025_11_27/eAIP/GEN%201.1.4-en-US.html (client error), .../AIRAC%20AMDT%2003-25_2025_06_12/eAIP/GEN%201.2.4-en-US.html (server error). dc-ansp.org eAIP default now redirects to https://aim.dc-ansp.org/, which could not be opened (permission not answered). Owner should check the current amendment."
+ "notes": "AIP read: DC-ANSP eAIP edition folder dated 28 Nov 2024 (no effective date printed on the page). The newer DC-ANSP eAIP AIRAC AMDT 02-26 (6 Aug 2026) TNCM page could not be opened (permission not granted): https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2002-26_2026_08_06/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html - check it before relying on hours. The 07:00-21:00 LT hours are ATS/service hours, not a stated curfew; AD 2.15 also shows 'OTHER 1100-0100 UTC'. Operator named in AIP: Princess Juliana International Airport Operating Company. The airport site uses 'SXM' but does not label it the IATA code. 1 Nov 2026: re-read the 28 Nov 2024 eAIP AD 2 TNCM; AD 2.20 has no PPR, night, curfew, slot or size rule, so curfew, ppr and max_aircraft stay missing (AD 2.12 gives PCN 60/F/B/X/T for RWY 10/28, no aircraft type). The AMDT 02-26 page still could not be opened (permission not answered): https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2002-26_2026_08_06/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html . sxmairport.com private aviation page https://www.sxmairport.com/airport-services/private-aviation failed (site error); its St Maarten Airport page writes 'Princess Juliana International Airport (SXM)' but does not call it the IATA code, so iata stays null. | 3 Nov 2026: https://www.sxmairport.com/private-aviation.php opened and repeats the landing clearance and slot approval rule; it gives no hours, night or size rule. AMDT 02-26 AD 2 TNCM (https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2002-26_2026_08_06/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html) and the new AIS site https://aim.dc-ansp.org/ could not be opened (permission not answered). The owner should check the current amendment for hours. 5 Nov 2026: nothing new. Tried other eAIP editions: https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2001-26_2026_04_16/Cover%20Page-en-US.html and .../AIRAC%20AMDT%2005-25_2025_11_27/eAIP/GEN%201.1.4-en-US.html (client error), .../AIRAC%20AMDT%2003-25_2025_06_12/eAIP/GEN%201.2.4-en-US.html (server error). dc-ansp.org eAIP default now redirects to https://aim.dc-ansp.org/, which could not be opened (permission not answered). Owner should check the current amendment. | 7 Nov 2026: PPR added from the operator's Airport Services page ('All private aircraft require prior landing clearance and must clear customs and immigration upon arrival.'). Read the DC-ANSP AIRAC AMDT 02-25 package (effective 17 Apr 2025): it replaces AD 2 TNCM pages 1-9 to 1-39 with 17 APR 2025 versions and withdraws 1-41 to 1-47, so the 28 Nov 2024 edition used for runway, customs, hours, fuel and noise is superseded at least in part; the package has only the checklist, not the page text, so rules were not changed but must be re-checked against the current amendment. Could not open (permission not answered): https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2002-26_2026_08_06/eAIP/AD%202%20TNCM%20-%20SINT%20MAARTEN%201-en-US.html and http://dc-ansp.org/eAIS/eaip-dutch-caribbean/."
 }

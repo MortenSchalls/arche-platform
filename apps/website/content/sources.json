@@ -387,7 +387,7 @@
   "title": "Thailand eAIP, AD 2 VTSP Phuket (AIRAC effective 14 May 2026)",
   "url": "https://aip.caat.or.th/2026-05-14-AIRAC/html/eAIP/VT-AD-2.VTSP-en-GB.html",
   "publisher": "Civil Aviation Authority of Thailand (CAAT)",
-  "checked": "2026-11-01"
+  "checked": "2026-11-07"
  },
  "au-ersa-yssy": {
   "title": "AIP Australia ERSA, FAC YSSY Sydney/Kingsford Smith (effective 09 Jul 2026)",
@@ -1932,10 +1932,10 @@
   "checked": "2026-10-28"
  },
  "kbed-faa-pilotinfo": {
-  "title": "FAA Laurence G. Hanscom Field (BED) Pilot Handbook (no date shown) (checked 28 Oct 2026)",
+  "title": "FAA Laurence G. Hanscom Field (BED) Pilot Handbook (no date shown) (re-checked 7 Nov 2026)",
   "url": "https://www.faa.gov/flight_deck/pilot_info/bed.pdf",
   "publisher": "Federal Aviation Administration",
-  "checked": "2026-10-28"
+  "checked": "2026-11-07"
  },
  "kiad-cbp-ga": {
   "title": "CBP General Aviation Airport Fact Sheet, Washington Dulles (KIAD), 17 Apr 2024, KIAD-0424 (checked 28 Oct 2026)",
@@ -1962,10 +1962,10 @@
   "checked": "2026-10-28"
  },
  "ksjc-curfew": {
-  "title": "San José Mineta International Airport, Curfew Information page (no date shown; Schedule of Authorized Aircraft rev. Nov 2022) (checked 28 Oct 2026)",
+  "title": "San José Mineta International Airport, Curfew Information page (no date shown; programme revised Oct 2003; Schedule of Authorized Aircraft rev. Nov 2022) (checked 7 Nov 2026)",
   "url": "https://www.flysanjose.com/noise/curfew",
   "publisher": "City of San José, Airport Department",
-  "checked": "2026-10-28"
+  "checked": "2026-11-07"
  },
  "ksjc-cbp-ga": {
   "title": "CBP General Aviation Airport Fact Sheet, San Jose (KSJC), 25 Jul 2024, KSJC-0724 (checked 28 Oct 2026)",
@@ -2004,10 +2004,10 @@
   "checked": "2026-10-28"
  },
  "ksna-ga-flyer": {
-  "title": "John Wayne Airport, General Aviation Noise Abatement Program flyer (no date shown; file posted Aug 2022) (checked 28 Oct 2026)",
+  "title": "John Wayne Airport, General Aviation Noise Abatement Program flyer (no date shown; file posted Aug 2022) (checked 7 Nov 2026)",
   "url": "https://files.ocair.com/media/2022-08/11326_GA_Noise_Abatement_Program_Flyer_3.pdf",
   "publisher": "County of Orange, John Wayne Airport",
-  "checked": "2026-10-28"
+  "checked": "2026-11-07"
  },
  "mmmx-dgac-co-sa-30-12": {
   "title": "DGAC Circular Obligatoria CO SA-30/12, Procedimiento para operaciones de aviación general con destino u origen al AICM, in force from 17 May 2012 (checked 28 Oct 2026)",
@@ -2448,10 +2448,10 @@
   "checked": "2026-11-01"
  },
  "kege-customs": {
-  "title": "Eagle County Regional Airport, US Customs page (last modified 27 Dec 2023; read 1 Nov 2026)",
+  "title": "Eagle County Regional Airport, US Customs page (last modified 27 Dec 2023; re-checked 7 Nov 2026)",
   "url": "https://flyege.com/general-aviation/us-customs/",
   "publisher": "Eagle County Regional Airport (Eagle County)",
-  "checked": "2026-11-01"
+  "checked": "2026-11-07"
  },
  "kpdk-cbp-ga": {
   "title": "US CBP, Dekalb-Peachtree Airport GA Airport Fact Sheet (KPDK), 6 May 2024, publication KPDK-0524",
@@ -2985,7 +2985,7 @@
   "title": "Toronto Pearson: Airport Reservation Office (ARO), page undated; states changes effective 21 Oct 2025",
   "url": "https://www.torontopearson.com/en/operators-at-pearson/getting-started/aro",
   "publisher": "Greater Toronto Airports Authority",
-  "checked": "2026-11-03"
+  "checked": "2026-11-07"
  },
  "cyvr-yvr-runway-slots-faq": {
   "title": "YVR: Runway Slots, Frequently Asked Questions, page undated",
@@ -3144,10 +3144,10 @@
   "checked": "2026-11-05"
  },
  "eddb-fbo-a8-v97": {
-  "title": "Aerodrome Manual EDDB, Chapter A.8 General Terms and Conditions of Use (FBO), version 9.7, in force 1 May 2022, as linked on the operator's Regulations page",
+  "title": "Aerodrome Manual EDDB, Chapter A.8 General Terms and Conditions of Use (FBO), version 9.7, in force 1 May 2022, as linked on the operator's Regulations page (re-read 7 Nov 2026)",
   "url": "https://corporate.berlin-airport.de/content/dam/corporate/en/geschaeftspartner/ordnungen-antraege/flugplatzhandbuch/eddb-a8-en.pdf",
   "publisher": "Flughafen Berlin Brandenburg GmbH (airport operator)",
-  "checked": "2026-11-05"
+  "checked": "2026-11-07"
  },
  "jmk-ga-2026-11": {
   "title": "Mykonos Airport, General Aviation / Business Aviation page, as read 5 Nov 2026 (no page date or validity dates shown)",
@@ -3346,5 +3346,65 @@
   "url": "https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2026-P04/graphics/OMAA-AD-2-21A_2026-06.pdf",
   "publisher": "General Civil Aviation Authority (UAE)",
   "checked": "2026-11-06"
+ },
+ "kmdw-cda-contingency-2024": {
+  "title": "Chicago Department of Aviation, Chicago Midway International Airport Contingency Plan for Irregular Operations (Jan. 2, 2024)",
+  "url": "https://www.flychicago.com/SiteCollectionDocuments/Business/ArchivedPDFs/AboutCDA/EmergencyPlan_MDW.pdf",
+  "publisher": "Chicago Department of Aviation",
+  "checked": "2026-11-07"
+ },
+ "ksna-faqs": {
+  "title": "John Wayne Airport, Travelers FAQs page (no date shown; footer 2026)",
+  "url": "https://ocair.com/travelers/services/faqs",
+  "publisher": "County of Orange, John Wayne Airport",
+  "checked": "2026-11-07"
+ },
+ "mmsd-afac-mia-2020": {
+  "title": "AFAC (SCT), Manifestación de Impacto Ambiental, Ampliación de la Capacidad del Aeropuerto Internacional de Los Cabos, B.C.S., SEMARNAT file 03BS2020V0025 (undated; filed 2020)",
+  "url": "https://apps1.semarnat.gob.mx:8443/dgiraDocs/documentos/bcs/estudios/2020/03BS2020V0025.pdf",
+  "publisher": "Agencia Federal de Aviación Civil / SEMARNAT",
+  "checked": "2026-11-07"
+ },
+ "tncm-sxm-services": {
+  "title": "Princess Juliana International Airport, Airport Services page (undated; checked 7 Nov 2026)",
+  "url": "https://www.sxmairport.com/airport-services",
+  "publisher": "Princess Juliana International Airport",
+  "checked": "2026-11-07"
+ },
+ "lgav-aia-company": {
+  "title": "Athens International Airport, The Airport Company page (undated; checked 7 Nov 2026)",
+  "url": "https://www.aia.gr/en/corporate/the-company",
+  "publisher": "Athens International Airport S.A.",
+  "checked": "2026-11-07"
+ },
+ "hia-charges-2026-07": {
+  "title": "Hamad International Airport, Schedule of Charges (effective 01 Jul 2026)",
+  "url": "https://dohahamadairport.com/sites/default/files/2026-07/HIA_Schedule_of_Charges_01Jul2026.pdf",
+  "publisher": "Hamad International Airport (airport operator)",
+  "checked": "2026-11-07"
+ },
+ "vabb-mial-aera-4cp-2503": {
+  "title": "CSMIA Mumbai, Fourth Control Period: Stakeholder Consultation (Mumbai International Airport Ltd presentation, 25 Mar 2025, published by AERA)",
+  "url": "https://aera.gov.in/uploads/stack_holder/17436568126440.pdf",
+  "publisher": "Mumbai International Airport Ltd (airport operator), via Airports Economic Regulatory Authority of India",
+  "checked": "2026-11-07"
+ },
+ "vidp-dial-factsheet": {
+  "title": "Delhi Airport fact sheet (undated; traffic figures 2023-24)",
+  "url": "https://site.newdelhiairport.in/medias/factsheet/",
+  "publisher": "Delhi International Airport Ltd (GMR, airport operator)",
+  "checked": "2026-11-07"
+ },
+ "vvnb-nia-overview": {
+  "title": "Noi Bai International Airport website, Noibai International Airport Overview (undated; footer Copyright 2020)",
+  "url": "https://noibaiairport.vn/en/noibai-interntional-airport-overview-pid3.html",
+  "publisher": "Noi Bai International Airport (ACV)",
+  "checked": "2026-11-07"
+ },
+ "ar-eana-pda-eze-20260903": {
+  "title": "EANA FMU EZE Plan Diario de ATFM (PDA), 3 Sep 2026 (cited in notes only)",
+  "url": "https://eana.com.ar/sites/default/files/2026-09/PDA%2003-09-2026.pdf",
+  "publisher": "EANA (Empresa Argentina de Navegación Aérea)",
+  "checked": "2026-11-07"
  }
 }

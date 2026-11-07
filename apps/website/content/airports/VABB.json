@@ -7,7 +7,7 @@
  "tz": "Asia/Kolkata",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-05",
+ "checked": "2026-11-07",
  "rules": {
   "customs": {
    "v": "customs and immigration 24 hours",
@@ -29,14 +29,19 @@
    "v": "hangar space at Air India and Jet Airways hangars subject to availability; no handling agents named",
    "src": "in-aip-vabb",
    "quote": "At Air India (NACIL) and Jet Airways Hanger subject to availability."
+  },
+  "runway": {
+   "v": "two crossing runways: 09/27 3,448 m x 60 m (3,188 m x 60 m usable with displaced threshold) and 14/32 2,871 m x 45 m",
+   "longest_m": 3448,
+   "src": "vabb-mial-aera-4cp-2503",
+   "quote": "RWY 09/27- 3,448m x 60m (3,188m x 60m with displaced threshold) ... RWY 14/32- 2,871m x 45m"
   }
  },
  "missing": [
-  "runway (AD 2.12 beyond the text read; the aerodrome chart labels are ambiguous)",
   "curfew",
   "max_aircraft",
   "hours (only aerodrome office hours stated)",
   "noise"
  ],
- "notes": "Converted from UTC to India time (UTC+5:30, no daylight saving). Page read is India AIP AMDT 05-25 (effective 02 Oct 2025); a newer amendment (AMDT 04-26, 14 May 2026) exists for VIDP, so VABB may be superseded. The AIP still lists Jet Airways and NACIL hangars; check before using. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://aim-india.aai.aero/eAIP_Archive/02-10-2025/eAIP/IN-AD%202.1VABB-en-GB.html (read on to AD 2.12). Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: all AAI eAIP URLs on aim-india.aai.aero now redirect to another host, aim-india.aai.aero.in, and the reader refused that host (permission request not answered), so no AIP page could be read and nothing was added from the AIP. The host's ownership was not verified. Blocked: https://aim-india.aai.aero/eaip/eaip-v2-05-2025/eAIP/VABB-ADC.pdf; no 2026 AD 2 VABB page was found by search, though a 2026 edition exists. IATA code from the operator's page (vabb-adani-about): 'IATA: BOM, ICAO: VABB'. The operator's general aviation page (https://csmia-mumbai.adaniairports.com/en/business/general-aviation) describes a general aviation terminal with customs and immigration and lists 'Coordination for Temporary Landing Permit (TLP)', with no hours, handler names or parking, so no rule was recorded. 5 Nov 2026: 2026-11-05 run: no rule added. The operator's About page calls it a single-runway airport with a cross-runway configuration, with no numbers, hours or night text. The operator's release of 31 Oct 2022 says the General Aviation Terminal is 'exclusively for private jets', with 'Customs and Immigration' and parking stands co-located; no hours stated, so not recorded as a rule. AAI eAIP URLs still redirect to aim-india.aai.aero.in and were not read. A search result title for an AAI aerodrome chart shows runway lengths, but the chart was not read and nothing was taken from it."
+ "notes": "Converted from UTC to India time (UTC+5:30, no daylight saving). Page read is India AIP AMDT 05-25 (effective 02 Oct 2025); a newer amendment (AMDT 04-26, 14 May 2026) exists for VIDP, so VABB may be superseded. The AIP still lists Jet Airways and NACIL hangars; check before using. 1 Nov 2026: nothing added. The web page reader was refused for every official URL this run (permission not given), so no AIP page could be read. Tried: https://aim-india.aai.aero/eAIP_Archive/02-10-2025/eAIP/IN-AD%202.1VABB-en-GB.html (read on to AD 2.12). Rules above unchanged; still needs the current AD 2 pages. | 3 Nov 2026: all AAI eAIP URLs on aim-india.aai.aero now redirect to another host, aim-india.aai.aero.in, and the reader refused that host (permission request not answered), so no AIP page could be read and nothing was added from the AIP. The host's ownership was not verified. Blocked: https://aim-india.aai.aero/eaip/eaip-v2-05-2025/eAIP/VABB-ADC.pdf; no 2026 AD 2 VABB page was found by search, though a 2026 edition exists. IATA code from the operator's page (vabb-adani-about): 'IATA: BOM, ICAO: VABB'. The operator's general aviation page (https://csmia-mumbai.adaniairports.com/en/business/general-aviation) describes a general aviation terminal with customs and immigration and lists 'Coordination for Temporary Landing Permit (TLP)', with no hours, handler names or parking, so no rule was recorded. 5 Nov 2026: 2026-11-05 run: no rule added. The operator's About page calls it a single-runway airport with a cross-runway configuration, with no numbers, hours or night text. The operator's release of 31 Oct 2022 says the General Aviation Terminal is 'exclusively for private jets', with 'Customs and Immigration' and parking stands co-located; no hours stated, so not recorded as a rule. AAI eAIP URLs still redirect to aim-india.aai.aero.in and were not read. A search result title for an AAI aerodrome chart shows runway lengths, but the chart was not read and nothing was taken from it. | 7 Nov 2026: added runway from the operator's (Mumbai International Airport Ltd) stakeholder consultation deck for the Fourth Control Period, 25 Mar 2025, published on the AERA website (slide 27, Existing Airport Facilities); it is the operator's own figure, not the AIP, so check against AD 2.12 when the eAIP opens. The same deck gives runway capacity 44 ATMs/hr and no night or GA parking text. Operator GA page (csmia-mumbai.adaniairports.com/Business/General-Aviation, footer 2025) lists CIQ, 'Flight plan/slot coordination' and TLP coordination, no hours. Official URLs not opened: aim-india.aai.aero AD 2 pages still redirect to aim-india.aai.aero.in, which the reader refused (permission not answered); the 05-2026 package exists (https://aim-india.aai.aero/eaip/eaip-v2-05-2026/eAIP/IN-AD%201.4-en-GB.html redirects there), so no AD 2 VABB page was read and curfew is still unverified."
 }
