@@ -711,7 +711,7 @@ function vModule(v, id){
       ${M.intro ? `<p class="lede">${esc(M.intro)}</p>` : ""}
       <div class="meta"><span>About ${M.min} minutes</span><span>${n} short screen${n===1?"":"s"}</span>${hasQ ? `<span>Module check: ${M.quiz.length} questions</span>` : ""}</div>
       ${M.obj.length ? `<section class="card"><h2>What you will be able to do</h2><ol class="objs">${M.obj.map(o => `<li><span>${esc(o)}</span></li>`).join("")}</ol></section>` : ""}
-      ${rec.length ? `<section class="card"><h2>Quick recall</h2><p class="note">Questions you missed earlier. Answer them now: remembering is what makes it stick.</p>${blocks.filter(b => b.rk).map((b,i) => blockHTML(b, i)).join("")}</section>` : ""}
+      ${rec.length ? `<section class="card" data-nokey><h2>Quick recall</h2><p class="note">Questions you missed earlier. Answer them now: remembering is what makes it stick.</p>${blocks.filter(b => b.rk).map((b,i) => blockHTML(b, i)).join("")}</section>` : ""}
       ${warm ? `<section class="card"><h2>Warm-up</h2><p class="note">Take a guess before you start. Guessing first helps you notice the answer when you read it.</p>${blockHTML(blocks[blocks.length-1], blocks.length-1)}</section>` : ""}
       ${nav("Start")}`;
     wireTries(v, blocks, (b, ok) => { if (b.rk && ok) { dropReview(b.rk); save(); } });
@@ -748,7 +748,7 @@ function runQuiz(root, Q, onDone, onBack, opt){
         ${wrong.length ? `<div class="res">${wrong.map(w => `<div class="it fail"><span class="m">Review</span><span><b>${esc(w.q)}</b>${w.crit && exam ? `<span class="tag">Critical rule</span>` : ""}<br>${esc(w.o[w.a])}. ${esc(w.why)}</span></div>`).join("")}</div>` : `<p>Every answer correct.</p>`}
         <p class="note">${passed ? "Go through anything you got wrong with your mentor." : exam ? "Read the modules again, then retake the exam. Each attempt draws a new set of questions." : "Read the module again, then retry the check."}</p>
         <div class="row"><button class="btn" type="button" id="again">${exam ? "Retake exam" : "Retry check"}</button>${exam ? "" : `<button class="btn" type="button" id="reread">Read module again</button>`}<span class="sp"></span>${passed ? `<button class="btn primary" type="button" data-go="${nx || (ST.completedAt ? "cert" : "home")}">${nx ? "Continue" : ST.completedAt ? "View completion record" : "Overview"}</button>` : ""}</div></div>`;
-      AUDIO.screen();
+      AUDIO.screen(root);
       $("again").onclick = () => exam ? render() : runQuiz(root, Q, onDone, onBack, opt);
       if ($("reread")) $("reread").onclick = () => { VIEW.step = 0; render(); window.scrollTo({top:0}); };
       return;
@@ -759,7 +759,7 @@ function runQuiz(root, Q, onDone, onBack, opt){
       <div id="qfb"></div>
       <div class="row">${i===0 && onBack ? `<button class="btn" type="button" id="qback">Back to module</button>` : ""}<span class="sp"></span><button class="btn primary" type="button" id="qnext" disabled>${i === Q.length-1 ? (exam ? "Finish exam" : "See result") : "Next question"}</button></div></div>`;
     if ($("qback")) $("qback").onclick = onBack;
-    AUDIO.screen();
+    AUDIO.screen(root);
     root.querySelectorAll(".opt").forEach(b => b.onclick = () => {
       const j = +b.dataset.j;
       if (exam) { pick = j; root.querySelectorAll(".opt").forEach((x,k) => { x.classList.toggle("picked", k === j); x.setAttribute("aria-pressed", String(k === j)); }); $("qnext").disabled = false; return; }
@@ -1191,6 +1191,11 @@ const AUDIO = (() => {
   function pickVoice(){ const vs = voices(); return vs.find(v => v.voiceURI === cfg.voice) || vs[0] || null; }
   function fillVoices(){
     LIST = curate(); const sel = $("aVoice");
+    if (REC.man) {
+      sel.innerHTML = `<optgroup label="Recorded voices">${RVOICES.filter(v => REC.man[v[0]]).map(v => `<option value="${v[0]}">${v[1]}</option>`).join("")}</optgroup>` + (LIST.length ? `<optgroup label="This device">${LIST.map(v => `<option value="${esc(v.voiceURI)}">${esc(label(v))}</option>`).join("")}</optgroup>` : "");
+      if (!REC.man[cfg.voice] && !LIST.some(v => v.voiceURI === cfg.voice)) { cfg.voice = RVOICES.find(v => REC.man[v[0]])[0]; keep(); }
+      sel.value = cfg.voice; recUI(); return;
+    }
     if (!LIST.length) { sel.innerHTML = `<option value="">Device voice</option>`; $("aTip").hidden = false; return; }
     sel.innerHTML = LIST.map(v => `<option value="${esc(v.voiceURI)}">${esc(label(v))}</option>`).join("");
     if (!cfg.voice || !LIST.some(v => v.voiceURI === cfg.voice)) { cfg.voice = LIST[0].voiceURI; keep(); }
@@ -1201,13 +1206,47 @@ const AUDIO = (() => {
       : "More natural voices can be added in your device's text-to-speech settings.";
     $("aTip").hidden = LIST.length >= 4 && quality(LIST[0]) >= 6;
   }
+  /* ---- recorded narration (Morten, 7 Nov 2026): natural voices recorded once per screen from the same text, kept
+     privately in the portal's storage (bucket academy-audio, signed-in members only). A screen is found by a key made
+     from its text, so a changed screen simply falls back to the device voice until it is recorded again. ---- */
+  const RVOICES = [["isabella", "Isabella (British)"], ["fable", "Fable (British)"]];
+  const REC = {man:null, urls:{}, el:null, tried:false};
+  const recMode = () => !!REC.man && !!REC.man[cfg.voice];
+  const hasRec = k => !!(recMode() && REC.man[cfg.voice][k]);
+  const norm = t => String(t || "").replace(/\s+/g, " ").trim();
+  function screenKey(root){ return fnv(collect(root).filter(x => !x.el.closest("[data-nokey]")).map(x => norm(x.el.textContent)).join("|")); }
+  const fbKey = el => fnv("fb|" + norm(el.textContent));
+  async function loadMan(){
+    if (REC.man || REC.busy || !window.__sb || !window.__sb.storage) return; REC.busy = true;
+    const man = {};
+    for (const [v] of RVOICES) { try { const r = await window.__sb.storage.from("academy-audio").download(v + "/index.json"); if (r && r.data) man[v] = (JSON.parse(await r.data.text()).keys) || {}; } catch(e) {} }
+    REC.busy = false;
+    if (Object.keys(man).length) { REC.man = man; if (!cfg.picked && !RVOICES.some(v => v[0] === cfg.voice)) { cfg.voice = RVOICES.find(v => man[v[0]])[0]; keep(); } fillVoices(); }
+  }
+  const fmt = x => isFinite(x) ? Math.floor(x / 60) + ":" + String(Math.floor(x % 60)).padStart(2, "0") : "0:00";
+  function recUI(){
+    const a = REC.el, on = recMode();
+    $("aPrev").textContent = on ? "−15s" : "‹‹"; $("aNext").textContent = on ? "+15s" : "››";
+    $("aPrev").setAttribute("aria-label", on ? "Back 15 seconds" : "Previous paragraph"); $("aNext").setAttribute("aria-label", on ? "Forward 15 seconds" : "Next paragraph");
+    $("aName").hidden = on; if (on) $("aTip").hidden = true;
+    if (on && a && a.src) $("aNow").textContent = `${RVOICES.find(v => v[0] === cfg.voice)[1].replace(/ \(.*$/, "")} · ${fmt(a.currentTime)} / ${fmt(a.duration)}`;
+  }
+  async function playRec(key){
+    const path = cfg.voice + "/" + key + ".mp3"; let u = REC.urls[path];
+    if (!u) { const r = await window.__sb.storage.from("academy-audio").createSignedUrl(path, 3600); u = REC.urls[path] = r && r.data && r.data.signedUrl; }
+    if (!u) return false;
+    if (!REC.el) { REC.el = new Audio(); REC.el.preload = "auto"; REC.el.ontimeupdate = recUI; REC.el.onended = () => { playing = false; setUI(); $("aNow").textContent = "End of this screen."; }; REC.el.onpause = () => { if (playing) { playing = false; setUI(); } }; }
+    if (can) synth.cancel(); token++; mark(null);
+    REC.el.src = u; REC.el.playbackRate = +cfg.rate || 1; REC.key = key;
+    try { await REC.el.play(); playing = true; setUI(); recUI(); return true; } catch(e) { playing = false; setUI(); $("aNow").textContent = "Press Play to listen to this screen."; return true; }
+  }
   function mark(el){ if (cur) cur.classList.remove("reading"); cur = el; if (el) { el.classList.add("reading"); const r = el.getBoundingClientRect(); if (r.top < 70 || r.bottom > window.innerHeight - 130) el.scrollIntoView({block:"center", behavior:"smooth"}); } }
   function setUI(){
     btn.setAttribute("aria-pressed", String(cfg.on)); btn.textContent = cfg.on ? "Audio on" : "Audio off";
     dock.hidden = !cfg.on; document.body.classList.toggle("audio-on", cfg.on);
     $("aPlay").textContent = playing ? "Pause" : "Play";
   }
-  function stop(){ token++; playing = false; if (can) synth.cancel(); setUI(); }
+  function stop(){ token++; playing = false; if (can) synth.cancel(); if (REC.el) REC.el.pause(); setUI(); }
   /* one utterance per paragraph; very long ones split at sentence ends into chunks of about 230 characters */
   function chunks(t){
     if (t.length <= 260) return [t];
@@ -1239,27 +1278,37 @@ const AUDIO = (() => {
     if (!cfg.on) return;
     stop(); mark(null); items = collect(root); idx = 0; single = false;
     clearTimeout(screen.t);
+    const k = screenKey(root); REC.cur = k;
+    if (hasRec(k)) { if (cfg.auto) screen.t = setTimeout(() => playRec(k), 250); else { REC.pending = k; $("aNow").textContent = "Press Play to listen to this screen."; } recUI(); return; }
     if (cfg.auto) screen.t = setTimeout(() => speakFrom(0, false), 250); else { stop(); $("aNow").textContent = "Press Play to listen to this screen."; }
   }
   function focus(el){
     if (!cfg.on || !el) return;
+    if (recMode()) { const k = fbKey(el); if (hasRec(k)) { playRec(k); return; } }
     const all = collect(); const k = all.findIndex(x => x.el === el || el.contains(x.el));
     items = all; idx = k < 0 ? 0 : k; speakFrom(idx, true);
   }
   if (!can) { btn.disabled = true; btn.textContent = "Audio unavailable"; btn.title = "This browser has no built-in voice. Try Chrome, Edge or Safari."; return {screen(){}, focus(){}, speakable}; }
   fillVoices(); if (synth.addEventListener) synth.addEventListener("voiceschanged", fillVoices); else synth.onvoiceschanged = fillVoices;
   $("aRate").value = String(cfg.rate); $("aAuto").checked = cfg.auto !== false;
-  btn.onclick = () => { cfg.on = !cfg.on; keep(); setUI(); if (cfg.on) { fillVoices(); items = collect(); speakFrom(0, false); } else { stop(); mark(null); } };
-  $("aPlay").onclick = () => { if (playing) { stop(); $("aNow").textContent = "Paused."; } else { if (!items.length) items = collect(); speakFrom(idx, false); } };
-  $("aNext").onclick = () => { if (!items.length) items = collect(); speakFrom(Math.min(items.length - 1, idx + 1), false); };
-  $("aPrev").onclick = () => { if (!items.length) items = collect(); speakFrom(Math.max(0, idx - 1), false); };
-  $("aRate").onchange = e => { cfg.rate = +e.target.value; keep(); if (playing) speakFrom(idx); };
-  $("aVoice").onchange = e => { cfg.voice = e.target.value; keep(); if (playing) speakFrom(idx); };
+  btn.onclick = async () => { cfg.on = !cfg.on; keep(); setUI(); if (cfg.on) { await loadMan(); fillVoices(); screen(); } else { stop(); mark(null); } };
+  if (window.__sb) setTimeout(loadMan, 1500);
+  $("aPlay").onclick = () => {
+    if (hasRec(REC.cur)) {
+      if (playing) { REC.el.pause(); playing = false; setUI(); return; }
+      if (REC.el && REC.key === REC.cur && REC.el.src && !REC.el.ended) { REC.el.play().then(() => { playing = true; setUI(); }).catch(() => {}); return; }
+      playRec(REC.cur); return;
+    }
+    if (playing) { stop(); $("aNow").textContent = "Paused."; } else { if (!items.length) items = collect(); speakFrom(idx, false); } };
+  $("aNext").onclick = () => { if (recMode() && REC.el && REC.el.src) { REC.el.currentTime = Math.min((REC.el.duration || 0) - 0.2, REC.el.currentTime + 15); return; } if (!items.length) items = collect(); speakFrom(Math.min(items.length - 1, idx + 1), false); };
+  $("aPrev").onclick = () => { if (recMode() && REC.el && REC.el.src) { REC.el.currentTime = Math.max(0, REC.el.currentTime - 15); return; } if (!items.length) items = collect(); speakFrom(Math.max(0, idx - 1), false); };
+  $("aRate").onchange = e => { cfg.rate = +e.target.value; keep(); if (REC.el) REC.el.playbackRate = cfg.rate; if (playing && !recMode()) speakFrom(idx); };
+  $("aVoice").onchange = e => { cfg.voice = e.target.value; cfg.picked = true; keep(); stop(); recUI(); screen(); };
   $("aName").onclick = () => { if (!can) return; stop(); const u = new SpeechSynthesisUtterance(speakable("Archē Executive. Archē is said ar-KAY.")); const v = pickVoice(); if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-GB"; u.rate = +cfg.rate || 1; synth.speak(u); };
   $("aAuto").onchange = e => { cfg.auto = e.target.checked; keep(); };
   document.addEventListener("visibilitychange", () => { if (document.hidden && playing) stop(); });
   setUI();
-  return {screen, focus, speakable};
+  return {screen, focus, speakable, screenKey, fbKey, collect, textOf};
 })();
 
 /* ---------- boot ---------- */

@@ -1,0 +1,30 @@
+# Academy narration (Morten, 7 Nov 2026): records every academy screen in the chosen voices (Isabella, Fable) and
+# keeps it in the portal's private storage. Runs when the list of screens or the hand-written narration changes on
+# staging, or by hand. Only changed screens are recorded again.
+name: Academy narration
+on:
+  workflow_dispatch:
+  push:
+    branches: [staging]
+    paths: ["apps/academy/audio/screens.int.json", "apps/academy/audio/narration/**", "apps/academy/audio/narrate.py", ".github/workflows/narration.yml"]
+permissions:
+  contents: read
+concurrency: { group: narration, cancel-in-progress: false }
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        voice: [["bf_isabella", "isabella"], ["bm_fable", "fable"]]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: sudo apt-get update -q && sudo apt-get install -y -q espeak-ng ffmpeg
+      - run: pip install -q "kokoro>=0.9" soundfile numpy
+      - run: python apps/academy/audio/narrate.py ${{ matrix.voice[0] }} ${{ matrix.voice[1] }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}

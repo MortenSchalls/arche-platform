@@ -83,9 +83,9 @@ def build(ed, content, out, test):
     s=archē(s)
     s=s.replace('/*__PHOTOS__*/',photos_js(),1)
     open(out,'w').write(s)
-    t=s.replace("/* ---------- helpers ---------- */","/* ---------- helpers ---------- */\nwindow.__T = () => ({MODS, LAB, COURSE, PATHS, REF, readCode, ST, ED, HIDDEN});",1)
-    assert "  return {screen, focus, speakable};" in t
-    t=t.replace("  return {screen, focus, speakable};","  window.__AUD = {speakable, collect}; return {screen, focus, speakable};")
+    t=s.replace("/* ---------- helpers ---------- */","/* ---------- helpers ---------- */\nwindow.__T = () => ({MODS, LAB, COURSE, PATHS, REF, readCode, ST, ED, HIDDEN, go, step:n => { VIEW.step = n; render({quiet:true}); }, view:() => VIEW, save});",1)
+    assert "  return {screen, focus, speakable, screenKey, fbKey, collect, textOf};" in t
+    t=t.replace("  return {screen, focus, speakable, screenKey, fbKey, collect, textOf};","  window.__AUD = {speakable, collect, screenKey, fbKey, textOf}; return {screen, focus, speakable, screenKey, fbKey, collect, textOf};")
     open(test,'w').write(t)
     print(ed,'release',len(s))
 build("int","content.sealed.js","arche-broker-academy.html","t_full.html")
