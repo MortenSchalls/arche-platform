@@ -110,11 +110,11 @@ function supervisionPanel(){
     ${S.reqReady ? "" : `<div class="note info small">Step approval starts once the SQL step "supervised steps (0011)" above has run. Until then nothing is held back.</div>`}`;
   if (!ros.length) return head + `<p class="small muted">Nobody approved yet.</p></div>`;
   return head + `<table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th><th scope=col>Supervisor</th>${GATE_KEYS.map(k => `<th scope=col>${esc(GATES[k].label)}</th>`).join("")}<th scope=col>Supervisor rights</th></tr></thead><tbody>
-    ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Operations" : p.role === "consultant" ? "Charter consultant" : "Broker")}</span>${S.rightsReady === false ? "" : supNameCell(id, p)}</td>
+    ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Mandated by the owner" : p.role === "consultant" ? "Charter consultant" : "Broker")}</span>${S.rightsReady === false ? "" : supNameCell(id, p)}</td>
       <td><label class="check" style="margin:0"><input type="checkbox" data-supall="${id}" ${p.supervised ? "checked" : ""}><span class="small">${p.supervised ? "Yes" : "No"}</span></label></td><td>${supAssignCell(id, p)}</td>
       ${GATE_KEYS.map(k => { if (!gateApplies(k, id)) return `<td class="muted">–</td>`; const s = gateStats(id, k), rel = !!(p.released || {})[k];
         return `<td>${!p.supervised ? `<span class="chip c-flown">Free</span>` : rel ? `<span class="chip c-flown">Released</span>` : `<span class="chip c-review">Needs your OK</span>`}<br><span class="muted">${s.ok} approved · ${s.ch} changes</span>${p.supervised ? `<br><button class="btn small" type="button" data-gate="${rel ? "resup" : "release"}" data-uid="${id}" data-key="${k}">${rel ? "Supervise again" : "Release"}</button>` : ""}</td>`; }).join("")}<td>${S.rightsReady === false ? `<span class="muted">After SQL 0012</span>` : rightsCells(id, p)}</td></tr>`).join("")}
-  </tbody></table><p class="small muted" style="margin:8px 0 0"><b>Supervisor</b> (under each name) gives the three rights supervise steps, assess new people, and train and share screen in one go; untick single rights if needed.</p><details class="small" style="margin-top:8px"><summary>What each step and right means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "operations" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}${Object.keys(RIGHTS).map(r => `<li><b>${esc(RIGHTS[r].label)}</b> (supervisor right): ${esc(RIGHTS[r].desc)}</li>`).join("")}</ul><p class="muted" style="margin:6px 0 0">Releasing steps, giving rights and countersigning stay with you. Every supervisor decision is in the audit log with their name.</p></details></div>`;
+  </tbody></table><p class="small muted" style="margin:8px 0 0"><b>Supervisor</b> (under each name) gives the three rights supervise steps, assess new people, and train and share screen in one go; untick single rights if needed.</p><details class="small" style="margin-top:8px"><summary>What each step and right means</summary><ul style="margin:6px 0 0;padding-left:18px">${GATE_KEYS.map(k => `<li><b>${esc(GATES[k].label)}</b> (${GATES[k].who === "ops" ? "the owner" : "brokers"}): ${esc(GATES[k].desc)}</li>`).join("")}${Object.keys(RIGHTS).map(r => `<li><b>${esc(RIGHTS[r].label)}</b> (supervisor right): ${esc(RIGHTS[r].desc)}</li>`).join("")}</ul><p class="muted" style="margin:6px 0 0">Releasing steps, giving rights and countersigning stay with you. Every supervisor decision is in the audit log with their name.</p></details></div>`;
 }
 async function gateRelease(uid, key, on){
   const p = (S.roster || {})[uid]; if (!p) return;
@@ -142,7 +142,7 @@ document.addEventListener("change", async e => {
 const RIGHTS = {
   supervise: {label: "Supervise steps", desc: "Approve or send back supervised steps of others."},
   assess: {label: "Assess new people", desc: "See requests to join and academy progress, and send the agreement after a passed assessment. You countersign."},
-  approve: {label: "Approve bookings", desc: "Approve bookings before the confirmation is issued (operations only). Never their own trips, and someone else issues."},
+  approve: {label: "Give the booking approval", desc: "Give the booking approval before the confirmation is issued, in your place. Never on their own trips, and someone else issues."},
   train: {label: "Train and share screen", desc: "Run live training: share their own screen with the people they choose (Training → Live training), follow the syllabus and mark lessons done, and see the team's training results."}
 };
 /* a supervisor (Morten, 29 Oct 2026: "the supervisor to be able to do assessments and training, as well as sharing the
@@ -150,7 +150,7 @@ const RIGHTS = {
 const SUP_SET = ["supervise", "assess", "train"];
 function canRight(r){ if (S.isOwner) return true; const me = rosterOf(S.uid); return me.active !== false && !!(me.rights || {})[r]; }
 const hasAnyRight = () => !S.isOwner && Object.keys(RIGHTS).some(canRight);
-function rightApplies(r, id){ return r === "approve" ? rosterOf(id).role === "ops" : true; }
+function rightApplies(r, id){ return r === "approve" ? (rosterOf(id).role === "ops" || !!rosterOf(id).book) : true; }   /* anyone mandated to authorise may also be given the booking approval (Morten, 7 Nov 2026) */
 
 /* supervisors subscribe to everyone's requests (the roster they can now read) */
 const _gateWatch = gateWatch;
@@ -200,7 +200,7 @@ function supText(id){
   const p = (S.roster || {})[id] || {}, first = (p.contractName || nm(id)).split(" ")[0], rt = (S.terms || {}).supRate;
   const r = Object.keys(RIGHTS).filter(k => (p.rights || {})[k] && rightApplies(k, id)), list = r.length ? r : SUP_SET;
   const lines = {
-    supervise: "Supervise steps: while a new broker is supervised, some steps wait for an OK (quote to client, taking an enquiry, first contact with a prospect, and for operations payments and supplier quotes). You approve the step or send it back with a note.",
+    supervise: "Supervise steps: while a new broker is supervised, some steps wait for an OK (quote to client, taking an enquiry, first contact with a prospect, and for recording payments and supplier quotes). You approve the step or send it back with a note.",
     assess: "Assess new people: you see requests to join and academy progress, and send the agreement after a passed assessment. I countersign.",
     approve: "Approve bookings: you approve bookings before the confirmation is issued, never your own trips.",
     train: "Train: in Training → Live training you share your own screen in the portal with the people you choose, follow the training syllabus and mark lessons done. Talk over the phone or Teams at the same time. Contact details are hidden on the shared screen. You also see the team's training results."

@@ -33,12 +33,12 @@ const {chromium} = require('playwright'); const fs = require('fs'); const path =
           screenNow(s === 0 ? "intro" : s === n - (M.quiz.length ? 2 : 1) ? "keypoints" : "lesson", `${id} screen ${s + 1}`);
           // feedback for each "Try it": the right answer and one wrong answer
           const tries = [...document.querySelectorAll("#view [data-try]")].length;
-          for (let k = 0; k < tries; k++) for (const pickRight of [true, false]) {
-            T.step(s); await sleep(10);
-            const el = document.querySelectorAll("#view [data-try]")[k], opts = el.querySelectorAll(".opt");
-            for (let j = 0; j < opts.length; j++) { opts[j].click(); const f = el.querySelector(".fb"); const right = /^Right\./.test(norm(f && f.textContent));
-              if (right === pickRight) { fb(`${id} screen ${s + 1} try ${k + 1}`, f); break; } T.step(s); await sleep(5); }
-          }
+          // every answer of every "Try it": the screen is drawn again before each answer, so each click is on a fresh question
+          for (let k = 0; k < tries; k++) { let j = 0, more = true;
+            while (more) { T.step(s); await sleep(5);
+              const el = document.querySelectorAll("#view [data-try]")[k], opts = el.querySelectorAll(".opt");
+              if (j >= opts.length) { more = false; break; }
+              opts[j].click(); const f = el.querySelector(".fb"); if (f) fb(`${id} screen ${s + 1} try ${k + 1}`, f); j++; } }
         } else {
           // module check: every question, and its feedback when answered right and when answered wrong
           for (let qi = 0; qi < M.quiz.length; qi++) {

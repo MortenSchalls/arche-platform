@@ -27,4 +27,10 @@ export async function run(db = connect(), log = console.log) {
     return { writes: n, report: res.report, contacts, note: `${n} writes; business contacts removed ${contacts.removed}, merged ${contacts.merged}.` };
   } finally { await db.unlock("scheduled"); }
 }
-if (import.meta.url === `file://${process.argv[1]}`) { const { main } = await import("./lib/main.mjs"); await main("Prospect rotation", ["SUPABASE_URL","SUPABASE_SECRET_KEY"], () => run()); }
+if (import.meta.url === `file://${process.argv[1]}`) { const { main } = await import("./lib/main.mjs");
+  await main("Prospect rotation", ["SUPABASE_URL","SUPABASE_SECRET_KEY"], async () => {
+    const r = await run();
+    // the research agent rides along: it starts research when the owner's schedule says so or "Run now" was pressed
+    const { tick } = await import("./agent.mjs"); const a = await tick();
+    return { ...(r || {}), note: [(r && r.note) || "", a.ran ? "Research agent ran." : a.noKey ? "Research agent: no AI key on GitHub yet." : ""].filter(Boolean).join(" ") };
+  }); }

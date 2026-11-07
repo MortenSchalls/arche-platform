@@ -50,12 +50,12 @@ function obLoadProg(id){
 /* the academy steps in order, with the reading time the academy itself shows (tests/acadplantest.js keeps them in step
    with the academy build). Used for "continue where you left off" on the joining page and in reminders (Morten, 4 Nov 2026). */
 const OB_ACAD = {
-  paths: {broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam"], consultant: ["m0","m1","m2","lab","m3","m4","m5","m12","m13","exam"]},
-  steps: {m0: ["Module 0 · Aviation for brokers", 21], m1: ["Module 1 · Archē Executive and the broker's role", 13], m2: ["Module 2 · Where we may and may not sell", 23],
+  paths: {broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam"]},
+  steps: {m0: ["Module 0 · Aviation for brokers", 21], m1: ["Module 1 · Archē Executive and the broker's role", 12], m2: ["Module 2 · Where we may and may not sell", 23],
     lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
     m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
     m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
-    m11: ["Module 11 · Trip operations and the 24/7 desk", 12], m12: ["Module 12 · Selling and the consultant desk", 7], m13: ["Module 13 · Case studies", 9],
+    m11: ["Module 11 · Trip operations and disruption", 12], m12: ["Module 12 · Selling and account management", 7], m13: ["Module 13 · Case studies", 9],
     m14: ["Module 14 · Assessment and certification", 14], exam: ["Written exam", 0]}
 };
 function obNext(p){
@@ -101,12 +101,12 @@ function vPending(){
   // the next step at the top of the page, so nobody has to scroll past the offer to find it
   const top = !done && !S.myJoin && !a && p !== undefined ? `<div class="note info" id="obNext"><p><b>Your next step:</b> ${p ? "continue the Archē Broker Academy" : "start the Archē Broker Academy"}. ${esc(obNextText(n))}${p && n.passed ? ` · ${n.passed} of ${n.of} done` : ""}.</p><div class="row" style="margin-top:6px">${obAcadBtn(p)}</div></div>` : "";
   const s2 = S.myJoin
-    ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "operations" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
+    ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "mandated by the owner" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
     : step(3, "Ask for your assessment", `<p class="small">When the academy is complete, send your request with your academy completion code.</p>
     <form id="joinForm" class="stack" style="margin-top:8px">
       <div class="fgrid">
         <label class="f" for="j_name">Full legal name, as it will appear on your agreement<input id="j_name" required autocomplete="name"></label>
-        <label class="f" for="j_role">Role<select id="j_role"><option value="broker">Broker (remote)</option><option value="consultant">Charter consultant</option><option value="ops">Operations</option></select></label>
+        <label class="f" for="j_role">Role<select id="j_role"><option value="broker">Broker (remote)</option></select></label>
         <label class="f" for="j_base">Country you work from<input id="j_base" required></label>
         <label class="f" for="j_cert">Academy completion code<input id="j_cert" placeholder="AE2.…"></label>
         <label class="f wide" for="j_orgs">Organisations you can reach: 10 to 20, one per line (companies, family offices, agencies; no private people)<textarea id="j_orgs" rows="6" placeholder="Example Holdings, Singapore&#10;Example Family Office, Bangkok"></textarea></label>

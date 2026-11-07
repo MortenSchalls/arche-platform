@@ -43,13 +43,24 @@
   ]
  },
  {
-  "key": "4af7d5d8",
+  "key": "1cec94e6",
+  "kind": "feedback",
+  "where": "m0 screen 1 try 1",
+  "text": [
+   "Right. You will meet this in the module. Several airports serve New York, and \"tomorrow at 9\" needs a date and a time zone. Confirm all three in writing."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Several airports serve New York, and tomorrow at 9 needs a date and a time zone. Confirm all three in writing."
+  ]
+ },
+ {
+  "key": "9ca13b62",
   "kind": "lesson",
   "where": "m0 screen 2",
   "text": [
    "Aviation for brokers",
    "0.1 Who does what",
-   "Clientthe chartererArchē Executivethe brokerOperatorholds the AOC, flies enquiry, contractrequest, booking Avinode and our payment providerquotes, bookings, payments Crew and aircraftwork for the operator FBO and handlerat each airport Safety and operational decisions belong to the operator and its crew.Who does what on a charter flight",
+   "Clientthe chartererenquiry, contractArchē Executivethe brokerrequest, bookingOperatorholds the AOC, flies FBO and handlerat each airportAvinode and our payment providerquotes, bookings, paymentsCrew and aircraftwork for the operator Safety and operational decisions belong to the operator and its crew.Who does what on a charter flight",
    "Client (charterer)The person or company who hires the whole aircraft and pays for the trip.",
    "Broker (Archē)Finds the aircraft, checks the operator, prices, contracts and looks after the client. We do not fly or own aircraft.",
    "OperatorThe airline company that flies the aircraft and is responsible for safety. It holds an Air Operator Certificate (AOC) from its national aviation authority.",
@@ -69,14 +80,14 @@
   ]
  },
  {
-  "key": "3e03b30e",
+  "key": "9d657b82",
   "kind": "lesson",
   "where": "m0 screen 3",
   "text": [
    "Aviation for brokers",
    "0.2 Aircraft categories",
    "Private jets are grouped by cabin size and range. Avinode shows each aircraft's category, seats and range: always use the figures for the actual aircraft, not a general rule.",
-   "Light jetsitMidsizenear standingSuper-midsizestandingHeavystanding, galleyUltra-long-rangezones, crew restCategories grow in cabin size and range. Always use the figures for the actual aircraft.",
+   "1Light jetCabin: sitEmbraer Phenom 300 · Acroterion, CC BY-SA 4.02MidsizeCabin: near standingLearjet 60 · Lars Henseleit, Public domain3Super-midsizeCabin: standingBombardier Challenger 350 · Acroterion, CC BY-SA 4.04HeavyCabin: standing, galleyDassault Falcon 900LX · Steve Lynes, CC BY 2.05Ultra-long-rangeCabin: zones, crew restBombardier Global 7500 · Acroterion, CC BY-SA 4.0Categories grow in cabin size and range. Always use the figures for the actual aircraft.",
    "TurbopropPropeller aircraft with jet engines driving the propellers; slower, can use short runwaysShort regional trips, small airports",
    "Very light and light jetSmall cabin, usually no standing roomShort trips with few passengers",
    "Midsize and super-midsize jetStanding or near-standing cabin, more seats and rangeMedium trips, often across a region",
@@ -89,7 +100,7 @@
    "Aviation for brokers.",
    "Aircraft categories.",
    "Private jets are grouped by cabin size and range. Avinode shows each aircraft's category, seats and range, always use the figures for the actual aircraft, not a general rule.",
-   "Drawing of five business jets from small to large, light jet, midsize, super-midsize, heavy, and ultra-long-range with separate cabin zones and a crew rest area.",
+   "Photographs of five business jets from small to large, light jet, midsize, super-midsize, heavy, and ultra-long-range with separate cabin zones and a crew rest area.",
    "Turboprop. in plain words, Propeller aircraft with jet engines driving the propellers, slower, can use short runways. typical use, Short regional trips, small airports. Very light and light jet. in plain words, Small cabin, usually no standing room. typical use, Short trips with few passengers. Midsize and super-midsize jet. in plain words, Standing or near-standing cabin, more seats and range. typical use, Medium trips, often across a region. Heavy or large-cabin jet. in plain words, Tall, long cabin, lavatory and galley, often a cabin attendant and sleeping options. typical use, Long trips, larger groups, comfort. Ultra-long-range jet. in plain words, Large-cabin jets built to cross oceans and continents without a stop, crew rest area. typical use, Intercontinental trips, our focus. V I P airliner. in plain words, Converted airliners such as the Boeing Business Jet and Airbus Corporate Jet. typical use, Large groups, heads of state, sports teams.",
    "Photos, Turboprop, Pilatus P C, 1 2 N G, Light jet, Embraer Phenom 300, Midsize jet, Learjet 60, Super-midsize jet, Bombardier Challenger 350, Heavy jet, Dassault Falcon 900LX, Ultra-long-range jet, Bombardier Global 7500, V I P airliner, Boeing Business Jet."
   ]
@@ -135,13 +146,24 @@
   ]
  },
  {
-  "key": "9b89a5e9",
+  "key": "cbfcb846",
+  "kind": "feedback",
+  "where": "m0 screen 4 try 1",
+  "text": [
+   "Right. Many cities have several airports and business aviation often uses a different one from the airlines. Confirm the airport in writing."
+  ],
+  "say": [
+   "Right. Many cities have several airports and business aviation often uses a different one from the airlines. Confirm the airport in writing."
+  ]
+ },
+ {
+  "key": "7f8c2952",
   "kind": "lesson",
   "where": "m0 screen 5",
   "text": [
    "Aviation for brokers",
    "0.4 Time",
-   "09:00 in Bangkoklocal time, UTC+702:00 ZUTC, the same everywhere=minus 7 hoursQuotes show local time; operators plan in UTC.",
+   "09:00in Bangkoklocal time, UTC+7minus 7 hours02:00 ZUTCthe same everywhereQuotes show local time; operators plan in UTC.",
    "Aviation works in UTC (also called Zulu or Z), the same time everywhere. Clients think in local time.",
    "Every quote and trip brief shows local times and says so. Check arrival dates on long flights: crossing time zones or the date line can change the arrival date.",
    "When a client says \"tomorrow morning\", confirm the date, the time and the time zone in writing.",
@@ -154,7 +176,7 @@
   "say": [
    "Aviation for brokers.",
    "Time.",
-   "Two clocks. 9 o'clock in the morning in Bangkok, local time, is 2 o'clock U T C, because Bangkok is 7 hours ahead of U T C.",
+   "9 o'clock in the morning in Bangkok, local time, is 2 o'clock U T C, because Bangkok is 7 hours ahead of U T C.",
    "Aviation works in U T C, also called Zulu or Z, the same time everywhere. Clients think in local time. Every quote and trip brief shows local times and says so. Check arrival dates on long flights, crossing time zones or the date line can change the arrival date. When a client says tomorrow morning, confirm the date, the time and the time zone in writing.",
    "A client in Bangkok wants to leave at 09:00 local. The operator's schedule shows 02:00 Zulu. Do they match?",
    "A. Yes. Bangkok is U T C plus 7, so 09:00 local is 02:00 U T C. B. No, they are 7 hours apart. C. No, Z means the operator's home time. D. It cannot be known."
@@ -169,6 +191,17 @@
   ],
   "say": [
    "Right. Thailand is U T C plus 7 all year. Local time minus 7 hours gives U T C, Z."
+  ]
+ },
+ {
+  "key": "de9da800",
+  "kind": "feedback",
+  "where": "m0 screen 5 try 1",
+  "text": [
+   "Not quite. Thailand is UTC+7 all year. Local time minus 7 hours gives UTC (Z)."
+  ],
+  "say": [
+   "Not quite. Thailand is U T C plus 7 all year. Local time minus 7 hours gives U T C, Z."
   ]
  },
  {
@@ -207,6 +240,17 @@
   ],
   "say": [
    "Not quite. An empty leg depends on the main trip. The client must accept this risk in writing, Module 9."
+  ]
+ },
+ {
+  "key": "cf6ee3e1",
+  "kind": "feedback",
+  "where": "m0 screen 6 try 1",
+  "text": [
+   "Right. An empty leg depends on the main trip. The client must accept this risk in writing (Module 9)."
+  ],
+  "say": [
+   "Right. An empty leg depends on the main trip. The client must accept this risk in writing, Module 9."
   ]
  },
  {
@@ -276,14 +320,14 @@
   ]
  },
  {
-  "key": "5791efd1",
+  "key": "d1610655",
   "kind": "lesson",
   "where": "m0 screen 11",
   "text": [
    "Aviation for brokers",
    "0.10 The market in numbers",
    "Figures change every year. Use these only with their source and date, and never as a promise to a client.",
-   "Growth in business jet flights, 2025 versus 2024Africa15%Latin America11%Middle East7%Global5%Asia4%Europe1%People worth USD 30m+713,626in 2026up from 551,435in 2021North America has about 72% of all business jet flights; the fastest growth is elsewhere.Sources: WINGX full-year 2025; Knight Frank, The Wealth Report 2026",
+   "Growth in business jet flights, 2025 versus 2024Africa15%Latin America11%Middle East7%Global5%Asia4%Europe1% People worth USD 30m+713,626in 2026up from 551,435 in 2021North America has about 72% of all business jet flights; the fastest growth is elsewhere.Sources: WINGX full-year 2025; Knight Frank, The Wealth Report 2026",
    "Global business jet flights in 2025: up 5% on 2024, the busiest year on recordWINGX, full-year 2025 (January 2026)",
    "Share of global business jet flights in 2025: North America about 72%, Latin America about 6%, Asia about 3%, Middle East about 2%, Africa about 1%WINGX, full-year 2025",
    "Growth in 2025: Africa about 15%, Latin America 11%, Middle East 7%, Asia 4%, Europe about 1%WINGX, full-year 2025",
@@ -326,14 +370,14 @@
   ]
  },
  {
-  "key": "ffcb4ee6",
+  "key": "11733cba",
   "kind": "lesson",
   "where": "m0 screen 13",
   "text": [
    "Aviation for brokers",
    "0.12 The freedoms of the air",
    "International agreements describe what an airline of one country may do in another country's airspace. They explain why some legs are allowed and others are not.",
-   "3rdhome to abroadHA5thon to a third countryHAB7thabroad onlyAB8ththrough-flight cabotageHAA9thstand-alone cabotageAAH operator's home countryA, B other countriesRed legs are domestic in aforeign country: cabotageThe 8th and 9th freedoms are cabotage, which most countries refuse to foreign operators.",
+   "3rd home to abroadHA5th on to a third countryHAB7th abroad onlyAB 8th through-flight cabotageHAA9th stand-alone cabotageAA H operator's home countryA, B other countriesRed legs are domestic in a foreign country: cabotageThe 8th and 9th freedoms are cabotage, which most countries refuse to foreign operators.",
    "1stFly over another country without landing",
    "2ndLand in another country for a technical reason, such as fuel, without picking up or setting down passengers",
    "3rdCarry passengers from your own country to another country",
@@ -723,6 +767,17 @@
   ]
  },
  {
+  "key": "04ed4a8c",
+  "kind": "feedback",
+  "where": "m2 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Puerto Rico is a US territory. Only US-citizen carriers may fly passengers between US points."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Puerto Rico is a U S territory. Only U S-citizen carriers may fly passengers between U S points."
+  ]
+ },
+ {
   "key": "7da0d8e6",
   "kind": "lesson",
   "where": "m2 screen 2",
@@ -774,13 +829,13 @@
   ]
  },
  {
-  "key": "60355305",
+  "key": "98c8a617",
   "kind": "lesson",
   "where": "m2 screen 5",
   "text": [
    "Where we may and may not sell",
    "2.4 Flights we never sell",
-   "NEVERSELLOperator without a commercial AOCDomestic leg on a foreign operatorUS domestic flight on a non-US operatorIndividual seatsSanctioned people or embargoed placesHidden passenger namesSix of the flights on the never-sell list. The full list is in the table.",
+   "Never sellOperator without a commercial AOCDomestic leg on a foreign operatorUS domestic flight on a non-US operatorIndividual seatsSanctioned people or embargoed placesHidden passenger namesSix of the flights on the never-sell list. The full list is in the table.",
    "A flight by an operator without a commercial AOC, or on an aircraft not listed on its AOCIllegal charter: uninsured and unsafeReject; report to the director",
    "A domestic leg (two airports in one country) on a foreign operator's aircraft, unless the operator confirms in writing that the country allows itCabotage: most countries reserve domestic flights for their own carriersUse a local operator, or redesign the trip",
    "US domestic flights (both airports in the US) on any non-US operatorUS law allows only US-citizen carriers to fly passengers within the USNever quote",
@@ -797,7 +852,7 @@
   "say": [
    "Where we may and may not sell.",
    "Flights we never sell.",
-   "Stop sign, never sell. Six examples, an operator without a commercial air operator certificate, a domestic leg on a foreign operator, a U S domestic flight on a non-U S operator, individual seats, sanctioned people or embargoed places, and hidden passenger names.",
+   "Never sell. Six examples, an operator without a commercial air operator certificate, a domestic leg on a foreign operator, a U S domestic flight on a non-U S operator, individual seats, sanctioned people or embargoed places, and hidden passenger names.",
    "A flight by an operator without a commercial A O C, or on an aircraft not listed on its A O C. why, Illegal charter, uninsured and unsafe. what to do, Reject, report to the director. A domestic leg, two airports in one country, on a foreign operator's aircraft, unless the operator confirms in writing that the country allows it. why, Cabotage, most countries reserve domestic flights for their own carriers. what to do, Use a local operator, or redesign the trip. U S domestic flights, both airports in the U S, on any non-U S operator. why, U S law allows only U S-citizen carriers to fly passengers within the U S. what to do, Never quote. Any U S domestic flight, even on a U S operator, until U S counsel has confirmed ar Kay's position. ar Kay policy, Pass to the director. Flights between two E U countries, or inside one, on a non-E U operator, unless the operator confirms the permission. why, E U traffic is reserved for E U carriers. what to do, Use an E U operator. Individual seats sold to different people on one flight. why, Selling seats needs public-charter or airline authority. what to do, Never sell per seat. Flights into, out of or over the E U for a Russian national, including dual nationals, or a company controlled by one, or on Russian-registered aircraft. why, E U sanctions deny landing, take-off and overflight to such aircraft, including chartered aircraft. what to do, Stop, report to the director. Flights for sanctioned persons or companies, or to embargoed destinations without director clearance. why, Sanctions law, Module 3. what to do, Stop, report to the director. Operators on the E U Air Safety List. Safety and E U law, Never use. Medical flights with patients needing care on board. why, Air ambulance needs specific approvals and equipment. what to do, Refer through the director. Flights with accommodation or other travel sold as one package. why, Package-travel and travel-licence rules, for example ATOL in the U K. what to do, Only with director approval. Any flight where the client asks to hide passenger names from the operator or the authorities. why, Illegal and a sanctions and security risk. what to do, Refuse, report to the director."
   ]
  },
@@ -947,6 +1002,17 @@
   ]
  },
  {
+  "key": "d9b2baa6",
+  "kind": "feedback",
+  "where": "m2 screen 7 try 1",
+  "text": [
+   "Not quite. Each leg crosses a border. Permits still apply."
+  ],
+  "say": [
+   "Not quite. Each leg crosses a border. Permits still apply."
+  ]
+ },
+ {
   "key": "b44d1c87",
   "kind": "feedback",
   "where": "m2 screen 7 try 2",
@@ -955,6 +1021,17 @@
   ],
   "say": [
    "Not quite. Both airports are in the U S. Use a U S operator for the whole trip, subject to ar Kay's U S policy."
+  ]
+ },
+ {
+  "key": "128f0a1a",
+  "kind": "feedback",
+  "where": "m2 screen 7 try 2",
+  "text": [
+   "Right. Both airports are in the US. Use a US operator for the whole trip, subject to Archē's US policy."
+  ],
+  "say": [
+   "Right. Both airports are in the U S. Use a U S operator for the whole trip, subject to ar Kay's U S policy."
   ]
  },
  {
@@ -969,6 +1046,17 @@
   ]
  },
  {
+  "key": "6750fe37",
+  "kind": "feedback",
+  "where": "m2 screen 7 try 3",
+  "text": [
+   "Right. Two Indian airports in a row make a domestic leg."
+  ],
+  "say": [
+   "Right. Two Indian airports in a row make a domestic leg."
+  ]
+ },
+ {
   "key": "58835fb4",
   "kind": "feedback",
   "where": "m2 screen 7 try 4",
@@ -977,6 +1065,17 @@
   ],
   "say": [
    "Not quite. Thailand enforces cabotage closely. The whole routing and manifest go on the permit."
+  ]
+ },
+ {
+  "key": "738b6895",
+  "kind": "feedback",
+  "where": "m2 screen 7 try 4",
+  "text": [
+   "Right. Thailand enforces cabotage closely. The whole routing and manifest go on the permit."
+  ],
+  "say": [
+   "Right. Thailand enforces cabotage closely. The whole routing and manifest go on the permit."
   ]
  },
  {
@@ -1046,7 +1145,7 @@
    "Where we may and may not sell.",
    "The trip risk screen.",
    "Every enquiry passes this screen before sourcing, and the result goes on the intake form. Green means proceed. Amber means the operator or its trip support confirms in writing before we quote. Red means stop and escalate to the director. Always check the current watchlist, never your memory.",
-   "Traffic light. Green means proceed with sourcing. Amber means the operator confirms in writing before we quote. Red means stop and escalate to the director.",
+   "Green means proceed with sourcing. Amber means the operator confirms in writing before we quote. Red means stop and escalate to the director.",
    "1. Who flies and pays? amber, P E P, child with one adult, payer differs from the client. red, Sanctions match, Russian national with an E U point, refuses K Y C, payer or operator in a country we cannot take payments from or pay to. 2. Where? amber, Domestic leg, conflict-zone routing, strict permit country. red, U S domestic leg, embargoed destination. 3. What aircraft and operator? amber, No safety rating, U S-made aircraft to a sanctioned country. red, No A O C, banned operator. 4. What is carried? amber, Pets, weapons, cash, medical equipment, dangerous goods. red, Patient needing care in flight. 5. How is it sold? Hotel or event added, Individual seats. 6. When? amber, Short notice into a strict permit country. red, Lead time impossible to meet.",
    "Practise it. After the module check, the trip risk screen lab gives you 12 real-world trips to screen."
   ]
@@ -1496,7 +1595,7 @@
   ]
  },
  {
-  "key": "16bd7081",
+  "key": "176628d4",
   "kind": "intro",
   "where": "m1 screen 1",
   "text": [
@@ -1508,11 +1607,11 @@
    "Work in the Archē portal: leads, prospects and separate duties",
    "Warm-up",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
-   "A client asks to charter an aircraft owned by Navoryx Executive. What do you do?",
-   "aQuote it at 9%",
-   "bPass the request to the director",
-   "cAsk the operator for a discount",
-   "dDecline without comment"
+   "A trip billed at USD 135,000 counts as how many booking units?",
+   "a1",
+   "b2",
+   "c3",
+   "d4"
   ],
   "say": [
    "ar Kay Executive and the broker's role.",
@@ -1520,19 +1619,30 @@
    "Describe what ar Kay sells and how it earns. Explain the three ways a broker can work. Apply the booking ramp and the professional standards. Work in the ar Kay portal, leads, prospects and separate duties.",
    "Warm-up.",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
-   "A client asks to charter an aircraft owned by Navoryx Executive. What do you do?",
-   "A. Quote it at 9 percent. B. Pass the request to the director. C. Ask the operator for a discount. D. Decline without comment."
+   "A trip billed at 135,000 U S dollars counts as how many booking units?",
+   "A. 1. B. 2. C. 3. D. 4."
   ]
  },
  {
-  "key": "17b2a5dc",
+  "key": "56590cef",
   "kind": "feedback",
   "where": "m1 screen 1 try 3",
   "text": [
-   "Not quite. You will meet this in the module. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+   "Not quite. You will meet this in the module. One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units."
   ],
   "say": [
-   "Not quite. You will meet this in the module. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+   "Not quite. You will meet this in the module. One booking unit is 45,000 U S dollars billed to the client. 135,000 divided by 45,000 is 3 units."
+  ]
+ },
+ {
+  "key": "d8daada6",
+  "kind": "feedback",
+  "where": "m1 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units."
+  ],
+  "say": [
+   "Right. You will meet this in the module. One booking unit is 45,000 U S dollars billed to the client. 135,000 divided by 45,000 is 3 units."
   ]
  },
  {
@@ -1553,7 +1663,7 @@
   ]
  },
  {
-  "key": "13fd56f1",
+  "key": "2e4c7fa2",
   "kind": "lesson",
   "where": "m1 screen 3",
   "text": [
@@ -1561,13 +1671,12 @@
    "1.2 What we sell",
    "Whole-aircraft charters for one client, on third-party aircraft of every size, with a focus on long-range and heavy jets.",
    "Empty legs, on the conditions in Module 9.",
-   "Nothing on the \"never sell\" list in Module 2.4.",
-   "We do not sell flight hours on aircraft owned by Navoryx Executive or its aircraft companies while the charter sales agreement for those aircraft is in force. Pass any such request to the director."
+   "Nothing on the \"never sell\" list in Module 2.4."
   ],
   "say": [
    "ar Kay Executive and the broker's role.",
    "What we sell.",
-   "Whole-aircraft charters for one client, on third-party aircraft of every size, with a focus on long-range and heavy jets. Empty legs, on the conditions in Module 9. Nothing on the never sell list in Module 2, section 4. We do not sell flight hours on aircraft owned by Navoryx Executive or its aircraft companies while the charter sales agreement for those aircraft is in force. Pass any such request to the director."
+   "Whole-aircraft charters for one client, on third-party aircraft of every size, with a focus on long-range and heavy jets. Empty legs, on the conditions in Module 9. Nothing on the never sell list in Module 2, section 4."
   ]
  },
  {
@@ -1586,21 +1695,20 @@
   ]
  },
  {
-  "key": "444a906e",
+  "key": "51e01a47",
   "kind": "lesson",
   "where": "m1 screen 5",
   "text": [
    "Archē Executive and the broker's role",
    "1.4 Roles",
-   "Charter consultantBuilds the client base by phone and follow-up, captures and qualifies enquiries, hands live trips to a broker",
-   "BrokerSources, vets, prices, contracts and runs trips; mentors consultants",
-   "Operations deskRuns trips on the day and out of hours (Module 11)",
+   "BrokerSources, vets, prices, contracts and runs every step of a trip, including KYC, sanctions screening and the client's payment request, on the day and out of hours (Module 11)",
+   "Owner, or a person the owner has mandatedDoes the four-eyes check on every trip: confirms the operator price, approves the booking, issues the confirmation and records payments",
    "DirectorApproves exceptions, compliance decisions and disputes; owns this manual"
   ],
   "say": [
    "ar Kay Executive and the broker's role.",
    "Roles.",
-   "Charter consultant. Builds the client base by phone and follow-up, captures and qualifies enquiries, hands live trips to a broker. Broker. Sources, vets, prices, contracts and runs trips, mentors consultants. Operations desk. Runs trips on the day and out of hours, Module 11. Director. Approves exceptions, compliance decisions and disputes, owns this manual."
+   "Broker. Sources, vets, prices, contracts and runs every step of a trip, including K Y C, sanctions screening and the client's payment request, on the day and out of hours, Module 11. Owner, or a person the owner has mandated. Does the four-eyes check on every trip, confirms the operator price, approves the booking, issues the confirmation and records payments. Director. Approves exceptions, compliance decisions and disputes, owns this manual."
   ]
  },
  {
@@ -1657,7 +1765,7 @@
   ]
  },
  {
-  "key": "25ce1d3b",
+  "key": "8709474a",
   "kind": "lesson",
   "where": "m1 screen 9",
   "text": [
@@ -1672,9 +1780,9 @@
    "Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid: commission rewards the booking.",
    "Prospects are organisations and their business contacts only: no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is \"Do not contact\" for everyone, for good.",
    "These are the current settings. The director can change them in the portal; its Portal rules page always shows the ones in force.",
-   "Booking rights and separate duties",
-   "Operations checks each trip, confirms the operator price on Avinode, completes KYC and sanctions screening, creates the payment request and issues the confirmation.",
-   "The director can give a broker booking rights, so the broker also works as operations. Nobody confirms, prices or records payment on their own booking: another operations member or the director does it."
+   "Authorisation and separate duties",
+   "The broker completes KYC and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for authorisation.",
+   "The owner, or a person the owner has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip: another owner or a person the owner has mandated does it."
   ],
   "say": [
    "ar Kay Executive and the broker's role.",
@@ -1683,12 +1791,12 @@
    "Leads and prospects.",
    "The portal assigns organisations to brokers automatically and fairly, by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week. Make first contact with every new lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the director. Not now leads are offered again after 90 days, to a different broker with a fresh approach. Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically. Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid, commission rewards the booking. Prospects are organisations and their business contacts only, no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact for everyone, for good.",
    "These are the current settings. The director can change them in the portal, its Portal rules page always shows the ones in force.",
-   "Booking rights and separate duties.",
-   "Operations checks each trip, confirms the operator price on Avinode, completes K Y C and sanctions screening, creates the payment request and issues the confirmation. The director can give a broker booking rights, so the broker also works as operations. Nobody confirms, prices or records payment on their own booking, another operations member or the director does it."
+   "Authorisation and separate duties.",
+   "The broker completes K Y C and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for authorisation. The owner, or a person the owner has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip, another owner or a person the owner has mandated does it."
   ]
  },
  {
-  "key": "9fb8cd75",
+  "key": "5883a1bf",
   "kind": "keypoints",
   "where": "m1 screen 10",
   "text": [
@@ -1696,7 +1804,6 @@
    "Key points",
    "Before the module check, try to say each point in your own words.",
    "We sell whole-aircraft charters and empty legs at a 9% margin.",
-   "No Navoryx fleet hours while the charter sales agreement is in force.",
    "Never sell a flight before an operator has confirmed it in writing.",
    "First contact within 48 hours and follow-up every 14 days, or the lead moves on."
   ],
@@ -1704,51 +1811,13 @@
    "ar Kay Executive and the broker's role.",
    "Key points.",
    "Before the module check, try to say each point in your own words.",
-   "We sell whole-aircraft charters and empty legs at a 9 percent margin. No Navoryx fleet hours while the charter sales agreement is in force. Never sell a flight before an operator has confirmed it in writing. First contact within 48 hours and follow-up every 14 days, or the lead moves on."
-  ]
- },
- {
-  "key": "28df124a",
-  "kind": "question",
-  "where": "m1 check question 1",
-  "text": [
-   "A client asks to charter an aircraft owned by Navoryx Executive. What do you do?",
-   "aQuote it at 9%",
-   "bPass the request to the director",
-   "cAsk the operator for a discount",
-   "dDecline without comment"
-  ],
-  "say": [
-   "A client asks to charter an aircraft owned by Navoryx Executive. What do you do?",
-   "A. Quote it at 9 percent. B. Pass the request to the director. C. Ask the operator for a discount. D. Decline without comment."
-  ]
- },
- {
-  "key": "c3bed391",
-  "kind": "feedback",
-  "where": "m1 check question 1",
-  "text": [
-   "Right. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
-  ],
-  "say": [
-   "Right. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
-  ]
- },
- {
-  "key": "f9120a76",
-  "kind": "feedback",
-  "where": "m1 check question 1",
-  "text": [
-   "Not quite. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
-  ],
-  "say": [
-   "Not quite. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+   "We sell whole-aircraft charters and empty legs at a 9 percent margin. Never sell a flight before an operator has confirmed it in writing. First contact within 48 hours and follow-up every 14 days, or the lead moves on."
   ]
  },
  {
   "key": "00d02a83",
   "kind": "question",
-  "where": "m1 check question 2",
+  "where": "m1 check question 1",
   "text": [
    "A trip billed at USD 135,000 counts as how many booking units?",
    "a1",
@@ -1764,7 +1833,7 @@
  {
   "key": "78ac7e84",
   "kind": "feedback",
-  "where": "m1 check question 2",
+  "where": "m1 check question 1",
   "text": [
    "Right. One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units."
   ],
@@ -1775,7 +1844,7 @@
  {
   "key": "c2fa6ca5",
   "kind": "feedback",
-  "where": "m1 check question 2",
+  "where": "m1 check question 1",
   "text": [
    "Not quite. One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units."
   ],
@@ -1786,7 +1855,7 @@
  {
   "key": "ea65761b",
   "kind": "question",
-  "where": "m1 check question 3",
+  "where": "m1 check question 2",
   "text": [
    "A client wants to buy four seats on someone else's flight. Which is right?",
    "aWe sell the seats",
@@ -1802,7 +1871,7 @@
  {
   "key": "06d776e7",
   "kind": "feedback",
-  "where": "m1 check question 3",
+  "where": "m1 check question 2",
   "text": [
    "Right. Archē sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority."
   ],
@@ -1813,7 +1882,7 @@
  {
   "key": "3ce66ca8",
   "kind": "feedback",
-  "where": "m1 check question 3",
+  "where": "m1 check question 2",
   "text": [
    "Not quite. Archē sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority."
   ],
@@ -1824,7 +1893,7 @@
  {
   "key": "a771402d",
   "kind": "question",
-  "where": "m1 check question 4",
+  "where": "m1 check question 3",
   "text": [
    "A broker buys the flight from the operator and resells it in its own name. Which model is that?",
    "aAgent of the client",
@@ -1840,7 +1909,7 @@
  {
   "key": "edb858df",
   "kind": "feedback",
-  "where": "m1 check question 4",
+  "where": "m1 check question 3",
   "text": [
    "Right. A principal buys the flight and resells it in its own name, and takes on responsibility to the client."
   ],
@@ -1851,7 +1920,7 @@
  {
   "key": "09964d5a",
   "kind": "feedback",
-  "where": "m1 check question 4",
+  "where": "m1 check question 3",
   "text": [
    "Not quite. A principal buys the flight and resells it in its own name, and takes on responsibility to the client."
   ],
@@ -1862,7 +1931,7 @@
  {
   "key": "d8bd604d",
   "kind": "question",
-  "where": "m1 check question 5",
+  "where": "m1 check question 4",
   "text": [
    "You have not contacted a new lead within 48 hours. What happens?",
    "aNothing",
@@ -1878,7 +1947,7 @@
  {
   "key": "aa5cd5e8",
   "kind": "feedback",
-  "where": "m1 check question 5",
+  "where": "m1 check question 4",
   "text": [
    "Right. Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker."
   ],
@@ -1889,7 +1958,7 @@
  {
   "key": "b463221d",
   "kind": "feedback",
-  "where": "m1 check question 5",
+  "where": "m1 check question 4",
   "text": [
    "Not quite. Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker."
   ],
@@ -1898,41 +1967,41 @@
   ]
  },
  {
-  "key": "a1d5bcd0",
+  "key": "7159b36e",
   "kind": "question",
-  "where": "m1 check question 6",
+  "where": "m1 check question 5",
   "text": [
-   "A broker with booking rights sells a trip. Who issues its confirmation?",
+   "A broker sells a trip. Who issues its confirmation?",
    "aThe same broker",
-   "bAnother operations member or the director",
+   "bThe owner, or a person the owner has mandated",
    "cThe client",
    "dThe operator"
   ],
   "say": [
-   "A broker with booking rights sells a trip. Who issues its confirmation?",
-   "A. The same broker. B. Another operations member or the director. C. The client. D. The operator."
+   "A broker sells a trip. Who issues its confirmation?",
+   "A. The same broker. B. The owner, or a person the owner has mandated. C. The client. D. The operator."
   ]
  },
  {
-  "key": "8e421155",
+  "key": "339446b5",
   "kind": "feedback",
-  "where": "m1 check question 6",
+  "where": "m1 check question 5",
   "text": [
-   "Right. Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it."
+   "Right. Separate duties: nobody confirms, prices or records payment on their own booking. Another owner, or a person the owner has mandated, issues it."
   ],
   "say": [
-   "Right. Separate duties, nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it."
+   "Right. Separate duties, nobody confirms, prices or records payment on their own booking. Another owner, or a person the owner has mandated, issues it."
   ]
  },
  {
-  "key": "5de7655c",
+  "key": "51489872",
   "kind": "feedback",
-  "where": "m1 check question 6",
+  "where": "m1 check question 5",
   "text": [
-   "Not quite. Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it."
+   "Not quite. Separate duties: nobody confirms, prices or records payment on their own booking. Another owner, or a person the owner has mandated, issues it."
   ],
   "say": [
-   "Not quite. Separate duties, nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it."
+   "Not quite. Separate duties, nobody confirms, prices or records payment on their own booking. Another owner, or a person the owner has mandated, issues it."
   ]
  },
  {
@@ -1978,6 +2047,17 @@
   ]
  },
  {
+  "key": "f793a014",
+  "kind": "feedback",
+  "where": "m3 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. A third-party payer in another country is a money-laundering warning sign. Identify the payer, record the reason and get the director's approval."
+  ],
+  "say": [
+   "Right. You will meet this in the module. A third-party payer in another country is a money-laundering warning sign. Identify the payer, record the reason and get the director's approval."
+  ]
+ },
+ {
   "key": "3c61eae6",
   "kind": "lesson",
   "where": "m3 screen 2",
@@ -1998,19 +2078,19 @@
   ]
  },
  {
-  "key": "8f4dcf32",
+  "key": "31bbdac8",
   "kind": "lesson",
   "where": "m3 screen 3",
   "text": [
    "Compliance: KYC, sanctions, fraud",
    "3.2 Sanctions screening, step by step",
-   "List nameseveryone involvedSearch listsUN, MAS, OFAC, EU, UKRecorddate, lists, result Match? Possible matchstop, no payment, director no: continueScreen every name, record the result, and stop at any possible match.",
+   "List nameseveryone involvedSearch listsUN, MAS, OFAC, EU, UKRecorddate, lists, resultMatch? NocontinuePossible matchstop, no payment, directorScreen every name, record the result, and stop at any possible match.",
    "List every name to screen: client, payer, ultimate beneficial owners, every passenger, the operator and the aircraft owner if known.",
    "Check who owns and controls each company you screen (client, payer, operator). Under US rules, a company owned 50% or more in total by one or more blocked persons is itself blocked, even when its own name is on no list (OFAC FAQs 401 and 402). EU guidance treats owning 50% or more, or control such as the power to appoint most of the board, the same way (EU Council Best Practices, 3 July 2024). A company owned or controlled by a listed person counts as a match.",
    "Search each name on the official lists in Appendix D: United Nations consolidated list; Singapore (Monetary Authority of Singapore, and the First Schedule of the Terrorism (Suppression of Financing) Act); United States (OFAC sanctions list search); European Union consolidated list; United Kingdom (UK Sanctions List, the single UK list since 28 January 2026); for Asia-Pacific trips also Australia (DFAT), Japan (Ministry of Finance), Malaysia (Ministry of Home Affairs) and Thailand (AMLO). The portal does this for you: it screens the client, company, payer and operator as you type and when you save the trip, against all these lists, refreshed every day, and shows the result in Trip checks with the list and the date. You add the passengers, owners and aircraft owner. A name on the MAS Investor Alert List (Singapore) is a warning to check, not a sanctions match; an operator on the EU Air Safety List is never used.",
    "Search with full name and date of birth; also try common alternative spellings.",
    "Check nationality and the route against Module 2.4 (for example the EU rules on Russian nationals and aircraft) and against countries under embargo.",
-   "Record the result: in the portal, operations enters every name in the Sanctions screening box on the trip and presses Screen names now, which checks the official UN, US, EU and UK lists, then saves the record (date, person, lists, outcome). A confirmation cannot be issued without it. Without the portal, use the official search pages and the sanctions screening record (Appendix B).",
+   "Record the result: in the portal, the broker enters every name in the Sanctions screening box on the trip and presses Screen names now, which checks the official UN, US, EU and UK lists, then saves the record (date, person, lists, outcome). A confirmation cannot be issued without it. Without the portal, use the official search pages and the sanctions screening record (Appendix B).",
    "Screen again if any name, passenger or the route changes.",
    "A possible matchStop. Do not tell the client why. Do not take payment. Report to the director the same day, with the screening record. Only the director decides whether to proceed."
   ],
@@ -2018,7 +2098,7 @@
    "Compliance, K Y C, sanctions, fraud.",
    "Sanctions screening, step by step.",
    "Flow chart. List every name, search the U N, Singapore, U S, E U and U K sanctions lists, and record the date, lists and result. If there is no match, continue. If there is a possible match, stop, take no payment and report to the director.",
-   "List every name to screen, client, payer, ultimate beneficial owners, every passenger, the operator and the aircraft owner if known. Check who owns and controls each company you screen, client, payer, operator. Under U S rules, a company owned 50 percent or more in total by one or more blocked persons is itself blocked, even when its own name is on no list, OFAC F A Qs 401 and 402. E U guidance treats owning 50 percent or more, or control such as the power to appoint most of the board, the same way, E U Council Best Practices, 3 July 2024. A company owned or controlled by a listed person counts as a match. Search each name on the official lists in Appendix D, United Nations consolidated list, Singapore, Monetary Authority of Singapore, and the First Schedule of the Terrorism, Suppression of Financing, Act, United States, OFAC sanctions list search, European Union consolidated list, United Kingdom, U K Sanctions List, the single U K list since 28 January 2026, for Asia-Pacific trips also Australia, D F A T, Japan, Ministry of Finance, Malaysia, Ministry of Home Affairs, and Thailand, A M L O. The portal does this for you, it screens the client, company, payer and operator as you type and when you save the trip, against all these lists, refreshed every day, and shows the result in Trip checks with the list and the date. You add the passengers, owners and aircraft owner. A name on the M A S Investor Alert List, Singapore, is a warning to check, not a sanctions match, an operator on the E U Air Safety List is never used. Search with full name and date of birth, also try common alternative spellings. Check nationality and the route against Module 2, section 4, for example the E U rules on Russian nationals and aircraft, and against countries under embargo. Record the result, in the portal, operations enters every name in the Sanctions screening box on the trip and presses Screen names now, which checks the official U N, U S, E U and U K lists, then saves the record, date, person, lists, outcome. A confirmation cannot be issued without it. Without the portal, use the official search pages and the sanctions screening record, Appendix B. Screen again if any name, passenger or the route changes.",
+   "List every name to screen, client, payer, ultimate beneficial owners, every passenger, the operator and the aircraft owner if known. Check who owns and controls each company you screen, client, payer, operator. Under U S rules, a company owned 50 percent or more in total by one or more blocked persons is itself blocked, even when its own name is on no list, OFAC F A Qs 401 and 402. E U guidance treats owning 50 percent or more, or control such as the power to appoint most of the board, the same way, E U Council Best Practices, 3 July 2024. A company owned or controlled by a listed person counts as a match. Search each name on the official lists in Appendix D, United Nations consolidated list, Singapore, Monetary Authority of Singapore, and the First Schedule of the Terrorism, Suppression of Financing, Act, United States, OFAC sanctions list search, European Union consolidated list, United Kingdom, U K Sanctions List, the single U K list since 28 January 2026, for Asia-Pacific trips also Australia, D F A T, Japan, Ministry of Finance, Malaysia, Ministry of Home Affairs, and Thailand, A M L O. The portal does this for you, it screens the client, company, payer and operator as you type and when you save the trip, against all these lists, refreshed every day, and shows the result in Trip checks with the list and the date. You add the passengers, owners and aircraft owner. A name on the M A S Investor Alert List, Singapore, is a warning to check, not a sanctions match, an operator on the E U Air Safety List is never used. Search with full name and date of birth, also try common alternative spellings. Check nationality and the route against Module 2, section 4, for example the E U rules on Russian nationals and aircraft, and against countries under embargo. Record the result, in the portal, the broker enters every name in the Sanctions screening box on the trip and presses Screen names now, which checks the official U N, U S, E U and U K lists, then saves the record, date, person, lists, outcome. A confirmation cannot be issued without it. Without the portal, use the official search pages and the sanctions screening record, Appendix B. Screen again if any name, passenger or the route changes.",
    "A possible match. Stop. Do not tell the client why. Do not take payment. Report to the director the same day, with the screening record. Only the director decides whether to proceed."
   ]
  },
@@ -2326,6 +2406,17 @@
   ]
  },
  {
+  "key": "11f4b1fc",
+  "kind": "feedback",
+  "where": "m4 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Discretion: send trip details only to the people the client agreed in writing."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Discretion, send trip details only to the people the client agreed in writing."
+  ]
+ },
+ {
   "key": "642e15fc",
   "kind": "lesson",
   "where": "m4 screen 2",
@@ -2540,13 +2631,24 @@
   ]
  },
  {
-  "key": "f60ed370",
+  "key": "1bb930bc",
+  "kind": "feedback",
+  "where": "m5 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. The never-sell check and the trip risk screen come before sourcing, so we never spend time on a flight we cannot sell."
+  ],
+  "say": [
+   "Right. You will meet this in the module. The never-sell check and the trip risk screen come before sourcing, so we never spend time on a flight we cannot sell."
+  ]
+ },
+ {
+  "key": "fabc2f9b",
   "kind": "lesson",
   "where": "m5 screen 2",
   "text": [
    "Enquiry intake and qualification",
    "5.1 The booking life cycle",
-   "1Enquiry2Qualify3Legal check4Feasibility5Sourcing6Quote7Contract …8Operations9CloseThe legal check (step 3) comes before any sourcing.Nine stages from enquiry to closed file.",
+   "1Enquiry2Qualify3Legal check4Feasibility5Sourcing6Quote7Contract and payment8Operations9CloseThe legal check (step 3) comes before any sourcing.Nine stages from enquiry to closed file.",
    "1. EnquiryCapture the mission (5.2) on the intake formEnquiry in CRM",
    "2. QualificationConfirm the client is real, able to pay and serious; KYC startedQualified or closed",
    "3. Legal checkCheck the trip against Module 2.4Allowed, redesigned or refused",
@@ -2847,6 +2949,17 @@
   ]
  },
  {
+  "key": "ac7c93fa",
+  "kind": "feedback",
+  "where": "m6 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Range depends on load, winds and season. Only the operator can confirm non-stop for this trip."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Range depends on load, winds and season. Only the operator can confirm non-stop for this trip."
+  ]
+ },
+ {
   "key": "9b4b17b5",
   "kind": "lesson",
   "where": "m6 screen 2",
@@ -2871,13 +2984,13 @@
   ]
  },
  {
-  "key": "38d89b90",
+  "key": "59017db9",
   "kind": "lesson",
   "where": "m6 screen 3",
   "text": [
    "Flight feasibility and trip planning",
    "6.2 Choosing the airport",
-   "1Hoursopening and curfews2Customsavailable, or on request3Fire covercategory suits the aircraft4Runwaylength for the load5Slots, parkingapproved in time6FBO, handlerservice at arrivalSix checks before an airport goes in the quote. The operator confirms.",
+   "Hoursopening and curfewsCustomsavailable, or on requestFire covercategory suits the aircraftRunwaylength for the loadSlots, parkingapproved in timeFBO, handlerservice at arrivalSix checks before an airport goes in the quote. The operator confirms.",
    "Many cities have a business-aviation airport closer to the destination than the airline hub; ask where the client is actually going.",
    "Opening hours and night curfews.",
    "Customs and immigration: international flights must use an airport where they are available, sometimes only on request.",
@@ -3286,6 +3399,17 @@
   ]
  },
  {
+  "key": "f0fb9ebf",
+  "kind": "feedback",
+  "where": "m7 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Specifications come from the aircraft's Avinode listing and the manufacturer, and the operator confirms them for the trip."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Specifications come from the aircraft's Avinode listing and the manufacturer, and the operator confirms them for the trip."
+  ]
+ },
+ {
   "key": "16cbe321",
   "kind": "lesson",
   "where": "m7 screen 2",
@@ -3466,6 +3590,17 @@
   ]
  },
  {
+  "key": "c5e54829",
+  "kind": "feedback",
+  "where": "m8 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3 are accepted, checked in the auditor's registry for each booking. Any other operator only if the director has approved it for twelve months (an Archē-approved operator) or for that one trip. Every operator: two pilots on jets, insurance of at least USD 50 million for jets, five years clear."
+  ],
+  "say": [
+   "Right. You will meet this in the module. ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman P R O, or I S, B A O Stage 2 or 3 are accepted, checked in the auditor's registry for each booking. Any other operator only if the director has approved it for twelve months, an ar Kay-approved operator, or for that one trip. Every operator, two pilots on jets, insurance of at least 50 U S dollars million for jets, five years clear."
+  ]
+ },
+ {
   "key": "85479644",
   "kind": "lesson",
   "where": "m8 screen 2",
@@ -3487,7 +3622,7 @@
   ]
  },
  {
-  "key": "4876acba",
+  "key": "91446f6a",
   "kind": "lesson",
   "where": "m8 screen 3",
   "text": [
@@ -3496,7 +3631,7 @@
    "All quotes receivedAOC and aircraft on the operations specificationsInsurance covers commercial passengersARGUS Platinum, WYVERN Wingman or IS-BAO Stage 2–3Not on any banned list; not sanctionedShortlist for the clientEach check narrows the field. Any other operator only if the director has approved it after the checks in 8.3.",
    "AOCValid commercial AOC; aircraft listed in the operations specificationsAOC and operations specifications",
    "InsuranceCurrent certificate covering commercial passenger flights, with passenger liability of at least USD 50 million for jets and USD 25 million for turbopropsInsurance certificate; the amount recorded in the portal",
-   "Safety auditARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3: current on the date of the last flight and held by the AOC that flies the trip. Every other case (ARGUS Gold or Gold Certified, IS-BAO Stage 1, WYVERN Registered, another audit or none) only as an Archē-approved operator or with the director's approval for one trip (8.3)The auditor's own registry entry or certificate, checked at the source for each booking no more than 14 days before it goes to operations, saved on the trip with the expiry date. For an Archē-approved operator: the entry on the approved-operator list, valid on the date of the last flight",
+   "Safety auditARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3: current on the date of the last flight and held by the AOC that flies the trip. Every other case (ARGUS Gold or Gold Certified, IS-BAO Stage 1, WYVERN Registered, another audit or none) only as an Archē-approved operator or with the director's approval for one trip (8.3)The auditor's own registry entry or certificate, checked at the source for each booking no more than 14 days before it goes for the owner's check, saved on the trip with the expiry date. For an Archē-approved operator: the entry on the approved-operator list, valid on the date of the last flight",
    "CrewTwo pilots on every jet flight; crew type-rated and current on the aircraftOperator's written confirmation",
    "Banned listsOperator not on the EU Air Safety List or any similar national banSearch result with date",
    "Foreign permissionsThe authorisations needed for the route (for example EASA TCO, US authority, CAAS operations permit)Operator's written confirmation",
@@ -3509,7 +3644,7 @@
    "Sourcing on Avinode and operator vetting.",
    "Operator vetting standard.",
    "Funnel. From all quotes received, keep operators whose aircraft is on their A O C operations specifications, whose insurance covers commercial passengers, with ARGUS Platinum or Platinum Elite, WYVERN Wingman or I S, B A O Stage 2 or 3, and who are not banned or sanctioned. What remains is the shortlist for the client.",
-   "A O C. standard, Valid commercial A O C, aircraft listed in the operations specifications. evidence on file, A O C and operations specifications. Insurance. standard, Current certificate covering commercial passenger flights, with passenger liability of at least 50 U S dollars million for jets and 25 U S dollars million for turboprops. evidence on file, Insurance certificate, the amount recorded in the portal. Safety audit. standard, ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman P R O, or I S, B A O Stage 2 or 3, current on the date of the last flight and held by the A O C that flies the trip. Every other case, ARGUS Gold or Gold Certified, I S, B A O Stage 1, WYVERN Registered, another audit or none, only as an ar Kay-approved operator or with the director's approval for one trip, 8, section 3. evidence on file, The auditor's own registry entry or certificate, checked at the source for each booking no more than 14 days before it goes to operations, saved on the trip with the expiry date. For an ar Kay-approved operator, the entry on the approved-operator list, valid on the date of the last flight. Crew. standard, Two pilots on every jet flight, crew type-rated and current on the aircraft. evidence on file, Operator's written confirmation. Banned lists. standard, Operator not on the E U Air Safety List or any similar national ban. evidence on file, Search result with date. Foreign permissions. standard, The authorisations needed for the route, for example EASA T C O, U S authority, C A A S operations permit. evidence on file, Operator's written confirmation. History. standard, No fatal accident, serious incident or regulatory sanction in the last five years. Anything in that time only with the director's approval after a written explanation. evidence on file, Public accident databases and operator statement. Suspension. standard, An operator is suspended after any accident or serious incident until the director has reviewed it. evidence on file, The portal's suspension list. Sanctions. standard, Operator and owner not sanctioned, Module 3. evidence on file, Screening record. Terms. standard, Operator terms can be matched back to back by our client terms. evidence on file, Operator contract."
+   "A O C. standard, Valid commercial A O C, aircraft listed in the operations specifications. evidence on file, A O C and operations specifications. Insurance. standard, Current certificate covering commercial passenger flights, with passenger liability of at least 50 U S dollars million for jets and 25 U S dollars million for turboprops. evidence on file, Insurance certificate, the amount recorded in the portal. Safety audit. standard, ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman P R O, or I S, B A O Stage 2 or 3, current on the date of the last flight and held by the A O C that flies the trip. Every other case, ARGUS Gold or Gold Certified, I S, B A O Stage 1, WYVERN Registered, another audit or none, only as an ar Kay-approved operator or with the director's approval for one trip, 8, section 3. evidence on file, The auditor's own registry entry or certificate, checked at the source for each booking no more than 14 days before it goes for the owner's check, saved on the trip with the expiry date. For an ar Kay-approved operator, the entry on the approved-operator list, valid on the date of the last flight. Crew. standard, Two pilots on every jet flight, crew type-rated and current on the aircraft. evidence on file, Operator's written confirmation. Banned lists. standard, Operator not on the E U Air Safety List or any similar national ban. evidence on file, Search result with date. Foreign permissions. standard, The authorisations needed for the route, for example EASA T C O, U S authority, C A A S operations permit. evidence on file, Operator's written confirmation. History. standard, No fatal accident, serious incident or regulatory sanction in the last five years. Anything in that time only with the director's approval after a written explanation. evidence on file, Public accident databases and operator statement. Suspension. standard, An operator is suspended after any accident or serious incident until the director has reviewed it. evidence on file, The portal's suspension list. Sanctions. standard, Operator and owner not sanctioned, Module 3. evidence on file, Screening record. Terms. standard, Operator terms can be matched back to back by our client terms. evidence on file, Operator contract."
   ]
  },
  {
@@ -3836,6 +3971,17 @@
   ]
  },
  {
+  "key": "14d3ba4a",
+  "kind": "feedback",
+  "where": "m9 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Client price is the operator price divided by 0.91. 60,000 divided by 0.91 is 65,934.07, rounded up to 65,935. Never round down."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Client price is the operator price divided by 0.91. 60,000 divided by 0.91 is 65,934.07, rounded up to 65,935. Never round down."
+  ]
+ },
+ {
   "key": "22a8933e",
   "kind": "lesson",
   "where": "m9 screen 2",
@@ -3876,14 +4022,14 @@
   ]
  },
  {
-  "key": "111a2900",
+  "key": "49b0339c",
   "kind": "lesson",
   "where": "m9 screen 4",
   "text": [
    "Pricing and quoting",
    "9.3 The Archē price formula",
    "Our margin is 9% of the price the client pays. Because it is a share of the selling price, divide the cost by 0.91; do not add 9% to the cost.",
-   "Right: divide by 0.91 Archē cost 100,000 = 91%9%Client price 109,891 · margin 9,891 = 9.0% Wrong: add 9% Archē cost 100,000Client price 109,000 · margin 9,000 = only 8.26%The margin is 9% of the client price, so divide the cost by 0.91 and round up.",
+   "Right: divide by 0.91Archē cost 100,000 = 91%9%Client price 109,891 · margin 9,891 = 9.0% Wrong: add 9%Archē cost 100,000Client price 109,000 · margin 9,000 = only 8.26%The margin is 9% of the client price, so divide the cost by 0.91 and round up.",
    "Price formulaArchē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writingClient price = Archē cost ÷ 0.91 Archē margin = client price − Archē cost = 9% of the client priceNot included: items \"at cost, after the flight\" (9.2), and card payment costs, charged as set out in the confirmation"
   ],
   "say": [
@@ -4319,6 +4465,17 @@
   ]
  },
  {
+  "key": "1f116534",
+  "kind": "feedback",
+  "where": "m10 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. If the operator's terms are stricter than Part A, Archē carries the gap. The director decides before the confirmation is issued."
+  ],
+  "say": [
+   "Right. You will meet this in the module. If the operator's terms are stricter than Part A, ar Kay carries the gap. The director decides before the confirmation is issued."
+  ]
+ },
+ {
   "key": "cf0d29f2",
   "kind": "lesson",
   "where": "m10 screen 2",
@@ -4339,7 +4496,7 @@
   ]
  },
  {
-  "key": "9db36d9c",
+  "key": "a870e5e0",
   "kind": "lesson",
   "where": "m10 screen 3",
   "text": [
@@ -4352,14 +4509,14 @@
    "5Operator paid from the payment account, only from cleared client money, never more than has been received and never more than the operator pricePayment provider, portal",
    "6Archē's margin is transferred to Archē's operating account at Citi Singapore (account being set up)Citi Singapore",
    "Only our margin enters Archē's own bank account. Operator money never passes through it.",
-   "Clientpays the requestPayment providerholds client fundsOperatorpaid on its terms Archē accountonly the marginCiti Singapore(being set up)Operator money never passes through Archē's own account.",
-   "The rule behind the order: Archē never pre-funds. At every moment the client money held covers what Archē would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, operations cancels with the operator before the operator's next charge starts; the portal shows that date on Today.",
+   "Clientpays the requestPayment providerholds client fundsOperatorpaid on its terms Archē accountonly the marginCiti Singapore (being set up)Operator money never passes through Archē's own account.",
+   "The rule behind the order: Archē never pre-funds. At every moment the client money held covers what Archē would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, the owner, or a person the owner has mandated, cancels with the operator before the operator's next charge starts; the portal shows that date on Today.",
    "Deadlines the portal watches",
    "Payment reminders: when the director has switched them on, the client gets an email 3 days and 1 day before each payment in the schedule, until the money has cleared.",
-   "Client payment overdue: an urgent alert to operations at once; the next person is added if nobody acts.",
+   "Client payment overdue: an urgent alert to the owner at once; the next person is added if nobody acts.",
    "Unsigned offer past its validity: it lapses by itself. Confirm the operator's hold before accepting a signature or money, or close it.",
-   "Critical: operator deadline, the highest alert: from 12 hours before the operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, everyone involved (operations, the director, the trip's broker) gets a phone alert every 10 minutes day and night, an email every hour and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled. Archē is liable from that moment.",
-   "Cancelling is one click by operations or the director, never automatic: cancel on Avinode first and get the operator's written charge, enter it, then send. The portal sends the client the notice with the A9 charge and records the cancellation."
+   "Critical: operator deadline, the highest alert: from 12 hours before the operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, everyone involved (the director, the trip's broker) gets a phone alert every 10 minutes day and night, an email every hour and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled. Archē is liable from that moment.",
+   "Cancelling is one click by the owner or a person the owner has mandated, never automatic: cancel on Avinode first and get the operator's written charge, enter it, then send. The portal sends the client the notice with the A9 charge and records the cancellation."
   ],
   "say": [
    "Contract, payment and settlement.",
@@ -4367,9 +4524,9 @@
    "1. what happens, Request to Book sent on Avinode, the operator holds the aircraft until a stated time, its contract is received and checked against the terms in the portal. where, Avinode, portal. 2. what happens, Charter confirmation issued, with this booking's payment schedule and cancellation charges, the offer ends before the operator's hold does. where, Portal. 3. what happens, Client signs and pays through a payment request from our payment provider, bank transfer, card or instant payment, the money is recorded when it has cleared. where, Payment provider, portal. 4. what happens, Operator contract signed, only once the client money held covers what the operator wants at signing and its cancellation charge from then on. where, Avinode. 5. what happens, Operator paid from the payment account, only from cleared client money, never more than has been received and never more than the operator price. where, Payment provider, portal. 6. what happens, ar Kay's margin is transferred to ar Kay's operating account at Citi Singapore, account being set up. where, Citi Singapore.",
    "Only our margin enters ar Kay's own bank account. Operator money never passes through it.",
    "Diagram. The client pays the payment request. The payment account holds the funds and the operator is paid on its terms. Only ar Kay's margin moves to ar Kay's own account at Citi Singapore.",
-   "The rule behind the order, ar Kay never pre-funds. At every moment the client money held covers what ar Kay would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, operations cancels with the operator before the operator's next charge starts, the portal shows that date on Today.",
+   "The rule behind the order, ar Kay never pre-funds. At every moment the client money held covers what ar Kay would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, the owner, or a person the owner has mandated, cancels with the operator before the operator's next charge starts, the portal shows that date on Today.",
    "Deadlines the portal watches.",
-   "Payment reminders, when the director has switched them on, the client gets an email 3 days and 1 day before each payment in the schedule, until the money has cleared. Client payment overdue, an urgent alert to operations at once, the next person is added if nobody acts. Unsigned offer past its validity, it lapses by itself. Confirm the operator's hold before accepting a signature or money, or close it. Critical, operator deadline, the highest alert, from 12 hours before the operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, everyone involved, operations, the director, the trip's broker, gets a phone alert every 10 minutes day and night, an email every hour and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled. ar Kay is liable from that moment. Cancelling is one click by operations or the director, never automatic, cancel on Avinode first and get the operator's written charge, enter it, then send. The portal sends the client the notice with the A9 charge and records the cancellation."
+   "Payment reminders, when the director has switched them on, the client gets an email 3 days and 1 day before each payment in the schedule, until the money has cleared. Client payment overdue, an urgent alert to the owner at once, the next person is added if nobody acts. Unsigned offer past its validity, it lapses by itself. Confirm the operator's hold before accepting a signature or money, or close it. Critical, operator deadline, the highest alert, from 12 hours before the operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, everyone involved, the director, the trip's broker, gets a phone alert every 10 minutes day and night, an email every hour and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled. ar Kay is liable from that moment. Cancelling is one click by the owner or a person the owner has mandated, never automatic, cancel on Avinode first and get the operator's written charge, enter it, then send. The portal sends the client the notice with the A9 charge and records the cancellation."
   ]
  },
  {
@@ -4452,7 +4609,7 @@
   ]
  },
  {
-  "key": "049fab30",
+  "key": "84b033b7",
   "kind": "lesson",
   "where": "m10 screen 8",
   "text": [
@@ -4463,14 +4620,15 @@
    "Enter the operator quote from Avinode: operator legal name as on its AOC, aircraft type, registration, Avinode trip ID, the operator all-in price and any direct trip costs. The portal sets the client price at 9%.",
    "Enter the operator's terms from its quote or contract on Avinode: its cancellation scale, its payment terms, and its insurance (insurer, amount, expiry, aircraft on the certificate, route inside the cover, how it was confirmed with the insurer). If the operator is in the operator library, press \"Use the terms on file\" and check them against this quote.",
    "Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents. Documents stay in the portal: never email passports or contracts.",
-   "Tick the pre-issue checks (insurance and operator terms are ticked by the portal from what you entered) and send the trip to operations.",
-   "Operations confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal (the tick \"Operator contract matches\" in the portal), completes KYC and sanctions screening, creates the payment request and issues the charter confirmation. The offer cannot run past the operator's hold. The PDF is saved to the trip; any change after issue becomes a numbered revision.",
-   "Operations records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment (never more than received) and the flight. Your commission then appears on your dashboard."
+   "Complete KYC and sanctions screening and record them on the trip. Create the client's payment request and record its reference on the trip.",
+   "Tick the pre-issue checks (insurance and operator terms are ticked by the portal from what you entered) and press \"Send for authorisation\".",
+   "The owner confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal (the tick \"Operator contract matches\" in the portal), approves the booking and issues the charter confirmation. The offer cannot run past the operator's hold. The PDF is saved to the trip; any change after issue becomes a numbered revision.",
+   "The owner records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment (never more than received) and the flight. Your commission then appears on your dashboard."
   ],
   "say": [
    "Contract, payment and settlement.",
    "How to book in the ar Kay portal, step by step.",
-   "Open the enquiry, from a lead with Open an enquiry, or with New enquiry. For each airport, type a city, airport name or code and pick from the list, the portal stores the ICAO code. Add the client requests and operational extras, each with how it is charged, Module 9, section 8. Use the suggestions as prompts and confirm every item with the operator or supplier. Enter the operator quote from Avinode, operator legal name as on its A O C, aircraft type, registration, Avinode trip I D, the operator all-in price and any direct trip costs. The portal sets the client price at 9 percent. Enter the operator's terms from its quote or contract on Avinode, its cancellation scale, its payment terms, and its insurance, insurer, amount, expiry, aircraft on the certificate, route inside the cover, how it was confirmed with the insurer. If the operator is in the operator library, press Use the terms on file and check them against this quote. Attach the operator quote, A O C, insurance certificate, safety audit evidence and the client's K Y C documents. Documents stay in the portal, never email passports or contracts. Tick the pre-issue checks, insurance and operator terms are ticked by the portal from what you entered, and send the trip to operations. Operations confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal, the tick Operator contract matches in the portal, completes K Y C and sanctions screening, creates the payment request and issues the charter confirmation. The offer cannot run past the operator's hold. The P D F is saved to the trip, any change after issue becomes a numbered revision. Operations records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment, never more than received, and the flight. Your commission then appears on your dashboard."
+   "Open the enquiry, from a lead with Open an enquiry, or with New enquiry. For each airport, type a city, airport name or code and pick from the list, the portal stores the ICAO code. Add the client requests and operational extras, each with how it is charged, Module 9, section 8. Use the suggestions as prompts and confirm every item with the operator or supplier. Enter the operator quote from Avinode, operator legal name as on its A O C, aircraft type, registration, Avinode trip I D, the operator all-in price and any direct trip costs. The portal sets the client price at 9 percent. Enter the operator's terms from its quote or contract on Avinode, its cancellation scale, its payment terms, and its insurance, insurer, amount, expiry, aircraft on the certificate, route inside the cover, how it was confirmed with the insurer. If the operator is in the operator library, press Use the terms on file and check them against this quote. Attach the operator quote, A O C, insurance certificate, safety audit evidence and the client's K Y C documents. Documents stay in the portal, never email passports or contracts. Complete K Y C and sanctions screening and record them on the trip. Create the client's payment request and record its reference on the trip. Tick the pre-issue checks, insurance and operator terms are ticked by the portal from what you entered, and press Send for authorisation. The owner confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal, the tick Operator contract matches in the portal, approves the booking and issues the charter confirmation. The offer cannot run past the operator's hold. The P D F is saved to the trip, any change after issue becomes a numbered revision. The owner records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment, never more than received, and the flight. Your commission then appears on your dashboard."
   ]
  },
  {
@@ -4684,14 +4842,14 @@
   ]
  },
  {
-  "key": "6643830b",
+  "key": "00ea479b",
   "kind": "intro",
   "where": "m11 screen 1",
   "text": [
-   "Trip operations and the 24/7 desk",
+   "Trip operations and disruption",
    "What you will be able to do",
    "Prepare and run the day of flight",
-   "Handle disruption and the 24/7 desk",
+   "Handle disruption and out-of-hours calls",
    "Answer sustainability questions honestly",
    "Warm-up",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
@@ -4702,9 +4860,9 @@
    "dAfter 30 days"
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
+   "Trip operations and disruption.",
    "What you will be able to do.",
-   "Prepare and run the day of flight. Handle disruption and the 24 or 7 desk. Answer sustainability questions honestly.",
+   "Prepare and run the day of flight. Handle disruption and out-of-hours calls. Answer sustainability questions honestly.",
    "Warm-up.",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
    "When may you close a trip file?",
@@ -4723,11 +4881,22 @@
   ]
  },
  {
-  "key": "becb6c97",
+  "key": "18ed4b29",
+  "kind": "feedback",
+  "where": "m11 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. A file closes only when payments are settled, the personal follow-up is logged and the rating request has gone out, plus service recovery for any low score."
+  ],
+  "say": [
+   "Right. You will meet this in the module. A file closes only when payments are settled, the personal follow-up is logged and the rating request has gone out, plus service recovery for any low score."
+  ]
+ },
+ {
+  "key": "fe3935ce",
   "kind": "lesson",
   "where": "m11 screen 2",
   "text": [
-   "Trip operations and the 24/7 desk",
+   "Trip operations and disruption",
    "11.1 Before the flight",
    "Send passenger details to the operator as early as possible and by its deadline.",
    "Confirm permits and slots are approved (operator or trip-support confirmation).",
@@ -4737,34 +4906,34 @@
    "Send the client the trip brief (Appendix B): aircraft, operator, FBO address, arrival time, document reminder and our 24-hour contact."
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
+   "Trip operations and disruption.",
    "Before the flight.",
    "Send passenger details to the operator as early as possible and by its deadline. Confirm permits and slots are approved, operator or trip-support confirmation. Confirm catering, ground transport and special requests in writing. Confirm every client request and operational extra with the operator or supplier in writing, with how it is charged. From 48 hours before, check the forecast for de-icing and delays, the airport's hours for the planned times, and the crew plan for long or late days. Send the client the trip brief, Appendix B, aircraft, operator, F B O address, arrival time, document reminder and our 24-hour contact."
   ]
  },
  {
-  "key": "6a01d319",
+  "key": "c8139722",
   "kind": "lesson",
   "where": "m11 screen 3",
   "text": [
-   "Trip operations and the 24/7 desk",
+   "Trip operations and disruption",
    "11.2 Day of flight",
    "Track the flight from departure to arrival. Keep the client informed before they need to ask.",
-   "Beforedetails to operator,permits and slotsconfirmed, trip briefsentFrom 48 hwatch the forecast, warnearlyDay of flighttrack the flight, updatethe client firstWithin 7 daysrecharge at-cost itemswith receipts, close thefileKeep the client informed before they need to ask."
+   "Beforedetails to operator, permits and slots confirmed, trip brief sentFrom 48 hwatch the forecast, warn earlyDay of flighttrack the flight, update the client firstWithin 7 daysrecharge at-cost items with receipts, close the fileKeep the client informed before they need to ask."
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
+   "Trip operations and disruption.",
    "Day of flight.",
    "Track the flight from departure to arrival. Keep the client informed before they need to ask.",
    "Timeline. Before the flight, passenger details to the operator, permits and slots confirmed, trip brief sent. From 48 hours, watch the forecast and warn early. Day of flight, track the flight and update the client first. Within 7 days, recharge at-cost items with receipts and close the file."
   ]
  },
  {
-  "key": "4715d921",
+  "key": "0db3b41a",
   "kind": "lesson",
   "where": "m11 screen 4",
   "text": [
-   "Trip operations and the 24/7 desk",
+   "Trip operations and disruption",
    "11.3 Disruption",
    "Aircraft unserviceable (AOG)Ask the operator at once for a replacement of equal or higher category under its contract; if none, search Avinode and direct operators; extra cost needs the director's approval before it is committed; tell the client what is happening and when you will update them.",
    "Weather or air-traffic delayGet the new time from the operator; confirm crew duty limits still allow the flight or what the alternative is; arrange lounge or hotel through the handler if needed.",
@@ -4773,41 +4942,40 @@
    "Any safety concernNever press an operator to fly; safety decisions belong to the crew and operator."
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
+   "Trip operations and disruption.",
    "Disruption.",
    "Aircraft unserviceable, A O G. Ask the operator at once for a replacement of equal or higher category under its contract, if none, search Avinode and direct operators, extra cost needs the director's approval before it is committed, tell the client what is happening and when you will update them. Weather or air-traffic delay. Get the new time from the operator, confirm crew duty limits still allow the flight or what the alternative is, arrange lounge or hotel through the handler if needed. Permit refused or late. Operator and trip support lead, explain the cause, offer an alternative routing if the operator confirms one. Passenger refused at the border. Follow the authority's decision, documents are the passenger's responsibility, inform the director. Any safety concern. Never press an operator to fly, safety decisions belong to the crew and operator."
   ]
  },
  {
-  "key": "597b7fbb",
+  "key": "c7ec5542",
   "kind": "lesson",
   "where": "m11 screen 5",
   "text": [
-   "Trip operations and the 24/7 desk",
-   "11.4 The 24/7 desk",
-   "Months 1 to 8: brokers share an on-call rota set by the director; the on-call broker answers the client line and operator calls out of office hours.",
-   "From month 9: the four-person operations desk covers 24 hours in shifts.",
-   "Every shift ends with a written handover in the desk log (Appendix B): live trips, open issues, promised call-backs.",
+   "Trip operations and disruption",
+   "11.4 Out of hours",
+   "Brokers share an on-call rota set by the director; the on-call broker answers the client line and operator calls out of office hours.",
+   "Every on-call shift ends with a written handover note (Appendix B): live trips, open issues, promised call-backs.",
    "Any disruption that needs extra cost or a change of operator is escalated to the director at any hour."
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
-   "The 24 or 7 desk.",
-   "Months 1 to 8, brokers share an on-call rota set by the director, the on-call broker answers the client line and operator calls out of office hours. From month 9, the four-person operations desk covers 24 hours in shifts. Every shift ends with a written handover in the desk log, Appendix B, live trips, open issues, promised call-backs. Any disruption that needs extra cost or a change of operator is escalated to the director at any hour."
+   "Trip operations and disruption.",
+   "Out of hours.",
+   "Brokers share an on-call rota set by the director, the on-call broker answers the client line and operator calls out of office hours. Every on-call shift ends with a written handover note, Appendix B, live trips, open issues, promised call-backs. Any disruption that needs extra cost or a change of operator is escalated to the director at any hour."
   ]
  },
  {
-  "key": "8b8a0183",
+  "key": "7ca7670d",
   "kind": "lesson",
   "where": "m11 screen 6",
   "text": [
-   "Trip operations and the 24/7 desk",
+   "Trip operations and disruption",
    "11.5 After the flight",
    "A trip is not finished when the aircraft takes off. The broker who sold it follows it to the last landing and then follows up with the client. A file is closed only when every step below is done.",
    "Follow the trip to the last leg",
-   "Watch every leg in the portal under Flight following: departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times; the 24/7 desk covers the hours you are off duty.",
+   "Watch every leg in the portal under Flight following: departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times; the on-call broker covers the hours you are off duty.",
    "Tell the client at once about any delay, diversion or change, with what happens next (Module 11.3).",
-   "The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. Operations then records the flight.",
+   "The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. The owner, or a person the owner has mandated, then records the flight.",
    "Follow up with the client",
    "Within 24 hours of the last landing, the broker calls or messages the client or the assistant personally: was everything as promised, and is anything still open. Log it in the portal (Aftercare).",
    "At the same time, send the client the rating request from the portal (template B.10). It asks for a score from 1 to 5 for the trip overall, the aircraft, the crew and the broker, and for any comment. The client answers with one click from the email; nothing is required.",
@@ -4819,11 +4987,11 @@
    "Close the file only when all payments are settled, the follow-up is logged and the rating request has been sent."
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
+   "Trip operations and disruption.",
    "After the flight.",
    "A trip is not finished when the aircraft takes off. The broker who sold it follows it to the last landing and then follows up with the client. A file is closed only when every step below is done.",
    "Follow the trip to the last leg.",
-   "Watch every leg in the portal under Flight following, departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times, the 24 or 7 desk covers the hours you are off duty. Tell the client at once about any delay, diversion or change, with what happens next, Module 11, section 3. The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. Operations then records the flight.",
+   "Watch every leg in the portal under Flight following, departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times, the on-call broker covers the hours you are off duty. Tell the client at once about any delay, diversion or change, with what happens next, Module 11, section 3. The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. The owner, or a person the owner has mandated, then records the flight.",
    "Follow up with the client.",
    "Within 24 hours of the last landing, the broker calls or messages the client or the assistant personally, was everything as promised, and is anything still open. Log it in the portal, Aftercare. At the same time, send the client the rating request from the portal, template B, section 10. It asks for a score from 1 to 5 for the trip overall, the aircraft, the crew and the broker, and for any comment. The client answers with one click from the email, nothing is required. Record the answer in the portal when it arrives. A score of 3 or less, or any complaint, starts service recovery, the broker calls the client within 1 working day, the director is told the same day, and anything about the operator is recorded for the operator scorecard. Ratings feed the broker's service score and the operator scorecard in Control, so we book the operators our clients rate highest. Never publish a client's rating or words without the client's written consent, and never write, offer a reward for or edit a review.",
    "Settle and close.",
@@ -4831,11 +4999,11 @@
   ]
  },
  {
-  "key": "dbdcaa9d",
+  "key": "308a106a",
   "kind": "lesson",
   "where": "m11 screen 7",
   "text": [
-   "Trip operations and the 24/7 desk",
+   "Trip operations and disruption",
    "11.6 Meeting the client at the FBO",
    "For first-time or very important clients, the director may ask a broker or a local representative to meet the client at the FBO.",
    "Arrive early; check with the handler that the crew, aircraft, catering and cars are ready.",
@@ -4843,45 +5011,45 @@
    "Never board the aircraft or interfere with the crew's work."
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
+   "Trip operations and disruption.",
    "Meeting the client at the F B O.",
    "For first-time or very important clients, the director may ask a broker or a local representative to meet the client at the F B O. Arrive early, check with the handler that the crew, aircraft, catering and cars are ready. Greet the client, introduce the crew, and stay in the background. Never board the aircraft or interfere with the crew's work."
   ]
  },
  {
-  "key": "16890e85",
+  "key": "feb73972",
   "kind": "lesson",
   "where": "m11 screen 8",
   "text": [
-   "Trip operations and the 24/7 desk",
+   "Trip operations and disruption",
    "11.7 Sustainability questions",
    "Clients may ask about emissions, sustainable aviation fuel (SAF) or carbon offsets.",
    "Pass on only what the operator or a certified provider states in writing.",
    "Never call a flight \"green\" or \"carbon neutral\" without a certificate for that flight."
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
+   "Trip operations and disruption.",
    "Sustainability questions.",
    "Clients may ask about emissions, sustainable aviation fuel, S A F, or carbon offsets. Pass on only what the operator or a certified provider states in writing. Never call a flight green or carbon neutral without a certificate for that flight."
   ]
  },
  {
-  "key": "5ec380bb",
+  "key": "2241d8fd",
   "kind": "keypoints",
   "where": "m11 screen 9",
   "text": [
-   "Trip operations and the 24/7 desk",
+   "Trip operations and disruption",
    "Key points",
    "Before the module check, try to say each point in your own words.",
    "Keep the client informed before they need to ask.",
    "Extra cost after an AOG needs the director's approval.",
-   "Every desk shift ends with a written handover."
+   "Every on-call shift ends with a written handover."
   ],
   "say": [
-   "Trip operations and the 24 or 7 desk.",
+   "Trip operations and disruption.",
    "Key points.",
    "Before the module check, try to say each point in your own words.",
-   "Keep the client informed before they need to ask. Extra cost after an A O G needs the director's approval. Every desk shift ends with a written handover."
+   "Keep the client informed before they need to ask. Extra cost after an A O G needs the director's approval. Every on-call shift ends with a written handover."
   ]
  },
  {
@@ -5075,49 +5243,49 @@
   ]
  },
  {
-  "key": "e1e66d38",
+  "key": "7538bea1",
   "kind": "question",
   "where": "m11 check question 6",
   "text": [
-   "What must every desk shift end with?",
+   "What must every on-call shift end with?",
    "aA phone call to the director",
-   "bA written handover in the desk log",
+   "bA written handover note in the handover log",
    "cNothing",
    "dAn email to clients"
   ],
   "say": [
-   "What must every desk shift end with?",
-   "A. A phone call to the director. B. A written handover in the desk log. C. Nothing. D. An email to clients."
+   "What must every on-call shift end with?",
+   "A. A phone call to the director. B. A written handover note in the handover log. C. Nothing. D. An email to clients."
   ]
  },
  {
-  "key": "b9f8ce7f",
+  "key": "c06d48b8",
   "kind": "feedback",
   "where": "m11 check question 6",
   "text": [
-   "Right. Every shift ends with a written handover in the desk log, so nothing is lost overnight."
+   "Right. Every on-call shift ends with a written handover note, so nothing is lost overnight."
   ],
   "say": [
-   "Right. Every shift ends with a written handover in the desk log, so nothing is lost overnight."
+   "Right. Every on-call shift ends with a written handover note, so nothing is lost overnight."
   ]
  },
  {
-  "key": "63371890",
+  "key": "c37d362d",
   "kind": "feedback",
   "where": "m11 check question 6",
   "text": [
-   "Not quite. Every shift ends with a written handover in the desk log, so nothing is lost overnight."
+   "Not quite. Every on-call shift ends with a written handover note, so nothing is lost overnight."
   ],
   "say": [
-   "Not quite. Every shift ends with a written handover in the desk log, so nothing is lost overnight."
+   "Not quite. Every on-call shift ends with a written handover note, so nothing is lost overnight."
   ]
  },
  {
-  "key": "c0d19282",
+  "key": "9e213799",
   "kind": "intro",
   "where": "m12 screen 1",
   "text": [
-   "Selling and the consultant desk",
+   "Selling and account management",
    "What you will be able to do",
    "Meet the Archē service standard on every call",
    "Answer common objections",
@@ -5131,7 +5299,7 @@
    "dAsk the operator"
   ],
   "say": [
-   "Selling and the consultant desk.",
+   "Selling and account management.",
    "What you will be able to do.",
    "Meet the ar Kay service standard on every call. Answer common objections. Manage accounts, follow-ups and negotiation with clients.",
    "Warm-up.",
@@ -5152,11 +5320,22 @@
   ]
  },
  {
-  "key": "2e9e6a0d",
+  "key": "b77358bc",
+  "kind": "feedback",
+  "where": "m12 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Check the national do-not-call register and record any opt-out before calling."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Check the national do-not-call register and record any opt-out before calling."
+  ]
+ },
+ {
+  "key": "e3c3a732",
   "kind": "lesson",
   "where": "m12 screen 2",
   "text": [
-   "Selling and the consultant desk",
+   "Selling and account management",
    "12.1 The Archē standard",
    "Answer every enquiry the same business day; urgent same-day trips at once.",
    "Say what you will do and by when, then do it.",
@@ -5165,32 +5344,32 @@
    "Confirm everything important in writing."
   ],
   "say": [
-   "Selling and the consultant desk.",
+   "Selling and account management.",
    "The ar Kay standard.",
    "Answer every enquiry the same business day, urgent same-day trips at once. Say what you will do and by when, then do it. Write as you speak, short, clear, no jargon, no exaggeration. Never criticise competitors or operators to a client. Confirm everything important in writing."
   ]
  },
  {
-  "key": "dbdc22b8",
+  "key": "5d213841",
   "kind": "lesson",
   "where": "m12 screen 3",
   "text": [
-   "Selling and the consultant desk",
+   "Selling and account management",
    "12.2 Inbound calls",
    "Use the inbound call script (Appendix B): listen first, capture the mission, qualify, agree the next step and when the client will hear from you. Do not quote prices on the first call unless you have a current written operator quote for the same trip."
   ],
   "say": [
-   "Selling and the consultant desk.",
+   "Selling and account management.",
    "Inbound calls.",
    "Use the inbound call script, Appendix B, listen first, capture the mission, qualify, agree the next step and when the client will hear from you. Do not quote prices on the first call unless you have a current written operator quote for the same trip."
   ]
  },
  {
-  "key": "471e4106",
+  "key": "d648b337",
   "kind": "lesson",
   "where": "m12 screen 4",
   "text": [
-   "Selling and the consultant desk",
+   "Selling and account management",
    "12.3 Common objections",
    "\"Another broker is cheaper.\"Compare the same aircraft, age, operator rating and inclusions; if like for like, ask the director whether we can match.",
    "\"Why can't you fix the price for everything?\"Some costs depend on the day; we list them and charge only what the operator invoices, with receipts.",
@@ -5199,38 +5378,18 @@
    "\"Why do you need my passport?\"The law and the operator require it for every passenger; it is stored securely and used only for the flight."
   ],
   "say": [
-   "Selling and the consultant desk.",
+   "Selling and account management.",
    "Common objections.",
    "Another broker is cheaper. Compare the same aircraft, age, operator rating and inclusions, if like for like, ask the director whether we can match. Why can't you fix the price for everything? Some costs depend on the day, we list them and charge only what the operator invoices, with receipts. Can we pay later? No flight departs until paid in full, our secure payment link makes paying quick. Just add two friends on the domestic leg. Only if the operator confirms in writing that the law allows it. Why do you need my passport? The law and the operator require it for every passenger, it is stored securely and used only for the flight."
   ]
  },
  {
-  "key": "25497da1",
+  "key": "4a11bf9d",
   "kind": "lesson",
   "where": "m12 screen 5",
   "text": [
-   "Selling and the consultant desk",
-   "12.4 Charter consultants (outbound)",
-   "Call only lists approved by the director; never buy or scrape lists.",
-   "Check numbers against the national do-not-call register where one exists (for example Singapore's Do Not Call Registry) and record every opt-out at once.",
-   "Say who you are and why you call in the first sentence; use the outbound script (Appendix B).",
-   "Hand every live trip to a broker for sourcing and pricing until certified as a broker.",
-   "Log every call and outcome in the CRM."
-  ],
-  "say": [
-   "Selling and the consultant desk.",
-   "Charter consultants, outbound.",
-   "Call only lists approved by the director, never buy or scrape lists. Check numbers against the national do-not-call register where one exists, for example Singapore's Do Not Call Registry, and record every opt-out at once. Say who you are and why you call in the first sentence, use the outbound script, Appendix B. Hand every live trip to a broker for sourcing and pricing until certified as a broker. Log every call and outcome in the C R M."
-  ]
- },
- {
-  "key": "2a6e3c56",
-  "kind": "lesson",
-  "where": "m12 screen 6",
-  "text": [
-   "Selling and the consultant desk",
-   "12.5 Account management and growth",
-   "New enquiryQualifiedQuotedWonLost? Record the reason: price, aircraft, timing, no decision. It shows what to fix.Every enquiry moves through the pipeline in the CRM.",
+   "Selling and account management",
+   "12.4 Account management and growth",
    "Every enquiry moves through the CRM pipeline: new, qualified, quoted, won or lost, with the reason for a loss.",
    "Follow up every quote before it expires.",
    "For repeat clients, keep their preferences (catering, seating, cars) with their consent, and use them on the next trip.",
@@ -5242,36 +5401,37 @@
    "Bookings without errorsThe Archē standard"
   ],
   "say": [
-   "Selling and the consultant desk.",
+   "Selling and account management.",
    "Account management and growth.",
-   "Funnel, new enquiry, qualified, quoted, won. For every lost enquiry, record the reason, such as price, aircraft, timing or no decision.",
    "Every enquiry moves through the C R M pipeline, new, qualified, quoted, won or lost, with the reason for a loss. Follow up every quote before it expires. For repeat clients, keep their preferences, catering, seating, cars, with their consent, and use them on the next trip. Ask for feedback after every trip and act on it. Ask satisfied clients for introductions, never pay for referrals without the director's approval.",
    "Response time to new enquiries. Clients book with whoever answers well and first. Quote-to-booking conversion. Shows quality of qualification and quotes. Repeat clients. The best measure of service. Bookings without errors. The ar Kay standard."
   ]
  },
  {
-  "key": "d809eea5",
+  "key": "3177317c",
   "kind": "lesson",
-  "where": "m12 screen 7",
+  "where": "m12 screen 6",
   "text": [
-   "Selling and the consultant desk",
-   "12.6 Negotiating with clients",
+   "Selling and account management",
+   "12.5 Negotiating with clients",
+   "New enquiryQualifiedQuotedWonLost? Record the reason: price, aircraft, timing, no decision. It shows what to fix.Every enquiry moves through the pipeline in the CRM.",
    "Sell value, not discounts: aircraft, operator safety, service and certainty.",
    "Offer two or three options at different prices rather than cutting the margin.",
    "Below 9% needs the director's approval (Module 9)."
   ],
   "say": [
-   "Selling and the consultant desk.",
+   "Selling and account management.",
    "Negotiating with clients.",
+   "Funnel, new enquiry, qualified, quoted, won. For every lost enquiry, record the reason, such as price, aircraft, timing or no decision.",
    "Sell value, not discounts, aircraft, operator safety, service and certainty. Offer two or three options at different prices rather than cutting the margin. Below 9 percent needs the director's approval, Module 9."
   ]
  },
  {
-  "key": "b60c0d33",
+  "key": "5fbe5da8",
   "kind": "keypoints",
-  "where": "m12 screen 8",
+  "where": "m12 screen 7",
   "text": [
-   "Selling and the consultant desk",
+   "Selling and account management",
    "Key points",
    "Before the module check, try to say each point in your own words.",
    "Answer the same business day and confirm everything in writing.",
@@ -5279,7 +5439,7 @@
    "Track every enquiry through the pipeline and follow up every quote."
   ],
   "say": [
-   "Selling and the consultant desk.",
+   "Selling and account management.",
    "Key points.",
    "Before the module check, try to say each point in your own words.",
    "Answer the same business day and confirm everything in writing. Compare like for like before discussing price. Track every enquiry through the pipeline and follow up every quote."
@@ -5620,6 +5780,17 @@
   ]
  },
  {
+  "key": "abdb0d4b",
+  "kind": "feedback",
+  "where": "m14 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. The lab pass mark is 70 out of 100, and the critical points (the correct rule, no unconfirmed promise) must not be broken whatever the total."
+  ],
+  "say": [
+   "Right. You will meet this in the module. The lab pass mark is 70 out of 100, and the critical points, the correct rule, no unconfirmed promise, must not be broken whatever the total."
+  ]
+ },
+ {
   "key": "83816d5f",
   "kind": "lesson",
   "where": "m14 screen 2",
@@ -5637,7 +5808,7 @@
   ]
  },
  {
-  "key": "0c03af38",
+  "key": "ec032228",
   "kind": "lesson",
   "where": "m14 screen 3",
   "text": [
@@ -5653,7 +5824,7 @@
    "Step 5: What our payment provider cannot do",
    "Every payment provider refuses some countries and activities. Appendix G.7 lists the countries we cannot take payments from or pay to; check it before you quote.",
    "Step 6: Live sessions and practice",
-   "When Archē joins Avinode, ask the onboarding team for a live broker session for every broker and consultant, using our own account and settings.",
+   "When Archē joins Avinode, ask the onboarding team for a live broker session for every broker, using our own account and settings.",
    "Ask our payment provider for a training session: payment requests, card and bank payments, currency accounts, operator payouts, refunds, user rights and fraud controls.",
    "Ask whether Avinode offers a practice or test environment for trainees.",
    "Exit check for stage 3: one practice quote and one practice payment request completed, reviewed by the director.",
@@ -5672,12 +5843,12 @@
    "Step 5, What our payment provider cannot do.",
    "Every payment provider refuses some countries and activities. Appendix G, section 7 lists the countries we cannot take payments from or pay to, check it before you quote.",
    "Step 6, Live sessions and practice.",
-   "When ar Kay joins Avinode, ask the onboarding team for a live broker session for every broker and consultant, using our own account and settings. Ask our payment provider for a training session, payment requests, card and bank payments, currency accounts, operator payouts, refunds, user rights and fraud controls. Ask whether Avinode offers a practice or test environment for trainees. Exit check for stage 3, one practice quote and one practice payment request completed, reviewed by the director.",
+   "When ar Kay joins Avinode, ask the onboarding team for a live broker session for every broker, using our own account and settings. Ask our payment provider for a training session, payment requests, card and bank payments, currency accounts, operator payouts, refunds, user rights and fraud controls. Ask whether Avinode offers a practice or test environment for trainees. Exit check for stage 3, one practice quote and one practice payment request completed, reviewed by the director.",
    "The Help Center has more articles under Getting Started and Scheduling and Quoting. Settings articles, logo, notification lists, trip statuses, user permissions, are for the director, who sets up the account."
   ]
  },
  {
-  "key": "92a1de66",
+  "key": "a12cef6f",
   "kind": "lesson",
   "where": "m14 screen 4",
   "text": [
@@ -5685,7 +5856,7 @@
    "14.3 External courses",
    "The Air Charter Association's Air Charter Essentials Certificate is a one-day introduction for new staff with limited or no aviation background: air charter roles, the commercial process, aviation geography, flight routing, time zones, airport operations and aircraft knowledge, with an assessment and a certificate for those who pass. It is open to non-members. As at October 2026 it runs in person at London Gatwick (next date 3 February 2027) and an online version is announced for January 2027. Published fees: USD 680 (GBP 495) for non-members; USD 405 (GBP 295) for staff of member companies and for people aged 18 to 25.",
    "Archē sponsorship (proposed)",
-   "Who: brokers and consultants who have passed the written exam (stage 2) and completed 3 supervised bookings, or earlier for a trainee the director nominates.",
+   "Who: brokers who have passed the written exam (stage 2) and completed 3 supervised bookings, or earlier for a trainee the director nominates.",
    "What: Archē pays the course fee directly to the ACA. Book the online course when it opens (January 2027); the in-person course only when a trainee is in the UK anyway.",
    "Repayment: if the broker's agreement ends within 12 months of the course, the broker repays 100% within 6 months and 50% between 6 and 12 months. This must be written into the broker agreement first; confirm the wording with counsel.",
    "Record: the certificate goes into the training record. It is an external credential only: Archē's own rules, pricing and procedures stay in this manual and are not shared with outside courses.",
@@ -5701,14 +5872,14 @@
    "External courses.",
    "The Air Charter Association's Air Charter Essentials Certificate is a one-day introduction for new staff with limited or no aviation background, air charter roles, the commercial process, aviation geography, flight routing, time zones, airport operations and aircraft knowledge, with an assessment and a certificate for those who pass. It is open to non-members. As at October 2026 it runs in person at London Gatwick, next date 3 February 2027, and an online version is announced for January 2027. Published fees, 680 U S dollars, G B P 495, for non-members, 405 U S dollars, G B P 295, for staff of member companies and for people aged 18 to 25.",
    "ar Kay sponsorship, proposed.",
-   "Who, brokers and consultants who have passed the written exam, stage 2, and completed 3 supervised bookings, or earlier for a trainee the director nominates. What, ar Kay pays the course fee directly to the A C A. Book the online course when it opens, January 2027, the in-person course only when a trainee is in the U K anyway. Repayment, if the broker's agreement ends within 12 months of the course, the broker repays 100 percent within 6 months and 50 percent between 6 and 12 months. This must be written into the broker agreement first, confirm the wording with counsel. Record, the certificate goes into the training record. It is an external credential only, ar Kay's own rules, pricing and procedures stay in this manual and are not shared with outside courses. Next step, when ar Kay joins the A C A, high-potential brokers can add the Broker Qualification Level 1, and member rates apply to Essentials.",
+   "Who, brokers who have passed the written exam, stage 2, and completed 3 supervised bookings, or earlier for a trainee the director nominates. What, ar Kay pays the course fee directly to the A C A. Book the online course when it opens, January 2027, the in-person course only when a trainee is in the U K anyway. Repayment, if the broker's agreement ends within 12 months of the course, the broker repays 100 percent within 6 months and 50 percent between 6 and 12 months. This must be written into the broker agreement first, confirm the wording with counsel. Record, the certificate goes into the training record. It is an external credential only, ar Kay's own rules, pricing and procedures stay in this manual and are not shared with outside courses. Next step, when ar Kay joins the A C A, high-potential brokers can add the Broker Qualification Level 1, and member rates apply to Essentials.",
    "The U K Air Charter Association runs a three-level Broker Qualification, Level 1 foundation knowledge, Level 2 operations and flight management, Level 3 advanced broker skills, Level 1 also online. It is open only to staff of member companies, so ar Kay must join first. Published prices per level range from about 610 U S dollars to 745, U S dollars with member rates lower, check the current price before booking.",
    "Level 1, foundation. Modules 0, 1, 2, 3, 4, 5. Level 2, operations and flight management. Modules 6, 7, 8, 11. Level 3, advanced broker skills. Modules 9, 10, 12, 13.",
    "The mapping is ar Kay's own guide to preparation, the A C A sets its own syllabus."
   ]
  },
  {
-  "key": "7e61ee64",
+  "key": "cb50a7db",
   "kind": "lesson",
   "where": "m14 screen 5",
   "text": [
@@ -5722,7 +5893,7 @@
    "AOG: the booked aircraft is unserviceable 6 hours before departureCalm, facts first; the operator's written replacement options; extra cost approved by the director, never promised on the call (Module 11.3)",
    "The assistant refuses the 25% deposit and wants to pay after the flightExplain the booking terms (Module 10.6) and why the operator must be secured; offer card or bank payment options; no exceptions without the director",
    "The principal insists on a domestic leg on a foreign-registered aircraftExplain cabotage in plain words; offer a local operator for that leg or a new routing; never sell it (Module 2.4)",
-   "\"Another broker quoted 15% less\"Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with director approval (Module 12.6)",
+   "\"Another broker quoted 15% less\"Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with director approval (Module 12.5)",
    "A passenger is added on the dayNames to the operator at once; permits, insurance and seats confirmed in writing before you agree",
    "The client wants to bring a dog to a strict-entry countryDestination rules and the operator's written acceptance first; offer a route and airport that work (Appendix G.4)",
    "De-icing delays departure and the client is angry about the chargeSafety is the crew's decision; the charge is at cost with the receipt, as the confirmation says (Module 9.2)",
@@ -5746,7 +5917,7 @@
    "Knowing the rules is not enough, U H N W clients and their assistants test a broker's calm and judgement under pressure. The lab practises this out loud. A senior broker or the director plays the client, the assistant or the operator, the trainee does not see the script. Each session takes about 30 minutes and covers two or three scenarios.",
    "Stage 4, shadowing, two practice sessions, recorded on the scoring sheet but not graded. Stage 5, practical exam, one scored session with the director. Pass, 70 or more out of 100, and neither critical point broken. Annual refresher, one session for every certified broker.",
    "Scenario bank.",
-   "A O G, the booked aircraft is unserviceable 6 hours before departure. Calm, facts first, the operator's written replacement options, extra cost approved by the director, never promised on the call, Module 11, section 3. The assistant refuses the 25 percent deposit and wants to pay after the flight. Explain the booking terms, Module 10, section 6, and why the operator must be secured, offer card or bank payment options, no exceptions without the director. The principal insists on a domestic leg on a foreign-registered aircraft. Explain cabotage in plain words, offer a local operator for that leg or a new routing, never sell it, Module 2, section 4. Another broker quoted 15 percent less. Compare like for like, aircraft, year, operator, rating, inclusions, offer two or three options, margin below 9 percent only with director approval, Module 12, section 6. A passenger is added on the day. Names to the operator at once, permits, insurance and seats confirmed in writing before you agree. The client wants to bring a dog to a strict-entry country. Destination rules and the operator's written acceptance first, offer a route and airport that work, Appendix G, section 4. De-icing delays departure and the client is angry about the charge. Safety is the crew's decision, the charge is at cost with the receipt, as the confirmation says, Module 9, section 2. The client asks to pay into a personal account or sends new bank details by chat. Stop, payment request only, treat as fraud until proven otherwise, Module 3, section 5. The client asks to leave a passenger's name off the manifest. Refuse politely, tell the director, Module 2, section 4. Screening shows a possible sanctions match on the payer. Pause without accusing, say you need a short internal check, tell the director, Module 3, section 2. The client demands a guaranteed departure time in winter. Promise only what the operator confirms in writing, explain de-icing and slots, Module 6, section 4. Complaint after the flight about catering and a late car. Listen, apologise for the experience, agree what happens and by when, record it, service recovery steps in Module 11, section 5.",
+   "A O G, the booked aircraft is unserviceable 6 hours before departure. Calm, facts first, the operator's written replacement options, extra cost approved by the director, never promised on the call, Module 11, section 3. The assistant refuses the 25 percent deposit and wants to pay after the flight. Explain the booking terms, Module 10, section 6, and why the operator must be secured, offer card or bank payment options, no exceptions without the director. The principal insists on a domestic leg on a foreign-registered aircraft. Explain cabotage in plain words, offer a local operator for that leg or a new routing, never sell it, Module 2, section 4. Another broker quoted 15 percent less. Compare like for like, aircraft, year, operator, rating, inclusions, offer two or three options, margin below 9 percent only with director approval, Module 12, section 5. A passenger is added on the day. Names to the operator at once, permits, insurance and seats confirmed in writing before you agree. The client wants to bring a dog to a strict-entry country. Destination rules and the operator's written acceptance first, offer a route and airport that work, Appendix G, section 4. De-icing delays departure and the client is angry about the charge. Safety is the crew's decision, the charge is at cost with the receipt, as the confirmation says, Module 9, section 2. The client asks to pay into a personal account or sends new bank details by chat. Stop, payment request only, treat as fraud until proven otherwise, Module 3, section 5. The client asks to leave a passenger's name off the manifest. Refuse politely, tell the director, Module 2, section 4. Screening shows a possible sanctions match on the payer. Pause without accusing, say you need a short internal check, tell the director, Module 3, section 2. The client demands a guaranteed departure time in winter. Promise only what the operator confirms in writing, explain de-icing and slots, Module 6, section 4. Complaint after the flight about catering and a late car. Listen, apologise for the experience, agree what happens and by when, record it, service recovery steps in Module 11, section 5.",
    "Scoring sheet.",
    "Calm and courteous under pressure. 20. Correct rule, explained in plain words. points, 30. critical, Yes, a wrong rule fails the lab. Options offered instead of a flat no. 20. No promise the operator has not confirmed in writing. points, pass or fail. critical, Yes, any such promise fails the lab. Escalates when the rules say so. 15. Written follow-up within 1 hour. 15.",
    "Template B, section 11 is the printable scoring sheet. The director may add new scenarios at any time, they go into the bank and into the A I practice partner."
@@ -5773,26 +5944,26 @@
   ]
  },
  {
-  "key": "5699171d",
+  "key": "94c0b13a",
   "kind": "lesson",
   "where": "m14 screen 7",
   "text": [
    "Assessment and certification",
    "14.6 Post-trip debrief",
-   "Every supervised booking (stage 6) ends with a short debrief between the trainee, the mentor and operations, within 3 working days of the last landing. It is recorded in the portal (template B.9). A supervised booking counts towards sign-off only when all three have completed their part.",
+   "Every supervised booking (stage 6) ends with a short debrief between the trainee, the mentor and the owner, or a person the owner has mandated, within 3 working days of the last landing. It is recorded in the portal (template B.9). A supervised booking counts towards sign-off only when all three have completed their part.",
    "Pre-issue checksHow completely and how quickly the pre-issue checklist (Appendix A.1) was done, with evidence on file",
    "Extras and changesHow clearly operational extras (de-icing, FBO and handling fees, parking) and any changes were explained to the client before and after the flight",
    "Client satisfactionThe client's rating and comments from the follow-up (Module 11.5)",
    "Errors: list any critical or minor error found (critical errors are defined in How to use this manual).",
    "What went well, what to do differently, and one action with an owner and a date.",
-   "The mentor and operations sign; the trainee confirms they have read the result."
+   "The mentor and the owner sign; the trainee confirms they have read the result."
   ],
   "say": [
    "Assessment and certification.",
    "Post-trip debrief.",
-   "Every supervised booking, stage 6, ends with a short debrief between the trainee, the mentor and operations, within 3 working days of the last landing. It is recorded in the portal, template B, section 9. A supervised booking counts towards sign-off only when all three have completed their part.",
+   "Every supervised booking, stage 6, ends with a short debrief between the trainee, the mentor and the owner, or a person the owner has mandated, within 3 working days of the last landing. It is recorded in the portal, template B, section 9. A supervised booking counts towards sign-off only when all three have completed their part.",
    "Pre-issue checks. How completely and how quickly the pre-issue checklist, Appendix A, section 1, was done, with evidence on file. Extras and changes. How clearly operational extras, de-icing, F B O and handling fees, parking, and any changes were explained to the client before and after the flight. Client satisfaction. The client's rating and comments from the follow-up, Module 11, section 5.",
-   "Errors, list any critical or minor error found, critical errors are defined in How to use this manual. What went well, what to do differently, and one action with an owner and a date. The mentor and operations sign, the trainee confirms they have read the result."
+   "Errors, list any critical or minor error found, critical errors are defined in How to use this manual. What went well, what to do differently, and one action with an owner and a date. The mentor and the owner sign, the trainee confirms they have read the result."
   ]
  },
  {
@@ -5890,41 +6061,41 @@
   ]
  },
  {
-  "key": "ae2b763f",
+  "key": "4fc7c786",
   "kind": "question",
   "where": "m14 check question 3",
   "text": [
    "When does a supervised booking count towards sign-off?",
    "aWhen it is quoted",
    "bWhen the client pays",
-   "cWhen the trainee, mentor and operations have completed the post-trip debrief",
+   "cWhen the trainee, mentor and owner have completed the post-trip debrief",
    "dAfter 30 days"
   ],
   "say": [
    "When does a supervised booking count towards sign-off?",
-   "A. When it is quoted. B. When the client pays. C. When the trainee, mentor and operations have completed the post-trip debrief. D. After 30 days."
+   "A. When it is quoted. B. When the client pays. C. When the trainee, mentor and owner have completed the post-trip debrief. D. After 30 days."
   ]
  },
  {
-  "key": "7d75a935",
+  "key": "cadefcb4",
   "kind": "feedback",
   "where": "m14 check question 3",
   "text": [
-   "Right. A supervised booking counts only when trainee, mentor and operations have each completed their part of the post-trip debrief."
+   "Right. A supervised booking counts only when trainee, mentor and owner have each completed their part of the post-trip debrief."
   ],
   "say": [
-   "Right. A supervised booking counts only when trainee, mentor and operations have each completed their part of the post-trip debrief."
+   "Right. A supervised booking counts only when trainee, mentor and owner have each completed their part of the post-trip debrief."
   ]
  },
  {
-  "key": "5059781a",
+  "key": "f72a0229",
   "kind": "feedback",
   "where": "m14 check question 3",
   "text": [
-   "Not quite. A supervised booking counts only when trainee, mentor and operations have each completed their part of the post-trip debrief."
+   "Not quite. A supervised booking counts only when trainee, mentor and owner have each completed their part of the post-trip debrief."
   ],
   "say": [
-   "Not quite. A supervised booking counts only when trainee, mentor and operations have each completed their part of the post-trip debrief."
+   "Not quite. A supervised booking counts only when trainee, mentor and owner have each completed their part of the post-trip debrief."
   ]
  }
 ]

@@ -10,7 +10,6 @@ const log = [];
 const PARTS = [
  {id:"who-we-are", t:"Module 1.1 Who we are (Arche company profile)", sec:["m1","1.1"]},
  {id:"ramp", t:"Module 1.5 The booking ramp and booking units", sec:["m1","1.5"]},
- {id:"navoryx", t:"Navoryx fleet-hours rule (Module 1.2 and its question)", item:"Navoryx", quiz:"A client asks to charter an aircraft owned by Navoryx"},
  {id:"units-q", t:"Booking-unit question (Module 1)", quiz:"A trip billed at USD 135,000"},
  {id:"us-policy", t:"Arche policy: no US domestic flights until US counsel confirms", row:"Any US domestic flight, even on a US operator", item:"Arche policy: no US domestic flights"},
  {id:"oncall", t:"Arche desk plan (on-call rota months 1 to 8, four-person desk from month 9)", item:"From month 9:"},
@@ -100,7 +99,7 @@ const OVR = [
  ["The only way a client pays Arche", "How a client pays through a payment request"],
  ["Arche modules that prepare for it", "Modules that prepare for it"],
  ["The mapping is Arche's own guide to preparation; the ACA sets its own syllabus.", "The mapping is this course's own guide to preparation; the ACA sets its own syllabus."],
- ["This manual is the single standard for every Arche Executive broker and charter consultant.", "This course is a complete standard for charter brokers and charter consultants."],
+ ["This manual is the single standard for every Arche Executive broker.", "This course is a complete standard for charter brokers."],
  ["6. Payment taken outside a payment request, or bank details sent by email or chat.", "6. Payment taken outside the company's secure payment platform, or bank details sent by email or chat."],
  ["Because every Arche payment runs through our payment account, a payer", "Where payments run through a payment request, a payer"],
  ["The director's watchlist (Appendix G)", "The watchlist (Appendix G)"],
@@ -135,7 +134,7 @@ walk(O.MODS); walk(O.REF); walk(O.BOOK); walk(O.LAB); walk(O.COURSE);
 
 /* course and paths without the removed parts */
 O.COURSE.forEach(c => { if (c.id === 'm1') c.t = "The broker's role"; });
-O.PATHS.consultant = O.PATHS.consultant.filter(id => O.MODS[id] || ['lab','book','exam'].includes(id));
+if (O.PATHS.consultant) O.PATHS.consultant = O.PATHS.consultant.filter(id => O.MODS[id] || ['lab','book','exam'].includes(id));
 
 /* ---- 3b. the missing topics take the place of the removed Arche material ---- */
 { const X = require('./ext_module.js')(O.L), M = X.mod;

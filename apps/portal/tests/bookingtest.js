@@ -67,7 +67,7 @@ ok('schedule: 90,000 before the operator\'s second payment, two days early',pl.s
 ok('schedule ends at the full price',pl.sched[pl.sched.length-1].cum===pl.f.P,pl.sched);
 if(process.env.SHOTS){await shot('1-broker-terms','#secOpTerms');await p.setViewportSize({width:390,height:900});await p.waitForTimeout(500);await p.locator('#secOpTerms').screenshot({path:process.env.SHOTS+'/ot390.png'});ok('phone: no sideways scrolling',await p.evaluate(()=>document.documentElement.scrollWidth<=391),await p.evaluate(()=>document.documentElement.scrollWidth));await p.setViewportSize({width:1300,height:1000});}
 ok('the preview shows both tables',/If the client cancels/.test(await p.textContent('#secOpTerms'))&&/The client pays/.test(await p.textContent('#secOpTerms')));
-// send to operations
+// send for authorisation
 await p.evaluate(()=>{const c=tripById(S.sel).d.checks||{};});
 const sendMissing=await p.evaluate(()=>sendNeeds(tripById(S.sel).d));
 ok('nothing from operator terms left before sending',!sendMissing.some(x=>/operator (terms|insurance)/.test(x)),sendMissing);

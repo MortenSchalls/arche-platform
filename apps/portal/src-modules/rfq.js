@@ -75,7 +75,7 @@ Kind regards,
 Archē Executive operations`;
 }
 function vQuotes(){
-  if (!sqStaff()) return `<div class="panel empty"><p>Supplier quotes are for operations and the owner.</p></div>`;
+  if (!sqStaff()) return `<div class="panel empty"><p>Supplier quotes are for the owner.</p></div>`;
   const all = sqList(), F = S.sqF || (S.sqF = {status: "open"});
   const list = all.filter(r => !F.status || (r.status || "open") === F.status);
   const sel = all.find(r => r.id === S.sqSel);
@@ -120,7 +120,7 @@ function sqDetail(r){
   return `<div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(r.ref)}</h2><span class="chip ${st === "awarded" ? "c-flown" : st === "cancelled" ? "c-returned" : "c-quoted"}">${SQ_STATUS[st]}</span></div>
     <p class="small muted">${esc(r.category)} at ${esc(r.airport)}${sc.date ? " · " + fmtD(sc.date) : ""}${r.trip ? " · trip " + esc(r.trip.ref) : ""} · needed by ${fmtD(r.neededBy)} · terms: ${esc(r.terms)}</p>
     <p class="small">${esc([sc.aircraft, sc.arr && "arrives " + sc.arr + " UTC", sc.dep && "departs " + sc.dep + " UTC", sc.pax && sc.pax + " passengers", sc.crew && sc.crew + " crew", sc.rooms && sc.rooms + " rooms", sc.nights && sc.nights + " nights"].filter(Boolean).join(" · "))}${(sc.services || []).length ? "<br>Services: " + esc(sc.services.join(", ")) : ""}</p>
-    ${r.award ? `<div class="note info small"><b>Awarded to ${esc(r.award.org)} for ${usd(r.award.usd)}</b> on ${fmtD(r.award.at)}.${r.award.reason ? " Reason: " + esc(r.award.reason) : ""} Add it to the trip's direct costs in Operations${r.trip ? " (trip " + esc(r.trip.ref) + ")" : ""}; a price change after approval goes back to the owner.</div>` : ""}
+    ${r.award ? `<div class="note info small"><b>Awarded to ${esc(r.award.org)} for ${usd(r.award.usd)}</b> on ${fmtD(r.award.at)}.${r.award.reason ? " Reason: " + esc(r.award.reason) : ""} Add it to the trip's direct costs in Authorisation${r.trip ? " (trip " + esc(r.trip.ref) + ")" : ""}; a price change after approval goes back to the owner.</div>` : ""}
     <div><h3>Suppliers asked</h3><ul class="avs">${(r.suppliers || []).map((s, i) => {
       const p = (S.prospects || {})[s.pid], gate = p ? sqEligible(p, r.category) : {eligible: false, reasons: ["no longer on file"], flags: []};
       const q = quotes.find(x => x.pid === s.pid);
@@ -211,7 +211,7 @@ document.addEventListener("submit", async e => {
       { const q0 = (r.quotes || []).find(x => x.pid === A.pid) || {}; if (await gateHold("supplier", id + "-award-" + A.pid, "award", `Award ${r.ref} to ${A.org}${q0.usd ? ", " + usd(q0.usd) : ""}`, reason)) return; }
       const q = (r.quotes || []).find(x => x.pid === A.pid); if (!q) return;
       await sqSet(id, {...r, status: "awarded", award: {pid: q.pid, org: q.org, usd: q.usd, reason: reason.slice(0, 300), by: S.uid, at: now()}, log: sqLog(r, `Awarded to ${q.org} for ${usd(q.usd)}${reason ? ": " + reason : ""}`)});
-      audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Operations."); return;
+      audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Authorisation."); return;
     }
   } catch (err) { toast(err.code === "permission_denied" ? "Supplier quotes are not set up yet (run 0006 in Supabase)." : "Could not save. Try again."); }
 });

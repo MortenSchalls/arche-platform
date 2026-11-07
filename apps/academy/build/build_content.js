@@ -20,9 +20,8 @@ const C = JSON.parse(fs.readFileSync('manual.json','utf8')).filter(c => c && c.k
 
 /* explanations for each module check question */
 const WHY = {
- "1.1":"While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request.",
- "1.2":"One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units.",
- "1.3":"Arche sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority.",
+ "1.1":"One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units.",
+ "1.2":"Arche sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority.",
  "3.1":"A third-party payer in another country is a money-laundering warning sign. Identify the payer, record the reason and get the director's approval.",
  "3.2":"A close match means stop. Take no payment, keep the screening record and let the director decide.",
  "3.3":"Cash to speed up a permit is a bribe under laws such as the US FCPA and UK Bribery Act. Refuse and report.",
@@ -51,15 +50,15 @@ const WHY = {
  "11.3":"The broker follows up personally within 24 hours of the last landing, while the trip is fresh and any problem can still be put right.",
  "11.4":"Extra cost after an aircraft goes technical (AOG) is approved by the director.",
  "11.5":"Safety decisions belong to the captain. Our job is to look after the client.",
- "11.6":"Every shift ends with a written handover in the desk log, so nothing is lost overnight.",
+ "11.6":"Every on-call shift ends with a written handover note, so nothing is lost overnight.",
  "14.1":"The lab pass mark is 70 out of 100, and the critical points (the correct rule, no unconfirmed promise) must not be broken whatever the total.",
  "14.2":"The director certifies, on the scored lab, the practical exam and the supervised bookings. The AI practice partner never decides.",
- "14.3":"A supervised booking counts only when trainee, mentor and operations have each completed their part of the post-trip debrief.",
+ "14.3":"A supervised booking counts only when trainee, mentor and owner have each completed their part of the post-trip debrief.",
  "12.1":"Check the national do-not-call register and record any opt-out before calling.",
  "12.2":"First compare like for like: aircraft age, operator safety rating, inclusions and what is charged at cost.",
  "0.7":"A flight between two points inside a foreign country on its own is the 9th freedom, cabotage. Most countries refuse it to foreign operators.",
  "0.8":"Never criticise another product. Compare on what matters to the client: flexibility, total trip cost and aircraft choice.",
- "1.4":"A principal buys the flight and resells it in its own name, and takes on responsibility to the client.",
+ "1.3":"A principal buys the flight and resells it in its own name, and takes on responsibility to the client.",
  "2.9":"Under the Montreal Convention, baggage claims on an international flight lie against the carrier, the operator.",
  "2.10":"We arrange flights on aircraft run by certified operators. Never write \"our fleet\" or claim a rating for aircraft we have not checked.",
  "5.3":"Groups with tight schedules strain crew duty limits and slots, and heavy equipment changes weight and volume.",
@@ -67,8 +66,8 @@ const WHY = {
  "8.5":"Record the operator's liability cover and ask for the client and Arche to be added as additional insured where possible.",
  "9.5":"Using real flexibility to save positioning is fair negotiation. Fake quotes or pressure on safety never are.",
  "12.3":"Offer options at different prices and sell the value, rather than cutting the margin.",
- "1.5":"Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker.",
- "1.6":"Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it.",
+ "1.4":"Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker.",
+ "1.5":"Separate duties: nobody confirms, prices or records payment on their own booking. Another owner, or a person the owner has mandated, issues it.",
  "5.4":"Both are client requests: what the client asks for. Each is confirmed with its supplier in writing, with how it is charged.",
  "6.5":"No take-off with ice or snow on the aircraft (EU CAT.OP.MPA.250, US 14 CFR 135.227). De-icing depends on the day, so it is charged at cost after the flight with the receipt.",
  "6.6":"Airports publish their hours and night restrictions. Only the operator can say whether an out-of-hours opening is possible and what it costs.",
@@ -91,14 +90,14 @@ const OBJ = {
  m8:["Source on Avinode and compare quotes like for like","Vet an operator against the Arche standard","Check crew and insurance"],
  m9:["Get every price from a written source","Price with the 9% formula and round up","Handle costs that cannot be fixed","Negotiate fairly with operators","Price requests and extras: included, fixed or at cost"],
  m10:["Issue the confirmation back to back with the operator","Explain how money moves through our payment account","Keep financial controls and a complete booking file","Follow the booking timeline from quote to final invoice"],
- m11:["Prepare and run the day of flight","Handle disruption and the 24/7 desk","Answer sustainability questions honestly"],
+ m11:["Prepare and run the day of flight","Handle disruption and out-of-hours calls","Answer sustainability questions honestly"],
  m12:["Meet the Arche service standard on every call","Answer common objections","Manage accounts, follow-ups and negotiation with clients"],
  m13:["Apply the whole manual to six real-world trips"],
  m14:["Know how you are assessed and certified","Plan your Avinode, payment system and external training"],
 };
 const TAKE = {
  m0:["The operator flies and is responsible for safety; Arche finds, checks, prices, contracts and looks after the client.","Confirm airport, date and time zone in writing, always.","Positioning is usually paid by the client; empty legs can be cancelled.","Use market figures only with their source and date.","Cabotage is the 8th and 9th freedom, and most countries refuse it to foreign operators."],
- m1:["We sell whole-aircraft charters and empty legs at a 9% margin.","No Navoryx fleet hours while the charter sales agreement is in force.","Never sell a flight before an operator has confirmed it in writing.","First contact within 48 hours and follow-up every 14 days, or the lead moves on."],
+ m1:["We sell whole-aircraft charters and empty legs at a 9% margin.","Never sell a flight before an operator has confirmed it in writing.","First contact within 48 hours and follow-up every 14 days, or the lead moves on."],
  m2:["Every client receives the five disclosures in writing before signing.","Never sell anything on the never-sell list, including US domestic legs on non-US operators.","Amber means confirm in writing first; red means stop and escalate.","Liability for the flight lies with the operator; never advertise \"our fleet\"."],
  m3:["KYC and sanctions screening come before any contract.","A possible match means stop, no payment, report to the director.","Payments only through a payment request; bank details never by email or chat.","Personal data stays in Avinode and the CRM."],
  m4:["Discretion is part of the product.","Send details only to people agreed in writing.","Say no early, politely, with an alternative."],
@@ -108,13 +107,13 @@ const TAKE = {
  m8:["Compare all-in quotes like for like.","ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; otherwise an Arche-approved operator or the director's approval for the trip.","Check the aircraft is on the AOC and the insurance covers commercial passengers."],
  m9:["Client price = Arche cost ÷ 0.91, rounded up.","Costs that depend on the day are charged at cost with receipts.","Negotiate with flexibility, never with fake quotes or pressure on safety.","Fixed extras: supplier price ÷ 0.91; extras at cost: receipts, no margin."],
  m10:["Our terms are never softer than the operator's.","Client money and operator money run through a payment request; only our margin reaches Arche's account.","No flight departs until paid in full.","Deposit 25% (at least USD 2,500); balance 7 days before; under 7 days, pay in full on signature."],
- m11:["Keep the client informed before they need to ask.","Extra cost after an AOG needs the director's approval.","Every desk shift ends with a written handover."],
+ m11:["Keep the client informed before they need to ask.","Extra cost after an AOG needs the director's approval.","Every on-call shift ends with a written handover."],
  m12:["Answer the same business day and confirm everything in writing.","Compare like for like before discussing price.","Track every enquiry through the pipeline and follow up every quote."],
  m13:["Work each case yourself before opening the model answer."],
  m14:["80% in the exam and every critical-rule question right.","Then systems training, shadowing with two site visits, the practical exam and 10 supervised bookings."],
 };
 /* questions that test a critical rule: all must be right in the written exam */
-const CRIT = new Set(["9.6","10.3","1.3","2.1","2.3","2.4","2.5","2.7","2.8","3.1","3.2","3.3","3.4","8.1","8.2","8.3","9.1","9.4","10.2"]);
+const CRIT = new Set(["9.6","10.3","1.2","2.1","2.3","2.4","2.5","2.7","2.8","3.1","3.2","3.3","3.4","8.1","8.2","8.3","9.1","9.4","10.2"]);
 /* official and industry sources placed where they are used */
 const LINKS = {
  "3.1":[L.mas], "3.2":[L.un,L.ofac,L.eumap,L.uks,L.mas], "3.3":[L.ofac], "3.5":[], "3.6":[],
@@ -228,7 +227,7 @@ const COURSE = [
  {id:"m9", n:"9", t:TITLES.m9},
  {id:"m10", n:"10", t:TITLES.m10},
  {id:"book", n:"10P", t:"Practical: the booking form", lab:true},
- {id:"m11", n:"11", t:"Trip operations and the 24/7 desk"},
+ {id:"m11", n:"11", t:"Trip operations and disruption"},
  {id:"m12", n:"12", t:TITLES.m12},
  {id:"m13", n:"13", t:TITLES.m13},
  {id:"m14", n:"14", t:"Assessment and certification"},
@@ -236,7 +235,6 @@ const COURSE = [
 ].map(c => Object.assign(c, {live:true}));
 const PATHS = {
  broker: COURSE.map(c => c.id),
- consultant: ["m0","m1","m2","lab","m3","m4","m5","m12","m13","exam"],
 };
 const PILOT_REQ = PATHS.broker;
 const J = JSON.stringify;

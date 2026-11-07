@@ -15,6 +15,7 @@ const keys={};scr.forEach(s=>keys[s.key]={h:'x',d:3});
 const b=await chromium.launch({args:['--autoplay-policy=no-user-gesture-required']});const errs=[];
 for(const w of [1300,390]){
   const p=await b.newPage({viewport:{width:w,height:900}});p.on('pageerror',e=>errs.push(w+': '+e.message));
+  await p.addInitScript(()=>{window.__spoken=[];try{const r=window.speechSynthesis;r.speak=u=>{window.__spoken.push(u.text);};}catch(e){}});
   await p.goto('http://localhost:8765/test.html?as=broker');await p.waitForTimeout(2000);
   await p.goto('http://localhost:8765/academy.test.html');await p.waitForTimeout(2500);
   if(await p.$('#nm')){await p.fill('#nm','Example Tester');await p.check('#nda');await p.click('text=Begin');await p.waitForTimeout(1000);}
@@ -35,6 +36,20 @@ for(const w of [1300,390]){
   for(let i=0;i<3;i++){await p.evaluate(()=>{const b=[...document.querySelectorAll('#view button')].reverse().find(b=>/^Next/i.test(b.textContent.trim()));if(b)b.click();});await p.waitForTimeout(500);}
   const hasTry=await p.$('#view [data-try] .opt');
   if(hasTry){await p.click('#view [data-try] .opt >> nth=0');await p.waitForTimeout(700);pl=await p.evaluate(()=>window.__played.slice());const fbk=scr.filter(s=>s.kind==='feedback').map(s=>'fable/'+s.key+'.mp3');ok(w+': answering "Try it" plays the recorded feedback',fbk.includes(pl[pl.length-1]),pl.slice(-1));}
+  // the warm-up on the module intro, both answers: recorded feedback only
+  await p.click('.map-l [data-go="home"]').catch(()=>{});await p.waitForTimeout(400);
+  if(!(await p.$('.srow [data-go="m0"]'))){await p.click('#mapBtn').catch(()=>{});await p.click('#map [data-go="home"]');await p.waitForTimeout(400);}
+  await p.click('.srow [data-go="m0"]');await p.waitForTimeout(900);
+  for(const right of [true,false]){const q=await p.evaluate(()=>__T?null:null);
+    const idx=await p.evaluate(r=>{const opts=[...document.querySelectorAll('#view [data-try] .opt')];return r?0:1;},right);
+    await p.click(`#view [data-try] .opt >> nth=${idx}`);await p.waitForTimeout(600);
+    const fbt=await p.evaluate(()=>{const f=document.querySelector('#view .fb');return f?f.textContent.replace(/\s+/g,' ').trim():''});
+    ok(w+`: warm-up answer ${idx+1} has a recording (${fbt.slice(0,12)})`,scr.some(s=>s.kind==='feedback'&&s.text[0]===fbt),fbt);
+    // a fresh copy of the screen for the other answer (an answered "Try it" is locked)
+    await p.evaluate(()=>{location.hash='#home';});await p.reload();await p.waitForTimeout(1500);
+    await p.evaluate(({keys,wav})=>{window.__sb.storage={from:()=>({download:async f=>({data:new Blob([JSON.stringify({keys:/isabella|fable/.test(f)?keys:{}})])}),createSignedUrl:async pth=>{(window.__played=window.__played||[]).push(pth);return {data:{signedUrl:wav}};}})};},{keys,wav});
+    await p.click('.srow [data-go="m0"]');await p.waitForTimeout(900);}
+  ok(w+': with Isabella or Fable chosen, the device voice never speaks (overview, lessons, answers)',await p.evaluate(()=>window.__spoken.length===0),await p.evaluate(()=>window.__spoken.slice(0,3)));
   // no recording for a screen: device voice (no request for a recording)
   await p.evaluate(()=>{window.__sb.storage={from:()=>({download:async()=>({data:new Blob(['{"keys":{}}'])}),createSignedUrl:async pth=>{window.__played.push('X'+pth);return {data:null};}})};});
   ok(w+': no sideways scroll with the player open',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
