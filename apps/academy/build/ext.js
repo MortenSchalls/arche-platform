@@ -17,9 +17,11 @@ const PARTS = [
  {id:"portal", t:"Module 1.8 The Arche portal (leads, prospects, booking rights) and its questions", sec:["m1","1.8"], quiz:"You have not contacted a new lead", item:"First contact within 48 hours and follow-up every 14 days"},
  {id:"portal-q2", t:"Booking-rights question (Module 1)", quiz:"A broker with booking rights sells a trip"},
  {id:"portal-book", t:"Module 10.7 How to book in the Arche portal", sec:["m10","10.7"]},
+ {id:"systems", t:"Systems training: the Arche portal (internal step after the written exam)", step:"sys"},
 ];
 const dropSec = (m, num) => { const M = O.MODS[m]; const i = M.secs.findIndex(s => s.h.startsWith(num + " ")); if (i >= 0) { M.secs.splice(i, 1); log.push(`removed ${m} ${num}`); } };
 for (const p of PARTS) {
+  if (p.step) { delete O.MODS[p.step]; O.COURSE = O.COURSE.filter(c => c.id !== p.step); for (const k of Object.keys(O.PATHS)) O.PATHS[k] = O.PATHS[k].filter(id => id !== p.step); O.PILOT_REQ = O.PILOT_REQ.filter(id => id !== p.step); log.push('removed step ' + p.step); }
   if (p.sec) dropSec(p.sec[0], p.sec[1]);
   if (p.ref) { delete O.REF[p.ref]; log.push('removed reference ' + p.ref); }
   if (p.quiz) for (const M of Object.values(O.MODS)) { const n = M.quiz.length; M.quiz = M.quiz.filter(q => !q.q.startsWith(p.quiz)); if (M.quiz.length < n) log.push('removed question: ' + p.quiz); }
@@ -145,7 +147,7 @@ if (O.PATHS.consultant) O.PATHS.consultant = O.PATHS.consultant.filter(id => O.M
   O.PATHS.broker.splice(O.PATHS.broker.indexOf('exam'), 0, 'm15');
   log.push('added Module 15 ' + X.t); }
 /* ---- 4. nothing Arche-specific may remain ---- */
-const left = []; const scan = (o, p) => { if (typeof o === 'string') { if ((/Arche|Navoryx|Citi\b/.test(o) || /\bdirector\b(?!s)/i.test(o)) && !/^https?:/.test(o)) left.push(p + ' :: ' + o.slice(0, 140)); } else if (Array.isArray(o)) o.forEach((x, i) => scan(x, p + '[' + i + ']')); else if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => scan(v, p + '.' + k)); };
+const left = []; const scan = (o, p) => { if (typeof o === 'string') { if ((/Arch[eē]|Navoryx|Citi\b/.test(o) || /\bdirector\b(?!s)/i.test(o)) && !/^https?:/.test(o)) left.push(p + ' :: ' + o.slice(0, 140)); } else if (Array.isArray(o)) o.forEach((x, i) => scan(x, p + '[' + i + ']')); else if (o && typeof o === 'object') Object.entries(o).forEach(([k, v]) => scan(v, p + '.' + k)); };
 scan({MODS:O.MODS, REF:O.REF, BOOK:O.BOOK, LAB:O.LAB, COURSE:O.COURSE}, '');
 const allowed = left.filter(x => /insurer['’]s (manager|director)/.test(x));
 const bad = left.filter(x => !allowed.includes(x));

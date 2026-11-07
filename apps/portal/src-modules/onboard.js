@@ -43,6 +43,21 @@ function obLoadAck(){
   if (S.obAckLoading || S.obAck !== undefined || !S.uid) return; S.obAckLoading = true;
   S.db.doc(`train/${S.uid}/runs/onboarding`).get().then(d => { S.obAck = d.exists ? d.data() : null; }, () => { S.obAck = null; }).finally(() => { S.obAckLoading = false; render(); });
 }
+/* Systems training lives in the academy (Morten, 7 Nov 2026: "include full systems training in the academy", replacing the
+   portal course so it is asked once). Training shows where the person is and opens the step. */
+function sysTrainingPanel(){
+  if (S.uid) obLoadProg(S.uid);
+  const pr = (S.obProg || {})[S.uid], mods = (pr && pr.mods) || {}, sys = mods.sys || {}, exam = mods.exam && mods.exam.passed;
+  const n = ((HELP.guide || {}).features || []).filter(f => f.sys).length || 29;
+  const status = pr === undefined ? "Loading your progress…" : sys.passed ? `<b>Passed</b>${sys.at || sys.date ? " on " + fmtD(sys.passedAt || sys.at) : ""}. Next: Avinode training (separate) and shadowing.`
+    : exam ? (sys.attempts ? `Started · best check ${sys.best || 0}%. Every lesson check must be right.` : "Open now: you passed the written exam.")
+    : "Opens after the written exam. You can read the screens in Help at any time.";
+  if (!HELP.guide) loadGuide();
+  return `<div class="panel stack"><h2 style="margin:0">Systems training: the Archē portal</h2>
+    <p class="small">${n} lessons, one per screen a broker uses, in the order of a booking. Each has a Try it task in the test version and a short check. Every check must be right. Avinode is trained separately.</p>
+    <p class="small" id="sysStatus">${status}</p>
+    <div class="row"><a class="btn ${exam && !sys.passed ? "primary" : ""}" href="academy.html#sys" data-acad="go">${sys.passed ? "Review Systems training" : exam ? "Open Systems training" : "Open the Broker Academy"}</a><a class="btn" href="test.html?as=broker" target="_blank" rel="noopener">Open the test version</a></div></div>`;
+}
 function obLoadProg(id){
   S.obProg = S.obProg || {}; if (id in S.obProg) return; S.obProg[id] = undefined;
   S.db.doc("progress/" + id).get().then(d => { S.obProg[id] = d.exists ? d.data() : null; }, () => { S.obProg[id] = null; }).finally(() => render());
@@ -50,13 +65,13 @@ function obLoadProg(id){
 /* the academy steps in order, with the reading time the academy itself shows (tests/acadplantest.js keeps them in step
    with the academy build). Used for "continue where you left off" on the joining page and in reminders (Morten, 4 Nov 2026). */
 const OB_ACAD = {
-  paths: {broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam"]},
+  paths: {broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam","sys"]},
   steps: {m0: ["Module 0 · Aviation for brokers", 21], m1: ["Module 1 · Archē Executive and the broker's role", 12], m2: ["Module 2 · Where we may and may not sell", 23],
     lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
     m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
     m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
     m11: ["Module 11 · Trip operations and disruption", 12], m12: ["Module 12 · Selling and account management", 7], m13: ["Module 13 · Case studies", 9],
-    m14: ["Module 14 · Assessment and certification", 14], exam: ["Written exam", 0]}
+    m14: ["Module 14 · Assessment and certification", 15], exam: ["Written exam", 0], sys: ["Systems training: the Archē portal", 70]}
 };
 function obNext(p){
   const role = (p && p.role) || "broker", path = OB_ACAD.paths[role] || OB_ACAD.paths.broker, mods = (p && p.mods) || {};

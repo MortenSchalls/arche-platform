@@ -59,7 +59,7 @@ HARNESS = """<script>
     var bar = document.createElement("div"); bar.id = "testBar";
     bar.innerHTML = '<style>#testBar{background:#985a00;color:#fff;font:600 13px/1.4 "Hanken Grotesk",system-ui,sans-serif;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}#testBar b{letter-spacing:.08em}#testBar select,#testBar button{font:inherit;font-size:12px;padding:3px 8px;border:1px solid #fff;background:transparent;color:#fff;border-radius:4px}#testBar option{color:#000}</style>'
       + '<b>TEST VERSION</b><span>Example data in this browser only. Nothing reaches the real portal.</span>'
-      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option><option value="ops">Test Operations</option><option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option><option value="candidate">New candidate</option></select></label>'
+      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option>' + (/[?&]as=ops/.test(location.search) ? '<option value="ops">Test Operations</option>' : '') + '<option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option><option value="candidate">New candidate</option></select></label>'
       + '<button type="button" id="tvReset">Reset test data</button>';
     document.body.insertBefore(bar, document.body.firstChild);
     var sel = document.getElementById("tvAs"); sel.value = as; sel.onchange = function(){ window.__testSwitch(sel.value); };

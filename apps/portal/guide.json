@@ -1,85 +1,56 @@
 {
- "version": "2.0, 23 October 2026",
+ "version": "3.0, 7 November 2026 (from the Master Training Manual, Appendix H and I)",
  "features": [
   {
    "id": "access",
+   "n": "H.1",
    "title": "Joining, roles and access",
    "who": "Everyone",
    "purpose": "Only approved people can use the portal, and each person sees only what their role needs.",
    "steps": [
-    "Open the portal address you were given (portal.archeaviation.com after go-live) and sign in: with the password the owner gave you, or with an emailed sign-in link once that is switched on.",
-    "First time with a temporary password: choose your own (at least 10 characters). After that nobody else knows it, not even the owner.",
-    "Fill in Join: your full legal name as on your contract, your role, the country you work from and, if you have it, your academy completion code. Tick the portal agreement, then Request access.",
-    "Wait until the owner approves you in Team, then reload the portal.",
-    "Your role decides what you see: brokers and consultants see their own trips, leads and commission; operations sees every trip and the operations queue; brokers with booking rights also work as operations; the owner sees everything."
+    "Open the portal address and sign in with the email you were invited with: Sign in with Microsoft, Email me a sign-in link, or your password if you set one. Forgot password? sends a link to set a new one.",
+    "First time: fill in Join with your full legal name as on your contract, the country you work from and your academy completion code, and tick the portal agreement.",
+    "Wait for approval. The director approves every broker before the first enquiry.",
+    "Your role decides what you see: brokers see their own trips, leads and commission; the owner, or a person the owner has mandated, sees every trip and the Authorisation queue; the owner sees everything."
    ],
    "trouble": [
     [
-     "Sign in says Email or password not recognised",
-     "Check the email address and the password. If it still fails, ask the owner to set a new temporary password."
-    ],
-    [
-     "The emailed sign-in link never arrives",
-     "Sign-in emails work only after go-live. Use the password you were given."
-    ],
-    [
-     "Request access does nothing",
-     "Tick the portal agreement under the form; it is required."
+     "The portal will not sign me in",
+     "Use the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner."
     ],
     [
      "I am stuck on Request sent",
-     "The owner has not approved you yet. Ask the owner."
+     "The director has not approved you yet. Ask the director; approval needs your contract and academy code."
     ],
     [
      "I see Access ended",
-     "Your access was ended. Contact Archē operations if you think this is a mistake."
+     "Your access was ended. Contact the owner if you think this is a mistake."
     ],
     [
      "I cannot see a trip or lead a colleague mentions",
-     "Brokers see only their own trips and leads. Ask operations."
+     "Brokers see only their own trips and leads. Ask the owner."
     ]
    ],
    "tips": [
-    "Use the same email every time: your trips and leads are tied to your login.",
-    "Never share your password, and sign in only on your own devices.",
-    "Bookmark the portal on your phone; every page works on a small screen."
-   ]
-  },
-  {
-   "id": "phone",
-   "title": "Phone use and colour theme",
-   "who": "Everyone",
-   "purpose": "The portal works one-handed on a phone: four main sections at the bottom, everything else under Menu.",
-   "steps": [
-    "The bar at the bottom holds your four main sections. A red number shows how many things are waiting there.",
-    "Press Menu at the top for every other section, your role and, for the owner, the preview selector. Choosing a section closes the menu.",
-    "Each screen has its own address, so the phone's Back button and bookmarks work, and a link to a trip opens that trip.",
-    "Colour theme: choose Day, Night or Follow device in the header (under Menu on a phone). Day is the default and the easiest on the eyes for long sessions in normal light; Night suits low light. Your choice is remembered on that device."
+    "Always sign in with the email you were invited with: your trips, leads and academy progress are tied to it.",
+    "Bookmark the portal link on your phone; every page works on a small screen.",
+    "Owners: Team > Invite someone to join shows where each person is in joining: the step they are on out of nine, the academy modules passed, a progress bar and when they last signed in. Log opens every step with its date, newest first."
    ],
-   "trouble": [
-    [
-     "I cannot find a section",
-     "Press Menu at the top. Sections you do not have access to are not shown."
-    ],
-    [
-     "The flow diagram is cut off",
-     "Swipe it sideways."
-    ]
+   "try": [
+    "broker",
+    "Open the test version and switch between Test Broker and Test Owner in the orange bar: compare the menus."
    ],
-   "tips": [
-    "Add the portal to your home screen from the browser's share menu for one-tap access.",
-    "On Today, the red number on the tab is what needs you right now.",
-    "If your eyes tire late in the day, switch to Night rather than lowering screen brightness to the minimum."
-   ]
+   "sys": 1
   },
   {
    "id": "dashboard",
-   "title": "Dashboard",
-   "who": "Brokers, consultants and operations",
-   "purpose": "Your opening page: progress this month, your place in the team and every outstanding task, most urgent first.",
+   "n": "H.2",
+   "title": "Today (brokers and owner)",
+   "who": "Brokers; the owner, or a person the owner has mandated",
+   "purpose": "Your opening page, the only start page: every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
    "steps": [
     "Read the progress tiles: standard bookings against the monthly target, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum.",
-    "Work the Outstanding list from the top. Red dots are urgent: an overdue lead or a trip returned by operations.",
+    "Work Your tasks from the top. Red dots are urgent: an overdue lead, a trip returned at authorisation, a payment due.",
     "Tap a task to open the lead or trip it refers to.",
     "Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score."
    ],
@@ -90,43 +61,41 @@
     ],
     [
      "Commission shows USD 0 although I have flown trips",
-     "Commission counts only trips that have flown and whose client payment has cleared. Ask operations to record the payment."
+     "Commission counts only trips that have flown and whose client payment has cleared. Ask the owner to record the payment."
     ],
     [
      "A task stays on the list after I did it",
-     "Tasks clear when the portal sees the change: log the contact, update the trip or send it to operations."
+     "Tasks clear when the portal sees the change: log the contact, update the trip or send it for authorisation."
     ]
    ],
    "tips": [
     "Start every day on the dashboard and clear the red items first.",
     "Overdue leads move to another broker at the next round: a two-minute logged contact keeps the lead yours.",
-    "Use the team comparison to see where you lose points; follow-up score is usually the quickest win.",
-    "Win %: the live chance a trip books and flies. Green 70% and over, blue 40 to 69%, red under 40%."
-   ]
+    "Use the team comparison to see where you lose points; follow-up score is usually the quickest win."
+   ],
+   "try": [
+    "broker",
+    "As Test Broker, open Today: work Your tasks from the top, then read Progress this month."
+   ],
+   "sys": 6
   },
   {
    "id": "today",
+   "n": "H.3",
    "title": "Today (owner)",
    "who": "Owner",
    "purpose": "Everything that needs the owner, on one page, from any device.",
    "steps": [
-    "Read Your decisions: trips waiting for operations, late payments and other red flags, prospects that went cold with three brokers, and join requests.",
+    "Read Your decisions: trips waiting for authorisation, late payments and other red flags, prospects that went cold with three brokers, and join requests.",
     "Restart a cold prospect's rotation, mark it Do not contact, or open it to assign it yourself.",
     "Check Prospect rotation: last round, what moved and the figures per broker. Use Preview to see the next round, Run now to run it.",
-    "Check Running in the background: prospect research and Google Drive backup.",
-    "Use the analytics: gross profit from trips flown over six months, this month's funnel and confirmed trips by broker.",
-    "If a background job is late (backup or research more than 26 hours, rotation more than 7 hours), it appears at the top of Your decisions with a button to run it from here.",
-    "Spot check: two recent contacts per broker, plus anything that looks wrong (very many contacts in one day, the same note on many leads). Mark each Looks right or Ask the broker.",
-    "Read AI research spend: this month against the limit, and what the last run cost."
+    "Check Running in the background: sanctions screen, prospect rotation, research agent and nightly backup.",
+    "Use the analytics: gross profit from trips flown over six months, this month's funnel and confirmed trips by broker."
    ],
    "trouble": [
     [
      "A background job shows not run yet or an old date",
-     "Daily prospect research is paused until go-live to save AI credit. Rotation runs every 3 hours and the backup nightly; if one is late, run it from Today."
-    ],
-    [
-     "Research stopped with AI budget reached",
-     "Each run stops at USD 1.50 and research pauses for the month at USD 40. Today shows the spend; raise the limit only if you mean to."
+     "The jobs run on GitHub (Portal jobs). It runs again at its next time; if it is late twice, open the job's run on GitHub and read the error."
     ],
     [
      "Run now does nothing",
@@ -134,22 +103,22 @@
     ]
    ],
    "tips": [
-    "Open Today once a day: it also triggers the automatic Drive copy of new documents and, when due, the database.",
+    "Open Today once a day: anything late or waiting for you is at the top.",
     "A prospect that went cold three times is often a wrong-fit organisation: consider Do not contact rather than another rotation."
    ]
   },
   {
    "id": "enquiry",
+   "n": "H.4",
    "title": "New enquiry and airport search",
-   "who": "Brokers, consultants with booking rights, operations with booking rights",
+   "who": "Brokers",
    "purpose": "Capture the trip once, correctly, with the right airports.",
    "steps": [
     "Choose New enquiry, or Open an enquiry from a lead.",
     "Enter the client: name, company, email, phone, country of residence and the payer if different.",
     "For each leg type a city, airport name or code (for example London) and pick the airport from the list. The portal stores the ICAO code and shows the airport name.",
     "Add date, local time and passengers per leg, the aircraft category and any notes.",
-    "Save. The trip appears under My trips as Enquiry.",
-    "Search trips by client, reference, airport or city; operations and the owner can also filter by broker."
+    "Save. The trip appears under My trips as Enquiry."
    ],
    "trouble": [
     [
@@ -158,7 +127,7 @@
     ],
     [
      "The airport I need is not offered",
-     "The list holds 7,009 airports suitable for jets. Type the four-letter ICAO code; if it is still missing, ask operations, as the runway may be too short for jets."
+     "The list holds 7,009 airports suitable for jets. Type the four-letter ICAO code; if it is still missing, ask the owner, or a person the owner has mandated, as the runway may be too short for jets."
     ],
     [
      "Times look wrong",
@@ -169,12 +138,18 @@
     "Type the city, not the airport: the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget.",
     "Write special requests in the notes: the portal turns many of them into suggested requests and extras.",
     "Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts on the leaderboard."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Make a New enquiry: Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month."
+   ],
+   "sys": 9
   },
   {
    "id": "extras",
+   "n": "H.5",
    "title": "Client requests and operational extras",
-   "who": "Brokers until the trip goes to operations; operations until the confirmation is issued",
+   "who": "Brokers until the trip goes for authorisation; the owner, or a person the owner has mandated, until the confirmation is issued",
    "purpose": "List every request and every operational need, with how it is charged, so the confirmation is complete and nothing is invoiced by surprise.",
    "steps": [
     "Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions.",
@@ -186,7 +161,7 @@
    "trouble": [
     [
      "I cannot edit the lines",
-     "The trip is with operations or confirmed. Ask operations to change it."
+     "The trip is with the owner for checking, or confirmed. Ask the owner to change it."
     ],
     [
      "The confirmation says a fixed price is missing",
@@ -201,19 +176,26 @@
     "Ask about catering, cars, pets, children, luggage and allergies on the first call: changes later cost time and money.",
     "Winter, night departures, waiting days and international arrivals almost always bring operational extras: confirm them before quoting.",
     "Use fixed price only with a written supplier quote; anything that depends on the day is at cost."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Add a client request (a small dog) and an operational extra (de-icing, at cost) to your enquiry."
+   ],
+   "sys": 10
   },
   {
    "id": "quote",
+   "n": "H.6",
    "title": "Operator quote and price",
    "who": "Brokers",
    "purpose": "Record the operator's all-in quote so the portal sets the client price at 9%.",
    "steps": [
     "From Avinode, enter the operator's legal name as on its AOC, aircraft type, registration and Avinode trip ID.",
     "Enter the operator all-in price and any direct trip costs not in it (supplier items Archē buys).",
+    "Quoted in another currency: choose it; the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3% away from it.",
     "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.",
     "Save. The trip moves to Quoted.",
-    "If the operator quotes in another currency, choose it under Operator quoted in, enter the amount and the rate used (USD per 1 unit). The portal converts to USD, rounds up, and records the rate and date on the trip."
+    "When you save, the portal checks in the background: the names against the sanctions lists, the operator against the EU Air Safety List, and a US registration (N…) against the FAA list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date."
    ],
    "trouble": [
     [
@@ -221,20 +203,25 @@
      "Check you entered the all-in operator price, including positioning, and no extras twice."
     ],
     [
-     "Operations changed my operator price",
-     "Operations confirms the price on Avinode; the confirmed figure is used and the difference is flagged."
+     "The owner changed my operator price",
+     "The owner, or a person the owner has mandated, confirms the price on Avinode; the confirmed figure is used and the difference is flagged."
     ]
    ],
    "tips": [
     "Never round down and never quote below 9% without the director's approval.",
-    "Re-confirm availability and price with the operator before the offer expires.",
-    "Use the rate on the day you quote and say so in the quote email; the client price is fixed in USD."
-   ]
+    "Re-confirm availability and price with the operator before the offer expires."
+   ],
+   "try": [
+    "broker",
+    "Enter an operator price of USD 20,000 and check the client price: 20,000 ÷ 0.91, rounded up, is USD 21,979."
+   ],
+   "sys": 11
   },
   {
    "id": "docs",
+   "n": "H.7",
    "title": "Documents",
-   "who": "Brokers until the trip goes to operations",
+   "who": "Brokers until the trip goes for authorisation",
    "purpose": "Keep every document for the trip in one place, never in email.",
    "steps": [
     "Open the trip, choose the document type and the file, and select Attach.",
@@ -247,56 +234,69 @@
      "Choose a file first. Large files take a few seconds."
     ],
     [
-     "I cannot attach after sending to operations",
-     "Documents are locked with the trip. Send them to operations through the portal; they attach them."
+     "I cannot attach after sending for authorisation",
+     "Documents are locked with the trip. Send them to the owner, or a person the owner has mandated, through the portal; they attach them."
     ]
    ],
    "tips": [
     "Never send passports or contracts by email or chat apps.",
     "Name scanned files clearly before uploading."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Attach a small PDF to your trip."
+   ],
+   "sys": 14
   },
   {
    "id": "send",
-   "title": "Pre-issue checks and sending to operations",
+   "n": "H.8",
+   "title": "Pre-issue checks and sending for authorisation",
    "who": "Brokers",
-   "purpose": "Hand operations a complete, compliant trip.",
+   "purpose": "Hand the owner, or a person the owner has mandated, a complete, compliant trip.",
    "steps": [
-    "Tick the seven broker checks only when each is done and recorded: never-sell list, trip risk screen, AOC, insurance, safety audit, routing and permits, operator terms.",
-    "Send to operations. The button works only with a client name, at least one leg, an operator price and all seven checks."
+    "The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.",
+    "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Archē-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.",
+    "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.",
+    "Create the payment request in our payment provider and enter its reference on the trip.",
+    "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field."
    ],
    "trouble": [
     [
-     "Send to operations is greyed out",
+     "Send for authorisation is greyed out",
      "One of the required items is missing; the note under the button lists them."
     ],
     [
      "The trip came back as Returned",
-     "Read the operations note at the top of the trip, fix it and send again."
+     "Read the owner's note at the top of the trip, fix it and send again."
     ]
    ],
    "tips": [
     "Run the AI check before sending; it catches cabotage, permits and missing information.",
     "A trip returned twice costs the client's confidence: complete it the first time."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Complete the trip checks, tick KYC, enter a payment request reference and press Send for authorisation."
+   ],
+   "sys": 15
   },
   {
-   "id": "ops",
-   "title": "Operations queue",
-   "who": "Operations, owner, brokers with booking rights",
+   "id": "authorise",
+   "n": "H.9",
+   "title": "Authorisation",
+   "who": "The owner, or a person the owner has mandated",
    "purpose": "Check, confirm and record every trip that brokers send.",
    "steps": [
-    "Open Operations; take the oldest trip in Waiting for operations.",
-    "Confirm the operator price on Avinode and enter direct trip costs.",
-    "Complete KYC and sanctions screening and tick the record.",
-    "Create the payment request in our payment provider and enter its reference.",
-    "Save, then Prepare and issue confirmation, or Return to broker with a note.",
-    "Each trip waiting for operations shows how long it has waited: amber after 4 hours, red after 24. The oldest is listed first."
+    "Open Authorisation; take the oldest trip waiting for authorisation.",
+    "Confirm the operator price on Avinode, send Request to Book and enter direct trip costs.",
+    "Check the KYC and sanctions screening record and the payment request reference the broker recorded.",
+    "Save. Approve the booking, then Prepare and issue confirmation; or Return to broker with a note."
    ],
    "trouble": [
     [
-     "I see a note instead of the operations panel",
-     "It is your own trip. Another operations member or the director handles it."
+     "I see a note instead of the Authorisation panel",
+     "It is your own trip. Another owner or a person the owner has mandated handles it."
     ],
     [
      "The broker's operator price differs from Avinode",
@@ -306,18 +306,24 @@
    "tips": [
     "Work the queue oldest first; check it at least twice a day.",
     "Never take payment details by email; every client pays through the payment request."
-   ]
+   ],
+   "try": [
+    "owner",
+    "As Test Owner, open Authorisation and the trip you sent: see what the authoriser checks, then Return to broker with a note."
+   ],
+   "sys": 16
   },
   {
    "id": "conf",
+   "n": "H.10",
    "title": "Charter confirmation",
-   "who": "Brokers prepare; operations and the owner issue",
+   "who": "Brokers prepare; the owner, or a person the owner has mandated, issues",
    "purpose": "Produce the signed contract: booking details, requests and extras, Part A and Part B.",
    "steps": [
     "Open Charter confirmation from the trip. Fill in charterer address, KYC reference, lead passenger, aircraft year and seats, operator AOC and authority, signatory.",
     "Read the live checks on the right: fix every red item and every missing field.",
     "Use AI check for a second look.",
-    "Operations issues it: the portal assigns the reference, saves the PDF to the trip and locks it.",
+    "The owner issues it: the portal assigns the reference, saves the PDF to the trip and locks it.",
     "A change after issue: Prepare revision, then Issue revision n."
    ],
    "trouble": [
@@ -337,92 +343,57 @@
    "tips": [
     "Fill the confirmation while the broker still has the details fresh; drafts save automatically.",
     "The deposit is 25% of the charter price (at least USD 2,500); fixed extras are paid with the balance 7 days before departure."
-   ]
-  },
-  {
-   "id": "sign",
-   "title": "Client signature",
-   "who": "Operations and the owner (never on their own trip); brokers see the status",
-   "purpose": "Every issued confirmation is signed by the charterer before payment is recorded, and the signed copy is kept with the trip and in the Google Drive backup.",
-   "steps": [
-    "After the confirmation is issued, the trip file and the confirmation page show a Client signature panel: Not sent, Sent or Signed.",
-    "Check the charterer's email and press Send for signature. The confirmation PDF downloads and your mail program opens a ready-written email: the full itinerary with airport names and local times, aircraft and registration, operator, price, fixed-price extras, items charged at cost, deposit and balance with due dates, the offer deadline, how to sign and the payment-request-only warning. Attach the PDF and send it from the bookings mailbox. The trip is marked Sent at once.",
-    "Preview email shows the text first; Copy email text copies it for webmail.",
-    "When the signed PDF comes back, drop it on the panel (or choose the file). It saves to the trip straight away, is logged in the audit trail and is filed in Google Drive under the trip's 04 Signed contracts folder.",
-    "No answer after 24 hours: the button changes to Send a reminder, with a reminder email. Reminders are counted on the trip.",
-    "Record client payment unlocks only after the signed contract is saved. A revision needs a new signature; the earlier signed copy stays in the file."
    ],
-   "trouble": [
-    [
-     "Nothing opens when I press Send for signature",
-     "Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF."
-    ],
-    [
-     "The email is cut short in my mail program",
-     "Some programs limit very long emails from a link. Use Copy email text instead."
-    ],
-    [
-     "Record client payment is missing",
-     "The signed contract is not saved yet. Drop the signed PDF on the Client signature panel."
-    ],
-    [
-     "The trip shows Unsigned on Today or in Control",
-     "The confirmation was issued more than 48 hours ago and no signed copy is saved. Send a reminder, or check the offer deadline."
-    ],
-    [
-     "The charterer changed the PDF before signing",
-     "Do not accept it. Prepare a revision with the change, issue it and send the new version."
-    ]
+   "try": [
+    "owner",
+    "As Test Owner, approve the trip and prepare the confirmation. Then switch to Test Broker and read its status."
    ],
-   "tips": [
-    "Send the PDF the same hour it is issued; most delays come from the client's side.",
-    "Check the signed copy matches the reference and revision number before saving it.",
-    "Use the bookings mailbox for every send, never a personal account."
-   ]
+   "sys": 17
   },
   {
    "id": "money",
+   "n": "H.11",
    "title": "Payments, flight and commission",
-   "who": "Operations records; everyone sees their own commission",
+   "who": "The owner, or a person the owner has mandated, records; everyone sees their own commission",
    "purpose": "Record money and flights so commission is right and on time.",
    "steps": [
-    "Operations records the date the client payment cleared in the payment account.",
-    "Operations records the operator payment.",
-    "After the last leg, operations records the flight date.",
-    "Commission appears in the month the trip flew, paid by the 15th of the next month; the owner marks it paid.",
-    "Client payment can be recorded only after the signed contract is saved. Commission payouts need a payment reference and date, and are logged in the audit trail."
+    "The owner records the date the client payment cleared in the payment account.",
+    "The owner records the operator payment.",
+    "After the last leg, the owner records the flight date.",
+    "Commission appears in the month the trip flew, paid by the 15th of the next month; the owner marks it paid."
    ],
    "trouble": [
     [
      "My trip flew but no commission",
-     "The client payment has not been recorded, or the flight date has not. Ask operations."
+     "The client payment has not been recorded, or the flight date has not. Ask the owner."
     ],
     [
      "Commission seems low",
      "Commission is a share of gross profit, including the margin on fixed-price extras; at-cost items carry no margin."
-    ],
-    [
-     "Mark paid asks for a reference",
-     "Enter the payout transfer reference and the date paid; this proves the payout and appears in the broker's commission view."
     ]
    ],
    "tips": [
     "Chase unpaid confirmations after 5 days: the Control page flags them.",
     "Record flights the day they happen, so the dashboard stays true."
-   ]
+   ],
+   "try": [
+    "owner",
+    "As Test Owner, record the client payment and the flight, then switch to Test Broker and see the commission."
+   ],
+   "sys": 20
   },
   {
    "id": "leads",
+   "n": "H.12",
    "title": "My leads and adding prospects",
-   "who": "Brokers and consultants",
+   "who": "Brokers",
    "purpose": "Work the organisations assigned to you and add the ones you know.",
    "steps": [
     "Open My leads. Leads are sorted by when contact is due.",
     "Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note.",
     "Add a prospect: organisation, segment, country, public source link, contact route and why they charter.",
     "Add or correct a contact route on any lead to keep the database current.",
-    "Open an enquiry from a lead when the organisation has a trip.",
-    "Each contact needs a note of at least 15 characters: who you reached by role, and what was said or agreed. Points count only contacts with a real note, and the owner spot-checks two contacts per broker each week."
+    "Open an enquiry from a lead when the organisation has a trip."
    ],
    "trouble": [
     [
@@ -436,34 +407,31 @@
     [
      "A lead disappeared",
      "It went cold and moved to another broker, or it was marked Do not contact."
-    ],
-    [
-     "Log contact says the note is too short",
-     "Write what actually happened, for example the role you spoke to and the next step."
-    ],
-    [
-     "My lead went back from Enquiry to Contacted",
-     "You marked it Enquiry but no trip was opened from it within 14 days. Open the enquiry from the lead, or keep following up."
     ]
    ],
    "tips": [
     "Contact new leads the same day: the 48-hour clock starts at assignment.",
     "Every organisation you add earns points and a bigger share of new leads; ten a month is the minimum, not the target.",
     "Anyone who opts out is Do not contact at once, for everyone."
-   ]
+   ],
+   "try": [
+    "broker",
+    "As Test Broker, open My leads, open a lead and log a contact with a proper note."
+   ],
+   "sys": 7
   },
   {
    "id": "prospects",
+   "n": "H.13",
    "title": "Prospects database",
-   "who": "Owner and operations",
+   "who": "Owner",
    "purpose": "The global list of organisations, with sources, contact routes and status.",
    "steps": [
-    "Three sections: Clients and partners, Operators, and Service partners (the owner also has Investors and partners).",
-    "Filter by region, country, province, segment, type, status or batch, or search.",
+    "Filter by region, country, province, segment, type and status, or search.",
     "Open a prospect to see why, how to approach, contact routes, source, assignment history and the contact log.",
     "Assign it to a broker, or mark Do not contact.",
-    "Tick several (or use the Batch filter and tick all) to assign them to one broker in one go.",
-    "Add a prospect with its public source."
+    "Add a prospect with its public source.",
+    "Research agent (owner): switch it on, choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list), set the monthly AI limit (at most USD 100) and press Save settings. Run now asks for a run outside the schedule; it starts within 3 hours. The panel shows the last run, what it added and the month's AI spend. Every prospect rule applies to what it adds."
    ],
    "trouble": [
     [
@@ -473,6 +441,14 @@
     [
      "Status shows Your decision",
      "It went cold with three brokers. Restart the rotation or mark Do not contact."
+    ],
+    [
+     "Research agent says it is waiting for the AI key",
+     "Add ANTHROPIC_API_KEY under GitHub → Settings → Secrets and variables → Actions. Never paste a key in a chat or a message."
+    ],
+    [
+     "Research agent run failed",
+     "It tries again at the next run. If it fails twice, check the AI limit and the key."
     ]
    ],
    "tips": [
@@ -482,15 +458,15 @@
   },
   {
    "id": "rotation",
+   "n": "H.14",
    "title": "Prospect rotation",
-   "who": "Runs automatically; owner and operations can run it",
+   "who": "Runs automatically; the owner can run it",
    "purpose": "Give every broker a fair, steady flow of leads and never let a prospect go cold.",
    "steps": [
-    "Every 3 hours, and when the owner or operations opens the portal, the round imports prospects brokers added, catches duplicates, merges contact updates and assigns free prospects.",
+    "Every 3 hours, and when the owner opens the portal, the round imports prospects brokers added, catches duplicates, merges contact updates and assigns free prospects.",
     "Each broker is scored on country and region fit, follow-up record, conversions and fair share; brokers who add prospects get a bigger share.",
     "No first contact within 48 hours, or no follow-up for 14 days, and the lead moves to the next broker with its history. After three brokers it goes to the owner.",
-    "Not now leads come back after 90 days to a different broker.",
-    "Only one round runs at a time: a round holds a 10-minute lock, so a second tab or the scheduled job waits. If a round stops half-way, the next one repairs it: a prospect is never left without its lead, and copies left with the previous broker are removed."
+    "Not now leads come back after 90 days to a different broker."
    ],
    "trouble": [
     [
@@ -500,10 +476,6 @@
     [
      "Rules need changing",
      "The owner changes them in Settings > Prospect assignment and incentives."
-    ],
-    [
-     "Run now says a round is already running",
-     "Another tab or the scheduled job is running one. Wait a few minutes; the lock ends by itself after 10 minutes."
     ]
    ],
    "tips": [
@@ -513,8 +485,9 @@
   },
   {
    "id": "points",
+   "n": "H.15",
    "title": "Points and leaderboard",
-   "who": "Brokers and consultants",
+   "who": "Brokers",
    "purpose": "Make good habits visible and reward them.",
    "steps": [
     "Points this month: 3 per organisation added, 1 per lead contacted per day, 1 per contact route added or corrected (up to 20), 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold.",
@@ -528,10 +501,16 @@
    ],
    "tips": [
     "Flown trips are worth the most; but daily contacts and added prospects keep you ahead early in the month."
-   ]
+   ],
+   "try": [
+    "broker",
+    "On Today, find your points and your place in the team."
+   ],
+   "sys": 23
   },
   {
    "id": "ai",
+   "n": "H.16",
    "title": "AI assistant and co-pilot",
    "who": "Everyone",
    "purpose": "A second pair of eyes on every trip, and answers to questions about the rules.",
@@ -539,12 +518,12 @@
     "On a trip, use the co-pilot: check the trip, draft an email or suggest the next step.",
     "On a lead, use Suggest approach for a first message with an opt-out line.",
     "In Assistant, ask any question about the rules, a trip or an operator.",
-    "The owner and operations can write the daily briefing in Control."
+    "The owner can write the daily briefing in Control."
    ],
    "trouble": [
     [
-     "The co-pilot or Assistant asks you to sign in again",
-     "AI features need a real sign-in. They do not work in the test version."
+     "The co-pilot asks for permission",
+     "Allow Claude when asked, or in the artifact's Permissions menu."
     ],
     [
      "Too many requests",
@@ -552,14 +531,20 @@
     ]
    ],
    "tips": [
-    "The AI never sees client names or contact details; describe the trip, not the person.",
+    "The co-pilot sends the AI the trip facts, never passenger names or contact details. Never type passport, ID or bank numbers, passenger names or private contact details into the Assistant or a trip note (Module 3.7).",
     "Treat AI output as a draft: you are responsible for what you send."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Open Assistant to see where questions go. Answers work only in the real portal."
+   ],
+   "sys": 24
   },
   {
    "id": "control",
+   "n": "H.17",
    "title": "Control",
-   "who": "Owner and operations",
+   "who": "Owner",
    "purpose": "See signs that business is leaving the portal or that money is late.",
    "steps": [
     "Read the flags: unpaid confirmations, old quotes and enquiries, price differences, the same client with two brokers, low quote-to-booking rates.",
@@ -578,31 +563,51 @@
   },
   {
    "id": "team",
-   "title": "Team and booking rights",
+   "n": "H.18",
+   "title": "Team and authorisation",
    "who": "Owner",
-   "purpose": "Approve people, end access and give booking rights.",
+   "purpose": "Approve people, end access and choose who may authorise trips besides you.",
    "steps": [
-    "Approve or decline requests to join. The person reloads the portal to start.",
-    "New people sign in with a temporary password you create in Supabase: Authentication, Users, Add user, tick Auto Confirm User. Give it by phone or in person; they choose their own at first sign-in.",
-    "Tick Booking rights to let a broker also work as operations: they then see every trip, the operations queue, operators, service partners and supplier quotes, and can issue confirmations and record payments on other people's trips, never their own.",
-    "End access the same day someone leaves."
+    "Approve or decline requests to join (Onboarding page), and send the agreement once the qualification checklist is complete.",
+    "You authorise every trip by default. In Team, tick May authorise to mandate someone else (never for their own trips), or give supervisor rights; every decision is logged with your name.",
+    "When someone leaves, open their file in Onboarding and press End engagement: 30 days' notice, by agreement or for breach. Access ends on the end date, open enquiries go back to the pool and prospects back into rotation.",
+    "Client handover (agreement clause 8.5): the leaving file lists the broker's clients from their trips. Name a successor for each and press Hand over. The successor gets the client as an own lead with the trip history and a call due within 48 hours; the leaving broker sees a task to introduce the successor personally before the end date. Tick Introduced when done; the file shows Contacted when the successor logs the first call.",
+    "You can take clients yourself: choose Me as the successor, or press Hand all to me.",
+    "Lock now (fraud or another ground for ending at once, agreement clause 8.3): press Lock now next to the person in Team, write the reason and confirm. Access ends at once (the database refuses every request from that login), rights and alerts are removed, open enquiries go back to the pool, prospects back into rotation, and all their clients and own leads move to you. Open trips stay with you to finish. No notice goes to members.",
+    "Today reminds you of clients not yet handed over, calls overdue and data deletion not confirmed."
    ],
    "trouble": [
     [
-     "A broker with booking rights still sees only their own trips",
-     "They need to reload the portal once after you tick Booking rights."
+     "A leaving broker has no clients in the handover list",
+     "Their clients come from their trips; leads that never booked go to you automatically."
     ],
     [
-     "A new person is not under Requests to join",
-     "They have not sent the form yet: sign in, choose their own password, fill in Join and tick the agreement."
+     "The successor's call shows overdue",
+     "Ask the successor to call today and log it on the lead; reassign if they cannot."
     ]
    ],
    "tips": [
-    "Booking rights open every trip and the commission screen: give them only to trusted people."
+    "Hand over clients on the day notice is given, not at the end: the leaving broker can still make the personal introduction.",
+    "Give each client to a broker who serves the same region or language."
    ]
   },
   {
+   "id": "reports",
+   "n": "H.19a",
+   "title": "Reports",
+   "who": "Owner",
+   "purpose": "Charts for a quick overview and every report to download.",
+   "steps": [
+    "Open Reports. The charts show booked value and gross profit by month, trips by stage, open trips by red, amber and clear trip checks, and gross profit by broker; hover a bar for the details.",
+    "Download a report: Trips, Payments, Commission, Compliance (KYC, sanctions screening, trip checks, insurance, audit) or Operator library, as CSV, as one Excel file with every report, or as a print view to save as PDF.",
+    "Client email and phone and prospect contact details are never exported. Every download is logged in the access log."
+   ],
+   "trouble": [],
+   "tips": []
+  },
+  {
    "id": "settings",
+   "n": "H.19",
    "title": "Settings",
    "who": "Owner",
    "purpose": "Commercial terms, company details, assignment rules and backup.",
@@ -610,7 +615,8 @@
     "Terms: margin, standard booking value, commission rates.",
     "Company details: printed on every confirmation; needed before the first issue.",
     "Prospect assignment and incentives: contact times, limits, minimum adds, extra lead share, leaderboard visibility.",
-    "Backup: download a full copy, or back up to Google Drive now."
+    "Backup: download a full copy at any time; the nightly backup runs by itself.",
+    "AI spend: this month's estimated AI spend against the monthly limit (USD 40 by default, set in Prospects > Research agent, at most USD 100). At the cap the AI pauses until the next month; raise the cap only if the AI pays for itself."
    ],
    "trouble": [
     [
@@ -623,44 +629,19 @@
    ]
   },
   {
-   "id": "launch",
-   "title": "Launch checklist and example data",
-   "who": "Owner",
-   "purpose": "One list of what must be true before brokers start, and a safe way to remove the beta example data.",
-   "steps": [
-    "Open Settings and scroll to Launch checklist. Items the portal can check tick themselves; tick the rest yourself once done.",
-    "Press Remove example data, read the warning and confirm. The portal copies everything to Google Drive first, then deletes every trip, lead, payout and person marked Example. Prospects held by example brokers go back into the rotation.",
-    "Every tick and the clean-up are recorded in the audit log."
-   ],
-   "trouble": [
-    [
-     "The backup item stays unticked",
-     "Press Back up to Google Drive now in Settings; the item ticks when a copy less than a day old exists."
-    ],
-    [
-     "The clean-up stopped half-way",
-     "Run it again; it only removes what is still marked Example."
-    ]
-   ],
-   "tips": [
-    "Do the restore test before launch, not after.",
-    "Turn on usage credits before launch so scheduled jobs never wait for a limit."
-   ]
-  },
-  {
    "id": "security",
+   "n": "H.20",
    "title": "Security and access log",
    "who": "Owner",
    "purpose": "Keep the portal ringfenced.",
    "steps": [
     "Review who opened the portal and when.",
-    "Every person has their own login: end access in Team the day someone leaves.",
-    "The investor list is visible only to the owner; the database enforces it."
+    "Keep the Share menu to named people: brokers Contributor; never a public link."
    ],
    "trouble": [
     [
      "Someone unknown appears in the access log",
-     "End their access in Team at once and delete their user in Supabase."
+     "End their access and remove them from the Share menu at once."
     ]
    ],
    "tips": [
@@ -668,44 +649,24 @@
    ]
   },
   {
-   "id": "audit",
-   "title": "Audit log",
-   "who": "Owner (operations write to it)",
-   "purpose": "A record of every decision that touches money, access or data, with who did it and when.",
-   "steps": [
-    "Open Security. The audit log lists confirmations, signatures, payments, payouts, approvals, access changes, terms changes, restores and clean-ups, newest first.",
-    "It is included in every backup."
-   ],
-   "trouble": [
-    [
-     "The log is empty",
-     "Nothing has been recorded since the audit log was added. Press Refresh."
-    ]
-   ],
-   "tips": [
-    "Read it weekly alongside Control."
-   ]
-  },
-  {
    "id": "backup",
+   "n": "H.21",
    "title": "Backups",
    "who": "Owner",
    "purpose": "An independent copy of everything in the portal.",
    "steps": [
-    "Every day at 02:17 Bangkok time the database is copied to Google Drive, checked file by file.",
-    "When the owner opens the portal, new documents and issued PDFs are copied to Google Drive byte for byte.",
-    "Settings > Backup: download a full copy at any time.",
-    "To check or restore: Settings > Check or restore a backup. Choose a backup file; the portal shows what is missing or different, and changes nothing until you press Restore. Signed contracts are copied to Drive with the other files.",
-    "Google Drive is filed by itself: Documents and PDFs / year / year-month / one folder per trip named first departure date · reference · client · route, with subfolders 01 Operator and aircraft, 02 Client KYC and passports, 03 Confirmations, 04 Signed contracts and 05 Trip risk and other. Every file name starts with the reference, so Drive search finds a whole booking by reference, client or airport code. Database copies go to Database snapshots / Portal snapshots / year / year-month."
+    "Every night at 02:17 Bangkok time the whole database is copied, encrypted with the owner's backup passphrase and kept for 90 days outside the database (GitHub, Portal jobs).",
+    "Uploaded documents and issued PDFs stay in the portal's file store.",
+    "Settings > Backup: download a full copy at any time, and test a restore with the restore check."
    ],
    "trouble": [
     [
-     "Google Drive asks for permission",
-     "Allow the portal to use Google Drive once."
+     "The nightly backup has not reported",
+     "Open Portal jobs on GitHub and read the last backup run; it runs again the next night."
     ],
     [
-     "Backup shows an old date",
-     "The scheduled job may have hit the usage limit; use Back up to Google Drive now."
+     "A restore check fails",
+     "Use the copy from the night before and tell the owner at once."
     ]
    ],
    "tips": [
@@ -713,39 +674,8 @@
    ]
   },
   {
-   "id": "training",
-   "title": "Training",
-   "who": "Everyone",
-   "purpose": "Practise a whole booking, from the client's first request to commission, with training versions of Avinode and the payment system. Nothing is real: no trip is created, nothing goes to operations or is issued, and nothing counts toward commission or the leaderboard.",
-   "steps": [
-    "Start with Portal course: lessons for your role, each with a Try it task in the test version and a short check.",
-    "Open Training and choose an exercise. There are six, from a first London–Nice booking to a winter long-haul flight, a US domestic flight, a short-notice trip and a red-flag payer.",
-    "Read the client's request, then enter the enquiry with the airport search, exactly as the client asked.",
-    "Training Avinode shows the operators who answered. Read the safety audit, seats, operator's country and notes before choosing: some offers are traps (no safety rating, cabotage, expired insurance, no animals, too few seats).",
-    "Record the client's requests and the operational extras, each as included, fixed price or at cost.",
-    "Work out the client price yourself: (operator price + direct costs) ÷ 0.91, rounded up.",
-    "Tick the seven checks and decide: send to operations, or decline with the reason.",
-    "Training operations reviews the file. Anything wrong comes back with the reason; fix it and submit again.",
-    "Read the training confirmation (marked TRAINING, never issued), mark it signed, then create the training payment request: what is due on signature, when the balance is due, and what the operator is paid.",
-    "See the flight, gross profit and the commission it would earn, then your score out of 100."
-   ],
-   "trouble": [
-    [
-     "The airport is not accepted",
-     "Pick it from the list that appears as you type, or type the ICAO code."
-    ],
-    [
-     "My run came back from operations",
-     "Read the red notes: each names the rule. Go back to that step, fix it and submit again. The first-time bonus is lost, the rest still counts."
-    ]
-   ],
-   "tips": [
-    "Run each exercise until you score 80 or more: the operators and figures stay the same, so you can see what you missed.",
-    "The owner and operations see everyone's training scores."
-   ]
-  },
-  {
    "id": "help",
+   "n": "H.22",
    "title": "Help and FAQ",
    "who": "Everyone",
    "purpose": "Answers in seconds, and a FAQ that grows from real questions.",
@@ -763,18 +693,24 @@
    "tips": [
     "Search before asking: most answers are already there.",
     "Never put client names or passport details in a question."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Open Help and search the guide for a word such as cancellation."
+   ],
+   "sys": 25
   },
   {
    "id": "following",
+   "n": "H.23",
    "title": "Flight following",
-   "who": "Operations and the 24/7 desk (brokers see the status)",
+   "who": "Brokers and the on-call broker; the owner, or a person the owner has mandated, records the flight",
    "purpose": "Every trip is followed until the last passenger has landed, so the client hears about a change from us first.",
    "steps": [
     "Open the trip. The Flight following panel appears once the confirmation is issued.",
     "For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note.",
-    "Tell the client at once about any delay, diversion or cancellation, and tell the broker.",
-    "When every leg has landed and the client has paid, press Last leg landed: record flight. The trip moves to Flown and aftercare opens for the broker."
+    "Tell the client at once about any delay, diversion or cancellation, and, if you are the on-call broker, tell the trip's broker.",
+    "When every leg has landed and the client has paid, the owner presses Last leg landed: record flight. The trip moves to Flown and aftercare opens for the broker."
    ],
    "trouble": [
     [
@@ -783,16 +719,22 @@
     ],
     [
      "I cannot change a leg",
-     "Only operations and the owner edit leg status; brokers see it read-only."
+     "Only the trip's broker, the on-call broker and the owner edit leg status."
     ]
    ],
    "tips": [
     "Take times from the operator's movement message, never estimate.",
     "Keep notes short and factual: the broker reads them before calling the client."
-   ]
+   ],
+   "try": [
+    "broker",
+    "On a confirmed trip, set the first leg to Departed with a time and a short note."
+   ],
+   "sys": 19
   },
   {
    "id": "aftercare",
+   "n": "H.24",
    "title": "Aftercare, rating and service recovery",
    "who": "Brokers; the owner sees everything",
    "purpose": "Each client is called within 24 hours of the last landing, asked for a rating, and any problem is put right (manual 11.5).",
@@ -817,13 +759,19 @@
    "tips": [
     "Ratings go into the operator scorecard: they decide which operators we book.",
     "Never publish a rating or comment without the client's written permission, and never write or ask for reviews in exchange for anything."
-   ]
+   ],
+   "try": [
+    "broker",
+    "On a flown trip, follow the aftercare steps: log the follow-up and open the rating request."
+   ],
+   "sys": 21
   },
   {
    "id": "debrief",
+   "n": "H.25",
    "title": "Post-trip debrief (supervised bookings)",
-   "who": "Trainees in stage 6, mentors and operations",
-   "purpose": "Each supervised booking is reviewed by trainee, mentor and operations within 3 working days (manual 14.6, template B.9).",
+   "who": "Trainees in stage 6, mentors and the owner, or a person the owner has mandated",
+   "purpose": "Each supervised booking is reviewed by trainee, mentor and the owner within 3 working days (manual 14.6, template B.9).",
    "steps": [
     "The owner ticks Supervised for the broker in Team.",
     "After each of that broker's flights, the Aftercare panel shows the debrief with three parts.",
@@ -838,10 +786,16 @@
    ],
    "tips": [
     "Be specific: one clear action is worth more than a long list."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Read the debrief steps; they apply to your supervised bookings."
+   ],
+   "sys": 29
   },
   {
    "id": "roleplay",
+   "n": "H.26",
    "title": "Roleplay lab",
    "who": "Everyone in training; the owner sees the team summary",
    "purpose": "Practise difficult calls out loud with an AI client, assistant, family-office manager or operator, and get scored on the lab sheet (manual 14.4–14.5).",
@@ -864,10 +818,16 @@
    "tips": [
     "Never use real client names in practice.",
     "The AI score is for practice. Certification is decided by the director's scored lab."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Open Training, Roleplay lab and read the scenarios. The AI client works only in the real portal."
+   ],
+   "sys": 27
   },
   {
    "id": "cards",
+   "n": "H.27",
    "title": "Regional cards",
    "who": "Everyone; the owner edits and approves",
    "purpose": "Green, amber and red rules per region for live enquiries (manual Appendix J), with the date each card was last verified.",
@@ -885,12 +845,18 @@
    ],
    "tips": [
     "The card does not replace the trip risk screen, which is still recorded for every enquiry."
-   ]
+   ],
+   "try": [
+    "broker",
+    "Open Training, Regional cards and read one card."
+   ],
+   "sys": 28
   },
   {
    "id": "scorecard",
+   "n": "H.28",
    "title": "Operator scorecard and service scores",
-   "who": "Owner and operations",
+   "who": "Owner",
    "purpose": "Shows how clients rate each operator and each broker, from the ratings recorded in aftercare.",
    "steps": [
     "Open Control and scroll to Operator scorecard and Service scores.",
@@ -908,32 +874,149 @@
    ]
   },
   {
-   "id": "approval",
-   "title": "Owner approval of bookings",
-   "who": "Owner; operations and brokers see the status",
-   "purpose": "While it is switched on, no confirmation is issued until the owner has approved the booking, from one card that holds everything needed to decide.",
+   "id": "phone",
+   "title": "Phone use and colour theme",
+   "who": "Everyone",
+   "purpose": "The portal works one-handed on a phone: the main sections at the bottom, everything else under Menu.",
    "steps": [
-    "A broker sends a trip to operations. It appears at the top of Today under Bookings to approve, soonest departure first, and in the trip file.",
-    "Each card shows the client and payer, legs with dates and passengers, aircraft and operator, operator price, client price, Archē margin in USD and %, deposit and balance with the due date, the broker and win chance.",
-    "Chips show what is done (green) and what is open (red): broker checks, operator price confirmed by operations, KYC and sanctions, payment request, margin, days to departure; risk flags show below.",
-    "Press Approve booking, or write a note and press Ask for changes, which sends the trip back to the broker.",
-    "After approval, operations issues the confirmation once its checks are done. If the price or operator price changes after approval, the trip comes back to you.",
-    "Switch the rule off or on with the tick box beside Bookings to approve."
+    "The bar at the bottom holds your main sections. A red number shows how many things are waiting there.",
+    "Press Menu at the top for every other section. Choosing a section closes the menu.",
+    "Each screen has its own address, so the phone's Back button and bookmarks work, and a link to a trip opens that trip.",
+    "Colour theme: choose Day, Night or Follow device in the header (under Menu on a phone). Your choice is remembered on that device."
    ],
    "trouble": [
     [
-     "Operations cannot issue",
-     "The booking is not approved yet, or the price changed since approval. Check Today."
+     "I cannot find a section",
+     "Press Menu at the top. Sections you do not have access to are not shown."
     ],
     [
-     "The card shows red chips",
-     "You can still approve the commercial deal; operations cannot issue until KYC, the payment request and the checks are done."
+     "A wide table or diagram is cut off",
+     "Swipe it sideways."
     ]
    ],
    "tips": [
-    "Approve early when the deal is right; operations finishes the checks in parallel.",
-    "When you issue a confirmation yourself, that counts as your approval."
-   ]
+    "Add the portal to your home screen from the browser's share menu for one-tap access.",
+    "If your eyes tire late in the day, switch to Night."
+   ],
+   "n": "H.29",
+   "try": [
+    "broker",
+    "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar."
+   ],
+   "sys": 2
+  },
+  {
+   "id": "testversion",
+   "title": "Test version for practice",
+   "who": "Everyone",
+   "purpose": "A copy of the portal with example data only, to try anything without risk.",
+   "steps": [
+    "Open test.html on the portal address (the academy's Try it buttons open it for you).",
+    "Choose who you act as in the orange bar: Test Broker, Test Broker 2 or Test Owner.",
+    "Everything you do stays in that browser; Reset test data starts again.",
+    "Pass a trip from Test Broker to Test Owner and back to see the whole flow."
+   ],
+   "trouble": [
+    [
+     "The AI buttons do not work",
+     "AI features need a real sign-in; they are off in the test version."
+    ],
+    [
+     "My test data is gone",
+     "It is kept per browser and device; another phone or browser has its own copy."
+    ]
+   ],
+   "tips": [
+    "Use the test version for every Try it task.",
+    "Never type real client details into the test version."
+   ],
+   "n": "H.30",
+   "try": [
+    "broker",
+    "Press Reset test data (twice), then switch to Test Broker 2 and back."
+   ],
+   "sys": 3
+  },
+  {
+   "id": "rules",
+   "title": "The rules behind every booking",
+   "who": "Everyone",
+   "purpose": "The business rules the portal enforces. Know them before your first enquiry.",
+   "steps": [
+    "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
+    "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A different margin only by the director's decision, with the reason recorded.",
+    "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
+    "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
+    "Clients pay only through a payment request. Never print, store or send bank details.",
+    "The owner, or a person the owner has mandated, authorises every booking before a confirmation is issued; a price change afterwards sends it back.",
+    "Four-eyes: nobody prices, authorises, issues or records payment on their own trip, owners included.",
+    "Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the owner, or a person the owner has mandated.",
+    "Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request; a score of 3 or less starts service recovery.",
+    "Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews."
+   ],
+   "trouble": [
+    [
+     "A client asks for our bank details",
+     "Never send them. The client pays through the payment request you create."
+    ],
+    [
+     "A client wants to fly in 3 days",
+     "Full payment is due at once, before the operator is paid. Create the payment request straight away."
+    ],
+    [
+     "You want to offer a client less than the 9% margin",
+     "Ask the director first: any other margin is the director's decision, with the reason recorded."
+    ],
+    [
+     "A client rates the trip 3 or lower",
+     "Start service recovery: call the client, find out what went wrong and tell the owner."
+    ],
+    [
+     "A happy client offers a review",
+     "Quote it publicly only with their written consent, and never reward reviews."
+    ]
+   ],
+   "tips": [
+    "If you are unsure about a rule, ask the co-pilot or Help before you send the trip for authorisation."
+   ],
+   "n": "H.31",
+   "try": [
+    "broker",
+    "Make a test enquiry with an operator price of USD 30,000 and check the client price: 30,000 ÷ 0.91, rounded up, is USD 32,968."
+   ],
+   "sys": 4
+  },
+  {
+   "id": "privacy",
+   "title": "Client data and privacy",
+   "who": "Everyone",
+   "purpose": "How we protect clients, contacts and the company.",
+   "steps": [
+    "Real client details go only into real trips in the portal: never into training, the test version, the AI or messages outside the portal.",
+    "The AI co-pilot gets trip facts only, never passport, ID or bank numbers, passenger names or private contact details. Describe the trip, not the person.",
+    "Business contacts are hidden until you press Show, opening them is recorded, and contacts cannot be exported.",
+    "Every screen carries a watermark with your name, so screenshots are traceable.",
+    "We never talk about our clients, inside or outside the company."
+   ],
+   "trouble": [
+    [
+     "A client sends passport copies by WhatsApp",
+     "Upload them to the trip in the portal, then delete them from your phone."
+    ],
+    [
+     "Someone asks who our clients are",
+     "We never name clients. Refer them to the owner."
+    ]
+   ],
+   "tips": [
+    "If you are unsure whether you may share something, don't: ask the owner first."
+   ],
+   "n": "H.32",
+   "try": [
+    "broker",
+    "Look for the watermark with your name on any screen of the test version."
+   ],
+   "sys": 5
   },
   {
    "id": "contacts",
@@ -960,18 +1043,24 @@
    "tips": [
     "Never use LinkedIn messages or bought lists to find people.",
     "Organisations first: the company's general email is often the best first route."
-   ]
+   ],
+   "n": "H.33",
+   "try": [
+    "broker",
+    "On your lead, press Show, add a business contact with a work email and its source, then press Opted out twice and see the details go."
+   ],
+   "sys": 8
   },
   {
    "id": "suppliers",
    "title": "Operators and service partners",
-   "who": "Operations, the owner and brokers with booking rights",
+   "who": "Brokers and the owner",
    "purpose": "The suppliers we can book: charter operators, and business-jet services at our key airports.",
    "steps": [
     "Prospects, Operators: charter operators with their certificate, safety audits, fleet and sanctions pre-screen. A person confirms the sanctions check before the first booking.",
     "Prospects, Service partners: FBOs and ground handlers, trip support, in-flight catering and crew hotels at our key airports. Filter by airport and category.",
     "Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle.",
-    "Suppliers are never assigned to brokers."
+    "Suppliers are never assigned to brokers as leads."
    ],
    "trouble": [
     [
@@ -985,12 +1074,18 @@
    ],
    "tips": [
     "Check IS-BAH for handlers and ARGUS or Wyvern for operators before relying on them."
-   ]
+   ],
+   "n": "H.34",
+   "try": [
+    "broker",
+    "Open Prospects, Service partners, filter airport WSSL and open Example Crew Hotel: see its minutes and shuttle."
+   ],
+   "sys": 12
   },
   {
    "id": "quotes",
    "title": "Supplier quotes",
-   "who": "Operations, the owner and brokers with booking rights",
+   "who": "Brokers and the owner",
    "purpose": "Ask several suppliers at an airport for a quote, compare them on one screen and award one.",
    "steps": [
     "Open Supplier quotes, New quote request. Choose the airport and service, the trip if there is one, when the quotes are needed and the terms.",
@@ -998,7 +1093,7 @@
     "For each supplier, copy the prepared message, send it from your work email and press I have sent it.",
     "Record each quote in USD, with how long it is valid and any changes to our terms.",
     "Compare the scores and their reasons, then Award. Whoever made the request cannot award it, and a reason is needed if you do not choose the top score.",
-    "Add the awarded cost to the trip's direct costs in Operations."
+    "Add the awarded cost to the trip's direct trip costs."
    ],
    "trouble": [
     [
@@ -1008,15 +1103,176 @@
     [
      "There is no Award button",
      "You made the request, so someone else awards it."
-    ],
-    [
-     "Saving says not set up yet",
-     "The owner must run migration 0006 in Supabase."
     ]
    ],
    "tips": [
     "Nothing is sent from the portal: you stay in control of every message."
-   ]
+   ],
+   "n": "H.35",
+   "try": [
+    "broker",
+    "Make a crew-hotel quote request at WSSL, mark it sent and record a quote."
+   ],
+   "sys": 13
+  },
+  {
+   "id": "sign",
+   "title": "Client signature",
+   "who": "The owner, or a person the owner has mandated (never on their own trip); brokers see the status",
+   "purpose": "Every issued confirmation is signed by the charterer before payment is recorded, and the signed copy is kept with the trip.",
+   "steps": [
+    "After the confirmation is issued, the trip shows a Client signature panel: Not sent, Sent or Signed.",
+    "Check the charterer's email and press Send for signature. The confirmation PDF downloads and your mail program opens a ready-written email with the itinerary, price, payment schedule, how to sign and the payment-request-only warning. Attach the PDF and send it from the bookings mailbox. The trip is marked Sent at once.",
+    "When the signed PDF comes back, drop it on the panel. It saves to the trip straight away and is logged in the audit trail.",
+    "No answer after 24 hours: the button changes to Send a reminder.",
+    "Record client payment unlocks only after the signed contract is saved. A revision needs a new signature; the earlier signed copy stays in the file."
+   ],
+   "trouble": [
+    [
+     "Nothing opens when I press Send for signature",
+     "Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF."
+    ],
+    [
+     "Record client payment is missing",
+     "The signed contract is not saved yet. Drop the signed PDF on the Client signature panel."
+    ],
+    [
+     "The charterer changed the PDF before signing",
+     "Do not accept it. Prepare a revision with the change, issue it and send the new version."
+    ]
+   ],
+   "tips": [
+    "Send the PDF the same hour it is issued.",
+    "Use the bookings mailbox for every send, never a personal account."
+   ],
+   "n": "H.36",
+   "try": [
+    "owner",
+    "On an issued confirmation, open Client signature and press Preview email."
+   ],
+   "sys": 18
+  },
+  {
+   "id": "cancel",
+   "title": "Cancelling a trip",
+   "who": "Brokers cancel their own enquiries and quotes; after that the owner, or a person the owner has mandated",
+   "purpose": "What happens when a client cancels, and what they pay.",
+   "steps": [
+    "The client cancels in writing. The charge depends on how long before the first departure we receive the notice.",
+    "Scale, as a share of the charter price: more than 14 days 25%; 7 to 14 days 40%; 72 hours to under 7 days 65%; 24 to under 72 hours 85%; under 24 hours or no-show 100%.",
+    "The client pays the higher of the scale or the operator's own cancellation charge plus our fee. Each confirmation prints the charges for that booking.",
+    "Brokers can cancel their own trip while it is an enquiry or a quote. After that, the owner, or a person the owner has mandated, cancels it with Cancel trip; any refund is handled in the payment account."
+   ],
+   "trouble": [
+    [
+     "The client cancels by phone",
+     "Ask them to confirm in writing: the time we receive it decides the charge."
+    ],
+    [
+     "The operator charges more than our scale",
+     "The client pays the operator's charge plus our fee."
+    ]
+   ],
+   "tips": [
+    "Tell the client the cancellation charges before they sign."
+   ],
+   "n": "H.37",
+   "try": [
+    "broker",
+    "Make a test enquiry, then cancel it yourself while it is still an enquiry."
+   ],
+   "sys": 22
+  },
+  {
+   "id": "training",
+   "title": "Training in the portal",
+   "who": "Everyone",
+   "purpose": "Booking practice, the roleplay lab and the regional cards. The portal course is now Systems training in the Archē Broker Academy.",
+   "steps": [
+    "Training opens Systems training in the academy and shows your progress there.",
+    "Booking practice: six exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer. Nothing is real and nothing counts toward commission.",
+    "Work out the client price yourself: (operator price + direct costs) ÷ 0.91, rounded up. Tick the checks and decide: send for authorisation, or decline with the reason.",
+    "Training authorisation reviews the file. Anything wrong comes back with the reason; fix it and submit again. You see the flight, the commission it would earn and your score out of 100."
+   ],
+   "trouble": [
+    [
+     "My practice run came back",
+     "Read the red notes: each names the rule. Go back to that step, fix it and submit again."
+    ]
+   ],
+   "tips": [
+    "Run each exercise until you score 80 or more.",
+    "The owner sees everyone's training scores."
+   ],
+   "n": "H.38",
+   "try": [
+    "broker",
+    "Open Training, Booking practice, and start the first exercise."
+   ],
+   "sys": 26
+  },
+  {
+   "id": "enquiries",
+   "title": "Website enquiries",
+   "who": "Owner",
+   "purpose": "Quote and call-back requests from the website, answered fast.",
+   "steps": [
+    "Requests from the website's quote, call-back and empty-leg alert forms appear on Today under Website enquiries.",
+    "Reply within 15 minutes, by the channel the visitor chose.",
+    "Open a trip as usual for a real request, or pass it to a broker.",
+    "Mark the enquiry handled."
+   ],
+   "trouble": [
+    [
+     "The visitor gave no email",
+     "Use the phone or messaging app they chose."
+    ]
+   ],
+   "tips": [
+    "Call-back requests are marked red: call those first."
+   ],
+   "n": "H.39"
+  },
+  {
+   "id": "audit",
+   "title": "Audit log",
+   "who": "Owner",
+   "purpose": "A record of every decision that touches money, access or data, with who did it and when.",
+   "steps": [
+    "Open Security. The audit log lists confirmations, signatures, payments, payouts, authorisations, access changes, terms changes, restores and clean-ups, newest first.",
+    "It is included in every backup."
+   ],
+   "trouble": [
+    [
+     "The log is empty",
+     "Nothing has been recorded yet. Press Refresh."
+    ]
+   ],
+   "tips": [
+    "Read it weekly alongside Control."
+   ],
+   "n": "H.40"
+  },
+  {
+   "id": "launch",
+   "title": "Launch checklist and example data",
+   "who": "Owner",
+   "purpose": "One list of what must be true before brokers start, and a safe way to remove example data.",
+   "steps": [
+    "Open Settings and scroll to Launch checklist. Items the portal can check tick themselves; tick the rest yourself once done.",
+    "Press Remove example data, read the warning and confirm. The portal makes a backup first, then deletes every trip, lead, payout and person marked Example.",
+    "Every tick and the clean-up are recorded in the audit log."
+   ],
+   "trouble": [
+    [
+     "The clean-up stopped half-way",
+     "Run it again; it only removes what is still marked Example."
+    ]
+   ],
+   "tips": [
+    "Do the restore test before launch, not after."
+   ],
+   "n": "H.41"
   },
   {
    "id": "investors",
@@ -1026,166 +1282,18 @@
    "steps": [
     "Prospects, Investors and partners: visible only to the owner; the database enforces it.",
     "Filter by potential, track, interest, industry and ticket size; each has a fit score with reasons.",
-    "Add one, or use Import list: one organisation per line (Name | Track | Country). Names already in the list and personal names are skipped.",
-    "Move a prospect from the shared list here when it is an investor rather than a client."
+    "Add one, or use Import list: one organisation per line (Name | Track | Country). Names already in the list and personal names are skipped."
    ],
    "trouble": [
     [
      "An imported organisation has no profile yet",
-     "Profiles come from the research job, which is paused until go-live."
+     "Profiles come from the research job."
     ]
    ],
    "tips": [
     "Nothing about investors appears in shared logs or summaries."
-   ]
-  },
-  {
-   "id": "testversion",
-   "title": "Test version for practice",
-   "who": "Everyone",
-   "purpose": "A copy of the portal with example data only, to try anything without risk.",
-   "steps": [
-    "Open test.html on the portal address.",
-    "Choose who you act as in the orange bar: Test Owner, Test Operations, Test Broker or Test Broker 2.",
-    "Everything you do stays in that browser; Reset test data starts again.",
-    "Pass a trip from Test Broker to Test Operations to Test Owner to see the whole flow."
    ],
-   "trouble": [
-    [
-     "The AI buttons do not work",
-     "AI features need a real sign-in; they are off in the test version."
-    ],
-    [
-     "My test data is gone",
-     "It is kept per browser and device; another phone or browser has its own copy."
-    ]
-   ],
-   "tips": [
-    "Use the test version for every Try it task in the course."
-   ]
-  },
-  {
-   "id": "rules",
-   "title": "The rules behind every booking",
-   "who": "Everyone",
-   "purpose": "The business rules the portal enforces. Know them before your first enquiry.",
-   "steps": [
-    "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
-    "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A lower margin needs the director's approval.",
-    "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
-    "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
-    "Clients pay only through a payment request. Never print, store or send bank details.",
-    "The owner approves every booking before a confirmation is issued; a price change after approval sends it back for approval.",
-    "Four-eyes: nobody prices, issues or records payment on their own trip.",
-    "Brokers set only enquiry, quoted, sent to operations or cancelled. Money stages come from operations.",
-    "Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request; a score of 3 or less starts service recovery.",
-    "Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews."
-   ],
-   "trouble": [
-    [
-     "A client asks for our bank details",
-     "Never send them. Operations sends a payment request."
-    ],
-    [
-     "A client wants to fly in 3 days",
-     "Full payment is due at once, before the operator is paid. Operations sends the payment request straight away."
-    ],
-    [
-     "You want to offer a client less than the 7% margin",
-     "Ask the director first: a lower margin needs approval."
-    ],
-    [
-     "A client rates the trip 3 or lower",
-     "Start service recovery: call the client, find out what went wrong and tell the owner."
-    ],
-    [
-     "A happy client offers a review",
-     "Quote it publicly only with their written consent, and never reward reviews."
-    ]
-   ],
-   "tips": [
-    "If you are unsure about a rule, ask the co-pilot or Help before you send the trip to operations."
-   ]
-  },
-  {
-   "id": "privacy",
-   "title": "Client data and privacy",
-   "who": "Everyone",
-   "purpose": "How we protect clients, contacts and the company.",
-   "steps": [
-    "Real client details go only into real trips in the portal: never into training, the test version, the AI or messages outside the portal.",
-    "The AI co-pilot gets trip details without client names or contact details. Describe the trip, not the person.",
-    "Business contacts are hidden until you press Show, opening them is recorded, and contacts cannot be exported.",
-    "Every screen carries a watermark with your name, so screenshots are traceable.",
-    "We never talk about our clients, inside or outside the company."
-   ],
-   "trouble": [
-    [
-     "A client sends passport copies by WhatsApp",
-     "Upload them to the trip in the portal, then delete them from your phone."
-    ],
-    [
-     "Someone asks who our clients are",
-     "We never name clients. Refer them to the owner."
-    ]
-   ],
-   "tips": [
-    "If you are unsure whether you may share something, don't: ask operations first."
-   ]
-  },
-  {
-   "id": "cancel",
-   "title": "Cancelling a trip",
-   "who": "Operations cancels; brokers can cancel their own enquiries and quotes",
-   "purpose": "What happens when a client cancels, and what they pay.",
-   "steps": [
-    "The client cancels in writing. The charge depends on how long before the first departure we receive the notice.",
-    "Scale, as a share of the charter price: more than 14 days 25%; 7 to 14 days 40%; 72 hours to under 7 days 65%; 24 to under 72 hours 85%; under 24 hours or no-show 100%.",
-    "The client pays the higher of the scale or the operator's own cancellation charge plus our brokerage fee. The operator's terms are in the confirmation's remarks.",
-    "Brokers can cancel their own trip while it is an enquiry or a quote. After that, operations cancels it in Operations with Cancel trip; any refund is handled in the payment account."
-   ],
-   "trouble": [
-    [
-     "The client cancels by phone",
-     "Ask them to confirm in writing: the time we receive it decides the charge."
-    ],
-    [
-     "The operator charges more than our scale",
-     "The client pays the operator's charge plus our brokerage fee."
-    ],
-    [
-     "The operator cancels an empty-leg booking because its own flight changed",
-     "We refund everything paid for that booking."
-    ]
-   ],
-   "tips": [
-    "Tell the client the cancellation scale before they sign."
-   ]
-  },
-  {
-   "id": "enquiries",
-   "title": "Website enquiries",
-   "who": "Owner and operations",
-   "purpose": "Quote and call-back requests from the website, answered fast.",
-   "steps": [
-    "Requests from the website's quote and call-back forms appear on Today under Website enquiries.",
-    "Reply within 15 minutes, by the channel the visitor chose.",
-    "Open a trip as usual for a real request.",
-    "Mark the enquiry handled."
-   ],
-   "trouble": [
-    [
-     "The visitor gave no email",
-     "Use the phone or messaging app they chose, such as WhatsApp, LINE or WeChat."
-    ],
-    [
-     "An enquiry you expected is not there",
-     "Reload Today. Only enquiries not yet handled are shown, up to 20."
-    ]
-   ],
-   "tips": [
-    "Call-back requests are marked red: call those first."
-   ]
+   "n": "H.42"
   }
  ],
  "faq": [
@@ -1195,7 +1303,7 @@
   ],
   [
    "When does the client pay?",
-   "25% of the charter price on signature, at least USD 2,500; the balance, including fixed-price extras, 7 calendar days before the first departure. If departure is less than 7 days away, the full price on signature. Items at cost are invoiced after the flight and paid within 10 calendar days. The charterer signs the confirmation first; operations records the payment only after the signed copy is saved in the portal."
+   "25% of the charter price on signature, at least USD 2,500; the balance, including fixed-price extras, 7 calendar days before the first departure. If departure is less than 7 days away, the full price on signature. Items at cost are invoiced after the flight and paid within 10 calendar days."
   ],
   [
    "What is the difference between a fixed-price extra and an extra at cost?",
@@ -1215,11 +1323,11 @@
   ],
   [
    "Who issues the charter confirmation?",
-   "Operations or the owner, after the operator price, KYC, sanctions screening and the payment request are done. Nobody issues, prices or records payment on their own booking."
+   "The owner, or a person the owner has mandated, after the operator price, KYC, sanctions screening and the payment request are done. Nobody checks, prices, approves, issues or records payment on their own trip."
   ],
   [
    "The airport I want is not in the list. What do I do?",
-   "Type the four-letter ICAO code. The list holds airports suitable for jets; if it is still missing, ask operations, because the runway may be too short."
+   "Type the four-letter ICAO code. The list holds airports suitable for jets; if it is still missing, ask the owner, because the runway may be too short."
   ],
   [
    "Can a client pay by bank transfer to us directly?",
@@ -1239,7 +1347,7 @@
   ],
   [
    "The client wants to change the trip after confirmation. What happens?",
-   "Operations gets the operator's new price in writing and issues a numbered revision. Changes to routing or passengers need new permits and may be refused; any difference is paid before the flight."
+   "The owner gets the operator's new price in writing and issues a numbered revision. Changes to routing or passengers need new permits and may be refused; any difference is paid before the flight."
   ],
   [
    "When is commission paid?",
@@ -1247,19 +1355,11 @@
   ],
   [
    "Who sees my leads and trips?",
-   "You, operations and the director. Other brokers cannot see them. Client details stay in the portal; copying them is blocked."
-  ],
-  [
-   "How does the client sign the confirmation?",
-   "Operations presses Send for signature: the PDF downloads and a ready-written email with the full trip details opens to attach it to. The charterer signs and replies; operations drops the signed PDF on the trip and it saves at once, and is filed in Google Drive. Payment is recorded only after that."
-  ],
-  [
-   "Can I practise a booking without it becoming real?",
-   "Yes. Open Training: six exercises take you from the client's request through training versions of Avinode and the payment system to commission. Nothing is created, sent, issued or counted, and your score shows what to work on."
+   "You, the director and any person the owner has mandated. Other brokers cannot see them. Client details stay in the portal; copying them is blocked."
   ],
   [
    "How soon after a flight must I call the client?",
-   "Within 24 hours of the last landing. Log it in the trip's Aftercare panel; after 24 hours it shows as overdue on Today and your dashboard."
+   "Within 24 hours of the last landing. Log it in the trip's Aftercare panel; after 24 hours it shows as overdue on Today."
   ],
   [
    "Can we publish a client's rating or comment?",
@@ -1278,8 +1378,8 @@
    "Proposed: yes, after you pass the written exam and 3 supervised bookings. Archē pays the ACA directly; a clawback applies if you leave within 12 months. See manual 14.1; the terms are confirmed in your agreement."
   ],
   [
-   "Why can't operations issue the confirmation?",
-   "The owner currently approves every booking. Until the owner approves it on Today, or if the price changed after approval, the confirmation cannot be issued."
+   "Where is the portal course?",
+   "It is now Systems training in the Archē Broker Academy, after the written exam: one lesson per screen, each with a Try it task in the test version and a short check. Training in the portal opens it."
   ]
  ]
 }

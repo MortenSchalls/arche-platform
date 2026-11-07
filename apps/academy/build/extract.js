@@ -12,6 +12,7 @@ const ctx={
  AlignmentType:{}, BorderStyle:{}, LOGO:null, QZ:[], BLACK:'',ACC:'',LINE:'',TINT:'',MUTED:'',WidthType:{},ShadingType:{},Table:function(){return null},TableRow:function(){return null},TableCell:function(){return null},PageBreak:function(){return null},ExternalHyperlink:function(){return null},
  quiz:(mod,items)=>({k:'quiz',mod,items}),
 };
+ctx.GUIDE=JSON.parse(fs.readFileSync('../../manual/portal-guide.json','utf8'));
 vm.createContext(ctx);
 vm.runInContext(body.replace(/^let NREF/m,'var NREF')+';this.C=C;',ctx);
 const C=ctx.C.filter(Boolean);

@@ -5742,14 +5742,14 @@
   ]
  },
  {
-  "key": "1a07a8b8",
+  "key": "cbb4605d",
   "kind": "intro",
   "where": "m14 screen 1",
   "text": [
    "Assessment and certification",
    "What you will be able to do",
    "Know how you are assessed and certified",
-   "Plan your Avinode, payment system and external training",
+   "Plan your systems, Avinode and external training",
    "Warm-up",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
    "What does a trainee need to pass the live negotiation lab at stage 5?",
@@ -5761,7 +5761,7 @@
   "say": [
    "Assessment and certification.",
    "What you will be able to do.",
-   "Know how you are assessed and certified. Plan your Avinode, payment system and external training.",
+   "Know how you are assessed and certified. Plan your systems, Avinode and external training.",
    "Warm-up.",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
    "What does a trainee need to pass the live negotiation lab at stage 5?",
@@ -5808,13 +5808,17 @@
   ]
  },
  {
-  "key": "ec032228",
+  "key": "3eda3f3d",
   "kind": "lesson",
   "where": "m14 screen 3",
   "text": [
    "Assessment and certification",
-   "14.2 Avinode and payment system training",
-   "Avinode publishes free onboarding videos and guides in its Help Center. They can be watched without logging in, so trainees can start before Archē's account is live. Complete the starter course below in order during stage 3, then take the live sessions with Avinode's onboarding team.",
+   "14.2 Systems training",
+   "Systems training is stage 3, after the written exam. It has two parts.",
+   "Part 1: The Archē portal (in the academy)",
+   "The academy step Systems training: the Archē portal takes you through every screen a broker uses, in the order of a booking: joining and sign-in, phone use, the test version, the rules and privacy, Today, leads and business contacts, a new enquiry, requests and extras, the operator quote and price, suppliers and supplier quotes, documents, the pre-issue checks with KYC, sanctions and the payment request, Send for authorisation and what the authoriser checks, the charter confirmation and signature, flight following, payments and commission, aftercare, cancelling, points, the AI assistant, Help and the training tools. Each lesson is one section of Appendix H: what the screen is for, how it works, a Try it task in the test version, what to do when something goes wrong, and a short check. The step is passed when every lesson check is right. Your progress is kept in the academy and shown in the portal under Training.",
+   "Part 2: Avinode and the payment provider (separate for now)",
+   "Avinode publishes free onboarding videos and guides in its Help Center. They can be watched without logging in, so trainees can start before Archē's account is live. Avinode is trained outside the academy for now. Complete the starter course below in order during stage 3, then take the live sessions with Avinode's onboarding team.",
    "Step 1: Before you start",
    "Step 2: Starter broker training",
    "Watch Avinode's starter broker videos in the Onboarding section of the Help Center (Appendix D.1).",
@@ -5832,8 +5836,12 @@
   ],
   "say": [
    "Assessment and certification.",
-   "Avinode and payment system training.",
-   "Avinode publishes free onboarding videos and guides in its Help Center. They can be watched without logging in, so trainees can start before ar Kay's account is live. Complete the starter course below in order during stage 3, then take the live sessions with Avinode's onboarding team.",
+   "Systems training.",
+   "Systems training is stage 3, after the written exam. It has two parts.",
+   "Part 1, The ar Kay portal, in the academy.",
+   "The academy step Systems training, the ar Kay portal takes you through every screen a broker uses, in the order of a booking, joining and sign-in, phone use, the test version, the rules and privacy, Today, leads and business contacts, a new enquiry, requests and extras, the operator quote and price, suppliers and supplier quotes, documents, the pre-issue checks with K Y C, sanctions and the payment request, Send for authorisation and what the authoriser checks, the charter confirmation and signature, flight following, payments and commission, aftercare, cancelling, points, the A I assistant, Help and the training tools. Each lesson is one section of Appendix H, what the screen is for, how it works, a Try it task in the test version, what to do when something goes wrong, and a short check. The step is passed when every lesson check is right. Your progress is kept in the academy and shown in the portal under Training.",
+   "Part 2, Avinode and the payment provider, separate for now.",
+   "Avinode publishes free onboarding videos and guides in its Help Center. They can be watched without logging in, so trainees can start before ar Kay's account is live. Avinode is trained outside the academy for now. Complete the starter course below in order during stage 3, then take the live sessions with Avinode's onboarding team.",
    "Step 1, Before you start.",
    "Step 2, Starter broker training.",
    "Watch Avinode's starter broker videos in the Onboarding section of the Help Center, Appendix D, section 1.",
@@ -6096,6 +6104,2301 @@
   ],
   "say": [
    "Not quite. A supervised booking counts only when trainee, mentor and owner have each completed their part of the post-trip debrief."
+  ]
+ },
+ {
+  "key": "e962c6e2",
+  "kind": "intro",
+  "where": "sys screen 1",
+  "text": [
+   "Systems training: the Archē portal",
+   "Every screen of the Archē portal that a broker uses, in the order of a booking. Each lesson says what the screen is for and how it works, gives you a Try it task in the test version, and shows what to do when something goes wrong. Open the test version in a second tab and do each Try it task as you go: it holds example data only. The check at the end has one question per lesson, and every answer must be right. Avinode is trained separately.",
+   "What you will be able to do",
+   "Use every screen of the Archē portal a broker needs, in the order of a booking",
+   "Practise each one safely in the test version",
+   "Know what to do when a screen does not let you go on",
+   "Warm-up",
+   "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
+   "Joining, roles and access: The portal will not sign me in. What do you do?",
+   "aUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner.",
+   "bPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
+   "cOne of the required items is missing; the note under the button lists them.",
+   "dAsk them to confirm in writing: the time we receive it decides the charge."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Every screen of the ar Kay portal that a broker uses, in the order of a booking. Each lesson says what the screen is for and how it works, gives you a Try it task in the test version, and shows what to do when something goes wrong. Open the test version in a second tab and do each Try it task as you go, it holds example data only. The check at the end has one question per lesson, and every answer must be right. Avinode is trained separately.",
+   "What you will be able to do.",
+   "Use every screen of the ar Kay portal a broker needs, in the order of a booking. Practise each one safely in the test version. Know what to do when a screen does not let you go on.",
+   "Warm-up.",
+   "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
+   "Joining, roles and access, The portal will not sign me in. What do you do?",
+   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. One of the required items is missing, the note under the button lists them. D. Ask them to confirm in writing, the time we receive it decides the charge."
+  ]
+ },
+ {
+  "key": "bb3f2b4a",
+  "kind": "feedback",
+  "where": "sys screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Use the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner."
+  ]
+ },
+ {
+  "key": "2781d37b",
+  "kind": "feedback",
+  "where": "sys screen 1 try 3",
+  "text": [
+   "Not quite. You will meet this in the module. Use the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner."
+  ],
+  "say": [
+   "Not quite. You will meet this in the module. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner."
+  ]
+ },
+ {
+  "key": "58be81f8",
+  "kind": "lesson",
+  "where": "sys screen 2",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.1 Joining, roles and access",
+   "Only approved people can use the portal, and each person sees only what their role needs.",
+   "Who uses it: Everyone",
+   "How it works",
+   "Open the portal address and sign in with the email you were invited with: Sign in with Microsoft, Email me a sign-in link, or your password if you set one. Forgot password? sends a link to set a new one.",
+   "First time: fill in Join with your full legal name as on your contract, the country you work from and your academy completion code, and tick the portal agreement.",
+   "Wait for approval. The director approves every broker before the first enquiry.",
+   "Your role decides what you see: brokers see their own trips, leads and commission; the owner, or a person the owner has mandated, sees every trip and the Authorisation queue; the owner sees everything.",
+   "Try it in the test version, as Test Broker",
+   "Open the test version and switch between Test Broker and Test Owner in the orange bar: compare the menus.",
+   "If something goes wrong",
+   "The portal will not sign me inUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner.",
+   "I am stuck on Request sentThe director has not approved you yet. Ask the director; approval needs your contract and academy code.",
+   "I see Access endedYour access was ended. Contact the owner if you think this is a mistake.",
+   "I cannot see a trip or lead a colleague mentionsBrokers see only their own trips and leads. Ask the owner.",
+   "Tips",
+   "Always sign in with the email you were invited with: your trips, leads and academy progress are tied to it.",
+   "Bookmark the portal link on your phone; every page works on a small screen.",
+   "Owners: Team > Invite someone to join shows where each person is in joining: the step they are on out of nine, the academy modules passed, a progress bar and when they last signed in. Log opens every step with its date, newest first."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Joining, roles and access.",
+   "Only approved people can use the portal, and each person sees only what their role needs.",
+   "Who uses it, Everyone.",
+   "How it works.",
+   "Open the portal address and sign in with the email you were invited with, Sign in with Microsoft, Email me a sign-in link, or your password if you set one. Forgot password? sends a link to set a new one. First time, fill in Join with your full legal name as on your contract, the country you work from and your academy completion code, and tick the portal agreement. Wait for approval. The director approves every broker before the first enquiry. Your role decides what you see, brokers see their own trips, leads and commission, the owner, or a person the owner has mandated, sees every trip and the Authorisation queue, the owner sees everything.",
+   "Try it in the test version, as Test Broker.",
+   "Open the test version and switch between Test Broker and Test Owner in the orange bar, compare the menus.",
+   "If something goes wrong.",
+   "The portal will not sign me in. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner. I am stuck on Request sent. The director has not approved you yet. Ask the director, approval needs your contract and academy code. I see Access ended. Your access was ended. Contact the owner if you think this is a mistake. I cannot see a trip or lead a colleague mentions. Brokers see only their own trips and leads. Ask the owner.",
+   "Tips.",
+   "Always sign in with the email you were invited with, your trips, leads and academy progress are tied to it. Bookmark the portal link on your phone, every page works on a small screen. Owners, Team > Invite someone to join shows where each person is in joining, the step they are on out of nine, the academy modules passed, a progress bar and when they last signed in. Log opens every step with its date, newest first."
+  ]
+ },
+ {
+  "key": "ed3d8e48",
+  "kind": "lesson",
+  "where": "sys screen 3",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.2 Phone use and colour theme",
+   "The portal works one-handed on a phone: the main sections at the bottom, everything else under Menu.",
+   "Who uses it: Everyone",
+   "How it works",
+   "The bar at the bottom holds your main sections. A red number shows how many things are waiting there.",
+   "Press Menu at the top for every other section. Choosing a section closes the menu.",
+   "Each screen has its own address, so the phone's Back button and bookmarks work, and a link to a trip opens that trip.",
+   "Colour theme: choose Day, Night or Follow device in the header (under Menu on a phone). Your choice is remembered on that device.",
+   "Try it in the test version, as Test Broker",
+   "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar.",
+   "If something goes wrong",
+   "I cannot find a sectionPress Menu at the top. Sections you do not have access to are not shown.",
+   "A wide table or diagram is cut offSwipe it sideways.",
+   "Tips",
+   "Add the portal to your home screen from the browser's share menu for one-tap access.",
+   "If your eyes tire late in the day, switch to Night."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Phone use and colour theme.",
+   "The portal works one-handed on a phone, the main sections at the bottom, everything else under Menu.",
+   "Who uses it, Everyone.",
+   "How it works.",
+   "The bar at the bottom holds your main sections. A red number shows how many things are waiting there. Press Menu at the top for every other section. Choosing a section closes the menu. Each screen has its own address, so the phone's Back button and bookmarks work, and a link to a trip opens that trip. Colour theme, choose Day, Night or Follow device in the header, under Menu on a phone. Your choice is remembered on that device.",
+   "Try it in the test version, as Test Broker.",
+   "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar.",
+   "If something goes wrong.",
+   "I cannot find a section. Press Menu at the top. Sections you do not have access to are not shown. A wide table or diagram is cut off. Swipe it sideways.",
+   "Tips.",
+   "Add the portal to your home screen from the browser's share menu for one-tap access. If your eyes tire late in the day, switch to Night."
+  ]
+ },
+ {
+  "key": "25285343",
+  "kind": "lesson",
+  "where": "sys screen 4",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.3 Test version for practice",
+   "A copy of the portal with example data only, to try anything without risk.",
+   "Who uses it: Everyone",
+   "How it works",
+   "Open test.html on the portal address (the academy's Try it buttons open it for you).",
+   "Choose who you act as in the orange bar: Test Broker, Test Broker 2 or Test Owner.",
+   "Everything you do stays in that browser; Reset test data starts again.",
+   "Pass a trip from Test Broker to Test Owner and back to see the whole flow.",
+   "Try it in the test version, as Test Broker",
+   "Press Reset test data (twice), then switch to Test Broker 2 and back.",
+   "If something goes wrong",
+   "The AI buttons do not workAI features need a real sign-in; they are off in the test version.",
+   "My test data is goneIt is kept per browser and device; another phone or browser has its own copy.",
+   "Tips",
+   "Use the test version for every Try it task.",
+   "Never type real client details into the test version."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Test version for practice.",
+   "A copy of the portal with example data only, to try anything without risk.",
+   "Who uses it, Everyone.",
+   "How it works.",
+   "Open test.html on the portal address, the academy's Try it buttons open it for you. Choose who you act as in the orange bar, Test Broker, Test Broker 2 or Test Owner. Everything you do stays in that browser, Reset test data starts again. Pass a trip from Test Broker to Test Owner and back to see the whole flow.",
+   "Try it in the test version, as Test Broker.",
+   "Press Reset test data, twice, then switch to Test Broker 2 and back.",
+   "If something goes wrong.",
+   "The A I buttons do not work. A I features need a real sign-in, they are off in the test version. My test data is gone. It is kept per browser and device, another phone or browser has its own copy.",
+   "Tips.",
+   "Use the test version for every Try it task. Never type real client details into the test version."
+  ]
+ },
+ {
+  "key": "32f413f4",
+  "kind": "lesson",
+  "where": "sys screen 5",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.4 The rules behind every booking",
+   "The business rules the portal enforces. Know them before your first enquiry.",
+   "Who uses it: Everyone",
+   "How it works",
+   "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
+   "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A different margin only by the director's decision, with the reason recorded.",
+   "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
+   "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
+   "Clients pay only through a payment request. Never print, store or send bank details.",
+   "The owner, or a person the owner has mandated, authorises every booking before a confirmation is issued; a price change afterwards sends it back.",
+   "Four-eyes: nobody prices, authorises, issues or records payment on their own trip, owners included.",
+   "Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the owner, or a person the owner has mandated.",
+   "Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request; a score of 3 or less starts service recovery.",
+   "Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews.",
+   "Try it in the test version, as Test Broker",
+   "Make a test enquiry with an operator price of USD 30,000 and check the client price: 30,000 ÷ 0.91, rounded up, is USD 32,968.",
+   "If something goes wrong",
+   "A client asks for our bank detailsNever send them. The client pays through the payment request you create.",
+   "A client wants to fly in 3 daysFull payment is due at once, before the operator is paid. Create the payment request straight away.",
+   "You want to offer a client less than the 9% marginAsk the director first: any other margin is the director's decision, with the reason recorded.",
+   "A client rates the trip 3 or lowerStart service recovery: call the client, find out what went wrong and tell the owner.",
+   "A happy client offers a reviewQuote it publicly only with their written consent, and never reward reviews.",
+   "Tips",
+   "If you are unsure about a rule, ask the co-pilot or Help before you send the trip for authorisation."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "The rules behind every booking.",
+   "The business rules the portal enforces. Know them before your first enquiry.",
+   "Who uses it, Everyone.",
+   "How it works.",
+   "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in U S dollars. Client price =, operator price plus direct trip costs, divided by 0.91, rounded up, ar Kay keeps 9 percent of what the client pays. A different margin only by the director's decision, with the reason recorded. Deposit 25 percent of the charter price, at least 2,500, U S dollars on signature, the balance 7 days before the first departure, full payment at once if departure is less than 7 days away. Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin. Clients pay only through a payment request. Never print, store or send bank details. The owner, or a person the owner has mandated, authorises every booking before a confirmation is issued, a price change afterwards sends it back. Four-eyes, nobody prices, authorises, issues or records payment on their own trip, owners included. Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the owner, or a person the owner has mandated. Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request, a score of 3 or less starts service recovery. Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews.",
+   "Try it in the test version, as Test Broker.",
+   "Make a test enquiry with an operator price of 30,000 U S dollars and check the client price, 30,000 divided by 0.91, rounded up, is 32,968 U S dollars.",
+   "If something goes wrong.",
+   "A client asks for our bank details. Never send them. The client pays through the payment request you create. A client wants to fly in 3 days. Full payment is due at once, before the operator is paid. Create the payment request straight away. You want to offer a client less than the 9 percent margin. Ask the director first, any other margin is the director's decision, with the reason recorded. A client rates the trip 3 or lower. Start service recovery, call the client, find out what went wrong and tell the owner. A happy client offers a review. Quote it publicly only with their written consent, and never reward reviews.",
+   "Tips.",
+   "If you are unsure about a rule, ask the co-pilot or Help before you send the trip for authorisation."
+  ]
+ },
+ {
+  "key": "bbf6b449",
+  "kind": "lesson",
+  "where": "sys screen 6",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.5 Client data and privacy",
+   "How we protect clients, contacts and the company.",
+   "Who uses it: Everyone",
+   "How it works",
+   "Real client details go only into real trips in the portal: never into training, the test version, the AI or messages outside the portal.",
+   "The AI co-pilot gets trip facts only, never passport, ID or bank numbers, passenger names or private contact details. Describe the trip, not the person.",
+   "Business contacts are hidden until you press Show, opening them is recorded, and contacts cannot be exported.",
+   "Every screen carries a watermark with your name, so screenshots are traceable.",
+   "We never talk about our clients, inside or outside the company.",
+   "Try it in the test version, as Test Broker",
+   "Look for the watermark with your name on any screen of the test version.",
+   "If something goes wrong",
+   "A client sends passport copies by WhatsAppUpload them to the trip in the portal, then delete them from your phone.",
+   "Someone asks who our clients areWe never name clients. Refer them to the owner.",
+   "Tips",
+   "If you are unsure whether you may share something, don't: ask the owner first."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Client data and privacy.",
+   "How we protect clients, contacts and the company.",
+   "Who uses it, Everyone.",
+   "How it works.",
+   "Real client details go only into real trips in the portal, never into training, the test version, the A I or messages outside the portal. The A I co-pilot gets trip facts only, never passport, I D or bank numbers, passenger names or private contact details. Describe the trip, not the person. Business contacts are hidden until you press Show, opening them is recorded, and contacts cannot be exported. Every screen carries a watermark with your name, so screenshots are traceable. We never talk about our clients, inside or outside the company.",
+   "Try it in the test version, as Test Broker.",
+   "Look for the watermark with your name on any screen of the test version.",
+   "If something goes wrong.",
+   "A client sends passport copies by WhatsApp. Upload them to the trip in the portal, then delete them from your phone. Someone asks who our clients are. We never name clients. Refer them to the owner.",
+   "Tips.",
+   "If you are unsure whether you may share something, don't, ask the owner first."
+  ]
+ },
+ {
+  "key": "bd2a9062",
+  "kind": "lesson",
+  "where": "sys screen 7",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.6 Today (brokers and owner)",
+   "Your opening page, the only start page: every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
+   "Who uses it: Brokers; the owner, or a person the owner has mandated",
+   "How it works",
+   "Read the progress tiles: standard bookings against the monthly target, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum.",
+   "Work Your tasks from the top. Red dots are urgent: an overdue lead, a trip returned at authorisation, a payment due.",
+   "Tap a task to open the lead or trip it refers to.",
+   "Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score.",
+   "Try it in the test version, as Test Broker",
+   "As Test Broker, open Today: work Your tasks from the top, then read Progress this month.",
+   "If something goes wrong",
+   "My rank shows a dashThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month.",
+   "Commission shows USD 0 although I have flown tripsCommission counts only trips that have flown and whose client payment has cleared. Ask the owner to record the payment.",
+   "A task stays on the list after I did itTasks clear when the portal sees the change: log the contact, update the trip or send it for authorisation.",
+   "Tips",
+   "Start every day on the dashboard and clear the red items first.",
+   "Overdue leads move to another broker at the next round: a two-minute logged contact keeps the lead yours.",
+   "Use the team comparison to see where you lose points; follow-up score is usually the quickest win."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Today, brokers and owner.",
+   "Your opening page, the only start page, every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
+   "Who uses it, Brokers, the owner, or a person the owner has mandated.",
+   "How it works.",
+   "Read the progress tiles, standard bookings against the monthly target, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum. Work Your tasks from the top. Red dots are urgent, an overdue lead, a trip returned at authorisation, a payment due. Tap a task to open the lead or trip it refers to. Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score.",
+   "Try it in the test version, as Test Broker.",
+   "As Test Broker, open Today, work Your tasks from the top, then read Progress this month.",
+   "If something goes wrong.",
+   "My rank shows a dash. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month. Commission shows 0 U S dollars although I have flown trips. Commission counts only trips that have flown and whose client payment has cleared. Ask the owner to record the payment. A task stays on the list after I did it. Tasks clear when the portal sees the change, log the contact, update the trip or send it for authorisation.",
+   "Tips.",
+   "Start every day on the dashboard and clear the red items first. Overdue leads move to another broker at the next round, a two-minute logged contact keeps the lead yours. Use the team comparison to see where you lose points, follow-up score is usually the quickest win."
+  ]
+ },
+ {
+  "key": "813cc7a1",
+  "kind": "lesson",
+  "where": "sys screen 8",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.7 My leads and adding prospects",
+   "Work the organisations assigned to you and add the ones you know.",
+   "Who uses it: Brokers",
+   "How it works",
+   "Open My leads. Leads are sorted by when contact is due.",
+   "Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note.",
+   "Add a prospect: organisation, segment, country, public source link, contact route and why they charter.",
+   "Add or correct a contact route on any lead to keep the database current.",
+   "Open an enquiry from a lead when the organisation has a trip.",
+   "Try it in the test version, as Test Broker",
+   "As Test Broker, open My leads, open a lead and log a contact with a proper note.",
+   "If something goes wrong",
+   "My new prospect says Being checkedIt is checked for duplicates at the next round, within 3 hours.",
+   "It says Already knownAnother broker added it first; it stays with them. Keep adding new ones.",
+   "A lead disappearedIt went cold and moved to another broker, or it was marked Do not contact.",
+   "Tips",
+   "Contact new leads the same day: the 48-hour clock starts at assignment.",
+   "Every organisation you add earns points and a bigger share of new leads; ten a month is the minimum, not the target.",
+   "Anyone who opts out is Do not contact at once, for everyone."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "My leads and adding prospects.",
+   "Work the organisations assigned to you and add the ones you know.",
+   "Who uses it, Brokers.",
+   "How it works.",
+   "Open My leads. Leads are sorted by when contact is due. Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note. Add a prospect, organisation, segment, country, public source link, contact route and why they charter. Add or correct a contact route on any lead to keep the database current. Open an enquiry from a lead when the organisation has a trip.",
+   "Try it in the test version, as Test Broker.",
+   "As Test Broker, open My leads, open a lead and log a contact with a proper note.",
+   "If something goes wrong.",
+   "My new prospect says Being checked. It is checked for duplicates at the next round, within 3 hours. It says Already known. Another broker added it first, it stays with them. Keep adding new ones. A lead disappeared. It went cold and moved to another broker, or it was marked Do not contact.",
+   "Tips.",
+   "Contact new leads the same day, the 48-hour clock starts at assignment. Every organisation you add earns points and a bigger share of new leads, ten a month is the minimum, not the target. Anyone who opts out is Do not contact at once, for everyone."
+  ]
+ },
+ {
+  "key": "533c2098",
+  "kind": "lesson",
+  "where": "sys screen 9",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.8 Named business contacts and opt-outs",
+   "Named people are stored only as business contacts, and anyone can opt out at once.",
+   "Who uses it: Everyone who works prospects and leads",
+   "How it works",
+   "Contacts on a lead or prospect are hidden until you press Show; opening them is recorded.",
+   "Add a contact only with a work email or work phone published by the organisation itself or taken from a licensed database, and give the source.",
+   "Your first message says where you found their details and offers an opt-out.",
+   "If someone opts out, press Opted out twice: their details are deleted from every list and nobody can add them again.",
+   "Press Contacted today after each contact. Contacts not reached within 12 months are deleted automatically.",
+   "Try it in the test version, as Test Broker",
+   "On your lead, press Show, add a business contact with a work email and its source, then press Opted out twice and see the details go.",
+   "If something goes wrong",
+   "Save contact says Work email onlyPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
+   "It says This person has opted outThey asked not to be contacted. Nobody can add them again.",
+   "Tips",
+   "Never use LinkedIn messages or bought lists to find people.",
+   "Organisations first: the company's general email is often the best first route."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Named business contacts and opt-outs.",
+   "Named people are stored only as business contacts, and anyone can opt out at once.",
+   "Who uses it, Everyone who works prospects and leads.",
+   "How it works.",
+   "Contacts on a lead or prospect are hidden until you press Show, opening them is recorded. Add a contact only with a work email or work phone published by the organisation itself or taken from a licensed database, and give the source. Your first message says where you found their details and offers an opt-out. If someone opts out, press Opted out twice, their details are deleted from every list and nobody can add them again. Press Contacted today after each contact. Contacts not reached within 12 months are deleted automatically.",
+   "Try it in the test version, as Test Broker.",
+   "On your lead, press Show, add a business contact with a work email and its source, then press Opted out twice and see the details go.",
+   "If something goes wrong.",
+   "Save contact says Work email only. Personal addresses like Gmail are not allowed. Use the work email or work phone. It says This person has opted out. They asked not to be contacted. Nobody can add them again.",
+   "Tips.",
+   "Never use LinkedIn messages or bought lists to find people. Organisations first, the company's general email is often the best first route."
+  ]
+ },
+ {
+  "key": "ed5d2c20",
+  "kind": "lesson",
+  "where": "sys screen 10",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.9 New enquiry and airport search",
+   "Capture the trip once, correctly, with the right airports.",
+   "Who uses it: Brokers",
+   "How it works",
+   "Choose New enquiry, or Open an enquiry from a lead.",
+   "Enter the client: name, company, email, phone, country of residence and the payer if different.",
+   "For each leg type a city, airport name or code (for example London) and pick the airport from the list. The portal stores the ICAO code and shows the airport name.",
+   "Add date, local time and passengers per leg, the aircraft category and any notes.",
+   "Save. The trip appears under My trips as Enquiry.",
+   "Try it in the test version, as Test Broker",
+   "Make a New enquiry: Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month.",
+   "If something goes wrong",
+   "Save says choose the airport from the listThe text typed is not a known airport. Type a city or code and pick one of the suggestions.",
+   "The airport I need is not offeredThe list holds 7,009 airports suitable for jets. Type the four-letter ICAO code; if it is still missing, ask the owner, or a person the owner has mandated, as the runway may be too short for jets.",
+   "Times look wrongTimes are local at the departure airport. Confirm the time zone with the client in writing.",
+   "Tips",
+   "Type the city, not the airport: the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget.",
+   "Write special requests in the notes: the portal turns many of them into suggested requests and extras.",
+   "Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts on the leaderboard."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "New enquiry and airport search.",
+   "Capture the trip once, correctly, with the right airports.",
+   "Who uses it, Brokers.",
+   "How it works.",
+   "Choose New enquiry, or Open an enquiry from a lead. Enter the client, name, company, email, phone, country of residence and the payer if different. For each leg type a city, airport name or code, for example London, and pick the airport from the list. The portal stores the ICAO code and shows the airport name. Add date, local time and passengers per leg, the aircraft category and any notes. Save. The trip appears under My trips as Enquiry.",
+   "Try it in the test version, as Test Broker.",
+   "Make a New enquiry, Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month.",
+   "If something goes wrong.",
+   "Save says choose the airport from the list. The text typed is not a known airport. Type a city or code and pick one of the suggestions. The airport I need is not offered. The list holds 7,009 airports suitable for jets. Type the four-letter ICAO code, if it is still missing, ask the owner, or a person the owner has mandated, as the runway may be too short for jets. Times look wrong. Times are local at the departure airport. Confirm the time zone with the client in writing.",
+   "Tips.",
+   "Type the city, not the airport, the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget. Write special requests in the notes, the portal turns many of them into suggested requests and extras. Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts on the leaderboard."
+  ]
+ },
+ {
+  "key": "741b3e05",
+  "kind": "lesson",
+  "where": "sys screen 11",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.10 Client requests and operational extras",
+   "List every request and every operational need, with how it is charged, so the confirmation is complete and nothing is invoiced by surprise.",
+   "Who uses it: Brokers until the trip goes for authorisation; the owner, or a person the owner has mandated, until the confirmation is issued",
+   "How it works",
+   "Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions.",
+   "Tap a suggestion to add it, or Add request / Add extra for your own.",
+   "For each line choose the category, describe it, and choose how it is charged: included in the charter price, at cost after the flight, or fixed price.",
+   "For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up; the portal shows it.",
+   "Use AI: suggest more for anything the rules or route may need.",
+   "Try it in the test version, as Test Broker",
+   "Add a client request (a small dog) and an operational extra (de-icing, at cost) to your enquiry.",
+   "If something goes wrong",
+   "I cannot edit the linesThe trip is with the owner for checking, or confirmed. Ask the owner to change it.",
+   "The confirmation says a fixed price is missingA line set to fixed price has no supplier price. Enter it, or change the line to at cost.",
+   "A suggestion does not applyIgnore it; suggestions are prompts to ask the operator, never facts.",
+   "Tips",
+   "Ask about catering, cars, pets, children, luggage and allergies on the first call: changes later cost time and money.",
+   "Winter, night departures, waiting days and international arrivals almost always bring operational extras: confirm them before quoting.",
+   "Use fixed price only with a written supplier quote; anything that depends on the day is at cost."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Client requests and operational extras.",
+   "List every request and every operational need, with how it is charged, so the confirmation is complete and nothing is invoiced by surprise.",
+   "Who uses it, Brokers until the trip goes for authorisation, the owner, or a person the owner has mandated, until the confirmation is issued.",
+   "How it works.",
+   "Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions. Tap a suggestion to add it, or Add request or Add extra for your own. For each line choose the category, describe it, and choose how it is charged, included in the charter price, at cost after the flight, or fixed price. For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up, the portal shows it. Use A I, suggest more for anything the rules or route may need.",
+   "Try it in the test version, as Test Broker.",
+   "Add a client request, a small dog, and an operational extra, de-icing, at cost, to your enquiry.",
+   "If something goes wrong.",
+   "I cannot edit the lines. The trip is with the owner for checking, or confirmed. Ask the owner to change it. The confirmation says a fixed price is missing. A line set to fixed price has no supplier price. Enter it, or change the line to at cost. A suggestion does not apply. Ignore it, suggestions are prompts to ask the operator, never facts.",
+   "Tips.",
+   "Ask about catering, cars, pets, children, luggage and allergies on the first call, changes later cost time and money. Winter, night departures, waiting days and international arrivals almost always bring operational extras, confirm them before quoting. Use fixed price only with a written supplier quote, anything that depends on the day is at cost."
+  ]
+ },
+ {
+  "key": "f266dc78",
+  "kind": "lesson",
+  "where": "sys screen 12",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.11 Operator quote and price",
+   "Record the operator's all-in quote so the portal sets the client price at 9%.",
+   "Who uses it: Brokers",
+   "How it works",
+   "From Avinode, enter the operator's legal name as on its AOC, aircraft type, registration and Avinode trip ID.",
+   "Enter the operator all-in price and any direct trip costs not in it (supplier items Archē buys).",
+   "Quoted in another currency: choose it; the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3% away from it.",
+   "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.",
+   "Save. The trip moves to Quoted.",
+   "When you save, the portal checks in the background: the names against the sanctions lists, the operator against the EU Air Safety List, and a US registration (N…) against the FAA list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date.",
+   "Try it in the test version, as Test Broker",
+   "Enter an operator price of USD 20,000 and check the client price: 20,000 ÷ 0.91, rounded up, is USD 21,979.",
+   "If something goes wrong",
+   "The price looks too high or lowCheck you entered the all-in operator price, including positioning, and no extras twice.",
+   "The owner changed my operator priceThe owner, or a person the owner has mandated, confirms the price on Avinode; the confirmed figure is used and the difference is flagged.",
+   "Tips",
+   "Never round down and never quote below 9% without the director's approval.",
+   "Re-confirm availability and price with the operator before the offer expires."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Operator quote and price.",
+   "Record the operator's all-in quote so the portal sets the client price at 9 percent.",
+   "Who uses it, Brokers.",
+   "How it works.",
+   "From Avinode, enter the operator's legal name as on its A O C, aircraft type, registration and Avinode trip I D. Enter the operator all-in price and any direct trip costs not in it, supplier items ar Kay buys. Quoted in another currency, choose it, the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3 percent away from it. Read the price preview, client price =, operator price plus direct costs, divided by 0.91, rounded up. Save. The trip moves to Quoted. When you save, the portal checks in the background, the names against the sanctions lists, the operator against the E U Air Safety List, and a U S registration, N., against the F A A list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date.",
+   "Try it in the test version, as Test Broker.",
+   "Enter an operator price of 20,000 U S dollars and check the client price, 20,000 divided by 0.91, rounded up, is 21,979 U S dollars.",
+   "If something goes wrong.",
+   "The price looks too high or low. Check you entered the all-in operator price, including positioning, and no extras twice. The owner changed my operator price. The owner, or a person the owner has mandated, confirms the price on Avinode, the confirmed figure is used and the difference is flagged.",
+   "Tips.",
+   "Never round down and never quote below 9 percent without the director's approval. Re-confirm availability and price with the operator before the offer expires."
+  ]
+ },
+ {
+  "key": "c848c7ec",
+  "kind": "lesson",
+  "where": "sys screen 13",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.12 Operators and service partners",
+   "The suppliers we can book: charter operators, and business-jet services at our key airports.",
+   "Who uses it: Brokers and the owner",
+   "How it works",
+   "Prospects, Operators: charter operators with their certificate, safety audits, fleet and sanctions pre-screen. A person confirms the sanctions check before the first booking.",
+   "Prospects, Service partners: FBOs and ground handlers, trip support, in-flight catering and crew hotels at our key airports. Filter by airport and category.",
+   "Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle.",
+   "Suppliers are never assigned to brokers as leads.",
+   "Try it in the test version, as Test Broker",
+   "Open Prospects, Service partners, filter airport WSSL and open Example Crew Hotel: see its minutes and shuttle.",
+   "If something goes wrong",
+   "An operator shows Possible sanctions matchDo not contact or book it. The owner decides.",
+   "An airport has no service partner for what you needAdd one with Add prospect and its public source, or ask the owner.",
+   "Tips",
+   "Check IS-BAH for handlers and ARGUS or Wyvern for operators before relying on them."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Operators and service partners.",
+   "The suppliers we can book, charter operators, and business-jet services at our key airports.",
+   "Who uses it, Brokers and the owner.",
+   "How it works.",
+   "Prospects, Operators, charter operators with their certificate, safety audits, fleet and sanctions pre-screen. A person confirms the sanctions check before the first booking. Prospects, Service partners, F B Os and ground handlers, trip support, in-flight catering and crew hotels at our key airports. Filter by airport and category. Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle. Suppliers are never assigned to brokers as leads.",
+   "Try it in the test version, as Test Broker.",
+   "Open Prospects, Service partners, filter airport W S S L and open Example Crew Hotel, see its minutes and shuttle.",
+   "If something goes wrong.",
+   "An operator shows Possible sanctions match. Do not contact or book it. The owner decides. An airport has no service partner for what you need. Add one with Add prospect and its public source, or ask the owner.",
+   "Tips.",
+   "Check I S, B A H for handlers and ARGUS or Wyvern for operators before relying on them."
+  ]
+ },
+ {
+  "key": "ddf2132c",
+  "kind": "lesson",
+  "where": "sys screen 14",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.13 Supplier quotes",
+   "Ask several suppliers at an airport for a quote, compare them on one screen and award one.",
+   "Who uses it: Brokers and the owner",
+   "How it works",
+   "Open Supplier quotes, New quote request. Choose the airport and service, the trip if there is one, when the quotes are needed and the terms.",
+   "Tick the suppliers to ask: only those that pass the checks can be picked.",
+   "For each supplier, copy the prepared message, send it from your work email and press I have sent it.",
+   "Record each quote in USD, with how long it is valid and any changes to our terms.",
+   "Compare the scores and their reasons, then Award. Whoever made the request cannot award it, and a reason is needed if you do not choose the top score.",
+   "Add the awarded cost to the trip's direct trip costs.",
+   "Try it in the test version, as Test Broker",
+   "Make a crew-hotel quote request at WSSL, mark it sent and record a quote.",
+   "If something goes wrong",
+   "A supplier is greyed outIt failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle.",
+   "There is no Award buttonYou made the request, so someone else awards it.",
+   "Tips",
+   "Nothing is sent from the portal: you stay in control of every message."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Supplier quotes.",
+   "Ask several suppliers at an airport for a quote, compare them on one screen and award one.",
+   "Who uses it, Brokers and the owner.",
+   "How it works.",
+   "Open Supplier quotes, New quote request. Choose the airport and service, the trip if there is one, when the quotes are needed and the terms. Tick the suppliers to ask, only those that pass the checks can be picked. For each supplier, copy the prepared message, send it from your work email and press I have sent it. Record each quote in, U S dollars with how long it is valid and any changes to our terms. Compare the scores and their reasons, then Award. Whoever made the request cannot award it, and a reason is needed if you do not choose the top score. Add the awarded cost to the trip's direct trip costs.",
+   "Try it in the test version, as Test Broker.",
+   "Make a crew-hotel quote request at W S S L, mark it sent and record a quote.",
+   "If something goes wrong.",
+   "A supplier is greyed out. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle. There is no Award button. You made the request, so someone else awards it.",
+   "Tips.",
+   "Nothing is sent from the portal, you stay in control of every message."
+  ]
+ },
+ {
+  "key": "e52c8ec1",
+  "kind": "lesson",
+  "where": "sys screen 15",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.14 Documents",
+   "Keep every document for the trip in one place, never in email.",
+   "Who uses it: Brokers until the trip goes for authorisation",
+   "How it works",
+   "Open the trip, choose the document type and the file, and select Attach.",
+   "Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents.",
+   "Open any document from the trip file.",
+   "Try it in the test version, as Test Broker",
+   "Attach a small PDF to your trip.",
+   "If something goes wrong",
+   "Attach does nothingChoose a file first. Large files take a few seconds.",
+   "I cannot attach after sending for authorisationDocuments are locked with the trip. Send them to the owner, or a person the owner has mandated, through the portal; they attach them.",
+   "Tips",
+   "Never send passports or contracts by email or chat apps.",
+   "Name scanned files clearly before uploading."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Documents.",
+   "Keep every document for the trip in one place, never in email.",
+   "Who uses it, Brokers until the trip goes for authorisation.",
+   "How it works.",
+   "Open the trip, choose the document type and the file, and select Attach. Attach the operator quote, A O C, insurance certificate, safety audit evidence and the client's K Y C documents. Open any document from the trip file.",
+   "Try it in the test version, as Test Broker.",
+   "Attach a small P D F to your trip.",
+   "If something goes wrong.",
+   "Attach does nothing. Choose a file first. Large files take a few seconds. I cannot attach after sending for authorisation. Documents are locked with the trip. Send them to the owner, or a person the owner has mandated, through the portal, they attach them.",
+   "Tips.",
+   "Never send passports or contracts by email or chat apps. Name scanned files clearly before uploading."
+  ]
+ },
+ {
+  "key": "261a2ee0",
+  "kind": "lesson",
+  "where": "sys screen 16",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.15 Pre-issue checks and sending for authorisation",
+   "Hand the owner, or a person the owner has mandated, a complete, compliant trip.",
+   "Who uses it: Brokers",
+   "How it works",
+   "The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.",
+   "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Archē-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.",
+   "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.",
+   "Create the payment request in our payment provider and enter its reference on the trip.",
+   "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field.",
+   "Try it in the test version, as Test Broker",
+   "Complete the trip checks, tick KYC, enter a payment request reference and press Send for authorisation.",
+   "If something goes wrong",
+   "Send for authorisation is greyed outOne of the required items is missing; the note under the button lists them.",
+   "The trip came back as ReturnedRead the owner's note at the top of the trip, fix it and send again.",
+   "Tips",
+   "Run the AI check before sending; it catches cabotage, permits and missing information.",
+   "A trip returned twice costs the client's confidence: complete it the first time."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Pre-issue checks and sending for authorisation.",
+   "Hand the owner, or a person the owner has mandated, a complete, compliant trip.",
+   "Who uses it, Brokers.",
+   "How it works.",
+   "The portal sets six of the seven pre-issue checks itself, from the records you complete, never-sell list and trip risk screen from Trip checks, nothing red, every amber confirmed with the operator, A O C from Documents, the operator's A O C attached, safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand, complete the record and the tick follows, and a new red item takes it back. Only routing and permits, confirmed with the operator, is your own tick. Fill in Operator safety on the trip, the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as Safety audit. For an ar Kay-approved operator, choose it from the approved-operator list, the portal checks the approval is valid on the last flight date. For any other operator, the director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record. Complete K Y C and save the sanctions screening record. The portal has already screened the client, company, payer and operator, reused from your save if under 48 hours old, otherwise screened when you open the trip, add the passengers, owners of 25 percent or more and the aircraft owner if not listed, then press Save. Create the payment request in our payment provider and enter its reference on the trip. Press Send for authorisation. The button opens only when the trip is complete, the panel Steps to book this trip lists what is still missing and takes you to each field.",
+   "Try it in the test version, as Test Broker.",
+   "Complete the trip checks, tick K Y C, enter a payment request reference and press Send for authorisation.",
+   "If something goes wrong.",
+   "Send for authorisation is greyed out. One of the required items is missing, the note under the button lists them. The trip came back as Returned. Read the owner's note at the top of the trip, fix it and send again.",
+   "Tips.",
+   "Run the A I check before sending, it catches cabotage, permits and missing information. A trip returned twice costs the client's confidence, complete it the first time."
+  ]
+ },
+ {
+  "key": "8f4ea5c4",
+  "kind": "lesson",
+  "where": "sys screen 17",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.16 Authorisation",
+   "Check, confirm and record every trip that brokers send.",
+   "Who uses it: The owner, or a person the owner has mandated",
+   "How it works",
+   "Open Authorisation; take the oldest trip waiting for authorisation.",
+   "Confirm the operator price on Avinode, send Request to Book and enter direct trip costs.",
+   "Check the KYC and sanctions screening record and the payment request reference the broker recorded.",
+   "Save. Approve the booking, then Prepare and issue confirmation; or Return to broker with a note.",
+   "Try it in the test version, as Test Owner",
+   "As Test Owner, open Authorisation and the trip you sent: see what the authoriser checks, then Return to broker with a note.",
+   "If something goes wrong",
+   "I see a note instead of the Authorisation panelIt is your own trip. Another owner or a person the owner has mandated handles it.",
+   "The broker's operator price differs from AvinodeUse the Avinode figure; the difference is flagged in Control.",
+   "Tips",
+   "Work the queue oldest first; check it at least twice a day.",
+   "Never take payment details by email; every client pays through the payment request."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Authorisation.",
+   "Check, confirm and record every trip that brokers send.",
+   "Who uses it, The owner, or a person the owner has mandated.",
+   "How it works.",
+   "Open Authorisation, take the oldest trip waiting for authorisation. Confirm the operator price on Avinode, send Request to Book and enter direct trip costs. Check the K Y C and sanctions screening record and the payment request reference the broker recorded. Save. Approve the booking, then Prepare and issue confirmation, or Return to broker with a note.",
+   "Try it in the test version, as Test Owner.",
+   "As Test Owner, open Authorisation and the trip you sent, see what the authoriser checks, then Return to broker with a note.",
+   "If something goes wrong.",
+   "I see a note instead of the Authorisation panel. It is your own trip. Another owner or a person the owner has mandated handles it. The broker's operator price differs from Avinode. Use the Avinode figure, the difference is flagged in Control.",
+   "Tips.",
+   "Work the queue oldest first, check it at least twice a day. Never take payment details by email, every client pays through the payment request."
+  ]
+ },
+ {
+  "key": "c2a82164",
+  "kind": "lesson",
+  "where": "sys screen 18",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.17 Charter confirmation",
+   "Produce the signed contract: booking details, requests and extras, Part A and Part B.",
+   "Who uses it: Brokers prepare; the owner, or a person the owner has mandated, issues",
+   "How it works",
+   "Open Charter confirmation from the trip. Fill in charterer address, KYC reference, lead passenger, aircraft year and seats, operator AOC and authority, signatory.",
+   "Read the live checks on the right: fix every red item and every missing field.",
+   "Use AI check for a second look.",
+   "The owner issues it: the portal assigns the reference, saves the PDF to the trip and locks it.",
+   "A change after issue: Prepare revision, then Issue revision n.",
+   "Try it in the test version, as Test Owner",
+   "As Test Owner, approve the trip and prepare the confirmation. Then switch to Test Broker and read its status.",
+   "If something goes wrong",
+   "Issue is greyed outA required field or check is missing; the list shows which.",
+   "Company details are missingThe owner must fill in Settings > Company details once.",
+   "The PDF did not saveDownload it from the confirmation screen and attach it to the trip.",
+   "Tips",
+   "Fill the confirmation while the broker still has the details fresh; drafts save automatically.",
+   "The deposit is 25% of the charter price (at least USD 2,500); fixed extras are paid with the balance 7 days before departure."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Charter confirmation.",
+   "Produce the signed contract, booking details, requests and extras, Part A and Part B.",
+   "Who uses it, Brokers prepare, the owner, or a person the owner has mandated, issues.",
+   "How it works.",
+   "Open Charter confirmation from the trip. Fill in charterer address, K Y C reference, lead passenger, aircraft year and seats, operator A O C and authority, signatory. Read the live checks on the right, fix every red item and every missing field. Use A I check for a second look. The owner issues it, the portal assigns the reference, saves the P D F to the trip and locks it. A change after issue, Prepare revision, then Issue revision n.",
+   "Try it in the test version, as Test Owner.",
+   "As Test Owner, approve the trip and prepare the confirmation. Then switch to Test Broker and read its status.",
+   "If something goes wrong.",
+   "Issue is greyed out. A required field or check is missing, the list shows which. Company details are missing. The owner must fill in Settings > Company details once. The P D F did not save. Download it from the confirmation screen and attach it to the trip.",
+   "Tips.",
+   "Fill the confirmation while the broker still has the details fresh, drafts save automatically. The deposit is 25 percent of the charter price, at least 2,500 U S dollars, fixed extras are paid with the balance 7 days before departure."
+  ]
+ },
+ {
+  "key": "0b52f3a1",
+  "kind": "lesson",
+  "where": "sys screen 19",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.18 Client signature",
+   "Every issued confirmation is signed by the charterer before payment is recorded, and the signed copy is kept with the trip.",
+   "Who uses it: The owner, or a person the owner has mandated (never on their own trip); brokers see the status",
+   "How it works",
+   "After the confirmation is issued, the trip shows a Client signature panel: Not sent, Sent or Signed.",
+   "Check the charterer's email and press Send for signature. The confirmation PDF downloads and your mail program opens a ready-written email with the itinerary, price, payment schedule, how to sign and the payment-request-only warning. Attach the PDF and send it from the bookings mailbox. The trip is marked Sent at once.",
+   "When the signed PDF comes back, drop it on the panel. It saves to the trip straight away and is logged in the audit trail.",
+   "No answer after 24 hours: the button changes to Send a reminder.",
+   "Record client payment unlocks only after the signed contract is saved. A revision needs a new signature; the earlier signed copy stays in the file.",
+   "Try it in the test version, as Test Owner",
+   "On an issued confirmation, open Client signature and press Preview email.",
+   "If something goes wrong",
+   "Nothing opens when I press Send for signatureYour computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF.",
+   "Record client payment is missingThe signed contract is not saved yet. Drop the signed PDF on the Client signature panel.",
+   "The charterer changed the PDF before signingDo not accept it. Prepare a revision with the change, issue it and send the new version.",
+   "Tips",
+   "Send the PDF the same hour it is issued.",
+   "Use the bookings mailbox for every send, never a personal account."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Client signature.",
+   "Every issued confirmation is signed by the charterer before payment is recorded, and the signed copy is kept with the trip.",
+   "Who uses it, The owner, or a person the owner has mandated, never on their own trip, brokers see the status.",
+   "How it works.",
+   "After the confirmation is issued, the trip shows a Client signature panel, Not sent, Sent or Signed. Check the charterer's email and press Send for signature. The confirmation P D F downloads and your mail program opens a ready-written email with the itinerary, price, payment schedule, how to sign and the payment-request-only warning. Attach the P D F and send it from the bookings mailbox. The trip is marked Sent at once. When the signed P D F comes back, drop it on the panel. It saves to the trip straight away and is logged in the audit trail. No answer after 24 hours, the button changes to Send a reminder. Record client payment unlocks only after the signed contract is saved. A revision needs a new signature, the earlier signed copy stays in the file.",
+   "Try it in the test version, as Test Owner.",
+   "On an issued confirmation, open Client signature and press Preview email.",
+   "If something goes wrong.",
+   "Nothing opens when I press Send for signature. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded P D F. Record client payment is missing. The signed contract is not saved yet. Drop the signed P D F on the Client signature panel. The charterer changed the P D F before signing. Do not accept it. Prepare a revision with the change, issue it and send the new version.",
+   "Tips.",
+   "Send the P D F the same hour it is issued. Use the bookings mailbox for every send, never a personal account."
+  ]
+ },
+ {
+  "key": "52b1b8c8",
+  "kind": "lesson",
+  "where": "sys screen 20",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.19 Flight following",
+   "Every trip is followed until the last passenger has landed, so the client hears about a change from us first.",
+   "Who uses it: Brokers and the on-call broker; the owner, or a person the owner has mandated, records the flight",
+   "How it works",
+   "Open the trip. The Flight following panel appears once the confirmation is issued.",
+   "For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note.",
+   "Tell the client at once about any delay, diversion or cancellation, and, if you are the on-call broker, tell the trip's broker.",
+   "When every leg has landed and the client has paid, the owner presses Last leg landed: record flight. The trip moves to Flown and aftercare opens for the broker.",
+   "Try it in the test version, as Test Broker",
+   "On a confirmed trip, set the first leg to Departed with a time and a short note.",
+   "If something goes wrong",
+   "The record-flight button does not appearEvery leg must be Landed or Cancelled, and the client payment must be recorded first.",
+   "I cannot change a legOnly the trip's broker, the on-call broker and the owner edit leg status.",
+   "Tips",
+   "Take times from the operator's movement message, never estimate.",
+   "Keep notes short and factual: the broker reads them before calling the client."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Flight following.",
+   "Every trip is followed until the last passenger has landed, so the client hears about a change from us first.",
+   "Who uses it, Brokers and the on-call broker, the owner, or a person the owner has mandated, records the flight.",
+   "How it works.",
+   "Open the trip. The Flight following panel appears once the confirmation is issued. For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note. Tell the client at once about any delay, diversion or cancellation, and, if you are the on-call broker, tell the trip's broker. When every leg has landed and the client has paid, the owner presses Last leg landed, record flight. The trip moves to Flown and aftercare opens for the broker.",
+   "Try it in the test version, as Test Broker.",
+   "On a confirmed trip, set the first leg to Departed with a time and a short note.",
+   "If something goes wrong.",
+   "The record-flight button does not appear. Every leg must be Landed or Cancelled, and the client payment must be recorded first. I cannot change a leg. Only the trip's broker, the on-call broker and the owner edit leg status.",
+   "Tips.",
+   "Take times from the operator's movement message, never estimate. Keep notes short and factual, the broker reads them before calling the client."
+  ]
+ },
+ {
+  "key": "434dd42d",
+  "kind": "lesson",
+  "where": "sys screen 21",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.20 Payments, flight and commission",
+   "Record money and flights so commission is right and on time.",
+   "Who uses it: The owner, or a person the owner has mandated, records; everyone sees their own commission",
+   "How it works",
+   "The owner records the date the client payment cleared in the payment account.",
+   "The owner records the operator payment.",
+   "After the last leg, the owner records the flight date.",
+   "Commission appears in the month the trip flew, paid by the 15th of the next month; the owner marks it paid.",
+   "Try it in the test version, as Test Owner",
+   "As Test Owner, record the client payment and the flight, then switch to Test Broker and see the commission.",
+   "If something goes wrong",
+   "My trip flew but no commissionThe client payment has not been recorded, or the flight date has not. Ask the owner.",
+   "Commission seems lowCommission is a share of gross profit, including the margin on fixed-price extras; at-cost items carry no margin.",
+   "Tips",
+   "Chase unpaid confirmations after 5 days: the Control page flags them.",
+   "Record flights the day they happen, so the dashboard stays true."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Payments, flight and commission.",
+   "Record money and flights so commission is right and on time.",
+   "Who uses it, The owner, or a person the owner has mandated, records, everyone sees their own commission.",
+   "How it works.",
+   "The owner records the date the client payment cleared in the payment account. The owner records the operator payment. After the last leg, the owner records the flight date. Commission appears in the month the trip flew, paid by the 15th of the next month, the owner marks it paid.",
+   "Try it in the test version, as Test Owner.",
+   "As Test Owner, record the client payment and the flight, then switch to Test Broker and see the commission.",
+   "If something goes wrong.",
+   "My trip flew but no commission. The client payment has not been recorded, or the flight date has not. Ask the owner. Commission seems low. Commission is a share of gross profit, including the margin on fixed-price extras, at-cost items carry no margin.",
+   "Tips.",
+   "Chase unpaid confirmations after 5 days, the Control page flags them. Record flights the day they happen, so the dashboard stays true."
+  ]
+ },
+ {
+  "key": "054c67c0",
+  "kind": "lesson",
+  "where": "sys screen 22",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.21 Aftercare, rating and service recovery",
+   "Each client is called within 24 hours of the last landing, asked for a rating, and any problem is put right (manual 11.5).",
+   "Who uses it: Brokers; the owner sees everything",
+   "How it works",
+   "After the flight, the trip shows an Aftercare panel with a due time and a checklist.",
+   "Call or message the client personally, then press Log follow-up with a short note.",
+   "Press Email the rating request: your email opens with template B.10 and one-click 1–5 links that reply to the bookings address.",
+   "When the client answers, record the rating: overall, aircraft, crew and broker, the comment, and tick the box only if the client agreed in writing that we may quote it.",
+   "Any overall score of 3 or less opens Service recovery: call the client within 1 working day, then record what was agreed. The director is told automatically.",
+   "The file closes when payments are settled, the follow-up and rating request are logged, and any recovery and debrief are done.",
+   "Try it in the test version, as Test Broker",
+   "On a flown trip, follow the aftercare steps: log the follow-up and open the rating request.",
+   "If something goes wrong",
+   "Follow-up shows as overdueMore than 24 hours have passed since the last landing. Call the client now and log it.",
+   "The client has no email on the tripAdd the address in your email before sending, and add it to the trip next time.",
+   "Tips",
+   "Ratings go into the operator scorecard: they decide which operators we book.",
+   "Never publish a rating or comment without the client's written permission, and never write or ask for reviews in exchange for anything."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Aftercare, rating and service recovery.",
+   "Each client is called within 24 hours of the last landing, asked for a rating, and any problem is put right, manual 11, section 5.",
+   "Who uses it, Brokers, the owner sees everything.",
+   "How it works.",
+   "After the flight, the trip shows an Aftercare panel with a due time and a checklist. Call or message the client personally, then press Log follow-up with a short note. Press Email the rating request, your email opens with template B, section 10 and one-click 1 to 5 links that reply to the bookings address. When the client answers, record the rating, overall, aircraft, crew and broker, the comment, and tick the box only if the client agreed in writing that we may quote it. Any overall score of 3 or less opens Service recovery, call the client within 1 working day, then record what was agreed. The director is told automatically. The file closes when payments are settled, the follow-up and rating request are logged, and any recovery and debrief are done.",
+   "Try it in the test version, as Test Broker.",
+   "On a flown trip, follow the aftercare steps, log the follow-up and open the rating request.",
+   "If something goes wrong.",
+   "Follow-up shows as overdue. More than 24 hours have passed since the last landing. Call the client now and log it. The client has no email on the trip. Add the address in your email before sending, and add it to the trip next time.",
+   "Tips.",
+   "Ratings go into the operator scorecard, they decide which operators we book. Never publish a rating or comment without the client's written permission, and never write or ask for reviews in exchange for anything."
+  ]
+ },
+ {
+  "key": "f7f6266a",
+  "kind": "lesson",
+  "where": "sys screen 23",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.22 Cancelling a trip",
+   "What happens when a client cancels, and what they pay.",
+   "Who uses it: Brokers cancel their own enquiries and quotes; after that the owner, or a person the owner has mandated",
+   "How it works",
+   "The client cancels in writing. The charge depends on how long before the first departure we receive the notice.",
+   "Scale, as a share of the charter price: more than 14 days 25%; 7 to 14 days 40%; 72 hours to under 7 days 65%; 24 to under 72 hours 85%; under 24 hours or no-show 100%.",
+   "The client pays the higher of the scale or the operator's own cancellation charge plus our fee. Each confirmation prints the charges for that booking.",
+   "Brokers can cancel their own trip while it is an enquiry or a quote. After that, the owner, or a person the owner has mandated, cancels it with Cancel trip; any refund is handled in the payment account.",
+   "Try it in the test version, as Test Broker",
+   "Make a test enquiry, then cancel it yourself while it is still an enquiry.",
+   "If something goes wrong",
+   "The client cancels by phoneAsk them to confirm in writing: the time we receive it decides the charge.",
+   "The operator charges more than our scaleThe client pays the operator's charge plus our fee.",
+   "Tips",
+   "Tell the client the cancellation charges before they sign."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Cancelling a trip.",
+   "What happens when a client cancels, and what they pay.",
+   "Who uses it, Brokers cancel their own enquiries and quotes, after that the owner, or a person the owner has mandated.",
+   "How it works.",
+   "The client cancels in writing. The charge depends on how long before the first departure we receive the notice. Scale, as a share of the charter price, more than 14 days 25 percent, 7 to 14 days 40 percent, 72 hours to under 7 days 65 percent, 24 to under 72 hours 85 percent, under 24 hours or no-show 100 percent. The client pays the higher of the scale or the operator's own cancellation charge plus our fee. Each confirmation prints the charges for that booking. Brokers can cancel their own trip while it is an enquiry or a quote. After that, the owner, or a person the owner has mandated, cancels it with Cancel trip, any refund is handled in the payment account.",
+   "Try it in the test version, as Test Broker.",
+   "Make a test enquiry, then cancel it yourself while it is still an enquiry.",
+   "If something goes wrong.",
+   "The client cancels by phone. Ask them to confirm in writing, the time we receive it decides the charge. The operator charges more than our scale. The client pays the operator's charge plus our fee.",
+   "Tips.",
+   "Tell the client the cancellation charges before they sign."
+  ]
+ },
+ {
+  "key": "cd2d81bd",
+  "kind": "lesson",
+  "where": "sys screen 24",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.23 Points and leaderboard",
+   "Make good habits visible and reward them.",
+   "Who uses it: Brokers",
+   "How it works",
+   "Points this month: 3 per organisation added, 1 per lead contacted per day, 1 per contact route added or corrected (up to 20), 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold.",
+   "See your rank on the dashboard and in My leads.",
+   "Try it in the test version, as Test Broker",
+   "On Today, find your points and your place in the team.",
+   "If something goes wrong",
+   "Points did not change after I logged a contactPoints update at each round, every 3 hours.",
+   "Tips",
+   "Flown trips are worth the most; but daily contacts and added prospects keep you ahead early in the month."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Points and leaderboard.",
+   "Make good habits visible and reward them.",
+   "Who uses it, Brokers.",
+   "How it works.",
+   "Points this month, 3 per organisation added, 1 per lead contacted per day, 1 per contact route added or corrected, up to 20, 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold. See your rank on the dashboard and in My leads.",
+   "Try it in the test version, as Test Broker.",
+   "On Today, find your points and your place in the team.",
+   "If something goes wrong.",
+   "Points did not change after I logged a contact. Points update at each round, every 3 hours.",
+   "Tips.",
+   "Flown trips are worth the most, but daily contacts and added prospects keep you ahead early in the month."
+  ]
+ },
+ {
+  "key": "2dfb3777",
+  "kind": "lesson",
+  "where": "sys screen 25",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.24 AI assistant and co-pilot",
+   "A second pair of eyes on every trip, and answers to questions about the rules.",
+   "Who uses it: Everyone",
+   "How it works",
+   "On a trip, use the co-pilot: check the trip, draft an email or suggest the next step.",
+   "On a lead, use Suggest approach for a first message with an opt-out line.",
+   "In Assistant, ask any question about the rules, a trip or an operator.",
+   "The owner can write the daily briefing in Control.",
+   "Try it in the test version, as Test Broker",
+   "Open Assistant to see where questions go. Answers work only in the real portal.",
+   "If something goes wrong",
+   "The co-pilot asks for permissionAllow Claude when asked, or in the artifact's Permissions menu.",
+   "Too many requestsWait a minute and try again.",
+   "Tips",
+   "The co-pilot sends the AI the trip facts, never passenger names or contact details. Never type passport, ID or bank numbers, passenger names or private contact details into the Assistant or a trip note (Module 3.7).",
+   "Treat AI output as a draft: you are responsible for what you send."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "A I assistant and co-pilot.",
+   "A second pair of eyes on every trip, and answers to questions about the rules.",
+   "Who uses it, Everyone.",
+   "How it works.",
+   "On a trip, use the co-pilot, check the trip, draft an email or suggest the next step. On a lead, use Suggest approach for a first message with an opt-out line. In Assistant, ask any question about the rules, a trip or an operator. The owner can write the daily briefing in Control.",
+   "Try it in the test version, as Test Broker.",
+   "Open Assistant to see where questions go. Answers work only in the real portal.",
+   "If something goes wrong.",
+   "The co-pilot asks for permission. Allow Claude when asked, or in the artifact's Permissions menu. Too many requests. Wait a minute and try again.",
+   "Tips.",
+   "The co-pilot sends the A I the trip facts, never passenger names or contact details. Never type passport, I D or bank numbers, passenger names or private contact details into the Assistant or a trip note, Module 3, section 7. Treat A I output as a draft, you are responsible for what you send."
+  ]
+ },
+ {
+  "key": "5e69b054",
+  "kind": "lesson",
+  "where": "sys screen 26",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.25 Help and FAQ",
+   "Answers in seconds, and a FAQ that grows from real questions.",
+   "Who uses it: Everyone",
+   "How it works",
+   "Open Help. Search the FAQ and the feature guides.",
+   "Ask a question: the AI answers at once from the manual and this guide, and your question is saved.",
+   "Questions asked often are added to the FAQ automatically, without names or client details. The owner can edit or remove any FAQ entry.",
+   "Try it in the test version, as Test Broker",
+   "Open Help and search the guide for a word such as cancellation.",
+   "If something goes wrong",
+   "The AI answer seems wrongMark it Not helpful; the owner sees it and corrects the answer.",
+   "Tips",
+   "Search before asking: most answers are already there.",
+   "Never put client names or passport details in a question."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Help and F A Q.",
+   "Answers in seconds, and a F A Q that grows from real questions.",
+   "Who uses it, Everyone.",
+   "How it works.",
+   "Open Help. Search the F A Q and the feature guides. Ask a question, the A I answers at once from the manual and this guide, and your question is saved. Questions asked often are added to the F A Q automatically, without names or client details. The owner can edit or remove any F A Q entry.",
+   "Try it in the test version, as Test Broker.",
+   "Open Help and search the guide for a word such as cancellation.",
+   "If something goes wrong.",
+   "The A I answer seems wrong. Mark it Not helpful, the owner sees it and corrects the answer.",
+   "Tips.",
+   "Search before asking, most answers are already there. Never put client names or passport details in a question."
+  ]
+ },
+ {
+  "key": "c69da98b",
+  "kind": "lesson",
+  "where": "sys screen 27",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.26 Training in the portal",
+   "Booking practice, the roleplay lab and the regional cards. The portal course is now Systems training in the Archē Broker Academy.",
+   "Who uses it: Everyone",
+   "How it works",
+   "Training opens Systems training in the academy and shows your progress there.",
+   "Booking practice: six exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer. Nothing is real and nothing counts toward commission.",
+   "Work out the client price yourself: (operator price + direct costs) ÷ 0.91, rounded up. Tick the checks and decide: send for authorisation, or decline with the reason.",
+   "Training authorisation reviews the file. Anything wrong comes back with the reason; fix it and submit again. You see the flight, the commission it would earn and your score out of 100.",
+   "Try it in the test version, as Test Broker",
+   "Open Training, Booking practice, and start the first exercise.",
+   "If something goes wrong",
+   "My practice run came backRead the red notes: each names the rule. Go back to that step, fix it and submit again.",
+   "Tips",
+   "Run each exercise until you score 80 or more.",
+   "The owner sees everyone's training scores."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Training in the portal.",
+   "Booking practice, the roleplay lab and the regional cards. The portal course is now Systems training in the ar Kay Broker Academy.",
+   "Who uses it, Everyone.",
+   "How it works.",
+   "Training opens Systems training in the academy and shows your progress there. Booking practice, six exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer. Nothing is real and nothing counts toward commission. Work out the client price yourself, operator price plus direct costs, divided by 0.91, rounded up. Tick the checks and decide, send for authorisation, or decline with the reason. Training authorisation reviews the file. Anything wrong comes back with the reason, fix it and submit again. You see the flight, the commission it would earn and your score out of 100.",
+   "Try it in the test version, as Test Broker.",
+   "Open Training, Booking practice, and start the first exercise.",
+   "If something goes wrong.",
+   "My practice run came back. Read the red notes, each names the rule. Go back to that step, fix it and submit again.",
+   "Tips.",
+   "Run each exercise until you score 80 or more. The owner sees everyone's training scores."
+  ]
+ },
+ {
+  "key": "3670b24b",
+  "kind": "lesson",
+  "where": "sys screen 28",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.27 Roleplay lab",
+   "Practise difficult calls out loud with an AI client, assistant, family-office manager or operator, and get scored on the lab sheet (manual 14.4–14.5).",
+   "Who uses it: Everyone in training; the owner sees the team summary",
+   "How it works",
+   "Open Training, then Roleplay lab.",
+   "Choose one of the 12 scenarios or describe your own, who you speak to and the level.",
+   "Press Start the call. Type or press Speak, and tick Read the other side's replies aloud if you want to hear them.",
+   "Press End and score. You get a score out of 100, the moments that cost points and a model answer. Sessions are saved to your record.",
+   "Try it in the test version, as Test Broker",
+   "Open Training, Roleplay lab and read the scenarios. The AI client works only in the real portal.",
+   "If something goes wrong",
+   "Speak does not appearYour browser does not support speech input. Type instead; Chrome and Edge support it.",
+   "The AI is busyWait a minute and try again.",
+   "Tips",
+   "Never use real client names in practice.",
+   "The AI score is for practice. Certification is decided by the director's scored lab."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Roleplay lab.",
+   "Practise difficult calls out loud with an A I client, assistant, family-office manager or operator, and get scored on the lab sheet, manual 14.4 to 14, section 5.",
+   "Who uses it, Everyone in training, the owner sees the team summary.",
+   "How it works.",
+   "Open Training, then Roleplay lab. Choose one of the 12 scenarios or describe your own, who you speak to and the level. Press Start the call. Type or press Speak, and tick Read the other side's replies aloud if you want to hear them. Press End and score. You get a score out of 100, the moments that cost points and a model answer. Sessions are saved to your record.",
+   "Try it in the test version, as Test Broker.",
+   "Open Training, Roleplay lab and read the scenarios. The A I client works only in the real portal.",
+   "If something goes wrong.",
+   "Speak does not appear. Your browser does not support speech input. Type instead, Chrome and Edge support it. The A I is busy. Wait a minute and try again.",
+   "Tips.",
+   "Never use real client names in practice. The A I score is for practice. Certification is decided by the director's scored lab."
+  ]
+ },
+ {
+  "key": "ea2b3bb4",
+  "kind": "lesson",
+  "where": "sys screen 29",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.28 Regional cards",
+   "Green, amber and red rules per region for live enquiries (manual Appendix J), with the date each card was last verified.",
+   "Who uses it: Everyone; the owner edits and approves",
+   "How it works",
+   "Open Training, then Regional cards, and choose the region.",
+   "Green: proceed. Amber: the operator confirms in writing before we quote. Red: stop and tell the director.",
+   "Owner: Edit a card, or Mark verified today after checking the sources.",
+   "The daily intelligence run proposes changes from the official sources. The owner checks each source, then approves or dismisses. The AI never changes a card on its own.",
+   "Try it in the test version, as Test Broker",
+   "Open Training, Regional cards and read one card.",
+   "If something goes wrong",
+   "A card looks out of dateTell the owner; check the watchlist and the official source before quoting.",
+   "Tips",
+   "The card does not replace the trip risk screen, which is still recorded for every enquiry."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Regional cards.",
+   "Green, amber and red rules per region for live enquiries, manual Appendix J, with the date each card was last verified.",
+   "Who uses it, Everyone, the owner edits and approves.",
+   "How it works.",
+   "Open Training, then Regional cards, and choose the region. Green, proceed. Amber, the operator confirms in writing before we quote. Red, stop and tell the director. Owner, Edit a card, or Mark verified today after checking the sources. The daily intelligence run proposes changes from the official sources. The owner checks each source, then approves or dismisses. The A I never changes a card on its own.",
+   "Try it in the test version, as Test Broker.",
+   "Open Training, Regional cards and read one card.",
+   "If something goes wrong.",
+   "A card looks out of date. Tell the owner, check the watchlist and the official source before quoting.",
+   "Tips.",
+   "The card does not replace the trip risk screen, which is still recorded for every enquiry."
+  ]
+ },
+ {
+  "key": "c62ccd1e",
+  "kind": "lesson",
+  "where": "sys screen 30",
+  "text": [
+   "Systems training: the Archē portal",
+   "S.29 Post-trip debrief (supervised bookings)",
+   "Each supervised booking is reviewed by trainee, mentor and the owner within 3 working days (manual 14.6, template B.9).",
+   "Who uses it: Trainees in stage 6, mentors and the owner, or a person the owner has mandated",
+   "How it works",
+   "The owner ticks Supervised for the broker in Team.",
+   "After each of that broker's flights, the Aftercare panel shows the debrief with three parts.",
+   "Each person scores the three measures from 1 to 5: pre-issue checks, extras explained to the client, and client satisfaction, then adds errors found, what went well, what to change and one action with an owner and a date.",
+   "The booking counts towards sign-off only when all three parts are signed. Team shows each broker's count out of 10.",
+   "Try it in the test version, as Test Broker",
+   "Read the debrief steps; they apply to your supervised bookings.",
+   "If something goes wrong",
+   "The debrief does not appearThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
+   "Tips",
+   "Be specific: one clear action is worth more than a long list."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Post-trip debrief, supervised bookings.",
+   "Each supervised booking is reviewed by trainee, mentor and the owner within 3 working days, manual 14, section 6, template B, section 9.",
+   "Who uses it, Trainees in stage 6, mentors and the owner, or a person the owner has mandated.",
+   "How it works.",
+   "The owner ticks Supervised for the broker in Team. After each of that broker's flights, the Aftercare panel shows the debrief with three parts. Each person scores the three measures from 1 to 5, pre-issue checks, extras explained to the client, and client satisfaction, then adds errors found, what went well, what to change and one action with an owner and a date. The booking counts towards sign-off only when all three parts are signed. Team shows each broker's count out of 10.",
+   "Try it in the test version, as Test Broker.",
+   "Read the debrief steps, they apply to your supervised bookings.",
+   "If something goes wrong.",
+   "The debrief does not appear. The broker is not ticked as Supervised in Team, or the trip is not flown yet.",
+   "Tips.",
+   "Be specific, one clear action is worth more than a long list."
+  ]
+ },
+ {
+  "key": "d158f402",
+  "kind": "keypoints",
+  "where": "sys screen 31",
+  "text": [
+   "Systems training: the Archē portal",
+   "Key points",
+   "Before the module check, try to say each point in your own words.",
+   "Every booking runs in the portal, and only there.",
+   "The portal sets most checks from your records: complete the record and the tick follows.",
+   "Send for authorisation opens only when the trip is complete; the owner, or a person the owner has mandated, never authorises their own trip.",
+   "Every lesson check right, then Avinode training (separate) and shadowing."
+  ],
+  "say": [
+   "Systems training, the ar Kay portal.",
+   "Key points.",
+   "Before the module check, try to say each point in your own words.",
+   "Every booking runs in the portal, and only there. The portal sets most checks from your records, complete the record and the tick follows. Send for authorisation opens only when the trip is complete, the owner, or a person the owner has mandated, never authorises their own trip. Every lesson check right, then Avinode training, separate, and shadowing."
+  ]
+ },
+ {
+  "key": "a42187d3",
+  "kind": "question",
+  "where": "sys check question 1",
+  "text": [
+   "Joining, roles and access: The portal will not sign me in. What do you do?",
+   "aUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner.",
+   "bPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
+   "cOne of the required items is missing; the note under the button lists them.",
+   "dAsk them to confirm in writing: the time we receive it decides the charge."
+  ],
+  "say": [
+   "Joining, roles and access, The portal will not sign me in. What do you do?",
+   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. One of the required items is missing, the note under the button lists them. D. Ask them to confirm in writing, the time we receive it decides the charge."
+  ]
+ },
+ {
+  "key": "10318aa0",
+  "kind": "feedback",
+  "where": "sys check question 1",
+  "text": [
+   "Right. Use the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner."
+  ],
+  "say": [
+   "Right. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner."
+  ]
+ },
+ {
+  "key": "3efef781",
+  "kind": "feedback",
+  "where": "sys check question 1",
+  "text": [
+   "Not quite. Use the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner."
+  ],
+  "say": [
+   "Not quite. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner."
+  ]
+ },
+ {
+  "key": "e97416fe",
+  "kind": "question",
+  "where": "sys check question 2",
+  "text": [
+   "Phone use and colour theme: I cannot find a section. What do you do?",
+   "aThe text typed is not a known airport. Type a city or code and pick one of the suggestions.",
+   "bPress Menu at the top. Sections you do not have access to are not shown.",
+   "cIt is your own trip. Another owner or a person the owner has mandated handles it.",
+   "dPoints update at each round, every 3 hours."
+  ],
+  "say": [
+   "Phone use and colour theme, I cannot find a section. What do you do?",
+   "A. The text typed is not a known airport. Type a city or code and pick one of the suggestions. B. Press Menu at the top. Sections you do not have access to are not shown. C. It is your own trip. Another owner or a person the owner has mandated handles it. D. Points update at each round, every 3 hours."
+  ]
+ },
+ {
+  "key": "3ba0e688",
+  "kind": "feedback",
+  "where": "sys check question 2",
+  "text": [
+   "Right. Press Menu at the top. Sections you do not have access to are not shown."
+  ],
+  "say": [
+   "Right. Press Menu at the top. Sections you do not have access to are not shown."
+  ]
+ },
+ {
+  "key": "794ede25",
+  "kind": "feedback",
+  "where": "sys check question 2",
+  "text": [
+   "Not quite. Press Menu at the top. Sections you do not have access to are not shown."
+  ],
+  "say": [
+   "Not quite. Press Menu at the top. Sections you do not have access to are not shown."
+  ]
+ },
+ {
+  "key": "ebfe134a",
+  "kind": "question",
+  "where": "sys check question 3",
+  "text": [
+   "Test version for practice: The AI buttons do not work. What do you do?",
+   "aThe trip is with the owner for checking, or confirmed. Ask the owner to change it.",
+   "bA required field or check is missing; the list shows which.",
+   "cAI features need a real sign-in; they are off in the test version.",
+   "dAllow Claude when asked, or in the artifact's Permissions menu."
+  ],
+  "say": [
+   "Test version for practice, The A I buttons do not work. What do you do?",
+   "A. The trip is with the owner for checking, or confirmed. Ask the owner to change it. B. A required field or check is missing, the list shows which. C. A I features need a real sign-in, they are off in the test version. D. Allow Claude when asked, or in the artifact's Permissions menu."
+  ]
+ },
+ {
+  "key": "76715dfc",
+  "kind": "feedback",
+  "where": "sys check question 3",
+  "text": [
+   "Right. AI features need a real sign-in; they are off in the test version."
+  ],
+  "say": [
+   "Right. A I features need a real sign-in, they are off in the test version."
+  ]
+ },
+ {
+  "key": "044b3c6d",
+  "kind": "feedback",
+  "where": "sys check question 3",
+  "text": [
+   "Not quite. AI features need a real sign-in; they are off in the test version."
+  ],
+  "say": [
+   "Not quite. A I features need a real sign-in, they are off in the test version."
+  ]
+ },
+ {
+  "key": "e3645423",
+  "kind": "question",
+  "where": "sys check question 4",
+  "text": [
+   "The rules behind every booking: A client asks for our bank details. What do you do?",
+   "aCheck you entered the all-in operator price, including positioning, and no extras twice.",
+   "bYour computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF.",
+   "cMark it Not helpful; the owner sees it and corrects the answer.",
+   "dNever send them. The client pays through the payment request you create."
+  ],
+  "say": [
+   "The rules behind every booking, A client asks for our bank details. What do you do?",
+   "A. Check you entered the all-in operator price, including positioning, and no extras twice. B. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded P D F. C. Mark it Not helpful, the owner sees it and corrects the answer. D. Never send them. The client pays through the payment request you create."
+  ]
+ },
+ {
+  "key": "5c5ab02c",
+  "kind": "feedback",
+  "where": "sys check question 4",
+  "text": [
+   "Right. Never send them. The client pays through the payment request you create."
+  ],
+  "say": [
+   "Right. Never send them. The client pays through the payment request you create."
+  ]
+ },
+ {
+  "key": "112c9d3d",
+  "kind": "feedback",
+  "where": "sys check question 4",
+  "text": [
+   "Not quite. Never send them. The client pays through the payment request you create."
+  ],
+  "say": [
+   "Not quite. Never send them. The client pays through the payment request you create."
+  ]
+ },
+ {
+  "key": "b740c832",
+  "kind": "question",
+  "where": "sys check question 5",
+  "text": [
+   "Client data and privacy: A client sends passport copies by WhatsApp. What do you do?",
+   "aUpload them to the trip in the portal, then delete them from your phone.",
+   "bDo not contact or book it. The owner decides.",
+   "cEvery leg must be Landed or Cancelled, and the client payment must be recorded first.",
+   "dRead the red notes: each names the rule. Go back to that step, fix it and submit again."
+  ],
+  "say": [
+   "Client data and privacy, A client sends passport copies by WhatsApp. What do you do?",
+   "A. Upload them to the trip in the portal, then delete them from your phone. B. Do not contact or book it. The owner decides. C. Every leg must be Landed or Cancelled, and the client payment must be recorded first. D. Read the red notes, each names the rule. Go back to that step, fix it and submit again."
+  ]
+ },
+ {
+  "key": "13a99834",
+  "kind": "feedback",
+  "where": "sys check question 5",
+  "text": [
+   "Right. Upload them to the trip in the portal, then delete them from your phone."
+  ],
+  "say": [
+   "Right. Upload them to the trip in the portal, then delete them from your phone."
+  ]
+ },
+ {
+  "key": "665afb69",
+  "kind": "feedback",
+  "where": "sys check question 5",
+  "text": [
+   "Not quite. Upload them to the trip in the portal, then delete them from your phone."
+  ],
+  "say": [
+   "Not quite. Upload them to the trip in the portal, then delete them from your phone."
+  ]
+ },
+ {
+  "key": "76b40022",
+  "kind": "question",
+  "where": "sys check question 6",
+  "text": [
+   "Today (brokers and owner): My rank shows a dash. What do you do?",
+   "aIt failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle.",
+   "bThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month.",
+   "cThe client payment has not been recorded, or the flight date has not. Ask the owner.",
+   "dYour browser does not support speech input. Type instead; Chrome and Edge support it."
+  ],
+  "say": [
+   "Today, brokers and owner, My rank shows a dash. What do you do?",
+   "A. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle. B. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month. C. The client payment has not been recorded, or the flight date has not. Ask the owner. D. Your browser does not support speech input. Type instead, Chrome and Edge support it."
+  ]
+ },
+ {
+  "key": "61da0bc1",
+  "kind": "feedback",
+  "where": "sys check question 6",
+  "text": [
+   "Right. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+  ],
+  "say": [
+   "Right. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+  ]
+ },
+ {
+  "key": "d03c5ea2",
+  "kind": "feedback",
+  "where": "sys check question 6",
+  "text": [
+   "Not quite. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+  ],
+  "say": [
+   "Not quite. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+  ]
+ },
+ {
+  "key": "c7b458bc",
+  "kind": "question",
+  "where": "sys check question 7",
+  "text": [
+   "My leads and adding prospects: My new prospect says Being checked. What do you do?",
+   "aChoose a file first. Large files take a few seconds.",
+   "bMore than 24 hours have passed since the last landing. Call the client now and log it.",
+   "cIt is checked for duplicates at the next round, within 3 hours.",
+   "dTell the owner; check the watchlist and the official source before quoting."
+  ],
+  "say": [
+   "My leads and adding prospects, My new prospect says Being checked. What do you do?",
+   "A. Choose a file first. Large files take a few seconds. B. More than 24 hours have passed since the last landing. Call the client now and log it. C. It is checked for duplicates at the next round, within 3 hours. D. Tell the owner, check the watchlist and the official source before quoting."
+  ]
+ },
+ {
+  "key": "25bfc80c",
+  "kind": "feedback",
+  "where": "sys check question 7",
+  "text": [
+   "Right. It is checked for duplicates at the next round, within 3 hours."
+  ],
+  "say": [
+   "Right. It is checked for duplicates at the next round, within 3 hours."
+  ]
+ },
+ {
+  "key": "639382b3",
+  "kind": "feedback",
+  "where": "sys check question 7",
+  "text": [
+   "Not quite. It is checked for duplicates at the next round, within 3 hours."
+  ],
+  "say": [
+   "Not quite. It is checked for duplicates at the next round, within 3 hours."
+  ]
+ },
+ {
+  "key": "936fa055",
+  "kind": "question",
+  "where": "sys check question 8",
+  "text": [
+   "Named business contacts and opt-outs: Save contact says Work email only. What do you do?",
+   "aOne of the required items is missing; the note under the button lists them.",
+   "bAsk them to confirm in writing: the time we receive it decides the charge.",
+   "cThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
+   "dPersonal addresses like Gmail are not allowed. Use the work email or work phone."
+  ],
+  "say": [
+   "Named business contacts and opt-outs, Save contact says Work email only. What do you do?",
+   "A. One of the required items is missing, the note under the button lists them. B. Ask them to confirm in writing, the time we receive it decides the charge. C. The broker is not ticked as Supervised in Team, or the trip is not flown yet. D. Personal addresses like Gmail are not allowed. Use the work email or work phone."
+  ]
+ },
+ {
+  "key": "12a7b05e",
+  "kind": "feedback",
+  "where": "sys check question 8",
+  "text": [
+   "Right. Personal addresses like Gmail are not allowed. Use the work email or work phone."
+  ],
+  "say": [
+   "Right. Personal addresses like Gmail are not allowed. Use the work email or work phone."
+  ]
+ },
+ {
+  "key": "f3addd1f",
+  "kind": "feedback",
+  "where": "sys check question 8",
+  "text": [
+   "Not quite. Personal addresses like Gmail are not allowed. Use the work email or work phone."
+  ],
+  "say": [
+   "Not quite. Personal addresses like Gmail are not allowed. Use the work email or work phone."
+  ]
+ },
+ {
+  "key": "49222e0c",
+  "kind": "question",
+  "where": "sys check question 9",
+  "text": [
+   "New enquiry and airport search: Save says choose the airport from the list. What do you do?",
+   "aThe text typed is not a known airport. Type a city or code and pick one of the suggestions.",
+   "bIt is your own trip. Another owner or a person the owner has mandated handles it.",
+   "cPoints update at each round, every 3 hours.",
+   "dUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner."
+  ],
+  "say": [
+   "New enquiry and airport search, Save says choose the airport from the list. What do you do?",
+   "A. The text typed is not a known airport. Type a city or code and pick one of the suggestions. B. It is your own trip. Another owner or a person the owner has mandated handles it. C. Points update at each round, every 3 hours. D. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner."
+  ]
+ },
+ {
+  "key": "4bc92544",
+  "kind": "feedback",
+  "where": "sys check question 9",
+  "text": [
+   "Right. The text typed is not a known airport. Type a city or code and pick one of the suggestions."
+  ],
+  "say": [
+   "Right. The text typed is not a known airport. Type a city or code and pick one of the suggestions."
+  ]
+ },
+ {
+  "key": "1c521ae3",
+  "kind": "feedback",
+  "where": "sys check question 9",
+  "text": [
+   "Not quite. The text typed is not a known airport. Type a city or code and pick one of the suggestions."
+  ],
+  "say": [
+   "Not quite. The text typed is not a known airport. Type a city or code and pick one of the suggestions."
+  ]
+ },
+ {
+  "key": "d3081ae6",
+  "kind": "question",
+  "where": "sys check question 10",
+  "text": [
+   "Client requests and operational extras: I cannot edit the lines. What do you do?",
+   "aA required field or check is missing; the list shows which.",
+   "bThe trip is with the owner for checking, or confirmed. Ask the owner to change it.",
+   "cAllow Claude when asked, or in the artifact's Permissions menu.",
+   "dPress Menu at the top. Sections you do not have access to are not shown."
+  ],
+  "say": [
+   "Client requests and operational extras, I cannot edit the lines. What do you do?",
+   "A. A required field or check is missing, the list shows which. B. The trip is with the owner for checking, or confirmed. Ask the owner to change it. C. Allow Claude when asked, or in the artifact's Permissions menu. D. Press Menu at the top. Sections you do not have access to are not shown."
+  ]
+ },
+ {
+  "key": "570ad7d5",
+  "kind": "feedback",
+  "where": "sys check question 10",
+  "text": [
+   "Right. The trip is with the owner for checking, or confirmed. Ask the owner to change it."
+  ],
+  "say": [
+   "Right. The trip is with the owner for checking, or confirmed. Ask the owner to change it."
+  ]
+ },
+ {
+  "key": "f9279ab0",
+  "kind": "feedback",
+  "where": "sys check question 10",
+  "text": [
+   "Not quite. The trip is with the owner for checking, or confirmed. Ask the owner to change it."
+  ],
+  "say": [
+   "Not quite. The trip is with the owner for checking, or confirmed. Ask the owner to change it."
+  ]
+ },
+ {
+  "key": "451ee5af",
+  "kind": "question",
+  "where": "sys check question 11",
+  "text": [
+   "Operator quote and price: The price looks too high or low. What do you do?",
+   "aYour computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF.",
+   "bMark it Not helpful; the owner sees it and corrects the answer.",
+   "cCheck you entered the all-in operator price, including positioning, and no extras twice.",
+   "dAI features need a real sign-in; they are off in the test version."
+  ],
+  "say": [
+   "Operator quote and price, The price looks too high or low. What do you do?",
+   "A. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded P D F. B. Mark it Not helpful, the owner sees it and corrects the answer. C. Check you entered the all-in operator price, including positioning, and no extras twice. D. A I features need a real sign-in, they are off in the test version."
+  ]
+ },
+ {
+  "key": "2edc3563",
+  "kind": "feedback",
+  "where": "sys check question 11",
+  "text": [
+   "Right. Check you entered the all-in operator price, including positioning, and no extras twice."
+  ],
+  "say": [
+   "Right. Check you entered the all-in operator price, including positioning, and no extras twice."
+  ]
+ },
+ {
+  "key": "b0414cc6",
+  "kind": "feedback",
+  "where": "sys check question 11",
+  "text": [
+   "Not quite. Check you entered the all-in operator price, including positioning, and no extras twice."
+  ],
+  "say": [
+   "Not quite. Check you entered the all-in operator price, including positioning, and no extras twice."
+  ]
+ },
+ {
+  "key": "0cf5c60c",
+  "kind": "question",
+  "where": "sys check question 12",
+  "text": [
+   "Operators and service partners: An operator shows Possible sanctions match. What do you do?",
+   "aEvery leg must be Landed or Cancelled, and the client payment must be recorded first.",
+   "bRead the red notes: each names the rule. Go back to that step, fix it and submit again.",
+   "cNever send them. The client pays through the payment request you create.",
+   "dDo not contact or book it. The owner decides."
+  ],
+  "say": [
+   "Operators and service partners, An operator shows Possible sanctions match. What do you do?",
+   "A. Every leg must be Landed or Cancelled, and the client payment must be recorded first. B. Read the red notes, each names the rule. Go back to that step, fix it and submit again. C. Never send them. The client pays through the payment request you create. D. Do not contact or book it. The owner decides."
+  ]
+ },
+ {
+  "key": "12c8d543",
+  "kind": "feedback",
+  "where": "sys check question 12",
+  "text": [
+   "Right. Do not contact or book it. The owner decides."
+  ],
+  "say": [
+   "Right. Do not contact or book it. The owner decides."
+  ]
+ },
+ {
+  "key": "9ba141ec",
+  "kind": "feedback",
+  "where": "sys check question 12",
+  "text": [
+   "Not quite. Do not contact or book it. The owner decides."
+  ],
+  "say": [
+   "Not quite. Do not contact or book it. The owner decides."
+  ]
+ },
+ {
+  "key": "5861dc18",
+  "kind": "question",
+  "where": "sys check question 13",
+  "text": [
+   "Supplier quotes: A supplier is greyed out. What do you do?",
+   "aIt failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle.",
+   "bThe client payment has not been recorded, or the flight date has not. Ask the owner.",
+   "cYour browser does not support speech input. Type instead; Chrome and Edge support it.",
+   "dUpload them to the trip in the portal, then delete them from your phone."
+  ],
+  "say": [
+   "Supplier quotes, A supplier is greyed out. What do you do?",
+   "A. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle. B. The client payment has not been recorded, or the flight date has not. Ask the owner. C. Your browser does not support speech input. Type instead, Chrome and Edge support it. D. Upload them to the trip in the portal, then delete them from your phone."
+  ]
+ },
+ {
+  "key": "922f3657",
+  "kind": "feedback",
+  "where": "sys check question 13",
+  "text": [
+   "Right. It failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
+  ],
+  "say": [
+   "Right. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
+  ]
+ },
+ {
+  "key": "27bcd556",
+  "kind": "feedback",
+  "where": "sys check question 13",
+  "text": [
+   "Not quite. It failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
+  ],
+  "say": [
+   "Not quite. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
+  ]
+ },
+ {
+  "key": "e69c9d28",
+  "kind": "question",
+  "where": "sys check question 14",
+  "text": [
+   "Documents: Attach does nothing. What do you do?",
+   "aMore than 24 hours have passed since the last landing. Call the client now and log it.",
+   "bChoose a file first. Large files take a few seconds.",
+   "cTell the owner; check the watchlist and the official source before quoting.",
+   "dThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+  ],
+  "say": [
+   "Documents, Attach does nothing. What do you do?",
+   "A. More than 24 hours have passed since the last landing. Call the client now and log it. B. Choose a file first. Large files take a few seconds. C. Tell the owner, check the watchlist and the official source before quoting. D. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+  ]
+ },
+ {
+  "key": "f5ef221e",
+  "kind": "feedback",
+  "where": "sys check question 14",
+  "text": [
+   "Right. Choose a file first. Large files take a few seconds."
+  ],
+  "say": [
+   "Right. Choose a file first. Large files take a few seconds."
+  ]
+ },
+ {
+  "key": "41edb08f",
+  "kind": "feedback",
+  "where": "sys check question 14",
+  "text": [
+   "Not quite. Choose a file first. Large files take a few seconds."
+  ],
+  "say": [
+   "Not quite. Choose a file first. Large files take a few seconds."
+  ]
+ },
+ {
+  "key": "98e13c00",
+  "kind": "question",
+  "where": "sys check question 15",
+  "text": [
+   "Pre-issue checks and sending for authorisation: Send for authorisation is greyed out. What do you do?",
+   "aAsk them to confirm in writing: the time we receive it decides the charge.",
+   "bThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
+   "cOne of the required items is missing; the note under the button lists them.",
+   "dIt is checked for duplicates at the next round, within 3 hours."
+  ],
+  "say": [
+   "Pre-issue checks and sending for authorisation, Send for authorisation is greyed out. What do you do?",
+   "A. Ask them to confirm in writing, the time we receive it decides the charge. B. The broker is not ticked as Supervised in Team, or the trip is not flown yet. C. One of the required items is missing, the note under the button lists them. D. It is checked for duplicates at the next round, within 3 hours."
+  ]
+ },
+ {
+  "key": "248c6a0c",
+  "kind": "feedback",
+  "where": "sys check question 15",
+  "text": [
+   "Right. One of the required items is missing; the note under the button lists them."
+  ],
+  "say": [
+   "Right. One of the required items is missing, the note under the button lists them."
+  ]
+ },
+ {
+  "key": "9c1e52df",
+  "kind": "feedback",
+  "where": "sys check question 15",
+  "text": [
+   "Not quite. One of the required items is missing; the note under the button lists them."
+  ],
+  "say": [
+   "Not quite. One of the required items is missing, the note under the button lists them."
+  ]
+ },
+ {
+  "key": "7da27827",
+  "kind": "question",
+  "where": "sys check question 16",
+  "text": [
+   "Authorisation: I see a note instead of the Authorisation panel. What do you do?",
+   "aPoints update at each round, every 3 hours.",
+   "bUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner.",
+   "cPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
+   "dIt is your own trip. Another owner or a person the owner has mandated handles it."
+  ],
+  "say": [
+   "Authorisation, I see a note instead of the Authorisation panel. What do you do?",
+   "A. Points update at each round, every 3 hours. B. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner. C. Personal addresses like Gmail are not allowed. Use the work email or work phone. D. It is your own trip. Another owner or a person the owner has mandated handles it."
+  ]
+ },
+ {
+  "key": "0cbfd877",
+  "kind": "feedback",
+  "where": "sys check question 16",
+  "text": [
+   "Right. It is your own trip. Another owner or a person the owner has mandated handles it."
+  ],
+  "say": [
+   "Right. It is your own trip. Another owner or a person the owner has mandated handles it."
+  ]
+ },
+ {
+  "key": "7d4eabd8",
+  "kind": "feedback",
+  "where": "sys check question 16",
+  "text": [
+   "Not quite. It is your own trip. Another owner or a person the owner has mandated handles it."
+  ],
+  "say": [
+   "Not quite. It is your own trip. Another owner or a person the owner has mandated handles it."
+  ]
+ },
+ {
+  "key": "fe9e498f",
+  "kind": "question",
+  "where": "sys check question 17",
+  "text": [
+   "Charter confirmation: Issue is greyed out. What do you do?",
+   "aA required field or check is missing; the list shows which.",
+   "bAllow Claude when asked, or in the artifact's Permissions menu.",
+   "cPress Menu at the top. Sections you do not have access to are not shown.",
+   "dThe text typed is not a known airport. Type a city or code and pick one of the suggestions."
+  ],
+  "say": [
+   "Charter confirmation, Issue is greyed out. What do you do?",
+   "A. A required field or check is missing, the list shows which. B. Allow Claude when asked, or in the artifact's Permissions menu. C. Press Menu at the top. Sections you do not have access to are not shown. D. The text typed is not a known airport. Type a city or code and pick one of the suggestions."
+  ]
+ },
+ {
+  "key": "79bdb7ff",
+  "kind": "feedback",
+  "where": "sys check question 17",
+  "text": [
+   "Right. A required field or check is missing; the list shows which."
+  ],
+  "say": [
+   "Right. A required field or check is missing, the list shows which."
+  ]
+ },
+ {
+  "key": "9839b524",
+  "kind": "feedback",
+  "where": "sys check question 17",
+  "text": [
+   "Not quite. A required field or check is missing; the list shows which."
+  ],
+  "say": [
+   "Not quite. A required field or check is missing, the list shows which."
+  ]
+ },
+ {
+  "key": "d68a45d4",
+  "kind": "question",
+  "where": "sys check question 18",
+  "text": [
+   "Client signature: Nothing opens when I press Send for signature. What do you do?",
+   "aMark it Not helpful; the owner sees it and corrects the answer.",
+   "bYour computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF.",
+   "cAI features need a real sign-in; they are off in the test version.",
+   "dThe trip is with the owner for checking, or confirmed. Ask the owner to change it."
+  ],
+  "say": [
+   "Client signature, Nothing opens when I press Send for signature. What do you do?",
+   "A. Mark it Not helpful, the owner sees it and corrects the answer. B. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded P D F. C. A I features need a real sign-in, they are off in the test version. D. The trip is with the owner for checking, or confirmed. Ask the owner to change it."
+  ]
+ },
+ {
+  "key": "b8ddafe3",
+  "kind": "feedback",
+  "where": "sys check question 18",
+  "text": [
+   "Right. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF."
+  ],
+  "say": [
+   "Right. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded P D F."
+  ]
+ },
+ {
+  "key": "94972800",
+  "kind": "feedback",
+  "where": "sys check question 18",
+  "text": [
+   "Not quite. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF."
+  ],
+  "say": [
+   "Not quite. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded P D F."
+  ]
+ },
+ {
+  "key": "1508c624",
+  "kind": "question",
+  "where": "sys check question 19",
+  "text": [
+   "Flight following: The record-flight button does not appear. What do you do?",
+   "aRead the red notes: each names the rule. Go back to that step, fix it and submit again.",
+   "bNever send them. The client pays through the payment request you create.",
+   "cEvery leg must be Landed or Cancelled, and the client payment must be recorded first.",
+   "dCheck you entered the all-in operator price, including positioning, and no extras twice."
+  ],
+  "say": [
+   "Flight following, The record-flight button does not appear. What do you do?",
+   "A. Read the red notes, each names the rule. Go back to that step, fix it and submit again. B. Never send them. The client pays through the payment request you create. C. Every leg must be Landed or Cancelled, and the client payment must be recorded first. D. Check you entered the all-in operator price, including positioning, and no extras twice."
+  ]
+ },
+ {
+  "key": "4d892b81",
+  "kind": "feedback",
+  "where": "sys check question 19",
+  "text": [
+   "Right. Every leg must be Landed or Cancelled, and the client payment must be recorded first."
+  ],
+  "say": [
+   "Right. Every leg must be Landed or Cancelled, and the client payment must be recorded first."
+  ]
+ },
+ {
+  "key": "cd2ea052",
+  "kind": "feedback",
+  "where": "sys check question 19",
+  "text": [
+   "Not quite. Every leg must be Landed or Cancelled, and the client payment must be recorded first."
+  ],
+  "say": [
+   "Not quite. Every leg must be Landed or Cancelled, and the client payment must be recorded first."
+  ]
+ },
+ {
+  "key": "60d770a7",
+  "kind": "question",
+  "where": "sys check question 20",
+  "text": [
+   "Payments, flight and commission: My trip flew but no commission. What do you do?",
+   "aYour browser does not support speech input. Type instead; Chrome and Edge support it.",
+   "bUpload them to the trip in the portal, then delete them from your phone.",
+   "cDo not contact or book it. The owner decides.",
+   "dThe client payment has not been recorded, or the flight date has not. Ask the owner."
+  ],
+  "say": [
+   "Payments, flight and commission, My trip flew but no commission. What do you do?",
+   "A. Your browser does not support speech input. Type instead, Chrome and Edge support it. B. Upload them to the trip in the portal, then delete them from your phone. C. Do not contact or book it. The owner decides. D. The client payment has not been recorded, or the flight date has not. Ask the owner."
+  ]
+ },
+ {
+  "key": "5a677ee0",
+  "kind": "feedback",
+  "where": "sys check question 20",
+  "text": [
+   "Right. The client payment has not been recorded, or the flight date has not. Ask the owner."
+  ],
+  "say": [
+   "Right. The client payment has not been recorded, or the flight date has not. Ask the owner."
+  ]
+ },
+ {
+  "key": "ceef077d",
+  "kind": "feedback",
+  "where": "sys check question 20",
+  "text": [
+   "Not quite. The client payment has not been recorded, or the flight date has not. Ask the owner."
+  ],
+  "say": [
+   "Not quite. The client payment has not been recorded, or the flight date has not. Ask the owner."
+  ]
+ },
+ {
+  "key": "5e5b196e",
+  "kind": "question",
+  "where": "sys check question 21",
+  "text": [
+   "Aftercare, rating and service recovery: Follow-up shows as overdue. What do you do?",
+   "aMore than 24 hours have passed since the last landing. Call the client now and log it.",
+   "bTell the owner; check the watchlist and the official source before quoting.",
+   "cThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month.",
+   "dIt failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
+  ],
+  "say": [
+   "Aftercare, rating and service recovery, Follow-up shows as overdue. What do you do?",
+   "A. More than 24 hours have passed since the last landing. Call the client now and log it. B. Tell the owner, check the watchlist and the official source before quoting. C. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month. D. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
+  ]
+ },
+ {
+  "key": "46e7bcb0",
+  "kind": "feedback",
+  "where": "sys check question 21",
+  "text": [
+   "Right. More than 24 hours have passed since the last landing. Call the client now and log it."
+  ],
+  "say": [
+   "Right. More than 24 hours have passed since the last landing. Call the client now and log it."
+  ]
+ },
+ {
+  "key": "1ff06435",
+  "kind": "feedback",
+  "where": "sys check question 21",
+  "text": [
+   "Not quite. More than 24 hours have passed since the last landing. Call the client now and log it."
+  ],
+  "say": [
+   "Not quite. More than 24 hours have passed since the last landing. Call the client now and log it."
+  ]
+ },
+ {
+  "key": "4758d1eb",
+  "kind": "question",
+  "where": "sys check question 22",
+  "text": [
+   "Cancelling a trip: The client cancels by phone. What do you do?",
+   "aThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
+   "bAsk them to confirm in writing: the time we receive it decides the charge.",
+   "cIt is checked for duplicates at the next round, within 3 hours.",
+   "dChoose a file first. Large files take a few seconds."
+  ],
+  "say": [
+   "Cancelling a trip, The client cancels by phone. What do you do?",
+   "A. The broker is not ticked as Supervised in Team, or the trip is not flown yet. B. Ask them to confirm in writing, the time we receive it decides the charge. C. It is checked for duplicates at the next round, within 3 hours. D. Choose a file first. Large files take a few seconds."
+  ]
+ },
+ {
+  "key": "4d5ef3dc",
+  "kind": "feedback",
+  "where": "sys check question 22",
+  "text": [
+   "Right. Ask them to confirm in writing: the time we receive it decides the charge."
+  ],
+  "say": [
+   "Right. Ask them to confirm in writing, the time we receive it decides the charge."
+  ]
+ },
+ {
+  "key": "21a54979",
+  "kind": "feedback",
+  "where": "sys check question 22",
+  "text": [
+   "Not quite. Ask them to confirm in writing: the time we receive it decides the charge."
+  ],
+  "say": [
+   "Not quite. Ask them to confirm in writing, the time we receive it decides the charge."
+  ]
+ },
+ {
+  "key": "8708d535",
+  "kind": "question",
+  "where": "sys check question 23",
+  "text": [
+   "Points and leaderboard: Points did not change after I logged a contact. What do you do?",
+   "aUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the owner.",
+   "bPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
+   "cPoints update at each round, every 3 hours.",
+   "dOne of the required items is missing; the note under the button lists them."
+  ],
+  "say": [
+   "Points and leaderboard, Points did not change after I logged a contact. What do you do?",
+   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the owner. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. Points update at each round, every 3 hours. D. One of the required items is missing, the note under the button lists them."
+  ]
+ },
+ {
+  "key": "c129ecac",
+  "kind": "feedback",
+  "where": "sys check question 23",
+  "text": [
+   "Right. Points update at each round, every 3 hours."
+  ],
+  "say": [
+   "Right. Points update at each round, every 3 hours."
+  ]
+ },
+ {
+  "key": "2fd8a0fb",
+  "kind": "feedback",
+  "where": "sys check question 23",
+  "text": [
+   "Not quite. Points update at each round, every 3 hours."
+  ],
+  "say": [
+   "Not quite. Points update at each round, every 3 hours."
+  ]
+ },
+ {
+  "key": "8a3ba4be",
+  "kind": "question",
+  "where": "sys check question 24",
+  "text": [
+   "AI assistant and co-pilot: The co-pilot asks for permission. What do you do?",
+   "aPress Menu at the top. Sections you do not have access to are not shown.",
+   "bThe text typed is not a known airport. Type a city or code and pick one of the suggestions.",
+   "cIt is your own trip. Another owner or a person the owner has mandated handles it.",
+   "dAllow Claude when asked, or in the artifact's Permissions menu."
+  ],
+  "say": [
+   "A I assistant and co-pilot, The co-pilot asks for permission. What do you do?",
+   "A. Press Menu at the top. Sections you do not have access to are not shown. B. The text typed is not a known airport. Type a city or code and pick one of the suggestions. C. It is your own trip. Another owner or a person the owner has mandated handles it. D. Allow Claude when asked, or in the artifact's Permissions menu."
+  ]
+ },
+ {
+  "key": "e7704b86",
+  "kind": "feedback",
+  "where": "sys check question 24",
+  "text": [
+   "Right. Allow Claude when asked, or in the artifact's Permissions menu."
+  ],
+  "say": [
+   "Right. Allow Claude when asked, or in the artifact's Permissions menu."
+  ]
+ },
+ {
+  "key": "e4ddcd5d",
+  "kind": "feedback",
+  "where": "sys check question 24",
+  "text": [
+   "Not quite. Allow Claude when asked, or in the artifact's Permissions menu."
+  ],
+  "say": [
+   "Not quite. Allow Claude when asked, or in the artifact's Permissions menu."
+  ]
+ },
+ {
+  "key": "b3b44cb1",
+  "kind": "question",
+  "where": "sys check question 25",
+  "text": [
+   "Help and FAQ: The AI answer seems wrong. What do you do?",
+   "aMark it Not helpful; the owner sees it and corrects the answer.",
+   "bAI features need a real sign-in; they are off in the test version.",
+   "cThe trip is with the owner for checking, or confirmed. Ask the owner to change it.",
+   "dA required field or check is missing; the list shows which."
+  ],
+  "say": [
+   "Help and F A Q, The A I answer seems wrong. What do you do?",
+   "A. Mark it Not helpful, the owner sees it and corrects the answer. B. A I features need a real sign-in, they are off in the test version. C. The trip is with the owner for checking, or confirmed. Ask the owner to change it. D. A required field or check is missing, the list shows which."
+  ]
+ },
+ {
+  "key": "1e19ce19",
+  "kind": "feedback",
+  "where": "sys check question 25",
+  "text": [
+   "Right. Mark it Not helpful; the owner sees it and corrects the answer."
+  ],
+  "say": [
+   "Right. Mark it Not helpful, the owner sees it and corrects the answer."
+  ]
+ },
+ {
+  "key": "8bacbaa6",
+  "kind": "feedback",
+  "where": "sys check question 25",
+  "text": [
+   "Not quite. Mark it Not helpful; the owner sees it and corrects the answer."
+  ],
+  "say": [
+   "Not quite. Mark it Not helpful, the owner sees it and corrects the answer."
+  ]
+ },
+ {
+  "key": "44cc68b6",
+  "kind": "question",
+  "where": "sys check question 26",
+  "text": [
+   "Training in the portal: My practice run came back. What do you do?",
+   "aNever send them. The client pays through the payment request you create.",
+   "bRead the red notes: each names the rule. Go back to that step, fix it and submit again.",
+   "cCheck you entered the all-in operator price, including positioning, and no extras twice.",
+   "dYour computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded PDF."
+  ],
+  "say": [
+   "Training in the portal, My practice run came back. What do you do?",
+   "A. Never send them. The client pays through the payment request you create. B. Read the red notes, each names the rule. Go back to that step, fix it and submit again. C. Check you entered the all-in operator price, including positioning, and no extras twice. D. Your computer has no default mail program. Use Copy email text and paste it into webmail, then attach the downloaded P D F."
+  ]
+ },
+ {
+  "key": "13985b1c",
+  "kind": "feedback",
+  "where": "sys check question 26",
+  "text": [
+   "Right. Read the red notes: each names the rule. Go back to that step, fix it and submit again."
+  ],
+  "say": [
+   "Right. Read the red notes, each names the rule. Go back to that step, fix it and submit again."
+  ]
+ },
+ {
+  "key": "4de9feeb",
+  "kind": "feedback",
+  "where": "sys check question 26",
+  "text": [
+   "Not quite. Read the red notes: each names the rule. Go back to that step, fix it and submit again."
+  ],
+  "say": [
+   "Not quite. Read the red notes, each names the rule. Go back to that step, fix it and submit again."
+  ]
+ },
+ {
+  "key": "aabb7e77",
+  "kind": "question",
+  "where": "sys check question 27",
+  "text": [
+   "Roleplay lab: Speak does not appear. What do you do?",
+   "aUpload them to the trip in the portal, then delete them from your phone.",
+   "bDo not contact or book it. The owner decides.",
+   "cYour browser does not support speech input. Type instead; Chrome and Edge support it.",
+   "dEvery leg must be Landed or Cancelled, and the client payment must be recorded first."
+  ],
+  "say": [
+   "Roleplay lab, Speak does not appear. What do you do?",
+   "A. Upload them to the trip in the portal, then delete them from your phone. B. Do not contact or book it. The owner decides. C. Your browser does not support speech input. Type instead, Chrome and Edge support it. D. Every leg must be Landed or Cancelled, and the client payment must be recorded first."
+  ]
+ },
+ {
+  "key": "4cfabd5c",
+  "kind": "feedback",
+  "where": "sys check question 27",
+  "text": [
+   "Right. Your browser does not support speech input. Type instead; Chrome and Edge support it."
+  ],
+  "say": [
+   "Right. Your browser does not support speech input. Type instead, Chrome and Edge support it."
+  ]
+ },
+ {
+  "key": "a3d945df",
+  "kind": "feedback",
+  "where": "sys check question 27",
+  "text": [
+   "Not quite. Your browser does not support speech input. Type instead; Chrome and Edge support it."
+  ],
+  "say": [
+   "Not quite. Your browser does not support speech input. Type instead, Chrome and Edge support it."
+  ]
+ },
+ {
+  "key": "df794bf8",
+  "kind": "question",
+  "where": "sys check question 28",
+  "text": [
+   "Regional cards: A card looks out of date. What do you do?",
+   "aThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month.",
+   "bIt failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle.",
+   "cThe client payment has not been recorded, or the flight date has not. Ask the owner.",
+   "dTell the owner; check the watchlist and the official source before quoting."
+  ],
+  "say": [
+   "Regional cards, A card looks out of date. What do you do?",
+   "A. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month. B. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle. C. The client payment has not been recorded, or the flight date has not. Ask the owner. D. Tell the owner, check the watchlist and the official source before quoting."
+  ]
+ },
+ {
+  "key": "fbbbe349",
+  "kind": "feedback",
+  "where": "sys check question 28",
+  "text": [
+   "Right. Tell the owner; check the watchlist and the official source before quoting."
+  ],
+  "say": [
+   "Right. Tell the owner, check the watchlist and the official source before quoting."
+  ]
+ },
+ {
+  "key": "a44ce062",
+  "kind": "feedback",
+  "where": "sys check question 28",
+  "text": [
+   "Not quite. Tell the owner; check the watchlist and the official source before quoting."
+  ],
+  "say": [
+   "Not quite. Tell the owner, check the watchlist and the official source before quoting."
+  ]
+ },
+ {
+  "key": "4964583e",
+  "kind": "question",
+  "where": "sys check question 29",
+  "text": [
+   "Post-trip debrief (supervised bookings): The debrief does not appear. What do you do?",
+   "aThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
+   "bIt is checked for duplicates at the next round, within 3 hours.",
+   "cChoose a file first. Large files take a few seconds.",
+   "dMore than 24 hours have passed since the last landing. Call the client now and log it."
+  ],
+  "say": [
+   "Post-trip debrief, supervised bookings, The debrief does not appear. What do you do?",
+   "A. The broker is not ticked as Supervised in Team, or the trip is not flown yet. B. It is checked for duplicates at the next round, within 3 hours. C. Choose a file first. Large files take a few seconds. D. More than 24 hours have passed since the last landing. Call the client now and log it."
+  ]
+ },
+ {
+  "key": "d3862c68",
+  "kind": "feedback",
+  "where": "sys check question 29",
+  "text": [
+   "Right. The broker is not ticked as Supervised in Team, or the trip is not flown yet."
+  ],
+  "say": [
+   "Right. The broker is not ticked as Supervised in Team, or the trip is not flown yet."
+  ]
+ },
+ {
+  "key": "e3d1300f",
+  "kind": "feedback",
+  "where": "sys check question 29",
+  "text": [
+   "Not quite. The broker is not ticked as Supervised in Team, or the trip is not flown yet."
+  ],
+  "say": [
+   "Not quite. The broker is not ticked as Supervised in Team, or the trip is not flown yet."
   ]
  }
 ]

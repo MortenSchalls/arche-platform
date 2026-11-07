@@ -22,7 +22,7 @@ async function runPath(p,role,name){
  const path=await p.evaluate(r=>__T().PATHS[r],role);let screens=0;
  for(const id of path){
   await p.click('.map-l [data-go="home"]');await p.click(`.srow [data-go="${id}"]`);
-  if(id.startsWith('m')){
+  if(id.startsWith('m')||id==='sys'){
    const info=await p.evaluate(id=>{const M=__T().MODS[id];return {n:M.secs.length,a:M.quiz.map(q=>q.a)}},id);
    for(let s=0;s<info.n+2;s++){screens++;const rv=await p.$$('details.reveal summary');for(const r of rv)await r.click();await p.click('#next');}
    if(info.a.length){for(const a of info.a){await p.click(`.opt[data-j="${a}"]`);await p.click('#qnext');}

@@ -39,7 +39,7 @@ for(const w of [390,1300]){
   await p.evaluate(async()=>{const db=await __arche.use('db');const s=await __sb.auth.getSession();await db.doc('progress/'+s.data.session.user.id).set({v:1,name:'Example Tester',role:'broker',mods:{m0:{passed:true,best:100,attempts:1}},updated:new Date().toISOString()});});await p.waitForTimeout(1500);
   await p.goto('http://localhost:8765/test.html?as=candidate');await p.waitForTimeout(3500);
   const top2=await p.evaluate(()=>{const n=document.getElementById('obNext');const a=n&&n.querySelector('a');return n&&{t:n.innerText,href:a&&a.getAttribute('href')};});
-  ok(w+': back on the joining page: Continue where you left off, Module 1 and its length',top2&&/continue the Archē Broker Academy\. Module 1 · Archē Executive and the broker's role · about 12 min · 1 of 18 done/.test(top2.t)&&/Continue where you left off/i.test(top2.t)&&top2.href==='academy.test.html#m1',top2);
+  ok(w+': back on the joining page: Continue where you left off, Module 1 and its length',top2&&/continue the Archē Broker Academy\. Module 1 · Archē Executive and the broker's role · about 12 min · 1 of 19 done/.test(top2.t)&&/Continue where you left off/i.test(top2.t)&&top2.href==='academy.test.html#m1',top2);
   ok(w+': the offer has folded away; Read the offer opens it',!/up to 35% of the profit/.test(await p.textContent('#main'))&&!!(await p.$('[data-agr="offer"]')));
   await p.click('#obNext a');await p.waitForTimeout(3000);
   ok(w+': Continue opens Module 1 directly',/#m1$/.test(p.url())&&/Archē Executive and the broker's role/.test(await p.evaluate(()=>document.getElementById('view').innerText)),p.url());

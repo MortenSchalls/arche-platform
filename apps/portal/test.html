@@ -27,7 +27,7 @@
     var bar = document.createElement("div"); bar.id = "testBar";
     bar.innerHTML = '<style>#testBar{background:#985a00;color:#fff;font:600 13px/1.4 "Hanken Grotesk",system-ui,sans-serif;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}#testBar b{letter-spacing:.08em}#testBar select,#testBar button{font:inherit;font-size:12px;padding:3px 8px;border:1px solid #fff;background:transparent;color:#fff;border-radius:4px}#testBar option{color:#000}</style>'
       + '<b>TEST VERSION</b><span>Example data in this browser only. Nothing reaches the real portal.</span>'
-      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option><option value="ops">Test Operations</option><option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option><option value="candidate">New candidate</option></select></label>'
+      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option>' + (/[?&]as=ops/.test(location.search) ? '<option value="ops">Test Operations</option>' : '') + '<option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option><option value="candidate">New candidate</option></select></label>'
       + '<button type="button" id="tvReset">Reset test data</button>';
     document.body.insertBefore(bar, document.body.firstChild);
     var sel = document.getElementById("tvAs"); sel.value = as; sel.onchange = function(){ window.__testSwitch(sel.value); };
@@ -2786,22 +2786,22 @@ function todayAnalytics(){
 /* Portal flow diagram: one source for the portal Help page and the manual (rendered to PNG). */
 function flowSVG(accent){
   const A = accent || "currentColor";
-  const W = 1384, H = 520, lanes = [["AI and automation",70],["Broker",190],["Operations",310],["Client and payment",430]];
+  const W = 1384, H = 520, lanes = [["AI and automation",70],["Broker",190],["Authorisation",310],["Client and payment",430]];
   const bw = 132, bh = 54;
   const x = c => 168 + c * 152;
   const box = (c, r, t1, t2, hi) => { const X = x(c), Y = lanes[r][1] - bh / 2; return `<rect x="${X}" y="${Y}" width="${bw}" height="${bh}" rx="6" fill="none" stroke="${hi ? A : "currentColor"}" stroke-width="${hi ? 2 : 1.2}"/><text x="${X + bw / 2}" y="${Y + 23}" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">${t1}</text>${t2 ? `<text x="${X + bw / 2}" y="${Y + 40}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">${t2}</text>` : ""}`; };
   const R = (c) => x(c) + bw, L = (c) => x(c), M = c => x(c) + bw / 2, ly = r => lanes[r][1];
   const arrow = (x1, y1, x2, y2, label, dash, lx, ly2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="currentColor" stroke-width="1.2" ${dash ? 'stroke-dasharray="5 4"' : ""} marker-end="url(#ah)"/>${label ? `<text x="${lx ?? (x1 + x2) / 2}" y="${ly2 ?? ((y1 + y2) / 2 - 6)}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".8">${label}</text>` : ""}`;
   const path = (d, label, lx, ly2, dash) => `<path d="${d}" fill="none" stroke="currentColor" stroke-width="1.2" ${dash ? 'stroke-dasharray="5 4"' : ""} marker-end="url(#ah)"/>${label ? `<text x="${lx}" y="${ly2}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".8">${label}</text>` : ""}`;
-  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="How a trip moves through the Archē portal, from prospect to commission, across AI, broker, owner and client" style="max-width:100%;height:auto;font-family:Inter,Hanken Grotesk,Arial,sans-serif">
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="How a trip moves through the Archē portal, from prospect to commission, across AI, broker, authorisation and client" style="max-width:100%;height:auto;font-family:Inter,Hanken Grotesk,Arial,sans-serif">
   <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>`;
   lanes.forEach(([n, y], i) => { s += `<rect class="flowlane-${i + 1}" x="8" y="${y - 58}" width="${W - 16}" height="116" fill="currentColor" opacity="0.10"/><text x="20" y="${y + 4}" font-size="12" font-weight="700" fill="currentColor" letter-spacing=".04em">${n.toUpperCase().replace(" AND ", " &amp; ")}</text>`; });
   // AI lane
-  s += box(0, 0, "Daily research", "new organisations") + box(1, 0, "Prospects", "with sources") + box(2, 0, "Rotation", "every 3 hours", true) + box(6, 0, "Daily backup", "Google Drive");
+  s += box(0, 0, "Daily research", "new organisations") + box(1, 0, "Prospects", "with sources") + box(2, 0, "Rotation", "every 3 hours", true) + box(6, 0, "Nightly backup", "encrypted, 90 days");
   // Broker lane
-  s += box(2, 1, "Lead", "contact in 48 h") + box(3, 1, "Enquiry", "airport search") + box(4, 1, "Requests, extras", "and quote ÷ 0.91") + box(5, 1, "7 checks", "documents") + box(6, 1, "Commission", "month flown");
-  // Ops lane
-  s += box(5, 2, "Authorisation", "Avinode, KYC, payment") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
+  s += box(2, 1, "Lead", "contact in 48 h") + box(3, 1, "Enquiry", "airport search") + box(4, 1, "Requests, extras", "and quote ÷ 0.91") + box(5, 1, "Checks, KYC", "payment request") + box(6, 1, "Commission", "month flown");
+  // Authorisation lane: the owner, or a person the owner has mandated (never on their own trip)
+  s += box(5, 2, "Authorisation", "owner or mandated") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
   // Client lane
   s += box(6, 3, "Signs, deposit", "25%, min USD 2,500") + box(7, 3, "Balance, flight", "7 days before") ;
   // arrows
@@ -2809,7 +2809,7 @@ function flowSVG(accent){
   s += arrow(M(2), ly(0) + bh / 2, M(2), ly(1) - bh / 2, "assigns", false, M(2) + 34, (ly(0) + ly(1)) / 2 + 4);
   s += arrow(L(2) + 22, ly(1) - bh / 2, L(2) + 22, ly(0) + bh / 2, "no contact in time: back to rotation", true, L(2) - 70, (ly(0) + ly(1)) / 2 + 4);
   s += arrow(R(2), ly(1), L(3), ly(1)) + arrow(R(3), ly(1), L(4), ly(1)) + arrow(R(4), ly(1), L(5), ly(1));
-  s += arrow(M(5), ly(1) + bh / 2, M(5), ly(2) - bh / 2, "send", false, M(5) + 22, (ly(1) + ly(2)) / 2 + 4);
+  s += arrow(M(5), ly(1) + bh / 2, M(5), ly(2) - bh / 2, "send for authorisation", false, M(5) + 22, (ly(1) + ly(2)) / 2 + 4);
   s += path(`M ${L(5)} ${ly(2)} C ${L(5) - 60} ${ly(2)}, ${M(4)} ${ly(2) - 20}, ${M(4)} ${ly(1) + bh / 2 + 2}`, "returned", L(5) - 64, ly(2) + 4, true);
   s += arrow(R(5), ly(2), L(6), ly(2)) + arrow(M(6), ly(2) + bh / 2, M(6), ly(3) - bh / 2, "signs", false, M(6) + 24, (ly(2) + ly(3)) / 2 + 4);
   s += arrow(R(6), ly(3), L(7), ly(3)) + arrow(M(7), ly(3) - bh / 2, M(7), ly(2) + bh / 2, "flies", false, M(7) + 22, (ly(2) + ly(3)) / 2 + 4);
@@ -2832,7 +2832,7 @@ function vHelp(){
   const mine = Object.entries(S.myAsks || {}).map(([id, a]) => ({id, ...a})).sort((a, b) => (b.t || "").localeCompare(a.t || ""));
   return `<div class="head"><div><h1>Help</h1><p class="muted small">How every part of the portal works, what to do when something goes wrong, and answers to questions. Ask anything: the AI answers at once, and questions asked often join the FAQ.</p></div></div>
   <div class="panel filters" style="grid-template-columns:1fr"><label class="f" for="helpQ">Search the FAQ and the guide<input id="helpQ" value="${esc(S.helpQ || "")}" placeholder="e.g. deposit, de-icing, lead moved, airport"></label></div>
-  ${!q ? `<div class="panel" style="margin-bottom:16px"><h2>How a trip moves through the portal</h2><figure style="margin:8px 0 0"><div class="flowscroll">${flowSVG("var(--steel)")}</div><figcaption class="small muted">Left to right: research and rotation feed leads; the broker builds the trip; operations checks and issues; the client signs and pays through the payment request; the flight is recorded and commission follows. Dashed arrows loop back.</figcaption></figure></div>` : ""}
+  ${!q ? `<div class="panel" style="margin-bottom:16px"><h2>How a trip moves through the portal</h2><figure style="margin:8px 0 0"><div class="flowscroll">${flowSVG("var(--steel)")}</div><figcaption class="small muted">Left to right: research and rotation feed leads; the broker builds the trip and sends it for authorisation; the owner, or a person the owner has mandated, authorises and issues; the client signs and pays through the payment request; the flight is recorded and commission follows. Dashed arrows loop back.</figcaption></figure></div>` : ""}
   <div class="grid2"><div class="stack">
     <div class="panel"><h2>Frequently asked questions</h2>${faq.length ? faq.map(f => `<details class="faq" ${S.faqEdit === f.id ? "open" : ""}><summary>${esc(f.q)}${f.source === "ai" ? ` <span class="tag">From questions${f.count ? " · asked " + f.count + "×" : ""}</span>` : ""}</summary>${S.faqEdit === f.id ? `<form id="faqForm" class="stack" data-fid="${f.id}"><label class="f" for="fq_q">Question<input id="fq_q" value="${esc(f.q)}"></label><label class="f" for="fq_a">Answer<textarea id="fq_a" rows="4">${esc(f.a)}</textarea></label><div class="row"><button class="btn small primary" type="submit">Save</button><button class="btn small" type="button" data-act="faqCancel">Cancel</button></div></form>` : `<p>${esc(f.a)}</p>`}${S.isOwner && !S.preview && S.faqEdit !== f.id ? `<div class="row"><button class="btn small" type="button" data-faqedit="${f.id}">Edit</button><button class="btn small danger" type="button" data-faqhide="${f.id}">Remove</button></div>` : ""}</details>`).join("") : `<p class="small muted">${q ? "No FAQ matches. Ask your question on the right." : "The FAQ is loading."}</p>`}</div>
     <div class="panel"><h2>Feature guide</h2>${HELP.guide ? feats.map(f => `<details class="faq"><summary>${esc(f.title)} <span class="muted small">· ${esc(f.who)}</span></summary><p>${esc(f.purpose)}</p><h3>How it works</h3><ol class="small">${f.steps.map(x => `<li>${esc(x)}</li>`).join("")}</ol><h3>Troubleshooting</h3><table class="small"><thead><tr><th scope=col>If you see</th><th scope=col>Do this</th></tr></thead><tbody>${f.trouble.map(t => `<tr><td>${esc(t[0])}</td><td>${esc(t[1])}</td></tr>`).join("")}</tbody></table><h3>Tips and tricks</h3><ul class="small">${f.tips.map(x => `<li>${esc(x)}</li>`).join("")}</ul></details>`).join("") || `<p class="small muted">No guide page matches.</p>` : `<p class="small muted">Loading the guide…</p>`}</div>
@@ -3853,7 +3853,7 @@ async function cardsWrite(mut, line){
 /* ---------- Training tabs ---------- */
 function trTabs(){
   const t = S.trTab || "course";
-  return `<div class="row" role="tablist" style="margin-bottom:12px;gap:6px">${[["course","Portal course"],["book","Booking practice"],["rp","Roleplay lab"],["cards","Regional cards"]].map(([k, l]) => `<button class="btn ${t === k ? "primary" : ""}" type="button" role="tab" aria-selected="${t === k}" data-trtab="${k}">${l}</button>`).join("")}</div>`;
+  return `<div class="row" role="tablist" style="margin-bottom:12px;gap:6px">${[["course","Systems training"],["book","Booking practice"],["rp","Roleplay lab"],["cards","Regional cards"]].map(([k, l]) => `<button class="btn ${t === k ? "primary" : ""}" type="button" role="tab" aria-selected="${t === k}" data-trtab="${k}">${l}</button>`).join("")}</div>`;
 }
 
 function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class="head"'); if (i < 0) return add + h; const re = /<\/?div\b/g; re.lastIndex = i; let d = 0, m; while ((m = re.exec(h))) { d += m[0][1] === "/" ? -1 : 1; if (d === 0) { const e = h.indexOf(">", m.index) + 1; return h.slice(0, e) + add + h.slice(e); } } return h + add; }
@@ -3862,7 +3862,7 @@ function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class=
   const _vTraining = vTraining;
   vTraining = function(){
     const t = S.trTab || "course";
-    if (t === "course") return `<div class="head"><div><h1>Training</h1><p class="muted small">The portal course: every screen for your role, with a task to try in the test version and a short check for each lesson. Start here, then practise whole bookings in Booking practice.</p></div><div class="row"><a class="btn" href="academy.test.html">Open the Broker Academy</a></div></div>` + trTabs() + vCourse();
+    if (t === "course") return `<div class="head"><div><h1>Training</h1><p class="muted small">Systems training on the portal is in the Archē Broker Academy, after the written exam (manual 14.2). Practise whole bookings in Booking practice.</p></div></div>` + trTabs() + sysTrainingPanel();
     if (t === "book") { const h = _vTraining(); return h.replace(/(<div class="note warn small" style="margin-bottom:12px">)/, trTabs() + "$1"); }
     const head = `<div class="head"><div><h1>Training</h1><p class="muted small">${t === "rp" ? "Practise difficult conversations out loud with an AI client, assistant or operator, then see your score on the lab sheet (manual 14.4–14.5)." : "Regional quick-reference cards for live enquiries (manual Appendix J)."}</p></div></div>`;
     return head + trTabs() + (t === "rp" ? rpView() : cardsView());
@@ -4957,6 +4957,21 @@ function obLoadAck(){
   if (S.obAckLoading || S.obAck !== undefined || !S.uid) return; S.obAckLoading = true;
   S.db.doc(`train/${S.uid}/runs/onboarding`).get().then(d => { S.obAck = d.exists ? d.data() : null; }, () => { S.obAck = null; }).finally(() => { S.obAckLoading = false; render(); });
 }
+/* Systems training lives in the academy (Morten, 7 Nov 2026: "include full systems training in the academy", replacing the
+   portal course so it is asked once). Training shows where the person is and opens the step. */
+function sysTrainingPanel(){
+  if (S.uid) obLoadProg(S.uid);
+  const pr = (S.obProg || {})[S.uid], mods = (pr && pr.mods) || {}, sys = mods.sys || {}, exam = mods.exam && mods.exam.passed;
+  const n = ((HELP.guide || {}).features || []).filter(f => f.sys).length || 29;
+  const status = pr === undefined ? "Loading your progress…" : sys.passed ? `<b>Passed</b>${sys.at || sys.date ? " on " + fmtD(sys.passedAt || sys.at) : ""}. Next: Avinode training (separate) and shadowing.`
+    : exam ? (sys.attempts ? `Started · best check ${sys.best || 0}%. Every lesson check must be right.` : "Open now: you passed the written exam.")
+    : "Opens after the written exam. You can read the screens in Help at any time.";
+  if (!HELP.guide) loadGuide();
+  return `<div class="panel stack"><h2 style="margin:0">Systems training: the Archē portal</h2>
+    <p class="small">${n} lessons, one per screen a broker uses, in the order of a booking. Each has a Try it task in the test version and a short check. Every check must be right. Avinode is trained separately.</p>
+    <p class="small" id="sysStatus">${status}</p>
+    <div class="row"><a class="btn ${exam && !sys.passed ? "primary" : ""}" href="academy.html#sys" data-acad="go">${sys.passed ? "Review Systems training" : exam ? "Open Systems training" : "Open the Broker Academy"}</a><a class="btn" href="test.html?as=broker" target="_blank" rel="noopener">Open the test version</a></div></div>`;
+}
 function obLoadProg(id){
   S.obProg = S.obProg || {}; if (id in S.obProg) return; S.obProg[id] = undefined;
   S.db.doc("progress/" + id).get().then(d => { S.obProg[id] = d.exists ? d.data() : null; }, () => { S.obProg[id] = null; }).finally(() => render());
@@ -4964,13 +4979,13 @@ function obLoadProg(id){
 /* the academy steps in order, with the reading time the academy itself shows (tests/acadplantest.js keeps them in step
    with the academy build). Used for "continue where you left off" on the joining page and in reminders (Morten, 4 Nov 2026). */
 const OB_ACAD = {
-  paths: {broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam"]},
+  paths: {broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam","sys"]},
   steps: {m0: ["Module 0 · Aviation for brokers", 21], m1: ["Module 1 · Archē Executive and the broker's role", 12], m2: ["Module 2 · Where we may and may not sell", 23],
     lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
     m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
     m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
     m11: ["Module 11 · Trip operations and disruption", 12], m12: ["Module 12 · Selling and account management", 7], m13: ["Module 13 · Case studies", 9],
-    m14: ["Module 14 · Assessment and certification", 14], exam: ["Written exam", 0]}
+    m14: ["Module 14 · Assessment and certification", 15], exam: ["Written exam", 0], sys: ["Systems training: the Archē portal", 70]}
 };
 function obNext(p){
   const role = (p && p.role) || "broker", path = OB_ACAD.paths[role] || OB_ACAD.paths.broker, mods = (p && p.mods) || {};

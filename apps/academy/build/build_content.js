@@ -93,7 +93,8 @@ const OBJ = {
  m11:["Prepare and run the day of flight","Handle disruption and out-of-hours calls","Answer sustainability questions honestly"],
  m12:["Meet the Arche service standard on every call","Answer common objections","Manage accounts, follow-ups and negotiation with clients"],
  m13:["Apply the whole manual to six real-world trips"],
- m14:["Know how you are assessed and certified","Plan your Avinode, payment system and external training"],
+ m14:["Know how you are assessed and certified","Plan your systems, Avinode and external training"],
+ sys:["Use every screen of the Arche portal a broker needs, in the order of a booking","Practise each one safely in the test version","Know what to do when a screen does not let you go on"],
 };
 const TAKE = {
  m0:["The operator flies and is responsible for safety; Arche finds, checks, prices, contracts and looks after the client.","Confirm airport, date and time zone in writing, always.","Positioning is usually paid by the client; empty legs can be cancelled.","Use market figures only with their source and date.","Cabotage is the 8th and 9th freedom, and most countries refuse it to foreign operators."],
@@ -110,6 +111,7 @@ const TAKE = {
  m11:["Keep the client informed before they need to ask.","Extra cost after an AOG needs the director's approval.","Every on-call shift ends with a written handover."],
  m12:["Answer the same business day and confirm everything in writing.","Compare like for like before discussing price.","Track every enquiry through the pipeline and follow up every quote."],
  m13:["Work each case yourself before opening the model answer."],
+ sys:["Every booking runs in the portal, and only there.","The portal sets most checks from your records: complete the record and the tick follows.","Send for authorisation opens only when the trip is complete; the owner, or a person the owner has mandated, never authorises their own trip.","Every lesson check right, then Avinode training (separate) and shadowing."],
  m14:["80% in the exam and every critical-rule question right.","Then systems training, shadowing with two site visits, the practical exam and 10 supervised bookings."],
 };
 /* questions that test a critical rule: all must be right in the written exam */
@@ -188,6 +190,26 @@ MODS.m13.secs.push({h:"Spot the problem", b:[{p:"The twelve spot-the-problem tri
 MODS.m14.secs = MODS.m14.secs.filter(s => !/^14\.1/.test(s.h));
 MODS.m14.secs.unshift({h:"The written exam", b:[{p:"The written exam follows this module. It draws questions from every module check in your path. To pass you need 80% or more, and every question on a critical rule must be right."},{p:"After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the director, and 10 supervised bookings. The director signs your training record when all stages are complete."}]});
 
+/* Systems training: the Arche portal (Morten, 7 Nov 2026: "include full systems training in the academy for Arche only,
+   Avinode is separate for now"). Stage 3, after the written exam; internal edition only (ext.js removes it).
+   One lesson per screen from the manual's Appendix H (portal-guide.json, the same text as the portal's Help). */
+{ const G = JSON.parse(fs.readFileSync('../../manual/portal-guide.json','utf8'));
+  const plain = x => JSON.parse(JSON.stringify(x).replace(/Archē/g, 'Arche'));
+  const SF = plain(G.features.filter(f => f.sys).sort((a,b) => a.sys - b.sys));
+  const AS = {broker:"Test Broker", owner:"Test Owner"};
+  const secs = SF.map((f,i) => ({h:`S.${i+1} ${f.title}`, b:[
+    {p:f.purpose}, {p:"Who uses it: " + f.who}, {h3:"How it works"}, {olist:f.steps},
+    ...(f.try ? [{tryit:{as:f.try[0] === "owner" ? "owner" : "broker", who:AS[f.try[0]] || "Test Broker", t:f.try[1]}}] : []),
+    ...(f.trouble.length ? [{h3:"If something goes wrong"}, {table:{cols:["If you see","Do this"], rows:f.trouble}}] : []),
+    ...(f.tips.length ? [{h3:"Tips"}, {list:f.tips}] : [])]}));
+  /* the check: one "what do you do" per lesson, from the lesson's own first problem; the other choices are fixes from other lessons */
+  const fixes = SF.map(f => f.trouble[0] && f.trouble[0][1]);
+  const quiz = SF.filter(f => f.trouble.length).map(f => { const i = SF.indexOf(f), right = f.trouble[0][1];
+    const others = []; for (let k = 1; others.length < 3 && k < SF.length; k++) { const o = fixes[(i + k * 7) % SF.length]; if (o && o !== right && !others.includes(o)) others.push(o); }
+    const at = i % 4, o = others.slice(); o.splice(at, 0, right);
+    return {q:`${f.title}: ${f.trouble[0][0].replace(/\.$/, "")}. What do you do?`, o, a:at, why:right, crit:false}; });
+  MODS.sys = {intro:"Every screen of the Arche portal that a broker uses, in the order of a booking. Each lesson says what the screen is for and how it works, gives you a Try it task in the test version, and shows what to do when something goes wrong. Open the test version in a second tab and do each Try it task as you go: it holds example data only. The check at the end has one question per lesson, and every answer must be right. Avinode is trained separately.", secs, quiz};
+}
 /* figures placed in the section they explain (drawn in the page) */
 const FIG = {"0.1":"who","0.2":"cats","0.4":"utc","0.5":"pos","0.10":"market","0.12":"freedoms","2.4":"never","2.6":"cabo","2.9":"rag","3.2":"screen","5.1":"cycle","6.2":"airport","8.2":"vet","9.3":"price","9.4":"ex","10.2":"money","11.2":"day","12.5":"funnel","2.10":"montreal"};
 for (const [id,M] of Object.entries(MODS)) {
@@ -232,6 +254,7 @@ const COURSE = [
  {id:"m13", n:"13", t:TITLES.m13},
  {id:"m14", n:"14", t:"Assessment and certification"},
  {id:"exam", n:"EX", t:"Written exam", lab:true},
+ {id:"sys", n:"ST", t:"Systems training: the Arche portal"},
 ].map(c => Object.assign(c, {live:true}));
 const PATHS = {
  broker: COURSE.map(c => c.id),

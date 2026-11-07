@@ -318,6 +318,10 @@ nav.map{background:transparent}
 .opt .k{font-family:var(--label);font-weight:600;text-transform:uppercase;color:var(--steel)}
 .box{background:transparent;border-left:2px solid var(--steel);border-radius:0;padding:4px 0 4px 18px}
 .box b{font-family:var(--display);font-weight:400;font-size:17px}
+.tryit{border:1px solid var(--line);border-left:2px solid var(--steel);padding:16px 18px;background:var(--field);margin:14px 0}
+.tryit .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 4px}
+.tryit p{margin:0 0 10px}
+.tryit .btn{display:inline-block;text-decoration:none;color:var(--ink)}
 .fig .cv{background:var(--panel)}
 .links a::after{content:"→"}
 .legal{font-size:11.5px;letter-spacing:.02em}
@@ -742,10 +746,10 @@ function vStart(v){
 const CHAPTERS = [["I","Foundations","The industry, Archē Executive and where we may sell",["m0","m1","m2","lab"]],
   ["II","Compliance and clients","Know your client, sanctions, fraud and qualifying an enquiry",["m3","m4","m5"]],
   ["III","Planning, sourcing and pricing","From a feasible trip to a priced, contracted booking",["m6","m7","m8","m9","m10","book"]],
-  ["IV","Operations and certification","Running the trip, selling, case studies and the exam",["m11","m12","m13","m14","m15","exam"]]];
-const MODPH = {m0:"cat_ulr",m1:"cabin_ulr",m2:"cat_heavy",lab:"deice",m3:"fam_f8x",m4:"cabin_lg",m5:"cat_light",m6:"deice",m7:"fam_g650",m8:"cat_smid",m9:"cat_mid",m10:"cabin_lt",book:"cat_tp",m11:"cat_vip",m12:"cabin_lg",m13:"fam_f8x",m14:"cat_ulr",m15:"cat_smid",exam:"fam_g650"};
+  ["IV","Operations and certification","Running the trip, selling, case studies, the exam and systems training",["m11","m12","m13","m14","m15","exam","sys"]]];
+const MODPH = {m0:"cat_ulr",m1:"cabin_ulr",m2:"cat_heavy",lab:"deice",m3:"fam_f8x",m4:"cabin_lg",m5:"cat_light",m6:"deice",m7:"fam_g650",m8:"cat_smid",m9:"cat_mid",m10:"cabin_lt",book:"cat_tp",m11:"cat_vip",m12:"cabin_lg",m13:"fam_f8x",m14:"cat_ulr",m15:"cat_smid",exam:"fam_g650",sys:"cabin_lt"};
 function phCredit(p){ return p ? `Photo: ${esc(p.artist)}, <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.lic)}</a>` : ""; }
-function stepLabel(id){ const c = courseItem(id); return id === "exam" ? "Exam" : c.lab ? "Practical" : "Module " + c.n; }
+function stepLabel(id){ const c = courseItem(id); return id === "exam" ? "Exam" : id === "sys" ? "Systems training" : c.lab ? "Practical" : "Module " + c.n; }
 function vHome(v){
   const path = PATH(), done = path.filter(isDone).length, nextId = path.find(id => !isDone(id)), all = done === path.length;
   const mins = id => MODS[id] ? MODS[id].min : 0;
@@ -785,6 +789,7 @@ function vHome(v){
 }
 
 /* blocks */
+const TESTURL = as => (location.protocol === "file:" ? "https://portal.archeaviation.com/" : "") + "test.html?as=" + encodeURIComponent(as);   /* the academy sits next to the test version on the portal */
 function linksHTML(ls){ return `<div class="links"><span class="lab">Read more: official and industry sources</span>${ls.map(l => `<span class="lrow"><a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])}</a>${l[2] ? `<span class="why">${esc(l[2])}</span>` : ""}</span>`).join("")}</div>`; }
 function blockHTML(b, k){
   if (b.p) return `<p>${esc(b.p)}</p>`;
@@ -793,6 +798,7 @@ function blockHTML(b, k){
   if (b.olist) return `<ol class="l">${b.olist.map(x => `<li>${esc(x)}</li>`).join("")}</ol>`;
   if (b.table) return `<div class="tw"><table class="${b.rag ? "rag" : ""}"><thead><tr>${b.table.cols.map(c => `<th scope="col">${esc(c)}</th>`).join("")}</tr></thead><tbody>${b.table.rows.map(r => `<tr>${r.map((c,i) => `<td class="${(b.mono||[]).includes(i) ? "mono" : ""}">${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
   if (b.links) return linksHTML(b.links);
+  if (b.tryit) return `<div class="tryit"><p class="k">Try it in the test version, as ${esc(b.tryit.who)}</p><p>${esc(b.tryit.t)}</p><a class="btn" href="${esc(TESTURL(b.tryit.as))}" target="_blank" rel="noopener" data-nokey>Open the test version</a></div>`;
   if (b.box) return `<div class="box"><b>${esc(b.box.t)}</b>${b.box.l.map(x => `<span>${esc(x)}</span>`).join("")}</div>`;
   if (b.fig) return FIGS(b.fig);
   if (b.photos) { const ps = b.photos.filter(k => PHOTOS[k]); return `<div class="gallery ${ps.length === 1 ? "one" : ""}" data-say="${esc("Photos: " + ps.map(k => PHOTOS[k].cap).join("; ") + ".")}">${ps.map(k => { const p = PHOTOS[k]; return `<figure class="ph"><img src="${p.src}" alt="${esc(p.cap)}" loading="lazy" decoding="async"><figcaption>${esc(p.cap)}<span class="cr"> · Photo: ${esc(p.artist)}, <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.lic)}</a></span></figcaption></figure>`; }).join("")}</div>`; }
@@ -820,7 +826,7 @@ function vModule(v, id){
   const pages = ["intro", ...M.secs.map((_,i) => i), "take"].concat(hasQ ? ["check"] : []);
   const s = Math.min(VIEW.step, pages.length - 1), pg = pages[s], total = pages.length;
   const dots = Array.from({length:total}, (_,i) => `<span class="${i < s ? "on" : i === s ? "cur" : ""}"></span>`).join("");
-  const head = (sub) => `<div><p class="eyebrow">Module ${esc(C.n)} · ${sub}</p><h1>${esc(C.t)}</h1></div><div class="steps" aria-hidden="true">${dots}</div>`;
+  const head = (sub) => `<div><p class="eyebrow">${id === "sys" ? "Stage 3 · systems training" : "Module " + esc(C.n)} · ${sub}</p><h1>${esc(C.t)}</h1></div><div class="steps" aria-hidden="true">${dots}</div>`;
   const nav = (label) => `<div class="row"><button class="btn" type="button" id="prev" ${s===0?"disabled":""}>Back</button><span class="sp"></span><button class="btn primary" type="button" id="next">${label}</button></div>`;
   const wire = () => {
     $("prev").onclick = () => { VIEW.step = s - 1; render(); window.scrollTo({top:0}); };
@@ -852,7 +858,7 @@ function vModule(v, id){
   }
   if (pg === "check") {
     v.innerHTML = `${head("module check")}<div id="qz"></div>`;
-    runQuiz($("qz"), M.quiz, (sc, tot) => { const passed = sc/tot >= PASS; record(id, sc, tot, passed); return passed; }, () => { VIEW.step = s - 1; render(); });
+    runQuiz($("qz"), M.quiz, (sc, tot) => { const passed = sc/tot >= (id === "sys" ? 1 : PASS); record(id, sc, tot, passed); return passed; }, () => { VIEW.step = s - 1; render(); });   /* Systems training: every lesson check right (manual 14.2) */
     return;
   }
   const sec = M.secs[pg];
@@ -908,7 +914,7 @@ function runQuiz(root, Q, onDone, onBack, opt){
 const EXAM_SIZE = 30;
 function vExam(v){
   const bank = [];
-  PATH().forEach(id => { const M = MODS[id]; if (M) M.quiz.forEach(q => bank.push(Object.assign({mod:courseItem(id).n, mid:id}, q))); });
+  PATH().forEach(id => { const M = MODS[id]; if (M && id !== "sys") M.quiz.forEach(q => bank.push(Object.assign({mod:courseItem(id).n, mid:id}, q))); });
   const crit = bank.filter(q => q.crit), rest = seeded(bank.filter(q => !q.crit), Date.now() % 233280);
   const set = seeded(crit.concat(rest).slice(0, Math.max(crit.length, Math.min(EXAM_SIZE, bank.length))), (Date.now() >> 3) % 233280);
   v.innerHTML = `
