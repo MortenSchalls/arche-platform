@@ -888,8 +888,8 @@ function vTeam(){
   return `<div class="head"><div><h1>Team</h1><p class="muted small">New people complete the Broker Academy first, then ask for assessment. Assess them, create their Archē email, and approve only if they pass: that issues their onboarding package and opens the portal. New people sign in with a temporary password you create in Supabase (Authentication › Users › Add user, Auto Confirm User) and choose their own at first sign-in. End access the same day someone leaves.</p></div></div>
   ${joins.length ? `<div class="note info small" style="margin-bottom:12px">${joins.length} request${joins.length > 1 ? "s" : ""} to join waiting. <a href="#" data-view="onboarding">Open Onboarding</a></div>` : ""}
   <div><div class="panel tbl"><h2>People</h2><table><thead><tr><th scope=col>Name</th><th scope=col>Role</th><th scope=col>Works from</th><th scope=col>Since</th><th scope=col>Onboarding</th><th scope=col>Booking rights</th><th scope=col>Access</th></tr></thead><tbody>
-  ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))} ${p.example ? '<span class="tag">Example</span>' : ""}</td><td>${esc(p.role)}</td><td>${esc(p.base || "")}</td><td>${fmtD(p.since)}</td><td>${obTeamCell(id, p)}</td><td>${p.role === "ops" ? "Mandated by the owner" : `<label class="check" style="margin:0"><input type="checkbox" data-book="${id}" ${p.book ? "checked" : ""}><span class="small">Can book</span></label>`}</td><td>${p.active === false ? `<button class="btn small" type="button" data-reactivate="${id}">Restore</button>` : `<button class="btn small danger" type="button" data-offboard="${id}">${p.offboard ? "Leaving" : "End engagement"}</button>`}</td></tr>`).join("") || `<tr><td colspan="7" class="muted">Nobody approved yet.</td></tr>`}
-  </tbody></table><p class="small muted" style="margin-top:8px"><b>Booking rights</b> let a broker you mandate check trips, issue confirmations and record payments, for everyone except their own trips. They reload the portal once to get it. Booking rights open every trip and the commission screen, so give them only to trusted people.</p></div></div>`;
+  ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))} ${p.example ? '<span class="tag">Example</span>' : ""}</td><td>${esc(p.role)}</td><td>${esc(p.base || "")}</td><td>${fmtD(p.since)}</td><td>${obTeamCell(id, p)}</td><td>${p.role === "ops" ? "Mandated by the owner" : `<label class="check" style="margin:0"><input type="checkbox" data-book="${id}" ${p.book ? "checked" : ""}><span class="small">May authorise</span></label>`}</td><td>${p.active === false ? `<button class="btn small" type="button" data-reactivate="${id}">Restore</button>` : `<button class="btn small danger" type="button" data-offboard="${id}">${p.offboard ? "Leaving" : "End engagement"}</button>`}</td></tr>`).join("") || `<tr><td colspan="7" class="muted">Nobody approved yet.</td></tr>`}
+  </tbody></table><p class="small muted" style="margin-top:8px"><b>Authorisation</b> is yours by default. Tick <b>May authorise</b> to mandate someone else: they can then authorise trips, issue confirmations and record payments, for everyone except their own trips. They reload the portal once to get it. Booking rights open every trip and the commission screen, so give them only to trusted people.</p></div></div>`;
 }
 
 /* ---------- settings (owner) ---------- */
@@ -1471,7 +1471,7 @@ function vSecurity(){
       <li><b>Access log.</b> The last time each person opened the portal is recorded below.</li>
       <li><b>AI keeps data in Claude.</b> The co-pilot receives trip details without client names or contact details.</li></ul>
     <h3 style="margin-top:8px">Your access checklist</h3>
-    <ul class="small" style="padding-left:18px;margin:0"><li>Every person has their own login; never share one.</li><li>Booking rights only for trusted people: they open every trip and the commission screen.</li><li>When someone leaves: End access on the Team page the same day, and delete their user in Supabase.</li></ul></div>
+    <ul class="small" style="padding-left:18px;margin:0"><li>Every person has their own login; never share one.</li><li>Mandate to authorise only for trusted people: they open every trip and the commission screen.</li><li>When someone leaves: End access on the Team page the same day, and delete their user in Supabase.</li></ul></div>
   <div class="panel tbl"><h2>Access log</h2><table><thead><tr><th scope=col>Person</th><th scope=col>Role</th><th scope=col>Last opened</th></tr></thead><tbody>
     ${rows.map(([id, a]) => `<tr><td>${esc(nm(id))}</td><td>${esc(a.role || "")}</td><td>${fmtT(a.lastSeen)}</td></tr>`).join("") || `<tr><td colspan="3" class="muted">Nobody else has opened the portal yet.</td></tr>`}
   </tbody></table></div></div>${auditPanel()}`;
@@ -2668,7 +2668,7 @@ document.addEventListener("change", async e => {
   if (e.target.id === "q_cur") { curSync(); return; }
   if (e.target.id === "sg_file") { const t = tripById(S.sel); if (t) sigSave(t); return; }
   if (e.target.dataset && e.target.dataset.launch) { const k = e.target.dataset.launch; try { await S.db.doc("config/launch").set({...(S.launch || {}), [k]: e.target.checked ? now() : null}); audit(e.target.checked ? "Launch item ticked" : "Launch item unticked", k); } catch(err){ toast("Could not save."); } return; }
-  if (e.target.dataset && e.target.dataset.book) { const id = e.target.dataset.book; audit(e.target.checked ? "Booking rights given" : "Booking rights removed", nm(id)); try { await S.db.doc("roster/" + id).update({book: e.target.checked}); toast(e.target.checked ? "Booking rights on. They reload the portal to get them." : "Booking rights off."); } catch(err){ toast("Could not change."); } return; }
+  if (e.target.dataset && e.target.dataset.book) { const id = e.target.dataset.book; audit(e.target.checked ? "Mandated to authorise" : "Mandate to authorise removed", nm(id)); try { await S.db.doc("roster/" + id).update({book: e.target.checked}); toast(e.target.checked ? "Booking rights on. They reload the portal to get them." : "Booking rights off."); } catch(err){ toast("Could not change."); } return; }
   if (e.target.id === "dashMetric") { S.dashMetric = e.target.value; render(); return; }
   if (e.target.id === "fSel") { S.filter = e.target.value; render(); return; }
   if (e.target.dataset && e.target.dataset.pf && e.target.dataset.pf !== "q") { const k = e.target.dataset.pf; S.pf[k] = e.target.value; if (k === "region") { S.pf.country = ""; S.pf.province = ""; } if (k === "country") S.pf.province = ""; render(); return; }
@@ -4319,7 +4319,7 @@ const CR_TRY = {
   debrief: ["ops", "Read the debrief steps above; they apply to supervised bookings."],
   today: ["owner", "As Test Owner, approve the trip waiting on Today."],
   approval: ["owner", "Approve a trip, then change its price as Test Operations and see it come back to Today."],
-  team: ["owner", "Open Team, tick Booking rights for Test Broker, then switch to Test Broker and see Operations in the menu."],
+  team: ["owner", "Open Team, tick May authorise for Test Broker, then switch to Test Broker and see Authorisation in the menu."],
   settings: ["owner", "Open Settings and find the margin (9%)."],
   investors: ["owner", "Open Prospects, Investors and partners and use Import list with one example line."],
   security: ["owner", "Open Security and read the access log."],
@@ -5116,7 +5116,7 @@ document.addEventListener("change", async e => {
 const RIGHTS = {
   supervise: {label: "Supervise steps", desc: "Approve or send back supervised steps of others."},
   assess: {label: "Assess new people", desc: "See requests to join and academy progress, and send the agreement after a passed assessment. You countersign."},
-  approve: {label: "Approve bookings", desc: "Approve bookings before the confirmation is issued (for people the owner has mandated). Never their own trips, and someone else issues."},
+  approve: {label: "Give the booking approval", desc: "Give the booking approval before the confirmation is issued, in your place. Never on their own trips, and someone else issues."},
   train: {label: "Train and share screen", desc: "Run live training: share their own screen with the people they choose (Training → Live training), follow the syllabus and mark lessons done, and see the team's training results."}
 };
 /* a supervisor (Morten, 29 Oct 2026: "the supervisor to be able to do assessments and training, as well as sharing the
@@ -5124,7 +5124,7 @@ const RIGHTS = {
 const SUP_SET = ["supervise", "assess", "train"];
 function canRight(r){ if (S.isOwner) return true; const me = rosterOf(S.uid); return me.active !== false && !!(me.rights || {})[r]; }
 const hasAnyRight = () => !S.isOwner && Object.keys(RIGHTS).some(canRight);
-function rightApplies(r, id){ return r === "approve" ? rosterOf(id).role === "ops" : true; }
+function rightApplies(r, id){ return r === "approve" ? (rosterOf(id).role === "ops" || !!rosterOf(id).book) : true; }   /* anyone mandated to authorise may also be given the booking approval (Morten, 7 Nov 2026) */
 
 /* supervisors subscribe to everyone's requests (the roster they can now read) */
 const _gateWatch = gateWatch;

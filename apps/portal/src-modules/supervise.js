@@ -142,7 +142,7 @@ document.addEventListener("change", async e => {
 const RIGHTS = {
   supervise: {label: "Supervise steps", desc: "Approve or send back supervised steps of others."},
   assess: {label: "Assess new people", desc: "See requests to join and academy progress, and send the agreement after a passed assessment. You countersign."},
-  approve: {label: "Approve bookings", desc: "Approve bookings before the confirmation is issued (for people the owner has mandated). Never their own trips, and someone else issues."},
+  approve: {label: "Give the booking approval", desc: "Give the booking approval before the confirmation is issued, in your place. Never on their own trips, and someone else issues."},
   train: {label: "Train and share screen", desc: "Run live training: share their own screen with the people they choose (Training → Live training), follow the syllabus and mark lessons done, and see the team's training results."}
 };
 /* a supervisor (Morten, 29 Oct 2026: "the supervisor to be able to do assessments and training, as well as sharing the
@@ -150,7 +150,7 @@ const RIGHTS = {
 const SUP_SET = ["supervise", "assess", "train"];
 function canRight(r){ if (S.isOwner) return true; const me = rosterOf(S.uid); return me.active !== false && !!(me.rights || {})[r]; }
 const hasAnyRight = () => !S.isOwner && Object.keys(RIGHTS).some(canRight);
-function rightApplies(r, id){ return r === "approve" ? rosterOf(id).role === "ops" : true; }
+function rightApplies(r, id){ return r === "approve" ? (rosterOf(id).role === "ops" || !!rosterOf(id).book) : true; }   /* anyone mandated to authorise may also be given the booking approval (Morten, 7 Nov 2026) */
 
 /* supervisors subscribe to everyone's requests (the roster they can now read) */
 const _gateWatch = gateWatch;

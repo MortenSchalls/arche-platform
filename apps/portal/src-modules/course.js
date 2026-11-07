@@ -46,7 +46,7 @@ const CR_TRY = {
   debrief: ["ops", "Read the debrief steps above; they apply to supervised bookings."],
   today: ["owner", "As Test Owner, approve the trip waiting on Today."],
   approval: ["owner", "Approve a trip, then change its price as Test Operations and see it come back to Today."],
-  team: ["owner", "Open Team, tick Booking rights for Test Broker, then switch to Test Broker and see Operations in the menu."],
+  team: ["owner", "Open Team, tick May authorise for Test Broker, then switch to Test Broker and see Authorisation in the menu."],
   settings: ["owner", "Open Settings and find the margin (9%)."],
   investors: ["owner", "Open Prospects, Investors and partners and use Import list with one example line."],
   security: ["owner", "Open Security and read the access log."],
