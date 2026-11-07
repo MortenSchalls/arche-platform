@@ -43,15 +43,17 @@ export function charge(model, u) {
 }
 const budgetStop = why => Object.assign(new Error(why), { fatal: true, budget: true });
 // before a job: how much of the month's budget is left (0 means do not run)
+// the monthly limit is the owner's setting in the portal (Prospects > Research agent), at most USD 100; else the default
+export const monthCap = a => Math.min(100, Math.max(0, Number((a || {}).cap) || MONTH_BUDGET));
 export async function startSpend(db) {
-  const s = (await db.get("intel/spend")) || {}, month = new Date().toISOString().slice(0, 7);
-  meter.monthLeft = MONTH_BUDGET - (s.month === month ? s.usd || 0 : 0); return meter.monthLeft;
+  const s = (await db.get("intel/spend")) || {}, month = new Date().toISOString().slice(0, 7), cap = monthCap(await db.get("intel/agent"));
+  meter.cap = cap; meter.monthLeft = cap - (s.month === month ? s.usd || 0 : 0); return meter.monthLeft;
 }
 // after a job: add this run to the month and keep the last 30 runs
 export async function recordSpend(db, job) {
   const s = (await db.get("intel/spend")) || {}, month = new Date().toISOString().slice(0, 7), same = s.month === month;
   const run = { t: new Date().toISOString(), job, usd: Math.round(meter.usd * 100) / 100, searches: meter.searches, calls: meter.calls };
-  await db.set("intel/spend", { month, usd: Math.round(((same ? s.usd || 0 : 0) + meter.usd) * 100) / 100, monthBudget: MONTH_BUDGET, runBudget: RUN_BUDGET,
+  await db.set("intel/spend", { month, usd: Math.round(((same ? s.usd || 0 : 0) + meter.usd) * 100) / 100, monthBudget: meter.cap || MONTH_BUDGET, runBudget: RUN_BUDGET,
     prevMonth: same ? s.prevMonth || null : (s.month ? { month: s.month, usd: s.usd } : null), runs: [run, ...(s.runs || [])].slice(0, 30) });
   return run;
 }
@@ -184,7 +186,9 @@ export async function run(db = connect(), call = callApi, log = console.log, fet
 async function runSteps(db, call, log, fetchLists) {
   const status = (await db.get("intel/status")) || {};
   const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0;
-  const focus = FOCUS[fi % FOCUS.length];
+  // focus areas: the owner's list in the portal (Research agent) when set, else the standard list
+  const ag = (await db.get("intel/agent")) || {}, FOC = Array.isArray(ag.focus) && ag.focus.filter(x => String(x || "").trim()).length ? ag.focus.map(x => String(x).trim().slice(0, 160)).filter(Boolean).slice(0, 40) : FOCUS;
+  const focus = FOC[fi % FOC.length];
   const rows = await db.all("prospects");
   const existing = new Set(rows.map(r => normName(r.data.org)));
   const maxId = rows.reduce((m, r) => Math.max(m, parseInt(String(r.id).replace(/\D/g, ""), 10) || 0), 0);
@@ -288,7 +292,7 @@ org, country, city, region (one of ${REGIONS.join(", ")}), website, source (URL 
 
   const note = `Added ${added.length} for "${focus}"${added.length ? ": " + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") : ""}. Contact routes added to ${updated} existing. Operators added for "${opFocus}": ${opsAdded.length}. Service partners: ${svc.added.length} added, ${svc.merged} airports linked${svc.airports.length ? " (" + svc.airports.join(", ") + ")" : ""}. Sanctions pre-screen: ${screened} operators${possible.length ? ", possible match: " + possible.join(", ") : ", no match"}${listsInfo.failed.length ? " (lists not loaded: " + listsInfo.failed.join(", ") + ")" : ""}. ${rejected.length ? rejected.length + " rejected by the rules." : ""}`.trim();
   await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length, lastUpdated: updated, totalProspects: rows.length + added.length,
-    focusIndex: fi + 1, nextFocus: FOCUS[(fi + 1) % FOCUS.length], opFocusIndex: ofi + 1, nextOpFocus: OP_FOCUS[(ofi + 1) % OP_FOCUS.length], lastOperators: opsAdded.length, sanctionsLists: listsInfo, note, rejected: rejected.slice(0, 20), by: "scheduled" });
+    focusIndex: fi + 1, nextFocus: FOC[(fi + 1) % FOC.length], opFocusIndex: ofi + 1, nextOpFocus: OP_FOCUS[(ofi + 1) % OP_FOCUS.length], lastOperators: opsAdded.length, sanctionsLists: listsInfo, note, rejected: rejected.slice(0, 20), by: "scheduled" });
   log(note); rejected.forEach(x => log("  rejected:", x));
   return { added, updated, rejected, operators: opsAdded, services: svc.added, screened, possible, note, ownerAdded: invCount };
 }
