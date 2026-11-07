@@ -39,6 +39,7 @@ EXT_TEXT = [
  ("What applies to Arche","What applies to the broker"),
  ("Bank transfer to Arche's account","Bank transfer to the broker's account"),
  ("code to send to the director","code to send to the course provider"),
+ ('<p class="eyebrow">Arche Executive · Broker Academy</p><h1>Welcome to the academy</h1>','<p class="eyebrow">Charter Broker Academy</p><h1>Welcome to the academy</h1>'),
  ("completion code to the director","completion code to the course provider"),
  # figures
  ('box(200,40,170,64,"Arche Executive","the broker")','box(200,40,170,64,"Broker","your company")'),
