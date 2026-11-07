@@ -1,0 +1,21 @@
+# Academy narration (Morten, 7 Nov 2026): voice samples now; the full course later. Runs when the sample text changes.
+name: Academy audio
+on:
+  push:
+    branches: [staging]
+    paths: ["apps/academy/audio/sample.txt", "apps/academy/audio/samples.py", ".github/workflows/audio.yml"]
+permissions:
+  contents: read
+jobs:
+  samples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: sudo apt-get update -q && sudo apt-get install -y -q espeak-ng ffmpeg
+      - run: pip install -q "kokoro>=0.9" soundfile numpy
+      - run: mkdir -p out && python apps/academy/audio/samples.py apps/academy/audio/sample.txt out
+      - uses: actions/upload-artifact@v4
+        with: { name: voice-samples, path: out/*.mp3, retention-days: 14 }
