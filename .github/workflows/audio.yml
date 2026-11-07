@@ -5,7 +5,7 @@ on:
     branches: [staging]
     paths: ["apps/academy/audio/sample.txt", "apps/academy/audio/samples.py", ".github/workflows/audio.yml"]
 permissions:
-  contents: read
+  contents: write
 jobs:
   samples:
     runs-on: ubuntu-latest
@@ -17,5 +17,8 @@ jobs:
       - run: sudo apt-get update -q && sudo apt-get install -y -q espeak-ng ffmpeg
       - run: pip install -q "kokoro>=0.9" soundfile numpy
       - run: mkdir -p out && python apps/academy/audio/samples.py apps/academy/audio/sample.txt out
-      - uses: actions/upload-artifact@v4
-        with: { name: voice-samples, path: out/*.mp3, retention-days: 14 }
+      # the samples go to their own branch (never into staging or main), so they can be listened to and sent on
+      - run: |
+          git config user.name "academy-audio"; git config user.email "academy-audio@users.noreply.github.com"
+          git checkout --orphan voice-samples && git rm -rq --cached . && git clean -fdxq -e out
+          cp out/*.mp3 . && git add *.mp3 && git commit -qm "Voice samples for the academy narration" && git push -fq origin voice-samples
