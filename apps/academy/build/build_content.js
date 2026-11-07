@@ -20,9 +20,8 @@ const C = JSON.parse(fs.readFileSync('manual.json','utf8')).filter(c => c && c.k
 
 /* explanations for each module check question */
 const WHY = {
- "1.1":"While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request.",
- "1.2":"One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units.",
- "1.3":"Arche sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority.",
+ "1.1":"One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units.",
+ "1.2":"Arche sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority.",
  "3.1":"A third-party payer in another country is a money-laundering warning sign. Identify the payer, record the reason and get the director's approval.",
  "3.2":"A close match means stop. Take no payment, keep the screening record and let the director decide.",
  "3.3":"Cash to speed up a permit is a bribe under laws such as the US FCPA and UK Bribery Act. Refuse and report.",
@@ -59,7 +58,7 @@ const WHY = {
  "12.2":"First compare like for like: aircraft age, operator safety rating, inclusions and what is charged at cost.",
  "0.7":"A flight between two points inside a foreign country on its own is the 9th freedom, cabotage. Most countries refuse it to foreign operators.",
  "0.8":"Never criticise another product. Compare on what matters to the client: flexibility, total trip cost and aircraft choice.",
- "1.4":"A principal buys the flight and resells it in its own name, and takes on responsibility to the client.",
+ "1.3":"A principal buys the flight and resells it in its own name, and takes on responsibility to the client.",
  "2.9":"Under the Montreal Convention, baggage claims on an international flight lie against the carrier, the operator.",
  "2.10":"We arrange flights on aircraft run by certified operators. Never write \"our fleet\" or claim a rating for aircraft we have not checked.",
  "5.3":"Groups with tight schedules strain crew duty limits and slots, and heavy equipment changes weight and volume.",
@@ -67,8 +66,8 @@ const WHY = {
  "8.5":"Record the operator's liability cover and ask for the client and Arche to be added as additional insured where possible.",
  "9.5":"Using real flexibility to save positioning is fair negotiation. Fake quotes or pressure on safety never are.",
  "12.3":"Offer options at different prices and sell the value, rather than cutting the margin.",
- "1.5":"Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker.",
- "1.6":"Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it.",
+ "1.4":"Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker.",
+ "1.5":"Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it.",
  "5.4":"Both are client requests: what the client asks for. Each is confirmed with its supplier in writing, with how it is charged.",
  "6.5":"No take-off with ice or snow on the aircraft (EU CAT.OP.MPA.250, US 14 CFR 135.227). De-icing depends on the day, so it is charged at cost after the flight with the receipt.",
  "6.6":"Airports publish their hours and night restrictions. Only the operator can say whether an out-of-hours opening is possible and what it costs.",
@@ -98,7 +97,7 @@ const OBJ = {
 };
 const TAKE = {
  m0:["The operator flies and is responsible for safety; Arche finds, checks, prices, contracts and looks after the client.","Confirm airport, date and time zone in writing, always.","Positioning is usually paid by the client; empty legs can be cancelled.","Use market figures only with their source and date.","Cabotage is the 8th and 9th freedom, and most countries refuse it to foreign operators."],
- m1:["We sell whole-aircraft charters and empty legs at a 9% margin.","No Navoryx fleet hours while the charter sales agreement is in force.","Never sell a flight before an operator has confirmed it in writing.","First contact within 48 hours and follow-up every 14 days, or the lead moves on."],
+ m1:["We sell whole-aircraft charters and empty legs at a 9% margin.","Never sell a flight before an operator has confirmed it in writing.","First contact within 48 hours and follow-up every 14 days, or the lead moves on."],
  m2:["Every client receives the five disclosures in writing before signing.","Never sell anything on the never-sell list, including US domestic legs on non-US operators.","Amber means confirm in writing first; red means stop and escalate.","Liability for the flight lies with the operator; never advertise \"our fleet\"."],
  m3:["KYC and sanctions screening come before any contract.","A possible match means stop, no payment, report to the director.","Payments only through a payment request; bank details never by email or chat.","Personal data stays in Avinode and the CRM."],
  m4:["Discretion is part of the product.","Send details only to people agreed in writing.","Say no early, politely, with an alternative."],
@@ -114,7 +113,7 @@ const TAKE = {
  m14:["80% in the exam and every critical-rule question right.","Then systems training, shadowing with two site visits, the practical exam and 10 supervised bookings."],
 };
 /* questions that test a critical rule: all must be right in the written exam */
-const CRIT = new Set(["9.6","10.3","1.3","2.1","2.3","2.4","2.5","2.7","2.8","3.1","3.2","3.3","3.4","8.1","8.2","8.3","9.1","9.4","10.2"]);
+const CRIT = new Set(["9.6","10.3","1.2","2.1","2.3","2.4","2.5","2.7","2.8","3.1","3.2","3.3","3.4","8.1","8.2","8.3","9.1","9.4","10.2"]);
 /* official and industry sources placed where they are used */
 const LINKS = {
  "3.1":[L.mas], "3.2":[L.un,L.ofac,L.eumap,L.uks,L.mas], "3.3":[L.ofac], "3.5":[], "3.6":[],

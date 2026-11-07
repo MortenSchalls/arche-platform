@@ -10,7 +10,6 @@ const log = [];
 const PARTS = [
  {id:"who-we-are", t:"Module 1.1 Who we are (Arche company profile)", sec:["m1","1.1"]},
  {id:"ramp", t:"Module 1.5 The booking ramp and booking units", sec:["m1","1.5"]},
- {id:"navoryx", t:"Navoryx fleet-hours rule (Module 1.2 and its question)", item:"Navoryx", quiz:"A client asks to charter an aircraft owned by Navoryx"},
  {id:"units-q", t:"Booking-unit question (Module 1)", quiz:"A trip billed at USD 135,000"},
  {id:"us-policy", t:"Arche policy: no US domestic flights until US counsel confirms", row:"Any US domestic flight, even on a US operator", item:"Arche policy: no US domestic flights"},
  {id:"oncall", t:"Arche desk plan (on-call rota months 1 to 8, four-person desk from month 9)", item:"From month 9:"},

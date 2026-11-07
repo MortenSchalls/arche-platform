@@ -1595,7 +1595,7 @@
   ]
  },
  {
-  "key": "16bd7081",
+  "key": "176628d4",
   "kind": "intro",
   "where": "m1 screen 1",
   "text": [
@@ -1607,11 +1607,11 @@
    "Work in the Archē portal: leads, prospects and separate duties",
    "Warm-up",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
-   "A client asks to charter an aircraft owned by Navoryx Executive. What do you do?",
-   "aQuote it at 9%",
-   "bPass the request to the director",
-   "cAsk the operator for a discount",
-   "dDecline without comment"
+   "A trip billed at USD 135,000 counts as how many booking units?",
+   "a1",
+   "b2",
+   "c3",
+   "d4"
   ],
   "say": [
    "ar Kay Executive and the broker's role.",
@@ -1619,30 +1619,30 @@
    "Describe what ar Kay sells and how it earns. Explain the three ways a broker can work. Apply the booking ramp and the professional standards. Work in the ar Kay portal, leads, prospects and separate duties.",
    "Warm-up.",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
-   "A client asks to charter an aircraft owned by Navoryx Executive. What do you do?",
-   "A. Quote it at 9 percent. B. Pass the request to the director. C. Ask the operator for a discount. D. Decline without comment."
+   "A trip billed at 135,000 U S dollars counts as how many booking units?",
+   "A. 1. B. 2. C. 3. D. 4."
   ]
  },
  {
-  "key": "17b2a5dc",
+  "key": "56590cef",
   "kind": "feedback",
   "where": "m1 screen 1 try 3",
   "text": [
-   "Not quite. You will meet this in the module. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+   "Not quite. You will meet this in the module. One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units."
   ],
   "say": [
-   "Not quite. You will meet this in the module. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+   "Not quite. You will meet this in the module. One booking unit is 45,000 U S dollars billed to the client. 135,000 divided by 45,000 is 3 units."
   ]
  },
  {
-  "key": "4f067b6f",
+  "key": "d8daada6",
   "kind": "feedback",
   "where": "m1 screen 1 try 3",
   "text": [
-   "Right. You will meet this in the module. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+   "Right. You will meet this in the module. One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units."
   ],
   "say": [
-   "Right. You will meet this in the module. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+   "Right. You will meet this in the module. One booking unit is 45,000 U S dollars billed to the client. 135,000 divided by 45,000 is 3 units."
   ]
  },
  {
@@ -1663,7 +1663,7 @@
   ]
  },
  {
-  "key": "13fd56f1",
+  "key": "2e4c7fa2",
   "kind": "lesson",
   "where": "m1 screen 3",
   "text": [
@@ -1671,13 +1671,12 @@
    "1.2 What we sell",
    "Whole-aircraft charters for one client, on third-party aircraft of every size, with a focus on long-range and heavy jets.",
    "Empty legs, on the conditions in Module 9.",
-   "Nothing on the \"never sell\" list in Module 2.4.",
-   "We do not sell flight hours on aircraft owned by Navoryx Executive or its aircraft companies while the charter sales agreement for those aircraft is in force. Pass any such request to the director."
+   "Nothing on the \"never sell\" list in Module 2.4."
   ],
   "say": [
    "ar Kay Executive and the broker's role.",
    "What we sell.",
-   "Whole-aircraft charters for one client, on third-party aircraft of every size, with a focus on long-range and heavy jets. Empty legs, on the conditions in Module 9. Nothing on the never sell list in Module 2, section 4. We do not sell flight hours on aircraft owned by Navoryx Executive or its aircraft companies while the charter sales agreement for those aircraft is in force. Pass any such request to the director."
+   "Whole-aircraft charters for one client, on third-party aircraft of every size, with a focus on long-range and heavy jets. Empty legs, on the conditions in Module 9. Nothing on the never sell list in Module 2, section 4."
   ]
  },
  {
@@ -1798,7 +1797,7 @@
   ]
  },
  {
-  "key": "9fb8cd75",
+  "key": "5883a1bf",
   "kind": "keypoints",
   "where": "m1 screen 10",
   "text": [
@@ -1806,7 +1805,6 @@
    "Key points",
    "Before the module check, try to say each point in your own words.",
    "We sell whole-aircraft charters and empty legs at a 9% margin.",
-   "No Navoryx fleet hours while the charter sales agreement is in force.",
    "Never sell a flight before an operator has confirmed it in writing.",
    "First contact within 48 hours and follow-up every 14 days, or the lead moves on."
   ],
@@ -1814,51 +1812,13 @@
    "ar Kay Executive and the broker's role.",
    "Key points.",
    "Before the module check, try to say each point in your own words.",
-   "We sell whole-aircraft charters and empty legs at a 9 percent margin. No Navoryx fleet hours while the charter sales agreement is in force. Never sell a flight before an operator has confirmed it in writing. First contact within 48 hours and follow-up every 14 days, or the lead moves on."
-  ]
- },
- {
-  "key": "28df124a",
-  "kind": "question",
-  "where": "m1 check question 1",
-  "text": [
-   "A client asks to charter an aircraft owned by Navoryx Executive. What do you do?",
-   "aQuote it at 9%",
-   "bPass the request to the director",
-   "cAsk the operator for a discount",
-   "dDecline without comment"
-  ],
-  "say": [
-   "A client asks to charter an aircraft owned by Navoryx Executive. What do you do?",
-   "A. Quote it at 9 percent. B. Pass the request to the director. C. Ask the operator for a discount. D. Decline without comment."
-  ]
- },
- {
-  "key": "c3bed391",
-  "kind": "feedback",
-  "where": "m1 check question 1",
-  "text": [
-   "Right. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
-  ],
-  "say": [
-   "Right. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
-  ]
- },
- {
-  "key": "f9120a76",
-  "kind": "feedback",
-  "where": "m1 check question 1",
-  "text": [
-   "Not quite. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
-  ],
-  "say": [
-   "Not quite. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+   "We sell whole-aircraft charters and empty legs at a 9 percent margin. Never sell a flight before an operator has confirmed it in writing. First contact within 48 hours and follow-up every 14 days, or the lead moves on."
   ]
  },
  {
   "key": "00d02a83",
   "kind": "question",
-  "where": "m1 check question 2",
+  "where": "m1 check question 1",
   "text": [
    "A trip billed at USD 135,000 counts as how many booking units?",
    "a1",
@@ -1874,7 +1834,7 @@
  {
   "key": "78ac7e84",
   "kind": "feedback",
-  "where": "m1 check question 2",
+  "where": "m1 check question 1",
   "text": [
    "Right. One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units."
   ],
@@ -1885,7 +1845,7 @@
  {
   "key": "c2fa6ca5",
   "kind": "feedback",
-  "where": "m1 check question 2",
+  "where": "m1 check question 1",
   "text": [
    "Not quite. One booking unit is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 units."
   ],
@@ -1896,7 +1856,7 @@
  {
   "key": "ea65761b",
   "kind": "question",
-  "where": "m1 check question 3",
+  "where": "m1 check question 2",
   "text": [
    "A client wants to buy four seats on someone else's flight. Which is right?",
    "aWe sell the seats",
@@ -1912,7 +1872,7 @@
  {
   "key": "06d776e7",
   "kind": "feedback",
-  "where": "m1 check question 3",
+  "where": "m1 check question 2",
   "text": [
    "Right. Archē sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority."
   ],
@@ -1923,7 +1883,7 @@
  {
   "key": "3ce66ca8",
   "kind": "feedback",
-  "where": "m1 check question 3",
+  "where": "m1 check question 2",
   "text": [
    "Not quite. Archē sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority."
   ],
@@ -1934,7 +1894,7 @@
  {
   "key": "a771402d",
   "kind": "question",
-  "where": "m1 check question 4",
+  "where": "m1 check question 3",
   "text": [
    "A broker buys the flight from the operator and resells it in its own name. Which model is that?",
    "aAgent of the client",
@@ -1950,7 +1910,7 @@
  {
   "key": "edb858df",
   "kind": "feedback",
-  "where": "m1 check question 4",
+  "where": "m1 check question 3",
   "text": [
    "Right. A principal buys the flight and resells it in its own name, and takes on responsibility to the client."
   ],
@@ -1961,7 +1921,7 @@
  {
   "key": "09964d5a",
   "kind": "feedback",
-  "where": "m1 check question 4",
+  "where": "m1 check question 3",
   "text": [
    "Not quite. A principal buys the flight and resells it in its own name, and takes on responsibility to the client."
   ],
@@ -1972,7 +1932,7 @@
  {
   "key": "d8bd604d",
   "kind": "question",
-  "where": "m1 check question 5",
+  "where": "m1 check question 4",
   "text": [
    "You have not contacted a new lead within 48 hours. What happens?",
    "aNothing",
@@ -1988,7 +1948,7 @@
  {
   "key": "aa5cd5e8",
   "kind": "feedback",
-  "where": "m1 check question 5",
+  "where": "m1 check question 4",
   "text": [
    "Right. Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker."
   ],
@@ -1999,7 +1959,7 @@
  {
   "key": "b463221d",
   "kind": "feedback",
-  "where": "m1 check question 5",
+  "where": "m1 check question 4",
   "text": [
    "Not quite. Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker."
   ],
@@ -2010,7 +1970,7 @@
  {
   "key": "a1d5bcd0",
   "kind": "question",
-  "where": "m1 check question 6",
+  "where": "m1 check question 5",
   "text": [
    "A broker with booking rights sells a trip. Who issues its confirmation?",
    "aThe same broker",
@@ -2026,7 +1986,7 @@
  {
   "key": "8e421155",
   "kind": "feedback",
-  "where": "m1 check question 6",
+  "where": "m1 check question 5",
   "text": [
    "Right. Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it."
   ],
@@ -2037,7 +1997,7 @@
  {
   "key": "5de7655c",
   "kind": "feedback",
-  "where": "m1 check question 6",
+  "where": "m1 check question 5",
   "text": [
    "Not quite. Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it."
   ],
