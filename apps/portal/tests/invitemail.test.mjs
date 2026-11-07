@@ -61,3 +61,40 @@ ok("active in the last 3 days: no reminder; password set: no flag", freshP.remin
 const remP = joinProgress({ invite: { first: "2026-10-20T10:00:00Z", reminders: [{ at: "2026-11-03T09:00:00Z", sent: true }] }, user: { last_sign_in_at: "2026-10-21T11:00:00Z", user_metadata: { pw_set: true } }, now: new Date("2026-11-04T13:00:00Z") });
 ok("reminded yesterday: not due again yet, and the reminder is in the log", !remP.remind.due && remP.remind.lastSent === "2026-11-03T09:00:00Z" && remP.log.some(l => l.t === "Reminder sent"));
 ok("asked for assessment: no reminder", joinProgress({ invite: { first: "2026-10-01T00:00:00Z" }, user: { last_sign_in_at: "2026-10-02T00:00:00Z", user_metadata: { pw_set: true } }, join: { data: { at: "2026-10-03T00:00:00Z" } }, now: new Date("2026-11-04T13:00:00Z") }).remind === null);
+
+// delete an invitee and everything kept about them, one step (Morten, 7 Nov 2026). Fake database, example data only.
+import { deleteInvitee } from "../api/invite.mjs";
+function fakeDb(o = {}) {
+  const U = "u-ex-1", calls = [];
+  const rows = { profiles: [{ id: U, role: "broker", active: false, data: o.roster ? { roster: true } : {} }], agreements: o.agr ? [{ id: U, data: { status: o.agr } }] : [], trips: o.trips ? [{ id: "t1" }] : [], trip_status: [], payouts: [], screen_log: [],
+    audit_log: [{ id: 1, by: U, detail: "own" }, { id: 2, by: "owner", detail: "Invitation · Example Person · e***@example.com · email sent" }, { id: 3, by: "owner", detail: "Something else" }] };
+  const api = async (path, opt = {}) => {
+    const m = (opt.method || "GET").toUpperCase(); calls.push([m, path, opt.body || ""]);
+    if (path.startsWith("/rest/v1/intel?select")) return { ok: true, body: [{ value: { list: [{ email: "e.person@example.com", name: "Example Person" }, { email: "other@example.com", name: "Other Person" }] } }] };
+    if (path.startsWith("/auth/v1/admin/users?")) return { ok: true, body: { users: [{ id: U, email: "e.person@example.com", user_metadata: {} }, { id: "owner", email: "owner@example.com" }] } };
+    if (path.startsWith("/auth/v1/admin/users/")) return { ok: true, body: {} };
+    if (path.startsWith("/storage/v1/object/list/")) return { ok: true, body: [{ name: "f1.pdf" }] };
+    const t = (path.match(/^\/rest\/v1\/(\w+)/) || [])[1];
+    if (m === "GET") { if (t === "audit_log") return { ok: true, body: rows.audit_log.filter(r => /Example Person/.test(r.detail)) }; return { ok: true, body: rows[t] || [] }; }
+    if (m === "DELETE" && t === "audit_log") return { ok: true, body: rows.audit_log.filter(r => r.by === U) };
+    return { ok: true, body: m === "DELETE" ? [{}] : null };
+  };
+  return { api, calls, U };
+}
+{
+  const f = fakeDb(); const r = await deleteInvitee({ email: "e.person@example.com", me: { id: "owner" }, api: f.api });
+  const has = (m, rx) => f.calls.some(c => c[0] === m && rx.test(c[1]));
+  ok("delete: one call removes login, profile, joining, academy, training, files and the invitation", r.ok && has("DELETE", /auth\/v1\/admin\/users\/u-ex-1$/) && has("DELETE", /profiles\?id=eq\.u-ex-1/) && has("DELETE", /join_requests\?user_id=eq\.u-ex-1/) && has("DELETE", /academy_progress\?id=eq\.u-ex-1/) && has("DELETE", /training_runs\?owner_id=eq\.u-ex-1/) && has("DELETE", /assessments\?id=eq\.u-ex-1/) && f.calls.some(c => c[0] === "DELETE" && /storage\/v1\/object\/portal-files/.test(c[1]) && /u-ex-1\/f1\.pdf/.test(c[2])), r);
+  const inv = f.calls.find(c => c[0] === "POST" && /intel\?on_conflict/.test(c[1]));
+  ok("delete: invitation list keeps the others, drops this person", inv && !/e\.person@example\.com/.test(inv[2]) && /other@example\.com/.test(inv[2]));
+  const patch = f.calls.find(c => c[0] === "PATCH" && /audit_log\?id=eq\.2/.test(c[1]));
+  ok("delete: their own audit entries go; others lose the name and masked email", f.calls.some(c => c[0] === "DELETE" && /audit_log\?by=eq\.u-ex-1/.test(c[1])) && patch && !/Example Person|e\*\*\*@/.test(patch[2]) && /\[deleted person\]/.test(patch[2]));
+  const last = f.calls.filter(c => c[0] === "POST" && /\/rest\/v1\/audit_log$/.test(c[1])).pop();
+  ok("delete: a record that a deletion happened, with no name or email", last && /Invitee deleted/.test(last[2]) && !/Example|example\.com/.test(last[2]));
+  ok("delete: data goes before the login (so a retry can finish)", f.calls.findIndex(c => /auth\/v1\/admin\/users\/u-ex-1/.test(c[1])) > f.calls.findIndex(c => /profiles\?id=eq/.test(c[1]) && c[0] === "DELETE"));
+}
+for (const [label, o] of [["signed agreement", { agr: "signed" }], ["trips", { trips: true }], ["on the team", { roster: true }]]) {
+  const f = fakeDb(o); const r = await deleteInvitee({ email: "e.person@example.com", me: { id: "owner" }, api: f.api });
+  ok(`delete refused (${label}): nothing removed, points to End engagement`, r.code === 409 && /End engagement/.test(r.error) && !f.calls.some(c => c[0] === "DELETE"), r);
+}
+{ const f = fakeDb(); const r = await deleteInvitee({ email: "nobody@example.com", me: { id: "owner" }, api: f.api }); ok("delete: unknown email refused", r.code === 404 && !f.calls.some(c => c[0] === "DELETE")); }

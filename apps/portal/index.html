@@ -1172,7 +1172,7 @@ function tripForAI(t){
   return {stage: STAGES[t.stage], client:{company:c.company, residence:c.country, payerSameAsClient: !c.payer, contactOnFile: !!(c.email || c.phone)}, legs: tr.legs || [], category: tr.category, notes: tr.notes,
     quote:{operator:q.operator, aircraft:q.aircraft, registration:q.tail, avinodeTrip:q.avinode, operatorPrice:q.opPrice, directCosts:q.direct, clientPrice: st.price || priceOf(q.opPrice, q.direct)},
     checksTicked: BROKER_CHECKS.filter(([k]) => (d.checks || {})[k]).map(x => x[1].split(" (")[0]), checksMissing: BROKER_CHECKS.filter(([k]) => !(d.checks || {})[k]).map(x => x[1].split(" (")[0]),
-    operations:{kyc:!!st.kyc, paynodeRequest:!!st.pay, confirmation: st.ref || null, clientPaid:!!st.clientPaid}, opened: d.created, lastUpdate: d.updated, winScore: winScore(t)};
+    operations:{kyc:!!st.kyc, paymentRequest:!!st.pay, confirmation: st.ref || null, clientPaid:!!st.clientPaid}, opened: d.created, lastUpdate: d.updated, winScore: winScore(t)};
 }
 const AI_TASKS = {
   check: {label:"Check this trip", prompt: j => `${RULES_TEXT}\n\nReview this trip file before it goes further. Give: 1) a verdict line (Green, Amber or Red) with the reason; 2) compliance points to confirm, especially cabotage, permits, never-sell items and payment restrictions for the countries involved; 3) missing information; 4) operational points (airport suitability, crew duty or fuel stops for the route, catering or special requests). Under 250 words, short headings, bullet points.\n\nTrip file (JSON):\n${j}`},
@@ -1194,9 +1194,11 @@ const aiErr = c => ({not_granted: LIVE_PLATFORM ? "Sign in again to use the AI."
   ai_credit:"The AI is paused: the Anthropic API account has no credit left." + (S.isOwner ? " Owner: top up at console.anthropic.com > Billing." : " The owner has been told."),
   ai_cap:"This month's AI budget is used up, so the AI is paused until next month." + (S.isOwner ? " Owner: raise the monthly cap in Settings if it pays for itself." : " The owner has been told."),
   ai_key:"The AI is paused: the Anthropic API key in Vercel is not valid." + (S.isOwner ? " Owner: create a new key in console.anthropic.com and replace it in Vercel." : " The owner has been told.")}[c] || "The co-pilot could not answer. Try again.");
+/* the AI rule shown beside every AI box (manual 3.7, H.16; Morten, 7 Nov 2026) */
+const AI_RULE = `<p class="small muted ai-rule">The AI is run by an outside provider. Never type passport, ID or bank numbers, passenger names or private contact details into it: describe the trip, not the person (manual 3.7).</p>`;
 function aiBlock(t){
   return `<div class="panel stack ai"><div class="row" style="justify-content:space-between"><h2 style="margin:0">AI co-pilot</h2>${scoreChip(winScore(t))}</div>
-    <p class="small muted">Checks the file against our rules, drafts the client email and suggests the next step. Client names and contact details are not sent to the co-pilot.</p>
+    <p class="small muted">Checks the file against our rules, drafts the client email and suggests the next step. It is sent the trip facts only: no passenger names or contact details.</p>${AI_RULE}
     <div class="row">${Object.entries(AI_TASKS).map(([k, v]) => `<button class="btn small" type="button" data-ai="${k}">${v.label}</button>`).join("")}</div>
     <div class="aiout" id="aiOut" hidden></div></div>`;
 }
@@ -1206,7 +1208,7 @@ function vAssistant(){
   return `<div class="head"><div><h1>Assistant</h1><p class="muted small">Ask about aircraft, airports, routes, permits, our rules or how to handle a client. Answers follow the Archē Executive rules; check anything safety- or law-critical with operations.</p></div></div>
   <div class="panel stack" style="max-width:860px">
     <div class="chat" id="chatLog">${S.chat.length ? S.chat.map(m => `<div class="msg ${m.role}">${esc(m.content)}</div>`).join("") : `<p class="muted small">Try: "Can a Thai operator fly a client from Bangkok to Phuket and then on to Singapore?" or "What should I ask a first-time client from a family office?"</p>`}</div>
-    <form id="chatForm" class="row"><label class="f" for="chatIn" style="flex:1">Your question<textarea id="chatIn" rows="2" required></textarea></label><button class="btn primary" type="submit">Ask</button><button class="btn" type="button" data-act="chatClear">Clear</button></form>
+    <form id="chatForm" class="row"><label class="f" for="chatIn" style="flex:1">Your question<textarea id="chatIn" rows="2" required></textarea></label><button class="btn primary" type="submit">Ask</button><button class="btn" type="button" data-act="chatClear">Clear</button></form>${AI_RULE}
   </div>`;
 }
 async function askChat(q){
@@ -1434,7 +1436,7 @@ function vLeads(){
     <form id="logForm" class="fgrid"><label class="f" for="lg_ch">Channel<select id="lg_ch"><option>Email</option><option>Phone</option><option>Meeting</option><option>Event</option><option>Introduction</option><option>Company LinkedIn</option><option>Other</option></select></label>
       <label class="f" for="lg_out">Outcome<select id="lg_out">${Object.entries(LEAD_STATUS).filter(([k]) => !["new","assigned","enquiry","review","duplicate"].includes(k)).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}</select></label>
       <label class="f wide" for="lg_note">What happened (who by role, what was said or agreed)<input id="lg_note" required minlength="15" placeholder="e.g. Spoke to the travel desk lead; asked for a quote for March"></label><div class="row wide"><button class="btn primary" type="submit">Log contact</button><button class="btn" type="button" data-act="leadEnquiry">Open an enquiry</button><button class="btn small" type="button" data-ai="approach">Suggest approach</button></div></form>
-    <div class="aiout" id="aiOut" hidden></div>`}
+    ${AI_RULE}<div class="aiout" id="aiOut" hidden></div>`}
     ${leadLog(sel)}</div>` : `<div class="panel empty"><p>Select a lead.</p></div>`}</div></div>`;
 }
 
@@ -3467,7 +3469,7 @@ function rpInstr(s){
 function rpView(){
   if (!S.rpRuns) { rpLoad(); }
   const s = S.rp || null, runs = rpRuns();
-  const setup = `<div class="panel stack"><h2>Roleplay lab</h2><p class="small muted">The AI plays a client, an assistant, a family-office manager or an operator. Speak or type as you would on a real call. When you end, it scores you on the lab sheet (manual 14.4) and shows a model answer. Practice only: the AI can misjudge, and certification is decided by the director's scored lab. Never use real client names.</p>
+  const setup = `<div class="panel stack"><h2>Roleplay lab</h2><p class="small muted">The AI plays a client, an assistant, a family-office manager or an operator. Speak or type as you would on a real call. When you end, it scores you on the lab sheet (manual 14.4) and shows a model answer. Practice only: the AI can misjudge, and certification is decided by the director's scored lab. Never use real client names.</p>${AI_RULE}
     <div class="fgrid"><label class="f wide" for="rp_sc">Scenario<select id="rp_sc">${RP_SC.map(x => `<option value="${x[0]}">${esc(x[1])}</option>`).join("")}<option value="own">Describe your own scenario…</option></select></label>
     <label class="f wide" for="rp_own">Your own scenario (optional)<input id="rp_own" placeholder="For example: a CFO wants a 3-city roadshow next week and asks for a fixed price including all fees"></label>
     <label class="f" for="rp_who">Who you speak to<select id="rp_who">${RP_WHO.map(x => `<option>${x}</option>`).join("")}</select></label>
@@ -7604,7 +7606,8 @@ function trustMatrix(){
         return due.length || pw.length ? `<div class="note info small" id="invTodo">${due.length ? `<p><b>Reminders ready: ${due.length}.</b> ${due.map(x => esc(x.name || x.email)).join(", ")} ${due.length > 1 ? "have" : "has"} been quiet for ${S.invRemDays || 3} days or more. Press Remind to read the email, then Send. Nothing goes out without you.</p>` : ""}${pw.length ? `<p><b>Password never set: ${pw.map(x => esc(x.name || x.email)).join(", ")}.</b> Press Send again to email a new password link.</p>` : ""}</div>` : ""; })()}<div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th><th scope=col>Progress</th><th scope=col></th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
         const pg = st && st.progress, open = (S.invLog || {})[x.email];
         return `<tr><td>${esc(x.name || "")}</td><td>${esc(x.email || "")}</td><td>${fmtT(x.first || x.at)}${x.first && x.at && x.first !== x.at ? `<br><span class="muted">again ${fmtT(x.at)}</span>` : ""}</td><td><span class="invm">Email sent: </span>${x.notInvited ? `<span class="muted">Not invited from Team</span>` : x.sent ? "Yes" : "No: link given to you"}</td><td><span class="invm">Accepted: </span>${!st ? `<span class="muted">Checking…</span>` : st.accepted ? `<span class="chip c-flown">Yes</span> <span class="muted">${fmtT(st.signedIn)}</span>` : `<span class="chip c-enquiry">Not yet</span>`}${pg ? "" : `<br><span class="muted">${esc(st ? st.step : "")}</span>`}</td>
-          <td style="min-width:200px">${pg ? invBar(pg) + invFlags(x, pg) : `<span class="muted">${st ? "" : "Checking…"}</span>`}</td><td><div class="row" style="flex-wrap:nowrap">${pg ? `<button class="btn small" type="button" data-inv="log|${esc(x.email)}" aria-expanded="${open ? "true" : "false"}">${open ? "Hide log" : "Log"}</button>` : ""}<button class="btn small" type="button" data-inv="again|${esc(x.email)}|${esc(x.name || "")}">Send again</button></div></td></tr>
+          <td style="min-width:200px">${pg ? invBar(pg) + invFlags(x, pg) : `<span class="muted">${st ? "" : "Checking…"}</span>`}</td><td><div class="row" style="flex-wrap:nowrap">${pg ? `<button class="btn small" type="button" data-inv="log|${esc(x.email)}" aria-expanded="${open ? "true" : "false"}">${open ? "Hide log" : "Log"}</button>` : ""}<button class="btn small" type="button" data-inv="again|${esc(x.email)}|${esc(x.name || "")}">Send again</button>${st && st.step === "On the team" ? "" : `<button class="btn small" type="button" data-inv="del|${esc(x.email)}" aria-expanded="${(S.invDel || "") === x.email ? "true" : "false"}">Delete</button>`}</div></td></tr>
+          ${(S.invDel || "") === x.email ? `<tr class="invlog"><td colspan="7"><div class="note warn small" id="invDelBox"><p><b>Delete ${esc(x.name || x.email)} and everything kept about them?</b> This cannot be undone. Their login, joining progress, academy progress, training, uploaded files and this invitation are deleted, and their name is taken out of the audit log (the actions stay). It is refused if they have a signed agreement, trips, payouts or screening records; use End engagement for those.</p><div class="row"><button class="btn small danger" type="button" data-inv="delgo|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy ? "disabled" : ""}>Delete everything</button><button class="btn small" type="button" data-inv="del|${esc(x.email)}">Cancel</button></div></div></td></tr>` : ""}
           ${pg && (S.invRem || {})[x.email] && pg.remind ? `<tr class="invlog"><td colspan="7">${invRemind(x, pg)}</td></tr>` : ""}
           ${pg && open ? `<tr class="invlog"><td colspan="7">${invLog(x, pg)}</td></tr>` : ""}`; }).join("")}</tbody></table></div>` : ""}</div>`;
   }
@@ -7661,6 +7664,15 @@ function trustMatrix(){
     if (b.dataset.inv.startsWith("log|")) { const em = b.dataset.inv.slice(4); S.invLog = S.invLog || {}; S.invLog[em] = !S.invLog[em]; if (S.invLog[em]) S.invStAt = 0; render(); return; }
     if (b.dataset.inv.startsWith("remind|")) { const em = b.dataset.inv.slice(7); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em]; render(); return; }
     if (b.dataset.inv.startsWith("remindsend|")) { const [, email, name] = b.dataset.inv.split("|"); if (!S.invBusy) send({email, name: name || email}, "remind"); return; }
+    if (b.dataset.inv.startsWith("del|")) { const em = b.dataset.inv.slice(4); S.invDel = S.invDel === em ? "" : em; render(); return; }
+    if (b.dataset.inv.startsWith("delgo|")) { const [, email, name] = b.dataset.inv.split("|"); if (S.invBusy) return; S.invBusy = true; render();
+      try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
+        const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({mode: "delete", email, name})});
+        const j = await r.json().catch(() => ({}));
+        if (j.ok) { S.invDel = ""; delete (S.invStates || {})[email]; S.invites = (S.invites || []).filter(z => z.email !== email); S.invExtra = (S.invExtra || []).filter(z => z.email !== email); S.invStAt = 0; S.invRes = null; toast((name || email) + " and all their data deleted."); }
+        else S.invRes = {ok: false, error: j.error || "Could not delete (" + r.status + ")."};
+      } catch(err){ S.invRes = {ok: false, error: "The invitation service could not be reached. Try again."}; }
+      S.invBusy = false; S.invStAt = 0; render(); return; }
     if (b.dataset.inv.startsWith("again|")) { const [, email, name] = b.dataset.inv.split("|"); if (!S.invBusy) send({email, name: name || email}); return; }
     if (b.dataset.inv === "copy") { try { await navigator.clipboard.writeText(S.invLink || ""); toast("Link copied. Send it only to this person."); } catch(err){ prompt("Copy this personal link:", S.invLink || ""); } }
   });
