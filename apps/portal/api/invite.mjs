@@ -191,6 +191,60 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
     preview: remindMail({ name: invite.name || um.name || "", link: "[personal sign-in link]", from: "[your name]", next: nextStep, pwSet, started: !!p }).text } : null;
   return { done, of: steps.length, pct, label, steps, log: log.slice(0, 150), lastSeen: signedIn, history: Array.isArray(authEvents) ? "full" : "partial", pwSet, alert, remind };
 }
+// Delete an invitee and everything kept about them, in one step (Morten, 7 Nov 2026). Owners only, from Team > Invitations.
+// Only for people still joining: someone on the team, with a signed agreement, trips, payouts or sanctions screening
+// records is refused, because those are business and compliance records that must be kept (use End engagement instead).
+// Removes: their login, profile, joining request, assessment, agreement draft, academy progress, training and roleplay
+// runs, questions, step requests, leads, access log, phone push subscriptions, website links, uploaded files, their
+// entry in the invitation list, their own audit entries; other audit entries keep the action but lose their name.
+// A one-line audit entry without name or email records that a deletion happened. `api` is sb(); tests pass a fake.
+const OWNED_TABLES = ["training_runs", "roleplay_runs", "questions", "step_requests", "leads", "access_log", "push_subs", "site_links"];
+export async function deleteInvitee({ email, name = "", me, api = sb }) {
+  const arr = r => Array.isArray(r && r.body) ? r.body : [];
+  const cur = await api("/rest/v1/intel?select=value&key=eq.invites"), list = (((arr(cur)[0] || {}).value || {}).list) || [];
+  const entry = list.find(x => String(x.email || "").toLowerCase() === email) || null;
+  let user = null;
+  for (let page = 1; page <= 20 && !user; page++) { const r = await api(`/auth/v1/admin/users?page=${page}&per_page=200`); const ul = (r.body && r.body.users) || []; user = ul.find(x => String(x.email || "").toLowerCase() === email) || null; if (ul.length < 200) break; }
+  if (!entry && !user) return { code: 404, error: "Nobody with this email is in the invitations or has a login." };
+  const done = [];
+  const nm = String((entry && entry.name) || name || (user && (user.user_metadata || {}).name) || "").replace(/[^\p{L}\p{N} .'-]/gu, "").trim();
+  if (user) {
+    const U = user.id;
+    if (me && U === me.id) return { code: 400, error: "You cannot delete yourself." };
+    const prof = arr(await api(`/rest/v1/profiles?select=role,active,data&id=eq.${U}`))[0] || null;
+    if (prof && (prof.role === "owner" || prof.active || (prof.data || {}).roster)) return { code: 409, error: "This person is on the team (or has been). Use End engagement instead; their records are kept." };
+    const agr = arr(await api(`/rest/v1/agreements?select=data&id=eq.${U}`))[0] || null, ast = ((agr && agr.data) || {}).status || "";
+    if (agr && !["", "draft", "sent", "withdrawn"].includes(ast)) return { code: 409, error: "This person has a signed agreement, which must be kept. Use End engagement instead." };
+    for (const t of ["trips", "trip_status", "payouts"]) if (arr(await api(`/rest/v1/${t}?select=id&owner_id=eq.${U}&limit=1`)).length) return { code: 409, error: "This person has trips or payouts, which must be kept. Use End engagement instead." };
+    if (arr(await api(`/rest/v1/screen_log?select=id&or=(by.eq.${U},trip_owner.eq.${U})&limit=1`)).length) return { code: 409, error: "This person has sanctions screening records, which must be kept. Use End engagement instead." };
+    for (const t of OWNED_TABLES) { const r = await api(`/rest/v1/${t}?owner_id=eq.${U}`, { method: "DELETE", headers: { prefer: "return=representation" } }); done.push([t, arr(r).length]); }
+    for (const [t, col] of [["join_requests", "user_id"], ["assessments", "id"], ["agreements", "id"], ["academy_progress", "id"]]) { const r = await api(`/rest/v1/${t}?${col}=eq.${U}`, { method: "DELETE", headers: { prefer: "return=representation" } }); done.push([t, arr(r).length]); }
+    // uploaded files (portal-files/<uid>/...)
+    const fl = await api("/storage/v1/object/list/portal-files", { method: "POST", body: JSON.stringify({ prefix: U + "/", limit: 1000 }) });
+    const files = arr(fl).map(f => U + "/" + f.name);
+    if (files.length) await api("/storage/v1/object/portal-files", { method: "DELETE", body: JSON.stringify({ prefixes: files }) });
+    done.push(["files", files.length]);
+    // their own audit entries go; others keep the action without the name
+    const own = await api(`/rest/v1/audit_log?by=eq.${U}`, { method: "DELETE", headers: { prefer: "return=representation" } }); done.push(["audit_log (own)", arr(own).length]);
+    const del = await api(`/rest/v1/profiles?id=eq.${U}`, { method: "DELETE", headers: { prefer: "return=representation" } }); done.push(["profiles", arr(del).length]);
+    const au = await api(`/auth/v1/admin/users/${U}`, { method: "DELETE" });
+    if (!au.ok) return { code: 502, error: "Their data was removed, but the login could not be deleted (" + au.status + "). Press Delete again to finish.", done };
+    done.push(["login", 1]);
+  }
+  if (nm.length >= 3) {
+    const rows = arr(await api(`/rest/v1/audit_log?select=id,detail&detail=ilike.*${encodeURIComponent(nm)}*&limit=500`));
+    const rx = new RegExp(nm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), mrx = /\b[\p{L}\p{N}]\*{3}@[\w.-]+/gu;
+    for (const r of rows) await api(`/rest/v1/audit_log?id=eq.${r.id}`, { method: "PATCH", headers: { prefer: "return=minimal" }, body: JSON.stringify({ detail: String(r.detail || "").replace(rx, "[deleted person]").replace(mrx, "[deleted]") }) });
+    done.push(["audit_log (name removed)", rows.length]);
+  }
+  if (entry) {
+    const next = list.filter(x => String(x.email || "").toLowerCase() !== email);
+    await api("/rest/v1/intel?on_conflict=key", { method: "POST", headers: { prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify({ key: "invites", value: { list: next }, updated_at: new Date().toISOString() }) });
+    done.push(["invitation", 1]);
+  }
+  await api("/rest/v1/audit_log", { method: "POST", headers: { prefer: "return=minimal" }, body: JSON.stringify({ by: me ? me.id : null, action: "Invitee deleted", detail: "one person still joining and all their data (" + done.filter(d => d[1]).map(d => d[0]).join(", ") + ")" }) });
+  return { code: 200, ok: true, deleted: true, done };
+}
 async function owner(req) {
   const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, ""), PK = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_SECRET_KEY;
   const who = await fetch(`${process.env.SUPABASE_URL}/auth/v1/user`, { headers: { apikey: PK, authorization: `Bearer ${token}` } });
@@ -246,6 +300,7 @@ export default async function handler(req, res) {
     }
 
     const b = req.body || {}, email = clean(b.email, 120).toLowerCase(), name = clean(b.name, 80);
+    if (b.mode === "delete") { if (!EMAIL_RX.test(email)) return res.status(400).json({ error: "No email given." }); const r = await deleteInvitee({ email, name, me }); return res.status(r.code).json(r); }
     if (!EMAIL_RX.test(email)) return res.status(400).json({ error: "Enter a valid email address." });
     if (!name || name.split(/\s+/).length < 2) return res.status(400).json({ error: "Enter the person's first and last name." });
 
