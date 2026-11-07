@@ -1348,7 +1348,8 @@ const AUDIO = (() => {
     const man = {};
     for (const [v] of RVOICES) { try { const r = await window.__sb.storage.from("academy-audio").download(v + "/index.json"); if (r && r.data) man[v] = (JSON.parse(await r.data.text()).keys) || {}; } catch(e) {} }
     REC.busy = false;
-    if (Object.keys(man).length) { REC.man = man; if (!cfg.picked && !RVOICES.some(v => v[0] === cfg.voice)) { cfg.voice = RVOICES.find(v => man[v[0]])[0]; keep(); } fillVoices(); }
+    if (!Object.keys(man).length && REC.waiting) { REC.waiting = false; $("aNow").textContent = "The recorded narration is not available. Choose a device voice to listen."; }
+    if (Object.keys(man).length) { REC.man = man; if (!cfg.picked && !RVOICES.some(v => v[0] === cfg.voice)) { cfg.voice = RVOICES.find(v => man[v[0]])[0]; keep(); } fillVoices(); if (REC.waiting) { REC.waiting = false; screen(REC.waitRoot || undefined); } }
   }
   const fmt = x => isFinite(x) ? Math.floor(x / 60) + ":" + String(Math.floor(x % 60)).padStart(2, "0") : "0:00";
   function recUI(){
@@ -1406,6 +1407,8 @@ const AUDIO = (() => {
     stop(); mark(null); items = collect(root); idx = 0; single = false;
     clearTimeout(screen.t);
     const k = screenKey(root); REC.cur = k;
+    // a recorded voice is chosen but its list has not arrived yet: wait for it, never fall back to the device voice
+    if (RVOICES.some(v => v[0] === cfg.voice) && !REC.man) { REC.waitRoot = root || null; REC.waiting = true; $("aNow").textContent = "Loading the narration…"; loadMan(); return; }
     if (hasRec(k)) { if (cfg.auto) screen.t = setTimeout(() => playRec(k), 250); else { REC.pending = k; $("aNow").textContent = "Press Play to listen to this screen."; } recUI(); return; }
     if (recMode()) { $("aNow").textContent = "No narration on this screen."; recUI(); return; }   // a recorded voice is chosen: never mix in the device voice
     if (cfg.auto) screen.t = setTimeout(() => speakFrom(0, false), 250); else { stop(); $("aNow").textContent = "Press Play to listen to this screen."; }
@@ -1420,7 +1423,7 @@ const AUDIO = (() => {
   fillVoices(); if (synth.addEventListener) synth.addEventListener("voiceschanged", fillVoices); else synth.onvoiceschanged = fillVoices;
   $("aRate").value = String(cfg.rate); $("aAuto").checked = cfg.auto !== false;
   btn.onclick = async () => { cfg.on = !cfg.on; keep(); setUI(); if (cfg.on) { await loadMan(); fillVoices(); screen(); } else { stop(); mark(null); } };
-  if (window.__sb) setTimeout(loadMan, 1500);
+  if (window.__sb) loadMan(); else setTimeout(loadMan, 800);
   $("aPlay").onclick = () => {
     if (recMode() && !hasRec(REC.cur)) { $("aNow").textContent = "No narration on this screen."; return; }
     if (hasRec(REC.cur)) {
