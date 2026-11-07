@@ -36,7 +36,7 @@
     if (sel && S.isOwner && !sel.querySelector("optgroup")) {
       const people = Object.entries(S.roster || {}).filter(([, r]) => r.active !== false).sort((a, b) => (a[1].contractName || "").localeCompare(b[1].contractName || ""));
       if (people.length) { const g = document.createElement("optgroup"); g.label = "See as a person (read-only)";
-        people.forEach(([id, r]) => { const o = document.createElement("option"); o.value = "as:" + id; o.textContent = (r.contractName || "Team member") + " (" + (r.role === "ops" ? "operations" : r.role) + ")"; if (S.asUser === id) o.selected = true; g.appendChild(o); });
+        people.forEach(([id, r]) => { const o = document.createElement("option"); o.value = "as:" + id; o.textContent = (r.contractName || "Team member") + " (" + (r.role === "ops" ? "mandated by the owner" : r.role) + ")"; if (S.asUser === id) o.selected = true; g.appendChild(o); });
         sel.appendChild(g); }
     }
     const main = document.getElementById("main");

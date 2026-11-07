@@ -10,7 +10,7 @@
 //           is extremely important to keep as highest alert for all involved, same as AOG in aviation"; named "CRITICAL: operator deadline", as AOG is for aircraft): from 12 hours
 //           before the operator's charge or payment rises on a booking whose operator contract is signed, while the client
 //           money held does not cover it or the operator is not paid; and after such a deadline has passed. Everyone on
-//           the alert list, every owner and operations member and the trip's broker: phone every 10 minutes, day or night,
+//           the alert list, every owner and mandated person and the trip's broker: phone every 10 minutes, day or night,
 //           with no limit, and an email every hour, until the money clears, the operator is paid or the booking is cancelled.
 //   Payment reminders to clients 3 days and 1 day before each payment in the confirmation's schedule, only while the
 //   owner has switched them on in Team > Alerts (wording approved there), sent once each.

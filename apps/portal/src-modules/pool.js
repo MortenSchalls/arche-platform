@@ -63,7 +63,7 @@ function vOpenEnq(){
   <div class="panel"><h2>Mine (${mine.length})</h2>
     ${mine.map(([id, e]) => { const c = (S.poolC || {})[id];
       return `<div class="flag"><span class="sev low" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${poolLegs(e)}</b> · ${esc(e.pax || "?")} pax</p>
-      <p class="small">${c === undefined ? "Loading the client's details…" : c ? `${esc(c.name || "")}${c.company ? " · " + esc(c.company) : ""}<br>${esc(c.email || "")}${c.phone ? " · " + esc(c.phone) : ""}${c.reach ? " · " + esc(c.reach) : ""}${c.message ? `<br><span class="muted">${esc(c.message)}</span>` : ""}` : "Client details not available. Ask operations."}</p>
+      <p class="small">${c === undefined ? "Loading the client's details…" : c ? `${esc(c.name || "")}${c.company ? " · " + esc(c.company) : ""}<br>${esc(c.email || "")}${c.phone ? " · " + esc(c.phone) : ""}${c.reach ? " · " + esc(c.reach) : ""}${c.message ? `<br><span class="muted">${esc(c.message)}</span>` : ""}` : "Client details not available. Ask the owner."}</p>
       <p class="small muted">${e.how === "assigned" ? "Assigned to you" : "You took it"} ${fmtT(e.claimedAt)} · <span class="chip ${cycleDay(e.receivedAt) > cycleDays() ? "c-returned" : "c-quoted"}">Day ${cycleDay(e.receivedAt)} of ${cycleDays()}</span></p>
       <div class="row" style="margin-top:6px">${hasTrip(id) ? `<span class="small">Trip opened.</span>` : `<button class="btn small primary" type="button" data-pool="trip|${id}">Open the trip</button>`}</div></div></div>`; }).join("") || `<p class="small muted">Nothing taken yet.</p>`}</div></div>`;
 }

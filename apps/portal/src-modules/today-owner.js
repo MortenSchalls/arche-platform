@@ -68,7 +68,7 @@ const OWNER_TODO = [
   {id:"sql-0017", sev:"high", title:"Run SQL: website statistics (0017)", sql:"0017", table:"site_events",
     why:"Counts website visits without cookies, shows where enquiries come from, and lets brokers see when an organisation opens its website link. Needed for the Website page.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0018", sev:"high", title:"Run SQL: sanctions screening log (0018)", sql:"0018", table:"screen_log",
-    why:"Keeps a record of every sanctions screening of a trip (who, when, which lists, the result) that nobody can change afterwards, and makes the private storage for the sanctions lists. Trip checks and the Operations screening work without it, but the record is not kept until it runs.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+    why:"Keeps a record of every sanctions screening of a trip (who, when, which lists, the result) that nobody can change afterwards, and makes the private storage for the sanctions lists. Trip checks and the screening work without it, but the record is not kept until it runs.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"screen-job", sev:"high", title:"Load the sanctions lists: run the screen job once",
     why:"The name check in trips and Operations reads the UN, US, EU and UK lists that this job loads. Until it has run, screening says the lists are not loaded. After the first run it repeats every morning at 06:41 Bangkok by itself.", how:"GitHub > MortenSchalls/arche-platform > Actions > Portal jobs > Run workflow > Job: screen > Run workflow. It takes a few minutes and uses no AI.",
     check: async () => { try { const {data, error} = await window.__sb.from("intel").select("value").eq("key", "screen").maybeSingle(); if (error) return null; return !!(data && data.value && data.value.lastRun); } catch(e){ return null; } }},
@@ -206,7 +206,7 @@ function mxScore(id){
     ["Follow-up within 24 h", 0.25, due.length ? share(fuOn.length, due.length) : null, `${fuOn.length} of ${due.length} flights followed up on time`],
     ["Rating requested", 0.15, ac.length ? share(ac.filter(x => x.a.rq).length, ac.length) : null, `${ac.filter(x => x.a.rq).length} of ${ac.length} flights`],
     ["Service recovery", 0.15, low.length ? share(low.filter(x => x.a.rec).length, low.length) : null, `${low.filter(x => x.a.rec).length} of ${low.length} low scores recovered`],
-    ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned by operations`],
+    ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned by the owner`],
     ["Contracts signed on time", 0.1, issued.length ? 1 - share(unsignedLate.length, issued.length) : null, `${unsignedLate.length} unsigned after 48 h`],
     ["Notices confirmed", 0.1, typeof noticeScore === "function" ? noticeScore(id).v : null, typeof noticeScore === "function" ? noticeScore(id).txt : ""],
     ["Lead follow-up", 0.15, num(m.recv30) >= 3 ? 1 - Math.min(1, num(m.breaches30) / num(m.recv30)) : null, `${num(m.breaches30)} of ${num(m.recv30)} leads went cold in 30 days`]

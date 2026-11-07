@@ -636,7 +636,7 @@ function readCode(code){
   if (fnv(p + SALT) !== m[2]) return {ok:false, msg:"The check digits do not match. The code was changed or copied incompletely."};
   const a = JSON.parse(p); return {ok:true, name:a[0], role:a[1], date:a[2], items:a[3] || []};
 }
-const roleName = r => r === "consultant" ? "Charter consultant" : "Broker";
+const roleName = r => "Broker";   /* one path: Archē has brokers only (Morten, 7 Nov 2026) */
 
 /* ---------- map ---------- */
 function renderMap(){
@@ -713,8 +713,7 @@ function vStart(v){
       <h2>Start your training</h2>
       <div class="grid2">
         <label class="f full" for="nm">Your full name, as it should appear on your training record<input id="nm" autocomplete="name" value="${esc(ST.name)}"></label>
-        <label class="f full" for="rl">Training path
-          <select id="rl"><option value="broker">Broker: every module, both practicals and the written exam</option><option value="consultant">Charter consultant: Modules 0 to 5, 12, case studies and the written exam</option></select></label>
+        <input type="hidden" id="rl" value="broker">
       </div>
       <label class="check" for="nda"><input type="checkbox" id="nda"> I will keep this training material confidential. I will not copy, record, forward or share it, and I understand my progress and results are reported to the director.</label>
       <p class="note" id="nmMsg"></p>
@@ -730,7 +729,7 @@ function vStart(v){
         <li>Prefer to listen? Switch on Audio at the top. Every screen, question and answer is read aloud.</li>
       </ul>
     </div>`;
-  $("rl").value = ST.role || "broker";
+  $("rl").value = "broker";
   $("begin").onclick = () => {
     const n = $("nm").value.trim();
     if (n.length < 3) { $("nmMsg").textContent = "Enter your full name. It appears on your training record."; $("nm").focus(); return; }

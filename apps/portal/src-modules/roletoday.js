@@ -28,9 +28,9 @@
   function waiting(me){
     const rows = [];
     myTrips(me).forEach(t => { const op = `data-open="${t.bid}|${t.did}" data-goto="trips"`;
-      if (t.stage === "review") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>With operations: ${esc(cl(t))}</span></button>`);
+      if (t.stage === "review") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>With the owner: ${esc(cl(t))}</span></button>`);
       if (typeof gateReq === "function") { const g = gateReq(me, "quote", t.did); if (g && g.status === "pending") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>Quote waiting for the director's OK: ${esc(cl(t))}</span></button>`); } });
-    return `<div class="panel"><h2>Waiting on others (${rows.length})</h2>${rows.length ? `<div class="tasks">${rows.join("")}</div>` : `<p class="small muted">Nothing waiting on operations or the director.</p>`}</div>`;
+    return `<div class="panel"><h2>Waiting on others (${rows.length})</h2>${rows.length ? `<div class="tasks">${rows.join("")}</div>` : `<p class="small muted">Nothing waiting on the owner.</p>`}</div>`;
   }
   function pool(){
     if (typeof poolWatch === "function") poolWatch();
@@ -61,7 +61,7 @@
     return `<div class="head"><div><h1>Today</h1><p class="muted small">${new Date().toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long"})} · what needs you today, most urgent first; your progress and figures below.</p></div>${asBroker ? `<div class="row"><button class="btn primary" type="button" data-act="new">New enquiry</button></div>` : ""}</div>
       ${typeof myReqPanel === "function" ? myReqPanel() : ""}${typeof supPrompt === "function" ? supPrompt() : ""}
       ${typeof noticePanel === "function" ? noticePanel() : ""}
-      <div class="kpis"><div class="kpi"><div class="l">Urgent</div><div class="v">${urgent}</div></div><div class="kpi"><div class="l">All tasks</div><div class="v">${tasks.length}</div></div><div class="kpi"><div class="l">Flights today and tomorrow</div><div class="v">${nFl}</div></div><div class="kpi"><div class="l">${asOps ? "Files to check" : "With operations"}</div><div class="v">${nRev}</div></div></div>
+      <div class="kpis"><div class="kpi"><div class="l">Urgent</div><div class="v">${urgent}</div></div><div class="kpi"><div class="l">All tasks</div><div class="v">${tasks.length}</div></div><div class="kpi"><div class="l">Flights today and tomorrow</div><div class="v">${nFl}</div></div><div class="kpi"><div class="l">${asOps ? "Files to check" : "With the owner"}</div><div class="v">${nRev}</div></div></div>
       <div class="grid2"><div class="panel"><h2>Your tasks (${tasks.length})</h2>${taskList(tasks)}</div>
       <div class="stack">${flights(tripsF, asOps ? "queue" : "trips")}${asOps ? payments() : waiting(me)}${asBroker ? pool() : ""}</div></div>${ac}${progress()}`;
   }

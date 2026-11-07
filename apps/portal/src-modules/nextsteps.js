@@ -1,8 +1,8 @@
 /* ---------- Next steps: one guide per trip, no AI needed (Morten, 27 Oct 2026) ----------
    "It does not suggest what needs to be filled to succeed, so I had to guess." Every trip now shows its steps from
    enquiry to follow-up: what is done, what is missing, who does it, and a button that goes straight to the field.
-   The trip form marks the fields needed to send to operations and lists what is still missing as you type.
-   "Send to operations" opens only when every needed item is in, so operations gets a complete file the first time. */
+   The trip form marks the fields needed to send for owner check and lists what is still missing as you type.
+   "Send for owner check" opens only when every needed item is in, so operations gets a complete file the first time. */
 (function(){
   const css = document.createElement("style");
   css.textContent = `.ns-steps{display:grid;gap:6px;margin:6px 0 0}.ns-step{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
@@ -83,8 +83,8 @@
       {title: "Operator quote", who: "Broker", items: B},
       {title: "Checks and documents", who: "Broker", items: C},
       {title: "Confirmation details", who: "Broker or operations", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", false]], note: cf.err.length ? cf.err.join(" ") : ""},
-      {title: "Send to operations", who: "Broker", items: [[sent, sent ? "Sent to operations" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned by operations: fix the note and send again" : "Press Send to operations", "sec|secSend", true]]},
-      {title: "Operations check", who: "Operations", items: [
+      {title: "Send for owner check", who: "Broker", items: [[sent, sent ? "Sent for owner check" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned by the owner: fix the note and send again" : "Press Send for owner check", "sec|secSend", true]]},
+      {title: "Owner check", who: "Operations", items: [
         [num(st.opPrice) > 0, "Operator price confirmed on Avinode, then Save", "el|o_op", true],
         [!!st.kyc, "Charterer KYC recorded, then Save", "el|o_kyc", true],
         [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening: Screen names now, then Save this screening record", "el|scr_names_" + t.did, true],
@@ -122,14 +122,14 @@
       return `<div class="ns-step ${s.done ? "done" : i === cur ? "now" : ""}"><div class="ns-h"><span><span class="ns-n">${s.done ? "✓" : i + 1}</span><b>${esc(s.title)}</b></span><span class="small muted">${esc(s.who)}${i === cur && yours(s) ? ' · <b style="color:var(--steel)">your turn</b>' : ""}</span></div>${s.done && i !== cur ? "" : items}</div>`;
     }).join("");
     const lead = need ? `<p class="small" style="margin:0"><b>Next:</b> ${esc(head.title)} · ${need} item${need > 1 ? "s" : ""} to do · <span class="muted">${esc(head.who)}</span></p>`
-      : `<p class="small" style="margin:0"><b>Next:</b> ${esc(head.title)} <span class="muted">(recommended, not required)</span>${cur < 4 && submitReady(t.d) ? " · or press <b>Send to operations</b> now" : ""}</p>`;
+      : `<p class="small" style="margin:0"><b>Next:</b> ${esc(head.title)} <span class="muted">(recommended, not required)</span>${cur < 4 && submitReady(t.d) ? " · or press <b>Send for owner check</b> now" : ""}</p>`;
     return `<details class="panel" id="secNext" style="padding:14px 16px;margin:8px 0" ${S.nsClosed ? "" : "open"}><summary style="cursor:pointer;list-style:revert"><b>Steps to book this trip</b> <span class="small muted">(${steps.filter(s => s.done).length} of ${steps.length} done)</span></summary>${lead}<div class="ns-steps">${show}</div></details>`;
   };
 
   // under the Send button: exactly what is still missing
   window.sendMissingNote = function(t){
     const n = sendNeeds(t.d); if (!n.length) return "";
-    return `<p class="small" style="margin:4px 0 0"><b>Still needed to send to operations:</b> ${n.map(esc).join(" · ")}. <a href="#secNext" data-ns="sec|secNext">See the steps</a>.</p>`;
+    return `<p class="small" style="margin:4px 0 0"><b>Still needed to send for owner check:</b> ${n.map(esc).join(" · ")}. <a href="#secNext" data-ns="sec|secNext">See the steps</a>.</p>`;
   };
 
   // jump to the place where the missing item is filled in
@@ -155,7 +155,7 @@
 
   // the trip form: required marks and a live list of what is still missing
   const REQ_IDS = ["e_cn", "e_ct", "q_op", "q_oc", "q_ac", "q_pr"];
-  function star(el){ const lab = el && el.closest("label"); if (lab && !lab.querySelector(".req-star")) { const s = document.createElement("span"); s.className = "req-star"; s.textContent = "*"; s.title = "Needed to send to operations";
+  function star(el){ const lab = el && el.closest("label"); if (lab && !lab.querySelector(".req-star")) { const s = document.createElement("span"); s.className = "req-star"; s.textContent = "*"; s.title = "Needed to send for owner check";
     // the mark sits on the same line as the label text, so required fields line up with the others
     const t = lab.firstChild; if (t && t.nodeType === 3) { const w = document.createElement("span"); w.className = "flab"; lab.insertBefore(w, t); w.appendChild(t); w.appendChild(s); } else lab.insertBefore(s, lab.firstChild.nextSibling); } }
   function formBody(){
@@ -171,8 +171,8 @@
     const b = formBody(), {A, B} = brokerItems(b), miss = [...A, ...B].filter(x => x[3] && !x[0]);
     box.className = "note small " + (miss.length ? "info" : "ok");
     box.innerHTML = miss.length
-      ? `<b>Save any time.</b> To send this trip to operations you still need (<span class="req-star">*</span>):<ul>${miss.map(x => `<li>${esc(x[1])}</li>`).join("")}</ul><span class="muted">After saving: tick the pre-issue checks and attach the AOC and insurance on the trip.</span>`
-      : `<b>The form is complete.</b> Save, then tick the pre-issue checks and send to operations.`;
+      ? `<b>Save any time.</b> To send this trip for owner check you still need (<span class="req-star">*</span>):<ul>${miss.map(x => `<li>${esc(x[1])}</li>`).join("")}</ul><span class="muted">After saving: tick the pre-issue checks and attach the AOC and insurance on the trip.</span>`
+      : `<b>The form is complete.</b> Save, then tick the pre-issue checks and send for owner check.`;
   }
   document.addEventListener("input", ev => { if (ev.target.closest && ev.target.closest("#edForm")) refreshNeed(); });
   document.addEventListener("change", ev => { if (ev.target.closest && ev.target.closest("#edForm")) refreshNeed(); });

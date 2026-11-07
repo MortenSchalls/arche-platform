@@ -48,7 +48,7 @@ function followBlock(t){
       <td>${canEdit ? `<input id="lg_t${i}" type="datetime-local" style="width:auto" value="${esc((x.at || "").slice(0, 16))}" aria-label="Time, leg ${i + 1}">` : (x.at ? `<span class="small">${fmtT(x.at)}</span>` : `<span class="muted small">–</span>`)}</td>
       <td>${canEdit ? `<input id="lg_n${i}" value="${esc(x.note || "")}" placeholder="Note to the broker" aria-label="Note, leg ${i + 1}">` : `<span class="small">${esc(x.note || "")}</span>`}</td></tr>`; }).join("");
   const done = allLanded(t), st = t.st || {};
-  return `<div class="panel stack" id="followPanel"><h3 style="margin:0">Flight following</h3><p class="small muted">Follow every leg until the last passenger has landed (manual 11.5). Operations or the 24/7 desk enters the operator's times; tell the client at once about any change.</p>
+  return `<div class="panel stack" id="followPanel"><h3 style="margin:0">Flight following</h3><p class="small muted">Follow every leg until the last passenger has landed (manual 11.5). The broker enters the operator's times; tell the client at once about any change.</p>
     <div class="tbl"><table class="small"><thead><tr><th scope=col>Leg</th><th scope=col>Status</th><th scope=col>Local time</th><th scope=col>Note</th></tr></thead><tbody>${rows}</tbody></table></div>
     ${canEdit ? `<div class="row"><button class="btn small" type="button" data-ac="legSave">Save leg status</button>${done && st.clientPaid && !st.flownDate ? `<button class="btn small primary" type="button" data-ac="legFlown">Last leg landed: record flight</button>` : ""}</div>` : ""}
     ${done && !st.flownDate ? `<p class="small">All legs landed${st.clientPaid ? "" : "; record the client payment first, then the flight"}.</p>` : ""}</div>`;
@@ -78,8 +78,8 @@ function dbPart(key, who, v, can){
 }
 function debriefBlock(t, a){
   const staff = isStaff() && !S.preview && t.bid !== S.uid;
-  return `<div class="stack" style="border-top:1px solid var(--line);padding-top:10px"><h3 style="margin:0">Post-trip debrief (supervised booking)</h3><p class="small muted">Trainee, mentor and operations each score the three measures within 3 working days of the last landing (manual 14.6, template B.9). The booking counts towards sign-off only when all three have signed.</p>
-    ${dbPart("t", "Trainee", a.db.t, t.bid === S.uid)}${dbPart("m", "Mentor", a.db.m, staff && (S.isOwner || S.role === "ops"))}${dbPart("o", "Operations", a.db.o, staff && (S.role === "ops" || S.isOwner))}</div>`;
+  return `<div class="stack" style="border-top:1px solid var(--line);padding-top:10px"><h3 style="margin:0">Post-trip debrief (supervised booking)</h3><p class="small muted">Trainee, mentor and owner each score the three measures within 3 working days of the last landing (manual 14.6, template B.9). The booking counts towards sign-off only when all three have signed.</p>
+    ${dbPart("t", "Trainee", a.db.t, t.bid === S.uid)}${dbPart("m", "Mentor", a.db.m, staff && (S.isOwner || S.role === "ops"))}${dbPart("o", "Owner", a.db.o, staff && (S.role === "ops" || S.isOwner))}</div>`;
 }
 
 /* task list for Today and the dashboard */
@@ -116,7 +116,7 @@ function scorecards(){
 function supPanel(){
   const ros = Object.entries(S.roster).filter(([, p]) => p.active !== false && p.role !== "ops");
   const cnt = bid => allTrips().filter(t => t.bid === bid && t.stage === "flown").filter(t => { const a = acStatus(t); return a && a.db.t && a.db.m && a.db.o; }).length;
-  return `<div class="panel tbl" style="margin-top:16px"><h2>Supervised bookings (stage 6)</h2><p class="small muted">Tick brokers who are in supervised work. Their flown trips then need a post-trip debrief signed by trainee, mentor and operations (manual 14.6). Ten signed debriefs with no critical error complete stage 6.</p><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th><th scope=col class="n">Debriefs signed</th></tr></thead><tbody>${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}</td><td><label class="check" style="margin:0"><input type="checkbox" data-sup="${id}" ${p.supervised ? "checked" : ""}><span class="small">In stage 6</span></label></td><td class="n">${cnt(id)} of 10</td></tr>`).join("") || `<tr><td colspan="3" class="muted">Nobody approved yet.</td></tr>`}</tbody></table></div>`;
+  return `<div class="panel tbl" style="margin-top:16px"><h2>Supervised bookings (stage 6)</h2><p class="small muted">Tick brokers who are in supervised work. Their flown trips then need a post-trip debrief signed by trainee, mentor and owner (manual 14.6). Ten signed debriefs with no critical error complete stage 6.</p><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th><th scope=col class="n">Debriefs signed</th></tr></thead><tbody>${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}</td><td><label class="check" style="margin:0"><input type="checkbox" data-sup="${id}" ${p.supervised ? "checked" : ""}><span class="small">In stage 6</span></label></td><td class="n">${cnt(id)} of 10</td></tr>`).join("") || `<tr><td colspan="3" class="muted">Nobody approved yet.</td></tr>`}</tbody></table></div>`;
 }
 
 /* ---------- Roleplay lab (manual 14.4–14.5) ---------- */
@@ -327,7 +327,7 @@ document.addEventListener("click", async e => {
       if (a === "dbSave") { const k = ac.dataset.part, v = {at: now(), by: S.uid}; for (const [m] of DB_M) { const x = $(`db_${k}_${m}`).value; if (!x) { toast("Score all three measures."); return; } v[m] = +x; }
         ["err","well","change","action"].forEach(f => v[f] = ($(`db_${k}_${f}`).value || "").trim().slice(0, 300)); if (!v.action) { toast("Add one action with an owner and a date."); return; }
         if (k === "t") await deskWrite(t, {debrief: v}, "Debrief signed: trainee");
-        else { const cur = (t.st && t.st.debrief) || {}; await statusWrite(t, {debrief: {...cur, [k === "m" ? "mentor" : "ops"]: v}}, `Debrief signed: ${k === "m" ? "mentor" : "operations"}`); }
+        else { const cur = (t.st && t.st.debrief) || {}; await statusWrite(t, {debrief: {...cur, [k === "m" ? "mentor" : "ops"]: v}}, `Debrief signed: ${k === "m" ? "mentor" : "owner"}`); }
         toast("Debrief part signed."); return; }
     } catch(err){ console.warn(err); toast("Could not save. Try again."); }
   }

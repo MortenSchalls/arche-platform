@@ -4,7 +4,7 @@
    each with its official source and date) and the portal's airport list (airports.json: country, position, runway).
    RED stops the trip: it cannot be sent to operations, approved or issued. A sanctioned country or airport cannot
    be released; a possible name match only by the owner, with a recorded reason. AMBER must be confirmed with the
-   operator (ticked, with name and date) before the trip goes to operations. GREY means the rule is not checked yet:
+   operator (ticked, with name and date) before the trip goes for owner check. GREY means the rule is not checked yet:
    the operator confirms. GREEN only where a verified rule was checked. */
 (function(){
   const TC = window.TC = {rules: null, ready: null, live: {}, timer: {}};
@@ -97,7 +97,7 @@
       ${x.sev === "amber" ? (acks[x.key] ? `<p class="small muted">Confirmed with the operator by ${esc(nm(acks[x.key].by))}, ${esc(fmtT(acks[x.key].at))}: ${esc(acks[x.key].note || "")}</p>` : (mine || isStaff()) ? `<p class="small"><button class="btn small" type="button" data-tc="ack|${esc(t.bid)}|${esc(t.did)}|${esc(x.key)}">Confirmed with the operator</button></p>` : "") : ""}</div></div>`;
     const nameRed = red.some(x => x.key.startsWith("name|"));
     const release = nameRed && S.isOwner && acting() === "owner" ? `<div class="fgrid"><label class="f wide" for="tc_rel">Owner: after checking dates of birth, nationality and addresses against the listing<input id="tc_rel" placeholder="e.g. different person: listed person born 1961, our client born 1985"></label></div><div class="row"><button class="btn small" type="button" data-tc="release|${esc(t.bid)}|${esc(t.did)}">Not the listed person: release</button></div>` : "";
-    const head = red.length ? `<div class="note bad small"><b>This trip is stopped.</b> ${red.length} red item${red.length > 1 ? "s" : ""} below. It cannot go to operations, be approved or be issued until ${red.some(x => !x.key.startsWith("name|")) ? "the trip is changed" : "the owner releases it"}.</div>` : amberOpen.length ? `<div class="note warn small">${amberOpen.length} item${amberOpen.length > 1 ? "s" : ""} to confirm with the operator before the trip goes to operations.</div>` : "";
+    const head = red.length ? `<div class="note bad small"><b>This trip is stopped.</b> ${red.length} red item${red.length > 1 ? "s" : ""} below. It cannot go for owner check, be approved or be issued until ${red.some(x => !x.key.startsWith("name|")) ? "the trip is changed" : "the owner releases it"}.</div>` : amberOpen.length ? `<div class="note warn small">${amberOpen.length} item${amberOpen.length > 1 ? "s" : ""} to confirm with the operator before the trip goes for owner check.</div>` : "";
     return `<div class="panel" id="secTC" style="padding:16px;margin:8px 0"><h3 style="margin-top:0">Trip checks</h3>${head}${["red", "amber", "grey", "green"].flatMap(s => all.filter(x => x.sev === s)).map(row).join("")}${release}
       <p class="small muted">Red stops the trip. Amber must be confirmed with the operator. Grey: not checked yet; the operator confirms. Rules come from official sources, each with its check date.</p></div>`;
   };
@@ -142,17 +142,17 @@
     if (red.length) { if (!["enquiry", "quoted"].includes(body.stage)) body.stage = "quoted"; toast(`Saved. ${red.length} red item${red.length > 1 ? "s" : ""}: the trip cannot go further. See Trip checks.`); }
     return false;
   };
-  // the gates: send to operations, approve, issue
+  // the gates: send for owner check, approve, issue
   function stopIfRed(t, step){
     if (!t) return false; const {red, amberOpen} = tripBlockers(t.d, t.st);
     if (red.length) { toast(`Cannot ${step}: ${red.length} red item${red.length > 1 ? "s" : ""} in Trip checks.`); return true; }
-    if (step === "send to operations" && amberOpen.length) { toast(`Confirm ${amberOpen.length} amber item${amberOpen.length > 1 ? "s" : ""} with the operator first (Trip checks).`); return true; }
+    if (step === "send for owner check" && amberOpen.length) { toast(`Confirm ${amberOpen.length} amber item${amberOpen.length > 1 ? "s" : ""} with the operator first (Trip checks).`); return true; }
     return false;
   }
   document.addEventListener("click", ev => {
     const b = ev.target.closest && ev.target.closest('[data-act="submit"],[data-ap="ok"],[data-act="confIssue"],[data-act="issue"]'); if (!b) return;
     const t = b.dataset.ap ? (() => { const [bid, did] = (b.dataset.id || "").split("|"); return allTrips().find(x => x.bid === bid && x.did === did); })() : tripById(S.sel);
-    const step = b.dataset.act === "submit" ? "send to operations" : b.dataset.ap ? "approve" : "issue";
+    const step = b.dataset.act === "submit" ? "send for owner check" : b.dataset.ap ? "approve" : "issue";
     if (stopIfRed(t, step)) { ev.stopImmediatePropagation(); ev.preventDefault(); }
   }, true);
   document.addEventListener("click", async ev => {

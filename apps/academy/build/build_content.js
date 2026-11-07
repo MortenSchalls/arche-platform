@@ -50,10 +50,10 @@ const WHY = {
  "11.3":"The broker follows up personally within 24 hours of the last landing, while the trip is fresh and any problem can still be put right.",
  "11.4":"Extra cost after an aircraft goes technical (AOG) is approved by the director.",
  "11.5":"Safety decisions belong to the captain. Our job is to look after the client.",
- "11.6":"Every shift ends with a written handover in the desk log, so nothing is lost overnight.",
+ "11.6":"Every on-call shift ends with a written handover note, so nothing is lost overnight.",
  "14.1":"The lab pass mark is 70 out of 100, and the critical points (the correct rule, no unconfirmed promise) must not be broken whatever the total.",
  "14.2":"The director certifies, on the scored lab, the practical exam and the supervised bookings. The AI practice partner never decides.",
- "14.3":"A supervised booking counts only when trainee, mentor and operations have each completed their part of the post-trip debrief.",
+ "14.3":"A supervised booking counts only when trainee, mentor and owner have each completed their part of the post-trip debrief.",
  "12.1":"Check the national do-not-call register and record any opt-out before calling.",
  "12.2":"First compare like for like: aircraft age, operator safety rating, inclusions and what is charged at cost.",
  "0.7":"A flight between two points inside a foreign country on its own is the 9th freedom, cabotage. Most countries refuse it to foreign operators.",
@@ -67,7 +67,7 @@ const WHY = {
  "9.5":"Using real flexibility to save positioning is fair negotiation. Fake quotes or pressure on safety never are.",
  "12.3":"Offer options at different prices and sell the value, rather than cutting the margin.",
  "1.4":"Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker.",
- "1.5":"Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the director issues it.",
+ "1.5":"Separate duties: nobody confirms, prices or records payment on their own booking. Another owner, or a person the owner has mandated, issues it.",
  "5.4":"Both are client requests: what the client asks for. Each is confirmed with its supplier in writing, with how it is charged.",
  "6.5":"No take-off with ice or snow on the aircraft (EU CAT.OP.MPA.250, US 14 CFR 135.227). De-icing depends on the day, so it is charged at cost after the flight with the receipt.",
  "6.6":"Airports publish their hours and night restrictions. Only the operator can say whether an out-of-hours opening is possible and what it costs.",
@@ -90,7 +90,7 @@ const OBJ = {
  m8:["Source on Avinode and compare quotes like for like","Vet an operator against the Arche standard","Check crew and insurance"],
  m9:["Get every price from a written source","Price with the 9% formula and round up","Handle costs that cannot be fixed","Negotiate fairly with operators","Price requests and extras: included, fixed or at cost"],
  m10:["Issue the confirmation back to back with the operator","Explain how money moves through our payment account","Keep financial controls and a complete booking file","Follow the booking timeline from quote to final invoice"],
- m11:["Prepare and run the day of flight","Handle disruption and the 24/7 desk","Answer sustainability questions honestly"],
+ m11:["Prepare and run the day of flight","Handle disruption and out-of-hours calls","Answer sustainability questions honestly"],
  m12:["Meet the Arche service standard on every call","Answer common objections","Manage accounts, follow-ups and negotiation with clients"],
  m13:["Apply the whole manual to six real-world trips"],
  m14:["Know how you are assessed and certified","Plan your Avinode, payment system and external training"],
@@ -107,7 +107,7 @@ const TAKE = {
  m8:["Compare all-in quotes like for like.","ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; otherwise an Arche-approved operator or the director's approval for the trip.","Check the aircraft is on the AOC and the insurance covers commercial passengers."],
  m9:["Client price = Arche cost ÷ 0.91, rounded up.","Costs that depend on the day are charged at cost with receipts.","Negotiate with flexibility, never with fake quotes or pressure on safety.","Fixed extras: supplier price ÷ 0.91; extras at cost: receipts, no margin."],
  m10:["Our terms are never softer than the operator's.","Client money and operator money run through a payment request; only our margin reaches Arche's account.","No flight departs until paid in full.","Deposit 25% (at least USD 2,500); balance 7 days before; under 7 days, pay in full on signature."],
- m11:["Keep the client informed before they need to ask.","Extra cost after an AOG needs the director's approval.","Every desk shift ends with a written handover."],
+ m11:["Keep the client informed before they need to ask.","Extra cost after an AOG needs the director's approval.","Every on-call shift ends with a written handover."],
  m12:["Answer the same business day and confirm everything in writing.","Compare like for like before discussing price.","Track every enquiry through the pipeline and follow up every quote."],
  m13:["Work each case yourself before opening the model answer."],
  m14:["80% in the exam and every critical-rule question right.","Then systems training, shadowing with two site visits, the practical exam and 10 supervised bookings."],
@@ -235,7 +235,6 @@ const COURSE = [
 ].map(c => Object.assign(c, {live:true}));
 const PATHS = {
  broker: COURSE.map(c => c.id),
- consultant: ["m0","m1","m2","lab","m3","m4","m5","m12","m13","exam"],
 };
 const PILOT_REQ = PATHS.broker;
 const J = JSON.stringify;

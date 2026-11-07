@@ -349,7 +349,7 @@
     S.cxIn = {did: t.did, open: true, ...cancelInputs(t)}; render(); });
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest('#secBook [data-bka="cancel"]'); if (!b) return; e.stopImmediatePropagation();
-    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another operations member or another owner must do this on your own trip."); return; }
+    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another owner, or a person the owner has mandated, must do this on your own trip."); return; }
     const inp = cancelInputs(t); if (!inp.avinode) { toast("Cancel on Avinode first, then tick it."); return; }
     b.disabled = true;
     try {
@@ -387,7 +387,7 @@
         const ex = {pct, reason: why, by: S.uid, at: now()}, price = tripPrice({st: {marginEx: ex}}, st.opPrice, st.direct);
         await stWrite(t, {marginEx: ex, price}, `Margin for this trip set by the owner: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip margin set by the owner", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Margin ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
       return; }
-    if (!staffOn(t)) { toast("Another operations member or another owner must do this on your own trip."); return; }
+    if (!staffOn(t)) { toast("Another owner, or a person the owner has mandated, must do this on your own trip."); return; }
     try {
       if (a === "doc") { const fl = ($("bkFile") || {}).files && $("bkFile").files[0]; if (!fl) { toast("Choose the contract file first."); return; }
         const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available here."); return; }
@@ -462,7 +462,7 @@
       <p class="small">${on ? `<b>On</b> since ${esc(fmtT(rm.at))}.` : "<b>Off.</b> Nothing is sent to clients."} When on, every client with a signed confirmation gets an email 3 days and 1 day before each payment in its schedule, until the money has cleared. Sent from operations@archeaviation.com, with a copy to the bookings address and replies going there.</p>
       <label class="f" for="rm_txt">The wording (example)<textarea id="rm_txt" rows="13" readonly>${esc(ex.subject + "\n\n" + ex.text)}</textarea></label>
       <div class="row">${on ? `<button class="btn small" type="button" data-rm="off">Turn reminders off</button>` : `<button class="btn small primary" type="button" data-rm="on">I approve this wording: turn reminders on</button>`}</div>
-      <h3 style="margin:10px 0 0">Critical: operator deadline</h3><p class="small">From 12 hours before an operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, and after such a deadline has passed: everyone on the alert list, every owner and operations member and the trip's broker get a phone alert every 10 minutes, day or night, and an email every hour, and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled.</p></div>`;
+      <h3 style="margin:10px 0 0">Critical: operator deadline</h3><p class="small">From 12 hours before an operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, and after such a deadline has passed: everyone on the alert list, every owner and mandated person and the trip's broker get a phone alert every 10 minutes, day or night, and an email every hour, and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled.</p></div>`;
   }
   if (typeof alertsPanel === "function") { const _ap = alertsPanel; alertsPanel = function(){ return _ap() + remindPanel(); }; }
   document.addEventListener("click", async e => {

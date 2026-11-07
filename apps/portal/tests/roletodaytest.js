@@ -15,7 +15,7 @@ ok('Today is first in the broker menu, no separate Dashboard',await B.evaluate((
 ok('Today shows progress this month (formerly the Dashboard)',await B.evaluate(()=>/Progress this month[\s\S]*Standard bookings this month[\s\S]*Trips confirmed, last 6 months/i.test(document.querySelector('#main').innerText)));
 ok('New enquiry button on Today',await B.evaluate(()=>!!document.querySelector('#main [data-act="new"]')));
 ok('broker sees the flight tomorrow',await B.evaluate(()=>/Tomorrow 10:00[\s\S]*WSSL → VTSP[\s\S]*Example Holdings/.test(document.querySelector('#main').innerText)));
-ok('broker sees the file waiting on operations',await B.evaluate(()=>/With operations: Ben Example/.test(document.querySelector('#main').innerText)));
+ok('broker sees the file waiting on operations',await B.evaluate(()=>/With the owner: Ben Example/.test(document.querySelector('#main').innerText)));
 ok('broker sees the enquiry pool section',await B.evaluate(()=>/Open enquiries in the pool/.test(document.querySelector('#main').innerText)));
 ok('sections are collapsible',await B.evaluate(()=>document.querySelectorAll('#main div[data-clp]').length>=4&&!!document.querySelector('[data-clpall]')));
 ok('flight row shows the status in red with the note and registration',await B.evaluate(()=>{const c=[...document.querySelectorAll('#main .chip.c-returned')].find(x=>x.textContent==='Delayed');return !!c&&/Slot at 10:40/.test(document.querySelector('#main').innerText)&&/9V-EXA/.test(document.querySelector('#main').innerText);}));
@@ -31,7 +31,7 @@ await B.evaluate(()=>{S.view='home';render();});await B.waitForTimeout(500);ok('
 const O=await open('ops');await seed(O);await O.evaluate(()=>{S.view='today';render();});await O.waitForTimeout(1500);
 ok('operations lands on Today with its own sections',await O.evaluate(()=>navItems()[0][0]==='today'&&/Client payments outstanding/.test(document.querySelector('#main').innerText)));
 ok('operations sees the payment with the balance date',await O.evaluate(()=>/Example Holdings: first flight/.test(document.querySelector('#main').innerText)));
-ok('operations Today shows the operations figures and no Dashboard',await O.evaluate(()=>/Progress this month[\s\S]*Waiting for operations/i.test(document.querySelector('#main').innerText)&&!navItems().some(i=>i[0]==='home')));
+ok('operations Today shows the operations figures and no Dashboard',await O.evaluate(()=>/Progress this month[\s\S]*Waiting for owner check/i.test(document.querySelector('#main').innerText)&&!navItems().some(i=>i[0]==='home')));
 ok('operations sees the file to check',await O.evaluate(()=>/Files to check/i.test(document.querySelector('#main').innerText)));
 ok('flight following has tracking links (Flightradar24, FlightAware, ADS-B Exchange)',await O.evaluate(()=>{const t=allTrips().find(t=>t.did==='x1');const h=followBlock(t);return /data-track="9V-EXA"/.test(h)&&h.includes('flightaware.com/live/flight/9VEXA')&&h.includes('globe.adsbexchange.com/?reg=9V-EXA');}));
 ok('no registration: the file asks for it',await O.evaluate(()=>{const t=allTrips().find(t=>t.did==='x1');return /Add the aircraft registration/.test(trackLinks({d:{quote:{}}}))&&/Add the aircraft registration/.test(trackLinks({d:{quote:{tail:'bad reg!!'}}}));}));
