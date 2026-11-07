@@ -696,7 +696,7 @@ label.f > span.small,label.f > .apthint,label.f > .muted{text-transform:none;let
 <script>
 "use strict";
 /* ---------- state ---------- */
-const STAGES = {enquiry:"Enquiry", quoted:"Quoted", review:"With the owner", returned:"Returned to broker", issued:"Confirmed", clientPaid:"Client paid", flown:"Flown", cancelled:"Cancelled"};
+const STAGES = {enquiry:"Enquiry", quoted:"Quoted", review:"Waiting for authorisation", returned:"Returned to broker", issued:"Confirmed", clientPaid:"Client paid", flown:"Flown", cancelled:"Cancelled"};
 const BROKER_CHECKS = [
   ["never","Trip checked against the never-sell list (Module 2.4): no illegal charter, cabotage confirmed, US and EU rules met"],
   ["risk","Trip risk screen recorded; every amber point confirmed in writing; no red open"],
@@ -705,7 +705,7 @@ const BROKER_CHECKS = [
   ["audit","Safety audit checked and recorded under Operator safety (ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3; anything else only as an Archē-approved operator or with the director's approval for the trip)"],
   ["route","Routing, permits and continuous journey checked with the operator"],
   ["terms","Operator's cancellation and payment terms entered, so the confirmation charges the higher and collects before the operator is paid"]];
-const OPS_CHECKS = [["kyc","Charterer KYC and sanctions screening recorded (broker; the owner checks)"],["pay","Payment request created in our payment provider (broker; the owner checks)"]];
+const OPS_CHECKS = [["kyc","Charterer KYC and sanctions screening recorded (broker; checked at authorisation)"],["pay","Payment request created in our payment provider (broker; checked at authorisation)"]];
 const DEFAULT_TERMS = {margin:0.09, unit:45000, threshold:8, rate1:0.27, rate2:0.35, consultRate:0.10, cycleDays:5};
 // On the live platform the nightly backup is the scheduled job (encrypted, kept 90 days off-site); it records intel/backup.
 const LIVE_PLATFORM = !!window.__sb;
@@ -869,8 +869,8 @@ function allTrips(){
 /* ---------- render ---------- */
 function navItems(){
   const r = acting();
-  if (r === "owner") return [["today","Today"],["pool","Enquiries"],["trips","Trips"],["queue","Owner check"],["quotes","Supplier quotes"],["prospects","Prospects"],["commission","Commission"],["control","Control"],["assistant","Assistant"],["team","Team"],["security","Security"],["settings","Settings"],["training","Training"],["help","Help"]];
-  if (r === "ops") return [["home","Dashboard"],["queue","Owner check"],["quotes","Supplier quotes"],["trips","All trips"],...(S.alsoBroker ? [["openenq","Open enquiries"],["leads","My leads"]] : []),["prospects","Prospects"],["commission","Commission"],["control","Control"],["assistant","Assistant"],["training","Training"],["help","Help"]];
+  if (r === "owner") return [["today","Today"],["pool","Enquiries"],["trips","Trips"],["queue","Authorisation"],["quotes","Supplier quotes"],["prospects","Prospects"],["commission","Commission"],["control","Control"],["assistant","Assistant"],["team","Team"],["security","Security"],["settings","Settings"],["training","Training"],["help","Help"]];
+  if (r === "ops") return [["home","Dashboard"],["queue","Authorisation"],["quotes","Supplier quotes"],["trips","All trips"],...(S.alsoBroker ? [["openenq","Open enquiries"],["leads","My leads"]] : []),["prospects","Prospects"],["commission","Commission"],["control","Control"],["assistant","Assistant"],["training","Training"],["help","Help"]];
   if (r === "broker") return [["home","Dashboard"],["openenq","Open enquiries"],["trips","My trips"],["leads","My leads"],["commission","My commission"],["assistant","Assistant"],["training","Training"],["welcome","Onboarding package"],["help","Help"],["rules","Portal rules"]];
   return [];
 }
@@ -985,10 +985,10 @@ function tripFile(t){
   if (isStaff() && r !== "broker") ops = opsBlock(t);
   return `<div class="panel stack">
     <div class="head" style="margin:0"><div><h2>${esc(c.company || c.name || "New client")}</h2><p class="small muted">${st.ref ? `<span class="mono">${esc(st.ref)}</span> · ` : ""}Broker: ${esc(nm(t.bid))} · Opened ${fmtD(d.created)}</p></div><span class="chip c-${t.stage}">${STAGES[t.stage]}</span></div>
-    ${typeof tripNextBlock === "function" ? tripNextBlock(t) : ""}${gateTripNote(t)}${typeof tripChecksBlock === "function" ? tripChecksBlock(t) : ""}${typeof supShareBlock === "function" ? supShareBlock(t) : ""}${typeof tripContactsBlock === "function" ? tripContactsBlock(t) : ""}${t.stage === "returned" ? `<div class="note bad"><b>Returned by the owner:</b> ${esc(st.note || "See the history below.")}</div>` : ""}
+    ${typeof tripNextBlock === "function" ? tripNextBlock(t) : ""}${gateTripNote(t)}${typeof tripChecksBlock === "function" ? tripChecksBlock(t) : ""}${typeof supShareBlock === "function" ? supShareBlock(t) : ""}${typeof tripContactsBlock === "function" ? tripContactsBlock(t) : ""}${t.stage === "returned" ? `<div class="note bad"><b>Returned at authorisation:</b> ${esc(st.note || "See the history below.")}</div>` : ""}
     <div class="row"><button class="btn" type="button" data-act="openConf">Charter confirmation${st.ref ? " · " + esc(st.ref) + (st.confRev ? " Rev " + st.confRev : "") : ""}</button>${st.confIssued ? `<span class="chip c-flown">Issued</span>` : (t.d.conf ? `<span class="chip c-review">Draft</span>` : "")}</div>
     <div id="secSig">${sigBlock(t)}</div>
-    ${locked && mine ? `<p class="lock">This trip is with the owner for checking, or confirmed. Price, payment and documents are controlled by operations; ask them for any change.</p>` : ""}
+    ${locked && mine ? `<p class="lock">This trip is waiting for authorisation, or confirmed. Price, payment and documents are controlled by operations; ask them for any change.</p>` : ""}
     <div class="fgrid">
       <div class="${S.role === "broker" ? "guard" : ""}"><h3>Client</h3><p>${esc(c.name || "–")}${c.company ? `, ${esc(c.company)}` : ""}</p><p class="small muted">${esc(c.email || "")} ${esc(c.phone || "")}</p><p class="small muted">${c.country ? "Resident in " + esc(c.country) : ""}${c.payer ? " · Payer: " + esc(c.payer) : ""}</p></div>
       <div><h3>Trip</h3>${legs.length ? legs.map(l => `<p class="small"><b>${esc(l.from)} → ${esc(l.to)}</b> · ${fmtD(l.date)} ${esc(l.time || "")} · ${esc(l.pax || "?")} pax${APT.by[l.from] || APT.by[l.to] ? `<br><span class="muted">${esc(aptName(l.from) || l.from)} → ${esc(aptName(l.to) || l.to)}</span>` : ""}</p>`).join("") : `<p class="small muted">No legs yet</p>`}<p class="small muted">${esc(tr.category || "")}${tr.notes ? " · " + esc(tr.notes) : ""}</p></div>
@@ -1003,13 +1003,13 @@ function tripFile(t){
       <p class="small muted" style="margin-top:6px">${q.aircraft ? esc(q.aircraft) : "Aircraft to be confirmed"}${q.tail ? " · " + esc(q.tail) : ""}${q.avinode ? " · Avinode trip " + esc(q.avinode) : ""}.${curNote(q)} The portal sets the price: operator price plus direct costs, divided by ${(1 - S.terms.margin).toFixed(2)}, rounded up.</p></div>
     ${["flown","cancelled"].includes(t.stage) ? "" : aiBlock(t)}
     ${typeof safetyBlock === "function" ? safetyBlock(t) : ""}<div id="secChecks"><h3>Pre-issue checks</h3>${BROKER_CHECKS.map(([k, l]) => `<label class="check" for="ck_${k}"><input type="checkbox" id="ck_${k}" data-ck="${k}" ${checks[k] ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>${l}</span></label>`).join("")}
-      <label class="check" for="ck_kyc"><input type="checkbox" id="ck_kyc" data-ck="kyc" ${checks.kyc || st.kyc ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>Charterer KYC and sanctions screening done and recorded (manual 3.1 and 3.2)</span>${st.kyc ? `<span class="who-ticks">checked by the owner</span>` : ""}</label>
+      <label class="check" for="ck_kyc"><input type="checkbox" id="ck_kyc" data-ck="kyc" ${checks.kyc || st.kyc ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>Charterer KYC and sanctions screening done and recorded (manual 3.1 and 3.2)</span>${st.kyc ? `<span class="who-ticks">checked at authorisation</span>` : ""}</label>
       <label class="f" for="ck_payref" style="margin-top:6px">Client payment request reference (created in our payment provider)<input id="ck_payref" data-payref="1" value="${esc((t.d || {}).payRef || st.paynodeRef || "")}" ${canBrokerEdit ? "" : "disabled"}></label></div>
     <div id="secDocs"><h3>Documents</h3>${docs.length ? `<ul class="small">${docs.map(x => `<li><a href="/_blob/${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.name)}</a> <span class="muted">· ${esc(x.kind || "")} · ${fmtD(x.at)}</span></li>`).join("")}</ul>` : `<p class="small muted">No documents yet.</p>`}
       ${canBrokerEdit ? `<div class="row"><select id="docKind" style="width:auto" aria-label="Document type"><option>Operator quote</option><option>AOC</option><option>Insurance certificate</option><option>Operator contract</option><option>Safety audit</option><option>Client KYC</option><option>Passport</option><option>Trip risk screen</option><option>Client safety disclosure</option><option>Other</option></select><input type="file" id="docFile" style="width:auto"><button class="btn small" type="button" data-act="upload">Attach</button></div><p class="small muted">Documents stay in the portal. Never send passports or contracts by email or chat.</p>` : ""}</div>
-    ${canBrokerEdit ? `<div class="row" id="secSend"><button class="btn" type="button" data-act="edit">Edit enquiry and quote</button><button class="btn primary" type="button" data-act="submit" ${submitReady(d) ? "" : "disabled"}>Send for owner check</button>${t.stage === "enquiry" || t.stage === "quoted" ? `<button class="btn danger" type="button" data-act="withdraw">Withdraw</button>` : ""}</div>${submitReady(d) ? "" : (typeof sendMissingNote === "function" ? sendMissingNote(t) : `<p class="small muted">To send for owner check: client name, at least one leg, operator price and all seven checks.</p>`)}` : ""}
+    ${canBrokerEdit ? `<div class="row" id="secSend"><button class="btn" type="button" data-act="edit">Edit enquiry and quote</button><button class="btn primary" type="button" data-act="submit" ${submitReady(d) ? "" : "disabled"}>Send for authorisation</button>${t.stage === "enquiry" || t.stage === "quoted" ? `<button class="btn danger" type="button" data-act="withdraw">Withdraw</button>` : ""}</div>${submitReady(d) ? "" : (typeof sendMissingNote === "function" ? sendMissingNote(t) : `<p class="small muted">To send for authorisation: client name, at least one leg, operator price and all seven checks.</p>`)}` : ""}
     ${ops}
-    <div><h3>History</h3><div class="hist">${historyOf(t).map(h => `<div><span class="muted mono">${fmtT(h.t)}</span><span>${esc(h.a)} <span class="muted">· ${esc(h.by === "ops" ? "Owner check" : nm(h.by))}</span></span></div>`).join("") || `<p class="small muted">No history yet.</p>`}</div></div>
+    <div><h3>History</h3><div class="hist">${historyOf(t).map(h => `<div><span class="muted mono">${fmtT(h.t)}</span><span>${esc(h.a)} <span class="muted">· ${esc(h.by === "ops" ? "Authorisation" : nm(h.by))}</span></span></div>`).join("") || `<p class="small muted">No history yet.</p>`}</div></div>
   </div>`;
 }
 function historyOf(t){ return [...(t.d.history || []), ...((t.st && t.st.history) || [])].sort((a, b) => (b.t || "").localeCompare(a.t || "")); }
@@ -1021,11 +1021,11 @@ const ownTrip = t => (S.role === "ops" || S.isOwner) && !!t && t.bid === S.uid;
 function opsBlock(t){
   const st = t.st || {}, q = t.d.quote || {}, stage = t.stage;
   if (ownTrip(t)) return `<div class="note info small"><b>Your own trip.</b> Another owner, or a person the owner has mandated, checks it, issues the confirmation and records payments. Nobody confirms or records money on their own booking.</div>`;
-  if (stage === "enquiry" || stage === "quoted") return `<div class="note info small">The broker has not sent this trip for owner check yet.</div>`;
+  if (stage === "enquiry" || stage === "quoted") return `<div class="note info small">The broker has not sent this trip for authorisation yet.</div>`;
   const issued = ["issued","clientPaid","flown"].includes(stage);
   const opPrice = st.opPrice ?? q.opPrice, direct = st.direct ?? q.direct;
   return `<div class="panel stack" id="secOps" style="background:var(--raised)">
-    <h2>Owner check</h2>
+    <h2>Authorisation</h2>
     ${!issued && stage !== "cancelled" ? `
     <p class="small muted">The broker has prepared everything. Check the operator price against the Avinode trip, and the broker's KYC, sanctions screening and payment request, then issue.</p>
     <div class="fgrid">
@@ -1052,12 +1052,12 @@ function opsBlock(t){
 /* ---------- operations queue ---------- */
 function vQueue(){
   const trips = allTrips();
-  const groups = [["review","Waiting for owner check"],["issued","Confirmed, waiting for client payment"],["clientPaid","Paid, waiting to fly"],["returned","Returned to broker"]];
+  const groups = [["review","Waiting for authorisation"],["issued","Confirmed, waiting for client payment"],["clientPaid","Paid, waiting to fly"],["returned","Returned to broker"]];
   const wait = t => Date.parse(t.d.submittedAt || (t.st && t.st.updatedAt) || t.d.updated || 0) || 0;
   const k = s => trips.filter(t => t.stage === s).sort((a, b) => s === "review" ? wait(a) - wait(b) : 0);
-  return `<div class="head"><div><h1>Owner check</h1><p class="muted small">Nothing is confirmed, paid or flown until it is recorded here.</p></div></div>
+  return `<div class="head"><div><h1>Authorisation</h1><p class="muted small">Nothing is confirmed, paid or flown until it is recorded here.</p></div></div>
   <div class="kpis">${groups.map(([s, l]) => `<div class="kpi"><div class="l">${l}</div><div class="v">${k(s).length}</div></div>`).join("")}</div>
-  <div class="grid2"><div class="panel">${groups.map(([s, l]) => k(s).length ? `<h3 style="margin-top:6px">${l}</h3><div class="list">${k(s).map(tripRow).join("")}</div>` : "").join("") || `<div class="empty"><p><b>The queue is clear.</b></p><p class="small">Trips appear here when a broker sends them for owner check.</p></div>`}</div>
+  <div class="grid2"><div class="panel">${groups.map(([s, l]) => k(s).length ? `<h3 style="margin-top:6px">${l}</h3><div class="list">${k(s).map(tripRow).join("")}</div>` : "").join("") || `<div class="empty"><p><b>The queue is clear.</b></p><p class="small">Trips appear here when a broker sends them for authorisation.</p></div>`}</div>
   <div id="detail">${(() => { const t = trips.find(x => x.did === S.sel); return t ? tripFile(t) : `<div class="panel empty"><p>Select a trip to work on it.</p></div>`; })()}</div></div>`;
 }
 
@@ -1337,7 +1337,7 @@ async function act(a, el){
     if (a === "delLeg") { const box = $("legs"); if (box.children.length > 1) el.closest(".leg").remove(); return; }
     if (a === "submit") { if (gated("quote") && !(gateReq(S.uid, "quote", t.did) || {}).status) { if (await gateHold("quote", t.did, quoteFp(t), `${(t.d.client || {}).company || (t.d.client || {}).name || "Client"}: client price ${usd(priceOf((t.d.quote || {}).opPrice, (t.d.quote || {}).direct))}`, "", {tripBid: t.bid, tripDid: t.did})) return; }
       else if (gated("quote")) { const r = gateReq(S.uid, "quote", t.did); if (!(r.status === "approved" && r.fp === quoteFp(t))) { toast(r.status === "pending" ? "Your quote is waiting for the director's OK." : r.status === "changes" ? "The director asked for changes to the quote. Change it and save to ask again." : "The quote changed since the director's OK. Save it to ask again."); return; } }
-      await deskWrite(t, {stage:"submitted", submittedAt: now()}, "Sent for owner check"); toast("Sent for owner check"); return; }
+      await deskWrite(t, {stage:"submitted", submittedAt: now()}, "Sent for authorisation"); toast("Sent for authorisation"); return; }
     if (a === "withdraw") { await deskWrite(t, {stage:"cancelled"}, "Withdrawn by broker"); toast("Trip withdrawn"); return; }
     if (a === "upload") { await uploadDoc(t); return; }
     if (["opsSave","issue","return","clientPaid","operatorPaid","flown","cancelYes"].includes(a) && ownTrip(t)) { toast("Another owner, or a person the owner has mandated, must do this on your own trip."); return; }
@@ -2160,7 +2160,7 @@ function vConf(){
   const issues = [...ev.ch.err.map(x => ["bad","Fix",x]), ...ev.ch.warn.map(x => ["warn","Check",x])]; if (ev.ch.missing.length) issues.push(["warn","Missing",ev.ch.missing.join(" · ")]);
   const ready = !ev.ch.err.length && !ev.ch.missing.length;
   const revs = st.confRevs || [];
-  return `<div class="head"><div><h1>Charter confirmation</h1><p class="muted small">${esc((t.d.client || {}).company || (t.d.client || {}).name || "")} · ${st.ref ? esc(st.ref) + (st.confRev ? ` · Rev ${st.confRev}` : "") : "Not issued"} · Price, client, aircraft and operator come from the trip file and the owner's check.</p></div>
+  return `<div class="head"><div><h1>Charter confirmation</h1><p class="muted small">${esc((t.d.client || {}).company || (t.d.client || {}).name || "")} · ${st.ref ? esc(st.ref) + (st.confRev ? ` · Rev ${st.confRev}` : "") : "Not issued"} · Price, client, aircraft and operator come from the trip file and authorisation.</p></div>
     <div class="row"><button class="btn" type="button" data-act="confBack">Back to trip</button>
     <button class="btn" type="button" data-act="confAI">AI check</button>
     ${staff && issued && !S.confRevise ? `<button class="btn" type="button" data-act="confDownload">Download PDF</button><button class="btn" type="button" data-act="confRevise">Prepare revision</button>` : ""}
@@ -2175,7 +2175,7 @@ function vConf(){
         ${staff && revs.length ? `<h3 style="margin-top:12px">Issued versions</h3><ul class="small" style="margin:0;padding-left:18px">${revs.map(r => `<li>Rev ${r.rev} · ${fmtT(r.at)}${r.assetId ? ` · <a href="/_blob/${encodeURIComponent(r.assetId)}" target="_blank" rel="noopener">PDF</a>` : ""}</li>`).join("")}</ul>` : ""}
       </div>
       ${showIssued ? "" : `<form id="confForm" class="panel stack" onsubmit="return false">
-        ${edit ? "" : `<p class="lock">${t.bid === S.uid && !staff ? "This trip is with the owner for checking. Only the owner can change the confirmation now." : "Read only."}</p>`}
+        ${edit ? "" : `<p class="lock">${t.bid === S.uid && !staff ? "This trip is waiting for authorisation. Only the person authorising it can change the confirmation now." : "Read only."}</p>`}
         <div><h3>Booking</h3><div class="fgrid">${f("btype","Booking type","select",[["charter","Charter"],["emptyleg","Empty leg"]])}${f("valid.date","Offer valid until","date")}${f("valid.time","Time","time")}${f("valid.tz","Time zone")}</div></div>
         <div><h3>Charterer</h3><div class="fgrid">${f("address","Charterer address","area")}${f("kyc","KYC reference")}${f("lead","Lead passenger")}${f("cName","Charterer signatory")}${f("cTitle","Signatory title")}</div></div>
         <div><h3>Aircraft and operator</h3><div class="fgrid">${f("cat","Category","select",AC_CATS)}${f("yom","Year built")}${f("seats","Passenger seats")}${f("ca","Cabin attendant","select",["Included","Not included"])}${f("wifi","Wi-Fi","select",["Not available","Available, charged at cost","Available, included"])}${f("audit","Safety audit (e.g. ARGUS Platinum)")}${f("aoc","Operator AOC number")}${f("state","AOC state")}</div></div>
@@ -2615,7 +2615,7 @@ function vToday(){
   const pipe = trips.filter(t => !["flown","cancelled"].includes(t.stage)), val = t => (t.st && t.st.price) || priceOf(t.d.quote && t.d.quote.opPrice, t.d.quote && t.d.quote.direct);
   const joins = Object.keys(S.joins).length, run = S.assignRun || {}, rep = run.report || {}, pv = S.enginePreview;
   const decisions = todayDecisions(); if (0) {
-  review.forEach(t => decisions.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div><p>Trip waiting for owner check: ${esc((t.d.client && (t.d.client.company || t.d.client.name)) || "")} · ${usd(val(t))}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#" data-open="${t.bid}|${t.did}" data-goto="queue">Open</a></p></div></div>`));
+  review.forEach(t => decisions.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div><p>Trip waiting for authorisation: ${esc((t.d.client && (t.d.client.company || t.d.client.name)) || "")} · ${usd(val(t))}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#" data-open="${t.bid}|${t.did}" data-goto="queue">Open</a></p></div></div>`));
   late.forEach(([, txt, t]) => decisions.push(`<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p>${esc(txt)}</p>${t ? `<p class="small muted">${esc(nm(t.bid))} · <a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open</a></p>` : ""}</div></div>`));
   rv.forEach(([id, p]) => decisions.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div style="flex:1"><p>${esc(p.org)} went cold with ${(p.history || []).filter(h => h.cold).length} brokers</p><p class="small muted">${esc(p.reviewReason || "")}</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-act="rvRestart" data-pid="${id}">Restart rotation</button><button class="btn small danger" type="button" data-act="rvDnc" data-pid="${id}">Do not contact</button><button class="btn small" type="button" data-act="rvOpen" data-pid="${id}">Open</button></div></div></div>`));
   }
@@ -2632,7 +2632,7 @@ function vToday(){
       ${LIVE_PLATFORM ? `<p>Nightly backup: ${S.nightly && S.nightly.lastRun ? "last " + fmtT(S.nightly.lastRun) + " · encrypted, kept 90 days" : "not run yet"}</p>` : `<p>Google Drive backup: ${S.drive && (S.drive.lastCloudBackup || S.drive.lastSync) ? "last " + fmtT(S.drive.lastCloudBackup || S.drive.lastSync) + (S.drive.cloudBackupResult ? " · " + esc(S.drive.cloudBackupResult) : "") : "not run yet"}</p>`}
       <p>Prospect rotation: ${run.lastRun ? "last " + fmtT(run.lastRun) : "not run yet"}</p>
       ${aiSpendHtml()}
-      <div class="row"><button class="btn small" type="button" data-view="control">Control</button><button class="btn small" type="button" data-view="queue">Owner check</button><button class="btn small" type="button" data-view="prospects">Prospects</button></div></div></div></div>${spotCheckPanel()}${todayAnalytics()}`;
+      <div class="row"><button class="btn small" type="button" data-view="control">Control</button><button class="btn small" type="button" data-view="queue">Authorisation</button><button class="btn small" type="button" data-view="prospects">Prospects</button></div></div></div></div>${spotCheckPanel()}${todayAnalytics()}`;
 }
 
 /* AI research spend (Anthropic API), recorded by every background job; limits are set in .github/workflows/jobs.yml */
@@ -2681,9 +2681,9 @@ function tasksFor(bid, asOps){
       if (due < t0) add(0, `Overdue: contact ${l.org}. It moves to another broker at the next round.`, `data-view="leads" data-lead="${id}"`);
       else if (due - t0 < day) add(1, `Contact ${l.org} by ${fmtT(new Date(due).toISOString())}`, `data-view="leads" data-lead="${id}"`); });
     myTrips(bid).forEach(t => { const nmC = esc((t.d.client && (t.d.client.company || t.d.client.name)) || "Client"), upd = Date.parse(t.d.updated || t.d.created || 0), op = `data-open="${t.bid}|${t.did}" data-goto="trips"`;
-      if (t.stage === "returned") add(0, `Returned by the owner: ${nmC}. Fix and resend.`, op);
+      if (t.stage === "returned") add(0, `Returned at authorisation: ${nmC}. Fix and resend.`, op);
       if (t.stage === "enquiry" && t0 - upd > 2 * day) add(1, `Quote ${nmC}: enquiry open ${Math.floor((t0 - upd) / day)} days`, op);
-      if (t.stage === "quoted" && !submitReady(t.d)) add(2, `Finish the checks for ${nmC} and send for owner check`, op);
+      if (t.stage === "quoted" && !submitReady(t.d)) add(2, `Finish the checks for ${nmC} and send for authorisation`, op);
       if (t.stage === "quoted" && t0 - upd > 5 * day) add(2, `Follow up ${nmC}: quote sent ${Math.floor((t0 - upd) / day)} days ago`, op); });
     const st = myStats(); if (st.adds < st.min) add(3, `Add ${st.min - st.adds} more organisation${st.min - st.adds > 1 ? "s" : ""} this month (${st.adds} of ${st.min})`, `data-act="goAdd"`);
   }
@@ -2722,13 +2722,13 @@ function vHome(){
     ${hbars(rows.map((x, i) => ({id:x.id, k:label(x, i), v:num(x[S.dashMetric || "points"])})).sort((a, b) => b.v - a.v), v => String(Math.round(v)), me)}
     <p class="small muted">Points: 3 per organisation you add, 1 per lead contacted per day, 1 per contact route you add or correct (up to ${cfgA().updatePointsCap} a month), 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold. Adding prospects also earns you a bigger share of new leads.</p></div>` : "";
   // progress and figures, shown on Today for brokers and operations (Dashboard merged into Today, Morten 31 Oct 2026)
-  const opsKp = asOps ? (() => { const q = allTrips(); const c = s => q.filter(t => t.stage === s && !ownTrip(t)).length; return `<div class="kpis"><div class="kpi"><div class="l">Waiting for owner check</div><div class="v">${c("review")}</div></div><div class="kpi"><div class="l">Confirmed, client not paid</div><div class="v">${c("issued")}</div></div><div class="kpi"><div class="l">Paid, waiting to fly</div><div class="v">${c("clientPaid")}</div></div></div>`; })() : "";
+  const opsKp = asOps ? (() => { const q = allTrips(); const c = s => q.filter(t => t.stage === s && !ownTrip(t)).length; return `<div class="kpis"><div class="kpi"><div class="l">Waiting for authorisation</div><div class="v">${c("review")}</div></div><div class="kpi"><div class="l">Confirmed, client not paid</div><div class="v">${c("issued")}</div></div><div class="kpi"><div class="l">Paid, waiting to fly</div><div class="v">${c("clientPaid")}</div></div></div>`; })() : "";
   const chart = asBroker ? `<div class="panel"><h2>Trips confirmed, last 6 months</h2>${barChart(hist, v => String(v), {label:"Trips confirmed per month", highlight: mLabel(month)})}</div>` : "";
   window.__homeParts = {kp, opsKp, chart, team};
   const tasks = tasksFor(asBroker ? me : null, asOps);
   return `<div class="head"><div><h1>${esc(meName ? meName.split(" (")[0] : "Dashboard")}</h1><p class="muted small">${new Date().toLocaleDateString("en-GB", {weekday:"long", day:"numeric", month:"long"})} · your progress and everything outstanding.</p></div>${asBroker ? `<div class="row"><button class="btn primary" type="button" data-act="new">New enquiry</button></div>` : ""}</div>
   ${kp}
-  ${asOps ? (() => { const q = allTrips(); const c = s => q.filter(t => t.stage === s && !ownTrip(t)).length; return `<div class="kpis"><div class="kpi"><div class="l">Waiting for owner check</div><div class="v">${c("review")}</div></div><div class="kpi"><div class="l">Confirmed, client not paid</div><div class="v">${c("issued")}</div></div><div class="kpi"><div class="l">Paid, waiting to fly</div><div class="v">${c("clientPaid")}</div></div></div>`; })() : ""}
+  ${asOps ? (() => { const q = allTrips(); const c = s => q.filter(t => t.stage === s && !ownTrip(t)).length; return `<div class="kpis"><div class="kpi"><div class="l">Waiting for authorisation</div><div class="v">${c("review")}</div></div><div class="kpi"><div class="l">Confirmed, client not paid</div><div class="v">${c("issued")}</div></div><div class="kpi"><div class="l">Paid, waiting to fly</div><div class="v">${c("clientPaid")}</div></div></div>`; })() : ""}
   <div class="grid2"><div class="panel"><h2>Outstanding</h2>${taskList(tasks)}</div>
   <div class="stack">${asBroker ? `<div class="panel"><h2>Trips confirmed, last 6 months</h2>${barChart(hist, v => String(v), {label:"Trips confirmed per month", highlight: mLabel(month)})}</div>` : ""}${team}</div></div>`;
 }
@@ -2739,7 +2739,7 @@ function todayAnalytics(){
   const conf = Object.entries(byB).map(([bid, ts]) => ({id:bid, k:nm(bid), v:tripStats(ts, month).confirmed})).sort((a, b) => b.v - a.v);
   const cur = tripStats(trips, month);
   return `<div class="grid2" style="margin-top:16px"><div class="panel"><h2>Gross profit from trips flown, last 6 months</h2>${barChart(gp, v => usd(v), {label:"Gross profit per month", highlight: mLabel(month)})}</div>
-  <div class="panel"><h2>This month</h2><div class="price small"><span>Enquiries</span><span class="mono">${cur.enq}</span><span>Quoted</span><span class="mono">${cur.quoted}</span><span>Sent for owner check</span><span class="mono">${cur.sent}</span><span>Confirmed</span><span class="mono">${cur.confirmed} (${cur.units.toFixed(1)} standard bookings)</span><span>Flown</span><span class="mono">${cur.flown}</span></div>
+  <div class="panel"><h2>This month</h2><div class="price small"><span>Enquiries</span><span class="mono">${cur.enq}</span><span>Quoted</span><span class="mono">${cur.quoted}</span><span>Sent for authorisation</span><span class="mono">${cur.sent}</span><span>Confirmed</span><span class="mono">${cur.confirmed} (${cur.units.toFixed(1)} standard bookings)</span><span>Flown</span><span class="mono">${cur.flown}</span></div>
   <h3 style="margin-top:12px">Confirmed trips by broker</h3>${conf.length ? hbars(conf, v => String(v)) : `<p class="small muted">No trips yet.</p>`}</div></div>`;
 }
 
@@ -2761,7 +2761,7 @@ function flowSVG(accent){
   // Broker lane
   s += box(2, 1, "Lead", "contact in 48 h") + box(3, 1, "Enquiry", "airport search") + box(4, 1, "Requests, extras", "and quote ÷ 0.91") + box(5, 1, "7 checks", "documents") + box(6, 1, "Commission", "month flown");
   // Ops lane
-  s += box(5, 2, "Owner check", "Avinode, KYC, payment") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
+  s += box(5, 2, "Authorisation", "Avinode, KYC, payment") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
   // Client lane
   s += box(6, 3, "Signs, deposit", "25%, min USD 2,500") + box(7, 3, "Balance, flight", "7 days before") ;
   // arrows
@@ -3172,7 +3172,7 @@ function todayDecisions(){
   const trips = allTrips(), flags = controlFlags(), out = [];
   const val = t => (t.st && t.st.price) || priceOf(t.d.quote && t.d.quote.opPrice, t.d.quote && t.d.quote.direct);
   lateJobs().forEach(([name, at, hint]) => out.push(`<div class="flag"><span class="sev high" aria-hidden="true"></span><div style="flex:1"><p><b>${esc(name)} is late</b>: last ran ${at ? fmtT(at) : "never"}.</p><p class="small muted">${esc(hint)}</p><div class="row" style="margin-top:6px">${name === "Database backup" ? (LIVE_PLATFORM ? `<button class="btn small primary" type="button" data-act="backup">Download a copy now</button>` : `<button class="btn small primary" type="button" data-act="driveSync">Back up now</button><button class="btn small" type="button" data-act="backup">Download a copy</button>`) : name === "Prospect rotation" ? `<button class="btn small primary" type="button" data-act="engineRun">Run rotation now</button>` : ""}</div></div></div>`));
-  trips.filter(t => t.stage === "review").forEach(t => out.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div><p>Trip waiting for owner check: ${esc((t.d.client && (t.d.client.company || t.d.client.name)) || "")} · ${usd(val(t))} ${ageChip(t)}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#" data-open="${t.bid}|${t.did}" data-goto="queue">Open</a></p></div></div>`));
+  trips.filter(t => t.stage === "review").forEach(t => out.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div><p>Trip waiting for authorisation: ${esc((t.d.client && (t.d.client.company || t.d.client.name)) || "")} · ${usd(val(t))} ${ageChip(t)}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#" data-open="${t.bid}|${t.did}" data-goto="queue">Open</a></p></div></div>`));
   flags.filter(f => f[0] === "high").forEach(([, txt, t]) => out.push(`<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p>${esc(txt)}</p>${t ? `<p class="small muted">${esc(nm(t.bid))} · <a href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open</a></p>` : ""}</div></div>`));
   Object.entries(S.prospects).filter(([, p]) => p.status === "review").forEach(([id, p]) => out.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div style="flex:1"><p>${esc(p.org)} went cold with ${(p.history || []).filter(h => h.cold).length} brokers</p><p class="small muted">${esc(p.reviewReason || "")}</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-act="rvRestart" data-pid="${id}">Restart rotation</button><button class="btn small danger" type="button" data-act="rvDnc" data-pid="${id}">Do not contact</button><button class="btn small" type="button" data-act="rvOpen" data-pid="${id}">Open</button></div></div></div>`));
   const joins = Object.keys(S.joins).length;
@@ -3184,7 +3184,7 @@ function ageChip(t){
   if (t.stage !== "review") return "";
   const since = Date.parse(t.d.submittedAt || (t.st && t.st.updatedAt) || t.d.updated || 0); if (!since) return "";
   const h = (Date.now() - since) / 36e5, lbl = h < 1 ? "under 1 h" : h < 48 ? Math.floor(h) + " h" : Math.floor(h / 24) + " days";
-  return `<span class="chip ${h > 24 ? "c-returned" : h > 4 ? "c-review" : "c-enquiry"}" title="Waiting for owner check since ${fmtT(new Date(since).toISOString())}">Waiting ${lbl}</span>`;
+  return `<span class="chip ${h > 24 ? "c-returned" : h > 4 ? "c-review" : "c-enquiry"}" title="Waiting for authorisation since ${fmtT(new Date(since).toISOString())}">Waiting ${lbl}</span>`;
 }
 
 /* owner's spot check of contact logs */
@@ -3356,7 +3356,7 @@ const TR_SC = [
    offers:[{op:"Anatolia Jet AS", st:"Türkiye", type:"Citation XLS+", cat:"Midsize jet", seats:8, yom:2015, rating:"ARGUS Platinum", reg:"TC-TRA"},
      {op:"Golden Horn Aviation AS", st:"Türkiye", type:"Challenger 350", cat:"Super-midsize jet", seats:9, yom:2018, rating:"ARGUS Platinum", reg:"TC-TRB"}]},
 ];
-const TR_STEPS = ["Brief","Enquiry","Avinode","Requests and extras","Price","Checks","Owner check","Confirmation","Payment","Flight and commission"];
+const TR_STEPS = ["Brief","Enquiry","Avinode","Requests and extras","Price","Checks","Authorisation","Confirmation","Payment","Flight and commission"];
 const trSc = id => TR_SC.find(s => s.id === id);
 const trRuns = () => Object.entries(S.trRuns || {}).filter(([id]) => id !== "course" && id !== "onboarding").map(([id, r]) => ({id, ...r})).sort((a, b) => (b.started || "").localeCompare(a.started || ""));
 const trRun = () => S.trSel && (S.trRuns || {})[S.trSel] ? {id: S.trSel, ...S.trRuns[S.trSel]} : null;
@@ -3428,7 +3428,7 @@ function vTraining(){
   loadAirports();
   const r = trRun(), runs = trRuns();
   const staffView = isStaff() && !S.preview && S.view === "training";
-  return `<div class="head"><div><h1>Training</h1><p class="muted small">Practise a whole booking, from the client's first request to commission, with training versions of Avinode and the payment system. Nothing here is real: no trip is created, nothing is sent for owner check or issued, and nothing counts toward commission or the leaderboard. Operators, aircraft and prices are invented training figures.</p></div></div>
+  return `<div class="head"><div><h1>Training</h1><p class="muted small">Practise a whole booking, from the client's first request to commission, with training versions of Avinode and the payment system. Nothing here is real: no trip is created, nothing is sent for authorisation or issued, and nothing counts toward commission or the leaderboard. Operators, aircraft and prices are invented training figures.</p></div></div>
   <div class="note warn small" style="margin-bottom:12px"><b>Training mode.</b> Every screen in this section is marked TRAINING. Use real client details only in real trips, never here.</div>
   <div class="grid2 trgrid"><div class="stack">
     <div class="panel"><h2>Exercises</h2><div class="list">${TR_SC.map(sc => { const done = runs.filter(x => x.sc === sc.id && x.done), best = done.length ? Math.max(...done.map(x => x.score || 0)) : null;
@@ -3462,12 +3462,12 @@ function trRunView(r){
     <label class="f" for="tr_price" style="max-width:320px">Client price you will quote (USD)<input id="tr_price" inputmode="decimal" value="${esc(r.myPrice || "")}"></label>
     <div class="row"><button class="btn" type="button" data-tr="back">Back</button><button class="btn primary" type="button" data-tr="savePrice">Check and continue</button></div>`;
   if (st === 5) body = `<h3>The seven checks, then your decision</h3>${BROKER_CHECKS.map(([k, l]) => `<label class="check" for="trc_${k}"><input type="checkbox" id="trc_${k}" data-trc="${k}" ${(r.checks || {})[k] ? "checked" : ""}><span>${l}</span></label>`).join("")}
-    <h3 style="margin-top:10px">Decision</h3><label class="check" for="tr_dsend"><input type="radio" name="tr_dec" id="tr_dsend" value="send" ${r.decision === "send" ? "checked" : ""}><span>Send for owner check</span></label>
+    <h3 style="margin-top:10px">Decision</h3><label class="check" for="tr_dsend"><input type="radio" name="tr_dec" id="tr_dsend" value="send" ${r.decision === "send" ? "checked" : ""}><span>Send for authorisation</span></label>
     <label class="check" for="tr_ddec"><input type="radio" name="tr_dec" id="tr_ddec" value="decline" ${r.decision === "decline" ? "checked" : ""}><span>Decline the trip</span></label>
     <label class="f" for="tr_why" style="max-width:420px">If declining, why<select id="tr_why"><option value="">Choose a reason</option><option value="payment" ${r.declineWhy === "payment" ? "selected" : ""}>The payer is in a country we cannot take payments from or pay to</option><option value="cabotage" ${r.declineWhy === "cabotage" ? "selected" : ""}>Illegal charter or cabotage</option><option value="safety" ${r.declineWhy === "safety" ? "selected" : ""}>No operator meets our safety standard</option><option value="other" ${r.declineWhy === "other" ? "selected" : ""}>Other</option></select></label>
     <div class="row"><button class="btn" type="button" data-tr="back">Back</button><button class="btn primary" type="button" data-tr="submit">Submit</button></div>`;
   if (st === 6) { const v = r.review || {crit:[], minor:[], ok:[]}, pass = !v.crit.length;
-    body = `<h3>Owner check (training)</h3>${pass ? `<div class="note ok"><b>${trSc(r.sc).decline ? "Correctly stopped." : "Approved by the owner."}</b></div>` : `<div class="note bad"><b>Returned to you.</b> Fix the points below and submit again. Each return costs the first-time bonus.</div>`}
+    body = `<h3>Authorisation (training)</h3>${pass ? `<div class="note ok"><b>${trSc(r.sc).decline ? "Correctly stopped." : "Authorised."}</b></div>` : `<div class="note bad"><b>Returned to you.</b> Fix the points below and submit again. Each return costs the first-time bonus.</div>`}
     ${v.crit.map(x => `<div class="note bad small">${esc(x)}</div>`).join("")}${v.minor.map(x => `<div class="note warn small">${esc(x)}</div>`).join("")}${v.ok.map(x => `<div class="note info small">${esc(x)}</div>`).join("")}
     <div class="row">${pass ? (trSc(r.sc).decline ? `<button class="btn primary" type="button" data-tr="finish">See your score</button>` : `<button class="btn primary" type="button" data-tr="next">See the confirmation</button>`) : `<button class="btn" type="button" data-tr="goto" data-to="2">Back to Avinode</button><button class="btn" type="button" data-tr="goto" data-to="3">Back to requests</button><button class="btn primary" type="button" data-tr="goto" data-to="5">Back to checks</button>`}</div>`; }
   if (st === 7) body = `<h3>Charter confirmation (training)</h3><p class="small muted">This is what the owner would issue. In training it is never issued: it carries a draft watermark and the reference ${esc(r.ref)}. Read it as the client would.</p>
@@ -3929,7 +3929,7 @@ function apChecks(t){
   { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
   out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Margin ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
-  if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, the owner confirmed ${usd(f.op)}`]);
+  if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, authorisation confirmed ${usd(f.op)}`]);
   if (f.days !== null) out.push([f.days >= 2, f.days < 0 ? "Departure date has passed" : `Departs in ${f.days} day${f.days === 1 ? "" : "s"}${f.days < 7 ? ": full payment on signature" : ""}`]);
   return out;
 }
@@ -3972,9 +3972,9 @@ function apTripBlock(t){
   const _td = todayDecisions;
   todayDecisions = function(){
     const out = _td(); if (!apOn()) return out;
-    const keep = out.filter(h => !/Trip waiting for owner check/.test(h) || !allTrips().some(t => apNeeds(t) && h.includes(`data-open="${t.bid}|${t.did}"`)));
+    const keep = out.filter(h => !/Trip waiting for authorisation/.test(h) || !allTrips().some(t => apNeeds(t) && h.includes(`data-open="${t.bid}|${t.did}"`)));
     const ap = allTrips().filter(apNeeds).map(t => { const f = apFigures(t), c = t.d.client || {}; return `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p><b>Approve booking:</b> ${esc(c.company || c.name || "")} · ${usd(f.price)} · margin ${(f.pct * 100).toFixed(1)}%${f.days !== null ? ` · departs in ${f.days} d` : ""}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#apList">See the card below</a></p></div></div>`; });
-    return ap.concat(keep.map(h => h.replace(/<p>Trip waiting for owner check:/, "<p><b>Owner to act:</b>")));
+    return ap.concat(keep.map(h => h.replace(/<p>Trip waiting for authorisation:/, "<p><b>To authorise:</b>")));
   };
   const _vT = vToday; vToday = function(){ return afterHead(_vT(), `<div id="apList">${apPanel()}</div>`); };
   const _tf = tripFile; tripFile = function(t){ const h = _tf(t), b = apTripBlock(t); return b ? h.replace(`<div><h3>History</h3>`, b + `<div><h3>History</h3>`) : h; };
@@ -3984,7 +3984,7 @@ async function apWrite(t, state, note){
   const f = apFigures(t);
   const sh = state === "approved" && typeof supShareFor === "function" ? supShareFor(t.bid) : null;
   await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(sh ? {supShare: sh} : {}), ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the owner" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
-  audit(state === "approved" ? "Booking approved" : "Booking returned by the owner", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
+  audit(state === "approved" ? "Booking approved" : "Booking returned at authorisation", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
 }
 document.addEventListener("click", e => {
   const b = e.target.closest('[data-act="issue"]'); if (!b || !apOn()) return;
@@ -4408,7 +4408,7 @@ function sqDetail(r){
   return `<div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(r.ref)}</h2><span class="chip ${st === "awarded" ? "c-flown" : st === "cancelled" ? "c-returned" : "c-quoted"}">${SQ_STATUS[st]}</span></div>
     <p class="small muted">${esc(r.category)} at ${esc(r.airport)}${sc.date ? " · " + fmtD(sc.date) : ""}${r.trip ? " · trip " + esc(r.trip.ref) : ""} · needed by ${fmtD(r.neededBy)} · terms: ${esc(r.terms)}</p>
     <p class="small">${esc([sc.aircraft, sc.arr && "arrives " + sc.arr + " UTC", sc.dep && "departs " + sc.dep + " UTC", sc.pax && sc.pax + " passengers", sc.crew && sc.crew + " crew", sc.rooms && sc.rooms + " rooms", sc.nights && sc.nights + " nights"].filter(Boolean).join(" · "))}${(sc.services || []).length ? "<br>Services: " + esc(sc.services.join(", ")) : ""}</p>
-    ${r.award ? `<div class="note info small"><b>Awarded to ${esc(r.award.org)} for ${usd(r.award.usd)}</b> on ${fmtD(r.award.at)}.${r.award.reason ? " Reason: " + esc(r.award.reason) : ""} Add it to the trip's direct costs in Owner check${r.trip ? " (trip " + esc(r.trip.ref) + ")" : ""}; a price change after approval goes back to the owner.</div>` : ""}
+    ${r.award ? `<div class="note info small"><b>Awarded to ${esc(r.award.org)} for ${usd(r.award.usd)}</b> on ${fmtD(r.award.at)}.${r.award.reason ? " Reason: " + esc(r.award.reason) : ""} Add it to the trip's direct costs in Authorisation${r.trip ? " (trip " + esc(r.trip.ref) + ")" : ""}; a price change after approval goes back to the owner.</div>` : ""}
     <div><h3>Suppliers asked</h3><ul class="avs">${(r.suppliers || []).map((s, i) => {
       const p = (S.prospects || {})[s.pid], gate = p ? sqEligible(p, r.category) : {eligible: false, reasons: ["no longer on file"], flags: []};
       const q = quotes.find(x => x.pid === s.pid);
@@ -4499,7 +4499,7 @@ document.addEventListener("submit", async e => {
       { const q0 = (r.quotes || []).find(x => x.pid === A.pid) || {}; if (await gateHold("supplier", id + "-award-" + A.pid, "award", `Award ${r.ref} to ${A.org}${q0.usd ? ", " + usd(q0.usd) : ""}`, reason)) return; }
       const q = (r.quotes || []).find(x => x.pid === A.pid); if (!q) return;
       await sqSet(id, {...r, status: "awarded", award: {pid: q.pid, org: q.org, usd: q.usd, reason: reason.slice(0, 300), by: S.uid, at: now()}, log: sqLog(r, `Awarded to ${q.org} for ${usd(q.usd)}${reason ? ": " + reason : ""}`)});
-      audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Owner check."); return;
+      audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Authorisation."); return;
     }
   } catch (err) { toast(err.code === "permission_denied" ? "Supplier quotes are not set up yet (run 0006 in Supabase)." : "Could not save. Try again."); }
 });
@@ -4753,14 +4753,14 @@ const OFFER_HTML = `<p class="lead"><b>Build your own private aviation business 
 <table><tr><th>At a glance</th><th></th></tr><tr><td>Your share of gross profit</td><td>27% on your first 8 bookings each month, 35% on every booking after that</td></tr><tr><td>Example: 8 bookings a month</td><td>USD 8,748 a month, about USD 104,976 a year</td></tr><tr><td>Where you work</td><td>From your own country, on your own schedule</td></tr><tr><td>Your clients</td><td>Your own network, plus enquiries Archē releases to its brokers</td></tr><tr><td>Paid</td><td>Monthly, by the 15th, with a full statement</td></tr><tr><td>Getting started</td><td>Online training, assessment and signing, all here in the portal</td></tr></table><p class="small" style="margin-top:6px">The figures are examples, not a promise. What you earn depends mainly on the clients you bring yourself; Archē's leads and enquiries come on top.</p>
 <h3>About Archē Executive</h3><p>Archē Executive is an independent private jet charter brokerage based in Singapore, serving clients worldwide with Asia as its home market. We serve business leaders, family offices, private travellers, public figures, corporate groups and government delegations.</p><p>We own no aircraft, so our advice stays honest: our only job is to find the right aircraft and the right operator for each trip. Before we recommend an aircraft, we know who flies it, how it is maintained and what the client is paying for. Every quote names the operator, every trip has one all-in price, and our clients' privacy is absolute.</p><p>As an Archē broker, that is the promise you carry to every client.</p>
 
-<h3>Why brokers choose Archē</h3><ul><li><b>A share that grows with you.</b> You earn 27% of the gross profit on your first 8 bookings each month and 35% on every booking after that. The more you close, the more of each trip you keep.</li><li><b>Learn with a supervisor, then earn as one.</b> In your supervised first months, 3 points of your share go to the experienced broker who guides you (24% instead of 27%). Once you are released, you keep the full share, and you can earn the same by supervising others.</li><li><b>Clients come to you too.</b> Besides the clients you bring, Archē releases the enquiries it receives to its brokers in the portal. The first broker to take one gets it.</li><li><b>We carry the back office.</b> The owner checks every trip, issues every confirmation and handles client and operator payments. Your time goes into your clients.</li><li><b>Freedom to work your way.</b> You are an independent broker, working from your own country and setting your own hours.</li><li><b>A name built for the top 0.1%.</b> You represent a house that serves the most demanding travellers, with the tools, training and presentation to match.</li><li><b>Paid on time, with full visibility.</b> You follow every booking and your commission live in the portal, and receive a statement and payment by the 15th of each month.</li></ul>
+<h3>Why brokers choose Archē</h3><ul><li><b>A share that grows with you.</b> You earn 27% of the gross profit on your first 8 bookings each month and 35% on every booking after that. The more you close, the more of each trip you keep.</li><li><b>Learn with a supervisor, then earn as one.</b> In your supervised first months, 3 points of your share go to the experienced broker who guides you (24% instead of 27%). Once you are released, you keep the full share, and you can earn the same by supervising others.</li><li><b>Clients come to you too.</b> Besides the clients you bring, Archē releases the enquiries it receives to its brokers in the portal. The first broker to take one gets it.</li><li><b>We carry the back office.</b> Every trip is authorised before its confirmation is issued; we issue every confirmation and handle client and operator payments. Your time goes into your clients.</li><li><b>Freedom to work your way.</b> You are an independent broker, working from your own country and setting your own hours.</li><li><b>A name built for the top 0.1%.</b> You represent a house that serves the most demanding travellers, with the tools, training and presentation to match.</li><li><b>Paid on time, with full visibility.</b> You follow every booking and your commission live in the portal, and receive a statement and payment by the 15th of each month.</li></ul>
 <h3>What you can earn</h3><p>At 8 standard bookings a month you earn USD 8,748 a month, about USD 104,976 a year. From the 9th booking, each one earns you USD 1,417.50.</p>
 <table><tr><th>Standard bookings a month</th><th>Your monthly commission (USD)</th><th>At that pace for a year (USD)</th></tr><tr><td>4</td><td>4,374</td><td>52,488</td></tr><tr><td>6</td><td>6,561</td><td>78,732</td></tr><tr><td>8</td><td>8,748</td><td>104,976</td></tr><tr><td>10</td><td>11,583</td><td>138,996</td></tr><tr><td>12</td><td>14,418</td><td>173,016</td></tr><tr><td>16</td><td>20,088</td><td>241,056</td></tr></table>
 <p class="small muted">These figures assume standard bookings of USD 45,000 with USD 4,050 gross profit each. They show how the commission works; they are not a promise of earnings.</p>
 <h3>How your commission works</h3><table><tr><th>Bookings in the calendar month</th><th>Your share of gross profit</th><th>Per standard booking</th></tr><tr><td>1 to 8</td><td>27%</td><td>USD 1,093.50</td></tr><tr><td>9 and every one after</td><td>35%</td><td>USD 1,417.50</td></tr></table>
 <ul><li><b>Gross profit</b> is the price the client pays, less what Archē pays the aircraft operator and the direct costs of the trip. A better margin on a trip pays you more.</li><li><b>One standard booking</b> is a trip billed at USD 45,000. A smaller trip counts as part of one, a larger trip as more than one.</li><li><b>The count starts fresh</b> on the first day of each month, and there is no cap.</li><li><b>Commission is earned when a booking is complete:</b> every flight landed, the client paid in full and all extras settled. For multi-leg trips and long-term charters, that is when the last flight has landed.</li></ul>
 <h3>What you bring</h3><ul><li><b>Relationships and drive</b> to find and win private and corporate charter clients.</li><li><b>Ownership of every booking</b>, from the first call to the final landing: sourcing the aircraft, special requests, ground handling, airport transport and access, the documents the operator needs, and following every flight, including multi-leg trips and long-term charters.</li><li><b>Speed.</b> You contact a new client within 15 minutes and aim to take each booking from enquiry to signed and paid within 5 days.</li><li><b>The Archē standard.</b> Polished, discreet and client first: your Archē email and company messaging accounts, business attire and the Archē background in every online meeting.</li></ul>
-<h3>What Archē gives you</h3><ul><li><b>The Archē portal</b>, where every enquiry, quote, booking, document and commission statement lives in one place.</li><li><b>The Archē Broker Academy</b>, online, so you start with the knowledge and confidence to quote and book from day one.</li><li><b>Your Archē identity:</b> your own Archē email address and signature, the company messaging accounts and the Archē meeting background.</li><li><b>Leads and enquiries:</b> prospects from our research, and the enquiries Archē releases to its brokers.</li><li><b>The owner checks every trip.</b> Clients pay Archē directly through a secure payment request, so you never handle client money.</li></ul>
+<h3>What Archē gives you</h3><ul><li><b>The Archē portal</b>, where every enquiry, quote, booking, document and commission statement lives in one place.</li><li><b>The Archē Broker Academy</b>, online, so you start with the knowledge and confidence to quote and book from day one.</li><li><b>Your Archē identity:</b> your own Archē email address and signature, the company messaging accounts and the Archē meeting background.</li><li><b>Leads and enquiries:</b> prospects from our research, and the enquiries Archē releases to its brokers.</li><li><b>Every trip is authorised.</b> Clients pay Archē directly through a secure payment request, so you never handle client money.</li></ul>
 <h3>Your path to your first booking</h3><p>Everything happens here in the portal. There is no paperwork by email. Follow the steps below; we look forward to welcoming you to Archē Executive.</p>`;
 
 const AGR_S2 = [["consultant","Consultant (name, or company name and registration number)"],["individual","Individual performing the services (if a company)"],["address","Address"],["territory","Territory (country of residence and work)"],["email","Email for notices"],["taxReg","Tax registration in the Territory (if any)"]];
@@ -6315,7 +6315,7 @@ function vOnboarding(){
    each with its official source and date) and the portal's airport list (airports.json: country, position, runway).
    RED stops the trip: it cannot be sent to operations, approved or issued. A sanctioned country or airport cannot
    be released; a possible name match only by the owner, with a recorded reason. AMBER must be confirmed with the
-   operator (ticked, with name and date) before the trip goes for owner check. GREY means the rule is not checked yet:
+   operator (ticked, with name and date) before the trip goes for authorisation. GREY means the rule is not checked yet:
    the operator confirms. GREEN only where a verified rule was checked. */
 (function(){
   const TC = window.TC = {rules: null, ready: null, live: {}, timer: {}};
@@ -6408,7 +6408,7 @@ function vOnboarding(){
       ${x.sev === "amber" ? (acks[x.key] ? `<p class="small muted">Confirmed with the operator by ${esc(nm(acks[x.key].by))}, ${esc(fmtT(acks[x.key].at))}: ${esc(acks[x.key].note || "")}</p>` : (mine || isStaff()) ? `<p class="small"><button class="btn small" type="button" data-tc="ack|${esc(t.bid)}|${esc(t.did)}|${esc(x.key)}">Confirmed with the operator</button></p>` : "") : ""}</div></div>`;
     const nameRed = red.some(x => x.key.startsWith("name|"));
     const release = nameRed && S.isOwner && acting() === "owner" ? `<div class="fgrid"><label class="f wide" for="tc_rel">Owner: after checking dates of birth, nationality and addresses against the listing<input id="tc_rel" placeholder="e.g. different person: listed person born 1961, our client born 1985"></label></div><div class="row"><button class="btn small" type="button" data-tc="release|${esc(t.bid)}|${esc(t.did)}">Not the listed person: release</button></div>` : "";
-    const head = red.length ? `<div class="note bad small"><b>This trip is stopped.</b> ${red.length} red item${red.length > 1 ? "s" : ""} below. It cannot go for owner check, be approved or be issued until ${red.some(x => !x.key.startsWith("name|")) ? "the trip is changed" : "the owner releases it"}.</div>` : amberOpen.length ? `<div class="note warn small">${amberOpen.length} item${amberOpen.length > 1 ? "s" : ""} to confirm with the operator before the trip goes for owner check.</div>` : "";
+    const head = red.length ? `<div class="note bad small"><b>This trip is stopped.</b> ${red.length} red item${red.length > 1 ? "s" : ""} below. It cannot go for authorisation, be approved or be issued until ${red.some(x => !x.key.startsWith("name|")) ? "the trip is changed" : "the owner releases it"}.</div>` : amberOpen.length ? `<div class="note warn small">${amberOpen.length} item${amberOpen.length > 1 ? "s" : ""} to confirm with the operator before the trip goes for authorisation.</div>` : "";
     return `<div class="panel" id="secTC" style="padding:16px;margin:8px 0"><h3 style="margin-top:0">Trip checks</h3>${head}${["red", "amber", "grey", "green"].flatMap(s => all.filter(x => x.sev === s)).map(row).join("")}${release}
       <p class="small muted">Red stops the trip. Amber must be confirmed with the operator. Grey: not checked yet; the operator confirms. Rules come from official sources, each with its check date.</p></div>`;
   };
@@ -6453,17 +6453,17 @@ function vOnboarding(){
     if (red.length) { if (!["enquiry", "quoted"].includes(body.stage)) body.stage = "quoted"; toast(`Saved. ${red.length} red item${red.length > 1 ? "s" : ""}: the trip cannot go further. See Trip checks.`); }
     return false;
   };
-  // the gates: send for owner check, approve, issue
+  // the gates: send for authorisation, approve, issue
   function stopIfRed(t, step){
     if (!t) return false; const {red, amberOpen} = tripBlockers(t.d, t.st);
     if (red.length) { toast(`Cannot ${step}: ${red.length} red item${red.length > 1 ? "s" : ""} in Trip checks.`); return true; }
-    if (step === "send for owner check" && amberOpen.length) { toast(`Confirm ${amberOpen.length} amber item${amberOpen.length > 1 ? "s" : ""} with the operator first (Trip checks).`); return true; }
+    if (step === "send for authorisation" && amberOpen.length) { toast(`Confirm ${amberOpen.length} amber item${amberOpen.length > 1 ? "s" : ""} with the operator first (Trip checks).`); return true; }
     return false;
   }
   document.addEventListener("click", ev => {
     const b = ev.target.closest && ev.target.closest('[data-act="submit"],[data-ap="ok"],[data-act="confIssue"],[data-act="issue"]'); if (!b) return;
     const t = b.dataset.ap ? (() => { const [bid, did] = (b.dataset.id || "").split("|"); return allTrips().find(x => x.bid === bid && x.did === did); })() : tripById(S.sel);
-    const step = b.dataset.act === "submit" ? "send for owner check" : b.dataset.ap ? "approve" : "issue";
+    const step = b.dataset.act === "submit" ? "send for authorisation" : b.dataset.ap ? "approve" : "issue";
     if (stopIfRed(t, step)) { ev.stopImmediatePropagation(); ev.preventDefault(); }
   }, true);
   document.addEventListener("click", async ev => {
@@ -6484,8 +6484,8 @@ function vOnboarding(){
 /* ---------- Next steps: one guide per trip, no AI needed (Morten, 27 Oct 2026) ----------
    "It does not suggest what needs to be filled to succeed, so I had to guess." Every trip now shows its steps from
    enquiry to follow-up: what is done, what is missing, who does it, and a button that goes straight to the field.
-   The trip form marks the fields needed to send for owner check and lists what is still missing as you type.
-   "Send for owner check" opens only when every needed item is in, so operations gets a complete file the first time. */
+   The trip form marks the fields needed to send for authorisation and lists what is still missing as you type.
+   "Send for authorisation" opens only when every needed item is in, so operations gets a complete file the first time. */
 (function(){
   const css = document.createElement("style");
   css.textContent = `.ns-steps{display:grid;gap:6px;margin:6px 0 0}.ns-step{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
@@ -6566,8 +6566,8 @@ function vOnboarding(){
       {title: "Operator quote", who: "Broker", items: B},
       {title: "Checks and documents", who: "Broker", items: C},
       {title: "Confirmation details", who: "Broker or operations", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", false]], note: cf.err.length ? cf.err.join(" ") : ""},
-      {title: "Send for owner check", who: "Broker", items: [[sent, sent ? "Sent for owner check" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned by the owner: fix the note and send again" : "Press Send for owner check", "sec|secSend", true]]},
-      {title: "Owner check", who: "Operations", items: [
+      {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
+      {title: "Authorisation", who: "Operations", items: [
         [num(st.opPrice) > 0, "Operator price confirmed on Avinode, then Save", "el|o_op", true],
         [!!st.kyc, "Charterer KYC recorded, then Save", "el|o_kyc", true],
         [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening: Screen names now, then Save this screening record", "el|scr_names_" + t.did, true],
@@ -6605,14 +6605,14 @@ function vOnboarding(){
       return `<div class="ns-step ${s.done ? "done" : i === cur ? "now" : ""}"><div class="ns-h"><span><span class="ns-n">${s.done ? "✓" : i + 1}</span><b>${esc(s.title)}</b></span><span class="small muted">${esc(s.who)}${i === cur && yours(s) ? ' · <b style="color:var(--steel)">your turn</b>' : ""}</span></div>${s.done && i !== cur ? "" : items}</div>`;
     }).join("");
     const lead = need ? `<p class="small" style="margin:0"><b>Next:</b> ${esc(head.title)} · ${need} item${need > 1 ? "s" : ""} to do · <span class="muted">${esc(head.who)}</span></p>`
-      : `<p class="small" style="margin:0"><b>Next:</b> ${esc(head.title)} <span class="muted">(recommended, not required)</span>${cur < 4 && submitReady(t.d) ? " · or press <b>Send for owner check</b> now" : ""}</p>`;
+      : `<p class="small" style="margin:0"><b>Next:</b> ${esc(head.title)} <span class="muted">(recommended, not required)</span>${cur < 4 && submitReady(t.d) ? " · or press <b>Send for authorisation</b> now" : ""}</p>`;
     return `<details class="panel" id="secNext" style="padding:14px 16px;margin:8px 0" ${S.nsClosed ? "" : "open"}><summary style="cursor:pointer;list-style:revert"><b>Steps to book this trip</b> <span class="small muted">(${steps.filter(s => s.done).length} of ${steps.length} done)</span></summary>${lead}<div class="ns-steps">${show}</div></details>`;
   };
 
   // under the Send button: exactly what is still missing
   window.sendMissingNote = function(t){
     const n = sendNeeds(t.d); if (!n.length) return "";
-    return `<p class="small" style="margin:4px 0 0"><b>Still needed to send for owner check:</b> ${n.map(esc).join(" · ")}. <a href="#secNext" data-ns="sec|secNext">See the steps</a>.</p>`;
+    return `<p class="small" style="margin:4px 0 0"><b>Still needed to send for authorisation:</b> ${n.map(esc).join(" · ")}. <a href="#secNext" data-ns="sec|secNext">See the steps</a>.</p>`;
   };
 
   // jump to the place where the missing item is filled in
@@ -6638,7 +6638,7 @@ function vOnboarding(){
 
   // the trip form: required marks and a live list of what is still missing
   const REQ_IDS = ["e_cn", "e_ct", "q_op", "q_oc", "q_ac", "q_pr"];
-  function star(el){ const lab = el && el.closest("label"); if (lab && !lab.querySelector(".req-star")) { const s = document.createElement("span"); s.className = "req-star"; s.textContent = "*"; s.title = "Needed to send for owner check";
+  function star(el){ const lab = el && el.closest("label"); if (lab && !lab.querySelector(".req-star")) { const s = document.createElement("span"); s.className = "req-star"; s.textContent = "*"; s.title = "Needed to send for authorisation";
     // the mark sits on the same line as the label text, so required fields line up with the others
     const t = lab.firstChild; if (t && t.nodeType === 3) { const w = document.createElement("span"); w.className = "flab"; lab.insertBefore(w, t); w.appendChild(t); w.appendChild(s); } else lab.insertBefore(s, lab.firstChild.nextSibling); } }
   function formBody(){
@@ -6654,8 +6654,8 @@ function vOnboarding(){
     const b = formBody(), {A, B} = brokerItems(b), miss = [...A, ...B].filter(x => x[3] && !x[0]);
     box.className = "note small " + (miss.length ? "info" : "ok");
     box.innerHTML = miss.length
-      ? `<b>Save any time.</b> To send this trip for owner check you still need (<span class="req-star">*</span>):<ul>${miss.map(x => `<li>${esc(x[1])}</li>`).join("")}</ul><span class="muted">After saving: tick the pre-issue checks and attach the AOC and insurance on the trip.</span>`
-      : `<b>The form is complete.</b> Save, then tick the pre-issue checks and send for owner check.`;
+      ? `<b>Save any time.</b> To send this trip for authorisation you still need (<span class="req-star">*</span>):<ul>${miss.map(x => `<li>${esc(x[1])}</li>`).join("")}</ul><span class="muted">After saving: tick the pre-issue checks and attach the AOC and insurance on the trip.</span>`
+      : `<b>The form is complete.</b> Save, then tick the pre-issue checks and send for authorisation.`;
   }
   document.addEventListener("input", ev => { if (ev.target.closest && ev.target.closest("#edForm")) refreshNeed(); });
   document.addEventListener("change", ev => { if (ev.target.closest && ev.target.closest("#edForm")) refreshNeed(); });
@@ -6689,7 +6689,7 @@ function vOnboarding(){
    Every operator: two pilots on every jet flight; passenger liability at least USD 50M (jet) or USD 25M (turboprop);
      five years clear of fatal accidents, serious incidents and sanctions (otherwise director approval); suspended
      operators (after an accident or serious incident, until the director's review) cannot be used.
-   Enforced: "Send for owner check" stays closed until the record is complete; a breach is a red trip check that also
+   Enforced: "Send for authorisation" stays closed until the record is complete; a breach is a red trip check that also
    blocks approval and issue; the safety-audit tick cannot be set by hand before the record is complete. */
 (function(){
   const T1 = {"argus-plat": "ARGUS Platinum", "argus-elite": "ARGUS Platinum Elite", "wyv-wingman": "WYVERN Wingman", "wyv-pro": "WYVERN Wingman PRO", "isbao-2": "IS-BAO Stage 2", "isbao-3": "IS-BAO Stage 3"};
@@ -6745,7 +6745,7 @@ function vOnboarding(){
   const needsApproval = (s, d) => !!s && ((!!T2[s.audit] && !(d && approvedOp(d).state === "valid")) || s.history === "event" || (!!d && regMismatch(d)));
   window.safetyApproved = (d, st) => { const a = (st || {}).safetyApproval; return !!a && a.fp === fpOf(d); };
 
-  // what is still missing (blocks "Send for owner check")
+  // what is still missing (blocks "Send for authorisation")
   window.safetyNeeds = function(d, st){
     const s = d.safety || {}, out = [];
     if (!s.audit) { out.push("operator safety: audit held by the operator"); return out; }
@@ -7223,9 +7223,9 @@ function vOnboarding(){
       {id: "f1", t: "Welcome: what Archē Executive is and how we work", page: "today", min: 15, show: ["We are a broker, not an airline: a licensed operator flies every trip and is named in the quote and the agreement", "Our price: operator price and direct costs divided by 0.91 (9% margin); the director approves lower margins", "The director approves every booking before a confirmation is issued", "Four eyes: nobody prices, issues or records payment on their own trip"], check: "Explain in your own words what a broker does and who flies the aircraft."},
       {id: "f2", t: "Finding your way in the portal", page: "help", min: 15, show: ["The menu and your Today page", "Help and Portal rules: where the answers are", "Day and Night themes", "Notices: read them and press \"I have read this\""], check: "Find the Portal rules page and the Help page on your own."},
       {id: "f3", t: "Enquiries: the website and the enquiry pool", page: "pool", min: 20, show: ["Website enquiries arrive in the portal: reply within 15 minutes", "Open enquiries: taking an enquiry from the pool", "While you are supervised, some steps wait for the director's OK"], check: "Where does a new website enquiry appear, and how fast do we reply?"},
-      {id: "f4", t: "A trip: the form and the steps guide", page: "trips", min: 25, show: ["New enquiry: client, legs, aircraft category, operator quote", "Fields marked * are needed before the owner's check", "\"Steps to book this trip\": what is done, what is missing, who does it", "Save often; the trip keeps its history"], check: "Create a practice trip in the test portal and read its steps list aloud."},
+      {id: "f4", t: "A trip: the form and the steps guide", page: "trips", min: 25, show: ["New enquiry: client, legs, aircraft category, operator quote", "Fields marked * are needed before authorisation", "\"Steps to book this trip\": what is done, what is missing, who does it", "Save often; the trip keeps its history"], check: "Create a practice trip in the test portal and read its steps list aloud."},
       {id: "f5", t: "Checks that stop a trip", page: "trips", min: 25, show: ["Trip checks: red stops the trip, amber must be confirmed in writing", "Sanctions, cabotage, night curfews and the never-sell list", "Operator safety: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3", "Any other operator: an Archē-approved operator or the director's approval; the safety line for the quote"], check: "Name the three accepted audits and what happens with any other operator."},
-      {id: "f6", t: "Sending to operations and the director's OK", page: "queue", min: 15, show: ["\"Send for owner check\" opens only when nothing is missing and nothing is red", "The owner issues the confirmation and records payments; brokers set only enquiry, quoted, submitted or cancelled", "Payment only through a secure payment request, never bank details"], check: "Who issues the confirmation, and may you issue your own trip?"},
+      {id: "f6", t: "Sending to operations and the director's OK", page: "queue", min: 15, show: ["\"Send for authorisation\" opens only when nothing is missing and nothing is red", "The owner issues the confirmation and records payments; brokers set only enquiry, quoted, submitted or cancelled", "Payment only through a secure payment request, never bank details"], check: "Who issues the confirmation, and may you issue your own trip?"},
       {id: "f7", t: "Prospects and contacts: the data rules", page: "prospects", min: 20, show: ["Organisations first; named people only as business contacts from the organisation's own site or a licensed database", "Every first message says where we found the details and offers an opt-out", "An opt-out deletes the person's details at once; no export of contact details", "You see contacts only on your own leads; opening them is logged"], check: "What must every first message to a named contact include?"},
       {id: "f8", t: "Commission, training and the next steps", page: "commission", min: 15, show: ["Your commission page", "Training: the academy, its quizzes and the practice trips", "The test portal for practice on example data", "The plan for the next sessions (full syllabus)"], check: "Agree with the director the first three academy modules to finish this week."}]},
     full: {t: "Full syllabus", lessons: [
@@ -7237,12 +7237,12 @@ function vOnboarding(){
     ].map(([id, t, page]) => ({id, t, page, min: 60, show: [`Academy: read ${t.split(":")[0]} and pass its quiz`, "Walk through the same steps in the portal on a real or practice trip", "Questions and the points to remember"], check: `Explain the critical rules of ${t.split(":")[0]} and show one of them in the portal.`})).concat([
       {id: "p1", t: "Practical: Avinode and payment system training", page: "trips", min: 120, show: ["Searching and requesting quotes on Avinode", "Comparing quotes like for like", "The payment request: how the client pays"], check: "Request and compare three quotes for a practice trip."},
       {id: "p2", t: "Practical: eight shadowed trips", page: "trips", min: 0, show: ["The trainee follows eight real trips from enquiry to the last landing", "Notes on each trip in the training record"], check: "Present one shadowed trip from start to finish."},
-      {id: "p3", t: "Practical exam with the director", page: "training", min: 90, show: ["A full trip, priced, checked and ready for the owner's check, without help"], check: "Pass the practical exam."},
+      {id: "p3", t: "Practical exam with the director", page: "training", min: 90, show: ["A full trip, priced, checked and ready for authorisation, without help"], check: "Pass the practical exam."},
       {id: "p4", t: "Ten supervised bookings", page: "trips", min: 0, show: ["Every step waits for the director's OK until released", "The director releases each step separately"], check: "Complete ten supervised bookings; the director signs the training record."}])}
   };
   window.LIVE_SYLLABUS = SYL;
   const sylOf = () => ((S.live || {}).syl) || null;
-  const PAGES = {today: "Today", pool: "Enquiries", trips: "Trips", queue: "Owner check", quotes: "Supplier quotes", prospects: "Prospects", commission: "Commission", control: "Control", assistant: "Assistant", team: "Team", training: "Training", help: "Help"};
+  const PAGES = {today: "Today", pool: "Enquiries", trips: "Trips", queue: "Authorisation", quotes: "Supplier quotes", prospects: "Prospects", commission: "Commission", control: "Control", assistant: "Assistant", team: "Team", training: "Training", help: "Help"};
   const pageName = k => PAGES[k] || ((navItems().find(v => v[0] === k) || [k, k])[1]);
   async function sylSet(patch){ const l = S.live; if (!mine(l) || !canLead()) return; const syl = {on: false, course: "fam", idx: 0, done: {}, ...(l.syl || {}), ...patch}; const next = {...l, syl};
     try { S.live = await liveSyl(next); render(); sylCards(); } catch(e){ toast("Could not save."); } }
@@ -7577,7 +7577,7 @@ function mxScore(id){
     ["Follow-up within 24 h", 0.25, due.length ? share(fuOn.length, due.length) : null, `${fuOn.length} of ${due.length} flights followed up on time`],
     ["Rating requested", 0.15, ac.length ? share(ac.filter(x => x.a.rq).length, ac.length) : null, `${ac.filter(x => x.a.rq).length} of ${ac.length} flights`],
     ["Service recovery", 0.15, low.length ? share(low.filter(x => x.a.rec).length, low.length) : null, `${low.filter(x => x.a.rec).length} of ${low.length} low scores recovered`],
-    ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned by the owner`],
+    ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned at authorisation`],
     ["Contracts signed on time", 0.1, issued.length ? 1 - share(unsignedLate.length, issued.length) : null, `${unsignedLate.length} unsigned after 48 h`],
     ["Notices confirmed", 0.1, typeof noticeScore === "function" ? noticeScore(id).v : null, typeof noticeScore === "function" ? noticeScore(id).txt : ""],
     ["Lead follow-up", 0.15, num(m.recv30) >= 3 ? 1 - Math.min(1, num(m.breaches30) / num(m.recv30)) : null, `${num(m.breaches30)} of ${num(m.recv30)} leads went cold in 30 days`]
@@ -7680,9 +7680,9 @@ function trustMatrix(){
   function waiting(me){
     const rows = [];
     myTrips(me).forEach(t => { const op = `data-open="${t.bid}|${t.did}" data-goto="trips"`;
-      if (t.stage === "review") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>With the owner: ${esc(cl(t))}</span></button>`);
+      if (t.stage === "review") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>Waiting for authorisation: ${esc(cl(t))}</span></button>`);
       if (typeof gateReq === "function") { const g = gateReq(me, "quote", t.did); if (g && g.status === "pending") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>Quote waiting for the director's OK: ${esc(cl(t))}</span></button>`); } });
-    return `<div class="panel"><h2>Waiting on others (${rows.length})</h2>${rows.length ? `<div class="tasks">${rows.join("")}</div>` : `<p class="small muted">Nothing waiting on the owner.</p>`}</div>`;
+    return `<div class="panel"><h2>Waiting on others (${rows.length})</h2>${rows.length ? `<div class="tasks">${rows.join("")}</div>` : `<p class="small muted">Nothing waiting for authorisation.</p>`}</div>`;
   }
   function pool(){
     if (typeof poolWatch === "function") poolWatch();
@@ -7713,7 +7713,7 @@ function trustMatrix(){
     return `<div class="head"><div><h1>Today</h1><p class="muted small">${new Date().toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month: "long"})} · what needs you today, most urgent first; your progress and figures below.</p></div>${asBroker ? `<div class="row"><button class="btn primary" type="button" data-act="new">New enquiry</button></div>` : ""}</div>
       ${typeof myReqPanel === "function" ? myReqPanel() : ""}${typeof supPrompt === "function" ? supPrompt() : ""}
       ${typeof noticePanel === "function" ? noticePanel() : ""}
-      <div class="kpis"><div class="kpi"><div class="l">Urgent</div><div class="v">${urgent}</div></div><div class="kpi"><div class="l">All tasks</div><div class="v">${tasks.length}</div></div><div class="kpi"><div class="l">Flights today and tomorrow</div><div class="v">${nFl}</div></div><div class="kpi"><div class="l">${asOps ? "Files to check" : "With the owner"}</div><div class="v">${nRev}</div></div></div>
+      <div class="kpis"><div class="kpi"><div class="l">Urgent</div><div class="v">${urgent}</div></div><div class="kpi"><div class="l">All tasks</div><div class="v">${tasks.length}</div></div><div class="kpi"><div class="l">Flights today and tomorrow</div><div class="v">${nFl}</div></div><div class="kpi"><div class="l">${asOps ? "Files to check" : "Waiting for authorisation"}</div><div class="v">${nRev}</div></div></div>
       <div class="grid2"><div class="panel"><h2>Your tasks (${tasks.length})</h2>${taskList(tasks)}</div>
       <div class="stack">${flights(tripsF, asOps ? "queue" : "trips")}${asOps ? payments() : waiting(me)}${asBroker ? pool() : ""}</div></div>${ac}${progress()}`;
   }

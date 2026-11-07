@@ -9,7 +9,7 @@
    Every operator: two pilots on every jet flight; passenger liability at least USD 50M (jet) or USD 25M (turboprop);
      five years clear of fatal accidents, serious incidents and sanctions (otherwise director approval); suspended
      operators (after an accident or serious incident, until the director's review) cannot be used.
-   Enforced: "Send for owner check" stays closed until the record is complete; a breach is a red trip check that also
+   Enforced: "Send for authorisation" stays closed until the record is complete; a breach is a red trip check that also
    blocks approval and issue; the safety-audit tick cannot be set by hand before the record is complete. */
 (function(){
   const T1 = {"argus-plat": "ARGUS Platinum", "argus-elite": "ARGUS Platinum Elite", "wyv-wingman": "WYVERN Wingman", "wyv-pro": "WYVERN Wingman PRO", "isbao-2": "IS-BAO Stage 2", "isbao-3": "IS-BAO Stage 3"};
@@ -65,7 +65,7 @@
   const needsApproval = (s, d) => !!s && ((!!T2[s.audit] && !(d && approvedOp(d).state === "valid")) || s.history === "event" || (!!d && regMismatch(d)));
   window.safetyApproved = (d, st) => { const a = (st || {}).safetyApproval; return !!a && a.fp === fpOf(d); };
 
-  // what is still missing (blocks "Send for owner check")
+  // what is still missing (blocks "Send for authorisation")
   window.safetyNeeds = function(d, st){
     const s = d.safety || {}, out = [];
     if (!s.audit) { out.push("operator safety: audit held by the operator"); return out; }

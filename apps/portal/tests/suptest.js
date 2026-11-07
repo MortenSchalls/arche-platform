@@ -18,7 +18,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  ok('broker sees the supervised steps panel', await p.evaluate(()=>{S.view='home';render();return document.querySelector('#main').textContent.includes('Supervised steps');}));
  await p.evaluate(async()=>{S.sel='t1';await act('submit');});await p.waitForTimeout(400);
  let T=await p.evaluate(()=>window.__T);
- ok('send for owner check held: request created, trip not submitted', reqs(T).length===1&&reqs(T)[0].data.key==='quote'&&reqs(T)[0].data.status==='pending'&&T.trips[0].data.stage==='quoted');
+ ok('send for authorisation held: request created, trip not submitted', reqs(T).length===1&&reqs(T)[0].data.key==='quote'&&reqs(T)[0].data.status==='pending'&&T.trips[0].data.stage==='quoted');
  // broker takes pool enquiry: held
  await p.evaluate(()=>{const x=document.createElement('button');x.dataset.pool='take|p1';document.body.appendChild(x);x.click();});await p.waitForTimeout(600);
  T=await p.evaluate(()=>window.__T);
@@ -55,7 +55,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  p=await open(B1,T);await p.evaluate(()=>{S.view='home';render();});
  ok('broker sees the changes note', (await p.textContent('#main')).includes('Use the cheaper aircraft option'));
  await p.evaluate(async()=>{S.sel='t1';await act('submit');});await p.waitForTimeout(400);T=await p.evaluate(()=>window.__T);
- ok('released step: send for owner check goes through', T.trips[0].data.stage==='submitted');
+ ok('released step: send for authorisation goes through', T.trips[0].data.stage==='submitted');
  await p.close();
  // without SQL 0011 nothing is held back
  const T0=JSON.parse(JSON.stringify(base));delete T0.step_requests;p=await open(B1,T0,1400,true);

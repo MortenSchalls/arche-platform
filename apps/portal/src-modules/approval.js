@@ -29,7 +29,7 @@ function apChecks(t){
   { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
   out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Margin ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
-  if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, the owner confirmed ${usd(f.op)}`]);
+  if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, authorisation confirmed ${usd(f.op)}`]);
   if (f.days !== null) out.push([f.days >= 2, f.days < 0 ? "Departure date has passed" : `Departs in ${f.days} day${f.days === 1 ? "" : "s"}${f.days < 7 ? ": full payment on signature" : ""}`]);
   return out;
 }
@@ -72,9 +72,9 @@ function apTripBlock(t){
   const _td = todayDecisions;
   todayDecisions = function(){
     const out = _td(); if (!apOn()) return out;
-    const keep = out.filter(h => !/Trip waiting for owner check/.test(h) || !allTrips().some(t => apNeeds(t) && h.includes(`data-open="${t.bid}|${t.did}"`)));
+    const keep = out.filter(h => !/Trip waiting for authorisation/.test(h) || !allTrips().some(t => apNeeds(t) && h.includes(`data-open="${t.bid}|${t.did}"`)));
     const ap = allTrips().filter(apNeeds).map(t => { const f = apFigures(t), c = t.d.client || {}; return `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p><b>Approve booking:</b> ${esc(c.company || c.name || "")} · ${usd(f.price)} · margin ${(f.pct * 100).toFixed(1)}%${f.days !== null ? ` · departs in ${f.days} d` : ""}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#apList">See the card below</a></p></div></div>`; });
-    return ap.concat(keep.map(h => h.replace(/<p>Trip waiting for owner check:/, "<p><b>Owner to act:</b>")));
+    return ap.concat(keep.map(h => h.replace(/<p>Trip waiting for authorisation:/, "<p><b>To authorise:</b>")));
   };
   const _vT = vToday; vToday = function(){ return afterHead(_vT(), `<div id="apList">${apPanel()}</div>`); };
   const _tf = tripFile; tripFile = function(t){ const h = _tf(t), b = apTripBlock(t); return b ? h.replace(`<div><h3>History</h3>`, b + `<div><h3>History</h3>`) : h; };
@@ -84,7 +84,7 @@ async function apWrite(t, state, note){
   const f = apFigures(t);
   const sh = state === "approved" && typeof supShareFor === "function" ? supShareFor(t.bid) : null;
   await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(sh ? {supShare: sh} : {}), ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the owner" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
-  audit(state === "approved" ? "Booking approved" : "Booking returned by the owner", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
+  audit(state === "approved" ? "Booking approved" : "Booking returned at authorisation", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
 }
 document.addEventListener("click", e => {
   const b = e.target.closest('[data-act="issue"]'); if (!b || !apOn()) return;

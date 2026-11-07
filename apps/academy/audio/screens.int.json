@@ -1765,7 +1765,7 @@
   ]
  },
  {
-  "key": "74ac3ea1",
+  "key": "8709474a",
   "kind": "lesson",
   "where": "m1 screen 9",
   "text": [
@@ -1780,8 +1780,8 @@
    "Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid: commission rewards the booking.",
    "Prospects are organisations and their business contacts only: no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is \"Do not contact\" for everyone, for good.",
    "These are the current settings. The director can change them in the portal; its Portal rules page always shows the ones in force.",
-   "Owner check and separate duties",
-   "The broker completes KYC and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for the owner's check.",
+   "Authorisation and separate duties",
+   "The broker completes KYC and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for authorisation.",
    "The owner, or a person the owner has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip: another owner or a person the owner has mandated does it."
   ],
   "say": [
@@ -1791,8 +1791,8 @@
    "Leads and prospects.",
    "The portal assigns organisations to brokers automatically and fairly, by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week. Make first contact with every new lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the director. Not now leads are offered again after 90 days, to a different broker with a fresh approach. Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically. Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid, commission rewards the booking. Prospects are organisations and their business contacts only, no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact for everyone, for good.",
    "These are the current settings. The director can change them in the portal, its Portal rules page always shows the ones in force.",
-   "Owner check and separate duties.",
-   "The broker completes K Y C and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for the owner's check. The owner, or a person the owner has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip, another owner or a person the owner has mandated does it."
+   "Authorisation and separate duties.",
+   "The broker completes K Y C and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for authorisation. The owner, or a person the owner has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip, another owner or a person the owner has mandated does it."
   ]
  },
  {
@@ -4609,7 +4609,7 @@
   ]
  },
  {
-  "key": "e790e8c6",
+  "key": "84b033b7",
   "kind": "lesson",
   "where": "m10 screen 8",
   "text": [
@@ -4621,14 +4621,14 @@
    "Enter the operator's terms from its quote or contract on Avinode: its cancellation scale, its payment terms, and its insurance (insurer, amount, expiry, aircraft on the certificate, route inside the cover, how it was confirmed with the insurer). If the operator is in the operator library, press \"Use the terms on file\" and check them against this quote.",
    "Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents. Documents stay in the portal: never email passports or contracts.",
    "Complete KYC and sanctions screening and record them on the trip. Create the client's payment request and record its reference on the trip.",
-   "Tick the pre-issue checks (insurance and operator terms are ticked by the portal from what you entered) and press \"Send for owner check\".",
+   "Tick the pre-issue checks (insurance and operator terms are ticked by the portal from what you entered) and press \"Send for authorisation\".",
    "The owner confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal (the tick \"Operator contract matches\" in the portal), approves the booking and issues the charter confirmation. The offer cannot run past the operator's hold. The PDF is saved to the trip; any change after issue becomes a numbered revision.",
    "The owner records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment (never more than received) and the flight. Your commission then appears on your dashboard."
   ],
   "say": [
    "Contract, payment and settlement.",
    "How to book in the ar Kay portal, step by step.",
-   "Open the enquiry, from a lead with Open an enquiry, or with New enquiry. For each airport, type a city, airport name or code and pick from the list, the portal stores the ICAO code. Add the client requests and operational extras, each with how it is charged, Module 9, section 8. Use the suggestions as prompts and confirm every item with the operator or supplier. Enter the operator quote from Avinode, operator legal name as on its A O C, aircraft type, registration, Avinode trip I D, the operator all-in price and any direct trip costs. The portal sets the client price at 9 percent. Enter the operator's terms from its quote or contract on Avinode, its cancellation scale, its payment terms, and its insurance, insurer, amount, expiry, aircraft on the certificate, route inside the cover, how it was confirmed with the insurer. If the operator is in the operator library, press Use the terms on file and check them against this quote. Attach the operator quote, A O C, insurance certificate, safety audit evidence and the client's K Y C documents. Documents stay in the portal, never email passports or contracts. Complete K Y C and sanctions screening and record them on the trip. Create the client's payment request and record its reference on the trip. Tick the pre-issue checks, insurance and operator terms are ticked by the portal from what you entered, and press Send for owner check. The owner confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal, the tick Operator contract matches in the portal, approves the booking and issues the charter confirmation. The offer cannot run past the operator's hold. The P D F is saved to the trip, any change after issue becomes a numbered revision. The owner records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment, never more than received, and the flight. Your commission then appears on your dashboard."
+   "Open the enquiry, from a lead with Open an enquiry, or with New enquiry. For each airport, type a city, airport name or code and pick from the list, the portal stores the ICAO code. Add the client requests and operational extras, each with how it is charged, Module 9, section 8. Use the suggestions as prompts and confirm every item with the operator or supplier. Enter the operator quote from Avinode, operator legal name as on its A O C, aircraft type, registration, Avinode trip I D, the operator all-in price and any direct trip costs. The portal sets the client price at 9 percent. Enter the operator's terms from its quote or contract on Avinode, its cancellation scale, its payment terms, and its insurance, insurer, amount, expiry, aircraft on the certificate, route inside the cover, how it was confirmed with the insurer. If the operator is in the operator library, press Use the terms on file and check them against this quote. Attach the operator quote, A O C, insurance certificate, safety audit evidence and the client's K Y C documents. Documents stay in the portal, never email passports or contracts. Complete K Y C and sanctions screening and record them on the trip. Create the client's payment request and record its reference on the trip. Tick the pre-issue checks, insurance and operator terms are ticked by the portal from what you entered, and press Send for authorisation. The owner confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal, the tick Operator contract matches in the portal, approves the booking and issues the charter confirmation. The offer cannot run past the operator's hold. The P D F is saved to the trip, any change after issue becomes a numbered revision. The owner records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment, never more than received, and the flight. Your commission then appears on your dashboard."
   ]
  },
  {

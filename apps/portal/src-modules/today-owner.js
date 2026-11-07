@@ -206,7 +206,7 @@ function mxScore(id){
     ["Follow-up within 24 h", 0.25, due.length ? share(fuOn.length, due.length) : null, `${fuOn.length} of ${due.length} flights followed up on time`],
     ["Rating requested", 0.15, ac.length ? share(ac.filter(x => x.a.rq).length, ac.length) : null, `${ac.filter(x => x.a.rq).length} of ${ac.length} flights`],
     ["Service recovery", 0.15, low.length ? share(low.filter(x => x.a.rec).length, low.length) : null, `${low.filter(x => x.a.rec).length} of ${low.length} low scores recovered`],
-    ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned by the owner`],
+    ["Files right first time", 0.2, sent.length ? 1 - share(returned.length, sent.length) : null, `${returned.length} of ${sent.length} returned at authorisation`],
     ["Contracts signed on time", 0.1, issued.length ? 1 - share(unsignedLate.length, issued.length) : null, `${unsignedLate.length} unsigned after 48 h`],
     ["Notices confirmed", 0.1, typeof noticeScore === "function" ? noticeScore(id).v : null, typeof noticeScore === "function" ? noticeScore(id).txt : ""],
     ["Lead follow-up", 0.15, num(m.recv30) >= 3 ? 1 - Math.min(1, num(m.breaches30) / num(m.recv30)) : null, `${num(m.breaches30)} of ${num(m.recv30)} leads went cold in 30 days`]
