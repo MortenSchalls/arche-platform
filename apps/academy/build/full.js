@@ -21,7 +21,7 @@ async function runPath(p,role,name){
  await p.check('#nda');await p.click('#begin');
  const path=await p.evaluate(r=>__T().PATHS[r],role);let screens=0;
  for(const id of path){
-  await p.click('.map-l [data-go="home"]');await p.click(`.tile[data-go="${id}"]`);
+  await p.click('.map-l [data-go="home"]');await p.click(`.srow [data-go="${id}"]`);
   if(id.startsWith('m')){
    const info=await p.evaluate(id=>{const M=__T().MODS[id];return {n:M.secs.length,a:M.quiz.map(q=>q.a)}},id);
    for(let s=0;s<info.n+2;s++){screens++;const rv=await p.$$('details.reveal summary');for(const r of rv)await r.click();await p.click('#next');}
@@ -51,7 +51,7 @@ async function runPath(p,role,name){
 }
 await runPath(p,'broker','Broker Tester');ok(p.errs.length===0,'broker errors '+p.errs);
 // exam critical fail
-await p.click('.map-l [data-go="home"]');await p.click('.tile[data-go="exam"]');await p.click('#exStart');let first=true;
+await p.click('.map-l [data-go="home"]');await p.click('.srow [data-go="exam"]');await p.click('#exStart');let first=true;
 while(await p.$('#qnext')){const t=await p.textContent('.tq');const r=await p.evaluate(t=>{for(const m of Object.values(__T().MODS))for(const q of m.quiz)if(q.q===t)return [q.a,!!q.crit];return [-1,false]},t);let a=r[0];if(r[1]&&first){a=(a+1)%2;first=false;}await p.click(`.opt[data-j="${a}"]`);await p.click('#qnext');}
 ok((await p.textContent('#qz h2'))==='Not passed yet','exam passed despite critical miss');
 // 2. consultant

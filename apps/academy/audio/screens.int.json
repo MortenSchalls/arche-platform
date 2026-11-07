@@ -43,13 +43,24 @@
   ]
  },
  {
-  "key": "4af7d5d8",
+  "key": "1cec94e6",
+  "kind": "feedback",
+  "where": "m0 screen 1 try 1",
+  "text": [
+   "Right. You will meet this in the module. Several airports serve New York, and \"tomorrow at 9\" needs a date and a time zone. Confirm all three in writing."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Several airports serve New York, and tomorrow at 9 needs a date and a time zone. Confirm all three in writing."
+  ]
+ },
+ {
+  "key": "9ca13b62",
   "kind": "lesson",
   "where": "m0 screen 2",
   "text": [
    "Aviation for brokers",
    "0.1 Who does what",
-   "Clientthe chartererArchē Executivethe brokerOperatorholds the AOC, flies enquiry, contractrequest, booking Avinode and our payment providerquotes, bookings, payments Crew and aircraftwork for the operator FBO and handlerat each airport Safety and operational decisions belong to the operator and its crew.Who does what on a charter flight",
+   "Clientthe chartererenquiry, contractArchē Executivethe brokerrequest, bookingOperatorholds the AOC, flies FBO and handlerat each airportAvinode and our payment providerquotes, bookings, paymentsCrew and aircraftwork for the operator Safety and operational decisions belong to the operator and its crew.Who does what on a charter flight",
    "Client (charterer)The person or company who hires the whole aircraft and pays for the trip.",
    "Broker (Archē)Finds the aircraft, checks the operator, prices, contracts and looks after the client. We do not fly or own aircraft.",
    "OperatorThe airline company that flies the aircraft and is responsible for safety. It holds an Air Operator Certificate (AOC) from its national aviation authority.",
@@ -69,14 +80,14 @@
   ]
  },
  {
-  "key": "3e03b30e",
+  "key": "9d657b82",
   "kind": "lesson",
   "where": "m0 screen 3",
   "text": [
    "Aviation for brokers",
    "0.2 Aircraft categories",
    "Private jets are grouped by cabin size and range. Avinode shows each aircraft's category, seats and range: always use the figures for the actual aircraft, not a general rule.",
-   "Light jetsitMidsizenear standingSuper-midsizestandingHeavystanding, galleyUltra-long-rangezones, crew restCategories grow in cabin size and range. Always use the figures for the actual aircraft.",
+   "1Light jetCabin: sitEmbraer Phenom 300 · Acroterion, CC BY-SA 4.02MidsizeCabin: near standingLearjet 60 · Lars Henseleit, Public domain3Super-midsizeCabin: standingBombardier Challenger 350 · Acroterion, CC BY-SA 4.04HeavyCabin: standing, galleyDassault Falcon 900LX · Steve Lynes, CC BY 2.05Ultra-long-rangeCabin: zones, crew restBombardier Global 7500 · Acroterion, CC BY-SA 4.0Categories grow in cabin size and range. Always use the figures for the actual aircraft.",
    "TurbopropPropeller aircraft with jet engines driving the propellers; slower, can use short runwaysShort regional trips, small airports",
    "Very light and light jetSmall cabin, usually no standing roomShort trips with few passengers",
    "Midsize and super-midsize jetStanding or near-standing cabin, more seats and rangeMedium trips, often across a region",
@@ -89,7 +100,7 @@
    "Aviation for brokers.",
    "Aircraft categories.",
    "Private jets are grouped by cabin size and range. Avinode shows each aircraft's category, seats and range, always use the figures for the actual aircraft, not a general rule.",
-   "Drawing of five business jets from small to large, light jet, midsize, super-midsize, heavy, and ultra-long-range with separate cabin zones and a crew rest area.",
+   "Photographs of five business jets from small to large, light jet, midsize, super-midsize, heavy, and ultra-long-range with separate cabin zones and a crew rest area.",
    "Turboprop. in plain words, Propeller aircraft with jet engines driving the propellers, slower, can use short runways. typical use, Short regional trips, small airports. Very light and light jet. in plain words, Small cabin, usually no standing room. typical use, Short trips with few passengers. Midsize and super-midsize jet. in plain words, Standing or near-standing cabin, more seats and range. typical use, Medium trips, often across a region. Heavy or large-cabin jet. in plain words, Tall, long cabin, lavatory and galley, often a cabin attendant and sleeping options. typical use, Long trips, larger groups, comfort. Ultra-long-range jet. in plain words, Large-cabin jets built to cross oceans and continents without a stop, crew rest area. typical use, Intercontinental trips, our focus. V I P airliner. in plain words, Converted airliners such as the Boeing Business Jet and Airbus Corporate Jet. typical use, Large groups, heads of state, sports teams.",
    "Photos, Turboprop, Pilatus P C, 1 2 N G, Light jet, Embraer Phenom 300, Midsize jet, Learjet 60, Super-midsize jet, Bombardier Challenger 350, Heavy jet, Dassault Falcon 900LX, Ultra-long-range jet, Bombardier Global 7500, V I P airliner, Boeing Business Jet."
   ]
@@ -135,13 +146,24 @@
   ]
  },
  {
-  "key": "9b89a5e9",
+  "key": "cbfcb846",
+  "kind": "feedback",
+  "where": "m0 screen 4 try 1",
+  "text": [
+   "Right. Many cities have several airports and business aviation often uses a different one from the airlines. Confirm the airport in writing."
+  ],
+  "say": [
+   "Right. Many cities have several airports and business aviation often uses a different one from the airlines. Confirm the airport in writing."
+  ]
+ },
+ {
+  "key": "7f8c2952",
   "kind": "lesson",
   "where": "m0 screen 5",
   "text": [
    "Aviation for brokers",
    "0.4 Time",
-   "09:00 in Bangkoklocal time, UTC+702:00 ZUTC, the same everywhere=minus 7 hoursQuotes show local time; operators plan in UTC.",
+   "09:00in Bangkoklocal time, UTC+7minus 7 hours02:00 ZUTCthe same everywhereQuotes show local time; operators plan in UTC.",
    "Aviation works in UTC (also called Zulu or Z), the same time everywhere. Clients think in local time.",
    "Every quote and trip brief shows local times and says so. Check arrival dates on long flights: crossing time zones or the date line can change the arrival date.",
    "When a client says \"tomorrow morning\", confirm the date, the time and the time zone in writing.",
@@ -154,7 +176,7 @@
   "say": [
    "Aviation for brokers.",
    "Time.",
-   "Two clocks. 9 o'clock in the morning in Bangkok, local time, is 2 o'clock U T C, because Bangkok is 7 hours ahead of U T C.",
+   "9 o'clock in the morning in Bangkok, local time, is 2 o'clock U T C, because Bangkok is 7 hours ahead of U T C.",
    "Aviation works in U T C, also called Zulu or Z, the same time everywhere. Clients think in local time. Every quote and trip brief shows local times and says so. Check arrival dates on long flights, crossing time zones or the date line can change the arrival date. When a client says tomorrow morning, confirm the date, the time and the time zone in writing.",
    "A client in Bangkok wants to leave at 09:00 local. The operator's schedule shows 02:00 Zulu. Do they match?",
    "A. Yes. Bangkok is U T C plus 7, so 09:00 local is 02:00 U T C. B. No, they are 7 hours apart. C. No, Z means the operator's home time. D. It cannot be known."
@@ -169,6 +191,17 @@
   ],
   "say": [
    "Right. Thailand is U T C plus 7 all year. Local time minus 7 hours gives U T C, Z."
+  ]
+ },
+ {
+  "key": "de9da800",
+  "kind": "feedback",
+  "where": "m0 screen 5 try 1",
+  "text": [
+   "Not quite. Thailand is UTC+7 all year. Local time minus 7 hours gives UTC (Z)."
+  ],
+  "say": [
+   "Not quite. Thailand is U T C plus 7 all year. Local time minus 7 hours gives U T C, Z."
   ]
  },
  {
@@ -207,6 +240,17 @@
   ],
   "say": [
    "Not quite. An empty leg depends on the main trip. The client must accept this risk in writing, Module 9."
+  ]
+ },
+ {
+  "key": "cf6ee3e1",
+  "kind": "feedback",
+  "where": "m0 screen 6 try 1",
+  "text": [
+   "Right. An empty leg depends on the main trip. The client must accept this risk in writing (Module 9)."
+  ],
+  "say": [
+   "Right. An empty leg depends on the main trip. The client must accept this risk in writing, Module 9."
   ]
  },
  {
@@ -276,14 +320,14 @@
   ]
  },
  {
-  "key": "5791efd1",
+  "key": "d1610655",
   "kind": "lesson",
   "where": "m0 screen 11",
   "text": [
    "Aviation for brokers",
    "0.10 The market in numbers",
    "Figures change every year. Use these only with their source and date, and never as a promise to a client.",
-   "Growth in business jet flights, 2025 versus 2024Africa15%Latin America11%Middle East7%Global5%Asia4%Europe1%People worth USD 30m+713,626in 2026up from 551,435in 2021North America has about 72% of all business jet flights; the fastest growth is elsewhere.Sources: WINGX full-year 2025; Knight Frank, The Wealth Report 2026",
+   "Growth in business jet flights, 2025 versus 2024Africa15%Latin America11%Middle East7%Global5%Asia4%Europe1% People worth USD 30m+713,626in 2026up from 551,435 in 2021North America has about 72% of all business jet flights; the fastest growth is elsewhere.Sources: WINGX full-year 2025; Knight Frank, The Wealth Report 2026",
    "Global business jet flights in 2025: up 5% on 2024, the busiest year on recordWINGX, full-year 2025 (January 2026)",
    "Share of global business jet flights in 2025: North America about 72%, Latin America about 6%, Asia about 3%, Middle East about 2%, Africa about 1%WINGX, full-year 2025",
    "Growth in 2025: Africa about 15%, Latin America 11%, Middle East 7%, Asia 4%, Europe about 1%WINGX, full-year 2025",
@@ -326,14 +370,14 @@
   ]
  },
  {
-  "key": "ffcb4ee6",
+  "key": "11733cba",
   "kind": "lesson",
   "where": "m0 screen 13",
   "text": [
    "Aviation for brokers",
    "0.12 The freedoms of the air",
    "International agreements describe what an airline of one country may do in another country's airspace. They explain why some legs are allowed and others are not.",
-   "3rdhome to abroadHA5thon to a third countryHAB7thabroad onlyAB8ththrough-flight cabotageHAA9thstand-alone cabotageAAH operator's home countryA, B other countriesRed legs are domestic in aforeign country: cabotageThe 8th and 9th freedoms are cabotage, which most countries refuse to foreign operators.",
+   "3rd home to abroadHA5th on to a third countryHAB7th abroad onlyAB 8th through-flight cabotageHAA9th stand-alone cabotageAA H operator's home countryA, B other countriesRed legs are domestic in a foreign country: cabotageThe 8th and 9th freedoms are cabotage, which most countries refuse to foreign operators.",
    "1stFly over another country without landing",
    "2ndLand in another country for a technical reason, such as fuel, without picking up or setting down passengers",
    "3rdCarry passengers from your own country to another country",
@@ -723,6 +767,17 @@
   ]
  },
  {
+  "key": "04ed4a8c",
+  "kind": "feedback",
+  "where": "m2 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Puerto Rico is a US territory. Only US-citizen carriers may fly passengers between US points."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Puerto Rico is a U S territory. Only U S-citizen carriers may fly passengers between U S points."
+  ]
+ },
+ {
   "key": "7da0d8e6",
   "kind": "lesson",
   "where": "m2 screen 2",
@@ -774,13 +829,13 @@
   ]
  },
  {
-  "key": "60355305",
+  "key": "98c8a617",
   "kind": "lesson",
   "where": "m2 screen 5",
   "text": [
    "Where we may and may not sell",
    "2.4 Flights we never sell",
-   "NEVERSELLOperator without a commercial AOCDomestic leg on a foreign operatorUS domestic flight on a non-US operatorIndividual seatsSanctioned people or embargoed placesHidden passenger namesSix of the flights on the never-sell list. The full list is in the table.",
+   "Never sellOperator without a commercial AOCDomestic leg on a foreign operatorUS domestic flight on a non-US operatorIndividual seatsSanctioned people or embargoed placesHidden passenger namesSix of the flights on the never-sell list. The full list is in the table.",
    "A flight by an operator without a commercial AOC, or on an aircraft not listed on its AOCIllegal charter: uninsured and unsafeReject; report to the director",
    "A domestic leg (two airports in one country) on a foreign operator's aircraft, unless the operator confirms in writing that the country allows itCabotage: most countries reserve domestic flights for their own carriersUse a local operator, or redesign the trip",
    "US domestic flights (both airports in the US) on any non-US operatorUS law allows only US-citizen carriers to fly passengers within the USNever quote",
@@ -797,7 +852,7 @@
   "say": [
    "Where we may and may not sell.",
    "Flights we never sell.",
-   "Stop sign, never sell. Six examples, an operator without a commercial air operator certificate, a domestic leg on a foreign operator, a U S domestic flight on a non-U S operator, individual seats, sanctioned people or embargoed places, and hidden passenger names.",
+   "Never sell. Six examples, an operator without a commercial air operator certificate, a domestic leg on a foreign operator, a U S domestic flight on a non-U S operator, individual seats, sanctioned people or embargoed places, and hidden passenger names.",
    "A flight by an operator without a commercial A O C, or on an aircraft not listed on its A O C. why, Illegal charter, uninsured and unsafe. what to do, Reject, report to the director. A domestic leg, two airports in one country, on a foreign operator's aircraft, unless the operator confirms in writing that the country allows it. why, Cabotage, most countries reserve domestic flights for their own carriers. what to do, Use a local operator, or redesign the trip. U S domestic flights, both airports in the U S, on any non-U S operator. why, U S law allows only U S-citizen carriers to fly passengers within the U S. what to do, Never quote. Any U S domestic flight, even on a U S operator, until U S counsel has confirmed ar Kay's position. ar Kay policy, Pass to the director. Flights between two E U countries, or inside one, on a non-E U operator, unless the operator confirms the permission. why, E U traffic is reserved for E U carriers. what to do, Use an E U operator. Individual seats sold to different people on one flight. why, Selling seats needs public-charter or airline authority. what to do, Never sell per seat. Flights into, out of or over the E U for a Russian national, including dual nationals, or a company controlled by one, or on Russian-registered aircraft. why, E U sanctions deny landing, take-off and overflight to such aircraft, including chartered aircraft. what to do, Stop, report to the director. Flights for sanctioned persons or companies, or to embargoed destinations without director clearance. why, Sanctions law, Module 3. what to do, Stop, report to the director. Operators on the E U Air Safety List. Safety and E U law, Never use. Medical flights with patients needing care on board. why, Air ambulance needs specific approvals and equipment. what to do, Refer through the director. Flights with accommodation or other travel sold as one package. why, Package-travel and travel-licence rules, for example ATOL in the U K. what to do, Only with director approval. Any flight where the client asks to hide passenger names from the operator or the authorities. why, Illegal and a sanctions and security risk. what to do, Refuse, report to the director."
   ]
  },
@@ -947,6 +1002,17 @@
   ]
  },
  {
+  "key": "d9b2baa6",
+  "kind": "feedback",
+  "where": "m2 screen 7 try 1",
+  "text": [
+   "Not quite. Each leg crosses a border. Permits still apply."
+  ],
+  "say": [
+   "Not quite. Each leg crosses a border. Permits still apply."
+  ]
+ },
+ {
   "key": "b44d1c87",
   "kind": "feedback",
   "where": "m2 screen 7 try 2",
@@ -955,6 +1021,17 @@
   ],
   "say": [
    "Not quite. Both airports are in the U S. Use a U S operator for the whole trip, subject to ar Kay's U S policy."
+  ]
+ },
+ {
+  "key": "128f0a1a",
+  "kind": "feedback",
+  "where": "m2 screen 7 try 2",
+  "text": [
+   "Right. Both airports are in the US. Use a US operator for the whole trip, subject to Archē's US policy."
+  ],
+  "say": [
+   "Right. Both airports are in the U S. Use a U S operator for the whole trip, subject to ar Kay's U S policy."
   ]
  },
  {
@@ -969,6 +1046,17 @@
   ]
  },
  {
+  "key": "6750fe37",
+  "kind": "feedback",
+  "where": "m2 screen 7 try 3",
+  "text": [
+   "Right. Two Indian airports in a row make a domestic leg."
+  ],
+  "say": [
+   "Right. Two Indian airports in a row make a domestic leg."
+  ]
+ },
+ {
   "key": "58835fb4",
   "kind": "feedback",
   "where": "m2 screen 7 try 4",
@@ -977,6 +1065,17 @@
   ],
   "say": [
    "Not quite. Thailand enforces cabotage closely. The whole routing and manifest go on the permit."
+  ]
+ },
+ {
+  "key": "738b6895",
+  "kind": "feedback",
+  "where": "m2 screen 7 try 4",
+  "text": [
+   "Right. Thailand enforces cabotage closely. The whole routing and manifest go on the permit."
+  ],
+  "say": [
+   "Right. Thailand enforces cabotage closely. The whole routing and manifest go on the permit."
   ]
  },
  {
@@ -1046,7 +1145,7 @@
    "Where we may and may not sell.",
    "The trip risk screen.",
    "Every enquiry passes this screen before sourcing, and the result goes on the intake form. Green means proceed. Amber means the operator or its trip support confirms in writing before we quote. Red means stop and escalate to the director. Always check the current watchlist, never your memory.",
-   "Traffic light. Green means proceed with sourcing. Amber means the operator confirms in writing before we quote. Red means stop and escalate to the director.",
+   "Green means proceed with sourcing. Amber means the operator confirms in writing before we quote. Red means stop and escalate to the director.",
    "1. Who flies and pays? amber, P E P, child with one adult, payer differs from the client. red, Sanctions match, Russian national with an E U point, refuses K Y C, payer or operator in a country we cannot take payments from or pay to. 2. Where? amber, Domestic leg, conflict-zone routing, strict permit country. red, U S domestic leg, embargoed destination. 3. What aircraft and operator? amber, No safety rating, U S-made aircraft to a sanctioned country. red, No A O C, banned operator. 4. What is carried? amber, Pets, weapons, cash, medical equipment, dangerous goods. red, Patient needing care in flight. 5. How is it sold? Hotel or event added, Individual seats. 6. When? amber, Short notice into a strict permit country. red, Lead time impossible to meet.",
    "Practise it. After the module check, the trip risk screen lab gives you 12 real-world trips to screen."
   ]
@@ -1536,6 +1635,17 @@
   ]
  },
  {
+  "key": "4f067b6f",
+  "kind": "feedback",
+  "where": "m1 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+  ],
+  "say": [
+   "Right. You will meet this in the module. While the charter sales agreement for Navoryx aircraft is in force, we do not sell their flight hours. The director handles any such request."
+  ]
+ },
+ {
   "key": "43a4abbe",
   "kind": "lesson",
   "where": "m1 screen 2",
@@ -1978,6 +2088,17 @@
   ]
  },
  {
+  "key": "f793a014",
+  "kind": "feedback",
+  "where": "m3 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. A third-party payer in another country is a money-laundering warning sign. Identify the payer, record the reason and get the director's approval."
+  ],
+  "say": [
+   "Right. You will meet this in the module. A third-party payer in another country is a money-laundering warning sign. Identify the payer, record the reason and get the director's approval."
+  ]
+ },
+ {
   "key": "3c61eae6",
   "kind": "lesson",
   "where": "m3 screen 2",
@@ -1998,13 +2119,13 @@
   ]
  },
  {
-  "key": "8f4dcf32",
+  "key": "49fe151e",
   "kind": "lesson",
   "where": "m3 screen 3",
   "text": [
    "Compliance: KYC, sanctions, fraud",
    "3.2 Sanctions screening, step by step",
-   "List nameseveryone involvedSearch listsUN, MAS, OFAC, EU, UKRecorddate, lists, result Match? Possible matchstop, no payment, director no: continueScreen every name, record the result, and stop at any possible match.",
+   "List nameseveryone involvedSearch listsUN, MAS, OFAC, EU, UKRecorddate, lists, resultMatch? NocontinuePossible matchstop, no payment, directorScreen every name, record the result, and stop at any possible match.",
    "List every name to screen: client, payer, ultimate beneficial owners, every passenger, the operator and the aircraft owner if known.",
    "Check who owns and controls each company you screen (client, payer, operator). Under US rules, a company owned 50% or more in total by one or more blocked persons is itself blocked, even when its own name is on no list (OFAC FAQs 401 and 402). EU guidance treats owning 50% or more, or control such as the power to appoint most of the board, the same way (EU Council Best Practices, 3 July 2024). A company owned or controlled by a listed person counts as a match.",
    "Search each name on the official lists in Appendix D: United Nations consolidated list; Singapore (Monetary Authority of Singapore, and the First Schedule of the Terrorism (Suppression of Financing) Act); United States (OFAC sanctions list search); European Union consolidated list; United Kingdom (UK Sanctions List, the single UK list since 28 January 2026); for Asia-Pacific trips also Australia (DFAT), Japan (Ministry of Finance), Malaysia (Ministry of Home Affairs) and Thailand (AMLO). The portal does this for you: it screens the client, company, payer and operator as you type and when you save the trip, against all these lists, refreshed every day, and shows the result in Trip checks with the list and the date. You add the passengers, owners and aircraft owner. A name on the MAS Investor Alert List (Singapore) is a warning to check, not a sanctions match; an operator on the EU Air Safety List is never used.",
@@ -2326,6 +2447,17 @@
   ]
  },
  {
+  "key": "11f4b1fc",
+  "kind": "feedback",
+  "where": "m4 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Discretion: send trip details only to the people the client agreed in writing."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Discretion, send trip details only to the people the client agreed in writing."
+  ]
+ },
+ {
   "key": "642e15fc",
   "kind": "lesson",
   "where": "m4 screen 2",
@@ -2540,13 +2672,24 @@
   ]
  },
  {
-  "key": "f60ed370",
+  "key": "1bb930bc",
+  "kind": "feedback",
+  "where": "m5 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. The never-sell check and the trip risk screen come before sourcing, so we never spend time on a flight we cannot sell."
+  ],
+  "say": [
+   "Right. You will meet this in the module. The never-sell check and the trip risk screen come before sourcing, so we never spend time on a flight we cannot sell."
+  ]
+ },
+ {
+  "key": "fabc2f9b",
   "kind": "lesson",
   "where": "m5 screen 2",
   "text": [
    "Enquiry intake and qualification",
    "5.1 The booking life cycle",
-   "1Enquiry2Qualify3Legal check4Feasibility5Sourcing6Quote7Contract …8Operations9CloseThe legal check (step 3) comes before any sourcing.Nine stages from enquiry to closed file.",
+   "1Enquiry2Qualify3Legal check4Feasibility5Sourcing6Quote7Contract and payment8Operations9CloseThe legal check (step 3) comes before any sourcing.Nine stages from enquiry to closed file.",
    "1. EnquiryCapture the mission (5.2) on the intake formEnquiry in CRM",
    "2. QualificationConfirm the client is real, able to pay and serious; KYC startedQualified or closed",
    "3. Legal checkCheck the trip against Module 2.4Allowed, redesigned or refused",
@@ -2847,6 +2990,17 @@
   ]
  },
  {
+  "key": "ac7c93fa",
+  "kind": "feedback",
+  "where": "m6 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Range depends on load, winds and season. Only the operator can confirm non-stop for this trip."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Range depends on load, winds and season. Only the operator can confirm non-stop for this trip."
+  ]
+ },
+ {
   "key": "9b4b17b5",
   "kind": "lesson",
   "where": "m6 screen 2",
@@ -2871,13 +3025,13 @@
   ]
  },
  {
-  "key": "38d89b90",
+  "key": "59017db9",
   "kind": "lesson",
   "where": "m6 screen 3",
   "text": [
    "Flight feasibility and trip planning",
    "6.2 Choosing the airport",
-   "1Hoursopening and curfews2Customsavailable, or on request3Fire covercategory suits the aircraft4Runwaylength for the load5Slots, parkingapproved in time6FBO, handlerservice at arrivalSix checks before an airport goes in the quote. The operator confirms.",
+   "Hoursopening and curfewsCustomsavailable, or on requestFire covercategory suits the aircraftRunwaylength for the loadSlots, parkingapproved in timeFBO, handlerservice at arrivalSix checks before an airport goes in the quote. The operator confirms.",
    "Many cities have a business-aviation airport closer to the destination than the airline hub; ask where the client is actually going.",
    "Opening hours and night curfews.",
    "Customs and immigration: international flights must use an airport where they are available, sometimes only on request.",
@@ -3286,6 +3440,17 @@
   ]
  },
  {
+  "key": "f0fb9ebf",
+  "kind": "feedback",
+  "where": "m7 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Specifications come from the aircraft's Avinode listing and the manufacturer, and the operator confirms them for the trip."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Specifications come from the aircraft's Avinode listing and the manufacturer, and the operator confirms them for the trip."
+  ]
+ },
+ {
   "key": "16cbe321",
   "kind": "lesson",
   "where": "m7 screen 2",
@@ -3463,6 +3628,17 @@
   ],
   "say": [
    "Not quite. You will meet this in the module. ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman P R O, or I S, B A O Stage 2 or 3 are accepted, checked in the auditor's registry for each booking. Any other operator only if the director has approved it for twelve months, an ar Kay-approved operator, or for that one trip. Every operator, two pilots on jets, insurance of at least 50 U S dollars million for jets, five years clear."
+  ]
+ },
+ {
+  "key": "c5e54829",
+  "kind": "feedback",
+  "where": "m8 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3 are accepted, checked in the auditor's registry for each booking. Any other operator only if the director has approved it for twelve months (an Archē-approved operator) or for that one trip. Every operator: two pilots on jets, insurance of at least USD 50 million for jets, five years clear."
+  ],
+  "say": [
+   "Right. You will meet this in the module. ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman P R O, or I S, B A O Stage 2 or 3 are accepted, checked in the auditor's registry for each booking. Any other operator only if the director has approved it for twelve months, an ar Kay-approved operator, or for that one trip. Every operator, two pilots on jets, insurance of at least 50 U S dollars million for jets, five years clear."
   ]
  },
  {
@@ -3836,6 +4012,17 @@
   ]
  },
  {
+  "key": "14d3ba4a",
+  "kind": "feedback",
+  "where": "m9 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Client price is the operator price divided by 0.91. 60,000 divided by 0.91 is 65,934.07, rounded up to 65,935. Never round down."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Client price is the operator price divided by 0.91. 60,000 divided by 0.91 is 65,934.07, rounded up to 65,935. Never round down."
+  ]
+ },
+ {
   "key": "22a8933e",
   "kind": "lesson",
   "where": "m9 screen 2",
@@ -3876,14 +4063,14 @@
   ]
  },
  {
-  "key": "111a2900",
+  "key": "49b0339c",
   "kind": "lesson",
   "where": "m9 screen 4",
   "text": [
    "Pricing and quoting",
    "9.3 The Archē price formula",
    "Our margin is 9% of the price the client pays. Because it is a share of the selling price, divide the cost by 0.91; do not add 9% to the cost.",
-   "Right: divide by 0.91 Archē cost 100,000 = 91%9%Client price 109,891 · margin 9,891 = 9.0% Wrong: add 9% Archē cost 100,000Client price 109,000 · margin 9,000 = only 8.26%The margin is 9% of the client price, so divide the cost by 0.91 and round up.",
+   "Right: divide by 0.91Archē cost 100,000 = 91%9%Client price 109,891 · margin 9,891 = 9.0% Wrong: add 9%Archē cost 100,000Client price 109,000 · margin 9,000 = only 8.26%The margin is 9% of the client price, so divide the cost by 0.91 and round up.",
    "Price formulaArchē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writingClient price = Archē cost ÷ 0.91 Archē margin = client price − Archē cost = 9% of the client priceNot included: items \"at cost, after the flight\" (9.2), and card payment costs, charged as set out in the confirmation"
   ],
   "say": [
@@ -4319,6 +4506,17 @@
   ]
  },
  {
+  "key": "1f116534",
+  "kind": "feedback",
+  "where": "m10 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. If the operator's terms are stricter than Part A, Archē carries the gap. The director decides before the confirmation is issued."
+  ],
+  "say": [
+   "Right. You will meet this in the module. If the operator's terms are stricter than Part A, ar Kay carries the gap. The director decides before the confirmation is issued."
+  ]
+ },
+ {
   "key": "cf0d29f2",
   "kind": "lesson",
   "where": "m10 screen 2",
@@ -4339,7 +4537,7 @@
   ]
  },
  {
-  "key": "9db36d9c",
+  "key": "91954caa",
   "kind": "lesson",
   "where": "m10 screen 3",
   "text": [
@@ -4352,7 +4550,7 @@
    "5Operator paid from the payment account, only from cleared client money, never more than has been received and never more than the operator pricePayment provider, portal",
    "6Archē's margin is transferred to Archē's operating account at Citi Singapore (account being set up)Citi Singapore",
    "Only our margin enters Archē's own bank account. Operator money never passes through it.",
-   "Clientpays the requestPayment providerholds client fundsOperatorpaid on its terms Archē accountonly the marginCiti Singapore(being set up)Operator money never passes through Archē's own account.",
+   "Clientpays the requestPayment providerholds client fundsOperatorpaid on its terms Archē accountonly the marginCiti Singapore (being set up)Operator money never passes through Archē's own account.",
    "The rule behind the order: Archē never pre-funds. At every moment the client money held covers what Archē would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, operations cancels with the operator before the operator's next charge starts; the portal shows that date on Today.",
    "Deadlines the portal watches",
    "Payment reminders: when the director has switched them on, the client gets an email 3 days and 1 day before each payment in the schedule, until the money has cleared.",
@@ -4723,6 +4921,17 @@
   ]
  },
  {
+  "key": "18ed4b29",
+  "kind": "feedback",
+  "where": "m11 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. A file closes only when payments are settled, the personal follow-up is logged and the rating request has gone out, plus service recovery for any low score."
+  ],
+  "say": [
+   "Right. You will meet this in the module. A file closes only when payments are settled, the personal follow-up is logged and the rating request has gone out, plus service recovery for any low score."
+  ]
+ },
+ {
   "key": "becb6c97",
   "kind": "lesson",
   "where": "m11 screen 2",
@@ -4743,14 +4952,14 @@
   ]
  },
  {
-  "key": "6a01d319",
+  "key": "889960bf",
   "kind": "lesson",
   "where": "m11 screen 3",
   "text": [
    "Trip operations and the 24/7 desk",
    "11.2 Day of flight",
    "Track the flight from departure to arrival. Keep the client informed before they need to ask.",
-   "Beforedetails to operator,permits and slotsconfirmed, trip briefsentFrom 48 hwatch the forecast, warnearlyDay of flighttrack the flight, updatethe client firstWithin 7 daysrecharge at-cost itemswith receipts, close thefileKeep the client informed before they need to ask."
+   "Beforedetails to operator, permits and slots confirmed, trip brief sentFrom 48 hwatch the forecast, warn earlyDay of flighttrack the flight, update the client firstWithin 7 daysrecharge at-cost items with receipts, close the fileKeep the client informed before they need to ask."
   ],
   "say": [
    "Trip operations and the 24 or 7 desk.",
@@ -5149,6 +5358,17 @@
   ],
   "say": [
    "Not quite. You will meet this in the module. Check the national do-not-call register and record any opt-out before calling."
+  ]
+ },
+ {
+  "key": "b77358bc",
+  "kind": "feedback",
+  "where": "m12 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. Check the national do-not-call register and record any opt-out before calling."
+  ],
+  "say": [
+   "Right. You will meet this in the module. Check the national do-not-call register and record any opt-out before calling."
   ]
  },
  {
@@ -5617,6 +5837,17 @@
   ],
   "say": [
    "Not quite. You will meet this in the module. The lab pass mark is 70 out of 100, and the critical points, the correct rule, no unconfirmed promise, must not be broken whatever the total."
+  ]
+ },
+ {
+  "key": "abdb0d4b",
+  "kind": "feedback",
+  "where": "m14 screen 1 try 3",
+  "text": [
+   "Right. You will meet this in the module. The lab pass mark is 70 out of 100, and the critical points (the correct rule, no unconfirmed promise) must not be broken whatever the total."
+  ],
+  "say": [
+   "Right. You will meet this in the module. The lab pass mark is 70 out of 100, and the critical points, the correct rule, no unconfirmed promise, must not be broken whatever the total."
   ]
  },
  {
