@@ -4696,7 +4696,7 @@ const OB_ACAD = {
     lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
     m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
     m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
-    m11: ["Module 11 · Trip operations and the 24/7 desk", 12], m12: ["Module 12 · Selling and the consultant desk", 7], m13: ["Module 13 · Case studies", 9],
+    m11: ["Module 11 · Trip operations and disruption", 12], m12: ["Module 12 · Selling and account management", 7], m13: ["Module 13 · Case studies", 9],
     m14: ["Module 14 · Assessment and certification", 14], exam: ["Written exam", 0]}
 };
 function obNext(p){
@@ -7000,7 +7000,7 @@ function vOnboarding(){
       ["m3", "Module 3: Compliance: KYC, sanctions, fraud, bribery and data protection", "trips"], ["m4", "Module 4: Our clients", "prospects"], ["m5", "Module 5: Enquiry intake and qualification", "pool"],
       ["m6", "Module 6: Flight feasibility and trip planning", "trips"], ["m7", "Module 7: Aircraft knowledge", "training"], ["m8", "Module 8: Sourcing on Avinode and operator vetting", "trips"],
       ["m9", "Module 9: Pricing and quoting", "trips"], ["m10", "Module 10: Contract, payment and settlement", "queue"], ["m11", "Module 11: Trip operations, disruption and the 24/7 desk", "queue"],
-      ["m12", "Module 12: Selling and the consultant desk", "prospects"], ["m13", "Module 13: Case studies", "training"], ["m14", "Module 14: Assessment and certification", "training"]
+      ["m12", "Module 12: Selling and account management", "prospects"], ["m13", "Module 13: Case studies", "training"], ["m14", "Module 14: Assessment and certification", "training"]
     ].map(([id, t, page]) => ({id, t, page, min: 60, show: [`Academy: read ${t.split(":")[0]} and pass its quiz`, "Walk through the same steps in the portal on a real or practice trip", "Questions and the points to remember"], check: `Explain the critical rules of ${t.split(":")[0]} and show one of them in the portal.`})).concat([
       {id: "p1", t: "Practical: Avinode and payment system training", page: "trips", min: 120, show: ["Searching and requesting quotes on Avinode", "Comparing quotes like for like", "The payment request: how the client pays"], check: "Request and compare three quotes for a practice trip."},
       {id: "p2", t: "Practical: eight shadowed trips", page: "trips", min: 0, show: ["The trainee follows eight real trips from enquiry to the last landing", "Notes on each trip in the training record"], check: "Present one shadowed trip from start to finish."},

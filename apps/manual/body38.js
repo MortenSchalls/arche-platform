@@ -16,9 +16,9 @@ push(new Paragraph({alignment:AlignmentType.CENTER,children:[r('Internal trainin
 push(H1('Document control',true));
 push(T([['Item',3000],['Detail',6640]],[
  ['Owner','Director, Arche Executive'],
- ['Applies to','All brokers, charter consultants and operations staff, in every office and every market'],
+ ['Applies to','All brokers and the owner, or a person the owner has mandated, in every office and every market'],
  ['Effective','October 2026'],
- ['Version','3.9, 7 November 2026: Module 1: an old fleet-hours rule and its check question removed. The portal AI (Module 3.7, Appendix H.16): run by an outside provider, sent trip facts only, never passport, ID or bank numbers, passenger names or private contact details. 31 October 2026: client handover when a broker leaves (Appendix H.18, agreement clause 8.5); background checks (Module 3.2, Appendix H): the portal screens every booking against the UN, Singapore, US, EU, UK, Australian, Japanese, Malaysian and Thai lists daily, flags the MAS Investor Alert List and the EU Air Safety List, checks US registrations against the FAA charter list and exchange rates against the ECB; six of the seven pre-issue checks are set by the portal from the records; operations reuses the broker\'s screening; Today replaces the Dashboard for brokers and operations; Reports with charts and downloads. Earlier: 3.8, 29 October 2026: booking money and cancellation (Module 10): the client always pays the higher cancellation charge (ours or the operator\'s plus our fee), each confirmation prints its own payment schedule, the operator is paid only from cleared client money and its contract signed only when that money is held; deadline alerts, payment reminders and one-click cancellation (10.2); insurance is the operator\'s alone (8.5); margin 9% minimum, any other margin only by the director (10.5); the operator library. 3.8, 27 October 2026: operator safety standard (Module 8.2, 8.5): accepted audits, insurance and crew minimums, five-year history, suspension; Arche-approved operators, approved for twelve months by the director, and one safety line in every quote (8.3). 3.8, 25 October 2026: margin 9% of the client price (÷ 0.91); every worked example and question in Module 9 recomputed. 3.8, 19 October 2026: live negotiation lab and AI practice partner (14.4, 14.5), post-trip debrief (14.6), following every trip to the last leg with follow-up and client rating (11.5, A.4, B.10), ACA Essentials sponsorship (14.3) and Appendix J regional quick-reference cards. 3.7, 18 October 2026: Appendix H Portal guide (flow diagram, every feature with troubleshooting and tips) and Appendix I Portal FAQ. 3.6, 18 October 2026: client requests and operational extras, the operational rules behind them, the booking timeline, the portal, and prospect and lead rules'],
+ ['Version','3.9, 7 November 2026: No charter consultants or operations desk: brokers do every step and the owner, or a person the owner has mandated, does the four-eyes check. Module 1: an old fleet-hours rule and its check question removed. The portal AI (Module 3.7, Appendix H.16): run by an outside provider, sent trip facts only, never passport, ID or bank numbers, passenger names or private contact details. 31 October 2026: client handover when a broker leaves (Appendix H.18, agreement clause 8.5); background checks (Module 3.2, Appendix H): the portal screens every booking against the UN, Singapore, US, EU, UK, Australian, Japanese, Malaysian and Thai lists daily, flags the MAS Investor Alert List and the EU Air Safety List, checks US registrations against the FAA charter list and exchange rates against the ECB; six of the seven pre-issue checks are set by the portal from the records; operations reuses the broker\'s screening; Today replaces the Dashboard for brokers and operations; Reports with charts and downloads. Earlier: 3.8, 29 October 2026: booking money and cancellation (Module 10): the client always pays the higher cancellation charge (ours or the operator\'s plus our fee), each confirmation prints its own payment schedule, the operator is paid only from cleared client money and its contract signed only when that money is held; deadline alerts, payment reminders and one-click cancellation (10.2); insurance is the operator\'s alone (8.5); margin 9% minimum, any other margin only by the director (10.5); the operator library. 3.8, 27 October 2026: operator safety standard (Module 8.2, 8.5): accepted audits, insurance and crew minimums, five-year history, suspension; Arche-approved operators, approved for twelve months by the director, and one safety line in every quote (8.3). 3.8, 25 October 2026: margin 9% of the client price (÷ 0.91); every worked example and question in Module 9 recomputed. 3.8, 19 October 2026: live negotiation lab and AI practice partner (14.4, 14.5), post-trip debrief (14.6), following every trip to the last leg with follow-up and client rating (11.5, A.4, B.10), ACA Essentials sponsorship (14.3) and Appendix J regional quick-reference cards. 3.7, 18 October 2026: Appendix H Portal guide (flow diagram, every feature with troubleshooting and tips) and Appendix I Portal FAQ. 3.6, 18 October 2026: client requests and operational extras, the operational rules behind them, the booking timeline, the portal, and prospect and lead rules'],
  ['Review','At least once a year, and at once after a change in law, an audit finding or a serious error'],
  ['Controlled copy','The current version is the copy in the Arche document folder. Printed or downloaded copies are for reference only.'],
  ['Questions','Raise with the director. Nobody may change a rule in this manual on their own.'],
@@ -26,14 +26,13 @@ push(T([['Item',3000],['Detail',6640]],[
 ]));
 push(sp());
 push(H2('Contents'));
-['How to use this manual','Module 0  Aviation for brokers','Module 1  Arche Executive and the broker\'s role','Module 2  Where we may and may not sell: the legal map','Module 3  Compliance: KYC, sanctions, fraud, bribery and data protection','Module 4  Our clients','Module 5  Enquiry intake and qualification','Module 6  Flight feasibility and trip planning','Module 7  Aircraft knowledge: long-range and heavy jets','Module 8  Sourcing on Avinode and operator vetting','Module 9  Pricing and quoting','Module 10  Contract, payment and settlement','Module 11  Trip operations, disruption and the 24/7 desk','Module 12  Selling and the consultant desk','Module 13  Case studies','Module 14  Assessment, certification and external training','Appendix A  Checklists','Appendix B  Templates','Appendix C  Answer key','Appendix D  Self-study library','Appendix E  Glossary','Appendix F  สรุปกฎสำคัญ (Thai summary of the critical rules)','Appendix G  Watchlist (maintained by the director)','Appendix H  Portal guide','Appendix I  Portal FAQ','Appendix J  Regional quick-reference cards'].forEach(m=>push(P(m,{spacing:{after:30}})));
+['How to use this manual','Module 0  Aviation for brokers','Module 1  Arche Executive and the broker\'s role','Module 2  Where we may and may not sell: the legal map','Module 3  Compliance: KYC, sanctions, fraud, bribery and data protection','Module 4  Our clients','Module 5  Enquiry intake and qualification','Module 6  Flight feasibility and trip planning','Module 7  Aircraft knowledge: long-range and heavy jets','Module 8  Sourcing on Avinode and operator vetting','Module 9  Pricing and quoting','Module 10  Contract, payment and settlement','Module 11  Trip operations and disruption','Module 12  Selling and account management','Module 13  Case studies','Module 14  Assessment, certification and external training','Appendix A  Checklists','Appendix B  Templates','Appendix C  Answer key','Appendix D  Self-study library','Appendix E  Glossary','Appendix F  สรุปกฎสำคัญ (Thai summary of the critical rules)','Appendix G  Watchlist (maintained by the director)','Appendix H  Portal guide','Appendix I  Portal FAQ','Appendix J  Regional quick-reference cards'].forEach(m=>push(P(m,{spacing:{after:30}})));
 
 // ================= HOW TO USE
 push(H1('How to use this manual',true));
-push(P('This manual is the single standard for every Arche Executive broker and charter consultant. It is written for people who have never worked in aviation. Start at Module 0 even if some of it seems simple: brokers who skip the basics make the expensive mistakes.'));
-push(H2('Two training paths'));
+push(P('This manual is the single standard for every Arche Executive broker. It is written for people who have never worked in aviation. Start at Module 0 even if some of it seems simple: brokers who skip the basics make the expensive mistakes.'));
+push(H2('Training path'));
 push(T([['Path',1900],['Modules',3600],['You may start',4140]],[
- ['Charter consultant','0, 1, 2, 3, 4, 5, 12 and the case studies in 13 for reading; Appendix B call scripts','Calling clients alone after the consultant exam and 2 weeks of supervised calls'],
  ['Broker','All modules 0 to 14','Quoting and contracting alone after full certification (below)'],
 ]));
 push(sp());
@@ -44,7 +43,7 @@ push(T([['Stage',1800],['What you do',4200],['To pass',3640]],[
  ['3. Systems','Avinode and payment system training (Module 14)','Avinode and payment system access live; one practice quote and one practice payment request completed'],
  ['4. Shadowing','Follow a senior broker on live trips from enquiry to closed file, including the follow-up after the flight; visit one FBO or handler and one operator; two live negotiation lab sessions with a senior broker (Module 14.4); practise with the AI practice partner (Module 14.5)','8 complete trips shadowed; both visits done; two lab sessions recorded'],
  ['5. Practical exam','Run a mock trip from enquiry to signed confirmation, with a role-played client and operator, and a scored live negotiation lab with the director (Module 14.4)','No critical error; no more than 3 minor errors; lab score 70 or more with no rule broken'],
- ['6. Supervised','Run your own bookings; the director or a senior broker checks every quote and contract before it is sent; a post-trip debrief after every booking (Module 14.6)','10 bookings with no critical error; 10 debriefs signed by trainee, mentor and operations'],
+ ['6. Supervised','Run your own bookings; the director or a senior broker checks every quote and contract before it is sent; a post-trip debrief after every booking (Module 14.6)','10 bookings with no critical error; 10 debriefs signed by trainee, mentor and the owner, or a person the owner has mandated'],
  ['7. Certified','Work alone on the booking ramp (Module 1)','Director signs the training record'],
 ],{size:17}));
 push(sp());
@@ -61,14 +60,14 @@ push(H2('Training records and refresher training'));
 push(P('The director keeps a training record for each person: modules completed, exam scores, trips shadowed, practical exam result, supervised bookings and sign-off date. Records are kept for as long as the person works for Arche and for the period our record-keeping rule sets after they leave. Everyone repeats the written exam once a year, and attends a refresher when a rule in this manual changes.'));
 push(H2('How long it takes'));
 push(P('These are planning estimates for a full-time trainee with no aviation background. They depend on how many enquiries come in during shadowing and supervision, and are reviewed after the first trainees.'));
-push(T([['Stage',5640],['Broker',2000],['Consultant',2000]],[
- ['Self-study and written exam','2 to 3 weeks','1 to 2 weeks'],
- ['Avinode and payment system training and practice','2 to 3 days','1 day'],
- ['Shadowing','2 to 3 weeks','1 week'],
- ['Practical exam','1 day','1 day'],
- ['Supervised work','4 to 8 weeks','2 weeks'],
- ['Total to work alone','about 10 to 14 weeks','about 4 to 6 weeks'],
- ['Independent on complex long-range and multi-country trips','about 6 months',''],
+push(T([['Stage',5640],['Broker',4000]],[
+ ['Self-study and written exam','2 to 3 weeks'],
+ ['Avinode and payment system training and practice','2 to 3 days'],
+ ['Shadowing','2 to 3 weeks'],
+ ['Practical exam','1 day'],
+ ['Supervised work','4 to 8 weeks'],
+ ['Total to work alone','about 10 to 14 weeks'],
+ ['Independent on complex long-range and multi-country trips','about 6 months'],
 ]));
 push(sp());
 push(box('Three rules that apply to every module',[
@@ -185,9 +184,8 @@ push(H2('1.3 How we earn'));
 push(P('Our margin is 9% of the price the client pays (Module 9). The operator receives the rest from our payment account. Only our margin flows into Arche\'s own bank account.'));
 push(H2('1.4 Roles'));
 push(T([['Role',2200],['Does',7440]],[
- ['Charter consultant','Builds the client base by phone and follow-up, captures and qualifies enquiries, hands live trips to a broker'],
- ['Broker','Sources, vets, prices, contracts and runs trips; mentors consultants'],
- ['Operations desk','Runs trips on the day and out of hours (Module 11)'],
+ ['Broker','Sources, vets, prices, contracts and runs every step of a trip, including KYC, sanctions screening and the client\'s payment request, on the day and out of hours (Module 11)'],
+ ['Owner, or a person the owner has mandated','Does the four-eyes check on every trip: confirms the operator price, approves the booking, issues the confirmation and records payments'],
  ['Director','Approves exceptions, compliance decisions and disputes; owns this manual'],
 ]));
 push(sp());
@@ -209,14 +207,14 @@ push(P(`Every enquiry, quote, document, booking, payment record and commission f
 push(H3('Leads and prospects'));
 push(BL([`The portal assigns organisations to brokers automatically and fairly: by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week.`,`Make first contact with every new lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the director.`,`"Not now" leads are offered again after 90 days, to a different broker with a fresh approach.`,`Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically.`,`Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid: commission rewards the booking.`,`Prospects are organisations and their business contacts only: no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is "Do not contact" for everyone, for good.`]));
 push(P(`These are the current settings. The director can change them in the portal; its Portal rules page always shows the ones in force.`));
-push(H3('Booking rights and separate duties'));
-push(BL([`Operations checks each trip, confirms the operator price on Avinode, completes KYC and sanctions screening, creates the payment request and issues the confirmation.`,`The director can give a broker booking rights, so the broker also works as operations. Nobody confirms, prices or records payment on their own booking: another operations member or the director does it.`]));
+push(H3('Owner check and separate duties'));
+push(BL([`The broker completes KYC and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for the owner's check.`,`The owner, or a person the owner has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip: another owner or a person the owner has mandated does it.`]));
 push(quiz(1,[
  ['A trip billed at USD 135,000 counts as how many booking units?',['1','2','3','4'],'c'],
  ['A client wants to buy four seats on someone else\'s flight. Which is right?',['We sell the seats','We sell whole-aircraft charters to one client only','We split the price four ways','We ask the operator to sell them'],'b'],
  ['A broker buys the flight from the operator and resells it in its own name. Which model is that?',['Agent of the client','Agent of the operator','Principal','None'],'c'],
  ['You have not contacted a new lead within 48 hours. What happens?',['Nothing','It moves to another broker with its history at the next assignment round','It is deleted','You lose commission on all trips'],'b'],
- ['A broker with booking rights sells a trip. Who issues its confirmation?',['The same broker','Another operations member or the director','The client','The operator'],'b']
+ ['A broker sells a trip. Who issues its confirmation?',['The same broker','The owner, or a person the owner has mandated','The client','The operator'],'b']
 ]));
 
 // ================= MODULE 2
@@ -332,7 +330,7 @@ push(T([['Client type',2400],['What we collect',4400],['Check',2840]],[
 push(sp());
 push(P('Record the KYC reference on the Arche charter confirmation. Repeat clients: refresh KYC at least once a year or when details change.'));
 push(H2('3.2 Sanctions screening, step by step'));
-push(NL(['List every name to screen: client, payer, ultimate beneficial owners, every passenger, the operator and the aircraft owner if known.','Check who owns and controls each company you screen (client, payer, operator). Under US rules, a company owned 50% or more in total by one or more blocked persons is itself blocked, even when its own name is on no list (OFAC FAQs 401 and 402). EU guidance treats owning 50% or more, or control such as the power to appoint most of the board, the same way (EU Council Best Practices, 3 July 2024). A company owned or controlled by a listed person counts as a match.','Search each name on the official lists in Appendix D: United Nations consolidated list; Singapore (Monetary Authority of Singapore, and the First Schedule of the Terrorism (Suppression of Financing) Act); United States (OFAC sanctions list search); European Union consolidated list; United Kingdom (UK Sanctions List, the single UK list since 28 January 2026); for Asia-Pacific trips also Australia (DFAT), Japan (Ministry of Finance), Malaysia (Ministry of Home Affairs) and Thailand (AMLO). The portal does this for you: it screens the client, company, payer and operator as you type and when you save the trip, against all these lists, refreshed every day, and shows the result in Trip checks with the list and the date. You add the passengers, owners and aircraft owner. A name on the MAS Investor Alert List (Singapore) is a warning to check, not a sanctions match; an operator on the EU Air Safety List is never used.','Search with full name and date of birth; also try common alternative spellings.','Check nationality and the route against Module 2.4 (for example the EU rules on Russian nationals and aircraft) and against countries under embargo.','Record the result: in the portal, operations enters every name in the Sanctions screening box on the trip and presses Screen names now, which checks the official UN, US, EU and UK lists, then saves the record (date, person, lists, outcome). A confirmation cannot be issued without it. Without the portal, use the official search pages and the sanctions screening record (Appendix B).','Screen again if any name, passenger or the route changes.']));
+push(NL(['List every name to screen: client, payer, ultimate beneficial owners, every passenger, the operator and the aircraft owner if known.','Check who owns and controls each company you screen (client, payer, operator). Under US rules, a company owned 50% or more in total by one or more blocked persons is itself blocked, even when its own name is on no list (OFAC FAQs 401 and 402). EU guidance treats owning 50% or more, or control such as the power to appoint most of the board, the same way (EU Council Best Practices, 3 July 2024). A company owned or controlled by a listed person counts as a match.','Search each name on the official lists in Appendix D: United Nations consolidated list; Singapore (Monetary Authority of Singapore, and the First Schedule of the Terrorism (Suppression of Financing) Act); United States (OFAC sanctions list search); European Union consolidated list; United Kingdom (UK Sanctions List, the single UK list since 28 January 2026); for Asia-Pacific trips also Australia (DFAT), Japan (Ministry of Finance), Malaysia (Ministry of Home Affairs) and Thailand (AMLO). The portal does this for you: it screens the client, company, payer and operator as you type and when you save the trip, against all these lists, refreshed every day, and shows the result in Trip checks with the list and the date. You add the passengers, owners and aircraft owner. A name on the MAS Investor Alert List (Singapore) is a warning to check, not a sanctions match; an operator on the EU Air Safety List is never used.','Search with full name and date of birth; also try common alternative spellings.','Check nationality and the route against Module 2.4 (for example the EU rules on Russian nationals and aircraft) and against countries under embargo.','Record the result: in the portal, the broker enters every name in the Sanctions screening box on the trip and presses Screen names now, which checks the official UN, US, EU and UK lists, then saves the record (date, person, lists, outcome). A confirmation cannot be issued without it. Without the portal, use the official search pages and the sanctions screening record (Appendix B).','Screen again if any name, passenger or the route changes.']));
 push(box('A possible match',['Stop. Do not tell the client why. Do not take payment. Report to the director the same day, with the screening record. Only the director decides whether to proceed.']));
 push(sp());
 push(H2('3.3 Export controls'));
@@ -506,7 +504,7 @@ push(H2('8.2 Operator vetting standard'));
 push(T([['Check',2600],['Standard',4140],['Evidence on file',2900]],[
  ['AOC','Valid commercial AOC; aircraft listed in the operations specifications','AOC and operations specifications'],
  ['Insurance','Current certificate covering commercial passenger flights, with passenger liability of at least USD 50 million for jets and USD 25 million for turboprops','Insurance certificate; the amount recorded in the portal'],
- ['Safety audit','ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3: current on the date of the last flight and held by the AOC that flies the trip. Every other case (ARGUS Gold or Gold Certified, IS-BAO Stage 1, WYVERN Registered, another audit or none) only as an Arche-approved operator or with the director\'s approval for one trip (8.3)','The auditor\'s own registry entry or certificate, checked at the source for each booking no more than 14 days before it goes to operations, saved on the trip with the expiry date. For an Arche-approved operator: the entry on the approved-operator list, valid on the date of the last flight'],
+ ['Safety audit','ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3: current on the date of the last flight and held by the AOC that flies the trip. Every other case (ARGUS Gold or Gold Certified, IS-BAO Stage 1, WYVERN Registered, another audit or none) only as an Arche-approved operator or with the director\'s approval for one trip (8.3)','The auditor\'s own registry entry or certificate, checked at the source for each booking no more than 14 days before it goes for the owner\'s check, saved on the trip with the expiry date. For an Arche-approved operator: the entry on the approved-operator list, valid on the date of the last flight'],
  ['Crew','Two pilots on every jet flight; crew type-rated and current on the aircraft','Operator\'s written confirmation'],
  ['Banned lists','Operator not on the EU Air Safety List or any similar national ban','Search result with date'],
  ['Foreign permissions','The authorisations needed for the route (for example EASA TCO, US authority, CAAS operations permit)','Operator\'s written confirmation'],
@@ -604,9 +602,9 @@ push(T([['Step',600],['What happens',6040],['Where',3000]],[
 ]));
 push(sp());
 push(P('Only our margin enters Arche\'s own bank account. Operator money never passes through it.'));
-push(P('The rule behind the order: Arche never pre-funds. At every moment the client money held covers what Arche would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, operations cancels with the operator before the operator\'s next charge starts; the portal shows that date on Today.'));
+push(P('The rule behind the order: Arche never pre-funds. At every moment the client money held covers what Arche would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, the owner, or a person the owner has mandated, cancels with the operator before the operator\'s next charge starts; the portal shows that date on Today.'));
 push(H3('Deadlines the portal watches'));
-push(BL([`Payment reminders: when the director has switched them on, the client gets an email 3 days and 1 day before each payment in the schedule, until the money has cleared.`,`Client payment overdue: an urgent alert to operations at once; the next person is added if nobody acts.`,`Unsigned offer past its validity: it lapses by itself. Confirm the operator\'s hold before accepting a signature or money, or close it.`,`Critical: operator deadline, the highest alert: from 12 hours before the operator\'s charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, everyone involved (operations, the director, the trip\'s broker) gets a phone alert every 10 minutes day and night, an email every hour and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled. Arche is liable from that moment.`,`Cancelling is one click by operations or the director, never automatic: cancel on Avinode first and get the operator\'s written charge, enter it, then send. The portal sends the client the notice with the A9 charge and records the cancellation.`]));
+push(BL([`Payment reminders: when the director has switched them on, the client gets an email 3 days and 1 day before each payment in the schedule, until the money has cleared.`,`Client payment overdue: an urgent alert to the owner at once; the next person is added if nobody acts.`,`Unsigned offer past its validity: it lapses by itself. Confirm the operator\'s hold before accepting a signature or money, or close it.`,`Critical: operator deadline, the highest alert: from 12 hours before the operator\'s charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, everyone involved (the director, the trip\'s broker) gets a phone alert every 10 minutes day and night, an email every hour and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled. Arche is liable from that moment.`,`Cancelling is one click by the owner or a person the owner has mandated, never automatic: cancel on Avinode first and get the operator\'s written charge, enter it, then send. The portal sends the client the notice with the A9 charge and records the cancellation.`]));
 push(H2('10.3 Refunds, changes and disputes'));
 push(BL(['Refunds go back the same way they came, to the same payer, from the payment account.','Schedule changes: get the operator\'s new price in writing; issue an amended confirmation; collect any difference before the flight.','Card chargebacks or disputes: escalate to the director the same day with the file.']));
 push(H2('10.4 The booking file'));
@@ -629,7 +627,7 @@ push(T([['When',2300],['What must happen',4840],['Where it is set',2500]],[
 push(sp());
 push(P(`Book as early as the client allows. Every day closer to departure means fewer aircraft to choose from, permits and slots that are harder to get, and payment due at once.`));
 push(H2('10.7 How to book in the Arche portal, step by step'));
-push(NL([`Open the enquiry: from a lead with "Open an enquiry", or with New enquiry. For each airport, type a city, airport name or code and pick from the list; the portal stores the ICAO code.`,`Add the client requests and operational extras, each with how it is charged (Module 9.8). Use the suggestions as prompts and confirm every item with the operator or supplier.`,`Enter the operator quote from Avinode: operator legal name as on its AOC, aircraft type, registration, Avinode trip ID, the operator all-in price and any direct trip costs. The portal sets the client price at 9%.`,`Enter the operator's terms from its quote or contract on Avinode: its cancellation scale, its payment terms, and its insurance (insurer, amount, expiry, aircraft on the certificate, route inside the cover, how it was confirmed with the insurer). If the operator is in the operator library, press "Use the terms on file" and check them against this quote.`,`Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents. Documents stay in the portal: never email passports or contracts.`,`Tick the pre-issue checks (insurance and operator terms are ticked by the portal from what you entered) and send the trip to operations.`,`Operations confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal (the tick "Operator contract matches" in the portal), completes KYC and sanctions screening, creates the payment request and issues the charter confirmation. The offer cannot run past the operator's hold. The PDF is saved to the trip; any change after issue becomes a numbered revision.`,`Operations records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment (never more than received) and the flight. Your commission then appears on your dashboard.`]));
+push(NL([`Open the enquiry: from a lead with "Open an enquiry", or with New enquiry. For each airport, type a city, airport name or code and pick from the list; the portal stores the ICAO code.`,`Add the client requests and operational extras, each with how it is charged (Module 9.8). Use the suggestions as prompts and confirm every item with the operator or supplier.`,`Enter the operator quote from Avinode: operator legal name as on its AOC, aircraft type, registration, Avinode trip ID, the operator all-in price and any direct trip costs. The portal sets the client price at 9%.`,`Enter the operator's terms from its quote or contract on Avinode: its cancellation scale, its payment terms, and its insurance (insurer, amount, expiry, aircraft on the certificate, route inside the cover, how it was confirmed with the insurer). If the operator is in the operator library, press "Use the terms on file" and check them against this quote.`,`Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents. Documents stay in the portal: never email passports or contracts.`,`Complete KYC and sanctions screening and record them on the trip. Create the client's payment request and record its reference on the trip.`,`Tick the pre-issue checks (insurance and operator terms are ticked by the portal from what you entered) and press "Send for owner check".`,`The owner confirms the operator price on Avinode, sends Request to Book, records until when the operator holds the aircraft, attaches the operator's contract and confirms it matches the terms in the portal (the tick "Operator contract matches" in the portal), approves the booking and issues the charter confirmation. The offer cannot run past the operator's hold. The PDF is saved to the trip; any change after issue becomes a numbered revision.`,`The owner records each client payment as it clears, signs the operator's contract on Avinode when the portal shows the client money covers it, records each operator payment (never more than received) and the flight. Your commission then appears on your dashboard.`]));
 push(quiz(10,[
  ['The operator\'s cancellation terms are stricter than Part A. What happens?',['Issue anyway with our scale','The client pays the higher charge, and the confirmation prints it for each period','Change Part A yourself','Ask the client'],'b'],
  ['The client\'s deposit has arrived. The operator wants 50% when its contract is signed, more than the deposit. What do you do?',['Sign and pay; Arche covers the gap','Collect the payment the schedule shows first; sign the operator\'s contract only once that money is held','Ask the operator to wait and tell nobody','Skip the operator\'s contract'],'b'],
@@ -639,7 +637,7 @@ push(quiz(10,[
 ]));
 
 // ================= MODULE 11
-push(H1('Module 11  Trip operations, disruption and the 24/7 desk',false));
+push(H1('Module 11  Trip operations and disruption',false));
 push(H2('11.1 Before the flight'));
 push(BL(['Send passenger details to the operator as early as possible and by its deadline.','Confirm permits and slots are approved (operator or trip-support confirmation).','Confirm catering, ground transport and special requests in writing.','Confirm every client request and operational extra with the operator or supplier in writing, with how it is charged.','From 48 hours before: check the forecast for de-icing and delays, the airport\'s hours for the planned times, and the crew plan for long or late days.','Send the client the trip brief (Appendix B): aircraft, operator, FBO address, arrival time, document reminder and our 24-hour contact.']));
 push(H2('11.2 Day of flight'));
@@ -653,12 +651,12 @@ push(T([['Event',2200],['First actions',7440]],[
  ['Any safety concern','Never press an operator to fly; safety decisions belong to the crew and operator.'],
 ],{size:17}));
 push(sp());
-push(H2('11.4 The 24/7 desk'));
-push(BL(['Months 1 to 8: brokers share an on-call rota set by the director; the on-call broker answers the client line and operator calls out of office hours.','From month 9: the four-person operations desk covers 24 hours in shifts.','Every shift ends with a written handover in the desk log (Appendix B): live trips, open issues, promised call-backs.','Any disruption that needs extra cost or a change of operator is escalated to the director at any hour.']));
+push(H2('11.4 Out of hours'));
+push(BL(['Brokers share an on-call rota set by the director; the on-call broker answers the client line and operator calls out of office hours.','Every on-call shift ends with a written handover note (Appendix B): live trips, open issues, promised call-backs.','Any disruption that needs extra cost or a change of operator is escalated to the director at any hour.']));
 push(H2('11.5 After the flight'));
 push(P(`A trip is not finished when the aircraft takes off. The broker who sold it follows it to the last landing and then follows up with the client. A file is closed only when every step below is done.`));
 push(H3('Follow the trip to the last leg'));
-push(BL([`Watch every leg in the portal under Flight following: departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times; the 24/7 desk covers the hours you are off duty.`,`Tell the client at once about any delay, diversion or change, with what happens next (Module 11.3).`,`The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. Operations then records the flight.`]));
+push(BL([`Watch every leg in the portal under Flight following: departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times; the on-call broker covers the hours you are off duty.`,`Tell the client at once about any delay, diversion or change, with what happens next (Module 11.3).`,`The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. The owner, or a person the owner has mandated, then records the flight.`]));
 push(H3('Follow up with the client'));
 push(BL([`Within 24 hours of the last landing, the broker calls or messages the client or the assistant personally: was everything as promised, and is anything still open. Log it in the portal (Aftercare).`,`At the same time, send the client the rating request from the portal (template B.10). It asks for a score from 1 to 5 for the trip overall, the aircraft, the crew and the broker, and for any comment. The client answers with one click from the email; nothing is required.`,`Record the answer in the portal when it arrives. A score of 3 or less, or any complaint, starts service recovery: the broker calls the client within 1 working day, the director is told the same day, and anything about the operator is recorded for the operator scorecard.`,`Ratings feed the broker's service score and the operator scorecard in Control, so we book the operators our clients rate highest. Never publish a client's rating or words without the client's written consent, and never write, offer a reward for or edit a review.`]));
 push(H3('Settle and close'));
@@ -673,11 +671,11 @@ push(quiz(11,[
  ['How soon after the last landing does the broker follow up personally?',['Within 24 hours','Within 7 days','Only if the client complains','Never; the operator does it'],'a'],
  ['An AOG means the replacement costs more. Who approves the extra cost?',['The broker','The director','The client\'s assistant','The operator'],'b'],
  ['The captain says the weather makes departure unsafe. You:',['Ask him to try anyway','Accept the decision and look after the client','Find another crew','Cancel without telling the client'],'b'],
- ['What must every desk shift end with?',['A phone call to the director','A written handover in the desk log','Nothing','An email to clients'],'b'],
+ ['What must every on-call shift end with?',['A phone call to the director','A written handover note in the handover log','Nothing','An email to clients'],'b'],
 ]));
 
 // ================= MODULE 12
-push(H1('Module 12  Selling and the consultant desk',false));
+push(H1('Module 12  Selling and account management',false));
 push(H2('12.1 The Arche standard'));
 push(BL(['Answer every enquiry the same business day; urgent same-day trips at once.','Say what you will do and by when, then do it.','Write as you speak: short, clear, no jargon, no exaggeration.','Never criticise competitors or operators to a client.','Confirm everything important in writing.']));
 push(H2('12.2 Inbound calls'));
@@ -691,9 +689,7 @@ push(T([['Client says',3400],['Answer along these lines',6240]],[
  ['"Why do you need my passport?"','The law and the operator require it for every passenger; it is stored securely and used only for the flight.'],
 ]));
 push(sp());
-push(H2('12.4 Charter consultants (outbound)'));
-push(BL(['Call only lists approved by the director; never buy or scrape lists.','Check numbers against the national do-not-call register where one exists (for example Singapore\'s Do Not Call Registry) and record every opt-out at once.','Say who you are and why you call in the first sentence; use the outbound script (Appendix B).','Hand every live trip to a broker for sourcing and pricing until certified as a broker.','Log every call and outcome in the CRM.']));
-push(H2('12.5 Account management and growth'));
+push(H2('12.4 Account management and growth'));
 push(BL([`Every enquiry moves through the CRM pipeline: new, qualified, quoted, won or lost, with the reason for a loss.`,`Follow up every quote before it expires.`,`For repeat clients, keep their preferences (catering, seating, cars) with their consent, and use them on the next trip.`,`Ask for feedback after every trip and act on it.`,`Ask satisfied clients for introductions; never pay for referrals without the director's approval.`]));
 push(T([['What the director tracks',4800],['Why',4840]],[
  ['Response time to new enquiries','Clients book with whoever answers well and first'],
@@ -702,7 +698,7 @@ push(T([['What the director tracks',4800],['Why',4840]],[
  ['Bookings without errors','The Arche standard'],
 ]));
 push(sp());
-push(H2('12.6 Negotiating with clients'));
+push(H2('12.5 Negotiating with clients'));
 push(BL([`Sell value, not discounts: aircraft, operator safety, service and certainty.`,`Offer two or three options at different prices rather than cutting the margin.`,`Below 9% needs the director's approval (Module 9).`]));
 push(quiz(12,[
  ['Before calling a number from a new list, you must:',['Call at once','Check the national do-not-call register and record opt-outs','Send a message first','Ask the operator'],'b'],
@@ -723,7 +719,7 @@ CASE('Case 3  Long range, Asia to Europe','A family of 10 wants Singapore to Lon
 CASE('Case 4  An empty leg','An operator lists Geneva – Dubai empty in three days. A client wants it.',[
  'Screen client and passengers; check nationality against the EU rules on Russian nationals and aircraft (Module 2.4).','Get the operator\'s empty-leg conditions in writing: it can cancel or change if the main charter changes.','Price with the formula on the empty-leg price; quote as "empty leg" with those conditions.','Confirmation prints the empty-leg conditions; the client confirms he accepts the risk; payment through a payment request.']);
 CASE('Case 5  Aircraft grounded on the day','Nice – New York booked. Three hours before departure the operator reports a technical fault (AOG).',[
- 'Ask the operator for a replacement aircraft of equal or higher category under its contract.','If none: search Avinode and direct operators at once; vet the replacement (Module 8).','Any extra cost: director approval before commitment.','Tell the client what happened, what you are doing and when you will update; keep updating.','Record everything in the file and the desk log; agree any refund or credit under the confirmation.']);
+ 'Ask the operator for a replacement aircraft of equal or higher category under its contract.','If none: search Avinode and direct operators at once; vet the replacement (Module 8).','Any extra cost: director approval before commitment.','Tell the client what happened, what you are doing and when you will update; keep updating.','Record everything in the file and the handover log; agree any refund or credit under the confirmation.']);
 CASE('Case 6  A compliance stop','A new client company asks for Dubai – Paris. The payer is a different company in a third country; one passenger shares a name with a listed person.',[
  'Payer different from client: get the payer\'s identity and reason; director approval needed (Module 3.1).','Possible sanctions match: stop; no payment; no explanation to the client; report to the director with the screening record.','Do not continue sourcing until the director decides.']);
 
@@ -774,12 +770,12 @@ push(P('Our payment provider is still being chosen. Training on payment requests
 push(H3('Step 5  What our payment provider cannot do'));
 push(P('Every payment provider refuses some countries and activities. Appendix G.7 lists the countries we cannot take payments from or pay to; check it before you quote.'));
 push(H3('Step 6  Live sessions and practice'));
-push(BL(['When Arche joins Avinode, ask the onboarding team for a live broker session for every broker and consultant, using our own account and settings.','Ask our payment provider for a training session: payment requests, card and bank payments, currency accounts, operator payouts, refunds, user rights and fraud controls.','Ask whether Avinode offers a practice or test environment for trainees.','Exit check for stage 3: one practice quote and one practice payment request completed, reviewed by the director.']));
+push(BL(['When Arche joins Avinode, ask the onboarding team for a live broker session for every broker, using our own account and settings.','Ask our payment provider for a training session: payment requests, card and bank payments, currency accounts, operator payouts, refunds, user rights and fraud controls.','Ask whether Avinode offers a practice or test environment for trainees.','Exit check for stage 3: one practice quote and one practice payment request completed, reviewed by the director.']));
 push(P('The Help Center has more articles under Getting Started and Scheduling and Quoting. Settings articles (logo, notification lists, trip statuses, user permissions) are for the director, who sets up the account.'));
 push(H2('14.3 External courses'));
 push(P(`The Air Charter Association's Air Charter Essentials Certificate is a one-day introduction for new staff with limited or no aviation background: air charter roles, the commercial process, aviation geography, flight routing, time zones, airport operations and aircraft knowledge, with an assessment and a certificate for those who pass. It is open to non-members. As at October 2026 it runs in person at London Gatwick (next date 3 February 2027) and an online version is announced for January 2027. Published fees: USD 680 (GBP 495) for non-members; USD 405 (GBP 295) for staff of member companies and for people aged 18 to 25.`));
 push(H3('Arche sponsorship (proposed)'));
-push(BL([`Who: brokers and consultants who have passed the written exam (stage 2) and completed 3 supervised bookings, or earlier for a trainee the director nominates.`,`What: Arche pays the course fee directly to the ACA. Book the online course when it opens (January 2027); the in-person course only when a trainee is in the UK anyway.`,`Repayment: if the broker's agreement ends within 12 months of the course, the broker repays 100% within 6 months and 50% between 6 and 12 months. This must be written into the broker agreement first; confirm the wording with counsel.`,`Record: the certificate goes into the training record. It is an external credential only: Arche's own rules, pricing and procedures stay in this manual and are not shared with outside courses.`,`Next step: when Arche joins the ACA, high-potential brokers can add the Broker Qualification Level 1, and member rates apply to Essentials.`]));
+push(BL([`Who: brokers who have passed the written exam (stage 2) and completed 3 supervised bookings, or earlier for a trainee the director nominates.`,`What: Arche pays the course fee directly to the ACA. Book the online course when it opens (January 2027); the in-person course only when a trainee is in the UK anyway.`,`Repayment: if the broker's agreement ends within 12 months of the course, the broker repays 100% within 6 months and 50% between 6 and 12 months. This must be written into the broker agreement first; confirm the wording with counsel.`,`Record: the certificate goes into the training record. It is an external credential only: Arche's own rules, pricing and procedures stay in this manual and are not shared with outside courses.`,`Next step: when Arche joins the ACA, high-potential brokers can add the Broker Qualification Level 1, and member rates apply to Essentials.`]));
 push(LK2('ACA: Air Charter Essentials Certificate','https://www.theaircharterassociation.aero/the-air-charter-essentials-certificate/','Dates, fees and booking'));
 push(P('The UK Air Charter Association runs a three-level Broker Qualification (Level 1 foundation knowledge, Level 2 operations and flight management, Level 3 advanced broker skills; Level 1 also online). It is open only to staff of member companies, so Arche must join first. Published prices per level range from about USD 610 to USD 745, with member rates lower; check the current price before booking.'));
 push(T([['ACA level',2600],['Arche modules that prepare for it',7040]],[
@@ -798,7 +794,7 @@ push(T([['Scenario',4300],['What a good answer does',5340]],[
  [`AOG: the booked aircraft is unserviceable 6 hours before departure`,`Calm, facts first; the operator's written replacement options; extra cost approved by the director, never promised on the call (Module 11.3)`],
  [`The assistant refuses the 25% deposit and wants to pay after the flight`,`Explain the booking terms (Module 10.6) and why the operator must be secured; offer card or bank payment options; no exceptions without the director`],
  [`The principal insists on a domestic leg on a foreign-registered aircraft`,`Explain cabotage in plain words; offer a local operator for that leg or a new routing; never sell it (Module 2.4)`],
- [`"Another broker quoted 15% less"`,`Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with director approval (Module 12.6)`],
+ [`"Another broker quoted 15% less"`,`Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with director approval (Module 12.5)`],
  [`A passenger is added on the day`,`Names to the operator at once; permits, insurance and seats confirmed in writing before you agree`],
  [`The client wants to bring a dog to a strict-entry country`,`Destination rules and the operator's written acceptance first; offer a route and airport that work (Appendix G.4)`],
  [`De-icing delays departure and the client is angry about the charge`,`Safety is the crew's decision; the charge is at cost with the receipt, as the confirmation says (Module 9.2)`],
@@ -824,18 +820,18 @@ push(H2('14.5 AI practice partner in the portal'));
 push(P(`Under Training, Roleplay lab, the portal's AI plays any client, assistant, family-office manager or operator, at an easy, normal or hard level, for any scenario in the bank or one you describe yourself. You speak (where the browser supports it) or type. When you end the session, the AI scores it against the same sheet, quotes the moments that cost points and shows a model answer.`));
 push(BL([`Use it as often as you like before stages 4 and 5; at least five sessions are recommended before the practical exam.`,`It is a practice partner, not an examiner: the AI can misjudge. Certification is decided only by the director's scored lab, the practical exam and the supervised bookings.`,`Sessions are saved to your training record; the director sees the number of sessions and the average score.`,`Never enter real client names or details: invent them, as in all training.`]));
 push(H2('14.6 Post-trip debrief'));
-push(P(`Every supervised booking (stage 6) ends with a short debrief between the trainee, the mentor and operations, within 3 working days of the last landing. It is recorded in the portal (template B.9). A supervised booking counts towards sign-off only when all three have completed their part.`));
+push(P(`Every supervised booking (stage 6) ends with a short debrief between the trainee, the mentor and the owner, or a person the owner has mandated, within 3 working days of the last landing. It is recorded in the portal (template B.9). A supervised booking counts towards sign-off only when all three have completed their part.`));
 push(T([['Measure',3400],['Scored 1 to 5 on',6240]],[
  [`Pre-issue checks`,`How completely and how quickly the pre-issue checklist (Appendix A.1) was done, with evidence on file`],
  [`Extras and changes`,`How clearly operational extras (de-icing, FBO and handling fees, parking) and any changes were explained to the client before and after the flight`],
  [`Client satisfaction`,`The client's rating and comments from the follow-up (Module 11.5)`],
 ]));
 push(sp());
-push(BL([`Errors: list any critical or minor error found (critical errors are defined in How to use this manual).`,`What went well, what to do differently, and one action with an owner and a date.`,`The mentor and operations sign; the trainee confirms they have read the result.`]));
+push(BL([`Errors: list any critical or minor error found (critical errors are defined in How to use this manual).`,`What went well, what to do differently, and one action with an owner and a date.`,`The mentor and the owner sign; the trainee confirms they have read the result.`]));
 push(quiz(14,[
  ['What does a trainee need to pass the live negotiation lab at stage 5?',['Any score','70 or more out of 100 with no critical point broken','A perfect score','The AI practice partner\'s approval'],'b'],
  ['Who decides certification?',['The AI practice partner','The director, through the scored lab, the practical exam and the supervised bookings','The client','The operator'],'b'],
- ['When does a supervised booking count towards sign-off?',['When it is quoted','When the client pays','When the trainee, mentor and operations have completed the post-trip debrief','After 30 days'],'c'],
+ ['When does a supervised booking count towards sign-off?',['When it is quoted','When the client pays','When the trainee, mentor and owner have completed the post-trip debrief','After 30 days'],'c'],
 ]));
 
 // ================= APPENDIX A
@@ -845,9 +841,9 @@ push(BL(['KYC complete and reference recorded','Sanctions screening record compl
 push(H2('A.2 Operator vetting checklist'));
 push(BL(['AOC','Operations specifications','Insurance','Audit evidence from the auditor\'s registry (Module 8.2), or the operator\'s Arche approval or the director\'s approval for this trip (8.3)','EU Air Safety List and national bans','Foreign permissions for the route','Accident and enforcement history','Sanctions screening','Contract terms'].map(t=>'☐  '+t)));
 push(H2('A.3 Pre-flight checklist'));
-push(BL(['Passenger details sent to the operator','Permits and slots confirmed','Catering and ground transport confirmed','Every client request and operational extra confirmed in writing','De-icing, airport hours and crew plan rechecked against the forecast and final times','Trip brief sent to the client','24-hour contact on duty; desk log updated'].map(t=>'☐  '+t)));
+push(BL(['Passenger details sent to the operator','Permits and slots confirmed','Catering and ground transport confirmed','Every client request and operational extra confirmed in writing','De-icing, airport hours and crew plan rechecked against the forecast and final times','Trip brief sent to the client','On-call broker named; handover log updated'].map(t=>'☐  '+t)));
 push(H2('A.4 After-flight checklist'));
-push(BL([`Every leg followed to landing in the portal; changes told to the client at once`,`Follow-up call or message within 24 hours of the last landing, logged`,`Rating request sent (B.10); answer recorded when it arrives`,`Score of 3 or less or a complaint: service recovery started, director told`,`Operator invoice and receipts collected; items at cost recharged within 7 days through a payment request`,`Supervised booking: debrief (B.9) completed by trainee, mentor and operations`,`All payments settled; file closed`].map(t=>'☐  '+t)));
+push(BL([`Every leg followed to landing in the portal; changes told to the client at once`,`Follow-up call or message within 24 hours of the last landing, logged`,`Rating request sent (B.10); answer recorded when it arrives`,`Score of 3 or less or a complaint: service recovery started, director told`,`Operator invoice and receipts collected; items at cost recharged within 7 days through a payment request`,`Supervised booking: debrief (B.9) completed by trainee, mentor and the owner, or a person the owner has mandated`,`All payments settled; file closed`].map(t=>'☐  '+t)));
 
 // ================= APPENDIX B TEMPLATES
 push(H1('Appendix B  Templates',true));
@@ -874,14 +870,12 @@ push(sp());
 push(H2('B.7 Call scripts'));
 push(box('Inbound',['"Arche Executive, [name] speaking. How can I help?" – listen – "May I take a few details so I can find the right aircraft?" – capture with the intake form – "Who will be travelling and who will look after payment?" – "I will come back to you with options by [time]."']));
 push(sp());
-push(box('Outbound (consultants)',['"Good morning, this is [name] from Arche Executive, a private jet charter broker. I am calling because [reason]. Is this a convenient moment?" – if no, ask when – if not interested, thank them and record the opt-out at once.']));
-push(sp());
-push(H2('B.8 Desk handover log'));
+push(H2('B.8 Handover log'));
 push(T([['Field',3600],['Entry',6040]],[['Shift and staff',''],['Live trips and status',''],['Open issues and owners',''],['Promised call-backs (who, when)',''],['Escalations to the director','']]));
 
 // ================= APPENDIX C ANSWERS
 push(H2('B.9 Post-trip debrief form'));
-push(box('Debrief (supervised bookings)',[`Trip reference: [ref]   Last landing: [date]   Trainee: [name]   Mentor: [name]   Operations: [name]`,`1. Pre-issue checks (A.1): score 1–5 [ ]  Evidence on file: yes / no  Comment: [ ]`,`2. Extras and changes explained to the client: score 1–5 [ ]  Comment: [ ]`,`3. Client satisfaction: client rating [ ] / 5  Comment from the follow-up: [ ]`,`Errors found: critical [list or none]  minor [list or none]`,`What went well: [ ]   What to do differently: [ ]`,`Action: [what] by [who] by [date]`,`Signed: mentor [ ]  operations [ ]  trainee has read [ ]`]));
+push(box('Debrief (supervised bookings)',[`Trip reference: [ref]   Last landing: [date]   Trainee: [name]   Mentor: [name]   Owner: [name]`,`1. Pre-issue checks (A.1): score 1–5 [ ]  Evidence on file: yes / no  Comment: [ ]`,`2. Extras and changes explained to the client: score 1–5 [ ]  Comment: [ ]`,`3. Client satisfaction: client rating [ ] / 5  Comment from the follow-up: [ ]`,`Errors found: critical [list or none]  minor [list or none]`,`What went well: [ ]   What to do differently: [ ]`,`Action: [what] by [who] by [date]`,`Signed: mentor [ ]  owner [ ]  trainee has read [ ]`]));
 push(H2('B.10 Follow-up message and rating request'));
 push(box('Text',[`Subject: Your flight [route], [date] – how did we do?`,`Dear [name], welcome back. Thank you for flying with Arche Executive. I hope everything was as you expected.`,`If anything was not right, please reply to this email or call me on [number]; I will deal with it personally.`,`Would you rate your trip? One click is enough: 5 Excellent · 4 Good · 3 Fair · 2 Poor · 1 Very poor. You may add a comment for the aircraft, the crew or me.`,`We use ratings only to improve our service and choose our operators. We never publish your rating or words without your written permission.`,`Kind regards, [broker name], Arche Executive`]));
 push(H2('B.11 Live negotiation lab scoring sheet'));
@@ -1046,26 +1040,26 @@ push(H1('Appendix H  Portal guide',true));
 push(P("How every part of the Archē broker portal works, what to do when something goes wrong, and how to get the most out of it. Guide version 1.0, 18 October 2026. The same guide is in the portal under Help."));
 push(H2('H.0 How a trip moves through the portal'));
 push(typeof FLOWPNG!=='undefined'?new Paragraph({alignment:AlignmentType.CENTER,spacing:{after:120},children:[new ImageRun({type:'png',data:FLOWPNG,transformation:{width:640,height:240}})]}):null);
-push(P("Read the diagram left to right. The AI researches organisations every day and the rotation assigns them to brokers. The broker turns a lead into an enquiry, adds requests and extras and the operator quote, completes the checks and sends the trip to operations. Operations checks it on Avinode, completes KYC and the payment request and issues the confirmation. The client signs and pays through the payment request, the trip flies, operations records payments and the flight, and commission follows. Dashed arrows loop back: a lead with no contact in time returns to the rotation, and a trip with a problem returns to the broker."));
+push(P("Read the diagram left to right. The AI researches organisations every day and the rotation assigns them to brokers. The broker turns a lead into an enquiry, adds requests and extras and the operator quote, completes the checks, KYC and the payment request, and sends the trip for the owner's check. The owner, or a person the owner has mandated, checks it on Avinode, approves it and issues the confirmation. The client signs and pays through the payment request, the trip flies, the owner records payments and the flight, and commission follows. Dashed arrows loop back: a lead with no contact in time returns to the rotation, and a trip with a problem returns to the broker."));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.1 Joining, roles and access"));
 push(P([bo('Who uses it: '),r("Everyone")]));
 push(P("Only approved people can use the portal, and each person sees only what their role needs."));
 push(H3('How it works'));
-push(NL(["Open the portal link while signed in to claude.ai.", "First time: fill in Join with your full legal name as on your contract, your role, the country you work from and your academy completion code, and tick the portal agreement.", "Wait for approval. The director approves every broker before the first enquiry.", "Your role decides what you see: brokers and consultants see their own trips, leads and commission; operations sees every trip and the operations queue; the owner sees everything."]));
+push(NL(["Open the portal link while signed in to claude.ai.", "First time: fill in Join with your full legal name as on your contract, your role, the country you work from and your academy completion code, and tick the portal agreement.", "Wait for approval. The director approves every broker before the first enquiry.", "Your role decides what you see: brokers see their own trips, leads and commission; the owner, or a person the owner has mandated, sees every trip and the Owner check queue; the owner sees everything."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["The portal says it could not open", "Open it from claude.ai while signed in, using the link you were given. A copied link opened in another browser profile will not sign you in."], ["I am stuck on Request sent", "The director has not approved you yet. Ask the director; approval needs your contract and academy code."], ["I see Access ended", "Your access was ended. Contact Archē operations if you think this is a mistake."], ["I cannot see a trip or lead a colleague mentions", "Brokers see only their own trips and leads. Ask operations."]]));
+push(T([['If you see',3300],['Do this',6340]],[["The portal says it could not open", "Open it from claude.ai while signed in, using the link you were given. A copied link opened in another browser profile will not sign you in."], ["I am stuck on Request sent", "The director has not approved you yet. Ask the director; approval needs your contract and academy code."], ["I see Access ended", "Your access was ended. Contact the owner if you think this is a mistake."], ["I cannot see a trip or lead a colleague mentions", "Brokers see only their own trips and leads. Ask the owner."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Use the same claude.ai account every time: your trips and leads are tied to it.", "Bookmark the portal link on your phone; every page works on a small screen.", "Owners: Team > Invite someone to join shows where each person is in joining: the step they are on out of nine, the academy modules passed, a progress bar and when they last signed in. Log opens every step with its date, newest first."]));
 push(new Paragraph({children:[new PageBreak()]}));
-push(H2("H.2 Today (brokers and operations)"));
-push(P([bo('Who uses it: '),r("Brokers, consultants and operations")]));
+push(H2("H.2 Today (brokers and owner)"));
+push(P([bo('Who uses it: '),r("Brokers; the owner, or a person the owner has mandated")]));
 push(P("Your opening page, the only start page (the Dashboard is part of it since 31 October 2026): every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team."));
 push(H3('How it works'));
-push(NL(["Read the progress tiles: standard bookings against the monthly target, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum.", "Work Your tasks from the top. Red dots are urgent: an overdue lead, a trip returned by operations, a payment due.", "Tap a task to open the lead or trip it refers to.", "Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score."]));
+push(NL(["Read the progress tiles: standard bookings against the monthly target, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum.", "Work Your tasks from the top. Red dots are urgent: an overdue lead, a trip returned by the owner, a payment due.", "Tap a task to open the lead or trip it refers to.", "Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["My rank shows a dash", "The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."], ["Commission shows USD 0 although I have flown trips", "Commission counts only trips that have flown and whose client payment has cleared. Ask operations to record the payment."], ["A task stays on the list after I did it", "Tasks clear when the portal sees the change: log the contact, update the trip or send it to operations."]]));
+push(T([['If you see',3300],['Do this',6340]],[["My rank shows a dash", "The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."], ["Commission shows USD 0 although I have flown trips", "Commission counts only trips that have flown and whose client payment has cleared. Ask the owner to record the payment."], ["A task stays on the list after I did it", "Tasks clear when the portal sees the change: log the contact, update the trip or send it for owner check."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Start every day on the dashboard and clear the red items first.", "Overdue leads move to another broker at the next round: a two-minute logged contact keeps the lead yours.", "Use the team comparison to see where you lose points; follow-up score is usually the quickest win."]));
@@ -1074,7 +1068,7 @@ push(H2("H.3 Today (owner)"));
 push(P([bo('Who uses it: '),r("Owner")]));
 push(P("Everything that needs the owner, on one page, from any device."));
 push(H3('How it works'));
-push(NL(["Read Your decisions: trips waiting for operations, late payments and other red flags, prospects that went cold with three brokers, and join requests.", "Restart a cold prospect's rotation, mark it Do not contact, or open it to assign it yourself.", "Check Prospect rotation: last round, what moved and the figures per broker. Use Preview to see the next round, Run now to run it.", "Check Running in the background: prospect research and Google Drive backup.", "Use the analytics: gross profit from trips flown over six months, this month's funnel and confirmed trips by broker."]));
+push(NL(["Read Your decisions: trips waiting for the owner's check, late payments and other red flags, prospects that went cold with three brokers, and join requests.", "Restart a cold prospect's rotation, mark it Do not contact, or open it to assign it yourself.", "Check Prospect rotation: last round, what moved and the figures per broker. Use Preview to see the next round, Run now to run it.", "Check Running in the background: prospect research and Google Drive backup.", "Use the analytics: gross profit from trips flown over six months, this month's funnel and confirmed trips by broker."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["A background job shows not run yet or an old date", "Scheduled jobs stop when the claude.ai usage limit is reached. Check Settings > Usage in claude.ai; the job runs again at its next time."], ["Run now does nothing", "Another round may be running. Wait a minute and reload."]]));
 push(sp());
@@ -1082,23 +1076,23 @@ push(H3('Tips and tricks'));
 push(BL(["Open Today once a day: it also triggers the automatic Drive copy of new documents and, when due, the database.", "A prospect that went cold three times is often a wrong-fit organisation: consider Do not contact rather than another rotation."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.4 New enquiry and airport search"));
-push(P([bo('Who uses it: '),r("Brokers, consultants with booking rights, operations with booking rights")]));
+push(P([bo('Who uses it: '),r("Brokers")]));
 push(P("Capture the trip once, correctly, with the right airports."));
 push(H3('How it works'));
 push(NL(["Choose New enquiry, or Open an enquiry from a lead.", "Enter the client: name, company, email, phone, country of residence and the payer if different.", "For each leg type a city, airport name or code (for example London) and pick the airport from the list. The portal stores the ICAO code and shows the airport name.", "Add date, local time and passengers per leg, the aircraft category and any notes.", "Save. The trip appears under My trips as Enquiry."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["Save says choose the airport from the list", "The text typed is not a known airport. Type a city or code and pick one of the suggestions."], ["The airport I need is not offered", "The list holds 7,009 airports suitable for jets. Type the four-letter ICAO code; if it is still missing, ask operations, as the runway may be too short for jets."], ["Times look wrong", "Times are local at the departure airport. Confirm the time zone with the client in writing."]]));
+push(T([['If you see',3300],['Do this',6340]],[["Save says choose the airport from the list", "The text typed is not a known airport. Type a city or code and pick one of the suggestions."], ["The airport I need is not offered", "The list holds 7,009 airports suitable for jets. Type the four-letter ICAO code; if it is still missing, ask the owner, or a person the owner has mandated, as the runway may be too short for jets."], ["Times look wrong", "Times are local at the departure airport. Confirm the time zone with the client in writing."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Type the city, not the airport: the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget.", "Write special requests in the notes: the portal turns many of them into suggested requests and extras.", "Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts on the leaderboard."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.5 Client requests and operational extras"));
-push(P([bo('Who uses it: '),r("Brokers until the trip goes to operations; operations until the confirmation is issued")]));
+push(P([bo('Who uses it: '),r("Brokers until the trip goes for owner check; the owner, or a person the owner has mandated, until the confirmation is issued")]));
 push(P("List every request and every operational need, with how it is charged, so the confirmation is complete and nothing is invoiced by surprise."));
 push(H3('How it works'));
 push(NL(["Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions.", "Tap a suggestion to add it, or Add request / Add extra for your own.", "For each line choose the category, describe it, and choose how it is charged: included in the charter price, at cost after the flight, or fixed price.", "For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up; the portal shows it.", "Use AI: suggest more for anything the rules or route may need."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["I cannot edit the lines", "The trip is with operations or confirmed. Ask operations to change it."], ["The confirmation says a fixed price is missing", "A line set to fixed price has no supplier price. Enter it, or change the line to at cost."], ["A suggestion does not apply", "Ignore it; suggestions are prompts to ask the operator, never facts."]]));
+push(T([['If you see',3300],['Do this',6340]],[["I cannot edit the lines", "The trip is with the owner for checking, or confirmed. Ask the owner to change it."], ["The confirmation says a fixed price is missing", "A line set to fixed price has no supplier price. Enter it, or change the line to at cost."], ["A suggestion does not apply", "Ignore it; suggestions are prompts to ask the operator, never facts."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Ask about catering, cars, pets, children, luggage and allergies on the first call: changes later cost time and money.", "Winter, night departures, waiting days and international arrivals almost always bring operational extras: confirm them before quoting.", "Use fixed price only with a written supplier quote; anything that depends on the day is at cost."]));
@@ -1109,49 +1103,49 @@ push(P("Record the operator's all-in quote so the portal sets the client price a
 push(H3('How it works'));
 push(NL(["From Avinode, enter the operator's legal name as on its AOC, aircraft type, registration and Avinode trip ID.", "Enter the operator all-in price and any direct trip costs not in it (supplier items Archē buys).", "Quoted in another currency: choose it; the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3% away from it.", "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.", "Save. The trip moves to Quoted.", "When you save, the portal checks in the background: the names against the sanctions lists, the operator against the EU Air Safety List, and a US registration (N…) against the FAA list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["The price looks too high or low", "Check you entered the all-in operator price, including positioning, and no extras twice."], ["Operations changed my operator price", "Operations confirms the price on Avinode; the confirmed figure is used and the difference is flagged."]]));
+push(T([['If you see',3300],['Do this',6340]],[["The price looks too high or low", "Check you entered the all-in operator price, including positioning, and no extras twice."], ["The owner changed my operator price", "The owner, or a person the owner has mandated, confirms the price on Avinode; the confirmed figure is used and the difference is flagged."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Never round down and never quote below 9% without the director's approval.", "Re-confirm availability and price with the operator before the offer expires."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.7 Documents"));
-push(P([bo('Who uses it: '),r("Brokers until the trip goes to operations")]));
+push(P([bo('Who uses it: '),r("Brokers until the trip goes for owner check")]));
 push(P("Keep every document for the trip in one place, never in email."));
 push(H3('How it works'));
 push(NL(["Open the trip, choose the document type and the file, and select Attach.", "Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents.", "Open any document from the trip file."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["Attach does nothing", "Choose a file first. Large files take a few seconds."], ["I cannot attach after sending to operations", "Documents are locked with the trip. Send them to operations through the portal; they attach them."]]));
+push(T([['If you see',3300],['Do this',6340]],[["Attach does nothing", "Choose a file first. Large files take a few seconds."], ["I cannot attach after sending for owner check", "Documents are locked with the trip. Send them to the owner, or a person the owner has mandated, through the portal; they attach them."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Never send passports or contracts by email or chat apps.", "Name scanned files clearly before uploading."]));
 push(new Paragraph({children:[new PageBreak()]}));
-push(H2("H.8 Pre-issue checks and sending to operations"));
+push(H2("H.8 Pre-issue checks and sending for owner check"));
 push(P([bo('Who uses it: '),r("Brokers")]));
-push(P("Hand operations a complete, compliant trip."));
+push(P("Hand the owner, or a person the owner has mandated, a complete, compliant trip."));
 push(H3('How it works'));
-push(NL(["The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.", "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Arche-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.", "Send to operations. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field."]));
+push(NL(["The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.", "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Arche-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.", "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.", "Create the payment request in our payment provider and enter its reference on the trip.", "Press Send for owner check. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["Send to operations is greyed out", "One of the required items is missing; the note under the button lists them."], ["The trip came back as Returned", "Read the operations note at the top of the trip, fix it and send again."]]));
+push(T([['If you see',3300],['Do this',6340]],[["Send for owner check is greyed out", "One of the required items is missing; the note under the button lists them."], ["The trip came back as Returned", "Read the owner's note at the top of the trip, fix it and send again."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Run the AI check before sending; it catches cabotage, permits and missing information.", "A trip returned twice costs the client's confidence: complete it the first time."]));
 push(new Paragraph({children:[new PageBreak()]}));
-push(H2("H.9 Operations queue"));
-push(P([bo('Who uses it: '),r("Operations, owner, brokers with booking rights")]));
+push(H2("H.9 Owner check"));
+push(P([bo('Who uses it: '),r("The owner, or a person the owner has mandated")]));
 push(P("Check, confirm and record every trip that brokers send."));
 push(H3('How it works'));
-push(NL(["Open Operations; take the oldest trip in Waiting for operations.", "Confirm the operator price on Avinode and enter direct trip costs.", "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from the broker's save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.", "Create the payment request in our payment provider and enter its reference.", "Save, then Prepare and issue confirmation, or Return to broker with a note."]));
+push(NL(["Open Owner check; take the oldest trip waiting for the owner's check.", "Confirm the operator price on Avinode, send Request to Book and enter direct trip costs.", "Check the KYC and sanctions screening record and the payment request reference the broker recorded.", "Save. Approve the booking, then Prepare and issue confirmation; or Return to broker with a note."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["I see a note instead of the operations panel", "It is your own trip. Another operations member or the director handles it."], ["The broker's operator price differs from Avinode", "Use the Avinode figure; the difference is flagged in Control."]]));
+push(T([['If you see',3300],['Do this',6340]],[["I see a note instead of the owner check panel", "It is your own trip. Another owner or a person the owner has mandated handles it."], ["The broker's operator price differs from Avinode", "Use the Avinode figure; the difference is flagged in Control."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Work the queue oldest first; check it at least twice a day.", "Never take payment details by email; every client pays through the payment request."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.10 Charter confirmation"));
-push(P([bo('Who uses it: '),r("Brokers prepare; operations and the owner issue")]));
+push(P([bo('Who uses it: '),r("Brokers prepare; the owner, or a person the owner has mandated, issues")]));
 push(P("Produce the signed contract: booking details, requests and extras, Part A and Part B."));
 push(H3('How it works'));
-push(NL(["Open Charter confirmation from the trip. Fill in charterer address, KYC reference, lead passenger, aircraft year and seats, operator AOC and authority, signatory.", "Read the live checks on the right: fix every red item and every missing field.", "Use AI check for a second look.", "Operations issues it: the portal assigns the reference, saves the PDF to the trip and locks it.", "A change after issue: Prepare revision, then Issue revision n."]));
+push(NL(["Open Charter confirmation from the trip. Fill in charterer address, KYC reference, lead passenger, aircraft year and seats, operator AOC and authority, signatory.", "Read the live checks on the right: fix every red item and every missing field.", "Use AI check for a second look.", "The owner issues it: the portal assigns the reference, saves the PDF to the trip and locks it.", "A change after issue: Prepare revision, then Issue revision n."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["Issue is greyed out", "A required field or check is missing; the list shows which."], ["Company details are missing", "The owner must fill in Settings > Company details once."], ["The PDF did not save", "Download it from the confirmation screen and attach it to the trip."]]));
 push(sp());
@@ -1159,18 +1153,18 @@ push(H3('Tips and tricks'));
 push(BL(["Fill the confirmation while the broker still has the details fresh; drafts save automatically.", "The deposit is 25% of the charter price (at least USD 2,500); fixed extras are paid with the balance 7 days before departure."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.11 Payments, flight and commission"));
-push(P([bo('Who uses it: '),r("Operations records; everyone sees their own commission")]));
+push(P([bo('Who uses it: '),r("The owner, or a person the owner has mandated, records; everyone sees their own commission")]));
 push(P("Record money and flights so commission is right and on time."));
 push(H3('How it works'));
-push(NL(["Operations records the date the client payment cleared in the payment account.", "Operations records the operator payment.", "After the last leg, operations records the flight date.", "Commission appears in the month the trip flew, paid by the 15th of the next month; the owner marks it paid."]));
+push(NL(["The owner records the date the client payment cleared in the payment account.", "The owner records the operator payment.", "After the last leg, the owner records the flight date.", "Commission appears in the month the trip flew, paid by the 15th of the next month; the owner marks it paid."]));
 push(H3('Troubleshooting'));
-push(T([['If you see',3300],['Do this',6340]],[["My trip flew but no commission", "The client payment has not been recorded, or the flight date has not. Ask operations."], ["Commission seems low", "Commission is a share of gross profit, including the margin on fixed-price extras; at-cost items carry no margin."]]));
+push(T([['If you see',3300],['Do this',6340]],[["My trip flew but no commission", "The client payment has not been recorded, or the flight date has not. Ask the owner."], ["Commission seems low", "Commission is a share of gross profit, including the margin on fixed-price extras; at-cost items carry no margin."]]));
 push(sp());
 push(H3('Tips and tricks'));
 push(BL(["Chase unpaid confirmations after 5 days: the Control page flags them.", "Record flights the day they happen, so the dashboard stays true."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.12 My leads and adding prospects"));
-push(P([bo('Who uses it: '),r("Brokers and consultants")]));
+push(P([bo('Who uses it: '),r("Brokers")]));
 push(P("Work the organisations assigned to you and add the ones you know."));
 push(H3('How it works'));
 push(NL(["Open My leads. Leads are sorted by when contact is due.", "Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note.", "Add a prospect: organisation, segment, country, public source link, contact route and why they charter.", "Add or correct a contact route on any lead to keep the database current.", "Open an enquiry from a lead when the organisation has a trip."]));
@@ -1181,7 +1175,7 @@ push(H3('Tips and tricks'));
 push(BL(["Contact new leads the same day: the 48-hour clock starts at assignment.", "Every organisation you add earns points and a bigger share of new leads; ten a month is the minimum, not the target.", "Anyone who opts out is Do not contact at once, for everyone."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.13 Prospects database"));
-push(P([bo('Who uses it: '),r("Owner and operations")]));
+push(P([bo('Who uses it: '),r("Owner")]));
 push(P("The global list of organisations, with sources, contact routes and status."));
 push(H3('How it works'));
 push(NL(["Filter by region, country, province, segment, type and status, or search.", "Open a prospect to see why, how to approach, contact routes, source, assignment history and the contact log.", "Assign it to a broker, or mark Do not contact.", "Add a prospect with its public source."]));
@@ -1192,10 +1186,10 @@ push(H3('Tips and tricks'));
 push(BL(["Use the region tiles to see where coverage is thin, then add prospects there.", "Never store private individuals' details; organisations and roles only."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.14 Prospect rotation"));
-push(P([bo('Who uses it: '),r("Runs automatically; owner and operations can run it")]));
+push(P([bo('Who uses it: '),r("Runs automatically; the owner can run it")]));
 push(P("Give every broker a fair, steady flow of leads and never let a prospect go cold."));
 push(H3('How it works'));
-push(NL(["Every 3 hours, and when the owner or operations opens the portal, the round imports prospects brokers added, catches duplicates, merges contact updates and assigns free prospects.", "Each broker is scored on country and region fit, follow-up record, conversions and fair share; brokers who add prospects get a bigger share.", "No first contact within 48 hours, or no follow-up for 14 days, and the lead moves to the next broker with its history. After three brokers it goes to the owner.", "Not now leads come back after 90 days to a different broker."]));
+push(NL(["Every 3 hours, and when the owner opens the portal, the round imports prospects brokers added, catches duplicates, merges contact updates and assigns free prospects.", "Each broker is scored on country and region fit, follow-up record, conversions and fair share; brokers who add prospects get a bigger share.", "No first contact within 48 hours, or no follow-up for 14 days, and the lead moves to the next broker with its history. After three brokers it goes to the owner.", "Not now leads come back after 90 days to a different broker."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["A broker gets no new leads", "They may be at the open-lead limit, have leads going cold, or be below the monthly minimum late in the month."], ["Rules need changing", "The owner changes them in Settings > Prospect assignment and incentives."]]));
 push(sp());
@@ -1203,7 +1197,7 @@ push(H3('Tips and tricks'));
 push(BL(["Use Preview on Today before changing the rules, to see their effect.", "Keep the number of open leads per broker realistic: fewer, worked leads beat many cold ones."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.15 Points and leaderboard"));
-push(P([bo('Who uses it: '),r("Brokers and consultants")]));
+push(P([bo('Who uses it: '),r("Brokers")]));
 push(P("Make good habits visible and reward them."));
 push(H3('How it works'));
 push(NL(["Points this month: 3 per organisation added, 1 per lead contacted per day, 1 per contact route added or corrected (up to 20), 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold.", "See your rank on the dashboard and in My leads."]));
@@ -1217,7 +1211,7 @@ push(H2("H.16 AI assistant and co-pilot"));
 push(P([bo('Who uses it: '),r("Everyone")]));
 push(P("A second pair of eyes on every trip, and answers to questions about the rules."));
 push(H3('How it works'));
-push(NL(["On a trip, use the co-pilot: check the trip, draft an email or suggest the next step.", "On a lead, use Suggest approach for a first message with an opt-out line.", "In Assistant, ask any question about the rules, a trip or an operator.", "The owner and operations can write the daily briefing in Control."]));
+push(NL(["On a trip, use the co-pilot: check the trip, draft an email or suggest the next step.", "On a lead, use Suggest approach for a first message with an opt-out line.", "In Assistant, ask any question about the rules, a trip or an operator.", "The owner can write the daily briefing in Control."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["The co-pilot asks for permission", "Allow Claude when asked, or in the artifact's Permissions menu."], ["Too many requests", "Wait a minute and try again."]]));
 push(sp());
@@ -1225,7 +1219,7 @@ push(H3('Tips and tricks'));
 push(BL(["The co-pilot sends the AI the trip facts, never passenger names or contact details. Never type passport, ID or bank numbers, passenger names or private contact details into the Assistant or a trip note (Module 3.7).", "Treat AI output as a draft: you are responsible for what you send."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.17 Control"));
-push(P([bo('Who uses it: '),r("Owner and operations")]));
+push(P([bo('Who uses it: '),r("Owner")]));
 push(P("See signs that business is leaving the portal or that money is late."));
 push(H3('How it works'));
 push(NL(["Read the flags: unpaid confirmations, old quotes and enquiries, price differences, the same client with two brokers, low quote-to-booking rates.", "Open the trip behind a flag and act.", "Write today's AI briefing for the outlook, risks and coaching."]));
@@ -1247,7 +1241,7 @@ push(H3('Tips and tricks'));
 push(BL(["Hand over clients on the day notice is given, not at the end: the leaving broker can still make the personal introduction.", "Give each client to a broker who serves the same region or language."]));
 push(new Paragraph({children:[new PageBreak()]}));
 push(H2("H.19a Reports"));
-push(P([bo('Who uses it: '),r("Owner and operations")]));
+push(P([bo('Who uses it: '),r("Owner")]));
 push(P("Charts for a quick overview and every report to download."));
 push(H3('How it works'));
 push(NL(["Open Reports. The charts show booked value and gross profit by month, trips by stage, open trips by red, amber and clear trip checks, and gross profit by broker; hover a bar for the details.", "Download a report: Trips, Payments, Commission, Compliance (KYC, sanctions screening, trip checks, insurance, audit) or Operator library, as CSV, as one Excel file with every report, or as a print view to save as PDF.", "Client email and phone and prospect contact details are never exported. Every download is logged in the access log."]));
@@ -1267,7 +1261,7 @@ push(H2("H.20 Security and access log"));
 push(P([bo('Who uses it: '),r("Owner")]));
 push(P("Keep the portal ringfenced."));
 push(H3('How it works'));
-push(NL(["Review who opened the portal and when.", "Keep the Share menu to named people: brokers Contributor, operations Editor; never a public link."]));
+push(NL(["Review who opened the portal and when.", "Keep the Share menu to named people: brokers Contributor; never a public link."]));
 push(H3('Troubleshooting'));
 push(T([['If you see',3300],['Do this',6340]],[["Someone unknown appears in the access log", "End their access and remove them from the Share menu at once."]]));
 push(sp());
@@ -1312,9 +1306,9 @@ push(P("At least 10 organisations a month, each with the public source where you
 push(H3("6. Do I get a fee for prospects I add?"));
 push(P("No. Commission rewards the booking. Adding prospects earns points, a place on the leaderboard and a bigger share of new leads, and you work your own finds first."));
 push(H3("7. Who issues the charter confirmation?"));
-push(P("Operations or the owner, after the operator price, KYC, sanctions screening and the payment request are done. Nobody issues, prices or records payment on their own booking."));
+push(P("The owner, or a person the owner has mandated, after the operator price, KYC, sanctions screening and the payment request are done. Nobody checks, prices, approves, issues or records payment on their own trip."));
 push(H3("8. The airport I want is not in the list. What do I do?"));
-push(P("Type the four-letter ICAO code. The list holds airports suitable for jets; if it is still missing, ask operations, because the runway may be too short."));
+push(P("Type the four-letter ICAO code. The list holds airports suitable for jets; if it is still missing, ask the owner, because the runway may be too short."));
 push(H3("9. Can a client pay by bank transfer to us directly?"));
 push(P("No. Clients pay only through the payment request. Never send or accept bank details by email, chat or messaging apps."));
 push(H3("10. Can I quote a domestic flight on a foreign aircraft?"));
@@ -1324,11 +1318,11 @@ push(P("It depends on the day, the aircraft and the airport. Never give a figure
 push(H3("12. Can a passenger bring a dog?"));
 push(P("Only with the destination's entry rules met and the operator's written acceptance. Some countries accept pets only on approved routes and airports. Ask before quoting."));
 push(H3("13. The client wants to change the trip after confirmation. What happens?"));
-push(P("Operations gets the operator's new price in writing and issues a numbered revision. Changes to routing or passengers need new permits and may be refused; any difference is paid before the flight."));
+push(P("The owner gets the operator's new price in writing and issues a numbered revision. Changes to routing or passengers need new permits and may be refused; any difference is paid before the flight."));
 push(H3("14. When is commission paid?"));
 push(P("For trips that have flown and whose client payment has cleared, in the month of the flight, by the 15th of the next month."));
 push(H3("15. Who sees my leads and trips?"));
-push(P("You, operations and the director. Other brokers cannot see them. Client details stay in the portal; copying them is blocked."));
+push(P("You, the director and any person the owner has mandated. Other brokers cannot see them. Client details stay in the portal; copying them is blocked."));
 
 push(H1('Appendix J  Regional quick-reference cards',true));
 push(P(`One card per region, for live enquiries: green means proceed, amber means the operator or its trip support confirms in writing before we quote, red means stop and tell the director. The cards summarise Module 2, the trip risk screen (Module 2.9) and the watchlist (Appendix G); they never replace them, and the trip risk screen is still recorded for every enquiry.`));

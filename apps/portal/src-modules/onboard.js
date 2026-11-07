@@ -55,7 +55,7 @@ const OB_ACAD = {
     lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
     m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
     m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
-    m11: ["Module 11 · Trip operations and the 24/7 desk", 12], m12: ["Module 12 · Selling and the consultant desk", 7], m13: ["Module 13 · Case studies", 9],
+    m11: ["Module 11 · Trip operations and disruption", 12], m12: ["Module 12 · Selling and account management", 7], m13: ["Module 13 · Case studies", 9],
     m14: ["Module 14 · Assessment and certification", 14], exam: ["Written exam", 0]}
 };
 function obNext(p){

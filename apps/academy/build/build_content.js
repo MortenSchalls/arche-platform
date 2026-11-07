@@ -227,7 +227,7 @@ const COURSE = [
  {id:"m9", n:"9", t:TITLES.m9},
  {id:"m10", n:"10", t:TITLES.m10},
  {id:"book", n:"10P", t:"Practical: the booking form", lab:true},
- {id:"m11", n:"11", t:"Trip operations and the 24/7 desk"},
+ {id:"m11", n:"11", t:"Trip operations and disruption"},
  {id:"m12", n:"12", t:TITLES.m12},
  {id:"m13", n:"13", t:TITLES.m13},
  {id:"m14", n:"14", t:"Assessment and certification"},
