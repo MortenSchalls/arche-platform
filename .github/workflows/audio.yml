@@ -3,7 +3,7 @@ name: Academy audio
 on:
   push:
     branches: [staging]
-    paths: ["apps/academy/audio/sample2.txt", "apps/academy/audio/samples2.py", "apps/academy/audio/samples3.py", ".github/workflows/audio.yml"]
+    paths: ["apps/academy/audio/sample2.txt", "apps/academy/audio/samples2.py", "apps/academy/audio/samples3.py", "apps/academy/audio/samples4.py", ".github/workflows/audio.yml"]
 permissions:
   contents: write
 jobs:
@@ -15,10 +15,10 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: sudo apt-get update -q && sudo apt-get install -y -q espeak-ng ffmpeg
-      - run: pip install -q "kokoro>=0.9" soundfile numpy chatterbox-tts
-      - run: mkdir -p out && python apps/academy/audio/samples3.py apps/academy/audio/sample2.txt out
+      - run: pip install -q "kokoro>=0.9" soundfile numpy
+      - run: mkdir -p out && python apps/academy/audio/samples4.py apps/academy/audio/sample2.txt out
       # the samples go to their own branch (never into staging or main), so they can be listened to and sent on
       - run: |
           git config user.name "academy-audio"; git config user.email "academy-audio@users.noreply.github.com"
           git checkout --orphan voice-samples && git rm -rq --cached . && git clean -fdxq -e out
-          cp out/*.mp3 . && git add *.mp3 && git commit -qm "Voice samples for the academy narration (round 3)" && git push -fq origin voice-samples
+          cp out/*.mp3 . && git add *.mp3 && git commit -qm "Voice samples for the academy narration (round 4)" && git push -fq origin voice-samples
