@@ -7,8 +7,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "..", "academy", "dist", "arche-broker-academy.html")
 PLATFORM = ('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>\n'
             '<script src="config.js"></script>\n<script src="platform.js"></script>\n')
-BACK = ('<a href="./" style="position:fixed;right:12px;bottom:12px;z-index:50;font:600 12px/1 system-ui,sans-serif;letter-spacing:.06em;'
-        'text-transform:uppercase;background:#2b2e33;color:#f3f5f8;padding:10px 14px;border-radius:4px;text-decoration:none">Back to the portal</a>\n')
+# "Back to the portal" sits in the header bar, not floating over the lesson (Morten, 7 Nov 2026)
+BACK = ('<script>(function(){var b=document.querySelector(".bar");if(!b)return;var a=document.createElement("a");a.href="./";'
+        'a.className="portal-link";a.textContent="Portal";a.title="Back to the portal";var s=b.querySelector(".sp");b.insertBefore(a,s?s.nextSibling:null);})();</script>\n')
 
 # sign-in tracking on the academy page (Morten, 4 Nov 2026): when someone opens the academy signed in, the portal keeps
 # the first and last time and how many times (train/<uid>/runs/academy), plus how many password sign-ins failed on this

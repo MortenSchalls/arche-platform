@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&family=DM+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Cinzel:wght@500;600&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
 <script>(function(){var t="light";try{t=localStorage.getItem("arche.theme")||"light";}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
 <style>
 /* Layout: a training desk. Course map on the left like a flight plan, one lesson at a time on the right. Arche charcoal and steel, same faces as the charter confirmation form. */
@@ -250,6 +250,129 @@ tr.reading{outline-offset:-2px}
   .dock label.f,.dock label.check{font-size:12px}
 }
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== Archē look (Morten, 7 Nov 2026: "too generic, not professional enough"). The website's language: charcoal,
+   porcelain and silver, Prata headings, Cinzel labels, Hanken Grotesk text, hairlines, square corners, one quiet
+   steel accent, real aircraft photography. This layer overrides the older colours above. ===== */
+:root{
+  --ground:#f4f3f0; --panel:#fdfdfc; --ink:#1d2024; --muted:#555b63; --line:#dfddd8; --field:#ffffff;
+  --accent:#2b2e33; --accent-ink:#f3f5f8; --steel:#3d5a78; --steel-soft:#e8edf2;
+  --bar:#2b2e33; --bar-ink:#f3f5f8; --bar-sub:#c6cbd2; --bar-line:#4a4f57;
+  --series-1:#3d5a78; --kpi-1:#3d5a78; --kpi-2:#3d5a78; --kpi-3:#3d5a78; --kpi-4:#3d5a78; --kpi-5:#3d5a78;
+  --display:"Prata","Didot",Georgia,serif; --label:"Cinzel","Trajan Pro",Georgia,serif;
+  --body:"Hanken Grotesk","Helvetica Neue",system-ui,sans-serif; --mono:"Hanken Grotesk","Helvetica Neue",system-ui,sans-serif;
+  --r:2px;
+}
+:root[data-theme="dark"]{
+  --ground:#26292d; --panel:#2f3237; --ink:#f3f5f8; --muted:#a8aeb6; --line:#43474e; --field:#2a2d31;
+  --accent:#c6cbd2; --accent-ink:#1d2024; --steel:#a9bdd4; --steel-soft:#363f49;
+  --bar:#1f2226; --bar-ink:#f3f5f8; --bar-sub:#c6cbd2; --bar-line:#43474e;
+  --series-1:#a9bdd4; --kpi-1:#a9bdd4; --kpi-2:#a9bdd4; --kpi-3:#a9bdd4; --kpi-4:#a9bdd4; --kpi-5:#a9bdd4;
+}
+@media (prefers-color-scheme: dark){ :root[data-theme="system"]{
+  --ground:#26292d; --panel:#2f3237; --ink:#f3f5f8; --muted:#a8aeb6; --line:#43474e; --field:#2a2d31;
+  --accent:#c6cbd2; --accent-ink:#1d2024; --steel:#a9bdd4; --steel-soft:#363f49;
+  --bar:#1f2226; --bar-ink:#f3f5f8; --bar-sub:#c6cbd2; --bar-line:#43474e;
+  --series-1:#a9bdd4; --kpi-1:#a9bdd4; --kpi-2:#a9bdd4; --kpi-3:#a9bdd4; --kpi-4:#a9bdd4; --kpi-5:#a9bdd4;
+}}
+body{font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,3.6vw,42px);letter-spacing:0;line-height:1.15}
+h2{font-family:var(--display);font-weight:400;font-size:23px;letter-spacing:0;line-height:1.25}
+h3{font-size:15.5px;font-weight:600}
+.eyebrow,.map .group,.links .lab,th,.reg .in .k,.brief .doc .k{font-family:var(--label);font-weight:600;letter-spacing:.2em;font-size:11.5px;color:var(--muted)}
+.eyebrow{color:var(--steel)}
+.lede{font-size:17.5px;line-height:1.65;color:var(--muted)}
+.card,.tile,.try,.opt,.btn,.reg,.box,.fig .cv,.tw,.reveal,.issue,.calc,.res .it,.brief .doc,.leg,.fb,.cert,.codebox,input,select{border-radius:var(--r)}
+.card{padding:28px 30px;gap:14px;box-shadow:0 1px 0 rgba(20,24,28,.03)}
+.card > h2:first-child::before,.card > .row:first-child > h2::before{display:none}
+.card.flat{background:transparent;border:none;border-top:1px solid var(--line);border-radius:0;padding:22px 0 0}
+.tiles > .tile{border-top:1px solid var(--line)}
+.btn{font-family:var(--body);font-weight:600;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;padding:12px 22px;background:transparent}
+.btn.primary{box-shadow:none}
+.btn.primary:hover{filter:none;background:color-mix(in srgb,var(--accent) 88%,var(--steel))}
+.code,.score,.opt .k,td.mono{font-family:var(--body);font-variant-numeric:tabular-nums}
+.bar{padding-block:12px;gap:14px}
+.bar .sub{font-family:var(--label);letter-spacing:.24em;font-size:12px;color:var(--bar-sub)}
+.barbtn,.bar .themesel{border-radius:var(--r);font-size:12px;letter-spacing:.08em}
+.chip.sync{background:transparent;color:#bfe3cc;border-color:#4d6b58}
+.portal-link{color:var(--bar-ink);text-decoration:none;font-size:12px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--bar-line);border-radius:var(--r);padding:6px 11px}
+.portal-link:hover{border-color:var(--bar-sub)}
+nav.map{background:transparent}
+.card.flat h3{font-family:var(--display);font-weight:400;font-size:21px}
+.who{font-size:13.5px}
+.prog{height:2px;border-radius:0;margin:10px 6px 18px}
+.map li button{grid-template-columns:34px 1fr auto;border-radius:0;padding:9px 8px;border-left:2px solid transparent;font-size:14px}
+.map li button[aria-current="true"]{background:transparent;border-left-color:var(--ink);font-weight:600}
+.map li button:hover:not(:disabled){background:var(--steel-soft)}
+.map .code{font-family:var(--display);font-size:13px;color:var(--muted)}
+.st{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:0;background:none!important}
+.st.done{color:var(--ok)} .st.open{color:var(--steel)} .st.soon{color:var(--muted)}
+.steps{gap:3px}.steps span{height:2px;border-radius:0}
+.steps span.on{background:var(--muted)}.steps span.cur{background:var(--ink)}
+.meta span{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:var(--r);font-weight:500;letter-spacing:.04em}
+.objs li::before{background:transparent;color:var(--steel);border:1px solid var(--steel);font-family:var(--display);font-weight:400;font-size:13px}
+.take li::before{content:"✓";background:transparent;color:var(--ok);border-color:var(--ok)}
+.try{border:1px solid var(--line);border-left:2px solid var(--steel);padding:18px 20px;background:var(--field)}
+.try .tq{font-family:var(--display);font-weight:400;font-size:18px;line-height:1.4}
+.opt{padding:12px 14px;font-size:15px;background:var(--panel)}
+.opt .k{font-family:var(--label);font-weight:600;text-transform:uppercase;color:var(--steel)}
+.box{background:transparent;border-left:2px solid var(--steel);border-radius:0;padding:4px 0 4px 18px}
+.box b{font-family:var(--display);font-weight:400;font-size:17px}
+.fig .cv{background:var(--panel)}
+.links a::after{content:"→"}
+.legal{font-size:11.5px;letter-spacing:.02em}
+/* home: a journey, not a grid */
+.next-up{position:relative;overflow:hidden;border-radius:var(--r);min-height:260px;display:flex;align-items:flex-end;color:#f3f5f8;background:#2b2e33}
+.next-up img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.62}
+.next-up::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(24,27,31,.92) 0%,rgba(24,27,31,.7) 45%,rgba(24,27,31,.1) 100%)}
+.next-up .in{position:relative;z-index:1;padding:30px 32px;display:flex;flex-direction:column;gap:10px;max-width:560px}
+.next-up .eyebrow{color:#c6cbd2}
+.next-up h2{font-size:clamp(24px,2.6vw,31px);color:#fff}
+.next-up p{color:#d5d9de;font-size:15px}
+.next-up .btn.primary{background:#f3f5f8;color:#1d2024;border-color:#f3f5f8;align-self:flex-start;margin-top:6px}
+.next-up .cr{position:absolute;right:10px;bottom:8px;z-index:1;font-size:10.5px;color:#a3a9b1}
+.next-up .cr a{color:#a3a9b1}
+.ring{position:absolute;right:28px;top:26px;z-index:1;width:84px;height:84px}
+.ring circle{fill:none;stroke-width:3}
+.ring .bg{stroke:rgba(255,255,255,.18)} .ring .fg{stroke:#f3f5f8;stroke-linecap:butt;transform:rotate(-90deg);transform-origin:50% 50%}
+.ring text{fill:#f3f5f8;font-family:var(--display);font-size:20px;text-anchor:middle}
+.ring .s{font-family:var(--label);font-size:7.5px;letter-spacing:.18em;fill:#c6cbd2}
+.chap{display:grid;grid-template-columns:180px minmax(0,1fr);gap:24px;border-top:1px solid var(--line);padding-top:22px}
+.chap-h .num{font-family:var(--label);font-size:12px;letter-spacing:.24em;color:var(--steel)}
+.chap-h h2{font-size:21px;margin-top:4px}
+.chap-h p{font-size:13px;color:var(--muted);margin-top:6px}
+.srow{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.srow li + li{border-top:1px solid var(--line)}
+.srow button{width:100%;display:grid;grid-template-columns:26px 92px minmax(0,1fr) auto;gap:12px;align-items:baseline;text-align:left;background:none;border:none;padding:13px 4px;color:var(--ink)}
+.srow button:hover:not(:disabled){background:var(--steel-soft)}
+.srow button:disabled{cursor:default;color:var(--muted)}
+.srow .mk{font-size:13px;color:var(--muted)} .srow .mk.ok{color:var(--ok)} .srow .mk.now{color:var(--steel)}
+.srow .lb{font-family:var(--label);font-size:11px;letter-spacing:.16em;color:var(--muted);font-weight:600}
+.srow .tt{font-family:var(--display);font-size:17px;line-height:1.35}
+.srow .rt{font-size:12.5px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.srow .rt.now{color:var(--steel);font-weight:600}
+/* module intro: a real aircraft, not a cartoon */
+.mhero{margin:0;position:relative}
+.mhero img{width:100%;aspect-ratio:16/6;object-fit:cover;display:block;border-radius:var(--r);background:var(--field)}
+.mhero figcaption{font-size:11px;color:var(--muted);margin-top:5px}
+.mhero figcaption a{color:var(--muted)}
+@media (max-width: 760px){
+  .chap{grid-template-columns:minmax(0,1fr);gap:8px}
+  .srow button{grid-template-columns:22px minmax(0,1fr) auto;gap:10px}
+  .srow .lb{display:none}
+  .next-up{min-height:300px}
+  .next-up .in{padding:22px 20px;max-width:none}
+  .ring{width:64px;height:64px;right:16px;top:16px}
+  .mhero img{aspect-ratio:16/8}
+  .card{padding:20px 18px}
+  .bar .sub{display:none}
+}
+@media (max-width: 560px){
+  .bar{gap:6px;padding-block:9px}
+  .bar .chip{display:none}
+  .barbtn,.portal-link,.bar .themesel{padding:5px 7px;font-size:11px;letter-spacing:.04em;height:auto}
+  .bar .themesel{max-width:72px}
+}
 </style>
 
 <header class="bar">
@@ -259,7 +382,7 @@ tr.reading{outline-offset:-2px}
   <select class="themesel" id="themeSel" aria-label="Colour theme" title="Day for daylight and long sessions; Night for low light"><option value="light">Day</option><option value="dark">Night</option><option value="system">Follow device</option></select>
   <span class="chip none" id="sync">Not signed in</span>
   <button class="barbtn audiobtn" id="audioBtn" type="button" aria-pressed="false" title="Read the training aloud">Audio off</button>
-  <button class="barbtn mapbtn" id="mapBtn" type="button" aria-expanded="false">Course map</button>
+  <button class="barbtn mapbtn" id="mapBtn" type="button" aria-expanded="false">Course</button>
 </header>
 
 <div class="dock" id="dock" hidden><div class="in">
@@ -449,19 +572,19 @@ function legal(){
   const v = $("view"); if (!v.querySelector(".legal")) v.insertAdjacentHTML("beforeend", `<p class="legal" data-nosay>© ${new Date().getFullYear()} Arche Executive. Confidential training material${ST.name ? `, issued to ${esc(ST.name)} for personal study` : ""}. Do not copy, record, forward or share. Results are reported to the director.</p>`);
   const txt = ED === "ext" ? (ST.name ? `LICENSED TO ${ST.name} · ARCHE EXECUTIVE` : "CHARTER BROKER ACADEMY · ARCHE EXECUTIVE") : (ST.name ? `CONFIDENTIAL · ${ST.name} · ARCHE EXECUTIVE` : "CONFIDENTIAL · ARCHE EXECUTIVE");
   if (legal.last === txt) return; legal.last = txt;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="520" height="260"><text x="20" y="150" transform="rotate(-22 260 130)" font-family="Arial, sans-serif" font-size="15" letter-spacing="2" fill="rgb(120,130,145)" fill-opacity="0.09">${esc(txt)}</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420"><text x="40" y="230" transform="rotate(-22 380 210)" font-family="Arial, sans-serif" font-size="13" letter-spacing="3" fill="rgb(120,130,145)" fill-opacity="0.07">${esc(txt)}</text></svg>`;
   $("wmark").style.backgroundImage = `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
 }
 
 /* ---------- views ---------- */
 function vStart(v){
   v.innerHTML = `
-    <div><p class="eyebrow">Arche Executive · Charter brokerage</p><h1>Broker Academy</h1></div>
+    <div><p class="eyebrow">Arche Executive · Broker Academy</p><h1>Welcome to the academy</h1></div>
     <p class="lede">The interactive version of the Master Training Manual. You learn the rules, practise them on real-world trips and on our booking form, and your results go to the director.</p>
     <div class="card">
       <h2>Start your training</h2>
       <div class="grid2">
-        <label class="f full" for="nm">Your full name, as on your employment contract<input id="nm" autocomplete="name" value="${esc(ST.name)}"></label>
+        <label class="f full" for="nm">Your full name, as it should appear on your training record<input id="nm" autocomplete="name" value="${esc(ST.name)}"></label>
         <label class="f full" for="rl">Training path
           <select id="rl"><option value="broker">Broker: every module, both practicals and the written exam</option><option value="consultant">Charter consultant: Modules 0 to 5, 12, case studies and the written exam</option></select></label>
       </div>
@@ -488,17 +611,35 @@ function vStart(v){
   };
 }
 
+/* the course as four chapters (Morten, 7 Nov 2026); any step not listed joins the last chapter */
+const CHAPTERS = [["I","Foundations","The industry, Archē Executive and where we may sell",["m0","m1","m2","lab"]],
+  ["II","Compliance and clients","Know your client, sanctions, fraud and qualifying an enquiry",["m3","m4","m5"]],
+  ["III","Planning, sourcing and pricing","From a feasible trip to a priced, contracted booking",["m6","m7","m8","m9","m10","book"]],
+  ["IV","Operations and certification","Running the trip, selling, case studies and the exam",["m11","m12","m13","m14","m15","exam"]]];
+const MODPH = {m0:"cat_ulr",m1:"cabin_ulr",m2:"cat_heavy",lab:"deice",m3:"fam_f8x",m4:"cabin_lg",m5:"cat_light",m6:"deice",m7:"fam_g650",m8:"cat_smid",m9:"cat_mid",m10:"cabin_lt",book:"cat_tp",m11:"cat_vip",m12:"cabin_lg",m13:"fam_f8x",m14:"cat_ulr",m15:"cat_smid",exam:"fam_g650"};
+function phCredit(p){ return p ? `Photo: ${esc(p.artist)}, <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.lic)}</a>` : ""; }
+function stepLabel(id){ const c = courseItem(id); return id === "exam" ? "Exam" : c.lab ? "Practical" : "Module " + c.n; }
 function vHome(v){
-  const path = PATH(), done = path.filter(isDone).length;
-  const tiles = path.map(id => {
-    const c = courseItem(id), m = modState(id), ok = unlocked(id);
-    return `<button type="button" class="tile" data-go="${id}" ${ok ? "" : "disabled"}><span class="code">${id === "exam" ? "Exam" : c.lab ? "Practical" : "Module " + esc(c.n)}</span><span class="tt">${esc(c.t)}</span><span class="score">${m && m.passed ? `Passed${m.total > 1 ? ` · best ${m.best}%` : ""}` : m ? `Best ${m.best}% · try again` : ok ? `Ready to start${MODS[id] ? ` · about ${MODS[id].min} min` : ""}` : "Opens after the previous step"}</span></button>`;
+  const path = PATH(), done = path.filter(isDone).length, nextId = path.find(id => !isDone(id)), all = done === path.length;
+  const mins = id => MODS[id] ? MODS[id].min : 0;
+  const nc = nextId ? courseItem(nextId) : null, nm = nextId ? modState(nextId) : null, ph = PHOTOS[MODPH[nextId] || "cat_ulr"];
+  const pct = path.length ? done / path.length : 0, C = 2 * Math.PI * 38;
+  const ring = `<svg class="ring" viewBox="0 0 84 84" aria-hidden="true"><circle class="bg" cx="42" cy="42" r="38"/><circle class="fg" cx="42" cy="42" r="38" stroke-dasharray="${(C*pct).toFixed(1)} ${C.toFixed(1)}"/><text x="42" y="46">${done}/${path.length}</text><text class="s" x="42" y="60">STEPS</text></svg>`;
+  const hero = all ? `<section class="next-up">${ph ? `<img src="${ph.src}" alt="">` : ""}<div class="in"><p class="eyebrow">Completed</p><h2>You have completed the academy</h2><p>Your completion record is ready.</p><button class="btn primary" type="button" data-go="cert">View completion record</button></div>${ring}</section>`
+    : `<section class="next-up">${ph ? `<img src="${ph.src}" alt="">` : ""}<div class="in"><p class="eyebrow">${done ? "Continue where you left off" : "Your first step"}</p><h2>${esc(stepLabel(nextId))} · ${esc(nc.t)}</h2><p>${nm ? `Best so far ${nm.best}%. Try it again when you are ready.` : mins(nextId) ? `About ${mins(nextId)} minutes${MODS[nextId] ? ` · ${MODS[nextId].secs.length} short screens` : ""}. You can stop at any time; your progress is saved.` : "A practical exercise on a real-world trip."}</p><button class="btn primary" type="button" data-go="${nextId}">${done || nm ? "Continue" : "Begin"}</button></div>${ring}${ph ? `<span class="cr">${phCredit(ph)}</span>` : ""}</section>`;
+  const used = new Set(), chaps = CHAPTERS.map((ch, i) => { const ids = ch[3].filter(id => path.includes(id)); ids.forEach(x => used.add(x)); return [ch, ids]; });
+  const rest = path.filter(id => !used.has(id)); if (rest.length) chaps[chaps.length - 1][1].push(...rest);
+  const rows = ids => ids.map(id => {
+    const c = courseItem(id), m = modState(id), ok = unlocked(id), pass = isDone(id), now = id === nextId;
+    const rt = pass ? (m && m.total > 1 ? `Passed · ${m.best}%` : "Passed") : m ? `Best ${m.best}%` : now ? (mins(id) ? `${mins(id)} min · start here` : "Start here") : mins(id) ? `${mins(id)} min` : "";
+    return `<li><button type="button" data-go="${id}" ${ok ? "" : "disabled"}><span class="mk ${pass ? "ok" : now ? "now" : ""}" aria-hidden="true">${pass ? "✓" : now ? "●" : "○"}</span><span class="lb">${esc(stepLabel(id))}</span><span class="tt">${esc(c.t)}</span><span class="rt ${now ? "now" : ""}">${rt}</span></button></li>`;
   }).join("");
+  const chapHTML = chaps.filter(([, ids]) => ids.length).map(([ch, ids]) => { const t = ids.reduce((a, id) => a + mins(id), 0), d = ids.filter(isDone).length;
+    return `<section class="chap"><div class="chap-h"><span class="num">Chapter ${ch[0]}</span><h2>${esc(ch[1])}</h2><p>${esc(ch[2])}.<br>${d} of ${ids.length} done${t ? ` · about ${t} min` : ""}</p></div><ol class="srow">${rows(ids)}</ol></section>`; }).join("");
   v.innerHTML = `
-    <div><p class="eyebrow">Overview · ${esc(roleName(ST.role))} path</p><h1>Welcome, ${esc(ST.name.split(" ")[0])}</h1></div>
-    <p class="lede">${done === path.length ? "You have completed the academy. Your completion record is ready." : `You have completed ${done} of ${path.length} steps. Work through them in order.`}</p>
-    <div class="tiles">${tiles}</div>
-    ${done === path.length ? `<div class="row"><button class="btn primary" type="button" data-go="cert">View completion record</button></div>` : ""}
+    <div><p class="eyebrow">Broker Academy · ${esc(roleName(ST.role))} path</p><h1>Welcome, ${esc(ST.name.split(" ")[0])}</h1></div>
+    ${hero}
+    ${chapHTML}
     <div class="card flat">
       <h3>Three rules that apply to every module</h3>
       <ol class="l"><li>Never state a number, time or rule you cannot show a source for. If you do not know, say you will confirm, and confirm in writing.</li><li>Nothing is promised to a client until the operator has confirmed it in writing.</li><li>When in doubt, stop and escalate to the director. A lost booking costs less than a wrong one.</li></ol>
@@ -566,11 +707,11 @@ function vModule(v, id){
     const blocks = rec.map(r => ({tryq:{q:r.q.q, o:r.q.o, a:r.q.a, why:r.q.why}, rk:r.k}));
     if (warm) blocks.push({tryq:{q:warm.q, o:warm.o, a:warm.a, why:"You will meet this in the module. " + warm.why}, warm:true});
     v.innerHTML = `${head(`1 of ${total}`)}
-      <div class="hero" aria-hidden="true">${FIGS.hero()}</div>
+      ${(p => p ? `<figure class="mhero"><img src="${p.src}" alt="${esc(p.cap)}"><figcaption>${esc(p.cap)} · ${phCredit(p)}</figcaption></figure>` : `<div class="hero" aria-hidden="true">${FIGS.hero()}</div>`)(PHOTOS[MODPH[id]])}
       ${M.intro ? `<p class="lede">${esc(M.intro)}</p>` : ""}
       <div class="meta"><span>About ${M.min} minutes</span><span>${n} short screen${n===1?"":"s"}</span>${hasQ ? `<span>Module check: ${M.quiz.length} questions</span>` : ""}</div>
       ${M.obj.length ? `<section class="card"><h2>What you will be able to do</h2><ol class="objs">${M.obj.map(o => `<li><span>${esc(o)}</span></li>`).join("")}</ol></section>` : ""}
-      ${rec.length ? `<section class="card"><h2>Quick recall</h2><p class="note">Questions you missed earlier. Answer them now: remembering is what makes it stick.</p>${blocks.filter(b => b.rk).map((b,i) => blockHTML(b, i)).join("")}</section>` : ""}
+      ${rec.length ? `<section class="card" data-nokey><h2>Quick recall</h2><p class="note">Questions you missed earlier. Answer them now: remembering is what makes it stick.</p>${blocks.filter(b => b.rk).map((b,i) => blockHTML(b, i)).join("")}</section>` : ""}
       ${warm ? `<section class="card"><h2>Warm-up</h2><p class="note">Take a guess before you start. Guessing first helps you notice the answer when you read it.</p>${blockHTML(blocks[blocks.length-1], blocks.length-1)}</section>` : ""}
       ${nav("Start")}`;
     wireTries(v, blocks, (b, ok) => { if (b.rk && ok) { dropReview(b.rk); save(); } });
@@ -607,7 +748,7 @@ function runQuiz(root, Q, onDone, onBack, opt){
         ${wrong.length ? `<div class="res">${wrong.map(w => `<div class="it fail"><span class="m">Review</span><span><b>${esc(w.q)}</b>${w.crit && exam ? `<span class="tag">Critical rule</span>` : ""}<br>${esc(w.o[w.a])}. ${esc(w.why)}</span></div>`).join("")}</div>` : `<p>Every answer correct.</p>`}
         <p class="note">${passed ? "Go through anything you got wrong with your mentor." : exam ? "Read the modules again, then retake the exam. Each attempt draws a new set of questions." : "Read the module again, then retry the check."}</p>
         <div class="row"><button class="btn" type="button" id="again">${exam ? "Retake exam" : "Retry check"}</button>${exam ? "" : `<button class="btn" type="button" id="reread">Read module again</button>`}<span class="sp"></span>${passed ? `<button class="btn primary" type="button" data-go="${nx || (ST.completedAt ? "cert" : "home")}">${nx ? "Continue" : ST.completedAt ? "View completion record" : "Overview"}</button>` : ""}</div></div>`;
-      AUDIO.screen();
+      AUDIO.screen(root);
       $("again").onclick = () => exam ? render() : runQuiz(root, Q, onDone, onBack, opt);
       if ($("reread")) $("reread").onclick = () => { VIEW.step = 0; render(); window.scrollTo({top:0}); };
       return;
@@ -618,7 +759,7 @@ function runQuiz(root, Q, onDone, onBack, opt){
       <div id="qfb"></div>
       <div class="row">${i===0 && onBack ? `<button class="btn" type="button" id="qback">Back to module</button>` : ""}<span class="sp"></span><button class="btn primary" type="button" id="qnext" disabled>${i === Q.length-1 ? (exam ? "Finish exam" : "See result") : "Next question"}</button></div></div>`;
     if ($("qback")) $("qback").onclick = onBack;
-    AUDIO.screen();
+    AUDIO.screen(root);
     root.querySelectorAll(".opt").forEach(b => b.onclick = () => {
       const j = +b.dataset.j;
       if (exam) { pick = j; root.querySelectorAll(".opt").forEach((x,k) => { x.classList.toggle("picked", k === j); x.setAttribute("aria-pressed", String(k === j)); }); $("qnext").disabled = false; return; }
@@ -1050,6 +1191,11 @@ const AUDIO = (() => {
   function pickVoice(){ const vs = voices(); return vs.find(v => v.voiceURI === cfg.voice) || vs[0] || null; }
   function fillVoices(){
     LIST = curate(); const sel = $("aVoice");
+    if (REC.man) {
+      sel.innerHTML = `<optgroup label="Recorded voices">${RVOICES.filter(v => REC.man[v[0]]).map(v => `<option value="${v[0]}">${v[1]}</option>`).join("")}</optgroup>` + (LIST.length ? `<optgroup label="This device">${LIST.map(v => `<option value="${esc(v.voiceURI)}">${esc(label(v))}</option>`).join("")}</optgroup>` : "");
+      if (!REC.man[cfg.voice] && !LIST.some(v => v.voiceURI === cfg.voice)) { cfg.voice = RVOICES.find(v => REC.man[v[0]])[0]; keep(); }
+      sel.value = cfg.voice; recUI(); return;
+    }
     if (!LIST.length) { sel.innerHTML = `<option value="">Device voice</option>`; $("aTip").hidden = false; return; }
     sel.innerHTML = LIST.map(v => `<option value="${esc(v.voiceURI)}">${esc(label(v))}</option>`).join("");
     if (!cfg.voice || !LIST.some(v => v.voiceURI === cfg.voice)) { cfg.voice = LIST[0].voiceURI; keep(); }
@@ -1060,13 +1206,47 @@ const AUDIO = (() => {
       : "More natural voices can be added in your device's text-to-speech settings.";
     $("aTip").hidden = LIST.length >= 4 && quality(LIST[0]) >= 6;
   }
+  /* ---- recorded narration (Morten, 7 Nov 2026): natural voices recorded once per screen from the same text, kept
+     privately in the portal's storage (bucket academy-audio, signed-in members only). A screen is found by a key made
+     from its text, so a changed screen simply falls back to the device voice until it is recorded again. ---- */
+  const RVOICES = [["isabella", "Isabella (British)"], ["fable", "Fable (British)"]];
+  const REC = {man:null, urls:{}, el:null, tried:false};
+  const recMode = () => !!REC.man && !!REC.man[cfg.voice];
+  const hasRec = k => !!(recMode() && REC.man[cfg.voice][k]);
+  const norm = t => String(t || "").replace(/\s+/g, " ").trim();
+  function screenKey(root){ return fnv(collect(root).filter(x => !x.el.closest("[data-nokey]")).map(x => norm(x.el.textContent)).join("|")); }
+  const fbKey = el => fnv("fb|" + norm(el.textContent));
+  async function loadMan(){
+    if (REC.man || REC.busy || !window.__sb || !window.__sb.storage) return; REC.busy = true;
+    const man = {};
+    for (const [v] of RVOICES) { try { const r = await window.__sb.storage.from("academy-audio").download(v + "/index.json"); if (r && r.data) man[v] = (JSON.parse(await r.data.text()).keys) || {}; } catch(e) {} }
+    REC.busy = false;
+    if (Object.keys(man).length) { REC.man = man; if (!cfg.picked && !RVOICES.some(v => v[0] === cfg.voice)) { cfg.voice = RVOICES.find(v => man[v[0]])[0]; keep(); } fillVoices(); }
+  }
+  const fmt = x => isFinite(x) ? Math.floor(x / 60) + ":" + String(Math.floor(x % 60)).padStart(2, "0") : "0:00";
+  function recUI(){
+    const a = REC.el, on = recMode();
+    $("aPrev").textContent = on ? "−15s" : "‹‹"; $("aNext").textContent = on ? "+15s" : "››";
+    $("aPrev").setAttribute("aria-label", on ? "Back 15 seconds" : "Previous paragraph"); $("aNext").setAttribute("aria-label", on ? "Forward 15 seconds" : "Next paragraph");
+    $("aName").hidden = on; if (on) $("aTip").hidden = true;
+    if (on && a && a.src) $("aNow").textContent = `${RVOICES.find(v => v[0] === cfg.voice)[1].replace(/ \(.*$/, "")} · ${fmt(a.currentTime)} / ${fmt(a.duration)}`;
+  }
+  async function playRec(key){
+    const path = cfg.voice + "/" + key + ".mp3"; let u = REC.urls[path];
+    if (!u) { const r = await window.__sb.storage.from("academy-audio").createSignedUrl(path, 3600); u = REC.urls[path] = r && r.data && r.data.signedUrl; }
+    if (!u) return false;
+    if (!REC.el) { REC.el = new Audio(); REC.el.preload = "auto"; REC.el.ontimeupdate = recUI; REC.el.onended = () => { playing = false; setUI(); $("aNow").textContent = "End of this screen."; }; REC.el.onpause = () => { if (playing) { playing = false; setUI(); } }; }
+    if (can) synth.cancel(); token++; mark(null);
+    REC.el.src = u; REC.el.playbackRate = +cfg.rate || 1; REC.key = key;
+    try { await REC.el.play(); playing = true; setUI(); recUI(); return true; } catch(e) { playing = false; setUI(); $("aNow").textContent = "Press Play to listen to this screen."; return true; }
+  }
   function mark(el){ if (cur) cur.classList.remove("reading"); cur = el; if (el) { el.classList.add("reading"); const r = el.getBoundingClientRect(); if (r.top < 70 || r.bottom > window.innerHeight - 130) el.scrollIntoView({block:"center", behavior:"smooth"}); } }
   function setUI(){
     btn.setAttribute("aria-pressed", String(cfg.on)); btn.textContent = cfg.on ? "Audio on" : "Audio off";
     dock.hidden = !cfg.on; document.body.classList.toggle("audio-on", cfg.on);
     $("aPlay").textContent = playing ? "Pause" : "Play";
   }
-  function stop(){ token++; playing = false; if (can) synth.cancel(); setUI(); }
+  function stop(){ token++; playing = false; if (can) synth.cancel(); if (REC.el) REC.el.pause(); setUI(); }
   /* one utterance per paragraph; very long ones split at sentence ends into chunks of about 230 characters */
   function chunks(t){
     if (t.length <= 260) return [t];
@@ -1098,27 +1278,37 @@ const AUDIO = (() => {
     if (!cfg.on) return;
     stop(); mark(null); items = collect(root); idx = 0; single = false;
     clearTimeout(screen.t);
+    const k = screenKey(root); REC.cur = k;
+    if (hasRec(k)) { if (cfg.auto) screen.t = setTimeout(() => playRec(k), 250); else { REC.pending = k; $("aNow").textContent = "Press Play to listen to this screen."; } recUI(); return; }
     if (cfg.auto) screen.t = setTimeout(() => speakFrom(0, false), 250); else { stop(); $("aNow").textContent = "Press Play to listen to this screen."; }
   }
   function focus(el){
     if (!cfg.on || !el) return;
+    if (recMode()) { const k = fbKey(el); if (hasRec(k)) { playRec(k); return; } }
     const all = collect(); const k = all.findIndex(x => x.el === el || el.contains(x.el));
     items = all; idx = k < 0 ? 0 : k; speakFrom(idx, true);
   }
   if (!can) { btn.disabled = true; btn.textContent = "Audio unavailable"; btn.title = "This browser has no built-in voice. Try Chrome, Edge or Safari."; return {screen(){}, focus(){}, speakable}; }
   fillVoices(); if (synth.addEventListener) synth.addEventListener("voiceschanged", fillVoices); else synth.onvoiceschanged = fillVoices;
   $("aRate").value = String(cfg.rate); $("aAuto").checked = cfg.auto !== false;
-  btn.onclick = () => { cfg.on = !cfg.on; keep(); setUI(); if (cfg.on) { fillVoices(); items = collect(); speakFrom(0, false); } else { stop(); mark(null); } };
-  $("aPlay").onclick = () => { if (playing) { stop(); $("aNow").textContent = "Paused."; } else { if (!items.length) items = collect(); speakFrom(idx, false); } };
-  $("aNext").onclick = () => { if (!items.length) items = collect(); speakFrom(Math.min(items.length - 1, idx + 1), false); };
-  $("aPrev").onclick = () => { if (!items.length) items = collect(); speakFrom(Math.max(0, idx - 1), false); };
-  $("aRate").onchange = e => { cfg.rate = +e.target.value; keep(); if (playing) speakFrom(idx); };
-  $("aVoice").onchange = e => { cfg.voice = e.target.value; keep(); if (playing) speakFrom(idx); };
+  btn.onclick = async () => { cfg.on = !cfg.on; keep(); setUI(); if (cfg.on) { await loadMan(); fillVoices(); screen(); } else { stop(); mark(null); } };
+  if (window.__sb) setTimeout(loadMan, 1500);
+  $("aPlay").onclick = () => {
+    if (hasRec(REC.cur)) {
+      if (playing) { REC.el.pause(); playing = false; setUI(); return; }
+      if (REC.el && REC.key === REC.cur && REC.el.src && !REC.el.ended) { REC.el.play().then(() => { playing = true; setUI(); }).catch(() => {}); return; }
+      playRec(REC.cur); return;
+    }
+    if (playing) { stop(); $("aNow").textContent = "Paused."; } else { if (!items.length) items = collect(); speakFrom(idx, false); } };
+  $("aNext").onclick = () => { if (recMode() && REC.el && REC.el.src) { REC.el.currentTime = Math.min((REC.el.duration || 0) - 0.2, REC.el.currentTime + 15); return; } if (!items.length) items = collect(); speakFrom(Math.min(items.length - 1, idx + 1), false); };
+  $("aPrev").onclick = () => { if (recMode() && REC.el && REC.el.src) { REC.el.currentTime = Math.max(0, REC.el.currentTime - 15); return; } if (!items.length) items = collect(); speakFrom(Math.max(0, idx - 1), false); };
+  $("aRate").onchange = e => { cfg.rate = +e.target.value; keep(); if (REC.el) REC.el.playbackRate = cfg.rate; if (playing && !recMode()) speakFrom(idx); };
+  $("aVoice").onchange = e => { cfg.voice = e.target.value; cfg.picked = true; keep(); stop(); recUI(); screen(); };
   $("aName").onclick = () => { if (!can) return; stop(); const u = new SpeechSynthesisUtterance(speakable("Archē Executive. Archē is said ar-KAY.")); const v = pickVoice(); if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-GB"; u.rate = +cfg.rate || 1; synth.speak(u); };
   $("aAuto").onchange = e => { cfg.auto = e.target.checked; keep(); };
   document.addEventListener("visibilitychange", () => { if (document.hidden && playing) stop(); });
   setUI();
-  return {screen, focus, speakable};
+  return {screen, focus, speakable, screenKey, fbKey, collect, textOf};
 })();
 
 /* ---------- boot ---------- */
