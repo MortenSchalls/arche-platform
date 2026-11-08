@@ -4,7 +4,7 @@
      request  {ref, airport, category, trip, neededBy, terms, scope, status, createdBy, createdAt}
      suppliers[{pid, org, eligible, reasons, sentAt, sentBy}]   eligibility is checked when the request is made
      quotes[{pid, org, usd, original, validUntil, deviations, receivedAt, by}]   all amounts in USD
-     award {pid, org, usd, reason, by, at}   four-eyes: whoever made the request cannot award it (owner exempt)
+     award {pid, org, usd, reason, by, at}   four-eyes: whoever made the request cannot award it (the Director exempt)
      log[{t, by, note}]   append-only history
    Nothing is sent from the portal: a person copies the prepared message, sends it and marks it as sent.
    Staff only (owner and operations), enforced by the database rule in supabase/migrations/0006_rfqs.sql. */
@@ -75,7 +75,7 @@ Kind regards,
 Archē Executive operations`;
 }
 function vQuotes(){
-  if (!sqStaff()) return `<div class="panel empty"><p>Supplier quotes are for the owner.</p></div>`;
+  if (!sqStaff()) return `<div class="panel empty"><p>Supplier quotes are for the Director.</p></div>`;
   const all = sqList(), F = S.sqF || (S.sqF = {status: "open"});
   const list = all.filter(r => !F.status || (r.status || "open") === F.status);
   const sel = all.find(r => r.id === S.sqSel);
@@ -120,7 +120,7 @@ function sqDetail(r){
   return `<div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(r.ref)}</h2><span class="chip ${st === "awarded" ? "c-flown" : st === "cancelled" ? "c-returned" : "c-quoted"}">${SQ_STATUS[st]}</span></div>
     <p class="small muted">${esc(r.category)} at ${esc(r.airport)}${sc.date ? " · " + fmtD(sc.date) : ""}${r.trip ? " · trip " + esc(r.trip.ref) : ""} · needed by ${fmtD(r.neededBy)} · terms: ${esc(r.terms)}</p>
     <p class="small">${esc([sc.aircraft, sc.arr && "arrives " + sc.arr + " UTC", sc.dep && "departs " + sc.dep + " UTC", sc.pax && sc.pax + " passengers", sc.crew && sc.crew + " crew", sc.rooms && sc.rooms + " rooms", sc.nights && sc.nights + " nights"].filter(Boolean).join(" · "))}${(sc.services || []).length ? "<br>Services: " + esc(sc.services.join(", ")) : ""}</p>
-    ${r.award ? `<div class="note info small"><b>Awarded to ${esc(r.award.org)} for ${usd(r.award.usd)}</b> on ${fmtD(r.award.at)}.${r.award.reason ? " Reason: " + esc(r.award.reason) : ""} Add it to the trip's direct costs in Authorisation${r.trip ? " (trip " + esc(r.trip.ref) + ")" : ""}; a price change after approval goes back to the owner.</div>` : ""}
+    ${r.award ? `<div class="note info small"><b>Awarded to ${esc(r.award.org)} for ${usd(r.award.usd)}</b> on ${fmtD(r.award.at)}.${r.award.reason ? " Reason: " + esc(r.award.reason) : ""} Add it to the trip's direct costs in Authorisation${r.trip ? " (trip " + esc(r.trip.ref) + ")" : ""}; a price change after approval goes back to the Director.</div>` : ""}
     <div><h3>Suppliers asked</h3><ul class="avs">${(r.suppliers || []).map((s, i) => {
       const p = (S.prospects || {})[s.pid], gate = p ? sqEligible(p, r.category) : {eligible: false, reasons: ["no longer on file"], flags: []};
       const q = quotes.find(x => x.pid === s.pid);

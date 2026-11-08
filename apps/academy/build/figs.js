@@ -65,14 +65,14 @@ const FIGS = (() => {
     cap:"Green legs are international; the amber leg is domestic.", say:"Map. Singapore to Bangkok and Phuket to Singapore are international legs. Bangkok to Phuket is a domestic leg in Thailand. On a foreign aircraft it is only possible as one continuous international journey, confirmed by the operator in writing."});
 
   F.rag = () => {
-    const L = [["Green","Proceed with sourcing","g"],["Amber","Operator confirms in writing before we quote","a"],["Red","Stop and escalate to the owner","r"]];
+    const L = [["Green","Proceed with sourcing","g"],["Amber","Operator confirms in writing before we quote","a"],["Red","Stop and escalate to the Director","r"]];
     return {html: `<div class="fg-rag">${L.map(l => `<div class="${l[2]}"><b>${l[0]}</b><span>${e(l[1])}</span></div>`).join("")}</div>`,
-      cap:"Every enquiry gets a colour before sourcing.", say:"Green means proceed with sourcing. Amber means the operator confirms in writing before we quote. Red means stop and escalate to the owner."};
+      cap:"Every enquiry gets a colour before sourcing.", say:"Green means proceed with sourcing. Amber means the operator confirms in writing before we quote. Red means stop and escalate to the Director."};
   };
 
   F.screen = () => ({html: `<div class="fg-flow">${node("List names","everyone involved")}${to()}${node("Search lists","UN, MAS, OFAC, EU, UK")}${to()}${node("Record","date, lists, result")}${to()}${node("Match?","","q")}</div>
     <div class="fg-fork"><div class="ok"><b>No</b><span>continue</span></div><div class="stop"><b>Possible match</b><span>stop, no payment, director</span></div></div>`,
-    cap:"Screen every name, record the result, and stop at any possible match.", say:"Flow chart. List every name, search the UN, Singapore, US, EU and UK sanctions lists, and record the date, lists and result. If there is no match, continue. If there is a possible match, stop, take no payment and report to the owner."});
+    cap:"Screen every name, record the result, and stop at any possible match.", say:"Flow chart. List every name, search the UN, Singapore, US, EU and UK sanctions lists, and record the date, lists and result. If there is no match, continue. If there is a possible match, stop, take no payment and report to the Director."});
 
   F.cycle = () => {
     const s = ["Enquiry","Qualify","Legal check","Feasibility","Sourcing","Quote","Contract and payment","Operations","Close"];
@@ -89,7 +89,7 @@ const FIGS = (() => {
   F.vet = () => {
     const s = ["All quotes received","AOC and aircraft on the operations specifications","Insurance covers commercial passengers","ARGUS Platinum, WYVERN Wingman or IS-BAO Stage 2–3","Not on any banned list; not sanctioned","Shortlist for the client"];
     return {html: `<ol class="fg-narrow">${s.map((t,i) => `<li class="${i===5?"key":""}" style="--i:${i}">${e(t)}</li>`).join("")}</ol>`,
-      cap:"Each check narrows the field. Any other operator only if the owner has approved it after the checks in 8.3.", say:"Funnel. From all quotes received, keep operators whose aircraft is on their AOC operations specifications, whose insurance covers commercial passengers, with ARGUS Platinum or Platinum Elite, WYVERN Wingman or IS-BAO Stage 2 or 3, and who are not banned or sanctioned. What remains is the shortlist for the client."};
+      cap:"Each check narrows the field. Any other operator only if the Director has approved it after the checks in 8.3.", say:"Funnel. From all quotes received, keep operators whose aircraft is on their AOC operations specifications, whose insurance covers commercial passengers, with ARGUS Platinum or Platinum Elite, WYVERN Wingman or IS-BAO Stage 2 or 3, and who are not banned or sanctioned. What remains is the shortlist for the client."};
   };
 
   F.price = () => ({html: `<div class="fg-price"><p class="fg-h">Right: divide by 0.91</p><div class="pbar"><span class="c" style="flex:91">Arche cost 100,000 = 91%</span><span class="m" style="flex:9">9%</span></div><p class="res">Client price 109,891 · margin 9,891 = 9.0%</p>

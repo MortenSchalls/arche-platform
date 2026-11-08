@@ -9,7 +9,7 @@
 (function(){
   var SB_JS = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js";
   var L = {ch: null, code: "", role: "", me: Math.random().toString(36).slice(2, 10), name: "", last: "", timer: null, obs: null, frame: null, ptr: null, leader: "", seen: 0, joined: false};
-  var NAMES = {owner: "Test Owner", ops: "Test Operations", broker: "Test Broker", broker2: "Test Broker 2", candidate: "New candidate"};
+  var NAMES = {owner: "Test Director", ops: "Test Operations", broker: "Test Broker", broker2: "Test Broker 2", candidate: "New candidate"};
   function $(id){ return document.getElementById(id); }
   function lib(){ return new Promise(function(ok, bad){
     if (window.__rtLib) return ok(window.__rtLib);

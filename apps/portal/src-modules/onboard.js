@@ -1,7 +1,7 @@
-/* ---------- Onboarding: academy first, assessment by the owner, then the onboarding package unlocks the portal (Morten, 24 Oct 2026) ----------
+/* ---------- Onboarding: academy first, assessment by the Director, then the onboarding package unlocks the portal (Morten, 24 Oct 2026) ----------
    1. A new person signs in and completes the Archē Broker Academy (academy.html, same login). Progress: progress/<uid>.
    2. They ask for assessment (the join request, academy completion code required).
-   3. The owner assesses them in Team and, only if passed, enters their dedicated Archē email address and approves.
+   3. The Director assesses them in Team and, only if passed, enters their dedicated Archē email address and approves.
       That activates the person and issues the onboarding package (roster: workEmail, onboarding).
    4. On first sign-in the portal shows only the package: Archē email, email signature (they type only their name and
       direct phone), Standards of Conduct, meeting backgrounds. Confirming it opens the desk.
@@ -106,7 +106,7 @@ function vPending(){
   let seenHere = false; try { seenHere = localStorage.getItem("arche.offerSeen." + S.uid) === "1"; } catch(e) {}
   if (S.offerOpen === undefined && p !== undefined) S.offerOpen = !S.myJoin && !a && !p && !seenHere;
   const offerOpen = !!S.offerOpen;
-  if (offerOpen && S.uid && !S.preview && !S.offerSeen) {   // the owner sees when the offer was first read (Team > Invitations)
+  if (offerOpen && S.uid && !S.preview && !S.offerSeen) {   // the Director sees when the offer was first read (Team > Invitations)
     S.offerSeen = true; try { localStorage.setItem("arche.offerSeen." + S.uid, "1"); } catch(e) {}
     S.db.doc(`train/${S.uid}/runs/offer`).get().then(d => { if (!d.exists) S.db.doc(`train/${S.uid}/runs/offer`).set({at: now()}); }).catch(() => {});
   }
@@ -116,7 +116,7 @@ function vPending(){
   // the next step at the top of the page, so nobody has to scroll past the offer to find it
   const top = !done && !S.myJoin && !a && p !== undefined ? `<div class="note info" id="obNext"><p><b>Your next step:</b> ${p ? "continue the Archē Broker Academy" : "start the Archē Broker Academy"}. ${esc(obNextText(n))}${p && n.passed ? ` · ${n.passed} of ${n.of} done` : ""}.</p><div class="row" style="margin-top:6px">${obAcadBtn(p)}</div></div>` : "";
   const s2 = S.myJoin
-    ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "mandated by the owner" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
+    ? step(3, "Assessment requested", `<p class="small">You asked for assessment as <b>${esc(S.myJoin.role === "ops" ? "mandated by the Director" : "broker")}</b> under the name <b>${esc(S.myJoin.contractName)}</b> on ${fmtD(S.myJoin.at)}.</p>`, "done")
     : step(3, "Ask for your assessment", `<p class="small">When the academy is complete, send your request with your academy completion code.</p>
     <form id="joinForm" class="stack" style="margin-top:8px">
       <div class="fgrid">
@@ -129,14 +129,14 @@ function vPending(){
       <label class="check" for="j_agree"><input type="checkbox" id="j_agree" required><span>I will make every enquiry, quote, booking and payment for Archē Executive in this portal, and nowhere else.</span></label>
       <div class="row"><button class="btn primary" type="submit">Ask for assessment</button></div>
     </form>`, done ? "now" : "");
-  const s3 = step(4, "Assessment by the owner", a ? `<p class="small">Passed. Your agreement is ready.</p>` : `<p class="small">The owner assesses your training. If you pass, your agreement appears here to read and sign.</p>`, a ? "done" : S.myJoin ? "now" : "");
+  const s3 = step(4, "Assessment by the Director", a ? `<p class="small">Passed. Your agreement is ready.</p>` : `<p class="small">The Director assesses your training. If you pass, your agreement appears here to read and sign.</p>`, a ? "done" : S.myJoin ? "now" : "");
   const s4 = step(5, "Read and sign your agreement", a && a.status === "sent" ? `<p class="small">Read it in full, fill in your details and sign it here.</p><div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="open">Read and sign</button></div>`
     : a && a.status !== "sent" ? `<p class="small">Signed on ${fmtT(a.signedAt)}.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="open">View your agreement</button></div>` : `<p class="small muted">After your assessment.</p>`, a ? (a.status === "sent" ? "now" : "done") : "");
   const s5 = step(6, "Countersignature and onboarding package", `<p class="small">Archē countersigns, creates your Archē email address and issues your onboarding package. Your portal opens straight after.</p>`, a && a.status === "signed" ? "now" : "");
   return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p><div class="row"><button class="btn small" type="button" data-pr="open">My profile and password</button></div>${top}${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
 }
 
-/* the owner's card in Team: assessment, agreement, countersignature */
+/* the Director's card in Team: assessment, agreement, countersignature */
 function obJoinCard(id, j){
   obLoadProg(id); agrWatchOwner();
   return `<div class="flag"><span class="sev low" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(j.contractName)}</b> · ${esc(j.role)} · ${esc(j.base || "")}</p>

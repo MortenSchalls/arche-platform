@@ -2,7 +2,7 @@
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const ctx=await b.newContext({viewport:{width:1300,height:1000},acceptDownloads:true});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
 let fail=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fail++;};
 await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);
-await p.selectOption('select',{label:'Test Owner'});await p.waitForTimeout(2500);
+await p.selectOption('select',{label:'Test Director'});await p.waitForTimeout(2500);
 ok(await p.evaluate(()=>navItems().some(x=>x[0]==='reports')),'owner has Reports');
 await p.evaluate(()=>{const b='ex-broker-1';S.desks[b]={...(S.desks[b]||{}),'t-rep-1':{created:'2026-09-01T00:00:00Z',client:{name:'Anna Example',company:'Example Holdings Pte Ltd',email:'anna@example.com',phone:'+65 0000 0000'},trip:{legs:[{from:'WSSL',to:'VTSP',date:'2026-10-05',pax:4}]},quote:{operator:'Example Jets Pte Ltd',aircraft:'Challenger 650',tail:'9V-ABC',opPrice:40000,direct:0},stage:'submitted'},
  't-rep-2':{created:'2026-10-20T00:00:00Z',client:{name:'Ben Example'},trip:{legs:[{from:'WSSL',to:'WMKK',date:'2026-11-12',pax:2}]},quote:{operator:'Example Air',opPrice:12000,direct:0},stage:'quoted'}};

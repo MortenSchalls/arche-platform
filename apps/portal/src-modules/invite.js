@@ -27,7 +27,7 @@
           ${pg && (S.invRem || {})[x.email] && pg.remind ? `<tr class="invlog"><td colspan="7">${invRemind(x, pg)}</td></tr>` : ""}
           ${pg && open ? `<tr class="invlog"><td colspan="7">${invLog(x, pg)}</td></tr>` : ""}`; }).join("")}</tbody></table></div>` : ""}</div>`;
   }
-  // exact progress: a bar, the step they are on, and a log the owner can open (Morten, 2 Nov 2026)
+  // exact progress: a bar, the step they are on, and a log the Director can open (Morten, 2 Nov 2026)
   function invBar(pg){
     return `<div class="small"><div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pg.pct}" aria-label="Joining progress" style="height:6px;background:var(--line, rgba(127,127,127,.25));border-radius:3px;overflow:hidden;margin:2px 0 6px"><div style="height:100%;width:${Math.max(2, pg.pct)}%;background:var(--primary-bg)"></div></div>
       <b>${pg.pct}%</b> · ${pg.done} of ${pg.of} steps<br><span>${esc(pg.label)}</span>${pg.lastSeen ? `<br><span class="muted">Last signed in ${fmtT(pg.lastSeen)}</span>` : ""}</div>`;

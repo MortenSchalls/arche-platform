@@ -7,20 +7,20 @@ const CR_TRACKS = [
   {id: "basics", title: "Getting started", lessons: ["access", "rules", "privacy", "testversion", "phone", "dashboard", "help", "ai"]},
   {id: "broker", title: "Selling and booking", lessons: ["leads", "contacts", "enquiry", "extras", "quote", "docs", "send", "conf", "money", "cancel", "aftercare", "points", "training", "roleplay", "cards"]},
   {id: "ops", title: "Operations", lessons: ["enquiries", "ops", "sign", "following", "suppliers", "quotes", "prospects", "rotation", "control", "scorecard", "debrief"]},
-  {id: "owner", title: "Owner", lessons: ["today", "approval", "team", "settings", "investors", "security", "audit", "backup", "launch"]}];
+  {id: "owner", title: "Director", lessons: ["today", "approval", "team", "settings", "investors", "security", "audit", "backup", "launch"]}];
 /* "Try it" in the test version: who to act as, and what to do */
 const CR_TRY = {
   rules: ["broker", "Make a test enquiry with an operator price of USD 30,000 and check the client price: 30,000 ÷ 0.91, rounded up, is USD 32,968."],
   privacy: ["broker", "Look for the watermark with your name on any screen of the test version."],
   cancel: ["broker", "Make a test enquiry, then cancel it yourself while it is still an enquiry."],
-  enquiries: ["owner", "As Test Owner, open Today and read the Website enquiries panel (the test version may have none)."],
-  access: ["owner", "Switch between Test Owner, Test Operations and Test Broker in the orange bar and compare the menus."],
+  enquiries: ["owner", "As Test Director, open Today and read the Website enquiries panel (the test version may have none)."],
+  access: ["owner", "Switch between Test Director, Test Operations and Test Broker in the orange bar and compare the menus."],
   testversion: ["broker", "Press Reset test data (twice), then switch to Test Broker 2 and back."],
   phone: ["broker", "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar."],
   dashboard: ["broker", "As Test Broker, open Today: work Your tasks from the top, then read Progress this month."],
   help: ["broker", "Open Help and search the guide for a word such as cancellation."],
   ai: ["broker", "Open Assistant to see where questions go. Answers work only in the real portal."],
-  leads: ["owner", "As Test Owner, assign Example Family Office to Test Broker. Then switch to Test Broker, open it in My leads and log a contact with a proper note."],
+  leads: ["owner", "As Test Director, assign Example Family Office to Test Broker. Then switch to Test Broker, open it in My leads and log a contact with a proper note."],
   contacts: ["broker", "On your lead, press Show, add a business contact with a work email and its source, then press Opted out twice and see the details go."],
   enquiry: ["broker", "Make a New enquiry: Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month."],
   extras: ["broker", "Add a client request (a small dog) and an operational extra (de-icing, at cost) to your enquiry."],
@@ -38,13 +38,13 @@ const CR_TRY = {
   sign: ["ops", "On a confirmed trip, follow the signature steps above."],
   following: ["ops", "On a trip due to fly, follow the flight-following steps above."],
   suppliers: ["ops", "Open Prospects, Service partners, filter airport WSSL and open Example Crew Hotel: see its minutes and shuttle."],
-  quotes: ["ops", "Make a crew-hotel quote request at WSSL, mark it sent and record a quote. Then switch to Test Owner and award it."],
+  quotes: ["ops", "Make a crew-hotel quote request at WSSL, mark it sent and record a quote. Then switch to Test Director and award it."],
   prospects: ["owner", "In Prospects, tick two organisations and assign them to Test Broker 2 in one go."],
   rotation: ["owner", "On Today, use Preview in Prospect rotation, then Run now."],
   control: ["ops", "Open Control and read the monitoring flags."],
   scorecard: ["ops", "Open Control and find the operator scorecard."],
   debrief: ["ops", "Read the debrief steps above; they apply to supervised bookings."],
-  today: ["owner", "As Test Owner, approve the trip waiting on Today."],
+  today: ["owner", "As Test Director, approve the trip waiting on Today."],
   approval: ["owner", "Approve a trip, then change its price as Test Operations and see it come back to Today."],
   team: ["owner", "Open Team, tick May authorise for Test Broker, then switch to Test Broker and see Authorisation in the menu."],
   settings: ["owner", "Open Settings and find the margin (9%)."],
@@ -95,7 +95,7 @@ function crLesson(id){
     <p class="small muted">For: ${esc(f.who || "")}</p>
     <p>${esc(f.purpose || "")}</p>
     <div><h3>How to do it</h3><ol class="small">${(f.steps || []).map(s => `<li>${esc(s)}</li>`).join("")}</ol></div>
-    ${tr ? `<div class="note info small"><b>Try it in the test version</b>, as ${esc({owner: "Test Owner", ops: "Test Operations", broker: "Test Broker"}[tr[0]])}: ${esc(tr[1])} <a href="${base}test.html?as=${tr[0]}" target="_blank" rel="noopener">Open the test version</a></div>` : ""}
+    ${tr ? `<div class="note info small"><b>Try it in the test version</b>, as ${esc({owner: "Test Director", ops: "Test Operations", broker: "Test Broker"}[tr[0]])}: ${esc(tr[1])} <a href="${base}test.html?as=${tr[0]}" target="_blank" rel="noopener">Open the test version</a></div>` : ""}
     ${(f.trouble || []).length ? `<div><h3>If something goes wrong</h3><ul class="small">${f.trouble.map(t => `<li><b>${esc(t[0])}.</b> ${esc(t[1])}</li>`).join("")}</ul></div>` : ""}
     ${(f.tips || []).length ? `<div><h3>Tips</h3><ul class="small">${f.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul></div>` : ""}
     ${quiz.length ? `<form class="stack" data-crquiz="${id}"><h3 style="margin:0">Check</h3>${quiz.map((q, qi) => `<fieldset class="small"><legend><b>What do you do if: ${esc(q.q.replace(/[.?]$/, ""))}?</b></legend>${q.opts.map((o, oi) => `<label class="check" for="cr_${id}_${qi}_${oi}"><input type="radio" name="cr_${id}_${qi}" id="cr_${id}_${qi}_${oi}" value="${oi}" ${ans[qi] === oi ? "checked" : ""}><span>${esc(o)}</span></label>`).join("")}

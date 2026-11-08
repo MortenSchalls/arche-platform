@@ -34,10 +34,10 @@ export default async function handler(req, res) {
     const who = await fetch(`${process.env.SUPABASE_URL}/auth/v1/user`, { headers: { apikey: PK, authorization: `Bearer ${token}` } });
     if (!who.ok) return res.status(401).json({ error: "Sign in again." });
     const me = await who.json(), pr = await sb(`/rest/v1/profiles?select=role,active&id=eq.${me.id}`), prof = (pr.body || [])[0];
-    if (!prof || prof.active === false || !["owner", "ops"].includes(prof.role)) return res.status(403).json({ error: "Operations or the owner only." });
+    if (!prof || prof.active === false || !["owner", "ops"].includes(prof.role)) return res.status(403).json({ error: "The Director, or a person the Director has mandated, only." });
     const b = req.body || {};
     if (!isId(b.bid) || !/^[\w-]{1,80}$/.test(String(b.did || ""))) return res.status(400).json({ error: "Unknown trip." });
-    if (prof.role === "ops" && b.bid === me.id) return res.status(403).json({ error: "Another operations member or the owner must do this on your own trip." });
+    if (prof.role === "ops" && b.bid === me.id) return res.status(403).json({ error: "A person the Director has mandated must do this on your own trip." });
     if (b.avinode !== true) return res.status(400).json({ error: "Cancel on Avinode first, then tick it here." });
     const [t, s, cfg] = await Promise.all([sb(`/rest/v1/trips?select=data&owner_id=eq.${b.bid}&id=eq.${encodeURIComponent(b.did)}`), sb(`/rest/v1/trip_status?select=data&owner_id=eq.${b.bid}&id=eq.${encodeURIComponent(b.did)}`), sb("/rest/v1/config?select=key,value&key=in.(terms,company)")]);
     const x = ((t.body || [])[0] || {}).data, st = ((s.body || [])[0] || {}).data; if (!x || !st) return res.status(404).json({ error: "Trip not found." });

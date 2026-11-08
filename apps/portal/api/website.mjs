@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     const me = await who.json();
     const r = await fetch(`${URL_}/rest/v1/profiles?select=role,active&id=eq.${encodeURIComponent(me.id)}`, { headers: { apikey: KEY, authorization: `Bearer ${KEY}` } });
     const p = ((await r.json().catch(() => [])) || [])[0];
-    if (!p || p.role !== "owner" || p.active === false) return res.status(403).json({ error: "Only the owner can open the private website." });
+    if (!p || p.role !== "owner" || p.active === false) return res.status(403).json({ error: "Only the Director can open the private website." });
     res.setHeader("Set-Cookie", `${COOKIE}=${makePass(KEY)}; Path=/website; Max-Age=${DAYS * 86400}; HttpOnly; Secure; SameSite=Lax`);
     return res.status(200).json({ url: "/website/" });
   } catch (e) { return res.status(500).json({ error: "Could not open the website. Try again." }); }

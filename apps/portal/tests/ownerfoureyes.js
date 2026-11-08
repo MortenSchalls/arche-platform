@@ -2,7 +2,7 @@
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1300,height:1000}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
 let fail=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fail++;};
 const toasts=[];await p.exposeFunction('logT',t=>toasts.push(t));
-await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await p.selectOption('select',{label:'Test Owner'});await p.waitForTimeout(2500);
+await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await p.selectOption('select',{label:'Test Director'});await p.waitForTimeout(2500);
 await p.evaluate(()=>{const o=window.toast;window.toast=m=>{logT(m);o(m);};});
 await p.evaluate(async()=>{const n=new Date().toISOString();await S.db.doc(`desk/${S.uid}/deals/ow1`).set({client:{name:'Owner Client Example'},trip:{legs:[{from:'WSSS',to:'VHHH',date:'2026-12-01',pax:2}]},quote:{operator:'Example Air',opPrice:20000},created:n,updated:n,stage:'submitted',submittedAt:n});
   await S.db.doc(`desk/00000000-0000-4000-8000-0000000000a3/deals/ob1`).set({client:{name:'Broker Client Example'},trip:{legs:[{from:'WSSS',to:'VHHH',date:'2026-12-02',pax:2}]},quote:{operator:'Example Air',opPrice:20000},created:n,updated:n,stage:'submitted',submittedAt:n});});

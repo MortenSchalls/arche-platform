@@ -22,8 +22,8 @@ const C = JSON.parse(fs.readFileSync('manual.json','utf8')).filter(c => c && c.k
 const WHY = {
  "1.1":"One standard booking is USD 45,000 billed to the client. 135,000 divided by 45,000 is 3 standard bookings, counted towards the 8 at the first commission rate.",
  "1.2":"Arche sells whole-aircraft charters to one client. Selling seats needs public-charter or airline authority.",
- "3.1":"A third-party payer in another country is a money-laundering warning sign. Identify the payer, record the reason and get the owner's approval.",
- "3.2":"A close match means stop. Take no payment, keep the screening record and let the owner decide.",
+ "3.1":"A third-party payer in another country is a money-laundering warning sign. Identify the payer, record the reason and get the Director's approval.",
+ "3.2":"A close match means stop. Take no payment, keep the screening record and let the Director decide.",
  "3.3":"Cash to speed up a permit is a bribe under laws such as the US FCPA and UK Bribery Act. Refuse and report.",
  "3.4":"Passport copies are personal data. They stay in Avinode and the Arche CRM, never in email or chat apps.",
  "4.1":"Discretion: send trip details only to the people the client agreed in writing.",
@@ -32,27 +32,27 @@ const WHY = {
  "5.2":"A booking is confirmed only when KYC and sanctions are done, the confirmation is signed and payment is received as agreed.",
  "6.1":"Range depends on load, winds and season. Only the operator can confirm non-stop for this trip.",
  "6.2":"Dangerous goods such as spare lithium batteries are the operator's decision under its rules.",
- "6.3":"Patients needing care in flight need an air-ambulance operator. We refer through the owner.",
+ "6.3":"Patients needing care in flight need an air-ambulance operator. We refer through the Director.",
  "7.1":"Specifications come from the aircraft's Avinode listing and the manufacturer, and the operator confirms them for the trip.",
  "7.2":"On a long night flight, beds, crew rest and confirmed non-stop range for the load matter most.",
- "8.1":"ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3 are accepted, checked in the auditor's registry for each booking. Any other operator only if the owner has approved it for twelve months (an Arche-approved operator) or for that one trip. Every operator: two pilots on jets, insurance of at least USD 50 million for jets, five years clear.",
- "8.2":"An operator without an accepted audit flies only as an Arche-approved operator (approved by the owner for twelve months after the checks in 8.3: AOC, insurance, safety documents, history, references and written crew minimums) or with the owner's approval for that one trip.",
+ "8.1":"ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3 are accepted, checked in the auditor's registry for each booking. Any other operator only if the Director has approved it for twelve months (an Arche-approved operator) or for that one trip. Every operator: two pilots on jets, insurance of at least USD 50 million for jets, five years clear.",
+ "8.2":"An operator without an accepted audit flies only as an Arche-approved operator (approved by the Director for twelve months after the checks in 8.3: AOC, insurance, safety documents, history, references and written crew minimums) or with the Director's approval for that one trip.",
  "8.3":"An approval lasts twelve months. It ends earlier after an accident or serious incident, an insurance lapse, an AOC change or suspension, or a sanctions match, and a renewal needs the checks again.",
  "8.4":"Operators on the EU Air Safety List are banned or restricted in Europe.",
  "9.1":"Client price is the operator price divided by 0.91. 60,000 divided by 0.91 is 65,934.07, rounded up to 65,935. Never round down.",
  "9.2":"Never guess a cost. Ask the operator for a written estimate and pass it on as the operator's estimate.",
  "9.3":"The 9% margin applies to the operator price and to confirmed supplier items Arche buys.",
  "9.4":"140,000 plus 2,500 is 142,500. Divided by 0.91 that is 156,593.41, rounded up to 156,594.",
- "10.1":"If the operator's terms are stricter than Part A, Arche carries the gap. The owner decides before the confirmation is issued.",
+ "10.1":"If the operator's terms are stricter than Part A, Arche carries the gap. The Director decides before the confirmation is issued.",
  "10.2":"Clients pay through a payment request and operators are paid from our payment account. Only Arche's margin reaches Arche's own account.",
  "11.1":"A file closes only when payments are settled, the personal follow-up is logged and the rating request has gone out, plus service recovery for any low score.",
- "11.2":"A score of 3 or less starts service recovery: the broker calls within 1 working day and the owner is told the same day.",
+ "11.2":"A score of 3 or less starts service recovery: the broker calls within 1 working day and the Director is told the same day.",
  "11.3":"The broker follows up personally within 24 hours of the last landing, while the trip is fresh and any problem can still be put right.",
- "11.4":"Extra cost after an aircraft goes technical (AOG) is approved by the owner.",
+ "11.4":"Extra cost after an aircraft goes technical (AOG) is approved by the Director.",
  "11.5":"Safety decisions belong to the captain. Our job is to look after the client.",
  "14.1":"The lab pass mark is 70 out of 100, and the critical points (the correct rule, no unconfirmed promise) must not be broken whatever the total.",
- "14.2":"The owner certifies, on the scored lab, the practical exam and the supervised bookings. The AI practice partner never decides.",
- "14.3":"A supervised booking counts only when trainee, mentor and owner have each completed their part of the post-trip debrief.",
+ "14.2":"The Director certifies, on the scored lab, the practical exam and the supervised bookings. The AI practice partner never decides.",
+ "14.3":"A supervised booking counts only when trainee, mentor and the Director have each completed their part of the post-trip debrief.",
  "12.1":"Check the national do-not-call register and record any opt-out before calling.",
  "12.2":"First compare like for like: aircraft age, operator safety rating, inclusions and what is charged at cost.",
  "0.7":"A flight between two points inside a foreign country on its own is the 9th freedom, cabotage. Most countries refuse it to foreign operators.",
@@ -66,7 +66,7 @@ const WHY = {
  "9.5":"Using real flexibility to save positioning is fair negotiation. Fake quotes or pressure on safety never are.",
  "12.3":"Offer options at different prices and sell the value, rather than cutting the margin.",
  "1.4":"Every new lead needs first contact within 48 hours, logged in the portal. Otherwise the next assignment round moves it, with its history, to another broker.",
- "1.5":"Separate duties: nobody confirms, prices or records payment on their own booking. Another owner, or a person the owner has mandated, issues it.",
+ "1.5":"Separate duties: nobody confirms, prices or records payment on their own booking. Another person the Director has mandated, issues it.",
  "5.4":"Both are client requests: what the client asks for. Each is confirmed with its supplier in writing, with how it is charged.",
  "6.5":"No take-off with ice or snow on the aircraft (EU CAT.OP.MPA.250, US 14 CFR 135.227). De-icing depends on the day, so it is charged at cost after the flight with the receipt.",
  "6.6":"Airports publish their hours and night restrictions. Only the operator can say whether an out-of-hours opening is possible and what it costs.",
@@ -99,18 +99,18 @@ const TAKE = {
  m0:["The operator flies and is responsible for safety; Arche finds, checks, prices, contracts and looks after the client.","Confirm airport, date and time zone in writing, always.","Positioning is usually paid by the client; empty legs can be cancelled.","Use market figures only with their source and date.","Cabotage is the 8th and 9th freedom, and most countries refuse it to foreign operators."],
  m1:["We sell whole-aircraft charters and empty legs at a 9% margin.","Never sell a flight before an operator has confirmed it in writing.","First contact within 48 hours and follow-up every 14 days, or the lead moves on."],
  m2:["Every client receives the five disclosures in writing before signing.","Never sell anything on the never-sell list, including US domestic legs on non-US operators.","Amber means confirm in writing first; red means stop and escalate.","Liability for the flight lies with the operator; never advertise \"our fleet\"."],
- m3:["KYC and sanctions screening come before any contract.","A possible match means stop, no payment, report to the owner.","Payments only through a payment request; bank details never by email or chat.","Personal data stays in Avinode and the CRM."],
+ m3:["KYC and sanctions screening come before any contract.","A possible match means stop, no payment, report to the Director.","Payments only through a payment request; bank details never by email or chat.","Personal data stays in Avinode and the CRM."],
  m4:["Discretion is part of the product.","Send details only to people agreed in writing.","Say no early, politely, with an alternative."],
  m5:["Check the never-sell list and run the risk screen before sourcing.","Qualify early: who flies, who pays, who decides.","Match the planning to the mission type."],
  m6:["Every feasibility answer comes from the operator in writing.","The airport must suit the aircraft: hours, customs, fire cover, runway.","The crew decides on weather; we warn the client early.","De-icing, out-of-hours fees and crew nights depend on the day: ask before promising a time, and charge them at cost."],
  m7:["Never quote range, speed or seats from memory.","Compare cabins, beds, age and confirmed range for the actual load."],
- m8:["Compare all-in quotes like for like.","ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; otherwise an Arche-approved operator or the owner's approval for the trip.","Check the aircraft is on the AOC and the insurance covers commercial passengers."],
+ m8:["Compare all-in quotes like for like.","ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; otherwise an Arche-approved operator or the Director's approval for the trip.","Check the aircraft is on the AOC and the insurance covers commercial passengers."],
  m9:["Client price = Arche cost ÷ 0.91, rounded up.","Costs that depend on the day are charged at cost with receipts.","Negotiate with flexibility, never with fake quotes or pressure on safety.","Fixed extras: supplier price ÷ 0.91; extras at cost: receipts, no margin."],
  m10:["Our terms are never softer than the operator's.","Client money and operator money run through a payment request; only our margin reaches Arche's account.","No flight departs until paid in full.","Deposit 25% (at least USD 2,500); balance 7 days before; under 7 days, pay in full on signature."],
- m11:["Keep the client informed before they need to ask.","Extra cost after an AOG needs the owner's approval.","Follow every trip to the last landing and follow up within 24 hours."],
+ m11:["Keep the client informed before they need to ask.","Extra cost after an AOG needs the Director's approval.","Follow every trip to the last landing and follow up within 24 hours."],
  m12:["Contact a new enquiry within 15 minutes and confirm everything in writing.","Compare like for like before discussing price.","Track every enquiry through the pipeline and follow up every quote."],
  m13:["Work each case yourself before opening the model answer."],
- sys:["Every booking runs in the portal, and only there.","The portal sets most checks from your records: complete the record and the tick follows.","Send for authorisation opens only when the trip is complete; the owner, or a person the owner has mandated, never authorises their own trip.","Every lesson check right, then Avinode training (separate) and shadowing."],
+ sys:["Every booking runs in the portal, and only there.","The portal sets most checks from your records: complete the record and the tick follows.","Send for authorisation opens only when the trip is complete; the Director, or a person the Director has mandated, never authorises their own trip.","Every lesson check right, then Avinode training (separate) and shadowing."],
  m14:["80% in the exam and every critical-rule question right.","Then systems training, shadowing with two site visits, the practical exam and 10 supervised bookings."],
 };
 /* questions that test a critical rule: all must be right in the written exam */
@@ -187,7 +187,7 @@ MODS.m13.secs.forEach(s => { const i = s.b.findIndex(x => x.p === "Model answer"
 MODS.m13.secs.forEach(s => { if (s.b[0] && s.b[0].p) s.b[0].p = s.b[0].p.replace(/^Situation\.\s*/, ""); s.b.unshift({p:"Work out how you would handle this trip before you open the model answer."}); });
 MODS.m13.secs.push({h:"Spot the problem", b:[{p:"The twelve spot-the-problem trips are in the trip risk screen lab after Module 2. Go back to it any time to practise."}]});
 MODS.m14.secs = MODS.m14.secs.filter(s => !/^14\.1/.test(s.h));
-MODS.m14.secs.unshift({h:"The written exam", b:[{p:"The written exam follows this module. It draws questions from every module check in your path. To pass you need 80% or more, and every question on a critical rule must be right."},{p:"After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the owner, and 10 supervised bookings. The owner, or the director once appointed, signs your training record when all stages are complete."}]});
+MODS.m14.secs.unshift({h:"The written exam", b:[{p:"The written exam follows this module. It draws questions from every module check in your path. To pass you need 80% or more, and every question on a critical rule must be right."},{p:"After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the Director, and 10 supervised bookings. The Director, signs your training record when all stages are complete."}]});
 
 /* Systems training: the Arche portal (Morten, 7 Nov 2026: "include full systems training in the academy for Arche only,
    Avinode is separate for now"). Stage 3, after the written exam; internal edition only (ext.js removes it).
@@ -195,7 +195,7 @@ MODS.m14.secs.unshift({h:"The written exam", b:[{p:"The written exam follows thi
 { const G = JSON.parse(fs.readFileSync('../../manual/portal-guide.json','utf8'));
   const plain = x => JSON.parse(JSON.stringify(x).replace(/Archē/g, 'Arche'));
   const SF = plain(G.features.filter(f => f.sys).sort((a,b) => a.sys - b.sys));
-  const AS = {broker:"Test Broker", owner:"Test Owner"};
+  const AS = {broker:"Test Broker", owner:"Test Director"};
   const secs = SF.map((f,i) => ({h:`S.${i+1} ${f.title}`, b:[
     {p:f.purpose}, {p:"Who uses it: " + f.who}, {h3:"How it works"}, {olist:f.steps},
     ...(f.try ? [{tryit:{as:f.try[0] === "owner" ? "owner" : "broker", who:AS[f.try[0]] || "Test Broker", t:f.try[1]}}] : []),

@@ -20,13 +20,13 @@ const d1=await newTrip('2026-11-20');
 let n=await needs();ok('unapproved operator: five checks, crew hours and the director needed',n.some(x=>/five checks/.test(x))&&n.some(x=>/crew hours/.test(x))&&n.some(x=>/owner's approval/.test(x)),n);
 ok('no client disclosure email asked any more',!n.some(x=>/disclosure|told in writing/i.test(x)),n);
 ok('no safety line before approval',await p.evaluate(()=>{const t=tripById(S.sel);return safetyLine(t.d,t.st)===''}));
-await as('Test Owner');await p.evaluate(d=>{S.view='trips';S.filter='all';S.sel=d;render();},d1);await p.waitForTimeout(800);
+await as('Test Director');await p.evaluate(d=>{S.view='trips';S.filter='all';S.sel=d;render();},d1);await p.waitForTimeout(800);
 await p.fill('#sf_apn','IS-BAO Stage 1, documents reviewed, two broker references');await p.click('[data-sfa="approve12"]');await p.waitForTimeout(800);
 ok('twelve-month approval refused without all seven checks',/seven checks/.test(toasts.slice(-1)[0]||''),toasts.slice(-1));
 await as('Test Broker');await p.evaluate(d=>{S.view='trips';S.sel=d;render();},d1);await p.waitForTimeout(800);
 for(const k of ['aocAuth','insInsurer','sms','noAdverse','refs','docs','crew']){await p.check('#sf83_'+k);await p.waitForTimeout(300);}
 await fill('sf_cap','4000');await fill('sf_capt','300');await fill('sf_fo','1500');
-await as('Test Owner');await p.evaluate(d=>{S.view='trips';S.filter='all';S.sel=d;render();},d1);await p.waitForTimeout(800);
+await as('Test Director');await p.evaluate(d=>{S.view='trips';S.filter='all';S.sel=d;render();},d1);await p.waitForTimeout(800);
 await p.fill('#sf_apn','IS-BAO Stage 1, documents reviewed, two broker references');await p.click('[data-sfa="approve12"]');await p.waitForTimeout(1200);
 const entry=await p.evaluate(()=>((S.opAppr||{}).list||[])[0]||null);
 ok('operator on the approved list for twelve months',!!entry&&entry.name==='Example Regional Air Ltd'&&entry.until>new Date(Date.now()+360*864e5).toISOString().slice(0,10),entry);
@@ -45,7 +45,7 @@ await p.evaluate(async()=>{const l=S.opAppr.list.map(x=>({...x,until:'2026-12-31
 n=await needs();ok('approval ending before the last flight: renew or approve the trip',n.some(x=>/ends .* before the last flight/.test(x))&&n.some(x=>/owner's approval/.test(x)),n);
 await p.evaluate(async()=>{const l=S.opAppr.list.map(x=>({...x,until:'2027-10-27'}));S.opAppr={list:l};render();});await p.waitForTimeout(400);
 // Team list and withdraw
-await as('Test Owner');await p.evaluate(()=>{S.view='team';render();});await p.waitForTimeout(800);
+await as('Test Director');await p.evaluate(()=>{S.view='team';render();});await p.waitForTimeout(800);
 ok('Team lists the approved operator',await p.evaluate(()=>/Archē-approved operators[\s\S]*Example Regional Air Ltd/.test(document.querySelector('#main').innerText)));
 p.once('dialog',dl=>dl.accept());await p.click('[data-apw="Example Regional Air Ltd"]');await p.waitForTimeout(1000);
 ok('withdrawn approval: the trip needs the director again',await p.evaluate(d2=>{const t=allTrips().find(x=>x.did===d2);return safetyNeeds(t.d,t.st).some(x=>/owner's approval/.test(x));},d2));

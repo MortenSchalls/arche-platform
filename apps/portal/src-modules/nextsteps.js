@@ -89,7 +89,7 @@
         [!!st.kyc, "Charterer KYC recorded, then Save", "el|o_kyc", true],
         [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening: Screen names now, then Save this screening record", "el|scr_names_" + t.did, true],
         [!!st.paynodeRef, "Payment request reference, then Save", "el|o_pn", true],
-        ...(ap ? [[typeof apState === "function" && apState(t).ok, "Owner approval (the owner approves on Today or on this trip)", "sec|secOps", true]] : []),
+        ...(ap ? [[typeof apState === "function" && apState(t).ok, "Director approval (the Director approves on Today or on this trip)", "sec|secOps", true]] : []),
         [issued, "Confirmation issued", "conf", true]]},
       {title: "Signature and payment", who: "Broker and operations", items: [
         [!!st.sigSentAt || !!st.signed, "Confirmation sent to the charterer for signature", "sec|secSig", true],

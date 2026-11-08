@@ -1,4 +1,4 @@
-/* ---------- Beta 21: owner approval of every booking, with a one-screen decision card ---------- */
+/* ---------- Beta 21: Director approval of every booking, with a one-screen decision card ---------- */
 const apOn = () => S.terms.ownerApproval !== false;
 function apFigures(t){
   const st = t.st || {}, q = t.d.quote || {};
@@ -24,7 +24,7 @@ function apChecks(t){
   const st = t.st || {}, chk = t.d.checks || {}, f = apFigures(t), out = [];
   const bc = BROKER_CHECKS.filter(([k]) => chk[k]).length;
   out.push([bc === BROKER_CHECKS.length, `Broker checks ${bc} of ${BROKER_CHECKS.length}`]);
-  out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by the owner" : "Operator price not confirmed by the owner"]);
+  out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by the Director" : "Operator price not confirmed by the Director"]);
   out.push([!!st.kyc, st.kyc ? "KYC done" : "KYC not done"]);
   { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
   out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
@@ -50,12 +50,12 @@ function apCard(t, compact){
     ${(d.trip && d.trip.notes) ? `<p class="small muted">Broker notes: ${esc(d.trip.notes)}</p>` : ""}
     ${(S.isOwner || (typeof canRight === "function" && canRight("approve"))) && t.bid !== S.uid && !S.preview ? `<label class="f" for="ap_n_${t.did}">Note (needed to ask for changes)<input id="ap_n_${t.did}" placeholder="For example: get a second operator quote"></label>
     <div class="row"><button class="btn primary" type="button" data-ap="ok" data-id="${t.bid}|${t.did}">Approve booking</button><button class="btn" type="button" data-ap="no" data-id="${t.bid}|${t.did}">Ask for changes</button>${compact ? `<a class="btn" href="#" data-open="${t.bid}|${t.did}" data-goto="trips">Open trip</a>` : ""}</div>
-    <p class="small muted">Approving lets operations issue the confirmation once KYC, the payment request and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the owner's approval.</b> A person the owner has mandated can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
+    <p class="small muted">Approving lets operations issue the confirmation once KYC, the payment request and the checks are done. If the price changes afterwards, it comes back to you.</p>` : `<p class="small"><b>Waiting for the Director's approval.</b> A person the Director has mandated can prepare everything; the confirmation can be issued only after approval.</p>`}</div>`;
 }
 function apPanel(){
   if (!S.isOwner) return "";
   const list = allTrips().filter(apNeeds).sort((a, b) => (apFigures(a).days ?? 999) - (apFigures(b).days ?? 999));
-  const head = `<div class="row" style="justify-content:space-between;margin:4px 0 8px"><h2 style="margin:0">Bookings to approve${list.length ? ` (${list.length})` : ""}</h2><label class="check" style="margin:0"><input type="checkbox" data-apset ${apOn() ? "checked" : ""}><span class="small">Owner approves every booking</span></label></div>`;
+  const head = `<div class="row" style="justify-content:space-between;margin:4px 0 8px"><h2 style="margin:0">Bookings to approve${list.length ? ` (${list.length})` : ""}</h2><label class="check" style="margin:0"><input type="checkbox" data-apset ${apOn() ? "checked" : ""}><span class="small">The Director approves every booking</span></label></div>`;
   if (!apOn()) return `<div style="margin-bottom:16px">${head}<p class="small muted">Off: a person you have mandated issues confirmations without your approval.</p></div>`;
   return `<div style="margin-bottom:16px">${head}${list.length ? `<p class="small muted">Soonest departure first. Everything you need is on each card; green chips are done, red ones need attention.</p><div class="stack">${list.map(t => apCard(t, true)).join("")}</div>` : `<div class="panel empty"><p><b>No bookings waiting for your approval.</b></p></div>`}</div>`;
 }
@@ -63,10 +63,10 @@ function apPanel(){
 function apTripBlock(t){
   if (!apOn() || !["submitted","review","issued","clientPaid","flown"].includes(t.stage)) return "";
   const s = apState(t), a = (t.st || {}).approval;
-  if (s.ok) return `<div class="note ok small"><b>Approved by the owner</b> ${fmtT(a.at)} at ${usd(num(a.price))}${a.note ? ` · ${esc(a.note)}` : ""}</div>`;
+  if (s.ok) return `<div class="note ok small"><b>Approved by the Director</b> ${fmtT(a.at)} at ${usd(num(a.price))}${a.note ? ` · ${esc(a.note)}` : ""}</div>`;
   if (!["submitted","review"].includes(t.stage)) return "";
   if (S.isOwner || isStaff()) return apCard(t, false);
-  return `<div class="note info small"><b>Waiting for the owner's approval.</b>${a && a.state === "changes" ? ` Changes asked: ${esc(a.note || "")}` : ""}</div>`;
+  return `<div class="note info small"><b>Waiting for the Director's approval.</b>${a && a.state === "changes" ? ` Changes asked: ${esc(a.note || "")}` : ""}</div>`;
 }
 (function(){
   const _td = todayDecisions;
@@ -78,30 +78,30 @@ function apTripBlock(t){
   };
   const _vT = vToday; vToday = function(){ return afterHead(_vT(), `<div id="apList">${apPanel()}</div>`); };
   const _tf = tripFile; tripFile = function(t){ const h = _tf(t), b = apTripBlock(t); return b ? h.replace(`<div><h3>History</h3>`, b + `<div><h3>History</h3>`) : h; };
-  const _ic = issueConf; issueConf = async function(btn){ const t = tripById(S.sel); if (t && !S.isOwner && ((t.st || {}).approval || {}).by === S.uid) { toast("You approved this booking, so someone else issues the confirmation."); return; } if (t && apOn() && !apState(t).ok && !S.isOwner) { toast("Waiting for the owner's approval: " + apState(t).why + "."); return; } if (t && apOn() && S.isOwner && !apState(t).ok) await apWrite(t, "approved", "Approved when issuing"); return _ic(btn); };
+  const _ic = issueConf; issueConf = async function(btn){ const t = tripById(S.sel); if (t && !S.isOwner && ((t.st || {}).approval || {}).by === S.uid) { toast("You approved this booking, so someone else issues the confirmation."); return; } if (t && apOn() && !apState(t).ok && !S.isOwner) { toast("Waiting for the Director's approval: " + apState(t).why + "."); return; } if (t && apOn() && S.isOwner && !apState(t).ok) await apWrite(t, "approved", "Approved when issuing"); return _ic(btn); };
 })();
 async function apWrite(t, state, note){
   const f = apFigures(t);
   const sh = state === "approved" && typeof supShareFor === "function" ? supShareFor(t.bid) : null;
-  await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(sh ? {supShare: sh} : {}), ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the owner" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `Owner asked for changes: ${note}`);
+  await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(sh ? {supShare: sh} : {}), ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the Director" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `The Director asked for changes: ${note}`);
   audit(state === "approved" ? "Booking approved" : "Booking returned at authorisation", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
 }
 document.addEventListener("click", e => {
   const b = e.target.closest('[data-act="issue"]'); if (!b || !apOn()) return;
   const t = tripById(S.sel); if (!t || apState(t).ok || S.isOwner) return;
-  e.stopImmediatePropagation(); e.preventDefault(); toast("Waiting for the owner's approval: " + apState(t).why + ".");
+  e.stopImmediatePropagation(); e.preventDefault(); toast("Waiting for the Director's approval: " + apState(t).why + ".");
 }, true);
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-ap]"); if (!b || !(S.isOwner || (typeof canRight === "function" && canRight("approve")))) return;
-  { const [bb] = (b.dataset.id || "").split("|"); if (bb === S.uid) { toast("You cannot approve your own trip. Another owner or a supervisor with the approval right approves it."); return; } }
+  { const [bb] = (b.dataset.id || "").split("|"); if (bb === S.uid) { toast("You cannot approve your own trip. The Director or a supervisor with the approval right approves it."); return; } }
   const [bid, did] = b.dataset.id.split("|"), t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
   const note = ((document.getElementById("ap_n_" + did) || {}).value || "").trim();
   try {
-    if (b.dataset.ap === "ok") { await apWrite(t, "approved", note); toast("Approved. Operations can issue the confirmation."); }
+    if (b.dataset.ap === "ok") { await apWrite(t, "approved", note); toast("Approved. The confirmation can now be issued."); }
     else { if (note.length < 5) { toast("Write what needs to change first."); return; } await apWrite(t, "changes", note); toast("Sent back to the broker with your note."); }
   } catch(err){ toast("Could not save. Try again."); }
 });
 document.addEventListener("change", async e => {
   if (!e.target.matches("[data-apset]") || !S.isOwner) return;
-  try { await S.db.doc("config/terms").set({...S.terms, ownerApproval: e.target.checked}); audit("Owner approval of bookings " + (e.target.checked ? "turned on" : "turned off"), ""); toast(e.target.checked ? "You now approve every booking." : "Approval turned off."); } catch(err){ toast("Could not change."); }
+  try { await S.db.doc("config/terms").set({...S.terms, ownerApproval: e.target.checked}); audit("Director approval of bookings " + (e.target.checked ? "turned on" : "turned off"), ""); toast(e.target.checked ? "You now approve every booking." : "Approval turned off."); } catch(err){ toast("Could not change."); }
 });

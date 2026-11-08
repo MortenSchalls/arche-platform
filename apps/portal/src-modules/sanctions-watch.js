@@ -1,7 +1,7 @@
 /* ---------- Sanctions watch (Morten, 27 Oct 2026) ----------
    The weekly job (jobs/regimes.mjs) reads which sanctions programmes the official UN, US, EU and UK lists contain and
    writes intel/sanctions-regimes. When a programme is added or removed, or a list could not be read twice in a row,
-   the owner sees it on Today and in Team, reviews the website's excluded places (apps/website/content/excluded.json),
+   the Director sees it on Today and in Team, reviews the website's excluded places (apps/website/content/excluded.json),
    manual Appendix G.2 and KYC, asks Claude to update them if needed, then presses "Mark reviewed".
    People and companies are screened per booking and per operator against the same lists. */
 (function(){

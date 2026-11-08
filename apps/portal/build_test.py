@@ -11,13 +11,13 @@ OWN, OPS, BRK, BRK2, CAND = ("00000000-0000-4000-8000-0000000000a1", "00000000-0
 SCREEN = {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}
 SEED = {
     "profiles": [
-        {"id": OWN, "role": "owner", "active": True, "contract_name": "Test Owner", "data": {}},
+        {"id": OWN, "role": "owner", "active": True, "contract_name": "Test Director", "data": {}},
         {"id": OPS, "role": "ops", "active": True, "contract_name": "Test Operations", "base": "Bangkok", "data": {"roster": True, "example": True}},
         {"id": BRK, "role": "broker", "active": True, "contract_name": "Test Broker", "base": "Remote", "book": False, "data": {"roster": True, "example": True}},
         {"id": BRK2, "role": "broker", "active": True, "contract_name": "Test Broker 2", "base": "Remote", "book": False, "data": {"roster": True, "example": True}},
         {"id": CAND, "role": None, "active": False, "contract_name": "", "data": {}}],
     "config": [{"key": "terms", "value": {"margin": 0.09, "unit": 45000, "threshold": 8, "rate1": 0.27, "rate2": 0.35, "consultRate": 0.10}},
-               {"key": "company", "value": {"name": "Example Company Pte. Ltd.", "reg": "000000000X", "address": "1 Example Street, Singapore 000000", "email": "charter@example.com", "phone": "+65 0000 0000", "web": "example.com", "signName": "Test Owner", "signTitle": "Director", "privacy": "privacy@example.com"}}],
+               {"key": "company", "value": {"name": "Example Company Pte. Ltd.", "reg": "000000000X", "address": "1 Example Street, Singapore 000000", "email": "charter@example.com", "phone": "+65 0000 0000", "web": "example.com", "signName": "Test Director", "signTitle": "Director", "privacy": "privacy@example.com"}}],
     "agreements": [], "enquiry_pool": [], "enquiry_contacts": [], "trips": [], "trip_status": [], "leads": [], "optouts": [], "rfqs": [], "audit_log": [], "owner_prospects": [],
     "prospects": [
         {"id": "p001", "data": {"org": "Example Family Office", "kind": "client", "status": "new", "segment": "Family office", "region": "Asia-Pacific", "country": "Singapore",
@@ -59,7 +59,7 @@ HARNESS = """<script>
     var bar = document.createElement("div"); bar.id = "testBar";
     bar.innerHTML = '<style>#testBar{background:#985a00;color:#fff;font:600 13px/1.4 "Hanken Grotesk",system-ui,sans-serif;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}#testBar b{letter-spacing:.08em}#testBar select,#testBar button{font:inherit;font-size:12px;padding:3px 8px;border:1px solid #fff;background:transparent;color:#fff;border-radius:4px}#testBar option{color:#000}</style>'
       + '<b>TEST VERSION</b><span>Example data in this browser only. Nothing reaches the real portal.</span>'
-      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Owner</option><option value="ops" hidden>Test Operations</option><option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option><option value="candidate">New candidate</option></select></label>'
+      + '<label>Acting as <select id="tvAs" aria-label="Act as"><option value="owner">Test Director</option><option value="ops" hidden>Test Operations</option><option value="broker">Test Broker</option><option value="broker2">Test Broker 2</option><option value="candidate">New candidate</option></select></label>'
       + '<button type="button" id="tvReset">Reset test data</button>';
     document.body.insertBefore(bar, document.body.firstChild);
     var sel = document.getElementById("tvAs"); sel.value = as; sel.onchange = function(){ window.__testSwitch(sel.value); };

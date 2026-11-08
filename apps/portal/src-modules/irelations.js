@@ -1,7 +1,7 @@
 /* ---------- Navoryx investor relations: owner only (Morten, 5 Nov 2026) ----------
    The portal is the engine: who may open the private Navoryx investor briefing, invitations, access requests from the
    Navoryx investor page, briefing openings, stages and the waiting line per version. Stored on each record of the
-   owner-only investor list (owner_prospects, data.ir). Emails are sent by /api/ir only when the owner presses Send. */
+   Director-only investor list (owner_prospects, data.ir). Emails are sent by /api/ir only when the Director presses Send. */
 const IR_ST = {prospect: "Prospect", invited: "Invited", requested: "Asked for access", approved: "Access given", opened: "Briefing opened",
   conversation: "Conversation", nda: "NDA signed", documents: "Documents shared", committed: "Committed", notnow: "Not now"};
 const IR_INT = {undecided: "Undecided", income: "Income", time: "Income and time aboard", both: "Both"};

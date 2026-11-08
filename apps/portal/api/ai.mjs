@@ -45,7 +45,7 @@ export default async function handler(req, res) {
 
   const sp0 = await cfg(SB, "aispend").catch(() => null), cap0 = await cfg(SB, "aicap").catch(() => null);
   const spent = sp0 && sp0.month === month() ? +sp0.usd || 0 : 0, cap = cap0 && +cap0.usd >= 0 ? +cap0.usd : DEFAULT_CAP;
-  if (spent >= cap) return res.status(402).json({ error: "cap", detail: `This month's AI budget of USD ${cap} is used up. The owner can raise it in Settings.` });
+  if (spent >= cap) return res.status(402).json({ error: "cap", detail: `This month's AI budget of USD ${cap} is used up. The Director can raise it in Settings.` });
 
   const { input, tier = "default", json = false } = req.body || {};
   let messages = typeof input === "string" ? [{ role: "user", content: input }] : Array.isArray(input) ? input : null;

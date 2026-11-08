@@ -27,7 +27,7 @@ const CHECK=()=>{const out=[];const R=e=>e.getBoundingClientRect();const vis=e=>
  for(const [vw,opt] of [['d',{viewport:{width:1400,height:900}}],['m',{viewport:{width:390,height:844},hasTouch:true,isMobile:true}]]){
   const p=await b.newPage(opt);p.on('pageerror',e=>errs.push(vw+': '+e.message));
   await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);
-  for(const [who,tag] of [['Test Owner','o'],['Test Operations','ops'],['Test Broker','b']]){
+  for(const [who,tag] of [['Test Director','o'],['Test Operations','ops'],['Test Broker','b']]){
    await p.selectOption('select',{label:who});await p.waitForTimeout(2500);
    const views=await p.evaluate(()=>navItems().map(x=>x[0]));
    for(const v of views) await S1(p,`${tag}_${vw}_${v}`,`()=>{S.view='${v}';S.sel=null;render();}`);

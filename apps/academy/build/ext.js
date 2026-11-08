@@ -44,8 +44,9 @@ for (const M of Object.values(O.MODS)) for (const S of M.secs) { const i = S.b.f
 
 /* ---- 2. passages rewritten as general practice ---- */
 const EXACT = {
- "Director (once appointed)": "Senior manager",
- "Signs off certification and coaches brokers; until then the owner does this. Exceptions, compliance decisions, disputes and this manual stay with the owner": "Approves exceptions, compliance decisions and disputes; signs off certification",
+ "Director": "Senior manager",
+ "Director, or a person the Director has mandated": "Manager",
+ "Approves exceptions, compliance decisions and disputes; signs off certification; owns this manual. Until a Director is appointed, the owner is the Director": "Approves exceptions, compliance decisions and disputes; signs off certification",
 "Broker (Arche)":"Broker","Arche Executive":"The broker","Arche":"The broker"};
 const PREFIX = [["In the Arche portal the trip file suggests", "Booking systems can suggest operational needs from the trip itself: de-icing for winter dates, out-of-hours handling for night departures, crew hotel and parking when the aircraft waits between legs, or a private terminal and customs on international arrivals. A suggestion is a prompt to ask the operator, never a fact."],["The client signs the Arche charter confirmation", "The client signs your company's charter confirmation with its booking terms and standard conditions. It is issued only when the pre-issue checklist (Appendix A) is complete."],["All bookings run through Avinode, and all client and operator payments run through a payment request", "Use only your company's approved charter confirmation and terms, never your own wording, and never agree to change liability, cancellation or payment terms. Many brokers run bookings through Avinode and payments through a secure payment platform, so that client and operator money never passes through the broker's own account. This course uses that set-up as its standard."]];
 const OVR = [
@@ -61,9 +62,9 @@ const OVR = [
  ["Every leg followed to landing in the portal;", "Every leg followed to landing;"],
  [" Your commission is not reduced while you are supervised: Archē rewards supervisors separately (terms to be set)", ""],
  [" Your commission is not reduced while you are supervised: Arche rewards supervisors separately (terms to be set)", ""],
- ["Sessions are saved to your training record; the owner sees the number of sessions and the average score.", "Keep a note of your sessions and scores for your manager."],
+ ["Sessions are saved to your training record; the Director sees the number of sessions and the average score.", "Keep a note of your sessions and scores for your manager."],
  ["Work in the Arche portal: leads, prospects and separate duties", "Keep selling and confirming as separate duties"],
- ["Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the owner issues it.", "Separate duties: the person who sold a trip never issues its confirmation or records its payments."],
+ ["Separate duties: nobody confirms, prices or records payment on their own booking. Another operations member or the Director issues it.", "Separate duties: the person who sold a trip never issues its confirmation or records its payments."],
  ["optional, not an Arche requirement", "optional, not a requirement of this course"],
  ["Part A Key Booking Terms and Part B Standard Conditions", "booking terms and standard conditions"],
  ["the Arche charter confirmation", "your company's charter confirmation"], ["against the Arche standard", "against the course standard"],
@@ -95,10 +96,10 @@ const OVR = [
  ["Arche's margin is transferred to Arche's operating account at Citi Singapore (account being set up)", "The broker's margin is transferred to the broker's own operating account"],
  ["Citi Singapore", "Broker's bank"],
  ["Which money enters Arche's Citi account?", "Which money enters the broker's own bank account?"],
- ["Months 1 to 8: brokers share an on-call rota set by the owner; the on-call broker answers the client line and operator calls out of office hours.", "Until a 24-hour desk is in place, brokers share an on-call rota set by your manager; the on-call broker answers the client line and operator calls out of office hours."],
+ ["Months 1 to 8: brokers share an on-call rota set by the Director; the on-call broker answers the client line and operator calls out of office hours.", "Until a 24-hour desk is in place, brokers share an on-call rota set by your manager; the on-call broker answers the client line and operator calls out of office hours."],
  ["12.1 The Arche standard", "12.1 The service standard"], ["The Arche standard", "The service standard"],
  ["Meet the Arche service standard on every call", "Meet the service standard on every call"],
- ["After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the owner, and 10 supervised bookings. The owner signs your training record when all stages are complete.", "After the exam, your employer completes your practical training: Avinode and payment-platform training, shadowing on live trips, a practical exam and supervised bookings."],
+ ["After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the Director, and 10 supervised bookings. The Director signs your training record when all stages are complete.", "After the exam, your employer completes your practical training: Avinode and payment-platform training, shadowing on live trips, a practical exam and supervised bookings."],
  ["Avinode's core broker course; this is the Arche set-up", "Avinode's core broker course; the set-up this course uses"],
  ["Record the result: in the portal, operations enters every name in the Sanctions screening box on the trip and presses Screen names now, which checks the official UN, US, EU and UK lists, then saves the record (date, person, lists, outcome). A confirmation cannot be issued without it. Without the portal, use the official search pages and the sanctions screening record (Appendix B).", "Record the result in your sanctions screening record, with the date, who screened, the lists searched and the outcome. No confirmation is issued without it."],
  ["The only way a client pays Arche", "How a client pays through a payment request"],
@@ -107,7 +108,7 @@ const OVR = [
  ["This manual is the single standard for every Arche Executive broker.", "This course is a complete standard for charter brokers."],
  ["6. Payment taken outside a payment request, or bank details sent by email or chat.", "6. Payment taken outside the company's secure payment platform, or bank details sent by email or chat."],
  ["Because every Arche payment runs through our payment account, a payer", "Where payments run through a payment request, a payer"],
- ["The owner's watchlist (Appendix G)", "The watchlist (Appendix G)"],
+ ["The Director's watchlist (Appendix G)", "The watchlist (Appendix G)"],
  ["Arche Executive acts as charter broker", "[Company] acts as charter broker"],
  ["\"Arche Executive, [name] speaking.", "\"[Company], [name] speaking."],
  ["from Arche Executive, a private jet charter broker", "from [Company], a private jet charter broker"],
@@ -122,7 +123,7 @@ const OVR = [
 const RX = [
  [/\bArche Executive's\b/g, "your company's"], [/\bArche's\b/g, "your company's"], [/\bArche Executive\b/g, "your company"], [/\bArche\b/g, "your company"],
  [/\bPart A\b/g, "the booking terms"], [/\bPart B\b/g, "the standard conditions"],
- [/\bThe owner, or the director once appointed,?/g, "Your manager"], [/\bthe owner, or the director once appointed,?/g, "your manager"], [/\bYour supervisor or the owner\b/g, "Your supervisor or manager"], [/\bThe owner, or a person the owner has mandated,?/g, "Your manager"], [/\bthe owner, or a person the owner has mandated,?/g, "your manager"], [/\bOwner, or a person the owner has mandated\b/g, "Manager"], [/(?<!aircraft |beneficial )\bthe owner's\b/g, "your manager's"], [/(?<!aircraft |beneficial )\bThe owner's\b/g, "Your manager's"], [/(?<!aircraft |beneficial )\bthe owner\b(?! of)/g, "your manager"], [/(?<!aircraft |beneficial )\bThe owner\b(?! of)/g, "Your manager"], [/\bthe director once appointed\b/g, "your manager"], [/\bThe director's\b/g, "Your manager's"], [/\bthe director's\b/g, "your manager's"], [/\bThe director\b/g, "Your manager"], [/\bthe director\b/g, "your manager"],
+ [/\bDirector, or a person the Director has mandated\b/g, "Manager"], [/\b[Tt]he Director, or a person the Director has mandated,?/g, m => m[0] === "T" ? "Your manager" : "your manager"], [/\ba person the Director has mandated\b/g, "a person your manager has mandated"], [/\bthe Director's\b/g, "your manager's"], [/\bThe Director's\b/g, "Your manager's"], [/\bthe Director\b/g, "your manager"], [/\bThe Director\b/g, "Your manager"], [/\bDirector approval\b/g, "manager approval"], [/\bDirector decision\b/g, "manager decision"], [/\bthe Director included\b/g, "managers included"], [/\bThe owner, or the director once appointed,?/g, "Your manager"], [/\bthe owner, or the director once appointed,?/g, "your manager"], [/\bYour supervisor or the owner\b/g, "Your supervisor or manager"], [/\bThe owner, or a person the owner has mandated,?/g, "Your manager"], [/\bthe owner, or a person the owner has mandated,?/g, "your manager"], [/\bOwner, or a person the owner has mandated\b/g, "Manager"], [/(?<!aircraft |beneficial )\bthe owner's\b/g, "your manager's"], [/(?<!aircraft |beneficial )\bThe owner's\b/g, "Your manager's"], [/(?<!aircraft |beneficial )\bthe owner\b(?! of)/g, "your manager"], [/(?<!aircraft |beneficial )\bThe owner\b(?! of)/g, "Your manager"], [/\bthe director once appointed\b/g, "your manager"], [/\bThe director's\b/g, "Your manager's"], [/\bthe director's\b/g, "your manager's"], [/\bThe director\b/g, "Your manager"], [/\bthe director\b/g, "your manager"],
  [/\bDirector(?!s)\b/g, "Manager"], [/(?<!['’]s )\bdirector(?!s)\b/g, "manager"],
  [/(^|[.!?:]\s+|^"|\(\s*)your (company|manager)/g, (m, a, b) => a + "Your " + b],
 ];

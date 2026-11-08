@@ -3,7 +3,7 @@
    Sources: airport-rules.json (built from apps/website/content: sanctioned places and the verified airport rules,
    each with its official source and date) and the portal's airport list (airports.json: country, position, runway).
    RED stops the trip: it cannot be sent to operations, approved or issued. A sanctioned country or airport cannot
-   be released; a possible name match only by the owner, with a recorded reason. AMBER must be confirmed with the
+   be released; a possible name match only by the Director, with a recorded reason. AMBER must be confirmed with the
    operator (ticked, with name and date) before the trip goes for authorisation. GREY means the rule is not checked yet:
    the operator confirms. GREEN only where a verified rule was checked. */
 (function(){
@@ -35,9 +35,9 @@
     const lst = r => esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "));
     (scr.results || []).filter(r => r.result !== "no match").forEach(r => { const ok = rel && (rel.names || []).includes(r.name);
       // MAS Investor Alert List (Singapore): a warning to check, not a sanctions match; EU Air Safety List: the operator is banned (never sell, Module 2.4)
-      if (r.result === "alert") { add("alert|" + r.name, ok ? "green" : "amber", null, ok ? `Alert-list match on ${esc(r.name)} released by the owner: ${esc(rel.note)}` : `<b>${esc(r.name)}</b> resembles a name on the MAS Investor Alert List (Singapore): ${lst(r)}. Check it is not the same company before going further (mas.gov.sg/investor-alert-list).`); return; }
+      if (r.result === "alert") { add("alert|" + r.name, ok ? "green" : "amber", null, ok ? `Alert-list match on ${esc(r.name)} released by the Director: ${esc(rel.note)}` : `<b>${esc(r.name)}</b> resembles a name on the MAS Investor Alert List (Singapore): ${lst(r)}. Check it is not the same company before going further (mas.gov.sg/investor-alert-list).`); return; }
       const asl = r.hits.some(h => h.kind === "aviation");
-      add("name|" + r.name, ok ? "green" : "red", null, ok ? `Possible match on ${esc(r.name)} released by the owner: ${esc(rel.note)}` : asl ? `<b>${esc(r.name)}</b> resembles a carrier on the EU Air Safety List: ${lst(r)}. Archē never sells an operator on that list (Module 2.4). The trip stops until the owner checks it.` : `Possible sanctions match: <b>${esc(r.name)}</b> resembles ${lst(r)}. The trip stops until the owner checks it.`); });
+      add("name|" + r.name, ok ? "green" : "red", null, ok ? `Possible match on ${esc(r.name)} released by the Director: ${esc(rel.note)}` : asl ? `<b>${esc(r.name)}</b> resembles a carrier on the EU Air Safety List: ${lst(r)}. Archē never sells an operator on that list (Module 2.4). The trip stops until the Director checks it.` : `Possible sanctions match: <b>${esc(r.name)}</b> resembles ${lst(r)}. The trip stops until the Director checks it.`); });
     // EU Air Safety List bans every carrier certified by some states (list read by the daily screen)
     if (oc && (scr.aslStates || []).some(x => x.toLowerCase().replace(/\s+/g, " ").trim() === String(cname(oc)).toLowerCase())) add("asl|" + oc, "amber", null, `The EU Air Safety List bans all carriers certified in ${esc(cname(oc))}, with named exceptions. Check this operator is an exception before using it (transport.ec.europa.eu, EU Air Safety List).`);
     // US tail: is it on this operator's FAA Part 135 certificate? (FAA OpSpec D085 list, read daily)
@@ -97,7 +97,7 @@
       ${x.sev === "amber" ? (acks[x.key] ? `<p class="small muted">Confirmed with the operator by ${esc(nm(acks[x.key].by))}, ${esc(fmtT(acks[x.key].at))}: ${esc(acks[x.key].note || "")}</p>` : (mine || isStaff()) ? `<p class="small"><button class="btn small" type="button" data-tc="ack|${esc(t.bid)}|${esc(t.did)}|${esc(x.key)}">Confirmed with the operator</button></p>` : "") : ""}</div></div>`;
     const nameRed = red.some(x => x.key.startsWith("name|"));
     const release = nameRed && S.isOwner && acting() === "owner" ? `<div class="fgrid"><label class="f wide" for="tc_rel">Owner: after checking dates of birth, nationality and addresses against the listing<input id="tc_rel" placeholder="e.g. different person: listed person born 1961, our client born 1985"></label></div><div class="row"><button class="btn small" type="button" data-tc="release|${esc(t.bid)}|${esc(t.did)}">Not the listed person: release</button></div>` : "";
-    const head = red.length ? `<div class="note bad small"><b>This trip is stopped.</b> ${red.length} red item${red.length > 1 ? "s" : ""} below. It cannot go for authorisation, be approved or be issued until ${red.some(x => !x.key.startsWith("name|")) ? "the trip is changed" : "the owner releases it"}.</div>` : amberOpen.length ? `<div class="note warn small">${amberOpen.length} item${amberOpen.length > 1 ? "s" : ""} to confirm with the operator before the trip goes for authorisation.</div>` : "";
+    const head = red.length ? `<div class="note bad small"><b>This trip is stopped.</b> ${red.length} red item${red.length > 1 ? "s" : ""} below. It cannot go for authorisation, be approved or be issued until ${red.some(x => !x.key.startsWith("name|")) ? "the trip is changed" : "the Director releases it"}.</div>` : amberOpen.length ? `<div class="note warn small">${amberOpen.length} item${amberOpen.length > 1 ? "s" : ""} to confirm with the operator before the trip goes for authorisation.</div>` : "";
     return `<div class="panel" id="secTC" style="padding:16px;margin:8px 0"><h3 style="margin-top:0">Trip checks</h3>${head}${["red", "amber", "grey", "green"].flatMap(s => all.filter(x => x.sev === s)).map(row).join("")}${release}
       <p class="small muted">Red stops the trip. Amber must be confirmed with the operator. Grey: not checked yet; the operator confirms. Rules come from official sources, each with its check date.</p></div>`;
   };
@@ -117,7 +117,7 @@
       clearTimeout(TC.timer[el.id]); const v = el.value.trim();
       if (v.length < 4) { if (el.id !== "e_py" || !placeRed(el.value)) mark(el, ""); return; }
       TC.timer[el.id] = setTimeout(async () => {
-        try { const j = await screenNames([v]); const r = j.results[0]; TC.live[v] = r; if (el.value.trim() === v) mark(el, r.result === "no match" ? "" : r.result === "alert" ? `Resembles a name on the MAS Investor Alert List: ${esc(r.hits.map(h => h.listed).join("; "))}. Check it is not the same company.` : `Possible sanctions match: resembles ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}. The trip will stop until the owner checks it.`); }
+        try { const j = await screenNames([v]); const r = j.results[0]; TC.live[v] = r; if (el.value.trim() === v) mark(el, r.result === "no match" ? "" : r.result === "alert" ? `Resembles a name on the MAS Investor Alert List: ${esc(r.hits.map(h => h.listed).join("; "))}. Check it is not the same company.` : `Possible sanctions match: resembles ${esc(r.hits.map(h => h.listed + " (" + h.list + ")").join("; "))}. The trip will stop until the Director checks it.`); }
         catch(e){ /* screening not available: the save step records it as not screened */ }
       }, 800);
     }
@@ -164,7 +164,7 @@
     }
     if (a === "release" && S.isOwner) {
       const note = (($("tc_rel") || {}).value || "").trim(); if (note.length < 15) { toast("Write what you checked (at least 15 characters)."); return; }
-      await statusWrite(t, {sanctionsRelease: {at: now(), by: S.uid, note, names: ((t.d.screen || {}).results || []).filter(r => r.result !== "no match").map(r => r.name)}}, "Owner released a possible sanctions match: " + note);
+      await statusWrite(t, {sanctionsRelease: {at: now(), by: S.uid, note, names: ((t.d.screen || {}).results || []).filter(r => r.result !== "no match").map(r => r.name)}}, "Director released a possible sanctions match: " + note);
       audit("Sanctions match released", `${(t.d.client || {}).company || (t.d.client || {}).name || t.did} · ${note.slice(0, 80)}`); toast("Released and recorded."); return;
     }
   });

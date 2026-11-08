@@ -1,7 +1,7 @@
 /* ---------- Owner to-do and trust / performance matrix on Today (Morten, 26 Oct 2026) ----------
-   The portal is the owner's true source. Every step only the owner can do (SQL to run in Supabase, settings in
+   The portal is the Director's true source. Every step only the Director can do (SQL to run in Supabase, settings in
    Vercel or GoDaddy, details to fill in) is listed here. Steps the portal can check are ticked by themselves;
-   the rest the owner ticks when done (kept in config/setup). New steps are added to OWNER_TODO with each release.
+   the rest the Director ticks when done (kept in config/setup). New steps are added to OWNER_TODO with each release.
    The matrix places every member by house-rule trust (vertical) and actual results (horizontal), recalculated
    from live data on every visit, with a weekly snapshot in intel/matrix so movement over time shows. */
 const OWNER_SQL = /*SQL*/{};
@@ -47,7 +47,7 @@ const OWNER_TODO = [
   {id:"sql-0012", sev:"med", title:"Run SQL: supervisor rights (0012), after 0011", sql:"0012", after:"sql-0011", rpc:"has_right",
     why:"Lets the members you choose supervise steps, assess new people or approve bookings. Before it runs, ticking a right has no effect.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice. The portal ticks this by itself once it has run."},
   {id:"sql-0013", sev:"high", title:"Run SQL: alerts (0013)", sql:"0013", table:"alert_settings",
-    why:"Keeps who receives alerts, on which number, for what. Owner only.", how:"Supabase > SQL Editor > New query > paste > Run. Then add yourself in Team > Alerts."},
+    why:"Keeps who receives alerts, on which number, for what. Director only.", how:"Supabase > SQL Editor > New query > paste > Run. Then add yourself in Team > Alerts."},
   {id:"sql-0014", sev:"high", title:"Run SQL: alerts on phones and the 2-minute check (0014)", sql:"0014", table:"push_subs",
     why:"Stores which phones receive alerts, and makes Supabase run the alert check every 2 minutes so alerts repeat until someone acts.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"alerts-server", sev:"high", title:"Give the alert sender its keys in Vercel",
@@ -223,7 +223,7 @@ function mxScore(id){
   const p = agg(P), tr = agg(T), onb = !!r.onboarding;
   return {id, name: nm(id), role: r.role || "broker", P, T, perf: p.v, trust: tr.v, early: p.n < 2 || tr.n < 2, trips: trips.length, onb};
 }
-function mxQuad(x){ if (x.perf === null || x.trust === null) return "Too early to place"; return x.trust >= 60 ? (x.perf >= 60 ? "Trusted performer" : "Reliable: build volume") : (x.perf >= 60 ? "Results, rules at risk: coach" : "Review with the owner"); }
+function mxQuad(x){ if (x.perf === null || x.trust === null) return "Too early to place"; return x.trust >= 60 ? (x.perf >= 60 ? "Trusted performer" : "Reliable: build volume") : (x.perf >= 60 ? "Results, rules at risk: coach" : "Review with the Director"); }
 /* weekly history: one row per week in member_scores (owner only, kept for good). Until SQL 0010 has run,
    weeks wait in intel/matrix and move across by themselves once the table exists. */
 async function mxLoad(){
@@ -257,7 +257,7 @@ function trustMatrix(){
   const narrow = (window.innerWidth || 1000) < 600, W = narrow ? 360 : 640, H = narrow ? 360 : 440, L = 40, R = 12, T = 12, B = 40, pw = W - L - R, ph = H - T - B;
   const X = v => L + pw * v / 100, Y = v => T + ph * (1 - v / 100);
   const placed = rows.map(x => ({...x, px: x.perf === null ? 50 : x.perf, py: x.trust === null ? 50 : x.trust}));
-  const quads = [[60, 100, 60, 100, "Trusted performers"], [0, 60, 60, 100, "Reliable: build volume"], [60, 100, 0, 60, "Results, rules at risk"], [0, 60, 0, 60, "Review with the owner"]];
+  const quads = [[60, 100, 60, 100, "Trusted performers"], [0, 60, 60, 100, "Reliable: build volume"], [60, 100, 0, 60, "Results, rules at risk"], [0, 60, 0, 60, "Review with the Director"]];
   const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Trust and performance matrix of ${rows.length} members" style="width:100%;max-width:720px;height:auto;display:block;margin:8px auto 0">
     ${quads.map(([x0, x1, y0, y1, l], i) => `<rect x="${X(x0)}" y="${Y(y1)}" width="${X(x1) - X(x0)}" height="${Y(y0) - Y(y1)}" fill="var(--${i === 0 ? "ok" : i === 3 ? "bad" : "line"})" opacity="${i === 0 || i === 3 ? 0.08 : 0.25}"/><text x="${i % 2 === 0 ? X(x1) - 6 : X(x0) + 6}" y="${Y(y1) + 16}" text-anchor="${i % 2 === 0 ? "end" : "start"}" font-size="${narrow ? 10 : 12}" fill="var(--muted)">${l}</text>`).join("")}
     <line x1="${X(60)}" y1="${T}" x2="${X(60)}" y2="${T + ph}" stroke="var(--line)" stroke-dasharray="4 4"/><line x1="${L}" y1="${Y(60)}" x2="${L + pw}" y2="${Y(60)}" stroke="var(--line)" stroke-dasharray="4 4"/>

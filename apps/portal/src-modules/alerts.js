@@ -1,5 +1,5 @@
 /* ---------- Alerts: recipients, channels and the official sender (Morten, 26 Oct 2026) ----------
-   The owner keeps here who receives portal alerts, on which channel (SMS, WhatsApp, email) and for which events, in the
+   The Director keeps here who receives portal alerts, on which channel (SMS, WhatsApp, email) and for which events, in the
    order alerts escalate. The company's official WhatsApp number is added once it is set up and verified by Meta;
    until then nothing is sent. Stored owner-only in alert_settings (SQL 0013), never in the code. */
 const ALERT_EVENTS = {

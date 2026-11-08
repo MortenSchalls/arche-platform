@@ -566,7 +566,7 @@ function setSync(mode){
   P.mode = mode; const el = $("sync");
   el.className = "chip " + (mode === "sync" ? "sync" : mode === "local" ? "local" : "none");
   el.textContent = mode === "sync" ? "Progress recorded" : mode === "local" ? "Saved on this device" : "Saved on this device";
-  el.title = mode === "sync" ? "Your progress is saved to the Arche training records." : "Progress is kept in this browser. When you finish, send your completion code to the owner.";
+  el.title = mode === "sync" ? "Your progress is saved to the Arche training records." : "Progress is kept in this browser. When you finish, send your completion code to the Director.";
 }
 function pushRemote(){
   if (!P.ref) return;
@@ -576,7 +576,7 @@ function pushRemote(){
 function save(){ ST.updated = new Date().toISOString(); saveLocal(); pushRemote(); }
 function mergeRemote(r){
   if (!r) return;
-  if (r.resetAt && (!ST.resetSeen || ST.resetSeen < r.resetAt)) {      // the owner reset this trainee
+  if (r.resetAt && (!ST.resetSeen || ST.resetSeen < r.resetAt)) {      // this trainee was reset from the records
     ST = {v:1, name:r.name || ST.name, role:r.role || ST.role, started:new Date().toISOString(), mods:{}, updated:"", resetSeen:r.resetAt};
     return;
   }
@@ -657,7 +657,7 @@ function renderMap(){
     <p class="group">Reference</p><ol>${refs}</ol>
     <div class="extra">
       ${ST.completedAt ? `<button type="button" class="btn" data-go="cert">My completion record</button>` : ""}
-      ${P.owner ? `<button type="button" class="btn" data-go="records">Training records (owner)</button>` : ""}
+      ${P.owner ? `<button type="button" class="btn" data-go="records">Training records (Director)</button>` : ""}
       ${P.owner && ED === "ext" ? `<button type="button" class="btn" data-go="settings">Course settings</button>` : ""}
       ${ED === "ext" ? `<button type="button" class="btn" data-go="verify">Verify a certificate</button>` : ""}
     </div>`;
@@ -699,7 +699,7 @@ function renderView(){
   return vHome(v);
 }
 function legal(){
-  const v = $("view"); if (!v.querySelector(".legal")) v.insertAdjacentHTML("beforeend", `<p class="legal" data-nosay>© ${new Date().getFullYear()} Arche Executive. Confidential training material${ST.name ? `, issued to ${esc(ST.name)} for personal study` : ""}. Do not copy, record, forward or share. Results are reported to the owner.</p>`);
+  const v = $("view"); if (!v.querySelector(".legal")) v.insertAdjacentHTML("beforeend", `<p class="legal" data-nosay>© ${new Date().getFullYear()} Arche Executive. Confidential training material${ST.name ? `, issued to ${esc(ST.name)} for personal study` : ""}. Do not copy, record, forward or share. Results are reported to the Director.</p>`);
   const txt = ED === "ext" ? (ST.name ? `LICENSED TO ${ST.name} · ARCHE EXECUTIVE` : "CHARTER BROKER ACADEMY · ARCHE EXECUTIVE") : (ST.name ? `CONFIDENTIAL · ${ST.name} · ARCHE EXECUTIVE` : "CONFIDENTIAL · ARCHE EXECUTIVE");
   if (legal.last === txt) return; legal.last = txt;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420"><text x="40" y="230" transform="rotate(-22 380 210)" font-family="Arial, sans-serif" font-size="13" letter-spacing="3" fill="rgb(120,130,145)" fill-opacity="0.07">${esc(txt)}</text></svg>`;
@@ -710,14 +710,14 @@ function legal(){
 function vStart(v){
   v.innerHTML = `
     <div><p class="eyebrow">Arche Executive · Broker Academy</p><h1>Welcome to the academy</h1></div>
-    <p class="lede">The interactive version of the Master Training Manual. You learn the rules, practise them on real-world trips and on our booking form, and your results go to the owner.</p>
+    <p class="lede">The interactive version of the Master Training Manual. You learn the rules, practise them on real-world trips and on our booking form, and your results go to the Director.</p>
     <div class="card">
       <h2>Start your training</h2>
       <div class="grid2">
         <label class="f full" for="nm">Your full name, as it should appear on your training record<input id="nm" autocomplete="name" value="${esc(ST.name)}"></label>
         <input type="hidden" id="rl" value="broker">
       </div>
-      <label class="check" for="nda"><input type="checkbox" id="nda"> I will keep this training material confidential. I will not copy, record, forward or share it, and I understand my progress and results are reported to the owner.</label>
+      <label class="check" for="nda"><input type="checkbox" id="nda"> I will keep this training material confidential. I will not copy, record, forward or share it, and I understand my progress and results are reported to the Director.</label>
       <p class="note" id="nmMsg"></p>
       <div class="row"><button class="btn primary" type="button" id="begin">Begin</button></div>
     </div>
@@ -771,9 +771,9 @@ function vHome(v){
     ${chapHTML}
     <div class="card flat">
       <h3>Three rules that apply to every module</h3>
-      <ol class="l"><li>Never state a number, time or rule you cannot show a source for. If you do not know, say you will confirm, and confirm in writing.</li><li>Nothing is promised to a client until the operator has confirmed it in writing.</li><li>When in doubt, stop and escalate to the owner. A lost booking costs less than a wrong one.</li></ol>
+      <ol class="l"><li>Never state a number, time or rule you cannot show a source for. If you do not know, say you will confirm, and confirm in writing.</li><li>Nothing is promised to a client until the operator has confirmed it in writing.</li><li>When in doubt, stop and escalate to the Director. A lost booking costs less than a wrong one.</li></ol>
     </div>
-    <p class="note">${P.mode === "sync" ? "Your progress is recorded for the owner as you go." : "Your progress is saved in this browser. When you finish, your completion record gives you a code to send to the owner."}</p>
+    <p class="note">${P.mode === "sync" ? "Your progress is recorded for the Director as you go." : "Your progress is saved in this browser. When you finish, your completion record gives you a code to send to the Director."}</p>
     ${P.owner || P.mode !== "sync" ? `<div class="card flat" id="restart"><h3>Start over</h3><p class="note">${P.owner ? "Clears your own test run, including your name, so you can go through the academy again as a new trainee." : "Clears your name and all progress in this browser so the academy starts from the beginning."}</p><div class="row" id="rsRow"><button class="btn" type="button" id="rsAsk">Start over</button></div></div>` : ""}`;
   const ask = $("rsAsk"); if (ask) ask.onclick = () => {
     $("rsRow").innerHTML = `<span>Clear all progress${P.owner ? "" : " in this browser"}? This cannot be undone.</span><button class="btn primary" type="button" id="rsYes">Yes, start over</button><button class="btn" type="button" id="rsNo">Keep my progress</button>`;
@@ -948,7 +948,7 @@ function vLab(v){
   const need = Math.ceil(LAB.length*PASS);
   v.innerHTML = `
     <div><p class="eyebrow">Practical lab · Module 2.9 and 13.7</p><h1>The trip risk screen</h1></div>
-    <p class="lede">Screen each enquiry as you would before sourcing. Pick the colour and the main issue, then check. Green: proceed. Amber: the operator or trip support confirms in writing before we quote. Red: stop and escalate to the owner.</p>
+    <p class="lede">Screen each enquiry as you would before sourcing. Pick the colour and the main issue, then check. Green: proceed. Amber: the operator or trip support confirms in writing before we quote. Red: stop and escalate to the Director.</p>
     <div class="card flat"><p class="score">${checked} of ${LAB.length} screened · ${score} correct · pass mark ${need} of ${LAB.length}</p></div>
     ${cards}
     ${checked === LAB.length ? `<div class="card"><h2>${score >= need ? "Lab passed" : "Not passed yet"}</h2><p class="score">${score} of ${LAB.length} correct</p><div class="row"><button class="btn" type="button" id="labAgain">Try the lab again</button><span class="sp"></span>${score >= need ? `<button class="btn primary" type="button" data-go="book">Continue to the booking practical</button>` : ""}</div></div>` : ""}`;
@@ -1012,14 +1012,14 @@ function vBook(v){
       </div>
       <h3>Before issuing</h3>
       <div class="auto">
-        ${[["kyc","Charterer KYC and sanctions screening done"],["aoc","Operator AOC and operations specifications on file, aircraft listed on them"],["ins","Operator insurance certificate on file, including commercial passenger liability"],["audit","Safety audit checked (ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; otherwise an Arche-approved operator or owner approval)"],["route","Routing, permits and continuous journey confirmed by the operator in writing"],["terms","Operator's terms back to back with Part A"],["disc","Client disclosures included (broker status, operator legal name, aircraft, full price, insurance)"]].map(c => `<label class="check" for="ck_${c[0]}"><input type="checkbox" id="ck_${c[0]}" data-ck="${c[0]}"> ${esc(c[1])}</label>`).join("")}
+        ${[["kyc","Charterer KYC and sanctions screening done"],["aoc","Operator AOC and operations specifications on file, aircraft listed on them"],["ins","Operator insurance certificate on file, including commercial passenger liability"],["audit","Safety audit checked (ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; otherwise an Arche-approved operator or Director approval)"],["route","Routing, permits and continuous journey confirmed by the operator in writing"],["terms","Operator's terms back to back with Part A"],["disc","Client disclosures included (broker status, operator legal name, aircraft, full price, insurance)"]].map(c => `<label class="check" for="ck_${c[0]}"><input type="checkbox" id="ck_${c[0]}" data-ck="${c[0]}"> ${esc(c[1])}</label>`).join("")}
       </div>
       <h3>Automatic checks</h3>
       <div class="auto" id="autoc"></div>
       <div class="row"><button class="btn" type="button" id="bReset">Clear form</button><span class="sp"></span><button class="btn primary" type="submit">Submit for marking</button></div>
     </form>
     <div id="bres"></div>
-    <div class="card flat"><h3>On the desk</h3><p>On live bookings you use the Arche charter confirmation form. It produces the client PDF with Part A and Part B. The owner will give you access.</p></div>`;
+    <div class="card flat"><h3>On the desk</h3><p>On live bookings you use the Arche charter confirmation form. It produces the client PDF with Part A and Part B. The Director will give you access.</p></div>`;
   // fill
   v.querySelectorAll("[data-k]").forEach(el => { el.value = B[el.dataset.k] || ""; el.addEventListener("input", () => { B[el.dataset.k] = el.value; live(); }); el.addEventListener("change", () => { B[el.dataset.k] = el.value; live(); }); });
   v.querySelectorAll("[data-ck]").forEach(el => { el.checked = !!B.ck[el.dataset.ck]; el.addEventListener("change", () => { B.ck[el.dataset.ck] = el.checked; live(); }); });
@@ -1047,7 +1047,7 @@ function vBook(v){
     B.legs.forEach((l,i) => { const a = icaoC(l.f), b = icaoC(l.to); if (a && b && a === b && rc && rc !== a) out.push(["err", `Leg ${i+1} (${l.f}–${l.to}) is a domestic passenger sector in ${a} on a ${rc}-registered aircraft. Allowed only as one continuous international journey confirmed by the operator in writing.`]); });
     for (let i=1;i<B.legs.length;i++){ const a = B.legs[i-1], b = B.legs[i]; if (a.to && b.f && a.to !== b.f) out.push(["warn", `Leg ${i+1} departs ${b.f}, but leg ${i} arrives ${a.to}.`]); if (a.d && b.d && b.d < a.d) out.push(["err", `Leg ${i+1} is dated before leg ${i}.`]); }
     const seats = num(B.seats); B.legs.forEach((l,i) => { if (isFinite(seats) && num(l.p) > seats) out.push(["err", `Leg ${i+1}: more passengers than seats.`]); });
-    if (isFinite(mg) && pr > 0 && mg < pr*0.09 - 0.005) out.push(["err", `Margin ${(mg/pr*100).toFixed(2)}% is below 9%. Needs owner approval.`]);
+    if (isFinite(mg) && pr > 0 && mg < pr*0.09 - 0.005) out.push(["err", `Margin ${(mg/pr*100).toFixed(2)}% is below 9%. Needs Director approval.`]);
     if (B.pay && B.pay !== "request") out.push(["err", "All client payments go through a payment request from our payment provider."]);
     $("autoc").innerHTML = out.length ? out.map(o => `<div class="issue ${o[0]}">${esc(o[1])}</div>`).join("") : `<div class="issue okk">No automatic warnings.</div>`;
   }
@@ -1109,10 +1109,10 @@ function vCert(v){
     </div>
     <div class="card">
       <h2>Send your completion code</h2>
-      <p>${P.mode === "sync" ? "Your result is already in the Arche training records. Send the code as well if the owner asks for it." : "Copy this code and email it to the owner. The owner checks it in the training records."}</p>
+      <p>${P.mode === "sync" ? "Your result is already in the Arche training records. Send the code as well if the Director asks for it." : "Copy this code and email it to the Director. The Director checks it in the training records."}</p>
       <div class="codebox" id="code">${esc(code)}</div>
       <div class="row"><button class="btn primary" type="button" id="copy">Copy code</button><span class="note" id="cmsg" role="status"></span></div>
-      <p class="note">Next: Avinode and payment system training, shadowing, the practical exam with the owner and supervised bookings. The owner signs your training record when all stages are complete.</p>
+      <p class="note">Next: Avinode and payment system training, shadowing, the practical exam with the Director and supervised bookings. The Director signs your training record when all stages are complete.</p>
     </div>`;
   $("copy").onclick = () => {
     const done = () => $("cmsg").textContent = "Copied.";
@@ -1151,11 +1151,11 @@ function vSettings(v){
   };
 }
 
-/* ---------- director records ---------- */
+/* ---------- training records ---------- */
 let unsubP = null, unsubR = null, ROWS = [], RECS = [];
 function vRecords(v){
   v.innerHTML = `
-    <div><p class="eyebrow">Owner</p><h1>Training records</h1></div>
+    <div><p class="eyebrow">Director</p><h1>Training records</h1></div>
     <p class="lede">Trainees who open the academy with write access appear here automatically. Others send you a completion code; check it below and add it to the records.</p>
     <div class="card"><h2>Trainees</h2><div id="rt" class="empty">Loading records…</div></div>
     <div class="card"><h2>Check a completion code</h2>

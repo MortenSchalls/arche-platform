@@ -143,7 +143,7 @@ ok('the library offers the terms on file',!!await p.$('[data-otlib]'));
 await p.click('[data-otlib]');await p.waitForTimeout(800);
 t=await trip();ok('terms taken from the library; aircraft and route must be confirmed again',t.d.opTerms.cancel.length===3&&t.d.opTerms.ins.insurer==='Example Aviation Insurance'&&t.d.opTerms.ins.regOn===''&&t.d.opTerms.ins.territory==='',t.d.opTerms);
 // margin: 9% floor in Settings, the owner's own margin on one trip
-await as('Test Owner');
+await as('Test Director');
 const floor=await p.evaluate(async()=>{S.view='settings';render();await new Promise(r=>setTimeout(r,500));const m=document.getElementById('t_m');if(!m)return 'no form';m.value='8';document.getElementById('termsForm').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await new Promise(r=>setTimeout(r,500));return S.terms.margin;});
 ok('Settings refuses a margin below 9%',floor===0.09&&/cannot be below 9%/.test(lastToast()),[floor,lastToast()]);
 await p.evaluate(()=>{const t=allTrips().find(x=>x.d.client&&x.d.client.name==='Anna Example');S.sel=t.did;S.view='trips';render();});await p.waitForTimeout(600);
@@ -190,7 +190,7 @@ await p.waitForTimeout(800);
 const lib2=await p.evaluate(async()=>{const g=await S.db.doc('intel/oplib').get();return g.data();});
 ok('the library records the outcome',lib2.ops['example charter air'].trips.some(x=>x.outcome==='cancelled'&&x.opCancelCharge===45000),lib2.ops['example charter air'].trips.map(x=>[x.ref,x.outcome,x.opCancelCharge]));
 // Team > Alerts: reminders to clients only once the owner approves the wording
-await as('Test Owner');await p.evaluate(()=>{S.view='team';render();});await p.waitForTimeout(1000);
+await as('Test Director');await p.evaluate(()=>{S.view='team';render();});await p.waitForTimeout(1000);
 await shot('12-reminders','#remindPanel');
 ok('Team > Alerts shows the reminder wording, off',!!await p.$('#remindPanel')&&/Off\./.test(await p.textContent('#remindPanel'))&&/is due by/.test(await p.inputValue('#rm_txt')));
 await p.click('[data-rm="on"]');await p.waitForTimeout(800);

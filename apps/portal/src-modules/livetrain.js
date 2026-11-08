@@ -1,9 +1,9 @@
 /* ---------- Live training in the real portal (Morten, 28 Oct 2026: "I need the live portal, so we need to give me the
    option to select what to share, instead of a preset default") ----------
-   The owner shares his screen with chosen members only, and chooses which pages are shared. Other pages show
+   The Director shares his screen with chosen members only, and chooses which pages are shared. Other pages show
    "not shared" to the watchers. Always kept back, whatever is chosen (CLAUDE.md data rules): the investor and
    partner list (owner only), Security and Settings, and every email address and phone number on screen (masked).
-   Transport: a PRIVATE Supabase Realtime channel "train:<id>". SQL 0020 lets only the owner and the chosen watchers
+   Transport: a PRIVATE Supabase Realtime channel "train:<id>". SQL 0020 lets only the Director and the chosen watchers
    join it, and only while the session in config/live is open (it ends by itself after the chosen hours). Nothing is
    stored except config/live (who, which pages, until when) and one audit-log line per session. Sound: phone or Teams. */
 (function(){
@@ -14,7 +14,7 @@
   const sb = () => window.__sb;
   const liveOpen = l => !!(l && l.id && l.until && l.until > now());
   const amWatcher = l => liveOpen(l) && (l.watchers || []).includes(S.uid);
-  // who may share: the owner (acting as owner) and anyone with the "Train and share screen" right (Morten, 29 Oct 2026)
+  // who may share: the Director (acting as owner) and anyone with the "Train and share screen" right (Morten, 29 Oct 2026)
   const canLead = () => !S.preview && (S.isOwner ? acting() === "owner" : typeof canRight === "function" && canRight("train"));
   const mine = l => liveOpen(l) && l.owner === S.uid;
   // only owners may write config: everyone else goes through /api/live, which makes the caller the one who shares
@@ -88,10 +88,10 @@
   async function push(force){
     if (LV.role !== "lead") return;
     const s = shareable();
-    if (!s.ok) { if (force || LV.sentPause !== s.why) { LV.sentPause = s.why; LV.last = ""; send("pause", {why: s.why, name: S.myName || "The owner"}); } bar(); return; }
+    if (!s.ok) { if (force || LV.sentPause !== s.why) { LV.sentPause = s.why; LV.last = ""; send("pause", {why: s.why, name: S.myName || "The Director"}); } bar(); return; }
     LV.sentPause = "";
     const html = snapshot(); if (!force && html === LV.last) return; LV.last = html;
-    send("dom", {z: await gz(html), w: innerWidth, h: innerHeight, sx: scrollX, sy: scrollY, theme: document.documentElement.getAttribute("data-theme") || "light", cls: document.body.className, name: S.myName || "The owner"});
+    send("dom", {z: await gz(html), w: innerWidth, h: innerHeight, sx: scrollX, sy: scrollY, theme: document.documentElement.getAttribute("data-theme") || "light", cls: document.body.className, name: S.myName || "The Director"});
     bar();
   }
   const schedule = () => { if (LV.role !== "lead") return; clearTimeout(LV.timer); LV.timer = setTimeout(() => push(false), 250); };
@@ -164,12 +164,12 @@
       showMirror(); msg("Connecting…");
       LV.ch = await channel(l.id); LV.role = "watch";
       LV.ch.on("broadcast", {event: "dom"}, m => show(m.payload));
-      LV.ch.on("broadcast", {event: "pause"}, m => { msg(`${m.payload.name || LV.leader || "The owner"} is on ${m.payload.why}. The picture comes back on a shared page.`); if (LV.frame) { LV.frame.contentDocument.body.innerHTML = ""; LV.frame.style.visibility = "hidden"; } if (LV.ptr) LV.ptr.hidden = true; });
+      LV.ch.on("broadcast", {event: "pause"}, m => { msg(`${m.payload.name || LV.leader || "The Director"} is on ${m.payload.why}. The picture comes back on a shared page.`); if (LV.frame) { LV.frame.contentDocument.body.innerHTML = ""; LV.frame.style.visibility = "hidden"; } if (LV.ptr) LV.ptr.hidden = true; });
       LV.ch.on("broadcast", {event: "ptr"}, m => dot(m.payload));
       LV.ch.on("broadcast", {event: "click"}, m => ripple(m.payload));
       LV.ch.on("broadcast", {event: "scroll"}, m => { if (LV.frame) LV.frame.contentWindow.scrollTo(m.payload.sx, m.payload.sy); });
-      LV.ch.on("broadcast", {event: "bye"}, () => { msg(`${LV.leader || "The owner"} stopped sharing.`); if (LV.frame) LV.frame.style.visibility = "hidden"; });
-      LV.ch.subscribe(st => { if (st === "SUBSCRIBED") { msg("Connected. Waiting for the screen…"); send("hello", {}); } else if (st === "CHANNEL_ERROR" || st === "TIMED_OUT") msg("Could not connect. Ask the owner to check the live training set-up (SQL 0020)."); });
+      LV.ch.on("broadcast", {event: "bye"}, () => { msg(`${LV.leader || "The Director"} stopped sharing.`); if (LV.frame) LV.frame.style.visibility = "hidden"; });
+      LV.ch.subscribe(st => { if (st === "SUBSCRIBED") { msg("Connected. Waiting for the screen…"); send("hello", {}); } else if (st === "CHANNEL_ERROR" || st === "TIMED_OUT") msg("Could not connect. Ask the Director to check the live training set-up (SQL 0020)."); });
     } catch(e){ msg("Could not connect."); }
   }
   async function stopWatch(text){ if (LV.ch) { try { await sb().removeChannel(LV.ch); } catch(e){} } LV.ch = null; LV.role = ""; const m = document.getElementById("lvMirror"); if (m) m.remove(); LV.frame = null; LV.ptr = null; LV.geo = null; document.documentElement.style.overflow = ""; if (text) toast(text); }
@@ -193,7 +193,7 @@
       <label class="f" for="lvHours">Ends after<select id="lvHours">${[1, 2, 4, 8].map(h => `<option value="${h}" ${F.h === h ? "selected" : ""}>${h} hour${h > 1 ? "s" : ""}</option>`).join("")}</select></label></div>
       <button class="btn small primary" type="button" data-lv="start">Start sharing</button></div>`;
   }
-  const ROLE_NAME = {owner: "owner", ops: "mandated by the owner", broker: "broker", consultant: "broker"};
+  const ROLE_NAME = {owner: "owner", ops: "mandated by the Director", broker: "broker", consultant: "broker"};
   const who = id => ((S.roster || {})[id] && (S.roster[id].contractName || "")) || ((S.lvStaff || {})[id] || {}).name || nm(id);
   const roleOf = id => ROLE_NAME[((S.roster || {})[id] || {}).role || ((S.lvStaff || {})[id] || {}).role] || "";
   function staffLoad(){
@@ -238,17 +238,17 @@
   // ---------- syllabus: follow a course during live training (Morten, 28 Oct 2026), switched on or off at any time ----------
   // Familiarisation for the first day, and the full syllabus (manual Modules 0-14, then the practical stages). Each
   // lesson names the page to show, what to show, and a task or question for the trainee. "Lesson done" is kept in the
-  // trainee's training record (train/<uid>/runs/syl-<course>-<lesson>); the owner sees it there and in the session.
+  // trainee's training record (train/<uid>/runs/syl-<course>-<lesson>); the Director sees it there and in the session.
   const SYL = {
     fam: {t: "Familiarisation (first day)", lessons: [
-      {id: "f1", t: "Welcome: what Archē Executive is and how we work", page: "today", min: 15, show: ["We are a broker, not an airline: a licensed operator flies every trip and is named in the quote and the agreement", "Our price: operator price and direct costs divided by 0.91 (9% margin); the owner approves lower margins", "The owner approves every booking before a confirmation is issued", "Four eyes: nobody prices, issues or records payment on their own trip"], check: "Explain in your own words what a broker does and who flies the aircraft."},
+      {id: "f1", t: "Welcome: what Archē Executive is and how we work", page: "today", min: 15, show: ["We are a broker, not an airline: a licensed operator flies every trip and is named in the quote and the agreement", "Our price: operator price and direct costs divided by 0.91 (9% margin); the Director approves lower margins", "The Director approves every booking before a confirmation is issued", "Four eyes: nobody prices, issues or records payment on their own trip"], check: "Explain in your own words what a broker does and who flies the aircraft."},
       {id: "f2", t: "Finding your way in the portal", page: "help", min: 15, show: ["The menu and your Today page", "Help and Portal rules: where the answers are", "Day and Night themes", "Notices: read them and press \"I have read this\""], check: "Find the Portal rules page and the Help page on your own."},
-      {id: "f3", t: "Enquiries: the website and the enquiry pool", page: "pool", min: 20, show: ["Website enquiries arrive in the portal: reply within 15 minutes", "Open enquiries: taking an enquiry from the pool", "While you are supervised, some steps wait for the owner's OK"], check: "Where does a new website enquiry appear, and how fast do we reply?"},
+      {id: "f3", t: "Enquiries: the website and the enquiry pool", page: "pool", min: 20, show: ["Website enquiries arrive in the portal: reply within 15 minutes", "Open enquiries: taking an enquiry from the pool", "While you are supervised, some steps wait for the Director's OK"], check: "Where does a new website enquiry appear, and how fast do we reply?"},
       {id: "f4", t: "A trip: the form and the steps guide", page: "trips", min: 25, show: ["New enquiry: client, legs, aircraft category, operator quote", "Fields marked * are needed before authorisation", "\"Steps to book this trip\": what is done, what is missing, who does it", "Save often; the trip keeps its history"], check: "Create a practice trip in the test portal and read its steps list aloud."},
-      {id: "f5", t: "Checks that stop a trip", page: "trips", min: 25, show: ["Trip checks: red stops the trip, amber must be confirmed in writing", "Sanctions, cabotage, night curfews and the never-sell list", "Operator safety: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3", "Any other operator: an Archē-approved operator or the owner's approval; the safety line for the quote"], check: "Name the three accepted audits and what happens with any other operator."},
-      {id: "f6", t: "Sending to operations and the owner's OK", page: "queue", min: 15, show: ["\"Send for authorisation\" opens only when nothing is missing and nothing is red", "The owner issues the confirmation and records payments; brokers set only enquiry, quoted, submitted or cancelled", "Payment only through a secure payment request, never bank details"], check: "Who issues the confirmation, and may you issue your own trip?"},
+      {id: "f5", t: "Checks that stop a trip", page: "trips", min: 25, show: ["Trip checks: red stops the trip, amber must be confirmed in writing", "Sanctions, cabotage, night curfews and the never-sell list", "Operator safety: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3", "Any other operator: an Archē-approved operator or the Director's approval; the safety line for the quote"], check: "Name the three accepted audits and what happens with any other operator."},
+      {id: "f6", t: "Sending to operations and the Director's OK", page: "queue", min: 15, show: ["\"Send for authorisation\" opens only when nothing is missing and nothing is red", "The Director issues the confirmation and records payments; brokers set only enquiry, quoted, submitted or cancelled", "Payment only through a secure payment request, never bank details"], check: "Who issues the confirmation, and may you issue your own trip?"},
       {id: "f7", t: "Prospects and contacts: the data rules", page: "prospects", min: 20, show: ["Organisations first; named people only as business contacts from the organisation's own site or a licensed database", "Every first message says where we found the details and offers an opt-out", "An opt-out deletes the person's details at once; no export of contact details", "You see contacts only on your own leads; opening them is logged"], check: "What must every first message to a named contact include?"},
-      {id: "f8", t: "Commission, training and the next steps", page: "commission", min: 15, show: ["Your commission page", "Training: the academy, its quizzes and the practice trips", "The test portal for practice on example data", "The plan for the next sessions (full syllabus)"], check: "Agree with the owner the first three academy modules to finish this week."}]},
+      {id: "f8", t: "Commission, training and the next steps", page: "commission", min: 15, show: ["Your commission page", "Training: the academy, its quizzes and the practice trips", "The test portal for practice on example data", "The plan for the next sessions (full syllabus)"], check: "Agree with the Director the first three academy modules to finish this week."}]},
     full: {t: "Full syllabus", lessons: [
       ["m0", "Module 0: Aviation for brokers", "training"], ["m1", "Module 1: Archē Executive and the broker's role", "today"], ["m2", "Module 2: Where we may and may not sell: the legal map", "trips"],
       ["m3", "Module 3: Compliance: KYC, sanctions, fraud, bribery and data protection", "trips"], ["m4", "Module 4: Our clients", "prospects"], ["m5", "Module 5: Enquiry intake and qualification", "pool"],
@@ -258,8 +258,8 @@
     ].map(([id, t, page]) => ({id, t, page, min: 60, show: [`Academy: read ${t.split(":")[0]} and pass its quiz`, "Walk through the same steps in the portal on a real or practice trip", "Questions and the points to remember"], check: `Explain the critical rules of ${t.split(":")[0]} and show one of them in the portal.`})).concat([
       {id: "p1", t: "Practical: Avinode and payment system training", page: "trips", min: 120, show: ["Searching and requesting quotes on Avinode", "Comparing quotes like for like", "The payment request: how the client pays"], check: "Request and compare three quotes for a practice trip."},
       {id: "p2", t: "Practical: eight shadowed trips", page: "trips", min: 0, show: ["The trainee follows eight real trips from enquiry to the last landing", "Notes on each trip in the training record"], check: "Present one shadowed trip from start to finish."},
-      {id: "p3", t: "Practical exam with the owner", page: "training", min: 90, show: ["A full trip, priced, checked and ready for authorisation, without help"], check: "Pass the practical exam."},
-      {id: "p4", t: "Ten supervised bookings", page: "trips", min: 0, show: ["Every step waits for the owner's OK until released", "The owner releases each step separately"], check: "Complete ten supervised bookings; the owner signs the training record."}])}
+      {id: "p3", t: "Practical exam with the Director", page: "training", min: 90, show: ["A full trip, priced, checked and ready for authorisation, without help"], check: "Pass the practical exam."},
+      {id: "p4", t: "Ten supervised bookings", page: "trips", min: 0, show: ["Every step waits for the Director's OK until released", "The Director releases each step separately"], check: "Complete ten supervised bookings; the Director signs the training record."}])}
   };
   window.LIVE_SYLLABUS = SYL;
   const sylOf = () => ((S.live || {}).syl) || null;

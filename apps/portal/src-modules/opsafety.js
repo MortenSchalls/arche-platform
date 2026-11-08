@@ -2,13 +2,13 @@
    we can enforce it, otherwise remove"). Manual Module 8.2, 8.3 and 8.5.
    Tier 1, no approval needed: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3,
      current on the last flight date, checked at the source no more than 14 days ago, link and evidence saved.
-   Tier 2, everything else (Morten, 27 Oct 2026, manual 8.3): an Archē-approved operator (the owner approves the
-     operator once, for twelve months, after the 8.3 checks; list in config/opapproved), or the owner's approval for
+   Tier 2, everything else (Morten, 27 Oct 2026, manual 8.3): an Archē-approved operator (the Director approves the
+     operator once, for twelve months, after the 8.3 checks; list in config/opapproved), or the Director's approval for
      that one trip after the same checks and the crew hours. Every quote and confirmation carries one safety line
      (safetyLine), so the client always sees the audit or the approval; no separate disclosure email.
    Every operator: two pilots on every jet flight; passenger liability at least USD 50M (jet) or USD 25M (turboprop);
-     five years clear of fatal accidents, serious incidents and sanctions (otherwise owner approval); suspended
-     operators (after an accident or serious incident, until the owner's review) cannot be used.
+     five years clear of fatal accidents, serious incidents and sanctions (otherwise Director approval); suspended
+     operators (after an accident or serious incident, until the Director's review) cannot be used.
    Enforced: "Send for authorisation" stays closed until the record is complete; a breach is a red trip check that also
    blocks approval and issue; the safety-audit tick cannot be set by hand before the record is complete. */
 (function(){
@@ -33,7 +33,7 @@
     const last = lastDate(d) || today(); return {state: e.until >= last ? "valid" : e.until >= today() ? "expires" : "expired", e}; };
   window.approvedOperator = approvedOp;
   const fpOf = d => { const s = d.safety || {}, q = d.quote || {}; return [normOp(q.operator), s.audit || "", s.history || "", regMismatch(d) ? "reg" : ""].join("|"); };
-  // the auditors' own registries (jobs/audits.mjs → api/auditcheck.mjs): a level the registry does not confirm needs the owner
+  // the auditors' own registries (jobs/audits.mjs → api/auditcheck.mjs): a level the registry does not confirm needs the Director
   const REG = {"argus-plat": ["ARGUS", "Platinum"], "argus-elite": ["ARGUS", "Platinum Elite"], "wyv-wingman": ["WYVERN", "Wingman"], "wyv-pro": ["WYVERN", "Wingman"]};   // the WYVERN directory lists Wingman and Wingman PRO together (both tier 1)
   const RANK = {"Gold": 1, "Gold Certified": 2, "Platinum": 3, "Platinum Elite": 4, "Wingman": 3, "Wingman PRO": 4};
   S.regc = S.regc || {};
@@ -81,19 +81,19 @@
     } else {
       const ap = approvedOp(d);
       if (ap.state !== "valid") {
-        if (ap.state === "expires") out.push(`operator safety: the Archē approval of this operator ends ${fmtD(ap.e.until)}, before the last flight; the owner renews it or approves this trip`);
+        if (ap.state === "expires") out.push(`operator safety: the Archē approval of this operator ends ${fmtD(ap.e.until)}, before the last flight; the Director renews it or approves this trip`);
         CHECKS83.forEach(([k]) => { if (!(s.c83 || {})[k]) out.push("operator safety: all five checks for operators below the audit standard"); });
         if (!(s.cap > 0 && s.capType > 0 && s.fo > 0)) out.push("operator safety: crew hours confirmed by the operator");
       }
     }
     if (T1[s.audit]) { const rg = safetyRegistry(d); if (rg.state === "loading") out.push("operator safety: registry check in progress"); }
-    if (needsApproval(s, d) && !safetyApproved(d, st)) out.push(regMismatch(d) ? "operator safety: the registry does not confirm the audit; the owner must check the evidence and approve" : "operator safety: the owner's approval on this trip");
+    if (needsApproval(s, d) && !safetyApproved(d, st)) out.push(regMismatch(d) ? "operator safety: the registry does not confirm the audit; the Director must check the evidence and approve" : "operator safety: the Director's approval on this trip");
     return [...new Set(out)];
   };
   // breaches of the standard (red: stop the trip)
   window.safetyBreaches = function(d){
     const s = d.safety || {}, q = d.quote || {}, out = [];
-    const sp = suspended(q.operator); if (sp) out.push(`${esc(q.operator)} is suspended by the owner (${esc(fmtD(sp.at))}${sp.note ? ": " + esc(sp.note) : ""}). It cannot be used until the suspension is lifted.`);
+    const sp = suspended(q.operator); if (sp) out.push(`${esc(q.operator)} is suspended by the Director (${esc(fmtD(sp.at))}${sp.note ? ": " + esc(sp.note) : ""}). It cannot be used until the suspension is lifted.`);
     if (s.cls === "jet" && s.twoPilots === "no") out.push("Single-pilot jet flight: Archē requires two pilots on every jet flight (manual 8.2).");
     if (s.cls && Number(s.ins) > 0 && Number(s.ins) < MIN_INS[s.cls]) out.push(`Passenger liability insurance ${usd(Number(s.ins))} is below the minimum of ${usd(MIN_INS[s.cls])} for a ${s.cls} (manual 8.2).`);
     if (T1[s.audit]) {
@@ -138,7 +138,7 @@
     const opt = (o, v) => Object.entries(o).map(([k, l]) => `<option value="${k}" ${v === k ? "selected" : ""}>${esc(l)}</option>`).join("");
     const head = red.length ? `<div class="note bad small">${red.map(x => `<div>${x}</div>`).join("")}</div>`
       : needs.length ? `<div class="note warn small"><b>Still needed:</b> ${needs.map(x => esc(x.replace("operator safety: ", ""))).join(" · ")}</div>`
-      : `<div class="note ok small"><b>Meets the standard</b>${tier === 1 ? ` · ${esc(LABEL[s.audit])}, expires ${esc(fmtD(s.expiry))}, checked ${esc(fmtD(s.checkedAt))}` : apS.state === "valid" ? ` · Archē-approved operator, approval valid to ${esc(fmtD(apS.e.until))}` : ` · approved by the owner ${esc(fmtT((st.safetyApproval || {}).at))}`}</div>`;
+      : `<div class="note ok small"><b>Meets the standard</b>${tier === 1 ? ` · ${esc(LABEL[s.audit])}, expires ${esc(fmtD(s.expiry))}, checked ${esc(fmtD(s.checkedAt))}` : apS.state === "valid" ? ` · Archē-approved operator, approval valid to ${esc(fmtD(apS.e.until))}` : ` · approved by the Director ${esc(fmtT((st.safetyApproval || {}).at))}`}</div>`;
     const line = safetyLine(d, st);
     const lineBox = line ? `<div class="note info small"><b>Safety line for your quote and the confirmation:</b> <span id="sfLine">${esc(line)}</span> <button class="btn small" type="button" data-sfcopy="1">Copy</button></div>` : "";
     const rg = safetyRegistry(d);
@@ -150,8 +150,8 @@
       <p class="small muted">Check the operator in the auditor's own registry (ARGUS registry, WYVERN Wingman directory, IS-BAO certificate) for the AOC that flies this trip. Attach a screenshot or the certificate as document type "Safety audit".</p>` : "";
     const owner = S.isOwner && acting() === "owner";
     const ck = ([k, l], extra) => `<label class="check" for="sf83_${k}"><input type="checkbox" id="sf83_${k}" data-sf83="${k}" ${(s.c83 || {})[k] ? "checked" : ""} ${dis}><span>${esc(l)}${extra || ""}</span></label>`;
-    const t2 = tier !== 2 ? "" : apS.state === "valid" ? `<p class="small"><b>Archē-approved operator</b> (manual 8.3): approved by the owner ${esc(fmtD(apS.e.at))}, valid to ${esc(fmtD(apS.e.until))}${apS.e.note ? ". " + esc(apS.e.note) : ""}. The per-trip checks above still apply.</p>`
-      : `<p class="small"><b>Below the audit standard (manual 8.3).</b> ${apS.state === "expires" ? `The Archē approval of this operator ends ${esc(fmtD(apS.e.until))}, before the last flight. ` : apS.state === "expired" ? `The Archē approval of this operator ended ${esc(fmtD(apS.e.until))}. ` : ""}The owner approves this trip after the five checks and the crew hours, or approves the operator for twelve months (two more checks).</p>
+    const t2 = tier !== 2 ? "" : apS.state === "valid" ? `<p class="small"><b>Archē-approved operator</b> (manual 8.3): approved by the Director ${esc(fmtD(apS.e.at))}, valid to ${esc(fmtD(apS.e.until))}${apS.e.note ? ". " + esc(apS.e.note) : ""}. The per-trip checks above still apply.</p>`
+      : `<p class="small"><b>Below the audit standard (manual 8.3).</b> ${apS.state === "expires" ? `The Archē approval of this operator ends ${esc(fmtD(apS.e.until))}, before the last flight. ` : apS.state === "expired" ? `The Archē approval of this operator ended ${esc(fmtD(apS.e.until))}. ` : ""}The Director approves this trip after the five checks and the crew hours, or approves the operator for twelve months (two more checks).</p>
       ${CHECKS83.map(c => ck(c)).join("")}
       <div class="fgrid">
       <label class="f" for="sf_cap">Captain: total hours<input id="sf_cap" inputmode="numeric" data-sfn="cap" value="${esc(s.cap || "")}" ${dis}></label>
@@ -159,9 +159,9 @@
       <label class="f" for="sf_fo">First officer: total hours<input id="sf_fo" inputmode="numeric" data-sfn="fo" value="${esc(s.fo || "")}" ${dis}></label></div>
       <p class="small muted" style="margin-bottom:4px">For a twelve-month approval, also:</p>
       ${CHECKS12.map(c => ck(c)).join("")}`;
-    const appr = needsApproval(s, d) ? (safetyApproved(d, st) ? `<p class="small">Approved by the owner ${esc(fmtT(st.safetyApproval.at))}: ${esc(st.safetyApproval.note || "")}</p>`
-      : (owner ? `<div class="fgrid"><label class="f wide" for="sf_apn">Owner: why this operator is acceptable<input id="sf_apn" placeholder="e.g. IS-BAO Stage 1 renewed 2026, references from two brokers, crew hours confirmed"></label></div><div class="row"><button class="btn small primary" type="button" data-sfa="approve">Approve for this trip</button>${tier === 2 && s.history !== "event" ? ` <button class="btn small" type="button" data-sfa="approve12">Approve ${esc(q.operator || "the operator")} for twelve months</button>` : ""}</div>`
-        : `<p class="small muted">Waiting for the owner's approval on this trip.</p>`)) : "";
+    const appr = needsApproval(s, d) ? (safetyApproved(d, st) ? `<p class="small">Approved by the Director ${esc(fmtT(st.safetyApproval.at))}: ${esc(st.safetyApproval.note || "")}</p>`
+      : (owner ? `<div class="fgrid"><label class="f wide" for="sf_apn">Director: why this operator is acceptable<input id="sf_apn" placeholder="e.g. IS-BAO Stage 1 renewed 2026, references from two brokers, crew hours confirmed"></label></div><div class="row"><button class="btn small primary" type="button" data-sfa="approve">Approve for this trip</button>${tier === 2 && s.history !== "event" ? ` <button class="btn small" type="button" data-sfa="approve12">Approve ${esc(q.operator || "the operator")} for twelve months</button>` : ""}</div>`
+        : `<p class="small muted">Waiting for the Director's approval on this trip.</p>`)) : "";
     const sp = suspended(q.operator);
     const susp = S.isOwner && acting() === "owner" && q.operator ? (sp ? `<div class="row"><button class="btn small" type="button" data-sfa="unsuspend">Lift the suspension of ${esc(q.operator)}</button></div>`
       : `<details class="small" style="margin-top:8px"><summary>Suspend this operator (after an accident or serious incident)</summary><div class="fgrid"><label class="f wide" for="sf_sn">Reason<input id="sf_sn"></label></div><button class="btn small danger" type="button" data-sfa="suspend">Suspend ${esc(q.operator)} on every trip</button></details>`) : "";
@@ -171,9 +171,9 @@
       <label class="f" for="sf_cls">Aircraft<select id="sf_cls" data-sf="cls" ${dis}><option value="">Choose</option><option value="jet" ${s.cls === "jet" ? "selected" : ""}>Jet</option><option value="turboprop" ${s.cls === "turboprop" ? "selected" : ""}>Turboprop</option></select></label>
       <label class="f" for="sf_2p">Two pilots on every flight, confirmed by the operator<select id="sf_2p" data-sf="twoPilots" ${dis}><option value="">Choose</option><option value="yes" ${s.twoPilots === "yes" ? "selected" : ""}>Yes, in writing</option><option value="no" ${s.twoPilots === "no" ? "selected" : ""}>No, single pilot</option></select></label>
       <label class="f" for="sf_ins">Passenger liability insurance (USD)<input id="sf_ins" inputmode="numeric" data-sfn="ins" value="${esc(s.ins || "")}" placeholder="e.g. 50000000" ${dis}></label>
-      <label class="f" for="sf_hist">Last five years: fatal accident, serious incident or sanction?<select id="sf_hist" data-sf="history" ${dis}><option value="">Choose</option><option value="clear" ${s.history === "clear" ? "selected" : ""}>None found (databases checked, operator confirms)</option><option value="event" ${s.history === "event" ? "selected" : ""}>Yes: needs the owner's approval</option></select></label>
+      <label class="f" for="sf_hist">Last five years: fatal accident, serious incident or sanction?<select id="sf_hist" data-sf="history" ${dis}><option value="">Choose</option><option value="clear" ${s.history === "clear" ? "selected" : ""}>None found (databases checked, operator confirms)</option><option value="event" ${s.history === "event" ? "selected" : ""}>Yes: needs the Director's approval</option></select></label>
       </div>${t1}${t2}${appr}${lineBox}${susp}
-      <p class="small muted">Minimums for every operator: two pilots on every jet flight; insurance at least USD 50 million (jet) or 25 million (turboprop); five years clear, otherwise the owner decides. Manual Module 8.</p></div>`;
+      <p class="small muted">Minimums for every operator: two pilots on every jet flight; insurance at least USD 50 million (jet) or 25 million (turboprop); five years clear, otherwise the Director decides. Manual Module 8.</p></div>`;
   };
 
   async function save(t, patch, line){ const s = {...(t.d.safety || {}), ...patch, at: now()}; await deskWrite(t, {safety: s}, line); }
@@ -212,7 +212,7 @@
       if (a === "unsuspend") { await S.db.doc("config/opsuspend").set({list: cur.filter(x => normOp(x.name) !== normOp(q.operator))}); audit("Operator suspension lifted", q.operator || ""); toast("Suspension lifted."); return; }
     } catch(err){ toast("Could not save. Try again."); }
   });
-  // Archē-approved operators: the owner approves an operator once, for twelve months (manual 8.3)
+  // Archē-approved operators: the Director approves an operator once, for twelve months (manual 8.3)
   async function opApprove(e){
     const list = ((S.opAppr || {}).list || []).filter(x => normOp(x.name) !== normOp(e.name));
     const entry = {name: e.name, audit: e.audit || "", note: e.note, checks: e.checks, at: now(), by: S.uid, until: e.until || plusYear(), trip: e.trip || ""};
@@ -232,7 +232,7 @@
     const w = e.target.closest && e.target.closest("[data-apw]"), add = e.target.closest && e.target.closest("[data-apadd]");
     if ((!w && !add) || !S.isOwner || acting() !== "owner") return;
     try {
-      if (w) { const name = w.dataset.apw; if (!confirm(`Withdraw the approval of ${name}? Its trips then need the owner's approval again.`)) return;
+      if (w) { const name = w.dataset.apw; if (!confirm(`Withdraw the approval of ${name}? Its trips then need the Director's approval again.`)) return;
         await S.db.doc("config/opapproved").set({list: ((S.opAppr || {}).list || []).filter(x => x.name !== name)}); audit("Operator approval withdrawn", name); toast("Approval withdrawn."); return; }
       const name = (($("ap_name") || {}).value || "").trim(), aud = ($("ap_aud") || {}).value || "", note = (($("ap_note") || {}).value || "").trim();
       const checks = Object.fromEntries([...document.querySelectorAll("[data-apck]")].map(x => [x.dataset.apck, x.checked]));

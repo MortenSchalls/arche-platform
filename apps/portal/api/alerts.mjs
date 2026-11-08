@@ -263,7 +263,7 @@ export default async function handler(req, res) {
       const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, ""), PK = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_SECRET_KEY;
       const who = await fetch(`${D.SB}/auth/v1/user`, { headers: { apikey: PK, authorization: `Bearer ${token}` } }); if (!who.ok) return res.status(401).json({ error: "Sign in again" });
       const u = await who.json(), prof = (await D.all("profiles", "id,role,active", `&id=eq.${u.id}`))[0];
-      if (!prof || prof.role !== "owner" || !prof.active) return res.status(403).json({ error: "Owners only" });
+      if (!prof || prof.role !== "owner" || !prof.active) return res.status(403).json({ error: "The Director only" });
       const cfg = (await D.get("alert_settings", "settings")) || {}, R = cfg.recipients || [];
       const linked = R.find(r => r.uid === u.id), me = (linked && linked.email ? linked : R.find(r => r.email && (r.uid === u.id || (u.email && r.email.toLowerCase() === u.email.toLowerCase())))) || linked || {};
       let v = await D.get("alert_settings", "vapid"); if (!v) { v = newVapid(); await D.put("alert_settings", "vapid", v); }

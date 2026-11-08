@@ -1,5 +1,5 @@
 /* ---------- Investors and strategic partners: owner only (Morten, 20 Oct 2026) ----------
-   Data lives in the owner_prospects table, which the database shows to the owner and nobody else.
+   Data lives in the owner_prospects table, which the database shows to the Director and nobody else.
    Nothing here is written to the shared audit log, assigned, rotated or shown in preview mode. */
 const INV_STATUS = {new:"New", review:"Your decision", researching:"Researching", contacted:"Contacted", talks:"In talks", notnow:"Not now", dnc:"Do not contact"};
 const INV_TRACKS = ["Family office or UHNW office", "Aviation lender or lessor", "Private equity or private credit", "Bank or private bank", "Distribution partner for notes", "Strategic partner", "Adviser or placement agent"];
@@ -113,7 +113,7 @@ document.addEventListener("click", async e => {
   if (a === "pot") { const F = S.invF || (S.invF = {q:"", track:"", for:"", status:"", potential:"", interest:"", industry:"", ticket:""}); F.potential = F.potential === el.dataset.pot ? "" : el.dataset.pot; render(); return; }
   if (a === "status" && p) { const v = $("invStatus").value; if (!INV_STATUS[v]) return; await invSet(id, {...p, status: v, log: [...(p.log || []), {t: now(), note: "Status: " + INV_STATUS[v]}]}); toast("Status saved."); return; }
   if (a === "note" && p) { const n = $("invNote").value.trim(); if (!n) { toast("Write the note first."); return; } await invSet(id, {...p, log: [...(p.log || []), {t: now(), note: n.slice(0, 2000)}]}); toast("Note added."); return; }
-  if (a === "moveFrom") {   // from the shared prospect list into the owner-only list; two clicks so it is never done by accident
+  if (a === "moveFrom") {   // from the shared prospect list into the Director-only list; two clicks so it is never done by accident
     const src = S.prospects[id]; if (!src) return;
     if (!el.dataset.armed) { el.dataset.armed = "1"; el.textContent = "Click again to move (only you will see it)"; setTimeout(() => { if (el.isConnected) { delete el.dataset.armed; el.textContent = "Move to investors and partners"; } }, 6000); return; }
     const nid = invNextId(), keep = ({org, country, city, region, website, source, why, approach, avenues}) => ({org, country, city, region, website, source, why, approach, avenues});
@@ -121,7 +121,7 @@ document.addEventListener("click", async e => {
       await invSet(nid, {...keep(src), track: "Strategic partner", for: "Whole platform", type: src.segment || "", status: "new", added: now(), movedFrom: true, movedAt: now(), log: [{t: now(), note: "Moved from the shared prospect list"}]});
       await S.db.doc("prospects/" + id).delete();
       S.pSec = "inv"; S.invSel = nid; S.pSel = null; toast("Moved. Only you can see it now."); render();
-    } catch (err) { toast("Could not move: " + (err.code === "permission_denied" ? "the owner-only table is not set up yet (run 0004 in Supabase)." : "try again.")); }
+    } catch (err) { toast("Could not move: " + (err.code === "permission_denied" ? "the Director-only table is not set up yet (run 0004 in Supabase)." : "try again.")); }
   }
 });
 document.addEventListener("input", e => { const k = e.target.dataset && e.target.dataset.invf; if (!k || !invOwner()) return; (S.invF || (S.invF = {q:"", track:"", for:"", status:"", potential:"", interest:"", industry:"", ticket:""}))[k] = e.target.value; if (e.target.tagName === "SELECT") render(); else { clearTimeout(S.invT); S.invT = setTimeout(() => { render(); const i = $("if_q"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }, 250); } });
@@ -140,7 +140,7 @@ document.addEventListener("submit", async e => {
       have.add(invNorm(org)); added++;
     }
     S.invImp = false; S.invF = null; toast(`Imported ${added}${skipped ? `, skipped ${skipped} already in the list or not an organisation` : ""}. The morning review researches them.`); render();
-  } catch (err) { toast("Could not import: " + (err.code === "permission_denied" ? "owner only." : "try again.")); }
+  } catch (err) { toast("Could not import: " + (err.code === "permission_denied" ? "Director only." : "try again.")); }
 });
 document.addEventListener("submit", async e => {
   if (e.target.id !== "invForm" || !invOwner()) return; e.preventDefault();
@@ -148,5 +148,5 @@ document.addEventListener("submit", async e => {
   const nid = invNextId();
   try { await invSet(nid, {org, track: $("iv_track").value, for: $("iv_for").value, country: $("iv_cty").value.trim(), website: $("iv_web").value.trim(), source: $("iv_src").value.trim(), why: $("iv_why").value.trim(), status: "new", added: now(), addedBy: S.uid, log: []});
     S.invNew = false; S.invSel = nid; toast("Saved. Only you can see it."); render(); }
-  catch (err) { toast(err.code === "permission_denied" ? "The owner-only table is not set up yet (run 0004 in Supabase)." : "Could not save."); }
+  catch (err) { toast(err.code === "permission_denied" ? "The Director-only table is not set up yet (run 0004 in Supabase)." : "Could not save."); }
 });

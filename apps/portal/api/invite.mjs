@@ -125,7 +125,7 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   const onTeam = !!(prof && prof.active && pd.roster), sends = invite.sends || (invite.at ? [{ at: invite.at, sent: !!invite.sent }] : []);
   const invAt = invite.first || invite.at || "", conf = user ? (user.email_confirmed_at || user.confirmed_at || null) : null, firstIn = conf && (!invAt || conf >= invAt) ? conf : null, signedIn = user ? user.last_sign_in_at || null : null;
   const steps = [
-    { k: "invited", t: sends.length ? "Invited" : "Login created", done: !!(invite.first || invite.at), at: invite.first || invite.at || null, note: sends.length > 1 ? `link sent ${sends.length} times` : invite.sent === false ? "link given to the owner" : sends.length ? "" : "not invited from Team" },
+    { k: "invited", t: sends.length ? "Invited" : "Login created", done: !!(invite.first || invite.at), at: invite.first || invite.at || null, note: sends.length > 1 ? `link sent ${sends.length} times` : invite.sent === false ? "link given to the Director" : sends.length ? "" : "not invited from Team" },
     { k: "login", t: "Accepted and signed in", done: !!signedIn, at: firstIn && signedIn ? firstIn : signedIn, note: signedIn ? "last seen " + signedIn.slice(0, 16).replace("T", " ") : user ? "invitation not opened yet" : "no login" },
     { k: "offer", t: "Read the offer", done: !!(offer && offer.data && offer.data.at), at: (offer && offer.data && offer.data.at) || null, note: "" },
     { k: "academy", t: "Broker Academy", done: !!(p && p.completedAt), at: (p && p.completedAt) || null, note: p ? `${passed.length} of ${path.length} modules passed${!p.completedAt && next ? " · next: " + ACADEMY_TITLES[next] : ""}` : "not started", part: path.length ? passed.length / path.length : 0 },
@@ -146,7 +146,7 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   const invAudits = (audits || []).filter(x => x.action === "Invitation to join" && x.t && !sends.some(y => near(y.at, x.t))).map(x => ({ at: x.t, sent: /email sent/.test(x.detail || "") }));
   const allSends = [...sends, ...invAudits].sort((a, b) => String(a.at).localeCompare(String(b.at)));
   if (allSends.length > 1 && steps[0].k === "invited" && !steps[0].note) steps[0].note = `link sent ${allSends.length} times`;
-  allSends.forEach((x, i) => log.push({ at: x.at, t: i ? "Invitation sent again" + (x.sent ? "" : " (link given to the owner)") : "Invited" + (x.sent ? "; email sent" : "; email not sent, link given to the owner") }));
+  allSends.forEach((x, i) => log.push({ at: x.at, t: i ? "Invitation sent again" + (x.sent ? "" : " (link given to the Director)") : "Invited" + (x.sent ? "; email sent" : "; email not sent, link given to the Director") }));
   // sign-in history kept by Supabase (SQL 0021): every sign-in, grouped by day, and account events
   const AUTH = { user_signedup: "Login created", user_invited: "Invitation link created", invite_accepted: "Opened the invitation", user_confirmation_requested: "Asked to confirm the email", user_recovery_requested: "Asked for a new password link", user_updated_password: "Set or changed the password", user_modified: "Account details changed", logout: "Signed out", user_repeated_signup: "Tried to sign up again", user_deleted: "Login deleted" };
   if (Array.isArray(authEvents) && authEvents.length) {
@@ -251,7 +251,7 @@ async function owner(req) {
   if (!who.ok) return { code: 401, error: "Sign in again" };
   const me = await who.json();
   const prof = await sb(`/rest/v1/profiles?select=role,active,contract_name&id=eq.${me.id}`);
-  const p = (prof.body || [])[0]; if (!p || p.role !== "owner" || !p.active) return { code: 403, error: "Owners only" };
+  const p = (prof.body || [])[0]; if (!p || p.role !== "owner" || !p.active) return { code: 403, error: "The Director only" };
   return { me, p };
 }
 export default async function handler(req, res) {

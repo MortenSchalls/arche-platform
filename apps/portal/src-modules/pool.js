@@ -1,9 +1,9 @@
 /* ---------- Enquiry pool and booking cycle target (Morten, 24 Oct 2026) ----------
-   Every charter enquiry (website form, charter email, phone) reaches the owner first. The owner releases it to all
+   Every charter enquiry (website form, charter email, phone) reaches the Director first. The Director releases it to all
    brokers (first come, first served) or assigns it to the most suitable person, and can reassign at any time.
    Brokers see the trip summary of open enquiries; the client's details open only for the broker who has it.
    Booking cycle target: each booking should go from enquiry to signed confirmation and client payment within
-   S.terms.cycleDays days (default 5, set by the owner in Settings). Database rules: migration 0008. */
+   S.terms.cycleDays days (default 5, set by the Director in Settings). Database rules: migration 0008. */
 const POOL_SRC = {website: "Website", email: "Charter email", phone: "Phone", other: "Other"};
 const cycleDays = () => Math.max(1, Math.round(num((S.terms || {}).cycleDays) || 5));
 function cycleDay(fromIso){ const t = Date.parse(fromIso || ""); return isNaN(t) ? 0 : Math.floor((Date.now() - t) / 86400000) + 1; }
@@ -63,7 +63,7 @@ function vOpenEnq(){
   <div class="panel"><h2>Mine (${mine.length})</h2>
     ${mine.map(([id, e]) => { const c = (S.poolC || {})[id];
       return `<div class="flag"><span class="sev low" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${poolLegs(e)}</b> · ${esc(e.pax || "?")} pax</p>
-      <p class="small">${c === undefined ? "Loading the client's details…" : c ? `${esc(c.name || "")}${c.company ? " · " + esc(c.company) : ""}<br>${esc(c.email || "")}${c.phone ? " · " + esc(c.phone) : ""}${c.reach ? " · " + esc(c.reach) : ""}${c.message ? `<br><span class="muted">${esc(c.message)}</span>` : ""}` : "Client details not available. Ask the owner."}</p>
+      <p class="small">${c === undefined ? "Loading the client's details…" : c ? `${esc(c.name || "")}${c.company ? " · " + esc(c.company) : ""}<br>${esc(c.email || "")}${c.phone ? " · " + esc(c.phone) : ""}${c.reach ? " · " + esc(c.reach) : ""}${c.message ? `<br><span class="muted">${esc(c.message)}</span>` : ""}` : "Client details not available. Ask the Director."}</p>
       <p class="small muted">${e.how === "assigned" ? "Assigned to you" : "You took it"} ${fmtT(e.claimedAt)} · <span class="chip ${cycleDay(e.receivedAt) > cycleDays() ? "c-returned" : "c-quoted"}">Day ${cycleDay(e.receivedAt)} of ${cycleDays()}</span></p>
       <div class="row" style="margin-top:6px">${hasTrip(id) ? `<span class="small">Trip opened.</span>` : `<button class="btn small primary" type="button" data-pool="trip|${id}">Open the trip</button>`}</div></div></div>`; }).join("") || `<p class="small muted">Nothing taken yet.</p>`}</div></div>`;
 }

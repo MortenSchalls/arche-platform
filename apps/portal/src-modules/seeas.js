@@ -1,12 +1,12 @@
 /* ---------- See as a person (Morten, 28 Oct 2026, training findings 1 and 2: "consistency between what the brokers see
    and what I see when I switch", "Natalia should have prospects assigned but she cannot see them") ----------
    Owner only. The preview menu in the header lists every team member: choosing one shows the portal exactly as that
-   person sees it (their Today, leads, trips, training), not a generic broker screen built on the owner's own data.
+   person sees it (their Today, leads, trips, training), not a generic broker screen built on the Director's own data.
    Strictly read-only: while seeing as someone, every save, delete, upload and server action is refused, so nothing can
    be changed in their name. A bar at the top says whose portal it is, with Exit. */
 (function(){
   const own = {leads: undefined, trRuns: undefined, myAsks: undefined}, as = {leads: {}, trRuns: {}, myAsks: {}};
-  // these three follow the person being seen; the owner's own live updates keep landing in "own" meanwhile
+  // these three follow the person being seen; the Director's own live updates keep landing in "own" meanwhile
   Object.keys(own).forEach(k => { own[k] = S[k]; Object.defineProperty(S, k, {configurable: true, get(){ return S.asUser ? as[k] : own[k]; }, set(v){ if (S.asUser && S.asSetting) as[k] = v; else own[k] = v; }}); });
   const WRITE = new Set(["set", "update", "delete", "add", "insert", "upsert", "upload", "remove", "rpc"]);
   const refuse = () => { toast("Read-only: you are seeing the portal as " + (S.asName || "this person") + ". Exit to make changes."); return Promise.reject(Object.assign(new Error("read-only preview"), {code: "preview_read_only"})); };
@@ -36,7 +36,7 @@
     if (sel && S.isOwner && !sel.querySelector("optgroup")) {
       const people = Object.entries(S.roster || {}).filter(([, r]) => r.active !== false).sort((a, b) => (a[1].contractName || "").localeCompare(b[1].contractName || ""));
       if (people.length) { const g = document.createElement("optgroup"); g.label = "See as a person (read-only)";
-        people.forEach(([id, r]) => { const o = document.createElement("option"); o.value = "as:" + id; o.textContent = (r.contractName || "Team member") + " (" + (r.role === "ops" ? "mandated by the owner" : r.role) + ")"; if (S.asUser === id) o.selected = true; g.appendChild(o); });
+        people.forEach(([id, r]) => { const o = document.createElement("option"); o.value = "as:" + id; o.textContent = (r.contractName || "Team member") + " (" + (r.role === "ops" ? "mandated by the Director" : r.role) + ")"; if (S.asUser === id) o.selected = true; g.appendChild(o); });
         sel.appendChild(g); }
     }
     const main = document.getElementById("main");

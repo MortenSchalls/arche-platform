@@ -4,7 +4,7 @@ let fail=0;const ok=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefine
 const A3='00000000-0000-4000-8000-0000000000a3',A4='00000000-0000-4000-8000-0000000000a4';
 const as=async who=>{await p.selectOption('select',{label:who});await p.waitForTimeout(2500);};
 await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);
-await as('Test Owner');
+await as('Test Director');
 await p.evaluate(async([B])=>{const n=new Date().toISOString();
   await S.db.doc(`desk/${B}/deals/h1`).set({client:{name:'Anna Example',company:'Example Holdings',email:'anna@example.com',phone:'+65 0000 0001',country:'Singapore'},trip:{legs:[{from:'WSSL',to:'VTSP',date:'2026-09-20',pax:4}]},quote:{operator:'Example Jets',opPrice:40000},created:n,updated:n});
   await S.db.doc(`status/${B}/deals/h1`).set({state:'flown',price:43957,clientPaid:true,flownDate:'2026-09-20'});
@@ -31,7 +31,7 @@ ok(/Client handover from .*: call Example Holdings by/.test(await p.innerText('#
 await as('Test Broker');await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(1200);
 ok(/Introduce .* to Example Holdings personally/.test(await p.innerText('#main')),'leaver sees the introduction task during notice');
 // the owner can take a client too, and hand all the rest to themselves
-await as('Test Owner');await p.evaluate(()=>{S.view='onboarding';render();});await p.waitForTimeout(1000);
+await as('Test Director');await p.evaluate(()=>{S.view='onboarding';render();});await p.waitForTimeout(1000);
 ok(await p.evaluate(B=>{const k=clientBook(B)[1].id;const sel=document.getElementById(`ho_${B}_${k}`);return !!sel&&[...sel.options].some(o=>o.value===S.uid&&/^Me/.test(o.text));},A3),'owner can choose Me as successor');
 await p.click(`[data-ho="allme"][data-uid="${A3}"]`);await p.waitForTimeout(1500);
 ok(await p.evaluate(async B=>{const h=S.roster[B].offboard.handover;const q=await S.db.collection(`leads/${S.uid}/items`).get();return Object.keys(h).length===2&&q.docs.some(d=>(d.data().handover||{}).from===B&&d.data().org==='Ben Example');},A3),'Hand all to me: the remaining client becomes the owner\'s lead');

@@ -1,5 +1,5 @@
 /* ---------- Tracking demo (Morten, 28 Oct 2026: "make a dummy booking with a real aircraft registration … until I delete the test") ----------
-   Owner only. Opening the portal with ?demo=track&reg=9V-SNA&from=WSSS&to=EGLL&time=13:12&dep=2026-10-28T05:12Z asks the owner, then adds one
+   Owner only. Opening the portal with ?demo=track&reg=9V-SNA&from=WSSS&to=EGLL&time=13:12&dep=2026-10-28T05:12Z asks the Director, then adds one
    TEST trip flying today on that real aircraft, confirmed and paid, with the first leg "Departed", so flight following, the Track window
    and the Today flights list can be shown. Marked Example: Team > "Remove example data" deletes it, or delete the two records by hand.
    Example client only, price 0 (no effect on figures); no confirmation number is used and nothing is sent to anyone outside. */
@@ -23,7 +23,7 @@
     S.sel = did; S.view = "trips"; render(); toast("TEST trip added. Scroll to Flight following and click a Track link.");
     setTimeout(() => { const f = document.getElementById("followPanel"); if (f) f.scrollIntoView({behavior: "smooth", block: "start"}); }, 900);
   }
-  /* Morten, 28 Oct 2026: "make a test trip and place it on my Today page". On 28 and 29 Oct 2026 only, the owner's first
+  /* Morten, 28 Oct 2026: "make a test trip and place it on my Today page". On 28 and 29 Oct 2026 only, the Director's first
      portal opening adds the 9V-SNA trip once (marker config/trackdemo, so it never comes back after it is deleted). */
   let autoTried = false;
   async function auto(){

@@ -99,7 +99,7 @@ m0:{ intro:"Everything a broker needs before talking to a client or an operator,
   {links:[L.sky]}]},
  {h:"0.8 Weather, air traffic and safety culture", b:[
   {p:"Fog, storms, snow, strong winds and air-traffic restrictions can delay or divert a flight. Decisions about safety belong to the captain and the operator alone. Our job is to keep the client informed and arrange what they need on the ground."},
-  {box:{t:"Safety culture at Arche",l:["Speak up about anything unsafe or illegal.","Report your own mistakes at once. Honest reports are never punished; hiding a mistake is.","The owner keeps a log of errors and near misses and reviews it with the team."]}}]}
+  {box:{t:"Safety culture at Arche",l:["Speak up about anything unsafe or illegal.","Report your own mistakes at once. Honest reports are never punished; hiding a mistake is.","The Director keeps a log of errors and near misses and reviews it with the team."]}}]}
  ],
  quiz:[
   {q:"A client asks for a flight \"from New York tomorrow at 9\". What must you confirm?",o:["Only the aircraft size","Which New York airport, the date and the time zone","Only the price","Nothing, it is clear"],a:1,why:"Several airports serve New York, and \"tomorrow at 9\" needs a date and a time zone. Confirm all three in writing."},
@@ -110,7 +110,7 @@ m0:{ intro:"Everything a broker needs before talking to a client or an operator,
   {q:"An operator says a long trip needs a second crew. What is the effect?",o:["None for the client","Price and schedule may change, so ask early","The flight becomes illegal","The broker must supply the crew"],a:1,why:"Crew duty limits drive extra crews, fresh crews or night stops, which change price and schedule."}
  ]},
 
-m2:{ intro:"Arche sells worldwide, so we meet many sets of rules. This module gives the principles that apply everywhere, the flights we never sell, a map by region and the trip risk screen. The law changes: the operator, its trip support and the official sources linked here confirm what applies to each flight. When anything is unclear, the owner decides before a quote is sent.",
+m2:{ intro:"Arche sells worldwide, so we meet many sets of rules. This module gives the principles that apply everywhere, the flights we never sell, a map by region and the trip risk screen. The law changes: the operator, its trip support and the official sources linked here confirm what applies to each flight. When anything is unclear, the Director decides before a quote is sent.",
  secs:[
  {h:"2.1 The broker's boundary", b:[
   {p:"A broker arranges a flight; the operator performs it. Never describe Arche as the airline, never put our name forward as the carrier, and never let a client believe we fly or own the aircraft."},
@@ -123,18 +123,18 @@ m2:{ intro:"Arche sells worldwide, so we meet many sets of rules. This module gi
   {p:"All bookings run through Avinode, and all client and operator payments run through our payment account, so that only Arche's margin enters Arche's own account. Use only the approved Arche charter confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms."}]},
  {h:"2.4 Flights we never sell", b:[
   {table:{cols:["Never sell","Why","What to do"],rows:[
-   ["A flight by an operator without a commercial AOC, or on an aircraft not listed on its AOC","Illegal charter: uninsured and unsafe","Reject; report to the owner"],
+   ["A flight by an operator without a commercial AOC, or on an aircraft not listed on its AOC","Illegal charter: uninsured and unsafe","Reject; report to the Director"],
    ["A domestic leg (two airports in one country) on a foreign operator's aircraft, unless the operator confirms in writing that the country allows it","Cabotage: most countries reserve domestic flights for their own carriers","Use a local operator, or redesign the trip"],
    ["US domestic flights (both airports in the US) on any non-US operator","US law allows only US-citizen carriers to fly passengers within the US","Never quote"],
-   ["Any US domestic flight, even on a US operator, until US counsel has confirmed Arche's position","Arche policy","Pass to the owner"],
+   ["Any US domestic flight, even on a US operator, until US counsel has confirmed Arche's position","Arche policy","Pass to the Director"],
    ["Flights between two EU countries, or inside one, on a non-EU operator, unless the operator confirms the permission","EU traffic is reserved for EU carriers","Use an EU operator"],
    ["Individual seats sold to different people on one flight","Selling seats needs public-charter or airline authority","Never sell per seat"],
-   ["Flights into, out of or over the EU for a Russian national (including dual nationals) or a company controlled by one, or on Russian-registered aircraft","EU sanctions deny landing, take-off and overflight to such aircraft, including chartered aircraft","Stop; report to the owner"],
-   ["Flights for sanctioned persons or companies, or to embargoed destinations without the owner's clearance","Sanctions law (Module 3)","Stop; report to the owner"],
+   ["Flights into, out of or over the EU for a Russian national (including dual nationals) or a company controlled by one, or on Russian-registered aircraft","EU sanctions deny landing, take-off and overflight to such aircraft, including chartered aircraft","Stop; report to the Director"],
+   ["Flights for sanctioned persons or companies, or to embargoed destinations without the Director's clearance","Sanctions law (Module 3)","Stop; report to the Director"],
    ["Operators on the EU Air Safety List","Safety and EU law","Never use"],
-   ["Medical flights with patients needing care on board","Air ambulance needs specific approvals and equipment","Refer through the owner"],
-   ["Flights with accommodation or other travel sold as one package","Package-travel and travel-licence rules (for example ATOL in the UK)","Only with owner approval"],
-   ["Any flight where the client asks to hide passenger names from the operator or the authorities","Illegal and a sanctions and security risk","Refuse; report to the owner"]]}},
+   ["Medical flights with patients needing care on board","Air ambulance needs specific approvals and equipment","Refer through the Director"],
+   ["Flights with accommodation or other travel sold as one package","Package-travel and travel-licence rules (for example ATOL in the UK)","Only with Director approval"],
+   ["Any flight where the client asks to hide passenger names from the operator or the authorities","Illegal and a sanctions and security risk","Refuse; report to the Director"]]}},
   {links:[L.caa,L.p295,L.asl,L.ebaa,L.nata,L.atol]}]},
  {h:"2.5 The map by region", b:[
   {regions:[
@@ -153,26 +153,26 @@ m2:{ intro:"Arche sells worldwide, so we meet many sets of rules. This module gi
   {tryq:{q:"Dubai – Mumbai – Delhi – Dubai",o:["International legs only","Mumbai – Delhi is Indian domestic: only if the operator confirms in writing that it is permitted","Never possible"],a:1,why:"Two Indian airports in a row make a domestic leg."}},
   {tryq:{q:"Bangkok – Phuket – Singapore with the same passengers",o:["Fine without checks","Bangkok – Phuket is domestic: only as one continuous international journey declared on the permit, confirmed by the operator","Never possible"],a:1,why:"Thailand enforces cabotage closely. The whole routing and manifest go on the permit."}}]},
  {h:"2.7 Spotting illegal charter", b:[
-  {list:["Get the operator's AOC and the operations specifications that list the aircraft, and check the aircraft is on them.","Get the insurance certificate and check it covers commercial passenger flights.","Watch for privately registered aircraft offered for payment, \"cost-sharing\", dry leases sold as charter, prices far below the market, and refusal to send documents.","Reject any aircraft offered without a commercial AOC and report it to the owner the same day."]},
+  {list:["Get the operator's AOC and the operations specifications that list the aircraft, and check the aircraft is on them.","Get the insurance certificate and check it covers commercial passenger flights.","Watch for privately registered aircraft offered for payment, \"cost-sharing\", dry leases sold as charter, prices far below the market, and refusal to send documents.","Reject any aircraft offered without a commercial AOC and report it to the Director the same day."]},
   {links:[L.caa,L.nbaaCG,L.argus]}]},
  {h:"2.8 Other rules that follow the trip", b:[
-  {p:"None of these is a reason to refuse a trip by itself; each is a reason to check before quoting. The owner's watchlist (Appendix G) lists current places and topics."},
+  {p:"None of these is a reason to refuse a trip by itself; each is a reason to check before quoting. The Director's watchlist (Appendix G) lists current places and topics."},
   {table:{cols:["Area","What to spot","Action"],rows:[
-   ["Conflict zones and closed airspace","Routes over or near conflict areas; EASA bulletins and FAA notices; insurers may exclude war-risk areas","Operator confirms routing and insurance in writing; the owner approves"],
-   ["Sanctions and embargoes","Broad sanctions, sector sanctions, US export rules for US-made aircraft","Stop; the owner decides"],
+   ["Conflict zones and closed airspace","Routes over or near conflict areas; EASA bulletins and FAA notices; insurers may exclude war-risk areas","Operator confirms routing and insurance in writing; the Director approves"],
+   ["Sanctions and embargoes","Broad sanctions, sector sanctions, US export rules for US-made aircraft","Stop; the Director decides"],
    ["Hidden domestic legs","Islands and territories that belong to another country (Hawaii, Puerto Rico, Canary Islands, Corsica)","Cabotage check with the operator"],
-   ["Taxes that follow the trip","US federal excise tax; EU VAT; UK Air Passenger Duty (higher rate for aircraft of 20 tonnes or more with fewer than 19 seats); Singapore GST","Operator states taxes in its quote; the owner confirms our role with the accountant"],
-   ["Packages","EU package-travel rules and UK ATOL when sold with a hotel or other travel","Owner approval"],
-   ["Politically exposed persons","Heads of state, ministers, senior officials, state-company managers, their families and close associates","Enhanced KYC; owner approval"],
+   ["Taxes that follow the trip","US federal excise tax; EU VAT; UK Air Passenger Duty (higher rate for aircraft of 20 tonnes or more with fewer than 19 seats); Singapore GST","Operator states taxes in its quote; the Director confirms our role with the accountant"],
+   ["Packages","EU package-travel rules and UK ATOL when sold with a hotel or other travel","Director approval"],
+   ["Politically exposed persons","Heads of state, ministers, senior officials, state-company managers, their families and close associates","Enhanced KYC; Director approval"],
    ["Bribery laws that reach abroad","US FCPA and UK Bribery Act; officials or handlers asking for cash to \"speed up\"","Refuse; report"],
    ["Children","A child travelling without both parents may need a consent letter","Ask for consent documents; escalate any doubt"],
    ["Animals","Rabies-free countries have strict import routes and approved arrival airports","Check the authority's rules before quoting"],
-   ["Weapons, cash, valuables","Firearms, large cash sums and precious metals need permits or declarations","Operator and authorities decide; the owner informed"],
+   ["Weapons, cash, valuables","Firearms, large cash sums and precious metals need permits or declarations","Operator and authorities decide; the Director informed"],
    ["Airport restrictions","Night curfews, slot-controlled airports, temporary restrictions during major events","Operator confirms"],
-   ["Payment limits","We cannot take payments from or pay to some countries","A payer or operator there is red: stop and tell the owner"]]}},
+   ["Payment limits","We cannot take payments from or pay to some countries","A payer or operator there is red: stop and tell the Director"]]}},
   {links:[L.czib,L.faa,L.safe,L.un,L.ofac,L.eumap,L.uks,L.mas,L.irs,L.apd,L.tim]}]},
  {h:"2.9 The trip risk screen", b:[
-  {p:"Every enquiry passes this screen before sourcing, and the result goes on the intake form. Green means proceed. Amber means the operator or its trip support confirms in writing before we quote. Red means stop and escalate to the owner. Always check the current watchlist, never your memory."},
+  {p:"Every enquiry passes this screen before sourcing, and the result goes on the intake form. Green means proceed. Amber means the operator or its trip support confirms in writing before we quote. Red means stop and escalate to the Director. Always check the current watchlist, never your memory."},
   {table:{cols:["Question","Amber","Red"],rows:[
    ["1. Who flies and pays?","PEP; child with one adult; payer differs from the client","Sanctions match; Russian national with an EU point; refuses KYC; payer or operator in a country we cannot take payments from or pay to"],
    ["2. Where?","Domestic leg; conflict-zone routing; strict permit country","US domestic leg; embargoed destination"],
@@ -184,13 +184,13 @@ m2:{ intro:"Arche sells worldwide, so we meet many sets of rules. This module gi
  ],
  quiz:[
   {q:"A client asks for Miami to San Juan, Puerto Rico, on a Canadian operator's jet. What is the issue?",o:["None, it is international","Puerto Rico is US territory, so this is a US domestic leg","Only a visa issue","Only a tax issue"],a:1,why:"Puerto Rico is a US territory. Only US-citizen carriers may fly passengers between US points."},
-  {q:"Your trip risk screen shows one amber and no red. What happens next?",o:["Quote at once","The operator or its trip support confirms the amber point in writing before we quote","The owner must refuse","Ignore it"],a:1,why:"Amber means confirm in writing first, then quote."},
+  {q:"Your trip risk screen shows one amber and no red. What happens next?",o:["Quote at once","The operator or its trip support confirms the amber point in writing before we quote","The Director must refuse","Ignore it"],a:1,why:"Amber means confirm in writing first, then quote."},
   {q:"A client wants Teterboro – Miami – Nassau on a European operator's jet. What is right?",o:["Fine, it ends abroad","The Teterboro – Miami leg cannot be flown by a non-US operator","Only Nassau needs a permit","Ask the client to sign a waiver"],a:1,why:"Teterboro – Miami is US domestic."},
-  {q:"A client with Russian nationality wants Dubai – Nice on a chartered jet. What do you do?",o:["Quote normally","Stop and report to the owner","Use a non-Russian aircraft","Fly to Geneva instead without telling anyone"],a:1,why:"EU sanctions deny landing to aircraft chartered by Russian nationals, including dual nationals."},
+  {q:"A client with Russian nationality wants Dubai – Nice on a chartered jet. What do you do?",o:["Quote normally","Stop and report to the Director","Use a non-Russian aircraft","Fly to Geneva instead without telling anyone"],a:1,why:"EU sanctions deny landing to aircraft chartered by Russian nationals, including dual nationals."},
   {q:"Which item is NOT part of the written disclosure to every client?",o:["Operator's legal name on the AOC","That we are a broker","The operator's purchase price for the aircraft","Total price and possible extra charges"],a:2,why:"The disclosures are: broker status, operator legal name, aircraft details, full price and extras, insurance."},
   {q:"A non-EU operator flying into Europe needs which EASA approval?",o:["Part-NCC","TCO authorisation","ATOL","Part 295"],a:1,why:"Third-country operators need an EASA TCO authorisation."},
-  {q:"An operator offers a jet that is not listed on its AOC operations specifications. What do you do?",o:["Use it if the price is good","Reject it and report to the owner","Ask the client to decide","Book it as a private flight"],a:1,why:"An aircraft not on the AOC cannot fly commercially: that is illegal charter."},
-  {q:"A client asks you to leave one passenger's name off the manifest sent to the operator. What do you do?",o:["Agree, privacy matters","Refuse and report to the owner","Use initials only","Send the name after the flight"],a:1,why:"Hiding passenger names is illegal and a sanctions and security risk."}
+  {q:"An operator offers a jet that is not listed on its AOC operations specifications. What do you do?",o:["Use it if the price is good","Reject it and report to the Director","Ask the client to decide","Book it as a private flight"],a:1,why:"An aircraft not on the AOC cannot fly commercially: that is illegal charter."},
+  {q:"A client asks you to leave one passenger's name off the manifest sent to the operator. What do you do?",o:["Agree, privacy matters","Refuse and report to the Director","Use initials only","Send the name after the flight"],a:1,why:"Hiding passenger names is illegal and a sanctions and security risk."}
  ]}
 };
 
@@ -212,11 +212,11 @@ const ISSUES = {
 const LAB = [
  {t:"Los Angeles – Honolulu – Tokyo for a family of five on a Japanese-registered jet.",c:"red",i:"usdom",d:["spdom","curfew","pet"],why:"Hawaii is a US state, so Los Angeles – Honolulu is a US domestic leg: never on a non-US operator."},
  {t:"Madrid – Tenerife – Madrid on a Swiss operator.",c:"amber",i:"spdom",d:["usdom","pkg","embargo"],why:"Tenerife is in Spain (Canary Islands). Domestic Spanish legs on a non-EU operator need permission: the operator confirms, or use an EU operator."},
- {t:"A minister's office books Geneva – Riyadh; the ministry pays.",c:"amber",i:"pep",d:["embargo","bribe","seats"],why:"A minister is a politically exposed person: enhanced KYC and owner approval."},
+ {t:"A minister's office books Geneva – Riyadh; the ministry pays.",c:"amber",i:"pep",d:["embargo","bribe","seats"],why:"A minister is a politically exposed person: enhanced KYC and Director approval."},
  {t:"A 14-year-old flies London – New York with an aunt.",c:"amber",i:"child",d:["usdom","pep","pkg"],why:"A child without parents: ask for parental consent documents and escalate any doubt."},
  {t:"Four friends each want to pay for one seat on a Paris – Ibiza flight with other strangers.",c:"red",i:"seats",d:["pkg","spdom","curfew"],why:"We sell whole aircraft to one client. Never sell per seat."},
- {t:"The client adds a hotel and Formula 1 tickets to the flight and wants one price.",c:"amber",i:"pkg",d:["seats","bribe","pep"],why:"A package sale: owner approval under package-travel and ATOL rules."},
- {t:"A hunting party flies Johannesburg – Windhoek with rifles.",c:"amber",i:"guns",d:["embargo","pet","child"],why:"Firearms: the operator and both authorities must approve; permits needed; the owner informed."},
+ {t:"The client adds a hotel and Formula 1 tickets to the flight and wants one price.",c:"amber",i:"pkg",d:["seats","bribe","pep"],why:"A package sale: Director approval under package-travel and ATOL rules."},
+ {t:"A hunting party flies Johannesburg – Windhoek with rifles.",c:"amber",i:"guns",d:["embargo","pet","child"],why:"Firearms: the operator and both authorities must approve; permits needed; the Director informed."},
  {t:"Dubai – Tehran on a Gulfstream for a business meeting.",c:"red",i:"embargo",d:["pep","curfew","hkcn"],why:"Iran is under embargo, and a US-made aircraft adds US export rules. Stop and escalate."},
  {t:"A dog travels Bangkok – London in the cabin.",c:"amber",i:"pet",d:["child","guns","curfew"],why:"The UK has strict pet import rules and approved arrival routes. Check the authority's rules and the operator's acceptance before quoting."},
  {t:"Arrival at a curfewed European airport planned for 01:30 local.",c:"amber",i:"curfew",d:["spdom","bribe","pet"],why:"Night curfew: the operator confirms or the schedule changes."},

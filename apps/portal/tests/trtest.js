@@ -65,7 +65,7 @@ ok('sending the red-flag trip is returned', x.review.crit.some(c=>/Russia/.test(
 const after=await snap();
 ok('no real trip or lead was created or changed', before===after);
 // owner sees team training
-await as(p,'Test Owner');await p.evaluate(()=>{S.trAll=null;S.view='training';S.trTab='book';render();});await p.waitForTimeout(1500);
+await as(p,'Test Director');await p.evaluate(()=>{S.trAll=null;S.view='training';S.trTab='book';render();});await p.waitForTimeout(1500);
 ok('owner sees team training table', /Team training/.test(await p.textContent('#main'))&&/Test Broker/.test(await p.textContent('#main')));
 // phone
 const m=await b.newPage({viewport:{width:390,height:844},hasTouch:true,isMobile:true});await m.goto('http://localhost:8765/test.html');await m.waitForTimeout(3000);await as(m,'Test Broker');

@@ -4,7 +4,7 @@
    notice period; the client becomes the new broker's Registered Client.
    Owner, in the leaving file (Onboarding / Team): the leaver's client book from their trips, a successor per client, one
    click to hand over. The handover creates an own lead for the successor with the client's details and trip history and
-   a 48-hour first-contact task on their Today; the leaver (during notice) sees "introduce your successor" tasks; the owner
+   a 48-hour first-contact task on their Today; the leaver (during notice) sees "introduce your successor" tasks; the Director
    ticks "introduced" and sees "contacted" when the successor logs the first contact. Today flags clients not handed over. */
 (function(){
   const H48 = 48 * 3600e3;
@@ -23,7 +23,7 @@
     });
     return Object.values(book).sort((a, b) => b.value - a.value || b.trips - a.trips);
   };
-  // the owner can take clients and leads too (Morten, 31 Oct 2026: "I should be able to rotate clients and lead to me also")
+  // the Director can take clients and leads too (Morten, 31 Oct 2026: "I should be able to rotate clients and lead to me also")
   const successors = leaver => [[S.uid, "Me (" + ((S.myName || nm(S.uid) || "owner").split(" ")[0]) + ")"], ...Object.entries(S.roster || {}).filter(([id, p]) => id !== leaver && id !== S.uid && p.active !== false && !p.offboard && ["broker", "consultant", "ops", "owner"].includes(p.role)).map(([id, p]) => [id, p.contractName || nm(id)])];
   S.hoLead = S.hoLead || {};
   function leadState(to, leadId){
@@ -87,8 +87,8 @@
   /* ---- Lock now (Morten, 31 Oct 2026: "lock all access with immediate effect ... fraud, or any other of the things that I can
      terminate with immediate effect"): agreement clause 8.3. One action: access off at once (the database refuses every
      request from that login from the next one), rights and alerts removed, open enquiries back to the pool, prospects back
-     to rotation, their own leads and every client to the owner, and the file marked Locked with the reason. Open trips stay
-     with the owner to finish. No notice to members. ---- */
+     to rotation, their own leads and every client to the Director, and the file marked Locked with the reason. Open trips stay
+     with the Director to finish. No notice to members. ---- */
   const _of2 = offboardForm;
   offboardForm = function(id){
     return _of2(id).replace('<option value="breach">Today, for breach (clause 8.3)</option>', '<option value="breach">Today, for breach (clause 8.3)</option><option value="lock">Lock now: fraud or another clause 8.3 ground (everything off at once, all clients and leads to me)</option>');
@@ -123,7 +123,7 @@
     try { await S.db.doc("roster/" + id).update({offboard: o}); } catch(err){ toast("Could not save."); }
   });
 
-  // Today: the successor's 48-hour call; the leaver's introductions; the owner's clients still to hand over
+  // Today: the successor's 48-hour call; the leaver's introductions; the Director's clients still to hand over
   const _tf = tasksFor;
   tasksFor = function(bid, asOps){
     const out = _tf(bid, asOps), t0 = Date.now();

@@ -25,7 +25,7 @@ for (const k of ["route"]) { await p.click('#ck_'+k); await p.waitForTimeout(250
 // insurance and operator terms come from the Operator terms and insurance record (29 Oct 2026)
 await p.evaluate(async()=>{const t=tripById(S.sel);const o={cancel:[{days:14,unit:"days",pct:50}],pay:[{days:"booking",pct:100}],ins:{insurer:"Example Insurer",expiry:"2030-12-31",regOn:"yes",territory:"yes",how:"Email from the insurer",verifiedAt:new Date().toISOString().slice(0,10)}};await deskWrite(t,{opTerms:o,docs:[...(t.d.docs||[]),{id:"xi",name:"ins.pdf",kind:"Insurance certificate",at:now()}],checks:{...(t.d.checks||{}),ins:true,terms:true}},"test: operator terms");});await p.waitForTimeout(600);
 console.log('E audit ticked?',await p.isChecked('#ck_audit'),' submit disabled:',await p.evaluate(()=>document.querySelector('[data-act="submit"]').disabled));
-await as('Test Owner');await p.evaluate(d=>{S.view='trips';S.filter='all';S.sel=d;render();},did);await p.waitForTimeout(800);
+await as('Test Director');await p.evaluate(d=>{S.view='trips';S.filter='all';S.sel=d;render();},did);await p.waitForTimeout(800);
 await p.fill('#sf_apn','IS-BAO Stage 1 renewed 2026, two broker references, crew hours confirmed');await p.click('[data-sfa="approve"]');await p.waitForTimeout(1000);
 console.log('F owner:',toasts.slice(-1), await p.evaluate(()=>document.querySelector('#secSafety .note').innerText));
 await as('Test Broker');await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(800);
@@ -33,7 +33,7 @@ await p.waitForTimeout(800);
 console.log('G audit ticked:',await p.isChecked('#ck_audit'),' submit disabled:',await p.evaluate(()=>document.querySelector('[data-act="submit"]').disabled), await p.evaluate(()=>(document.querySelector('#secSend + p')||{}).innerText));
 await (await p.$('#secSafety')).screenshot({path:require('os').tmpdir()+'/SF_panel.png'});
 // suspension
-await as('Test Owner');await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(800);
+await as('Test Director');await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(800);
 await p.evaluate(()=>document.querySelector('#secSafety details').open=true);await p.fill('#sf_sn','Runway excursion 26 Oct, under review');await p.click('[data-sfa="suspend"]');await p.waitForTimeout(1200);
 console.log('H suspended red:',await p.evaluate(()=>document.querySelector('#secSafety .note').innerText.slice(0,160)));
 // registry check (api/auditcheck mocked): not listed -> director needed; listed at the level -> confirmed

@@ -1,4 +1,4 @@
-/* ---------- Website: private look for the owner (30 Oct 2026) ----------
+/* ---------- Website: private look for the Director (30 Oct 2026) ----------
    Header button "Website ↗" (owner only). Asks /api/website for an owner pass and opens
    the private copy of the locked website (/website/, owner pass set by /api/website) in a new tab. */
 document.addEventListener("click", async ev => {

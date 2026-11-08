@@ -15,7 +15,7 @@ await p.click('#edForm button[type=submit]');await p.waitForTimeout(1800);
 const did=await p.evaluate(()=>S.sel);
 await p.evaluate(async([d])=>{const t=tripById(S.sel);await deskWrite(t,{stage:'submitted',submittedAt:now()},'test: sent');await statusWrite(t,{state:'flown',ref:'AE-TEST-AC',price:43957,opPrice:40000,direct:0,issuedAt:now(),clientPaid:true,clientPaidDate:d,operatorPaid:true,operatorPaidDate:d,flownDate:d,legStatus:[{s:'land',set:now()}]},'test: flown');},[day(-2)]);
 await p.waitForTimeout(800);
-await as('Test Owner');await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(500);
+await as('Test Director');await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(500);
 ok('Today shows the aftercare panel',/Aftercare/.test(await p.textContent('#main')));
 await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(500);
 let t=await p.textContent('#main');

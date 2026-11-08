@@ -15,7 +15,7 @@
               covers what the operator wants at signing and its cancellation charge. 6. Operator payments only from
               money received, never more than the operator price.
    Today shows overdue client payments with the date to cancel with the operator before its next charge.
-   Margin: the price is always the 9% price unless the owner sets another margin on the trip, with the reason. */
+   Margin: the price is always the 9% price unless the Director sets another margin on the trip, with the reason. */
 (function(){
   const INS_MIN = {jet: 50e6, turboprop: 25e6};
   const today = () => new Date().toISOString().slice(0, 10);
@@ -27,7 +27,7 @@
   const staffOn = t => isStaff() && acting() !== "broker" && !(typeof ownTrip === "function" && ownTrip(t));
   const sum = xs => (xs || []).reduce((a, x) => a + num(x.amount), 0);
 
-  // ---------- margin: 9% unless the owner decides otherwise on this trip ----------
+  // ---------- margin: 9% unless the Director decides otherwise on this trip ----------
   window.tripPrice = function(t, op, dc){ const ex = ((t && t.st) || {}).marginEx; const cost = num(op) + num(dc);
     return ex && num(ex.pct) > 0 && num(ex.pct) < 0.5 ? (cost > 0 ? Math.ceil(cost / (1 - num(ex.pct))) : 0) : priceOf(op, dc); };
   const figs = t => { const st = t.st || {}, q = t.d.quote || {}; const O = num(st.opPrice ?? q.opPrice), D = num(st.direct ?? q.direct);
@@ -264,8 +264,8 @@
       ${need.length && !issued ? `<div class="note warn small"><b>Before issuing:</b> ${need.map(esc).join(" · ")}</div>` : ""}`;
     // margin
     const ex = st.marginEx, pct = f.P ? (f.P - f.O - f.D) / f.P * 100 : 0;
-    const marg = `<p class="small" style="margin:8px 0 4px"><b>Margin</b> ${f.P ? `${pct.toFixed(1)}% · ${usd(f.P - f.O - f.D)}` : ""}${ex ? ` <span class="chip c-review">Set by the owner: ${(num(ex.pct) * 100).toFixed(1)}%</span> <span class="muted">${esc(ex.reason)} (${esc(fmtT(ex.at))})</span>` : ` <span class="muted">(${(S.terms.margin * 100).toFixed(0)}%, the rule)</span>`}</p>
-      ${own && !issued ? `<details class="small"><summary>Owner: another margin on this trip (special circumstances)</summary><div class="fgrid"><label class="f" for="bk_mp">Margin for this trip (%)<input id="bk_mp" inputmode="decimal" value="${ex ? (num(ex.pct) * 100).toFixed(1) : ""}"></label><label class="f wide" for="bk_mr">Reason (kept in the audit log)<input id="bk_mr" value="${esc(ex ? ex.reason : "")}"></label></div><div class="row"><button class="btn small primary" type="button" data-bka="margin">Save the margin</button>${ex ? `<button class="btn small" type="button" data-bka="marginOff">Back to ${(S.terms.margin * 100).toFixed(0)}%</button>` : ""}</div></details>` : ""}`;
+    const marg = `<p class="small" style="margin:8px 0 4px"><b>Margin</b> ${f.P ? `${pct.toFixed(1)}% · ${usd(f.P - f.O - f.D)}` : ""}${ex ? ` <span class="chip c-review">Set by the Director: ${(num(ex.pct) * 100).toFixed(1)}%</span> <span class="muted">${esc(ex.reason)} (${esc(fmtT(ex.at))})</span>` : ` <span class="muted">(${(S.terms.margin * 100).toFixed(0)}%, the rule)</span>`}</p>
+      ${own && !issued ? `<details class="small"><summary>Director: another margin on this trip (special circumstances)</summary><div class="fgrid"><label class="f" for="bk_mp">Margin for this trip (%)<input id="bk_mp" inputmode="decimal" value="${ex ? (num(ex.pct) * 100).toFixed(1) : ""}"></label><label class="f wide" for="bk_mr">Reason (kept in the audit log)<input id="bk_mr" value="${esc(ex ? ex.reason : "")}"></label></div><div class="row"><button class="btn small primary" type="button" data-bka="margin">Save the margin</button>${ex ? `<button class="btn small" type="button" data-bka="marginOff">Back to ${(S.terms.margin * 100).toFixed(0)}%</button>` : ""}</div></details>` : ""}`;
     // after issue
     const dToday = today(), cumDue = BP.dueBy(pl.sched, dToday);
     const schedRows = pl.sched.map((x, i, all) => { const due = x.due === "signature" ? "On signature" : (i === all.length - 1 ? "Balance by " : "By ") + fmtD(x.due);
@@ -312,7 +312,7 @@
   const aogLine = t => { const a = aogOf(t); return a ? `<div class="note bad" style="border-width:2px"><b>CRITICAL: operator deadline.</b> ${esc(a.text)}</div>` : ""; };
   function aogAll(){ return allTrips().filter(t => (isStaff() || t.bid === S.uid) && !S.preview).map(t => ({t, a: aogOf(t)})).filter(x => x.a); }
   window.aogAll = aogAll;
-  // a red bar on every page for everyone involved (operations, the owner, the trip's broker) until it is resolved
+  // a red bar on every page for everyone involved (operations, the Director, the trip's broker) until it is resolved
   const _rn = renderNow; renderNow = function(){ _rn(); const main = document.getElementById("main"); if (!main) return;
     const list = aogAll(), old = document.getElementById("aogBar"); if (old) old.remove(); if (!list.length) return;
     const d = document.createElement("div"); d.id = "aogBar";
@@ -349,7 +349,7 @@
     S.cxIn = {did: t.did, open: true, ...cancelInputs(t)}; render(); });
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest('#secBook [data-bka="cancel"]'); if (!b) return; e.stopImmediatePropagation();
-    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another owner, or a person the owner has mandated, must do this on your own trip."); return; }
+    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another person the Director has mandated, must do this on your own trip."); return; }
     const inp = cancelInputs(t); if (!inp.avinode) { toast("Cancel on Avinode first, then tick it."); return; }
     b.disabled = true;
     try {
@@ -385,9 +385,9 @@
         const pct = num(($("bk_mp") || {}).value) / 100, why = (($("bk_mr") || {}).value || "").trim();
         if (!(pct > 0 && pct < 0.5)) { toast("Enter the margin in percent, e.g. 8 or 12."); return; } if (why.length < 10) { toast("Write the reason (at least 10 characters)."); return; }
         const ex = {pct, reason: why, by: S.uid, at: now()}, price = tripPrice({st: {marginEx: ex}}, st.opPrice, st.direct);
-        await stWrite(t, {marginEx: ex, price}, `Margin for this trip set by the owner: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip margin set by the owner", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Margin ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
+        await stWrite(t, {marginEx: ex, price}, `Margin for this trip set by the Director: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip margin set by the Director", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Margin ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
       return; }
-    if (!staffOn(t)) { toast("Another owner, or a person the owner has mandated, must do this on your own trip."); return; }
+    if (!staffOn(t)) { toast("Another person the Director has mandated, must do this on your own trip."); return; }
     try {
       if (a === "doc") { const fl = ($("bkFile") || {}).files && $("bkFile").files[0]; if (!fl) { toast("Choose the contract file first."); return; }
         const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available here."); return; }
@@ -471,10 +471,10 @@
     const next = {...A, clientReminders: on ? {on: true, version: BP.REMIND_VERSION, at: now(), by: S.uid} : {on: false, at: now(), by: S.uid}};
     if (typeof alertSave === "function") await alertSave(next, on ? `Payment reminders to clients turned on (wording ${BP.REMIND_VERSION} approved)` : "Payment reminders to clients turned off");
   });
-  // the owner's approval card: margin by the rule (or the owner's own decision), operator terms complete
+  // the Director's approval card: margin by the rule (or the Director's own decision), operator terms complete
   if (typeof apChecks === "function") { const _apc = apChecks; apChecks = function(t){
     const out = _apc(t).filter(x => !/^Margin /.test(x[1])), st = t.st || {}, f = apFigures(t), ex = st.marginEx;
-    out.push(ex ? [true, `Margin ${(f.pct * 100).toFixed(1)}%, set by the owner: ${ex.reason}`] : [marginOk(t) && f.pct >= S.terms.margin - 0.0005, `Margin ${(f.pct * 100).toFixed(1)}%${f.pct >= S.terms.margin - 0.0005 ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
+    out.push(ex ? [true, `Margin ${(f.pct * 100).toFixed(1)}%, set by the Director: ${ex.reason}`] : [marginOk(t) && f.pct >= S.terms.margin - 0.0005, `Margin ${(f.pct * 100).toFixed(1)}%${f.pct >= S.terms.margin - 0.0005 ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
     const nd = opTermsNeeds(t.d), rd = opTermsBreaches(t.d); out.push([!nd.length && !rd.length, rd.length ? "Operator terms or insurance: red item" : nd.length ? "Operator terms or insurance incomplete" : "Operator terms and insurance complete"]);
     return out; }; }
   const _vControl = vControl; vControl = function(){ return _vControl() + libPanel(); };

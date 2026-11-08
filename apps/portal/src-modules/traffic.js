@@ -71,7 +71,7 @@
     for (let i = 0; i < 3; i++) {
       const code = newCode(), r = await sb().from("site_links").insert({code, lead_id: id, org: (l.org || "").slice(0, 120)});
       if (!r.error) { try { await S.db.doc(`leads/${S.uid}/items/${id}`).update({linkCode: code}); audit("Website link made", l.org || id); toast("Link ready. Use it in your first message."); } catch(e){ toast("Could not save the link on the lead."); } return; }
-      if (!/duplicate|23505/.test(r.error.message || r.error.code || "")) { toast(/site_links|PGRST20/.test(r.error.message || r.error.code || "") ? "The owner must first run the database step for website statistics." : "Could not make the link."); return; }
+      if (!/duplicate|23505/.test(r.error.message || r.error.code || "")) { toast(/site_links|PGRST20/.test(r.error.message || r.error.code || "") ? "The Director must first run the database step for website statistics." : "Could not make the link."); return; }
     }
   }
   async function loadCode(code){

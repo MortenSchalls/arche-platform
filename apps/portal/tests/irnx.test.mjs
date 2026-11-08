@@ -38,7 +38,7 @@ await irHandler({ method: "POST", headers: { "x-ir-key": "wrong" }, body: { acti
 ok("wrong key: 401, nothing read", out.c === 401 && reads === 0);
 await irHandler({ method: "POST", headers: { "x-ir-key": "k-example-123" }, body: { action: "access", email: "a@b.com" } }, res, { sb, owner: async () => ({}) });
 ok("right key: unknown address not approved", out.c === 200 && out.j.approved === false);
-await irHandler({ method: "POST", headers: {}, body: { action: "approve", id: "i1", email: "a@b.com" } }, res, { sb, owner: async () => ({ code: 403, error: "Owners only" }) });
+await irHandler({ method: "POST", headers: {}, body: { action: "approve", id: "i1", email: "a@b.com" } }, res, { sb, owner: async () => ({ code: 403, error: "The Director only" }) });
 ok("owner actions need an owner", out.c === 403);
 // 12-month clean-up: investor-relations activity keeps a contact; a removed person's access and requests go with them
 const { sweep } = await import("../../../jobs/lib/contacts.mjs");
@@ -65,5 +65,5 @@ ok("approval (they asked) has no removal line", !/We have your details/.test(irM
   const m = String((out3.j || {}).url).match(/a=preview&t=(\d{13})\.([\w-]+)$/);
   ok("owner preview: a 5-minute link signed with the shared key, audited without names", out3.c === 200 && m && Number(m[1]) - Date.now() <= 5 * 60000 && Number(m[1]) > Date.now()
     && m[2] === crypto.createHmac("sha256", "k-example-123").update(`preview|${m[1]}`).digest("base64url") && /Briefing preview opened/.test(audited));
-  await irHandler({ method: "POST", headers: {}, body: { action: "preview" } }, res3, { sb: async () => ({ ok: true, body: [] }), owner: async () => ({ code: 403, error: "Owners only" }) });
+  await irHandler({ method: "POST", headers: {}, body: { action: "preview" } }, res3, { sb: async () => ({ ok: true, body: [] }), owner: async () => ({ code: 403, error: "The Director only" }) });
   ok("preview needs an owner", out3.c === 403); }
