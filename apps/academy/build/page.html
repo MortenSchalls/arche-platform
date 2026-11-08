@@ -518,13 +518,11 @@ nav.map{background:transparent}
 </header>
 
 <div class="dock" id="dock" hidden><div class="in">
-  <div class="ctl"><button type="button" id="aPrev" aria-label="Previous paragraph">‹‹</button><button type="button" class="main" id="aPlay">Play</button><button type="button" id="aNext" aria-label="Next paragraph">››</button></div>
+  <div class="ctl"><button type="button" id="aPrev" aria-label="Back 15 seconds">−15s</button><button type="button" class="main" id="aPlay">Play</button><button type="button" id="aNext" aria-label="Forward 15 seconds">+15s</button></div>
   <span class="now" id="aNow" aria-live="polite">Press Play to listen to this screen.</span>
   <label class="f" for="aRate" style="flex-direction:row;align-items:center;gap:6px">Speed<select id="aRate"><option value="0.8">0.8×</option><option value="0.9">0.9×</option><option value="1" selected>1×</option><option value="1.15">1.15×</option><option value="1.3">1.3×</option></select></label>
-  <label class="f" for="aVoice" style="flex-direction:row;align-items:center;gap:6px">Voice<select id="aVoice"><option value="">Best available</option></select></label>
-  <button type="button" id="aName" class="ghost" title="Check how this voice says our name">Hear the name</button>
+  <label class="f" for="aVoice" style="flex-direction:row;align-items:center;gap:6px">Voice<select id="aVoice"><option value="isabella">Isabella (British)</option><option value="fable">Fable (British)</option></select></label>
   <label class="check" for="aAuto"><input type="checkbox" id="aAuto" checked> Read each new screen</label>
-  <span class="note" id="aTip" hidden style="flex-basis:100%">For a more natural voice, open the academy in Microsoft Edge (natural voices) or add an Enhanced or Premium English voice in your device's speech settings.</span>
 </div></div>
 
 <div class="wmark" id="wmark" aria-hidden="true"></div>
@@ -1213,15 +1211,16 @@ function drawRecs(){
   el.innerHTML = `<div class="tw"><table><thead><tr><th>Trainee</th><th>Path</th><th>Completed</th><th>Steps passed</th><th>Exam</th></tr></thead><tbody>${RECS.map(r => { const ex = ((r.items||[]).find(x => x[0] === "exam") || [])[1]; return `<tr><td>${esc(r.name)}</td><td>${r.role === "consultant" ? "Consultant" : "Broker"}</td><td>${esc(fmtD(r.date))}</td><td>${(r.items||[]).length}</td><td>${ex != null ? esc(ex) + "%" : "–"}</td></tr>`; }).join("")}</tbody></table></div>`;
 }
 
-/* ---------- audio: reads any screen aloud with the device's own voice, written out as natural speech ---------- */
+/* ---------- audio: recorded narration (Isabella, Fable) of every screen; the text rules below make the recording script ---------- */
 const AUDIO = (() => {
   const AKEY = "arche-cbt-audio-v2";
-  const synth = window.speechSynthesis, can = !!(synth && window.SpeechSynthesisUtterance);
   let cfg = {on:false, rate:1, voice:"", auto:true};
   try { cfg = Object.assign(cfg, JSON.parse(localStorage.getItem(AKEY)) || {}); } catch(e) {}
   const keep = () => { try { localStorage.setItem(AKEY, JSON.stringify(cfg)); } catch(e) {} };
-  let items = [], idx = 0, playing = false, single = false, token = 0, cur = null;
+  let playing = false;
   const btn = $("audioBtn"), dock = $("dock");
+  /* the external edition has no recorded narration (the recordings are of the internal edition and kept in the portal): no audio at all */
+  if (ED === "ext") { btn.hidden = true; dock.hidden = true; return {screen(){}, focus(){}, speakable, screenKey(){ return ""; }, fbKey(){ return ""; }, collect, textOf}; }
   const SEL = "#view h1, #view h2, #view h3, #view p:not(.eyebrow):not(.code), #view li, #view tbody tr, #view .doc, #view .opt, #view .fb, #view .issue, #view .res .it, #view .box, #view .reg summary, #view .reveal summary, #view [data-say]";
 
   /* words a voice already says well; other 3-5 letter capitals are spelled out */
@@ -1283,166 +1282,81 @@ const AUDIO = (() => {
     return top.filter(el => !top.some(o => o !== el && o.matches("[data-say]") && o.contains(el))).map(el => ({el, t:textOf(el)})).filter(x => x.t.replace(/[.,\s]/g,"").length > 1);
   }
 
-  /* curated voices: only natural-sounding English voices, at most 3 female and 3 male */
-  const NAMES = {f:["sonia","libby","maisie","jenny","aria","ava","emma","michelle","natasha","clara","zoe","serena","samantha","karen","kate","moira","tessa","nicky","allison","susan","martha","stephanie","catherine","google uk english female","google us english"],
-                 m:["ryan","thomas","guy","andrew","brian","christopher","eric","william","liam","aaron","evan","nathan","daniel","arthur","oliver","tom","alex","lee","gordon","google uk english male"]};
-  const RUBBISH = /compact|espeak|robot|novelty|bad news|bells|whisper|zarvox|trinoids|albert|bubbles|cellos|fred|junior|ralph|kathy|boing|bahh|hysterical|organ|superstar|wobble|jester|good news|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley|desktop|\bdavid\b|\bzira\b|\bmark\b|\bhazel\b|\bgeorge\b/i;
-  const ACCENT = {GB:"British",US:"American",AU:"Australian",IE:"Irish",IN:"Indian",ZA:"South African",NZ:"New Zealand",CA:"Canadian",SG:"Singaporean"};
-  const gender = v => { const n = v.name.toLowerCase(); for (const g of ["f","m"]) if (NAMES[g].some(k => n.includes(k))) return g; return ""; };
-  const quality = v => {
-    if (RUBBISH.test(v.name)) return -99;
-    let q = 0;
-    if (/natural|neural|online|premium|enhanced|siri/i.test(v.name)) q += 10;
-    if (/^(aaron|nicky)\b/i.test(v.name)) q += 11;                         // Apple's Siri-quality voices
-    if (/^english\b|^en-[a-z]{2}-x-/i.test(v.name)) q += 6;                // Android's Google voices
-    if (/google/i.test(v.name)) q += 6;
-    if (gender(v)) q += 3;
-    if (/^en[-_](GB|US)/i.test(v.lang)) q += 1;
-    return q;
-  };
-  const rank = v => -quality(v);
-  let LIST = [];
-  function curate(){
-    if (!can) return [];
-    const en = synth.getVoices().filter(v => /^en/i.test(v.lang) && quality(v) > -99);
-    const good = en.filter(v => quality(v) >= 6).sort((a,b) => quality(b) - quality(a) || a.name.localeCompare(b.name));
-    const pool = good.length ? good : en.filter(v => gender(v)).sort((a,b) => quality(b) - quality(a)).slice(0, 2);
-    const f = pool.filter(v => gender(v) === "f"), m = pool.filter(v => gender(v) === "m"), u = pool.filter(v => !gender(v));
-    const pick = f.slice(0,3).concat(m.slice(0,3));
-    for (const v of [...f.slice(3), ...m.slice(3), ...u]) { if (pick.length >= 6) break; pick.push(v); }
-    const seen = new Set();
-    return pick.filter(v => { const k = v.name.replace(/\s*\(.*$/,"").replace(/^(Microsoft|Google)\s+/,""); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, 6);
-  }
-  const label = v => {
-    const nm = v.name.replace(/^Microsoft\s+/,"").replace(/\s+Online\s+\(Natural\).*$/,"").replace(/\s*\((Premium|Enhanced)\)/i,"").replace(/^Google\s+(UK|US)\s+English(\s+(Female|Male))?$/i, "Google").replace(/^English\b.*$|^en-[a-z]{2}-x-.*$/i, "Google voice").replace(/\s+-\s+English.*$/,"");
-    const acc = ACCENT[(v.lang.split(/[-_]/)[1] || "").toUpperCase()] || "";
-    const g = gender(v) === "f" ? "female" : gender(v) === "m" ? "male" : "";
-    return nm + (acc || g ? ` (${[acc, g].filter(Boolean).join(", ")})` : "");
-  };
-  function voices(){ return LIST.length ? LIST : (LIST = curate()); }
-  function thaiVoice(){ if (!can) return null; const th = synth.getVoices().filter(v => /^th/i.test(v.lang) && !RUBBISH.test(v.name)); return th.sort((a,b) => quality(b) - quality(a))[0] || null; }
-  function pickVoice(){ const vs = voices(); return vs.find(v => v.voiceURI === cfg.voice) || vs[0] || null; }
-  function fillVoices(){
-    LIST = curate(); const sel = $("aVoice");
-    if (REC.man) {
-      sel.innerHTML = `<optgroup label="Recorded voices">${RVOICES.filter(v => REC.man[v[0]]).map(v => `<option value="${v[0]}">${v[1]}</option>`).join("")}</optgroup>` + (LIST.length ? `<optgroup label="This device">${LIST.map(v => `<option value="${esc(v.voiceURI)}">${esc(label(v))}</option>`).join("")}</optgroup>` : "");
-      if (!REC.man[cfg.voice] && !LIST.some(v => v.voiceURI === cfg.voice)) { cfg.voice = RVOICES.find(v => REC.man[v[0]])[0]; keep(); }
-      sel.value = cfg.voice; recUI(); return;
-    }
-    if (!LIST.length) { sel.innerHTML = `<option value="">Device voice</option>`; $("aTip").hidden = false; return; }
-    sel.innerHTML = LIST.map(v => `<option value="${esc(v.voiceURI)}">${esc(label(v))}</option>`).join("");
-    if (!cfg.voice || !LIST.some(v => v.voiceURI === cfg.voice)) { cfg.voice = LIST[0].voiceURI; keep(); }
-    sel.value = cfg.voice;
-    const mac = /Mac|iPhone|iPad/.test(navigator.userAgent), win = /Windows/.test(navigator.userAgent);
-    $("aTip").textContent = mac ? "More natural voices: System Settings, Accessibility, Spoken Content, System voice, Manage Voices. Download for example Ava (Premium), Zoe (Premium), Evan (Enhanced), then reopen the browser."
-      : win ? "More natural voices: open the academy in Microsoft Edge, which includes natural voices such as Sonia, Ryan, Jenny and Guy."
-      : "More natural voices can be added in your device's text-to-speech settings.";
-    $("aTip").hidden = LIST.length >= 4 && quality(LIST[0]) >= 6;
-  }
-  /* ---- recorded narration (Morten, 7 Nov 2026): natural voices recorded once per screen from the same text, kept
-     privately in the portal's storage (bucket academy-audio, signed-in members only). A screen is found by a key made
-     from its text, so a changed screen simply falls back to the device voice until it is recorded again. ---- */
+  /* ---- recorded narration only (Morten, 8 Nov 2026: "no traces from old academy audio ... we only want Fable and
+     Isabella"). Each screen and each answer's feedback is recorded once in two natural voices and kept privately in
+     the portal's storage (bucket academy-audio, signed-in members only). The device's own text-to-speech is never used.
+     A screen is found by a key made from its text; a screen not recorded yet stays silent until the narration
+     workflow has recorded it. ---- */
   const RVOICES = [["isabella", "Isabella (British)"], ["fable", "Fable (British)"]];
-  const REC = {man:null, urls:{}, el:null, tried:false};
+  if (!RVOICES.some(v => v[0] === cfg.voice)) { cfg.voice = "isabella"; keep(); }   // earlier device-voice choices are dropped
+  if (window.speechSynthesis) try { window.speechSynthesis.cancel(); } catch(e) {}  // nothing left over from an older page
+  const REC = {man:null, urls:{}, el:null};
   const recMode = () => !!REC.man && !!REC.man[cfg.voice];
   const hasRec = k => !!(recMode() && REC.man[cfg.voice][k]);
   const norm = t => String(t || "").replace(/\s+/g, " ").trim();
   function screenKey(root){ return fnv(collect(root).filter(x => !x.el.closest("[data-nokey]")).map(x => norm(x.el.textContent)).join("|")); }
   const fbKey = el => fnv("fb|" + norm(el.textContent));
+  const say = t => { $("aNow").textContent = t; };
+  function fillVoices(){
+    const sel = $("aVoice"), have = RVOICES.filter(v => !REC.man || REC.man[v[0]]);
+    sel.innerHTML = have.map(v => `<option value="${v[0]}">${v[1]}</option>`).join("");
+    if (!have.some(v => v[0] === cfg.voice) && have.length) { cfg.voice = have[0][0]; keep(); }
+    sel.value = cfg.voice;
+  }
   async function loadMan(){
-    if (REC.man || REC.busy || !window.__sb || !window.__sb.storage) return; REC.busy = true;
-    const man = {};
+    if (REC.man || REC.busy) return;
+    if (!window.__sb || !window.__sb.storage) { if (REC.waiting) { REC.waiting = false; say("Narration plays when you open the academy from the portal, signed in."); } return; }
+    REC.busy = true; const man = {};
     for (const [v] of RVOICES) { try { const r = await window.__sb.storage.from("academy-audio").download(v + "/index.json"); if (r && r.data) man[v] = (JSON.parse(await r.data.text()).keys) || {}; } catch(e) {} }
     REC.busy = false;
-    if (!Object.keys(man).length && REC.waiting) { REC.waiting = false; $("aNow").textContent = "The recorded narration is not available. Choose a device voice to listen."; }
-    if (Object.keys(man).length) { REC.man = man; if (!cfg.picked && !RVOICES.some(v => v[0] === cfg.voice)) { cfg.voice = RVOICES.find(v => man[v[0]])[0]; keep(); } fillVoices(); if (REC.waiting) { REC.waiting = false; screen(REC.waitRoot || undefined); } }
+    if (!Object.keys(man).length) { if (REC.waiting) { REC.waiting = false; say("The narration could not be loaded. Check your connection and press Play again."); } return; }
+    REC.man = man; fillVoices(); if (REC.waiting) { REC.waiting = false; screen(REC.waitRoot || undefined); }
   }
   const fmt = x => isFinite(x) ? Math.floor(x / 60) + ":" + String(Math.floor(x % 60)).padStart(2, "0") : "0:00";
-  function recUI(){
-    const a = REC.el, on = recMode();
-    $("aPrev").textContent = on ? "−15s" : "‹‹"; $("aNext").textContent = on ? "+15s" : "››";
-    $("aPrev").setAttribute("aria-label", on ? "Back 15 seconds" : "Previous paragraph"); $("aNext").setAttribute("aria-label", on ? "Forward 15 seconds" : "Next paragraph");
-    $("aName").hidden = on; if (on) $("aTip").hidden = true;
-    if (on && a && a.src) $("aNow").textContent = `${RVOICES.find(v => v[0] === cfg.voice)[1].replace(/ \(.*$/, "")} · ${fmt(a.currentTime)} / ${fmt(a.duration)}`;
-  }
+  function recUI(){ const a = REC.el; if (recMode() && a && a.src) say(`${RVOICES.find(v => v[0] === cfg.voice)[1].replace(/ \(.*$/, "")} · ${fmt(a.currentTime)} / ${fmt(a.duration)}`); }
   async function playRec(key){
     const path = cfg.voice + "/" + key + ".mp3"; let u = REC.urls[path];
     if (!u) { const r = await window.__sb.storage.from("academy-audio").createSignedUrl(path, 3600); u = REC.urls[path] = r && r.data && r.data.signedUrl; }
-    if (!u) return false;
-    if (!REC.el) { REC.el = new Audio(); REC.el.preload = "auto"; REC.el.ontimeupdate = recUI; REC.el.onended = () => { playing = false; setUI(); $("aNow").textContent = "End of this screen."; }; REC.el.onpause = () => { if (playing) { playing = false; setUI(); } }; }
-    if (can) synth.cancel(); token++; mark(null);
-    REC.el.src = u; REC.el.playbackRate = +cfg.rate || 1; REC.key = key;
-    try { await REC.el.play(); playing = true; setUI(); recUI(); return true; } catch(e) { playing = false; setUI(); $("aNow").textContent = "Press Play to listen to this screen."; return true; }
+    if (!u) { say("This recording could not be loaded. Press Play to try again."); return false; }
+    if (!REC.el) { REC.el = new Audio(); REC.el.preload = "auto"; REC.el.ontimeupdate = recUI; REC.el.onended = () => { playing = false; setUI(); say("End of this screen."); }; REC.el.onpause = () => { if (playing) { playing = false; setUI(); } }; }
+    REC.el.pause(); REC.el.src = u; REC.el.playbackRate = +cfg.rate || 1; REC.key = key;
+    try { await REC.el.play(); playing = true; setUI(); recUI(); return true; } catch(e) { playing = false; setUI(); say("Press Play to listen to this screen."); return true; }
   }
-  function mark(el){ if (cur) cur.classList.remove("reading"); cur = el; if (el) { el.classList.add("reading"); const r = el.getBoundingClientRect(); if (r.top < 70 || r.bottom > window.innerHeight - 130) el.scrollIntoView({block:"center", behavior:"smooth"}); } }
   function setUI(){
     btn.setAttribute("aria-pressed", String(cfg.on)); btn.textContent = cfg.on ? "Audio on" : "Audio off";
     dock.hidden = !cfg.on; document.body.classList.toggle("audio-on", cfg.on);
     $("aPlay").textContent = playing ? "Pause" : "Play";
   }
-  function stop(){ token++; playing = false; if (can) synth.cancel(); if (REC.el) REC.el.pause(); setUI(); }
-  /* one utterance per paragraph; very long ones split at sentence ends into chunks of about 230 characters */
-  function chunks(t){
-    if (t.length <= 260) return [t];
-    const out = []; let buf = "";
-    (t.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g) || [t]).forEach(s => { if ((buf + s).length > 230 && buf) { out.push(buf.trim()); buf = ""; } buf += s; });
-    if (buf.trim()) out.push(buf.trim()); return out;
-  }
-  function speakFrom(i, one){
-    if (!can) return; token++; const my = token; synth.cancel(); if (REC.el) REC.el.pause();
-    if (one !== undefined) single = one;
-    if (i >= items.length || (single && i !== idx && playing)) { playing = false; mark(null); $("aNow").textContent = single ? "Paused." : "End of this screen."; single = false; setUI(); return; }
-    idx = Math.max(0, i); playing = true; setUI();
-    const it = items[idx]; mark(it.el); $("aNow").textContent = it.el.textContent.replace(/\s+/g," ").trim();
-    const parts = chunks(it.t); let p = 0;
-    const next = () => {
-      if (my !== token) return;
-      if (p >= parts.length) { if (single) { playing = false; single = false; mark(null); $("aNow").textContent = "Press Play to continue."; setUI(); return; } setTimeout(() => { if (my === token) speakFrom(idx + 1); }, 220); return; }
-      const part = parts[p++], thai = /[\u0E00-\u0E7F]/.test(part);
-      const u = new SpeechSynthesisUtterance(part); const v = thai ? thaiVoice() : pickVoice();
-      if (thai && !v) { next(); return; }                       // no Thai voice on this device: skip Thai text rather than mispronounce it
-      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = thai ? "th-TH" : "en-GB";
-      u.rate = +cfg.rate || 1; u.pitch = 1;
-      u.onend = next; u.onerror = e => { if (my === token && e.error !== "interrupted" && e.error !== "canceled") next(); };
-      synth.speak(u);
-    };
-    next();
-  }
+  function stop(){ playing = false; if (REC.el) REC.el.pause(); setUI(); }
   function screen(root){
     if (!cfg.on) return;
-    stop(); mark(null); items = collect(root); idx = 0; single = false;
-    clearTimeout(screen.t);
+    stop(); clearTimeout(screen.t);
     const k = screenKey(root); REC.cur = k;
-    // a recorded voice is chosen but its list has not arrived yet: wait for it, never fall back to the device voice
-    if (RVOICES.some(v => v[0] === cfg.voice) && !REC.man) { REC.waitRoot = root || null; REC.waiting = true; $("aNow").textContent = "Loading the narration…"; loadMan(); return; }
-    if (hasRec(k)) { if (cfg.auto) screen.t = setTimeout(() => playRec(k), 250); else { REC.pending = k; $("aNow").textContent = "Press Play to listen to this screen."; } recUI(); return; }
-    if (recMode()) { $("aNow").textContent = "No narration on this screen."; recUI(); return; }   // a recorded voice is chosen: never mix in the device voice
-    if (cfg.auto) screen.t = setTimeout(() => speakFrom(0, false), 250); else { stop(); $("aNow").textContent = "Press Play to listen to this screen."; }
+    if (!REC.man) { REC.waitRoot = root || null; REC.waiting = true; say("Loading the narration…"); loadMan(); return; }
+    if (hasRec(k)) { if (cfg.auto) screen.t = setTimeout(() => playRec(k), 250); else say("Press Play to listen to this screen."); return; }
+    say("No narration on this screen yet.");
   }
   function focus(el){
-    if (!cfg.on || !el) return;
-    if (recMode()) { const k = fbKey(el); if (hasRec(k)) playRec(k); else { stop(); $("aNow").textContent = "No narration for this answer."; } return; }
-    const all = collect(); const k = all.findIndex(x => x.el === el || el.contains(x.el));
-    items = all; idx = k < 0 ? 0 : k; speakFrom(idx, true);
+    if (!cfg.on || !el || !REC.man) return;
+    const k = fbKey(el); if (hasRec(k)) playRec(k); else { stop(); say("No narration for this answer."); }
   }
-  if (!can) { btn.disabled = true; btn.textContent = "Audio unavailable"; btn.title = "This browser has no built-in voice. Try Chrome, Edge or Safari."; return {screen(){}, focus(){}, speakable}; }
-  fillVoices(); if (synth.addEventListener) synth.addEventListener("voiceschanged", fillVoices); else synth.onvoiceschanged = fillVoices;
+  fillVoices();
   $("aRate").value = String(cfg.rate); $("aAuto").checked = cfg.auto !== false;
-  btn.onclick = async () => { cfg.on = !cfg.on; keep(); setUI(); if (cfg.on) { await loadMan(); fillVoices(); screen(); } else { stop(); mark(null); } };
+  $("aPrev").textContent = "−15s"; $("aNext").textContent = "+15s";
+  $("aPrev").setAttribute("aria-label", "Back 15 seconds"); $("aNext").setAttribute("aria-label", "Forward 15 seconds");
+  btn.onclick = async () => { cfg.on = !cfg.on; keep(); setUI(); if (cfg.on) screen(); else stop(); };
   if (window.__sb) loadMan(); else setTimeout(loadMan, 800);
   $("aPlay").onclick = () => {
-    if (recMode() && !hasRec(REC.cur)) { $("aNow").textContent = "No narration on this screen."; return; }
-    if (hasRec(REC.cur)) {
-      if (playing) { REC.el.pause(); playing = false; setUI(); return; }
-      if (REC.el && REC.key === REC.cur && REC.el.src && !REC.el.ended) { REC.el.play().then(() => { playing = true; setUI(); }).catch(() => {}); return; }
-      playRec(REC.cur); return;
-    }
-    if (playing) { stop(); $("aNow").textContent = "Paused."; } else { if (!items.length) items = collect(); speakFrom(idx, false); } };
-  $("aNext").onclick = () => { if (recMode() && !(REC.el && REC.el.src)) return; if (recMode() && REC.el && REC.el.src) { REC.el.currentTime = Math.min((REC.el.duration || 0) - 0.2, REC.el.currentTime + 15); return; } if (!items.length) items = collect(); speakFrom(Math.min(items.length - 1, idx + 1), false); };
-  $("aPrev").onclick = () => { if (recMode() && !(REC.el && REC.el.src)) return; if (recMode() && REC.el && REC.el.src) { REC.el.currentTime = Math.max(0, REC.el.currentTime - 15); return; } if (!items.length) items = collect(); speakFrom(Math.max(0, idx - 1), false); };
-  $("aRate").onchange = e => { cfg.rate = +e.target.value; keep(); if (REC.el) REC.el.playbackRate = cfg.rate; if (playing && !recMode()) speakFrom(idx); };
-  $("aVoice").onchange = e => { cfg.voice = e.target.value; cfg.picked = true; keep(); stop(); recUI(); screen(); };
-  $("aName").onclick = () => { if (!can) return; stop(); const u = new SpeechSynthesisUtterance(speakable("Archē Executive. Archē is said ar-KAY.")); const v = pickVoice(); if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-GB"; u.rate = +cfg.rate || 1; synth.speak(u); };
+    if (!REC.man) { REC.waiting = true; say("Loading the narration…"); loadMan(); return; }
+    if (!hasRec(REC.cur)) { say("No narration on this screen yet."); return; }
+    if (playing) { REC.el.pause(); playing = false; setUI(); return; }
+    if (REC.el && REC.key === REC.cur && REC.el.src && !REC.el.ended) { REC.el.play().then(() => { playing = true; setUI(); }).catch(() => {}); return; }
+    playRec(REC.cur);
+  };
+  $("aNext").onclick = () => { if (REC.el && REC.el.src) REC.el.currentTime = Math.min((REC.el.duration || 0) - 0.2, REC.el.currentTime + 15); };
+  $("aPrev").onclick = () => { if (REC.el && REC.el.src) REC.el.currentTime = Math.max(0, REC.el.currentTime - 15); };
+  $("aRate").onchange = e => { cfg.rate = +e.target.value; keep(); if (REC.el) REC.el.playbackRate = cfg.rate; };
+  $("aVoice").onchange = e => { cfg.voice = e.target.value; cfg.picked = true; keep(); stop(); screen(); };
   $("aAuto").onchange = e => { cfg.auto = e.target.checked; keep(); };
   document.addEventListener("visibilitychange", () => { if (document.hidden && playing) stop(); });
   setUI();
