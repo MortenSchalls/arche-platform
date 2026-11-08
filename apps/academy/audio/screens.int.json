@@ -1750,7 +1750,7 @@
   ]
  },
  {
-  "key": "8c89e039",
+  "key": "46758621",
   "kind": "lesson",
   "where": "m1 screen 8",
   "text": [
@@ -1759,7 +1759,8 @@
    "Every enquiry, quote, document, booking, payment record and commission for Archē lives in the Archē broker portal. Nothing is quoted, sold or paid outside it, and work done outside it earns no commission. The portal opens on Today: your progress this month, your place in the team and every outstanding task, most urgent first.",
    "Leads and prospects",
    "The portal assigns organisations to brokers automatically and fairly: by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week.",
-   "Make first contact with every new lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the owner.",
+   "These leads are prospects from research, not clients who have asked for a trip. Make first contact with every new prospect lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the owner.",
+   "A client who asks directly (website, phone, email or messaging) is an enquiry, not a lead: pick it up at once and contact the client within 15 minutes (Module 12.1).",
    "\"Not now\" leads are offered again after 90 days, to a different broker with a fresh approach.",
    "Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically.",
    "Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid: commission rewards the booking.",
@@ -1774,7 +1775,7 @@
    "The ar Kay portal, one place for everything.",
    "Every enquiry, quote, document, booking, payment record and commission for ar Kay lives in the ar Kay broker portal. Nothing is quoted, sold or paid outside it, and work done outside it earns no commission. The portal opens on Today, your progress this month, your place in the team and every outstanding task, most urgent first.",
    "Leads and prospects.",
-   "The portal assigns organisations to brokers automatically and fairly, by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week. Make first contact with every new lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the owner. Not now leads are offered again after 90 days, to a different broker with a fresh approach. Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically. Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid, commission rewards the booking. Prospects are organisations and their business contacts only, no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact for everyone, for good.",
+   "The portal assigns organisations to brokers automatically and fairly, by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week. These leads are prospects from research, not clients who have asked for a trip. Make first contact with every new prospect lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the owner. A client who asks directly, website, phone, email or messaging, is an enquiry, not a lead, pick it up at once and contact the client within 15 minutes, Module 12, section 1. Not now leads are offered again after 90 days, to a different broker with a fresh approach. Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically. Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid, commission rewards the booking. Prospects are organisations and their business contacts only, no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact for everyone, for good.",
    "These are the current settings. The owner can change them in the portal, its Portal rules page always shows the ones in force.",
    "Authorisation and separate duties.",
    "The broker completes K Y C and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for authorisation. The owner, or a person the owner has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip, another owner or a person the owner has mandated does it."
@@ -6331,7 +6332,7 @@
   ]
  },
  {
-  "key": "813cc7a1",
+  "key": "cb7ec9ad",
   "kind": "lesson",
   "where": "sys screen 8",
   "text": [
@@ -6352,6 +6353,7 @@
    "It says Already knownAnother broker added it first; it stays with them. Keep adding new ones.",
    "A lead disappearedIt went cold and moved to another broker, or it was marked Do not contact.",
    "Tips",
+   "My leads are prospects from research (48 hours for first contact). A client who asks directly, by the website, phone, email or messaging, is an enquiry: contact them within 15 minutes.",
    "Contact new leads the same day: the 48-hour clock starts at assignment.",
    "Every organisation you add earns points and a bigger share of new leads; ten a month is the minimum, not the target.",
    "Anyone who opts out is Do not contact at once, for everyone."
@@ -6368,7 +6370,7 @@
    "If something goes wrong.",
    "My new prospect says Being checked. It is checked for duplicates at the next round, within 3 hours. It says Already known. Another broker added it first, it stays with them. Keep adding new ones. A lead disappeared. It went cold and moved to another broker, or it was marked Do not contact.",
    "Tips.",
-   "Contact new leads the same day, the 48-hour clock starts at assignment. Every organisation you add earns points and a bigger share of new leads, ten a month is the minimum, not the target. Anyone who opts out is Do not contact at once, for everyone."
+   "My leads are prospects from research, 48 hours for first contact. A client who asks directly, by the website, phone, email or messaging, is an enquiry, contact them within 15 minutes. Contact new leads the same day, the 48-hour clock starts at assignment. Every organisation you add earns points and a bigger share of new leads, ten a month is the minimum, not the target. Anyone who opts out is Do not contact at once, for everyone."
   ]
  },
  {
