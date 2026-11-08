@@ -47,7 +47,33 @@ for s, t, h in todo:
     index["keys"][s["key"]] = {"h": h, "d": dur}; done += 1
     if done % 25 == 0:
         req("POST", f"/storage/v1/object/{BUCKET}/{NAME}/index.json", json.dumps(index).encode(), "application/json", {"x-upsert": "true", "cache-control": "60"}); print(f"{NAME}: {done}/{len(todo)}", flush=True)
-# screens that no longer exist drop out of the index (their files stay until the next clean-up)
+# screens that no longer exist drop out of the index
 live = {s["key"] for s in screens}; index["keys"] = {k: v for k, v in index["keys"].items() if k in live}
 code, msg = req("POST", f"/storage/v1/object/{BUCKET}/{NAME}/index.json", json.dumps(index).encode(), "application/json", {"x-upsert": "true", "cache-control": "60"})
 print(f"{NAME}: recorded {done}, index {code}, total {len(index['keys'])} screens, {round(sum(v['d'] for v in index['keys'].values())/60)} minutes")
+
+# Clean-up (Morten, 8 Nov 2026: "remove old versions ... ensure we do not have any overlap from old versions"): the
+# bucket keeps only the current recording of each current screen in Isabella and Fable. Files of screens that changed
+# or no longer exist are deleted, and so is any folder of another voice.
+KEEP_VOICES = {"isabella", "fable"}
+def listing(prefix):
+    out, off = [], 0
+    while True:
+        st, b = req("POST", f"/storage/v1/object/list/{BUCKET}", json.dumps({"prefix": prefix, "limit": 1000, "offset": off}).encode())
+        rows = json.loads(b) if st == 200 else []
+        out += rows; off += len(rows)
+        if len(rows) < 1000: return out
+def remove(paths):
+    for i in range(0, len(paths), 500):
+        st, b = req("DELETE", f"/storage/v1/object/{BUCKET}", json.dumps({"prefixes": paths[i:i + 500]}).encode())
+        if st not in (200, 201): print("delete failed", st, b[:200])
+want = {k + ".mp3" for k in index["keys"]} | {"index.json"}
+old_files = [f"{NAME}/{r['name']}" for r in listing(NAME + "/") if r.get("id") and r["name"] not in want]
+remove(old_files)
+print(f"{NAME}: removed {len(old_files)} old recordings")
+if NAME == "isabella":
+    others = [r["name"] for r in listing("") if not r.get("id") and r["name"] not in KEEP_VOICES]   # folders have no id
+    gone = 0
+    for v in others:
+        files = [f"{v}/{r['name']}" for r in listing(v + "/") if r.get("id")]; remove(files); gone += len(files)
+    print(f"other voices removed: {others or 'none'} ({gone} files)")
