@@ -61,6 +61,10 @@ Read this before changing anything. These are business rules set by the owner, M
 - A change is done only when every related document, manual, academy, portal text, agreement, client document and test says the same thing, in the order of `docs/CHANGE-MAP.md` (master first). If one part cannot be changed yet, change nothing and ask Morten.
 - Audited means: `python3 scripts/check_all_revised.py` passes (also run in the Portal checks), the tests for every part touched pass, a repository-wide search finds none of the old wording, and the report says what changed where and what was run.
 
+## Full audit (Morten, 8 Nov 2026, locked)
+- "When i next time ask for a full audit, i expect you to do just that, a full audit and pick up on every non conformity or mistake of any kind." Morten must not be the one who finds the issues afterwards.
+- A full audit follows `docs/FULL-AUDIT.md` in full, every time: every rule in this file checked against every place it reaches (manual, both academies, portal screens, Help and messages, API and email texts, agreement, offer, charter confirmation, website, business plan, budget labels, Director package, handover, scheduled tasks and jobs), facts and figures as well as wording, every test and check run, and a second pass by a separate reviewer that has not seen the first. Nothing is reported as audited until every item on the list is done; anything not checked is named as not checked.
+
 ## Before you finish a change
 Run `python3 scripts/check_all_revised.py` and the tests for every part you changed (see README), and say what you ran.
 Update `docs/ARCHE-HANDOVER.md` (the file a new chat starts from) and the copy in the claude.ai project at `arche/arche-handover.md` at the end of each working session.

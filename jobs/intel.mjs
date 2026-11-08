@@ -11,7 +11,7 @@ import * as investors from "./investors.mjs";
 import * as services from "./services.mjs";
 import { vetContacts } from "./lib/contacts.mjs";
 
-const FOCUS = [
+export const FOCUS = [
   "Hong Kong and China family offices", "Japan and Korea luxury travel and family offices",
   "Thailand, Vietnam, Indonesia, Philippines resorts, villas and DMCs", "Australia and New Zealand luxury travel and events",
   "India family offices and wedding planners", "Saudi Arabia, Qatar, Kuwait family offices and events",
@@ -20,9 +20,9 @@ const FOCUS = [
   "North America sports teams, agencies and touring productions", "Latin America family offices (Brazil, Mexico, Colombia)",
   "Africa luxury safari and lodge operators", "Global F1, golf, tennis, sailing and major event organisers and hospitality agencies",
   "Asia private banks and multi-family offices as referral partners"];
-const SEGMENTS = ["Family office", "Wealth network", "Luxury travel & concierge", "Yachting", "Events & entertainment", "Sports",
+export const SEGMENTS = ["Family office", "Wealth network", "Luxury travel & concierge", "Yachting", "Events & entertainment", "Sports",
   "Villas & hospitality", "MICE & DMC", "Corporate travel (partner)", "Other"];
-const REGIONS = ["Asia-Pacific", "Middle East", "Europe", "North America", "Latin America", "Africa", "Global"];
+export const REGIONS = ["Asia-Pacific", "Middle East", "Europe", "North America", "Latin America", "Africa", "Global"];
 const AVENUE_TYPES = ["website", "contact", "linkedin", "instagram", "facebook", "x", "youtube", "wechat", "whatsapp", "social", "phone", "email", "event", "association", "introducer", "other"];
 
 const MODEL = process.env.INTEL_MODEL || "claude-sonnet-5-5";
@@ -59,8 +59,8 @@ export async function recordSpend(db, job) {
 }
 
 export const normName = s => String(s || "").toLowerCase().replace(/\b(ltd|limited|group|pte|llc|inc|co|company|the)\b/g, "").replace(/[^a-z0-9À-￿]+/g, "");
-const normUrl = u => { try { const x = new URL(u); return (x.hostname.replace(/^www\./, "") + x.pathname.replace(/\/$/, "")).toLowerCase(); } catch { return ""; } };
-const host = u => { try { return new URL(u).hostname.replace(/^www\./, "").toLowerCase(); } catch { return ""; } };
+export const normUrl = u => { try { const x = new URL(u); return (x.hostname.replace(/^www\./, "") + x.pathname.replace(/\/$/, "")).toLowerCase(); } catch { return ""; } };
+export const host = u => { try { return new URL(u).hostname.replace(/^www\./, "").toLowerCase(); } catch { return ""; } };
 
 // one research call: returns {data, seen:Set of URLs from search results}
 export async function ask(prompt, call = callApi, maxTokens = 8000, model = MODEL) {
@@ -134,7 +134,7 @@ export const OP_FOCUS = ["Singapore, Malaysia and Indonesia", "Thailand, Vietnam
 // comprehensively sanctioned or high-risk jurisdictions: operators based there are never added
 export const SANCTIONED = ["russia", "russian federation", "belarus", "iran", "north korea", "dprk", "syria", "cuba", "venezuela", "myanmar", "burma", "afghanistan", "crimea", "donetsk", "luhansk"];
 // charter marketplaces and other brokers' sites are never a source (no scraping of boards, nothing copied out of Avinode)
-const MARKETPLACES = /(^|\.)(avinode|jetvip|aircharterguide|charterhub|privatefly|fxair|lunajets|flyvictor|jetsmarter|flyxo|paramountbusinessjets|aircharterservice|evojets|stratosjets|jettly|villiers|mercuryjets|privatejetcharter|charterscanner|jetcharterhub)\.[a-z.]+$/i;
+export const MARKETPLACES = /(^|\.)(avinode|jetvip|aircharterguide|charterhub|privatefly|fxair|lunajets|flyvictor|jetsmarter|flyxo|paramountbusinessjets|aircharterservice|evojets|stratosjets|jettly|villiers|mercuryjets|privatejetcharter|charterscanner|jetcharterhub)\.[a-z.]+$/i;
 const AUDITS = { argus: "ARGUS", wyvern: "Wyvern", "is-bah": "IS-BAH", isbah: "IS-BAH" };
 export function opTier(audits) {
   const top = audits.some(a => (a.name === "ARGUS" && /platinum|gold\s*\+|gold plus/i.test(a.level)) || (a.name === "Wyvern" && /wingman/i.test(a.level)) || (a.name === "IS-BAH" && /stage\s*(2|ii|3|iii)/i.test(a.level)));

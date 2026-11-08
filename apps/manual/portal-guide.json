@@ -433,24 +433,24 @@
     "Open a prospect to see why, how to approach, contact routes, source, assignment history and the contact log.",
     "Assign it to a broker, or mark Do not contact.",
     "Add a prospect with its public source.",
-    "Research agent (Director): switch it on, choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list), set the monthly AI limit (at most USD 100) and press Save settings. Run now asks for a run outside the schedule; it starts within 3 hours. The panel shows the last run, what it added and the month's AI spend. Every prospect rule applies to what it adds."
+    "Research agent (Director): switch it on, choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list) and press Save settings. A Claude scheduled task does the research each morning when it is due, with no AI key and no AI bill. Nothing goes in until it passes every check: a public source page that opens and names the organisation, organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen. The panel shows the last run, what it added and what the checks rejected, with the reason."
    ],
    "trouble": [
     [
      "A prospect has no contact routes",
-     "The daily AI review adds them over time; brokers can add them too."
+     "The research agent adds them over time; brokers can add them too."
     ],
     [
      "Status shows Your decision",
      "It went cold with three brokers. Restart the rotation or mark Do not contact."
     ],
     [
-     "Research agent says it is waiting for the AI key",
-     "Add ANTHROPIC_API_KEY under GitHub → Settings → Secrets and variables → Actions. Never paste a key in a chat or a message."
+     "A prospect shows Your decision with a sanctions flag",
+     "The research agent found a possible sanctions match. Check the names against the list before any contact, then clear it or mark Do not contact."
     ],
     [
-     "Research agent run failed",
-     "It tries again at the next run. If it fails twice, check the AI limit and the key."
+     "The agent added nothing",
+     "It runs only when it is on and due. The panel lists what the checks rejected and why; widen or change the focus areas if most were already known."
     ]
    ],
    "tips": [
@@ -618,7 +618,7 @@
     "Company details: printed on every confirmation; needed before the first issue.",
     "Prospect assignment and incentives: contact times, limits, minimum adds, extra lead share, leaderboard visibility.",
     "Backup: download a full copy at any time; the nightly backup runs by itself.",
-    "AI spend: this month's estimated AI spend against the monthly limit (USD 40 by default, set in Prospects > Research agent, at most USD 100). At the cap the AI pauses until the next month; raise the cap only if the AI pays for itself."
+    "AI spend: this month's estimated spend of the AI that is still in use (the investor and supplier research, when run) against the monthly limit (USD 40 by default, at most USD 100). At the cap the AI pauses until the next month. The research agent for prospects uses no AI key and costs nothing here."
    ],
    "trouble": [
     [

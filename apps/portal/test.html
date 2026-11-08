@@ -1310,7 +1310,7 @@ async function act(a, el){
     if (a === "driveSync") { driveSync(true); return; }
     if (a === "brief") { runBriefing($("briefOut"), el); return; }
     if (a === "chatClear") { S.chat = []; render(); return; }
-    if (a === "agSave" || a === "agRun") { await agentSave(a === "agRun"); return; }
+    if (a === "agSave") { await agentSave(); return; }
     if (a === "pNew") { S.pNew = true; S.pSel = null; render(); return; }
     if (a === "pfClear") { S.pf = null; render(); return; }
     if (a === "pCancel") { S.pNew = false; render(); return; }
@@ -1489,7 +1489,7 @@ const AV_TYPES = {website:"Website", contact:"Contact page", linkedin:"Company L
 function avenuesHtml(p){
   const av = (p.avenues || []).slice();
   if (p.website && !av.some(a => a.url === p.website)) av.unshift({type:"website", label:p.website, url:p.website});
-  if (!av.length) return `<p class="small muted">No contact route confirmed yet. Use the official website's contact page. The AI review adds routes as it finds them.</p>`;
+  if (!av.length) return `<p class="small muted">No contact route confirmed yet. Use the official website's contact page. The research agent adds routes as it finds them.</p>`;
   return `<ul class="avs">${av.map(a => `<li><span class="avt">${esc(AV_TYPES[a.type] || a.type)}</span> ${a.url ? `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.label || a.url)}</a>` : esc(a.label || "")}${a.note ? ` <span class="muted small">· ${esc(a.note)}</span>` : ""}</li>`).join("")}</ul>`;
 }
 const pLoc = p => [p.city, p.province, p.country].filter(Boolean).join(", ");
@@ -1556,7 +1556,7 @@ function vProspects(){
     <div class="row"><button class="btn" type="button" data-act="pNew">Add prospect</button></div></div>
   <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn ${sec === "sales" ? "primary" : ""}" aria-selected="${sec === "sales"}" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn ${sec === "ops" ? "primary" : ""}" aria-selected="${sec === "ops"}" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn ${sec === "svc" ? "primary" : ""}" aria-selected="${sec === "svc"}" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
   ${sec === "sales" && S.isOwner && !S.preview ? agentPanel() : ""}
-  <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${intel.lastRun ? `last run ${fmtT(intel.lastRun)} · ${intel.lastAdded || 0} added · ${intel.lastUpdated || 0} updated · next focus: ${esc(intel.nextFocus || "rotating")}` : "the daily review has not run yet. Every morning it adds new organisations, charter operators (with certificate, safety and sanctions checks), business-jet suppliers at key airports and contact routes."}${intel.note ? `<br>${esc(intel.note)}` : ""}</div>
+  <div class="panel ai small" style="margin-bottom:12px"><b>Research agent:</b> ${intel.lastRun ? `last run ${fmtT(intel.lastRun)} · ${intel.lastAdded || 0} added · ${intel.lastUpdated || 0} updated` : "it has not run yet. When it is on, every morning it adds new organisations, charter operators (with certificate, safety and sanctions checks) and contact routes, each checked before it goes in."}${intel.note ? `<br>${esc(intel.note)}` : ""}</div>
   <div class="kpis">${byRegion.map(([r, n]) => `<button type="button" class="kpi kbtn" data-region="${esc(r)}" aria-pressed="${F.region === r}"><div class="l">${esc(r)}</div><div class="v">${n}</div></button>`).join("")}</div>
   <div class="panel filters">
     <label class="f" for="pf_q">Search<input id="pf_q" data-pf="q" value="${esc(F.q)}" placeholder="Name, city, segment…"></label>
@@ -1578,7 +1578,7 @@ function vProspects(){
     <div><h3>${SUPPLIER_KINDS.includes(sel.kind) ? "How to set them up as a supplier" : "How to approach"}</h3><p>${esc(sel.approach || "")}</p></div>
     <div><h3>Contact routes</h3>${avenuesHtml(sel)}</div>
     ${contactsHtml(sel, "prospect", sel.id)}
-    <div><h3>Source</h3><p class="small"><a href="${esc(sel.source)}" target="_blank" rel="noopener">${esc(sel.source)}</a>${sel.aiReviewed ? ` · AI reviewed ${fmtD(sel.aiReviewed)}` : ""}</p></div>
+    <div><h3>Source</h3><p class="small"><a href="${esc(sel.source)}" target="_blank" rel="noopener">${esc(sel.source)}</a>${sel.aiReviewed ? ` · checked ${fmtD(sel.aiReviewed)}` : ""}</p></div>
     ${SUPPLIER_KINDS.includes(sel.kind) ? `<div class="row"><button class="btn danger" type="button" data-act="pDnc">Do not use</button></div>` : `<div class="row"><label class="f" for="pAssign" style="flex:1">Assign to<select id="pAssign"><option value="">Choose a broker</option>${brokers.map(([id, r]) => `<option value="${id}" ${sel.assignedTo === id ? "selected" : ""}>${esc(r.contractName || nm(id))}${r.example ? " (example)" : ""}</option>`).join("")}</select></label><button class="btn primary" type="button" data-act="pAssign">Assign</button><button class="btn danger" type="button" data-act="pDnc">Do not contact</button></div>`}
     ${S.isOwner && !S.preview ? `<div class="row"><label class="f" for="pKind" style="flex:1">Type<select id="pKind"><option value="client" ${!sel.kind || sel.kind === "client" ? "selected" : ""}>Potential client</option><option value="partner" ${sel.kind === "partner" ? "selected" : ""}>Referral partner</option><option value="operator" ${sel.kind === "operator" ? "selected" : ""}>Charter operator</option></select></label><button class="btn" type="button" data-act="pKind">Save type</button><button class="btn" type="button" data-inv="moveFrom" data-id="${esc(sel.id)}">Move to investors and partners</button>${sel.status === "dnc" ? `<button class="btn" type="button" data-act="pUndoDnc">Undo Do not contact</button>` : ""}</div>` : ""}
     ${sel.status === "review" ? `<div class="note warn small"><b>Your decision:</b> ${esc(sel.reviewReason || "went cold with several brokers")}<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-act="rvRestart" data-pid="${sel.id}">Restart rotation</button><button class="btn small danger" type="button" data-act="rvDnc" data-pid="${sel.id}">Do not contact</button></div></div>` : ""}
@@ -2637,41 +2637,35 @@ function vToday(){
 }
 
 /* AI research spend (Anthropic API), recorded by every background job; limits are set in .github/workflows/jobs.yml */
-// Research agent (Morten, 7 Nov 2026): the Director runs prospect research from the portal, no Claude chat needed.
-// Settings in intel/agent; the scheduled job (jobs/agent.mjs, every 3 hours) starts the research and writes the result back.
+// Research agent (Morten, 8 Nov 2026: "same as the agent we made for the airports ... automated and not AI related"):
+// a Claude scheduled task researches each morning on the Claude plan (no AI key, no AI bill); the job on GitHub
+// (jobs/prospectagent.mjs, no AI) lets in only what passes every check and writes the result back to intel/agent.
 const AGENT_FREQ = [["daily", "Every day"], ["weekdays", "Monday to Friday"], ["weekly", "Once a week (Mondays)"]];
 function agentPanel(){
-  const a = S.agent || {}, st = a.state, last = a.last;
-  const pend = a.runNow && a.runNow.at && (!a.lastStart || Date.parse(a.runNow.at) > Date.parse(a.lastStart));
-  const stTxt = st === "no-key" ? `<span class="bad-ink">Waiting for the AI key: add ANTHROPIC_API_KEY under GitHub → Settings → Secrets and variables → Actions.${pend ? " Your run starts once it is there." : ""}</span>`
-    : pend ? "Run asked " + fmtT(a.runNow.at) + ": it starts within 3 hours."
-    : st === "running" ? "Running now (started " + fmtT(a.lastStart) + ")."
-    : st === "failed" ? `<span class="bad-ink">Last run failed ${fmtT(a.stateAt)}: ${esc(a.error || "unknown error")}. It tries again at the next run.</span>`
-    : last ? `Last run ${fmtT(last.at)}${last.asked ? " (asked)" : ""}: ${last.added || 0} organisations added, ${last.operators || 0} operators, ${last.rejected || 0} rejected by the rules.` : "Not run yet.";
-  return `<details class="panel small" id="agentBox" style="margin-bottom:12px" ${S.agentOpen ? "open" : ""}><summary><b>Research agent</b> · ${a.on ? "on, " + esc((AGENT_FREQ.find(f => f[0] === (a.freq || "daily")) || AGENT_FREQ[0])[1].toLowerCase()) : "off"} · ${pend ? "run asked" : esc(st === "no-key" ? "needs the AI key" : st || "idle")}</summary>
-    <p class="muted">Finds new organisations, operators and contact routes on the web while you work, under every prospect rule (organisations first, published business contacts only, no scraping, sanctions pre-screen). Runs start from 06:00 Bangkok time, checked every 3 hours.</p>
+  const a = S.agent || {}, last = a.last;
+  const stTxt = last ? `Last run ${fmtT(last.at)}: ${last.added || 0} organisations added, ${last.operators || 0} operators, contact routes for ${last.routes || 0}, ${last.rejected || 0} rejected by the checks${last.held ? `, ${last.held} held for your decision (possible sanctions match)` : ""}.` : "Not run yet.";
+  return `<details class="panel small" id="agentBox" style="margin-bottom:12px" ${S.agentOpen ? "open" : ""}><summary><b>Research agent</b> · ${a.on ? "on, " + esc((AGENT_FREQ.find(f => f[0] === (a.freq || "daily")) || AGENT_FREQ[0])[1].toLowerCase()) : "off"}</summary>
+    <p class="muted">Finds new organisations, charter operators and contact routes every morning from 06:00 Bangkok time when it is due. No AI key and no AI bill. Nothing goes in until it passes every check: a public source page that opens and names the organisation, organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen (a possible match waits for your decision).</p>
     <div class="fgrid">
       <label class="f"><span><input type="checkbox" id="ag_on" ${a.on ? "checked" : ""}> Agent on</span></label>
       <label class="f" for="ag_freq">How often<select id="ag_freq">${AGENT_FREQ.map(([v, l]) => `<option value="${v}" ${(a.freq || "daily") === v ? "selected" : ""}>${l}</option>`).join("")}</select></label>
-      <label class="f" for="ag_cap">Monthly AI limit, USD (at most 100)<input id="ag_cap" type="number" min="0" max="100" step="5" value="${esc(String(a.cap != null ? a.cap : 40))}"></label>
       <label class="f wide" for="ag_focus">Focus areas, one per line (empty: the standard list)<textarea id="ag_focus" rows="4" placeholder="e.g. Family offices in Singapore&#10;Event organisers in Phuket">${esc((a.focus || []).join("\n"))}</textarea></label>
     </div>
-    <div class="row"><button class="btn primary" type="button" data-act="agSave">Save settings</button><button class="btn" type="button" data-act="agRun" ${pend || st === "running" ? "disabled" : ""}>Run now</button></div>
+    <div class="row"><button class="btn primary" type="button" data-act="agSave">Save settings</button></div>
     <p id="agState">${stTxt}${last && last.note ? `<br><span class="muted">${esc(last.note)}</span>` : ""}</p>
-    ${aiSpendHtml()}
+    ${last && (last.reasons || []).length ? `<details class="small"><summary>Rejected by the checks (${last.reasons.length})</summary><ul>${last.reasons.map(x => `<li>${esc(x)}</li>`).join("")}</ul></details>` : ""}
   </details>`;
 }
 document.addEventListener("toggle", e => { if (e.target && e.target.id === "agentBox") S.agentOpen = e.target.open; }, true);
-async function agentSave(runNow){
+async function agentSave(){
   const cur = S.agent || {};
   const v = id => (document.getElementById(id) || {});
-  const cap = Math.min(100, Math.max(0, Math.round(Number(v("ag_cap").value)) || 0));
   const focus = String(v("ag_focus").value || "").split("\n").map(x => x.trim().slice(0, 160)).filter(Boolean).slice(0, 40);
-  const next = {...cur, on: !!v("ag_on").checked, freq: AGENT_FREQ.some(f => f[0] === v("ag_freq").value) ? v("ag_freq").value : "daily", cap, focus, updated: now(), by: S.uid || ""};
-  if (runNow) next.runNow = {at: now(), by: S.uid || ""};
+  const next = {...cur, on: !!v("ag_on").checked, freq: AGENT_FREQ.some(f => f[0] === v("ag_freq").value) ? v("ag_freq").value : "daily", focus, updated: now(), by: S.uid || ""};
+  delete next.runNow;
   try { await S.db.doc("intel/agent").set(next); S.agent = next; S.agentOpen = true;
-    audit(runNow ? "Research agent: run asked" : "Research agent settings saved", `${next.on ? "on" : "off"} · ${next.freq} · USD ${cap} a month · ${focus.length || "standard"} focus areas`);
-    toast(runNow ? "Asked. The run starts within 3 hours." : "Saved."); render(); }
+    audit("Research agent settings saved", `${next.on ? "on" : "off"} · ${next.freq} · ${focus.length || "standard"} focus areas`);
+    toast("Saved."); render(); }
   catch(e){ toast("Could not save the agent settings."); }
 }
 function aiSpendHtml(){
@@ -2784,22 +2778,22 @@ function todayAnalytics(){
 /* Portal flow diagram: one source for the portal Help page and the manual (rendered to PNG). */
 function flowSVG(accent){
   const A = accent || "currentColor";
-  const W = 1384, H = 520, lanes = [["AI and automation",70],["Broker",190],["Authorisation",310],["Client and payment",430]];
+  const W = 1384, H = 520, lanes = [["Background jobs",70],["Broker",190],["Authorisation",310],["Client and payment",430]];
   const bw = 132, bh = 54;
   const x = c => 168 + c * 152;
   const box = (c, r, t1, t2, hi) => { const X = x(c), Y = lanes[r][1] - bh / 2; return `<rect x="${X}" y="${Y}" width="${bw}" height="${bh}" rx="6" fill="none" stroke="${hi ? A : "currentColor"}" stroke-width="${hi ? 2 : 1.2}"/><text x="${X + bw / 2}" y="${Y + 23}" text-anchor="middle" font-size="12.5" font-weight="600" fill="currentColor">${t1}</text>${t2 ? `<text x="${X + bw / 2}" y="${Y + 40}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".75">${t2}</text>` : ""}`; };
   const R = (c) => x(c) + bw, L = (c) => x(c), M = c => x(c) + bw / 2, ly = r => lanes[r][1];
   const arrow = (x1, y1, x2, y2, label, dash, lx, ly2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="currentColor" stroke-width="1.2" ${dash ? 'stroke-dasharray="5 4"' : ""} marker-end="url(#ah)"/>${label ? `<text x="${lx ?? (x1 + x2) / 2}" y="${ly2 ?? ((y1 + y2) / 2 - 6)}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".8">${label}</text>` : ""}`;
   const path = (d, label, lx, ly2, dash) => `<path d="${d}" fill="none" stroke="currentColor" stroke-width="1.2" ${dash ? 'stroke-dasharray="5 4"' : ""} marker-end="url(#ah)"/>${label ? `<text x="${lx}" y="${ly2}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".8">${label}</text>` : ""}`;
-  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="How a trip moves through the Archē portal, from prospect to commission, across AI, broker, authorisation and client" style="max-width:100%;height:auto;font-family:Inter,Hanken Grotesk,Arial,sans-serif">
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="How a trip moves through the Archē portal, from prospect to commission, across research, broker, authorisation and client" style="max-width:100%;height:auto;font-family:Inter,Hanken Grotesk,Arial,sans-serif">
   <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>`;
   lanes.forEach(([n, y], i) => { s += `<rect class="flowlane-${i + 1}" x="8" y="${y - 58}" width="${W - 16}" height="116" fill="currentColor" opacity="0.10"/><text x="20" y="${y + 4}" font-size="12" font-weight="700" fill="currentColor" letter-spacing=".04em">${n.toUpperCase().replace(" AND ", " &amp; ")}</text>`; });
-  // AI lane
-  s += box(0, 0, "Daily research", "new organisations") + box(1, 0, "Prospects", "with sources") + box(2, 0, "Rotation", "every 3 hours", true) + box(6, 0, "Nightly backup", "encrypted, 90 days");
+  // background jobs lane
+  s += box(0, 0, "Research agent", "checked organisations") + box(1, 0, "Prospects", "with sources") + box(2, 0, "Rotation", "every 3 hours", true) + box(6, 0, "Nightly backup", "encrypted, 90 days");
   // Broker lane
   s += box(2, 1, "Lead", "contact in 48 h") + box(3, 1, "Enquiry", "airport search") + box(4, 1, "Requests, extras", "and quote ÷ 0.91") + box(5, 1, "Checks, KYC", "payment request") + box(6, 1, "Commission", "month flown");
   // Authorisation lane: the Director, or a person the Director has mandated (never on their own trip)
-  s += box(5, 2, "Authorisation", "owner or mandated") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
+  s += box(5, 2, "Authorisation", "Director or mandated") + box(6, 2, "Confirmation", "issued, PDF saved", true) + box(7, 2, "Record", "payments, flight");
   // Client lane
   s += box(6, 3, "Signs, deposit", "25%, min USD 2,500") + box(7, 3, "Balance, flight", "7 days before") ;
   // arrows
@@ -7365,9 +7359,9 @@ const OWNER_TODO = [
   {id:"ext-academy-pay", sev:"low", title:"External broker academy: paid access by credit card before it opens", later:true,
     why:"The external academy is sold to outside brokers; nobody gets in until they have paid by card (Morten, 26 Oct 2026).",
     how:"Decide the price and the card payment provider (to be agreed; for example a card checkout such as Stripe). Claude then builds sign-up, card payment and access that opens only after payment, with receipts and refunds handled by the provider; no card details ever touch the portal."},
-  {id:"research", sev:"low", title:"Turn daily prospect research back on (at go-live)", later:true,
-    why:"Paused since 21 Oct 2026 to save AI credit; until then new prospects come from research in chat.",
-    how:"Ask Claude to restore the daily research line in the jobs workflow; it needs AI credit (see the AI step)."},
+  {id:"research", sev:"low", title:"Switch on the research agent (when you want new prospects)", later:true,
+    why:"New prospects come from the research agent: a Claude scheduled task every morning, no AI key and no AI bill; every finding is checked before it goes in.",
+    how:"Prospects > Research agent: tick Agent on, choose how often and the focus areas, and press Save settings."},
   {id:"launch", sev:"low", due:"2026-12-01", title:"Launch day: make the website public", later:true,
     why:"archeaviation.com stays behind Vercel's login until you switch it on.",
     how:"First ask Claude to set the Singapore phone number and the UEN on the website and run the website check (apps/website/check_site.py); it must say \"no placeholders left\". Then Vercel > website project > Settings > Deployment Protection: turn off Vercel Authentication for production. Then Google Search Console (already verified 26 Oct) > Sitemaps > enter sitemap.xml > Submit."},

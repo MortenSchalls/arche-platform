@@ -32,3 +32,5 @@ notice needs Morten's wording first.
 4. The Portal checks on GitHub pass before anything is released.
 
 The report to Morten lists what was changed in each place and what was run.
+
+A full audit, when Morten asks for one, is wider: `docs/FULL-AUDIT.md` (locked rule, 8 Nov 2026).

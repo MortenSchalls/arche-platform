@@ -43,6 +43,8 @@ idx = (A / "portal/index.html").read_text()
 idx_n = re.sub(r"^const OWNER_SQL = .*$", "const OWNER_SQL = /*SQL*/{};", idx, flags=re.M)
 bad = [p.name for p in sorted((A / "portal/src-modules").glob("*.js")) if p.read_text().rstrip("\n") not in idx_n]
 ok("portal: every src-modules file is in index.html unchanged", not bad, ", ".join(bad))
+fl = (A / "portal/flow.js").read_text(); fl = fl[fl.index("function flowSVG"):fl.index("\n}\n", fl.index("function flowSVG")) + 2]
+ok("portal: the flow diagram (flow.js) is the same in index.html (re-render apps/manual/flow_portal.png when it changes)", fl in idx)
 
 # 4. Regenerate everything built from a master, then nothing may differ from what is there now.
 gen = ["apps/portal/src-modules/agreement-text.js", "apps/academy/build/manual.json", "apps/academy/build/edition_map.json",
