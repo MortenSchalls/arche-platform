@@ -99,7 +99,7 @@ Object.assign(PAGES, {
 });
 { const db = mk({ ...base, "owner/i004": { org: "Omicron Example Partners", status: "new" }, "owner/_status": { focusIndex: 2, lastRun: "2026-10-30T00:00:00Z" } });
   const p = await plan(db, mon9);
-  ok("plan: supplier airports for each set and the weekly investor part with profiles to complete", p.suppliers.core.airports.length === 3 && p.suppliers.hotels.airports.length === 3 && p.investors && p.investors.known.includes("Omicron Example Partners") && p.investors.profile[0].id === "i004", p.suppliers);
+  ok("plan: supplier airports for each set and the weekly investor part with profiles to complete", p.suppliers.core.airports.length === 5 && p.suppliers.hotels.airports.length === 5 && p.investors && p.investors.known.includes("Omicron Example Partners") && p.investors.profile[0].id === "i004", p.suppliers);
   const b2 = { focus: "x",
     suppliers: { core: { WSSL: [
       { org: "Kappa Example FBO", category: "FBO and ground handling", country: "Singapore", website: "https://fbo-example.test/", source: "https://fbo-example.test/", isbah: { level: "Stage 2", year: "2025", url: "https://isbah-example.test/reg" } },
@@ -123,3 +123,9 @@ Object.assign(PAGES, {
   const p2 = await plan(db, new Date("2026-11-10T03:00:00Z")); ok("investors wait a week after a run", p2.investors === null); }
 { const k = keygen(), msg = { investors: { items: [{ org: "Sealed Example" }] } }, s = seal(msg, Buffer.from(k.publicKey).toString("base64"));
   ok("sealed hand-over opens only with the right key and shows no names", !s.includes("Sealed Example") && open(s, k.privateKey).investors.items[0].org === "Sealed Example" && (() => { try { open(s, keygen().privateKey); return false; } catch { return true; } })()); }
+// global supplier airports (Morten, 8 Nov 2026: "we need to operate globally"): airports already done are not repeated
+{ const { AIRPORTS } = await import("./services.mjs");
+  ok("supplier airports: the global business-airport list (over 100, several continents), Phnom Penh kept", AIRPORTS.length > 100 && AIRPORTS.some(a => a[0] === "LFPB") && AIRPORTS.some(a => a[0] === "KTEB") && AIRPORTS.some(a => a[0] === "FAOR") && AIRPORTS.some(a => a[0] === "VDPP"));
+  const db = mk({ ...base, "intel/services": { pausedUntil: "2026-12-01T00:00:00Z", covered: [] }, "prospects/p050": { org: "Old Example FBO", kind: "service", category: "FBO and ground handling", airports: ["LFPB", "EGLF"] } });
+  const p = await plan(db, mon9);
+  ok("a longer airport list ends the old 30-day pause and skips airports already done", p.suppliers.core.airports.length === 5 && !p.suppliers.core.airports.some(a => a.icao === "LFPB" || a.icao === "EGLF"), p.suppliers.core); }

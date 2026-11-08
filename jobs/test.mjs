@@ -23,7 +23,13 @@ function fake(T) {
     }
     return api;
   };
-  return { from: q, storage: { from: () => ({ list: async () => ({ data: [{ name: "u1" }] }) }) } };
+  const FILES = { "portal-files": { "u1/doc1": "example file", "u1/sub/doc2": "second example" }, agent: { "key.json": "{}" } };
+  const stor = b => ({ list: async (prefix) => { const pre = prefix ? prefix + "/" : "", seen = new Set(), data = [];
+      for (const k of Object.keys(FILES[b] || {})) if (k.startsWith(pre)) { const rest = k.slice(pre.length), [h, ...more] = rest.split("/");
+        if (seen.has(h)) continue; seen.add(h); data.push(more.length ? { name: h, id: null, metadata: null } : { name: h, id: "x", metadata: { size: 1 } }); }
+      return FILES[b] ? { data } : { error: { message: "Bucket not found" } }; },
+    download: async p => ({ data: new Blob([FILES[b][p]], { type: "text/plain" }) }) });
+  return { from: q, storage: { from: stor } };
 }
 const BRK = "00000000-0000-0000-0000-00000000000b";
 const T = {
@@ -148,21 +154,22 @@ assert(gfo.score >= 70 && gfo.potential === "High" && gfo.reasons.some(x => /avi
 const np = own.find(r => r.data.org === "Example Notes Platform").data;
 assert(np.profile && np.profile.aum === "" && np.potential === "Low"); pass("profile research fills records without one; unsourced portfolio size dropped");
 
-// service partners
+// service partners (the airport list is global since 8 Nov 2026: the first three of it)
+const { AIRPORTS: SVA } = await import("./services.mjs"); const FIRST3 = SVA.slice(0, 3).map(a => a[0]);
 assert.deepStrictEqual(res.services.sort(), ["Crew Agency Example", "Example Airport Hotel", "FBO One Aviation", "Sky Catering Example"]); pass("service partners added: FBO, caterer and crew hotel");
 const fbo = T.prospects.find(p => p.data.org === "FBO One Aviation").data;
-assert.deepStrictEqual(fbo.airports, ["WSSL", "WSSS", "VTBD"]); pass("same company at the next airports is linked, not duplicated");
+assert.deepStrictEqual(fbo.airports, FIRST3); pass("same company at the next airports is linked, not duplicated");
 assert(fbo.kind === "service" && fbo.isbah && fbo.isbah.level === "Stage 2" && !fbo.flags.length && fbo.contacts.length === 1); pass("IS-BAH evidence and business contact kept");
 assert(fbo.screen && fbo.screen.auto && fbo.screen.auto.result === "no match"); pass("service partners are sanctions pre-screened");
 assert(res.rejected.some(x => /Directory Handler.*directory/.test(x)) && res.rejected.some(x => /Limo Example.*categories/.test(x))); pass("directory sources and later categories (limousine) rejected for now");
-{ const sv = T.intel.find(i => i.key === "services").value; assert.deepStrictEqual(sv.covered, ["WSSL", "WSSS", "VTBD"]); assert(sv.airportsLeft === 27 && !sv.pausedUntil); }
+{ const sv = T.intel.find(i => i.key === "services").value; assert.deepStrictEqual(sv.covered, FIRST3); assert(sv.airportsLeft === SVA.length - 3 && !sv.pausedUntil); }
 pass("three airports covered per run; only successful searches count, no pause before all are covered");
 { const ht = T.prospects.find(p => p.data.org === "Example Airport Hotel").data; assert(ht.kind === "service" && ht.category === "Crew hotels" && !ht.flags.length && ht.airports.length === 3); }
 pass("crew hotels researched as their own category and linked across airports");
 assert(res.rejected.some(x => /Far Hotel.*15 minutes/.test(x)) && res.rejected.some(x => /No Shuttle Hotel.*shuttle/.test(x))); pass("hotels more than 15 minutes away or without a dedicated shuttle refused");
 { const ht = T.prospects.find(p => p.data.org === "Example Airport Hotel").data; assert(ht.hotel.minutes === 10 && /shuttle/i.test(ht.hotel.shuttle)); } pass("distance and shuttle stored with their sources");
 assert(res.rejected.some(x => /Booked Hotel.*marketplace/.test(x)) && res.rejected.some(x => /Wrong Category Hotel.*categories/.test(x))); pass("booking sites refused as sources; hotel research adds only hotels");
-{ const hv = T.intel.find(i => i.key === "services-hotels").value; assert(hv.airportsLeft === 27); } pass("crew hotels keep their own progress");
+{ const hv = T.intel.find(i => i.key === "services-hotels").value; assert(hv.airportsLeft === SVA.length - 3); } pass("crew hotels keep their own progress");
 
 // operators
 assert.deepStrictEqual(res.operators, ["Good Air Charter", "Clean Air Jets"]); pass("only vetted operators are added");
@@ -225,8 +232,15 @@ pass("sanctions lists parsed; names compared after removing company suffixes; on
 pass("contacts older than 12 months without contact and opted-out contacts removed everywhere; broker's contact copied to the prospect");
 
 // backup
-const counts = await backup.run(db, "/tmp/backup-test.json", quiet);
-assert(counts.prospects === 19 && existsSync("/tmp/backup-test.json")); pass("backup holds every table"); unlinkSync("/tmp/backup-test.json");
+const bk = await backup.run(db, "/tmp/backup-test.json", quiet, "/tmp/backup-test-files"), counts = bk.counts;
+assert(counts.prospects === 19 && existsSync("/tmp/backup-test.json")); pass("backup holds every table");
+assert(bk.files === 3 && existsSync("/tmp/backup-test-files/portal-files/u1/sub/doc2") && existsSync("/tmp/backup-test-files/agent/key.json")); pass("backup holds the stored files themselves, in every folder and bucket");
+unlinkSync("/tmp/backup-test.json");
+// every table made by the database migrations is backed up (or deliberately skipped)
+{ const { readdirSync, readFileSync } = await import("fs");
+  const made = new Set(readdirSync("../supabase/migrations").filter(f => f.endsWith(".sql")).flatMap(f => [...readFileSync("../supabase/migrations/" + f, "utf8").matchAll(/create table (?:if not exists )?(?:public\.)?([a-z_]+)/gi)].map(m => m[1].toLowerCase())));
+  const missing = [...made].filter(t => !backup.TABLES.includes(t) && !backup.SKIP_TABLES.includes(t));
+  assert(!missing.length, "tables not in the backup: " + missing.join(", ")); pass("every database table is in the backup (" + made.size + " tables)"); }
 // AI spend control
 { const m = intel.meter; m.usd = 0; m.searches = 0; m.calls = 0;
   intel.charge("claude-sonnet-5-5", { input_tokens: 100000, output_tokens: 10000, server_tool_use: { web_search_requests: 6 } });
