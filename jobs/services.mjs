@@ -1,3 +1,5 @@
+// RETIRED 8 Nov 2026 (Morten: research without AI): this file's AI calls are no longer run by any job; its rules are used by
+// prospectagent.mjs to check the research agent's findings.
 // Service partners (Morten, 20 Oct 2026): business-jet suppliers at the airports Archē flies to most.
 // Step 1 (now): FBOs and business-aviation ground handlers, trip-support companies, business-jet in-flight catering.
 // Step 1b (21 Oct 2026): crew hotels near the same airports, and crew-accommodation companies, as their own category.

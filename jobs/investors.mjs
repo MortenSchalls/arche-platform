@@ -1,3 +1,5 @@
+// RETIRED 8 Nov 2026 (Morten: research without AI): this file's AI calls are no longer run by any job; its rules are used by
+// prospectagent.mjs to check the research agent's findings.
 // Daily research for INVESTORS and STRATEGIC PARTNERS (Morten, 20 Oct 2026). Owner only:
 //  - results go only to the owner_prospects table, which the database shows to the owner and nobody else
 //  - nothing about investors is written to the shared research status, the audit log or the GitHub run summary

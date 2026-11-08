@@ -29,7 +29,7 @@ function vInvestors(){
   return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${all.length} ${all.length === 1 ? "investor or strategic partner" : "investors and strategic partners"}. <b>Only you can see this list:</b> the database shows it to no one else, and it is never assigned, rotated or written to the shared log.</p></div>
     <div class="row"><button class="btn" type="button" data-inv="new">Add investor or partner</button><button class="btn" type="button" data-inv="imp">Import list</button></div></div>
   <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
-  <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${st ? `last run ${fmtT(st.lastRun)} · ${st.lastAdded || 0} added · next focus: ${esc(st.nextFocus || "rotating")}<br>${esc(st.note || "")}` : "runs every morning with the other research and covers three areas a day and adds up to 45 investors or partners, each with its public source, evidence and a sanctions pre-screen."}</div>
+  <div class="panel ai small" style="margin-bottom:12px"><b>Research agent:</b> ${st ? `last run ${fmtT(st.lastRun)} · ${st.lastAdded || 0} added · next focus: ${esc(st.nextFocus || "rotating")}<br>${esc(st.note || "")}` : "once a week, when the agent is on (Prospects > Research agent), it adds up to 12 investors or partners for one focus area and completes up to 8 profiles, each checked before it goes in: public source, evidence, no excluded place and a sanctions pre-screen."}</div>
   ${typeof irOverview === "function" ? irOverview(all) : ""}
   <div class="kpis">${["High", "Medium", "Low"].map(k => `<button type="button" class="kpi kbtn" data-inv="pot" data-pot="${k}" aria-pressed="${F.potential === k}"><div class="l">${k} potential</div><div class="v">${counts[k]}</div></button>`).join("")}</div>
   <div class="panel filters">
@@ -60,7 +60,7 @@ function invDetail(p){
     <div><h3>Contact routes</h3>${avenuesHtml(p)}</div>
     ${contactsHtml(p, "inv", p.id)}
     ${typeof irPanel === "function" ? irPanel(p) : ""}
-    <div><h3>Source</h3><p class="small">${p.source ? `<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>` : "Added by hand"}${p.aiReviewed ? ` · AI reviewed ${fmtD(p.aiReviewed)}` : ""}${p.movedFrom ? ` · moved from the shared prospect list ${fmtD(p.movedAt)}` : ""}</p></div>
+    <div><h3>Source</h3><p class="small">${p.source ? `<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>` : "Added by hand"}${p.aiReviewed ? ` · checked ${fmtD(p.aiReviewed)}` : ""}${p.movedFrom ? ` · moved from the shared prospect list ${fmtD(p.movedAt)}` : ""}</p></div>
     <div><h3>Sanctions</h3><p class="small">${sc ? `Automatic check ${fmtD(sc.at)} against ${esc((sc.lists || []).join(", ") || "no lists")}: <b>${esc(sc.result)}</b>${(sc.hits || []).length ? ` (${sc.hits.map(h => esc(h.name) + " ≈ " + esc(h.listed) + " on " + esc(h.list)).join("; ")})` : ""}.` : "Not checked yet: the morning run screens it."} Screen the organisation and its owners yourself before any agreement.</p></div>
     <div class="row"><label class="f" for="invStatus" style="flex:1">Status<select id="invStatus">${Object.entries(INV_STATUS).map(([k, v]) => `<option value="${k}" ${(p.status || "new") === k ? "selected" : ""}>${v}</option>`).join("")}</select></label><button class="btn primary" type="button" data-inv="status" data-id="${esc(p.id)}">Save status</button></div>
     <div><h3>Notes</h3><label class="f" for="invNote">New note<textarea id="invNote" rows="3" placeholder="Meeting, introduction, next step…"></textarea></label><div class="row" style="margin-top:6px"><button class="btn" type="button" data-inv="note" data-id="${esc(p.id)}">Add note</button></div>
@@ -83,7 +83,7 @@ function invProfile(p){
 }
 function invImport(){
   return `<form id="invImpForm" class="panel stack"><h2>Import a list</h2>
-    <p class="small muted">One organisation per line: <b>Name | Track | Country</b> (track and country are optional). Organisations only, no private individuals. Names already in the list are skipped. The morning review then researches each one: profile, evidence, fit score and sanctions check.</p>
+    <p class="small muted">One organisation per line: <b>Name | Track | Country</b> (track and country are optional). Organisations only, no private individuals. Names already in the list are skipped. The research agent then researches each one at its weekly run: profile, evidence, fit score and sanctions check.</p>
     <label class="f" for="iv_imp">Organisations<textarea id="iv_imp" rows="12" placeholder="Mousse Partners | Family office or UHNW office | France"></textarea></label>
     <label class="f" for="iv_impb">Label for this batch<input id="iv_impb" value="Imported list ${new Date().toISOString().slice(0, 10)}"></label>
     <div class="row"><button class="btn primary" type="submit">Import</button><button class="btn" type="button" data-inv="cancel">Cancel</button></div></form>`;
@@ -139,7 +139,7 @@ document.addEventListener("submit", async e => {
       await invSet(id, {org: org.slice(0, 160), track: INV_TRACKS.includes(track) ? track : "Strategic partner", for: "Whole platform", country: (country || "").slice(0, 60), status: "new", source: "", batch: label.slice(0, 80), added: now(), addedBy: S.uid, log: [{t: now(), note: "Imported: " + label.slice(0, 80)}]});
       have.add(invNorm(org)); added++;
     }
-    S.invImp = false; S.invF = null; toast(`Imported ${added}${skipped ? `, skipped ${skipped} already in the list or not an organisation` : ""}. The morning review researches them.`); render();
+    S.invImp = false; S.invF = null; toast(`Imported ${added}${skipped ? `, skipped ${skipped} already in the list or not an organisation` : ""}. The research agent researches them at its weekly run.`); render();
   } catch (err) { toast("Could not import: " + (err.code === "permission_denied" ? "Director only." : "try again.")); }
 });
 document.addEventListener("submit", async e => {

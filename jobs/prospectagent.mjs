@@ -16,6 +16,10 @@
 // domain), never a webmail address, never anyone who opted out; sanctions pre-screen of the organisation and its owners
 // (a possible match is held for the Director's decision). Operators also need an Air Operator Certificate and are never
 // added from the EU Air Safety List (the same rules as before, intel.mjs vetOperator).
+// Also (Morten, 8 Nov 2026: "use same agent ... for the investor and supplier research"): business-jet suppliers at the
+// key airports (services.mjs rules: three airports a run per set, a 30-day refresh once all are covered) and, once a
+// week, investors and strategic partners for the Director-only list (investors.mjs rules). Investor names never appear in
+// GitHub logs: the plan and the findings travel sealed (agentcrypt.mjs) and the job reports investor counts only.
 import { readFileSync } from "fs";
 import { gunzipSync } from "zlib";
 import { connect } from "./lib/db.mjs";
@@ -23,8 +27,12 @@ import { loadLists, screen } from "./lib/sanctions.mjs";
 import { vetContacts } from "./lib/contacts.mjs";
 import { due } from "./agent.mjs";
 import { FOCUS, OP_FOCUS, SEGMENTS, REGIONS, SANCTIONED, MARKETPLACES, normName, normUrl, host, vetAvenues, vetOperator } from "./intel.mjs";
+import { TRACKS, FOR, INV_FOCUS, INTERESTS, TICKETS, GEOS, vetInvestor, vetProfile, fitScore } from "./investors.mjs";
+import { CORE, SETS, AIRPORTS, vetService } from "./services.mjs";
+import { seal, open, jobKeys } from "./agentcrypt.mjs";
 
-export const LIMITS = { orgs: 20, operators: 12, routes: 8 };
+export const LIMITS = { orgs: 20, operators: 12, routes: 8, airports: 3, perAirport: 8, investors: 12, profiles: 8 };
+const WEEK = 7 * 864e5;
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
 const EXCL = JSON.parse(readFileSync(new URL("../apps/website/content/excluded.json", import.meta.url), "utf8"));
 const BAD_PLACES = [...new Set([...(EXCL.countries || []), ...(EXCL.words || []), ...SANCTIONED].map(x => String(x).toLowerCase()))];
@@ -69,8 +77,22 @@ export async function plan(db, now = new Date()) {
   const bare = rows.filter(r => r.data.status !== "dnc" && !(r.data.avenues || []).length)
     .sort((a, b) => String(a.data.aiReviewed || a.data.added || "").localeCompare(String(b.data.aiReviewed || b.data.added || ""))).slice(0, LIMITS.routes)
     .map(r => ({ id: r.id, org: r.data.org, website: r.data.website || "", country: r.data.country || "" }));
+  // suppliers: the next airports of each set that are not covered yet (none while a set waits for its 30-day refresh)
+  const suppliers = {};
+  for (const [name, S] of Object.entries(SETS)) {
+    const st = (await db.get(S.key)) || {};
+    if (st.pausedUntil && Date.parse(st.pausedUntil) > now.getTime()) { suppliers[name] = { airports: [], categories: S.cats, note: "refresh after " + st.pausedUntil.slice(0, 10) }; continue; }
+    const covered = new Set(st.covered || []);
+    suppliers[name] = { airports: AIRPORTS.filter(([icao]) => !covered.has(icao)).slice(0, LIMITS.airports).map(([icao, n]) => ({ icao, name: n })), categories: S.cats };
+  }
+  // investors and strategic partners: once a week (Director-only list)
+  const inv = (await db.get("owner/_status")) || {}, mine = (await db.all("owner_prospects")).filter(r => r.id !== "_status");
+  const investors = !inv.lastRun || now.getTime() - Date.parse(inv.lastRun) > WEEK - 6 * 36e5 ? {
+    focus: INV_FOCUS[(Number.isInteger(inv.focusIndex) ? inv.focusIndex : 0) % INV_FOCUS.length], tracks: TRACKS, for: FOR, interests: INTERESTS, tickets: TICKETS, geos: GEOS,
+    known: [...mine.map(r => r.data.org), ...rows.map(r => r.data.org)].filter(Boolean),
+    profile: mine.filter(r => !r.data.profile && r.data.status !== "dnc").slice(0, LIMITS.profiles).map(r => ({ id: r.id, org: r.data.org, website: r.data.website || "", country: r.data.country || "" })) } : null;
   return { due: isDue, reason: !agent.on ? "The agent is off (Prospects > Research agent)." : isDue ? "Due." : "Not due today.", focus: FOC[fi % FOC.length], opFocus: OP_FOCUS[ofi % OP_FOCUS.length],
-    limits: LIMITS, segments: SEGMENTS, regions: REGIONS, known: rows.map(r => r.data.org).filter(Boolean), bare };
+    limits: LIMITS, segments: SEGMENTS, regions: REGIONS, known: rows.map(r => r.data.org).filter(Boolean), bare, suppliers, investors };
 }
 
 // ---- import ----
@@ -150,16 +172,85 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
     if (!dry) await db.set("prospects/" + id, { ...r.data, avenues: av, aiReviewed: nowIso }); updated++;
   }
 
-  const note = `${dry ? "Dry run, nothing written. " : ""}Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
+  // 4. business-jet suppliers at the key airports (services.mjs rules; a company already listed gets the airport added)
+  const svcAdded = [], svcRejected = []; let svcMerged = 0;
+  const byName = new Map(rows.map(r => [normName(r.data.org), r]));
+  for (const [setName, perAirport] of Object.entries(batch.suppliers || {})) {
+    const S = SETS[setName]; if (!S || !perAirport || typeof perAirport !== "object") continue;
+    const st = (await db.get(S.key)) || {}, covered = new Set(st.covered || []), done = [];
+    for (const [icao, items] of Object.entries(perAirport).slice(0, LIMITS.airports)) {
+      if (!AIRPORTS.some(([c]) => c === icao)) continue;
+      for (const o of (Array.isArray(items) ? items : []).slice(0, LIMITS.perAirport)) {
+        let why = !o || !clean(o.org) || !clean(o.source) ? "missing name or source" : PERSONLIKE.test(clean(o.org)) ? "looks like a private person, not an organisation" : excludedPlace(o) ? "excluded or sanctioned place (" + excludedPlace(o) + ")" : "";
+        if (!why && !(await opened(o.source, true, o.org, o.website))) why = "source page does not open or does not name the organisation";
+        if (!why) { for (const u of [o.website, o.minutes_url, o.shuttle && o.shuttle.url, o.isbah && o.isbah.url, ...(o.evidence || []).map(x => x && x.url)].filter(Boolean)) if (await P.get(u)) seen.add(normUrl(u));
+          await openAll(o.avenues, o.website, o.org); await openAll(o.contacts, o.website, o.org, true); }
+        const v = why ? { why } : vetService(o, seen, icao, optSet, S.cats);
+        if (v.why) { svcRejected.push(`${clean(o && o.org, 60)} (${icao}): ${String(v.why).replace("source not seen in this run's search results", "source page does not open")}`); continue; }
+        const ex = byName.get(normName(v.rec.org));
+        if (ex) {
+          if (ex.data.kind === "service" && ex.data.category === v.rec.category && !(ex.data.airports || []).includes(icao)) { ex.data = { ...ex.data, airports: [...(ex.data.airports || []), icao] }; if (!dry) await db.set("prospects/" + ex.id, ex.data); svcMerged++; }
+          else if (ex.data.kind !== "service" || ex.data.category !== v.rec.category) svcRejected.push(`${v.rec.org} (${icao}): already in the list as another type`);
+          continue;
+        }
+        const rec = { ...v.rec, added: nowIso, batch: `Research agent ${S.label.toLowerCase()} ${today}`, aiReviewed: nowIso, addedBy: "research agent" };
+        const s = screenOf(rec.org); rec.screen = { ...(rec.screen || {}), auto: s };
+        if (s.result === "possible match") { rec.status = "review"; rec.flags = [...new Set([...(rec.flags || []), "Possible sanctions match: check the names against the list before any contact."])]; held.push(rec.org); }
+        next++; const id = "p" + String(next).padStart(3, "0"); if (!dry) await db.set("prospects/" + id, rec); byName.set(normName(rec.org), { id, data: rec }); existing.add(normName(rec.org)); svcAdded.push(rec.org);
+      }
+      done.push(icao); covered.add(icao);
+    }
+    const finished = covered.size >= AIRPORTS.length, left = AIRPORTS.filter(([c]) => !covered.has(c));
+    if (!dry && done.length) await db.set(S.key, { ...st, lastRun: nowIso, covered: finished ? [] : [...covered], pausedUntil: finished ? new Date(now.getTime() + 30 * 864e5).toISOString() : null,
+      nextAirport: finished ? "refresh in 30 days" : left[0][1], airportsLeft: finished ? 0 : left.length, airportsDone: done, lastAdded: svcAdded.length, lastMerged: svcMerged, rejected: svcRejected.slice(0, 20), by: "research agent" });
+  }
+  rejected.push(...svcRejected);
+
+  // 5. investors and strategic partners: Director-only table; nothing about them is logged, only counts
+  let invAdded = 0, invRejected = 0, invProfiled = 0, invHeld = 0;
+  if (batch.investors && typeof batch.investors === "object") {
+    const IB = batch.investors, ist = (await db.get("owner/_status")) || {};
+    const mine = (await db.all("owner_prospects")).filter(r => r.id !== "_status");
+    const known = new Set([...existing, ...mine.map(r => normName(r.data.org))]);
+    let inext = mine.reduce((m, r) => Math.max(m, parseInt(String(r.id).replace(/\D/g, ""), 10) || 0), 0);
+    const irej = [];
+    for (const o of (Array.isArray(IB.items) ? IB.items : []).slice(0, LIMITS.investors)) {
+      let why = !o || !clean(o.org) || !clean(o.source) ? "missing name or source" : excludedPlace(o) ? "excluded or sanctioned place (" + excludedPlace(o) + ")" : "";
+      if (!why && !(await opened(o.source, true, o.org, o.website))) why = "source page does not open or does not name the organisation";
+      if (!why) { for (const u of [o.website, o.aum_url, ...(o.evidence || []).map(x => x && x.url)].filter(Boolean)) if (await P.get(u)) seen.add(normUrl(u));
+        await openAll(o.avenues, o.website, o.org); await openAll(o.contacts, o.website, o.org, true); }
+      const v = why ? { why } : vetInvestor(o, seen, known);
+      if (v.why) { irej.push(`${clean(o && o.org, 60)}: ${String(v.why).replace("source not seen in this run's search results", "source page does not open").replace("duplicate", "already known")}`); continue; }
+      const rec0 = { ...v.rec, profile: vetProfile(o, seen), added: nowIso, batch: `Research agent investors ${today}`, aiReviewed: nowIso, addedBy: "research agent" };
+      const rec = { ...rec0, ...fitScore(rec0) };
+      rec.contacts = vetContacts(o.contacts, seen, rec.website, rec.org, optSet).map(c => ({ ...c, addedBy: "research agent" }));
+      const s = screenOf(rec.org); rec.screen = { auto: s }; if (s.result === "possible match") { rec.status = "review"; invHeld++; }
+      inext++; if (!dry) await db.set("owner/i" + String(inext).padStart(3, "0"), rec); known.add(normName(rec.org)); invAdded++;
+    }
+    const byI = Object.fromEntries(mine.map(r => [r.id, r]));
+    for (const [id, o] of Object.entries(IB.profiles || {}).slice(0, LIMITS.profiles)) {
+      const r = byI[id]; if (!r || r.data.profile || !o) continue;
+      for (const u of [o.aum_url, ...(o.evidence || []).map(x => x && x.url)].filter(Boolean)) if (await P.get(u)) seen.add(normUrl(u));
+      const evidence = [...(r.data.evidence || []), ...(Array.isArray(o.evidence) ? o.evidence : []).map(x => ({ summary: clean(x && x.summary, 300), url: clean(x && x.url, 400) })).filter(x => x.summary && seen.has(normUrl(x.url)))].slice(0, 5);
+      const d = { ...r.data, evidence, profile: vetProfile(o, seen), aiReviewed: nowIso }; if (!dry) await db.set("owner/" + id, { ...d, ...fitScore(d) }); invProfiled++;
+    }
+    invRejected = irej.length;
+    if (!dry) { const fi = Number.isInteger(ist.focusIndex) ? ist.focusIndex : 0;
+      await db.set("owner/_status", { ...ist, lastRun: nowIso, lastAdded: invAdded, focusIndex: fi + 1, nextFocus: INV_FOCUS[(fi + 1) % INV_FOCUS.length], profiled: invProfiled,
+        note: `Research agent: ${invAdded} added, ${invProfiled} profiles, ${invRejected} rejected by the checks.`, rejected: irej.slice(0, 20), by: "research agent" }); }
+  }
+  const invNote = batch.investors ? ` Investors and partners (Director-only list): ${invAdded} added, ${invProfiled} profiles, ${invRejected} rejected${invHeld ? ", " + invHeld + " held for your decision" : ""}.` : "";
+  const svcNote = batch.suppliers ? ` Suppliers at key airports: ${svcAdded.length} added, ${svcMerged} linked to more airports.` : "";
+  const note = `${dry ? "Dry run, nothing written. " : ""}Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${svcNote}${invNote}${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
   if (!dry) {
     const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0, ofi = Number.isInteger(status.opFocusIndex) ? status.opFocusIndex : 0;
-    await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length, lastUpdated: updated, lastOperators: opsAdded.length, totalProspects: rows.length + added.length + opsAdded.length,
+    await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length, lastUpdated: updated, lastOperators: opsAdded.length, totalProspects: rows.length + added.length + opsAdded.length + svcAdded.length,
       focusIndex: fi + 1, opFocusIndex: ofi + 1, note, rejected: rejected.slice(0, 30), by: "research agent" });
     const a2 = (await db.get("intel/agent")) || agent;
-    await db.set("intel/agent", { ...a2, state: "done", stateAt: nowIso, last: { at: nowIso, added: added.length, operators: opsAdded.length, routes: updated, rejected: rejected.length, held: held.length, focus: clean(batch.focus, 160), note: note.slice(0, 600), reasons: rejected.slice(0, 30) } });
+    await db.set("intel/agent", { ...a2, state: "done", stateAt: nowIso, last: { at: nowIso, added: added.length, operators: opsAdded.length, routes: updated, suppliers: svcAdded.length, suppliersLinked: svcMerged, investors: batch.investors ? invAdded : null, rejected: rejected.length, held: held.length + invHeld, focus: clean(batch.focus, 160), note: note.slice(0, 600), reasons: rejected.slice(0, 30) } });
   }
   log(note); rejected.forEach(x => log("  rejected: " + x));
-  return { added, operators: opsAdded, updated, rejected, held, note };
+  return { added, operators: opsAdded, updated, suppliers: svcAdded, suppliersLinked: svcMerged, investors: { added: invAdded, profiled: invProfiled, rejected: invRejected, held: invHeld }, rejected, held, note };
 }
 
 // the batch arrives as the workflow input BATCH: gzip + base64 of the JSON the task wrote ({focus, orgs, operators, routes})
@@ -175,11 +266,21 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const mode = process.argv[2] || "plan";
   await main("Research agent " + mode, ["SUPABASE_URL", "SUPABASE_SECRET_KEY"], async () => {
     const db = connect();
-    if (mode === "plan") { const p = await plan(db); console.log("PLAN-BEGIN\n" + JSON.stringify(p) + "\nPLAN-END"); return { note: p.reason + " Focus: " + p.focus + "." }; }
+    const keys = await jobKeys(db);
+    if (mode === "plan") {
+      // the plan is sealed with the task's own public key (input KEY): investor names never appear in the log
+      if (!String(process.env.KEY || "").trim()) throw new Error("No KEY given: the task must pass its public key (node agentcrypt.mjs keygen).");
+      const p = await plan(db);
+      console.log("PLAN-BEGIN\n" + seal(p, process.env.KEY) + "\nPLAN-END\nJOBKEY-BEGIN\n" + Buffer.from(keys.publicKey).toString("base64") + "\nJOBKEY-END");
+      return { note: p.reason + (p.due ? " Investors this run: " + (p.investors ? "yes" : "no") + "." : "") };
+    }
     // the daily sanctions screen's name index (every list, with names kept up to 14 days when a site is down); live lists if missing
     let lists = null;
     try { const { data } = await db.sb.storage.from("sanctions").download("index.json"); const ix = JSON.parse(await data.text());
       if (ix && ix.names && Date.now() - Date.parse(ix.at) < 3 * 864e5) lists = { names: new Map(Object.entries(ix.names)), loaded: ix.lists || [], failed: ix.failed || [] }; } catch {}
-    return importBatch(db, decode(process.env.BATCH), { lists, log: console.log, dry: process.env.DRY === "1" });
+    const raw = String(process.env.BATCH || "").trim();
+    const batch = raw.startsWith("S1.") ? open(raw, keys.privateKey) : decode(raw);
+    if (!raw.startsWith("S1.") && batch.investors) throw new Error("Investor findings must be sealed (agentcrypt.mjs seal); nothing was written.");
+    return importBatch(db, batch, { lists, log: console.log, dry: process.env.DRY === "1" });
   });
 }

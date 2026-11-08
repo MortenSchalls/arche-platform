@@ -433,7 +433,7 @@
     "Open a prospect to see why, how to approach, contact routes, source, assignment history and the contact log.",
     "Assign it to a broker, or mark Do not contact.",
     "Add a prospect with its public source.",
-    "Research agent (Director): switch it on, choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list) and press Save settings. A Claude scheduled task does the research each morning when it is due, with no AI key and no AI bill. Nothing goes in until it passes every check: a public source page that opens and names the organisation, organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen. The panel shows the last run, what it added and what the checks rejected, with the reason."
+    "Research agent (Director): switch it on (it finds new organisations, charter operators, business-jet suppliers at our key airports and, once a week, investors and partners for your private list), choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list) and press Save settings. A Claude scheduled task does the research each morning when it is due, with no AI key and no AI bill. Nothing goes in until it passes every check: a public source page that opens and names the organisation, organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen. The panel shows the last run, what it added and what the checks rejected, with the reason."
    ],
    "trouble": [
     [
@@ -618,7 +618,7 @@
     "Company details: printed on every confirmation; needed before the first issue.",
     "Prospect assignment and incentives: contact times, limits, minimum adds, extra lead share, leaderboard visibility.",
     "Backup: download a full copy at any time; the nightly backup runs by itself.",
-    "AI spend: this month's estimated spend of the AI that is still in use (the investor and supplier research, when run) against the monthly limit (USD 40 by default, at most USD 100). At the cap the AI pauses until the next month. The research agent for prospects uses no AI key and costs nothing here."
+    "AI spend: this month's spend of the portal AI (the Assistant, trip co-pilot, roleplay lab and briefing) against the monthly cap you set here. At the cap the AI pauses until the next month. The research agent uses no AI key and costs nothing here."
    ],
    "trouble": [
     [
@@ -1062,7 +1062,8 @@
     "Prospects, Operators: charter operators with their certificate, safety audits, fleet and sanctions pre-screen. A person confirms the sanctions check before the first booking.",
     "Prospects, Service partners: FBOs and ground handlers, trip support, in-flight catering and crew hotels at our key airports. Filter by airport and category.",
     "Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle.",
-    "Suppliers are never assigned to brokers as leads."
+    "Suppliers are never assigned to brokers as leads.",
+    "New operators and service partners come from the research agent (Prospects > Research agent): three airports a run until all are covered, then a refresh every 30 days. Each one is checked before it goes in."
    ],
    "trouble": [
     [
@@ -1284,12 +1285,13 @@
    "steps": [
     "Prospects, Investors and partners: visible only to the Director; the database enforces it.",
     "Filter by potential, track, interest, industry and ticket size; each has a fit score with reasons.",
-    "Add one, or use Import list: one organisation per line (Name | Track | Country). Names already in the list and personal names are skipped."
+    "Add one, or use Import list: one organisation per line (Name | Track | Country). Names already in the list and personal names are skipped.",
+    "The research agent adds up to 12 investors or partners once a week for one focus area and completes up to 8 profiles, each checked before it goes in (public source that names the organisation, evidence, no excluded place, sanctions pre-screen). Their names travel sealed and never appear in GitHub logs."
    ],
    "trouble": [
     [
      "An imported organisation has no profile yet",
-     "Profiles come from the research job."
+     "The research agent completes up to 8 profiles at its weekly run."
     ]
    ],
    "tips": [

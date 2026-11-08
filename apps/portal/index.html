@@ -550,7 +550,6 @@ async function boot(){
     watchBroker(S.uid);
     if (S.isOwner) watchDoc("config/backup", snap => { S.backup = snap.exists ? snap.data() : null; });
     if (S.isOwner) watchDoc("config/launch", snap => { S.launch = snap.exists ? snap.data() : {}; render(); });
-    if (S.isOwner) watchDoc("intel/spend", snap => { S.spend = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("intel/agent", snap => { S.agent = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("intel/logaudit", snap => { S.auditDone = snap.exists ? snap.data() : null; render(); });
     if (S.isOwner) watchDoc("config/setup", snap => { S.setup = snap.exists ? snap.data() : null; render(); });
@@ -1250,7 +1249,7 @@ const SEGMENTS = ["Family office","Wealth network","Luxury travel & concierge","
 const LEAD_STATUS = {review:"Your decision", duplicate:"Already known", new:"New", assigned:"Assigned", contacted:"Contacted", meeting:"Meeting set", interested:"Interested", enquiry:"Enquiry opened", notnow:"Not now", dnc:"Do not contact"};
 const leadChip = s => `<span class="chip ${s === "dnc" ? "c-returned" : s === "enquiry" || s === "interested" ? "c-flown" : s === "contacted" || s === "meeting" ? "c-quoted" : "c-enquiry"}">${LEAD_STATUS[s] || s}</span>`;
 function pStatus(p){ const l = p.assignedTo && (S.staffLeads[p.assignedTo] || {})[p.id]; return (l && l.status) || p.status || "new"; }
-/* ---------- prospects v2: global filters, contact routes, AI review ---------- */
+/* ---------- prospects v2: global filters, contact routes, research agent ---------- */
 const REGIONS = ["Asia-Pacific","Middle East","Europe","North America","Latin America","Africa","Global"];
 const AV_TYPES = {website:"Website", contact:"Contact page", linkedin:"Company LinkedIn", instagram:"Instagram", facebook:"Facebook", x:"X (Twitter)", youtube:"YouTube", wechat:"WeChat", whatsapp:"WhatsApp Business", social:"Social media", phone:"Office phone", email:"Office email", event:"Event", association:"Association", introducer:"Introduction via", other:"Other"};
 function avenuesHtml(p){
@@ -1299,7 +1298,7 @@ function svcDetail(p){
       <li><span class="avt">IS-BAH</span> ${p.isbah ? `${esc(p.isbah.level || "registered")}${p.isbah.year ? " (" + esc(p.isbah.year) + ")" : ""} · ${lnk(p.isbah.url, "evidence")}` : "not found in public sources"}</li>
       ${(p.evidence || []).map(x => `<li><span class="avt">Evidence</span> ${esc(x.summary)} · ${lnk(x.url, "source")}</li>`).join("")}
     </ul>
-    <p class="small">${sc ? `Sanctions check ${fmtD(sc.at)}: <b>${esc(sc.result)}</b>${(sc.hits || []).length ? " (" + sc.hits.map(h => esc(h.name) + " ≈ " + esc(h.listed)).join("; ") + ")" : ""}.` : "Sanctions check: runs with the next morning review."}</p></div>`;
+    <p class="small">${sc ? `Sanctions check ${fmtD(sc.at)}: <b>${esc(sc.result)}</b>${(sc.hits || []).length ? " (" + sc.hits.map(h => esc(h.name) + " ≈ " + esc(h.listed)).join("; ") + ")" : ""}.` : "Sanctions check: runs with the next daily sanctions screen."}</p></div>`;
 }
 function vProspects(){
   if (S.pSec === "inv" && !(S.isOwner && !S.preview)) S.pSec = "sales";
@@ -2399,20 +2398,18 @@ function vToday(){
       <p>Prospect research: ${S.intel && S.intel.lastRun ? "last run " + fmtT(S.intel.lastRun) + " · " + (S.intel.totalProspects || Object.keys(S.prospects).length) + " organisations" : "not run yet"}</p>
       ${LIVE_PLATFORM ? `<p>Nightly backup: ${S.nightly && S.nightly.lastRun ? "last " + fmtT(S.nightly.lastRun) + " · encrypted, kept 90 days" : "not run yet"}</p>` : `<p>Google Drive backup: ${S.drive && (S.drive.lastCloudBackup || S.drive.lastSync) ? "last " + fmtT(S.drive.lastCloudBackup || S.drive.lastSync) + (S.drive.cloudBackupResult ? " · " + esc(S.drive.cloudBackupResult) : "") : "not run yet"}</p>`}
       <p>Prospect rotation: ${run.lastRun ? "last " + fmtT(run.lastRun) : "not run yet"}</p>
-      ${aiSpendHtml()}
       <div class="row"><button class="btn small" type="button" data-view="control">Control</button><button class="btn small" type="button" data-view="queue">Authorisation</button><button class="btn small" type="button" data-view="prospects">Prospects</button></div></div></div></div>${spotCheckPanel()}${todayAnalytics()}`;
 }
 
-/* AI research spend (Anthropic API), recorded by every background job; limits are set in .github/workflows/jobs.yml */
 // Research agent (Morten, 8 Nov 2026: "same as the agent we made for the airports ... automated and not AI related"):
 // a Claude scheduled task researches each morning on the Claude plan (no AI key, no AI bill); the job on GitHub
 // (jobs/prospectagent.mjs, no AI) lets in only what passes every check and writes the result back to intel/agent.
 const AGENT_FREQ = [["daily", "Every day"], ["weekdays", "Monday to Friday"], ["weekly", "Once a week (Mondays)"]];
 function agentPanel(){
   const a = S.agent || {}, last = a.last;
-  const stTxt = last ? `Last run ${fmtT(last.at)}: ${last.added || 0} organisations added, ${last.operators || 0} operators, contact routes for ${last.routes || 0}, ${last.rejected || 0} rejected by the checks${last.held ? `, ${last.held} held for your decision (possible sanctions match)` : ""}.` : "Not run yet.";
+  const stTxt = last ? `Last run ${fmtT(last.at)}: ${last.added || 0} organisations added, ${last.operators || 0} operators, ${last.suppliers || 0} suppliers, contact routes for ${last.routes || 0}${last.investors != null ? `, ${last.investors} investors or partners` : ""}, ${last.rejected || 0} rejected by the checks${last.held ? `, ${last.held} held for your decision (possible sanctions match)` : ""}.` : "Not run yet.";
   return `<details class="panel small" id="agentBox" style="margin-bottom:12px" ${S.agentOpen ? "open" : ""}><summary><b>Research agent</b> · ${a.on ? "on, " + esc((AGENT_FREQ.find(f => f[0] === (a.freq || "daily")) || AGENT_FREQ[0])[1].toLowerCase()) : "off"}</summary>
-    <p class="muted">Finds new organisations, charter operators and contact routes every morning from 06:00 Bangkok time when it is due. No AI key and no AI bill. Nothing goes in until it passes every check: a public source page that opens and names the organisation, organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen (a possible match waits for your decision).</p>
+    <p class="muted">Finds new organisations, charter operators, business-jet suppliers at our key airports and contact routes every morning from 06:00 Bangkok time when it is due, and once a week investors and partners for your private list. No AI key and no AI bill. Nothing goes in until it passes every check: a public source page that opens and names the organisation, organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen (a possible match waits for your decision).</p>
     <div class="fgrid">
       <label class="f"><span><input type="checkbox" id="ag_on" ${a.on ? "checked" : ""}> Agent on</span></label>
       <label class="f" for="ag_freq">How often<select id="ag_freq">${AGENT_FREQ.map(([v, l]) => `<option value="${v}" ${(a.freq || "daily") === v ? "selected" : ""}>${l}</option>`).join("")}</select></label>
@@ -2434,12 +2431,6 @@ async function agentSave(){
     audit("Research agent settings saved", `${next.on ? "on" : "off"} · ${next.freq} · ${focus.length || "standard"} focus areas`);
     toast("Saved."); render(); }
   catch(e){ toast("Could not save the agent settings."); }
-}
-function aiSpendHtml(){
-  const sp = S.spend; if (!sp) return `<p>AI research spend: recorded from the next run.</p>`;
-  const cur = sp.month === new Date().toISOString().slice(0, 7), used = cur ? sp.usd || 0 : 0, lim = sp.monthBudget || 40, last = (sp.runs || [])[0];
-  const fmt = n => "USD " + Number(n || 0).toFixed(2);
-  return `<p>AI research spend this month: <b>${fmt(used)}</b> of ${fmt(lim)}${used >= lim ? ` · <span class="bad-ink">limit reached: research paused until next month</span>` : ""}${last ? `<br><span class="muted">Last run: ${esc(last.job)} ${fmtT(last.t)}, ${fmt(last.usd)} (${last.searches} searches). Each scheduled run stops at ${fmt(sp.runBudget || 1.5)}.</span>` : ""}</p>`;
 }
 
 /* ---------- dashboards: every user's opening page ---------- */
@@ -3862,7 +3853,7 @@ function vInvestors(){
   return `<div class="head"><div><h1>Prospects</h1><p class="muted small">${all.length} ${all.length === 1 ? "investor or strategic partner" : "investors and strategic partners"}. <b>Only you can see this list:</b> the database shows it to no one else, and it is never assigned, rotated or written to the shared log.</p></div>
     <div class="row"><button class="btn" type="button" data-inv="new">Add investor or partner</button><button class="btn" type="button" data-inv="imp">Import list</button></div></div>
   <div class="row" role="tablist" aria-label="Prospect sections" style="margin-bottom:12px"><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="sales">Clients and partners (${every.length - nOps - nSvc})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="ops">Operators (${nOps})</button><button type="button" role="tab" class="btn" aria-selected="false" data-act="pSec" data-sec="svc">Service partners (${nSvc})</button>${invTab()}</div>
-  <div class="panel ai small" style="margin-bottom:12px"><b>AI review:</b> ${st ? `last run ${fmtT(st.lastRun)} · ${st.lastAdded || 0} added · next focus: ${esc(st.nextFocus || "rotating")}<br>${esc(st.note || "")}` : "runs every morning with the other research and covers three areas a day and adds up to 45 investors or partners, each with its public source, evidence and a sanctions pre-screen."}</div>
+  <div class="panel ai small" style="margin-bottom:12px"><b>Research agent:</b> ${st ? `last run ${fmtT(st.lastRun)} · ${st.lastAdded || 0} added · next focus: ${esc(st.nextFocus || "rotating")}<br>${esc(st.note || "")}` : "once a week, when the agent is on (Prospects > Research agent), it adds up to 12 investors or partners for one focus area and completes up to 8 profiles, each checked before it goes in: public source, evidence, no excluded place and a sanctions pre-screen."}</div>
   ${typeof irOverview === "function" ? irOverview(all) : ""}
   <div class="kpis">${["High", "Medium", "Low"].map(k => `<button type="button" class="kpi kbtn" data-inv="pot" data-pot="${k}" aria-pressed="${F.potential === k}"><div class="l">${k} potential</div><div class="v">${counts[k]}</div></button>`).join("")}</div>
   <div class="panel filters">
@@ -3893,7 +3884,7 @@ function invDetail(p){
     <div><h3>Contact routes</h3>${avenuesHtml(p)}</div>
     ${contactsHtml(p, "inv", p.id)}
     ${typeof irPanel === "function" ? irPanel(p) : ""}
-    <div><h3>Source</h3><p class="small">${p.source ? `<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>` : "Added by hand"}${p.aiReviewed ? ` · AI reviewed ${fmtD(p.aiReviewed)}` : ""}${p.movedFrom ? ` · moved from the shared prospect list ${fmtD(p.movedAt)}` : ""}</p></div>
+    <div><h3>Source</h3><p class="small">${p.source ? `<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>` : "Added by hand"}${p.aiReviewed ? ` · checked ${fmtD(p.aiReviewed)}` : ""}${p.movedFrom ? ` · moved from the shared prospect list ${fmtD(p.movedAt)}` : ""}</p></div>
     <div><h3>Sanctions</h3><p class="small">${sc ? `Automatic check ${fmtD(sc.at)} against ${esc((sc.lists || []).join(", ") || "no lists")}: <b>${esc(sc.result)}</b>${(sc.hits || []).length ? ` (${sc.hits.map(h => esc(h.name) + " ≈ " + esc(h.listed) + " on " + esc(h.list)).join("; ")})` : ""}.` : "Not checked yet: the morning run screens it."} Screen the organisation and its owners yourself before any agreement.</p></div>
     <div class="row"><label class="f" for="invStatus" style="flex:1">Status<select id="invStatus">${Object.entries(INV_STATUS).map(([k, v]) => `<option value="${k}" ${(p.status || "new") === k ? "selected" : ""}>${v}</option>`).join("")}</select></label><button class="btn primary" type="button" data-inv="status" data-id="${esc(p.id)}">Save status</button></div>
     <div><h3>Notes</h3><label class="f" for="invNote">New note<textarea id="invNote" rows="3" placeholder="Meeting, introduction, next step…"></textarea></label><div class="row" style="margin-top:6px"><button class="btn" type="button" data-inv="note" data-id="${esc(p.id)}">Add note</button></div>
@@ -3916,7 +3907,7 @@ function invProfile(p){
 }
 function invImport(){
   return `<form id="invImpForm" class="panel stack"><h2>Import a list</h2>
-    <p class="small muted">One organisation per line: <b>Name | Track | Country</b> (track and country are optional). Organisations only, no private individuals. Names already in the list are skipped. The morning review then researches each one: profile, evidence, fit score and sanctions check.</p>
+    <p class="small muted">One organisation per line: <b>Name | Track | Country</b> (track and country are optional). Organisations only, no private individuals. Names already in the list are skipped. The research agent then researches each one at its weekly run: profile, evidence, fit score and sanctions check.</p>
     <label class="f" for="iv_imp">Organisations<textarea id="iv_imp" rows="12" placeholder="Mousse Partners | Family office or UHNW office | France"></textarea></label>
     <label class="f" for="iv_impb">Label for this batch<input id="iv_impb" value="Imported list ${new Date().toISOString().slice(0, 10)}"></label>
     <div class="row"><button class="btn primary" type="submit">Import</button><button class="btn" type="button" data-inv="cancel">Cancel</button></div></form>`;
@@ -3972,7 +3963,7 @@ document.addEventListener("submit", async e => {
       await invSet(id, {org: org.slice(0, 160), track: INV_TRACKS.includes(track) ? track : "Strategic partner", for: "Whole platform", country: (country || "").slice(0, 60), status: "new", source: "", batch: label.slice(0, 80), added: now(), addedBy: S.uid, log: [{t: now(), note: "Imported: " + label.slice(0, 80)}]});
       have.add(invNorm(org)); added++;
     }
-    S.invImp = false; S.invF = null; toast(`Imported ${added}${skipped ? `, skipped ${skipped} already in the list or not an organisation` : ""}. The morning review researches them.`); render();
+    S.invImp = false; S.invF = null; toast(`Imported ${added}${skipped ? `, skipped ${skipped} already in the list or not an organisation` : ""}. The research agent researches them at its weekly run.`); render();
   } catch (err) { toast("Could not import: " + (err.code === "permission_denied" ? "Director only." : "try again.")); }
 });
 document.addEventListener("submit", async e => {

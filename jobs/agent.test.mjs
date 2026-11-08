@@ -4,6 +4,7 @@
 import { gzipSync } from "zlib";
 import { due } from "./agent.mjs";
 import { plan, importBatch, decode, names, excludedPlace } from "./prospectagent.mjs";
+import { keygen, seal, open } from "./agentcrypt.mjs";
 const ok = (k, v, x) => { console.log((v ? "PASS " : "FAIL ") + k + (v || x === undefined ? "" : "  -> " + JSON.stringify(x).slice(0, 400))); if (!v) process.exitCode = 1; };
 
 // schedule
@@ -16,7 +17,7 @@ ok("weekly: Mondays", due({ on: true, freq: "weekly" }, "2026-11-02T03:00:00Z", 
 // in-memory database
 const mk = docs => { const D = JSON.parse(JSON.stringify(docs));
   return { D, get: async k => D[k] || null, set: async (k, v) => { D[k] = JSON.parse(JSON.stringify(v)); },
-    all: async c => Object.entries(D).filter(([k]) => k.startsWith(c + "/") && k.split("/").length === 2).map(([k, v]) => ({ id: k.split("/")[1], data: v })), now: () => "2026-11-09T03:00:00.000Z" }; };
+    all: async c => { const pre = c === "owner_prospects" ? "owner" : c; return Object.entries(D).filter(([k]) => k.startsWith(pre + "/") && k.split("/").length === 2).map(([k, v]) => ({ id: k.split("/")[1], data: v })); }, now: () => "2026-11-09T03:00:00.000Z" }; };
 const base = { "intel/agent": { on: true, freq: "daily", focus: ["Example focus A", "Example focus B"] }, "intel/status": { focusIndex: 1 },
   "prospects/p007": { org: "Known Example Travel", website: "https://known-example.test", status: "new", avenues: [] } };
 
@@ -86,3 +87,39 @@ const batch = { focus: "Example focus B",
 ok("batch arrives gzip + base64 or as plain JSON", decode(gzipSync(Buffer.from('{"orgs":[]}')).toString("base64")).orgs.length === 0 && decode('{"orgs":[1]}').orgs.length === 1);
 ok("page check: name, distinctive words, not a stranger", names("the alpha example concierge team", "Alpha Example Concierge Pte Ltd") && !names("other text", "Alpha Example Concierge"));
 ok("excluded list includes Morten's countries", excludedPlace({ country: "Venezuela" }) && excludedPlace({ country: "Russia" }) && !excludedPlace({ country: "Singapore" }));
+
+// suppliers and investors (Morten, 8 Nov 2026: the same agent for the investor and supplier research)
+Object.assign(PAGES, {
+  "https://fbo-example.test/": "<p>Kappa Example FBO, business aviation handling at Singapore Seletar. IS-BAH Stage 2.</p>",
+  "https://isbah-example.test/reg": "<p>IS-BAH registered: Kappa Example FBO, Stage 2, 2025</p>",
+  "https://hotel-example.test/": "<p>Lambda Example Hotel, 10 minutes from the airport, own airport shuttle for crews.</p>",
+  "https://fund-example.test/": "<p>Mu Example Aviation Capital finances business jets and aircraft leasing.</p>",
+  "https://fund-example.test/deals": "<p>Mu Example Aviation Capital financed two business jets in 2025.</p>",
+  "https://nu-example.test/about": "<p>Nu Example Family Office invests in real assets.</p>",
+});
+{ const db = mk({ ...base, "owner/i004": { org: "Omicron Example Partners", status: "new" }, "owner/_status": { focusIndex: 2, lastRun: "2026-10-30T00:00:00Z" } });
+  const p = await plan(db, mon9);
+  ok("plan: supplier airports for each set and the weekly investor part with profiles to complete", p.suppliers.core.airports.length === 3 && p.suppliers.hotels.airports.length === 3 && p.investors && p.investors.known.includes("Omicron Example Partners") && p.investors.profile[0].id === "i004", p.suppliers);
+  const b2 = { focus: "x",
+    suppliers: { core: { WSSL: [
+      { org: "Kappa Example FBO", category: "FBO and ground handling", country: "Singapore", website: "https://fbo-example.test/", source: "https://fbo-example.test/", isbah: { level: "Stage 2", year: "2025", url: "https://isbah-example.test/reg" } },
+      { org: "Xi Example Handling", category: "FBO and ground handling", country: "Singapore", source: "https://news-example.test/gamma" } ] },
+      hotels: { WSSL: [ { org: "Lambda Example Hotel", category: "Crew hotels", type: "hotel", minutes: 10, minutes_url: "https://hotel-example.test/", shuttle: { desc: "Own crew shuttle", url: "https://hotel-example.test/" }, country: "Singapore", website: "https://hotel-example.test/", source: "https://hotel-example.test/" },
+                        { org: "Pi Example Hotel", category: "Crew hotels", type: "hotel", minutes: 40, minutes_url: "https://hotel-example.test/", shuttle: { desc: "x", url: "https://hotel-example.test/" }, country: "Singapore", source: "https://hotel-example.test/" } ] } },
+    investors: { items: [
+      { org: "Mu Example Aviation Capital", track: "Aviation lender or lessor", for: "Navoryx aircraft notes", country: "Singapore", website: "https://fund-example.test/", source: "https://fund-example.test/", evidence: [{ summary: "Financed two jets", url: "https://fund-example.test/deals" }], aviation: "direct", interests: ["Aviation"], ticket: "USD 1–10m", geo: ["Asia-Pacific"] },
+      { org: "Omicron Example Partners", country: "Singapore", source: "https://fund-example.test/" },
+      { org: "Rho Example Office", country: "Iran", source: "https://fund-example.test/" } ],
+      profiles: { i004: { aviation: "indirect", interests: ["Real assets"], ticket: "Unknown", geo: ["Global"], evidence: [] } } } };
+  const logs = []; const r = await importBatch(db, b2, { fetchFn, lists, now: mon9, log: x => logs.push(x) });
+  const P = Object.values(db.D);
+  ok("supplier with a source that names it is added, with its airport; IS-BAH evidence kept", P.some(x => x.org === "Kappa Example FBO" && x.kind === "service" && x.airports[0] === "WSSL" && x.isbah));
+  ok("supplier whose source does not name it is rejected", !P.some(x => x.org === "Xi Example Handling") && r.rejected.some(x => /Xi Example.*does not/.test(x)));
+  ok("crew hotel within 15 minutes with its own shuttle kept; one 40 minutes away rejected", P.some(x => x.org === "Lambda Example Hotel") && r.rejected.some(x => /Pi Example Hotel.*15 minutes/.test(x)));
+  ok("airport marked covered for each set", db.D["intel/services"].covered.includes("WSSL") && db.D["intel/services-hotels"].covered.includes("WSSL"));
+  ok("investor added to the Director-only list with fit score and screen", db.D["owner/i005"] && db.D["owner/i005"].org === "Mu Example Aviation Capital" && db.D["owner/i005"].score > 0 && db.D["owner/i005"].screen.auto.result === "no match");
+  ok("known investor and excluded country rejected; profile added to the existing record", !db.D["owner/i006"] && db.D["owner/_status"].rejected.length === 2 && !!db.D["owner/i004"].profile);
+  ok("no investor name in the job's log or in the shared result", !logs.join(" ").includes("Mu Example") && !logs.join(" ").includes("Omicron") && !JSON.stringify(db.D["intel/agent"]).includes("Mu Example") && !JSON.stringify(db.D["intel/status"]).includes("Mu Example"));
+  const p2 = await plan(db, new Date("2026-11-10T03:00:00Z")); ok("investors wait a week after a run", p2.investors === null); }
+{ const k = keygen(), msg = { investors: { items: [{ org: "Sealed Example" }] } }, s = seal(msg, Buffer.from(k.publicKey).toString("base64"));
+  ok("sealed hand-over opens only with the right key and shows no names", !s.includes("Sealed Example") && open(s, k.privateKey).investors.items[0].org === "Sealed Example" && (() => { try { open(s, keygen().privateKey); return false; } catch { return true; } })()); }

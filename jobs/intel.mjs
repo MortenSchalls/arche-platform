@@ -1,3 +1,5 @@
+// RETIRED 8 Nov 2026 (Morten: research without AI): this file's AI calls are no longer run by any job; its rules are used by
+// prospectagent.mjs to check the research agent's findings.
 // Daily intelligence: research new prospect ORGANISATIONS with web search and add them to the portal,
 // plus charter OPERATORS (suppliers) checked for certificate, audits, safety record and sanctions exposure.
 // Rules (same as the claude.ai scheduled task, now also enforced in code):
