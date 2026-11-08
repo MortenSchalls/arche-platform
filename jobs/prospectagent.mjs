@@ -150,7 +150,7 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
     if (!dry) await db.set("prospects/" + id, { ...r.data, avenues: av, aiReviewed: nowIso }); updated++;
   }
 
-  const note = `Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
+  const note = `${dry ? "Dry run, nothing written. " : ""}Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
   if (!dry) {
     const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0, ofi = Number.isInteger(status.opFocusIndex) ? status.opFocusIndex : 0;
     await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length, lastUpdated: updated, lastOperators: opsAdded.length, totalProspects: rows.length + added.length + opsAdded.length,
@@ -176,6 +176,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   await main("Research agent " + mode, ["SUPABASE_URL", "SUPABASE_SECRET_KEY"], async () => {
     const db = connect();
     if (mode === "plan") { const p = await plan(db); console.log("PLAN-BEGIN\n" + JSON.stringify(p) + "\nPLAN-END"); return { note: p.reason + " Focus: " + p.focus + "." }; }
-    return importBatch(db, decode(process.env.BATCH), { log: console.log, dry: process.env.DRY === "1" });
+    // the daily sanctions screen's name index (every list, with names kept up to 14 days when a site is down); live lists if missing
+    let lists = null;
+    try { const { data } = await db.sb.storage.from("sanctions").download("index.json"); const ix = JSON.parse(await data.text());
+      if (ix && ix.names && Date.now() - Date.parse(ix.at) < 3 * 864e5) lists = { names: new Map(Object.entries(ix.names)), loaded: ix.lists || [], failed: ix.failed || [] }; } catch {}
+    return importBatch(db, decode(process.env.BATCH), { lists, log: console.log, dry: process.env.DRY === "1" });
   });
 }
