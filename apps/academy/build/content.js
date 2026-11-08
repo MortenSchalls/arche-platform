@@ -48,8 +48,8 @@ const COURSE = [
  {id:"m9", n:"9", t:"Pricing and quoting"},
  {id:"m10", n:"10", t:"Contract, payment and settlement"},
  {id:"book", n:"10P", t:"Practical: the booking form", live:true, lab:true},
- {id:"m11", n:"11", t:"Trip operations and the 24/7 desk"},
- {id:"m12", n:"12", t:"Selling and the consultant desk"},
+ {id:"m11", n:"11", t:"Trip operations and disruption"},
+ {id:"m12", n:"12", t:"Selling and account management"},
  {id:"m13", n:"13", t:"Case studies"},
  {id:"m14", n:"14", t:"Assessment and certification"},
 ];
