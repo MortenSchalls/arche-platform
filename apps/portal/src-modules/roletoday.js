@@ -2,7 +2,7 @@
    The first page brokers and operations see: what needs them today, in the order to do it, then progress and figures.
    The separate Dashboard is merged into Today (Morten, 31 Oct 2026: "merge today for brokers and operations"): one page. Built only from what the portal already records; every line opens the trip or lead.
    Broker: tasks (returned files, quotes, follow-ups, leads due), flights today and tomorrow on their trips,
-     aftercare, work waiting on operations or the director, open enquiries in the pool, notices.
+     aftercare, work waiting on operations or the owner, open enquiries in the pool, notices.
    Operations: tasks (files to check, signatures, payments, operator payments, flights to record), flights today and
      tomorrow on every trip, client payments outstanding with the balance date, aftercare, notices.
    Every section can be collapsed (collapse.js). */
@@ -29,7 +29,7 @@
     const rows = [];
     myTrips(me).forEach(t => { const op = `data-open="${t.bid}|${t.did}" data-goto="trips"`;
       if (t.stage === "review") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>Waiting for authorisation: ${esc(cl(t))}</span></button>`);
-      if (typeof gateReq === "function") { const g = gateReq(me, "quote", t.did); if (g && g.status === "pending") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>Quote waiting for the director's OK: ${esc(cl(t))}</span></button>`); } });
+      if (typeof gateReq === "function") { const g = gateReq(me, "quote", t.did); if (g && g.status === "pending") rows.push(`<button type="button" class="task s2" ${op}><span class="dot" aria-hidden="true"></span><span>Quote waiting for the owner's OK: ${esc(cl(t))}</span></button>`); } });
     return `<div class="panel"><h2>Waiting on others (${rows.length})</h2>${rows.length ? `<div class="tasks">${rows.join("")}</div>` : `<p class="small muted">Nothing waiting for authorisation.</p>`}</div>`;
   }
   function pool(){

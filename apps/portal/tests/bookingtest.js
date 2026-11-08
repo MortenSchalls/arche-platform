@@ -149,7 +149,7 @@ ok('Settings refuses a margin below 9%',floor===0.09&&/cannot be below 9%/.test(
 await p.evaluate(()=>{const t=allTrips().find(x=>x.d.client&&x.d.client.name==='Anna Example');S.sel=t.did;S.view='trips';render();});await p.waitForTimeout(600);
 const r2=await p.evaluate(async()=>{const t=tripById(S.sel);await statusWrite(t,{state:'review',confIssued:null},'test: back to review');await new Promise(r=>setTimeout(r,600));render();await new Promise(r=>setTimeout(r,400));return !!document.getElementById('bk_mp');});
 ok('the owner can set another margin on the trip',r2);
-await p.evaluate(()=>{document.querySelector('#secBook details').open=true;});await p.fill('#bk_mp','12');await p.fill('#bk_mr','Example: repeat client, director decision');await p.click('[data-bka="margin"]');await p.waitForTimeout(800);
+await p.evaluate(()=>{document.querySelector('#secBook details').open=true;});await p.fill('#bk_mp','12');await p.fill('#bk_mr','Example: repeat client, owner decision');await p.click('[data-bka="margin"]');await p.waitForTimeout(800);
 t=await trip();ok('trip margin 12%: price recomputed, reason kept',t.st.marginEx&&Math.abs(t.st.marginEx.pct-0.12)<1e-9&&t.st.price===Math.ceil(90000/0.88),t.st);
 await shot('9-owner-margin','#secBook');
 ok('the approval card shows the owner\'s margin as decided',await p.evaluate(()=>apChecks(tripById(S.sel)).some(x=>x[0]&&/set by the owner/.test(x[1]))));

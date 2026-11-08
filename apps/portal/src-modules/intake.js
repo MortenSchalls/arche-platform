@@ -133,20 +133,20 @@ function contactBatchBlock(){
   const asked = new Set(reqList(S.uid).filter(r => r.key === "contact" && r.status !== "changes").flatMap(r => [r.ref, ...(r.refs || [])]));
   const fresh = Object.entries(S.leads || {}).filter(([id, l]) => !(l.log || []).length && !["dnc", "duplicate"].includes(l.status) && !asked.has(id));
   if (!fresh.length) return "";
-  return `<div class="note info small" style="margin-bottom:12px">First contact with each new lead needs the director's OK while you are supervised. ${fresh.length} new lead${fresh.length === 1 ? "" : "s"} not asked for yet. <button class="btn small primary" type="button" data-intake="batch">Ask OK to contact all ${fresh.length}</button></div>`;
+  return `<div class="note info small" style="margin-bottom:12px">First contact with each new lead needs the owner's OK while you are supervised. ${fresh.length} new lead${fresh.length === 1 ? "" : "s"} not asked for yet. <button class="btn small primary" type="button" data-intake="batch">Ask OK to contact all ${fresh.length}</button></div>`;
 }
 async function contactBatch(){
   const asked = new Set(reqList(S.uid).filter(r => r.key === "contact" && r.status !== "changes").flatMap(r => [r.ref, ...(r.refs || [])]));
   const fresh = Object.entries(S.leads || {}).filter(([id, l]) => !(l.log || []).length && !["dnc", "duplicate"].includes(l.status) && !asked.has(id));
   if (!fresh.length) return;
-  try { await gateAsk("contact", "batch-" + Date.now().toString(36), "first", `First contact with ${fresh.length} new lead${fresh.length === 1 ? "" : "s"}`, fresh.map(([, l]) => `${l.org}${l.country ? " (" + l.country + ")" : ""}`).join("\n"), {refs: fresh.map(([id]) => id)}); toast("Sent to the director for one OK."); render(); }
+  try { await gateAsk("contact", "batch-" + Date.now().toString(36), "first", `First contact with ${fresh.length} new lead${fresh.length === 1 ? "" : "s"}`, fresh.map(([, l]) => `${l.org}${l.country ? " (" + l.country + ")" : ""}`).join("\n"), {refs: fresh.map(([id]) => id)}); toast("Sent to the owner for one OK."); render(); }
   catch(e){ toast("Could not send. Try again."); }
 }
 /* ---------- 24-hour contacts on every trip ---------- */
 function tripContactsBlock(t){
   if (!t || !isStaff() || S.preview || ["cancelled"].includes(t.stage)) return "";
   const st = t.st || {}, c = st.contacts24 || {};
-  return `<div class="panel stack small" style="margin:8px 0"><h3 style="margin:0">24-hour contacts</h3><p class="muted" style="margin:0">Who the client and Archē call at night if the broker or the director cannot be reached. Needed before the confirmation is issued.</p>
+  return `<div class="panel stack small" style="margin:8px 0"><h3 style="margin:0">24-hour contacts</h3><p class="muted" style="margin:0">Who the client and Archē call at night if the broker or the owner cannot be reached. Needed before the confirmation is issued.</p>
     <div class="fgrid"><label class="f" for="c24_op">Operator operations, 24 hours<input id="c24_op" value="${esc(c.op || "")}" placeholder="Name of desk and phone"></label><label class="f" for="c24_h">Handler at departure<input id="c24_h" value="${esc(c.handler || "")}" placeholder="Handler and phone"></label></div>
     <div class="row"><button class="btn small" type="button" data-intake="c24">Save contacts</button></div></div>`;
 }

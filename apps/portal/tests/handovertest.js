@@ -44,5 +44,5 @@ ok(await p.evaluate(()=>document.getElementById('off_mode').value==='lock'),'Loc
 await p.fill('#off_why','Example: suspected fraud');await p.click('#offForm button[type=submit]');await p.waitForTimeout(3000);
 ok(await p.evaluate(B=>{const r=S.roster[B];return r.active===false&&r.offboard.locked&&r.offboard.locked.reason==='Example: suspected fraud'&&Object.keys(r.offboard.handover||{}).length===1&&!Object.keys(r.rights||{}).length;},A4),'locked: access off at once, rights removed, client handed to the owner, reason kept',await p.evaluate(B=>S.roster[B],A4));
 // agreement text
-ok(await p.evaluate(()=>AGR_VERSION==='2026-11-08.1'&&/8\.5 Client handover/.test(AGR_MAIN)&&/2\.8 Clients and information from earlier work/.test(AGR_MAIN)&&/8\.10 Insurance/.test(AGR_MAIN)),'agreement 2026-10-31.1 has 2.8 and 8.5, later clauses renumbered');
+ok(await p.evaluate(()=>AGR_VERSION==='2026-11-08.2'&&/8\.5 Client handover/.test(AGR_MAIN)&&/2\.8 Clients and information from earlier work/.test(AGR_MAIN)&&/8\.10 Insurance/.test(AGR_MAIN)),'agreement 2026-10-31.1 has 2.8 and 8.5, later clauses renumbered');
 console.log('errs',errs);ok(!errs.length,'no page errors');console.log(fail?'FAILED '+fail:'ALL PASS');await b.close();process.exit(fail?1:0)})();

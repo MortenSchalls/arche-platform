@@ -11,7 +11,7 @@
    "steps": [
     "Open the portal address and sign in with the email you were invited with: Sign in with Microsoft, Email me a sign-in link, or your password if you set one. Forgot password? sends a link to set a new one.",
     "First time: fill in Join with your full legal name as on your contract, the country you work from and your academy completion code, and tick the portal agreement.",
-    "Wait for approval. The director approves every broker before the first enquiry.",
+    "Wait for approval. The owner approves every broker before the first enquiry.",
     "Your role decides what you see: brokers see their own trips, leads and commission; the owner, or a person the owner has mandated, sees every trip and the Authorisation queue; the owner sees everything."
    ],
    "trouble": [
@@ -21,7 +21,7 @@
     ],
     [
      "I am stuck on Request sent",
-     "The director has not approved you yet. Ask the director; approval needs your contract and academy code."
+     "The owner has not approved you yet. Ask the owner; approval needs your contract and academy code."
     ],
     [
      "I see Access ended",
@@ -50,7 +50,7 @@
    "who": "Brokers; the owner, or a person the owner has mandated",
    "purpose": "Your opening page, the only start page: every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
    "steps": [
-    "Read the progress tiles: standard bookings against the monthly target, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum.",
+    "Read the progress tiles: standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum.",
     "Work Your tasks from the top. Red dots are urgent: an overdue lead, a trip returned at authorisation, a payment due.",
     "Tap a task to open the lead or trip it refers to.",
     "Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score."
@@ -70,7 +70,7 @@
     ]
    ],
    "tips": [
-    "Start every day on the dashboard and clear the red items first.",
+    "Start every day on Today and clear the red items first.",
     "Overdue leads move to another broker at the next round: a two-minute logged contact keeps the lead yours.",
     "Use the team comparison to see where you lose points; follow-up score is usually the quickest win."
    ],
@@ -209,7 +209,7 @@
     ]
    ],
    "tips": [
-    "Never round down and never quote below 9% without the director's approval.",
+    "Never round down and never quote below 9% without the owner's approval.",
     "Re-confirm availability and price with the operator before the offer expires."
    ],
    "try": [
@@ -257,7 +257,7 @@
    "purpose": "Hand the owner, or a person the owner has mandated, a complete, compliant trip.",
    "steps": [
     "The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.",
-    "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Archē-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.",
+    "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Archē-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the owner approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.",
     "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.",
     "Create the payment request in our payment provider and enter its reference on the trip.",
     "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field."
@@ -375,7 +375,7 @@
    ],
    "tips": [
     "Chase unpaid confirmations after 5 days: the Control page flags them.",
-    "Record flights the day they happen, so the dashboard stays true."
+    "Record flights the day they happen, so Today stays true."
    ],
    "try": [
     "owner",
@@ -492,7 +492,7 @@
    "purpose": "Make good habits visible and reward them.",
    "steps": [
     "Points this month: 3 per organisation added, 1 per lead contacted per day, 1 per contact route added or corrected (up to 20), 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold.",
-    "See your rank on the dashboard and in My leads."
+    "See your rank on Today and in My leads."
    ],
    "trouble": [
     [
@@ -705,12 +705,12 @@
    "id": "following",
    "n": "H.23",
    "title": "Flight following",
-   "who": "Brokers and the on-call broker; the owner, or a person the owner has mandated, records the flight",
+   "who": "The trip's broker; the owner, or a person the owner has mandated, records the flight",
    "purpose": "Every trip is followed until the last passenger has landed, so the client hears about a change from us first.",
    "steps": [
     "Open the trip. The Flight following panel appears once the confirmation is issued.",
     "For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note.",
-    "Tell the client at once about any delay, diversion or cancellation, and, if you are the on-call broker, tell the trip's broker.",
+    "Tell the client at once about any delay, diversion or cancellation.",
     "When every leg has landed and the client has paid, the owner presses Last leg landed: record flight. The trip moves to Flown and aftercare opens for the broker."
    ],
    "trouble": [
@@ -720,7 +720,7 @@
     ],
     [
      "I cannot change a leg",
-     "Only the trip's broker, the on-call broker and the owner edit leg status."
+     "Only the trip's broker and the owner edit leg status."
     ]
    ],
    "tips": [
@@ -738,13 +738,13 @@
    "n": "H.24",
    "title": "Aftercare, rating and service recovery",
    "who": "Brokers; the owner sees everything",
-   "purpose": "Each client is called within 24 hours of the last landing, asked for a rating, and any problem is put right (manual 11.5).",
+   "purpose": "Each client is called within 24 hours of the last landing, asked for a rating, and any problem is put right (manual 11.4).",
    "steps": [
     "After the flight, the trip shows an Aftercare panel with a due time and a checklist.",
     "Call or message the client personally, then press Log follow-up with a short note.",
-    "Press Email the rating request: your email opens with template B.10 and one-click 1–5 links that reply to the bookings address.",
+    "Press Email the rating request: your email opens with template B.9 and one-click 1–5 links that reply to the bookings address.",
     "When the client answers, record the rating: overall, aircraft, crew and broker, the comment, and tick the box only if the client agreed in writing that we may quote it.",
-    "Any overall score of 3 or less opens Service recovery: call the client within 1 working day, then record what was agreed. The director is told automatically.",
+    "Any overall score of 3 or less opens Service recovery: call the client within 1 working day, then record what was agreed. The owner is told automatically.",
     "The file closes when payments are settled, the follow-up and rating request are logged, and any recovery and debrief are done."
    ],
    "trouble": [
@@ -772,7 +772,7 @@
    "n": "H.25",
    "title": "Post-trip debrief (supervised bookings)",
    "who": "Trainees in stage 6, mentors and the owner, or a person the owner has mandated",
-   "purpose": "Each supervised booking is reviewed by trainee, mentor and the owner within 3 working days (manual 14.6, template B.9).",
+   "purpose": "Each supervised booking is reviewed by trainee, mentor and the owner within 3 working days (manual 14.6, template B.8).",
    "steps": [
     "The owner ticks Supervised for the broker in Team.",
     "After each of that broker's flights, the Aftercare panel shows the debrief with three parts.",
@@ -818,7 +818,7 @@
    ],
    "tips": [
     "Never use real client names in practice.",
-    "The AI score is for practice. Certification is decided by the director's scored lab."
+    "The AI score is for practice. Certification is decided by the owner's scored lab."
    ],
    "try": [
     "broker",
@@ -834,7 +834,7 @@
    "purpose": "Green, amber and red rules per region for live enquiries (manual Appendix J), with the date each card was last verified.",
    "steps": [
     "Open Training, then Regional cards, and choose the region.",
-    "Green: proceed. Amber: the operator confirms in writing before we quote. Red: stop and tell the director.",
+    "Green: proceed. Amber: the operator confirms in writing before we quote. Red: stop and tell the owner.",
     "Owner: Edit a card, or Mark verified today after checking the sources.",
     "The daily intelligence run proposes changes from the official sources. The owner checks each source, then approves or dismisses. The AI never changes a card on its own."
    ],
@@ -861,7 +861,7 @@
    "purpose": "Shows how clients rate each operator and each broker, from the ratings recorded in aftercare.",
    "steps": [
     "Open Control and scroll to Operator scorecard and Service scores.",
-    "Prefer the operators with the highest scores; review any operator averaging 3.5 or less with the director.",
+    "Prefer the operators with the highest scores; review any operator averaging 3.5 or less with the owner.",
     "Use broker scores in coaching, together with the number of scores of 3 or less."
    ],
    "trouble": [
@@ -945,7 +945,7 @@
    "purpose": "The business rules the portal enforces. Know them before your first enquiry.",
    "steps": [
     "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
-    "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A different margin only by the director's decision, with the reason recorded.",
+    "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A different margin only by the owner's decision, with the reason recorded.",
     "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
     "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
     "Clients pay only through a payment request. Never print, store or send bank details.",
@@ -966,7 +966,7 @@
     ],
     [
      "You want to offer a client less than the 9% margin",
-     "Ask the director first: any other margin is the director's decision, with the reason recorded."
+     "Ask the owner first: any other margin is the owner's decision, with the reason recorded."
     ],
     [
      "A client rates the trip 3 or lower",
@@ -1301,7 +1301,7 @@
  "faq": [
   [
    "How is the client price calculated?",
-   "Operator all-in price plus direct trip costs, divided by 0.91 and rounded up. Archē's margin is 9% of the price the client pays. A lower margin needs the director's approval."
+   "Operator all-in price plus direct trip costs, divided by 0.91 and rounded up. Archē's margin is 9% of the price the client pays. A lower margin needs the owner's approval."
   ],
   [
    "When does the client pay?",
@@ -1357,7 +1357,7 @@
   ],
   [
    "Who sees my leads and trips?",
-   "You, the director and any person the owner has mandated. Other brokers cannot see them. Client details stay in the portal; copying them is blocked."
+   "You, the owner and any person the owner has mandated. Other brokers cannot see them. Client details stay in the portal; copying them is blocked."
   ],
   [
    "How soon after a flight must I call the client?",
@@ -1369,15 +1369,15 @@
   ],
   [
    "What happens when a client rates 3 or less?",
-   "Service recovery: call the client within 1 working day, agree what happens and by when, and record it. The director is told automatically."
+   "Service recovery: call the client within 1 working day, agree what happens and by when, and record it. The owner is told automatically."
   ],
   [
    "Does the Roleplay lab score count for certification?",
-   "No. It is practice. Certification is decided by the director's scored live lab (manual 14.4)."
+   "No. It is practice. Certification is decided by the owner's scored live lab (manual 14.4)."
   ],
   [
    "Will Archē pay for the ACA Air Charter Essentials course?",
-   "Proposed: yes, after you pass the written exam and 3 supervised bookings. Archē pays the ACA directly; a clawback applies if you leave within 12 months. See manual 14.1; the terms are confirmed in your agreement."
+   "Proposed, not yet agreed: after you pass the written exam and 3 supervised bookings, Archē may pay the ACA directly, with a clawback if you leave within 12 months. See manual 14.1; if Archē decides to sponsor, the terms are set out in writing first."
   ],
   [
    "Where is the portal course?",

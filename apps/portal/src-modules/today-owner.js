@@ -201,7 +201,6 @@ function mxScore(id){
   const rated = trips.filter(t => t.d.rating && num(t.d.rating.broker || t.d.rating.overall) > 0);
   const P = [
     ["Win rate", 0.3, quoted.length >= 2 ? share(conf.length, quoted.length) : null, `${conf.length} of ${quoted.length} quotes booked`],
-    ["Volume", 0.3, trips.length ? Math.min(1, conf90.length / 3 / thr) : null, `${conf90.length} bookings in 90 days (target ${thr} a month)`],
     ["Booking cycle", 0.2, conf.length ? share(fast.length, conf.length) : null, `${fast.length} of ${conf.length} booked within the cycle target`],
     ["Client rating", 0.2, rated.length ? rated.reduce((a, t) => a + num(t.d.rating.broker || t.d.rating.overall), 0) / rated.length / 5 : null, `${rated.length} rated`]
   ];
@@ -224,7 +223,7 @@ function mxScore(id){
   const p = agg(P), tr = agg(T), onb = !!r.onboarding;
   return {id, name: nm(id), role: r.role || "broker", P, T, perf: p.v, trust: tr.v, early: p.n < 2 || tr.n < 2, trips: trips.length, onb};
 }
-function mxQuad(x){ if (x.perf === null || x.trust === null) return "Too early to place"; return x.trust >= 60 ? (x.perf >= 60 ? "Trusted performer" : "Reliable: build volume") : (x.perf >= 60 ? "Results, rules at risk: coach" : "Review with the director"); }
+function mxQuad(x){ if (x.perf === null || x.trust === null) return "Too early to place"; return x.trust >= 60 ? (x.perf >= 60 ? "Trusted performer" : "Reliable: build volume") : (x.perf >= 60 ? "Results, rules at risk: coach" : "Review with the owner"); }
 /* weekly history: one row per week in member_scores (owner only, kept for good). Until SQL 0010 has run,
    weeks wait in intel/matrix and move across by themselves once the table exists. */
 async function mxLoad(){
@@ -258,7 +257,7 @@ function trustMatrix(){
   const narrow = (window.innerWidth || 1000) < 600, W = narrow ? 360 : 640, H = narrow ? 360 : 440, L = 40, R = 12, T = 12, B = 40, pw = W - L - R, ph = H - T - B;
   const X = v => L + pw * v / 100, Y = v => T + ph * (1 - v / 100);
   const placed = rows.map(x => ({...x, px: x.perf === null ? 50 : x.perf, py: x.trust === null ? 50 : x.trust}));
-  const quads = [[60, 100, 60, 100, "Trusted performers"], [0, 60, 60, 100, "Reliable: build volume"], [60, 100, 0, 60, "Results, rules at risk"], [0, 60, 0, 60, "Review with the director"]];
+  const quads = [[60, 100, 60, 100, "Trusted performers"], [0, 60, 60, 100, "Reliable: build volume"], [60, 100, 0, 60, "Results, rules at risk"], [0, 60, 0, 60, "Review with the owner"]];
   const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Trust and performance matrix of ${rows.length} members" style="width:100%;max-width:720px;height:auto;display:block;margin:8px auto 0">
     ${quads.map(([x0, x1, y0, y1, l], i) => `<rect x="${X(x0)}" y="${Y(y1)}" width="${X(x1) - X(x0)}" height="${Y(y0) - Y(y1)}" fill="var(--${i === 0 ? "ok" : i === 3 ? "bad" : "line"})" opacity="${i === 0 || i === 3 ? 0.08 : 0.25}"/><text x="${i % 2 === 0 ? X(x1) - 6 : X(x0) + 6}" y="${Y(y1) + 16}" text-anchor="${i % 2 === 0 ? "end" : "start"}" font-size="${narrow ? 10 : 12}" fill="var(--muted)">${l}</text>`).join("")}
     <line x1="${X(60)}" y1="${T}" x2="${X(60)}" y2="${T + ph}" stroke="var(--line)" stroke-dasharray="4 4"/><line x1="${L}" y1="${Y(60)}" x2="${L + pw}" y2="${Y(60)}" stroke="var(--line)" stroke-dasharray="4 4"/>
@@ -275,7 +274,7 @@ function trustMatrix(){
       return `<tr><td>${esc(x.name)}${x.onb ? "" : ` <span class="chip c-review">Onboarding</span>`}</td><td class="n">${x.trust ?? "–"}</td><td class="n">${x.perf ?? "–"}</td><td>${esc(mxQuad(x))}</td><td>${weak ? `${esc(weak[0])} ${pct(weak[2])}%: <span class="muted">${esc(weak[3])}</span>` : `<span class="muted">No data yet</span>`}</td></tr>`; }).join("")}</tbody></table></div>
     <details class="small" style="margin-top:8px"><summary>Each member's measures</summary>${rows.map(x => `<p style="margin:8px 0 2px"><b>${esc(x.name)}</b> · ${x.trips} trips in 180 days</p><p class="muted" style="margin:0">Trust: ${x.T.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}<br>Performance: ${x.P.map(c => `${esc(c[0])} ${pct(c[2])}`).join(" · ")}</p>`).join("")}</details>` : "";
   return `<div class="panel" style="margin-top:16px" id="trustMatrix"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Trust and performance</h2><span class="small muted">${rows.length} member${rows.length === 1 ? "" : "s"} · last 180 days</span></div>
-    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time, notices confirmed within 3 days and lead follow-up. Performance (right) measures results: quotes booked, bookings against the monthly target, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. A snapshot is kept every week, for good${S.mxHist && S.mxHist.weeks.length ? ` (${S.mxHist.weeks.length} week${S.mxHist.weeks.length === 1 ? "" : "s"} since ${fmtD(S.mxHist.weeks[0].at)})` : ""}. Hollow dots have little data yet.</p>
+    <p class="small muted">Trust (up) measures the house rules each member keeps: follow-up within 24 hours of landing, rating requests, service recovery for scores of 3 or less, files right first time, contracts signed on time, notices confirmed within 3 days and lead follow-up. Performance (right) measures results: quotes booked, the booking-cycle target and client ratings. Recalculated from live data on every visit; the dotted line shows where each member stood a month ago. A snapshot is kept every week, for good${S.mxHist && S.mxHist.weeks.length ? ` (${S.mxHist.weeks.length} week${S.mxHist.weeks.length === 1 ? "" : "s"} since ${fmtD(S.mxHist.weeks[0].at)})` : ""}. Hollow dots have little data yet.</p>
     ${rows.length ? svg : `<div class="empty"><p><b>No active members yet.</b> Members appear here once their agreement is countersigned.</p></div>`}${table}</div>`;
 }
 

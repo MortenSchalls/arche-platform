@@ -17,7 +17,7 @@ const newTrip=async(date)=>{await p.evaluate(()=>{S.view='trips';render();});awa
  return p.evaluate(()=>S.sel);};
 await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await as('Test Broker');
 const d1=await newTrip('2026-11-20');
-let n=await needs();ok('unapproved operator: five checks, crew hours and the director needed',n.some(x=>/five checks/.test(x))&&n.some(x=>/crew hours/.test(x))&&n.some(x=>/director's approval/.test(x)),n);
+let n=await needs();ok('unapproved operator: five checks, crew hours and the director needed',n.some(x=>/five checks/.test(x))&&n.some(x=>/crew hours/.test(x))&&n.some(x=>/owner's approval/.test(x)),n);
 ok('no client disclosure email asked any more',!n.some(x=>/disclosure|told in writing/i.test(x)),n);
 ok('no safety line before approval',await p.evaluate(()=>{const t=tripById(S.sel);return safetyLine(t.d,t.st)===''}));
 await as('Test Owner');await p.evaluate(d=>{S.view='trips';S.filter='all';S.sel=d;render();},d1);await p.waitForTimeout(800);
@@ -42,13 +42,13 @@ ok('panel says approved operator',await p.evaluate(()=>/Archē-approved operator
 await fill('sf_ins','20000000');ok('insurance below the minimum is still red',await p.evaluate(()=>{const t=tripById(S.sel);return safetyBreaches(t.d).some(x=>/insurance/i.test(x));}));await fill('sf_ins','60000000');
 // approval ending before the last flight
 await p.evaluate(async()=>{const l=S.opAppr.list.map(x=>({...x,until:'2026-12-31'}));S.opAppr={list:l};render();});await p.waitForTimeout(400);
-n=await needs();ok('approval ending before the last flight: renew or approve the trip',n.some(x=>/ends .* before the last flight/.test(x))&&n.some(x=>/director's approval/.test(x)),n);
+n=await needs();ok('approval ending before the last flight: renew or approve the trip',n.some(x=>/ends .* before the last flight/.test(x))&&n.some(x=>/owner's approval/.test(x)),n);
 await p.evaluate(async()=>{const l=S.opAppr.list.map(x=>({...x,until:'2027-10-27'}));S.opAppr={list:l};render();});await p.waitForTimeout(400);
 // Team list and withdraw
 await as('Test Owner');await p.evaluate(()=>{S.view='team';render();});await p.waitForTimeout(800);
 ok('Team lists the approved operator',await p.evaluate(()=>/Archē-approved operators[\s\S]*Example Regional Air Ltd/.test(document.querySelector('#main').innerText)));
 p.once('dialog',dl=>dl.accept());await p.click('[data-apw="Example Regional Air Ltd"]');await p.waitForTimeout(1000);
-ok('withdrawn approval: the trip needs the director again',await p.evaluate(d2=>{const t=allTrips().find(x=>x.did===d2);return safetyNeeds(t.d,t.st).some(x=>/director's approval/.test(x));},d2));
+ok('withdrawn approval: the trip needs the director again',await p.evaluate(d2=>{const t=allTrips().find(x=>x.did===d2);return safetyNeeds(t.d,t.st).some(x=>/owner's approval/.test(x));},d2));
 // approve without a trip from Team, then suspension ends it
 await p.evaluate(()=>document.getElementById('ap_name').closest('details').open=true);await p.fill('#ap_name','Example Regional Air Ltd');await p.selectOption('#ap_aud','isbao-1');await p.fill('#ap_note','Renewed after a document review and references');
 for(const k of ['aocAuth','insInsurer','sms','noAdverse','refs','docs','crew'])await p.check('#ap_'+k);

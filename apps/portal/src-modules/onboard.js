@@ -70,7 +70,7 @@ const OB_ACAD = {
     lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
     m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
     m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
-    m11: ["Module 11 · Trip operations and disruption", 12], m12: ["Module 12 · Selling and account management", 7], m13: ["Module 13 · Case studies", 9],
+    m11: ["Module 11 · Trip operations and disruption", 11], m12: ["Module 12 · Selling and account management", 7], m13: ["Module 13 · Case studies", 9],
     m14: ["Module 14 · Assessment and certification", 15], exam: ["Written exam", 0], sys: ["Systems training: the Archē portal", 70]}
 };
 function obNext(p){
@@ -129,7 +129,7 @@ function vPending(){
       <label class="check" for="j_agree"><input type="checkbox" id="j_agree" required><span>I will make every enquiry, quote, booking and payment for Archē Executive in this portal, and nowhere else.</span></label>
       <div class="row"><button class="btn primary" type="submit">Ask for assessment</button></div>
     </form>`, done ? "now" : "");
-  const s3 = step(4, "Assessment by the director", a ? `<p class="small">Passed. Your agreement is ready.</p>` : `<p class="small">The director assesses your training. If you pass, your agreement appears here to read and sign.</p>`, a ? "done" : S.myJoin ? "now" : "");
+  const s3 = step(4, "Assessment by the owner", a ? `<p class="small">Passed. Your agreement is ready.</p>` : `<p class="small">The owner assesses your training. If you pass, your agreement appears here to read and sign.</p>`, a ? "done" : S.myJoin ? "now" : "");
   const s4 = step(5, "Read and sign your agreement", a && a.status === "sent" ? `<p class="small">Read it in full, fill in your details and sign it here.</p><div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="open">Read and sign</button></div>`
     : a && a.status !== "sent" ? `<p class="small">Signed on ${fmtT(a.signedAt)}.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="open">View your agreement</button></div>` : `<p class="small muted">After your assessment.</p>`, a ? (a.status === "sent" ? "now" : "done") : "");
   const s5 = step(6, "Countersignature and onboarding package", `<p class="small">Archē countersigns, creates your Archē email address and issues your onboarding package. Your portal opens straight after.</p>`, a && a.status === "signed" ? "now" : "");
