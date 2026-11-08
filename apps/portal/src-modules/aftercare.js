@@ -170,7 +170,6 @@ function rpView(){
     <label class="f wide" for="rp_own">Your own scenario (optional)<input id="rp_own" placeholder="For example: a CFO wants a 3-city roadshow next week and asks for a fixed price including all fees"></label>
     <label class="f" for="rp_who">Who you speak to<select id="rp_who">${RP_WHO.map(x => `<option>${x}</option>`).join("")}</select></label>
     <label class="f" for="rp_lv">Level<select id="rp_lv">${RP_LV.map((x, i) => `<option ${i === 1 ? "selected" : ""}>${x}</option>`).join("")}</select></label></div>
-    <label class="check" for="rp_voice"><input type="checkbox" id="rp_voice" ${S.rpVoice ? "checked" : ""}><span>Read the other side's replies aloud</span></label>
     <div class="row"><button class="btn primary" type="button" data-rp="start">Start the call</button></div></div>`;
   const hist = `<div class="panel"><h2>Your sessions</h2>${runs.length ? `<div class="list">${runs.slice(0, 15).map(x => `<div class="item" tabindex="0" data-rp="open" data-id="${x.id}"><div class="t">${esc(x.title || "")}</div><div>${x.score ? `<span class="chip ${x.score.pass ? "c-flown" : x.score.total >= 50 ? "c-quoted" : "c-returned"}">${x.score.total}/100</span>` : `<span class="chip c-review">Not scored</span>`}</div><div class="s">${esc(x.who || "")} · ${esc(x.lv || "")} · ${fmtT(x.started)}</div><div></div></div>`).join("")}</div>` : `<p class="small muted">No sessions yet.</p>`}</div>`;
   let main = `<div class="panel empty"><p>Choose a scenario and start the call.</p></div>`;
@@ -200,7 +199,7 @@ function rpTeamPanel(){
 }
 async function rpLoadAll(){ if (S.rpAllLoading) return; S.rpAllLoading = true; const out = {}; for (const bid of [...new Set([...Object.keys(S.roster), S.uid])]) { try { const q = await S.db.collection(`train/${bid}/rp`).get(); if (q.docs.length) out[bid] = q.docs.map(d => d.data()); } catch(e){} } S.rpAll = out; render(); }
 function rpSpeechOK(){ return !!(window.SpeechRecognition || window.webkitSpeechRecognition); }
-function rpSay(text){ try { if (!S.rpVoice || !window.speechSynthesis) return; window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = "en-GB"; u.rate = 1; window.speechSynthesis.speak(u); } catch(e){} }
+/* Roleplay replies are shown as text only: no device voice (Morten, 8 Nov 2026: only the recorded Isabella and Fable are heard in training) */
 async function rpTurn(){
   const s = S.rp; const sample = await claude.use("sample"); if (!sample) { toast("The AI is not available in this view."); return; }
   const turns = [{role:"user", content: rpInstr(s) + "\n\nOpen the conversation now, in character."}];
@@ -208,7 +207,7 @@ async function rpTurn(){
   if (turns[turns.length - 1].role !== "user") return;
   s.busy = true; render();
   const reply = {role:"assistant", content:""}; s.msgs.push(reply);
-  try { const r = await sample(turns, {cache:false, onText: ({text}) => { reply.content = text; const el = document.querySelector("#rpChat .rpmsg.them:last-child p"); if (el) el.textContent = text; }}); reply.content = (r && r.text) || reply.content; rpSay(reply.content); }
+  try { const r = await sample(turns, {cache:false, onText: ({text}) => { reply.content = text; const el = document.querySelector("#rpChat .rpmsg.them:last-child p"); if (el) el.textContent = text; }}); reply.content = (r && r.text) || reply.content; }
   catch(e){ s.msgs.pop(); toast(e && e.code === "rate_limited" ? "The AI is busy. Try again in a minute." : "The AI could not answer. Try again."); }
   s.busy = false; render(); setTimeout(() => { const c = $("rpChat"); if (c) c.scrollTop = c.scrollHeight; const i = $("rp_in"); if (i) i.focus(); }, 30);
 }
@@ -300,13 +299,13 @@ document.addEventListener("click", async e => {
   if (rp) {
     const a = rp.dataset.rp;
     if (a === "start") { const scv = $("rp_sc").value, own = ($("rp_own").value || "").trim(); if (scv === "own" && own.length < 15) { toast("Describe your scenario in a sentence or two."); return; }
-      S.rpVoice = $("rp_voice").checked; const sc = RP_SC.find(x => x[0] === scv);
+      const sc = RP_SC.find(x => x[0] === scv);
       S.rp = {id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), sc: scv, own: own || "", title: scv === "own" ? own.slice(0, 120) : sc[1], who: $("rp_who").value, lv: $("rp_lv").value, started: now(), msgs: []};
       render(); await rpTurn(); return; }
     if (a === "send") { const v = ($("rp_in").value || "").trim(); if (!v) { toast("Type or speak your answer first."); return; } if (S.rpRec) rpMic(); S.rp.msgs.push({role:"user", content: v.slice(0, 2000)}); await rpTurn(); return; }
     if (a === "mic") { rpMic(); return; }
     if (a === "end") { if (S.rpRec) rpMic(); await rpScore(); return; }
-    if (a === "close") { if (S.rpRec) rpMic(); try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch(_){} S.rp = null; render(); return; }
+    if (a === "close") { if (S.rpRec) rpMic(); S.rp = null; render(); return; }
     if (a === "open") { const x = rpRuns().find(r => r.id === rp.dataset.id); if (x) { S.rp = {...x, msgs: x.msgs || [], score: x.score}; render(); } return; }
   }
   const cd = e.target.closest("[data-card]");

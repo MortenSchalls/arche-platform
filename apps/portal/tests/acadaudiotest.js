@@ -62,6 +62,7 @@ for(const w of [1300,390]){
 }
 const now=fs.readFileSync(path.join(H,'..','academy','build','page.html'),'utf8');
 for(const f of ['arche-broker-academy.html','charter-broker-academy.html']){const d=fs.readFileSync(path.join(H,'..','academy','dist',f),'utf8');ok(f+': no device text-to-speech in the page',!/SpeechSynthesisUtterance|\.speak\(|getVoices/.test(d));}
+{const ix=fs.readFileSync(path.join(H,'index.html'),'utf8');ok('portal (roleplay lab included): no device text-to-speech',!/SpeechSynthesisUtterance|speechSynthesis/.test(ix));}
 const ext=fs.readFileSync(path.join(H,'..','academy','dist','charter-broker-academy.html'),'utf8');ok('external edition: no audio button shown',/if \(ED === "ext"\) \{ btn\.hidden = true/.test(ext));
 ok('progress storage name and completion-code salt unchanged (no one loses progress)',now.includes('const KEY = ED === "ext" ? "charter-broker-academy-v1" : "arche-cbt-v1", SALT = "ARCHE-CBT-2026-10"'));
 ok('no page errors',errs.length===0,errs);console.log(fails?fails+' FAILED':'ALL PASS');await b.close();process.exit(fails?1:0)})();
