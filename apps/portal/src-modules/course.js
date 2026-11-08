@@ -83,7 +83,7 @@ function vCourse(){
       ${n === need.length && need.length && !crDoc().completedAt ? `<div class="note info small"><b>All lessons done.</b> Finish with the final check: ${crFinalSize()} questions from your lessons, at least 80% right to pass. <button class="btn small primary" type="button" data-crfinal="start">Start the final check</button></div>` : ""}
       <p class="small muted">Each lesson takes a few minutes: read it, try it in the test version, then answer the check. The same text is the troubleshooting guide in Help.</p></div>
     ${CR_TRACKS.map(t => { const ls = t.lessons.filter(crFeat); if (!ls.length) return ""; const reqd = req.includes(t.id);
-      return `<div class="panel"><h3 style="margin-top:0">${esc(t.title)}${reqd ? "" : ` <span class="small muted">· optional for your role</span>`}</h3><div class="list">${ls.map(id => `<div class="item" role="option" tabindex="0" data-crsel="${id}" aria-selected="${sel === id}"><div class="t">${done[id] ? "✓ " : ""}${esc(crFeat(id).title)}</div><div class="small muted">${esc(crFeat(id).who || "")}</div></div>`).join("")}</div></div>`; }).join("")}
+      return `<div class="panel"><h3 style="margin-top:0">${esc(t.title)}${reqd ? "" : ` <span class="small muted">· optional for your role</span>`}</h3><div class="list">${ls.map(id => `<div class="item cr" role="option" tabindex="0" data-crsel="${id}" aria-selected="${sel === id}"><div class="t">${done[id] ? "✓ " : ""}${esc(crFeat(id).title)}</div><div class="small muted">${esc(crFeat(id).who || "")}</div></div>`).join("")}</div></div>`; }).join("")}
     ${staff ? crTeam() : ""}
   </div><div class="pdetail">${S.crFinal ? crFinalView() : crLesson(sel)}</div></div>`;
 }

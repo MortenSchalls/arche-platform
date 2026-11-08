@@ -38,6 +38,8 @@ jobs:
           node apps/portal/tests/bookingplan.test.mjs
           node apps/portal/tests/moneyalerts.test.mjs
           node apps/portal/tests/irnx.test.mjs
+      - name: All or none (every related document revised together)
+        run: python3 scripts/check_all_revised.py
       - name: Portal screens (test version, example data)
         working-directory: apps/portal
         run: |
