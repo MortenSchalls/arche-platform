@@ -1,13 +1,13 @@
 {
  "icao": "RPLC",
- "iata": null,
+ "iata": "CRK",
  "name": "Clark International Airport",
  "city": "Clark (Pampanga)",
  "country": "PH",
  "tz": "Asia/Manila",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-06",
+ "checked": "2026-11-08",
  "rules": {
   "runway": {
    "v": "main runway 02R/20L, 3,200 m long and 61 m wide",
@@ -17,7 +17,6 @@
   }
  },
  "missing": [
-  "iata",
   "geo",
   "customs",
   "curfew",
@@ -28,5 +27,5 @@
   "hours",
   "noise"
  ],
- "notes": "No AIP data (Philippine AIP login-only). CIAC's overview is undated (file posted 2020-09, text refers to events up to Nov 2022). The 'one hour from Metro Manila' is CIAC's travel-time claim, not a distance. | 2026-11-06 run: Searched CAAP and the operator site clarkinternationalairport.com: news (5 Jul 2024) and flights pages use 'CRK' but never call it the IATA code, and give no hours, customs, GA or slot text; Philippine AIP still not public (CAAP AIS portal login). Nothing added."
+ "notes": "No AIP data (Philippine AIP login-only). CIAC's overview is undated (file posted 2020-09, text refers to events up to Nov 2022). The 'one hour from Metro Manila' is CIAC's travel-time claim, not a distance. | 2026-11-06 run: Searched CAAP and the operator site clarkinternationalairport.com: news (5 Jul 2024) and flights pages use 'CRK' but never call it the IATA code, and give no hours, customs, GA or slot text; Philippine AIP still not public (CAAP AIS portal login). Nothing added. | 8 Nov 2026: IATA code CRK added from the CIAC page on the Clark Civil Aviation Complex (rplc-ciac-ccac, undated): 'Clark International Airport (IATA Code: CRK)'. Same page and the CIAC operator site (clarkinternationalairport.com/?p=12658) give no hours, customs, curfew, slot or GA rules. Philippine AIP still login-only."
 }

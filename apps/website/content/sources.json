@@ -1203,7 +1203,7 @@
   "title": "ENAIRE AIP España, AD 2 LEBL Barcelona-El Prat (WEF 01-OCT-26)",
   "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEBL/LE_AD_2_LEBL_en.html",
   "publisher": "ENAIRE (Spanish AIS)",
-  "checked": "2026-10-31"
+  "checked": "2026-11-08"
  },
  "es-aip-leib": {
   "title": "ENAIRE AIP España, AD 2 LEIB Ibiza (WEF 09-JUL-26)",
@@ -3406,5 +3406,35 @@
   "url": "https://eana.com.ar/sites/default/files/2026-09/PDA%2003-09-2026.pdf",
   "publisher": "EANA (Empresa Argentina de Navegación Aérea)",
   "checked": "2026-11-07"
+ },
+ "egkb-op-fbo-2026": {
+  "title": "London Biggin Hill Airport - FBO (page last modified 18 Jun 2026)",
+  "url": "https://bigginhillairport.com/operations/fbo/",
+  "publisher": "London Biggin Hill Airport Ltd",
+  "checked": "2026-11-08"
+ },
+ "fsia-saa-flight-clearance": {
+  "title": "Seychelles Airports Authority - Flight Clearance (no date shown, read 8 Nov 2026)",
+  "url": "https://saa.sc/business/airport-operation-information-services/flight-clearance",
+  "publisher": "Seychelles Airports Authority",
+  "checked": "2026-11-08"
+ },
+ "lebl-aip-amdt-a-09-26": {
+  "title": "AIP España, AD 2-LEBL Barcelona/Josep Tarradellas Barcelona-El Prat, amendment pages incl. AD 2.21 Noise abatement procedures (AIRAC AMDT 09/26, WEF 01-OCT-26)",
+  "url": "https://aip.enaire.es/aip/contenido_AMDT/LE_Amdt_A_2026_09_AD_2_LEBL_en.pdf",
+  "publisher": "ENAIRE (AIS Spain)",
+  "checked": "2026-11-08"
+ },
+ "rplc-ciac-ccac": {
+  "title": "Clark Civil Aviation Complex, CIAC website page (undated; refers to events to 7 Nov 2022)",
+  "url": "https://ciac.gov.ph/?p=1912",
+  "publisher": "Clark International Airport Corporation",
+  "checked": "2026-11-08"
+ },
+ "vdti-op-about-2026": {
+  "title": "About Techo International Airport (About Us, undated; airport officially opened 9 Sep 2025)",
+  "url": "https://www.techoairport.com.kh/about-us",
+  "publisher": "Techo International Airport (Cambodia Airport Investment Co., Ltd.)",
+  "checked": "2026-11-08"
  }
 }

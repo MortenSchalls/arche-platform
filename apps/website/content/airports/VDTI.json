@@ -1,28 +1,36 @@
 {
  "icao": "VDTI",
- "iata": null,
+ "iata": "KTI",
  "name": "Techo International Airport",
  "city": "Phnom Penh",
  "country": "KH",
  "tz": "Asia/Phnom_Penh",
  "tier": 1,
- "status": "unavailable",
- "checked": "2026-11-06",
- "rules": {},
+ "status": "partial",
+ "checked": "2026-11-08",
+ "rules": {
+  "runway": {
+   "v": "one runway, 4,000 m long and 75 m wide including shoulders (Phase 1)",
+   "longest_m": 4000,
+   "src": "vdti-op-about-2026",
+   "quote": "one runway measuring 4,000 meters in length and 75 meters in width including shoulder"
+  },
+  "max_aircraft": {
+   "v": "aerodrome category 4F (takes the largest airliners, code F)",
+   "src": "vdti-op-about-2026",
+   "quote": "TIA is a 4F category greenfield airport covering 2,600 hectares"
+  }
+ },
  "missing": [
-  "iata",
   "geo",
-  "operator",
-  "location",
-  "runway",
   "customs",
   "curfew",
   "slots",
   "ppr",
-  "max_aircraft",
   "handling",
   "hours",
-  "noise"
+  "noise",
+  "runway designation and paved width (AD 2 VDTI)"
  ],
- "notes": "Techo (VDTI) is the current Phnom Penh airport; VDPP is closed, so it is not listed. The Cambodian eAIP (aim.cats.com.kh) needs a log-in, so no AD 2 data could be verified. A Cambodian government page (Economic Diplomacy unit, 20 Oct 2025, reprinting a Kiripost article) gives a 4,000 m x 60 m runway, about 20-26 km south of Phnom Penh, managed by CAIC with VINCI Airports; this is a news reprint, not the AIP, so it is not used as a fact. Checked 2026-10-27. | 2026-11-06 run: nothing recorded. Web reading was blocked this run: WebFetch permission requests were not answered, and the network proxy refused downloads (HTTP 403) from every official host tried (caasanwebsitestorage.blob.core.windows.net, aipchile.dgac.gob.cl, gcaa.gov.ae, aisweb.decea.mil.br); only web search worked, which gives no source text. Note: the task brief named VDTI as Chiang Rai / Mae Fah Luang (Thailand); that is wrong, Chiang Rai is VTCT. This file stays Techo International, Phnom Penh (Cambodia). Not opened: https://aim.cats.com.kh/eaip.html (log-in needed in earlier runs)."
+ "notes": "Techo (VDTI) is the current Phnom Penh airport; VDPP is closed, so it is not listed. The Cambodian eAIP (aim.cats.com.kh) needs a log-in, so no AD 2 data could be verified. A Cambodian government page (Economic Diplomacy unit, 20 Oct 2025, reprinting a Kiripost article) gives a 4,000 m x 60 m runway, about 20-26 km south of Phnom Penh, managed by CAIC with VINCI Airports; this is a news reprint, not the AIP, so it is not used as a fact. Checked 2026-10-27. | 2026-11-06 run: nothing recorded. Web reading was blocked this run: WebFetch permission requests were not answered, and the network proxy refused downloads (HTTP 403) from every official host tried (caasanwebsitestorage.blob.core.windows.net, aipchile.dgac.gob.cl, gcaa.gov.ae, aisweb.decea.mil.br); only web search worked, which gives no source text. Note: the task brief named VDTI as Chiang Rai / Mae Fah Luang (Thailand); that is wrong, Chiang Rai is VTCT. This file stays Techo International, Phnom Penh (Cambodia). Not opened: https://aim.cats.com.kh/eaip.html (log-in needed in earlier runs). | 8 Nov 2026: runway (4,000 m x 75 m including shoulder) and aerodrome category 4F added from the operator's About Us page (vdti-op-about-2026, undated; page says officially opened 9 Sep 2025, about 20 km south of Phnom Penh, managed with VINCI Airports). Width 75 m includes shoulders, so it is not the paved runway width; recheck against AD 2 VDTI. IATA KTI appears only in the page title 'Techo International Airport (KTI)', recorded on that basis. The page gives no hours, customs, curfew, PPR or GA rules. Could not be opened: https://aim.cats.com.kh/eaip.html (log-in, earlier runs)."
 }
