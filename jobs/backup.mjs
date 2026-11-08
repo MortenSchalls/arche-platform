@@ -47,7 +47,7 @@ export async function run(db = connect(), out = "backup.json", log = console.log
   writeFileSync(out, JSON.stringify(dump));
   const counts = Object.fromEntries(Object.entries(dump.tables).map(([k, v]) => [k, v.length]));
   await db.set("intel/backup", { lastRun: dump.exportedAt, by: "scheduled", counts, files: nFiles, fileBytes: bytes, buckets: BUCKETS });
-  log(`Backup written: ${Object.keys(counts).length} tables, ${nFiles} files (${Math.round(bytes / 1024)} KB).`);
+  log(`Backup written: ${Object.keys(counts).length} tables, ${nFiles} files (${Math.round(bytes / 1024)} KB): ${BUCKETS.map(b => b + " " + dump.files[b].length).join(", ")}.`);
   return { counts, files: nFiles, bytes };
 }
 
