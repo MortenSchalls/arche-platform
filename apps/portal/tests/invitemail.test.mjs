@@ -24,7 +24,7 @@ const jp = joinProgress({ invite: { first: "2026-10-28T10:00:00Z", at: "2026-10-
   user: { email_confirmed_at: "2026-10-28T11:00:00Z", last_sign_in_at: "2026-11-01T09:00:00Z" },
   prog: { data: { mods: { m0: { passed: true, passedAt: "2026-10-29T10:00:00Z", best: 90, attempts: 1 }, m1: { passed: true, passedAt: "2026-10-30T12:00:00Z", best: 85, attempts: 2 }, m2: { at: "2026-10-31T10:00:00Z", best: 60, attempts: 1 } } } },
   offer: { data: { at: "2026-10-28T11:05:00Z" } } });
-ok("progress: step 4 of 9, the academy, 2 of 18 modules and the next module", jp.done === 3 && jp.of === 9 && /^Step 4 of 9: Broker Academy \(2 of 18 modules passed · next: 2 Where we may/.test(jp.label));
+ok("progress: step 4 of 9, the academy, 2 of 19 modules and the next module", jp.done === 3 && jp.of === 9 && /^Step 4 of 9: Broker Academy \(2 of 19 modules passed · next: 2 Where we may/.test(jp.label));
 ok("progress: percent counts part of the academy", jp.pct > 33 && jp.pct < 45);
 ok("log: newest first, with resend, offer, passes and a failed try", jp.log[0].t === "Last signed in" && jp.log.some(l => l.t === "Invitation sent again") && jp.log.some(l => /Opened the offer/.test(l.t)) && jp.log.some(l => /passed 1 Archē Executive.*2 attempts/.test(l.t)) && jp.log.some(l => /tried 2 Where.*not passed yet \(best 60%\)/.test(l.t)));
 const jd = joinProgress({ invite: { at: "2026-10-01T00:00:00Z" }, user: { last_sign_in_at: "x" }, agr: { data: { status: "active", sentAt: "a", signedAt: "b", counterAt: "c" } }, prof: { active: true, data: { roster: { onboarding: { issuedAt: "c" } } } }, ack: { data: { ackAt: "d" } } });

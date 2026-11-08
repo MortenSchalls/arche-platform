@@ -8,7 +8,8 @@
   "Appendix F Thai summary of Arche's critical rules",
   "Module 1.8 The Arche portal (leads, prospects, booking rights) and its questions",
   "Booking-rights question (Module 1)",
-  "Module 10.7 How to book in the Arche portal"
+  "Module 10.7 How to book in the Arche portal",
+  "Systems training: the Arche portal (internal step after the written exam)"
  ],
  "rewritten": 86,
  "log": [
@@ -19,6 +20,7 @@
   "removed m1 1.8",
   "removed question: You have not contacted a new lead",
   "removed m10 10.7",
+  "removed step sys",
   "removed Arche sponsorship of external courses",
   "added Module 15 Building a charter brokerage"
  ]

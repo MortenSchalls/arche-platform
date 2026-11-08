@@ -22,7 +22,7 @@ async function runPath(p,role,name){
  const path=await p.evaluate(r=>__T().PATHS[r],role);let screens=0;
  for(const id of path){
   await p.click('.map-l [data-go="home"]');await p.click(`.srow [data-go="${id}"]`);
-  if(id.startsWith('m')){
+  if(id.startsWith('m')||id==='sys'){
    const info=await p.evaluate(id=>{const M=__T().MODS[id];return {n:M.secs.length,a:M.quiz.map(q=>q.a)}},id);
    for(let s=0;s<info.n+2;s++){screens++;const rv=await p.$$('details.reveal summary');for(const r of rv)await r.click();await p.click('#next');}
    if(info.a.length){for(const a of info.a){await p.click(`.opt[data-j="${a}"]`);await p.click('#qnext');}
@@ -58,7 +58,7 @@ ok((await p.textContent('#qz h2'))==='Not passed yet','exam passed despite criti
 ok(!(await (await newPage()).$('select#rl')),'no training-path choice: brokers only');
 // 3. audio across screens: mobile + dark
 let p3=await newPage(400,850);await p3.emulateMedia({colorScheme:'dark'});
-await p3.fill('#nm','Audio Check');await p3.check('#nda');await p3.click('#begin');await p3.click('#audioBtn');
+await p3.fill('#nm','Audio Check');await p3.check('#nda');await p3.click('#begin');if(await p3.isVisible('#audioBtn'))await p3.click('#audioBtn');ok(process.env.T==='t_ext.html'?!(await p3.isVisible('#audioBtn')):await p3.isVisible('#audioBtn'),'audio button: internal edition only');
 await p3.evaluate(()=>{__T().ST.mods={};});
 const ids=['m0','m1','m2','m3','m6','m9','m13','m14'];
 await p3.evaluate(()=>{const s=__T().ST;['m0','m1','m2','lab','m3','m4','m5','m6','m7','m8','m9','m10','book','m11','m12','m13','m14','exam'].forEach(k=>s.mods[k]={passed:true,best:100,total:2})});
@@ -71,6 +71,6 @@ const said=await p3.evaluate(()=>__said);const badSay=said.filter(x=>/[·\/()%;"
 console.log('spoken lines',said.length,'with symbols',badSay.length);badSay.slice(0,8).forEach(x=>console.log('  >',x));
 await p3.screenshot({path:'chk_mobile_dark.png'});
 ok(p3.errs.length===0,'audio errors '+p3.errs);
-const sp=await p3.evaluate(()=>['See Module 2.4 and Appendix G.7.','Margin 9% (USD 16,913).','Check 14 CFR Part 295 and 1.5% interest.'].map(__AUD.speakable));console.log(sp.join('\n'));
+if(process.env.T!=='t_ext.html'){const sp=await p3.evaluate(()=>['See Module 2.4 and Appendix G.7.','Margin 9% (USD 16,913).','Check 14 CFR Part 295 and 1.5% interest.'].map(__AUD.speakable));console.log(sp.join('\n'));}
 await b.close();
 console.log(fails.length?'FAILS:\n'+fails.join('\n'):'ALL CHECKS PASSED');})();

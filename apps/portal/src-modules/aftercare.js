@@ -7,6 +7,24 @@ const workDayAfter = iso => { const d = new Date(iso); do { d.setDate(d.getDate(
 const isSup = bid => !!((S.roster[bid] || (bid === S.uid ? S.myRoster : null) || {}).supervised);
 function legsOf(t){ return ((t.d.trip || {}).legs) || []; }
 function legSt(t){ const st = t.st || {}; const ls = st.legStatus || []; return legsOf(t).map((l, i) => ls[i] || {}); }
+/* tracking (Morten, 28 Oct 2026: "how do we all track the flight and status?"): the aircraft registration from the quote opens
+   public trackers; nothing about the client leaves the portal. Some private aircraft are hidden from public trackers. */
+function legChip(x){ const lab = (LEG_ST.find(s => s[0] === ((x || {}).s || "")) || LEG_ST[0])[1], s = (x || {}).s || "";
+  return `<span class="chip ${s === "land" ? "c-flown" : s === "delay" || s === "div" || s === "canc" ? "c-returned" : s === "dep" ? "c-quoted" : "c-enquiry"}">${lab}</span>`; }
+function tailOf(t){ const r = String((((t || {}).d || {}).quote || {}).tail || "").toUpperCase().replace(/\s+/g, ""); return /^[A-Z0-9][A-Z0-9-]{2,9}$/.test(r) ? r : ""; }
+function trackUrls(r){ return [["Flightradar24", `https://www.flightradar24.com/data/aircraft/${r.toLowerCase()}`], ["FlightAware", `https://www.flightaware.com/live/flight/${r.replace(/-/g, "")}`], ["ADS-B Exchange", `https://globe.adsbexchange.com/?reg=${r}`]]; }
+function trackLinks(t){ const r = tailOf(t);
+  if (!r) return `<p class="small muted" data-track="none">Add the aircraft registration to the quote to get tracking links.</p>`;
+  return `<p class="small" data-track="${esc(r)}">Track ${esc(r)}: ${trackUrls(r).map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer" data-trk="1">${n}</a>`).join(" · ")}<br><span class="muted">Public trackers can be a few minutes behind, and some private aircraft are hidden. The operator's times are the record: enter them below.</span></p>`; }
+/* Track opens the tracker in one small window beside the portal (the trackers do not allow being shown inside other sites).
+   The same window is reused for the next flight (only the three trackers named here are opened this way); where pop-ups are blocked, or on phones, it opens as a normal tab. */
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest("a[data-trk]"); if (!a || e.ctrlKey || e.metaKey || e.shiftKey || innerWidth < 700) return;
+  const w = 620, h = Math.min(760, screen.availHeight - 80), left = Math.max(0, (screen.availLeft || 0) + screen.availWidth - w - 24), top = (screen.availTop || 0) + 40;
+  const old = window.__trkWin; if (old && !old.closed) { try { old.location.href = a.href; old.focus(); e.preventDefault(); return; } catch(err){} }   // one tracker window, reused
+  const win = window.open(a.href, "archeTrack", `popup=yes,width=${w},height=${h},left=${left},top=${top}`);
+  if (win) { e.preventDefault(); window.__trkWin = win; win.focus(); }
+});
 function allLanded(t){ const ls = legSt(t); return ls.length > 0 && ls.every(x => x.s === "land" || x.s === "canc") && ls.some(x => x.s === "land"); }
 function lastLanding(t){ const ls = legSt(t).filter(x => x.s === "land" && x.at); return ls.length ? ls.map(x => x.at).sort().slice(-1)[0] : null; }
 function acStatus(t){
@@ -42,13 +60,14 @@ function followBlock(t){
   if (!["issued","clientPaid","flown"].includes(t.stage)) return "";
   const legs = legsOf(t); if (!legs.length) return "";
   const ls = legSt(t), canEdit = isStaff() && acting() !== "broker" && !ownTrip(t) && !S.preview;
-  const rows = legs.map((l, i) => { const x = ls[i] || {}, lab = (LEG_ST.find(s => s[0] === (x.s || "")) || LEG_ST[0])[1];
+  const rows = legs.map((l, i) => { const x = ls[i] || {};
     return `<tr><td><b>${esc(l.from)} → ${esc(l.to)}</b><br><span class="muted small">${fmtD(l.date)} ${esc(l.time || "")}</span></td>
-      <td>${canEdit ? `<select id="lg_s${i}" style="width:auto" aria-label="Status, leg ${i + 1}">${LEG_ST.map(s => `<option value="${s[0]}" ${(x.s || "") === s[0] ? "selected" : ""}>${s[1]}</option>`).join("")}</select>` : `<span class="chip ${x.s === "land" ? "c-flown" : x.s === "delay" || x.s === "div" ? "c-review" : x.s === "canc" ? "c-cancelled" : x.s === "dep" ? "c-quoted" : "c-enquiry"}">${lab}</span>`}</td>
+      <td>${canEdit ? `<select id="lg_s${i}" style="width:auto" aria-label="Status, leg ${i + 1}">${LEG_ST.map(s => `<option value="${s[0]}" ${(x.s || "") === s[0] ? "selected" : ""}>${s[1]}</option>`).join("")}</select>` : legChip(x)}</td>
       <td>${canEdit ? `<input id="lg_t${i}" type="datetime-local" style="width:auto" value="${esc((x.at || "").slice(0, 16))}" aria-label="Time, leg ${i + 1}">` : (x.at ? `<span class="small">${fmtT(x.at)}</span>` : `<span class="muted small">–</span>`)}</td>
       <td>${canEdit ? `<input id="lg_n${i}" value="${esc(x.note || "")}" placeholder="Note to the broker" aria-label="Note, leg ${i + 1}">` : `<span class="small">${esc(x.note || "")}</span>`}</td></tr>`; }).join("");
   const done = allLanded(t), st = t.st || {};
   return `<div class="panel stack" id="followPanel"><h3 style="margin:0">Flight following</h3><p class="small muted">Follow every leg until the last passenger has landed (manual 11.5). The broker enters the operator's times; tell the client at once about any change.</p>
+    ${trackLinks(t)}
     <div class="tbl"><table class="small"><thead><tr><th scope=col>Leg</th><th scope=col>Status</th><th scope=col>Local time</th><th scope=col>Note</th></tr></thead><tbody>${rows}</tbody></table></div>
     ${canEdit ? `<div class="row"><button class="btn small" type="button" data-ac="legSave">Save leg status</button>${done && st.clientPaid && !st.flownDate ? `<button class="btn small primary" type="button" data-ac="legFlown">Last leg landed: record flight</button>` : ""}</div>` : ""}
     ${done && !st.flownDate ? `<p class="small">All legs landed${st.clientPaid ? "" : "; record the client payment first, then the flight"}.</p>` : ""}</div>`;
@@ -60,7 +79,7 @@ function aftercareBlock(t){
   const mine = t.bid === S.uid || S.isOwner, staff = isStaff() && !S.preview, d = t.d, r = a.r || {};
   const chips = [["Payments settled", a.paid], ["Follow-up logged", !!a.fu], ["Rating request sent", !!a.rq], ...(a.low ? [["Service recovery done", !!a.rec]] : []), ...(a.sup ? [["Debrief signed", a.dbDone]] : [])];
   const fu = a.fu ? `<p class="small"><b>Follow-up:</b> ${esc(a.fu.ch)} on ${fmtT(a.fu.at)} by ${esc(nm(a.fu.by))}${a.fu.note ? " · " + esc(a.fu.note) : ""}</p>` : (mine ? `<div class="fgrid"><label class="f" for="ac_ch">How<select id="ac_ch">${AC_CH.map(x => `<option>${x}</option>`).join("")}</select></label><label class="f" for="ac_nt">What the client said<input id="ac_nt" placeholder="Short note, no personal details beyond the trip"></label></div><div class="row"><button class="btn small primary" type="button" data-ac="fuSave">Log follow-up</button></div>` : `<p class="small muted">Waiting for the broker's follow-up.</p>`);
-  const rq = a.rq ? `<p class="small"><b>Rating request:</b> sent ${fmtT(a.rq.at)}</p>` : (mine ? `<div class="row"><a class="btn small" href="${esc(rateMail(t))}" data-ac="rateSent">Email the rating request</a></div><p class="small muted">Opens your email with template B.10 and one-click 1–5 links that reply to ${esc((S.company || {}).email || "the bookings address in Settings")}.</p>` : "");
+  const rq = a.rq ? `<p class="small"><b>Rating request:</b> sent ${fmtT(a.rq.at)}</p>` : (mine ? `<div class="row"><a class="btn small" href="${esc(rateMail(t))}" target="_blank" rel="noopener" data-ac="rateSent">Email the rating request</a><button class="btn small" type="button" data-ac="rateCopy">Copy email text</button></div><p class="small muted">Opens your email with template B.10 and one-click 1–5 links that reply to ${esc((S.company || {}).email || "the bookings address in Settings")}.</p>` : "");
   const rt = a.r ? `<p class="small"><b>Rating:</b> overall ${esc(r.overall)}/5${r.aircraft ? ` · aircraft ${esc(r.aircraft)}` : ""}${r.crew ? ` · crew ${esc(r.crew)}` : ""}${r.broker ? ` · broker ${esc(r.broker)}` : ""}${r.comment ? `<br>“${esc(r.comment)}”` : ""}${r.consent ? ` <span class="chip c-flown">May be quoted</span>` : ""}</p>`
     : ((mine || staff) && a.rq ? `<div class="fgrid"><label class="f" for="rt_o">Overall${scoreSel("rt_o")}</label><label class="f" for="rt_a">Aircraft${scoreSel("rt_a")}</label><label class="f" for="rt_c">Crew${scoreSel("rt_c")}</label><label class="f" for="rt_b">Broker${scoreSel("rt_b")}</label><label class="f wide" for="rt_m">Comment<textarea id="rt_m"></textarea></label></div><label class="check" for="rt_ok"><input type="checkbox" id="rt_ok"><span>The client has agreed in writing that we may quote this</span></label><div class="row"><button class="btn small" type="button" data-ac="rateSave">Record rating</button></div>` : "");
   const rec = a.low ? (a.rec ? `<div class="note ok small"><b>Service recovery done</b> ${fmtT(a.rec.at)}: ${esc(a.rec.note || "")}</div>` : `<div class="note bad small"><b>Service recovery.</b> Score of 3 or less: call the client by ${fmtT(workDayAfter(r.at || now()))}; the director has been told.${mine ? `<label class="f" for="rc_n" style="margin-top:6px">What was agreed with the client<input id="rc_n"></label><div class="row"><button class="btn small" type="button" data-ac="recSave">Recovery done</button></div>` : ""}</div>`) : "";
@@ -146,7 +165,7 @@ function rpInstr(s){
 function rpView(){
   if (!S.rpRuns) { rpLoad(); }
   const s = S.rp || null, runs = rpRuns();
-  const setup = `<div class="panel stack"><h2>Roleplay lab</h2><p class="small muted">The AI plays a client, an assistant, a family-office manager or an operator. Speak or type as you would on a real call. When you end, it scores you on the lab sheet (manual 14.4) and shows a model answer. Practice only: the AI can misjudge, and certification is decided by the director's scored lab. Never use real client names.</p>
+  const setup = `<div class="panel stack"><h2>Roleplay lab</h2><p class="small muted">The AI plays a client, an assistant, a family-office manager or an operator. Speak or type as you would on a real call. When you end, it scores you on the lab sheet (manual 14.4) and shows a model answer. Practice only: the AI can misjudge, and certification is decided by the director's scored lab. Never use real client names.</p>${AI_RULE}
     <div class="fgrid"><label class="f wide" for="rp_sc">Scenario<select id="rp_sc">${RP_SC.map(x => `<option value="${x[0]}">${esc(x[1])}</option>`).join("")}<option value="own">Describe your own scenario…</option></select></label>
     <label class="f wide" for="rp_own">Your own scenario (optional)<input id="rp_own" placeholder="For example: a CFO wants a 3-city roadshow next week and asks for a fixed price including all fees"></label>
     <label class="f" for="rp_who">Who you speak to<select id="rp_who">${RP_WHO.map(x => `<option>${x}</option>`).join("")}</select></label>
@@ -252,8 +271,8 @@ async function cardsWrite(mut, line){
 
 /* ---------- Training tabs ---------- */
 function trTabs(){
-  const t = S.trTab || "book";
-  return `<div class="row" role="tablist" style="margin-bottom:12px;gap:6px">${[["book","Booking practice"],["rp","Roleplay lab"],["cards","Regional cards"]].map(([k, l]) => `<button class="btn ${t === k ? "primary" : ""}" type="button" role="tab" aria-selected="${t === k}" data-trtab="${k}">${l}</button>`).join("")}</div>`;
+  const t = S.trTab || "course";
+  return `<div class="row" role="tablist" style="margin-bottom:12px;gap:6px">${[["course","Systems training"],["book","Booking practice"],["rp","Roleplay lab"],["cards","Regional cards"]].map(([k, l]) => `<button class="btn ${t === k ? "primary" : ""}" type="button" role="tab" aria-selected="${t === k}" data-trtab="${k}">${l}</button>`).join("")}</div>`;
 }
 
 function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class="head"'); if (i < 0) return add + h; const re = /<\/?div\b/g; re.lastIndex = i; let d = 0, m; while ((m = re.exec(h))) { d += m[0][1] === "/" ? -1 : 1; if (d === 0) { const e = h.indexOf(">", m.index) + 1; return h.slice(0, e) + add + h.slice(e); } } return h + add; }
@@ -261,13 +280,14 @@ function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class=
 (function(){
   const _vTraining = vTraining;
   vTraining = function(){
-    const t = S.trTab || "book";
+    const t = S.trTab || "course";
+    if (t === "course") return `<div class="head"><div><h1>Training</h1><p class="muted small">Systems training on the portal is in the Archē Broker Academy, after the written exam (manual 14.2). Practise whole bookings in Booking practice.</p></div></div>` + trTabs() + sysTrainingPanel();
     if (t === "book") { const h = _vTraining(); return h.replace(/(<div class="note warn small" style="margin-bottom:12px">)/, trTabs() + "$1"); }
     const head = `<div class="head"><div><h1>Training</h1><p class="muted small">${t === "rp" ? "Practise difficult conversations out loud with an AI client, assistant or operator, then see your score on the lab sheet (manual 14.4–14.5)." : "Regional quick-reference cards for live enquiries (manual Appendix J)."}</p></div></div>`;
     return head + trTabs() + (t === "rp" ? rpView() : cardsView());
   };
   const _tripFile = tripFile;
-  tripFile = function(t){ const h = _tripFile(t); const add = followBlock(t) + aftercareBlock(t); return add ? h.replace(`<div><h3>History</h3>`, add + `<div><h3>History</h3>`) : h; };
+  tripFile = function(t){ const h = _tripFile(t); const add = followBlock(t) + aftercareBlock(t); return add ? h.replace(`<div><h3>History</h3>`, `<div id="secAfter">` + add + `</div><div><h3>History</h3>`) : h; };
   const _vToday = vToday; vToday = function(){ return afterHead(_vToday(), acTaskPanel(true)); };
   const _vHome = vHome; vHome = function(){ return afterHead(_vHome(), acTaskPanel(acting() !== "broker" && isStaff())); };
   const _vControl = vControl; vControl = function(){ return _vControl() + scorecards(); };
@@ -309,7 +329,7 @@ document.addEventListener("click", async e => {
     const a = ac.dataset.ac, t = tripById(S.sel); if (!t) return;
     try {
       if (a === "legSave" || a === "legFlown") {
-        const ls = legsOf(t).map((l, i) => { const s = ($("lg_s" + i) || {}).value || "", tm = ($("lg_t" + i) || {}).value || "", n = ($("lg_n" + i) || {}).value || ""; return {s, at: tm ? new Date(tm).toISOString() : "", note: n.slice(0, 200)}; });
+        const ls = legsOf(t).map((l, i) => { const s = ($("lg_s" + i) || {}).value || "", tm = ($("lg_t" + i) || {}).value || "", n = ($("lg_n" + i) || {}).value || ""; const was = legSt(t)[i] || {}; return {s, at: tm ? new Date(tm).toISOString() : "", note: n.slice(0, 200), ...(s && s !== (was.s || "") ? {set: now()} : was.set && s === (was.s || "") ? {set: was.set} : {})}; });   // "set": when the status changed, for the flight alert
         const changed = ls.map((x, i) => x.s !== ((legSt(t)[i] || {}).s || "") ? `${legsOf(t)[i].from}→${legsOf(t)[i].to} ${(LEG_ST.find(s => s[0] === x.s) || LEG_ST[0])[1]}` : "").filter(Boolean).join(", ");
         const patch = {legStatus: ls};
         if (a === "legFlown") { const last = ls.filter(x => x.s === "land" && x.at).map(x => x.at).sort().slice(-1)[0]; if (!last) { toast("Enter the landing time of the last leg."); return; } patch.state = "flown"; patch.flownDate = last.slice(0, 10); }
@@ -317,6 +337,7 @@ document.addEventListener("click", async e => {
         if (a === "legFlown") audit("Flight recorded", `${(t.st || {}).ref || t.did} · ${patch.flownDate}`);
         toast(a === "legFlown" ? "Flight recorded. Aftercare opens for the broker." : "Leg status saved."); return; }
       if (a === "fuSave") { const fu = {ch: $("ac_ch").value, note: ($("ac_nt").value || "").trim().slice(0, 300), at: now(), by: S.uid}; await deskWrite(t, {followUp: fu}, `Follow-up logged (${fu.ch})`); toast("Follow-up logged."); return; }
+      if (a === "rateCopy") { const u = new URL(rateMail(t).replace(/^mailto:/, "https://x/")); const txt = `To: ${(t.d.client || {}).email || ""}\nSubject: ${u.searchParams.get("subject")}\n\n${u.searchParams.get("body")}`; try { await navigator.clipboard.writeText(txt); toast("Email text copied. Paste it into a new email to the client and send."); } catch(err){ toast("Could not copy here."); } if (!t.d.ratingReq) await deskWrite(t, {ratingReq: {at: now(), by: S.uid}}, "Rating request copied for email"); return; }
       if (a === "rateSent") { if (!(t.d.client && t.d.client.email)) toast("No client email on the trip: add it in the email before sending."); setTimeout(async () => { try { await deskWrite(t, {ratingReq: {at: now(), by: S.uid}}, "Rating request emailed"); } catch(err){} }, 50); return; }
       if (a === "rateSave") { const o = $("rt_o").value; if (!o) { toast("Choose the overall score."); return; }
         const r = {overall: +o, aircraft: +$("rt_a").value || null, crew: +$("rt_c").value || null, broker: +$("rt_b").value || null, comment: ($("rt_m").value || "").trim().slice(0, 600), consent: $("rt_ok").checked, at: now(), by: S.uid};

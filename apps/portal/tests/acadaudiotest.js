@@ -1,6 +1,7 @@
 // Recorded narration in the academy (Morten, 7 Nov 2026): Isabella and Fable, chosen in the player; a screen plays its
 // own recording (found by the same key the recording job uses), with play/pause, back and forward 15 seconds and
-// speed; a screen without a recording falls back to the device voice; progress is untouched. Storage is stubbed here
+// speed. Morten, 8 Nov 2026: only Isabella and Fable, never the device's own voice (also not for someone who chose
+// one before); the external edition has no audio. Progress is untouched. Storage is stubbed here
 // with a short silent clip: example data only.
 const fs=require('fs'),path=require('path');const {chromium}=require('playwright');
 (async()=>{let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,300)));if(!c)fails++;};
@@ -15,7 +16,8 @@ const keys={};scr.forEach(s=>keys[s.key]={h:'x',d:3});
 const b=await chromium.launch({args:['--autoplay-policy=no-user-gesture-required']});const errs=[];
 for(const w of [1300,390]){
   const p=await b.newPage({viewport:{width:w,height:900}});p.on('pageerror',e=>errs.push(w+': '+e.message));
-  await p.addInitScript(()=>{window.__spoken=[];try{const r=window.speechSynthesis;r.speak=u=>{window.__spoken.push(u.text);};}catch(e){}});
+  await p.addInitScript(()=>{window.__spoken=[];try{const r=window.speechSynthesis;r.speak=u=>{window.__spoken.push(u.text);};const U=window.SpeechSynthesisUtterance;window.SpeechSynthesisUtterance=function(t){window.__spoken.push('new:'+t);return new U(t);};}catch(e){}
+    try{localStorage.setItem('arche-cbt-audio-v2',JSON.stringify({on:false,rate:1,voice:'com.apple.voice.compact.en-GB.Daniel',picked:true,auto:true}));}catch(e){}});
   await p.goto('http://localhost:8765/test.html?as=broker');await p.waitForTimeout(2000);
   await p.goto('http://localhost:8765/academy.test.html');await p.waitForTimeout(2500);
   if(await p.$('#nm')){await p.fill('#nm','Example Tester');await p.check('#nda');await p.click('text=Begin');await p.waitForTimeout(1000);}
@@ -23,7 +25,8 @@ for(const w of [1300,390]){
   await p.evaluate(({keys,wav})=>{window.__played=[];window.__sb.storage={from:()=>({download:async f=>({data:new Blob([JSON.stringify({keys:/isabella|fable/.test(f)?keys:{}})])}),createSignedUrl:async pth=>{window.__played.push(pth);return {data:{signedUrl:wav}};}})};},{keys,wav});
   await p.click('#audioBtn');await p.waitForTimeout(800);
   const opts=await p.evaluate(()=>[...document.querySelectorAll('#aVoice option')].map(o=>o.textContent));
-  ok(w+': player offers Isabella and Fable first',opts[0]==='Isabella (British)'&&opts[1]==='Fable (British)',opts);
+  ok(w+': player offers only Isabella and Fable (no device voices)',JSON.stringify(opts)==='["Isabella (British)","Fable (British)"]',opts);
+  ok(w+': an earlier device-voice choice is replaced by Isabella',await p.evaluate(()=>document.getElementById('aVoice').value==='isabella'));
   await p.click('text=Aviation for brokers >> nth=-1');await p.waitForTimeout(1200);
   let pl=await p.evaluate(()=>window.__played.slice());
   ok(w+': module intro plays its Isabella recording (key matches the recording list)',pl.length&&pl[pl.length-1]==='isabella/'+m0.find(s=>s.kind==='intro').key+'.mp3',pl);
@@ -49,7 +52,7 @@ for(const w of [1300,390]){
     await p.evaluate(()=>{location.hash='#home';});await p.reload();await p.waitForTimeout(1500);
     await p.evaluate(({keys,wav})=>{window.__sb.storage={from:()=>({download:async f=>({data:new Blob([JSON.stringify({keys:/isabella|fable/.test(f)?keys:{}})])}),createSignedUrl:async pth=>{(window.__played=window.__played||[]).push(pth);return {data:{signedUrl:wav}};}})};},{keys,wav});
     await p.click('.srow [data-go="m0"]');await p.waitForTimeout(900);}
-  ok(w+': with Isabella or Fable chosen, the device voice never speaks (overview, lessons, answers)',await p.evaluate(()=>window.__spoken.length===0),await p.evaluate(()=>window.__spoken.slice(0,3)));
+  ok(w+': the device voice never speaks (overview, lessons, answers)',await p.evaluate(()=>window.__spoken.length===0),await p.evaluate(()=>window.__spoken.slice(0,3)));
   // no recording for a screen: device voice (no request for a recording)
   await p.evaluate(()=>{window.__sb.storage={from:()=>({download:async()=>({data:new Blob(['{"keys":{}}'])}),createSignedUrl:async pth=>{window.__played.push('X'+pth);return {data:null};}})};});
   ok(w+': no sideways scroll with the player open',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
@@ -58,5 +61,7 @@ for(const w of [1300,390]){
   await p.close();
 }
 const now=fs.readFileSync(path.join(H,'..','academy','build','page.html'),'utf8');
+for(const f of ['arche-broker-academy.html','charter-broker-academy.html']){const d=fs.readFileSync(path.join(H,'..','academy','dist',f),'utf8');ok(f+': no device text-to-speech in the page',!/SpeechSynthesisUtterance|\.speak\(|getVoices/.test(d));}
+const ext=fs.readFileSync(path.join(H,'..','academy','dist','charter-broker-academy.html'),'utf8');ok('external edition: no audio button shown',/if \(ED === "ext"\) \{ btn\.hidden = true/.test(ext));
 ok('progress storage name and completion-code salt unchanged (no one loses progress)',now.includes('const KEY = ED === "ext" ? "charter-broker-academy-v1" : "arche-cbt-v1", SALT = "ARCHE-CBT-2026-10"'));
 ok('no page errors',errs.length===0,errs);console.log(fails?fails+' FAILED':'ALL PASS');await b.close();process.exit(fails?1:0)})();
