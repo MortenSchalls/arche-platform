@@ -31,7 +31,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  // candidate signs (state edit), assessor cannot countersign
  T.agreements.find(r=>r.id===NEW).data.status='signed';T.agreements.find(r=>r.id===NEW).data.signedName='Example Candidate';T.agreements.find(r=>r.id===NEW).data.signedAt=ago(0);
  await p.close();p=await open(B2,T);await p.evaluate(()=>{S.view='supervise';render();});await p.waitForTimeout(800);
- ok('countersign stays with the owner', !(await p.$('[data-approve]')) && (await p.textContent('#main')).includes("Waiting for the owner's countersignature"));
+ ok('countersign stays with the Director', !(await p.$('[data-approve]')) && (await p.textContent('#main')).includes("Waiting for the Director's countersignature"));
  await p.close();
  // ops approver
  p=await open(O1,T);await p.evaluate(()=>{S.view='supervise';render();});await p.waitForTimeout(800);

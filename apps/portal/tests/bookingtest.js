@@ -152,7 +152,7 @@ ok('the owner can set another margin on the trip',r2);
 await p.evaluate(()=>{document.querySelector('#secBook details').open=true;});await p.fill('#bk_mp','12');await p.fill('#bk_mr','Example: repeat client, owner decision');await p.click('[data-bka="margin"]');await p.waitForTimeout(800);
 t=await trip();ok('trip margin 12%: price recomputed, reason kept',t.st.marginEx&&Math.abs(t.st.marginEx.pct-0.12)<1e-9&&t.st.price===Math.ceil(90000/0.88),t.st);
 await shot('9-owner-margin','#secBook');
-ok('the approval card shows the owner\'s margin as decided',await p.evaluate(()=>apChecks(tripById(S.sel)).some(x=>x[0]&&/set by the owner/.test(x[1]))));
+ok('the approval card shows the owner\'s margin as decided',await p.evaluate(()=>apChecks(tripById(S.sel)).some(x=>x[0]&&/set by the Director/.test(x[1]))));
 await as('Test Operations');await p.evaluate(did=>{S.sel=did;S.view='trips';render();},did);await p.waitForTimeout(600);
 ok('operations cannot set a margin',!await p.$('#bk_mp'));
 await p.fill('#o_op','90000');await p.click('[data-act="opsSave"]');await p.waitForTimeout(800);
