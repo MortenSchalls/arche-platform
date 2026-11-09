@@ -1689,7 +1689,7 @@
   "title": "FAA, United States AIP Part 3 AD 2 Florida (HTML; 29th edition 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published; amendment shown on page not stated): KFLL and KMIA (checked 28 Oct 2026)",
   "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_florida.html",
   "publisher": "Federal Aviation Administration",
-  "checked": "2026-10-28"
+  "checked": "2026-11-09"
  },
  "kfll-cbp-ga": {
   "title": "CBP, Fort Lauderdale-Hollywood International (KFLL) General Aviation fact sheet, 15 Feb 2024, publication KFLL-0224 (checked 28 Oct 2026)",
@@ -2445,7 +2445,7 @@
   "title": "US CBP, Eagle County Regional Airport GA Airport Fact Sheet (KEGE), 25 Oct 2024, publication KEGE-1024",
   "url": "https://cbp.gov/sites/default/files/2024-10/KEGE%20GA%20Airport%20Fact%20Sheet%2020241025.pdf",
   "publisher": "U.S. Customs and Border Protection",
-  "checked": "2026-11-01"
+  "checked": "2026-11-09"
  },
  "kege-customs": {
   "title": "Eagle County Regional Airport, US Customs page (last modified 27 Dec 2023; re-checked 7 Nov 2026)",
@@ -2463,7 +2463,7 @@
   "title": "US CBP, Dallas Love Field Airport GA Airport Fact Sheet (KDAL), 17 Apr 2024, publication KDAL-0424",
   "url": "https://www.cbp.gov/sites/default/files/assets/documents/2024-Apr/KDAL%20GA%20Airport%20Fact%20Sheet%2020240417.pdf",
   "publisher": "U.S. Customs and Border Protection",
-  "checked": "2026-11-01"
+  "checked": "2026-11-09"
  },
  "kdal-customs": {
   "title": "Dallas Love Field, International Arrivals & Customs page (no date shown; read 1 Nov 2026)",
@@ -2487,7 +2487,7 @@
   "title": "CBP General Aviation Airport Fact Sheet, Chicago Midway (KMDW), 6 May 2024, KMDW-0524 (newer 4 Mar 2026 sheet not opened) (checked 1 Nov 2026)",
   "url": "https://cbp.gov/sites/default/files/2024-05/kmdw_ga_airport_fact_sheet_20240506.pdf",
   "publisher": "U.S. Customs and Border Protection",
-  "checked": "2026-11-01"
+  "checked": "2026-11-09"
  },
  "kmdw-cda-fbo": {
   "title": "Fixed Base Operators | Chicago Midway International Airport (no date shown) (checked 1 Nov 2026)",
@@ -2697,13 +2697,13 @@
   "title": "Lanseria International Airport: Airport Service Offerings (page modified 2025-01-14)",
   "url": "https://lanseria.co.za/corporate/pilot-and-aviation-info/airport-services/",
   "publisher": "Lanseria International Airport",
-  "checked": "2026-11-03"
+  "checked": "2026-11-09"
  },
  "fact-sacaa-ad2-amdt426": {
   "title": "AIP South Africa AD 2-FACT-15 to 17, AMDT 4/26, 15 OCT 26",
   "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FACT_EN.pdf",
   "publisher": "South African Civil Aviation Authority",
-  "checked": "2026-11-03"
+  "checked": "2026-11-09"
  },
  "fact-acsa-slot-request": {
   "title": "ACSA: Slot Request (no date shown)",
@@ -3483,6 +3483,72 @@
   "title": "CDC, Entry Requirements for Dogs from Dog-Rabies Free or Low-Risk Countries (page dated 22 Jul 2024)",
   "url": "https://www.cdc.gov/importation/dogs/rabies-free-low-risk-countries.html",
   "publisher": "US Centers for Disease Control and Prevention",
+  "checked": "2026-11-09"
+ },
+ "cyyz-gtaa-rules-2024": {
+  "title": "GTAA, The Pearson Standard, Rules & Regulations, Section 10 Airside Operations, version 2.0, 24 Jul 2024",
+  "url": "https://author.torontopearson.com/-/media/project/pearson/content/operators-at-pearson/the-pearson-standard/pdfs/section-10---the-pearson-standard---rules--regulations-searchable.pdf",
+  "publisher": "Greater Toronto Airports Authority",
+  "checked": "2026-11-09"
+ },
+ "cyvr-yvr-deicing-2024": {
+  "title": "YVR news, Learn more about de-icing at YVR (11 Jan 2024)",
+  "url": "https://news.yvr.ca/de-icing-at-yvr/",
+  "publisher": "Vancouver Airport Authority",
+  "checked": "2026-11-09"
+ },
+ "kpbi-faa-nprm-sfra-2026": {
+  "title": "FAA NPRM, Establishment of Special Air Traffic Rules in the Vicinity of President Donald J. Trump International Airport (DJT), Docket FAA-2026-10827, published 2 Sep 2026 (proposal; cited in notes only)",
+  "url": "https://public-inspection.federalregister.gov/2026-17957.pdf",
+  "publisher": "Federal Aviation Administration / Federal Register",
+  "checked": "2026-11-09"
+ },
+ "eddb-lubb-night-exemption-form": {
+  "title": "LuBB / Gemeinsame Obere Luftfahrtbehörde Berlin-Brandenburg, Application for an exemption for night flights (English form, Stand 02/2026)",
+  "url": "https://lubb.berlin-brandenburg.de/wp-content/uploads/Application-for-an-exemption-for-night-flights-english-06.2026.pdf",
+  "publisher": "Landesamt für Bauen und Verkehr (LuBB), Brandenburg aviation authority",
+  "checked": "2026-11-09"
+ },
+ "ojai-carc-adc-amdt27-2026": {
+  "title": "AIP Jordan AD 2.24.1-1 Aerodrome Chart Amman/Queen Alia (effective 09 JUL 2026, AIRAC AMDT 27/2026)",
+  "url": "https://carc.gov.jo/sites/default/files/AERODROME%20CHART%20-%20ICAO.pdf",
+  "publisher": "Civil Aviation Regulatory Commission, Jordan",
+  "checked": "2026-11-09"
+ },
+ "phnl-faa-aip-hi": {
+  "title": "FAA, United States AIP Part 3 AD 2 Hawaii (HTML; no edition date shown on page): PHNL Honolulu International (checked 9 Nov 2026)",
+  "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_hawaii.html",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-09"
+ },
+ "phnl-cbp-ga": {
+  "title": "US CBP, Daniel K. Inouye International Airport GA Airport Fact Sheet (PHNL), 25 Oct 2024, publication PHNL-1024",
+  "url": "https://cbp.gov/sites/default/files/2024-10/phnl_ga_airport_fact_sheet_20241025.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-11-09"
+ },
+ "phnl-faa-flightdeck": {
+  "title": "FAA Flight Deck: Daniel K. Inouye International Airport (HNL), last updated 8 Jun 2026",
+  "url": "https://www.faa.gov/flight_deck/hnl",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-09"
+ },
+ "phnl-hdot-info": {
+  "title": "Daniel K. Inouye International Airport, Airport Info (Hawaii DOT Airports Division; no date shown)",
+  "url": "https://airports.hawaii.gov/hnl/?p=24",
+  "publisher": "State of Hawaii Department of Transportation, Airports Division",
+  "checked": "2026-11-09"
+ },
+ "phnl-hdot-tarmac": {
+  "title": "Daniel K. Inouye International Airport, Tarmac Delay Contingency Plan (submitted 2 Jun 2022)",
+  "url": "https://airports.hawaii.gov/hnl/?p=68",
+  "publisher": "State of Hawaii Department of Transportation, Airports Division",
+  "checked": "2026-11-09"
+ },
+ "dc-ansp-aip-dataset": {
+  "title": "DC-ANSP: AIP data set publication (AIXM), AIRAC AMDT 02-26 effective 6 Aug 2026 (page undated)",
+  "url": "https://dc-ansp.org/eAIS/?p=6726",
+  "publisher": "Dutch Caribbean Air Navigation Service Provider (DC-ANSP)",
   "checked": "2026-11-09"
  }
 }

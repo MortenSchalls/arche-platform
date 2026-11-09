@@ -1,0 +1,51 @@
+{
+ "icao": "PHNL",
+ "iata": null,
+ "name": "Daniel K. Inouye International Airport",
+ "city": "Honolulu",
+ "country": "US",
+ "tz": "Pacific/Honolulu",
+ "tier": 1,
+ "status": "partial",
+ "checked": "2026-11-09",
+ "rules": {
+  "runway": {
+   "v": "six runways in the FAA AIP table; longest 08L/26R, 12,360 ft x 200 ft (about 3,767 m); 08R/26L (the Reef Runway) 12,000 x 200 ft; 04R/22L 9,002 x 150 ft; 04L/22R 6,955 x 150 ft; plus water runways 04W/22W and 08W/26W",
+   "longest_m": 3767,
+   "src": "phnl-faa-aip-hi",
+   "quote": "12360 ft x 200 ft"
+  },
+  "hours": {
+   "v": "airport attended all months, all days, all hours; control tower continuous, 24/7 (FAA)",
+   "src": "phnl-faa-aip-hi",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "customs": {
+   "v": "CBP clears general aviation 7 days a week, 24 hours (Hawaii-Aleutian Time); contact CBP before leaving the foreign airport and at least 2 hours before arrival; landing permission valid +/-30 minutes; no CBP office at the FBO: aircraft park at the FBO and a CBP officer clears crew and passengers planeside",
+   "h24": true,
+   "src": "phnl-cbp-ga",
+   "quote": "7 days per week, 24 hours per day"
+  },
+  "fuel": {
+   "v": "fuel types 100 (avgas), A and A1+ (jet fuel); major repairs available",
+   "src": "phnl-faa-aip-hi",
+   "quote": "100 A A1+"
+  },
+  "permits": {
+   "v": "for international arrivals, CBP permission to land at least 2 hours before arrival; commercial operators leaving the US get outbound clearance from CBP",
+   "src": "phnl-cbp-ga",
+   "quote": "at least two hours in advance of the anticipated arrival time"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling (FBO names)",
+  "noise",
+  "max_aircraft",
+  "deicing"
+ ],
+ "notes": "9 Nov 2026: new file. Read the FAA US AIP Part 3 AD 2 Hawaii page (HTML, no edition date shown; airport listed as 'Honolulu International', identifier PHNL; operator contact at 300 Rodgers Blvd, Honolulu), the CBP PHNL GA Airport Fact Sheet (25 Oct 2024, PHNL-1024), the FAA Flight Deck HNL page (last updated 8 Jun 2026: 'HNL TWR Hours of Operation: Continuous – 24/7'), and Hawaii DOT Airports Division pages on airports.hawaii.gov/hnl (Airport Info, undated: 'HNL has four active runways, including the 12,000-foot Reef Runway'; Tarmac Delay Contingency Plan, submitted 2 Jun 2022: '24 hour, 7-day operation'; FAQ, undated). Runway metres are my conversion (1 ft = 0.3048 m). Fuel 'A' read as Jet A. The AIP remarks hold no curfew, slot, noise abatement or wingspan rule for civil flights, but no source says there is no curfew, so curfew stays missing. AIP PPR remarks found ('ALL PPR WILL BE APVD NO EARLIER THAN 72 HR BUT NO LATER THAN 24 HR PRIOR.') appear to belong to the military side (JBPH-H) and explosives cargo, so no civil PPR is recorded; check the Chart Supplement. AIP also: 'DUE TO SENSITIVITIES OF CITIZENS, FTR ACFT DEP ONLY AUTHORIZED FR 1700-0700Z MON-SAT' (fighter aircraft only); 'APRON TAXILANE 6 BTWN TWY C AND SOUTH RAMP CLSD EXCEPT GA/FIXED WING LOADING/UNLOADING ONLY'. The CBP sheet does not say whether PHNL is a user fee airport. Kalaeloa (JRF) is the State's designated general aviation reliever for HNL. IATA code left null: official pages use 'HNL' but do not label it IATA. FBO names not found in an official source; FAA Chart Supplement (Pacific) not searched for this airport. No newer CBP PHNL sheet found by search."
+}
