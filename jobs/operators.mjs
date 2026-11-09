@@ -102,7 +102,7 @@ async function probe(page, pattern) {
   const m = h.match(new RegExp('href="([^"]*' + pattern + '[^"]*)"', "i")); if (!m) { console.log("no link matching " + pattern); return; }
   const url = new URL(m[1], page).href; console.log("PDF " + url);
   const buf = Buffer.from(await (await fetch(url)).arrayBuffer()); writeFileSync("/tmp/list.pdf", buf);
-  console.log(execFileSync("pdftotext", ["-layout", "/tmp/list.pdf", "-"]).toString().split("\n").slice(0, 90).join("\n"));
+  console.log(execFileSync("pdftotext", ["-layout", "/tmp/list.pdf", "-"]).toString());
 }
 if (import.meta.url === `file://${process.argv[1]}` && process.argv[2] === "probe") { await probe(process.argv[3], process.argv[4]); process.exit(0); }
 if (import.meta.url === `file://${process.argv[1]}`) {
