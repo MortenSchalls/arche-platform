@@ -17,6 +17,7 @@ ok("weekly: Mondays", due({ on: true, freq: "weekly" }, "2026-11-02T03:00:00Z", 
 // in-memory database
 const mk = docs => { const D = JSON.parse(JSON.stringify(docs));
   return { D, get: async k => D[k] || null, set: async (k, v) => { D[k] = JSON.parse(JSON.stringify(v)); },
+    del: async k => { delete D[k]; },
     all: async c => { const pre = c === "owner_prospects" ? "owner" : c; return Object.entries(D).filter(([k]) => k.startsWith(pre + "/") && k.split("/").length === 2).map(([k, v]) => ({ id: k.split("/")[1], data: v })); }, now: () => "2026-11-09T03:00:00.000Z" }; };
 const base = { "intel/agent": { on: true, freq: "daily", focus: ["Example focus A", "Example focus B"] }, "intel/status": { focusIndex: 1 },
   "prospects/p007": { org: "Known Example Travel", website: "https://known-example.test", status: "new", avenues: [] } };
@@ -129,3 +130,18 @@ Object.assign(PAGES, {
   const db = mk({ ...base, "intel/services": { pausedUntil: "2026-12-01T00:00:00Z", covered: [] }, "prospects/p050": { org: "Old Example FBO", kind: "service", category: "FBO and ground handling", airports: ["LFPB", "EGLF"] } });
   const p = await plan(db, mon9);
   ok("a longer airport list ends the old 30-day pause and skips airports already done", p.suppliers.core.airports.length === 5 && !p.suppliers.core.airports.some(a => a.icao === "LFPB" || a.icao === "EGLF"), p.suppliers.core); }
+// supplier clean-up (Morten, 9 Nov 2026): one record per company, wrong types out, everything archived first
+{ const { fixRecords } = await import("./prospectagent.mjs");
+  const db = mk({ "prospects/p1": { org: "Example FBO Singapore", kind: "service", category: "FBO and ground handling", airports: ["WSSL"], avenues: [{ type: "website", url: "https://fbo-example.test/" }], contacts: [{ name: "A Example" }], source: "https://fbo-example.test/", website: "https://fbo-example.test/" },
+    "prospects/p2": { org: "Example FBO Dubai", kind: "service", category: "FBO and ground handling", airports: ["OMDB"], contacts: [{ name: "B Example" }], source: "https://www.facebook.com/x", website: "" },
+    "prospects/p3": { org: "Example Airline Handler", kind: "service", category: "FBO and ground handling", airports: ["RJTT"] },
+    "prospects/p4": { org: "Example Resort", kind: "service", category: "Crew hotels", airports: ["VTSP"], hotel: { minutes: 30 } },
+    "prospects/p5": { org: "Example Business Aviation Centre", kind: "client", segment: "Service partner" },
+    "prospects/p6": { org: "Kappa Example FBO", kind: "service", category: "FBO and ground handling", source: "https://www.businessairnews.com/x", website: "https://fbo-example.test/", airports: ["WSSS"] } });
+  const r = await fixRecords(db, { merge: [{ keep: "p1", drop: ["p2"], org: "Example FBO" }], remove: [{ ref: "p3", why: "airline ground handler" }], recat: [{ ref: "p4", category: "Hotels and resorts" }],
+    move: [{ ref: "Example Business Aviation Centre", category: "FBO and ground handling", airports: ["WSSL"] }], recheck: true }, { fetchFn: async u => String(u).includes("fbo-example") ? { ok: true, text: async () => "Kappa Example FBO and Example FBO" } : { ok: false, text: async () => "" }, now: mon9 });
+  const D = db.D, arch = D["intel/cleanup-2026-11-09"];
+  ok("clean-up: duplicates become one record with every airport and contact", D["prospects/p1"].org === "Example FBO" && D["prospects/p1"].airports.join() === "WSSL,OMDB" && D["prospects/p1"].contacts.length === 2 && !D["prospects/p2"]);
+  ok("clean-up: wrong type removed, resort moved to Hotels and resorts, supplier moved out of the client list", !D["prospects/p3"] && D["prospects/p4"].category === "Hotels and resorts" && !D["prospects/p4"].hotel && D["prospects/p5"].kind === "service");
+  ok("clean-up: a weak source is replaced by the company's own site when it names the company", D["prospects/p6"].source === "https://fbo-example.test/");
+  ok("clean-up: every changed or removed record is archived in full", arch && arch.archive.some(a => a.id === "p3" && a.data.org === "Example Airline Handler") && arch.archive.some(a => a.id === "p2") && r.merged === 1 && r.removed === 1); }

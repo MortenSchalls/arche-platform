@@ -16,7 +16,7 @@ on:
       job:
         description: "Job to run now"
         type: choice
-        options: [rotation, agent-plan, agent-import, agent-report, backup, regimes, screen, audits]
+        options: [rotation, agent-plan, agent-import, agent-report, agent-fix, backup, regimes, screen, audits]
         default: rotation
       batch:
         description: "agent-import only: the research batch (gzip + base64 JSON), sent by the scheduled task"
@@ -64,7 +64,7 @@ jobs:
         working-directory: jobs
         run: |
           if [ "$JOB" = "rotation" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then export FORCE=1; fi
-          if [ "$JOB" = "agent-plan" ]; then node prospectagent.mjs plan; elif [ "$JOB" = "agent-import" ]; then node prospectagent.mjs import; elif [ "$JOB" = "agent-report" ]; then node prospectagent.mjs report; else node "$JOB.mjs"; fi
+          if [ "$JOB" = "agent-plan" ]; then node prospectagent.mjs plan; elif [ "$JOB" = "agent-import" ]; then node prospectagent.mjs import; elif [ "$JOB" = "agent-report" ]; then node prospectagent.mjs report; elif [ "$JOB" = "agent-fix" ]; then node prospectagent.mjs fix; else node "$JOB.mjs"; fi
       - name: Encrypt backup
         if: env.JOB == 'backup'
         working-directory: jobs

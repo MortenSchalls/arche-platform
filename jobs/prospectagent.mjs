@@ -259,6 +259,53 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
   return { added, operators: opsAdded, updated, suppliers: svcAdded, suppliersLinked: svcMerged, investors: { added: invAdded, profiled: invProfiled, rejected: invRejected, held: invHeld }, rejected, held, note };
 }
 
+// one-off clean-up of supplier records (Morten, 9 Nov 2026): merge duplicates into one record per company with all its
+// airports, remove records of the wrong type, recategorise, move suppliers out of the client list, re-check weak sources.
+// Every record changed or removed is kept in full in intel/cleanup-<date> first, so any change can be undone.
+const uniqBy = (arr, k) => { const s = new Set(); return (arr || []).filter(x => { const v = k(x); if (!v || s.has(v)) return false; s.add(v); return true; }); };
+export async function fixRecords(db, plan, { log = () => {}, dry = false, now = new Date(), fetchFn = fetch } = {}) {
+  const nowIso = now.toISOString(), rows = await db.all("prospects"), byId = Object.fromEntries(rows.map(r => [r.id, r]));
+  const byOrg = Object.fromEntries(rows.map(r => [r.data.org, r])), archive = [], done = { merged: 0, removed: 0, recategorised: 0, moved: 0, sourcesFixed: 0, flagged: 0 }, notes = [];
+  const save = async (id, d) => { if (!dry) await db.set("prospects/" + id, d); byId[id] = { id, data: d }; };
+  const drop = async (id, why) => { const r = byId[id]; if (!r) return; archive.push({ id, why, data: r.data }); if (!dry) await db.del("prospects/" + id); delete byId[id]; };
+  const find = ref => byId[ref] || byOrg[ref];
+  for (const m of plan.merge || []) {
+    const k = find(m.keep); if (!k) { notes.push("merge: " + m.keep + " not found"); continue; }
+    const others = (m.drop || []).map(find).filter(x => x && x.id !== k.id); archive.push({ id: k.id, why: "before merge", data: k.data });
+    const all = [k, ...others].map(r => r.data);
+    const d = { ...k.data, org: m.org || k.data.org, airports: [...new Set(all.flatMap(x => x.airports || []))], avenues: uniqBy(all.flatMap(x => x.avenues || []), a => normUrl(a.url)).slice(0, 20),
+      contacts: uniqBy(all.flatMap(x => x.contacts || []), c => String(c.name || "").toLowerCase()).slice(0, 12), evidence: uniqBy(all.flatMap(x => x.evidence || []), e => normUrl(e.url)).slice(0, 10),
+      country: m.country || k.data.country || all.map(x => x.country).find(Boolean) || "", merged: [...(k.data.merged || []), ...others.map(o => ({ id: o.id, org: o.data.org, at: nowIso }))] };
+    if (m.category) d.category = m.category;
+    await save(k.id, d); for (const o of others) await drop(o.id, "merged into " + k.id); done.merged += others.length;
+  }
+  for (const x of plan.remove || []) { const r = find(x.ref || x); if (r) { await drop(r.id, x.why || "wrong type"); done.removed++; } else notes.push("remove: " + (x.ref || x) + " not found"); }
+  for (const x of plan.recat || []) { const r = find(x.ref); if (!r) { notes.push("recat: " + x.ref + " not found"); continue; } archive.push({ id: r.id, why: "before recategorise", data: r.data });
+    const d = { ...r.data, category: x.category }; if (x.category !== "Crew hotels") delete d.hotel; await save(r.id, d); done.recategorised++; }
+  for (const x of plan.move || []) { const r = find(x.ref); if (!r) { notes.push("move: " + x.ref + " not found"); continue; }
+    if (x.into) { const k = find(x.into); if (!k) { notes.push("move into: " + x.into + " not found"); continue; } archive.push({ id: k.id, why: "before merge", data: k.data });
+      const all = [k.data, r.data]; await save(k.id, { ...k.data, avenues: uniqBy(all.flatMap(y => y.avenues || []), a => normUrl(a.url)).slice(0, 20), contacts: uniqBy(all.flatMap(y => y.contacts || []), c => String(c.name || "").toLowerCase()).slice(0, 12), merged: [...(k.data.merged || []), { id: r.id, org: r.data.org, at: nowIso }] });
+      await drop(r.id, "supplier in the client list, merged into " + k.id); }
+    else { archive.push({ id: r.id, why: "before move", data: r.data }); await save(r.id, { ...r.data, kind: "service", segment: "Service partner", category: x.category, airports: x.airports || r.data.airports || [] }); }
+    done.moved++; }
+  // weak sources: the organisation's own site replaces a third-party source when it opens and names the organisation
+  if (plan.recheck) {
+    const weak = /facebook\.com|ibac\.org|businessairnews|ainonline|gulfnews|centreforaviation|wikipedia|thepeakmagazine|bsigroup|verdictfoodservice|pax-intl|asianaviation|iata\.org|cloudfront|aviationpros|aviationbusinessme|businessairportinternational|aerotime|avitrader|ch-aviation/;
+    for (const r of Object.values(byId)) {
+      if (!["service", "operator"].includes(r.data.kind) || !weak.test(host(r.data.source))) continue;
+      const site = r.data.website && !weak.test(host(r.data.website)) ? r.data.website : "";
+      const t = site ? await fetchPage(site, fetchFn) : null;
+      if (t && names(t, r.data.org, site)) { archive.push({ id: r.id, why: "before source fix", data: r.data }); await save(r.id, { ...r.data, source: site, sourceChecked: nowIso, flags: (r.data.flags || []).filter(f => !/^Source to check/.test(f)) }); done.sourcesFixed++; }
+      else { const f = "Source to check: only a third-party page names it (" + host(r.data.source) + "); confirm on the company's own site before the first booking.";
+        await save(r.id, { ...r.data, flags: [...new Set([...(r.data.flags || []), f])] }); done.flagged++; }
+    }
+    for (const r of Object.values(byId)) if (r.data.kind === "service" && !r.data.country) { const f = "Country to confirm."; if (!(r.data.flags || []).includes(f)) { await save(r.id, { ...r.data, flags: [...(r.data.flags || []), f] }); done.flagged++; } }
+  }
+  if (!dry) await db.set("intel/cleanup-" + nowIso.slice(0, 10), { at: nowIso, by: "clean-up", done, notes, archive });
+  const note = `${dry ? "Dry run, nothing written. " : ""}Clean-up: ${done.merged} duplicates merged, ${done.removed} removed, ${done.recategorised} recategorised, ${done.moved} moved from the client list, ${done.sourcesFixed} sources replaced by the company's own site, ${done.flagged} flagged to check.${notes.length ? " Not found: " + notes.length + "." : ""}`;
+  log(note); notes.forEach(n => log("  " + n)); return { ...done, notes, note };
+}
+
 // the batch arrives as the workflow input BATCH: gzip + base64 of the JSON the task wrote ({focus, orgs, operators, routes})
 export function decode(s) {
   const t = String(s || "").trim(); if (!t) throw new Error("No batch given.");
@@ -295,6 +342,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       try { const { data } = await db.sb.storage.from("registries").download("index.json"); const ix = JSON.parse(await data.text());
         rep.registries = { keys: Object.keys(ix), sample: JSON.stringify(ix).slice(0, 1500), size: JSON.stringify(ix).length }; } catch (e) { rep.registries = { error: String(e) }; }
       console.log("PLAN-BEGIN\n" + seal(rep, process.env.KEY) + "\nPLAN-END"); return { note: `report: ${rep.operators.length} operators, ${rep.services.length} service partners` };
+    }
+    if (mode === "fix") {
+      const raw0 = String(process.env.BATCH || "").trim(); if (!raw0.startsWith("S1.")) throw new Error("The clean-up must be sealed.");
+      return fixRecords(db, open(raw0, keys.privateKey), { log: console.log, dry: process.env.DRY === "1" });
     }
     const raw = String(process.env.BATCH || "").trim();
     const batch = raw.startsWith("S1.") ? open(raw, keys.privateKey) : decode(raw);

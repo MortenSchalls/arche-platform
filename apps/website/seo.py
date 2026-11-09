@@ -76,7 +76,9 @@ def apply(s, out_dir, here):
 </urlset>
 ''')
     # keep the test address (*.vercel.app) out of search results; only archeaviation.com gets indexed
-    json.dump({"rewrites": [{"source": f"/{l}", "destination": f"/{l}.html"} for l in ("th", "zh", "ja")],
+    # build on Vercel only when the site itself changed (Morten, 9 Nov 2026: deployment storage near the free limit)
+    json.dump({"ignoreCommand": "git diff --quiet HEAD^ HEAD -- .",
+               "rewrites": [{"source": f"/{l}", "destination": f"/{l}.html"} for l in ("th", "zh", "ja")],
                "headers": [{"source": "/(.*)", "has": [{"type": "host", "value": ".*\\.vercel\\.app"}],
                             "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]},
                            {"source": "/(img|assets|vendor)/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=2592000"}]}]},
