@@ -12,7 +12,7 @@ commit. Never remove one to get a pass.
 |---|---|---|---|---|
 | 1 | Company | Arche Executive Pte. Ltd. registered; UEN in `company.py` | Notice names the responsible organisation | Morten |
 | 2 | Phone | Singapore business number in `company.py` | Website contact routes | Morten |
-| 3 | Data Protection Officer | Confirmed who it is (privacy@archeaviation.com is live, role on the Privacy page); filed on BizFile+ after registration | PDPA s.11(3)-(5) | Morten |
+| 3 | DPO on BizFile+ | Morten is the DPO (appointed 9 Nov 2026; shown by role and privacy@archeaviation.com only); filed on BizFile+ after registration, acknowledgement kept | PDPA s.11(3)-(5); ACRA BizFile+ | Morten |
 | 4 | Approvals | Privacy notice, Website terms of use, Terms of business and `docs/DATA-PROTECTION-POLICY.md` (drafted 9 Nov 2026) approved, or reviewed by counsel | PDPA s.12, s.20 | Morten |
 | 5 | Vercel Pro with 2FA | Archē on a Pro team, DPA accepted, 2FA on Vercel and the other accounts | Vercel DPA only on Pro/Enterprise; Hobby is non-commercial | Morten (purchase) |
 | 6 | Processor agreements | DPAs saved: Vercel, Supabase (region checked), Resend, Anthropic, GitHub, mail provider | PDPA s.24, s.26; GDPR Art. 28, 46 | Morten |

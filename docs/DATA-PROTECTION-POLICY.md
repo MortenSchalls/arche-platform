@@ -5,8 +5,8 @@ PDPA s.12 requires: policies and practices, a complaints process, and informatio
 It matches the public Privacy notice ("Last updated 9 November 2026") and follows the same standard as the Navoryx
 policy (Morten, 9 Nov 2026: "ensure we follow same GDPR rules as Navoryx").
 
-Owner: the Data Protection Officer (to be confirmed by Morten; launch blocker 3). On the website the DPO appears by
-role and address only: privacy@archeaviation.com (an alias on contact@archeaviation.com, 26 Oct 2026). Review this
+Owner: the Data Protection Officer, Morten Schalls Jørgensen (appointed 9 November 2026). On the website the DPO
+appears by role and address only: privacy@archeaviation.com (an alias on contact@archeaviation.com, 26 Oct 2026). Review this
 policy at least once a year, and whenever a new form, processor, country or purpose is added.
 
 Company: Arche Executive Pte. Ltd. once registered. Until then the website stays unlaunched
@@ -121,8 +121,8 @@ to the PDPA and to report any loss or misuse within 24 hours). Access ends the d
 | # | Topic | Requirement | What we have | Still needed | Who | Risk after action |
 |---|---|---|---|---|---|---|
 | 1 | Company | Notice names the organisation | Name in notice; UEN pending | Register; set UEN | Morten | Low |
-| 2 | DPO | PDPA s.11(3)-(5) | privacy@ live; role on the Privacy page | Confirm who is DPO | Morten | Low |
-| 3 | DPO on BizFile+ | ACRA | Not possible before UEN | File after registration | Morten | Low |
+| 2 | DPO | PDPA s.11(3)-(5) | Morten appointed 9 Nov 2026; privacy@ live; role on the Privacy page | — | — | Low |
+| 3 | DPO on BizFile+ | ACRA | Not possible before UEN | File after registration (B1) | Morten | Low |
 | 4 | Written policy | s.12 | This document | Approve; annual review | Morten | Low |
 | 5 | Public notice | s.20; GDPR Art. 13 | Privacy notice, 16 sections (9 Nov 2026) | Approve | Morten | Low |
 | 6 | Consent | s.14 | Tick on every form; server refuses without it | — | — | Low |
@@ -140,6 +140,12 @@ to the PDPA and to report any loss or misuse within 24 hours). Access ends the d
 | 18 | Navoryx IR records | s.4(2) data intermediary | Director-only in the portal | **Agreement (Part D)** | Morten | Medium → Low |
 | 19 | Terms of business | Contract | Part B of the charter confirmation | Approve | Morten | Low |
 | 20 | Website terms | UCTA s.2(1) carve-out; Singapore law | Website terms of use | Approve | Morten | Low |
+
+### B1. BizFile+ DPO filing (after registration)
+1. bizfile.gov.sg, log in with Singpass, select Arche Executive Pte. Ltd.
+2. e-Services → Update Company Information → Update Data Protection Officer information (ACRA passes it to the PDPC).
+3. Enter the DPO's business contact privacy@archeaviation.com; the name is filed there, not on the website.
+4. No fee. Keep the acknowledgement in the company folder.
 
 ### B3. Logs (one spreadsheet, Director only)
 Request log (access, correction, withdrawal, complaint, monthly deletion) and breach log (date, what, assessment,
