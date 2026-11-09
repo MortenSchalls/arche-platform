@@ -291,7 +291,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         airports: r.data.airports, source: r.data.source, website: r.data.website, status: r.data.status, batch: r.data.batch, added: r.data.added, type: r.data.hotel ? "hotel" : "", aoc: r.data.ops && r.data.ops.aoc, fleet: r.data.ops && r.data.ops.fleet });
       const rep = { operators: rows.filter(r => r.data.kind === "operator").map(pick), services: rows.filter(r => r.data.kind === "service").map(pick),
         others: rows.filter(r => !["operator", "service"].includes(r.data.kind)).map(r => ({ org: r.data.org, kind: r.data.kind, segment: r.data.segment, country: r.data.country, batch: r.data.batch })),
-        sets: { core: await db.get("intel/services"), hotels: await db.get("intel/services-hotels") } };
+        sets: { core: await db.get("intel/services"), hotels: await db.get("intel/services-hotels") }, registriesStatus: await db.get("intel/audit-registries") };
+      try { const { data } = await db.sb.storage.from("registries").download("index.json"); const ix = JSON.parse(await data.text());
+        rep.registries = { keys: Object.keys(ix), sample: JSON.stringify(ix).slice(0, 1500), size: JSON.stringify(ix).length }; } catch (e) { rep.registries = { error: String(e) }; }
       console.log("PLAN-BEGIN\n" + seal(rep, process.env.KEY) + "\nPLAN-END"); return { note: `report: ${rep.operators.length} operators, ${rep.services.length} service partners` };
     }
     const raw = String(process.env.BATCH || "").trim();
