@@ -89,21 +89,36 @@ def build():
     assert s.count('<script src="./support.js"></script>') == 1
     s = s.replace('<script src="./support.js"></script>', head_add + '<script src="./support.js"></script>')
 
+    # 2a. consent tick on the quote and call-back forms (launch blocker 10, Morten 9 Nov 2026: "ensure we follow same
+    # GDPR rules as Navoryx"): nothing is sent until the visitor ticks it; the tick travels with the enquiry
+    for a, b in (("detailsError: s.detailsError, noDetailsError: !s.detailsError,",
+                  "detailsError: s.detailsError, noDetailsError: !s.detailsError, consentQ: !!s.consentQ, onConsentQ: e => this.setState({ consentQ: e.target.checked, consentErr: false }), consentFg: s.consentErr ? '#e8c27a' : '#a3a9b1',"),
+                 ("const ok = s.name.trim() && s.reach.trim();",
+                  "const ok = s.name.trim() && s.reach.trim(); if (ok && !s.consentQ) { this.setState({ consentErr: true, detailsError: false }); return; }"),
+                 ("cbPhone: s.cbPhone, onCbPhone: e => this.setState({ cbPhone: e.target.value }),",
+                  "cbPhone: s.cbPhone, onCbPhone: e => this.setState({ cbPhone: e.target.value }), cbConsent: !!s.cbConsent, onCbConsent: e => this.setState({ cbConsent: e.target.checked, cbConsentErr: false }), cbConsentFg: s.cbConsentErr ? '#e8c27a' : '#a3a9b1',")):
+        assert s.count(a) == 1, a
+        s = s.replace(a, b)
+
     # 2. forms send to /api/enquiry
     old_submit = "this.setState(ok ? { step: 'done', detailsError: false } : { detailsError: true });"
     assert s.count(old_submit) == 1
     s = s.replace(old_submit, "if (ok) window.archeSend({ type: 'quote', trip: s.trip, legs: s.legs, returnDate: s.returnDate, pax: s.pax, name: s.name, reach: s.reach, reply: s.reply, lang: s.lang });\n        " + old_submit)
     old_cb = "cbSubmit: () => s.cbPhone.trim() && this.setState({ cbDone: true }),"
     assert s.count(old_cb) == 1
-    s = s.replace(old_cb, "cbSubmit: () => { if (!s.cbPhone.trim()) return; window.archeSend({ type: 'callback', phone: s.cbPhone, lang: s.lang }); this.setState({ cbDone: true }); },")
+    s = s.replace(old_cb, "cbSubmit: () => { if (!s.cbPhone.trim()) return; if (!s.cbConsent) { this.setState({ cbConsentErr: true }); return; } window.archeSend({ type: 'callback', phone: s.cbPhone, lang: s.lang }); this.setState({ cbDone: true }); },")
 
     # 3. privacy line and broker login
-    notice = '<p style="margin:14px 0 0;font-size:12px;line-height:1.6;color:#a3a9b1">We use your details only to answer this request. <a href="/privacy.html" style="color:#c6cbd2;text-decoration:underline">Privacy notice</a></p>'
+    notice = ('<label style="display:flex;gap:10px;align-items:flex-start;margin:14px 0 0;font-size:12px;line-height:1.6;color:{{ consentFg }};cursor:pointer">'
+              '<input type="checkbox" checked="{{ consentQ }}" onChange="{{ onConsentQ }}" style="margin:3px 0 0;accent-color:#a9bdd4;flex:none">'
+              '<span>I agree that my details are used to answer this request. <a href="/privacy.html" style="color:#c6cbd2;text-decoration:underline">Privacy notice</a></span></label>')
     i = s.index('<button onClick="{{ submit }}"'); j = s.index("</button>", i) + len("</button>")
     s = s[:j] + notice + s[j:]
     cb = '<span style="font-size:14px;color:#c6cbd2">An advisor calls back within 15 minutes.</span>'
     assert s.count(cb) == 1
-    s = s.replace(cb, cb[:-7] + ' <a href="/privacy.html" style="color:#a3a9b1;text-decoration:underline;font-size:12px">Privacy notice</a></span>')
+    s = s.replace(cb, cb + '<label style="display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.6;color:{{ cbConsentFg }};cursor:pointer">'
+                  '<input type="checkbox" checked="{{ cbConsent }}" onChange="{{ onCbConsent }}" style="margin:3px 0 0;accent-color:#a9bdd4;flex:none">'
+                  '<span>I agree that my details are used to answer this request. <a href="/privacy.html" style="color:#c6cbd2;text-decoration:underline">Privacy notice</a></span></label>')
     s = s.replace('<a href="#top">Privacy</a>', '<a href="/privacy.html">Privacy</a><a href="/website-terms.html">Website terms</a>')   # website terms of use, 9 Nov 2026
     assert s.count('<a href="#top">Terms of business</a>') == 1
     s = s.replace('<a href="#top">Terms of business</a>', '<a href="/terms.html">Terms of business</a>')

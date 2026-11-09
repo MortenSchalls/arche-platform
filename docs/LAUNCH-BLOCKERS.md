@@ -12,17 +12,18 @@ commit. Never remove one to get a pass.
 |---|---|---|---|---|
 | 1 | Company | Arche Executive Pte. Ltd. registered; UEN in `company.py` | Notice names the responsible organisation | Morten |
 | 2 | Phone | Singapore business number in `company.py` | Website contact routes | Morten |
-| 3 | Data Protection Officer | Appointed; privacy@archeaviation.com answered; shown by role on the Privacy page | PDPA s.11(3)-(5) | Morten |
-| 4 | DPO on BizFile+ | Filed after incorporation; acknowledgement kept | ACRA BizFile+ | Morten |
-| 5 | Data Protection Policy and compliance register | Written for Archē (purposes and retention, access and correction in 30 days, monthly deletion, breach plan with PDPC notice in 3 days, request and breach logs, staff access) and approved | PDPA s.12, s.21-26E | Claude drafts, Morten approves |
-| 6 | Vercel Pro with two-factor sign-in | Archē on a Pro team, DPA accepted, 2FA on | Vercel DPA covers only Pro/Enterprise; Hobby is non-commercial | Morten (purchase) |
-| 7 | Processor agreements | DPAs with transfer clauses accepted and saved: Vercel, Supabase (region checked), Resend, Anthropic, mail provider | PDPA s.24, s.26; GDPR Art. 28, 46 | Morten |
-| 8 | Data intermediary agreement with Navoryx | Signed for the investor-relations records the portal keeps for Navoryx | PDPA s.4(2), s.24; `docs/SEVERANCE.md` | Morten |
-| 9 | EU and UK representatives | Appointed and named in the Privacy notice, or a reasoned decision not to appoint them recorded here and signed off | GDPR / UK GDPR Art. 27 | Morten |
-| 10 | Consent tick on every form | Quote, call-back and empty-leg alert forms each need a tick before sending, recorded with the enquiry; alerts and news keep their separate tick | PDPA s.14; same as the Navoryx forms | Claude builds, Morten approves |
-| 11 | Legal pages approved | Privacy notice, Website terms of use and Terms of business approved against the compliance register (or by counsel, Morten's choice) | — | Morten |
-| 12 | Test data deleted | Test enquiries and test records removed from the portal | Retention | Morten |
-| 13 | Payment provider | Agreed; clients pay only through its secure payment request | CLAUDE.md, Money | Morten |
+| 3 | Data Protection Officer | Confirmed who it is (privacy@archeaviation.com is live, role on the Privacy page); filed on BizFile+ after registration | PDPA s.11(3)-(5) | Morten |
+| 4 | Approvals | Privacy notice, Website terms of use, Terms of business and `docs/DATA-PROTECTION-POLICY.md` (drafted 9 Nov 2026) approved, or reviewed by counsel | PDPA s.12, s.20 | Morten |
+| 5 | Vercel Pro with 2FA | Archē on a Pro team, DPA accepted, 2FA on Vercel and the other accounts | Vercel DPA only on Pro/Enterprise; Hobby is non-commercial | Morten (purchase) |
+| 6 | Processor agreements | DPAs saved: Vercel, Supabase (region checked), Resend, Anthropic, GitHub, mail provider | PDPA s.24, s.26; GDPR Art. 28, 46 | Morten |
+| 7 | Data intermediary agreement with Navoryx | Signed (heads of terms in the policy, Part D) | PDPA s.4(2), s.24; `docs/SEVERANCE.md` | Morten |
+| 8 | EU and UK representatives | Appointed and named in the Privacy notice, or a reasoned decision recorded (policy Part C) | GDPR / UK GDPR Art. 27 | Morten |
+| 9 | Payment provider | Agreed; clients pay only through its secure payment request | CLAUDE.md, Money | Morten |
+| 10 | Launch day: test data | Test enquiries and records deleted from the portal | Policy A4 | Morten |
+
+Closed 9 Nov 2026 (built and tested on staging): consent tick on the quote, call-back and empty-leg alert forms (the
+server refuses an enquiry without it); written Data Protection Policy and compliance register drafted (approval in
+item 4); BizFile+ DPO filing folded into item 3.
 
 Then: set `company.LAUNCHED = True` (the build refuses while any item is open), release staging to main, turn off the
 Vercel login for the website's production address, and submit the sitemap to the search engines.

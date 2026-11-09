@@ -26,7 +26,8 @@ export default async function handler(req, res) {
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return res.status(400).json({ error: "Email not valid" });
     data = { type: "alert", email, route: clean(b.route, 160), lang: clean(b.lang, 5), page: clean(b.page, 80), news: true };
   } else return res.status(400).json({ error: "Unknown request" });
-  data.consent = b.consent === true;
+  if (b.consent !== true) return res.status(400).json({ error: "Consent needed" });   // consent tick on every form (9 Nov 2026)
+  data.consent = true;
   data.visit = clean(b.visit, 20);                                       // links the enquiry to its website visit (source, campaign)
   data.code = clean(b.code, 12).replace(/[^A-Za-z0-9]/g, "");             // organisation link code, if the visitor came from one
 

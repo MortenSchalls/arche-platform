@@ -93,8 +93,9 @@ def alerts():
 <input name="route" placeholder="Routes, e.g. Singapore to Phuket" aria-label="Routes you fly" style="{inp}">
 <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
 <button type="submit" style="min-height:48px;padding:0 28px;border:1px solid rgba(243,245,248,0.4);background:none;color:#f3f5f8;font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer">Send me alerts</button>
+<label style="flex-basis:100%;display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6;color:#a3a9b1;cursor:pointer"><input name="consent" type="checkbox" style="margin:3px 0 0;accent-color:#a9bdd4;flex:none"><span>I agree to receive empty-leg alerts and occasional news by email, and can unsubscribe at any time. <a href="/privacy.html" style="color:#c6cbd2;text-decoration:underline">Privacy notice</a></span></label>
 </form>
-<p data-ae-alert-msg style="margin:12px 0 0;font-size:13px;color:#a3a9b1">We use your email only for these alerts. <a href="/privacy.html" style="color:#c6cbd2;text-decoration:underline">Privacy notice</a></p>
+<p data-ae-alert-msg aria-live="polite" style="margin:12px 0 0;font-size:13px;color:#a3a9b1"></p>
 </div><!--/ae:home-->'''
 
 ALERT_JS = """<!--ae:home--><script data-ae="home">
@@ -102,6 +103,7 @@ document.addEventListener('submit', function (e) {
   var f = e.target.closest && e.target.closest('form[data-ae-alert]'); if (!f) return; e.preventDefault();
   var em = (f.email.value || '').trim(), m = document.querySelector('[data-ae-alert-msg]');
   if (!/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(em)) { if (m) m.textContent = 'Please enter a valid email.'; return; }
+  if (!f.consent.checked) { if (m) m.textContent = 'Please tick the box to agree to the alerts.'; f.consent.focus(); return; }
   window.archeSend && window.archeSend({ type: 'alert', email: em, route: f.route.value, website: f.website.value, lang: document.documentElement.lang || 'en' });
   f.reset(); if (m) m.textContent = 'Thank you. We will email you when an empty leg fits. You can unsubscribe at any time.';
 });
