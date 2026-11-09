@@ -18,6 +18,8 @@ is changed: ask first.
 | The charter confirmation (client contract) | `apps/charter-confirmation/charter-confirmation-v6.html` | The portal's confirmation, the manual where it quotes the terms, the website terms of business (`apps/website/make_terms.py`) | Portal tests, `check_site.py` |
 | Website content | `apps/website/content/` (facts with source and date) | Built pages; the excluded-places list is shared with the quote form and the portal | `check_site.py`, `site.test.mjs` |
 | Places on the two public websites | `docs/PLACES.json` (Morten, 9 Nov 2026: a place added on one website is added on the other) | Archē city or country page (`apps/website/content/pages`) and the Navoryx city page, the same file in navoryx-website in the same piece of work | `check_site.py` and the Navoryx `check.py` |
+| Shared place facts | `apps/website/content/` (facts, airport files, sources) | `docs/SHARED-FACTS.json` (`python3 scripts/export_shared_facts.py`), copied into navoryx-website | `check_site.py` fails when the export is older than the facts |
+| Ties between Archē and Navoryx (severance) | `docs/SEVERANCE.md` (Morten, 9 Nov 2026), identical in both repositories | CLAUDE.md in both, the `SHARED_SITE` switches, the scheduled tasks that touch both | `check_site.py` and the Navoryx `check.py`, with the switch on and off |
 | Navoryx investor relations | `docs/IR-PORTAL-CONTRACT.md` | The same file in navoryx-website, in the same piece of work, both test suites run | `irtest`, `irnx.test.mjs` and the website's own tests |
 | Anything at all | — | `docs/ARCHE-HANDOVER.md` and the claude.ai project copy `arche/arche-handover.md` | — |
 

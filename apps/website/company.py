@@ -16,6 +16,8 @@ WECHAT_ID = ""   # e.g. "ArcheExecutive" once the WeChat account exists; until t
 #   login is ever off. True (launch day): search engines welcome; only approved pages are built and linked; drafts
 #   are not published at all.
 LAUNCHED = False
+# Ties with the other public website (docs/SEVERANCE.md, Morten 9 Nov 2026): False on severance; nothing else changes.
+SHARED_SITE = True
 # Launch blockers (Morten, 9 Nov 2026: "keep record on the missing items so we cannot launch before having these
 # sorted out"). Remove a line only when the item is done, with the date and who confirmed it in the commit message.
 # build.py refuses to build with LAUNCHED = True while any line is left, and check_site.py lists them every run.
