@@ -284,6 +284,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     let lists = null;
     try { const { data } = await db.sb.storage.from("sanctions").download("index.json"); const ix = JSON.parse(await data.text());
       if (ix && ix.names && Date.now() - Date.parse(ix.at) < 3 * 864e5) lists = { names: new Map(Object.entries(ix.names)), loaded: ix.lists || [], failed: ix.failed || [] }; } catch {}
+    if (mode === "report") {
+      // read-only review of operators and service partners (Morten, 9 Nov 2026), sealed with the caller's key
+      if (!String(process.env.KEY || "").trim()) throw new Error("No KEY given.");
+      const rows = await db.all("prospects"), pick = r => ({ id: r.id, org: r.data.org, kind: r.data.kind, segment: r.data.segment, category: r.data.category, country: r.data.country, city: r.data.city,
+        airports: r.data.airports, source: r.data.source, website: r.data.website, status: r.data.status, batch: r.data.batch, added: r.data.added, type: r.data.hotel ? "hotel" : "", aoc: r.data.ops && r.data.ops.aoc, fleet: r.data.ops && r.data.ops.fleet });
+      const rep = { operators: rows.filter(r => r.data.kind === "operator").map(pick), services: rows.filter(r => r.data.kind === "service").map(pick),
+        others: rows.filter(r => !["operator", "service"].includes(r.data.kind)).map(r => ({ org: r.data.org, kind: r.data.kind, segment: r.data.segment, country: r.data.country, batch: r.data.batch })),
+        sets: { core: await db.get("intel/services"), hotels: await db.get("intel/services-hotels") } };
+      console.log("PLAN-BEGIN\n" + seal(rep, process.env.KEY) + "\nPLAN-END"); return { note: `report: ${rep.operators.length} operators, ${rep.services.length} service partners` };
+    }
     const raw = String(process.env.BATCH || "").trim();
     const batch = raw.startsWith("S1.") ? open(raw, keys.privateKey) : decode(raw);
     if (!raw.startsWith("S1.") && batch.investors) throw new Error("Investor findings must be sealed (agentcrypt.mjs seal); nothing was written.");
