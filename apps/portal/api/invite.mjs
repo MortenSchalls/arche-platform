@@ -120,7 +120,7 @@ export const academyNext = (p, role) => {
   const t = ACADEMY_TITLES[id] || id, mm = t.match(/^(\d+) (.*)$/), title = mm ? `Module ${mm[1]} · ${mm[2]}` : t.replace(/^\S+ (?=Lab|Practical)/, "");
   return { id, title, min: ACADEMY_MIN[id] || 0 };
 };
-export function joinProgress({ invite = {}, user = null, prof = null, join = null, agr = null, prog = null, ack = null, offer = null, audits = [], runs = [], authEvents = null, now = new Date() } = {}) {
+export function joinProgress({ invite = {}, user = null, prof = null, join = null, agr = null, prog = null, ack = null, offer = null, audits = [], runs = [], authEvents = null, from = "", now = new Date() } = {}) {
   const jd = (join && join.data) || {}, a = (agr && agr.data) || {}, pd = (prof && prof.data) || {}, ob = (pd.roster || {}).onboarding || {};
   const p = (prog && prog.data) || null, role = (p && p.role) || jd.role || "broker", path = ACADEMY_PATHS[role] || ACADEMY_PATHS.broker;
   const mods = (p && p.mods) || {}, passed = path.filter(k => mods[k] && mods[k].passed), next = path.find(k => !(mods[k] && mods[k].passed));
@@ -190,7 +190,10 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   const lastActive = stamps[stamps.length - 1] || null, quiet = lastActive ? Math.floor((now - new Date(lastActive)) / 864e5) : 0;
   const atJoin = !onTeam && !join && !a.status, nextStep = academyNext(p, role);
   const remind = atJoin && user ? { due: quiet >= REMIND_DAYS, quiet, lastActive, sent: rem.length, lastSent: rem.length ? rem[rem.length - 1].at : null, next: nextStep,
-    preview: remindMail({ name: invite.name || um.name || "", link: "[personal sign-in link]", from: "[your name]", next: nextStep, pwSet, started: !!p }).text } : null;
+    // the preview is the email exactly as it goes out (Morten, 9 Nov 2026), with the sender's own name; only the link is
+    // made at the moment of sending (it works once and for a short time), so the preview says whose link goes there
+    preview: remindMail({ name: invite.name || um.name || "", link: `[${((invite.name || um.name || "").split(/\s+/)[0] || "Their")}'s own sign-in link: made when you press Send, works once]`, from: from || "Archē Executive", next: nextStep, pwSet, started: !!p }).text,
+    to: invite.email || (user && user.email) || "", subject: "Your next step with Archē Executive" } : null;
   return { done, of: steps.length, pct, label, steps, log: log.slice(0, 150), lastSeen: signedIn, history: Array.isArray(authEvents) ? "full" : "partial", pwSet, alert, remind };
 }
 // Delete an invitee and everything kept about them, in one step (Morten, 7 Nov 2026). Owners only, from Team > Invitations.
@@ -278,7 +281,7 @@ export default async function handler(req, res) {
         const audits = nm.length >= 3 ? arr((await sb(`/rest/v1/audit_log?select=t,action,detail&detail=ilike.*${encodeURIComponent(nm)}*&order=t.desc&limit=60`)).body) : [];
         // sign-in history kept by Supabase (needs SQL 0021; without it the log uses the other records only)
         const ae = await sb("/rest/v1/rpc/join_auth_events", { method: "POST", body: JSON.stringify({ p_uid: u.id, p_email: String(u.email || x.email || "").toLowerCase() }) });
-        return { ...inviteState(u, prof, join, agr), progress: joinProgress({ invite: x, user: u, prof, join, agr, prog, ack: runs.find(r => r.id === "onboarding") || null, offer: runs.find(r => r.id === "offer") || null, runs, audits, authEvents: ae.ok ? arr(ae.body) : null }) };
+        return { ...inviteState(u, prof, join, agr), progress: joinProgress({ invite: x, user: u, prof, join, agr, prog, ack: runs.find(r => r.id === "onboarding") || null, offer: runs.find(r => r.id === "offer") || null, runs, audits, authEvents: ae.ok ? arr(ae.body) : null, from: p.contract_name || "" }) };
       };
       for (const x of list.slice(0, 30)) {
         const u = await findUser(String(x.email || "").toLowerCase());
