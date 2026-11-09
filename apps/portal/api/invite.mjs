@@ -61,13 +61,15 @@ export function remindMail({ name, link, from, next, pwSet, started }) {
   const step = next ? `${next.title}${next.min ? ` (about ${next.min} minutes)` : ""}` : "";
   const lead = started ? "You have made a good start on the Archē Broker Academy, and your place is kept for you." : "Your place in the Archē Executive broker programme is ready when you are.";
   const nx = step ? `Your next step: ${step}.` : "Your next step is waiting on your joining page.";
+  // Morten, 9 Nov 2026: remind them of the December launch, no date
+  const launch = "Archē Executive launches in December, and we would love to have you with us, ready for your first clients from day one.";
   const how = pwSet === false ? "Open your personal link below and choose your password; your joining page then shows the next step, and \"Continue where you left off\" opens the academy at the right place."
     : "Open your personal link below; it signs you in to your joining page, and \"Continue where you left off\" opens the academy at the right place.";
-  const text = [`Dear ${first || "colleague"},`, "", lead, "", nx, "You can stop and come back at any time; your progress is saved as you go.", "", how, "", link, "",
+  const text = [`Dear ${first || "colleague"},`, "", lead, "", launch, "", nx, "You can stop and come back at any time; your progress is saved as you go.", "", how, "", link, "",
     "The link works once and only for a short time. Later, sign in at " + PORTAL + " with this email address and your password.", "",
     "If you have decided not to go ahead, just reply to this email and we will not send further reminders.", "",
     "Kind regards,", from || "Archē Executive", "Archē Executive"].join("\n");
-  const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px"><p>Dear ${esc(first || "colleague")},</p><p>${esc(lead)}</p>
+  const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px"><p>Dear ${esc(first || "colleague")},</p><p>${esc(lead)}</p><p>${esc(launch)}</p>
 <p><b>${esc(nx)}</b><br>You can stop and come back at any time; your progress is saved as you go.</p><p>${esc(how)}</p>
 <p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">CONTINUE WHERE YOU LEFT OFF</a></p>
 <p style="font-size:13px;color:#5b6067">The link works once and only for a short time. Later, sign in at <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a> with this email address and your password.</p>
