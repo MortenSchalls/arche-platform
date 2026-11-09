@@ -19,6 +19,14 @@ for(const w of [390,1300]){
   ok(w+': panel stays open after saving and shows it is on',await p.evaluate(()=>document.getElementById('agentBox').open)&&/on, monday to friday/.test(await p.textContent('#agentBox summary')));
   await p.evaluate(async()=>{const x=(await S.db.doc('intel/agent').get()).data();await S.db.doc('intel/agent').set({...x,state:'done',last:{at:new Date().toISOString(),added:4,operators:2,suppliers:1,routes:3,rejected:2,held:1,note:'Research agent: 4 organisations added.',reasons:['Example One: already known','Example Two: source page does not open or does not name the organisation']}});});await p.waitForTimeout(1200);
   ok(w+': shows the last run and what the checks rejected, with reasons',/4 organisations added, 2 operators, 1 suppliers, contact routes for 3, 2 rejected by the checks, 1 held for your decision/.test(await p.textContent('#agState'))&&/source page does not open/.test(await p.textContent('#agentBox')));
+  // service partners in their own sections; operator filters (Morten, 9 Nov 2026)
+  await p.evaluate(()=>{S.pSec='svc';S.svcSec='hotels';S.pf=null;render();});await p.waitForTimeout(600);
+  ok(w+': service partner sections, hotels shown apart from aviation services',(await p.$$('[data-act="svcSec"]')).length===5&&/Example Crew Hotel/.test(await p.textContent('#main'))&&/Hotels and resorts/.test(await p.textContent('#pf_category')));
+  await p.evaluate(()=>{S.svcSec='aviation';S.pf=null;render();});await p.waitForTimeout(400);
+  ok(w+': aviation services do not list hotels',!/Example Crew Hotel/.test(await p.textContent('#main')));
+  await p.evaluate(()=>{S.pSec='ops';S.pf=null;render();});await p.waitForTimeout(400);
+  ok(w+': operator filters: list or registry, audit level, checks',!!(await p.$('#pf_list'))&&!!(await p.$('#pf_level'))&&!!(await p.$('#pf_check')));
+  await p.evaluate(()=>{S.pSec='sales';S.pf=null;render();});await p.waitForTimeout(400);
   ok(w+': no sideways scroll',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await ctx.close();
   const c2=await b.newContext({viewport:{width:w,height:900}});const q=await c2.newPage();q.on('pageerror',e=>errs.push(w+' broker: '+e.message));

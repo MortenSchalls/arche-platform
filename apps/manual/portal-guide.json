@@ -1057,13 +1057,15 @@
    "id": "suppliers",
    "title": "Operators and service partners",
    "who": "Brokers and the Director",
-   "purpose": "The suppliers we can book worldwide: charter operators, and business-jet services at the business airports we serve.",
+   "purpose": "The suppliers we can book worldwide: charter operators, and service partners in their own sections.",
    "steps": [
-    "Prospects, Operators: charter operators with their certificate, safety audits, fleet and sanctions pre-screen. A person confirms the sanctions check before the first booking.",
-    "Prospects, Service partners: FBOs and ground handlers, trip support, in-flight catering and crew hotels at business airports worldwide (the 141 airports of the airport research list: Europe, the Middle East, Asia, Oceania, the Americas and Africa). Filter by airport and category.",
-    "Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle.",
+    "Prospects, Operators: charter operators from the ARGUS and WYVERN audit registries (read every morning), the official certificate lists of the aviation authorities (the UK CAA list first; more authorities follow) and the research agent. Each shows its list or registry, audit level, certificate, fleet and sanctions pre-screen.",
+    "Filter operators by region, country, list or registry, audit level and Checks (Something to confirm / Nothing to confirm). Every operator shows what is still to confirm before the first booking: certificate and insurance for registry operators, insurance for those on an official list.",
+    "Prospects, Service partners: one section per function, never mixed. Aviation services (FBOs and ground handlers, trip support, in-flight catering) at business airports worldwide; Hotels (crew hotels, and hotels and resorts for our clients); Ground transport (limousine and chauffeur); Helicopters; Yachts.",
+    "Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle. Hotels and resorts for clients must show five-star or luxury standard on their own page or a recognised guide. Helicopter operators need an operator certificate; yacht charters are marked to confirm licence and insurance.",
+    "One record per company, with all its airports, contacts and routes. Airline ground handlers, airport companies, maintenance firms and software are not service partners.",
     "Suppliers are never assigned to brokers as leads.",
-    "New operators and service partners come from the research agent (Prospects > Research agent): five airports a run, worldwide, until all are covered, then a refresh every 30 days. When the airport list grows, the new airports follow. Each one is checked before it goes in."
+    "The research agent adds service partners every morning, airport by airport worldwide (141 business airports), each section with its own progress, then a refresh every 30 days. Each one is checked before it goes in."
    ],
    "trouble": [
     [
@@ -1071,17 +1073,22 @@
      "Do not contact or book it. The Director decides."
     ],
     [
+     "An operator has no country yet",
+     "It came from a registry that lists only the name. The research agent completes about 25 a morning; filter Checks: Something to confirm."
+    ],
+    [
      "An airport has no service partner for what you need",
      "Add one with Add prospect and its public source, or ask the Director."
     ]
    ],
    "tips": [
-    "Check IS-BAH for handlers and ARGUS or Wyvern for operators before relying on them."
+    "Check IS-BAH for handlers and ARGUS or Wyvern for operators before relying on them.",
+    "Use List or registry: UK CAA AOC list to see operators whose certificate the authority itself lists."
    ],
    "n": "H.34",
    "try": [
     "broker",
-    "Open Prospects, Service partners, filter airport WSSL and open Example Crew Hotel: see its minutes and shuttle."
+    "Open Prospects, Service partners, choose Hotels, filter category Crew hotels, airport WSSL and open Example Crew Hotel: see its minutes and shuttle."
    ],
    "sys": 12
   },
