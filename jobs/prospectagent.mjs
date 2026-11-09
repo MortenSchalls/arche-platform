@@ -31,7 +31,7 @@ import { TRACKS, FOR, INV_FOCUS, INTERESTS, TICKETS, GEOS, vetInvestor, vetProfi
 import { CORE, SETS, AIRPORTS, GUEST_CATS, vetService } from "./services.mjs";
 import { seal, open, jobKeys } from "./agentcrypt.mjs";
 
-export const LIMITS = { orgs: 20, operators: 12, routes: 8, complete: 10, airports: 5, perAirport: 8, investors: 12, profiles: 8 };
+export const LIMITS = { orgs: 20, operators: 12, routes: 8, complete: 25, airports: 5, perAirport: 8, investors: 12, profiles: 8 };
 const WEEK = 7 * 864e5;
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
 const EXCL = JSON.parse(readFileSync(new URL("../apps/website/content/excluded.json", import.meta.url), "utf8"));

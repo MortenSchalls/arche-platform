@@ -104,7 +104,7 @@ export async function run(db = connect(), { log = console.log, now = new Date(),
     if (ex) {
       seenIds.add(ex.id); if (ex.data.kind !== "operator") continue;
       const ops0 = ex.data.ops || {}, kept = (ops0.audits || []).filter(a => !a.registry);
-      const d = { ...ex.data, lists: o.lists, ops: { ...ops0, audits: [...kept, ...audits], tier: opTier([...kept, ...audits]), aliases: [...new Set([...(ops0.aliases || []), ...o.aliases])].slice(0, 6),
+      const d = { ...ex.data, lists: o.lists, ...(!ex.data.country && country ? { country, region: REGION_OF(isoOf(country)), city: ex.data.city || o.base } : {}), ops: { ...ops0, audits: [...kept, ...audits], tier: opTier([...kept, ...audits]), aliases: [...new Set([...(ops0.aliases || []), ...o.aliases])].slice(0, 6),
         aoc: { ...(ops0.aoc || {}), ...(o.cert && !(ops0.aoc || {}).number ? { number: o.cert } : {}) }, flags: (ops0.flags || []).filter(f => !/^No longer listed/.test(f)) } };
       if (!dry) await db.set("prospects/" + ex.id, d); done.refreshed++; continue;
     }
