@@ -310,17 +310,23 @@ export default async function handler(req, res) {
     if (!name || name.split(/\s+/).length < 2) return res.status(400).json({ error: "Enter the person's first and last name." });
 
     const existing = await findUser(email);
-    const remind = b.mode === "remind";
+    const remind = b.mode === "remind" || b.mode === "remindpreview", preview = b.mode === "remindpreview";
     if (remind) {
       if (!existing) return res.status(400).json({ error: "This person has no login yet. Use Send invitation." });
       const pwSet = !!((existing.user_metadata || {}).pw_set || ((existing.app_metadata || {}).provider === "azure"));
       // a sign-in link for people with a password; a new password link for those who signed in but never set one
       const rtype = existing.last_sign_in_at && !pwSet ? "recovery" : "magiclink";
-      const gl = await sb("/auth/v1/admin/generate_link", { method: "POST", body: JSON.stringify({ type: rtype, email, redirect_to: PORTAL + "/" }) });
-      const link = gl.body && (gl.body.action_link || (gl.body.properties || {}).action_link);
-      if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the link (" + gl.status + ")." });
+      // the Director sees the complete email, link included, before sending (Morten, 9 Nov 2026: "ensure we see the full
+      // email before sending"): Remind makes the link and the email; Send sends that same link, never a new one
+      const given = String(b.link || ""), own = given.startsWith(process.env.SUPABASE_URL + "/auth/v1/verify?") && given.length < 1200;
+      let link = !preview && own ? given : "";
+      if (!link) { const gl = await sb("/auth/v1/admin/generate_link", { method: "POST", body: JSON.stringify({ type: rtype, email, redirect_to: PORTAL + "/" }) });
+        link = gl.body && (gl.body.action_link || (gl.body.properties || {}).action_link);
+        if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the link (" + gl.status + ")." }); }
       const prog = arrFirst((await sb(`/rest/v1/academy_progress?select=data&id=eq.${existing.id}`)).body);
       const pd = (prog && prog.data) || null;
+      if (preview) { const m = remindMail({ name, link, from: p.contract_name || "", next: academyNext(pd), pwSet, started: !!pd });
+        return res.status(200).json({ ok: true, preview: true, to: email, subject: m.subject, text: m.text, link, made: new Date().toISOString() }); }
       let sent = "not sent: RESEND_API_KEY missing in Vercel";
       if (process.env.RESEND_API_KEY) {
         const m = remindMail({ name, link, from: p.contract_name || "", next: academyNext(pd), pwSet, started: !!pd });

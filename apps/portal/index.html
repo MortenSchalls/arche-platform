@@ -7504,17 +7504,7 @@ function trustMatrix(){
           <div class="row"><button class="btn small" type="button" data-inv="copy">Copy the personal link</button></div><p class="muted">The link works once and only for a short time. Send it only to this person.</p></div>`
         : `<div class="note warn small" id="invResult"><p>${esc(r.error || "Could not send the invitation.")}</p></div>`) : ""}
       ${list.length ? `<h3 style="margin:6px 0 0">Invitations: ${(() => { const st = S.invStates || {}, acc = list.filter(x => (st[x.email] || {}).accepted).length; return S.invStates ? `${list.length - acc} pending, ${acc} accepted` : "pending and accepted"; })()}</h3>${(() => { const st = S.invStates || {}, due = list.filter(x => { const g = (st[x.email] || {}).progress; return g && g.remind && g.remind.due; }), pw = list.filter(x => ((st[x.email] || {}).progress || {}).alert);
-        // reminders one by one (Morten, 9 Nov 2026: "i would prefer i send to the individual one by one"): each person's own
-        // complete email is shown before it is sent; Send, Skip or Stop, then the next person
-        const can = list.filter(x => { const s = st[x.email] || {}; return s.progress && s.progress.remind && s.step !== "On the team"; });
-        const Q = S.invQ, cur = Q && can.find(x => x.email === Q.list[Q.i]), cr = cur && (st[cur.email] || {}).progress.remind;
-        const all = !can.length ? "" : !Q ? `<div class="row" style="margin:6px 0"><button class="btn small" type="button" data-inv="queue">Remind one by one (${can.length})</button></div>`
-          : !cur ? `<div class="note info small" id="invQBox"><p><b>Done: ${Q.sent} sent, ${Q.skipped} skipped.</b></p><div class="row"><button class="btn small" type="button" data-inv="qstop">Close</button></div></div>`
-          : `<div class="note info small" id="invQBox"><p><b>Reminder ${Q.i + 1} of ${Q.list.length}: ${esc(cur.name || cur.email)}</b></p>
-            <p class="muted">To: ${esc(cr.to || cur.email)} only. Subject: ${esc(cr.subject || "Your next step with Archē Executive")}. Sent from Archē's welcome address; replies come to you, and you get a hidden copy.${cr.sent ? ` Reminded before: ${cr.sent} time${cr.sent > 1 ? "s" : ""}, last ${fmtT(cr.lastSent)}.` : ""}</p>
-            <pre style="white-space:pre-wrap;font:inherit;margin:0;padding:10px;border:1px solid var(--line, rgba(127,127,127,.25));border-radius:6px">${esc(cr.preview || "")}</pre>
-            <div class="row"><button class="btn small primary" type="button" data-inv="qsend" ${S.invBusy ? "disabled" : ""}>${S.invBusy ? "Sending…" : "Send to " + esc((cur.name || cur.email).split(/\s+/)[0])}</button><button class="btn small" type="button" data-inv="qskip">Skip</button><button class="btn small" type="button" data-inv="qstop">Stop</button></div></div>`;
-        return all + (due.length || pw.length ? `<div class="note info small" id="invTodo">${due.length ? `<p><b>Reminders ready: ${due.length}.</b> ${due.map(x => esc(x.name || x.email)).join(", ")} ${due.length > 1 ? "have" : "has"} been quiet for ${S.invRemDays || 3} days or more. Press Remind to read the email, then Send. Nothing goes out without you.</p>` : ""}${pw.length ? `<p><b>Password never set: ${pw.map(x => esc(x.name || x.email)).join(", ")}.</b> Press Send again to email a new password link.</p>` : ""}</div>` : ""); })()}<div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th><th scope=col>Progress</th><th scope=col></th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
+        return (due.length || pw.length ? `<div class="note info small" id="invTodo">${due.length ? `<p><b>Reminders ready: ${due.length}.</b> ${due.map(x => esc(x.name || x.email)).join(", ")} ${due.length > 1 ? "have" : "has"} been quiet for ${S.invRemDays || 3} days or more. Press Remind to read the email, then Send. Nothing goes out without you.</p>` : ""}${pw.length ? `<p><b>Password never set: ${pw.map(x => esc(x.name || x.email)).join(", ")}.</b> Press Send again to email a new password link.</p>` : ""}</div>` : ""); })()}<div class="tbl"><table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Email</th><th scope=col>Invited</th><th scope=col>Email sent</th><th scope=col>Accepted</th><th scope=col>Progress</th><th scope=col></th></tr></thead><tbody>${list.map(x => { const st = (S.invStates || {})[x.email];
         const pg = st && st.progress, open = (S.invLog || {})[x.email];
         return `<tr><td>${esc(x.name || "")}</td><td>${esc(x.email || "")}</td><td>${fmtT(x.first || x.at)}${x.first && x.at && x.first !== x.at ? `<br><span class="muted">again ${fmtT(x.at)}</span>` : ""}</td><td><span class="invm">Email sent: </span>${x.notInvited ? `<span class="muted">Not invited from Team</span>` : x.sent ? "Yes" : "No: link given to you"}</td><td><span class="invm">Accepted: </span>${!st ? `<span class="muted">Checking…</span>` : st.accepted ? `<span class="chip c-flown">Yes</span> <span class="muted">${fmtT(st.signedIn)}</span>` : `<span class="chip c-enquiry">Not yet</span>`}${pg ? "" : `<br><span class="muted">${esc(st ? st.step : "")}</span>`}</td>
           <td style="min-width:200px">${pg ? invBar(pg) + invFlags(x, pg) : `<span class="muted">${st ? "" : "Checking…"}</span>`}</td><td><div class="row" style="flex-wrap:nowrap">${pg ? `<button class="btn small" type="button" data-inv="log|${esc(x.email)}" aria-expanded="${open ? "true" : "false"}">${open ? "Hide log" : "Log"}</button>` : ""}<button class="btn small" type="button" data-inv="again|${esc(x.email)}|${esc(x.name || "")}">Send again</button>${st && st.step === "On the team" ? "" : `<button class="btn small" type="button" data-inv="del|${esc(x.email)}" aria-expanded="${(S.invDel || "") === x.email ? "true" : "false"}">Delete</button>`}</div></td></tr>
@@ -7532,16 +7522,27 @@ function trustMatrix(){
     const r = pg.remind, out = [];
     if (pg.alert) out.push(`<span class="chip c-review">No password set</span> <span class="muted">Send again gives a new password link</span>`);
     if (r && r.next) out.push(`<span class="muted">Next: ${esc(r.next.title)}${r.next.min ? ` · about ${r.next.min} min` : ""}</span>`);
-    if (r && r.due) out.push(`<span class="chip c-enquiry">Quiet ${r.quiet} days</span> <button class="btn small" type="button" data-inv="remind|${esc(x.email)}" aria-expanded="${(S.invRem || {})[x.email] ? "true" : "false"}">Remind</button>`);
-    else if (r && r.lastSent) out.push(`<span class="muted">Reminder sent ${fmtT(r.lastSent)}</span>`);
+    // a Remind button on everyone who can get a reminder (Morten, 9 Nov 2026: "KEEP the remind button on each"); quiet 3 days or more is marked
+    if (r && (S.invStates || {})[x.email] && (S.invStates || {})[x.email].step !== "On the team") out.push(`${r.due ? `<span class="chip c-enquiry">Quiet ${r.quiet} days</span> ` : ""}<button class="btn small" type="button" data-inv="remind|${esc(x.email)}" aria-expanded="${(S.invRem || {})[x.email] ? "true" : "false"}">Remind</button>${r.lastSent ? ` <span class="muted">last reminded ${fmtT(r.lastSent)}</span>` : ""}`);
     return out.length ? `<div class="small" style="margin-top:4px;display:flex;flex-direction:column;gap:3px">${out.map(o => `<div>${o}</div>`).join("")}</div>` : "";
   }
+  // the complete email as it will be sent, link included (Morten, 9 Nov 2026: "ensure we see the full email before sending")
   function invRemind(x, pg){
-    const r = pg.remind;
+    const r = pg.remind, P = (S.invPrev || {})[x.email] || {};
+    const body = P.text ? `<pre style="white-space:pre-wrap;font:inherit;margin:0;padding:10px;border:1px solid var(--line, rgba(127,127,127,.25));border-radius:6px">${esc(P.text)}</pre>`
+      : P.error ? `<p class="note warn small">${esc(P.error)}</p>` : `<p class="muted">Preparing ${esc((x.name || x.email).split(/\s+/)[0])}'s email…</p>`;
     return `<div class="stack small" id="invRem_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}"><h3 style="margin:4px 0">Reminder to ${esc(x.name || x.email)}</h3>
-      <p class="muted">Subject: Your next step with Archē Executive. Sent from Archē's welcome address; replies come to you, and you get a hidden copy. Their personal link is added when you send.${r.sent ? ` Sent before: ${r.sent} time${r.sent > 1 ? "s" : ""}, last ${fmtT(r.lastSent)}.` : ""}</p>
-      <pre style="white-space:pre-wrap;font:inherit;margin:0;padding:10px;border:1px solid var(--line, rgba(127,127,127,.25));border-radius:6px">${esc(r.preview || "")}</pre>
-      <div class="row"><button class="btn small primary" type="button" data-inv="remindsend|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy ? "disabled" : ""}>Send this reminder</button><button class="btn small" type="button" data-inv="remind|${esc(x.email)}">Cancel</button></div></div>`;
+      <p class="muted">To: ${esc(P.to || r.to || x.email)} only. Subject: ${esc(P.subject || r.subject || "Your next step with Archē Executive")}. This is exactly the email that is sent, with ${esc((x.name || x.email).split(/\s+/)[0])}'s own sign-in link, as their joining stands now${P.made ? ` (${fmtT(P.made)})` : ""}. The link works once and only for a short time: if you wait, press Make again for a fresh one. Sent from Archē's welcome address; replies come to you, and you get a hidden copy.${r.sent ? ` Reminded before: ${r.sent} time${r.sent > 1 ? "s" : ""}, last ${fmtT(r.lastSent)}.` : ""}</p>
+      ${body}
+      <div class="row"><button class="btn small primary" type="button" data-inv="remindsend|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy || !P.text ? "disabled" : ""}>Send this reminder</button><button class="btn small" type="button" data-inv="remindmake|${esc(x.email)}|${esc(x.name || "")}">Make again</button><button class="btn small" type="button" data-inv="remind|${esc(x.email)}">Cancel</button></div></div>`;
+  }
+  async function remindPreview(email, name){
+    S.invPrev = S.invPrev || {}; S.invPrev[email] = {}; render();
+    try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
+      const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: (name || email).trim(), email, mode: "remindpreview"})});
+      const j = await r.json().catch(() => ({})); S.invPrev[email] = j.ok ? j : {error: j.error || "Could not prepare the email (" + r.status + ")."}; }
+    catch(e){ S.invPrev[email] = {error: "The invitation service could not be reached. Try again."}; }
+    render();
   }
   function invLog(x, pg){
     const steps = `<ol class="small" style="margin:0;padding-left:20px">${pg.steps.map(s => `<li style="margin:2px 0">${s.done ? '<span class="chip c-flown">Done</span>' : s === pg.steps.find(z => !z.done) ? '<span class="chip c-review">Now</span>' : '<span class="chip c-enquiry">Next</span>'} <b>${esc(s.t)}</b>${s.at ? ` <span class="muted">${fmtT(s.at)}</span>` : ""}${s.note ? ` <span class="muted">· ${esc(s.note)}</span>` : ""}</li>`).join("")}</ol>`;
@@ -7556,12 +7557,12 @@ function trustMatrix(){
       if (j.states) { S.invStates = j.states; S.invExtra = j.extra || []; S.peopleEmails = j.people || S.peopleEmails || {}; render(); } } catch(e){}
     S.invStBusy = false;
   }
-  async function send(again, mode){
+  async function send(again, mode, extra){
     const name = again ? again.name : ($("inv_name") || {}).value || "", email = again ? again.email : ($("inv_mail") || {}).value || "";
     S.invForm = {name, email}; S.invBusy = true; S.invRes = null; render();
     try {
       const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
-      const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim(), ...(mode ? {mode} : {})})});
+      const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim(), ...(mode ? {mode} : {}), ...(extra || {})})});
       const j = await r.json().catch(() => ({}));
       S.invRes = {...j, email: email.trim(), error: j.error || (r.ok ? "" : "The invitation service did not answer (" + r.status + ").")};
       if (j.ok && mode === "remind") { S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; (S.invRem || {})[email] = false; S.invRes = j.sent === "sent" ? null : S.invRes; toast(j.sent === "sent" ? "Reminder sent to " + email + "." : "Reminder not emailed (" + j.sent + "). Send the link yourself."); }
@@ -7573,14 +7574,10 @@ function trustMatrix(){
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest("[data-inv]"); if (!b) return; e.preventDefault();
     if (b.dataset.inv.startsWith("log|")) { const em = b.dataset.inv.slice(4); S.invLog = S.invLog || {}; S.invLog[em] = !S.invLog[em]; if (S.invLog[em]) S.invStAt = 0; render(); return; }
-    if (b.dataset.inv.startsWith("remind|")) { const em = b.dataset.inv.slice(7); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em]; render(); return; }
-    if (b.dataset.inv === "queue") { const st = S.invStates || {}, l = [...(S.invites || []).slice(0, 30), ...(S.invExtra || [])].filter(x => { const s = st[x.email] || {}; return s.progress && s.progress.remind && s.step !== "On the team"; });
-      S.invQ = {list: l.map(x => x.email), i: 0, sent: 0, skipped: 0}; render(); return; }
-    if (b.dataset.inv === "qskip" && S.invQ) { S.invQ.i++; S.invQ.skipped++; render(); return; }
-    if (b.dataset.inv === "qstop") { S.invQ = null; render(); return; }
-    if (b.dataset.inv === "qsend" && S.invQ && !S.invBusy) { const em = S.invQ.list[S.invQ.i], x = [...(S.invites || []), ...(S.invExtra || [])].find(z => z.email === em);
-      if (x) { await send({email: x.email, name: x.name || x.email}, "remind"); if (!S.invRes || S.invRes.ok) S.invQ.sent++; } S.invQ.i++; render(); return; }
-    if (b.dataset.inv.startsWith("remindsend|")) { const [, email, name] = b.dataset.inv.split("|"); if (!S.invBusy) send({email, name: name || email}, "remind"); return; }
+    if (b.dataset.inv.startsWith("remind|")) { const em = b.dataset.inv.slice(7); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em];
+      if (S.invRem[em]) { const x = [...(S.invites || []), ...(S.invExtra || [])].find(z => z.email === em); remindPreview(em, (x && x.name) || em); } else if (S.invPrev) delete S.invPrev[em]; render(); return; }
+    if (b.dataset.inv.startsWith("remindmake|")) { const [, email, name] = b.dataset.inv.split("|"); remindPreview(email, name || email); return; }
+    if (b.dataset.inv.startsWith("remindsend|")) { const [, email, name] = b.dataset.inv.split("|"); const P = (S.invPrev || {})[email] || {}; if (!S.invBusy && P.link) { await send({email, name: name || email}, "remind", {link: P.link}); if (S.invPrev) delete S.invPrev[email]; } return; }
     if (b.dataset.inv.startsWith("del|")) { const em = b.dataset.inv.slice(4); S.invDel = S.invDel === em ? "" : em; render(); return; }
     if (b.dataset.inv.startsWith("delgo|")) { const [, email, name] = b.dataset.inv.split("|"); if (S.invBusy) return; S.invBusy = true; render();
       try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
