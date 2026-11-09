@@ -145,3 +145,47 @@ Object.assign(PAGES, {
   ok("clean-up: wrong type removed, resort moved to Hotels and resorts, supplier moved out of the client list", !D["prospects/p3"] && D["prospects/p4"].category === "Hotels and resorts" && !D["prospects/p4"].hotel && D["prospects/p5"].kind === "service");
   ok("clean-up: a weak source is replaced by the company's own site when it names the company", D["prospects/p6"].source === "https://fbo-example.test/");
   ok("clean-up: every changed or removed record is archived in full", arch && arch.archive.some(a => a.id === "p3" && a.data.org === "Example Airline Handler") && arch.archive.some(a => a.id === "p2") && r.merged === 1 && r.removed === 1); }
+// operators from the audit registries (Morten, 9 Nov 2026): one record per operator, filters, nothing from excluded places
+{ const { run: opsRun, countryOf } = await import("./operators.mjs");
+  const ix = { at: "2026-11-09", sources: { ARGUS: { url: "https://argus.example/registry" }, WYVERN: { url: "https://wyvern.example/dir" } }, entries: [
+    { prog: "ARGUS", level: "Platinum", name: "Example Jets LLC", norm: "example jets" },
+    { prog: "WYVERN", level: "Wingman", name: "Example Jets", norm: "example jets", cert: "EX1J123", base: "Teterboro, NJ" },
+    { prog: "WYVERN", level: "Wingman", name: "Example Holder Aviation", norm: "example holder aviation", cert: "EX2", base: "Geneva, CH", holderOf: "Example Trading Air" },
+    { prog: "WYVERN", level: "Wingman", name: "Example Trading Air", norm: "example trading air", cert: "EX2", base: "Geneva, CH" },
+    { prog: "ARGUS", level: "Gold", name: "Example Listed Air", norm: "example listed air" },
+    { prog: "WYVERN", level: "Wingman", name: "Example Tehran Jets", norm: "example tehran jets", cert: "X", base: "Tehran, Iran" },
+    { prog: "ARGUS", level: "Gold", name: "Known Example Charter", norm: "known example charter" } ] };
+  const db = mk({ "prospects/p010": { org: "Known Example Charter", kind: "operator", ops: { audits: [{ name: "IS-BAH", level: "Stage 2", url: "https://x" }] } },
+    "prospects/p011": { org: "Gone Example Air", kind: "operator", origin: "registry", ops: { flags: [] } } });
+  const r = await opsRun(db, { ix, lists: { names: new Map([["example listed air", "Example list"]]) }, now: mon9, log: () => {} });
+  const P = Object.values(db.D).filter(x => x && x.kind === "operator"), by = n => P.find(x => x.org === n);
+  ok("registry operators added, one per operator, with programme, level, certificate number and base", by("Example Jets LLC") && by("Example Jets LLC").ops.audits.length === 2 && by("Example Jets LLC").ops.aoc.number === "EX1J123" && by("Example Jets LLC").country === "United States" && by("Example Jets LLC").region === "North America", by("Example Jets LLC"));
+  ok("certificate holder and trading name are one operator", P.filter(x => x.org === "Example Trading Air").length === 1 && !by("Example Holder Aviation") && by("Example Trading Air").country === "Switzerland" && by("Example Trading Air").ops.aliases.includes("Example Holder Aviation"));
+  ok("nothing from an excluded or sanctioned place; a possible match is held", !by("Example Tehran Jets") && by("Example Listed Air") && by("Example Listed Air").status === "review");
+  ok("every new operator is marked: certificate and insurance to confirm before the first booking", by("Example Jets LLC").ops.flags.some(f => /certificate and insurance to confirm/.test(f)));
+  ok("an existing operator keeps its own audits and gets the registry level added", by("Known Example Charter").ops.audits.some(a => a.name === "IS-BAH") && by("Known Example Charter").ops.audits.some(a => a.name === "ARGUS" && a.registry));
+  ok("an operator no longer listed is flagged, not deleted", db.D["prospects/p011"] && db.D["prospects/p011"].ops.flags.some(f => /No longer listed/.test(f)) && r.added === 3);
+  ok("country from the registry base", countryOf("London, United Kingdom") === "United Kingdom" && countryOf("") === ""); }
+// guest services, each in its own section (Morten, 9 Nov 2026)
+{ Object.assign(PAGES, { "https://resort-example.test/": "<p>Sigma Example Resort, a five-star resort in Phuket.</p>", "https://inn-example.test/": "<p>Tau Example Inn, rooms near the beach.</p>",
+    "https://limo-example.test/": "<p>Upsilon Example Limousines: chauffeur service from the airport.</p>", "https://heli-example.test/": "<p>Phi Example Helicopters, helicopter transfers.</p>",
+    "https://caa-example.test/heli": "<p>Phi Example Helicopters holds operator certificate H-1.</p>", "https://chi-example.test/": "<p>Chi Example Helicopters, helicopter flights.</p>",
+    "https://yacht-example.test/": "<p>Psi Example Yachts: crewed yacht charter.</p>" });
+  const db = mk(base);
+  const r = await importBatch(db, { suppliers: {
+    guest: { VTSP: [{ org: "Sigma Example Resort", category: "Hotels and resorts", country: "Thailand", website: "https://resort-example.test/", source: "https://resort-example.test/" }, { org: "Tau Example Inn", category: "Hotels and resorts", country: "Thailand", source: "https://inn-example.test/" }] },
+    ground: { VTSP: [{ org: "Upsilon Example Limousines", category: "Limousine and chauffeur", country: "Thailand", source: "https://limo-example.test/" }] },
+    heli: { VTSP: [{ org: "Phi Example Helicopters", category: "Helicopter transfers", country: "Thailand", source: "https://heli-example.test/", aoc_authority: "CAAT", aoc_source: "https://caa-example.test/heli" }, { org: "Chi Example Helicopters", category: "Helicopter transfers", country: "Thailand", source: "https://chi-example.test/" }] },
+    yacht: { VTSP: [{ org: "Psi Example Yachts", category: "Yacht charter", country: "Thailand", source: "https://yacht-example.test/" }] } } }, { fetchFn, lists, now: mon9 });
+  const P = Object.values(db.D), has = n => P.some(x => x && x.org === n);
+  ok("guest hotels: five-star or luxury shown on the page is kept; a plain inn is rejected", has("Sigma Example Resort") && !has("Tau Example Inn") && r.rejected.some(x => /Tau Example Inn.*five-star/.test(x)), r.rejected);
+  ok("limousine with chauffeur service, yacht charter: kept in their own categories with what to confirm", has("Upsilon Example Limousines") && P.find(x => x && x.org === "Psi Example Yachts").flags.some(f => /licence and insurance/.test(f)));
+  ok("helicopters need an operator certificate in a source", has("Phi Example Helicopters") && !has("Chi Example Helicopters") && P.find(x => x && x.org === "Phi Example Helicopters").aoc.authority === "CAAT");
+  ok("each section keeps its own progress", db.D["intel/services-guest"].covered.includes("VTSP") && db.D["intel/services-yacht"].covered.includes("VTSP")); }
+// registry operators completed by the research agent: only blank fields, only from pages that name the operator
+{ Object.assign(PAGES, { "https://omega-example.test/": "<p>Omega Example Jets, Teterboro. Fleet: Challenger 350 x3</p>", "https://faa-example.test/omega": "<p>Omega Example Jets certificate OEJA123</p>" });
+  const db = mk({ ...base, "prospects/p020": { org: "Omega Example Jets", kind: "operator", origin: "registry", country: "", city: "Teterboro, NJ", ops: { aoc: { number: "OEJA123" }, flags: ["Country to confirm."] } } });
+  const p = await plan(db, mon9); ok("plan lists registry operators to complete", p.opsToComplete.some(x => x.id === "p020"));
+  await importBatch(db, { opsComplete: { p020: { website: "https://omega-example.test/", country: "United States", region: "North America", country_source: "https://omega-example.test/", aoc_authority: "FAA", aoc_source: "https://faa-example.test/omega", fleet: [{ type: "Challenger 350", count: 3 }], fleet_source: "https://omega-example.test/" } } }, { fetchFn, lists, now: mon9 });
+  const d = db.D["prospects/p020"];
+  ok("registry operator completed: website, country, certificate source and fleet, flag cleared", d.website && d.country === "United States" && d.ops.aoc.source && d.ops.fleet.length === 1 && d.completed && !d.ops.flags.includes("Country to confirm."), d); }

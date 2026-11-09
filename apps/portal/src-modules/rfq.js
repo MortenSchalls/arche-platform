@@ -14,7 +14,11 @@ const SQ_SERVICES = {
   "FBO and ground handling": ["Ramp handling", "Passenger lounge", "Customs and immigration", "Crew transport", "Fuel arrangement", "Hangar", "Lavatory and water service", "Parking"],
   "Trip support": ["Landing permits", "Overflight permits", "Slots", "Flight planning", "Weather and NOTAM briefing"],
   "In-flight catering": ["Passenger catering", "Crew meals", "Special diets", "Bar and drinks", "Flowers and amenities"],
-  "Crew hotels": ["Single rooms for crew", "Crew rate", "Day rooms", "Late check-out", "Quiet or blackout rooms", "24-hour reception", "Breakfast"]};
+  "Crew hotels": ["Single rooms for crew", "Crew rate", "Day rooms", "Late check-out", "Quiet or blackout rooms", "24-hour reception", "Breakfast"],
+  "Hotels and resorts": ["Suites", "Rooms", "Airport or FBO transfer", "Early check-in or late check-out", "Dining reservations", "Spa"],
+  "Limousine and chauffeur": ["Pick-up at the aircraft or FBO", "Chauffeur by the hour", "Meet and greet", "Luggage vehicle"],
+  "Helicopter transfers": ["Airport transfer", "Point to point", "Sightseeing flight"],
+  "Yacht charter": ["Day charter", "Week charter", "Crewed charter", "Tender to shore"]};
 const sqStaff = () => isStaff() && acting() !== "broker";
 const sqList = () => Object.entries(S.rfqs || {}).map(([id, r]) => ({id, ...r})).sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
 async function sqSet(id, data){ await S.db.doc("rfqs/" + id).set(data); }
@@ -33,6 +37,8 @@ function sqEligible(p, cat){
   if (!sc) reasons.push("sanctions check not run yet (runs every morning)");
   if (cat === "FBO and ground handling" && !p.isbah) flags.push("No IS-BAH found");
   if (cat === "Crew hotels" && !(p.hotel && (p.hotel.type === "agency" || (p.hotel.minutes > 0 && p.hotel.minutes <= 15 && p.hotel.shuttle)))) reasons.push("not shown to be within 15 minutes of the airport with a dedicated airport shuttle");
+  if (cat === "Helicopter transfers" && !((p.ops || {}).aoc || {}).authority && !(p.aoc || {}).authority) reasons.push("no helicopter operator certificate shown");
+  if (cat === "Yacht charter") flags.push("Charter licence and insurance to confirm");
   if (!(p.avenues || []).length && !p.website) flags.push("No contact route on file");
   return {eligible: !reasons.length, reasons, flags};
 }

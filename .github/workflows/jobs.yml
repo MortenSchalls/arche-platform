@@ -11,12 +11,13 @@ on:
     - cron: "23 1 * * 1"     # sanctions programmes watch, Mondays 08:23 Bangkok
     - cron: "41 23 * * *"    # daily sanctions screen, 06:41 Bangkok
     - cron: "53 23 * * *"    # daily audit check (registries and programme pages), 06:53 Bangkok
+    - cron: "29 0 * * *"     # operators from the audit registries and official AOC lists, 07:29 Bangkok
   workflow_dispatch:
     inputs:
       job:
         description: "Job to run now"
         type: choice
-        options: [rotation, agent-plan, agent-import, agent-report, agent-fix, backup, regimes, screen, audits]
+        options: [rotation, operators, operators-probe, agent-plan, agent-import, agent-report, agent-fix, backup, regimes, screen, audits]
         default: rotation
       batch:
         description: "agent-import only: the research batch (gzip + base64 JSON), sent by the scheduled task"
@@ -45,7 +46,7 @@ jobs:
       BATCH: ${{ inputs.batch }}
       KEY: ${{ inputs.key }}
       DRY: ${{ inputs.dry }}
-      JOB: ${{ github.event_name == 'workflow_dispatch' && inputs.job || (github.event.schedule == '17 19 * * *' && 'backup') || (github.event.schedule == '23 1 * * 1' && 'regimes') || (github.event.schedule == '41 23 * * *' && 'screen') || (github.event.schedule == '53 23 * * *' && 'audits') || 'rotation' }}
+      JOB: ${{ github.event_name == 'workflow_dispatch' && inputs.job || (github.event.schedule == '17 19 * * *' && 'backup') || (github.event.schedule == '23 1 * * 1' && 'regimes') || (github.event.schedule == '41 23 * * *' && 'screen') || (github.event.schedule == '53 23 * * *' && 'audits') || (github.event.schedule == '29 0 * * *' && 'operators') || 'rotation' }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -57,14 +58,14 @@ jobs:
         if: env.JOB == 'audits'
         working-directory: jobs
         run: npm install --no-save --no-audit --no-fund playwright@1.56.0 && npx playwright install --with-deps chromium
-      - name: PDF reader for the Singapore TSOFA list
-        if: env.JOB == 'screen'
+      - name: PDF reader (Singapore TSOFA list; official AOC lists)
+        if: env.JOB == 'screen' || env.JOB == 'operators' || env.JOB == 'operators-probe'
         run: which pdftotext || (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils)
       - name: Run ${{ env.JOB }}
         working-directory: jobs
         run: |
           if [ "$JOB" = "rotation" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then export FORCE=1; fi
-          if [ "$JOB" = "agent-plan" ]; then node prospectagent.mjs plan; elif [ "$JOB" = "agent-import" ]; then node prospectagent.mjs import; elif [ "$JOB" = "agent-report" ]; then node prospectagent.mjs report; elif [ "$JOB" = "agent-fix" ]; then node prospectagent.mjs fix; else node "$JOB.mjs"; fi
+          if [ "$JOB" = "operators-probe" ]; then node operators.mjs probe "$BATCH" "$KEY"; elif [ "$JOB" = "agent-plan" ]; then node prospectagent.mjs plan; elif [ "$JOB" = "agent-import" ]; then node prospectagent.mjs import; elif [ "$JOB" = "agent-report" ]; then node prospectagent.mjs report; elif [ "$JOB" = "agent-fix" ]; then node prospectagent.mjs fix; else node "$JOB.mjs"; fi
       - name: Encrypt backup
         if: env.JOB == 'backup'
         working-directory: jobs

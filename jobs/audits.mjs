@@ -129,7 +129,7 @@ export async function run(db, fetchFn = fetch, log = console.log, nowIso = new D
       let why = "";
       if (e.length < R.min && browser) { try { e = await browser(R, log); } catch (err) { why = " [" + err.message + "]"; log(`  ${R.id} browser: ${err.message}`); } }
       if (e.length < R.min) throw new Error(`only ${e.length} operators could be read; a partial list is not used to say an operator is not listed${why}`);
-      e.forEach(x => index.entries.push({ prog: R.id, level: x.level, name: x.name, norm: normName(x.name), ...(x.cert ? { cert: x.cert } : {}), ...(x.holderOf ? { holderOf: x.holderOf } : {}) }));
+      e.forEach(x => index.entries.push({ prog: R.id, level: x.level, name: x.name, norm: normName(x.name), ...(x.cert ? { cert: x.cert } : {}), ...(x.base ? { base: x.base } : {}), ...(x.holderOf ? { holderOf: x.holderOf } : {}) }));
       index.sources[R.id] = { ok: true, count: e.length, url: R.url };
     } catch (err) { index.sources[R.id] = { ok: false, error: String(err.message || err).slice(0, 500), url: R.url }; log(`  ${R.id} registry: ${err.message}`); }
   }

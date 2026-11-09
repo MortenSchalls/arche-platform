@@ -14,9 +14,16 @@ import { vetContacts } from "./lib/contacts.mjs";
 export const CORE = ["FBO and ground handling", "Trip support", "In-flight catering"];
 export const CATEGORIES = [...CORE, "Crew hotels"];
 // each set has its own progress record, so a new category covers all airports without waiting for the core refresh
+// one set per section, never mixed (Morten, 9 Nov 2026: hotels in their own section, and limousine, helicopters and yachts
+// for full-service bookings for our clients); perRun: airports researched per run in that set
 export const SETS = {
-  core: { key: "intel/services", cats: CORE, label: "Service partner review" },
-  hotels: { key: "intel/services-hotels", cats: ["Crew hotels"], label: "Crew hotel review" } };
+  core: { key: "intel/services", cats: CORE, label: "Service partner review", perRun: 5 },
+  hotels: { key: "intel/services-hotels", cats: ["Crew hotels"], label: "Crew hotel review", perRun: 5 },
+  guest: { key: "intel/services-guest", cats: ["Hotels and resorts"], label: "Hotels and resorts review", perRun: 3 },
+  ground: { key: "intel/services-ground", cats: ["Limousine and chauffeur"], label: "Ground transport review", perRun: 3 },
+  heli: { key: "intel/services-heli", cats: ["Helicopter transfers"], label: "Helicopter review", perRun: 2 },
+  yacht: { key: "intel/services-yacht", cats: ["Yacht charter"], label: "Yacht review", perRun: 2 } };
+export const GUEST_CATS = ["Hotels and resorts", "Limousine and chauffeur", "Helicopter transfers", "Yacht charter"];
 // Global (Morten, 8 Nov 2026: "service partners are far from finished as we need to operate globally"): the airports are
 // the business-aviation airports of the website's airport research work list (tier 1 of
 // apps/website/content/airports/_queue.json: 140 airports in 59 countries on 8 Nov 2026, plus Phnom Penh from the first list, no excluded places), with names
@@ -56,10 +63,15 @@ export function vetService(o, seen, icao, optSet, cats = CATEGORIES) {
     }
   }
   if (o.category === "FBO and ground handling" && !isbah) flags.push("No IS-BAH registration found: check handling standards before relying on them.");
+  // helicopters fly passengers: an operator certificate is required, as for jet operators
+  let aoc = null;
+  if (o.category === "Helicopter transfers") { if (!clean(o.aoc_authority) || !ok(o.aoc_source)) return { why: "helicopter operator without an operator certificate shown in a source" };
+    aoc = { authority: clean(o.aoc_authority, 80), source: clean(o.aoc_source, 400) }; flags.push("Insurance to confirm before the first booking."); }
+  if (o.category === "Yacht charter") flags.push("Charter licence and insurance to confirm before the first booking.");
   return { rec: { org: clean(o.org, 160), kind: "service", segment: "Service partner", category: o.category, airports: [icao],
     region: clean(o.region, 40), country: clean(o.country, 60), province: "", city: clean(o.city, 60), website, source: clean(o.source, 400),
     services: (Array.isArray(o.services) ? o.services : []).map(x => clean(x, 60)).filter(Boolean).slice(0, 10),
-    hours: clean(o.hours, 40), isbah, ...(hotel ? { hotel } : {}), evidence, flags, why: clean(o.why, 400), approach: clean(o.approach, 500),
+    hours: clean(o.hours, 40), isbah, ...(hotel ? { hotel } : {}), ...(aoc ? { aoc } : {}), tier: clean(o.tier, 80), evidence, flags, why: clean(o.why, 400), approach: clean(o.approach, 500),
     avenues: vetAvenues(o.avenues, seen, o.website), contacts: vetContacts(o.contacts, seen, website, o.org, optSet), status: "new" } };
 }
 

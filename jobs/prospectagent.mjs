@@ -28,10 +28,10 @@ import { vetContacts } from "./lib/contacts.mjs";
 import { due } from "./agent.mjs";
 import { FOCUS, OP_FOCUS, SEGMENTS, REGIONS, SANCTIONED, MARKETPLACES, normName, normUrl, host, vetAvenues, vetOperator } from "./intel.mjs";
 import { TRACKS, FOR, INV_FOCUS, INTERESTS, TICKETS, GEOS, vetInvestor, vetProfile, fitScore } from "./investors.mjs";
-import { CORE, SETS, AIRPORTS, vetService } from "./services.mjs";
+import { CORE, SETS, AIRPORTS, GUEST_CATS, vetService } from "./services.mjs";
 import { seal, open, jobKeys } from "./agentcrypt.mjs";
 
-export const LIMITS = { orgs: 20, operators: 12, routes: 8, airports: 5, perAirport: 8, investors: 12, profiles: 8 };
+export const LIMITS = { orgs: 20, operators: 12, routes: 8, complete: 10, airports: 5, perAirport: 8, investors: 12, profiles: 8 };
 const WEEK = 7 * 864e5;
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
 const EXCL = JSON.parse(readFileSync(new URL("../apps/website/content/excluded.json", import.meta.url), "utf8"));
@@ -89,7 +89,7 @@ export async function plan(db, now = new Date()) {
   for (const [name, S] of Object.entries(SETS)) {
     const st = (await db.get(S.key)) || {}, { paused, covered } = coveredFor(st, rows, S, now);
     if (paused) { suppliers[name] = { airports: [], categories: S.cats, note: "refresh after " + st.pausedUntil.slice(0, 10) }; continue; }
-    suppliers[name] = { airports: AIRPORTS.filter(([icao]) => !covered.has(icao)).slice(0, LIMITS.airports).map(([icao, n]) => ({ icao, name: n })), categories: S.cats };
+    suppliers[name] = { airports: AIRPORTS.filter(([icao]) => !covered.has(icao)).slice(0, S.perRun || LIMITS.airports).map(([icao, n]) => ({ icao, name: n })), categories: S.cats, ...(GUEST_CATS.some(c => S.cats.includes(c)) ? { forGuests: true } : {}) };
   }
   // investors and strategic partners: once a week (Director-only list)
   const inv = (await db.get("owner/_status")) || {}, mine = (await db.all("owner_prospects")).filter(r => r.id !== "_status");
@@ -98,7 +98,11 @@ export async function plan(db, now = new Date()) {
     known: [...mine.map(r => r.data.org), ...rows.map(r => r.data.org)].filter(Boolean),
     profile: mine.filter(r => !r.data.profile && r.data.status !== "dnc").slice(0, LIMITS.profiles).map(r => ({ id: r.id, org: r.data.org, website: r.data.website || "", country: r.data.country || "" })) } : null;
   return { due: isDue, reason: !agent.on ? "The agent is off (Prospects > Research agent)." : isDue ? "Due." : "Not due today.", focus: FOC[fi % FOC.length], opFocus: OP_FOCUS[ofi % OP_FOCUS.length],
-    limits: LIMITS, segments: SEGMENTS, regions: REGIONS, known: rows.map(r => r.data.org).filter(Boolean), bare, suppliers, investors };
+    limits: LIMITS, segments: SEGMENTS, regions: REGIONS, known: rows.map(r => r.data.org).filter(Boolean), bare, suppliers, investors,
+    // operators from the registries with details still to find (country, website, certificate, fleet), oldest first
+    opsToComplete: rows.filter(r => r.data.kind === "operator" && r.data.origin === "registry" && !r.data.completed && r.data.status !== "dnc")
+      .sort((a, b) => String(a.data.added || "").localeCompare(String(b.data.added || ""))).slice(0, LIMITS.complete)
+      .map(r => ({ id: r.id, org: r.data.org, aliases: (r.data.ops || {}).aliases || [], base: r.data.city || "", country: r.data.country || "", certificate: ((r.data.ops || {}).aoc || {}).number || "" })) };
 }
 
 // ---- import ----
@@ -178,17 +182,41 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
     if (!dry) await db.set("prospects/" + id, { ...r.data, avenues: av, aiReviewed: nowIso }); updated++;
   }
 
+  // 3b. registry operators completed: only blank fields are filled, each from a page that opens and names the operator
+  let opsCompleted = 0;
+  for (const [id, o] of Object.entries(batch.opsComplete || {}).slice(0, LIMITS.complete)) {
+    const r = byId[id]; if (!r || r.data.kind !== "operator" || !o) continue;
+    const okp = async u => u && (await P.get(u)) && names(await P.get(u), r.data.org, o.website) ? (seen.add(normUrl(u)), true) : false;
+    const d = { ...r.data, ops: { ...(r.data.ops || {}) } }; let changed = false;
+    if (o.website && !d.website && (await okp(o.website))) { d.website = clean(o.website, 300); changed = true; }
+    if (o.country && !d.country && (await okp(o.country_source || o.website))) { if (excludedPlace({ country: o.country })) { rejected.push(`${clean(r.data.org, 60)} (operator): excluded or sanctioned country`); continue; }
+      d.country = clean(o.country, 60); d.region = REGIONS.includes(o.region) ? o.region : d.region; changed = true; }
+    if (o.aoc_authority && o.aoc_source && !(d.ops.aoc || {}).source && (await okp(o.aoc_source))) { d.ops.aoc = { ...(d.ops.aoc || {}), authority: clean(o.aoc_authority, 80), source: clean(o.aoc_source, 400) }; changed = true; }
+    if (Array.isArray(o.fleet) && o.fleet.length && !(d.ops.fleet || []).length && (await okp(o.fleet_source))) { d.ops.fleet = o.fleet.map(f => ({ type: clean(f && f.type, 80), count: Math.max(0, parseInt(f && f.count, 10) || 0) })).filter(f => f.type).slice(0, 20); d.ops.fleetSource = clean(o.fleet_source, 400); changed = true; }
+    d.ops.flags = (d.ops.flags || []).filter(f => !(f === "Country to confirm." && d.country));
+    d.completed = !!(d.country && (d.ops.aoc || {}).source && (d.ops.fleet || []).length); d.checkedAt = nowIso;
+    if (!dry) await db.set("prospects/" + id, d); if (changed) opsCompleted++;
+  }
+
   // 4. business-jet suppliers at the key airports (services.mjs rules; a company already listed gets the airport added)
   const svcAdded = [], svcRejected = []; let svcMerged = 0;
   const byName = new Map(rows.map(r => [normName(r.data.org), r]));
   for (const [setName, perAirport] of Object.entries(batch.suppliers || {})) {
     const S = SETS[setName]; if (!S || !perAirport || typeof perAirport !== "object") continue;
     const st = (await db.get(S.key)) || {}, { covered } = coveredFor(st, rows, S, now), done = [];
-    for (const [icao, items] of Object.entries(perAirport).slice(0, LIMITS.airports)) {
+    for (const [icao, items] of Object.entries(perAirport).slice(0, S.perRun || LIMITS.airports)) {
       if (!AIRPORTS.some(([c]) => c === icao)) continue;
       for (const o of (Array.isArray(items) ? items : []).slice(0, LIMITS.perAirport)) {
         let why = !o || !clean(o.org) || !clean(o.source) ? "missing name or source" : PERSONLIKE.test(clean(o.org)) ? "looks like a private person, not an organisation" : excludedPlace(o) ? "excluded or sanctioned place (" + excludedPlace(o) + ")" : "";
         if (!why && !(await opened(o.source, true, o.org, o.website))) why = "source page does not open or does not name the organisation";
+        // for our clients (UHNW, VIP): the page itself must show the standard (five-star or luxury hotel, chauffeur service, yacht charter)
+        if (!why && GUEST_CATS.includes(o.category)) {
+          const pages = [await P.get(o.source), o.tier_url ? await P.get(o.tier_url) : null, o.website ? await P.get(o.website) : null].filter(Boolean).join(" ");
+          const need = { "Hotels and resorts": [/five[- ]star|5[- ]star|forbes travel guide|michelin key|leading hotels of the world|relais & ch|luxury/, "not shown as a five-star or luxury hotel"],
+            "Limousine and chauffeur": [/chauffeur/, "not shown as a chauffeur service"], "Yacht charter": [/yacht/, "not shown as a yacht charter company"], "Helicopter transfers": [/helicopter/, "not shown as a helicopter operator"] }[o.category];
+          if (need && !(need[0].test(pages) && (o.category !== "Yacht charter" || /charter/.test(pages)))) why = need[1];
+          if (o.aoc_source && await P.get(o.aoc_source)) seen.add(normUrl(o.aoc_source));
+        }
         if (!why) { for (const u of [o.website, o.minutes_url, o.shuttle && o.shuttle.url, o.isbah && o.isbah.url, ...(o.evidence || []).map(x => x && x.url)].filter(Boolean)) if (await P.get(u)) seen.add(normUrl(u));
           await openAll(o.avenues, o.website, o.org); await openAll(o.contacts, o.website, o.org, true); }
         const v = why ? { why } : vetService(o, seen, icao, optSet, S.cats);
@@ -246,7 +274,7 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
         note: `Research agent: ${invAdded} added, ${invProfiled} profiles, ${invRejected} rejected by the checks.`, rejected: irej.slice(0, 20), by: "research agent" }); }
   }
   const invNote = batch.investors ? ` Investors and partners (Director-only list): ${invAdded} added, ${invProfiled} profiles, ${invRejected} rejected${invHeld ? ", " + invHeld + " held for your decision" : ""}.` : "";
-  const svcNote = batch.suppliers ? ` Suppliers at business airports: ${svcAdded.length} added, ${svcMerged} linked to more airports.` : "";
+  const svcNote = (batch.suppliers ? ` Service partners: ${svcAdded.length} added, ${svcMerged} linked to more airports.` : "") + (batch.opsComplete ? ` Registry operators completed: ${opsCompleted}.` : "");
   const note = `${dry ? "Dry run, nothing written. " : ""}Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${svcNote}${invNote}${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
   if (!dry) {
     const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0, ofi = Number.isInteger(status.opFocusIndex) ? status.opFocusIndex : 0;
