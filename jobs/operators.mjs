@@ -41,10 +41,44 @@ export function countryOf(base) {
 }
 const isoOf = name => (COUNTRIES.find(([, n]) => n === name) || [""])[0];
 
-// official AOC lists, read from the authority's own published file (added one by one, each with its own reader)
-export const AOC_LISTS = [];
+// UK CAA "UK Aeroplane and Helicopter AOC Holders" (pdftotext -raw): every table cell starts with a running marker "<n>B"
+export function parseUkCaa(raw) {
+  const text = String(raw).split("\n").filter(l => !/^(PDF |OFFICIAL|\d{2} \w+ \d{4} Page|UK Aeroplane|Number$)/.test(l.trim()) && !/^3BCompany 4BTrading As/.test(l.trim())).join("\n");
+  const cells = []; let prev = 7, from = -1, re = /(?<=^|\s)(\d{1,4})B/gm, m;
+  while ((m = re.exec(text))) { const n = +m[1]; if (n > prev && n <= prev + 15) { if (from >= 0) cells.push(text.slice(from, m.index).replace(/\s+/g, " ").trim()); from = m.index + m[0].length; prev = n; } }
+  if (from >= 0) cells.push(text.slice(from).replace(/\s+/g, " ").trim());
+  const out = []; let i = 0;
+  while (i + 2 < cells.length) {
+    if (/^see:/i.test(cells[i + 1] || "")) { i += 2; while (i < cells.length && cells[i] === "N/A") i++; continue; }
+    const company = cells[i], trading = cells[i + 1], contact = cells[i + 2]; i += 3; const aircraft = []; let aoc = "", na = 0;
+    while (i < cells.length) { const c = cells[i++]; if (/^\d{4}$/.test(c)) { aoc = c; break; } if (c === "N/A") { if (++na >= 2) break; continue; } aircraft.push(c); }
+    if (aoc) out.push({ company, trading: trading === "N/A" ? "" : trading, contact: contact === "N/A" ? "" : contact, aircraft, aoc });
+  }
+  return out;
+}
 
-export async function run(db = connect(), { log = console.log, now = new Date(), dry = false, ix = null, lists = null } = {}) {
+const BIZJET = /citation|phenom|praetor|legacy|lineage|learjet|challenger|global|falcon|gulfstream|hawker|premier|pc-?24|hondajet|emb ?50[05]|emb ?55[05]|emb ?135 ?bj|cl-?6\d\d|bd-?700|bd-?100|cessna (5[0-9]{2}|680|750)|g-?iv|g-?v\b|\bg[0-9]{3}\b|beechjet|nextant|acj|bbj|business jet/i;
+const HELI = /helicopter|\baw ?1\d\d|\bbell \d|robinson|\bas ?3\d\d|\bec ?1\d\d|\bh1[2-7]\d|leonardo aw|sikorsky|agusta/i;
+const NOT_CHARTER = /air ambulance|charity|flight academy|flight school|police|coastguard|search and rescue/i;
+const title = s => String(s || "").toLowerCase().replace(/\b([a-z])/g, c => c.toUpperCase()).replace(/\b(Uk|Aoc|Ni|Llp|Plc)\b/g, w => w.toUpperCase());
+// official AOC lists, read from the authority's own published file (added one by one, each with its own reader).
+// The certificate number and the authority's file are the certificate source, so these operators need only insurance
+// and fleet confirmed. Jet operators go to Operators, helicopter operators to the Helicopters section of service partners.
+export const AOC_LISTS = [
+  { id: "UK CAA", country: "United Kingdom", page: "https://www.caa.co.uk/data-and-analysis/approved-persons-and-organisations/approved-organisations/holders-of-air-operator-certificates/",
+    link: /href="([^"]*aoc-holders-list[^"]*\.pdf)"/i, format: "raw", parse: parseUkCaa, min: 60 }];
+async function readList(L, fetchFn = fetch) {
+  const { execFileSync } = await import("child_process"); const { writeFileSync } = await import("fs");
+  const h = await (await fetchFn(L.page, { headers: { "user-agent": "Mozilla/5.0 (compatible; ArcheOperatorList/1.0)" } })).text();
+  const m = h.match(L.link); if (!m) throw new Error("no list link on the authority's page");
+  const url = new URL(m[1], L.page).href, f = "/tmp/aoc-" + L.id.replace(/\W/g, "") + ".pdf";
+  writeFileSync(f, Buffer.from(await (await fetchFn(url)).arrayBuffer()));
+  const rows = L.parse(execFileSync("pdftotext", ["-" + L.format, f, "-"]).toString());
+  if (rows.length < L.min) throw new Error(`only ${rows.length} holders read; a partial list is not used`);
+  return { url, rows };
+}
+
+export async function run(db = connect(), { log = console.log, now = new Date(), dry = false, ix = null, lists = null, aoc = null } = {}) {
   const nowIso = now.toISOString(), today = nowIso.slice(0, 10);
   if (!ix) { const { data, error } = await db.sb.storage.from("registries").download("index.json"); if (error) throw new Error("registries index: " + error.message); ix = JSON.parse(await data.text()); }
   if (!lists) { try { const { data } = await db.sb.storage.from("sanctions").download("index.json"); const s = JSON.parse(await data.text()); lists = { names: new Map(Object.entries(s.names || {})) }; } catch { lists = { names: new Map() }; } }
@@ -85,13 +119,52 @@ export async function run(db = connect(), { log = console.log, now = new Date(),
     next++; const id = "p" + String(next).padStart(3, "0"); if (!dry) await db.set("prospects/" + id, rec); byName.set(normName(rec.org), { id, data: rec }); seenIds.add(id);
     done.added++; if (hits.length) done.held++;
   }
+  // official AOC lists: certificate confirmed from the authority's own file
+  const aocDone = {}; let aocAdded = 0, heliAdded = 0;
+  for (const L of AOC_LISTS) {
+    let got; try { got = aoc ? aoc[L.id] : await readList(L); } catch (e) { aocDone[L.id] = { ok: false, error: String(e.message || e).slice(0, 300) }; log(`  ${L.id}: ${e.message}`); continue; }
+    if (!got) continue; aocDone[L.id] = { ok: true, count: got.rows.length, url: got.url, readAt: nowIso };
+    for (const h of got.rows) {
+      if (/^www\./i.test(h.company) || NOT_CHARTER.test(h.company + " " + h.trading)) continue;
+      const jets = h.aircraft.filter(a => BIZJET.test(a)), helis = h.aircraft.filter(a => HELI.test(a));
+      if (!jets.length && !helis.length) continue;   // airlines, cargo, training: not for Archē's clients
+      const org = title(h.company), names = [org, h.trading ? title(h.trading) : ""].filter(Boolean);
+      const cert = { authority: L.id, number: h.aoc, source: got.url, confirmed: today };
+      const listEntry = { name: L.id + " AOC list", level: "Certificate holder", url: got.url, checked: today };
+      const ex = names.map(n => byName.get(normName(n))).find(Boolean);
+      const hits = lists.names.size ? screen(names, lists) : [];
+      if (jets.length) {
+        if (ex && ex.data.kind === "operator") {
+          seenIds.add(ex.id); const o0 = ex.data.ops || {};
+          const d = { ...ex.data, country: ex.data.country || L.country, region: ex.data.region && ex.data.region !== "Global" ? ex.data.region : REGION_OF(isoOf(L.country)), lists: [...(ex.data.lists || []).filter(l => l.name !== listEntry.name), listEntry],
+            ops: { ...o0, aoc: { ...(o0.aoc || {}), ...cert }, fleet: (o0.fleet || []).length ? o0.fleet : h.aircraft.map(type => ({ type, count: 0 })), fleetSource: o0.fleetSource || got.url,
+              flags: (o0.flags || []).filter(f => !/certificate and insurance to confirm|^Country to confirm/.test(f)).concat(["Insurance to confirm before the first booking."]).filter((x, i, a) => a.indexOf(x) === i) } };
+          if (!dry) await db.set("prospects/" + ex.id, d); done.refreshed++; continue;
+        }
+        if (ex) continue;
+        const rec = { org, segment: "Operator", kind: "operator", region: REGION_OF(isoOf(L.country)), country: L.country, province: "", city: "", website: h.contact ? "https://" + h.contact.replace(/^https?:\/\//, "") : "", source: got.url,
+          why: `Holds ${L.id} Air Operator Certificate ${h.aoc} with business jets (${jets.join(", ")}), per the authority's list of ${today}.`, approach: "Ask for the fleet list and insurance certificate before the first quote.",
+          status: hits.length ? "review" : "new", avenues: h.contact ? [{ type: "website", label: "Website (as listed by the authority)", url: "https://" + h.contact.replace(/^https?:\/\//, "") }] : [], contacts: [], lists: [listEntry], origin: "aoc-list", added: nowIso, batch: `${L.id} AOC list ${today}`, addedBy: "official list import",
+          ops: { aoc: cert, aliases: h.trading ? [title(h.trading)] : [], bases: [], fleet: h.aircraft.map(type => ({ type, count: 0 })), fleetSource: got.url, audits: [], safety: [], enforcement: [], owners: [], insurance: null, euAirSafetyList: "to check", founded: "", tier: opTier([]),
+            flags: ["Insurance to confirm before the first booking.", ...(hits.length ? ["Possible sanctions match: check the names against the list before any contact."] : [])], screen: { auto: { result: lists.names.size ? (hits.length ? "possible match" : "no match") : "not screened", at: nowIso, hits } } } };
+        next++; const id = "p" + String(next).padStart(3, "0"); if (!dry) await db.set("prospects/" + id, rec); byName.set(normName(org), { id, data: rec }); seenIds.add(id); aocAdded++; if (hits.length) done.held++;
+      } else if (!ex) {   // helicopter operators: the Helicopters section of service partners
+        const rec = { org, kind: "service", segment: "Service partner", category: "Helicopter transfers", airports: [], region: REGION_OF(isoOf(L.country)), country: L.country, province: "", city: "", website: h.contact ? "https://" + h.contact.replace(/^https?:\/\//, "") : "", source: got.url,
+          services: helis.slice(0, 10), aoc: cert, evidence: [], flags: ["Insurance to confirm before the first booking."], why: `Holds ${L.id} Air Operator Certificate ${h.aoc} for helicopters (${helis.join(", ")}).`, approach: "Ask for transfer prices, aircraft and insurance before the first booking.",
+          avenues: h.contact ? [{ type: "website", label: "Website (as listed by the authority)", url: "https://" + h.contact.replace(/^https?:\/\//, "") }] : [], contacts: [], status: hits.length ? "review" : "new", origin: "aoc-list", added: nowIso, batch: `${L.id} AOC list ${today}`, addedBy: "official list import",
+          screen: { auto: { result: lists.names.size ? (hits.length ? "possible match" : "no match") : "not screened", at: nowIso, hits } } };
+        next++; const id = "p" + String(next).padStart(3, "0"); if (!dry) await db.set("prospects/" + id, rec); byName.set(normName(org), { id, data: rec }); heliAdded++;
+      }
+    }
+  }
+  done.aocAdded = aocAdded; done.heliAdded = heliAdded;
   // an operator from a registry that is no longer listed is flagged, never deleted
   for (const r of rows) if (r.data.kind === "operator" && r.data.origin === "registry" && !seenIds.has(r.id)) {
     const f = `No longer listed in the audit registries since ${today}: check before using this operator.`;
     if (!((r.data.ops || {}).flags || []).some(x => /^No longer listed/.test(x))) { if (!dry) await db.set("prospects/" + r.id, { ...r.data, ops: { ...r.data.ops, flags: [...((r.data.ops || {}).flags || []), f] } }); done.left++; }
   }
-  const note = `${dry ? "Dry run, nothing written. " : ""}Operators from the audit registries: ${done.added} added, ${done.refreshed} refreshed, ${done.left} no longer listed, ${done.excluded} left out (excluded or sanctioned place), ${done.held} held for the Director (possible sanctions match).`;
-  if (!dry) await db.set("intel/operators", { lastRun: nowIso, ...done, note, sources: ix.sources });
+  const note = `${dry ? "Dry run, nothing written. " : ""}Operators: ${done.added} added from the audit registries, ${aocAdded} from official AOC lists (${Object.entries(aocDone).map(([k, v]) => k + (v.ok ? " " + v.count + " holders" : " not read")).join(", ") || "none"}), ${heliAdded} helicopter operators to service partners, ${done.refreshed} refreshed, ${done.left} no longer listed, ${done.excluded} left out (excluded or sanctioned place), ${done.held} held for the Director (possible sanctions match).`;
+  if (!dry) await db.set("intel/operators", { lastRun: nowIso, ...done, note, sources: ix.sources, aocLists: aocDone });
   log(note); return { ...done, note };
 }
 

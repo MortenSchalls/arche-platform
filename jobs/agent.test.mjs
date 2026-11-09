@@ -189,3 +189,13 @@ Object.assign(PAGES, {
   await importBatch(db, { opsComplete: { p020: { website: "https://omega-example.test/", country: "United States", region: "North America", country_source: "https://omega-example.test/", aoc_authority: "FAA", aoc_source: "https://faa-example.test/omega", fleet: [{ type: "Challenger 350", count: 3 }], fleet_source: "https://omega-example.test/" } } }, { fetchFn, lists, now: mon9 });
   const d = db.D["prospects/p020"];
   ok("registry operator completed: website, country, certificate source and fleet, flag cleared", d.website && d.country === "United States" && d.ops.aoc.source && d.ops.fleet.length === 1 && d.completed && !d.ops.flags.includes("Country to confirm."), d); }
+// official AOC list (UK CAA, the authority's own file; fixture of 2 Nov 2026): reader and import
+{ const { parseUkCaa, run: opsRun } = await import("./operators.mjs"); const { readFileSync } = await import("fs");
+  const rows = parseUkCaa(readFileSync(new URL("./fixtures/ukcaa-aoc-2026-11-02.txt", import.meta.url), "utf8"));
+  ok("UK CAA list read in full: about 100 certificate holders with AOC numbers and aircraft", rows.length >= 100 && rows.every(r => /^\d{4}$/.test(r.aoc)) && rows.some(r => /^VOLUXIS/.test(r.company) && r.aoc === "0851"), rows.length);
+  const db = mk({ "prospects/p030": { org: "Voluxis Limited", kind: "operator", origin: "registry", ops: { aoc: {}, flags: ["From an audit registry: certificate and insurance to confirm before the first booking."] } } });
+  const r = await opsRun(db, { ix: { entries: [], sources: {} }, lists: { names: new Map() }, now: mon9, log: () => {}, aoc: { "UK CAA": { url: "https://caa.example/list.pdf", rows } } });
+  const P = Object.values(db.D);
+  ok("jet operators added with the certificate from the authority's list; airlines and air ambulances left out", r.aocAdded >= 15 && P.some(x => x && x.kind === "operator" && /Netjets/i.test(x.org) && x.ops.aoc.authority === "UK CAA") && !P.some(x => x && /Air Ambulance|Wizz Air/i.test(x.org)), r);
+  ok("an operator already listed gets its certificate confirmed, keeping only insurance to confirm", db.D["prospects/p030"].ops.aoc.number === "0851" && !db.D["prospects/p030"].ops.flags.some(f => /certificate and insurance/.test(f)));
+  ok("helicopter operators go to the Helicopters section of service partners", r.heliAdded > 0 && P.some(x => x && x.kind === "service" && x.category === "Helicopter transfers" && x.aoc && x.aoc.authority === "UK CAA")); }
