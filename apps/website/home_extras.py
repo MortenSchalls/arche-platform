@@ -44,7 +44,7 @@ def destinations(P):
     regs = {p["path"]: p for p in P if p["type"] == "region"}
     cities = [p for p in P if p["type"] == "city"]; countries = sorted([p for p in P if p["type"] == "country"], key=lambda p: short(p["h1"]))
     if not regs and not cities: return ""
-    ORDER = ["/regions/asia-pacific/", "/regions/europe/", "/regions/middle-east/", "/regions/north-america/"]
+    ORDER = ["/regions/asia-pacific/", "/regions/europe/", "/regions/middle-east/", "/regions/north-america/", "/regions/latin-america/", "/regions/africa/"]
     keys = [k for k in ORDER if k in regs] + sorted(k for k in regs if k not in ORDER)
     link = "display:block;padding:9px 0;border-bottom:1px solid rgba(243,245,248,0.08);color:#c6cbd2;font-size:15.5px;text-decoration:none"
     def col(k):

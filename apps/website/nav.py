@@ -112,7 +112,7 @@ CSS = """/* One top menu on every page (nav.py, 30 Oct 2026) */
 .ae-nav-lang a[aria-current="true"]{color:#f3f5f8}
 @media (max-width:1279px){.ae-nav-links{display:none}.ae-nav-bar{grid-template-columns:1fr auto 1fr}.ae-nav-brand{grid-column:2}.ae-nav-end{grid-column:3}}
 @media (max-width:1439px) and (min-width:1280px){.ae-nav-links{gap:13px;font-size:11.5px;letter-spacing:0.1em}.ae-nav-bar{column-gap:18px;padding:10px 24px}}
-@media (max-width:600px){.ae-nav a.ae-nav-quote{display:none}.ae-nav-bar{padding:8px 16px;column-gap:12px}.ae-nav-brand .w{font-size:20px}.ae-nav-brand svg{width:84px;height:20px}.ae-nav-brand .x{font-size:8.5px}
+@media (max-width:600px){.ae-nav a.ae-nav-quote{display:none}.ae-nav-bar{padding:8px 16px;column-gap:12px}.ae-nav-brand .w{font-size:20px}.ae-nav-brand svg{width:84px;height:20px}.ae-nav-brand .x{font-size:10px;letter-spacing:0.62em;padding-left:0.62em}
  .ae-nav-menu>summary{gap:10px}.ae-nav-panel{left:-16px;width:100vw;padding:12px 16px 24px;border-right:0}}
 /* the page's own header (home and menu pages) gives way to this one */
 #dc-root header,#dc-prerender header,header.top{display:none!important}
@@ -143,6 +143,7 @@ def page_of(rel):
         l = parts[1] if len(parts) == 3 else "en"; return parts[0], l, (lambda s: (lambda l: url(s, l)))(parts[0])
     if rel == "terms.html": return "terms", "en", lambda l: url("home", l) if l != "en" else "/terms.html"
     if rel == "privacy.html": return "privacy", "en", lambda l: url("home", l) if l != "en" else "/privacy.html"
+    if rel == "website-terms.html": return "privacy", "en", lambda l: url("home", l) if l != "en" else "/website-terms.html"
     page = "destinations" if parts[0] == "destinations" else "content"
     me = "/" + "/".join(parts[:-1]) + "/"
     return page, "en", lambda l: me if l == "en" else url("home", l)
@@ -183,6 +184,8 @@ def run(verbose=True):
             t = re.sub(r'<link rel="stylesheet" href="/nav.css"[^>]*>', "", t)
             t = re.sub(r'<div class="ae-nav-pad"></div>', "", t)
             page, lang, here = page_of(rel)
+            if rel == "website-terms.html" and 'name="description"' not in t:
+                t = t.replace("</head>", '<meta name="description" content="The terms for using the Archē Executive website: information, not an offer; links and sources; liability; Singapore law."><link rel="canonical" href="https://archeaviation.com/website-terms.html"></head>', 1)
             if page == "privacy" and 'name="description"' not in t:   # search basics the privacy page lacked
                 t = t.replace("</head>", '<meta name="description" content="How Archē Executive uses the details you give us: what we keep, why, for how long, and how to ask us to delete them."><link rel="canonical" href="https://archeaviation.com/privacy.html"></head>', 1)
             t = speed(t, page, lang)

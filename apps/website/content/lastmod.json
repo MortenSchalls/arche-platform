@@ -1,0 +1,190 @@
+{
+"/": {
+"d": "2026-11-09",
+"h": "1cb78a7875071eb0"
+},
+"/airports/dubai-world-central/": {
+"d": "2026-11-09",
+"h": "34f221cf6b097ad1"
+},
+"/airports/farnborough/": {
+"d": "2026-11-09",
+"h": "deb745df163ecff8"
+},
+"/airports/hong-kong-international/": {
+"d": "2026-11-09",
+"h": "a0a21cafac54b542"
+},
+"/airports/singapore-changi/": {
+"d": "2026-11-09",
+"h": "09cdab2d19530f72"
+},
+"/airports/singapore-seletar/": {
+"d": "2026-11-09",
+"h": "216485881cc4ee62"
+},
+"/airports/sydney/": {
+"d": "2026-11-09",
+"h": "2536a2a2997dd28b"
+},
+"/airports/teterboro/": {
+"d": "2026-11-09",
+"h": "0c7a0e77a5f90a5e"
+},
+"/cities/bangkok/": {
+"d": "2026-11-09",
+"h": "3777990290f6701c"
+},
+"/cities/dubai/": {
+"d": "2026-11-09",
+"h": "060c34ee5d1ea817"
+},
+"/cities/geneva/": {
+"d": "2026-11-09",
+"h": "c76586bbf61f7e76"
+},
+"/cities/hong-kong/": {
+"d": "2026-11-09",
+"h": "e816e48c26662a74"
+},
+"/cities/kuala-lumpur/": {
+"d": "2026-11-09",
+"h": "08ee7b738e1d5dbd"
+},
+"/cities/london/": {
+"d": "2026-11-09",
+"h": "a1178f4362502cb8"
+},
+"/cities/new-york/": {
+"d": "2026-11-09",
+"h": "589205e52944ce1b"
+},
+"/cities/nice/": {
+"d": "2026-11-09",
+"h": "4af9ae54675e06c0"
+},
+"/cities/paris/": {
+"d": "2026-11-09",
+"h": "afe57a53d48b3d0c"
+},
+"/cities/phuket/": {
+"d": "2026-11-09",
+"h": "6c2d03285573411e"
+},
+"/cities/seoul/": {
+"d": "2026-11-09",
+"h": "7035b25ba2f89d65"
+},
+"/cities/singapore/": {
+"d": "2026-11-09",
+"h": "328b04bae769a555"
+},
+"/cities/sydney/": {
+"d": "2026-11-09",
+"h": "4d860e75a150506d"
+},
+"/cities/taipei/": {
+"d": "2026-11-09",
+"h": "38f5317b892e1ae6"
+},
+"/cities/tokyo/": {
+"d": "2026-11-09",
+"h": "99c37df8298661af"
+},
+"/countries/india/": {
+"d": "2026-11-09",
+"h": "740ae60a4e0aa194"
+},
+"/countries/japan/": {
+"d": "2026-11-09",
+"h": "5b9d6bd361299d94"
+},
+"/countries/malaysia/": {
+"d": "2026-11-09",
+"h": "638eb1cf1ee96fa8"
+},
+"/countries/maldives/": {
+"d": "2026-11-09",
+"h": "14f4210f164b7db6"
+},
+"/countries/south-korea/": {
+"d": "2026-11-09",
+"h": "db61c569200881ba"
+},
+"/countries/sri-lanka/": {
+"d": "2026-11-09",
+"h": "c2f8290466d4a767"
+},
+"/countries/taiwan/": {
+"d": "2026-11-09",
+"h": "d30934f30c869b8a"
+},
+"/countries/thailand/": {
+"d": "2026-11-09",
+"h": "9724ec739ad8ba03"
+},
+"/countries/vietnam/": {
+"d": "2026-11-09",
+"h": "b611c158edb48deb"
+},
+"/destinations/": {
+"d": "2026-11-09",
+"h": "9b8b9830192c326d"
+},
+"/guides/cabotage/": {
+"d": "2026-11-09",
+"h": "e1505b992890599d"
+},
+"/guides/charter-price/": {
+"d": "2026-11-09",
+"h": "3db8fdfdfab1d466"
+},
+"/guides/empty-legs/": {
+"d": "2026-11-09",
+"h": "675b38728b2f637b"
+},
+"/guides/operator-safety-audits/": {
+"d": "2026-11-09",
+"h": "fd8d76d44945b1af"
+},
+"/ja": {
+"d": "2026-11-09",
+"h": "2dbc008e7a425d72"
+},
+"/privacy.html": {
+"d": "2026-11-09",
+"h": "e9ae7eb7b770b5c3"
+},
+"/regions/asia-pacific/": {
+"d": "2026-11-09",
+"h": "84c3ae6893b4cfc7"
+},
+"/regions/europe/": {
+"d": "2026-11-09",
+"h": "301486be9ecd3d7c"
+},
+"/regions/middle-east/": {
+"d": "2026-11-09",
+"h": "94eed83c025f20ab"
+},
+"/regions/north-america/": {
+"d": "2026-11-09",
+"h": "55f164c29fbda99d"
+},
+"/terms.html": {
+"d": "2026-11-09",
+"h": "b57e06fa0f3f4c76"
+},
+"/th": {
+"d": "2026-11-09",
+"h": "819acb09c4d9b06f"
+},
+"/website-terms.html": {
+"d": "2026-11-09",
+"h": "5216988d55ef0519"
+},
+"/zh": {
+"d": "2026-11-09",
+"h": "2d15ea52892747e2"
+}
+}

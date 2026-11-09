@@ -73,6 +73,7 @@ def apply(s, out_dir, here):
   <url><loc>{SITE_URL}/ja</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>{SITE_URL}/privacy.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
   <url><loc>{SITE_URL}/terms.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>{SITE_URL}/website-terms.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
 </urlset>
 ''')
     # keep the test address (*.vercel.app) out of search results; only archeaviation.com gets indexed

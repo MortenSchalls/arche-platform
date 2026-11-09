@@ -17,6 +17,58 @@ for f in pages:
     for rx, why in RULES:
         n = len(re.findall(rx, t))
         if n: problems.append(f"{f}: {why} ({n}x)")
+# Same audit philosophy as the Navoryx site (Morten, 9 Nov 2026: "use the same audit philosophy across all builds")
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+notes = []
+# 1. places on both websites: docs/PLACES.json, identical in both repositories
+PL = json.load(open(os.path.join(REPO, "docs", "PLACES.json"), encoding="utf-8"))
+mine = {}
+for f in os.listdir(os.path.join(os.path.dirname(HERE), "content", "pages")):
+    p = json.load(open(os.path.join(os.path.dirname(HERE), "content", "pages", f), encoding="utf-8"))
+    if p["type"] in ("city", "country"): mine[p["path"]] = p
+listed = {a for x in PL["places"] for a in x["arche"]}
+for path in sorted(set(mine) - listed): problems.append(f"places: {path} is not in docs/PLACES.json (add it there and on the other website)")
+for x in PL["places"]:
+    for a in x["arche"]:
+        if a not in mine: problems.append(f"places: {x['place']}: {a} is listed but has no page")
+    if not x["arche"] or not x.get("navoryx"):
+        if x.get("waiting"): notes.append(f"places: {x['place']} waiting: {x['waiting']}")
+        else: problems.append(f"places: {x['place']} is on one website only, with no reason given")
+    if company.LAUNCHED and x["arche"] and all(mine.get(p, {}).get("draft") for p in x["arche"]):
+        problems.append(f"places: {x['place']}: every page is still a draft, so the launched site would not show it")
+drafts = sorted(p for p, v in mine.items() if v.get("draft"))
+if drafts: notes.append(f"{len(drafts)} city and country pages are drafts waiting for Morten's approval: " + ", ".join(drafts))
+# 2. legal pages: what the PDPA asks a notice to cover, and the website terms
+LEGAL = {"privacy.html": ["Personal Data Protection Act 2012", "Data Protection Officer", "Do Not Call Registry", "Personal Data Protection Commission",
+                          "standard contractual clauses", "thirty days", "Cookies", "How long we keep it", "Children"],
+         "website-terms.html": ["Information, not an offer", "Liability", "death or personal injury", "laws of Singapore", "Privacy notice"],
+         "terms.html": ["B6", "Privacy notice", "Website terms of use"]}
+for f, need in LEGAL.items():
+    fp = os.path.join(HERE, f)
+    t = open(fp, encoding="utf-8").read() if os.path.exists(fp) else ""
+    for w in need:
+        if w not in t: problems.append(f"{f}: missing \"{w}\"")
+# 3. layout gate: tools/layout_audit.js must have run on exactly these built pages and found nothing
+import hashlib
+h = hashlib.sha256()
+def _walk(d):
+    for f in sorted(os.listdir(d)):
+        p = os.path.join(d, f)
+        if os.path.isdir(p): _walk(p)
+        elif f.endswith((".html", ".css", ".js")): h.update(os.path.relpath(p, HERE).replace(os.sep, "/").encode()); h.update(open(p, "rb").read())
+_walk(HERE)
+stamp = os.path.join(os.path.dirname(HERE), "audit", "layout.json")
+if not os.path.exists(stamp): problems.append("layout audit not run: NODE_PATH=$(npm root -g) node apps/website/tools/layout_audit.js")
+else:
+    L = json.load(open(stamp))
+    if L["site_hash"] != h.hexdigest(): problems.append("layout audit is older than the built pages: run it again")
+    elif L["findings"]: problems.append(f"layout audit found {len(L['findings'])} problems (apps/website/audit/layout.json)")
+for n in notes: print("NOTE:", n)
+# launch blockers that only a person can close (the same as on the Navoryx site)
+for b in ["counsel review of the Privacy notice, Website terms of use and Terms of business",
+          "Data Protection Officer appointed and privacy@ address answered (Privacy notice names one)",
+          "data processing agreements with transfer clauses in place with the website host, database, email and AI providers (Privacy notice says so)"]:
+    problems.append("launch blocker: " + b)
 if not company.UEN: problems.append("company.py: UEN not set (add it when ACRA registration is done)")
 print("\n".join(problems) or "Website ready: no placeholders left.")
 sys.exit(1 if problems else 0)

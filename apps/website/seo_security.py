@@ -87,16 +87,32 @@ def state():
     s = json.load(open(p, encoding="utf-8"))
     if s.pop("office-bangkok", None) is not None: json.dump(s, open(p, "w", encoding="utf-8"))
 
+def lastmod(path):
+    """The real date a page last changed (Navoryx standard, 9 Nov 2026): the date moves only when the page's visible
+    text changes, not on every build. Dates are kept in content/lastmod.json."""
+    import hashlib
+    f = os.path.join(SITE, path.strip("/"), "index.html") if path.endswith("/") else os.path.join(SITE, path.strip("/"))
+    if path in ("/th", "/zh", "/ja"): f = os.path.join(SITE, path.strip("/") + ".html")
+    if not os.path.exists(f): return datetime.date.today().isoformat()
+    t = open(f, encoding="utf-8").read()
+    t = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>|<[^>]+>", " ", t)
+    h = hashlib.sha256(" ".join(t.split()).encode()).hexdigest()[:16]
+    db = os.path.join(HERE, "content", "lastmod.json")
+    d = json.load(open(db)) if os.path.exists(db) else {}
+    if d.get(path, {}).get("h") != h:
+        d[path] = {"h": h, "d": datetime.date.today().isoformat()}
+        json.dump(d, open(db, "w"), indent=0, sort_keys=True)
+    return d[path]["d"]
+
 def sitemap():
-    day = datetime.date.today().isoformat()
     alt = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{lang}" href="{BASE}{path}"/>' for path, lang in PAGES.values()) + f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{BASE}/"/>'
-    urls = "".join(f"\n  <url><loc>{BASE}{path}</loc><lastmod>{day}</lastmod>{alt}\n  </url>" for path, lang in PAGES.values())
-    urls += "".join(f"\n  <url><loc>{BASE}/{p}</loc><lastmod>{day}</lastmod></url>" for p in ("terms.html", "privacy.html"))
+    urls = "".join(f"\n  <url><loc>{BASE}{path}</loc><lastmod>{lastmod(path)}</lastmod>{alt}\n  </url>" for path, lang in PAGES.values())
+    urls += "".join(f"\n  <url><loc>{BASE}/{p}</loc><lastmod>{lastmod('/' + p)}</lastmod></url>" for p in ("terms.html", "privacy.html", "website-terms.html"))
     built = os.path.join(HERE, "content", "built.json")   # verified content pages; drafts stay out until approved
     if os.path.exists(built):
         pub = [b for b in json.load(open(built)) if not b["draft"]]
-        urls += "".join(f"\n  <url><loc>{BASE}{b['path']}</loc><lastmod>{day}</lastmod></url>" for b in pub)
-        if pub: urls += f"\n  <url><loc>{BASE}/destinations/</loc><lastmod>{day}</lastmod></url>"
+        urls += "".join(f"\n  <url><loc>{BASE}{b['path']}</loc><lastmod>{lastmod(b['path'])}</lastmod></url>" for b in pub)
+        if pub: urls += f"\n  <url><loc>{BASE}/destinations/</loc><lastmod>{lastmod('/destinations/')}</lastmod></url>"
     open(os.path.join(SITE, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' + urls + "\n</urlset>\n")
 

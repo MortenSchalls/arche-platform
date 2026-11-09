@@ -1,0 +1,345 @@
+{
+ "_why": "The places both public websites cover (Morten, 9 Nov 2026: \"use all countries and cities from the websites to be aligned (ie. if one is added on one page, add to the other page)\"). Kept identical in arche-platform and navoryx-website (docs/PLACES.json), like the IR contract: a change is made in both in the same piece of work. Each site's check fails when it has a city or country page that is not listed here, or when a listed place has no page on one site and no 'waiting' reason. The two sites never link to or name each other; this file is the only place they meet. A 'waiting' line is reported on every check until the page exists.",
+ "updated": "2026-11-09",
+ "places": [
+  {
+   "place": "Auckland",
+   "country": "NZ",
+   "arche": [
+    "/cities/auckland/"
+   ],
+   "navoryx": "auckland"
+  },
+  {
+   "place": "Bali",
+   "country": "ID",
+   "arche": [
+    "/cities/bali/",
+    "/countries/indonesia/"
+   ],
+   "navoryx": "bali"
+  },
+  {
+   "place": "Bangkok",
+   "country": "TH",
+   "arche": [
+    "/cities/bangkok/",
+    "/countries/thailand/"
+   ],
+   "navoryx": "bangkok"
+  },
+  {
+   "place": "Buenos Aires",
+   "country": "AR",
+   "arche": [
+    "/cities/buenos-aires/"
+   ],
+   "navoryx": "buenos-aires"
+  },
+  {
+   "place": "Cape Town",
+   "country": "ZA",
+   "arche": [
+    "/cities/cape-town/"
+   ],
+   "navoryx": "cape-town"
+  },
+  {
+   "place": "Colombo",
+   "country": "LK",
+   "arche": [
+    "/countries/sri-lanka/"
+   ],
+   "navoryx": null,
+   "waiting": "Navoryx: city page being written, 9 Nov 2026"
+  },
+  {
+   "place": "Doha",
+   "country": "QA",
+   "arche": [
+    "/cities/doha/"
+   ],
+   "navoryx": "doha"
+  },
+  {
+   "place": "Dubai",
+   "country": "AE",
+   "arche": [
+    "/cities/dubai/"
+   ],
+   "navoryx": "dubai"
+  },
+  {
+   "place": "Geneva",
+   "country": "CH",
+   "arche": [
+    "/cities/geneva/"
+   ],
+   "navoryx": "geneva"
+  },
+  {
+   "place": "Ho Chi Minh City",
+   "country": "VN",
+   "arche": [
+    "/countries/vietnam/"
+   ],
+   "navoryx": null,
+   "waiting": "Navoryx: city page being written, 9 Nov 2026"
+  },
+  {
+   "place": "Hong Kong",
+   "country": "HK",
+   "arche": [
+    "/cities/hong-kong/"
+   ],
+   "navoryx": "hong-kong"
+  },
+  {
+   "place": "Honolulu",
+   "country": "US",
+   "arche": [],
+   "navoryx": "honolulu",
+   "waiting": "Archē: no verified airport facts yet (the daily airport research has the airports queued); the page is written once they are verified, 9 Nov 2026"
+  },
+  {
+   "place": "Johannesburg",
+   "country": "ZA",
+   "arche": [
+    "/cities/johannesburg/"
+   ],
+   "navoryx": "johannesburg"
+  },
+  {
+   "place": "Kuala Lumpur",
+   "country": "MY",
+   "arche": [
+    "/cities/kuala-lumpur/",
+    "/countries/malaysia/"
+   ],
+   "navoryx": null,
+   "waiting": "Navoryx: city page being written, 9 Nov 2026"
+  },
+  {
+   "place": "Lagos",
+   "country": "NG",
+   "arche": [
+    "/cities/lagos/"
+   ],
+   "navoryx": "lagos"
+  },
+  {
+   "place": "London",
+   "country": "GB",
+   "arche": [
+    "/cities/london/"
+   ],
+   "navoryx": "london"
+  },
+  {
+   "place": "Los Angeles",
+   "country": "US",
+   "arche": [
+    "/cities/los-angeles/"
+   ],
+   "navoryx": "los-angeles"
+  },
+  {
+   "place": "Macau",
+   "country": "MO",
+   "arche": [
+    "/cities/macau/"
+   ],
+   "navoryx": null,
+   "waiting": "Navoryx: city page being written, 9 Nov 2026"
+  },
+  {
+   "place": "Marrakech",
+   "country": "MA",
+   "arche": [
+    "/cities/marrakech/"
+   ],
+   "navoryx": "marrakech"
+  },
+  {
+   "place": "Mexico City",
+   "country": "MX",
+   "arche": [
+    "/cities/mexico-city/"
+   ],
+   "navoryx": "mexico-city"
+  },
+  {
+   "place": "Miami",
+   "country": "US",
+   "arche": [
+    "/cities/miami/"
+   ],
+   "navoryx": "miami"
+  },
+  {
+   "place": "Milan",
+   "country": "IT",
+   "arche": [
+    "/cities/milan/"
+   ],
+   "navoryx": "milan"
+  },
+  {
+   "place": "Mumbai",
+   "country": "IN",
+   "arche": [
+    "/cities/mumbai/",
+    "/countries/india/"
+   ],
+   "navoryx": "mumbai"
+  },
+  {
+   "place": "Nassau",
+   "country": "BS",
+   "arche": [
+    "/cities/nassau/"
+   ],
+   "navoryx": "nassau"
+  },
+  {
+   "place": "New York",
+   "country": "US",
+   "arche": [
+    "/cities/new-york/"
+   ],
+   "navoryx": "new-york"
+  },
+  {
+   "place": "Palm Beach",
+   "country": "US",
+   "arche": [
+    "/cities/palm-beach/"
+   ],
+   "navoryx": "palm-beach"
+  },
+  {
+   "place": "Paris",
+   "country": "FR",
+   "arche": [
+    "/cities/paris/"
+   ],
+   "navoryx": "paris"
+  },
+  {
+   "place": "Phuket",
+   "country": "TH",
+   "arche": [
+    "/cities/phuket/"
+   ],
+   "navoryx": null,
+   "waiting": "Navoryx: city page being written, 9 Nov 2026"
+  },
+  {
+   "place": "Riyadh",
+   "country": "SA",
+   "arche": [
+    "/cities/riyadh/"
+   ],
+   "navoryx": "riyadh"
+  },
+  {
+   "place": "San Francisco",
+   "country": "US",
+   "arche": [
+    "/cities/san-francisco/"
+   ],
+   "navoryx": "san-francisco"
+  },
+  {
+   "place": "Sao Paulo",
+   "country": "BR",
+   "arche": [
+    "/cities/sao-paulo/"
+   ],
+   "navoryx": "sao-paulo"
+  },
+  {
+   "place": "Seoul",
+   "country": "KR",
+   "arche": [
+    "/cities/seoul/",
+    "/countries/south-korea/"
+   ],
+   "navoryx": "seoul"
+  },
+  {
+   "place": "Shanghai",
+   "country": "CN",
+   "arche": [],
+   "navoryx": "shanghai",
+   "waiting": "Archē: no verified airport facts yet (the daily airport research has the airports queued); the page is written once they are verified, 9 Nov 2026"
+  },
+  {
+   "place": "Singapore",
+   "country": "SG",
+   "arche": [
+    "/cities/singapore/"
+   ],
+   "navoryx": "singapore"
+  },
+  {
+   "place": "Sydney",
+   "country": "AU",
+   "arche": [
+    "/cities/sydney/"
+   ],
+   "navoryx": "sydney"
+  },
+  {
+   "place": "Taipei",
+   "country": "TW",
+   "arche": [
+    "/cities/taipei/",
+    "/countries/taiwan/"
+   ],
+   "navoryx": null,
+   "waiting": "Navoryx: city page being written, 9 Nov 2026"
+  },
+  {
+   "place": "The Maldives",
+   "country": "MV",
+   "arche": [
+    "/countries/maldives/"
+   ],
+   "navoryx": "maldives"
+  },
+  {
+   "place": "The Riviera and Monaco",
+   "country": "FR",
+   "arche": [
+    "/cities/nice/"
+   ],
+   "navoryx": "riviera"
+  },
+  {
+   "place": "Tokyo",
+   "country": "JP",
+   "arche": [
+    "/cities/tokyo/",
+    "/countries/japan/"
+   ],
+   "navoryx": "tokyo"
+  },
+  {
+   "place": "Warsaw",
+   "country": "PL",
+   "arche": [
+    "/cities/warsaw/"
+   ],
+   "navoryx": "warsaw"
+  },
+  {
+   "place": "Washington",
+   "country": "US",
+   "arche": [
+    "/cities/washington/"
+   ],
+   "navoryx": "washington"
+  }
+ ]
+}

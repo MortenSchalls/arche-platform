@@ -4551,5 +4551,290 @@
   "v": "in 2026, all domestic and international flights stopped from 06:00 local on 19 March to 06:00 local on 20 March",
   "src": "id-kemenhub-nyepi-2026",
   "quote": "akan dihentikan sementara mulai Kamis, 19 Maret 2026 pukul 06.00 WITA hingga Jumat, 20 Maret 2026 pukul 06.00 WITA."
+ },
+ "oerk.hours": {
+  "v": "open 24 hours a day, every day of the year, as its slot coordinator states",
+  "src": "acl-ruh",
+  "quote": "King Khalid International Airport is open 24 hours a day, 7 days a week, year round"
+ },
+ "oerk.permits": {
+  "v": "technical stops are not permitted at Riyadh in the Winter 2026 and Summer 2027 seasons, because parking stands are reduced by rehabilitation works",
+  "src": "acl-ruh-local-rule-s27",
+  "quote": "are not permitted at King Khalid International Airport during Winter 2026 & Summer 2027 seasons."
+ },
+ "kvny.curfew": {
+  "v": "no departures 23:00 to 07:00 local time (landings are not restricted), with exemptions for the quietest aircraft and emergencies",
+  "src": "kvny-lawa-rules-7",
+  "quote": "No aircraft may depart from Van Nuys Airport between the hours of 11:00 p.m. and 7:00 a.m. of the following day, except those aircraft listed below"
+ },
+ "kvny.customs": {
+  "v": "customs (CBP) at the airport on set days and hours, with permission to land requested by phone within 24 hours of arrival",
+  "src": "kvny-cbp-ga",
+  "quote": "Monday, Thursday, and Sunday, 0900-2030"
+ },
+ "kvny.runway": {
+  "v": "two parallel runways; the longer, 16R/34L, is about 2,439 m long and 46 m wide",
+  "src": "kvny-faa-ad",
+  "quote": "8001 X 150"
+ },
+ "ksna.hours": {
+  "v": "general aviation may operate 24 hours a day, within strict noise limits",
+  "src": "ksna-noise-faq",
+  "quote": "General aviation aircraft are permitted to operate at JWA 24 hours per day"
+ },
+ "ksna.curfew": {
+  "v": "a mandatory night noise limit rather than a ban: departures from 22:00 and arrivals from 23:00 until 07:00 must stay within set noise levels",
+  "src": "ksna-gano",
+  "quote": "No person shall operate any general aviation aircraft at night at John Wayne Airport ..."
+ },
+ "kmia.customs": {
+  "v": "customs (CBP) at the General Aviation Center 24 hours a day, 7 days a week, contacted at least 2 hours before leaving the foreign airport",
+  "src": "kmia-cbp-ga",
+  "quote": "Regular Office Hours 7 days per week, 24 hours per day Eastern Time (ET)"
+ },
+ "kmia.ppr": {
+  "v": "prior permission 3 hours before every arrival on the General Aviation Center ramp, for aircraft with a wingspan up to 78 ft",
+  "src": "kfll-faa-aip-fl",
+  "quote": "PPR 3 HRS PRIOR TO ALL ARRIVALS ON THE GENERAL AVIATION CENTER (GAC) RAMP 305-876-7550"
+ },
+ "kmia.runway": {
+  "v": "four runways; the longest, 9/27, is about 3,967 m long and 46 m wide",
+  "src": "kfll-faa-aip-fl",
+  "quote": "13016 ft x 150 ft"
+ },
+ "kopf.customs": {
+  "v": "customs (CBP) 7 days a week, 09:00 to 24:00 Eastern Time, contacted between 1 and 24 hours before arrival",
+  "src": "kopf-cbp-ga",
+  "quote": "7 days per week, 0900-2400"
+ },
+ "kopf.runway": {
+  "v": "three runways; the longest, 9L/27R, is about 2,439 m long and 46 m wide",
+  "src": "kopf-mdad-facts",
+  "quote": "OPF has one of the longest general aviation runways in the country at 8,002 feet."
+ },
+ "kopf.hours": {
+  "v": "attended 24 hours, 7 days, with the control tower open 07:00 to 23:00 local time",
+  "src": "kopf-mdad-facts",
+  "quote": "Attended continuously."
+ },
+ "kpbi.customs": {
+  "v": "customs (CBP) 7 days a week, 09:00 to 19:00, contacted at least 4 hours before leaving the foreign airport",
+  "src": "kpbi-cbp-ga",
+  "quote": "7 days per week, 0900-1900"
+ },
+ "kpbi.runway": {
+  "v": "three runways; the longest is about 3,048 m long and 46 m wide",
+  "src": "kpbi-pbc-airport",
+  "quote": "10,000’ long by 150’ wide"
+ },
+ "kpbi.hours": {
+  "v": "a 24-hour FAA control tower",
+  "src": "kpbi-pbc-business",
+  "quote": "The airport has a 24-hour control tower and a U.S. Customs & Border Protection port of entry facility."
+ },
+ "kiad.customs": {
+  "v": "customs (CBP) for private aircraft 24 hours a day, 7 days a week, with a call before leaving the foreign airport and at least 2 hours before arrival",
+  "src": "kiad-cbp-ga",
+  "quote": "Inspection services for the entrance/arrival of aircraft at KIAD are available 24 hours per day"
+ },
+ "kiad.runway": {
+  "v": "four runways; the longest, 1C/19C and 1R/19L, are each about 3,505 m long",
+  "src": "kiad-mwaa-overview",
+  "quote": "1C/19C 11,500 feet long and began service when Dulles opened in 1962."
+ },
+ "kiad.hours": {
+  "v": "attended 24 hours",
+  "src": "kiad-faa-aip-dc",
+  "quote": "2.3.1 All Months, All Days, All Hours"
+ },
+ "ksfo.customs": {
+  "v": "customs (CBP) for private aircraft generally 08:00 to 22:00, 7 days a week, requested at least one calendar day before arrival",
+  "src": "ksfo-cbp-ga",
+  "quote": "generally available 7 days per week, 0800-2200 (wheels down)"
+ },
+ "ksfo.runway": {
+  "v": "four runways; the longest is about 3,618 m long",
+  "src": "ksfo-faa-apd",
+  "quote": "11870X200"
+ },
+ "koak.customs": {
+  "v": "customs (CBP) arrival inspections generally 7 days a week, 08:30 to 15:30, with permission to land requested at least 24 hours ahead",
+  "src": "koak-cbp-ga",
+  "quote": "generally available 7 days per week, 0830-1530"
+ },
+ "koak.hours": {
+  "v": "attended 24 hours",
+  "src": "koak-faa-aip-ca",
+  "quote": "All Months, All Days, All Hours"
+ },
+ "koak.curfew": {
+  "v": "no night ban, but a voluntary noise programme from 22:00 to 07:00 (08:00 on Sundays)",
+  "src": "koak-faa-flightdeck",
+  "quote": "Oakland Airport has a voluntary noise abatement program from Monday-Saturday between 2200L-0700L"
+ },
+ "ksjc.curfew": {
+  "v": "a noise-based curfew from 23:00 to 07:00 local time for the noisier aircraft",
+  "src": "ksjc-curfew",
+  "quote": "FAR 36 Stage II aircraft may not operate between the hours of 11:00 p.m. and 7:00 a.m."
+ },
+ "ksjc.customs": {
+  "v": "customs (CBP) 7 days a week, 09:00 to 18:00, with permission to land requested at least 24 hours ahead",
+  "src": "ksjc-cbp-ga",
+  "quote": "are available 7 days per week, 0900-1800 (wheels down)"
+ },
+ "mmmx.permits": {
+  "v": "has been closed to private general aviation and air taxis since 1994, apart from listed official exceptions",
+  "src": "mmmx-dgac-co-sa-30-12",
+  "quote": "el cierre de las operaciones en el AICM a la aviación privada, la aviación de estado y las operaciones de taxi aéreo"
+ },
+ "mmto.runway": {
+  "v": "the longest runway in Mexico, 4.2 km by the operator's rounded figure",
+  "src": "mmto-ait-nosotros",
+  "quote": "Cuenta con la pista de aterrizaje más larga del país (4.2 Km)"
+ },
+ "mynn.hours": {
+  "v": "open 24 hours, 7 days",
+  "src": "mynn-nad-faq",
+  "quote": "LPIA operates 24/7, but specific services and counters have varying hours of operation."
+ },
+ "mynn.runway": {
+  "v": "a main runway, 14/32, 3,330 m long and 46 m wide",
+  "src": "mynn-caab-gov-aerodromes",
+  "quote": "10925 X 150ASPHALT"
+ },
+ "mynn.permits": {
+  "v": "for charter flights, an annual licence or an ad-hoc approval permit; a flight not for hire needs no permit",
+  "src": "mynn-caab-faqs",
+  "quote": "Apply for an Ad-Hoc Approval Permit granted the operation occurs less than 2 times within a 30-day period."
+ },
+ "sbgr.ppr": {
+  "v": "advance coordination with the airport: 6 hours ahead for a wingspan up to 24 m, 24 hours ahead for up to 65 m",
+  "src": "sbgr-decea-rotaer",
+  "quote": "As ACFT da aviação geral (inclusive TAX aéreo) deverão COOR previamente"
+ },
+ "sbgr.runway": {
+  "v": "two runways: 10L/28R 3,700 m × 45 m and 10R/28L 3,000 m × 45 m, asphalt",
+  "src": "sbgr-decea-rotaer",
+  "quote": "3700x45 ASPH 790/F/C/X/T"
+ },
+ "sbgr.slots": {
+  "v": "non-regular flights requested at least 3 working days ahead on the airport's form",
+  "src": "sbgr-gru-declaracao-w26",
+  "quote": "Voos não-regulares devem ser solicitados respeitando o prazo mínimo de 03 (três) dias úteis"
+ },
+ "sbsp.curfew": {
+  "v": "closed from 23:00 to 06:00 local time, except for medical, search and rescue and military flights",
+  "src": "sbsp-decea-rotaer",
+  "quote": "Para operação entre 0200/0900 UTC, o operador da aeronave deve solicitar"
+ },
+ "sbsp.ppr": {
+  "v": "coordination at least 2 hours before operating, through the online form",
+  "src": "sbsp-decea-rotaer",
+  "quote": "ACFT aviação geral deverá COORD com antecedência mínima de 02 horas da sua operação."
+ },
+ "sbsp.runway": {
+  "v": "two runways: 17R/35L 1,883 m × 45 m and 17L/35R 1,495 m × 45 m, asphalt",
+  "src": "sbsp-decea-rotaer",
+  "quote": "( 1883x45 ASPH 590/F/C/X/T"
+ },
+ "saez.handling": {
+  "v": "a business aviation terminal, FBO VIPCLUB, run by the airport operator Aeropuertos Argentina, with its own access and space for all the control agencies, customs and immigration included",
+  "src": "saez-aa2000-fbo",
+  "quote": "una terminal con acceso independiente al aeropuerto"
+ },
+ "faor.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "za-aip-faor-amdt-4-26",
+  "quote": "Customs and immigration H24"
+ },
+ "faor.hours": {
+  "v": "open 24 hours, with handling and fuel around the clock",
+  "src": "za-aip-faor-amdt-4-26",
+  "quote": "AD Operator H24"
+ },
+ "faor.permits": {
+  "v": "a Foreign Operator Permit for charter flights, unless the flight carries up to 8 passengers (it still needs landing clearance)",
+  "src": "za-aip-gen-20261015",
+  "quote": "up to 8 passengers or less than 1000KG do not require a foreign operators permit ... The following flights are exempt from obtaining foreign operators permits and should apply for a landing clearance"
+ },
+ "fala.runway": {
+  "v": "one runway, 07/25, 2,996 m long and 45 m wide",
+  "src": "fala-sacaa-adc",
+  "quote": "2996 x 45m ASPHALT"
+ },
+ "fala.hours": {
+  "v": "tower and approach control 24 hours",
+  "src": "fala-lanseria-services",
+  "quote": "Tower and Approach control service: 24 hours; Ground movement control service: [05h45 – 19h00] daily"
+ },
+ "fact.slots": {
+  "v": "a coordinated airport by government designation",
+  "src": "fact-acsa-slot-request",
+  "quote": "O.R. Tambo International Airport, Cape Town International Airport and King Shaka International Airport have been designated by the Government as coordinated airports under the Airport Slot Coordination Regulations, 2012."
+ },
+ "fact.permits": {
+  "v": "a Foreign Operator Permit for charter flights, unless the flight carries up to 8 passengers",
+  "src": "za-fop-about",
+  "quote": "All non- South African air carriers that wish to undertake scheduled or non scheduled commercial international air services"
+ },
+ "dnmm.hours": {
+  "v": "international terminal open 24 hours daily",
+  "src": "dnmm-faan-intl",
+  "quote": "Murtala Muhammed International Airport. International and Cargo terminals open 24 hours daily."
+ },
+ "gmmx.runway": {
+  "v": "one runway, 10/28, 3,100 m × 45 m, bitumen",
+  "src": "ma-aip-gmmx-2025",
+  "quote": "10 95,87° 3100 x 45"
+ },
+ "gmmx.customs": {
+  "v": "customs and immigration 24 hours",
+  "src": "ma-aip-gmmx-2025",
+  "quote": "Customs and immigration H24"
+ },
+ "gmmx.ppr": {
+  "v": "authorisation from the airport authority 24 hours ahead for an overnight stay",
+  "src": "ma-aip-gmmx-2025",
+  "quote": "Night stop flights must have an authorization from the airport authority 24 hours prior."
+ },
+ "gmmx.handling": {
+  "v": "handling mandatory for business and general aviation",
+  "src": "ma-aip-gmmx-2025",
+  "quote": "Handling mandatory for business and general aviation"
+ },
+ "liml.max_aircraft": {
+  "v": "stands for aircraft up to 48 m wingspan, and no long stays",
+  "src": "sea-lin-rds-5",
+  "quote": "(massima apertura alare 48 metri)."
+ },
+ "nzaa.slots": {
+  "v": "a landing or parking slot for business aviation during declared peak periods",
+  "src": "nzaa-cou",
+  "quote": "without first obtaining a valid landing and/or parking slot during periods of peak congestion"
+ },
+ "nzaa.customs": {
+  "v": "arrival within customs working hours, or approval at least 5 working days ahead to arrive outside them",
+  "src": "nz-customs-nonsched",
+  "quote": "You must arrive during working hours unless there are extenuating circumstances."
+ },
+ "nzaa.permits": {
+  "v": "a New Zealand Foreign Air Operator's Certificate for a foreign charter (allow up to 90 days), unless it is a single landing and take-off within 28 days",
+  "src": "nz-caa-foreign-ops",
+  "quote": "they are classified as Air Transport Operations (ATO) and require certification under Civil Aviation Rule (CAR) 129. ... Permitted is a single landing and a single takeoff within any 28-day period without any certification."
+ },
+ "nzaa.runway": {
+  "v": "a main runway 3,635 m long, able to take the largest aircraft",
+  "src": "nzaa-masterplan-2025",
+  "quote": "Runway 05R/23L measures 3,635 metres by 75 metres (including shoulders) and is capable of handling Code F aircraft."
+ },
+ "nzaa.ppr": {
+  "v": "specific written permission from the airport company and an authorised ground handler",
+  "src": "nzaa-caa-booklet",
+  "quote": "Non-scheduled operations by general aviation aircraft require specific written permission from the airport company"
+ },
+ "vabb.runway": {
+  "v": "two crossing runways; the longer, 09/27, is 3,448 m long and 60 m wide",
+  "src": "vabb-mial-aera-4cp-2503",
+  "quote": "RWY 09/27- 3,448m x 60m (3,188m x 60m with displaced threshold) ... RWY 14/32- 2,871m x 45m"
  }
 }

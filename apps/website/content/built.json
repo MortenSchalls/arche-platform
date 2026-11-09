@@ -35,6 +35,11 @@
   "words": 707
  },
  {
+  "path": "/cities/auckland/",
+  "draft": true,
+  "words": 370
+ },
+ {
   "path": "/cities/bali/",
   "draft": true,
   "words": 399
@@ -43,6 +48,21 @@
   "path": "/cities/bangkok/",
   "draft": false,
   "words": 535
+ },
+ {
+  "path": "/cities/buenos-aires/",
+  "draft": true,
+  "words": 304
+ },
+ {
+  "path": "/cities/cape-town/",
+  "draft": true,
+  "words": 314
+ },
+ {
+  "path": "/cities/doha/",
+  "draft": true,
+  "words": 445
  },
  {
   "path": "/cities/dubai/",
@@ -60,9 +80,19 @@
   "words": 530
  },
  {
+  "path": "/cities/johannesburg/",
+  "draft": true,
+  "words": 341
+ },
+ {
   "path": "/cities/kuala-lumpur/",
   "draft": false,
   "words": 495
+ },
+ {
+  "path": "/cities/lagos/",
+  "draft": true,
+  "words": 329
  },
  {
   "path": "/cities/london/",
@@ -70,9 +100,44 @@
   "words": 588
  },
  {
+  "path": "/cities/los-angeles/",
+  "draft": true,
+  "words": 447
+ },
+ {
   "path": "/cities/macau/",
   "draft": true,
   "words": 485
+ },
+ {
+  "path": "/cities/marrakech/",
+  "draft": true,
+  "words": 309
+ },
+ {
+  "path": "/cities/mexico-city/",
+  "draft": true,
+  "words": 363
+ },
+ {
+  "path": "/cities/miami/",
+  "draft": true,
+  "words": 446
+ },
+ {
+  "path": "/cities/milan/",
+  "draft": true,
+  "words": 379
+ },
+ {
+  "path": "/cities/mumbai/",
+  "draft": true,
+  "words": 448
+ },
+ {
+  "path": "/cities/nassau/",
+  "draft": true,
+  "words": 326
  },
  {
   "path": "/cities/new-york/",
@@ -85,6 +150,11 @@
   "words": 619
  },
  {
+  "path": "/cities/palm-beach/",
+  "draft": true,
+  "words": 360
+ },
+ {
   "path": "/cities/paris/",
   "draft": false,
   "words": 400
@@ -93,6 +163,21 @@
   "path": "/cities/phuket/",
   "draft": false,
   "words": 710
+ },
+ {
+  "path": "/cities/riyadh/",
+  "draft": true,
+  "words": 446
+ },
+ {
+  "path": "/cities/san-francisco/",
+  "draft": true,
+  "words": 445
+ },
+ {
+  "path": "/cities/sao-paulo/",
+  "draft": true,
+  "words": 426
  },
  {
   "path": "/cities/seoul/",
@@ -118,6 +203,16 @@
   "path": "/cities/tokyo/",
   "draft": false,
   "words": 502
+ },
+ {
+  "path": "/cities/warsaw/",
+  "draft": true,
+  "words": 354
+ },
+ {
+  "path": "/cities/washington/",
+  "draft": true,
+  "words": 361
  },
  {
   "path": "/countries/india/",
@@ -185,6 +280,11 @@
   "words": 951
  },
  {
+  "path": "/regions/africa/",
+  "draft": true,
+  "words": 301
+ },
+ {
   "path": "/regions/asia-pacific/",
   "draft": false,
   "words": 447
@@ -193,6 +293,11 @@
   "path": "/regions/europe/",
   "draft": false,
   "words": 399
+ },
+ {
+  "path": "/regions/latin-america/",
+  "draft": true,
+  "words": 344
  },
  {
   "path": "/regions/middle-east/",

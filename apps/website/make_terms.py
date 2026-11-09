@@ -71,7 +71,7 @@ td {{ padding:10px 0; border-bottom:1px solid var(--line); }} td:last-child {{ t
 <table>{rows}</table>
 <p>{e(d["A9_AFTER"])}</p>
 {"".join(body)}
-<p class="muted" style="margin-top:48px"><a href="/privacy.html">Privacy notice</a> · <a href="/">Back to Archē Executive</a></p>
+<p class="muted" style="margin-top:48px"><a href="/privacy.html">Privacy notice</a> · <a href="/website-terms.html">Website terms of use</a> · <a href="/">Back to Archē Executive</a></p>
 </main>
 </body>
 </html>

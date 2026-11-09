@@ -22,7 +22,8 @@ Morten, 27 Oct 2026: "we need to have this automated as we do with the sanctions
    - Never publish: Morten approves drafts.
    - Remove the entries done from the queue.
 4. Run `python3 apps/website/content/check_airports.py`, then `python3 apps/website/build.py`, then `python3 apps/website/check_site.py`. They must pass, apart from the known phone and UEN placeholders.
-5. Commit only the content files, the built pages and `apps/portal/airport-rules.json` to `main`, with the usual attribution lines, and push.
+5. Commit only the content files, the built pages and `apps/portal/airport-rules.json` to `staging` (CLAUDE.md, Releases: `main` changes only when Morten says "release"), with the usual attribution lines, and push.
+   - A new city or country page is also added to `docs/PLACES.json` and on the Navoryx site (Morten, 9 Nov 2026); until that page exists the entry carries a `waiting` reason.
    - Before committing, restore `apps/website/site/index.html`, `th.html`, `zh.html` and `ja.html` with `git checkout` if the only change is attribute order.
 6. Report:
    - events added or changed;

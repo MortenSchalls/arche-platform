@@ -31,6 +31,12 @@ for brokers; prices on the website; device voices in the academy; real client or
 Run `python3 scripts/check_all_revised.py`, every portal test (README list and `checks.yml`), every `jobs` test, both
 academy editions with `full.js`, `check_site.py` and the website tests, contrast and the 390 px layout audit. Look at
 the main screens at 390 px and desktop in Day and Night.
+Website (the same gate as the Navoryx site, Morten 9 Nov 2026: "use the same audit philosophy across all builds"):
+`node apps/website/tools/layout_audit.js` on every built page at six widths (overlap, cut-off text, sideways scroll,
+text under 10 px, contrast), then `check_site.py`, which fails unless that audit ran on exactly the built pages and
+found nothing; places on both websites against `docs/PLACES.json` (kept identical in navoryx-website); the Privacy
+notice, Website terms of use and Terms of business against the PDPA items `check_site.py` lists; every external link
+opened (needs a browser online).
 
 ## 5. Second reviewer
 A separate reviewer (a new agent that has not seen the first pass) repeats steps 1 to 3 on its own and its findings
