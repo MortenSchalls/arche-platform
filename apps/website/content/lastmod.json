@@ -31,9 +31,25 @@
 "d": "2026-11-09",
 "h": "0c7a0e77a5f90a5e"
 },
+"/cities/auckland/": {
+"d": "2026-11-09",
+"h": "02fe900f28efd7e3"
+},
 "/cities/bangkok/": {
 "d": "2026-11-09",
 "h": "3777990290f6701c"
+},
+"/cities/buenos-aires/": {
+"d": "2026-11-09",
+"h": "ceb4e175020cbc83"
+},
+"/cities/cape-town/": {
+"d": "2026-11-09",
+"h": "78ebb8d5b3de636d"
+},
+"/cities/doha/": {
+"d": "2026-11-09",
+"h": "1eebab9ac576f922"
 },
 "/cities/dubai/": {
 "d": "2026-11-09",
@@ -47,13 +63,49 @@
 "d": "2026-11-09",
 "h": "e816e48c26662a74"
 },
+"/cities/johannesburg/": {
+"d": "2026-11-09",
+"h": "0ab327e9dd63442f"
+},
 "/cities/kuala-lumpur/": {
 "d": "2026-11-09",
 "h": "08ee7b738e1d5dbd"
 },
+"/cities/lagos/": {
+"d": "2026-11-09",
+"h": "38e9f2f0fc163e41"
+},
 "/cities/london/": {
 "d": "2026-11-09",
 "h": "a1178f4362502cb8"
+},
+"/cities/los-angeles/": {
+"d": "2026-11-09",
+"h": "1409548a91257739"
+},
+"/cities/marrakech/": {
+"d": "2026-11-09",
+"h": "4072d319ec012941"
+},
+"/cities/mexico-city/": {
+"d": "2026-11-09",
+"h": "4819408deab6fad5"
+},
+"/cities/miami/": {
+"d": "2026-11-09",
+"h": "56dda037db5d317d"
+},
+"/cities/milan/": {
+"d": "2026-11-09",
+"h": "8b0903d928c29c98"
+},
+"/cities/mumbai/": {
+"d": "2026-11-09",
+"h": "f10077e26fdeeb07"
+},
+"/cities/nassau/": {
+"d": "2026-11-09",
+"h": "5c384641f6b7e6c1"
 },
 "/cities/new-york/": {
 "d": "2026-11-09",
@@ -63,6 +115,10 @@
 "d": "2026-11-09",
 "h": "4af9ae54675e06c0"
 },
+"/cities/palm-beach/": {
+"d": "2026-11-09",
+"h": "c8fdb6806ff3a408"
+},
 "/cities/paris/": {
 "d": "2026-11-09",
 "h": "afe57a53d48b3d0c"
@@ -70,6 +126,18 @@
 "/cities/phuket/": {
 "d": "2026-11-09",
 "h": "6c2d03285573411e"
+},
+"/cities/riyadh/": {
+"d": "2026-11-09",
+"h": "0207106137bacf44"
+},
+"/cities/san-francisco/": {
+"d": "2026-11-09",
+"h": "cd9aac6865a8e643"
+},
+"/cities/sao-paulo/": {
+"d": "2026-11-09",
+"h": "f4fb99265a19ceb8"
 },
 "/cities/seoul/": {
 "d": "2026-11-09",
@@ -90,6 +158,14 @@
 "/cities/tokyo/": {
 "d": "2026-11-09",
 "h": "99c37df8298661af"
+},
+"/cities/warsaw/": {
+"d": "2026-11-09",
+"h": "dab7441f7249f0e5"
+},
+"/cities/washington/": {
+"d": "2026-11-09",
+"h": "edd012fc38f9f501"
 },
 "/countries/india/": {
 "d": "2026-11-09",
@@ -129,7 +205,7 @@
 },
 "/destinations/": {
 "d": "2026-11-09",
-"h": "9b8b9830192c326d"
+"h": "3c8c2c15ce47c8d3"
 },
 "/guides/cabotage/": {
 "d": "2026-11-09",
@@ -149,11 +225,15 @@
 },
 "/ja": {
 "d": "2026-11-09",
-"h": "2dbc008e7a425d72"
+"h": "e377f0cef5775ae2"
 },
 "/privacy.html": {
 "d": "2026-11-09",
 "h": "e9ae7eb7b770b5c3"
+},
+"/regions/africa/": {
+"d": "2026-11-09",
+"h": "adaacd068724d0ff"
 },
 "/regions/asia-pacific/": {
 "d": "2026-11-09",
@@ -162,6 +242,10 @@
 "/regions/europe/": {
 "d": "2026-11-09",
 "h": "301486be9ecd3d7c"
+},
+"/regions/latin-america/": {
+"d": "2026-11-09",
+"h": "fd6c0a02d989ea47"
 },
 "/regions/middle-east/": {
 "d": "2026-11-09",
@@ -177,7 +261,7 @@
 },
 "/th": {
 "d": "2026-11-09",
-"h": "819acb09c4d9b06f"
+"h": "3a1f92f7267e32e2"
 },
 "/website-terms.html": {
 "d": "2026-11-09",

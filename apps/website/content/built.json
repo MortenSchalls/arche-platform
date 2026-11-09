@@ -36,7 +36,7 @@
  },
  {
   "path": "/cities/auckland/",
-  "draft": true,
+  "draft": false,
   "words": 370
  },
  {
@@ -51,17 +51,17 @@
  },
  {
   "path": "/cities/buenos-aires/",
-  "draft": true,
+  "draft": false,
   "words": 304
  },
  {
   "path": "/cities/cape-town/",
-  "draft": true,
+  "draft": false,
   "words": 314
  },
  {
   "path": "/cities/doha/",
-  "draft": true,
+  "draft": false,
   "words": 445
  },
  {
@@ -81,7 +81,7 @@
  },
  {
   "path": "/cities/johannesburg/",
-  "draft": true,
+  "draft": false,
   "words": 341
  },
  {
@@ -91,7 +91,7 @@
  },
  {
   "path": "/cities/lagos/",
-  "draft": true,
+  "draft": false,
   "words": 329
  },
  {
@@ -101,7 +101,7 @@
  },
  {
   "path": "/cities/los-angeles/",
-  "draft": true,
+  "draft": false,
   "words": 447
  },
  {
@@ -111,32 +111,32 @@
  },
  {
   "path": "/cities/marrakech/",
-  "draft": true,
+  "draft": false,
   "words": 309
  },
  {
   "path": "/cities/mexico-city/",
-  "draft": true,
+  "draft": false,
   "words": 363
  },
  {
   "path": "/cities/miami/",
-  "draft": true,
+  "draft": false,
   "words": 446
  },
  {
   "path": "/cities/milan/",
-  "draft": true,
+  "draft": false,
   "words": 379
  },
  {
   "path": "/cities/mumbai/",
-  "draft": true,
+  "draft": false,
   "words": 448
  },
  {
   "path": "/cities/nassau/",
-  "draft": true,
+  "draft": false,
   "words": 326
  },
  {
@@ -151,7 +151,7 @@
  },
  {
   "path": "/cities/palm-beach/",
-  "draft": true,
+  "draft": false,
   "words": 360
  },
  {
@@ -166,17 +166,17 @@
  },
  {
   "path": "/cities/riyadh/",
-  "draft": true,
+  "draft": false,
   "words": 446
  },
  {
   "path": "/cities/san-francisco/",
-  "draft": true,
+  "draft": false,
   "words": 445
  },
  {
   "path": "/cities/sao-paulo/",
-  "draft": true,
+  "draft": false,
   "words": 426
  },
  {
@@ -206,12 +206,12 @@
  },
  {
   "path": "/cities/warsaw/",
-  "draft": true,
+  "draft": false,
   "words": 354
  },
  {
   "path": "/cities/washington/",
-  "draft": true,
+  "draft": false,
   "words": 361
  },
  {
@@ -281,7 +281,7 @@
  },
  {
   "path": "/regions/africa/",
-  "draft": true,
+  "draft": false,
   "words": 301
  },
  {
@@ -296,7 +296,7 @@
  },
  {
   "path": "/regions/latin-america/",
-  "draft": true,
+  "draft": false,
   "words": 344
  },
  {

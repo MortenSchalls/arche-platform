@@ -64,11 +64,9 @@ else:
     if L["site_hash"] != h.hexdigest(): problems.append("layout audit is older than the built pages: run it again")
     elif L["findings"]: problems.append(f"layout audit found {len(L['findings'])} problems (apps/website/audit/layout.json)")
 for n in notes: print("NOTE:", n)
-# launch blockers that only a person can close (the same as on the Navoryx site)
-for b in ["counsel review of the Privacy notice, Website terms of use and Terms of business",
-          "Data Protection Officer appointed and privacy@ address answered (Privacy notice names one)",
-          "data processing agreements with transfer clauses in place with the website host, database, email and AI providers (Privacy notice says so)"]:
+# launch blockers that only a person can close (company.LAUNCH_BLOCKERS, Morten 9 Nov 2026)
+for b in company.LAUNCH_BLOCKERS:
     problems.append("launch blocker: " + b)
-if not company.UEN: problems.append("company.py: UEN not set (add it when ACRA registration is done)")
+if not company.UEN and not any(b.startswith("UEN") for b in company.LAUNCH_BLOCKERS): problems.append("company.py: UEN not set (add it when ACRA registration is done)")
 print("\n".join(problems) or "Website ready: no placeholders left.")
 sys.exit(1 if problems else 0)
