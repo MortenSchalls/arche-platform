@@ -172,6 +172,7 @@ export async function run(db = connect(), { log = console.log, now = new Date(),
 async function probe(page, pattern) {
   const { execFileSync } = await import("child_process"); const { writeFileSync } = await import("fs");
   const h = await (await fetch(page, { headers: { "user-agent": "Mozilla/5.0 (compatible; ArcheOperatorList/1.0)" } })).text();
+  if (process.env.DRY === "html") { const i = h.indexOf(pattern); console.log(h.length, i); console.log(h.slice(Math.max(0, i - 1500), i + 3000)); return; }
   const m = h.match(new RegExp('href="([^"]*' + pattern + '[^"]*)"', "i")); if (!m) { console.log("no link matching " + pattern); return; }
   const url = new URL(m[1], page).href; console.log("PDF " + url);
   const buf = Buffer.from(await (await fetch(url)).arrayBuffer()); writeFileSync("/tmp/list.pdf", buf);
