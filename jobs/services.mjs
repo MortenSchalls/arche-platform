@@ -1,6 +1,6 @@
 // RETIRED 8 Nov 2026 (Morten: research without AI): this file's AI calls are no longer run by any job; its rules are used by
 // prospectagent.mjs to check the research agent's findings.
-// Service partners (Morten, 20 Oct 2026): business-jet suppliers at the airports Archē flies to most.
+// Service partners (Morten, 20 Oct 2026): business-jet suppliers at business airports worldwide (global list since 8 Nov 2026).
 // Step 1 (now): FBOs and business-aviation ground handlers, trip-support companies, business-jet in-flight catering.
 // Step 1b (21 Oct 2026): crew hotels near the same airports, and crew-accommodation companies, as their own category.
 // Next steps (roadmap): limousine services, helicopter transfers, yacht charter, one at a time.
@@ -17,13 +17,17 @@ export const CATEGORIES = [...CORE, "Crew hotels"];
 export const SETS = {
   core: { key: "intel/services", cats: CORE, label: "Service partner review" },
   hotels: { key: "intel/services-hotels", cats: ["Crew hotels"], label: "Crew hotel review" } };
-export const AIRPORTS = [
-  ["WSSL", "Singapore Seletar"], ["WSSS", "Singapore Changi"], ["VTBD", "Bangkok Don Mueang"], ["VTBS", "Bangkok Suvarnabhumi"],
-  ["VTSP", "Phuket"], ["VTBU", "U-Tapao (Pattaya)"], ["VHHH", "Hong Kong"], ["VMMC", "Macau"], ["RJTT", "Tokyo Haneda"],
-  ["RKSI", "Seoul Incheon"], ["WADD", "Bali Denpasar"], ["WMKK", "Kuala Lumpur"], ["RPLL", "Manila"], ["VVNB", "Hanoi"],
-  ["VVTS", "Ho Chi Minh City"], ["VDPP", "Phnom Penh"], ["VRMM", "Malé"], ["VABB", "Mumbai"], ["VIDP", "Delhi"],
-  ["YSSY", "Sydney"], ["YMML", "Melbourne"], ["OMDW", "Dubai World Central"], ["OMDB", "Dubai International"], ["OERK", "Riyadh"],
-  ["OTHH", "Doha"], ["LSGG", "Geneva"], ["LFMN", "Nice"], ["EGGW", "London Luton"], ["EGLF", "Farnborough"], ["LIML", "Milan Linate"]];
+// Global (Morten, 8 Nov 2026: "service partners are far from finished as we need to operate globally"): the airports are
+// the business-aviation airports of the website's airport research work list (tier 1 of
+// apps/website/content/airports/_queue.json: 140 airports in 59 countries on 8 Nov 2026, plus Phnom Penh from the first list, no excluded places), with names
+// from the portal's airport list, so this list grows with that one.
+import { readFileSync } from "fs";
+const Q = JSON.parse(readFileSync(new URL("../apps/website/content/airports/_queue.json", import.meta.url), "utf8"));
+const AP = Object.fromEntries(JSON.parse(readFileSync(new URL("../apps/portal/airports.json", import.meta.url), "utf8")).a.map(r => [r[0], r]));
+const EXTRA_NAMES = { KPBI: "Palm Beach International", TFFJ: "St Barthelemy Gustaf III" };
+const KEEP = ["VDPP"];   // on the first list (Phnom Penh) and not in tier 1: kept
+export const AIRPORTS = [...Object.values(Q.tier1).flat(), ...KEEP].filter((x, i, all) => all.indexOf(x) === i)
+  .map(icao => [icao, AP[icao] ? `${AP[icao][3] || AP[icao][2]} (${AP[icao][2]})` : (EXTRA_NAMES[icao] || icao)]);
 const SANCTIONED = ["russia", "belarus", "iran", "north korea", "syria", "cuba", "venezuela", "myanmar", "afghanistan", "crimea"];
 const MARKETPLACES = /(^|\.)(avinode|jetvip|aircharterguide|charterhub|privatefly|fxair|lunajets|flyvictor|jetsmarter|flyxo|airnav|globalair|acukwik|booking|expedia|hotels|agoda|trip|tripadvisor|kayak|trivago|hotelscombined)\.[a-z.]+$/i;
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);

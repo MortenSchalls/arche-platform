@@ -17,7 +17,7 @@
 // (a possible match is held for the Director's decision). Operators also need an Air Operator Certificate and are never
 // added from the EU Air Safety List (the same rules as before, intel.mjs vetOperator).
 // Also (Morten, 8 Nov 2026: "use same agent ... for the investor and supplier research"): business-jet suppliers at the
-// key airports (services.mjs rules: three airports a run per set, a 30-day refresh once all are covered) and, once a
+// business airports worldwide (services.mjs rules: five airports a run per set, a 30-day refresh once all are covered) and, once a
 // week, investors and strategic partners for the Director-only list (investors.mjs rules). Investor names never appear in
 // GitHub logs: the plan and the findings travel sealed (agentcrypt.mjs) and the job reports investor counts only.
 import { readFileSync } from "fs";
@@ -31,7 +31,7 @@ import { TRACKS, FOR, INV_FOCUS, INTERESTS, TICKETS, GEOS, vetInvestor, vetProfi
 import { CORE, SETS, AIRPORTS, vetService } from "./services.mjs";
 import { seal, open, jobKeys } from "./agentcrypt.mjs";
 
-export const LIMITS = { orgs: 20, operators: 12, routes: 8, airports: 3, perAirport: 8, investors: 12, profiles: 8 };
+export const LIMITS = { orgs: 20, operators: 12, routes: 8, airports: 5, perAirport: 8, investors: 12, profiles: 8 };
 const WEEK = 7 * 864e5;
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
 const EXCL = JSON.parse(readFileSync(new URL("../apps/website/content/excluded.json", import.meta.url), "utf8"));
@@ -67,6 +67,13 @@ function pager(fetchFn) {
   return { get, cache };
 }
 
+// supplier airports already done for a set: its progress record, plus (until the whole list has been covered once) every
+// airport where suppliers of that set are already listed, so a longer airport list never repeats the ones done
+export function coveredFor(st, rows, S, now = new Date()) {
+  const paused = st.pausedUntil && Date.parse(st.pausedUntil) > now.getTime() && st.listSize === AIRPORTS.length;
+  const have = st.listSize === AIRPORTS.length ? [] : rows.filter(r => r.data.kind === "service" && S.cats.includes(r.data.category)).flatMap(r => r.data.airports || []);
+  return { paused, covered: new Set([...(st.covered || []), ...have]) };
+}
 // ---- plan ----
 export async function plan(db, now = new Date()) {
   const agent = (await db.get("intel/agent")) || {}, status = (await db.get("intel/status")) || {};
@@ -80,9 +87,8 @@ export async function plan(db, now = new Date()) {
   // suppliers: the next airports of each set that are not covered yet (none while a set waits for its 30-day refresh)
   const suppliers = {};
   for (const [name, S] of Object.entries(SETS)) {
-    const st = (await db.get(S.key)) || {};
-    if (st.pausedUntil && Date.parse(st.pausedUntil) > now.getTime()) { suppliers[name] = { airports: [], categories: S.cats, note: "refresh after " + st.pausedUntil.slice(0, 10) }; continue; }
-    const covered = new Set(st.covered || []);
+    const st = (await db.get(S.key)) || {}, { paused, covered } = coveredFor(st, rows, S, now);
+    if (paused) { suppliers[name] = { airports: [], categories: S.cats, note: "refresh after " + st.pausedUntil.slice(0, 10) }; continue; }
     suppliers[name] = { airports: AIRPORTS.filter(([icao]) => !covered.has(icao)).slice(0, LIMITS.airports).map(([icao, n]) => ({ icao, name: n })), categories: S.cats };
   }
   // investors and strategic partners: once a week (Director-only list)
@@ -177,7 +183,7 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
   const byName = new Map(rows.map(r => [normName(r.data.org), r]));
   for (const [setName, perAirport] of Object.entries(batch.suppliers || {})) {
     const S = SETS[setName]; if (!S || !perAirport || typeof perAirport !== "object") continue;
-    const st = (await db.get(S.key)) || {}, covered = new Set(st.covered || []), done = [];
+    const st = (await db.get(S.key)) || {}, { covered } = coveredFor(st, rows, S, now), done = [];
     for (const [icao, items] of Object.entries(perAirport).slice(0, LIMITS.airports)) {
       if (!AIRPORTS.some(([c]) => c === icao)) continue;
       for (const o of (Array.isArray(items) ? items : []).slice(0, LIMITS.perAirport)) {
@@ -201,7 +207,7 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
       done.push(icao); covered.add(icao);
     }
     const finished = covered.size >= AIRPORTS.length, left = AIRPORTS.filter(([c]) => !covered.has(c));
-    if (!dry && done.length) await db.set(S.key, { ...st, lastRun: nowIso, covered: finished ? [] : [...covered], pausedUntil: finished ? new Date(now.getTime() + 30 * 864e5).toISOString() : null,
+    if (!dry && done.length) await db.set(S.key, { ...st, lastRun: nowIso, listSize: AIRPORTS.length, covered: finished ? [] : [...covered], pausedUntil: finished ? new Date(now.getTime() + 30 * 864e5).toISOString() : null,
       nextAirport: finished ? "refresh in 30 days" : left[0][1], airportsLeft: finished ? 0 : left.length, airportsDone: done, lastAdded: svcAdded.length, lastMerged: svcMerged, rejected: svcRejected.slice(0, 20), by: "research agent" });
   }
   rejected.push(...svcRejected);
@@ -240,7 +246,7 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
         note: `Research agent: ${invAdded} added, ${invProfiled} profiles, ${invRejected} rejected by the checks.`, rejected: irej.slice(0, 20), by: "research agent" }); }
   }
   const invNote = batch.investors ? ` Investors and partners (Director-only list): ${invAdded} added, ${invProfiled} profiles, ${invRejected} rejected${invHeld ? ", " + invHeld + " held for your decision" : ""}.` : "";
-  const svcNote = batch.suppliers ? ` Suppliers at key airports: ${svcAdded.length} added, ${svcMerged} linked to more airports.` : "";
+  const svcNote = batch.suppliers ? ` Suppliers at business airports: ${svcAdded.length} added, ${svcMerged} linked to more airports.` : "";
   const note = `${dry ? "Dry run, nothing written. " : ""}Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${svcNote}${invNote}${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
   if (!dry) {
     const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0, ofi = Number.isInteger(status.opFocusIndex) ? status.opFocusIndex : 0;

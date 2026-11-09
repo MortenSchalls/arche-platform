@@ -433,7 +433,7 @@
     "Open a prospect to see why, how to approach, contact routes, source, assignment history and the contact log.",
     "Assign it to a broker, or mark Do not contact.",
     "Add a prospect with its public source.",
-    "Research agent (Director): switch it on (it finds new organisations, charter operators, business-jet suppliers at our key airports and, once a week, investors and partners for your private list), choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list) and press Save settings. A Claude scheduled task does the research each morning when it is due, with no AI key and no AI bill. Nothing goes in until it passes every check: a public source page that opens and names the organisation, organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen. The panel shows the last run, what it added and what the checks rejected, with the reason."
+    "Research agent (Director): switch it on (it finds new organisations, charter operators, business-jet suppliers at business airports worldwide and, once a week, investors and partners for your private list), choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list) and press Save settings. A Claude scheduled task does the research each morning when it is due, with no AI key and no AI bill. Nothing goes in until it passes every check: a public source page that opens and names the organisation, organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen. The panel shows the last run, what it added and what the checks rejected, with the reason."
    ],
    "trouble": [
     [
@@ -617,7 +617,7 @@
     "Terms: margin, standard booking value, commission rates.",
     "Company details: printed on every confirmation; needed before the first issue.",
     "Prospect assignment and incentives: contact times, limits, minimum adds, extra lead share, leaderboard visibility.",
-    "Backup: download a full copy at any time; the nightly backup runs by itself.",
+    "Backup: download a full copy at any time; the nightly backup runs by itself: every table and every stored file (documents, registries, the research agent's key, the sanctions index), encrypted and kept 90 days.",
     "AI spend: this month's spend of the portal AI (the Assistant, trip co-pilot, roleplay lab and briefing) against the monthly cap you set here. At the cap the AI pauses until the next month. The research agent uses no AI key and costs nothing here."
    ],
    "trouble": [
@@ -1057,13 +1057,13 @@
    "id": "suppliers",
    "title": "Operators and service partners",
    "who": "Brokers and the Director",
-   "purpose": "The suppliers we can book: charter operators, and business-jet services at our key airports.",
+   "purpose": "The suppliers we can book worldwide: charter operators, and business-jet services at the business airports we serve.",
    "steps": [
     "Prospects, Operators: charter operators with their certificate, safety audits, fleet and sanctions pre-screen. A person confirms the sanctions check before the first booking.",
-    "Prospects, Service partners: FBOs and ground handlers, trip support, in-flight catering and crew hotels at our key airports. Filter by airport and category.",
+    "Prospects, Service partners: FBOs and ground handlers, trip support, in-flight catering and crew hotels at business airports worldwide (the 141 airports of the airport research list: Europe, the Middle East, Asia, Oceania, the Americas and Africa). Filter by airport and category.",
     "Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle.",
     "Suppliers are never assigned to brokers as leads.",
-    "New operators and service partners come from the research agent (Prospects > Research agent): three airports a run until all are covered, then a refresh every 30 days. Each one is checked before it goes in."
+    "New operators and service partners come from the research agent (Prospects > Research agent): five airports a run, worldwide, until all are covered, then a refresh every 30 days. When the airport list grows, the new airports follow. Each one is checked before it goes in."
    ],
    "trouble": [
     [

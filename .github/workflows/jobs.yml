@@ -72,12 +72,13 @@ jobs:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
         run: |
           test -n "$BACKUP_PASSPHRASE" || { echo "BACKUP_PASSPHRASE secret missing"; exit 1; }
-          openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in backup.json -out backup.json.enc -pass env:BACKUP_PASSPHRASE
-          rm backup.json
+          mkdir -p backup-files && tar -czf backup.tar.gz backup.json backup-files
+          openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in backup.tar.gz -out backup.tar.gz.enc -pass env:BACKUP_PASSPHRASE
+          rm -rf backup.json backup-files backup.tar.gz
       - name: Keep backup for 90 days
         if: env.JOB == 'backup'
         uses: actions/upload-artifact@v5
         with:
           name: portal-backup-${{ github.run_id }}
-          path: jobs/backup.json.enc
+          path: jobs/backup.tar.gz.enc
           retention-days: 90

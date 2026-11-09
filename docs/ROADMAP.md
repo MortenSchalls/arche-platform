@@ -37,7 +37,7 @@ Plan agreed 24 Oct 2026 (to do when Morten says): portal and academy live on por
 | ☐ | Decide whether to keep `/test.html` online after go-live (it holds no real data) | Remove the file to take it down. |
 | ☐ | Switch on the portal AI (Assistant, trip co-pilot, roleplay lab, briefing). Morten 25 Oct 2026: later | Anthropic console: add credit with a monthly limit and create a key; Vercel portal project: ANTHROPIC_API_KEY (plus SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY if missing), redeploy. Until then the Assistant says the AI is not switched on. |
 | ☐ | External broker academy: paid access by credit card before it opens (Morten, 26 Oct 2026) | Needs the price and a card payment provider; then sign-up, card checkout and access opening only after payment. Card details stay with the provider. On the portal task list. |
-| ☐ | Turn daily prospect research back on (paused 21 Oct 2026 to save AI credit) | Restore the cron line in `.github/workflows/jobs.yml`. Crew hotels then continue at 3 airports a day. |
+| ☐ | Turn daily prospect research back on (paused 21 Oct 2026 to save AI credit) | Restore the cron line in `.github/workflows/jobs.yml`. Superseded 8 Nov 2026: the research agent covers suppliers worldwide, five airports a run. |
 
 ## 3. Right after go-live
 | | Item | Notes |
@@ -75,7 +75,7 @@ Plan agreed 24 Oct 2026 (to do when Morten says): portal and academy live on por
 - ☑ Test version of the portal (`/test.html`): no sign-in, switch between Test Owner, Test Operations and Test Broker; example data in the browser only; never touches the real database.
 - ☑ Daily prospect research paused until go-live; the current lists are the base. Rotation and backups keep running.
 - ☑ AI spend control: every research call metered in USD; USD 1.50 per scheduled run and USD 40 a month in total, then research pauses; manual runs have their own limit (default USD 3); 6 searches per question instead of 12; the cheaper model for service partners and crew hotels; investor research one area a day; spend shown on Today.
-- ☑ Crew hotels as their own service: researched at the 30 airports: hotels at most 15 minutes by road with a dedicated airport shuttle (both mandatory, with sources), and crew-accommodation companies; from hotels' own sites, never booking or review sites; own progress record; in Supplier quotes with rooms and nights. Removed "Hotel for crew" from trip support.
+- ☑ Crew hotels as their own service: researched at the airports of the supplier list (30 at first; worldwide since 8 Nov 2026, 141 airports): hotels at most 15 minutes by road with a dedicated airport shuttle (both mandatory, with sources), and crew-accommodation companies; from hotels' own sites, never booking or review sites; own progress record; in Supplier quotes with rooms and nights. Removed "Hotel for crew" from trip support.
 - ☑ Supplier quotes (owner and operations): request quotes from checked service partners at an airport, compare them with an explained score, award with four-eyes; nothing sent from the portal; all in USD. First piece of the AeroBridge idea.
 
 **20 Oct 2026**

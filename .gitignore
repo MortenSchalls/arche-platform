@@ -24,3 +24,5 @@ import*.sql
 jobs/node_modules/
 jobs/backup.json
 jobs/backup.json.enc
+jobs/backup.tar.gz*
+jobs/backup-files/
