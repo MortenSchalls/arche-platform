@@ -47,7 +47,7 @@
  {
   "path": "/cities/bangkok/",
   "draft": false,
-  "words": 535
+  "words": 542
  },
  {
   "path": "/cities/buenos-aires/",
@@ -60,6 +60,11 @@
   "words": 314
  },
  {
+  "path": "/cities/chiang-mai/",
+  "draft": true,
+  "words": 746
+ },
+ {
   "path": "/cities/doha/",
   "draft": false,
   "words": 445
@@ -67,7 +72,7 @@
  {
   "path": "/cities/dubai/",
   "draft": false,
-  "words": 539
+  "words": 551
  },
  {
   "path": "/cities/geneva/",
@@ -187,7 +192,7 @@
  {
   "path": "/cities/singapore/",
   "draft": false,
-  "words": 521
+  "words": 529
  },
  {
   "path": "/cities/sydney/",
@@ -278,6 +283,11 @@
   "path": "/guides/operator-safety-audits/",
   "draft": false,
   "words": 951
+ },
+ {
+  "path": "/needs/flying-with-pets/",
+  "draft": true,
+  "words": 854
  },
  {
   "path": "/regions/africa/",

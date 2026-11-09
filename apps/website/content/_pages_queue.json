@@ -8,7 +8,7 @@
     "RPLL",
     "RPLC"
    ],
-   "note": "Tried 2 Nov 2026: national AIP (ais.caap.gov.ph) still not readable, and no official page gives the entry permit rule. Do not write the page until GEN 1.2 or a CAAP rule is readable or Morten supplies it; if still blocked, take the next entry."
+   "note": "Tried 2 Nov 2026: national AIP (ais.caap.gov.ph) still not readable, and no official page gives the entry permit rule. Do not write the page until GEN 1.2 or a CAAP rule is readable or Morten supplies it; if still blocked, take the next entry. Tried 9 Nov 2026: still no readable GEN 1.2; the CAAP Citizen's Charter 2026 (caap.gov.ph/wp-content/uploads/2026/07/CAAP-Citizens-Charter-2026-1st-Edition.pdf) may set out the foreign non-scheduled flight permit service; read it next run."
   },
   {
    "type": "country",
@@ -16,14 +16,7 @@
    "airports": [
     "VDTI"
    ],
-   "note": "Tried 2 Nov 2026: eAIP (aim.cats.com.kh/eaip/) needs a login. VDPP closed in Sep 2025 for Techo (VDTI), so research VDTI. Do not write the page until GEN 1.2 is readable or Morten supplies it; if still blocked, take the next entry."
-  },
-  {
-   "type": "city",
-   "name": "Chiang Mai",
-   "airports": [
-    "VTCC"
-   ]
+   "note": "Tried 2 Nov 2026: eAIP (aim.cats.com.kh/eaip/) needs a login. VDPP closed in Sep 2025 for Techo (VDTI), so research VDTI. Do not write the page until GEN 1.2 is readable or Morten supplies it; if still blocked, take the next entry. 9 Nov 2026: not retried (no new official source found)."
   },
   {
    "type": "need",
@@ -32,10 +25,6 @@
   {
    "type": "need",
    "name": "Government and delegation flights"
-  },
-  {
-   "type": "need",
-   "name": "Flying with pets"
   }
  ]
 }

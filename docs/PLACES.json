@@ -45,6 +45,15 @@
    "navoryx": "cape-town"
   },
   {
+   "place": "Chiang Mai",
+   "country": "TH",
+   "arche": [
+    "/cities/chiang-mai/"
+   ],
+   "navoryx": null,
+   "waiting": "Navoryx: no Chiang Mai page yet (Archē draft added by the weekly upkeep, 9 Nov 2026)"
+  },
+  {
    "place": "Colombo",
    "country": "LK",
    "arche": [

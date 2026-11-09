@@ -1,0 +1,77 @@
+{
+ "path": "/needs/flying-with-pets/",
+ "type": "need",
+ "draft": true,
+ "title": "Flying with pets on a private jet: entry rules that apply",
+ "description": "Taking a dog or cat on a private flight: what Great Britain, Singapore and the United States require on arrival, from each authority's own pages.",
+ "eyebrow": "Services · Travelling with animals",
+ "h1": "Flying with your pet",
+ "lead": "A private flight lets a dog or cat travel in the cabin with you instead of in the hold. The aircraft is the easy part. The paperwork for the country you land in decides whether the trip works, so it starts weeks before the flight.",
+ "glance": [
+  ["Great Britain", "pet.gb_cabin"],
+  ["Singapore", "pet.sg_licence"],
+  ["United States", "pet.us_dog"]
+ ],
+ "sections": [
+  {
+   "h": "Why private flights suit animals",
+   "p": [
+    "On an airline, most pets travel in the hold and the rules of the airline come on top of the rules of the country. On a chartered aircraft the cabin is yours, so a pet can sit with the family for the whole journey, subject to the operator's agreement and the rules of the country of arrival.",
+    "Every operator sets its own conditions for animals on board, such as a carrier or a cover for the seats. We ask before we quote, so the aircraft you see is one that accepts your pet."
+   ]
+  },
+  {
+   "h": "Great Britain",
+   "p": [
+    "The rule in Great Britain is clear on charter: {{pet.gb_cabin}}. There is a condition, though: {{pet.gb_routes}}.",
+    "For private flights this means the choice of operator and airport is part of the rule. On the government's list, {{pet.gb_charter}}. We check the operator and the arrival airport against that list before we confirm the trip."
+   ]
+  },
+  {
+   "h": "Singapore",
+   "p": [
+    "Singapore's Animal & Veterinary Service asks for {{pet.sg_licence}}. The rules depend on the country the animal comes from: {{pet.sg_quarantine}}.",
+    "Health papers take time. In practice, {{pet.sg_rabies}}, so a trip from such a country is planned months ahead, not days. The animal also needs {{pet.sg_chip}}.",
+    "On arrival, {{pet.sg_entry}}, so the timing of the flight and the inspection are arranged together with the authority."
+   ]
+  },
+  {
+   "h": "The United States",
+   "p": [
+    "For a dog entering from a country the authority treats as free of dog rabies or low-risk, {{pet.us_dog}}. Dogs from other countries face stricter rules, set out by the same authority.",
+    "The receipt is shown on arrival, so we make sure it is ready before the aircraft leaves."
+   ]
+  },
+  {
+   "h": "Everywhere else",
+   "p": [
+    "Each country sets its own rules for animals, and they change. Some ask for a permit before departure, some for a vet's certificate issued a few days before the flight, and some only let animals in through certain airports. We read the rules of the country you fly to, and of any country where the aircraft stops, before we send you a quote.",
+    "This page explains the rules as the authorities publish them; it is not veterinary or legal advice. The authority of the country you arrive in has the final word."
+   ]
+  },
+  {
+   "h": "How we plan a flight with your pet",
+   "p": [
+    "Tell us where you are going, the animal you travel with and when you would like to fly. We find an operator that accepts it, check the arrival rules and the airport, and list in your quote what the authority needs and when. Any aircraft, any route, upon availability."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can my dog sit with me in the cabin of a private jet?",
+   "a": "Usually yes, if the operator agrees and the country of arrival allows it. Into Great Britain, for example, {{pet.gb_cabin}}."
+  },
+  {
+   "q": "Does my pet need quarantine in Singapore?",
+   "a": "It depends on where the animal comes from: {{pet.sg_quarantine}}."
+  },
+  {
+   "q": "How early should I start the paperwork?",
+   "a": "As early as you can. Some rules take months: in Singapore, {{pet.sg_rabies}}."
+  }
+ ],
+ "related": [
+  "/guides/cabotage/",
+  "/guides/empty-legs/"
+ ]
+}

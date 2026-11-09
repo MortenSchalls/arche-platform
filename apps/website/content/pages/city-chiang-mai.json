@@ -1,0 +1,75 @@
+{
+ "path": "/cities/chiang-mai/",
+ "type": "city",
+ "region": "/regions/asia-pacific/",
+ "draft": true,
+ "title": "Private jet charter to and from Chiang Mai",
+ "description": "Private flights to and from Chiang Mai: Thailand's flight permit, slots, night limits, ground time and customs hours, from the Thailand AIP and the slot coordinator.",
+ "eyebrow": "City guide · Chiang Mai",
+ "h1": "Private flights to and from Chiang Mai",
+ "lead": "Chiang Mai International Airport is open around the clock, with customs on site. A private flight needs a Thai permit and a slot, and this season the airport limits night flights and ground time. What the official sources say.",
+ "glance": [
+  ["Airport", "vtcc.icao"],
+  ["Location", "vtcc.location"],
+  ["Customs", "vtcc.customs"],
+  ["Time slot", "vtcc.slots"],
+  ["Permit", "th.permit"]
+ ],
+ "sections": [
+  {
+   "h": "Chiang Mai International Airport",
+   "p": [
+    "The airport is run by {{vtcc.operator}} and lies {{vtcc.location}}. It is {{vtcc.hours}}, with {{vtcc.customs}}, so an international arrival can be planned at any hour the night limits allow. It has {{vtcc.runway}}.",
+    "Parking is set by stand size: {{vtcc.max_aircraft}}. One ground rule to know: {{vtcc.notable}}."
+   ]
+  },
+  {
+   "h": "Permit and time slot",
+   "p": [
+    "Thailand asks for {{th.permit}}. For Chiang Mai itself: {{vtcc.slots}}.",
+    "The airport also asks for notice: {{vtcc.ppr}}. A trip that keeps the aircraft on the ground for longer is planned with a positioning flight, and we show you that in the quote."
+   ]
+  },
+  {
+   "h": "Night flights",
+   "p": [
+    "The slot coordinator limits night movements to protect the neighbours: {{vtcc.curfew}}. The limits are set season by season, so we check the notice for your dates before we quote."
+   ]
+  },
+  {
+   "h": "Flights from elsewhere in Thailand",
+   "p": [
+    "A flight from Bangkok, Phuket or another Thai airport to Chiang Mai is a domestic flight. In Thailand, {{th.cabotage}}, so we check that the operator is allowed to fly the leg before you see a quote. Our cabotage guide explains the rule."
+   ]
+  },
+  {
+   "h": "Arriving and leaving",
+   "p": [
+    "Every person travelling needs a valid passport and any visa the country asks for. The operator and its handling agent arrange customs, immigration and ground handling for your arrival and departure, and tell you where to meet the crew.",
+    "Your trip brief names the airport, where private flights are handled and the contact on the ground. Your broker stays with you from the first enquiry to the last landing, and follows up after the trip."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Chiang Mai",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. We check the permit, the slot and the night limits for your times and your aircraft, find aircraft from licensed operators, check each operator before you see a quote, and name the operator in your quote and agreement. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can I land in Chiang Mai at night?",
+   "a": "Within limits. This season, {{vtcc.curfew}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/cities/bangkok/",
+  "/countries/thailand/",
+  "/guides/cabotage/"
+ ]
+}

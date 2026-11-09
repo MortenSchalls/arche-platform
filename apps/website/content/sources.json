@@ -3436,5 +3436,53 @@
   "url": "https://www.techoairport.com.kh/about-us",
   "publisher": "Techo International Airport (Cambodia Airport Investment Co., Ltd.)",
   "checked": "2026-11-08"
+ },
+ "tat-loikrathong-2026": {
+  "title": "TAT Newsroom, Loi Krathong 2026 lights up Thailand's rivers and historic cities (published 5 Nov 2026)",
+  "url": "https://www.tatnews.org/2026/11/loi-krathong-2026-lights-up-thailands-rivers-and-historic-cities/",
+  "publisher": "Tourism Authority of Thailand",
+  "checked": "2026-11-09"
+ },
+ "visitdubai-dsf-2026": {
+  "title": "Visit Dubai, Dubai Shopping Festival page (no page date shown; checked 9 Nov 2026)",
+  "url": "https://www.visitdubai.com/en/festivals-and-events/dsf",
+  "publisher": "Dubai Department of Economy and Tourism",
+  "checked": "2026-11-09"
+ },
+ "nac-saw-2027": {
+  "title": "National Arts Council, SAW 2027 Open Call (no page date shown; checked 9 Nov 2026)",
+  "url": "https://www.nac.gov.sg/singapore-arts-scene/art-forms/visual-arts/saw-2027-open-call",
+  "publisher": "National Arts Council Singapore",
+  "checked": "2026-11-09"
+ },
+ "gov-uk-pet-routes": {
+  "title": "GOV.UK, Bringing your pet dog, cat or ferret to Great Britain: Travel routes for pets (checked 9 Nov 2026)",
+  "url": "https://www.gov.uk/bring-pet-to-great-britain/travel-routes-pets",
+  "publisher": "UK Government (Department for Environment, Food & Rural Affairs)",
+  "checked": "2026-11-09"
+ },
+ "gov-uk-pet-approved": {
+  "title": "GOV.UK, Pet travel: approved air, sea and rail carriers and routes (last updated 23 Oct 2026)",
+  "url": "https://www.gov.uk/government/publications/pet-travel-approved-air-sea-and-rail-carriers-and-routes",
+  "publisher": "Animal and Plant Health Agency (UK)",
+  "checked": "2026-11-09"
+ },
+ "gov-uk-pet-air-routes": {
+  "title": "GOV.UK, Pet travel: airlines and airports you can use (last updated 3 Nov 2026)",
+  "url": "https://www.gov.uk/government/publications/pet-travel-approved-air-sea-rail-and-charter-routes-for-the-movement-of-pets/approved-air-routes-for-pet-travel",
+  "publisher": "Animal and Plant Health Agency (UK)",
+  "checked": "2026-11-09"
+ },
+ "avs-import-dogs-cats": {
+  "title": "Animal & Veterinary Service, Importing dogs and cats (checked 9 Nov 2026)",
+  "url": "https://avs.nparks.gov.sg/pets/importing-exporting-a-pet/import/dogs-and-cats/",
+  "publisher": "National Parks Board, Animal & Veterinary Service (Singapore)",
+  "checked": "2026-11-09"
+ },
+ "cdc-dogs-low-risk": {
+  "title": "CDC, Entry Requirements for Dogs from Dog-Rabies Free or Low-Risk Countries (page dated 22 Jul 2024)",
+  "url": "https://www.cdc.gov/importation/dogs/rabies-free-low-risk-countries.html",
+  "publisher": "US Centers for Disease Control and Prevention",
+  "checked": "2026-11-09"
  }
 }

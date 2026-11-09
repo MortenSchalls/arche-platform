@@ -4836,5 +4836,90 @@
   "v": "two crossing runways; the longer, 09/27, is 3,448 m long and 60 m wide",
   "src": "vabb-mial-aera-4cp-2503",
   "quote": "RWY 09/27- 3,448m x 60m (3,188m x 60m with displaced threshold) ... RWY 14/32- 2,871m x 45m"
+ },
+ "ev.bkk_loikrathong_2026": {
+  "v": "24 November 2026",
+  "src": "tat-loikrathong-2026",
+  "quote": "This year, the full moon falls on 24 November"
+ },
+ "ev.dxb_dsf_2026": {
+  "v": "4 December 2026 – 17 January 2027",
+  "src": "visitdubai-dsf-2026",
+  "quote": "from 4 December 2026 to 17 January 2027"
+ },
+ "ev.sgp_saw_2027": {
+  "v": "21–31 January 2027",
+  "src": "nac-saw-2027",
+  "quote": "The 15th Edition of SAW will be held from 21 to 31 January 2027."
+ },
+ "pet.gb_cabin": {
+  "v": "pets flying into Great Britain travel as cargo unless the flight is a chartered private plane or the animal is a guide or assistance dog",
+  "src": "gov-uk-pet-routes",
+  "quote": "Pets have to travel as cargo on a plane unless: you're flying on a chartered private plane ... you're travelling with a guide or assistance dog"
+ },
+ "pet.gb_routes": {
+  "v": "only carriers and routes approved by the Animal and Plant Health Agency may be used to bring a pet to England or Scotland",
+  "src": "gov-uk-pet-approved",
+  "quote": "You can only use these carriers and routes approved by the Animal and Plant Health Agency to bring your pet to England or Scotland."
+ },
+ "pet.gb_charter": {
+  "v": "the approved list has its own section of charter airlines, each with the airports it may use, that carry pets in the cabin",
+  "src": "gov-uk-pet-air-routes",
+  "quote": "These airlines transport pets in the carriage of the plane."
+ },
+ "pet.sg_licence": {
+  "v": "an import licence obtained before arrival, after first getting a dog or cat licence; the import licence is valid for 90 days from issue",
+  "src": "avs-import-dogs-cats",
+  "quote": "Apply for and obtain an import licence before arrival. ... To import a dog or cat, you must obtain a dog or cat licence before applying for an import licence. ... An import licence is valid for 90 days from the date of issue."
+ },
+ "pet.sg_quarantine": {
+  "v": "dogs and cats from Schedule I countries need no quarantine on arrival, while those from Schedule III countries need at least 30 days",
+  "src": "avs-import-dogs-cats",
+  "quote": "Dogs or cats coming from Schedule I countries do not need to undergo any quarantine on arrival in Singapore. ... post-arrival quarantine of at least 30-days"
+ },
+ "pet.sg_rabies": {
+  "v": "from Schedule II and III countries a valid rabies vaccination and a blood test taken at least 90 days and within 12 months before export are needed",
+  "src": "avs-import-dogs-cats",
+  "quote": "The dog or cat must have a valid vaccination against rabies ... The blood sampling must be done at least 90 days and within 12 months prior to the date of export."
+ },
+ "pet.sg_chip": {
+  "v": "a microchip to ISO Standard 11784 or 11785 Annex A, with its number on every vaccination and treatment record",
+  "src": "avs-import-dogs-cats",
+  "quote": "Ensure that your dog or cat is microchipped according to International Standards Organisation (ISO) Standard 11784 or ISO Standard 11785 Annex A. ... The microchip number must be indicated in all vaccination/treatment records."
+ },
+ "pet.sg_entry": {
+  "v": "dogs and cats arriving by air are inspected at the Changi Animal & Plant Quarantine Station",
+  "src": "avs-import-dogs-cats",
+  "quote": "Dogs and cats entering Singapore by air are inspected at Changi Animal & Plant Quarantine Station"
+ },
+ "pet.us_dog": {
+  "v": "a dog must be at least 6 months old, carry a microchip a universal scanner can read, and have a CDC Dog Import Form receipt, which is valid for 6 months",
+  "src": "cdc-dogs-low-risk",
+  "quote": "Dogs must be at least 6 months old at time of entry or return to the U.S. ... Dogs must have a microchip that can be detected with a universal scanner ... The receipt is valid for 6 months from when it's issued."
+ },
+ "vtcc.slots": {
+  "v": "Level 3 (coordinated) airport: slots are coordinated by CAAT and non-scheduled flights must obtain a slot (business aviation applies with a General Aviation Clearance Request, GCR)",
+  "src": "th-aip-gen12",
+  "quote": "CNX/VTCC | Chiang Mai/ Chiang Mai International Airport | Coordination | CAAT; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+ },
+ "vtcc.permits": {
+  "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
+  "src": "th-aip-gen12",
+  "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
+ },
+ "vtcc.ppr": {
+  "v": "all flights must be coordinated with the airport in advance by the airline or handling agent; non-scheduled flights may stay on the ground no more than 4 hours (Winter 2026/27)",
+  "src": "caat-nac-cnx-w26",
+  "quote": "Airlines and handling agents must coordinate with the airport in advance of all flights. ... The ground time for non-scheduled flights operating at CNX shall not exceed 4 hours."
+ },
+ "vtcc.curfew": {
+  "v": "Winter 2026/27 (25 Oct 2026 - 27 Mar 2027): only emergency and medical flights 02:00-05:59 local (19:00-22:59 UTC); 00:00-00:59 local (17:00-17:59 UTC) limited to 4 flights (8 movements) a day and 01:00-01:59 local (18:00-18:59 UTC) to 2 flights (4 movements) a day, for noise",
+  "src": "caat-nac-cnx-w26",
+  "quote": "To minimize noise impact on the surrounding community, CNX has implemented the following flight restrictions: During 17:00-17:59 UTC: 4 flights (8 movements) per day; During 18:00-18:59 UTC: 2 flights (4 movements) per day; During 19:00-22:59 UTC: Only emergency and medical flights will be accepted."
+ },
+ "vtcc.max_aircraft": {
+  "v": "largest stands (bays 3-8) take up to code E aircraft; bays 9, 12, 15, 19, 20L, 20R up to code C",
+  "src": "caat-nac-cnx-w26",
+  "quote": "Up to A/C Code E (Bay 3 - 8); Up to A/C Code C (Bay 9, 12, 15, 19, 20L, 20R)"
  }
 }
