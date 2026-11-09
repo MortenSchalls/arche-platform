@@ -71,9 +71,9 @@ else:
     if L["site_hash"] != h.hexdigest(): problems.append("layout audit is older than the built pages: run it again")
     elif L["findings"]: problems.append(f"layout audit found {len(L['findings'])} problems (apps/website/audit/layout.json)")
 for n in notes: print("NOTE:", n)
-# launch blockers that only a person can close (company.LAUNCH_BLOCKERS, Morten 9 Nov 2026)
-for b in company.LAUNCH_BLOCKERS:
+# launch blockers that only a person can close (launch_blockers.py, Morten 9 Nov 2026)
+from launch_blockers import launch_blockers
+for b in launch_blockers():
     problems.append("launch blocker: " + b)
-if not company.UEN and not any(b.startswith("UEN") for b in company.LAUNCH_BLOCKERS): problems.append("company.py: UEN not set (add it when ACRA registration is done)")
 print("\n".join(problems) or "Website ready: no placeholders left.")
 sys.exit(1 if problems else 0)

@@ -19,8 +19,9 @@ OUT = os.path.join(HERE, "site")
 BANGKOK_OFFICE = False   # Morten 26 Oct 2026: Archē stays Singaporean until the Bangkok office opens (see singapore_only.py)
 
 import company as _company   # launch gate (Morten, 9 Nov 2026): no launch while a recorded blocker is open
-if _company.LAUNCHED and _company.LAUNCH_BLOCKERS:
-    raise SystemExit("STOP: LAUNCHED = True but launch blockers are open in company.py:\n - " + "\n - ".join(_company.LAUNCH_BLOCKERS))
+from launch_blockers import launch_blockers as _lb
+if _company.LAUNCHED and _lb():
+    raise SystemExit("STOP: LAUNCHED = True but launch blockers are open (launch_blockers.py, docs/LAUNCH-BLOCKERS.md):\n - " + "\n - ".join(_lb()))
 SHOW_ACCREDITATIONS = False   # Morten 20 Oct 2026: hide until Archē holds accreditations; set True to bring the section back
 PORTAL = "https://portal.archeaviation.com"  # go-live address (Morten, 25 Oct 2026)
 

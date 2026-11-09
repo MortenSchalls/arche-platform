@@ -18,17 +18,7 @@ WECHAT_ID = ""   # e.g. "ArcheExecutive" once the WeChat account exists; until t
 LAUNCHED = False
 # Ties with the other public website (docs/SEVERANCE.md, Morten 9 Nov 2026): False on severance; nothing else changes.
 SHARED_SITE = True
-# Launch blockers (Morten, 9 Nov 2026: "keep record on the missing items so we cannot launch before having these
-# sorted out"). Remove a line only when the item is done, with the date and who confirmed it in the commit message.
-# build.py refuses to build with LAUNCHED = True while any line is left, and check_site.py lists them every run.
-LAUNCH_BLOCKERS = [
-    "UEN: Arche Executive Pte. Ltd. registered with ACRA and the number set in UEN above",
-    "Phone: Singapore business number set in PHONE above (also used for WhatsApp)",
-    "Counsel review of the Privacy notice, Website terms of use and Terms of business",
-    "Data Protection Officer appointed and the privacy@ address answered (the Privacy notice names one)",
-    "Data processing agreements with transfer clauses signed with the website host, database, email and AI providers (the Privacy notice says so)",
-    "Payment provider agreed (clients pay only through its secure payment request)",
-]
+# Launch blockers: launch_blockers.py (record in docs/LAUNCH-BLOCKERS.md). build.py refuses to launch while any is open.
 def pairs():
     line = " · ".join(x for x in (NAME, ("UEN " + UEN) if UEN else "", ADDRESS) if x)
     return [
