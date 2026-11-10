@@ -13,7 +13,10 @@ async function sb(path, opt = {}) {
   const r = await fetch(`${process.env.SUPABASE_URL}${path}`, { ...opt, headers: { apikey: KEY, authorization: `Bearer ${KEY}`, "content-type": "application/json", ...(opt.headers || {}) } });
   return { ok: r.ok, status: r.status, body: await r.json().catch(() => null) };
 }
+import books from "./_books/handler.mjs";
+// Books (owners only, second factor): POST /api/books is rewritten here (vercel.json); the Hobby plan allows 12 functions
 export default async function handler(req, res) {
+  if ((req.query || {}).x === "books") return books(req, res);
   res.setHeader("Cache-Control", "no-store");
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SECRET_KEY) return res.status(503).json({ error: "not set up" });

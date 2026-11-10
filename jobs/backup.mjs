@@ -5,12 +5,14 @@
 import { writeFileSync, mkdirSync, readdirSync, statSync, readFileSync } from "fs";
 import { dirname, join, relative } from "path";
 import { connect } from "./lib/db.mjs";
-export const TABLES = ["profiles", "config", "intel", "region_cards", "join_requests", "prospects", "owner_prospects", "optouts", "audit_log", "faq", "trips", "trip_status",
+// Books first (SQL 0023): restoring the ledger before the trips means the trips' own postings are found already there
+export const TABLES = ["acct_accounts", "acct_journal", "acct_lines", "acct_drafts", "acct_budget", "acct_bank_lines", "acct_settings", "acct_members", "acct_passkeys", "acct_log", "acct_errors",
+  "profiles", "config", "intel", "region_cards", "join_requests", "prospects", "owner_prospects", "optouts", "audit_log", "faq", "trips", "trip_status",
   "payouts", "leads", "access_log", "questions", "training_runs", "roleplay_runs", "website_enquiries",
   "enquiry_pool", "enquiry_contacts", "agreements", "member_scores", "step_requests", "alert_settings",
   "academy_progress", "academy_records", "assessments", "certificates", "push_subs", "rfqs", "screen_log", "site_events", "site_links"];
 // not backed up: locks (a few minutes' run lock, nothing to restore)
-export const SKIP_TABLES = ["locks"];
+export const SKIP_TABLES = ["locks", "acct_challenges", "acct_sessions"];   // minutes-long run locks, sign-in challenges and open books sessions: nothing to restore
 // stored files: uploaded documents, the operator registries, the research agent's key, the sanctions index
 // (the academy recordings are not here: the narration workflow makes them again from the academy text)
 export const BUCKETS = ["portal-files", "registries", "agent", "sanctions"];
@@ -61,6 +63,8 @@ export async function restoreTables(db = connect(), file = "backup.json", log = 
       if (r.error) throw new Error(`restore ${table}: ${r.error.message}`); put += Math.min(500, rows.length - i);
     }
   }
+  // identity counters past the restored ids (SQL 0023), so new audit, books and log rows never collide
+  try { const r = await db.sb.rpc("reset_identities"); if (r && r.error) log("Note: reset_identities: " + r.error.message); } catch (e) { log("Note: reset_identities not run: " + e.message); }
   log(`Rows checked and missing ones restored: ${put} (existing rows untouched).`); return { rows: put };
 }
 // restore the files of an opened backup (after the tables): node backup.mjs restore-files [backup-files]

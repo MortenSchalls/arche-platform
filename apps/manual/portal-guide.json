@@ -1306,6 +1306,40 @@
     "Nothing about investors appears in shared logs or summaries."
    ],
    "n": "H.42"
+  },
+  {
+   "id": "books",
+   "title": "Books (the owners only)",
+   "who": "The two owners; an accountant or bookkeeper only if the owners add them",
+   "purpose": "The company's own accounts for Arche Aviation Pte. Ltd. (trading as Archē Executive): every money step in the portal posts to the books by itself, with live reports, the locked budget, Singapore tax estimates and suggestions. Nobody else in the portal sees it, the Director role included.",
+   "steps": [
+    "Books appears in the menu only for the two owners named in the server settings, and for an accountant or bookkeeper the owners have added in Books, Settings and access.",
+    "Open it and unlock it with a second step after your normal sign-in: a passkey (Face ID, Touch ID or Windows Hello) or the 6-digit code from your authenticator app. It locks itself after 15 minutes without use and after 8 hours at most.",
+    "Client payments, operator payments, the margin when a trip is flown and paid commission post by themselves. Use New entry for everything else (costs, capital, loans, dividends, corrections): debits must equal credits before it can be posted. A posted entry is never changed or deleted; it is corrected by a reversal.",
+    "Bank: import a Wise Business or Citi statement (CSV) and link each line to its entry, or post it.",
+    "Reports: profit and loss, balance sheet, trial balance, cash flow, budget against actual, general ledger and the tax estimate, each as a download.",
+    "Advice lists suggestions on cash, client money, tax and dividends, with the source. The AI review reads totals only (no names or notes) and suggests; it can never post, pay or change anything. You and your accountant decide.",
+    "Every unlock, entry, export and change is in the Books log. The ledger is checked against its own chain of fingerprints, and a copy of the books is backed up every night, encrypted."
+   ],
+   "trouble": [
+    [
+     "Books is not in the menu",
+     "Only the owners named in the server settings, or a member the owners added, see it. Sign out and in again after a change."
+    ],
+    [
+     "The code is not accepted",
+     "Use the current code from your authenticator app; after 8 wrong tries in an hour Books stays locked for an hour."
+    ],
+    [
+     "A money step did not post",
+     "It is listed under Advice as could not post; the portal itself is never held up. Post it by hand or ask for the cause."
+    ]
+   ],
+   "tips": [
+    "Load the locked budget once in Budget and choose which month is month 1.",
+    "Your accountant confirms every tax figure before anything is filed with IRAS or ACRA."
+   ],
+   "n": "H.43"
   }
  ],
  "faqIntro": "The first 15 questions below were written before launch. From then on the FAQ grows from real questions: everyone can ask in the portal under Help, the AI answers at once, and questions asked often are added to the FAQ without names or client details. The Director reviews every entry. The live FAQ in the portal is always the current one.",

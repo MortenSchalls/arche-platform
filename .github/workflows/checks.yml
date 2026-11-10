@@ -38,6 +38,8 @@ jobs:
           node apps/portal/tests/bookingplan.test.mjs
           node apps/portal/tests/moneyalerts.test.mjs
           node apps/portal/tests/irnx.test.mjs
+          node apps/portal/tests/books.test.mjs
+          sh scripts/test_books_sql.sh
       - name: All or none (every related document revised together)
         run: python3 scripts/check_all_revised.py
       - name: Portal screens (test version, example data)
@@ -46,4 +48,4 @@ jobs:
           python3 build_test.py
           (python3 -m http.server 8765 >/dev/null 2>&1 &) ; sleep 2
           set -o pipefail
-          for t in boottest roletodaytest invitetest irtest seeastest profiletest altest rightstest inttest supervisortest livereal bookingtest trtest aftercaretest jointest screenlists reportstest handovertest ownerfoureyes readingtest acadplantest acadaudiotest airuletest agenttest safetytest audit colorscan; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done
+          for t in boottest roletodaytest invitetest irtest seeastest profiletest altest rightstest inttest supervisortest livereal bookingtest trtest aftercaretest jointest screenlists reportstest handovertest ownerfoureyes readingtest acadplantest acadaudiotest airuletest agenttest safetytest bookstest audit colorscan; do echo "== $t"; node tests/$t.js 2>&1 | tail -40 | tee /tmp/$t.log; if grep -q "^FAIL\|FAILED" /tmp/$t.log || (grep -q "^ERRORS" /tmp/$t.log && ! grep -q "^ERRORS \[\]" /tmp/$t.log); then echo "::error::$t failed"; exit 1; fi; done

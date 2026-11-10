@@ -25,7 +25,7 @@ the same in every place. Worked examples recomputed. Dates and version numbers c
 ## 3. Things that must not appear
 Paynode; bank details; a Bangkok office, address or Thai phone number; sanctioned places on the website; Navoryx links
 outside the Director-only investor area; operations desk or charter consultants; "owner" as a role; targets or bonus
-for brokers; prices on the website; device voices in the academy; real client or broker data in the repository.
+for brokers; prices on the website; Books visible to anyone but the owners and the members they added, or AI in Books that can post, pay or decide; device voices in the academy; real client or broker data in the repository.
 
 ## 4. Behaviour
 Run `python3 scripts/check_all_revised.py`, every portal test (README list and `checks.yml`), every `jobs` test, both

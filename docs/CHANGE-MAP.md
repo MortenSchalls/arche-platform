@@ -21,6 +21,7 @@ is changed: ask first.
 | Shared place facts | `apps/website/content/` (facts, airport files, sources) | `docs/SHARED-FACTS.json` (`python3 scripts/export_shared_facts.py`), copied into navoryx-website | `check_site.py` fails when the export is older than the facts |
 | Ties between Archē and Navoryx (severance) | `docs/SEVERANCE.md` (Morten, 9 Nov 2026), identical in both repositories | CLAUDE.md in both, the `SHARED_SITE` switches, the scheduled tasks that touch both | `check_site.py` and the Navoryx `check.py`, with the switch on and off |
 | Navoryx investor relations | `docs/IR-PORTAL-CONTRACT.md` | The same file in navoryx-website, in the same piece of work, both test suites run | `irtest`, `irnx.test.mjs` and the website's own tests |
+| Books (the owners' accounts) | `docs/BOOKS.md` and the Books rule in `CLAUDE.md` | The database (`supabase/migrations/0023_books.sql`) → the server (`apps/portal/api/_books/`) → the screen (`src-modules/books.js` and `index.html`) → Appendix H.43 (`portal-guide.json`, then `manual38.js`) → the backup job (`jobs/backup.mjs`, `jobs.yml`) | `books.test.mjs`, `test_books_sql.sh`, `bookstest`, `jobs/test.mjs` |
 | Anything at all | — | `docs/ARCHE-HANDOVER.md` and the claude.ai project copy `arche/arche-handover.md` | — |
 
 Notices to members are the one exception: a notice is a dated message, so old notices stay as they were sent; a new
