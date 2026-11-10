@@ -166,6 +166,7 @@ export async function todo(db) {
     db.sb("/rest/v1/acct_receipts?status=in.(new,read)&select=id,status,data,created_at,file_type&order=created_at.desc&limit=100"),
     db.sb("/rest/v1/acct_drafts?status=eq.draft&select=*&order=created_at.desc&limit=100"),
     db.sb("/rest/v1/acct_errors?resolved=eq.false&select=id,at,source,message&order=id.desc&limit=50")]);
+  for (const r of receipts) r.ready = C.receiptReady(r.data);
   return { bank, receipts, drafts, errors, count: bank.length + receipts.length + drafts.length + errors.length };
 }
 

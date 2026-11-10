@@ -347,6 +347,9 @@ export function cleanReceipt(x, accounts) {
   return { supplier: s(o.supplier, 80), date, total, currency: /^[A-Z]{3}$/.test(o.currency || "") ? o.currency : "USD", gst, description: s(o.description, 120),
            account: K.has(String(o.account)) ? String(o.account) : "", invoiceNo: s(o.invoiceNo, 40), confidence: o.confidence === "high" ? "high" : "low" };
 }
+// a receipt is "clear" (can go in with the others under one tap) only when the AI read every field with high confidence
+// and nothing was held on it before; anything else is checked on its own
+export function receiptReady(d) { d = d || {}; return d.read_by === "ai" && d.confidence === "high" && !!d.supplier && /^\d{4}-\d{2}-\d{2}$/.test(d.date || "") && +d.total > 0 && !!d.account && !(d.held || []).length; }
 // the bill entry: cost (net of GST once registered) against what we owe the supplier (2000), or the director if he paid it (2500)
 export function receiptEntry(r, { id, usd, gstUsd = 0, gstRegistered = false, paidPersonally = false }) {
   const ref = "receipt:" + String(id).slice(0, 8), net = r2(gstRegistered ? usd - gstUsd : usd);

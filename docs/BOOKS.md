@@ -54,6 +54,15 @@ do this without mistakes, and even if there should be mistakes, it will be caugh
   last time for that supplier. A person checks the fields and presses Post: cost against what we owe the supplier
   (2000), or the director (2500) if paid personally. The bank payment later clears it by itself; a rate difference goes
   to exchange gain or loss. Without an AI key the fields are typed.
+- **Many receipts at once** (Morten, 10 Nov 2026: "can i just take a photo along the month and just upload in one go"):
+  pick all the month's photos and PDFs together; each is read in turn, duplicates skipped. Receipts read in full with
+  high confidence are listed together: the person unticks any that are wrong and presses "Post the ticked receipts"
+  once. That press is the person's decision; each receipt still goes through every check, and any with a warning is
+  held back with its reason and checked on its own (no posting by the AI alone).
+- **A ? beside every field** (Morten: "ensure you have a ? for every field so it is intuitive for me and users"): a tap
+  shows one plain sentence under the label, without leaving the screen or losing what was typed.
+- **Beta** (Morten: "lets call it a Beta model for now and then keep working on improving"): Books shows "Beta" and
+  is improved step by step; suggested improvements are listed below.
 - **Repeating entries** (rent, the accountant's fee, depreciation) come up as drafts on their day, each month once; a
   person presses Post.
 - **The checks** run before every posting, by a person, a rule or a draft. Blocks: a closed period, a date more than a
@@ -111,3 +120,12 @@ reversal, hash chain, access, restore), `node apps/portal/tests/bookstest.js` (s
 brokers excluded). All four run in the Portal checks.
 
 No system is hacker-proof; Books is built in layers so that one failure does not open the books.
+
+## Suggested next improvements (Beta)
+- Invoices from the trip, InvoiceNow once GST-registered.
+- Month-end and year-end packs: FX revaluation of SGD balances, accruals, ECI and Form C-S figures, dividend pack
+  (solvency check, profits available, draft directors' resolution).
+- Reports in SGD for IRAS and ACRA, with the rate source.
+- Receipts by email: forward a bill to a Books address and it lands in To do.
+- Opening balances wizard: the first bank balance and capital in one screen.
+- A short "first month" walkthrough in Books for the accountant or bookkeeper.

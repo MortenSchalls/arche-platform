@@ -76,6 +76,10 @@ const pe = C.billPaymentEntry({ billUsd: 230.77, bankUsd: -231.5, bankAccount: "
 const dr = C.r2(pe.lines.reduce((s, l) => s + (l.debit || 0), 0)), crd = C.r2(pe.lines.reduce((s, l) => s + (l.credit || 0), 0));
 ok(dr === crd && pe.lines.some(l => l.account === "6000" && l.debit === 0.73), "paying a bill: the rate difference goes to exchange loss and the entry balances");
 
+ok(C.receiptReady({ read_by: "ai", confidence: "high", supplier: "Acme", date: "2026-12-01", total: 5, account: "5500" }), "a fully read receipt is clear for Post all");
+ok(!C.receiptReady({ read_by: "ai", confidence: "low", supplier: "Acme", date: "2026-12-01", total: 5, account: "5500" }), "an unclear read is checked on its own");
+ok(!C.receiptReady({ read_by: "ai", confidence: "high", supplier: "Acme", date: "2026-12-01", total: 5, account: "" }), "no account: checked on its own");
+ok(!C.receiptReady({ read_by: "ai", confidence: "high", supplier: "Acme", date: "2026-12-01", total: 5, account: "5500", held: ["x"] }), "held once: checked on its own");
 // ---------- repeats ----------
 const due = C.recurringDue({ next_date: "2026-10-15", every_months: 1 }, "2026-12-20");
 ok(due.dates.join() === "2026-10-15,2026-11-15,2026-12-15" && due.next === "2027-01-15", "a repeat catches up missed months, once each");

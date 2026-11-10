@@ -323,22 +323,41 @@ export default async function handler(req, res) {
       const r = await sb("/storage/v1/object/sign/books/" + rec.file_path, { method: "POST", body: JSON.stringify({ expiresIn: 120 }) }); await log(me.id, "receipt-opened", { receipt: b.id });
       return res.json({ url: SBU() + "/storage/v1" + (r.signedURL || r.signedUrl) }); }
     if (mode === "receipts") { need("read"); return res.json({ rows: await sb(`/rest/v1/acct_receipts?select=id,status,data,created_at,file_type,journal_id,paid_journal_id&order=created_at.desc&limit=300${b.open ? "&status=in.(new,read)" : ""}`) }); }
+    // one receipt into the books: the fields as checked (or as read, for "Post all"); the same checks as everything else
+    const postReceipt = async (rec, fields, { confirm = false, auto = false } = {}) => {
+      const acc = await all("/rest/v1/acct_accounts?select=code,name,kind,active"), x = C.cleanReceipt({ ...rec.data, ...(fields || {}), confidence: "high" }, acc);
+      const miss = !x.supplier ? "Who is the supplier?" : !x.date ? "Give the date on the receipt." : !x.total ? "Give the total paid." : !x.account ? "Choose what it was for." : "";
+      if (miss) throw new A.Refused(miss);
+      const R = x.currency === "USD" ? {} : await A.rates(), fx = C.toUsd(x.total, x.currency, x.date, R, cfg), gfx = x.gst ? C.toUsd(x.gst, x.currency, x.date, R, cfg) : { usd: 0 };
+      if (!fx) throw new A.Refused(`No exchange rate for ${x.currency} on ${x.date}. Add the dollar amount by hand as a New entry.`);
+      const paidPersonally = !!(fields || {}).paidPersonally;
+      const r = await A.post(db, C.receiptEntry(x, { id: rec.id, usd: fx.usd, gstUsd: gfx.usd, gstRegistered: !!cfg.gstRegistered, paidPersonally }), { ...po, source: "receipt:" + rec.id, confirm, auto });
+      if (!r.posted) return r;
+      await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: paidPersonally ? "paid" : "posted", journal_id: r.id, decided_by: me.id, decided_at: new Date().toISOString(),
+        data: { ...x, usd: fx.usd, fx: fx.rate, fxSource: fx.source, paidPersonally } }) });
+      await log(me.id, "receipt-posted", { receipt: rec.id, entry: r.id, batch: auto || undefined });
+      return r;
+    };
+    const rematch = async () => { const open = await all("/rest/v1/acct_bank_lines?journal_id=is.null&select=*"); if (open.length) await A.processLines(db, open, po); };
     if (mode === "receiptPost" || mode === "receiptReject") {
       const rec = (await sb(`/rest/v1/acct_receipts?id=eq.${encodeURIComponent(b.id)}&status=in.(new,read)&select=*`))[0]; if (!rec) return res.status(404).json({ error: "That receipt is not waiting." });
       if (mode === "receiptReject") { need("receipts"); await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: "rejected", decided_by: me.id, decided_at: new Date().toISOString() }) }); await log(me.id, "receipt-rejected", { receipt: rec.id }); return res.json({ ok: true }); }
-      need("post"); const acc = await all("/rest/v1/acct_accounts?select=code,name,kind,active"), x = C.cleanReceipt({ ...rec.data, ...(b.fields || {}), confidence: "high" }, acc);
-      if (!x.supplier) return res.status(400).json({ error: "Who is the supplier?" }); if (!x.date) return res.status(400).json({ error: "Give the date on the receipt." });
-      if (!x.total) return res.status(400).json({ error: "Give the total paid." }); if (!x.account) return res.status(400).json({ error: "Choose what it was for." });
-      const fx = C.toUsd(x.total, x.currency, x.date, x.currency === "USD" ? {} : await A.rates(), cfg), gfx = x.gst ? C.toUsd(x.gst, x.currency, x.date, x.currency === "USD" ? {} : await A.rates(), cfg) : { usd: 0 };
-      if (!fx) return res.status(400).json({ error: `No exchange rate for ${x.currency} on ${x.date}. Add the dollar amount by hand as a New entry.` });
-      const paidPersonally = !!(b.fields || {}).paidPersonally;
-      const r = await A.post(db, C.receiptEntry(x, { id: rec.id, usd: fx.usd, gstUsd: gfx.usd, gstRegistered: !!cfg.gstRegistered, paidPersonally }), { ...po, source: "receipt:" + rec.id, confirm: !!b.confirm });
-      if (!r.posted) return posted(r);
-      await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: paidPersonally ? "paid" : "posted", journal_id: r.id, decided_by: me.id, decided_at: new Date().toISOString(),
-        data: { ...x, usd: fx.usd, fx: fx.rate, fxSource: fx.source, paidPersonally } }) });
-      await log(me.id, "receipt-posted", { receipt: rec.id, entry: r.id });
-      if (!paidPersonally) { const open = await all("/rest/v1/acct_bank_lines?journal_id=is.null&select=*"); await A.processLines(db, open, po); }
+      need("post"); const r = await postReceipt(rec, b.fields || {}, { confirm: !!b.confirm });
+      if (r.posted && !(b.fields || {}).paidPersonally) await rematch();
       return posted(r);
+    }
+    // "Post all": the person ticked the clear receipts on the list and pressed once; each still goes through every check,
+    // and any with a warning is held back with its reason (Morten, 10 Nov 2026: batch upload, one tap, no AI decisions)
+    if (mode === "receiptPostAll") {
+      need("post"); const ids = [...new Set((Array.isArray(b.ids) ? b.ids : []).map(String))].slice(0, 100); if (!ids.length) return res.status(400).json({ error: "Tick the receipts to post." });
+      const recs = await sb(`/rest/v1/acct_receipts?id=in.(${ids.map(encodeURIComponent).join(",")})&status=eq.read&select=*`), out = { posted: 0, held: [] };
+      for (const rec of recs) {
+        if (!C.receiptReady(rec.data)) { out.held.push({ id: rec.id, why: "Not fully read: check it on its own." }); continue; }
+        try { const r = await postReceipt(rec, {}, { auto: true });
+          if (r.posted) out.posted++; else { out.held.push({ id: rec.id, why: r.warns[0] }); await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ data: { ...rec.data, held: r.warns } }) }); } }
+        catch (e) { out.held.push({ id: rec.id, why: e.message }); } }
+      if (out.posted) await rematch();
+      await log(me.id, "receipts-posted-together", { posted: out.posted, held: out.held.length }); return res.json({ ok: true, ...out });
     }
     if (mode === "recurring") {
       if (b.save || b.end) need("post");

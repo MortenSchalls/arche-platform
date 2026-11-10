@@ -170,6 +170,8 @@ ok((await call("tOwner", { mode: "receiptUpload", type: "image/jpeg", data: Buff
 ok((await call("tOwner", { mode: "lockPeriod", until: "2999-01-01" }, OS)).status === 400, "only ended periods can be closed");
 ok((await call("tOwner", { mode: "rules", save: { match: "ab", account: "5300" } }, OS)).status === 400, "a rule needs at least three letters");
 ok((await call("tOwner", { mode: "rules", save: { match: "vercel", account: "1010" } }, OS)).status === 400, "a rule cannot send money to a bank account");
+ok((await call("tAcc", { mode: "receiptPostAll", ids: ["x"] }, AS)).status === 403, "an accountant cannot post receipts together");
+ok((await call("tOwner", { mode: "receiptPostAll", ids: [] }, OS)).status === 400, "Post all needs ticked receipts");
 ok((await call("tOwner", { mode: "bankSync" }, OS)).status === 503, "the Wise feed says what it needs when no token is set");
 
 console.log(`books.test: ${n - fails}/${n} passed`);
