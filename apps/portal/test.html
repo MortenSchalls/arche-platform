@@ -8149,7 +8149,9 @@ function trustMatrix(){
     const r = pg.remind, P = (S.invPrev || {})[x.email] || {};
     const body = P.text ? `<pre style="white-space:pre-wrap;font:inherit;margin:0;padding:10px;border:1px solid var(--line, rgba(127,127,127,.25));border-radius:6px">${esc(P.text)}</pre>`
       : P.error ? `<p class="note warn small">${esc(P.error)}</p>` : `<p class="muted">Preparing ${esc((x.name || x.email).split(/\s+/)[0])}'s email…</p>`;
-    return `<div class="stack small" id="invRem_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}"><h3 style="margin:4px 0">Reminder to ${esc(x.name || x.email)}</h3>
+    const noName = P.text && P.noName ? `<div class="note warn small"><p>Your name is not on your profile yet, so this email would be signed "Archē Executive" only. Add the name you sign with; the email is then made again with it.</p>
+      <div class="row"><label class="f" for="inv_myname">Your name<input id="inv_myname" autocomplete="name"></label><button class="btn small" type="button" data-inv="myname|${esc(x.email)}|${esc(x.name || "")}">Save my name</button></div></div>` : "";
+    return noName + `<div class="stack small" id="invRem_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}"><h3 style="margin:4px 0">Reminder to ${esc(x.name || x.email)}</h3>
       <p class="muted">To: ${esc(P.to || r.to || x.email)} only. Subject: ${esc(P.subject || r.subject || "Your next step with Archē Executive")}. This is exactly the email that is sent, with ${esc((x.name || x.email).split(/\s+/)[0])}'s own sign-in link, as their joining stands now${P.made ? ` (${fmtT(P.made)})` : ""}. The link works once and only for a short time: if you wait, press Make again for a fresh one. Sent from Archē's welcome address; replies come to you, and you get a hidden copy.${r.sent ? ` Reminded before: ${r.sent} time${r.sent > 1 ? "s" : ""}, last ${fmtT(r.lastSent)}.` : ""}</p>
       ${body}
       <div class="row"><button class="btn small primary" type="button" data-inv="remindsend|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy || !P.text ? "disabled" : ""}>Send this reminder</button><button class="btn small" type="button" data-inv="remindmake|${esc(x.email)}|${esc(x.name || "")}">Make again</button><button class="btn small" type="button" data-inv="remind|${esc(x.email)}">Cancel</button></div></div>`;
@@ -8194,6 +8196,11 @@ function trustMatrix(){
     if (b.dataset.inv.startsWith("log|")) { const em = b.dataset.inv.slice(4); S.invLog = S.invLog || {}; S.invLog[em] = !S.invLog[em]; if (S.invLog[em]) S.invStAt = 0; render(); return; }
     if (b.dataset.inv.startsWith("remind|")) { const em = b.dataset.inv.slice(7); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em];
       if (S.invRem[em]) { const x = [...(S.invites || []), ...(S.invExtra || [])].find(z => z.email === em); remindPreview(em, (x && x.name) || em); } else if (S.invPrev) delete S.invPrev[em]; render(); return; }
+    if (b.dataset.inv.startsWith("myname|")) { const [, email, name] = b.dataset.inv.split("|"), nm = (($("inv_myname") || {}).value || "").trim();
+      try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
+        const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({mode: "myname", myName: nm, email, name: name || email})});
+        const j = await r.json().catch(() => ({})); if (!j.ok) { toast(j.error || "Could not save your name."); return; } toast("Saved. The email now carries your name."); } catch(e){ toast("Could not reach the portal."); return; }
+      remindPreview(email, name || email); return; }
     if (b.dataset.inv.startsWith("remindmake|")) { const [, email, name] = b.dataset.inv.split("|"); remindPreview(email, name || email); return; }
     if (b.dataset.inv.startsWith("remindsend|")) { const [, email, name] = b.dataset.inv.split("|"); const P = (S.invPrev || {})[email] || {}; if (!S.invBusy && P.link) { await send({email, name: name || email}, "remind", {link: P.link}); if (S.invPrev) delete S.invPrev[email]; } return; }
     if (b.dataset.inv.startsWith("del|")) { const em = b.dataset.inv.slice(4); S.invDel = S.invDel === em ? "" : em; render(); return; }

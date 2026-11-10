@@ -267,6 +267,9 @@ export default async function handler(req, res) {
     if ((req.query || {}).nx === "ir") return await irHandler(req, res, { sb, owner });   // Navoryx investor relations (api/_nx/ir.mjs)
     const o = await owner(req); if (o.error) return res.status(o.code).json({ error: o.error });
     const { me, p } = o;
+    // the Director's own name signs every email (Morten, 10 Nov 2026: "complete with link and my name as agreed"): the
+    // contract name in Team, else the name on the sign-in account; never a placeholder
+    const um0 = me.user_metadata || {}, senderName = String(p.contract_name || um0.name || um0.full_name || "").trim();
     if (req.method === "GET") {   // who has accepted (owners only)
       const cur = await sb("/rest/v1/intel?select=value&key=eq.invites"), list = (((cur.body || [])[0] || {}).value || {}).list || [];
       const out = {};
@@ -281,7 +284,7 @@ export default async function handler(req, res) {
         const audits = nm.length >= 3 ? arr((await sb(`/rest/v1/audit_log?select=t,action,detail&detail=ilike.*${encodeURIComponent(nm)}*&order=t.desc&limit=60`)).body) : [];
         // sign-in history kept by Supabase (needs SQL 0021; without it the log uses the other records only)
         const ae = await sb("/rest/v1/rpc/join_auth_events", { method: "POST", body: JSON.stringify({ p_uid: u.id, p_email: String(u.email || x.email || "").toLowerCase() }) });
-        return { ...inviteState(u, prof, join, agr), progress: joinProgress({ invite: x, user: u, prof, join, agr, prog, ack: runs.find(r => r.id === "onboarding") || null, offer: runs.find(r => r.id === "offer") || null, runs, audits, authEvents: ae.ok ? arr(ae.body) : null, from: p.contract_name || "" }) };
+        return { ...inviteState(u, prof, join, agr), progress: joinProgress({ invite: x, user: u, prof, join, agr, prog, ack: runs.find(r => r.id === "onboarding") || null, offer: runs.find(r => r.id === "offer") || null, runs, audits, authEvents: ae.ok ? arr(ae.body) : null, from: senderName }) };
       };
       for (const x of list.slice(0, 30)) {
         const u = await findUser(String(x.email || "").toLowerCase());
@@ -305,6 +308,10 @@ export default async function handler(req, res) {
     }
 
     const b = req.body || {}, email = clean(b.email, 120).toLowerCase(), name = clean(b.name, 80);
+    // the Director's signing name, set once from the reminder screen when the profile has none
+    if (b.mode === "myname") { const nm = clean(b.myName, 80); if (nm.split(/\s+/).length < 2) return res.status(400).json({ error: "Enter your first and last name." });
+      const r = await sb(`/rest/v1/profiles?id=eq.${me.id}`, { method: "PATCH", headers: { prefer: "return=minimal" }, body: JSON.stringify({ contract_name: nm }) });
+      if (!r.ok) return res.status(502).json({ error: "Could not save your name (" + r.status + ")." }); return res.status(200).json({ ok: true, name: nm }); }
     if (b.mode === "delete") { if (!EMAIL_RX.test(email)) return res.status(400).json({ error: "No email given." }); const r = await deleteInvitee({ email, name, me }); return res.status(r.code).json(r); }
     if (!EMAIL_RX.test(email)) return res.status(400).json({ error: "Enter a valid email address." });
     if (!name || name.split(/\s+/).length < 2) return res.status(400).json({ error: "Enter the person's first and last name." });
@@ -325,11 +332,11 @@ export default async function handler(req, res) {
         if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the link (" + gl.status + ")." }); }
       const prog = arrFirst((await sb(`/rest/v1/academy_progress?select=data&id=eq.${existing.id}`)).body);
       const pd = (prog && prog.data) || null;
-      if (preview) { const m = remindMail({ name, link, from: p.contract_name || "", next: academyNext(pd), pwSet, started: !!pd });
-        return res.status(200).json({ ok: true, preview: true, to: email, subject: m.subject, text: m.text, link, made: new Date().toISOString() }); }
+      if (preview) { const m = remindMail({ name, link, from: senderName, next: academyNext(pd), pwSet, started: !!pd });
+        return res.status(200).json({ ok: true, preview: true, to: email, subject: m.subject, text: m.text, link, made: new Date().toISOString(), noName: !senderName }); }
       let sent = "not sent: RESEND_API_KEY missing in Vercel";
       if (process.env.RESEND_API_KEY) {
-        const m = remindMail({ name, link, from: p.contract_name || "", next: academyNext(pd), pwSet, started: !!pd });
+        const m = remindMail({ name, link, from: senderName, next: academyNext(pd), pwSet, started: !!pd });
         const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
           body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m })) });
         if (r.ok) sent = "sent"; else { let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {} sent = `not sent: refused by Resend (${r.status}${msg ? ": " + msg.slice(0, 120) : ""})`; }
@@ -349,7 +356,7 @@ export default async function handler(req, res) {
     const link = gl.body && (gl.body.action_link || (gl.body.properties || {}).action_link);
     if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the login (" + gl.status + ")." });
 
-    const ownerName = p.contract_name || "";
+    const ownerName = senderName;
     let sent = "not sent: RESEND_API_KEY missing in Vercel";
     if (process.env.RESEND_API_KEY) {
       const m = inviteMail({ name, link, from: ownerName, again });
