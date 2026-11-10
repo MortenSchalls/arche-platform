@@ -33,7 +33,9 @@ export async function listAll(st, bucket, prefix = "") {
 
 export async function run(db = connect(), out = "backup.json", log = console.log, dir = "backup-files") {
   const dump = { exportedAt: new Date().toISOString(), source: "supabase", tables: {}, files: {} };
-  for (const t of TABLES) dump.tables[t] = await db.all(t);
+  // the Books tables exist only once SQL 0023 and 0024 have been run: until then the backup notes them and goes on
+  for (const t of TABLES) { try { dump.tables[t] = await db.all(t); }
+    catch (e) { if (t.startsWith("acct_") && /does not exist|schema cache|PGRST205|Could not find the table/i.test(e.message || "")) { (dump.missing || (dump.missing = [])).push(t); log(`${t}: not set up yet (run SQL 0023/0024), skipped`); } else throw e; } }
   let nFiles = 0, bytes = 0;
   for (const b of BUCKETS) {
     const paths = await listAll(db.sb.storage, b); dump.files[b] = [];

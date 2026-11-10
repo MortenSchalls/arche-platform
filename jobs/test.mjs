@@ -236,6 +236,9 @@ const bk = await backup.run(db, "/tmp/backup-test.json", quiet, "/tmp/backup-tes
 assert(counts.prospects === 19 && existsSync("/tmp/backup-test.json")); pass("backup holds every table");
 assert(bk.files === 3 && existsSync("/tmp/backup-test-files/portal-files/u1/sub/doc2") && existsSync("/tmp/backup-test-files/agent/key.json")); pass("backup holds the stored files themselves, in every folder and bucket");
 unlinkSync("/tmp/backup-test.json");
+{ const noBooks = { ...db, all: async t => { if (t.startsWith("acct_")) throw new Error(`relation "public.${t}" does not exist`); return db.all(t); } };
+  const b2 = await backup.run(noBooks, "/tmp/backup-test2.json", quiet, "/tmp/backup-test-files2");
+  assert(b2.counts.prospects === 19); pass("before the Books SQL is run, the backup still runs and skips the Books tables"); unlinkSync("/tmp/backup-test2.json"); }
 // every table made by the database migrations is backed up (or deliberately skipped)
 { const { readdirSync, readFileSync } = await import("fs");
   const made = new Set(readdirSync("../supabase/migrations").filter(f => f.endsWith(".sql")).flatMap(f => [...readFileSync("../supabase/migrations/" + f, "utf8").matchAll(/create table (?:if not exists )?(?:public\.)?([a-z_]+)/gi)].map(m => m[1].toLowerCase())));
