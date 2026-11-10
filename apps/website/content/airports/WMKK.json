@@ -6,8 +6,8 @@
  "country": "MY",
  "tz": "Asia/Kuala_Lumpur",
  "tier": 1,
- "status": "partial",
- "checked": "2026-11-07",
+ "status": "verified",
+ "checked": "2026-11-10",
  "rules": {
   "customs": {
    "v": "customs and immigration open 24 hours",
@@ -34,16 +34,21 @@
    "v": "non-scheduled flights need prior permission through NOSAS or AEROFILE; apply at least 3 working days ahead or approval may not be processed in time",
    "src": "my-aip-gen12",
    "quote": "Prior permission must be sought and obtained either by NOSAS or AEROFILE system.; Flight approval might not be processed in time if the application is less than three (3) working days."
+  },
+  "runway": {
+   "v": "three runways: 14L/32R 4,019 m x 60 m, 14R/32L 4,000 m x 60 m and 15/33 3,960 m x 60 m (AIP SUP 17/26, effective 19 Mar 2026)",
+   "longest_m": 4019,
+   "src": "wmkk-caam-esup-26-17",
+   "quote": "14L ... 4019 x 60 ... 14R ... 4000 x 60 ... 15 ... 3960 x 60 (AD 2.12 table cells)"
   }
  },
  "missing": [
   "iata (not stated in the AIP)",
-  "runway (AD 2.12 not readable, page cut off at AD 2.9)",
   "curfew",
   "ppr",
   "max_aircraft",
   "noise",
   "handling agent names"
  ],
- "notes": "The eAIP page (AIRAC 6 Aug 2026) only loaded up to AD 2.9; runway, local regulations and noise sections could not be read. The old PDF AD 2 on aip.caam.gov.my dates from 2008-2011 and was not used. Customs and aerodrome are H24. 1 Nov 2026: read the newest edition, AIRAC 29 Oct 2026 (https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html). The page text is again cut off in AD 2.9 (the AD 2.8 taxiway/apron tables are very long), so runway (AD 2.12), local rules (AD 2.20) and noise (AD 2.21) still could not be read; Morten may need to download the AD 2 WMKK pages. Handling updated from that edition. Its AD 2.3 hours rows show only database markup with '24', so customs and hours are kept from the 6 Aug 2026 edition. The AIP refers to runways 14L/32R and 14R/32L (lengths not read). | 2026-11-02 run: Re-read 19 May 2026 eAIP WMKK page (79k characters) from offset 60000 and 72000: only taxiway/apron pavement tables; AD 2.12, 2.20, 2.21 not in the readable text. Nothing new. | 2026-11-04 run: 4 Nov 2026: slots and permits added from GEN 1.2 (eAIP 11 Aug 2026; a newer GEN 1.2 was not found). AD 0.6 (6 Aug 2026) links the WMKK page with anchors, but the link to AD 2.12 was refused and the 25 Mar 2025 page failed; runway, AD 2.20 and AD 2.21 still unread. | 7 Nov 2026: nothing added. AMDT for AIRAC 6 Aug 2026 lists no WMKK AD 2 page change (only AIP SUP 17/26 about KLIA). Read the 19 Feb 2026 AIRAC WMKK page (https://aip.caam.gov.my/aip/eAIP/2026-02-19-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html), including from offset 75000: the text again ends in AD 2.9, so runway, AD 2.20 and AD 2.21 still unread. Could not be opened (permission not given in time): the 29 Oct 2026 and 6 Aug 2026 AIRAC WMKK pages. Morten may need to download the AD 2 WMKK PDF pages."
+ "notes": "The eAIP page (AIRAC 6 Aug 2026) only loaded up to AD 2.9; runway, local regulations and noise sections could not be read. The old PDF AD 2 on aip.caam.gov.my dates from 2008-2011 and was not used. Customs and aerodrome are H24. 1 Nov 2026: read the newest edition, AIRAC 29 Oct 2026 (https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html). The page text is again cut off in AD 2.9 (the AD 2.8 taxiway/apron tables are very long), so runway (AD 2.12), local rules (AD 2.20) and noise (AD 2.21) still could not be read; Morten may need to download the AD 2 WMKK pages. Handling updated from that edition. Its AD 2.3 hours rows show only database markup with '24', so customs and hours are kept from the 6 Aug 2026 edition. The AIP refers to runways 14L/32R and 14R/32L (lengths not read). | 2026-11-02 run: Re-read 19 May 2026 eAIP WMKK page (79k characters) from offset 60000 and 72000: only taxiway/apron pavement tables; AD 2.12, 2.20, 2.21 not in the readable text. Nothing new. | 2026-11-04 run: 4 Nov 2026: slots and permits added from GEN 1.2 (eAIP 11 Aug 2026; a newer GEN 1.2 was not found). AD 0.6 (6 Aug 2026) links the WMKK page with anchors, but the link to AD 2.12 was refused and the 25 Mar 2025 page failed; runway, AD 2.20 and AD 2.21 still unread. | 7 Nov 2026: nothing added. AMDT for AIRAC 6 Aug 2026 lists no WMKK AD 2 page change (only AIP SUP 17/26 about KLIA). Read the 19 Feb 2026 AIRAC WMKK page (https://aip.caam.gov.my/aip/eAIP/2026-02-19-AIRAC/html/eAIP/WM-AD-2.WMKK-en-MS.html), including from offset 75000: the text again ends in AD 2.9, so runway, AD 2.20 and AD 2.21 still unread. Could not be opened (permission not given in time): the 29 Oct 2026 and 6 Aug 2026 AIRAC WMKK pages. Morten may need to download the AD 2 WMKK PDF pages. | 10 Nov 2026: added runway from AIP Supplement 17/26 (KLIA PCR revision, effective 19 Mar 2026, PERM), which reissues the AD 2.12 table: 14R/32L 4,000 x 60 m, 14L/32R 4,019 x 60 m, 15/33 3,960 x 60 m. The supplement has no night, curfew or general aviation text. Could not be opened (permission not answered): https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/pdf/WM-AD-2.WMKK-en-MS.pdf. AD 2.20 and AD 2.21 still unread. Status set to verified: runway, customs (H24), hours (H24) and slots now recorded from current AIP sources; AD 2.20 local rules and AD 2.21 noise still unread."
 }

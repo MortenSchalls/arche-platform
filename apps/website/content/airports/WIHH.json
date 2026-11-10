@@ -7,7 +7,7 @@
  "tz": "Asia/Jakarta",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-07",
+ "checked": "2026-11-10",
  "rules": {
   "runway": {
    "v": "one runway, 3,000 m long and 45 m wide",
@@ -31,5 +31,5 @@
   "hours",
   "noise"
  ],
- "notes": "No AIP data (Indonesian AIP login-only). The 2025 DGCA notice does not say what stays at Halim (charter, private); do not state that. Halim is also an air force base; not confirmed by the DGCA register page, so not stated. 1 Nov 2026: no new official source could be read. Could not be opened: https://hubud.kemenhub.go.id/bandara/122 (re-read); no Airport Authority Office profile page for Halim was found by search. | 2026-11-02 run: Nothing new; no new official source found by search. | 2026-11-04 run: 4 Nov 2026: DGCA register re-read (https://hubud.dephub.go.id/hubud/website/bandara/122): no runway designation, hours or customs; nothing new. DGCA news of 6 Sep 2026 (https://hubud.kemenhub.go.id/berita/4887) reports temporary closure by NOTAM A3347/26 after the Anak Krakatau eruption; temporary, no rule recorded. | 7 Nov 2026: nothing added. Searches for an Indonesian AIP AD 2 page, an InJourney Airports Halim page or a Customs (Bea Cukai) hours page found only news and trip-support sites (not used)."
+ "notes": "No AIP data (Indonesian AIP login-only). The 2025 DGCA notice does not say what stays at Halim (charter, private); do not state that. Halim is also an air force base; not confirmed by the DGCA register page, so not stated. 1 Nov 2026: no new official source could be read. Could not be opened: https://hubud.kemenhub.go.id/bandara/122 (re-read); no Airport Authority Office profile page for Halim was found by search. | 2026-11-02 run: Nothing new; no new official source found by search. | 2026-11-04 run: 4 Nov 2026: DGCA register re-read (https://hubud.dephub.go.id/hubud/website/bandara/122): no runway designation, hours or customs; nothing new. DGCA news of 6 Sep 2026 (https://hubud.kemenhub.go.id/berita/4887) reports temporary closure by NOTAM A3347/26 after the Anak Krakatau eruption; temporary, no rule recorded. | 7 Nov 2026: nothing added. Searches for an Indonesian AIP AD 2 page, an InJourney Airports Halim page or a Customs (Bea Cukai) hours page found only news and trip-support sites (not used). | 10 Nov 2026: nothing new. Search for an InJourney Airports or DGCA page with Halim hours found only news and encyclopedia sites (not used)."
 }

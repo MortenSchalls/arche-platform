@@ -7,7 +7,7 @@
  "tz": "Pacific/Honolulu",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-09",
+ "checked": "2026-11-10",
  "rules": {
   "runway": {
    "v": "six runways in the FAA AIP table; longest 08L/26R, 12,360 ft x 200 ft (about 3,767 m); 08R/26L (the Reef Runway) 12,000 x 200 ft; 04R/22L 9,002 x 150 ft; 04L/22R 6,955 x 150 ft; plus water runways 04W/22W and 08W/26W",
@@ -35,6 +35,11 @@
    "v": "for international arrivals, CBP permission to land at least 2 hours before arrival; commercial operators leaving the US get outbound clearance from CBP",
    "src": "phnl-cbp-ga",
    "quote": "at least two hours in advance of the anticipated arrival time"
+  },
+  "handling": {
+   "v": "Hawaii DOT Airports board item of 27 Mar 2026 issues Signature Flight Support LLC a revocable permit to build and operate a temporary FBO facility at the airport; no other FBO named in the official sources read",
+   "src": "phnl-hdot-signature-rp",
+   "quote": "Signature will use the paved, improved land to construct and operate a temporary Fixed-Base Operations (FBO) Facility"
   }
  },
  "missing": [
@@ -42,10 +47,10 @@
   "curfew",
   "slots",
   "ppr",
-  "handling (FBO names)",
+  "handling (other FBO names; whether the temporary Signature facility is open)",
   "noise",
   "max_aircraft",
   "deicing"
  ],
- "notes": "9 Nov 2026: new file. Read the FAA US AIP Part 3 AD 2 Hawaii page (HTML, no edition date shown; airport listed as 'Honolulu International', identifier PHNL; operator contact at 300 Rodgers Blvd, Honolulu), the CBP PHNL GA Airport Fact Sheet (25 Oct 2024, PHNL-1024), the FAA Flight Deck HNL page (last updated 8 Jun 2026: 'HNL TWR Hours of Operation: Continuous – 24/7'), and Hawaii DOT Airports Division pages on airports.hawaii.gov/hnl (Airport Info, undated: 'HNL has four active runways, including the 12,000-foot Reef Runway'; Tarmac Delay Contingency Plan, submitted 2 Jun 2022: '24 hour, 7-day operation'; FAQ, undated). Runway metres are my conversion (1 ft = 0.3048 m). Fuel 'A' read as Jet A. The AIP remarks hold no curfew, slot, noise abatement or wingspan rule for civil flights, but no source says there is no curfew, so curfew stays missing. AIP PPR remarks found ('ALL PPR WILL BE APVD NO EARLIER THAN 72 HR BUT NO LATER THAN 24 HR PRIOR.') appear to belong to the military side (JBPH-H) and explosives cargo, so no civil PPR is recorded; check the Chart Supplement. AIP also: 'DUE TO SENSITIVITIES OF CITIZENS, FTR ACFT DEP ONLY AUTHORIZED FR 1700-0700Z MON-SAT' (fighter aircraft only); 'APRON TAXILANE 6 BTWN TWY C AND SOUTH RAMP CLSD EXCEPT GA/FIXED WING LOADING/UNLOADING ONLY'. The CBP sheet does not say whether PHNL is a user fee airport. Kalaeloa (JRF) is the State's designated general aviation reliever for HNL. IATA code left null: official pages use 'HNL' but do not label it IATA. FBO names not found in an official source; FAA Chart Supplement (Pacific) not searched for this airport. No newer CBP PHNL sheet found by search."
+ "notes": "9 Nov 2026: new file. Read the FAA US AIP Part 3 AD 2 Hawaii page (HTML, no edition date shown; airport listed as 'Honolulu International', identifier PHNL; operator contact at 300 Rodgers Blvd, Honolulu), the CBP PHNL GA Airport Fact Sheet (25 Oct 2024, PHNL-1024), the FAA Flight Deck HNL page (last updated 8 Jun 2026: 'HNL TWR Hours of Operation: Continuous – 24/7'), and Hawaii DOT Airports Division pages on airports.hawaii.gov/hnl (Airport Info, undated: 'HNL has four active runways, including the 12,000-foot Reef Runway'; Tarmac Delay Contingency Plan, submitted 2 Jun 2022: '24 hour, 7-day operation'; FAQ, undated). Runway metres are my conversion (1 ft = 0.3048 m). Fuel 'A' read as Jet A. The AIP remarks hold no curfew, slot, noise abatement or wingspan rule for civil flights, but no source says there is no curfew, so curfew stays missing. AIP PPR remarks found ('ALL PPR WILL BE APVD NO EARLIER THAN 72 HR BUT NO LATER THAN 24 HR PRIOR.') appear to belong to the military side (JBPH-H) and explosives cargo, so no civil PPR is recorded; check the Chart Supplement. AIP also: 'DUE TO SENSITIVITIES OF CITIZENS, FTR ACFT DEP ONLY AUTHORIZED FR 1700-0700Z MON-SAT' (fighter aircraft only); 'APRON TAXILANE 6 BTWN TWY C AND SOUTH RAMP CLSD EXCEPT GA/FIXED WING LOADING/UNLOADING ONLY'. The CBP sheet does not say whether PHNL is a user fee airport. Kalaeloa (JRF) is the State's designated general aviation reliever for HNL. IATA code left null: official pages use 'HNL' but do not label it IATA. FBO names not found in an official source; FAA Chart Supplement (Pacific) not searched for this airport. No newer CBP PHNL sheet found by search. | 10 Nov 2026: read the Hawaii DOT Airports item 'Issuance of a Revocable Permit for Paved, Improved Land to Construct and Operate a Temporary Fixed-Based Operations Facility, Signature Flight Support LLC' (27 Mar 2026, https://hidot.hawaii.gov/administration/files/2026/03/03-27-26-MTG-C-6-HNL-Signature-Flight-Support-LLC-RP-for-Paved-Imprvd-Land-for-FBO-Facility-009-107D_a_final.pdf) and added handling from it (it names no services and no other FBO). Re-read the HDOT HNL Environmental Protection page (https://airports.hawaii.gov/hnl/?p=62, undated, footer 2026): only a 2006 noise exposure map note, no night, curfew or noise-abatement rule. Not opened: FAA Chart Supplement edition 29 Oct 2026 (next 24 Dec 2026) found on the FAA d-CS page, but aeronav.faa.gov files were not opened (permission not answered) (https://aeronav.faa.gov/Upload_313-d/supplements/CS_PAC_20261029.pdf), and the FAA d-CS search page. Curfew, slots, PPR, noise, max aircraft and de-icing still missing."
 }

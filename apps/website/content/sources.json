@@ -3550,5 +3550,59 @@
   "url": "https://dc-ansp.org/eAIS/?p=6726",
   "publisher": "Dutch Caribbean Air Navigation Service Provider (DC-ANSP)",
   "checked": "2026-11-09"
+ },
+ "phnl-hdot-signature-rp": {
+  "title": "Hawaii DOT Airports, Issuance of a Revocable Permit for Paved, Improved Land to Construct and Operate a Temporary Fixed-Based Operations Facility, Signature Flight Support LLC, Daniel K. Inouye International Airport (board item, 27 Mar 2026)",
+  "url": "https://hidot.hawaii.gov/administration/files/2026/03/03-27-26-MTG-C-6-HNL-Signature-Flight-Support-LLC-RP-for-Paved-Imprvd-Land-for-FBO-Facility-009-107D_a_final.pdf",
+  "publisher": "State of Hawaii Department of Transportation, Airports Division",
+  "checked": "2026-11-10"
+ },
+ "kpwk-cea-minstd": {
+  "title": "Chicago Executive Airport, Primary Guiding Documents, General Aviation Minimum Standards (12/13/23)",
+  "url": "https://chiexec.com/wp-content/uploads/2023/12/Minimum-Standards-Updated-121323.pdf",
+  "publisher": "Chicago Executive Airport",
+  "checked": "2026-11-10"
+ },
+ "ksna-cbp-bulletin-uf-2014": {
+  "title": "CBP Bulletin vol. 48 no. 41, title page: John Wayne Airport added to the user fee airport list (rule dated 22 Sep 2014, effective 26 Sep 2014)",
+  "url": "https://www.Cbp.Gov/sites/default/files/documents/Vol_48_No_41_Title.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-11-10"
+ },
+ "lgav-hsca-w26-fps": {
+  "title": "HSCA, W26 ATH Flight Plan Suspension (notice, 23 Oct 2026; effective 25 Oct 2026)",
+  "url": "https://hsca.gr/w26-ath-flight-plan-suspension/",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-10"
+ },
+ "es-aip-enmiendas": {
+  "title": "ENAIRE AIP Spain, Amendments page (AIRAC 10/26 and AMDT 412/26 effective 29 Oct 2026; AIRAC 11/26 effective 26 Nov 2026)",
+  "url": "https://aip.enaire.es/aip/Enmiendas-en.html",
+  "publisher": "ENAIRE",
+  "checked": "2026-11-10"
+ },
+ "omdw-cou-ga-w25": {
+  "title": "Al Maktoum International Airport (DWC) Conditions of Use for General Aviation, Northern Winter 2025 (DWC GA NW25), effective 26 October 2025",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2025/11/conditions_of_use_dubai_world_central_dwc_general_aviation_w25.pdf",
+  "publisher": "Dubai Airports (hosted by Airport Coordination Limited)",
+  "checked": "2026-11-10"
+ },
+ "eggw-ppo5": {
+  "title": "London Luton Airport, Procedures for Requesting Prior Permission to Operate, Document PPO5 v1.4 (issued 25 Feb 2009; listed as current on the operator's Operations publications page)",
+  "url": "https://eu-assets.contentstack.com/v3/assets/blt4d5e17844b60f82b/blt53ab5296f3a18c47/66e961a73255c927e3a7f518/LTN-PPO5-v1-4.pdf",
+  "publisher": "London Luton Airport Operations Ltd",
+  "checked": "2026-11-10"
+ },
+ "eglf-pmr-2025": {
+  "title": "Farnborough Airport Ltd, Town and Country Planning Act Section 106/299A Performance Monitoring Report, January to December 2025 (dated 9 Feb 2026)",
+  "url": "https://www.rushmoor.gov.uk/media/dx0ngnqg/performance-monitoring-report-2025-accessible.pdf",
+  "publisher": "Farnborough Airport Ltd (published by Rushmoor Borough Council)",
+  "checked": "2026-11-10"
+ },
+ "wmkk-caam-esup-26-17": {
+  "title": "AIP Malaysia Supplement 17/26: Kuala Lumpur International Airport (WMKK) Pavement Classification Rating (PCR) revision (AD 2.8, AD 2.12, AD 2.24), effective 19 Mar 2026, PERM",
+  "url": "https://aip.caam.gov.my/aip/eAIP/17. 2026-03-19-AIRAC/html/eSUP/WM-eSUP-26-17-en-MS.html",
+  "publisher": "Civil Aviation Authority of Malaysia (CAAM)",
+  "checked": "2026-11-10"
  }
 }
