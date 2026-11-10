@@ -1311,15 +1311,16 @@
    "id": "books",
    "title": "Books (the owners only)",
    "who": "The two owners; an accountant or bookkeeper only if the owners add them",
-   "purpose": "The company's own accounts for Arche Aviation Pte. Ltd. (trading as Archē Executive): every money step in the portal posts to the books by itself, with live reports, the locked budget, Singapore tax estimates and suggestions. Nobody else in the portal sees it, the Director role included.",
+   "purpose": "The company's own accounts for Arche Aviation Pte. Ltd. (trading as Archē Executive), built so that very little is typed and every mistake is caught or can be undone: portal money steps, bank lines and repeating costs go in by themselves, receipts are read for you, and To do shows the few choices left. Nobody else in the portal sees it, the Director role included.",
    "steps": [
     "Books appears in the menu only for the two owners named in the server settings, and for an accountant or bookkeeper the owners have added in Books, Settings and access.",
     "Open it and unlock it with a second step after your normal sign-in: a passkey (Face ID, Touch ID or Windows Hello) or the 6-digit code from your authenticator app. It locks itself after 15 minutes without use and after 8 hours at most.",
-    "Client payments, operator payments, the margin when a trip is flown and paid commission post by themselves. Use New entry for everything else (costs, capital, loans, dividends, corrections): debits must equal credits before it can be posted. A posted entry is never changed or deleted; it is corrected by a reversal.",
-    "Bank: import a Wise Business or Citi statement (CSV) and link each line to its entry, or post it.",
-    "Reports: profit and loss, balance sheet, trial balance, cash flow, budget against actual, general ledger and the tax estimate, each as a download.",
-    "Advice lists suggestions on cash, client money, tax and dividends, with the source. The AI review reads totals only (no names or notes) and suggests; it can never post, pay or change anything. You and your accountant decide.",
-    "Every unlock, entry, export and change is in the Books log. The ledger is checked against its own chain of fingerprints, and a copy of the books is backed up every night, encrypted."
+    "To do opens first. Each item needs one choice: a bank line (the suggested account is already chosen: press Put it in the books, and leave Do the same next time ticked so the next one goes in by itself), a receipt to check, a draft to post.",
+    "Client payments, operator payments, the margin when a trip is flown and paid commission post by themselves. Wise lines arrive by themselves; import Citi as a CSV in Bank. A line already in the books (a trip payment, a transfer) is linked, never posted twice. Singapore dollars are turned into US dollars at the ECB rate of the day.",
+    "Add a receipt or bill: take a photo or add the PDF. The AI reads it; you check the fields and press Put it in the books. When the bank pays it, the bill is marked paid by itself.",
+    "Before anything goes in, Books checks it: a closed period, a dividend above the profits, a possible double, an unusual amount, a bank below zero. A warning shows the reason and needs I checked: post anyway; nothing automatic goes ahead with a warning.",
+    "Undo any entry in Transactions: the reversing entry stays on record and the bank line or bill goes back to To do. In Bank, Your rules, a rule can be stopped, or undone with everything it posted. In Settings an owner closes a finished period.",
+    "Reports: profit and loss, balance sheet, trial balance, cash flow, budget against actual, general ledger and the tax estimate, each as a download. Advice and the AI review suggest; they never post, pay or decide. Every action is in the Books log, and a copy is backed up every night, encrypted."
    ],
    "trouble": [
     [
@@ -1331,12 +1332,17 @@
      "Use the current code from your authenticator app; after 8 wrong tries in an hour Books stays locked for an hour."
     ],
     [
-     "A money step did not post",
-     "It is listed under Advice as could not post; the portal itself is never held up. Post it by hand or ask for the cause."
+     "Books says the bank does not agree with the books",
+     "An opening balance or a bank line is missing. Post the opening balance as a New entry, or import the missing statement."
+    ],
+    [
+     "A line went to the wrong account",
+     "Undo it in Transactions; it comes back to To do. If a rule did it, stop or undo the rule in Bank."
     ]
    ],
    "tips": [
     "Load the locked budget once in Budget and choose which month is month 1.",
+    "Set repeating costs once (New entry, Repeat the entry above).",
     "Your accountant confirms every tax figure before anything is filed with IRAS or ACRA."
    ],
    "n": "H.43"

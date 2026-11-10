@@ -157,5 +157,20 @@ ok((await call("tAcc", { mode: "members", add: { email: "x@example.test" } }, "A
 for (let i = 0; i < 8; i++) db.acct_log.push({ user_id: "u-owner", action: "unlock-failed", at: new Date().toISOString() });
 ok((await call("tOwner", { mode: "unlockOptions" })).status === 429, "eight failed unlocks in an hour: locked out for an hour");
 
+// part 2 gates: who may do what with receipts, rules, repeats and closing periods
+db.acct_log = db.acct_log.filter(x => x.action !== "unlock-failed");
+db.acct_sessions.push({ token_hash: createHash("sha256").update("O".repeat(43)).digest("hex"), user_id: "u-owner", factor: "passkey", last_seen: new Date().toISOString(), expires_at: new Date(Date.now() + 3600e3).toISOString() });
+const OS = "O".repeat(43), AS = "A".repeat(43);
+ok((await call("tAcc", { mode: "receiptPost", id: "x" }, AS)).status >= 400, "an accountant cannot post a receipt");
+ok((await call("tAcc", { mode: "rules", undo: "r1" }, AS)).status === 403, "an accountant cannot undo a rule");
+ok((await call("tAcc", { mode: "lockPeriod", until: "2026-01-31" }, AS)).status === 403, "an accountant cannot close a period");
+ok((await call("tOwner", { mode: "receiptUpload", type: "image/gif", data: "R0lG" }, OS)).status === 400, "only photos and PDFs are taken");
+ok((await call("tOwner", { mode: "receiptUpload", type: "application/pdf", data: Buffer.from("not a pdf").toString("base64") }, OS)).status === 400, "a file that is not what it says is refused");
+ok((await call("tOwner", { mode: "receiptUpload", type: "image/jpeg", data: Buffer.alloc(3.3e6, 0xff).toString("base64") }, OS)).status === 400, "a file over 3 MB is refused");
+ok((await call("tOwner", { mode: "lockPeriod", until: "2999-01-01" }, OS)).status === 400, "only ended periods can be closed");
+ok((await call("tOwner", { mode: "rules", save: { match: "ab", account: "5300" } }, OS)).status === 400, "a rule needs at least three letters");
+ok((await call("tOwner", { mode: "rules", save: { match: "vercel", account: "1010" } }, OS)).status === 400, "a rule cannot send money to a bank account");
+ok((await call("tOwner", { mode: "bankSync" }, OS)).status === 503, "the Wise feed says what it needs when no token is set");
+
 console.log(`books.test: ${n - fails}/${n} passed`);
 if (fails) process.exit(1);

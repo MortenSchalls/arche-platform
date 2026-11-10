@@ -34,6 +34,39 @@ for an hour. Every unlock, entry, export and change goes to the Books log.
   nothing was changed outside the portal.
 - No browser ever talks to the database: only the server, with keys held in Vercel.
 
+## As little typing as possible (part 2, SQL 0024)
+Morten, 10 Nov 2026: "keep your suggestion, idea is that even the worst in class accountant or my 11 year old daughter can
+do this without mistakes, and even if there should be mistakes, it will be caught and in worst case rolled back".
+- **To do** is the first screen: everything that needs a person, one choice each. Everything else is already done.
+- **Bank lines.** Wise USD and SGD come in by themselves when Books opens (at most every 6 hours, or "Get Wise lines now"),
+  with a read-only Wise API token in Vercel (`WISE_TOKEN`); Wise does not ask for extra confirmation for Singapore
+  profiles. Citi is a CSV file. Singapore dollar lines are turned into US dollars at the ECB reference rate of the day
+  (the rate and its date are kept on the line; no rate, no guess). Each new line, in this order: pays an open bill of the
+  same amount and currency; is linked to an entry already in the books for that amount within 7 days (trip payments,
+  transfers between our own accounts), so nothing is posted twice; is posted by an owner's rule; or waits in To do with a
+  suggestion (the account used last time for that payee, bank fees, interest).
+- **Rules** are made only by an owner's own choice ("Do the same next time"), with a limit of three times the amount (at
+  least USD 500); a line above the limit, or with any warning, waits for a person. Bank, Your rules: stop a rule, or undo
+  it with everything it posted (each entry reversed, its lines back in To do).
+- **Receipts and bills.** A photo or PDF (made smaller in the browser, under 3 MB, the same file never twice, kept in the
+  private `books` storage bucket). The AI reads supplier, date, total, currency and GST (the file goes to the AI provider
+  for this one reading; instructions written on a receipt are ignored) and suggests the account, preferring the one used
+  last time for that supplier. A person checks the fields and presses Post: cost against what we owe the supplier
+  (2000), or the director (2500) if paid personally. The bank payment later clears it by itself; a rate difference goes
+  to exchange gain or loss. Without an AI key the fields are typed.
+- **Repeating entries** (rent, the accountant's fee, depreciation) come up as drafts on their day, each month once; a
+  person presses Post.
+- **The checks** run before every posting, by a person, a rule or a draft. Blocks: a closed period, a date more than a
+  month ahead, GST accounts before registration, client money by anyone but an owner, a dividend above the profits
+  available (Companies Act s.403). Warnings ("post anyway" needed; an automatic posting waits instead): a possible double
+  (same account and amount within 7 days), an amount far above anything before on that account, a bank going below
+  zero, money the wrong way round, a date in the future or over a year back, client money by hand.
+- **Undo** (Transactions) posts the reversing entry; the bank line or bill it belonged to goes back to To do as a
+  suggestion and is not redone by itself.
+- **Close a period** (Settings, owners): nothing can be posted or undone with a date up to that day.
+- **Checks every time Books opens:** the books balance, the chain holds, each dollar bank account agrees with its last
+  statement balance (a gap means an opening balance or a line is missing), nothing waits more than two weeks.
+
 ## Reports, budget and tax
 Profit and loss, balance sheet, trial balance, cash flow, budget against actual, general ledger and a tax estimate,
 each downloadable as CSV (formula-safe). The budget is the locked V2 budget of 8 Nov 2026
@@ -49,8 +82,8 @@ references or bank lines. Its answer is shown as plain text (markup and links re
 (default USD 5 a month), and can never post, pay, approve or change anything. The owners decide.
 
 ## Banks
-Wise Business and Citi Singapore statements (CSV) are imported, never duplicated, and matched to entries. No account
-numbers are stored. A live Wise feed and invoicing (InvoiceNow if GST registered) are a later phase.
+Wise comes in by itself (above); Citi Singapore statements (CSV) are imported. Nothing is imported twice. No account
+numbers are stored. Invoicing (InvoiceNow if GST registered), month-end and year-end packs and SGD reporting are the next phase.
 
 ## Backup
 The nightly backup job (`jobs/backup.mjs`) copies the books tables first, and also writes an encrypted copy of the
@@ -64,13 +97,17 @@ books alone (AES-256 with `BACKUP_PASSPHRASE`) as the artifact `books-backup-<ru
 2. Vercel, portal project, Environment variables: `BOOKS_OWNERS` = the two owners' sign-in emails; optional
    `BOOKS_ORIGIN` = the portal address passkeys are bound to.
 3. Supabase, Authentication: multi-factor (TOTP) on.
-4. Optional: `ANTHROPIC_API_KEY` for the AI review.
-5. In Books: add a passkey or the authenticator app, load the budget, set the UEN and year end.
+4. Optional: `ANTHROPIC_API_KEY` for the AI review and receipt reading.
+5. Run `supabase/migrations/0024_books_auto.sql` after 0023.
+6. Optional, for the Wise feed: in Wise Business, Settings, API tokens, create a **read-only** token and put it in
+   Vercel as `WISE_TOKEN`.
+7. In Books: add a passkey or the authenticator app, load the budget, set the UEN and year end.
 
 ## Tests
 `node apps/portal/tests/books.test.mjs` (ledger, tax, advice, CSV, bank, budget, AI facts, passkeys, server gates),
-`sh scripts/test_books_sql.sh` (the database on a throwaway Postgres: posting, refusals, immutability, trip margin,
-reversal, hash chain, access, restore), `node apps/portal/tests/bookstest.js` (screens, lock, 390 px, brokers
-excluded). All three run in the Portal checks.
+`node apps/portal/tests/books.auto.test.mjs` (matching, checks, currencies, receipts, repeats, undo, Wise),
+`sh scripts/test_books_sql.sh` (the database, 0023 and 0024 on a throwaway Postgres: posting, refusals, immutability, trip margin,
+reversal, hash chain, access, restore), `node apps/portal/tests/bookstest.js` (screens, To do, "post anyway", lock, 390 px,
+brokers excluded). All four run in the Portal checks.
 
 No system is hacker-proof; Books is built in layers so that one failure does not open the books.

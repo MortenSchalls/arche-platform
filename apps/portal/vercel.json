@@ -101,5 +101,10 @@
    "destination": "/",
    "permanent": false
   }
- ]
+ ],
+ "functions": {
+  "api/me.mjs": {
+   "maxDuration": 60
+  }
+ }
 }

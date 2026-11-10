@@ -8,15 +8,16 @@
 import { createHash, randomBytes } from "node:crypto";
 import * as C from "./core.mjs";
 import * as W from "./webauthn.mjs";
+import * as A from "./auto.mjs";
 
 const IDLE = 15 * 60e3, MAX = 8 * 3600e3, ENTITY = "Arche Aviation Pte. Ltd.", TRADING = "Archē Executive";
 const SBU = () => (process.env.SUPABASE_URL || "").replace(/\/$/, ""), KEY = () => process.env.SUPABASE_SECRET_KEY;
 const hash = s => createHash("sha256").update(String(s)).digest("hex");
 const owners = () => String(process.env.BOOKS_OWNERS || "").toLowerCase().split(/[,; ]+/).filter(Boolean);
 const RIGHTS = {
-  owner: ["read", "export", "post", "draft", "approve", "reverse", "bank", "budget", "members", "settings", "ai"],
+  owner: ["read", "export", "post", "draft", "approve", "reverse", "bank", "receipts", "budget", "members", "settings", "ai"],
   accountant: ["read", "export", "draft"],
-  bookkeeper: ["read", "draft", "bank"],
+  bookkeeper: ["read", "draft", "bank", "receipts"],
 };
 
 async function sb(path, opt = {}) {
@@ -165,9 +166,15 @@ export default async function handler(req, res) {
     const today = String(b.today || new Date().toISOString()).slice(0, 10);
     const cfg = await settings(), fy = currentFy(cfg, today), from = String(b.from || fy.start).slice(0, 10), to = String(b.to || today).slice(0, 10);
     const need = r => { if (!can(r)) { const e = new Error("Your role cannot do this."); e.status = 403; throw e; } };
+    const db = { sb, all, rpc, log }, po = { by: me.id, today, cfg, role: me.role };
+    // a posting that needs a person's confirmation answers 409 with the reasons; the screen shows them and "Post anyway"
+    const posted = (r, extra = {}) => r.posted ? res.json({ ok: true, id: r.id, ...extra }) : res.status(409).json({ error: "Check before posting", warns: r.warns });
 
     if (mode === "overview") {
       const bk = await books(), budget = await all("/rest/v1/acct_budget?select=month,account,amount&version=eq." + encodeURIComponent(cfg.budgetVersion || "locked"));
+      await A.recurringRun(db, today).catch(() => 0);
+      let sync = null; const wst = (await setting("wise")) || {};
+      if (process.env.WISE_TOKEN && can("bank") && (!wst.lastSync || Date.now() - Date.parse(wst.lastSync) > 6 * 3600e3)) sync = await Promise.race([A.wiseSync(db, process.env.WISE_TOKEN, po).catch(e => ({ error: e.message })), new Promise(r => setTimeout(() => r({ later: true }), 8000))]);   // the screen never waits long; a partial run is safe (lines are never doubled)
       const errors = await sb("/rest/v1/acct_errors?resolved=eq.false&select=id,at,source,message&order=id.desc&limit=50");
       const unmatched = (await sb("/rest/v1/acct_bank_lines?journal_id=is.null&select=id")).length;
       const chain = await rpc("acct_verify", {});
@@ -176,8 +183,11 @@ export default async function handler(req, res) {
       const cancelled = await cancelledWithMoney(bk);
       const adv = C.advice({ today, fyStart: fy.start, fyEnd: fy.end, sgdPerUsd: +cfg.sgdPerUsd || 0, gstRegistered: !!cfg.gstRegistered, ya: cfg.ya ? +cfg.ya : null, yaIndex: +cfg.yaIndex || 1,
         accounts: bk.accounts, lines: bk.lines, budget, errors, bankUnmatched: unmatched, chainOk: !chain.length, cancelledWithMoney: cancelled, grossBooked: grossBooked(bk) });
+      const bankAll = await all("/rest/v1/acct_bank_lines?select=bank_account,bdate,currency,balance,journal_id"), td = await A.todo(db);
+      const checksNow = A.health({ accounts: bk.accounts, lines: bk.lines, chainOk: !chain.length, bankLines: bankAll, today });
       await log(me.id, "view", { what: "overview" });
       return res.json({ entity: ENTITY, trading: TRADING, role: me.role, fy, pl, bs, bva, advice: adv, errors, unmatched, chainOk: !chain.length, entries: bk.journal.length, settings: cfg,
+        health: checksNow, todoCount: td.count, sync, wise: !!process.env.WISE_TOKEN, ai: !!process.env.ANTHROPIC_API_KEY,
         cash: bk.accounts.filter(a => a.grp === "Cash and bank").map(a => ({ code: a.code, name: a.name, amount: C.r2(C.balances(bk.lines, "0000-01-01", today)[a.code] || 0) })) });
     }
     if (mode === "accounts") return res.json({ accounts: await all("/rest/v1/acct_accounts?select=*&order=code") });
@@ -212,10 +222,8 @@ export default async function handler(req, res) {
       return res.json({ type, entity: ENTITY, report: out });
     }
     if (mode === "post") {
-      need("post"); const acc = await all("/rest/v1/acct_accounts?select=code,active");
-      const e = C.cleanEntry(b.entry, acc);
-      const id = await rpc("acct_post", { p_date: e.date, p_memo: e.memo, p_source: null, p_kind: b.opening ? "opening" : "manual", p_lines: e.lines, p_by: me.id, p_reverses: null });
-      await log(me.id, "post", { entry: id }); return res.json({ ok: true, id });
+      need("post"); const r = await A.post(db, b.entry, { ...po, kind: b.opening ? "opening" : "manual", confirm: !!b.confirm });
+      if (r.posted) await log(me.id, "post", { entry: r.id, confirmed: r.warns.length ? r.warns.length : undefined }); return posted(r);
     }
     if (mode === "draft") {
       need("draft"); const acc = await all("/rest/v1/acct_accounts?select=code,active");
@@ -227,35 +235,125 @@ export default async function handler(req, res) {
       need("approve"); const d = (await sb(`/rest/v1/acct_drafts?id=eq.${encodeURIComponent(b.id)}&status=eq.draft&select=*`))[0];
       if (!d) return res.status(404).json({ error: "Draft not found or already decided." });
       if (b.decision === "reject") { await sb(`/rest/v1/acct_drafts?id=eq.${d.id}`, { method: "PATCH", body: JSON.stringify({ status: "rejected", decided_by: me.id, decided_at: new Date().toISOString() }) }); await log(me.id, "draft-rejected", { draft: d.id }); return res.json({ ok: true }); }
-      const acc = await all("/rest/v1/acct_accounts?select=code,active"), e = C.cleanEntry(d.data, acc);
-      const id = await rpc("acct_post", { p_date: e.date, p_memo: e.memo, p_source: "draft:" + d.id, p_kind: "manual", p_lines: e.lines, p_by: me.id, p_reverses: null });
+      const pr = await A.post(db, d.data, { ...po, source: "draft:" + d.id, confirm: !!b.confirm }); if (!pr.posted) return posted(pr); const id = pr.id;
       await sb(`/rest/v1/acct_drafts?id=eq.${d.id}`, { method: "PATCH", body: JSON.stringify({ status: "posted", decided_by: me.id, decided_at: new Date().toISOString(), journal_id: id }) });
       await log(me.id, "draft-posted", { draft: d.id, entry: id }); return res.json({ ok: true, id });
     }
     if (mode === "reverse") {
-      need("reverse"); const id = await rpc("acct_reverse", { p_id: +b.id, p_date: String(b.date || today).slice(0, 10), p_memo: String(b.memo || "").replace(/[<>\u0000-\u001f]/g, " ").slice(0, 300), p_by: me.id });
-      await log(me.id, "reverse", { entry: +b.id, reversal: id }); return res.json({ ok: true, id });
+      need("reverse"); const rd = String(b.date || today).slice(0, 10);
+      if (cfg.lockedUntil && rd <= cfg.lockedUntil) return res.status(400).json({ error: `The books are closed up to ${cfg.lockedUntil}. Date the undo after that.` });
+      const id = await rpc("acct_reverse", { p_id: +b.id, p_date: rd, p_memo: String(b.memo || "").replace(/[<>\u0000-\u001f]/g, " ").slice(0, 300), p_by: me.id });
+      const reopened = await A.afterReverse(db, +b.id, po);
+      await log(me.id, "reverse", { entry: +b.id, reversal: id, reopened }); return res.json({ ok: true, id, reopened });
     }
     if (mode === "errors") return res.json({ rows: await sb("/rest/v1/acct_errors?select=*&order=id.desc&limit=200") });
     if (mode === "resolveError") { need("post"); await sb(`/rest/v1/acct_errors?id=eq.${+b.id}`, { method: "PATCH", body: JSON.stringify({ resolved: true }) }); await log(me.id, "error-resolved", { id: +b.id }); return res.json({ ok: true }); }
     if (mode === "bankImport") {
       need("bank"); const acct = String(b.account || ""); if (!["1000", "1010", "1020", "1030", "1100"].includes(acct)) return res.status(400).json({ error: "Choose the bank account." });
-      const ls = C.bankLines(b.csv), batch = new Date().toISOString();
-      const rows = ls.map(l => ({ id: hash([acct, l.date, l.amount, l.description, l.balance].join("|")), bank_account: acct, bdate: l.date, amount: l.amount, description: l.description, balance: l.balance, batch, imported_by: me.id }));
-      await sb("/rest/v1/acct_bank_lines?on_conflict=id", { method: "POST", headers: { prefer: "resolution=ignore-duplicates,return=minimal" }, body: JSON.stringify(rows) });
-      await log(me.id, "bank-import", { account: acct, lines: rows.length }); return res.json({ ok: true, lines: rows.length });
+      const cur = /^[A-Z]{3}$/.test(b.currency || "") ? b.currency : (acct === "1020" || acct === "1030") ? "SGD" : "USD";
+      const ls = C.bankLines(b.csv).map(l => ({ ...l, currency: l.currency || cur })), batch = new Date().toISOString();
+      const r = await A.addLines(db, acct, ls, { ...po, batch });
+      await log(me.id, "bank-import", { account: acct, lines: ls.length, added: r.added, posted: r.posted, matched: r.matched }); return res.json({ ok: true, lines: ls.length, ...r });
     }
+    if (mode === "bankSync") {
+      need("bank"); if (!process.env.WISE_TOKEN) return res.status(503).json({ error: "The Wise feed needs WISE_TOKEN (a read-only Wise API token) in Vercel. Until then, import the statement file." });
+      const r = await A.wiseSync(db, process.env.WISE_TOKEN, po); await log(me.id, "bank-sync", { accounts: r.accounts.map(a => ({ account: a.account, added: a.added })) }); return res.json({ ok: true, ...r });
+    }
+    if (mode === "todo") { const t = await A.todo(db); return res.json(t); }
     if (mode === "bankLines") return res.json({ rows: await sb(`/rest/v1/acct_bank_lines?select=*&order=bdate.desc&limit=500${b.open ? "&journal_id=is.null" : ""}`) });
     if (mode === "bankMatch") {
-      // a bank line becomes an entry against the account the person chooses (or is linked to an entry that already holds it)
+      // one tap: link to an entry already in the books, pay an open bill, or post against the account chosen (and, if asked,
+      // remember the choice as a rule so the next line from the same payee posts by itself)
       need("bank"); const l = (await sb(`/rest/v1/acct_bank_lines?id=eq.${encodeURIComponent(b.id)}&select=*`))[0]; if (!l) return res.status(404).json({ error: "Line not found." });
-      if (l.journal_id) return res.status(400).json({ error: "Already matched." });
-      let id = +b.entry || 0;
-      if (!id) { need("post"); const acc = await all("/rest/v1/acct_accounts?select=code,active"), amt = Math.abs(+l.amount), other = String(b.counter || "");
-        const e = C.cleanEntry({ date: l.bdate, memo: String(b.memo || l.description || "Bank line").slice(0, 300), lines: +l.amount > 0 ? [{ account: l.bank_account, debit: amt, ref: "bank:" + l.id.slice(0, 16) }, { account: other, credit: amt }] : [{ account: other, debit: amt }, { account: l.bank_account, credit: amt, ref: "bank:" + l.id.slice(0, 16) }] }, acc);
-        id = await rpc("acct_post", { p_date: e.date, p_memo: e.memo, p_source: "bank:" + l.id, p_kind: "import", p_lines: e.lines, p_by: me.id, p_reverses: null }); }
-      await sb(`/rest/v1/acct_bank_lines?id=eq.${encodeURIComponent(l.id)}`, { method: "PATCH", body: JSON.stringify({ journal_id: id, matched_ref: String(b.counter || "") }) });
-      await log(me.id, "bank-match", { line: l.id.slice(0, 16), entry: id }); return res.json({ ok: true, id });
+      if (l.journal_id) return res.status(400).json({ error: "Already done." });
+      const patch = x => sb(`/rest/v1/acct_bank_lines?id=eq.${encodeURIComponent(l.id)}`, { method: "PATCH", body: JSON.stringify(x) });
+      if (+b.entry) { const used = await sb(`/rest/v1/acct_bank_lines?journal_id=eq.${+b.entry}&bank_account=eq.${l.bank_account}&select=id`);
+        if (used.length) return res.status(400).json({ error: "That entry is already matched to another bank line." });
+        await patch({ journal_id: +b.entry, status: "matched", how: "entry", suggestion: null }); await log(me.id, "bank-match", { line: l.id.slice(0, 16), entry: +b.entry }); return res.json({ ok: true, id: +b.entry }); }
+      need("post");
+      if (b.receipt) { const rec = (await sb(`/rest/v1/acct_receipts?id=eq.${encodeURIComponent(b.receipt)}&status=eq.posted&select=*`))[0]; if (!rec) return res.status(404).json({ error: "That bill is not open." });
+        const r = await A.post(db, C.billPaymentEntry({ billUsd: C.r2(rec.data.usd), bankUsd: A.usdOf(l), bankAccount: l.bank_account, receiptId: rec.id, lineId: l.id, date: l.bdate, supplier: rec.data.supplier }), { ...po, kind: "import", source: "bank:" + l.id, confirm: !!b.confirm });
+        if (!r.posted) return posted(r);
+        await patch({ journal_id: r.id, status: "posted", how: "receipt", suggestion: null }); await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: "paid", paid_journal_id: r.id }) });
+        await log(me.id, "bank-match", { line: l.id.slice(0, 16), entry: r.id, bill: rec.id }); return posted(r); }
+      const acc = String(b.counter || ""); if (!acc) return res.status(400).json({ error: "Choose where the money goes." });
+      if (C.BANKS.includes(acc) && acc === l.bank_account) return res.status(400).json({ error: "Choose another account than the bank itself." });
+      const r = await A.post(db, A.lineEntry(l, acc, String(b.memo || l.description || "Bank line").slice(0, 300)), { ...po, kind: "import", source: "bank:" + l.id, confirm: !!b.confirm });
+      if (!r.posted) return posted(r);
+      await patch({ journal_id: r.id, status: "posted", how: "person", matched_ref: acc, suggestion: null });
+      let rule = null;
+      if (b.always && !C.BANKS.includes(acc) && acc !== "2100") { const words = String(b.match || C.ruleWords(l.description)).toLowerCase().replace(/[^a-z0-9& .-]/g, " ").replace(/\s+/g, " ").trim().slice(0, 80);
+        if (words.length >= 3) { rule = (await insert("acct_rules", { name: String(b.ruleName || words).slice(0, 60), match: words, direction: A.usdOf(l) < 0 ? "out" : "in", bank_account: null, account: acc,
+          max_usd: C.r2(Math.max(500, Math.abs(A.usdOf(l)) * 3)), created_by: me.id }))[0]; await log(me.id, "rule-added", { rule: rule.id, match: words, account: acc });
+          const open = await all("/rest/v1/acct_bank_lines?journal_id=is.null&select=*"); await A.processLines(db, open, po); } }
+      await log(me.id, "bank-match", { line: l.id.slice(0, 16), entry: r.id }); return posted(r, { rule: rule && rule.id });
+    }
+    if (mode === "rules") {
+      if (b.save || b.end || b.undo) need("post");
+      if (b.save) { const x = b.save, words = String(x.match || "").toLowerCase().replace(/[^a-z0-9& .-]/g, " ").replace(/\s+/g, " ").trim().slice(0, 80);
+        const acc = new Set((await all("/rest/v1/acct_accounts?select=code,active")).filter(a => a.active).map(a => a.code));
+        if (words.length < 3) return res.status(400).json({ error: "The words to look for need at least 3 letters." });
+        if (!acc.has(String(x.account)) || C.BANKS.includes(String(x.account)) || x.account === "2100") return res.status(400).json({ error: "Choose a cost, income or other account." });
+        const row = { name: String(x.name || words).replace(/[<>\u0000-\u001f]/g, " ").slice(0, 60), match: words, direction: x.direction === "in" ? "in" : "out", account: String(x.account), max_usd: +x.max_usd > 0 ? C.r2(x.max_usd) : null };
+        if (x.id) await sb(`/rest/v1/acct_rules?id=eq.${encodeURIComponent(x.id)}`, { method: "PATCH", body: JSON.stringify(row) }); else await insert("acct_rules", { ...row, created_by: me.id });
+        await log(me.id, "rule-saved", { match: words, account: row.account }); return res.json({ ok: true }); }
+      if (b.end) { await sb(`/rest/v1/acct_rules?id=eq.${encodeURIComponent(b.end)}`, { method: "PATCH", body: JSON.stringify({ active: false, ended_at: new Date().toISOString() }) }); await log(me.id, "rule-stopped", { rule: b.end }); return res.json({ ok: true }); }
+      if (b.undo) { const n = await A.undoRule(db, String(b.undo), po); await log(me.id, "rule-undone", { rule: b.undo, reversed: n }); return res.json({ ok: true, reversed: n }); }
+      return res.json({ rows: await sb("/rest/v1/acct_rules?select=*&order=active.desc,created_at.desc&limit=300") });
+    }
+    if (mode === "receiptUpload") {
+      need("receipts"); const type = String(b.type || ""), ext = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "application/pdf": "pdf" }[type];
+      if (!ext) return res.status(400).json({ error: "Send a photo (JPEG, PNG) or a PDF." });
+      const buf = Buffer.from(String(b.data || ""), "base64"); if (!buf.length || buf.length > 3.2e6) return res.status(400).json({ error: "The file must be under 3 MB. A photo is made smaller by the screen before it is sent." });
+      if (ext === "pdf" ? buf.slice(0, 4).toString() !== "%PDF" : !(buf[0] === 0xff || buf[0] === 0x89 || buf.slice(0, 4).toString() === "RIFF")) return res.status(400).json({ error: "That file is not what it says it is." });
+      const fh = hash(buf), dup = (await sb(`/rest/v1/acct_receipts?file_hash=eq.${fh}&select=id,status,data`))[0];
+      if (dup) return res.status(409).json({ error: `This receipt is already in Books (${dup.status === "paid" || dup.status === "posted" ? "posted" : "waiting in To do"}).`, id: dup.id });
+      const path = `receipts/${today.slice(0, 7)}/${fh.slice(0, 32)}.${ext}`;
+      const up = await fetch(SBU() + "/storage/v1/object/books/" + path, { method: "POST", headers: { apikey: KEY(), authorization: `Bearer ${KEY()}`, "content-type": type, "x-upsert": "false" }, body: buf });
+      if (!up.ok && up.status !== 409) return res.status(502).json({ error: "The file could not be stored (" + up.status + ")." });
+      const rec = (await insert("acct_receipts", { file_hash: fh, file_path: path, file_type: type, status: "new", data: {}, created_by: me.id }))[0];
+      await log(me.id, "receipt-added", { receipt: rec.id });
+      const read = await readReceipt(rec, buf, type).catch(e => ({ error: e.message }));
+      return res.json({ ok: true, id: rec.id, read });
+    }
+    if (mode === "receiptRead") { need("receipts"); const rec = (await sb(`/rest/v1/acct_receipts?id=eq.${encodeURIComponent(b.id)}&select=*`))[0]; if (!rec) return res.status(404).json({ error: "Not found." });
+      const f = await fetch(SBU() + "/storage/v1/object/books/" + rec.file_path, { headers: { apikey: KEY(), authorization: `Bearer ${KEY()}` } }); if (!f.ok) return res.status(502).json({ error: "The file could not be read." });
+      return res.json(await readReceipt(rec, Buffer.from(await f.arrayBuffer()), rec.file_type)); }
+    if (mode === "receiptFile") { need("read"); const rec = (await sb(`/rest/v1/acct_receipts?id=eq.${encodeURIComponent(b.id)}&select=file_path`))[0]; if (!rec) return res.status(404).json({ error: "Not found." });
+      const r = await sb("/storage/v1/object/sign/books/" + rec.file_path, { method: "POST", body: JSON.stringify({ expiresIn: 120 }) }); await log(me.id, "receipt-opened", { receipt: b.id });
+      return res.json({ url: SBU() + "/storage/v1" + (r.signedURL || r.signedUrl) }); }
+    if (mode === "receipts") { need("read"); return res.json({ rows: await sb(`/rest/v1/acct_receipts?select=id,status,data,created_at,file_type,journal_id,paid_journal_id&order=created_at.desc&limit=300${b.open ? "&status=in.(new,read)" : ""}`) }); }
+    if (mode === "receiptPost" || mode === "receiptReject") {
+      const rec = (await sb(`/rest/v1/acct_receipts?id=eq.${encodeURIComponent(b.id)}&status=in.(new,read)&select=*`))[0]; if (!rec) return res.status(404).json({ error: "That receipt is not waiting." });
+      if (mode === "receiptReject") { need("receipts"); await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: "rejected", decided_by: me.id, decided_at: new Date().toISOString() }) }); await log(me.id, "receipt-rejected", { receipt: rec.id }); return res.json({ ok: true }); }
+      need("post"); const acc = await all("/rest/v1/acct_accounts?select=code,name,kind,active"), x = C.cleanReceipt({ ...rec.data, ...(b.fields || {}), confidence: "high" }, acc);
+      if (!x.supplier) return res.status(400).json({ error: "Who is the supplier?" }); if (!x.date) return res.status(400).json({ error: "Give the date on the receipt." });
+      if (!x.total) return res.status(400).json({ error: "Give the total paid." }); if (!x.account) return res.status(400).json({ error: "Choose what it was for." });
+      const fx = C.toUsd(x.total, x.currency, x.date, x.currency === "USD" ? {} : await A.rates(), cfg), gfx = x.gst ? C.toUsd(x.gst, x.currency, x.date, x.currency === "USD" ? {} : await A.rates(), cfg) : { usd: 0 };
+      if (!fx) return res.status(400).json({ error: `No exchange rate for ${x.currency} on ${x.date}. Add the dollar amount by hand as a New entry.` });
+      const paidPersonally = !!(b.fields || {}).paidPersonally;
+      const r = await A.post(db, C.receiptEntry(x, { id: rec.id, usd: fx.usd, gstUsd: gfx.usd, gstRegistered: !!cfg.gstRegistered, paidPersonally }), { ...po, source: "receipt:" + rec.id, confirm: !!b.confirm });
+      if (!r.posted) return posted(r);
+      await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: paidPersonally ? "paid" : "posted", journal_id: r.id, decided_by: me.id, decided_at: new Date().toISOString(),
+        data: { ...x, usd: fx.usd, fx: fx.rate, fxSource: fx.source, paidPersonally } }) });
+      await log(me.id, "receipt-posted", { receipt: rec.id, entry: r.id });
+      if (!paidPersonally) { const open = await all("/rest/v1/acct_bank_lines?journal_id=is.null&select=*"); await A.processLines(db, open, po); }
+      return posted(r);
+    }
+    if (mode === "recurring") {
+      if (b.save || b.end) need("post");
+      if (b.save) { const x = b.save, acc = await all("/rest/v1/acct_accounts?select=code,active"), start = /^\d{4}-\d{2}-\d{2}$/.test(x.start || "") ? x.start : today;
+        const e = C.cleanEntry({ date: start, memo: x.memo, lines: x.lines }, acc), day = Math.min(28, Math.max(1, +x.day || +start.slice(8, 10) || 1));
+        const next = start.slice(0, 8) + String(day).padStart(2, "0"), row = { memo: e.memo, lines: e.lines, day, every_months: Math.min(12, Math.max(1, +x.every || 1)), next_date: next < start ? C.addMonths(next, 1) : next,
+          end_date: /^\d{4}-\d{2}-\d{2}$/.test(x.end || "") ? x.end : null, created_by: me.id };
+        await insert("acct_recurring", row); await log(me.id, "repeat-added", { memo: e.memo }); return res.json({ ok: true }); }
+      if (b.end) { await sb(`/rest/v1/acct_recurring?id=eq.${encodeURIComponent(b.end)}`, { method: "PATCH", body: JSON.stringify({ active: false }) }); await log(me.id, "repeat-stopped", { id: b.end }); return res.json({ ok: true }); }
+      return res.json({ rows: await sb("/rest/v1/acct_recurring?select=*&order=active.desc,next_date.asc&limit=200") });
+    }
+    if (mode === "lockPeriod") {
+      need("settings"); const until = b.until ? String(b.until).slice(0, 10) : null; if (until && !/^\d{4}-\d{2}-\d{2}$/.test(until)) return res.status(400).json({ error: "Give a date." });
+      if (until && until >= today) return res.status(400).json({ error: "Close only periods that have ended." });
+      await setSetting("company", { ...cfg, lockedUntil: until }); await log(me.id, until ? "period-closed" : "period-reopened", { until, was: cfg.lockedUntil || null }); return res.json({ ok: true, lockedUntil: until });
     }
     if (mode === "budgetImport") {
       need("budget"); const rows = (b.rows || []).slice(0, 20000), acc = new Set((await all("/rest/v1/acct_accounts?select=code")).map(a => a.code)), version = String(b.version || "locked").replace(/[^\w.-]/g, "").slice(0, 40) || "locked";
@@ -313,6 +411,26 @@ export default async function handler(req, res) {
   }
 }
 
+// the AI reads a receipt and proposes the fields; a person checks them and presses Post. Nothing is posted here.
+async function readReceipt(rec, buf, type) {
+  const accounts = await all("/rest/v1/acct_accounts?select=code,name,kind,active"), cfg = (await setting("company")) || {};
+  const past = await sb("/rest/v1/acct_receipts?status=in.(posted,paid)&select=data&order=created_at.desc&limit=300");
+  const fromHistory = sup => { const t = String(sup || "").toLowerCase().slice(0, 12); const hit = t && past.find(p => String(p.data.supplier || "").toLowerCase().startsWith(t)); return hit ? hit.data.account : ""; };
+  if (!process.env.ANTHROPIC_API_KEY) { await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: "read", data: { read_by: "person" } }) }); return { ok: true, ai: false }; }
+  const month = new Date().toISOString().slice(0, 7), sp = (await setting("aispend")) || {}, spent = sp.month === month ? +sp.usd || 0 : 0, cap = cfg.aiCapUsd ?? 5;
+  if (spent >= cap) { await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: "read", data: { read_by: "person", note: "AI budget for the month used up" } }) }); return { ok: true, ai: false, capped: true }; }
+  const list = accounts.filter(a => a.active && (a.kind === "expense" || a.code === "1500" || a.code === "1300") && a.code !== "7000").map(a => `${a.code} ${a.name}`).join("; ");
+  const part = type === "application/pdf" ? { type: "document", source: { type: "base64", media_type: type, data: buf.toString("base64") } } : { type: "image", source: { type: "base64", media_type: type, data: buf.toString("base64") } };
+  const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+    body: JSON.stringify({ model: "claude-sonnet-5-5", max_tokens: 500, system: C.RECEIPT_SYSTEM, messages: [{ role: "user", content: [part, { type: "text", text: "Accounts: " + list }] }] }) });
+  if (!r.ok) { await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: "read", data: { read_by: "person" } }) }); return { ok: true, ai: false, error: "AI " + r.status }; }
+  const out = await r.json(), u = out.usage || {}, cost = ((u.input_tokens || 0) * 3 + (u.output_tokens || 0) * 15) / 1e6;
+  await setSetting("aispend", { month, usd: spent + cost, calls: (sp.month === month ? sp.calls || 0 : 0) + 1 });
+  let j = {}; try { const t = (out.content || []).filter(c => c.type === "text").map(c => c.text).join(""); j = JSON.parse(t.slice(t.indexOf("{"), t.lastIndexOf("}") + 1)); } catch (e) { j = {}; }
+  const x = C.cleanReceipt(j, accounts); if (!x.account) x.account = fromHistory(x.supplier) || ""; else { const h = fromHistory(x.supplier); if (h) x.account = h; }
+  await sb(`/rest/v1/acct_receipts?id=eq.${rec.id}`, { method: "PATCH", body: JSON.stringify({ status: "read", data: { ...x, read_by: "ai" } }) });
+  return { ok: true, ai: true, data: x };
+}
 async function useChallenge(me, purpose, challenge) {
   const r = (await sb(`/rest/v1/acct_challenges?user_id=eq.${me.id}&purpose=eq.${purpose}&challenge=eq.${encodeURIComponent(String(challenge || ""))}&used=eq.false&select=id,challenge,expires_at`))[0];
   if (!r || Date.parse(r.expires_at) < Date.now()) throw new Error("passkey: the request expired, try again");

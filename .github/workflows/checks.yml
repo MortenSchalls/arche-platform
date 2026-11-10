@@ -38,7 +38,7 @@ jobs:
           node apps/portal/tests/bookingplan.test.mjs
           node apps/portal/tests/moneyalerts.test.mjs
           node apps/portal/tests/irnx.test.mjs
-          node apps/portal/tests/books.test.mjs
+          node apps/portal/tests/books.test.mjs && node apps/portal/tests/books.auto.test.mjs
           sh scripts/test_books_sql.sh
       - name: All or none (every related document revised together)
         run: python3 scripts/check_all_revised.py

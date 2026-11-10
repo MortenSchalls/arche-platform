@@ -70,4 +70,22 @@ insert into public.acct_log (id, action) values (5000, 'restored row');
 select public.reset_identities();
 insert into public.acct_log (action) values ('after restore');
 do $$ begin if (select max(id) from public.acct_log) <= 5000 then raise exception 'identity not moved'; end if; end $$;
+-- 12. part 2 (0024): rules, receipts and repeats are closed to the browser; a repeat's month makes one draft only;
+--     a receipt file is taken once; a rule needs real words
+set role authenticated;
+do $$ begin
+  begin perform 1 from public.acct_rules; raise exception 'authenticated can read rules'; exception when insufficient_privilege then null; end;
+  begin perform 1 from public.acct_receipts; raise exception 'authenticated can read receipts'; exception when insufficient_privilege then null; end;
+  begin perform 1 from public.acct_recurring; raise exception 'authenticated can read repeats'; exception when insufficient_privilege then null; end;
+end $$;
+reset role;
+insert into public.acct_drafts (created_by, source, data) values ('00000000-0000-0000-0000-00000000000b', 'rec:x:2026-12-01', '{}');
+insert into public.acct_drafts (created_by, source, data) values ('00000000-0000-0000-0000-00000000000b', 'rec:x:2026-12-01', '{}') on conflict (source) do nothing;
+do $$ begin if (select count(*) from public.acct_drafts where source = 'rec:x:2026-12-01') <> 1 then raise exception 'repeat drafted twice'; end if; end $$;
+insert into public.acct_receipts (file_hash) values ('abc');
+do $$ begin
+  begin insert into public.acct_receipts (file_hash) values ('abc'); raise exception 'same receipt twice'; exception when unique_violation then null; end;
+  begin insert into public.acct_rules (match, account) values ('ab', '5300'); raise exception 'two-letter rule accepted'; exception when check_violation then null; end;
+end $$;
+do $$ begin if not exists (select 1 from storage.buckets where id = 'books' and not public) then raise exception 'private receipts bucket missing'; end if; end $$;
 \echo 'books.sql: all checks passed'

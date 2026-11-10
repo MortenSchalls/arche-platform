@@ -76,11 +76,13 @@ Secrets never go into repositories, chats or emails. No passport, ID or bank num
 | Vercel Inc. | Website and portal hosting, functions, logs | USA | Vercel DPA, Pro/Enterprise only | **Open**: needs Pro |
 | Supabase | Portal database and files | Region to check | Supabase DPA on acceptance | Accept, save, check region |
 | Resend | Email delivery | USA | Resend DPA with SCCs | Accept and save |
-| Anthropic | AI tools used by the team and the portal | USA | Commercial terms and DPA (no training on our data) | Save copy |
+| Anthropic | AI tools used by the team and the portal; reading receipts in Books (the receipt image only, when a Books user adds one) | USA | Commercial terms and DPA (no training on our data) | Save copy |
 | Mail provider for archeaviation.com | Mailbox | Per provider | Provider DPA | Save copy |
 | GitHub | Code and encrypted backups | USA | GitHub DPA | Save copy |
 | Payment provider | Payment requests | To be agreed | Its DPA | With launch blocker 13 |
 | Sanctions list publishers | Lists downloaded only; no personal data sent | — | None needed | OK |
+| Wise (bank) | Books reads our own Wise statements with a read-only token; nothing is sent to Wise | — | Wise business terms | OK |
+| European Central Bank | Exchange rates downloaded only; nothing sent | — | None needed | OK |
 
 Keep a PDF of every DPA with the date accepted in the company folder.
 

@@ -6,7 +6,7 @@ import { writeFileSync, mkdirSync, readdirSync, statSync, readFileSync } from "f
 import { dirname, join, relative } from "path";
 import { connect } from "./lib/db.mjs";
 // Books first (SQL 0023): restoring the ledger before the trips means the trips' own postings are found already there
-export const TABLES = ["acct_accounts", "acct_journal", "acct_lines", "acct_drafts", "acct_budget", "acct_bank_lines", "acct_settings", "acct_members", "acct_passkeys", "acct_log", "acct_errors",
+export const TABLES = ["acct_accounts", "acct_journal", "acct_lines", "acct_drafts", "acct_budget", "acct_bank_lines", "acct_settings", "acct_members", "acct_passkeys", "acct_log", "acct_errors", "acct_rules", "acct_receipts", "acct_recurring",
   "profiles", "config", "intel", "region_cards", "join_requests", "prospects", "owner_prospects", "optouts", "audit_log", "faq", "trips", "trip_status",
   "payouts", "leads", "access_log", "questions", "training_runs", "roleplay_runs", "website_enquiries",
   "enquiry_pool", "enquiry_contacts", "agreements", "member_scores", "step_requests", "alert_settings",
@@ -15,7 +15,7 @@ export const TABLES = ["acct_accounts", "acct_journal", "acct_lines", "acct_draf
 export const SKIP_TABLES = ["locks", "acct_challenges", "acct_sessions"];   // minutes-long run locks, sign-in challenges and open books sessions: nothing to restore
 // stored files: uploaded documents, the operator registries, the research agent's key, the sanctions index
 // (the academy recordings are not here: the narration workflow makes them again from the academy text)
-export const BUCKETS = ["portal-files", "registries", "agent", "sanctions"];
+export const BUCKETS = ["portal-files", "registries", "agent", "sanctions", "books"];   // books: receipt files (SQL 0024)
 
 // every file in a bucket, folder by folder
 export async function listAll(st, bucket, prefix = "") {
