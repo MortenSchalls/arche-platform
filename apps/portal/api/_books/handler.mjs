@@ -48,8 +48,8 @@ async function who(req) {
   const r = await fetch(SBU() + "/auth/v1/user", { headers: { apikey: process.env.SUPABASE_PUBLISHABLE_KEY || KEY(), authorization: `Bearer ${token}` } });
   if (!r.ok) return null;
   const u = await r.json(), email = String(u.email || "").toLowerCase(), p = jwtPayload(token);
-  let role = owners().includes(email) && u.email_confirmed_at ? "owner" : null;
-  if (!role) { const m = await sb(`/rest/v1/acct_members?user_id=eq.${u.id}&active=eq.true&select=role`); role = (m[0] || {}).role || null; }
+  let role = owners().includes(email) && (u.email_confirmed_at || u.confirmed_at) ? "owner" : null;
+  if (!role) { const m = await sb(`/rest/v1/acct_members?user_id=eq.${u.id}&active=eq.true&select=role`).catch(() => []); role = (m[0] || {}).role || null; }
   const totp = (u.factors || []).some(f => f.factor_type === "totp" && f.status === "verified");
   return { id: u.id, email, role, jwt: p, totp };
 }
@@ -107,7 +107,9 @@ export default async function handler(req, res) {
     if (!me.role) return res.status(403).json({ error: "No access to Books." });
     const can = r => RIGHTS[me.role].includes(r);
     const { origin, rpId } = site(req);
-    const keys = await sb(`/rest/v1/acct_passkeys?user_id=eq.${me.id}&select=id,name,created_at,last_used,alg,public_key,sign_count`);
+    // before SQL 0023/0024 is run the owners still see Books, with what is missing (Morten, 10 Nov 2026: "still not there")
+    let keys; try { keys = await sb(`/rest/v1/acct_passkeys?user_id=eq.${me.id}&select=id,name,created_at,last_used,alg,public_key,sign_count`); }
+    catch (e) { if (mode === "status") return res.json({ role: me.role, entity: ENTITY, trading: TRADING, unlocked: false, setup: "Books needs its database: in Supabase, SQL Editor, run supabase/migrations/0023_books.sql, then 0024_books_auto.sql. Then reload." }); throw e; }
 
     // ---------- before unlocking ----------
     if (mode === "status") {

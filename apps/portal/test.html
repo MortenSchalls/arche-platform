@@ -4257,7 +4257,10 @@ function bkLock(silent){ if (BK.sess) fetch("/api/books", {method: "POST", heade
   BK.sess = ""; BK.unlocked = false; BK.d = {}; if (!silent) toast("Books locked."); render(); }
 setInterval(() => { if (BK.unlocked && Date.now() - BK.last > 15 * 60e3) bkLock(true); }, 30e3);
 document.addEventListener("visibilitychange", () => { if (document.hidden && BK.unlocked && Date.now() - BK.last > 5 * 60e3) bkLock(true); });
-setTimeout(() => { if (window.__sb) bkStatus(); }, 1500);
+// ask until the sign-in is known: a page opened before signing in, or a slow session restore, still gets Books in the menu
+let bkTries = 0; (function bkPoll(){ if (!window.__sb || BK.role || bkTries > 40) return; bkTries++;
+  window.__sb.auth.getSession().then(r => { if (r && r.data && r.data.session) bkStatus(); else setTimeout(bkPoll, bkTries < 5 ? 1500 : 15000); }).catch(() => setTimeout(bkPoll, 15000)); })();
+if (window.__sb && window.__sb.auth && window.__sb.auth.onAuthStateChange) window.__sb.auth.onAuthStateChange(ev => { if (ev === "SIGNED_IN" || ev === "TOKEN_REFRESHED") { if (!BK.role) bkStatus(); } if (ev === "SIGNED_OUT") { BK.role = null; BK.unlocked = false; BK.sess = ""; } });
 { const _nav = navItems;
   navItems = function(){ const items = _nav(); if (BK.role && !S.preview && !items.some(x => x[0] === "books")) { const i = items.findIndex(x => x[0] === "team"); items.splice(i < 0 ? items.length : i, 0, ["books", "Books"]); } return items; }; }
 
@@ -4283,6 +4286,7 @@ function bkTab(t){ BK.tab = t; bkLoad(t); }
 function vBooks(){
   if (!BK.role) return `<div class="panel empty"><p><b>Books</b></p><p class="small">Checking your access…</p></div>`;
   const head = `<div class="head"><div><h1>Books <span class="chip c-review" title="Beta: in use and improving step by step">Beta</span></h1><p class="muted small">${esc(BK.entity || "Arche Aviation Pte. Ltd.")}, trading as Archē Executive · US dollars · ${esc({owner: "owner", accountant: "accountant (read and draft)", bookkeeper: "bookkeeper (read, draft, bank)"}[BK.role] || "")}</p></div>${BK.unlocked ? `<div class="row"><button class="btn small" type="button" data-bk="lock">Lock now</button></div>` : ""}</div>`;
+  if (BK.st && BK.st.setup) return head + `<div class="note warn">${esc(BK.st.setup)}</div>`;
   if (!BK.unlocked) return head + bkLocked();
   if (!BK.busy && !BK.d.ov && (BK.tab === "overview" || BK.tab === "todo")) setTimeout(() => bkLoad(BK.tab), 0);
   const n = (BK.d.todo || {}).count ?? (BK.d.ov || {}).todoCount;
