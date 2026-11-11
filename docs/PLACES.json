@@ -1,6 +1,6 @@
 {
  "_why": "The places both public websites cover (Morten, 9 Nov 2026: \"use all countries and cities from the websites to be aligned (ie. if one is added on one page, add to the other page)\"). Kept identical in arche-platform and navoryx-website (docs/PLACES.json), like the IR contract: a change is made in both in the same piece of work. Each site's check fails when it has a city or country page that is not listed here, or when a listed place has no page on one site and no 'waiting' reason. The two sites never link to or name each other; this file is the only place they meet. A 'waiting' line is reported on every check until the page exists.",
- "updated": "2026-11-10",
+ "updated": "2026-11-11",
  "places": [
   {
    "place": "Auckland",
@@ -238,8 +238,7 @@
    "arche": [
     "/cities/phuket/"
    ],
-   "navoryx": null,
-   "waiting": "Navoryx: city page being written, 9 Nov 2026"
+   "navoryx": "phuket"
   },
   {
    "place": "Riyadh",
