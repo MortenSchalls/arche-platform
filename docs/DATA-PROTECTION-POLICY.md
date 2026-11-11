@@ -73,8 +73,8 @@ Secrets never go into repositories, chats or emails. No passport, ID or bank num
 ### A6. Processors and transfers (s.4(2), s.26; PDPR 2021 reg. 10-11; GDPR Art. 28, 46)
 | Processor | Role | Country | Contract | Status |
 |---|---|---|---|---|
-| Vercel Inc. | Website and portal hosting, functions, logs | USA | Vercel DPA, Pro/Enterprise only | **Open**: needs Pro |
-| Supabase | Portal database and files | Region to check | Supabase DPA on acceptance | Accept, save, check region |
+| Vercel Inc. | Website and portal hosting, functions (portal functions run in Sydney, syd1, next to the database, since 11 Nov 2026), logs | USA (company); functions in Australia | Vercel DPA, Pro/Enterprise only | **Open**: needs Pro |
+| Supabase | Portal database and files | Australia (AWS Sydney, ap-southeast-2; found 11 Nov 2026 by the speed check) | Supabase DPA on acceptance | Accept and save the DPA |
 | Resend | Email delivery | USA | Resend DPA with SCCs | Accept and save |
 | Anthropic | AI tools used by the team and the portal; reading receipts in Books (the receipt image only, when a Books user adds one) | USA | Commercial terms and DPA (no training on our data) | Save copy |
 | Mail provider for archeaviation.com | Mailbox | Per provider | Provider DPA | Save copy |

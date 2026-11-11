@@ -105,11 +105,11 @@ const { default: handler } = await import("../api/_books/handler.mjs");
 process.env.SUPABASE_URL = "https://db.example.test"; process.env.SUPABASE_SECRET_KEY = "secret"; process.env.SUPABASE_PUBLISHABLE_KEY = "pk";
 process.env.BOOKS_OWNERS = "owner@example.test"; process.env.BOOKS_ORIGIN = origin;
 const now = Math.floor(Date.now() / 1000);
-const users = { tOwner: { id: "u-owner", email: "owner@example.test", email_confirmed_at: "x", factors: [] }, tBroker: { id: "u-broker", email: "broker@example.test", email_confirmed_at: "x", factors: [] }, tAcc: { id: "u-acc", email: "acc@example.test", email_confirmed_at: "x", factors: [] } };
+const users = { tOwner: { id: "00000000-0000-4000-8000-0000000000a1", email: "owner@example.test", email_confirmed_at: "x", factors: [] }, tBroker: { id: "00000000-0000-4000-8000-0000000000b2", email: "broker@example.test", email_confirmed_at: "x", factors: [] }, tAcc: { id: "00000000-0000-4000-8000-0000000000c3", email: "acc@example.test", email_confirmed_at: "x", factors: [] } };
 const jwt = (p) => "h." + Buffer.from(JSON.stringify(p)).toString("base64url") + ".s";
-const tokens = { [jwt({ amr: [{ method: "password", timestamp: now - 60 }] })]: "tOwner", [jwt({ amr: [{ method: "password", timestamp: now - 7200 }] })]: "tOwnerOld", [jwt({ x: 1 })]: "tBroker", [jwt({ y: 1 })]: "tAcc" };
+const tokens = { [jwt({ sub: "00000000-0000-4000-8000-0000000000a1", amr: [{ method: "password", timestamp: now - 60 }] })]: "tOwner", [jwt({ sub: "00000000-0000-4000-8000-0000000000a1", amr: [{ method: "password", timestamp: now - 7200 }] })]: "tOwnerOld", [jwt({ sub: "00000000-0000-4000-8000-0000000000b2", x: 1 })]: "tBroker", [jwt({ sub: "00000000-0000-4000-8000-0000000000c3", y: 1 })]: "tAcc" };
 users.tOwnerOld = users.tOwner;
-const db = { acct_passkeys: [], acct_sessions: [], acct_challenges: [], acct_log: [], acct_members: [{ user_id: "u-acc", role: "accountant", active: true }], acct_settings: [], acct_accounts: A.map(a => ({ ...a, active: true })), acct_journal: [], acct_lines: [], acct_budget: [], acct_errors: [], acct_bank_lines: [], acct_drafts: [] };
+const db = { acct_passkeys: [], acct_sessions: [], acct_challenges: [], acct_log: [], acct_members: [{ user_id: "00000000-0000-4000-8000-0000000000c3", role: "accountant", active: true }], acct_settings: [], acct_accounts: A.map(a => ({ ...a, active: true })), acct_journal: [], acct_lines: [], acct_budget: [], acct_errors: [], acct_bank_lines: [], acct_drafts: [] };
 function filt(rows, qs) { for (const [k, v] of qs) { if (["select", "order", "limit", "on_conflict"].includes(k)) continue; const [op, ...rest] = v.split("."); const val = rest.join(".");
   rows = rows.filter(r => op === "eq" ? String(r[k]) === decodeURIComponent(val) : op === "lt" ? String(r[k]) < decodeURIComponent(val) : op === "gt" ? String(r[k]) > decodeURIComponent(val) : op === "is" ? r[k] == null : true); } return rows; }
 globalThis.fetch = async (url, opt = {}) => {
@@ -119,7 +119,7 @@ globalThis.fetch = async (url, opt = {}) => {
   const t = u.pathname.replace("/rest/v1/", ""), rows = db[t] || (db[t] = []), qs = [...u.searchParams.entries()];
   if (m === "GET") return res(200, filt(rows, qs));
   if (m === "POST") { const add = [].concat(JSON.parse(opt.body)); for (const r of add) { if (t === "acct_challenges") { r.id = "c" + rows.length; r.used = false; } if (t === "acct_sessions" && !r.last_seen) r.last_seen = new Date().toISOString(); r.created_at = r.created_at || new Date().toISOString(); rows.push(r); } return res(201, add); }
-  if (m === "PATCH") { const ch = JSON.parse(opt.body); for (const r of filt(rows, qs)) Object.assign(r, ch); return res(200, []); }
+  if (m === "PATCH") { const ch = JSON.parse(opt.body), hit = filt(rows, qs); for (const r of hit) Object.assign(r, ch); return res(200, hit); }
   if (m === "DELETE") { const del = new Set(filt(rows, qs)); db[t] = rows.filter(r => !del.has(r)); return res(200, []); }
 };
 async function call(tokenKey, body, sess) {
@@ -151,15 +151,15 @@ db.acct_sessions.forEach(s => { s.last_seen = new Date(Date.now() - 16 * 60e3).t
 ok((await call("tOwner", { mode: "accounts" }, un.out.session)).out.error === "locked", "books lock again after 15 minutes idle");
 ok((await call("tOwner", { mode: "unlockTotp" })).status === 401, "authenticator unlock needs a fresh code");
 const accS = await call("tAcc", { mode: "status" }); ok(accS.out.role === "accountant", "accountant recognised from the members list");
-db.acct_sessions.push({ token_hash: createHash("sha256").update("A".repeat(43)).digest("hex"), user_id: "u-acc", factor: "passkey", last_seen: new Date().toISOString(), expires_at: new Date(Date.now() + 3600e3).toISOString() });
+db.acct_sessions.push({ token_hash: createHash("sha256").update("A".repeat(43)).digest("hex"), user_id: "00000000-0000-4000-8000-0000000000c3", factor: "passkey", last_seen: new Date().toISOString(), expires_at: new Date(Date.now() + 3600e3).toISOString() });
 ok((await call("tAcc", { mode: "post", entry: okE }, "A".repeat(43))).status === 403, "an accountant cannot post");
 ok((await call("tAcc", { mode: "members", add: { email: "x@example.test" } }, "A".repeat(43))).status === 403, "an accountant cannot add people");
-for (let i = 0; i < 8; i++) db.acct_log.push({ user_id: "u-owner", action: "unlock-failed", at: new Date().toISOString() });
+for (let i = 0; i < 8; i++) db.acct_log.push({ user_id: "00000000-0000-4000-8000-0000000000a1", action: "unlock-failed", at: new Date().toISOString() });
 ok((await call("tOwner", { mode: "unlockOptions" })).status === 429, "eight failed unlocks in an hour: locked out for an hour");
 
 // part 2 gates: who may do what with receipts, rules, repeats and closing periods
 db.acct_log = db.acct_log.filter(x => x.action !== "unlock-failed");
-db.acct_sessions.push({ token_hash: createHash("sha256").update("O".repeat(43)).digest("hex"), user_id: "u-owner", factor: "passkey", last_seen: new Date().toISOString(), expires_at: new Date(Date.now() + 3600e3).toISOString() });
+db.acct_sessions.push({ token_hash: createHash("sha256").update("O".repeat(43)).digest("hex"), user_id: "00000000-0000-4000-8000-0000000000a1", factor: "passkey", last_seen: new Date().toISOString(), expires_at: new Date(Date.now() + 3600e3).toISOString() });
 const OS = "O".repeat(43), AS = "A".repeat(43);
 ok((await call("tAcc", { mode: "receiptPost", id: "x" }, AS)).status >= 400, "an accountant cannot post a receipt");
 ok((await call("tAcc", { mode: "rules", undo: "r1" }, AS)).status === 403, "an accountant cannot undo a rule");
@@ -172,6 +172,9 @@ ok((await call("tOwner", { mode: "rules", save: { match: "ab", account: "5300" }
 ok((await call("tOwner", { mode: "rules", save: { match: "vercel", account: "1010" } }, OS)).status === 400, "a rule cannot send money to a bank account");
 ok((await call("tAcc", { mode: "receiptPostAll", ids: ["x"] }, AS)).status === 403, "an accountant cannot post receipts together");
 ok((await call("tOwner", { mode: "receiptPostAll", ids: [] }, OS)).status === 400, "Post all needs ticked receipts");
+{ const forged = "h." + Buffer.from(JSON.stringify({ sub: "00000000-0000-4000-8000-0000000000c3" })).toString("base64url") + ".s"; tokens[forged] = "tOwner";
+  ok((await call("tOwner", { mode: "status" })).status === 200 && (await (async () => { const tok = forged; let st = 200; const r = { setHeader() {}, status(x) { st = x; return r; }, json() { return r; } };
+    await handler({ method: "POST", body: { mode: "status" }, headers: { authorization: "Bearer " + tok, origin, host: rpId }, query: {} }, r); return st; })()) === 401, "a sign-in whose user id does not match the token is refused"); delete tokens[forged]; }
 ok((await call("tOwner", { mode: "bankSync" }, OS)).status === 503, "the Wise feed says what it needs when no token is set");
 
 console.log(`books.test: ${n - fails}/${n} passed`);

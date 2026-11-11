@@ -53,14 +53,13 @@ async function who(req) {
   const totp = (u.factors || []).some(f => f.factor_type === "totp" && f.status === "verified");
   return { id: u.id, email, role, jwt: p, totp };
 }
-async function session(req, me) {
+async function session(req, me, uid) {
+  // one round trip (Morten, 11 Nov 2026: "devestatingly slow"): mark it used only if it is still live, and get it back
   const t = String(req.headers["x-books-session"] || ""); if (!/^[A-Za-z0-9_-]{40,}$/.test(t)) return null;
-  const r = (await sb(`/rest/v1/acct_sessions?token_hash=eq.${hash(t)}&select=*`))[0];
-  if (!r || r.user_id !== me.id) return null;
-  const now = Date.now();
-  if (Date.parse(r.expires_at) < now || now - Date.parse(r.last_seen) > IDLE) { await sb(`/rest/v1/acct_sessions?token_hash=eq.${r.token_hash}`, { method: "DELETE" }).catch(() => {}); return null; }
-  await sb(`/rest/v1/acct_sessions?token_hash=eq.${r.token_hash}`, { method: "PATCH", body: JSON.stringify({ last_seen: new Date().toISOString() }) });
-  return r;
+  const now = new Date(), idleFrom = new Date(now.getTime() - IDLE).toISOString();
+  const r = (await sb(`/rest/v1/acct_sessions?token_hash=eq.${hash(t)}&user_id=eq.${uid || (me && me.id)}&expires_at=gt.${now.toISOString()}&last_seen=gt.${idleFrom}`,
+    { method: "PATCH", headers: { prefer: "return=representation" }, body: JSON.stringify({ last_seen: now.toISOString() }) }))[0];
+  return r || null;
 }
 async function openSession(me, factor) {
   const t = W.b64u(randomBytes(32));
@@ -102,23 +101,29 @@ export default async function handler(req, res) {
   if (!SBU() || !KEY()) return res.status(503).json({ error: "Books are not set up yet." });
   const b = req.body || {}, mode = String(b.mode || "");
   try {
+    // all that needs only the user id starts at once, in parallel with checking the sign-in (one wait instead of five)
+    const uid = String(jwtPayload(String(req.headers.authorization || "").replace(/^Bearer\s+/i, "")).sub || "");
+    const okId = /^[0-9a-f-]{36}$/.test(uid), soft = p => p.catch(e => ({ __err: e }));
+    const keysP = okId ? soft(sb(`/rest/v1/acct_passkeys?user_id=eq.${uid}&select=id,name,created_at,last_used,alg,public_key,sign_count`)) : null;
+    const sessP = okId ? soft(session(req, null, uid)) : Promise.resolve(null), cfgP = soft(settings());
     const me = await who(req);
     if (!me) return res.status(401).json({ error: "Sign in again." });
+    if (me.id !== uid) return res.status(401).json({ error: "Sign in again." });
     if (!me.role) return res.status(403).json({ error: "No access to Books." });
     const can = r => RIGHTS[me.role].includes(r);
     const { origin, rpId } = site(req);
     // before SQL 0023/0024 is run the owners still see Books, with what is missing (Morten, 10 Nov 2026: "still not there")
-    let keys; try { keys = await sb(`/rest/v1/acct_passkeys?user_id=eq.${me.id}&select=id,name,created_at,last_used,alg,public_key,sign_count`); }
+    let keys; try { keys = await keysP; if (keys && keys.__err) throw keys.__err; }
     catch (e) { if (mode === "status") return res.json({ role: me.role, entity: ENTITY, trading: TRADING, unlocked: false, setup: "Books needs its database: in Supabase, SQL Editor, run supabase/migrations/0023_books.sql, then 0024_books_auto.sql. Then reload." }); throw e; }
 
     // ---------- before unlocking ----------
     if (mode === "status") {
-      const s = await session(req, me);
+      const s0 = await sessP, s = s0 && !s0.__err ? s0 : null;
       return res.json({ role: me.role, entity: ENTITY, trading: TRADING, unlocked: !!s, passkeys: keys.length, totp: me.totp, owners: owners().length });
     }
     if (mode === "regOptions" || mode === "regVerify") {
       // a new passkey: with an open books session, or as the very first factor within 10 minutes of a fresh sign-in
-      const s = await session(req, me), first = !keys.length && !me.totp && recentAuth(me.jwt, ["password", "otp", "magiclink"], 600);
+      const s0 = await sessP, s = s0 && !s0.__err ? s0 : null, first = !keys.length && !me.totp && recentAuth(me.jwt, ["password", "otp", "magiclink"], 600);
       const viaTotp = me.jwt.aal === "aal2" && recentAuth(me.jwt, ["totp"], 300);
       if (!s && !first && !viaTotp) return res.status(403).json({ error: keys.length || me.totp ? "Unlock Books first, then add the passkey." : "Sign out and in again, then set up the passkey within 10 minutes." });
       if (mode === "regOptions") {
@@ -162,30 +167,31 @@ export default async function handler(req, res) {
     if (mode === "lock") { const t = String(req.headers["x-books-session"] || ""); if (t) await sb(`/rest/v1/acct_sessions?token_hash=eq.${hash(t)}`, { method: "DELETE" }).catch(() => {}); return res.json({ ok: true }); }
 
     // ---------- everything else needs an open books session ----------
-    const s = await session(req, me);
+    const s0 = await sessP, s = s0 && !s0.__err ? s0 : null;
     if (!s) return res.status(401).json({ error: "locked" });
     if (!can("read")) return res.status(403).json({ error: "No access." });
     const today = String(b.today || new Date().toISOString()).slice(0, 10);
-    const cfg = await settings(), fy = currentFy(cfg, today), from = String(b.from || fy.start).slice(0, 10), to = String(b.to || today).slice(0, 10);
+    const cfg0 = await cfgP, cfg = cfg0 && !cfg0.__err ? cfg0 : {}, fy = currentFy(cfg, today), from = String(b.from || fy.start).slice(0, 10), to = String(b.to || today).slice(0, 10);
     const need = r => { if (!can(r)) { const e = new Error("Your role cannot do this."); e.status = 403; throw e; } };
     const db = { sb, all, rpc, log }, po = { by: me.id, today, cfg, role: me.role };
     // a posting that needs a person's confirmation answers 409 with the reasons; the screen shows them and "Post anyway"
     const posted = (r, extra = {}) => r.posted ? res.json({ ok: true, id: r.id, ...extra }) : res.status(409).json({ error: "Check before posting", warns: r.warns });
 
     if (mode === "overview") {
-      const bk = await books(), budget = await all("/rest/v1/acct_budget?select=month,account,amount&version=eq." + encodeURIComponent(cfg.budgetVersion || "locked"));
+      // independent reads at the same time (Morten, 11 Nov 2026: "devestatingly slow")
       await A.recurringRun(db, today).catch(() => 0);
-      let sync = null; const wst = (await setting("wise")) || {};
-      if (process.env.WISE_TOKEN && can("bank") && (!wst.lastSync || Date.now() - Date.parse(wst.lastSync) > 6 * 3600e3)) sync = await Promise.race([A.wiseSync(db, process.env.WISE_TOKEN, po).catch(e => ({ error: e.message })), new Promise(r => setTimeout(() => r({ later: true }), 8000))]);   // the screen never waits long; a partial run is safe (lines are never doubled)
-      const errors = await sb("/rest/v1/acct_errors?resolved=eq.false&select=id,at,source,message&order=id.desc&limit=50");
-      const unmatched = (await sb("/rest/v1/acct_bank_lines?journal_id=is.null&select=id")).length;
-      const chain = await rpc("acct_verify", {});
+      const wst = (await setting("wise").catch(() => null)) || {};
+      const syncP = process.env.WISE_TOKEN && can("bank") && (!wst.lastSync || Date.now() - Date.parse(wst.lastSync) > 6 * 3600e3)
+        ? Promise.race([A.wiseSync(db, process.env.WISE_TOKEN, po).catch(e => ({ error: e.message })), new Promise(r => setTimeout(() => r({ later: true }), 8000))]) : Promise.resolve(null);
+      const [bk, budget, errors, openLines, chain, bankAll, td, sync] = await Promise.all([books(), all("/rest/v1/acct_budget?select=month,account,amount&version=eq." + encodeURIComponent(cfg.budgetVersion || "locked")),
+        sb("/rest/v1/acct_errors?resolved=eq.false&select=id,at,source,message&order=id.desc&limit=50"), sb("/rest/v1/acct_bank_lines?journal_id=is.null&select=id"),
+        rpc("acct_verify", {}), all("/rest/v1/acct_bank_lines?select=bank_account,bdate,currency,balance,journal_id"), A.todo(db), syncP]);
+      const unmatched = openLines.length;
       const pl = C.profitAndLoss(bk.accounts, bk.lines, fy.start, today), bs = C.balanceSheet(bk.accounts, bk.lines, today, fy.start);
       const bva = budget.length ? C.budgetVsActual(bk.accounts, bk.lines, budget, fy.start, today) : null;
       const cancelled = await cancelledWithMoney(bk);
       const adv = C.advice({ today, fyStart: fy.start, fyEnd: fy.end, sgdPerUsd: +cfg.sgdPerUsd || 0, gstRegistered: !!cfg.gstRegistered, ya: cfg.ya ? +cfg.ya : null, yaIndex: +cfg.yaIndex || 1,
         accounts: bk.accounts, lines: bk.lines, budget, errors, bankUnmatched: unmatched, chainOk: !chain.length, cancelledWithMoney: cancelled, grossBooked: grossBooked(bk) });
-      const bankAll = await all("/rest/v1/acct_bank_lines?select=bank_account,bdate,currency,balance,journal_id"), td = await A.todo(db);
       const checksNow = A.health({ accounts: bk.accounts, lines: bk.lines, chainOk: !chain.length, bankLines: bankAll, today });
       await log(me.id, "view", { what: "overview" });
       return res.json({ entity: ENTITY, trading: TRADING, role: me.role, fy, pl, bs, bva, advice: adv, errors, unmatched, chainOk: !chain.length, entries: bk.journal.length, settings: cfg,

@@ -106,5 +106,8 @@
   "api/me.mjs": {
    "maxDuration": 60
   }
- }
+ },
+ "regions": [
+  "syd1"
+ ]
 }
