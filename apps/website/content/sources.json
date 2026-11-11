@@ -393,7 +393,7 @@
   "title": "AIP Australia ERSA, FAC YSSY Sydney/Kingsford Smith (effective 09 Jul 2026)",
   "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YSSY_09JUL2026.pdf",
   "publisher": "Airservices Australia",
-  "checked": "2026-11-01"
+  "checked": "2026-11-11"
  },
  "au-dap-yssy-ad": {
   "title": "AIP Australia DAP, YSSY Aerodrome Chart SSYAD01-187 (effective 09 Jul 2026)",
@@ -879,7 +879,7 @@
   "title": "Macao SAR Government Portal, PS-1956B Flight Approval for Non-Scheduled Air Services (last modified 6 Jul 2026)",
   "url": "https://www.gov.mo/en/services/ps-1956/ps-1956b/",
   "publisher": "Macao SAR Government / Civil Aviation Authority (AACM)",
-  "checked": "2026-10-30"
+  "checked": "2026-11-11"
  },
  "kr-aip-rkss": {
   "title": "Korea eAIP, AD 2 RKSS Seoul/Gimpo International (package 19 Feb 2025 AIRAC; no effective date printed on page)",
@@ -945,7 +945,7 @@
   "title": "ビジネスジェット機（外国籍機）の各種申請手続き (Application procedures for foreign-registered business jets, 1 Oct 2026; designated-airport table as of R8.10)",
   "url": "https://www.mlit.go.jp/koku/content/001762020.pdf",
   "publisher": "Civil Aviation Bureau, International Aviation Division, MLIT",
-  "checked": "2026-10-31"
+  "checked": "2026-11-11"
  },
  "jp-mlit-press-2023": {
   "title": "MLIT press release: shorter application deadline for foreign business jets for tourism (1 Jun 2023)",
@@ -960,10 +960,10 @@
   "checked": "2026-10-27"
  },
  "acl-auh": {
-  "title": "ACL airport information, Zayed International Airport (AUH) (page lists capacity declarations to S27; checked 27 Oct 2026)",
+  "title": "ACL airport information, Zayed International Airport (AUH) (Level 2; lists capacity declarations to S27; checked 11 Nov 2026)",
   "url": "https://www.acl-uk.org/airport-info-details/?aid=47",
   "publisher": "Airport Coordination Limited (slot coordinator / schedules facilitator)",
-  "checked": "2026-10-27"
+  "checked": "2026-11-11"
  },
  "azi-aviation": {
   "title": "Al Bateen Executive Airport, Aviation Services (no page date shown; checked 27 Oct 2026)",
@@ -1686,10 +1686,10 @@
   "checked": "2026-10-28"
  },
  "kfll-faa-aip-fl": {
-  "title": "FAA, United States AIP Part 3 AD 2 Florida (HTML; 29th edition 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published; amendment shown on page not stated): KFLL and KMIA (checked 28 Oct 2026)",
+  "title": "FAA, United States AIP Part 3 AD 2 Florida (HTML; 29th edition 22 Jan 2026, Amendment 1 dated 9 Jul 2026 published; amendment shown on page not stated): KFLL, KMIA and KPBI (checked 11 Nov 2026)",
   "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_florida.html",
   "publisher": "Federal Aviation Administration",
-  "checked": "2026-11-09"
+  "checked": "2026-11-11"
  },
  "kfll-cbp-ga": {
   "title": "CBP, Fort Lauderdale-Hollywood International (KFLL) General Aviation fact sheet, 15 Feb 2024, publication KFLL-0224 (checked 28 Oct 2026)",
@@ -2514,10 +2514,10 @@
   "checked": "2026-11-01"
  },
  "kiad-faa-aip-dc": {
-  "title": "FAA, United States AIP Part 3 AD 2 District of Columbia (HTML; no edition date shown on page): KIAD Washington Dulles International (checked 1 Nov 2026)",
+  "title": "FAA, United States AIP Part 3 AD 2 District of Columbia (HTML; no edition date shown on page): KIAD Washington Dulles International (checked 11 Nov 2026)",
   "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_district_of_columbia.html",
   "publisher": "Federal Aviation Administration",
-  "checked": "2026-11-01"
+  "checked": "2026-11-11"
  },
  "ksfo-faa-apd": {
   "title": "FAA d-TPP airport diagram, San Francisco Intl (SFO), AL-375, SW-2, 1 Oct 2026 to 29 Oct 2026 (checked 1 Nov 2026)",
@@ -2526,10 +2526,10 @@
   "checked": "2026-11-01"
  },
  "koak-faa-aip-ca": {
-  "title": "FAA, United States AIP Part 3 AD 2 California (HTML; no edition date shown on page): KFAT, KLAX, KOAK, KONT (checked 1 Nov 2026)",
+  "title": "FAA, United States AIP Part 3 AD 2 California (HTML; no edition date shown on page): KFAT, KLAX, KOAK, KONT, KSJC (checked 11 Nov 2026)",
   "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_california.html",
   "publisher": "Federal Aviation Administration",
-  "checked": "2026-11-01"
+  "checked": "2026-11-11"
  },
  "ksjc-fbo": {
   "title": "San José Mineta International Airport, Fixed Base Operators page (no date shown) (checked 1 Nov 2026)",
@@ -2769,7 +2769,7 @@
   "title": "Operating at Sydney Airport (no date shown; Slot Management Scheme 2025)",
   "url": "https://www.sydneyairport.com.au/corporate/partner-with-us/aviation-opportunities/operating-at-sydney-airport",
   "publisher": "Sydney Airport",
-  "checked": "2026-11-03"
+  "checked": "2026-11-11"
  },
  "ybbn-adms": {
   "title": "Airport Demand Management Scheme, Version 2.2 (9 Jan 2026)",
@@ -3516,10 +3516,10 @@
   "checked": "2026-11-09"
  },
  "phnl-faa-aip-hi": {
-  "title": "FAA, United States AIP Part 3 AD 2 Hawaii (HTML; no edition date shown on page): PHNL Honolulu International (checked 9 Nov 2026)",
+  "title": "FAA, United States AIP Part 3 AD 2 Hawaii (HTML; no edition date shown on page): PHNL Honolulu International (checked 11 Nov 2026)",
   "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_hawaii.html",
   "publisher": "Federal Aviation Administration",
-  "checked": "2026-11-09"
+  "checked": "2026-11-11"
  },
  "phnl-cbp-ga": {
   "title": "US CBP, Daniel K. Inouye International Airport GA Airport Fact Sheet (PHNL), 25 Oct 2024, publication PHNL-1024",
@@ -3604,5 +3604,53 @@
   "url": "https://aip.caam.gov.my/aip/eAIP/17. 2026-03-19-AIRAC/html/eSUP/WM-eSUP-26-17-en-MS.html",
   "publisher": "Civil Aviation Authority of Malaysia (CAAM)",
   "checked": "2026-11-10"
+ },
+ "jsc-faqs": {
+  "title": "Japan Schedule Coordination (JSC), FAQs: airports coordinated (no page date shown)",
+  "url": "https://schedule-coordination.jp/faqs/index.html",
+  "publisher": "Japan Schedule Coordination (JSC), Japan Aeronautic Association (slot coordinator for NRT, HND, KIX, FUK)",
+  "checked": "2026-11-11"
+ },
+ "au-curfew-act-2024": {
+  "title": "Sydney Airport Curfew Act 1995, latest compilation C2024C00497 (14 Oct 2024), contents page",
+  "url": "https://www.legislation.gov.au/C2004A04984/latest/text",
+  "publisher": "Federal Register of Legislation, Australian Government",
+  "checked": "2026-11-11"
+ },
+ "au-airservices-amdt-calendar": {
+  "title": "Airservices Australia, AIS document amendment calendar (ERSA editions 2026 and 2027)",
+  "url": "https://www.airservicesaustralia.com/industry-info/aeronautical-information-management/document-amendment-calendar/",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-11"
+ },
+ "ypph-operational-procedures": {
+  "title": "Perth Airport, Operational Procedures page (no date shown, footer 2026)",
+  "url": "https://edit-prod.perthairport.com.au/home/corporate/work-with-us/operating-at-perth-airport/operational-procedures",
+  "publisher": "Perth Airport Pty Ltd",
+  "checked": "2026-11-11"
+ },
+ "ypph-aos003-2025": {
+  "title": "Perth Airport Operating Standard AOS003: Aircraft Scheduling & Facilities Allocation (September 2025)",
+  "url": "https://edit-prod.perthairport.com.au/-/media/Files/CORPORATE/Work-with-us/Airport-Operating-Standards/AOS003-Aircraft-scheduling-and-facilities-allocation.pdf?rev=0d9ab4bd6f134084ba3ba5a01d2709db",
+  "publisher": "Perth Airport Pty Ltd",
+  "checked": "2026-11-11"
+ },
+ "mv-icao-ip09-vrmm-runway-2023": {
+  "title": "A New Runway at Velana International Airport (VIA), Information Paper IP09, presented by Maldives, ICAO SAIOSEACG/2, Bangkok, 20-24 Mar 2023",
+  "url": "https://www.icao.int/sites/default/files/APAC/Meetings/2023/2023%20SAIOSEACG%202/4-Information%20Papers/IP09-A-New-Runway-at-Velana-International-Airport-VIA.pdf",
+  "publisher": "Maldives (State paper to ICAO Asia and Pacific Office)",
+  "checked": "2026-11-11"
+ },
+ "ch-foca-gva-ga-study-2014": {
+  "title": "Installations aéronautiques alternatives à l'aéroport de Genève pour l'aviation générale et l'aviation d'affaires, étude préliminaire de faisabilité, version 4 (17 Jun 2014), prepared by Citec for FOCA/OFAC, published on bazl.admin.ch",
+  "url": "https://www.bazl.admin.ch/dam/de/sd-web/1r2vt7sW1AK3/installations_aeronautiquesalternativesalaeroportdegenevepourlav.pdf",
+  "publisher": "Swiss Federal Office of Civil Aviation (FOCA/OFAC)",
+  "checked": "2026-11-11"
+ },
+ "gva-ppr-permanent": {
+  "title": "Genève Aéroport, Air Traffic regulation (permanent), PPR page (undated; read 11 Nov 2026)",
+  "url": "https://gva.ch/en/Site/Professionnels/prestations-aeronautiques/PPR",
+  "publisher": "Genève Aéroport",
+  "checked": "2026-11-11"
  }
 }

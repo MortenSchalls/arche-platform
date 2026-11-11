@@ -7,13 +7,13 @@
  "tz": "America/Los_Angeles",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-09",
+ "checked": "2026-11-11",
  "rules": {
   "runway": {
-   "v": "two parallel runways, 12L/30R and 12R/30L, each 11,000 ft x 150 ft (about 3,353 m x 46 m)",
+   "v": "two parallel runways in the FAA AIP, 12L/30R and 12R/30L, each 11,000 ft x 150 ft (about 3,353 m x 46 m)",
    "longest_m": 3353,
-   "src": "ksjc-faa-apd",
-   "quote": "11000 X 150"
+   "src": "koak-faa-aip-ca",
+   "quote": "True Dimensions: 11000 ft x 150 ft"
   },
   "curfew": {
    "v": "noise-based curfew (since October 2003): Stage II aircraft may not operate 23:00-07:00 local; quieter Stage III aircraft at or below 89.0 EPNdB and some grandfathered Stage 3 jets on the airport's Schedule of Authorized Aircraft are treated separately for 23:30-06:30; check the aircraft against the schedule; exemptions for delays beyond the operator's control, emergencies and government aircraft; fine USD 2,500 per violation",
@@ -44,9 +44,9 @@
    "quote": "are available 7 days per week, 0900-1800 (wheels down)"
   },
   "ppr": {
-   "v": "for international arrivals, CBP permission to land at least 24 hours before arrival",
-   "src": "ksjc-cbp-ga",
-   "quote": "Pilots must secure permission to land by contacting CBP at least 24 hours prior to arrival time at KSJC."
+   "v": "prior airport notification is required for all late or early arrivals (curfew hours), contact the Manager on Duty (408) 392-3500; unscheduled operations by Group V aircraft (Boeing 747) and larger need prior airport approval; all turbine engine run-ups need prior airport approval. International arrivals also need CBP permission to land (see customs)",
+   "src": "koak-faa-aip-ca",
+   "quote": "PRIOR AIRPORT NOTIFICATION IS REQUIRED FOR ALL LATE/EARLY ARRIVALS. CONTACT MANAGER ON DUTY AT (408) 392-3500."
   },
   "handling": {
    "v": "two FBOs: Atlantic Aviation and Signature Flight Support",
@@ -54,17 +54,24 @@
    "quote": "Atlantic Aviation; Signature Flight Support"
   },
   "hours": {
-   "v": "control tower 06:00-24:00 local; the source does not state the airport's own opening hours",
-   "src": "ksjc-faa-flightdeck",
-   "quote": "SJC TWR Hours of Operation: 0600L-0000L"
+   "v": "airport attended all months, all days, all hours; control tower, ground and clearance delivery 06:00-24:00 local; D-ATIS 24 hours",
+   "src": "koak-faa-aip-ca",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "fuel": {
+   "v": "fuel types 100LL (avgas) and A (jet fuel)",
+   "src": "koak-faa-aip-ca",
+   "quote": "100LL A"
+  },
+  "max_aircraft": {
+   "v": "unscheduled operations by Group V aircraft (Boeing 747) and larger are not authorised without prior airport approval; taxiway V limited to wingspan under 118 ft (Boeing 737-900 or smaller); part of taxiway Z limited to under 135 ft (Boeing 757-300 or smaller); taxiway Y periodically limited to under 171 ft",
+   "src": "koak-faa-aip-ca",
+   "quote": "UNSCHEDULED OPNS BY GROUP 5 ACFT (B747) AND LARGER NOT AUTH EXCEPT WITH PRIOR ARPT APPROVAL CTC AMGR (408) 392-3500."
   }
  },
  "missing": [
   "customs (newer CBP fact sheet of 9 Feb 2026 not opened)",
-  "hours",
-  "fuel",
-  "max_aircraft",
   "slots"
  ],
- "notes": "Runway sizes are from the FAA airport diagram AL-693 (cycle 30 Oct-27 Nov 2025; the newest cycle was not opened); metres are my conversion (1 ft = 0.3048 m). The curfew page wording read through the fetch tool says quieter Stage III aircraft (<= 89.0 EPNdB) 'can operate between the hours of 11:30 p.m. to 6:30 a.m.'; how this applies to each business jet depends on the Schedule of Authorized Aircraft (rev. Nov 2022, https://www.flysanjose.com/sites/default/files/CMarquez/SJC%20Authorized%20Aircraft%20Schedule%202022.pdf), which could not be opened. The portal window 23:00-07:00 is the Stage II rule and is the safe reading. CBP customs hours are from the 25 Jul 2024 sheet; a newer sheet (9 Feb 2026, https://www.cbp.gov/sites/default/files/2026-02/KSJC%20GA%20Airport%20Fact%20Sheet%2020260209.pdf) exists but could not be opened, so customs hours may have changed; the 2024 sheet does not state the time zone on the hours line. FAA Chart Supplement SW (3 Sep 2026, https://aeronav.faa.gov/Upload_313-d/supplements/CS_SW_20260903.pdf) could not be opened. 1 Nov 2026: added the FBO list from the airport's Fixed Base Operators page (no date; quote joins the two list items). Not opened again: the CBP sheet of 9 Feb 2026 and the Schedule of Authorized Aircraft (no route to them via search). KSJC is not on the FAA US AIP California AD 2 page. | 3 Nov 2026: opened the Schedule of Authorized Aircraft (issued 9 Nov 2022, https://www.flysanjose.com/sites/default/files/CMarquez/SJC%20Authorized%20Aircraft%20Schedule%202022.pdf). It lists types 'authorized to operate during the Curfew Hours from 2330 to 0630 local time'; some models need an FAA noise certificate showing 89.0 EPNdB or less for the specific aircraft. Listed types include Gulfstream G-IV, G-V, G-650, Falcon 7X, 900, 2000 and Citations; the Global and Challenger row was not clear in the extracted text, so check the original before a night trip. The curfew rule is kept unchanged. CBP sheets of 9 Feb 2026 and 6 Jan 2025 and the KSJC detail page were refused; the CBP port page 2834 shows office hours 09:00-17:00 Pacific, Mon-Sun, which are not general aviation clearance hours, so the customs rule from the 2024 sheet stays and may be out of date. 5 Nov 2026: Refused: https://www.faa.gov/flight_deck/pilot_info/sjc.pdf (permission not answered); CBP sheet of 9 Feb 2026 still unread. Slots: the FAA lists (Federal Register 9 Oct 2026; Level 3 page of Jan 2023) do not name this airport, but no source says so of it, so nothing is recorded. | 7 Nov 2026: re-read the Curfew page (https://flysanjose.com/curfew, no date; programme revised Oct 2003, schedule last revised Nov 2022): wording unchanged, curfew rule kept. The airport's notice to GA tenants of 14 Oct 2025 says 'Effective May 2026, SJC will implement a landing fee for all aircrafts over 12,500 pounds' at a proposed USD 6.80 per 1,000 lb maximum gross landing weight; it is a proposal with inconsistent dates and is not recorded as a rule. Customs still from the 2024 sheet: the CBP sheet of 9 Feb 2026 (https://www.cbp.gov/sites/default/files/2026-02/KSJC%20GA%20Airport%20Fact%20Sheet%2020260209.pdf) and the CBP KSJC fact sheet details page failed (client error; the proxy also refuses cbp.gov). Fuel, max aircraft and slots still missing; FAA Chart Supplement SW 29 Oct 2026 not opened (permission not answered). | 9 Nov 2026: read the airport's Customs and Border Protection page (no date, https://flysanjose.com/security/customs-and-border-protection) and International Arrivals page (no date, https://flysanjose.com/international-arrivals): neither covers general aviation clearance or hours (the CBP page says only 'Hours subject to change.'). Nothing added. Failed (permission not answered): CBP sheet of 9 Feb 2026 (https://www.cbp.gov/sites/default/files/2026-02/KSJC%20GA%20Airport%20Fact%20Sheet%2020260209.pdf), FAA diagram cycle 2611 (https://aeronav.faa.gov/d-tpp/2611/00693AD.PDF), airport GA page (https://www.flysanjose.com/business/sjc-general-aviation). Customs still from the 2024 sheet."
+ "notes": "Runway sizes are from the FAA airport diagram AL-693 (cycle 30 Oct-27 Nov 2025; the newest cycle was not opened); metres are my conversion (1 ft = 0.3048 m). The curfew page wording read through the fetch tool says quieter Stage III aircraft (<= 89.0 EPNdB) 'can operate between the hours of 11:30 p.m. to 6:30 a.m.'; how this applies to each business jet depends on the Schedule of Authorized Aircraft (rev. Nov 2022, https://www.flysanjose.com/sites/default/files/CMarquez/SJC%20Authorized%20Aircraft%20Schedule%202022.pdf), which could not be opened. The portal window 23:00-07:00 is the Stage II rule and is the safe reading. CBP customs hours are from the 25 Jul 2024 sheet; a newer sheet (9 Feb 2026, https://www.cbp.gov/sites/default/files/2026-02/KSJC%20GA%20Airport%20Fact%20Sheet%2020260209.pdf) exists but could not be opened, so customs hours may have changed; the 2024 sheet does not state the time zone on the hours line. FAA Chart Supplement SW (3 Sep 2026, https://aeronav.faa.gov/Upload_313-d/supplements/CS_SW_20260903.pdf) could not be opened. 1 Nov 2026: added the FBO list from the airport's Fixed Base Operators page (no date; quote joins the two list items). Not opened again: the CBP sheet of 9 Feb 2026 and the Schedule of Authorized Aircraft (no route to them via search). KSJC is not on the FAA US AIP California AD 2 page. | 3 Nov 2026: opened the Schedule of Authorized Aircraft (issued 9 Nov 2022, https://www.flysanjose.com/sites/default/files/CMarquez/SJC%20Authorized%20Aircraft%20Schedule%202022.pdf). It lists types 'authorized to operate during the Curfew Hours from 2330 to 0630 local time'; some models need an FAA noise certificate showing 89.0 EPNdB or less for the specific aircraft. Listed types include Gulfstream G-IV, G-V, G-650, Falcon 7X, 900, 2000 and Citations; the Global and Challenger row was not clear in the extracted text, so check the original before a night trip. The curfew rule is kept unchanged. CBP sheets of 9 Feb 2026 and 6 Jan 2025 and the KSJC detail page were refused; the CBP port page 2834 shows office hours 09:00-17:00 Pacific, Mon-Sun, which are not general aviation clearance hours, so the customs rule from the 2024 sheet stays and may be out of date. 5 Nov 2026: Refused: https://www.faa.gov/flight_deck/pilot_info/sjc.pdf (permission not answered); CBP sheet of 9 Feb 2026 still unread. Slots: the FAA lists (Federal Register 9 Oct 2026; Level 3 page of Jan 2023) do not name this airport, but no source says so of it, so nothing is recorded. | 7 Nov 2026: re-read the Curfew page (https://flysanjose.com/curfew, no date; programme revised Oct 2003, schedule last revised Nov 2022): wording unchanged, curfew rule kept. The airport's notice to GA tenants of 14 Oct 2025 says 'Effective May 2026, SJC will implement a landing fee for all aircrafts over 12,500 pounds' at a proposed USD 6.80 per 1,000 lb maximum gross landing weight; it is a proposal with inconsistent dates and is not recorded as a rule. Customs still from the 2024 sheet: the CBP sheet of 9 Feb 2026 (https://www.cbp.gov/sites/default/files/2026-02/KSJC%20GA%20Airport%20Fact%20Sheet%2020260209.pdf) and the CBP KSJC fact sheet details page failed (client error; the proxy also refuses cbp.gov). Fuel, max aircraft and slots still missing; FAA Chart Supplement SW 29 Oct 2026 not opened (permission not answered). | 9 Nov 2026: read the airport's Customs and Border Protection page (no date, https://flysanjose.com/security/customs-and-border-protection) and International Arrivals page (no date, https://flysanjose.com/international-arrivals): neither covers general aviation clearance or hours (the CBP page says only 'Hours subject to change.'). Nothing added. Failed (permission not answered): CBP sheet of 9 Feb 2026 (https://www.cbp.gov/sites/default/files/2026-02/KSJC%20GA%20Airport%20Fact%20Sheet%2020260209.pdf), FAA diagram cycle 2611 (https://aeronav.faa.gov/d-tpp/2611/00693AD.PDF), airport GA page (https://www.flysanjose.com/business/sjc-general-aviation). Customs still from the 2024 sheet. | 11 Nov 2026: read the FAA US AIP Part 3 AD 2 California page (https://www.faa.gov/Air_traffic/publications/atpubs/aip_html/part3_ad_2.0_california.html, no edition date on page), KSJC entry. Added fuel (100LL, A) and max aircraft (Group V/B747 and larger need prior approval; taxiway wingspan limits); hours now from the AIP (attended all hours; tower 0600-0000); runway now from the AIP instead of the superseded Nov 2025 diagram (same 11000 x 150 ft); PPR now the AIP's late/early arrival notification, Group V approval and run-up approval (the CBP 24-hour landing permission stays in the customs rule). AIP curfew remark agrees with the airport page: 'CURFEW HRS 2300-0700 FAR 36 STAGE II, 2330-0630 FAR 36 STAGE III ACFT' 'LISTED ON THE SCHEDULE OF AUTHORIZED AIRCRAFT ISSUED BY THE DIRECTOR OF AVIATION.'; noise remark: runway 30L/12R preferred for jet arrivals and 12L/30R for jet departures. Customs still from the Jul 2024 CBP sheet; cbp.gov refused again."
 }
