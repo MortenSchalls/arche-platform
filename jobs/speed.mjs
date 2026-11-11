@@ -8,6 +8,9 @@ const t = async (label, url, opt = {}) => { const s = performance.now(); try { c
 const host = new URL(SB).hostname, ip = (await lookup(host)).address;
 const geo = await (await fetch(`https://ipinfo.io/${ip}/json`)).json().catch(() => ({}));
 console.log(`Database host resolves to ${geo.city || "?"}, ${geo.region || "?"}, ${geo.country || "?"} (${geo.org || "?"}) — note: Supabase sits behind a CDN, so this may be the nearest edge, not the database`);
+// the database's own host (not behind the CDN) tells where the database really is
+for (const fam of [4, 6]) { try { const a = (await lookup("db." + host, { family: fam })).address; const g = await (await fetch(`https://ipinfo.io/${a}/json`)).json().catch(() => ({}));
+  console.log(`Database server (IPv${fam}) is in ${g.city || "?"}, ${g.region || "?"}, ${g.country || "?"} (${g.org || "?"})`); } catch (e) { console.log(`Database server IPv${fam}: ${e.code || e.message}`); } }
 const h = { apikey: KEY, authorization: `Bearer ${KEY}` };
 for (let i = 1; i <= 5; i++) await t(`database round trip ${i} (runner in the US)`, `${SB}/rest/v1/acct_accounts?select=code&limit=1`, { headers: h });
 await t("database settings (region hint)", `${SB}/rest/v1/`, { headers: h });
