@@ -17,7 +17,7 @@ on:
       job:
         description: "Job to run now"
         type: choice
-        options: [rotation, operators, operators-probe, agent-plan, agent-import, agent-report, agent-fix, backup, regimes, screen, audits]
+        options: [rotation, operators, operators-probe, agent-plan, agent-import, agent-report, agent-fix, backup, regimes, screen, audits, speed]
         default: rotation
       batch:
         description: "agent-import only: the research batch (gzip + base64 JSON), sent by the scheduled task"
