@@ -2,7 +2,7 @@
 
 Version 1 (draft for Morten's approval), 9 November 2026. Internal; not published. This is the written policy that
 PDPA s.12 requires: policies and practices, a complaints process, and information for the people who work with us.
-It matches the public Privacy notice ("Last updated 9 November 2026") and follows the same standard as the Navoryx
+It matches the public Privacy notice ("Last updated 12 November 2026": Australia added to where data is kept, fonts served from our own site) and follows the same standard as the Navoryx
 policy (Morten, 9 Nov 2026: "ensure we follow same GDPR rules as Navoryx").
 
 Owner: the Data Protection Officer, Morten Schalls Jørgensen (appointed 9 November 2026). On the website the DPO

@@ -118,8 +118,8 @@ def sitemap():
 
 CSP = ("default-src 'self'; "
        "script-src 'self' 'unsafe-inline' 'unsafe-eval'; "          # the page template is compiled in the browser; no outside scripts
-       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
-       "font-src 'self' https://fonts.gstatic.com data:; "
+       "style-src 'self' 'unsafe-inline'; "
+       "font-src 'self' data:; "
        "img-src 'self' data: blob:; "
        "connect-src 'self'; "
        "frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; "

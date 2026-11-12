@@ -7,7 +7,8 @@ RULES = [(r"0000 0000|6500000000", "phone placeholder: set PHONE in company.py")
          (r"\[Placeholder\]|\[registration number\]|\[date\]|\[●\]|\[privacy contact email\]", "text placeholder"),
          (r"(?i)paynode", "Paynode named (removed everywhere until Morten agrees otherwise)"),
          (r"charter@archeexecutive\.com|archeexecutive\.com", "old domain"),
-         (r"Bangkok office|สำนักงานกรุงเทพ|曼谷办事处|バンコクオフィス|\+66", "Bangkok office or Thai number (Singapore only)")]
+         (r"fonts\.googleapis\.com|fonts\.gstatic\.com", "font loaded from a font service (sends visitors' addresses to it): run self_fonts.py"),
+         (r"office-bangkok|Bangkok office|สำนักงานกรุงเทพ|曼谷办事处|バンコクオフィス|\+66", "Bangkok office or Thai number (Singapore only)")]
 EXCL = json.load(open(os.path.join(os.path.dirname(HERE), "content", "excluded.json"), encoding="utf-8"))
 RULES.append((r"(?i)\b(" + "|".join(re.escape(w) for w in EXCL["countries"] + EXCL["words"]) + r")\b", "sanctioned place named (must not be on the website)"))
 problems = []

@@ -18,6 +18,7 @@ def extract():
     a9 = re.search(r'\{n:"A9",[^}]*after:"([^"]*)"\}', s).group(1)
     d = json.loads(subprocess.run(["node", "-e", js], capture_output=True, text=True, check=True).stdout)
     d["A9_AFTER"] = a9
+    d["VERSION"] = re.search(r'const TERMS_VERSION = "([^"]+)"', s).group(1)
     return d
 
 def page(d):
@@ -63,9 +64,9 @@ td {{ padding:10px 0; border-bottom:1px solid var(--line); }} td:last-child {{ t
 <main>
 <a class="brand" href="/">ARCHĒ</a>
 <h1>Terms of business</h1>
-<p class="muted">Arche Executive Pte. Ltd., trading as Archē Executive · General conditions (Part B of the charter confirmation)</p>
+<p class="muted">Arche Executive Pte. Ltd., trading as Archē Executive · {e(d["VERSION"])}: the general conditions (Part B of the charter confirmation)</p>
 <p>{e(d["PART_B_INTRO"])}</p>
-<p>Each trip also has its own terms in Part A of your confirmation: price, payment dates, what is included and the cancellation scale. References below to A3, A7 and A9 point there.</p>
+<p>Each trip also has its own terms in Part A of your confirmation: price, payment dates, what is included, costs beyond the price and the cancellation scale. References below to A3, A7 and A9 point there.</p>
 <h2 id="a9"><span>A9</span> Cancellation scale</h2>
 <p>Charge as a share of the charter price, by time before the first departure:</p>
 <table>{rows}</table>

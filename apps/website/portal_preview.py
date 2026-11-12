@@ -9,7 +9,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); SITE = os.path.join(HERE, "si
 OUT = os.path.join(HERE, "..", "portal", "api", "_site", "data.mjs")
 TEXT = (".html", ".css", ".js", ".json", ".svg", ".xml", ".txt", ".webmanifest")
 SKIP_DIRS = {"api", "logo-export"}
-PATHS = r"api|services|aircraft|how-it-works|contact|destinations|img|assets|vendor|cities|regions|countries|airports|guides|nav\.css|track\.js|privacy\.html|terms\.html|i18n\.js|site-fixes\.css|support\.js|image-slot\.js|doc-page\.js|th|zh|ja"
+PATHS = r"fonts|api|services|aircraft|how-it-works|contact|destinations|img|assets|vendor|cities|regions|countries|airports|guides|nav\.css|track\.js|privacy\.html|terms\.html|i18n\.js|site-fixes\.css|support\.js|image-slot\.js|doc-page\.js|th|zh|ja"
 
 def move(t):
     t = re.sub(r'((?:href|src|action)=["\'])/(?!/)', r"\1/website/", t)
@@ -33,6 +33,7 @@ def run(verbose=True):
         for f in files:
             p = os.path.normpath(os.path.join(rel, f)).replace(os.sep, "/").lstrip("./")
             if p in text: raw = move(text[p]).encode("utf-8")
+            elif f.startswith("noto-"): continue   # Thai, Chinese and Japanese fonts stay out of the private copy (size); it falls back to system fonts
             elif f in used: raw = open(os.path.join(root, f), "rb").read()   # pictures only if some page uses them
             else: continue
             data[p] = base64.b64encode(gzip.compress(raw, 9, mtime=0)).decode("ascii")
