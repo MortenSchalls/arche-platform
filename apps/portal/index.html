@@ -1537,7 +1537,7 @@ async function prospectAction(a, el){
 const CONF = (function(){
 let S = null, DRAFT = true, LOGO_URL = "img/arche-logo.png";
 const BRAND = "Archē Executive";
-const TERMS_VERSION = "Standard Conditions of Brokerage, version 1.1, October 2026";
+const TERMS_VERSION = "Standard Conditions of Brokerage, version 1.2, November 2026";
 
 /* ---------- Fixed contract text ---------- */
 const PART_A = [
@@ -1549,16 +1549,14 @@ const PART_A = [
    "A booking made less than 7 days before departure: full price on signature.",
    "If the Operator requires payment earlier, or its cancellation charges rise earlier, the dates and amounts in this confirmation's payment schedule apply.",
    "The booking is held only once cleared funds reach Archē Executive. Funds still missing on a due date let Archē Executive treat the booking as cancelled by the Charterer."]},
- {n:"A4",t:"Passenger details.",p:"Names and passport copies for everyone travelling reach Archē Executive within 24 hours after the deposit is received. If the full price is paid on signature, they come with the signature. Permit authorities may set an earlier date, and the Charterer must meet it."},
+ {n:"A4",t:"Passenger details.",p:"Names and passport copies for everyone travelling come with the signed confirmation. Permit authorities may ask for more, or earlier, and the Charterer provides it at once."},
  {n:"A5",t:"One continuous journey.",p:"The aircraft cannot carry passengers between two airports in the same foreign country. A trip with several stops is flown as one continuous international journey on one passenger manifest. The full routing and passenger list are fixed at booking. Later changes need new permits and may be refused."},
  {n:"A6",t:"On the day.",p:"Passengers are ready at the departure terminal 45 minutes before the scheduled time. Waiting time and costs caused by the Charterer's party are charged at cost. The captain has the final word on baggage, pets and anything carried on board."},
- {n:"A7",t:"Charged at cost after the trip.",p:"Payable within 10 calendar days of invoice:",items:[
-   "weather-related services, including de-icing and hangarage;",
-   "costs forced by airports or authorities, such as repositioning for parking, local taxes and war-risk premiums;",
-   "surcharges the Operator passes on for fuel, insurance or currency;",
-   "on-board extras, such as connectivity, satellite phone and special catering;",
-   "ground services, such as cars, VIP terminals and lounges;",
-   "cabin cleaning or reconditioning after smoking, animals or damage."]},
+ {n:"A7",t:"Charged at cost after the trip.",p:"Invoiced at cost, without margin, and payable within 10 calendar days:",items:[
+   "what weather, airports or authorities make necessary on the day: de-icing, hangarage, aircraft moves for parking, local taxes and added insurance premiums;",
+   "fuel, insurance or currency surcharges the Operator passes on after confirmation;",
+   "what the party asks for during the trip: special catering, connectivity and calls, cars, lounges and private terminals;",
+   "cleaning or repair of the cabin after smoking, animals or damage."]},
  {n:"A8",t:"Cabin rules.",p:"Smoking and animals are allowed only where the confirmation says so, and with the Operator's written approval for animals."},
  {n:"A9",t:"Cancelling.",p:"Notice must be in writing. The charge depends on how long before the first scheduled departure Archē Executive receives it.",cancel:true,after:"The Charterer pays the higher of two amounts: the charge on this scale, or the Operator's own cancellation charge plus Archē Executive's brokerage fee. The table shows the resulting charge for each period of this booking."},
  {n:"A10",t:"Archē Executive's liability.",p:"Archē Executive answers only for its own brokerage service. Its liability for a charter is capped at the brokerage fee it earns on that charter. Claims about the flight itself lie against the Operator."},
@@ -1583,7 +1581,6 @@ const PART_B = [
  {n:"B4",t:"Charges.",items:[
    "Flight times in a quote are planning estimates. After the Trip, Archē Executive sends a statement of the actual flight time and the items charged at cost under A7.",
    "The Charterer settles any balance on the statement within 3 bank days. Archē Executive refunds any credit within 5 bank days.",
-   "If jet fuel at any airport on the routing rises more than 4% between quote and Confirmation, the Price is re-based to the new fuel cost.",
    "Operator surcharges for fuel, insurance or currency arising after Confirmation are passed on at cost."]},
  {n:"B5",t:"Payment mechanics.",items:[
    "Payment is made only through the payment request Archē Executive sends, in the invoice currency. Archē Executive never sends bank details or asks for payment any other way.",
@@ -1603,15 +1600,14 @@ const PART_B = [
  {n:"B9",t:"Operational authority.",p:"The captain decides everything that affects safety and the conduct of the flight, including load, seating, routing and landing airport. The captain may refuse to carry anyone whose condition or behaviour puts the flight at risk or breaks the law. The Price remains payable in full, and the Charterer bears any resulting cost."},
  {n:"B10",t:"Operational changes.",items:[
    "The Operator may delay, re-route, divert or cancel for reasons of safety, weather, technical condition, air traffic control, permits or events outside its control. This does not breach the contract.",
-   "The Charterer accepts a disruption of up to 6 hours, or a landing at another airport within 400 nautical miles of the planned one, as performance of the Trip. Onward transport and any repositioning are charged at cost.",
-   "Prices assume a single crew working within its duty limits. If the Charterer's schedule or routing changes exceed those limits, an augmented or replacement crew is arranged where available and charged separately.",
+   "A delay, or a landing at the nearest suitable airport, for any of those reasons still counts as performance of the Trip. Archē Executive arranges the onward ground transport and any repositioning, at cost.",
+   "Changes the Charterer asks for after Confirmation are made only where the aircraft and the crew's duty limits allow them. Any extra crew, positioning or waiting they need is charged at cost.",
    "If a Trip is only partly flown for a reason outside the Charterer's control, the Price falls in proportion to the flight time not flown.",
-   "Hotel, meals and ground transport after a delay or diversion are for the Charterer, unless the Operator's own terms place them on the Operator.",
-   "The Operator may sell or use any spare capacity on the aircraft outside the Charterer's own sectors."]},
+   "Accommodation, meals and transport for those travelling during a delay or diversion are the Charterer's cost, unless the Operator's conditions provide otherwise."]},
  {n:"B11",t:"Replacement aircraft or Operator.",items:[
    "If the booked aircraft or Operator becomes unavailable, Archē Executive may offer an aircraft of the same category, or a different Operator, and tells the Charterer as soon as it can.",
    "A lower-category replacement reduces the Price by the difference. Refusing a reasonable replacement counts as cancellation by the Charterer.",
-   "If the Operator fails financially or the aircraft is detained, Archē Executive will try to source a replacement. The Charterer pays any extra cost."]},
+   "If the Operator cannot perform for any reason, Archē Executive will try to arrange another aircraft. Any extra cost is the Charterer's."]},
  {n:"B12",t:"Cancellation and termination.",items:[
    "Cancellation charges under A9 apply whatever the reason for cancelling. The parties agree they reflect a genuine estimate of loss, and are not a penalty.",
    "In addition, the Charterer pays costs already committed, such as positioning, crew, handling, catering and permits.",
