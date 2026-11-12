@@ -155,7 +155,7 @@
    "steps": [
     "Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions.",
     "Tap a suggestion to add it, or Add request / Add extra for your own.",
-    "For each line choose the category, describe it, and choose how it is charged: included in the charter price, at cost after the flight, or fixed price.",
+    "For each line choose the category, describe it, and choose how it is charged: included in the charter price, after the flight (cost ÷ 0.91), or fixed price.",
     "For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up; the portal shows it.",
     "Use AI: suggest more for anything the rules or route may need."
    ],
@@ -166,7 +166,7 @@
     ],
     [
      "The confirmation says a fixed price is missing",
-     "A line set to fixed price has no supplier price. Enter it, or change the line to at cost."
+     "A line set to fixed price has no supplier price. Enter it, or change the line to after the flight."
     ],
     [
      "A suggestion does not apply",
@@ -176,11 +176,11 @@
    "tips": [
     "Ask about catering, cars, pets, children, luggage and allergies on the first call: changes later cost time and money.",
     "Winter, night departures, waiting days and international arrivals almost always bring operational extras: confirm them before quoting.",
-    "Use fixed price only with a written supplier quote; anything that depends on the day is at cost."
+    "Use fixed price only with a written supplier quote; anything that depends on the day is charged after the flight, cost ÷ 0.91."
    ],
    "try": [
     "broker",
-    "Add a client request (a small dog) and an operational extra (de-icing, at cost) to your enquiry."
+    "Add a client request (a small dog) and an operational extra (de-icing, after the flight) to your enquiry."
    ],
    "sys": 10
   },
@@ -360,6 +360,7 @@
    "steps": [
     "The Director records the date the client payment cleared in the payment account.",
     "The Director records the operator payment.",
+    "Costs beyond the price (Booking with the operator, A7): enter what it is and its cost; the portal charges it like the price, cost ÷ 0.91, or at cost when you tick the B13 list. Send the client a payment request at once; it is due when the operator wants payment and no later than 72 hours after the service. The margin counts towards commission.",
     "After the last leg, the Director records the flight date.",
     "Commission appears in the month the trip flew, paid by the 15th of the next month; the Director marks it paid."
    ],
@@ -370,7 +371,7 @@
     ],
     [
      "Commission seems low",
-     "Commission is a share of gross profit, including the margin on fixed-price extras; at-cost items carry no margin."
+     "Commission is a share of gross profit, including the margin on fixed-price extras and on costs charged after the flight; only B13 costs, charged at cost, carry no margin."
     ]
    ],
    "tips": [
@@ -949,7 +950,7 @@
     "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
     "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A different margin only by the Director's decision, with the reason recorded.",
     "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
-    "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
+    "Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost ÷ 0.91, through a payment request: due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list (unforeseeable costs after departure, such as an in-flight diversion) is at cost; de-icing never is. A card is held on every trip; anything asked for during the trip is arranged only once paid.",
     "Clients pay only through a payment request. Never print, store or send bank details.",
     "The Director, or a person the Director has mandated, authorises every booking before a confirmation is issued; a price change afterwards sends it back.",
     "Four-eyes: nobody prices, authorises, issues or records payment on their own trip, the Director included.",
@@ -1357,11 +1358,11 @@
   ],
   [
    "When does the client pay?",
-   "25% of the charter price on signature, at least USD 2,500; the balance, including fixed-price extras, 7 calendar days before the first departure. If departure is less than 7 days away, the full price on signature. Items at cost are invoiced after the flight and paid within 10 calendar days."
+   "25% of the charter price on signature, at least USD 2,500; the balance, including fixed-price extras, 7 calendar days before the first departure. If departure is less than 7 days away, the full price on signature. Costs after the flight are charged like the price, cost ÷ 0.91, and due within 72 hours of the service, or sooner if the operator wants payment sooner."
   ],
   [
-   "What is the difference between a fixed-price extra and an extra at cost?",
-   "Fixed price: a supplier quoted it in writing before booking; the client pays the supplier price ÷ 0.91, rounded up, with the balance. At cost: the amount depends on the day (de-icing, extra parking, out-of-hours fees); it is invoiced after the flight with the receipt, without margin."
+   "What is the difference between a fixed-price extra and a cost charged after the flight?",
+   "Fixed price: a supplier quoted it in writing before booking; the client pays the supplier price ÷ 0.91, rounded up, with the balance. At cost: the amount depends on the day (de-icing, extra parking, out-of-hours fees); it is charged after the flight like the price, cost ÷ 0.91. Only B13 costs (unforeseeable, after departure) are at cost."
   ],
   [
    "Why did my lead move to another broker?",
@@ -1393,7 +1394,7 @@
   ],
   [
    "What does de-icing cost?",
-   "It depends on the day, the aircraft and the airport. Never give a figure: list it as an operational extra at cost, and pass on the operator's written estimate only as its estimate if the client asks."
+   "It depends on the day, the aircraft and the airport. Never give a figure: list it as an operational extra charged after the flight, and pass on the operator's written estimate only as its estimate if the client asks."
   ],
   [
    "Can a passenger bring a dog?",

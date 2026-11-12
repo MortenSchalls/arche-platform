@@ -69,7 +69,7 @@ const OB_ACAD = {
   steps: {m0: ["Module 0 · Aviation for brokers", 21], m1: ["Module 1 · Archē Executive and the broker's role", 12], m2: ["Module 2 · Where we may and may not sell", 23],
     lab: ["Lab: the trip risk screen", 0], m3: ["Module 3 · Compliance: KYC, sanctions, fraud", 12], m4: ["Module 4 · Our clients", 5], m5: ["Module 5 · Enquiry intake and qualification", 8],
     m6: ["Module 6 · Flight feasibility and trip planning", 16], m7: ["Module 7 · Aircraft knowledge: long-range jets", 5], m8: ["Module 8 · Sourcing on Avinode and operator vetting", 13],
-    m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 15], book: ["Practical: the booking form", 0],
+    m9: ["Module 9 · Pricing and quoting", 15], m10: ["Module 10 · Contract, payment and settlement", 16], book: ["Practical: the booking form", 0],
     m11: ["Module 11 · Trip operations and disruption", 11], m12: ["Module 12 · Selling and account management", 7], m13: ["Module 13 · Case studies", 9],
     m14: ["Module 14 · Assessment and certification", 15], exam: ["Written exam", 0], sys: ["Systems training: the Archē portal", 70]}
 };

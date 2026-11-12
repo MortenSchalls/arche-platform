@@ -10,7 +10,7 @@
   const _nav = navItems;
   navItems = function(){ const items = _nav(); if (canSee() && !items.some(x => x[0] === "reports")) { const i = items.findIndex(x => x[0] === "commission"); items.splice(i < 0 ? items.length : i + 1, 0, ["reports", "Reports"]); } return items; };
 
-  const gp = st => num(st.price) - num(st.opPrice) - num(st.direct) + num(st.xsClient) - num(st.xsCost);
+  const gp = st => num(st.price) - num(st.opPrice) - num(st.direct) + num(st.xsClient) - num(st.xsCost) + xsAfter(st);
   const firstLeg = t => (((t.d.trip || {}).legs || []).map(l => l.date).filter(Boolean).sort()[0]) || "";
   const valOf = t => (t.st && num(t.st.price)) || (typeof priceOf === "function" ? priceOf(t.d.quote && t.d.quote.opPrice, t.d.quote && t.d.quote.direct) : 0);
   const BOOKED = ["issued", "clientPaid", "flown"];

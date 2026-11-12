@@ -107,9 +107,9 @@ const FIGS = (() => {
     cap:"Operator money never passes through Arche's own account.", say:"Diagram. The client pays the payment request. The payment account holds the funds and the operator is paid on its terms. Only Arche's margin moves to Arche's own account at Citi Singapore."});
 
   F.day = () => {
-    const s = [["Before","details to operator, permits and slots confirmed, trip brief sent"],["From 48 h","watch the forecast, warn early"],["Day of flight","track the flight, update the client first"],["Within 7 days","recharge at-cost items with receipts, close the file"]];
+    const s = [["Before","details to operator, permits and slots confirmed, trip brief sent"],["From 48 h","watch the forecast, warn early"],["Day of flight","track the flight, update the client first"],["Within 72 hours","charge every cost beyond the price, close the file"]];
     return {html: `<ol class="fg-line">${s.map((k,i) => `<li class="${i===2?"key":""}"><b>${e(k[0])}</b><span>${e(k[1])}</span></li>`).join("")}</ol>`,
-      cap:"Keep the client informed before they need to ask.", say:"Timeline. Before the flight: passenger details to the operator, permits and slots confirmed, trip brief sent. From 48 hours: watch the forecast and warn early. Day of flight: track the flight and update the client first. Within 7 days: recharge at-cost items with receipts and close the file."};
+      cap:"Keep the client informed before they need to ask.", say:"Timeline. Before the flight: passenger details to the operator, permits and slots confirmed, trip brief sent. From 48 hours: watch the forecast and warn early. Day of flight: track the flight and update the client first. Within 72 hours: charge every cost beyond the price and close the file."};
   };
 
   F.funnel = () => {

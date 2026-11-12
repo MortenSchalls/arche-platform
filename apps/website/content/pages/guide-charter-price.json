@@ -45,7 +45,7 @@
   {
    "h": "What you should always be told",
    "p": [
-    "US rules for charter brokers set a clear standard: {{price.us_disclose_total}}, and {{price.us_third_party_fees}}. We apply the same standard everywhere. Your quote shows the total price, what is included, and any items charged afterwards at cost, such as de-icing, with the supplier's receipts.",
+    "US rules for charter brokers set a clear standard: {{price.us_disclose_total}}, and {{price.us_third_party_fees}}. We apply the same standard everywhere. Your quote shows the total price, what is included, and any costs charged afterwards, such as de-icing, priced the same way as the charter itself.",
     "We do not publish prices on this website: every trip is priced for its own aircraft, route and dates. Tell us the trip and you receive a written quote with the operator named."
    ]
   }
@@ -57,7 +57,7 @@
   },
   {
    "q": "Are taxes included in the price?",
-   "a": "Your quote states which taxes and charges are included and which, if any, are charged afterwards at cost."
+   "a": "Your quote states which taxes and charges are included and which, if any, are charged afterwards, priced the same way as the charter itself."
   }
  ],
  "related": [

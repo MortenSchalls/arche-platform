@@ -195,7 +195,7 @@ fieldset.internal .calc{background:var(--panel)}
       <label>Year of manufacture<input id="acYom" type="number" min="1970" max="2035" data-k="ac.yom" data-req="Year of manufacture"></label>
       <label>Passenger seats<input id="acSeats" type="number" min="1" data-k="ac.seats" data-req="Passenger seats"></label>
       <label>Cabin attendant<select id="acCa" data-k="ac.ca"><option>Included</option><option>Not included</option></select></label>
-      <label>Wi-Fi on board<select id="acWifi" data-k="ac.wifi"><option>Not available</option><option>Available, charged at cost</option><option>Available, included</option></select></label>
+      <label>Wi-Fi on board<select id="acWifi" data-k="ac.wifi"><option>Not available</option><option>Available, charged under A7</option><option>Available, included</option></select></label>
       <label>Operator safety<input id="acAudit" data-k="ac.audit" placeholder="e.g. ARGUS Platinum, valid to 30 June 2027"></label>
       <label class="full">Operator (legal name, as on the AOC)<input id="opName" data-k="op.name" data-req="Operator legal name"></label>
       <label>AOC number<input id="opAoc" data-k="op.aoc" data-req="Operator AOC number"></label>
@@ -251,7 +251,7 @@ fieldset.internal .calc{background:var(--panel)}
       <label class="check full"><input type="checkbox" id="ck3" data-k="ck.ins"> Operator insurance certificate on file, including commercial passenger liability</label>
       <label class="check full"><input type="checkbox" id="ck4" data-k="ck.audit"> Safety audit checked (ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, or IS-BAO Stage 2 or 3; anything else only as an Archē-approved operator or with director approval for the trip)</label>
       <label class="check full"><input type="checkbox" id="ck5" data-k="ck.route"> Routing, permits and continuous journey checked with the Operator</label>
-      <label class="check full"><input type="checkbox" id="ck6" data-k="ck.terms"> Operator's own cancellation and payment terms are no softer for Archē Executive than A3 and A9</label>
+      <label class="check full"><input type="checkbox" id="ck6" data-k="ck.terms"> Operator's own cancellation and payment terms are no softer for Archē Executive than A3, A7 and A9</label>
       <label class="check full"><input type="checkbox" id="ck7" data-k="ck.pay"> Payment request created in our payment provider for this booking reference</label>
     </fieldset>
   </form>
@@ -274,7 +274,7 @@ const TERMS_VERSION = "Standard Conditions of Brokerage, version 1.2, November 2
 /* ---------- Fixed contract text ---------- */
 const PART_A = [
  {n:"A1",t:"Who does what.",p:"Archē Executive is the Charterer's broker. The Operator named in the confirmation holds the air operator certificate, operates the aircraft and carries the passengers under its own conditions of carriage. Archē Executive owns and operates no aircraft."},
- {n:"A2",t:"Price.",p:"The price is in USD and covers only what the confirmation lists. Taxes such as VAT, and bank charges, come on top."},
+ {n:"A2",t:"Price.",p:"The price is in USD and covers only what the confirmation lists. Taxes such as VAT, and bank and card charges, come on top."},
  {n:"A3",t:"Securing the booking.",items:[
    "On signature: 25% of the price, with a minimum of USD 2,500.",
    "Balance: due 7 calendar days before the first scheduled departure, positioning included.",
@@ -282,12 +282,15 @@ const PART_A = [
    "The booking is held only once cleared funds reach Archē Executive. Funds still missing on a due date let Archē Executive treat the booking as cancelled by the Charterer."]},
  {n:"A4",t:"Passenger details.",p:"Names and passport copies for everyone travelling come with the signed confirmation. Permit authorities may ask for more, or earlier, and the Charterer provides it at once."},
  {n:"A5",t:"One continuous journey.",p:"The aircraft cannot carry passengers between two airports in the same foreign country. A trip with several stops is flown as one continuous international journey on one passenger manifest. The full routing and passenger list are fixed at booking. Later changes need new permits and may be refused."},
- {n:"A6",t:"On the day.",p:"Passengers are ready at the departure terminal 45 minutes before the scheduled time. Waiting time and costs caused by the Charterer's party are charged at cost. The captain has the final word on baggage, pets and anything carried on board."},
- {n:"A7",t:"Charged at cost after the trip.",p:"Invoiced at cost, without margin, and payable within 10 calendar days:",items:[
-   "what weather, airports or authorities make necessary on the day: de-icing, hangarage, aircraft moves for parking, local taxes and added insurance premiums;",
-   "fuel, insurance or currency surcharges the Operator passes on after confirmation;",
-   "what the party asks for during the trip: special catering, connectivity and calls, cars, lounges and private terminals;",
-   "cleaning or repair of the cabin after smoking, animals or damage."]},
+ {n:"A6",t:"On the day.",p:"Passengers are ready at the departure terminal 45 minutes before the scheduled time. Waiting time and costs caused by the Charterer's party are charged under A7. The captain has the final word on baggage, pets and anything carried on board."},
+ {n:"A7",t:"Costs beyond the price.",items:[
+   "Every cost beyond the price is charged the same way as the price: the cost divided by 0.91.",
+   "Costs known before departure are added to the balance.",
+   "Anything asked for during the Trip is arranged only once paid. The Charterer's signatory, or a person the Charterer names in writing, may approve it.",
+   "Other costs arising during the Trip are charged the same way. Only the costs listed in B13 are charged at cost, without margin.",
+   "Each cost is due when the Operator or supplier requires payment, and no later than 72 hours after the service is delivered, whichever is earlier.",
+   "Archē Executive may hold an amount on the Charterer's card for costs expected during the Trip, and charge the card for any cost not paid when due. The hold is released once everything is settled.",
+   "While any amount is overdue, Archē Executive may stop arranging further services until it is paid."]},
  {n:"A8",t:"Cabin rules.",p:"Smoking and animals are allowed only where the confirmation says so, and with the Operator's written approval for animals."},
  {n:"A9",t:"Cancelling.",p:"Notice must be in writing. The charge depends on how long before the first scheduled departure Archē Executive receives it.",cancel:true,after:"The Charterer pays the higher of two amounts: the charge on this scale, or the Operator's own cancellation charge plus Archē Executive's brokerage fee. The Operator's cancellation terms are shown in the confirmation's remarks."},
  {n:"A10",t:"Archē Executive's liability.",p:"Archē Executive answers only for its own brokerage service. Its liability for a charter is capped at the brokerage fee it earns on that charter. Claims about the flight itself lie against the Operator."},
@@ -310,9 +313,9 @@ const PART_B = [
    "The contract starts once both parties sign the Confirmation and the deposit in A3 reaches Archē Executive.",
    "Changes after signature bind only once both parties confirm them in writing. An email exchange that clearly agrees the change counts."]},
  {n:"B4",t:"Charges.",items:[
-   "Flight times in a quote are planning estimates. After the Trip, Archē Executive sends a statement of the actual flight time and the items charged at cost under A7.",
-   "The Charterer settles any balance on the statement within 3 bank days. Archē Executive refunds any credit within 5 bank days.",
-   "Operator surcharges for fuel, insurance or currency arising after Confirmation are passed on at cost."]},
+   "Flight times in a quote are planning estimates. After the Trip, Archē Executive sends a statement of the actual flight time and the costs charged under A7.",
+   "The Charterer settles any balance on the statement within 3 bank days, or sooner where A7 makes a cost due earlier. Archē Executive refunds any credit within 5 bank days.",
+   "Operator surcharges for fuel, insurance or currency arising after Confirmation are charged under A7."]},
  {n:"B5",t:"Payment mechanics.",items:[
    "Payment is made only through the payment request Archē Executive sends, in the invoice currency. Archē Executive never sends bank details or asks for payment any other way.",
    "Payments are made in full, without set-off or deduction. If tax must be withheld, the Charterer pays enough extra for Archē Executive to receive the invoiced amount.",
@@ -331,8 +334,8 @@ const PART_B = [
  {n:"B9",t:"Operational authority.",p:"The captain decides everything that affects safety and the conduct of the flight, including load, seating, routing and landing airport. The captain may refuse to carry anyone whose condition or behaviour puts the flight at risk or breaks the law. The Price remains payable in full, and the Charterer bears any resulting cost."},
  {n:"B10",t:"Operational changes.",items:[
    "The Operator may delay, re-route, divert or cancel for reasons of safety, weather, technical condition, air traffic control, permits or events outside its control. This does not breach the contract.",
-   "A delay, or a landing at the nearest suitable airport, for any of those reasons still counts as performance of the Trip. Archē Executive arranges the onward ground transport and any repositioning, at cost.",
-   "Changes the Charterer asks for after Confirmation are made only where the aircraft and the crew's duty limits allow them. Any extra crew, positioning or waiting they need is charged at cost.",
+   "A delay, or a landing at the nearest suitable airport, for any of those reasons still counts as performance of the Trip. Archē Executive arranges the onward ground transport and any repositioning, charged under A7 and B13.",
+   "Changes the Charterer asks for after Confirmation are made only where the aircraft and the crew's duty limits allow them. Any extra crew, positioning or waiting they need is charged under A7.",
    "If a Trip is only partly flown for a reason outside the Charterer's control, the Price falls in proportion to the flight time not flown.",
    "Accommodation, meals and transport for those travelling during a delay or diversion are the Charterer's cost, unless the Operator's conditions provide otherwise."]},
  {n:"B11",t:"Replacement aircraft or Operator.",items:[
@@ -344,7 +347,12 @@ const PART_B = [
    "In addition, the Charterer pays costs already committed, such as positioning, crew, handling, catering and permits.",
    "Archē Executive may set money already received against these charges.",
    "Archē Executive may end the contract at once if the Charterer fails to pay, breaches B6 or B7, or becomes insolvent. A9 charges then apply."]},
- {n:"B13",t:"Events outside a party's control.",p:"Neither party is responsible for failure caused by events it cannot reasonably control, such as weather, natural disaster, epidemic, war, terrorism, unrest, strikes, government or airport action, or the loss of a permit. If the Trip cannot start for such a reason, Archē Executive returns what it has received, less unrecoverable costs already paid to the Operator."},
+ {n:"B13",t:"Events outside a party's control.",p:"Neither party is responsible for failure caused by events it cannot reasonably control, such as weather, natural disaster, epidemic, war, terrorism, unrest, strikes, government or airport action, or the loss of a permit. If the Trip cannot start for such a reason, Archē Executive returns what it has received, less unrecoverable costs already paid to the Operator. Costs are charged at cost, without margin, only where they arise after the first departure from one of these events that could not be foreseen at that departure: an in-flight diversion or re-routing for weather, air traffic control or an airspace closure; volcanic ash or another natural event; an epidemic or health measures; war, terrorism or unrest; a strike by anyone other than the Operator's or Archē Executive's own staff; or an airport closure, a curfew, or a permit withdrawn for a reason not caused by the Charterer. Only these costs:",items:[
+   "diversion landing, handling and parking;",
+   "extra fuel and flight time;",
+   "crew hotels and extra crew duty;",
+   "onward ground transport and repositioning;",
+   "new permits."],after:"De-icing and anti-icing, anything foreseeable at departure, and anything caused by the Charterer or those travelling, their requests and changes, or late documents or payment, are charged under A7. The aircraft's technical condition is the Operator's matter. These costs remain payable by the Charterer on the due dates in A7. Only the costs listed here are charged at cost; any other cost is charged under A7."},
  {n:"B14",t:"Liability.",items:[
    "Archē Executive performs its brokerage service with reasonable skill and care.",
    "For each Confirmation, Archē Executive's total liability is capped at the brokerage fee it earns on that Trip.",
@@ -401,7 +409,7 @@ function exampleBooking(){
   return Object.assign(b, { example:true,
     adv:{name:"Example Advisor",phone:"+66 00 000 0000"},
     charterer:{name:"Example Family Office Ltd",address:"Level 12, 1 Example Street\nSingapore 000000",contact:"Jane Example",kyc:"KYC-EX-0001",email:"jane@example.com",phone:"+65 0000 0000",lead:"Jane Example"},
-    ac:{cat:"Ultra-long-range jet",type:"Bombardier Global XRS",reg:"HB-EXA",yom:"2011",seats:"13",ca:"Included",wifi:"Available, charged at cost",audit:"ARGUS Platinum"},
+    ac:{cat:"Ultra-long-range jet",type:"Bombardier Global XRS",reg:"HB-EXA",yom:"2011",seats:"13",ca:"Included",wifi:"Available, charged under A7",audit:"ARGUS Platinum"},
     op:{name:"Example Operator SA",aoc:"CH.AOC.0000",state:"Switzerland"},
     legs:[{date:addDaysISO(d1,-1),from:"LSGG",to:"WSSS",etd:"",pax:"0",pos:true},{date:d1,from:"WSSS",to:"VTBD",etd:"10:30",pax:"6",pos:false},{date:addDaysISO(d1,2),from:"VTBD",to:"VTSP",etd:"09:00",pax:"6",pos:false},{date:d2,from:"VTSP",to:"WSSS",etd:"15:00",pax:"6",pos:false}],
     price:"183871", opNet:"171000", items:{flight:"155871",pos:"18000",tax:"10000",other:""},
@@ -551,7 +559,7 @@ function renderPreview(cc, draft){
     <tr><td>${cc.full?"Due on signature (full price, departure within 7 days)":"Deposit due on signature (25%, min. USD 2,500)"}</td><td class="num">${cc.price?usd(cc.deposit):"–"}</td></tr>
     ${cc.full?"":`<tr><td>Balance due by ${cc.balanceDue?fmtDate(cc.balanceDue):"–"}</td><td class="num">${cc.price?usd(cc.balance):"–"}</td></tr>`}
     ${cc.card?`<tr><td>Card cost (${num(S.cardPct)}%), added for payment by card</td><td class="num">${usd(cc.card)}</td></tr>`:""}
-    <tr><td>Included</td><td>${esc(S.included||"As listed above")}<br><span style="color:var(--paper-muted)">Not included: taxes, bank charges and the items charged at cost under A7.</span></td></tr></tbody></table>
+    <tr><td>Included</td><td>${esc(S.included||"As listed above")}<br><span style="color:var(--paper-muted)">Not included: taxes, bank and card charges, and the costs charged under A7.</span></td></tr></tbody></table>
   <div class="payment"><div class="lbl" style="margin-bottom:5px">How to pay · ${esc(payLabel())}</div>
     <div class="grid"><span>Payment</span><span>Through the secure payment request we send you for this booking</span><span>Booking reference</span><span>${esc(S.ref)}</span></div>
     <div class="fraud">Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.</div></div>
@@ -658,7 +666,7 @@ function docDefinition(cc,logo){
     {table:{headerRows:1,widths:[20,58,42,38,38,24,"*"],body:legsBody},layout:lineLayout},
     h("PRICE AND PAYMENT"),
     {table:{widths:["*",110],body:pay.map(([a,b,s])=>[{text:a,color:C.muted,margin:[s?10:0,0,0,0]},{text:b,alignment:"right",color:s?C.muted:C.ink}])},layout:kvLayout},
-    kv([["Included",{text:[S.included||"As listed above",{text:"\nNot included: taxes, bank charges and the items charged at cost under A7.",color:C.muted}]}]]),
+    kv([["Included",{text:[S.included||"As listed above",{text:"\nNot included: taxes, bank and card charges, and the costs charged under A7.",color:C.muted}]}]]),
     {table:{widths:["*"],body:[[{stack:[label("How to pay · "+payLabel()),{columns:[{width:95,stack:["Payment","Booking reference"],color:C.muted},{stack:["Through the secure payment request we send you for this booking",{text:S.ref,bold:true}]}]},{text:"Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.",color:C.warn,fontSize:7.6,margin:[0,5,0,0]}]}]]},layout:{hLineWidth:()=>0.6,vLineWidth:()=>0.6,hLineColor:()=>C.rule,vLineColor:()=>C.rule,paddingLeft:()=>9,paddingRight:()=>9,paddingTop:()=>7,paddingBottom:()=>7},margin:[0,7,0,0]},
     h("ON BOARD AND REMARKS"),
     kv([["Smoking · Animals",`${S.smoking?"Smoking permitted":"No smoking"} · ${S.animals?"Animals permitted with the Operator's written approval":"No animals"}`],["Cancellation scale",S.opScale?"The Operator's scale in the remarks applies instead of A9":"Standard scale in A9"],["Remarks",S.remarks||"None"]])

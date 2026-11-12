@@ -113,7 +113,7 @@ export function inviteState(u, prof, join, agr) {
 // beyond what Team already shows.
 const ACADEMY_PATHS = { broker: ["m0","m1","m2","lab","m3","m4","m5","m6","m7","m8","m9","m10","book","m11","m12","m13","m14","exam","sys"] };   // one path: brokers only (Morten, 7 Nov 2026); old "consultant" progress follows the broker path
 const ACADEMY_TITLES = { m0: "0 Aviation for brokers", m1: "1 Archē Executive and the broker's role", m2: "2 Where we may and may not sell", lab: "2L Lab: the trip risk screen", m3: "3 Compliance: KYC, sanctions, fraud", m4: "4 Our clients", m5: "5 Enquiry intake and qualification", m6: "6 Flight feasibility and trip planning", m7: "7 Aircraft knowledge: long-range jets", m8: "8 Sourcing on Avinode and operator vetting", m9: "9 Pricing and quoting", m10: "10 Contract, payment and settlement", book: "10P Practical: the booking form", m11: "11 Trip operations and disruption", m12: "12 Selling and account management", m13: "13 Case studies", m14: "14 Assessment and certification", exam: "Written exam" , sys: "Systems training: the Archē portal" };
-const ACADEMY_MIN = { m0: 21, m1: 12, m2: 23, m3: 12, m4: 5, m5: 8, m6: 16, m7: 5, m8: 13, m9: 15, m10: 15, m11: 11, m12: 7, m13: 9, m14: 15, sys: 70 };
+const ACADEMY_MIN = { m0: 21, m1: 12, m2: 23, m3: 12, m4: 5, m5: 8, m6: 16, m7: 5, m8: 13, m9: 15, m10: 16, m11: 11, m12: 7, m13: 9, m14: 15, sys: 70 };
 export const academyNext = (p, role) => {
   const path = ACADEMY_PATHS[(p && p.role) || role || "broker"] || ACADEMY_PATHS.broker, mods = (p && p.mods) || {}, id = path.find(k => !(mods[k] && mods[k].passed));
   if (!id) return null;

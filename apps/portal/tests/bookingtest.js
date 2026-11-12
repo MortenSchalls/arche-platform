@@ -123,6 +123,16 @@ await fill('bk_pa','45000');await fill('bk_pd',new Date().toISOString().slice(0,
 t=await trip();ok('operator paid in full, never above its price',t.st.operatorPaid===true&&t.st.payouts.reduce((a,x)=>a+x.amount,0)===90000,t.st.payouts);
 await shot('7-paid','#secBook');
 ok('nothing more can be paid',await p.evaluate(()=>!document.querySelector('[data-bka="payout"]')));
+// costs beyond the price (Part A, A7; Morten, 12 Nov 2026): cost ÷ 0.91 like the price, B13 costs at cost; never paid out before the client pays
+await fill('bk_xt','De-icing');await fill('bk_xa','2850');await p.click('[data-bka="xcost"]');await p.waitForTimeout(800);
+t=await trip();ok('cost beyond the price charged like the price: 2,850 ÷ 0.91 = 3,132',(t.st.extraCosts||[]).length===1&&t.st.extraCosts[0].client===3132&&!t.st.extraCosts[0].fm,t.st.extraCosts);
+await fill('bk_xt','Diversion handling');await fill('bk_xa','1400');await p.check('#bk_xf');await p.click('[data-bka="xcost"]');await p.waitForTimeout(800);
+t=await trip();ok('a B13 cost is charged at cost',t.st.extraCosts.length===2&&t.st.extraCosts[1].client===1400&&t.st.extraCosts[1].fm===true,t.st.extraCosts);
+ok('the client owes the costs beyond the price',/received [^·]* of /.test(await p.textContent('#secBook'))&&await p.evaluate(()=>!!document.querySelector('[data-bka="receipt"]')));
+ok('the supplier is not paid before the client pays the costs',await p.evaluate(()=>document.querySelector('[data-bka="payout"]').disabled));
+await fill('bk_ra','4532');await fill('bk_rd',new Date().toISOString().slice(0,10));await p.click('[data-bka="receipt"]');await p.waitForTimeout(800);
+await fill('bk_pa','4250');await fill('bk_pd',new Date().toISOString().slice(0,10));await p.click('[data-bka="payout"]');await p.waitForTimeout(800);
+t=await trip();ok('once the client has paid them, the costs are paid out; Archē keeps 282',t.st.payouts.reduce((a,x)=>a+x.amount,0)===94250,t.st.payouts);
 // the library
 await p.evaluate(()=>oplibSave(tripById(S.sel),'issued'));await p.waitForTimeout(800);
 const lib=await p.evaluate(async()=>{const g=await S.db.doc('intel/oplib').get();return g.exists?g.data():null;});

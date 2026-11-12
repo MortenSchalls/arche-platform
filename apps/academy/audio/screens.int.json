@@ -3007,7 +3007,7 @@
   ]
  },
  {
-  "key": "01a9ea30",
+  "key": "f1cb934e",
   "kind": "lesson",
   "where": "m6 screen 5",
   "text": [
@@ -3015,7 +3015,7 @@
    "6.4 Weather basics for brokers",
    "Pilots use a METAR (the current weather at an airport) and a TAF (the forecast). The crew and operator decide; we only watch for what may affect the client.",
    "Fog and low cloud can delay or divert flights, often in the early morning.",
-   "Snow and ice mean de-icing, charged at cost after the flight.",
+   "Snow and ice mean de-icing, charged after the flight like the price, cost ÷ 0.91 (Part A, A7).",
    "Thunderstorms, strong winds and tropical storm seasons can delay or reroute flights.",
    "From 48 hours before departure, check the forecast and warn the client early if delays are likely.",
    "De-icing a wing before departure · Photo: Nicholas Hartmann, CC BY-SA 4.0"
@@ -3023,24 +3023,24 @@
   "say": [
    "Flight feasibility and trip planning.",
    "Weather basics for brokers.",
-   "Pilots use a M E T A R, the current weather at an airport, and a T A F, the forecast. The crew and operator decide, we only watch for what may affect the client. Fog and low cloud can delay or divert flights, often in the early morning. Snow and ice mean de-icing, charged at cost after the flight. Thunderstorms, strong winds and tropical storm seasons can delay or reroute flights. From 48 hours before departure, check the forecast and warn the client early if delays are likely.",
+   "Pilots use a M E T A R, the current weather at an airport, and a T A F, the forecast. The crew and operator decide, we only watch for what may affect the client. Fog and low cloud can delay or divert flights, often in the early morning. Snow and ice mean de-icing, charged after the flight like the price, cost divided by 0.91, Part A, A7. Thunderstorms, strong winds and tropical storm seasons can delay or reroute flights. From 48 hours before departure, check the forecast and warn the client early if delays are likely.",
    "Photos, De-icing a wing before departure."
   ]
  },
  {
-  "key": "b697eb07",
+  "key": "0ea9badf",
   "kind": "lesson",
   "where": "m6 screen 6",
   "text": [
    "Flight feasibility and trip planning",
    "6.5 Operational requirements and the rules behind them",
    "The operator and the captain decide how each of these is handled. The rules below explain why they exist, so you ask the right questions early and tell the client what may be charged.",
-   "De-icing and anti-icingNo take-off with frost, ice or snow on the wings, control surfaces, engines or sensors: EU CAT.OP.MPA.250 and US 14 CFR 135.227. Ground procedures follow ICAO Doc 9640 and SAE AS6285.Cold, wet weather: northern winter (about November to March), southern winter (about June to September), and high or cold airports at any timeList it as an operational need, charged at cost after the flight with the receipt. Allow extra time; never promise a departure time in icing conditions.",
+   "De-icing and anti-icingNo take-off with frost, ice or snow on the wings, control surfaces, engines or sensors: EU CAT.OP.MPA.250 and US 14 CFR 135.227. Ground procedures follow ICAO Doc 9640 and SAE AS6285.Cold, wet weather: northern winter (about November to March), southern winter (about June to September), and high or cold airports at any timeList it as an operational need, charged after the flight like the price, cost ÷ 0.91; it is never a B13 cost, because the forecast shows it days ahead. Allow extra time; never promise a departure time in icing conditions.",
    "Airport hours and night restrictionsEach airport publishes its hours and restrictions in its country's aeronautical information publication (AIP) and in NOTAMs. Many have night curfews or noise rules.Late-night and early-morning departures or arrivalsAsk the operator whether the airport is open at that time. An out-of-hours opening may be possible at extra cost, or not at all: then change the time or the airport.",
    "Slots and prior permission (PPR)Busy airports are slot-coordinated (in the EU under Regulation (EEC) No 95/93, elsewhere under national rules and the worldwide airport slot guidelines). Business aviation needs a slot there too. Some airports require prior permission for the flight or for parking.Major hubs, big events and peak seasonsThe operator or its trip support requests slots and PPR as soon as the trip is booked. Never promise a time before the slot is confirmed.",
    "Customs, immigration and private terminalsAn international flight must land first at an airport with customs and immigration (Chicago Convention, Article 10). Authorities require passenger information in advance, for example eAPIS for the United States.Every international arrival and departureCheck that customs is available at the planned time. A private terminal (FBO or VIP terminal) can cost extra. Passenger details reach the operator by its deadline.",
    "Crew duty and restLimits come from the operator's authority. Example: on US unscheduled Part 135 flights a two-pilot crew may fly up to 10 hours in 24 hours, within a duty period of up to 14 hours, with at least 10 hours of rest (14 CFR 135.267). In Europe, EU flight-time rules (ORO.FTL) apply to commercial operations, and national rules still apply to some business-jet air-taxi work.Long sectors, several legs in a day, an early start after a late arrivalAsk the operator for the crew plan in writing: extra crew, a fresh crew or a night stop. The cost is in the quote or listed as an operational need.",
-   "Crew hotel and allowancesCrew take their rest away from the aircraft.The aircraft waits with the client overnight or for several daysAgree with the operator whether hotel and allowances are in the price or charged at cost.",
+   "Crew hotel and allowancesCrew take their rest away from the aircraft.The aircraft waits with the client overnight or for several daysAgree with the operator whether hotel and allowances are in the price or charged after the flight under A7.",
    "Parking and hangarageAirports limit parking space, and some require prior permission to park. A hangar protects the aircraft from snow and ice.Night stops and waiting days, especially at busy or winter airportsConfirm parking, or repositioning to another airport, before booking. A hangar in winter can avoid de-icing but costs extra.",
    "Technical stops and long sectorsRange falls with load, headwinds and hot or high airports. Long flights over water can need ETOPS or EDTO approval (Module 6.3).Very long sectors and full cabinsOnly the operator confirms non-stop for that load and season. A technical stop adds time, fees and sometimes permits.",
    "PermitsNon-scheduled flights need permission to land in, and often to fly over, other countries (Chicago Convention, Article 5, and national rules). Domestic legs on foreign aircraft are cabotage (Module 2).Every international trip; strictest in the countries in Appendix G.5Give the operator the full routing and passenger details at booking. Later changes need new permits and may be refused.",
@@ -3048,20 +3048,20 @@
    "Dangerous goods and weaponsGoverned by ICAO Annex 18 and the ICAO Technical Instructions. Spare lithium batteries, oxygen, some medicines, firearms and ammunition are restricted.Any unusual item in the luggageAsk the client; the operator decides. Firearms and armed security need permits in every country involved: refer to the Director.",
    "Children and passengers needing helpInfants count as passengers on the manifest. Child seats must be acceptable to the operator. A passenger who needs medical care in flight needs an air ambulance.Families, elderly passengers, reduced mobilityList child seats and assistance as client requests. Medical care on board is never a normal charter: refer through the Director.",
    "Catering and allergiesThe caterer and the operator are responsible for food safety; they need allergies in writing.Every flight: always ask about allergiesWrite dietary needs and allergies on the order and get them confirmed back.",
-   "Anything that depends on the day (de-icing, extra parking, out-of-hours fees, crew nights after a change) is charged at cost after the flight, with receipts. Anything a supplier quotes in writing before booking can be a fixed price. Module 9.8 explains how each is priced.",
+   "Anything that depends on the day (de-icing, extra parking, out-of-hours fees, crew nights after a change) is charged after the flight like the price, cost ÷ 0.91. Anything a supplier quotes in writing before booking can be a fixed price. Module 9.8 explains how each is priced.",
    "In the Archē portal the trip file suggests operational needs from the trip itself: de-icing for winter dates at airports north of 35° N (November to March) or south of 35° S (June to September); out-of-hours handling for departures between 22:00 and 06:00; crew hotel and parking when the aircraft waits between legs; a private terminal and customs on international arrivals; a possible technical stop on sectors over 6,500 km; and client requests from words in the trip notes. A suggestion is a prompt to ask the operator, never a fact."
   ],
   "say": [
    "Flight feasibility and trip planning.",
    "Operational requirements and the rules behind them.",
    "The operator and the captain decide how each of these is handled. The rules below explain why they exist, so you ask the right questions early and tell the client what may be charged.",
-   "De-icing and anti-icing. the rule behind it, No take-off with frost, ice or snow on the wings, control surfaces, engines or sensors, E U C A T.O P M P A 2 5 0 and U S 14 C F R 135.227. Ground procedures follow ICAO Doc 9640 and S A E AS6285. when it applies, Cold, wet weather, northern winter, about November to March, southern winter, about June to September, and high or cold airports at any time. what we do, List it as an operational need, charged at cost after the flight with the receipt. Allow extra time, never promise a departure time in icing conditions. Airport hours and night restrictions. the rule behind it, Each airport publishes its hours and restrictions in its country's aeronautical information publication, A I P, and in NOTAMs. Many have night curfews or noise rules. when it applies, Late-night and early-morning departures or arrivals. what we do, Ask the operator whether the airport is open at that time. An out-of-hours opening may be possible at extra cost, or not at all, then change the time or the airport. Slots and prior permission, P P R. the rule behind it, Busy airports are slot-coordinated, in the E U under Regulation, E E C, No 95 or 93, elsewhere under national rules and the worldwide airport slot guidelines. Business aviation needs a slot there too. Some airports require prior permission for the flight or for parking. when it applies, Major hubs, big events and peak seasons. what we do, The operator or its trip support requests slots and P P R as soon as the trip is booked. Never promise a time before the slot is confirmed. Customs, immigration and private terminals. the rule behind it, An international flight must land first at an airport with customs and immigration, Chicago Convention, Article 10. Authorities require passenger information in advance, for example eAPIS for the United States. when it applies, Every international arrival and departure. what we do, Check that customs is available at the planned time. A private terminal, F B O or V I P terminal, can cost extra. Passenger details reach the operator by its deadline. Crew duty and rest. the rule behind it, Limits come from the operator's authority. Example, on U S unscheduled Part 135 flights a two-pilot crew may fly up to 10 hours in 24 hours, within a duty period of up to 14 hours, with at least 10 hours of rest, 14 C F R 135.267. In Europe, E U flight-time rules, O R O.F T L, apply to commercial operations, and national rules still apply to some business-jet air-taxi work. when it applies, Long sectors, several legs in a day, an early start after a late arrival. what we do, Ask the operator for the crew plan in writing, extra crew, a fresh crew or a night stop. The cost is in the quote or listed as an operational need. Crew hotel and allowances. the rule behind it, Crew take their rest away from the aircraft. when it applies, The aircraft waits with the client overnight or for several days. what we do, Agree with the operator whether hotel and allowances are in the price or charged at cost. Parking and hangarage. the rule behind it, Airports limit parking space, and some require prior permission to park. A hangar protects the aircraft from snow and ice. when it applies, Night stops and waiting days, especially at busy or winter airports. what we do, Confirm parking, or repositioning to another airport, before booking. A hangar in winter can avoid de-icing but costs extra. Technical stops and long sectors. the rule behind it, Range falls with load, headwinds and hot or high airports. Long flights over water can need E T O P S or E D T O approval, Module 6, section 3. when it applies, Very long sectors and full cabins. what we do, Only the operator confirms non-stop for that load and season. A technical stop adds time, fees and sometimes permits. Permits. the rule behind it, Non-scheduled flights need permission to land in, and often to fly over, other countries, Chicago Convention, Article 5, and national rules. Domestic legs on foreign aircraft are cabotage, Module 2. when it applies, Every international trip, strictest in the countries in Appendix G, section 5. what we do, Give the operator the full routing and passenger details at booking. Later changes need new permits and may be refused. Pets. the rule behind it, Entry rules for animals differ by country, in the E U, Regulation, E U, No 576 or 2013. Some countries accept pets only on approved routes and at approved airports. when it applies, Any animal on board. what we do, Check the destination's rules and the operator's written acceptance before quoting. See Appendix G, section 4. Dangerous goods and weapons. the rule behind it, Governed by ICAO Annex 18 and the ICAO Technical Instructions. Spare lithium batteries, oxygen, some medicines, firearms and ammunition are restricted. when it applies, Any unusual item in the luggage. what we do, Ask the client, the operator decides. Firearms and armed security need permits in every country involved, refer to the Director. Children and passengers needing help. the rule behind it, Infants count as passengers on the manifest. Child seats must be acceptable to the operator. A passenger who needs medical care in flight needs an air ambulance. when it applies, Families, elderly passengers, reduced mobility. what we do, List child seats and assistance as client requests. Medical care on board is never a normal charter, refer through the Director. Catering and allergies. the rule behind it, The caterer and the operator are responsible for food safety, they need allergies in writing. when it applies, Every flight, always ask about allergies. what we do, Write dietary needs and allergies on the order and get them confirmed back.",
-   "Anything that depends on the day, de-icing, extra parking, out-of-hours fees, crew nights after a change, is charged at cost after the flight, with receipts. Anything a supplier quotes in writing before booking can be a fixed price. Module 9, section 8 explains how each is priced.",
+   "De-icing and anti-icing. the rule behind it, No take-off with frost, ice or snow on the wings, control surfaces, engines or sensors, E U C A T.O P M P A 2 5 0 and U S 14 C F R 135.227. Ground procedures follow ICAO Doc 9640 and S A E AS6285. when it applies, Cold, wet weather, northern winter, about November to March, southern winter, about June to September, and high or cold airports at any time. what we do, List it as an operational need, charged after the flight like the price, cost divided by 0.91, it is never a B13 cost, because the forecast shows it days ahead. Allow extra time, never promise a departure time in icing conditions. Airport hours and night restrictions. the rule behind it, Each airport publishes its hours and restrictions in its country's aeronautical information publication, A I P, and in NOTAMs. Many have night curfews or noise rules. when it applies, Late-night and early-morning departures or arrivals. what we do, Ask the operator whether the airport is open at that time. An out-of-hours opening may be possible at extra cost, or not at all, then change the time or the airport. Slots and prior permission, P P R. the rule behind it, Busy airports are slot-coordinated, in the E U under Regulation, E E C, No 95 or 93, elsewhere under national rules and the worldwide airport slot guidelines. Business aviation needs a slot there too. Some airports require prior permission for the flight or for parking. when it applies, Major hubs, big events and peak seasons. what we do, The operator or its trip support requests slots and P P R as soon as the trip is booked. Never promise a time before the slot is confirmed. Customs, immigration and private terminals. the rule behind it, An international flight must land first at an airport with customs and immigration, Chicago Convention, Article 10. Authorities require passenger information in advance, for example eAPIS for the United States. when it applies, Every international arrival and departure. what we do, Check that customs is available at the planned time. A private terminal, F B O or V I P terminal, can cost extra. Passenger details reach the operator by its deadline. Crew duty and rest. the rule behind it, Limits come from the operator's authority. Example, on U S unscheduled Part 135 flights a two-pilot crew may fly up to 10 hours in 24 hours, within a duty period of up to 14 hours, with at least 10 hours of rest, 14 C F R 135.267. In Europe, E U flight-time rules, O R O.F T L, apply to commercial operations, and national rules still apply to some business-jet air-taxi work. when it applies, Long sectors, several legs in a day, an early start after a late arrival. what we do, Ask the operator for the crew plan in writing, extra crew, a fresh crew or a night stop. The cost is in the quote or listed as an operational need. Crew hotel and allowances. the rule behind it, Crew take their rest away from the aircraft. when it applies, The aircraft waits with the client overnight or for several days. what we do, Agree with the operator whether hotel and allowances are in the price or charged after the flight under A7. Parking and hangarage. the rule behind it, Airports limit parking space, and some require prior permission to park. A hangar protects the aircraft from snow and ice. when it applies, Night stops and waiting days, especially at busy or winter airports. what we do, Confirm parking, or repositioning to another airport, before booking. A hangar in winter can avoid de-icing but costs extra. Technical stops and long sectors. the rule behind it, Range falls with load, headwinds and hot or high airports. Long flights over water can need E T O P S or E D T O approval, Module 6, section 3. when it applies, Very long sectors and full cabins. what we do, Only the operator confirms non-stop for that load and season. A technical stop adds time, fees and sometimes permits. Permits. the rule behind it, Non-scheduled flights need permission to land in, and often to fly over, other countries, Chicago Convention, Article 5, and national rules. Domestic legs on foreign aircraft are cabotage, Module 2. when it applies, Every international trip, strictest in the countries in Appendix G, section 5. what we do, Give the operator the full routing and passenger details at booking. Later changes need new permits and may be refused. Pets. the rule behind it, Entry rules for animals differ by country, in the E U, Regulation, E U, No 576 or 2013. Some countries accept pets only on approved routes and at approved airports. when it applies, Any animal on board. what we do, Check the destination's rules and the operator's written acceptance before quoting. See Appendix G, section 4. Dangerous goods and weapons. the rule behind it, Governed by ICAO Annex 18 and the ICAO Technical Instructions. Spare lithium batteries, oxygen, some medicines, firearms and ammunition are restricted. when it applies, Any unusual item in the luggage. what we do, Ask the client, the operator decides. Firearms and armed security need permits in every country involved, refer to the Director. Children and passengers needing help. the rule behind it, Infants count as passengers on the manifest. Child seats must be acceptable to the operator. A passenger who needs medical care in flight needs an air ambulance. when it applies, Families, elderly passengers, reduced mobility. what we do, List child seats and assistance as client requests. Medical care on board is never a normal charter, refer through the Director. Catering and allergies. the rule behind it, The caterer and the operator are responsible for food safety, they need allergies in writing. when it applies, Every flight, always ask about allergies. what we do, Write dietary needs and allergies on the order and get them confirmed back.",
+   "Anything that depends on the day, de-icing, extra parking, out-of-hours fees, crew nights after a change, is charged after the flight like the price, cost divided by 0.91. Anything a supplier quotes in writing before booking can be a fixed price. Module 9, section 8 explains how each is priced.",
    "In the ar Kay portal the trip file suggests operational needs from the trip itself, de-icing for winter dates at airports north of 35° N, November to March, or south of 35° S, June to September, out-of-hours handling for departures between 22:00 and 06:00, crew hotel and parking when the aircraft waits between legs, a private terminal and customs on international arrivals, a possible technical stop on sectors over 6,500 km, and client requests from words in the trip notes. A suggestion is a prompt to ask the operator, never a fact."
   ]
  },
  {
-  "key": "2c38b091",
+  "key": "6edd151e",
   "kind": "keypoints",
   "where": "m6 screen 7",
   "text": [
@@ -3071,13 +3071,13 @@
    "Every feasibility answer comes from the operator in writing.",
    "The airport must suit the aircraft: hours, customs, fire cover, runway.",
    "The crew decides on weather; we warn the client early.",
-   "De-icing, out-of-hours fees and crew nights depend on the day: ask before promising a time, and charge them at cost."
+   "De-icing, out-of-hours fees and crew nights depend on the day: ask before promising a time, and charge them after the flight, cost ÷ 0.91."
   ],
   "say": [
    "Flight feasibility and trip planning.",
    "Key points.",
    "Before the module check, try to say each point in your own words.",
-   "Every feasibility answer comes from the operator in writing. The airport must suit the aircraft, hours, customs, fire cover, runway. The crew decides on weather, we warn the client early. De-icing, out-of-hours fees and crew nights depend on the day, ask before promising a time, and charge them at cost."
+   "Every feasibility answer comes from the operator in writing. The airport must suit the aircraft, hours, customs, fire cover, runway. The crew decides on weather, we warn the client early. De-icing, out-of-hours fees and crew nights depend on the day, ask before promising a time, and charge them after the flight, cost divided by 0.91."
   ]
  },
  {
@@ -3233,41 +3233,41 @@
   ]
  },
  {
-  "key": "4628b19c",
+  "key": "591255ae",
   "kind": "question",
   "where": "m6 check question 5",
   "text": [
    "A client flies Geneva to London in January at 07:00 and snow is forecast. How is de-icing handled?",
    "aIncluded free",
-   "bListed as an operational need, charged at cost after the flight with the receipt",
+   "bListed as an operational need, charged after the flight like the price, cost ÷ 0.91",
    "cFixed at USD 2,000 in the quote",
    "dJets never need it"
   ],
   "say": [
    "A client flies Geneva to London in January at 07:00 and snow is forecast. How is de-icing handled?",
-   "A. Included free. B. Listed as an operational need, charged at cost after the flight with the receipt. C. Fixed at 2,000 U S dollars in the quote. D. Jets never need it."
+   "A. Included free. B. Listed as an operational need, charged after the flight like the price, cost divided by 0.91. C. Fixed at 2,000 U S dollars in the quote. D. Jets never need it."
   ]
  },
  {
-  "key": "56d14a7b",
+  "key": "ed1c6c35",
   "kind": "feedback",
   "where": "m6 check question 5",
   "text": [
-   "Right. No take-off with ice or snow on the aircraft (EU CAT.OP.MPA.250, US 14 CFR 135.227). De-icing depends on the day, so it is charged at cost after the flight with the receipt."
+   "Right. No take-off with ice or snow on the aircraft (EU CAT.OP.MPA.250, US 14 CFR 135.227). De-icing depends on the day, so it is charged after the flight like the price, cost ÷ 0.91."
   ],
   "say": [
-   "Right. No take-off with ice or snow on the aircraft, E U C A T.O P M P A 2 5 0, U S 14 C F R 135.227. De-icing depends on the day, so it is charged at cost after the flight with the receipt."
+   "Right. No take-off with ice or snow on the aircraft, E U C A T.O P M P A 2 5 0, U S 14 C F R 135.227. De-icing depends on the day, so it is charged after the flight like the price, cost divided by 0.91."
   ]
  },
  {
-  "key": "b7ed3df0",
+  "key": "22dcd27c",
   "kind": "feedback",
   "where": "m6 check question 5",
   "text": [
-   "Not quite. No take-off with ice or snow on the aircraft (EU CAT.OP.MPA.250, US 14 CFR 135.227). De-icing depends on the day, so it is charged at cost after the flight with the receipt."
+   "Not quite. No take-off with ice or snow on the aircraft (EU CAT.OP.MPA.250, US 14 CFR 135.227). De-icing depends on the day, so it is charged after the flight like the price, cost ÷ 0.91."
   ],
   "say": [
-   "Not quite. No take-off with ice or snow on the aircraft, E U C A T.O P M P A 2 5 0, U S 14 C F R 135.227. De-icing depends on the day, so it is charged at cost after the flight with the receipt."
+   "Not quite. No take-off with ice or snow on the aircraft, E U C A T.O P M P A 2 5 0, U S 14 C F R 135.227. De-icing depends on the day, so it is charged after the flight like the price, cost divided by 0.91."
   ]
  },
  {
@@ -3916,7 +3916,7 @@
   ]
  },
  {
-  "key": "ee7767e2",
+  "key": "1982fb25",
   "kind": "intro",
   "where": "m9 screen 1",
   "text": [
@@ -3926,7 +3926,7 @@
    "Price with the 9% formula and round up",
    "Handle costs that cannot be fixed",
    "Negotiate fairly with operators",
-   "Price requests and extras: included, fixed or at cost",
+   "Price requests and extras: included, fixed or after the flight",
    "Warm-up",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
    "The operator all-in price is USD 60,000. What is the client price at 9%?",
@@ -3938,7 +3938,7 @@
   "say": [
    "Pricing and quoting.",
    "What you will be able to do.",
-   "Get every price from a written source. Price with the 9 percent formula and round up. Handle costs that cannot be fixed. Negotiate fairly with operators. Price requests and extras, included, fixed or at cost.",
+   "Get every price from a written source. Price with the 9 percent formula and round up. Handle costs that cannot be fixed. Negotiate fairly with operators. Price requests and extras, included, fixed or after the flight.",
    "Warm-up.",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
    "The operator all-in price is 60,000 U S dollars. What is the client price at 9 percent?",
@@ -3988,7 +3988,7 @@
   ]
  },
  {
-  "key": "cb6aa5f2",
+  "key": "148aa00e",
   "kind": "lesson",
   "where": "m9 screen 3",
   "text": [
@@ -3996,19 +3996,21 @@
    "9.2 Costs that cannot be fixed before the flight",
    "Some costs depend on the day: de-icing, extra parking or hangar time, extra crew nights after a schedule change, late catering, Wi-Fi data use, changing airport or passenger taxes, and permit fees for late changes. Treat them the same way every time:",
    "Never put a number on them unless the operator or supplier has given it in writing.",
-   "List them in the quote and in Part A of the confirmation as \"at cost, invoiced after the flight with receipts\".",
+   "List them in the quote as \"charged after the flight\"; Part A, A7 of the confirmation covers them without naming examples, which leaves less room for dispute.",
    "If the client asks how much, ask the operator for its best estimate in writing and pass it on as the operator's estimate, never as a fixed price.",
-   "After the flight, recharge only what the operator invoices, with receipts, with no margin unless the confirmation says otherwise."
+   "Charge each cost like the price, cost ÷ 0.91, rounded up, through a payment request. It is due when the operator or supplier wants payment, and no later than 72 hours after the service. Anything asked for during the trip is arranged only once paid.",
+   "Only costs on the B13 list are charged at cost, without margin: costs after the first departure from an event that could not be foreseen then, such as an in-flight diversion for weather, air traffic control or an airspace closure. De-icing and anything foreseeable at departure are never on that list.",
+   "A card is held on every trip for costs expected during it, and charged for anything unpaid when due. There is no separate deposit."
   ],
   "say": [
    "Pricing and quoting.",
    "Costs that cannot be fixed before the flight.",
    "Some costs depend on the day, de-icing, extra parking or hangar time, extra crew nights after a schedule change, late catering, Wi-Fi data use, changing airport or passenger taxes, and permit fees for late changes. Treat them the same way every time.",
-   "Never put a number on them unless the operator or supplier has given it in writing. List them in the quote and in Part A of the confirmation as at cost, invoiced after the flight with receipts. If the client asks how much, ask the operator for its best estimate in writing and pass it on as the operator's estimate, never as a fixed price. After the flight, recharge only what the operator invoices, with receipts, with no margin unless the confirmation says otherwise."
+   "Never put a number on them unless the operator or supplier has given it in writing. List them in the quote as charged after the flight, Part A, A7 of the confirmation covers them without naming examples, which leaves less room for dispute. If the client asks how much, ask the operator for its best estimate in writing and pass it on as the operator's estimate, never as a fixed price. Charge each cost like the price, cost divided by 0.91, rounded up, through a payment request. It is due when the operator or supplier wants payment, and no later than 72 hours after the service. Anything asked for during the trip is arranged only once paid. Only costs on the B13 list are charged at cost, without margin, costs after the first departure from an event that could not be foreseen then, such as an in-flight diversion for weather, air traffic control or an airspace closure. De-icing and anything foreseeable at departure are never on that list. A card is held on every trip for costs expected during it, and charged for anything unpaid when due. There is no separate deposit."
   ]
  },
  {
-  "key": "49b0339c",
+  "key": "564f552b",
   "kind": "lesson",
   "where": "m9 screen 4",
   "text": [
@@ -4016,18 +4018,18 @@
    "9.3 The Archē price formula",
    "Our margin is 9% of the price the client pays. Because it is a share of the selling price, divide the cost by 0.91; do not add 9% to the cost.",
    "Right: divide by 0.91Archē cost 100,000 = 91%9%Client price 109,891 · margin 9,891 = 9.0% Wrong: add 9%Archē cost 100,000Client price 109,000 · margin 9,000 = only 8.26%The margin is 9% of the client price, so divide the cost by 0.91 and round up.",
-   "Price formulaArchē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writingClient price = Archē cost ÷ 0.91 Archē margin = client price − Archē cost = 9% of the client priceNot included: items \"at cost, after the flight\" (9.2), and card payment costs, charged as set out in the confirmation"
+   "Price formulaArchē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writingClient price = Archē cost ÷ 0.91 Archē margin = client price − Archē cost = 9% of the client priceNot included: costs charged after the flight (9.2), also cost ÷ 0.91, and card payment costs, charged as set out in the confirmation"
   ],
   "say": [
    "Pricing and quoting.",
    "The ar Kay price formula.",
    "Our margin is 9 percent of the price the client pays. Because it is a share of the selling price, divide the cost by 0.91, do not add 9 percent to the cost.",
    "Two bars. Right, an ar Kay cost of 100,000 divided by 0.91 gives a client price of 109,891, and the margin of 9,891 is 9 percent of the price. Wrong, adding 9 percent gives 109,000, and the margin of 9,000 is only 8.26 percent of the price.",
-   "Price formula. ar Kay cost = operator all-in price, including positioning legs, plus supplier items ar Kay buys for the client, confirmed in writing. Client price = ar Kay cost divided by 0.91 ar Kay margin = client price − ar Kay cost = 9 percent of the client price. Not included, items at cost, after the flight, 9, section 2, and card payment costs, charged as set out in the confirmation."
+   "Price formula. ar Kay cost = operator all-in price, including positioning legs, plus supplier items ar Kay buys for the client, confirmed in writing. Client price = ar Kay cost divided by 0.91 ar Kay margin = client price − ar Kay cost = 9 percent of the client price. Not included, costs charged after the flight, 9, section 2, also cost divided by 0.91, and card payment costs, charged as set out in the confirmation."
   ]
  },
  {
-  "key": "dbe0d2f3",
+  "key": "6c640dbd",
   "kind": "lesson",
   "where": "m9 screen 5",
   "text": [
@@ -4039,14 +4041,15 @@
    "C. Shared positioning: operator lowers its price from 100,000 to 92,000 because the empty return is soldNew client price 101,099 if the client is not yet contracted; if already contracted, the confirmation decides who benefits",
    "D. Supplier item: ground transport quoted 1,200 in writing; operator all-in 60,000Archē cost 61,200; client price 67,253; margin 6,053",
    "E. Currency: operator quotes in EUR, client pays in USDConvert the operator price with the payment provider exchange rate on the day of the quote; state the quote currency and that it is fixed only after payment",
-   "F. Post-flight: de-icing invoiced by the operator at 2,850 with receiptRecharge 2,850 through a payment request within 7 days of the flight, with the receipt; no margin",
+   "F. Post-flight: de-icing invoiced by the operator at 2,850Charge 2,850 ÷ 0.91 = 3,131.87, rounded up to 3,132, through a payment request; margin 282",
+   "G. In-flight diversion for weather: extra handling 1,400On the B13 list: charge 1,400 at cost, no margin",
    "Margins below 9% need the Director's approval before the quote is sent. Round client prices up, never down.",
    "A. One-waycost 100,000price 109,891B. Multi-legcost 180,000price 197,803D. With supplier itemcost 61,200price 67,253Cost and client price for three of the worked examples (USD)."
   ],
   "say": [
    "Pricing and quoting.",
    "Worked examples.",
-   "A. One-way, operator all-in 100,000. Client price 100,000 divided by 0.91 = 109,890.11, rounded up to 109,891, margin 9,891. Wrong method, 100,000 plus 9 percent = 109,000. Margin 9,000 = only 8.26 percent of the price. B. Multi-leg, three legs quoted by one operator, all-in 180,000 including positioning. Price on the total, 197,803, margin 17,803. Never price legs separately if the operator quotes the trip as one. C. Shared positioning, operator lowers its price from 100,000 to 92,000 because the empty return is sold. New client price 101,099 if the client is not yet contracted, if already contracted, the confirmation decides who benefits. D. Supplier item, ground transport quoted 1,200 in writing, operator all-in 60,000. ar Kay cost 61,200, client price 67,253, margin 6,053. E. Currency, operator quotes in E U R, client pays in U S dollars. Convert the operator price with the payment provider exchange rate on the day of the quote, state the quote currency and that it is fixed only after payment. F. Post-flight, de-icing invoiced by the operator at 2,850 with receipt. Recharge 2,850 through a payment request within 7 days of the flight, with the receipt, no margin.",
+   "A. One-way, operator all-in 100,000. Client price 100,000 divided by 0.91 = 109,890.11, rounded up to 109,891, margin 9,891. Wrong method, 100,000 plus 9 percent = 109,000. Margin 9,000 = only 8.26 percent of the price. B. Multi-leg, three legs quoted by one operator, all-in 180,000 including positioning. Price on the total, 197,803, margin 17,803. Never price legs separately if the operator quotes the trip as one. C. Shared positioning, operator lowers its price from 100,000 to 92,000 because the empty return is sold. New client price 101,099 if the client is not yet contracted, if already contracted, the confirmation decides who benefits. D. Supplier item, ground transport quoted 1,200 in writing, operator all-in 60,000. ar Kay cost 61,200, client price 67,253, margin 6,053. E. Currency, operator quotes in E U R, client pays in U S dollars. Convert the operator price with the payment provider exchange rate on the day of the quote, state the quote currency and that it is fixed only after payment. F. Post-flight, de-icing invoiced by the operator at 2,850. Charge 2,850 divided by 0.91 = 3,131.87, rounded up to 3,132, through a payment request, margin 282. G. In-flight diversion for weather, extra handling 1,400. On the B13 list, charge 1,400 at cost, no margin.",
    "Margins below 9 percent need the Director's approval before the quote is sent. Round client prices up, never down.",
    "Bar chart of three worked examples. One-way, cost 100,000, price 109,891. Multi-leg, cost 180,000, price 197,803. With a supplier item, cost 61,200, price 67,253."
   ]
@@ -4067,13 +4070,13 @@
   ]
  },
  {
-  "key": "875bc5e4",
+  "key": "88278a5e",
   "kind": "lesson",
   "where": "m9 screen 7",
   "text": [
    "Pricing and quoting",
    "9.6 Presenting the quote",
-   "Send the quote from Avinode, using the quote email template in Appendix B: aircraft type and year, seats, operator, schedule in local time, price, inclusions, \"at cost\" items and the expiry.",
+   "Send the quote from Avinode, using the quote email template in Appendix B: aircraft type and year, seats, operator, schedule in local time, price, inclusions, the items charged after the flight and the expiry.",
    "Say \"tail to be confirmed\" if the aircraft is not yet fixed, and confirm it before the contract.",
    "Never show the operator's price or our margin to the client.",
    "Quotes expire with the operator quote; re-confirm price and availability before sending the contract."
@@ -4081,7 +4084,7 @@
   "say": [
    "Pricing and quoting.",
    "Presenting the quote.",
-   "Send the quote from Avinode, using the quote email template in Appendix B, aircraft type and year, seats, operator, schedule in local time, price, inclusions, at cost items and the expiry. Say tail to be confirmed if the aircraft is not yet fixed, and confirm it before the contract. Never show the operator's price or our margin to the client. Quotes expire with the operator quote, re-confirm price and availability before sending the contract."
+   "Send the quote from Avinode, using the quote email template in Appendix B, aircraft type and year, seats, operator, schedule in local time, price, inclusions, the items charged after the flight and the expiry. Say tail to be confirmed if the aircraft is not yet fixed, and confirm it before the contract. Never show the operator's price or our margin to the client. Quotes expire with the operator quote, re-confirm price and availability before sending the contract."
   ]
  },
  {
@@ -4104,7 +4107,7 @@
   ]
  },
  {
-  "key": "b3fcb690",
+  "key": "3671b814",
   "kind": "lesson",
   "where": "m9 screen 9",
   "text": [
@@ -4113,19 +4116,19 @@
    "Every client request and operational extra is charged in one of three ways. Agree which with the operator or the supplier in writing before the confirmation is issued.",
    "Included in the charter priceThe operator includes it in its all-in quote, for example standard catering or handlingNothing extra: it is part of the operator price",
    "Fixed priceA supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal feeLike any supplier item Archē buys, it carries the 9% margin: supplier price ÷ 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away",
-   "At cost after the flightThe amount depends on the day: de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi useNo number before the flight (Module 9.2). Invoiced within 7 days of the flight with the receipts, through a payment request; payable within 10 calendar days of the invoice (Part A, A7). No margin",
-   "Worked example: an operator all-in price of USD 100,000 gives a charter price of 109,891. The client adds a car at arrival, quoted in writing at 1,200: the fixed line is 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319. Total payable: 111,210. The deposit stays at 25% of the charter price: 27,473. The balance of 83,737 is due 7 days before departure. Winter de-icing is listed at cost and invoiced after the flight."
+   "After the flightThe amount depends on the day: de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi useNo number before the flight (Module 9.2). Charged like the price, cost ÷ 0.91, rounded up, through a payment request; due when the operator or supplier wants payment and no later than 72 hours after the service (Part A, A7). Only B13 costs are at cost",
+   "Worked example: an operator all-in price of USD 100,000 gives a charter price of 109,891. The client adds a car at arrival, quoted in writing at 1,200: the fixed line is 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319. Total payable: 111,210. The deposit stays at 25% of the charter price: 27,473. The balance of 83,737 is due 7 days before departure. Winter de-icing is listed as charged after the flight, cost ÷ 0.91."
   ],
   "say": [
    "Pricing and quoting.",
    "Pricing client requests and operational extras.",
    "Every client request and operational extra is charged in one of three ways. Agree which with the operator or the supplier in writing before the confirmation is issued.",
-   "Included in the charter price. when to use it, The operator includes it in its all-in quote, for example standard catering or handling. price and payment, Nothing extra, it is part of the operator price. Fixed price. when to use it, A supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal fee. price and payment, Like any supplier item ar Kay buys, it carries the 9 percent margin, supplier price divided by 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away. At cost after the flight. when to use it, The amount depends on the day, de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi use. price and payment, No number before the flight, Module 9, section 2. Invoiced within 7 days of the flight with the receipts, through a payment request, payable within 10 calendar days of the invoice, Part A, A7. No margin.",
-   "Worked example, an operator all-in price of 100,000 U S dollars gives a charter price of 109,891. The client adds a car at arrival, quoted in writing at 1,200, the fixed line is 1,200 divided by 0.91 = 1,318.68, rounded up to 1,319. Total payable, 111,210. The deposit stays at 25 percent of the charter price, 27,473. The balance of 83,737 is due 7 days before departure. Winter de-icing is listed at cost and invoiced after the flight."
+   "Included in the charter price. when to use it, The operator includes it in its all-in quote, for example standard catering or handling. price and payment, Nothing extra, it is part of the operator price. Fixed price. when to use it, A supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal fee. price and payment, Like any supplier item ar Kay buys, it carries the 9 percent margin, supplier price divided by 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away. After the flight. when to use it, The amount depends on the day, de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi use. price and payment, No number before the flight, Module 9, section 2. Charged like the price, cost divided by 0.91, rounded up, through a payment request, due when the operator or supplier wants payment and no later than 72 hours after the service, Part A, A7. Only B13 costs are at cost.",
+   "Worked example, an operator all-in price of 100,000 U S dollars gives a charter price of 109,891. The client adds a car at arrival, quoted in writing at 1,200, the fixed line is 1,200 divided by 0.91 = 1,318.68, rounded up to 1,319. Total payable, 111,210. The deposit stays at 25 percent of the charter price, 27,473. The balance of 83,737 is due 7 days before departure. Winter de-icing is listed as charged after the flight, cost divided by 0.91."
   ]
  },
  {
-  "key": "93997085",
+  "key": "b549143e",
   "kind": "keypoints",
   "where": "m9 screen 10",
   "text": [
@@ -4133,15 +4136,15 @@
    "Key points",
    "Before the module check, try to say each point in your own words.",
    "Client price = Archē cost ÷ 0.91, rounded up.",
-   "Costs that depend on the day are charged at cost with receipts.",
+   "Costs that depend on the day are charged after the flight, cost ÷ 0.91.",
    "Negotiate with flexibility, never with fake quotes or pressure on safety.",
-   "Fixed extras: supplier price ÷ 0.91; extras at cost: receipts, no margin."
+   "Fixed extras: supplier price ÷ 0.91; costs after the flight: cost ÷ 0.91; B13 costs only at cost."
   ],
   "say": [
    "Pricing and quoting.",
    "Key points.",
    "Before the module check, try to say each point in your own words.",
-   "Client price = ar Kay cost divided by 0.91, rounded up. Costs that depend on the day are charged at cost with receipts. Negotiate with flexibility, never with fake quotes or pressure on safety. Fixed extras, supplier price divided by 0.91, extras at cost, receipts, no margin."
+   "Client price = ar Kay cost divided by 0.91, rounded up. Costs that depend on the day are charged after the flight, cost divided by 0.91. Negotiate with flexibility, never with fake quotes or pressure on safety. Fixed extras, supplier price divided by 0.91, costs after the flight, cost divided by 0.91, B13 costs only at cost."
   ]
  },
  {
@@ -4221,19 +4224,19 @@
   ]
  },
  {
-  "key": "05d3da82",
+  "key": "8541f3d3",
   "kind": "question",
   "where": "m9 check question 3",
   "text": [
    "Which items carry the 9% margin?",
-   "aEverything including post-flight extras",
-   "bThe operator price and confirmed supplier items Archē buys",
+   "aEvery cost, after the flight included, except the B13 list",
+   "bOnly the operator price and confirmed supplier items",
    "cOnly the operator price",
    "dOnly extras"
   ],
   "say": [
    "Which items carry the 9 percent margin?",
-   "A. Everything including post-flight extras. B. The operator price and confirmed supplier items ar Kay buys. C. Only the operator price. D. Only extras."
+   "A. Every cost, after the flight included, except the B13 list. B. Only the operator price and confirmed supplier items. C. Only the operator price. D. Only extras."
   ]
  },
  {
@@ -4373,41 +4376,41 @@
   ]
  },
  {
-  "key": "2efa3147",
+  "key": "e192d445",
   "kind": "question",
   "where": "m9 check question 7",
   "text": [
    "How is de-icing charged?",
-   "aAs a fixed price with margin",
-   "bAt cost after the flight with the receipt, without margin",
+   "aAt cost, as force majeure",
+   "bAfter the flight like the price, cost ÷ 0.91",
    "cAlways included",
    "dNever"
   ],
   "say": [
    "How is de-icing charged?",
-   "A. As a fixed price with margin. B. At cost after the flight with the receipt, without margin. C. Always included. D. Never."
+   "A. At cost, as force majeure. B. After the flight like the price, cost divided by 0.91. C. Always included. D. Never."
   ]
  },
  {
-  "key": "5df06939",
+  "key": "4a07ab7c",
   "kind": "feedback",
   "where": "m9 check question 7",
   "text": [
-   "Right. De-icing depends on the day: it is invoiced after the flight with the receipt, without margin (Part A, A7)."
+   "Right. De-icing depends on the day: it is charged after the flight like the price, cost ÷ 0.91 (Part A, A7). Only unforeseeable costs after departure on the B13 list are at cost."
   ],
   "say": [
-   "Right. De-icing depends on the day, it is invoiced after the flight with the receipt, without margin, Part A, A7."
+   "Right. De-icing depends on the day, it is charged after the flight like the price, cost divided by 0.91, Part A, A7. Only unforeseeable costs after departure on the B13 list are at cost."
   ]
  },
  {
-  "key": "297a143e",
+  "key": "36e0186b",
   "kind": "feedback",
   "where": "m9 check question 7",
   "text": [
-   "Not quite. De-icing depends on the day: it is invoiced after the flight with the receipt, without margin (Part A, A7)."
+   "Not quite. De-icing depends on the day: it is charged after the flight like the price, cost ÷ 0.91 (Part A, A7). Only unforeseeable costs after departure on the B13 list are at cost."
   ],
   "say": [
-   "Not quite. De-icing depends on the day, it is invoiced after the flight with the receipt, without margin, Part A, A7."
+   "Not quite. De-icing depends on the day, it is charged after the flight like the price, cost divided by 0.91, Part A, A7. Only unforeseeable costs after departure on the B13 list are at cost."
   ]
  },
  {
@@ -4569,7 +4572,7 @@
   ]
  },
  {
-  "key": "58bb7f85",
+  "key": "fe589dd3",
   "kind": "lesson",
   "where": "m10 screen 7",
   "text": [
@@ -4583,14 +4586,14 @@
    "7 days before the first departureBalance due, including fixed-price requests and extras, unless the schedule sets an earlier date. Positioning legs are part of the trip.Part A, A3",
    "48 hours beforeCheck the weather (de-icing, delays), the crew plan, airport hours and the trip brief.Modules 6.4 and 11.1",
    "Day of flightPassengers ready at the departure terminal 45 minutes before the scheduled time.Part A, A6",
-   "After the flightItems at cost invoiced within 7 days with receipts; the client pays within 10 calendar days of the invoice.Module 9.8; Part A, A7",
+   "During and after the tripEach cost charged like the price, cost ÷ 0.91, through a payment request; due when the operator or supplier wants payment, and no later than 72 hours after the service. B13 costs at cost. The card held for the trip covers anything unpaid.Module 9.8; Part A, A7; B13",
    "If the client cancelsWritten notice; the client pays the higher of the scale in Part A, A9 and the operator's charge plus our fee. The confirmation shows the amount for each period.Part A, A9",
    "Book as early as the client allows. Every day closer to departure means fewer aircraft to choose from, permits and slots that are harder to get, and payment due at once."
   ],
   "say": [
    "Contract, payment and settlement.",
    "When to book, the booking timeline.",
-   "When quoting. what must happen, The quote and the confirmation state the offer expiry date, time and time zone. Once it has passed, re-confirm the aircraft and price with the operator before signing. where it is set, Module 9, section 6, the confirmation. On signature. what must happen, Deposit of 25 percent of the charter price, at least 2,500, U S dollars or more if this booking's payment schedule says so. If departure is less than 7 days away, the full price on signature. The booking is held only once cleared funds arrive. where it is set, Part A, A3, the confirmation's schedule. With the signed confirmation. what must happen, Names and passport copies for everyone travelling. Permit authorities may ask for more, or earlier, which must be met at once. where it is set, Part A, A4. As soon as booked. what must happen, The operator or its trip support requests permits, slots and prior permission, and orders the confirmed requests and extras. Never promise an approval. where it is set, Modules 0, section 6 and 6, section 5. Dates in the schedule. what must happen, Further payments where the operator wants money earlier, or its cancellation charges rise, before the usual balance date. The operator's contract is signed and the operator is paid only from money already received. where it is set, Part A, A3, the confirmation's schedule. 7 days before the first departure. what must happen, Balance due, including fixed-price requests and extras, unless the schedule sets an earlier date. Positioning legs are part of the trip. where it is set, Part A, A3. 48 hours before. what must happen, Check the weather, de-icing, delays, the crew plan, airport hours and the trip brief. where it is set, Modules 6, section 4 and 11, section 1. Day of flight. what must happen, Passengers ready at the departure terminal 45 minutes before the scheduled time. where it is set, Part A, A6. After the flight. what must happen, Items at cost invoiced within 7 days with receipts, the client pays within 10 calendar days of the invoice. where it is set, Module 9, section 8, Part A, A7. If the client cancels. what must happen, Written notice, the client pays the higher of the scale in Part A, A9 and the operator's charge plus our fee. The confirmation shows the amount for each period. where it is set, Part A, A9.",
+   "When quoting. what must happen, The quote and the confirmation state the offer expiry date, time and time zone. Once it has passed, re-confirm the aircraft and price with the operator before signing. where it is set, Module 9, section 6, the confirmation. On signature. what must happen, Deposit of 25 percent of the charter price, at least 2,500, U S dollars or more if this booking's payment schedule says so. If departure is less than 7 days away, the full price on signature. The booking is held only once cleared funds arrive. where it is set, Part A, A3, the confirmation's schedule. With the signed confirmation. what must happen, Names and passport copies for everyone travelling. Permit authorities may ask for more, or earlier, which must be met at once. where it is set, Part A, A4. As soon as booked. what must happen, The operator or its trip support requests permits, slots and prior permission, and orders the confirmed requests and extras. Never promise an approval. where it is set, Modules 0, section 6 and 6, section 5. Dates in the schedule. what must happen, Further payments where the operator wants money earlier, or its cancellation charges rise, before the usual balance date. The operator's contract is signed and the operator is paid only from money already received. where it is set, Part A, A3, the confirmation's schedule. 7 days before the first departure. what must happen, Balance due, including fixed-price requests and extras, unless the schedule sets an earlier date. Positioning legs are part of the trip. where it is set, Part A, A3. 48 hours before. what must happen, Check the weather, de-icing, delays, the crew plan, airport hours and the trip brief. where it is set, Modules 6, section 4 and 11, section 1. Day of flight. what must happen, Passengers ready at the departure terminal 45 minutes before the scheduled time. where it is set, Part A, A6. During and after the trip. what must happen, Each cost charged like the price, cost divided by 0.91, through a payment request, due when the operator or supplier wants payment, and no later than 72 hours after the service. B13 costs at cost. The card held for the trip covers anything unpaid. where it is set, Module 9, section 8, Part A, A7, B13. If the client cancels. what must happen, Written notice, the client pays the higher of the scale in Part A, A9 and the operator's charge plus our fee. The confirmation shows the amount for each period. where it is set, Part A, A9.",
    "Book as early as the client allows. Every day closer to departure means fewer aircraft to choose from, permits and slots that are harder to get, and payment due at once."
   ]
  },
@@ -4898,20 +4901,20 @@
   ]
  },
  {
-  "key": "c8139722",
+  "key": "13dfffb0",
   "kind": "lesson",
   "where": "m11 screen 3",
   "text": [
    "Trip operations and disruption",
    "11.2 Day of flight",
    "Track the flight from departure to arrival. Keep the client informed before they need to ask.",
-   "Beforedetails to operator, permits and slots confirmed, trip brief sentFrom 48 hwatch the forecast, warn earlyDay of flighttrack the flight, update the client firstWithin 7 daysrecharge at-cost items with receipts, close the fileKeep the client informed before they need to ask."
+   "Beforedetails to operator, permits and slots confirmed, trip brief sentFrom 48 hwatch the forecast, warn earlyDay of flighttrack the flight, update the client firstWithin 72 hourscharge every cost beyond the price, close the fileKeep the client informed before they need to ask."
   ],
   "say": [
    "Trip operations and disruption.",
    "Day of flight.",
    "Track the flight from departure to arrival. Keep the client informed before they need to ask.",
-   "Timeline. Before the flight, passenger details to the operator, permits and slots confirmed, trip brief sent. From 48 hours, watch the forecast and warn early. Day of flight, track the flight and update the client first. Within 7 days, recharge at-cost items with receipts and close the file."
+   "Timeline. Before the flight, passenger details to the operator, permits and slots confirmed, trip brief sent. From 48 hours, watch the forecast and warn early. Day of flight, track the flight and update the client first. Within 72 hours, charge every cost beyond the price and close the file."
   ]
  },
  {
@@ -4934,7 +4937,7 @@
   ]
  },
  {
-  "key": "1a8c8ae0",
+  "key": "708d077f",
   "kind": "lesson",
   "where": "m11 screen 5",
   "text": [
@@ -4951,8 +4954,8 @@
    "Record the answer in the portal when it arrives. A score of 3 or less, or any complaint, starts service recovery: the broker calls the client within 1 working day, the Director is told the same day, and anything about the operator is recorded for the operator scorecard.",
    "Ratings feed the broker's service score and the operator scorecard in Control, so we book the operators our clients rate highest. Never publish a client's rating or words without the client's written consent, and never write, offer a reward for or edit a review.",
    "Settle and close",
-   "Collect the operator's final invoice and receipts for items charged at cost.",
-   "Recharge the client within 7 days of the flight, with copies, through a payment request.",
+   "Collect the operator's final invoice and receipts for every cost beyond the price.",
+   "Charge each through a payment request at once (cost ÷ 0.91; B13 costs at cost), due within 72 hours of the service or sooner if the operator wants payment sooner.",
    "Close the file only when all payments are settled, the follow-up is logged and the rating request has been sent."
   ],
   "say": [
@@ -4964,7 +4967,7 @@
    "Follow up with the client.",
    "Within 24 hours of the last landing, the broker calls or messages the client or the assistant personally, was everything as promised, and is anything still open. Log it in the portal, Aftercare. At the same time, send the client the rating request from the portal, template B, section 9. It asks for a score from 1 to 5 for the trip overall, the aircraft, the crew and the broker, and for any comment. The client answers with one click from the email, nothing is required. Record the answer in the portal when it arrives. A score of 3 or less, or any complaint, starts service recovery, the broker calls the client within 1 working day, the Director is told the same day, and anything about the operator is recorded for the operator scorecard. Ratings feed the broker's service score and the operator scorecard in Control, so we book the operators our clients rate highest. Never publish a client's rating or words without the client's written consent, and never write, offer a reward for or edit a review.",
    "Settle and close.",
-   "Collect the operator's final invoice and receipts for items charged at cost. Recharge the client within 7 days of the flight, with copies, through a payment request. Close the file only when all payments are settled, the follow-up is logged and the rating request has been sent."
+   "Collect the operator's final invoice and receipts for every cost beyond the price. Charge each through a payment request at once, cost divided by 0.91, B13 costs at cost, due within 72 hours of the service or sooner if the operator wants payment sooner. Close the file only when all payments are settled, the follow-up is logged and the rating request has been sent."
   ]
  },
  {
@@ -5432,25 +5435,25 @@
   ]
  },
  {
-  "key": "b1dd5a47",
+  "key": "7ebec008",
   "kind": "feedback",
   "where": "m12 check question 2",
   "text": [
-   "Right. First compare like for like: aircraft age, operator safety rating, inclusions and what is charged at cost."
+   "Right. First compare like for like: aircraft age, operator safety rating, inclusions and what is charged after the flight."
   ],
   "say": [
-   "Right. First compare like for like, aircraft age, operator safety rating, inclusions and what is charged at cost."
+   "Right. First compare like for like, aircraft age, operator safety rating, inclusions and what is charged after the flight."
   ]
  },
  {
-  "key": "abdebbb6",
+  "key": "033864a7",
   "kind": "feedback",
   "where": "m12 check question 2",
   "text": [
-   "Not quite. First compare like for like: aircraft age, operator safety rating, inclusions and what is charged at cost."
+   "Not quite. First compare like for like: aircraft age, operator safety rating, inclusions and what is charged after the flight."
   ],
   "say": [
-   "Not quite. First compare like for like, aircraft age, operator safety rating, inclusions and what is charged at cost."
+   "Not quite. First compare like for like, aircraft age, operator safety rating, inclusions and what is charged after the flight."
   ]
  },
  {
@@ -5819,7 +5822,7 @@
   ]
  },
  {
-  "key": "8fbe35f6",
+  "key": "00e209ae",
   "kind": "lesson",
   "where": "m14 screen 5",
   "text": [
@@ -5836,7 +5839,7 @@
    "\"Another broker quoted 15% less\"Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with Director approval (Module 12.5)",
    "A passenger is added on the dayNames to the operator at once; permits, insurance and seats confirmed in writing before you agree",
    "The client wants to bring a dog to a strict-entry countryDestination rules and the operator's written acceptance first; offer a route and airport that work (Appendix G.4)",
-   "De-icing delays departure and the client is angry about the chargeSafety is the crew's decision; the charge is at cost with the receipt, as the confirmation says (Module 9.2)",
+   "De-icing delays departure and the client is angry about the chargeSafety is the crew's decision; it is charged like the price, cost ÷ 0.91, as the confirmation says (Module 9.2)",
    "The client asks to pay into a personal account or sends new bank details by chatStop: payment request only; treat as fraud until proven otherwise (Module 3.5)",
    "The client asks to leave a passenger's name off the manifestRefuse politely; tell the Director (Module 2.4)",
    "Screening shows a possible sanctions match on the payerPause without accusing; say you need a short internal check; tell the Director (Module 3.2)",
@@ -5857,7 +5860,7 @@
    "Knowing the rules is not enough, U H N W clients and their assistants test a broker's calm and judgement under pressure. The lab practises this out loud. Your supervisor or the Director plays the client, the assistant or the operator, the trainee does not see the script. Each session takes about 30 minutes and covers two or three scenarios.",
    "Stage 4, shadowing, two practice sessions, recorded on the scoring sheet but not graded. Stage 5, practical exam, one scored session with the Director. Pass, 70 or more out of 100, and neither critical point broken. Annual refresher, one session for every certified broker.",
    "Scenario bank.",
-   "A O G, the booked aircraft is unserviceable 6 hours before departure. Calm, facts first, the operator's written replacement options, extra cost approved by the Director, never promised on the call, Module 11, section 3. The assistant refuses the 25 percent deposit and wants to pay after the flight. Explain the booking terms, Module 10, section 6, and why the operator must be secured, offer card or bank payment options, no exceptions without the Director. The principal insists on a domestic leg on a foreign-registered aircraft. Explain cabotage in plain words, offer a local operator for that leg or a new routing, never sell it, Module 2, section 4. Another broker quoted 15 percent less. Compare like for like, aircraft, year, operator, rating, inclusions, offer two or three options, margin below 9 percent only with Director approval, Module 12, section 5. A passenger is added on the day. Names to the operator at once, permits, insurance and seats confirmed in writing before you agree. The client wants to bring a dog to a strict-entry country. Destination rules and the operator's written acceptance first, offer a route and airport that work, Appendix G, section 4. De-icing delays departure and the client is angry about the charge. Safety is the crew's decision, the charge is at cost with the receipt, as the confirmation says, Module 9, section 2. The client asks to pay into a personal account or sends new bank details by chat. Stop, payment request only, treat as fraud until proven otherwise, Module 3, section 5. The client asks to leave a passenger's name off the manifest. Refuse politely, tell the Director, Module 2, section 4. Screening shows a possible sanctions match on the payer. Pause without accusing, say you need a short internal check, tell the Director, Module 3, section 2. The client demands a guaranteed departure time in winter. Promise only what the operator confirms in writing, explain de-icing and slots, Module 6, section 4. Complaint after the flight about catering and a late car. Listen, apologise for the experience, agree what happens and by when, record it, service recovery steps in Module 11, section 4.",
+   "A O G, the booked aircraft is unserviceable 6 hours before departure. Calm, facts first, the operator's written replacement options, extra cost approved by the Director, never promised on the call, Module 11, section 3. The assistant refuses the 25 percent deposit and wants to pay after the flight. Explain the booking terms, Module 10, section 6, and why the operator must be secured, offer card or bank payment options, no exceptions without the Director. The principal insists on a domestic leg on a foreign-registered aircraft. Explain cabotage in plain words, offer a local operator for that leg or a new routing, never sell it, Module 2, section 4. Another broker quoted 15 percent less. Compare like for like, aircraft, year, operator, rating, inclusions, offer two or three options, margin below 9 percent only with Director approval, Module 12, section 5. A passenger is added on the day. Names to the operator at once, permits, insurance and seats confirmed in writing before you agree. The client wants to bring a dog to a strict-entry country. Destination rules and the operator's written acceptance first, offer a route and airport that work, Appendix G, section 4. De-icing delays departure and the client is angry about the charge. Safety is the crew's decision, it is charged like the price, cost divided by 0.91, as the confirmation says, Module 9, section 2. The client asks to pay into a personal account or sends new bank details by chat. Stop, payment request only, treat as fraud until proven otherwise, Module 3, section 5. The client asks to leave a passenger's name off the manifest. Refuse politely, tell the Director, Module 2, section 4. Screening shows a possible sanctions match on the payer. Pause without accusing, say you need a short internal check, tell the Director, Module 3, section 2. The client demands a guaranteed departure time in winter. Promise only what the operator confirms in writing, explain de-icing and slots, Module 6, section 4. Complaint after the flight about catering and a late car. Listen, apologise for the experience, agree what happens and by when, record it, service recovery steps in Module 11, section 4.",
    "Scoring sheet.",
    "Calm and courteous under pressure. 20. Correct rule, explained in plain words. points, 30. critical, Yes, a wrong rule fails the lab. Options offered instead of a flat no. 20. No promise the operator has not confirmed in writing. points, pass or fail. critical, Yes, any such promise fails the lab. Escalates when the rules say so. 15. Written follow-up within 1 hour. 15.",
    "Template B, section 10 is the printable scoring sheet. The Director may add new scenarios at any time, they go into the bank and into the A I practice partner."
@@ -6208,7 +6211,7 @@
   ]
  },
  {
-  "key": "a45473b8",
+  "key": "7c60d18b",
   "kind": "lesson",
   "where": "sys screen 5",
   "text": [
@@ -6220,7 +6223,7 @@
    "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
    "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A different margin only by the Director's decision, with the reason recorded.",
    "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
-   "Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin.",
+   "Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost ÷ 0.91, through a payment request: due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list (unforeseeable costs after departure, such as an in-flight diversion) is at cost; de-icing never is. A card is held on every trip; anything asked for during the trip is arranged only once paid.",
    "Clients pay only through a payment request. Never print, store or send bank details.",
    "The Director, or a person the Director has mandated, authorises every booking before a confirmation is issued; a price change afterwards sends it back.",
    "Four-eyes: nobody prices, authorises, issues or records payment on their own trip, the Director included.",
@@ -6244,7 +6247,7 @@
    "The business rules the portal enforces. Know them before your first enquiry.",
    "Who uses it, Everyone.",
    "How it works.",
-   "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in U S dollars. Client price =, operator price plus direct trip costs, divided by 0.91, rounded up, ar Kay keeps 9 percent of what the client pays. A different margin only by the Director's decision, with the reason recorded. Deposit 25 percent of the charter price, at least 2,500, U S dollars on signature, the balance 7 days before the first departure, full payment at once if departure is less than 7 days away. Fixed-price extras go on the balance. Items at cost are invoiced after the flight with receipts, without margin. Clients pay only through a payment request. Never print, store or send bank details. The Director, or a person the Director has mandated, authorises every booking before a confirmation is issued, a price change afterwards sends it back. Four-eyes, nobody prices, authorises, issues or records payment on their own trip, the Director included. Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the Director, or a person the Director has mandated. Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request, a score of 3 or less starts service recovery. Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews.",
+   "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in U S dollars. Client price =, operator price plus direct trip costs, divided by 0.91, rounded up, ar Kay keeps 9 percent of what the client pays. A different margin only by the Director's decision, with the reason recorded. Deposit 25 percent of the charter price, at least 2,500, U S dollars on signature, the balance 7 days before the first departure, full payment at once if departure is less than 7 days away. Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost divided by 0.91, through a payment request, due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list, unforeseeable costs after departure, such as an in-flight diversion, is at cost, de-icing never is. A card is held on every trip, anything asked for during the trip is arranged only once paid. Clients pay only through a payment request. Never print, store or send bank details. The Director, or a person the Director has mandated, authorises every booking before a confirmation is issued, a price change afterwards sends it back. Four-eyes, nobody prices, authorises, issues or records payment on their own trip, the Director included. Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the Director, or a person the Director has mandated. Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request, a score of 3 or less starts service recovery. Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews.",
    "Try it in the test version, as Test Broker.",
    "Make a test enquiry with an operator price of 30,000 U S dollars and check the client price, 30,000 divided by 0.91, rounded up, is 32,968 U S dollars.",
    "If something goes wrong.",
@@ -6454,7 +6457,7 @@
   ]
  },
  {
-  "key": "573eb779",
+  "key": "86891cf1",
   "kind": "lesson",
   "where": "sys screen 11",
   "text": [
@@ -6465,19 +6468,19 @@
    "How it works",
    "Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions.",
    "Tap a suggestion to add it, or Add request / Add extra for your own.",
-   "For each line choose the category, describe it, and choose how it is charged: included in the charter price, at cost after the flight, or fixed price.",
+   "For each line choose the category, describe it, and choose how it is charged: included in the charter price, after the flight (cost ÷ 0.91), or fixed price.",
    "For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up; the portal shows it.",
    "Use AI: suggest more for anything the rules or route may need.",
    "Try it in the test version, as Test Broker",
-   "Add a client request (a small dog) and an operational extra (de-icing, at cost) to your enquiry.",
+   "Add a client request (a small dog) and an operational extra (de-icing, after the flight) to your enquiry.",
    "If something goes wrong",
    "I cannot edit the linesThe trip is with the Director for checking, or confirmed. Ask the Director to change it.",
-   "The confirmation says a fixed price is missingA line set to fixed price has no supplier price. Enter it, or change the line to at cost.",
+   "The confirmation says a fixed price is missingA line set to fixed price has no supplier price. Enter it, or change the line to after the flight.",
    "A suggestion does not applyIgnore it; suggestions are prompts to ask the operator, never facts.",
    "Tips",
    "Ask about catering, cars, pets, children, luggage and allergies on the first call: changes later cost time and money.",
    "Winter, night departures, waiting days and international arrivals almost always bring operational extras: confirm them before quoting.",
-   "Use fixed price only with a written supplier quote; anything that depends on the day is at cost."
+   "Use fixed price only with a written supplier quote; anything that depends on the day is charged after the flight, cost ÷ 0.91."
   ],
   "say": [
    "Systems training, the ar Kay portal.",
@@ -6485,13 +6488,13 @@
    "List every request and every operational need, with how it is charged, so the confirmation is complete and nothing is invoiced by surprise.",
    "Who uses it, Brokers until the trip goes for authorisation, the Director, or a person the Director has mandated, until the confirmation is issued.",
    "How it works.",
-   "Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions. Tap a suggestion to add it, or Add request or Add extra for your own. For each line choose the category, describe it, and choose how it is charged, included in the charter price, at cost after the flight, or fixed price. For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up, the portal shows it. Use A I, suggest more for anything the rules or route may need.",
+   "Open the trip. Under Client requests and Operational extras charged to the client, read the suggestions. Tap a suggestion to add it, or Add request or Add extra for your own. For each line choose the category, describe it, and choose how it is charged, included in the charter price, after the flight, cost divided by 0.91, or fixed price. For a fixed price enter the supplier's written price. The client pays that price divided by 0.91, rounded up, the portal shows it. Use A I, suggest more for anything the rules or route may need.",
    "Try it in the test version, as Test Broker.",
-   "Add a client request, a small dog, and an operational extra, de-icing, at cost, to your enquiry.",
+   "Add a client request, a small dog, and an operational extra, de-icing, after the flight, to your enquiry.",
    "If something goes wrong.",
-   "I cannot edit the lines. The trip is with the Director for checking, or confirmed. Ask the Director to change it. The confirmation says a fixed price is missing. A line set to fixed price has no supplier price. Enter it, or change the line to at cost. A suggestion does not apply. Ignore it, suggestions are prompts to ask the operator, never facts.",
+   "I cannot edit the lines. The trip is with the Director for checking, or confirmed. Ask the Director to change it. The confirmation says a fixed price is missing. A line set to fixed price has no supplier price. Enter it, or change the line to after the flight. A suggestion does not apply. Ignore it, suggestions are prompts to ask the operator, never facts.",
    "Tips.",
-   "Ask about catering, cars, pets, children, luggage and allergies on the first call, changes later cost time and money. Winter, night departures, waiting days and international arrivals almost always bring operational extras, confirm them before quoting. Use fixed price only with a written supplier quote, anything that depends on the day is at cost."
+   "Ask about catering, cars, pets, children, luggage and allergies on the first call, changes later cost time and money. Winter, night departures, waiting days and international arrivals almost always bring operational extras, confirm them before quoting. Use fixed price only with a written supplier quote, anything that depends on the day is charged after the flight, cost divided by 0.91."
   ]
  },
  {
@@ -6848,7 +6851,7 @@
   ]
  },
  {
-  "key": "e176020e",
+  "key": "f0d7b75d",
   "kind": "lesson",
   "where": "sys screen 21",
   "text": [
@@ -6859,13 +6862,14 @@
    "How it works",
    "The Director records the date the client payment cleared in the payment account.",
    "The Director records the operator payment.",
+   "Costs beyond the price (Booking with the operator, A7): enter what it is and its cost; the portal charges it like the price, cost ÷ 0.91, or at cost when you tick the B13 list. Send the client a payment request at once; it is due when the operator wants payment and no later than 72 hours after the service. The margin counts towards commission.",
    "After the last leg, the Director records the flight date.",
    "Commission appears in the month the trip flew, paid by the 15th of the next month; the Director marks it paid.",
    "Try it in the test version, as Test Director",
    "As Test Director, record the client payment and the flight, then switch to Test Broker and see the commission.",
    "If something goes wrong",
    "My trip flew but no commissionThe client payment has not been recorded, or the flight date has not. Ask the Director.",
-   "Commission seems lowCommission is a share of gross profit, including the margin on fixed-price extras; at-cost items carry no margin.",
+   "Commission seems lowCommission is a share of gross profit, including the margin on fixed-price extras and on costs charged after the flight; only B13 costs, charged at cost, carry no margin.",
    "Tips",
    "Chase unpaid confirmations after 5 days: the Control page flags them.",
    "Record flights the day they happen, so Today stays true."
@@ -6876,11 +6880,11 @@
    "Record money and flights so commission is right and on time.",
    "Who uses it, The Director, or a person the Director has mandated, records, everyone sees their own commission.",
    "How it works.",
-   "The Director records the date the client payment cleared in the payment account. The Director records the operator payment. After the last leg, the Director records the flight date. Commission appears in the month the trip flew, paid by the 15th of the next month, the Director marks it paid.",
+   "The Director records the date the client payment cleared in the payment account. The Director records the operator payment. Costs beyond the price, Booking with the operator, A7, enter what it is and its cost, the portal charges it like the price, cost divided by 0.91, or at cost when you tick the B13 list. Send the client a payment request at once, it is due when the operator wants payment and no later than 72 hours after the service. The margin counts towards commission. After the last leg, the Director records the flight date. Commission appears in the month the trip flew, paid by the 15th of the next month, the Director marks it paid.",
    "Try it in the test version, as Test Director.",
    "As Test Director, record the client payment and the flight, then switch to Test Broker and see the commission.",
    "If something goes wrong.",
-   "My trip flew but no commission. The client payment has not been recorded, or the flight date has not. Ask the Director. Commission seems low. Commission is a share of gross profit, including the margin on fixed-price extras, at-cost items carry no margin.",
+   "My trip flew but no commission. The client payment has not been recorded, or the flight date has not. Ask the Director. Commission seems low. Commission is a share of gross profit, including the margin on fixed-price extras and on costs charged after the flight, only B13 costs, charged at cost, carry no margin.",
    "Tips.",
    "Chase unpaid confirmations after 5 days, the Control page flags them. Record flights the day they happen, so Today stays true."
   ]

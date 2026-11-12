@@ -31,7 +31,8 @@
   window.tripPrice = function(t, op, dc){ const ex = ((t && t.st) || {}).marginEx; const cost = num(op) + num(dc);
     return ex && num(ex.pct) > 0 && num(ex.pct) < 0.5 ? (cost > 0 ? Math.ceil(cost / (1 - num(ex.pct))) : 0) : priceOf(op, dc); };
   const figs = t => { const st = t.st || {}, q = t.d.quote || {}; const O = num(st.opPrice ?? q.opPrice), D = num(st.direct ?? q.direct);
-    return {O, D, P: num(st.price) || tripPrice(t, O, D), F: typeof xsFixed === "function" ? xsFixed(t.d) : 0}; };
+    const xs = st.extraCosts || [], X = xs.reduce((a, x) => a + num(x.cost), 0), XC = xs.reduce((a, x) => a + num(x.client), 0);
+    return {O, D, P: num(st.price) || tripPrice(t, O, D), F: typeof xsFixed === "function" ? xsFixed(t.d) : 0, X, XC}; };
   window.marginOk = function(t){ const st = t.st || {}; if (!num(st.price) || !num(st.opPrice)) return true;
     return num(st.price) === tripPrice(t, st.opPrice, st.direct); };
 
@@ -84,6 +85,8 @@
     return {f, dep, issue, scale, pay, cancel: BP.cancelTable(f.P, f.O, f.D, scale), sched: BP.schedule({P: f.P, F: f.F, O: f.O, dep, issue, scale, pay})};
   };
   const money = t => { const st = t.st || {}; return {received: sum(st.receipts), paid: sum(st.payouts)}; };
+  // costs beyond the price are paid out only from what the client has paid on top of the price, never from Archē's margin
+  const xPaidIn = (f, m) => Math.min(f.X || 0, Math.max(0, m.received - f.P - f.F));
 
   // ---------- the charter confirmation carries the plan; its ticks come from the records ----------
   const _confData = confData;
@@ -273,7 +276,12 @@
       return `<tr><td>${due}</td><td class="n">${usd(x.amount)}</td><td>${paid ? `<span class="chip c-flown">Received</span>` : late ? `<span class="chip c-returned">Overdue</span>` : `<span class="chip c-enquiry">Open</span>`}</td><td class="small muted">${esc(x.why.join(", "))}</td></tr>`; }).join("");
     const daysLeft = pl.dep ? BP.diff(dToday, pl.dep) : 999, sign = BP.maySign({O: f.O, scale: pl.scale, pay: pl.pay, received: m.received, daysLeft});
     const exp = b.signedAt ? BP.exposure(f.O, pl.scale, daysLeft) : 0;
-    const total = f.P + f.F, room = BP.mayPay({O: f.O, received: m.received, paid: m.paid, amount: 0}).room;
+    const total = f.P + f.F + f.XC, room = BP.mayPay({O: f.O + xPaidIn(f, m), received: m.received, paid: m.paid, amount: 0}).room;
+    const xs = st.extraCosts || [];
+    const extra = !issued ? "" : `<p class="small" style="margin:12px 0 4px"><b>Costs beyond the price</b> (A7) · charged ${usd(f.XC)} on costs of ${usd(f.X)}</p>
+      <p class="small muted">Charged like the price, cost ÷ 0.91, rounded up. Only costs on the B13 list (after the first departure, from an event that could not be foreseen then, such as an in-flight diversion) are at cost. De-icing is never on that list. Anything asked for during the trip is arranged only once paid; each cost is due when the operator or supplier wants payment, and no later than 72 hours after the service.</p>
+      ${xs.length ? `<div class="tbl"><table class="small"><tbody>${xs.map(x => `<tr><td>${esc(x.text)}</td><td class="n">${usd(num(x.cost))}</td><td class="n"><b>${usd(num(x.client))}</b></td><td class="small muted">${x.fm ? "B13, at cost" : "cost ÷ 0.91"}</td></tr>`).join("")}</tbody></table></div>` : ""}
+      ${can ? `<div class="row" style="gap:6px;align-items:flex-end"><label class="f" for="bk_xt">What it is<input id="bk_xt" maxlength="120"></label><label class="f" for="bk_xa">Cost (USD)<input id="bk_xa" inputmode="decimal"></label><label class="check" for="bk_xf"><input type="checkbox" id="bk_xf"><span>On the B13 list (at cost)</span></label><button class="btn small" type="button" data-bka="xcost">Add the cost</button></div>` : ""}`;
     const nxt = BP.nextStep({dep: pl.dep, today: dToday, scale: pl.scale, pay: pl.pay});
     const post = !issued ? "" : `<p class="small" style="margin:12px 0 4px"><b>The client pays</b> (this booking's schedule, A3) · received ${usd(m.received)} of ${usd(total)}</p>
       <div class="tbl"><table class="small"><tbody>${schedRows}</tbody></table></div>
@@ -283,9 +291,10 @@
       ${b.signedAt ? `<p class="small">Signed on Avinode ${esc(fmtT(b.signedAt))} by ${esc(nm(b.signedBy))}. If cancelled today, Archē would owe the operator ${usd(exp)}; client money held ${usd(m.received - m.paid)} of ${usd(m.received)} received.</p>`
         : `<p class="small">${!st.signed ? "Sign it only after the client has signed the confirmation and paid." : sign.ok ? `<b>Covered:</b> the client money received (${usd(m.received)}) covers what the operator wants at signing and its charge from now (${usd(sign.need)}).` : `<b>Not yet:</b> the operator wants ${usd(sign.need)} at signing or as its charge from now; received ${usd(m.received)}.`}</p>
           ${can ? `<button class="btn small ${st.signed && sign.ok ? "primary" : ""}" type="button" data-bka="signed" ${st.signed && sign.ok ? "" : "disabled"}>Record: operator's contract signed on Avinode</button>` : ""}`}
-      <p class="small" style="margin:12px 0 4px"><b>The operator is paid</b> · ${usd(m.paid)} of ${usd(f.O)} · can be paid now: ${usd(room)}</p>
+      ${extra}
+      <p class="small" style="margin:12px 0 4px"><b>The operator is paid</b> · ${usd(m.paid)} of ${usd(f.O + f.X)}${f.X ? ` (costs beyond the price included)` : ""} · can be paid now: ${usd(room)}</p>
       ${(pl.pay || []).length ? `<p class="small muted">The operator wants: ${(pl.pay || []).map(r => `${num(r.pct)}% ${r.days === "booking" ? "when its contract is signed" : `by ${fmtD(BP.addDays(pl.dep, -Math.ceil(num(r.days) * (r.unit === "hours" ? 1 / 24 : 1))))}`}`).join(" · ")}</p>` : ""}
-      ${can && b.signedAt && m.paid < f.O ? `<div class="row" style="gap:6px;align-items:flex-end"><label class="f" for="bk_pa">Paid to the operator (USD)<input id="bk_pa" inputmode="decimal" value="${room || ""}"></label><label class="f" for="bk_pd">Paid on<input type="date" id="bk_pd" max="${dToday}"></label><button class="btn small" type="button" data-bka="payout" ${room > 0 ? "" : "disabled"}>Record operator payment</button></div>` : ""}
+      ${can && b.signedAt && m.paid < f.O + f.X ? `<div class="row" style="gap:6px;align-items:flex-end"><label class="f" for="bk_pa">Paid to the operator (USD)<input id="bk_pa" inputmode="decimal" value="${room || ""}"></label><label class="f" for="bk_pd">Paid on<input type="date" id="bk_pd" max="${dToday}"></label><button class="btn small" type="button" data-bka="payout" ${room > 0 ? "" : "disabled"}>Record operator payment</button></div>` : ""}
       ${(st.payouts || []).length ? `<p class="small muted">${st.payouts.map(r => `${usd(num(r.amount))} paid ${fmtD(r.date)}`).join(" · ")}</p>` : ""}
       ${m.received < cumDue && nxt ? `<div class="note bad small"><b>Client payment missing:</b> ${usd(cumDue - m.received)} was due. Cancel with the operator before ${esc(fmtD(nxt))}, when its charge or payment rises, unless the money has cleared.</div>` : ""}`;
     const lapse = issued && offerLapsed(t) ? `<div class="note bad small"><b>Offer lapsed unsigned</b> (valid until ${esc(fmtD(((t.d.conf || {}).valid || {}).date))}). The operator's hold may have ended: confirm it with the operator before accepting a signature or money, or close the offer.</div>` : "";
@@ -396,16 +405,22 @@
       if (a === "receipt") { if (st.confIssued && !st.signed) { toast("Save the signed confirmation first."); return; }
         const amt = num(($("bk_ra") || {}).value), d = ($("bk_rd") || {}).value; if (!(amt > 0) || !d) { toast("Enter the amount and the date it cleared."); return; }
         if (await gateHold("pay", t.did + "-client-" + d, "client|" + d + "|" + amt, `Record client money: ${st.ref || t.did}, ${usd(amt)} cleared ${d}`, "", {tripBid: t.bid, tripDid: t.did})) return;
-        const receipts = [...(st.receipts || []), {date: d, amount: amt, at: now(), by: S.uid}], got = sum(receipts), full = got >= f.P + f.F;
+        const receipts = [...(st.receipts || []), {date: d, amount: amt, at: now(), by: S.uid}], got = sum(receipts), full = got >= f.P + f.F + f.XC;
         const patch = {receipts, ...(full ? {state: st.state === "flown" ? "flown" : "clientPaid", clientPaid: true, clientPaidDate: d} : {})};
-        await stWrite(t, patch, `Client money cleared: ${usd(amt)} (${usd(got)} of ${usd(f.P + f.F)})`); audit("Client money recorded", `${st.ref || t.did} · ${usd(amt)} · ${d}`); toast(full ? "Paid in full." : "Recorded."); return; }
+        await stWrite(t, patch, `Client money cleared: ${usd(amt)} (${usd(got)} of ${usd(f.P + f.F + f.XC)})`); audit("Client money recorded", `${st.ref || t.did} · ${usd(amt)} · ${d}`); toast(full ? "Paid in full." : "Recorded."); return; }
+      if (a === "xcost") { const text = (($("bk_xt") || {}).value || "").trim(), cost = num(($("bk_xa") || {}).value), fm = !!(($("bk_xf") || {}).checked);
+        if (!text || !(cost > 0)) { toast("Enter what the cost is and its amount."); return; }
+        const client = fm ? Math.ceil(cost) : tripPrice(t, cost, 0);   // the same margin as this trip's price
+        if (await gateHold("pay", t.did + "-xcost-" + (st.extraCosts || []).length, "xcost|" + text + "|" + cost + "|" + fm, `Cost beyond the price: ${st.ref || t.did}, ${text}, ${usd(cost)} charged ${usd(client)}${fm ? " (B13, at cost)" : ""}`, "", {tripBid: t.bid, tripDid: t.did})) return;
+        await stWrite(t, {extraCosts: [...(st.extraCosts || []), {text: text.slice(0, 120), cost, client, fm, at: now(), by: S.uid}]}, `Cost beyond the price: ${text} ${usd(cost)}, charged ${usd(client)}${fm ? " at cost (B13)" : ""}`);
+        audit("Cost beyond the price recorded", `${st.ref || t.did} · ${usd(cost)} → ${usd(client)}`); toast("Added. Send the client a payment request for " + usd(client) + "."); return; }
       if (a === "signed") { const dl = pl.dep ? BP.diff(today(), pl.dep) : 999, s = BP.maySign({O: f.O, scale: pl.scale, pay: pl.pay, received: m.received, daysLeft: dl});
         if (!st.signed) { toast("The client must sign the confirmation first."); return; }
         if (!s.ok) { toast(`Not covered: the operator wants ${usd(s.need)}; client money received ${usd(m.received)}. Collect it first.`); return; }
         await stWrite(t, {book: {...(st.book || {}), signedAt: now(), signedBy: S.uid}}, "Operator contract signed on Avinode"); audit("Operator contract signed", `${st.ref || t.did} · ${(t.d.quote || {}).operator || ""}`); toast("Recorded."); return; }
       if (a === "payout") { if (!(st.book || {}).signedAt) { toast("Record the operator's contract as signed first."); return; }
         const amt = num(($("bk_pa") || {}).value), d = ($("bk_pd") || {}).value; if (!(amt > 0) || !d) { toast("Enter the amount and the payment date."); return; }
-        const ok = BP.mayPay({O: f.O, received: m.received, paid: m.paid, amount: amt});
+        const ok = BP.mayPay({O: f.O + xPaidIn(f, m), received: m.received, paid: m.paid, amount: amt});
         if (!ok.ok) { toast(`Archē never pays the operator before the client: at most ${usd(ok.room)} can be paid now.`); return; }
         if (await gateHold("pay", t.did + "-operator-" + d, "operator|" + d + "|" + amt, `Record operator payment: ${st.ref || t.did}, ${usd(amt)} paid ${d}`, "", {tripBid: t.bid, tripDid: t.did})) return;
         const payouts = [...(st.payouts || []), {date: d, amount: amt, at: now(), by: S.uid}], full = sum(payouts) >= f.O - 0.5;
