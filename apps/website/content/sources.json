@@ -243,7 +243,7 @@
   "title": "Airport Coordination Limited, FAQs: Which airports are currently served by ACL? (last modified 15 Jun 2026)",
   "url": "https://www.acl-uk.org/faqs/",
   "publisher": "Airport Coordination Limited (UK slot coordinator)",
-  "checked": "2026-10-30"
+  "checked": "2026-11-12"
  },
  "acl-luton": {
   "title": "Airport Coordination Limited, Luton (published 16 Aug 2016, modified 12 Oct 2016)",
@@ -2613,7 +2613,7 @@
   "title": "South African AIP, AD 2 FAOR O R Tambo International, amended pages AMDT 4/26 effective 15 Oct 2026",
   "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FAOR_EN.pdf",
   "publisher": "South African Civil Aviation Authority (SACAA)",
-  "checked": "2026-11-01"
+  "checked": "2026-11-12"
  },
  "id-pm35-2021": {
   "title": "Indonesia, Minister of Transportation Regulation PM 35 of 2021 on air transport (State Gazette 2021 No. 582)",
@@ -2703,7 +2703,7 @@
   "title": "AIP South Africa AD 2-FACT-15 to 17, AMDT 4/26, 15 OCT 26",
   "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FACT_EN.pdf",
   "publisher": "South African Civil Aviation Authority",
-  "checked": "2026-11-09"
+  "checked": "2026-11-12"
  },
  "fact-acsa-slot-request": {
   "title": "ACSA: Slot Request (no date shown)",
@@ -2715,7 +2715,7 @@
   "title": "FAAN: International Airports (page modified 2023-03-14)",
   "url": "https://faan.gov.ng/international-airports/",
   "publisher": "Federal Airports Authority of Nigeria",
-  "checked": "2026-11-03"
+  "checked": "2026-11-12"
  },
  "lgav-aia-presentation": {
   "title": "Athens International Airport Corporate Investor Presentation, December 2024",
@@ -3652,5 +3652,29 @@
   "url": "https://gva.ch/en/Site/Professionnels/prestations-aeronautiques/PPR",
   "publisher": "Genève Aéroport",
   "checked": "2026-11-11"
+ },
+ "vdti-ca-vip": {
+  "title": "Phnom Penh Techo International Airport (KTI), VIP services / business aviation page (undated)",
+  "url": "https://pnh.cambodia-airports.aero/vipservices",
+  "publisher": "Cambodia Airports (airport operator)",
+  "checked": "2026-11-12"
+ },
+ "ar-migraciones-ga-ddjj": {
+  "title": "Aviación General - Declaración Jurada (published 15 Apr 2019, modified 10 Dec 2025)",
+  "url": "https://www.argentina.gob.ar/migraciones/aviacion-general-declaracion-jurada",
+  "publisher": "Dirección Nacional de Migraciones, Argentina",
+  "checked": "2026-11-12"
+ },
+ "lgav-aia-afr-2024": {
+  "title": "Athens International Airport S.A., Annual Financial Report 2024 (financial year ended 31 Dec 2024)",
+  "url": "https://media.aia.gr/assets/aiaportal/media/root/investors/financial%20information/financial%20reports/2024/annual-financial-report-2024.pdf",
+  "publisher": "Athens International Airport S.A. (airport operator)",
+  "checked": "2026-11-12"
+ },
+ "eglc-acp-2025-003-noise": {
+  "title": "London City Airport ACP-2025-003 RNP-AR, Annex C Airspace Change Noise Assessment (report A11580_RP001_1.0, 9 Jan 2026), published on the CAA airspace change portal",
+  "url": "https://airspacechange.caa.co.uk/documents/download/8754",
+  "publisher": "UK Civil Aviation Authority airspace change portal (sponsor: London City Airport)",
+  "checked": "2026-11-12"
  }
 }

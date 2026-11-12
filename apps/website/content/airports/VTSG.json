@@ -7,7 +7,7 @@
  "tz": "Asia/Bangkok",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-08",
+ "checked": "2026-11-12",
  "rules": {
   "runway": {
    "v": "one runway, 14/32, 3,000 m long and 45 m wide",
@@ -59,5 +59,5 @@
   "handling agent names",
   "business-aviation terminal"
  ],
- "notes": "AIP times are UTC; local = UTC+7 (Thailand has no daylight saving). Read from the 12 Jun 2025 AIRAC because newer packages (incl. 14 May 2026) could not be opened from this session; re-check against the current AIRAC before publishing. Slot level list is in GEN 1.2 section 3.2. | 2026-11-06 run: IATA KBV and facilitator DOA from GEN 1.2 (AIRAC 4 Sep 2025, th-aip-gen12) slot table. AMDT 08/26 checklist (6 Aug 2026) shows 12 VTSG AD 2 pages reissued (incl. 2-VTSG-1-1, 1-3, 1-6, 1-7), so the rules from the 12 Jun 2025 edition need rechecking. Current AD 2 not opened: https://aip.caat.or.th/ (WebFetch permission not granted; curl via proxy 403). No Krabi capacity notice found on caat.or.th. | 8 Nov 2026: nothing new; search lists VTSG AD 2 pages only up to 12 Jun 2025, and no Krabi capacity notice or DOA airport page was found. Could not be opened: https://aip.caat.or.th/ (permission not answered), https://aip.caat.or.th/2026-09-03-AIRAC/pdf/VT-amdt-en-GB.pdf (site error)."
+ "notes": "AIP times are UTC; local = UTC+7 (Thailand has no daylight saving). Read from the 12 Jun 2025 AIRAC because newer packages (incl. 14 May 2026) could not be opened from this session; re-check against the current AIRAC before publishing. Slot level list is in GEN 1.2 section 3.2. | 2026-11-06 run: IATA KBV and facilitator DOA from GEN 1.2 (AIRAC 4 Sep 2025, th-aip-gen12) slot table. AMDT 08/26 checklist (6 Aug 2026) shows 12 VTSG AD 2 pages reissued (incl. 2-VTSG-1-1, 1-3, 1-6, 1-7), so the rules from the 12 Jun 2025 edition need rechecking. Current AD 2 not opened: https://aip.caat.or.th/ (WebFetch permission not granted; curl via proxy 403). No Krabi capacity notice found on caat.or.th. | 8 Nov 2026: nothing new; search lists VTSG AD 2 pages only up to 12 Jun 2025, and no Krabi capacity notice or DOA airport page was found. Could not be opened: https://aip.caat.or.th/ (permission not answered), https://aip.caat.or.th/2026-09-03-AIRAC/pdf/VT-amdt-en-GB.pdf (site error). | 12 Nov 2026: nothing new. The AIRAC of 3 Sep 2026 is published (cover page read, https://aip.caat.or.th/2026-09-03-AIRAC/html/VT-cover-en-GB.html) but its AD 2 VTSG page (https://aip.caat.or.th/2026-09-03-AIRAC/html/eAIP/VT-AD-2.VTSG-en-GB.html) was not opened (permission not answered). Rules from 12 Jun 2025 still need rechecking."
 }
