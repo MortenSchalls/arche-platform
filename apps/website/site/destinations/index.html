@@ -99,19 +99,19 @@ footer .bl{text-align:right;padding:0 0 28px;font-size:12.5px;letter-spacing:.16
 .jm{margin:8px 0 56px;padding:40px 0 0}
 .jm h2{font:400 clamp(24px,3vw,34px)/1.2 Prata,Georgia,serif;color:var(--ink);margin:10px 0 10px}
 .jm .lead{max-width:760px;margin:0 0 22px}
-.jm .pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px 24px;max-width:760px;margin:0 0 18px}
-.jm label{display:flex;flex-direction:column;gap:6px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
-.jm select{font:400 16px/1.4 'Hanken Grotesk',system-ui,sans-serif;color:var(--ink);background:rgba(243,245,248,.04);border:1px solid var(--line);padding:10px 12px;letter-spacing:0;text-transform:none}
-.jm select option{color:#f3f5f8;background:#3b3f46}
-.jm .map{position:relative;border:1px solid var(--line);background:rgba(243,245,248,.02);overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media (max-width:760px){.jm svg{min-width:760px}}
-.jm svg{display:block;width:100%;height:auto}
+.jm .map{border:1px solid var(--line);background:rgba(243,245,248,.02);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.jm .stage{position:relative;min-width:100%}
+@media (max-width:900px){.jm .stage{width:1150px}}
+.jm svg{display:block;width:100%;height:auto;cursor:crosshair}
+.jm .lb{position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;font:400 11px/1 Cinzel,serif;letter-spacing:.08em;text-transform:uppercase;color:#c6cbd2;background:rgba(36,38,43,.72);padding:3px 5px}
+.jm .lb.on{color:#39ff8f}
+.jm .lb.hv{color:#f3f5f8}
 .jm .coast{fill:none;stroke:#a9bdd4;stroke-opacity:.45;stroke-width:.8;vector-effect:non-scaling-stroke}
 .jm .grat{fill:none;stroke:#f3f5f8;stroke-opacity:.06;stroke-width:1;vector-effect:non-scaling-stroke}
-.jm .pt{fill:#c6cbd2}.jm .pt.on{fill:#f3f5f8}
-.jm .hit{fill:transparent;cursor:pointer}.jm .hit:focus{outline:none}.jm .hit:focus+.pt{fill:#f3f5f8}
-.jm .ring{fill:none;stroke:#f3f5f8;stroke-width:1.5;vector-effect:non-scaling-stroke}
-.jm .route{fill:none;stroke:#f3f5f8;stroke-width:2;vector-effect:non-scaling-stroke}
+.jm .pt{fill:#c6cbd2}.jm .pt.hv{fill:#f3f5f8}.jm .pt.on{fill:#39ff8f}
+.jm .ring{fill:none;stroke:#39ff8f;stroke-width:1.5;vector-effect:non-scaling-stroke}
+.jm .route{fill:none;stroke:#39ff8f;stroke-width:2.2;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 3px rgba(57,255,143,.55))}
+.jm .spark{fill:#eafff3;filter:drop-shadow(0 0 4px #39ff8f)}
 .jm .hint{font-size:14px;color:var(--muted);margin:10px 0 0}
 .jm .out{margin:22px 0 0}
 .jm .out .r{font:400 clamp(20px,2.4vw,26px)/1.3 Prata,Georgia,serif;color:var(--ink);margin:0}
@@ -126,11 +126,9 @@ footer .bl{text-align:right;padding:0 0 28px;font-size:12.5px;letter-spacing:.16
 </style>
 <span class="eyebrow">Plan a journey</span>
 <h2 id="jm-h">Which aircraft can fly it, and how long it takes</h2>
-<p class="lead">Choose where you start and where you are going, on the map or in the lists. You see the distance and, for each aircraft in our aircraft guide, whether it flies the journey nonstop and an estimate of the flight time.</p>
-<div class="pick"><label for="jm-a">From<select id="jm-a"><option value="">Choose a place</option><option value="0">Auckland</option><option value="1">Bali</option><option value="2">Bangkok</option><option value="3">Buenos Aires</option><option value="4">Cape Town</option><option value="5">Chiang Mai</option><option value="6">Doha</option><option value="7">Dubai</option><option value="8">Geneva</option><option value="9">Hong Kong</option><option value="10">Johannesburg</option><option value="11">Kuala Lumpur</option><option value="12">Lagos</option><option value="13">London</option><option value="14">Los Angeles</option><option value="15">Macau</option><option value="16">Marrakech</option><option value="17">Mexico City</option><option value="18">Miami</option><option value="19">Milan</option><option value="20">Mumbai</option><option value="21">Nassau</option><option value="22">New York</option><option value="23">Nice and Cannes</option><option value="24">Palm Beach</option><option value="25">Paris</option><option value="26">Phuket</option><option value="27">Riyadh</option><option value="28">San Francisco</option><option value="30">Seoul</option><option value="31">Singapore</option><option value="32">Sydney</option><option value="29">São Paulo</option><option value="33">Taipei</option><option value="34">Tokyo</option><option value="35">Warsaw</option><option value="36">Washington</option></select></label>
-<label for="jm-b">To<select id="jm-b"><option value="">Choose a place</option><option value="0">Auckland</option><option value="1">Bali</option><option value="2">Bangkok</option><option value="3">Buenos Aires</option><option value="4">Cape Town</option><option value="5">Chiang Mai</option><option value="6">Doha</option><option value="7">Dubai</option><option value="8">Geneva</option><option value="9">Hong Kong</option><option value="10">Johannesburg</option><option value="11">Kuala Lumpur</option><option value="12">Lagos</option><option value="13">London</option><option value="14">Los Angeles</option><option value="15">Macau</option><option value="16">Marrakech</option><option value="17">Mexico City</option><option value="18">Miami</option><option value="19">Milan</option><option value="20">Mumbai</option><option value="21">Nassau</option><option value="22">New York</option><option value="23">Nice and Cannes</option><option value="24">Palm Beach</option><option value="25">Paris</option><option value="26">Phuket</option><option value="27">Riyadh</option><option value="28">San Francisco</option><option value="30">Seoul</option><option value="31">Singapore</option><option value="32">Sydney</option><option value="29">São Paulo</option><option value="33">Taipei</option><option value="34">Tokyo</option><option value="35">Warsaw</option><option value="36">Washington</option></select></label></div>
-<div class="map" id="jm-map"></div>
-<p class="hint" id="jm-hint">Tap where you start, then where you are going. A third tap starts a new journey. On a phone, swipe the map sideways.</p>
+<p class="lead">Choose where you start and where you are going, on the map. You see the distance and, for ten example aircraft from our aircraft guide, whether each flies the journey nonstop and an estimate of the flight time. The examples are for reference only: we are not limited to them, and we find any aircraft type and model that fits your trip, upon availability.</p>
+<div class="map planner" id="jm-map"></div>
+<p class="hint" id="jm-hint">Tap where you start, then where you are going; a tap picks the nearest place. A third tap starts a new journey. On a phone, swipe the map sideways.</p>
 <div class="out" id="jm-out" aria-live="polite"></div>
 <details class="how" id="jm-how"><summary>How we calculate</summary>
 <p>Distance is the great-circle distance between the main airports of the two places. Flight time is that distance at the published cruise speed, plus 30 minutes for climb and descent, in still air; a journey longer than the published range adds about an hour for each fuel stop, and an aircraft that would need more than two stops is shown as not suited. These are estimates: the real range and time depend on passengers, luggage, weather, winds, the airports and the routing, and the operator confirms them for your trip. Published ranges assume standard reserves.</p>

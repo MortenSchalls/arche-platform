@@ -16,38 +16,72 @@ function path(a, b){ var f1=a.lat*R, l1=a.lon*R, f2=b.lat*R, l2=b.lon*R, d = gc(
   return s; }
 var ns = 'http://www.w3.org/2000/svg', el = function(n, a){ var e = document.createElementNS(ns, n); for (var k in a) e.setAttribute(k, a[k]); return e; };
 var box = document.getElementById('jm-map'); if (!box) return;
-var svg = el('svg', {viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'World map of the places we have guides for'});
+var stage = document.createElement('div'); stage.className = 'stage'; box.appendChild(stage);
+var svg = el('svg', {viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'World map of the places we have guides for. Tap where you start, then where you are going.'});
 var g = ''; for (var lo = -180; lo < 180; lo += 30){ var x = ((lo + 180) / 360) * W; g += 'M' + x + ' 0V' + H; }
 for (var la = 60; la >= -60; la -= 30){ var y = ((T - la) / 360) * W; if (y > 0 && y < H) g += 'M0 ' + y + 'H' + W; }
 svg.appendChild(el('path', {d: g, 'class': 'grat'}));
 svg.appendChild(el('path', {d: D.world.path, 'class': 'coast'}));
 var route = el('path', {d: '', 'class': 'route'}); svg.appendChild(route);
+var spark = el('circle', {r: 3.5, 'class': 'spark', cx: -10, cy: -10}); svg.appendChild(spark);
 var rings = el('g', {}); svg.appendChild(rings);
-var sel = [];
-var pa = document.getElementById('jm-a'), pb = document.getElementById('jm-b'), out = document.getElementById('jm-out');
-D.places.forEach(function(p, i){ var q = P(p.lon, p.lat);
-  var hit = el('circle', {cx: q[0], cy: q[1], r: 11, 'class': 'hit', tabindex: '-1'});
-  var t = el('title', {}); t.textContent = p.name; hit.appendChild(t);
-  hit.addEventListener('click', function(){ tap(i); });
-  svg.appendChild(hit); svg.appendChild(el('circle', {cx: q[0], cy: q[1], r: 3.2, 'class': 'pt', id: 'jm-p' + i})); });
-box.appendChild(svg);
-function tap(i){ if (sel.length >= 2) sel = []; if (sel.length === 1 && sel[0] === i) return; sel.push(i); sync(); }
-function sync(){ pa.value = sel.length > 0 ? String(sel[0]) : ''; pb.value = sel.length > 1 ? String(sel[1]) : ''; draw(); }
-pa.addEventListener('change', function(){ var a = pa.value === '' ? null : +pa.value, b = pb.value === '' ? null : +pb.value; sel = []; if (a !== null) sel.push(a); if (b !== null && b !== a) sel.push(b); draw(); });
-pb.addEventListener('change', function(){ var a = pa.value === '' ? null : +pa.value, b = pb.value === '' ? null : +pb.value; sel = []; if (a !== null) sel.push(a); if (b !== null && b !== a) sel.push(b); draw(); });
+var XY = D.places.map(function(p){ return P(p.lon, p.lat); });
+D.places.forEach(function(p, i){ svg.appendChild(el('circle', {cx: XY[i][0], cy: XY[i][1], r: 3.2, 'class': 'pt', id: 'jm-p' + i})); });
+stage.appendChild(svg);
+var labels = D.places.map(function(p, i){ var d = document.createElement('span'); d.className = 'lb'; d.textContent = p.name; d.id = 'jm-l' + i; stage.appendChild(d); return d; });
+var sel = [], out = document.getElementById('jm-out'), hv = -1;
+// city names: placed where they touch no other name or point (crowded areas first), placed again when the width changes
+function place(){ var w = svg.getBoundingClientRect().width; if (!w) return; var k = w / W, fs = w < 700 ? 10 : 11;
+  var pts = XY.map(function(q){ return [q[0] * k, q[1] * k]; }), boxes = [], order = pts.map(function(_, i){ return i; });
+  var crowd = function(i){ return pts.filter(function(q){ return Math.abs(q[0] - pts[i][0]) < 90 && Math.abs(q[1] - pts[i][1]) < 50; }).length; };
+  order.sort(function(a, b){ return (sel.indexOf(b) >= 0) - (sel.indexOf(a) >= 0) || crowd(b) - crowd(a); });   // chosen places first, so their names always show
+  var hitPt = function(r){ return pts.some(function(q){ return q[0] > r[0] - 4 && q[0] < r[2] + 4 && q[1] > r[1] - 4 && q[1] < r[3] + 4; }); };
+  var hitBox = function(r){ return boxes.some(function(o){ return r[0] < o[2] + 2 && r[2] > o[0] - 2 && r[1] < o[3] + 2 && r[3] > o[1] - 2; }); };
+  order.forEach(function(i){ var L = labels[i]; L.style.fontSize = fs + 'px'; L.style.display = '';
+    var bw = L.offsetWidth, bh = L.offsetHeight, x = pts[i][0], y = pts[i][1], best = null;
+    var cand = [[1,0],[-1,0],[0,-1],[0,1],[1,-1],[-1,-1],[1,1],[-1,1],[2,0],[-2,0],[0,-2],[0,2],[2,-1],[-2,-1],[2,1],[-2,1]];
+    for (var c = 0; c < cand.length && !best; c++){ var dx = cand[c][0], dy = cand[c][1];
+      var cx = x + dx * (bw / 2 + 7), cy = y + dy * (bh / 2 + 6);
+      var r = [cx - bw / 2, cy - bh / 2, cx + bw / 2, cy + bh / 2];
+      if (r[0] < 2 || r[2] > w - 2 || r[1] < 2 || r[3] > w * H / W - 2) continue;
+      if (!hitBox(r) && !hitPt(r)) best = [cx, cy, r]; }
+    if (best){ boxes.push(best[2]); L.style.left = best[0] + 'px'; L.style.top = best[1] + 'px'; } else L.style.display = 'none'; });
+}
+var nearest = function(ev){ var r = svg.getBoundingClientRect(), k = r.width / W, mx = ev.clientX - r.left, my = ev.clientY - r.top, bi = -1, bd = 30;
+  XY.forEach(function(q, i){ var d = Math.hypot(q[0] * k - mx, q[1] * k - my); if (d < bd){ bd = d; bi = i; } });
+  labels.forEach(function(L, i){ var b = L.getBoundingClientRect(); if (L.style.display !== 'none' && ev.clientX >= b.left && ev.clientX <= b.right && ev.clientY >= b.top && ev.clientY <= b.bottom && bd > 8) bi = i; });
+  return bi; };
+svg.addEventListener('click', function(ev){ var i = nearest(ev); if (i >= 0) tap(i); });
+svg.addEventListener('mousemove', function(ev){ var i = nearest(ev); if (i === hv) return; if (hv >= 0){ labels[hv].classList.remove('hv'); document.getElementById('jm-p' + hv).classList.remove('hv'); }
+  hv = i; svg.style.cursor = i >= 0 ? 'pointer' : 'crosshair'; if (i >= 0){ labels[i].classList.add('hv'); document.getElementById('jm-p' + i).classList.add('hv'); } });
+window.addEventListener('resize', function(){ clearTimeout(place.t); place.t = setTimeout(place, 120); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(place); place();
+function tap(i){ if (sel.length >= 2) sel = []; if (sel.length === 1 && sel[0] === i) return; sel.push(i); draw(); }
+window.__jmTap = tap;
+var anim = 0;
+function fly(d){ cancelAnimationFrame(anim); var len = route.getTotalLength ? route.getTotalLength() : 0; if (!len) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ route.style.strokeDasharray = ''; spark.setAttribute('cx', -10); return; }
+  route.style.strokeDasharray = len; route.style.strokeDashoffset = len; var t0 = performance.now(), dur = 1400;
+  var step = function(t){ var f = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - f, 3); route.style.strokeDashoffset = len * (1 - e);
+    var pt = route.getPointAtLength(len * e); spark.setAttribute('cx', pt.x); spark.setAttribute('cy', pt.y);
+    if (f < 1) anim = requestAnimationFrame(step); else { spark.setAttribute('cx', -10); route.style.strokeDasharray = ''; } };
+  anim = requestAnimationFrame(step); }
 function hm(h){ var m = Math.round(h * 4) * 15, hh = Math.floor(m / 60), mm = m % 60; return 'about ' + hh + ' h' + (mm ? ' ' + mm + ' min' : ''); }
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function draw(){
-  rings.innerHTML = ''; document.querySelectorAll('.jm .pt.on').forEach(function(e){ e.setAttribute('class', 'pt'); });
-  sel.forEach(function(i){ var p = D.places[i], q = P(p.lon, p.lat); rings.appendChild(el('circle', {cx: q[0], cy: q[1], r: 7, 'class': 'ring'})); document.getElementById('jm-p' + i).setAttribute('class', 'pt on'); });
-  if (sel.length < 2){ route.setAttribute('d', ''); out.innerHTML = sel.length ? '<p class="d">From ' + esc(D.places[sel[0]].name) + '. Now choose where you are going.</p>' : ''; return; }
+  rings.innerHTML = ''; document.querySelectorAll('.jm .pt.on').forEach(function(e){ e.classList.remove('on'); }); labels.forEach(function(L){ L.classList.remove('on'); });
+  sel.forEach(function(i){ rings.appendChild(el('circle', {cx: XY[i][0], cy: XY[i][1], r: 7, 'class': 'ring'})); document.getElementById('jm-p' + i).classList.add('on'); labels[i].classList.add('on'); });
+  place();
+  if (sel.length < 2){ cancelAnimationFrame(anim); spark.setAttribute('cx', -10); route.setAttribute('d', ''); out.innerHTML = sel.length ? '<p class="d">From ' + esc(D.places[sel[0]].name) + '. Now choose where you are going.</p>' : ''; return; }
   var a = D.places[sel[0]], b = D.places[sel[1]], nm = gc(a, b), km = nm * 1.852;
-  route.setAttribute('d', path(a, b));
+  route.setAttribute('d', path(a, b)); fly();
+  var mid = (XY[sel[0]][0] + XY[sel[1]][0]) / 2 / W; if (box.scrollWidth > box.clientWidth) box.scrollLeft = mid * box.scrollWidth - box.clientWidth / 2;
   var rows = D.ac.map(function(m){ var stops = nm <= m.range_nm ? 0 : Math.ceil(nm / m.range_nm) - 1, h = nm / m.kt + 0.5 + stops;
     var st = stops > 2 ? 'Not suited: more than two fuel stops' : stops ? (stops === 1 ? 'One fuel stop' : 'Two fuel stops') : 'Nonstop';
     return '<tr><td>' + esc(m.name) + '<span class="cat">' + esc(m.cat) + '</span></td><td>' + st + '</td><td class="n">' + (stops > 2 ? '–' : hm(h)) + '</td></tr>'; }).join('');
   var q = '/?from=' + encodeURIComponent(a.name) + '&to=' + encodeURIComponent(b.name) + '#top';
   out.innerHTML = '<p class="r">' + esc(a.name) + ' to ' + esc(b.name) + '</p><p class="d">' + Math.round(nm).toLocaleString('en') + ' nm (' + Math.round(km).toLocaleString('en') + ' km), great-circle distance.</p>' +
+    '<p class="d">Ten example aircraft, for reference only. We are not limited to these types and models: we find whatever fits your trip, upon availability.</p>' +
     '<table><thead><tr><th scope="col">Aircraft</th><th scope="col">Nonstop or stops</th><th scope="col">Estimated time</th></tr></thead><tbody>' + rows + '</tbody></table>' +
     '<div class="acts"><a class="btn p" href="' + q + '">Request a quote for this journey</a><a class="btn" href="' + esc(a.path) + '">' + esc(a.name) + ' guide</a><a class="btn" href="' + esc(b.path) + '">' + esc(b.name) + ' guide</a></div>' +
     '<p class="hint">Estimates only; see How we calculate. Any aircraft, any route, upon availability.</p>';
