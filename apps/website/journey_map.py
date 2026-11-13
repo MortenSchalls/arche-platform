@@ -22,8 +22,8 @@ def _d(iso):
     return datetime.date.fromisoformat(iso).strftime("%-d %B %Y")
 
 def section(places, ac):
-    srcs = "".join(f'<li><a href="{html.escape(m["source"][1])}" rel="noopener">{html.escape(m["source"][0])}</a>: {html.escape(m["name"])}, '
-                   f'{m["range_nm"]:,} nm, {html.escape(m["basis"])}. Checked {_d(m["source"][2])}.</li>' for m in ac["models"])
+    srcs = "".join(f'<li>{html.escape(m["label"])}: range {m["range_nm"]:,} nm and {html.escape(m["basis"])}, <a href="{html.escape(m["source"][1])}" rel="noopener">{html.escape(m["source"][0])}</a>, checked {_d(m["source"][2])}; '
+                   f'cabin {m["cabin_h"]:.2f} m high and {m["cabin_w"]:.2f} m wide, <a href="{html.escape(m["cabin_source"][1])}" rel="noopener">{html.escape(m["cabin_source"][0])}</a>, checked {_d(m["cabin_source"][2])}.</li>' for m in ac["models"])
     pl = places["source"]
     return f'''<!--ae:jm--><section class="jm" id="planner" aria-labelledby="jm-h">
 <style>
@@ -62,7 +62,7 @@ def section(places, ac):
 <p class="hint" id="jm-hint">Tap where you start, then where you are going; a tap picks the nearest place. A third tap starts a new journey. On a phone, swipe the map sideways.</p>
 <div class="out" id="jm-out" aria-live="polite"></div>
 <details class="how" id="jm-how"><summary>How we calculate</summary>
-<p>Distance is measured between the main airports of the two places along an approximate route around airspace that the aircraft we arrange do not use: closed to aircraft registered in the EU, the UK, the US and Switzerland, or where the European Union Aviation Safety Agency's conflict-zone bulletins advise operators not to fly (checked 10 November 2026). An aircraft flies it nonstop when that distance is within its published range; otherwise it needs a fuel stop at a named airport (none in the Gulf while its bulletins apply), with each leg within 96% of the published range. Only aircraft that need no more than one fuel stop are shown. Flight time is the distance at the published cruise speed plus 24 minutes, and 1 hour 18 minutes for a fuel stop, in still air. The suggested aircraft flies it with the fewest stops and has the most spacious cabin among those of the right size for the length of the trip. These are estimates: the real range and time depend on passengers, luggage, weather, winds, the airports and the routing, and the operator confirms them for your trip.</p>
+<p>Distance is measured between the main airports of the two places along an approximate route that avoids airspace closed to aircraft registered in the EU, the UK, the US and Switzerland, and the conflict zones where the European Union Aviation Safety Agency's bulletins advise operators not to fly (checked 10 November 2026). An aircraft is shown as nonstop when that distance is within its published range: the maker's figure, flown in standard conditions with the reserves and load the maker states, which a full cabin, headwinds or a demanding airport can reduce. Otherwise it needs a fuel stop at a named airport (none in the Gulf while its bulletins apply), with each leg within 96% of the published range. Only aircraft that need no more than one fuel stop are shown. Flight time is the distance at the published cruise speed plus 24 minutes, and 1 hour 18 minutes for a fuel stop, in still air. The suggested aircraft needs the fewest stops and has the largest cabin (height by width) among the aircraft of the right size for the trip: light jets to super-midsize up to about three hours, super-midsize and heavy jets up to about six, heavy and ultra-long-range jets beyond. Each aircraft is shown by the variant its figures belong to. These are estimates for planning: the operator confirms the aircraft, the route and the time for your trip.</p>
 <ul>{srcs}<li>Airport positions: <a href="{html.escape(pl[1])}" rel="noopener">{html.escape(pl[0])}</a>, read {_d(pl[2])}. Coastlines: Natural Earth (public domain).</li></ul>
 </details>
 <script src="/journey.js" defer></script>
@@ -160,7 +160,7 @@ function draw(){
     return '<tr' + (on ? ' class="best"' : '') + '><td>' + esc(o.m.name) + (on ? ' <span class="tag">Suggested</span>' : '') + '<span class="cat">' + esc(o.m.cat) + '</span></td><td>' + (o.stop ? 'One fuel stop, ' + esc(o.stop) : 'Nonstop') + '</td><td class="n">' + hm(o.h) + '</td></tr>'; }).join('');
   var nmS = Math.round(best.nm), km = Math.round(best.nm * 1.852);
   var q = '/?from=' + encodeURIComponent(a.name) + '&to=' + encodeURIComponent(b.name) + '#top';
-  out.innerHTML = '<p class="r">' + esc(a.name) + ' to ' + esc(b.name) + '</p><p class="d">' + nmS.toLocaleString('en') + ' nm (' + km.toLocaleString('en') + ' km)' + (best.stop ? ' with a fuel stop in ' + esc(best.stop) : '') + (best.detour ? ', routed around restricted airspace' : '') + '. Suggested: ' + esc(best.m.name) + ', the most spacious cabin among the aircraft that fly it ' + (best.stop ? 'with one fuel stop' : 'nonstop') + ' for a trip of this length.</p>' +
+  out.innerHTML = '<p class="r">' + esc(a.name) + ' to ' + esc(b.name) + '</p><p class="d">' + nmS.toLocaleString('en') + ' nm (' + km.toLocaleString('en') + ' km)' + (best.stop ? ' with a fuel stop in ' + esc(best.stop) : '') + (best.detour ? ', routed around restricted airspace' : '') + '. Suggested: ' + esc(best.m.name) + ', the largest cabin among the right-sized example aircraft that fly it ' + (best.stop ? 'with one fuel stop' : 'nonstop') + '.</p>' +
     '<p class="d">Example aircraft from our guide that fly it nonstop or with one fuel stop, for reference only. We are not limited to these types and models: we find whatever fits your trip, upon availability.</p>' +
     '<table><thead><tr><th scope="col">Aircraft</th><th scope="col">Nonstop or stops</th><th scope="col">Estimated time</th></tr></thead><tbody>' + rows + '</tbody></table>' +
     '<div class="acts"><a class="btn p" href="' + q + '">Request a quote for this journey</a><a class="btn" href="' + esc(a.path) + '">' + esc(a.name) + ' guide</a><a class="btn" href="' + esc(b.path) + '">' + esc(b.name) + ' guide</a></div>' +
@@ -174,12 +174,11 @@ def run():
     ac = json.load(open(os.path.join(C, "aircraft_perf.json"), encoding="utf-8"))
     world = json.load(open(os.path.join(C, "world.json"), encoding="utf-8"))
     routes = json.load(open(os.path.join(C, "routes.json"), encoding="utf-8"))   # tools/routes.py: the Navoryx routing rules, per aircraft
-    from cabin_sections import SOURCES as CAB   # cabin height and width (m) of each aircraft in the guide
     import company
     pub = [p for p in places["places"] if not (company.LAUNCHED and p.get("draft"))]
     places = dict(places, places=pub)
     data = {"world": world, "places": [{k: p[k] for k in ("name", "path", "lat", "lon")} for p in pub],
-            "ac": [dict({k: m[k] for k in ("name", "cat", "range_nm", "kt")}, cabin=round(CAB[m["id"]][0] * CAB[m["id"]][1], 3)) for m in ac["models"]],
+            "ac": [{"name": m["label"], "cat": m["cat"], "range_nm": m["range_nm"], "kt": m["kt"], "cabin": round(m["cabin_h"] * m["cabin_w"], 3)} for m in ac["models"]],
             "rp": routes["places"], "routes": routes["routes"]}
     open(os.path.join(SITE, "journey.js"), "w", encoding="utf-8").write(JS.replace("__DATA__", json.dumps(data, ensure_ascii=False, separators=(",", ":"))))
     t = open(PAGE, encoding="utf-8").read()
