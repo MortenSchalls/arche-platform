@@ -100,6 +100,12 @@ def build():
         assert s.count(a) == 1, a
         s = s.replace(a, b)
 
+    # 2b. the quote form opens with the journey filled in when the journey map on Destinations sends it (?from=&to=;
+    # place names only, plain text, capped; Morten 13 Nov 2026)
+    a = "    legs: [{ from: '', to: '', date: '', time: '' }],\n"
+    assert s.count(a) == 1
+    s = s.replace(a, "    legs: [(() => { try { const q = new URLSearchParams(location.search), c = v => (v || '').replace(/[<>]/g, '').slice(0, 60); return { from: c(q.get('from')), to: c(q.get('to')), date: '', time: '' }; } catch (e) { return { from: '', to: '', date: '', time: '' }; } })()],\n")
+
     # 2. forms send to /api/enquiry
     old_submit = "this.setState(ok ? { step: 'done', detailsError: false } : { detailsError: true });"
     assert s.count(old_submit) == 1
@@ -212,6 +218,7 @@ window.archeSend = function (data) {
     import pages; pages.run()   # one page per menu item, all four languages (30 Oct 2026)
     import legal_footer; legal_footer.run()   # the site footer on the legal pages too (13 Nov 2026)
     import nav; nav.run()   # one fixed top menu on every page, watermark, home hero photo (30 Oct 2026)
+    import journey_map; journey_map.run()   # journey map on Destinations with the aircraft guide models (13 Nov 2026)
     import self_fonts; self_fonts.run()   # fonts from our own site, never from a font service (12 Nov 2026)
     if not BANGKOK_OFFICE:
         import no_bangkok_photo; no_bangkok_photo.run()   # no hidden Bangkok office photo either (12 Nov 2026)

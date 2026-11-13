@@ -783,7 +783,7 @@ class Component extends DCLogic {
   setLang(l) { if (window.__ARCHE_LANG && l !== window.__ARCHE_LANG) { location.href = (l === 'en' ? '/aircraft/' : '/aircraft/' + l + '/'); return; } this.setState({ lang: l }); }
   state = {
     step: 'route', trip: 'oneway',
-    legs: [{ from: '', to: '', date: '', time: '' }],
+    legs: [(() => { try { const q = new URLSearchParams(location.search), c = v => (v || '').replace(/[<>]/g, '').slice(0, 60); return { from: c(q.get('from')), to: c(q.get('to')), date: '', time: '' }; } catch (e) { return { from: '', to: '', date: '', time: '' }; } })()],
     returnDate: '', pax: 4, routeError: false,
     name: '', reach: '', reply: 'WhatsApp', flown: '', news: false, detailsError: false,
     fPax: 6, fRange: 2400, catIdx: 0, acId: 'phenom300',

@@ -27,6 +27,9 @@ This file is kept identical in arche-platform and navoryx-website. A change is m
 Client, broker, operator, supplier and prospect records; bookings and payments; keys and passwords; backups. Archē is
 never named on the Navoryx website or in its emails, and the Navoryx website does not link to Archē.
 
+Not a tie: each site's journey map is built on its own, from its own data and public sources (Natural Earth
+coastlines, published aircraft figures, public airport positions); no code or data is read from the other site (13 Nov 2026).
+
 ## After severing
 Run every check and test on both sides (`check_site.py`, `check_all_revised.py` and the portal tests for Archē;
 `check.py` and `npm test` for Navoryx), update this file in the remaining repository to say the tie is gone, and record

@@ -1,0 +1,306 @@
+{
+ "_why": "Places on the journey map: every city page, placed at its main airport (coordinates from OurAirports, public domain, read 13 Nov 2026). Distances are great-circle between these points.",
+ "source": [
+  "OurAirports airports.csv (public domain)",
+  "https://ourairports.com/data/",
+  "2026-11-13"
+ ],
+ "places": [
+  {
+   "path": "/cities/auckland/",
+   "name": "Auckland",
+   "icao": "NZAA",
+   "lat": -37.012,
+   "lon": 174.786,
+   "draft": false
+  },
+  {
+   "path": "/cities/bali/",
+   "name": "Bali",
+   "icao": "WADD",
+   "lat": -8.748,
+   "lon": 115.167,
+   "draft": false
+  },
+  {
+   "path": "/cities/bangkok/",
+   "name": "Bangkok",
+   "icao": "VTBS",
+   "lat": 13.681,
+   "lon": 100.747,
+   "draft": false
+  },
+  {
+   "path": "/cities/buenos-aires/",
+   "name": "Buenos Aires",
+   "icao": "SAEZ",
+   "lat": -34.822,
+   "lon": -58.536,
+   "draft": false
+  },
+  {
+   "path": "/cities/cape-town/",
+   "name": "Cape Town",
+   "icao": "FACT",
+   "lat": -33.974,
+   "lon": 18.604,
+   "draft": false
+  },
+  {
+   "path": "/cities/chiang-mai/",
+   "name": "Chiang Mai",
+   "icao": "VTCC",
+   "lat": 18.767,
+   "lon": 98.963,
+   "draft": false
+  },
+  {
+   "path": "/cities/doha/",
+   "name": "Doha",
+   "icao": "OTHH",
+   "lat": 25.273,
+   "lon": 51.608,
+   "draft": false
+  },
+  {
+   "path": "/cities/dubai/",
+   "name": "Dubai",
+   "icao": "OMDB",
+   "lat": 25.25,
+   "lon": 55.371,
+   "draft": false
+  },
+  {
+   "path": "/cities/geneva/",
+   "name": "Geneva",
+   "icao": "LSGG",
+   "lat": 46.238,
+   "lon": 6.109,
+   "draft": false
+  },
+  {
+   "path": "/cities/hong-kong/",
+   "name": "Hong Kong",
+   "icao": "VHHH",
+   "lat": 22.312,
+   "lon": 113.915,
+   "draft": false
+  },
+  {
+   "path": "/cities/johannesburg/",
+   "name": "Johannesburg",
+   "icao": "FAOR",
+   "lat": -26.14,
+   "lon": 28.247,
+   "draft": false
+  },
+  {
+   "path": "/cities/kuala-lumpur/",
+   "name": "Kuala Lumpur",
+   "icao": "WMKK",
+   "lat": 2.746,
+   "lon": 101.71,
+   "draft": false
+  },
+  {
+   "path": "/cities/lagos/",
+   "name": "Lagos",
+   "icao": "DNMM",
+   "lat": 6.577,
+   "lon": 3.321,
+   "draft": false
+  },
+  {
+   "path": "/cities/london/",
+   "name": "London",
+   "icao": "EGLL",
+   "lat": 51.471,
+   "lon": -0.46,
+   "draft": false
+  },
+  {
+   "path": "/cities/los-angeles/",
+   "name": "Los Angeles",
+   "icao": "KLAX",
+   "lat": 33.943,
+   "lon": -118.408,
+   "draft": false
+  },
+  {
+   "path": "/cities/macau/",
+   "name": "Macau",
+   "icao": "VMMC",
+   "lat": 22.15,
+   "lon": 113.592,
+   "draft": false
+  },
+  {
+   "path": "/cities/marrakech/",
+   "name": "Marrakech",
+   "icao": "GMMX",
+   "lat": 31.605,
+   "lon": -8.036,
+   "draft": false
+  },
+  {
+   "path": "/cities/mexico-city/",
+   "name": "Mexico City",
+   "icao": "MMMX",
+   "lat": 19.436,
+   "lon": -99.07,
+   "draft": false
+  },
+  {
+   "path": "/cities/miami/",
+   "name": "Miami",
+   "icao": "KMIA",
+   "lat": 25.796,
+   "lon": -80.29,
+   "draft": false
+  },
+  {
+   "path": "/cities/milan/",
+   "name": "Milan",
+   "icao": "LIMC",
+   "lat": 45.631,
+   "lon": 8.728,
+   "draft": false
+  },
+  {
+   "path": "/cities/mumbai/",
+   "name": "Mumbai",
+   "icao": "VABB",
+   "lat": 19.089,
+   "lon": 72.868,
+   "draft": false
+  },
+  {
+   "path": "/cities/nassau/",
+   "name": "Nassau",
+   "icao": "MYNN",
+   "lat": 25.039,
+   "lon": -77.466,
+   "draft": false
+  },
+  {
+   "path": "/cities/new-york/",
+   "name": "New York",
+   "icao": "KJFK",
+   "lat": 40.639,
+   "lon": -73.779,
+   "draft": false
+  },
+  {
+   "path": "/cities/nice/",
+   "name": "Nice and Cannes",
+   "icao": "LFMN",
+   "lat": 43.658,
+   "lon": 7.216,
+   "draft": false
+  },
+  {
+   "path": "/cities/palm-beach/",
+   "name": "Palm Beach",
+   "icao": "KPBI",
+   "lat": 26.683,
+   "lon": -80.096,
+   "draft": false
+  },
+  {
+   "path": "/cities/paris/",
+   "name": "Paris",
+   "icao": "LFPG",
+   "lat": 49.009,
+   "lon": 2.554,
+   "draft": false
+  },
+  {
+   "path": "/cities/phuket/",
+   "name": "Phuket",
+   "icao": "VTSP",
+   "lat": 8.113,
+   "lon": 98.317,
+   "draft": false
+  },
+  {
+   "path": "/cities/riyadh/",
+   "name": "Riyadh",
+   "icao": "OERK",
+   "lat": 24.958,
+   "lon": 46.699,
+   "draft": false
+  },
+  {
+   "path": "/cities/san-francisco/",
+   "name": "San Francisco",
+   "icao": "KSFO",
+   "lat": 37.62,
+   "lon": -122.375,
+   "draft": false
+  },
+  {
+   "path": "/cities/sao-paulo/",
+   "name": "São Paulo",
+   "icao": "SBGR",
+   "lat": -23.431,
+   "lon": -46.47,
+   "draft": false
+  },
+  {
+   "path": "/cities/seoul/",
+   "name": "Seoul",
+   "icao": "RKSI",
+   "lat": 37.469,
+   "lon": 126.451,
+   "draft": false
+  },
+  {
+   "path": "/cities/singapore/",
+   "name": "Singapore",
+   "icao": "WSSS",
+   "lat": 1.35,
+   "lon": 103.994,
+   "draft": false
+  },
+  {
+   "path": "/cities/sydney/",
+   "name": "Sydney",
+   "icao": "YSSY",
+   "lat": -33.946,
+   "lon": 151.177,
+   "draft": false
+  },
+  {
+   "path": "/cities/taipei/",
+   "name": "Taipei",
+   "icao": "RCTP",
+   "lat": 25.078,
+   "lon": 121.233,
+   "draft": false
+  },
+  {
+   "path": "/cities/tokyo/",
+   "name": "Tokyo",
+   "icao": "RJTT",
+   "lat": 35.55,
+   "lon": 139.787,
+   "draft": false
+  },
+  {
+   "path": "/cities/warsaw/",
+   "name": "Warsaw",
+   "icao": "EPWA",
+   "lat": 52.166,
+   "lon": 20.967,
+   "draft": false
+  },
+  {
+   "path": "/cities/washington/",
+   "name": "Washington",
+   "icao": "KIAD",
+   "lat": 38.944,
+   "lon": -77.456,
+   "draft": false
+  }
+ ]
+}

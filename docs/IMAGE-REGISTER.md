@@ -47,8 +47,8 @@ Every picture on archeaviation.com, where it came from and on what terms. Nothin
 4. **AI-made by Archē:** allowed under the tool's terms. Never presented as a specific aircraft type, a real person or a real office. Mark generic cabin images "Illustration".
 5. **Archē's own photos and artwork.**
 
-## Still needed (13 Nov 2026)
-One licensed landscape photo per place page, 2400 × 1350 or larger, daylight, no readable aircraft registration, no people's faces in close-up, no logos; saved as `apps/website/images/places/<path with dashes>.webp` (for example `cities-tokyo.webp`). Pages without one show the plain hero. 53 pages:
+## Place photos: not before launch (Morten, 13 Nov 2026: "no pictures on cities at all before we are launched and revise the website after some time")
+After launch, when the website is revised, the option is one licensed landscape photo per place page, 2400 × 1350 or larger, daylight, no readable aircraft registration, no people's faces in close-up, no logos; saved as `apps/website/images/places/<path with dashes>.webp` (for example `cities-tokyo.webp`). Pages without one show the plain hero. 53 pages:
 - Regions (6): Africa, Asia-Pacific, Europe, Latin America, Middle East, North America.
 - Countries (10): India, Indonesia, Japan, Malaysia, Maldives, South Korea, Sri Lanka, Taiwan, Thailand, Vietnam.
 - Cities (37): Auckland, Bali, Bangkok, Buenos Aires, Cape Town, Chiang Mai, Doha, Dubai, Geneva, Hong Kong, Johannesburg, Kuala Lumpur, Lagos, London, Los Angeles, Macau, Marrakech, Mexico City, Miami, Milan, Mumbai, Nassau, New York, Nice, Palm Beach, Paris, Phuket, Riyadh, San Francisco, São Paulo, Seoul, Singapore, Sydney, Taipei, Tokyo, Warsaw, Washington.
