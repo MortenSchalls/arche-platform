@@ -31,7 +31,10 @@ import { TRACKS, FOR, INV_FOCUS, INTERESTS, TICKETS, GEOS, vetInvestor, vetProfi
 import { CORE, SETS, AIRPORTS, GUEST_CATS, vetService } from "./services.mjs";
 import { seal, open, jobKeys } from "./agentcrypt.mjs";
 
-export const LIMITS = { orgs: 20, operators: 12, routes: 8, complete: 25, airports: 5, perAirport: 8, investors: 12, profiles: 8 };
+// per morning run; raised 13 Nov 2026 (Morten: "i just dont see enough, we need to load more than this each day"): was orgs 20,
+// operators 12, routes 8, complete 25, one focus area a run. Every item still passes every check in import.
+export const LIMITS = { orgs: 50, operators: 20, routes: 24, complete: 40, airports: 5, perAirport: 8, investors: 12, profiles: 8 };
+export const FOCUS_PER_RUN = 3;   // focus areas researched in one run (the list rotates through all of them)
 const WEEK = 7 * 864e5;
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
 const EXCL = JSON.parse(readFileSync(new URL("../apps/website/content/excluded.json", import.meta.url), "utf8"));
@@ -97,7 +100,7 @@ export async function plan(db, now = new Date()) {
     focus: INV_FOCUS[(Number.isInteger(inv.focusIndex) ? inv.focusIndex : 0) % INV_FOCUS.length], tracks: TRACKS, for: FOR, interests: INTERESTS, tickets: TICKETS, geos: GEOS,
     known: [...mine.map(r => r.data.org), ...rows.map(r => r.data.org)].filter(Boolean),
     profile: mine.filter(r => !r.data.profile && r.data.status !== "dnc").slice(0, LIMITS.profiles).map(r => ({ id: r.id, org: r.data.org, website: r.data.website || "", country: r.data.country || "" })) } : null;
-  return { due: isDue, reason: !agent.on ? "The agent is off (Prospects > Research agent)." : isDue ? "Due." : "Not due today.", focus: FOC[fi % FOC.length], opFocus: OP_FOCUS[ofi % OP_FOCUS.length],
+  return { due: isDue, reason: !agent.on ? "The agent is off (Prospects > Research agent)." : isDue ? "Due." : "Not due today.", focus: [...new Set(Array.from({ length: FOCUS_PER_RUN }, (_, k) => FOC[(fi + k) % FOC.length]))].join("; "), opFocus: OP_FOCUS[ofi % OP_FOCUS.length],
     limits: LIMITS, segments: SEGMENTS, regions: REGIONS, known: rows.map(r => r.data.org).filter(Boolean), bare, suppliers, investors,
     // operators from the registries with details still to find (country, website, certificate, fleet), oldest first
     opsToComplete: rows.filter(r => r.data.kind === "operator" && r.data.origin === "registry" && !r.data.completed && r.data.status !== "dnc")
@@ -278,10 +281,13 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
   const note = `${dry ? "Dry run, nothing written. " : ""}Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${svcNote}${invNote}${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
   if (!dry) {
     const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0, ofi = Number.isInteger(status.opFocusIndex) ? status.opFocusIndex : 0;
-    await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length, lastUpdated: updated, lastOperators: opsAdded.length, totalProspects: rows.length + added.length + opsAdded.length + svcAdded.length,
-      focusIndex: fi + 1, opFocusIndex: ofi + 1, note, rejected: rejected.slice(0, 30), by: "research agent" });
+    // a large run arrives in several batches the same morning: the focus moves on once a day, and the day's counts add up
+    const bkkDay = t => t ? new Date(Date.parse(t) + 7 * 36e5).toISOString().slice(0, 10) : "";
+    const again = bkkDay(status.lastRun) === bkkDay(nowIso), prevLast = again ? ((agent.last || {})) : {};
+    await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length + (again ? status.lastAdded || 0 : 0), lastUpdated: updated + (again ? status.lastUpdated || 0 : 0), lastOperators: opsAdded.length + (again ? status.lastOperators || 0 : 0), totalProspects: rows.length + added.length + opsAdded.length + svcAdded.length,
+      focusIndex: again ? fi : fi + FOCUS_PER_RUN, opFocusIndex: again ? ofi : ofi + 1, note, rejected: rejected.slice(0, 30), by: "research agent" });
     const a2 = (await db.get("intel/agent")) || agent;
-    await db.set("intel/agent", { ...a2, state: "done", stateAt: nowIso, last: { at: nowIso, added: added.length, operators: opsAdded.length, routes: updated, suppliers: svcAdded.length, suppliersLinked: svcMerged, investors: batch.investors ? invAdded : null, rejected: rejected.length, held: held.length + invHeld, focus: clean(batch.focus, 160), note: note.slice(0, 600), reasons: rejected.slice(0, 30) } });
+    await db.set("intel/agent", { ...a2, state: "done", stateAt: nowIso, last: { at: nowIso, added: added.length + (prevLast.added || 0), operators: opsAdded.length + (prevLast.operators || 0), routes: updated + (prevLast.routes || 0), suppliers: svcAdded.length + (prevLast.suppliers || 0), suppliersLinked: svcMerged + (prevLast.suppliersLinked || 0), investors: batch.investors ? invAdded : null, rejected: rejected.length, held: held.length + invHeld, focus: clean(batch.focus, 160), note: note.slice(0, 600), reasons: rejected.slice(0, 30) } });
   }
   log(note); rejected.forEach(x => log("  rejected: " + x));
   return { added, operators: opsAdded, updated, suppliers: svcAdded, suppliersLinked: svcMerged, investors: { added: invAdded, profiled: invProfiled, rejected: invRejected, held: invHeld }, rejected, held, note };

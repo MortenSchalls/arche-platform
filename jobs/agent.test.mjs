@@ -24,7 +24,7 @@ const base = { "intel/agent": { on: true, freq: "daily", focus: ["Example focus 
 
 // plan
 { const db = mk(base); const p = await plan(db, mon9);
-  ok("plan: due, today's focus from the Director's list, known names and bare prospects", p.due && p.focus === "Example focus B" && p.known.includes("Known Example Travel") && p.bare.length === 1 && p.bare[0].id === "p007", p); }
+  ok("plan: due, today's focus areas (three a run, from the Director's list), known names and bare prospects", p.due && p.focus === "Example focus B; Example focus A" && p.known.includes("Known Example Travel") && p.bare.length === 1 && p.bare[0].id === "p007", p); }
 { const db = mk({ ...base, "intel/agent": { on: false } }); const p = await plan(db, mon9); ok("plan: switched off says so", !p.due && /off/.test(p.reason)); }
 
 // pages: what each address shows (anything else does not open)
@@ -82,7 +82,10 @@ const batch = { focus: "Example focus B",
   ok("operator with certificate, own pages and fleet is added", !!by("Delta Example Aviation") && by("Delta Example Aviation").kind === "operator" && by("Delta Example Aviation").ops.aoc.source === "https://caas-example.test/aoc");
   ok("operator without a certificate is rejected", /operator\): (no Air Operator Certificate|source page)/.test(rej("Theta")), r.rejected);
   ok("contact routes added to a prospect that had none; status untouched", db.D["prospects/p007"].avenues.length === 1 && db.D["prospects/p007"].status === "new");
-  ok("result recorded for the portal, focus moves on", db.D["intel/agent"].last.added === 3 && db.D["intel/agent"].last.operators === 1 && db.D["intel/agent"].last.rejected === r.rejected.length && db.D["intel/status"].focusIndex === 2, db.D["intel/agent"].last); }
+  ok("result recorded for the portal, focus moves on", db.D["intel/agent"].last.added === 3 && db.D["intel/agent"].last.operators === 1 && db.D["intel/agent"].last.rejected === r.rejected.length && db.D["intel/status"].focusIndex === 4, db.D["intel/agent"].last); }
+{ const db = mk(base); await importBatch(db, batch, { fetchFn, lists, now: mon9 }); const first = db.D["intel/agent"].last.added;
+  await importBatch(db, { focus: "x", orgs: [] }, { fetchFn, lists, now: new Date(mon9.getTime() + 20 * 60e3) });
+  ok("a second batch the same morning: the focus does not move again and the day's counts add up", db.D["intel/status"].focusIndex === 4 && db.D["intel/agent"].last.added === first && first === 3, db.D["intel/agent"].last); }
 { const db = mk(base); const before = JSON.stringify(db.D);
   await importBatch(db, batch, { fetchFn, lists, now: mon9, dry: true }); ok("dry run writes nothing", JSON.stringify(db.D) === before); }
 ok("batch arrives gzip + base64 or as plain JSON", decode(gzipSync(Buffer.from('{"orgs":[]}')).toString("base64")).orgs.length === 0 && decode('{"orgs":[1]}').orgs.length === 1);
