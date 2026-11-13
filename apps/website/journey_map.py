@@ -34,7 +34,7 @@ def section(places, ac):
 .jm .stage{{position:relative;min-width:100%}}
 @media (max-width:900px){{.jm .stage{{width:1150px}}}}
 .jm svg{{display:block;width:100%;height:auto;cursor:crosshair}}
-.jm .lb{{position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;font:400 11px/1 Cinzel,serif;letter-spacing:.08em;text-transform:uppercase;color:#c6cbd2;background:rgba(36,38,43,.72);padding:3px 5px}}
+.jm .lb{{position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;font:400 11px/1 Cinzel,serif;letter-spacing:.08em;text-transform:uppercase;color:#c6cbd2;background:none;padding:3px 5px;text-shadow:0 0 2px #3b3f46,0 0 4px #3b3f46,0 0 7px #3b3f46}}   /* no box behind the names (Morten, 13 Nov 2026); a soft halo keeps them readable over the coastlines */
 .jm .lb.on{{color:#39ff8f}}
 .jm .lb.hv{{color:#f3f5f8}}
 .jm .coast{{fill:none;stroke:#a9bdd4;stroke-opacity:.45;stroke-width:.8;vector-effect:non-scaling-stroke}}

@@ -72,29 +72,33 @@ def header(page, lang, langs_here):
     langs = "".join(f'<a href="{langs_here(l)}" lang="{l}"' + (' aria-current="true"' if l == lang else "") + f'>{LABEL[l]}</a>' for l in LANGS)
     panel = "".join(a(s, n) for s, n in [("home", "Home")] + LEFT + RIGHT)
     return (f'<!--ae:nav--><header class="ae-nav" data-ae="nav"><div class="ae-nav-bar">'
-            f'<details class="ae-nav-menu"><summary><span class="ae-burger" aria-hidden="true"></span>{say("Menu", lang)}</summary>'
+            f'<div class="ae-nav-side l"><details class="ae-nav-menu"><summary><span class="ae-burger" aria-hidden="true"></span>{say("Menu", lang)}</summary>'
             f'<nav class="ae-nav-panel" aria-label="{say("Menu", lang)}">{panel}<a class="ae-nav-cta" href="{url("contact", lang)}#top">{say("Request a quote", lang)}</a></nav></details>'
-            f'<nav class="ae-nav-links l" aria-label="Main">{"".join(a(s, n) for s, n in LEFT)}</nav>'
+            f'<nav class="ae-nav-links l" aria-label="Main">{"".join(a(s, n) for s, n in LEFT)}</nav></div>'
             f'<a class="ae-nav-brand" href="{url("home", lang)}" aria-label="Archē Executive">{LOGO}<span class="w">ARCHĒ</span><span class="x">EXECUTIVE</span></a>'
-            f'<nav class="ae-nav-links r" aria-label="More">{"".join(a(s, n) for s, n in RIGHT)}</nav>'
+            f'<div class="ae-nav-side r"><nav class="ae-nav-links r" aria-label="More">{"".join(a(s, n) for s, n in RIGHT)}</nav>'
             f'<div class="ae-nav-end"><a class="ae-nav-quote" href="{url("contact", lang)}#top">{say("Request a quote", lang)}</a>'
-            f'<details class="ae-nav-lang"><summary>{LABEL[lang]}</summary><div>{langs}</div></details></div>'
+            f'<details class="ae-nav-lang"><summary>{LABEL[lang]}</summary><div>{langs}</div></details></div></div>'
             '</div></header><!--/ae:nav-->')
 
 CSS = """/* One top menu on every page (nav.py, 30 Oct 2026) */
 .ae-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(40,43,48,0.86);-webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%);border-bottom:1px solid rgba(243,245,248,0.10);font-family:'Hanken Grotesk',system-ui,sans-serif}
-.ae-nav-bar{max-width:1520px;margin:0 auto;padding:10px 40px;display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr) auto;align-items:center;column-gap:28px;box-sizing:border-box}
+/* the logo sits exactly in the middle of the screen, over the watermark aircraft, on every page and width (Morten, 13 Nov 2026):
+   two equal sides around it, each holding its own menu items */
+.ae-nav-bar{max-width:1520px;margin:0 auto;padding:10px 40px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:28px;box-sizing:border-box}
+.ae-nav .ae-nav-bar{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important}   /* the page template sets header > div to auto 1fr on phones */
+.ae-nav-side{display:flex;align-items:center;gap:28px;min-width:0;grid-row:1}.ae-nav-side.l{grid-column:1}.ae-nav-side.r{grid-column:3;justify-content:flex-end}
 .ae-nav,.ae-nav *{line-height:1.2;box-sizing:border-box}.ae-nav svg{display:block}.ae-nav a{color:#c6cbd2;text-decoration:none}.ae-nav a:hover{color:#f3f5f8}
 .ae-nav-links{display:flex;gap:20px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
-.ae-nav-links.l{justify-self:end}.ae-nav-links.r{justify-self:start}
+.ae-nav-links.l{margin-left:auto}.ae-nav-links.r{margin-right:auto}
 .ae-nav-links a{padding:6px 0;border-bottom:1px solid transparent}
 .ae-nav-links a[aria-current="page"]{color:#f3f5f8;border-bottom-color:rgba(243,245,248,0.6)}
-.ae-nav-brand{display:flex;flex-direction:column;align-items:center;gap:2px;grid-column:3}
+.ae-nav-brand{display:flex;flex-direction:column;align-items:center;gap:2px;grid-column:2;grid-row:1;justify-self:center}
 .ae-nav-brand .w{font-family:Cinzel,serif;font-size:24px;line-height:1.15;letter-spacing:0.22em;font-weight:600;padding-left:0.24em;background:linear-gradient(178deg,#fff 0%,#d6e0eb 34%,#9db2ca 70%,#e4ebf2 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .ae-nav-brand .x{font-size:10.5px;font-weight:600;letter-spacing:0.8em;padding-left:0.8em;color:#c6cbd2}
 .ae-nav details>summary{list-style:none;cursor:pointer;white-space:nowrap;color:#f3f5f8;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;padding:8px 2px}
 .ae-nav details>summary::-webkit-details-marker{display:none}
-.ae-nav-menu{grid-column:1;position:relative}
+.ae-nav-menu{position:relative}
 .ae-nav-menu>summary{display:flex;align-items:center;gap:12px}
 .ae-burger{position:relative;width:24px;height:1px;background:#f3f5f8;display:inline-block}
 .ae-burger::before{content:"";position:absolute;left:0;top:-6px;width:24px;height:1px;background:#f3f5f8}
@@ -105,13 +109,13 @@ CSS = """/* One top menu on every page (nav.py, 30 Oct 2026) */
 .ae-nav-panel a{padding:13px 0;border-bottom:1px solid rgba(243,245,248,0.08);font-family:Prata,Georgia,serif;font-size:22px;line-height:1.3;color:#f3f5f8}
 .ae-nav-panel a[aria-current="page"]{color:#a9bdd4}
 .ae-nav-panel a.ae-nav-cta{margin-top:22px;padding:14px 22px;border:1px solid rgba(243,245,248,0.45);text-align:center;font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase}
-.ae-nav-end{grid-column:5;justify-self:end;display:flex;align-items:center;gap:22px}.ae-nav-lang{position:relative}
+.ae-nav-end{display:flex;align-items:center;gap:22px}.ae-nav-lang{position:relative}
 .ae-nav a.ae-nav-quote{padding:10px 16px;border:1px solid rgba(243,245,248,0.5);color:#f3f5f8;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap}.ae-nav a.ae-nav-quote:hover{background:#f3f5f8;color:#2b2e33}
 .ae-nav-lang>summary::after{content:"\\25BE";margin-left:6px;color:#a9bdd4;font-size:10px}
 .ae-nav-lang>div{position:absolute;right:0;top:calc(100% + 6px);display:flex;flex-direction:column;gap:10px;padding:14px 18px;background:rgba(40,43,48,0.97);border:1px solid rgba(169,189,212,0.25);min-width:110px;font-size:13px;letter-spacing:0.08em}
 .ae-nav-lang a[aria-current="true"]{color:#f3f5f8}
-@media (max-width:1279px){.ae-nav-links{display:none}.ae-nav-bar{grid-template-columns:1fr auto 1fr}.ae-nav-brand{grid-column:2}.ae-nav-end{grid-column:3}}
-@media (max-width:1439px) and (min-width:1280px){.ae-nav-links{gap:13px;font-size:11.5px;letter-spacing:0.1em}.ae-nav-bar{column-gap:18px;padding:10px 24px}}
+@media (max-width:1279px){.ae-nav-links{display:none}}
+@media (max-width:1439px) and (min-width:1280px){.ae-nav-links{gap:13px;font-size:11.5px;letter-spacing:0.1em}.ae-nav-bar{column-gap:18px;padding:10px 24px}.ae-nav-side{gap:18px}}
 @media (max-width:600px){.ae-nav a.ae-nav-quote{display:none}.ae-nav-bar{padding:8px 16px;column-gap:12px}.ae-nav-brand .w{font-size:20px}.ae-nav-brand svg{width:84px;height:20px}.ae-nav-brand .x{font-size:10px;letter-spacing:0.62em;padding-left:0.62em}
  .ae-nav-menu>summary{gap:10px}.ae-nav-panel{left:-16px;width:100vw;padding:12px 16px 24px;border-right:0}}
 /* the page's own header (home and menu pages) gives way to this one */

@@ -74,7 +74,6 @@ NEW_RX = "  [/^Call direct · (.+)$/, { th: 'โทรตรง · $1', zh: '直
 
 # existing rows: (English key, column 1-3, wrong text, corrected text)
 CORRECTIONS = [
-    ("Four zones, low cabin altitude", "สี่โซน ความดันห้องโดยสารต่ำ", "สี่โซน ระดับความสูงห้องโดยสารต่ำ"),   # "low cabin pressure" was the opposite meaning
     ("Terms of business", "ข้อกำหนดทางธุรกิจ", "เงื่อนไขการให้บริการ"),
     ("Broker disclosure", "经纪人声明", "经纪服务声明"),
 ]
@@ -165,11 +164,11 @@ def page(s):
 
 # ---- cabin drawings carry no words; this line under the aircraft finder says what they show (translated below)
 DRAWINGS_NOTE = ("Cabin drawings are our own and drawn to scale, with a 1.80 m person for comparison. "
-                 "Cabin height and width come from published manufacturer and specification sources.")
+                 "Seats, range and cabin figures are the makers' published figures; the aircraft are examples for reference only.")
 NEW_ROWS.append([DRAWINGS_NOTE,
-    "ภาพตัดห้องโดยสารจัดทำโดยเราและวาดตามสัดส่วนจริง โดยมีคนสูง 1.80 ม. ไว้เปรียบเทียบ ความสูงและความกว้างของห้องโดยสารอ้างอิงจากข้อมูลที่ผู้ผลิตและแหล่งข้อมูลจำเพาะเผยแพร่",
-    "客舱剖面图由我们自行绘制，按真实比例呈现，并以一位身高 1.80 米的人作对比。客舱高度和宽度数据来自制造商及公开的规格资料。",
-    "キャビン断面図は当社が実寸比で作成したもので、比較のため身長 1.80 m の人物を描いています。キャビンの高さと幅は、メーカーおよび公開されている仕様資料に基づきます。"])
+    "ภาพตัดห้องโดยสารจัดทำโดยเราและวาดตามสัดส่วนจริง โดยมีคนสูง 1.80 ม. ไว้เปรียบเทียบ จำนวนที่นั่ง พิสัยบิน และขนาดห้องโดยสารเป็นตัวเลขที่ผู้ผลิตเผยแพร่ เครื่องบินที่แสดงเป็นเพียงตัวอย่างเพื่ออ้างอิง",
+    "客舱剖面图由我们自行绘制，按真实比例呈现，并以一位身高 1.80 米的人作对比。座位数、航程和客舱数据均为制造商公布的数据；所列机型仅为参考示例。",
+    "キャビン断面図は当社が実寸比で作成したもので、比較のため身長 1.80 m の人物を描いています。座席数、航続距離、キャビン寸法はメーカー公表値です。掲載機種は参考例です。"])
 
 _page2 = page
 def page(s):

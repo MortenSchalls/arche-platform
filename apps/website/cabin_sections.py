@@ -25,7 +25,7 @@ SOURCES = {
     "cl650":     (1.83, 2.41, "6 ft 0 in", "7 ft 11 in", "Cabin figures: Bombardier Challenger 650 factsheet"),
     "f8x":       (1.88, 2.34, "6 ft 2 in", "7 ft 8 in", "Cabin figures: Dassault Aviation, Falcon 8X"),
     "g550":      (1.88, 2.24, "6 ft 2 in", "7 ft 4 in", "Cabin figures: GlobalAir.com, Gulfstream G550 specifications"),
-    "g650":      (1.96, 2.59, "6 ft 5 in", "8 ft 6 in", "Cabin figures: GlobalSecurity.org, Gulfstream G650"),
+    "g650":      (1.91, 2.49, "6 ft 3 in", "8 ft 2 in", "Cabin figures: Aviation Week, Gulfstream G650ER"),
     "g7500":     (1.88, 2.44, "6 ft 2 in", "8 ft 0 in", "Cabin figures: Bombardier Global 7500 factsheet"),
 }
 
