@@ -10,8 +10,8 @@ import company
 HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(HERE, "site")
 BASE = "https://archeaviation.com"
-DESC_EN = "Private jet charter from Singapore to anywhere. We find the right aircraft, vet the operator and stay with you until you land. Replies within 15 minutes, 24/7."
-OLD_DESC_EN = "Private jet charter from Singapore, worldwide. We find the right aircraft, check the operator behind it, and stay with you until you land. Answers within 15 minutes, any hour."
+DESC_EN = "Private jet charter from Singapore to anywhere. We find the right aircraft, vet the operator and stay with you until you land. Replies within the hour, 24/7."
+OLD_DESC_EN = "Private jet charter from Singapore, worldwide. We find the right aircraft, check the operator behind it, and stay with you until you land. Answers within the hour, day or night."
 PAGES = {"index.html": ("/", "en"), "th.html": ("/th", "th"), "zh.html": ("/zh", "zh-Hans"), "ja.html": ("/ja", "ja")}
 LOCALES = {"index.html": "en_GB", "th.html": "th_TH", "zh.html": "zh_CN", "ja.html": "ja_JP"}
 

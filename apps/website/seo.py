@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 SITE_URL = "https://archeaviation.com"
 TITLE = "Archē Executive · Private jet charter · Singapore · Worldwide"
 DESC = ("Private jet charter from Singapore, worldwide. We find the right aircraft, check the operator "
-        "behind it, and stay with you until you land. Answers within 15 minutes, any hour.")
+        "behind it, and stay with you until you land. Answers within the hour, day or night.")
 FONTS = ("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Prata"
          "&family=Hanken+Grotesk:wght@300;400;500;600&family=Noto+Sans+Thai:wght@300;400;500"
          "&family=Noto+Sans+SC:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap")

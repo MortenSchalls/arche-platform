@@ -41,7 +41,7 @@
  },
  {
   "path": "/cities/bali/",
-  "draft": true,
+  "draft": false,
   "words": 399
  },
  {
@@ -61,7 +61,7 @@
  },
  {
   "path": "/cities/chiang-mai/",
-  "draft": true,
+  "draft": false,
   "words": 746
  },
  {
@@ -111,7 +111,7 @@
  },
  {
   "path": "/cities/macau/",
-  "draft": true,
+  "draft": false,
   "words": 485
  },
  {
@@ -226,7 +226,7 @@
  },
  {
   "path": "/countries/indonesia/",
-  "draft": true,
+  "draft": false,
   "words": 573
  },
  {
@@ -286,7 +286,7 @@
  },
  {
   "path": "/needs/flying-with-pets/",
-  "draft": true,
+  "draft": false,
   "words": 854
  },
  {

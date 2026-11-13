@@ -72,7 +72,8 @@ td {{ padding:10px 0; border-bottom:1px solid var(--line); }} td:last-child {{ t
 <table>{rows}</table>
 <p>{e(d["A9_AFTER"])}</p>
 {"".join(body)}
-<p class="muted" style="margin-top:48px"><a href="/privacy.html">Privacy notice</a> · <a href="/website-terms.html">Website terms of use</a> · <a href="/">Back to Archē Executive</a></p>
+<p class="rule" style="margin:48px 0 0;text-align:center;font-size:13px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#a9bdd4">Any aircraft, any route, upon availability.</p>
+<p class="muted" style="margin-top:24px;text-align:center"><a href="/privacy.html">Privacy notice</a> · <a href="/website-terms.html">Website terms of use</a> · <a href="/">Back to Archē Executive</a></p>
 </main>
 </body>
 </html>

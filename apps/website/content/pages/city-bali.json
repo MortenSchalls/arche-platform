@@ -62,7 +62,7 @@
   "/cities/singapore/",
   "/regions/asia-pacific/"
  ],
- "draft": true,
+ "draft": false, "approved": "13 Nov 2026, Morten",
  "type": "city",
  "region": "/regions/asia-pacific/"
 }

@@ -65,7 +65,7 @@
   "/regions/asia-pacific/",
   "/guides/cabotage/"
  ],
- "draft": true,
+ "draft": false, "approved": "13 Nov 2026, Morten",
  "type": "country",
  "region": "/regions/asia-pacific/"
 }

@@ -27,7 +27,7 @@ SERVICES = [
     ("01", "Private Charter", "One trip or a full season of travel.", "#svc-charter", [
         "The whole market searched for your dates, not a preferred fleet.",
         "Every operator checked against our standard before you see a quote.",
-        "One all-in price and one invoice, with the operator named.",
+        "One fixed price for the agreed services, with the operator named.",
         "Catering, cars, private terminal, passports and manifests arranged.",
         "Your advisor reachable throughout, and a call after you land.",
     ]),
@@ -79,7 +79,7 @@ def onboard():
 <span style="{EYE}">On board</span><h2 style="{H2}">The flight, arranged around you.</h2>
 <p style="{TXT}">Tell us once how you like to travel. We arrange the details with the operator and confirm them with you before departure.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:40px 56px;margin:40px 0 0">{"".join(tile(i + 1, *o) for i, o in enumerate(ONBOARD))}</div>
-<p style="margin:36px 0 0;font-size:14px;line-height:1.7;color:#b1b6bd;max-width:760px">Every request depends on the aircraft, the operator, the airport and local rules. Any cost is agreed with you before departure.</p>
+<p style="margin:36px 0 0;font-size:14px;line-height:1.7;color:#b1b6bd;max-width:760px">Every request depends on the aircraft, the operator, the airport and local rules. The price for the agreed services is fixed before departure; any further cost is priced the same way, as your confirmation sets out.</p>
 </div></section><!--/ae:lux-->'''
 
 def statement():
@@ -100,7 +100,7 @@ def js(x): return "'" + x.replace("\\", "\\\\").replace("'", "\\'") + "'"
 def texts():
     out = ["Each service, in detail", "What you can expect from us.", "Three services, each run by senior aviation people. This is what each one means in practice.",
            "On board", "The flight, arranged around you.", "Tell us once how you like to travel. We arrange the details with the operator and confirm them with you before departure.",
-           "Every request depends on the aircraft, the operator, the airport and local rules. Any cost is agreed with you before departure.",
+           "Every request depends on the aircraft, the operator, the airport and local rules. The price for the agreed services is fixed before departure; any further cost is priced the same way, as your confirmation sets out.",
            "Any aircraft. Any hour. One advisor."]
     for _, _, lead, _, items in SERVICES: out += [lead] + items
     for t, d in ONBOARD: out += [t, d]

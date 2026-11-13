@@ -33,7 +33,7 @@ def standard():
     return f'''<!--ae:home--><section id="standard" data-ae="home" style="{LINE}"><div style="{WRAP}">
 <span style="{EYE}">Our standard</span><h2 style="{H2}">Every operator checked before you see a quote.</h2>
 <p style="{TXT}">We accept an operator without further approval only when the certificate that flies your trip holds a current ARGUS Platinum or Platinum Elite rating, WYVERN Wingman or Wingman PRO, or IS-BAO registration at Stage 2 or 3, checked in the auditor's own registry for every booking.</p>
-<p style="{TXT}">Any other operator needs the Director's approval after our own further checks, and your quote states its status in one line. For every operator: two pilots on every jet flight, passenger liability insurance of at least USD 50 million for a jet, and five years without a fatal accident, serious incident or sanction.</p>
+<p style="{TXT}">Any other operator needs the Director's approval after our own further checks, and your quote states its status in one line. For every operator: two pilots on every jet flight, passenger liability insurance of at least USD 50 million for a jet and USD 25 million for a turboprop, and no fatal accident, serious incident or sanction in the last five years without a written explanation and the Director's approval.</p>
 <p style="margin:18px 0 0"><a href="/guides/operator-safety-audits/" style="font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase;color:#f3f5f8;border-bottom:1px solid rgba(243,245,248,0.4);padding-bottom:4px">Read the full standard</a></p>
 </div></section><!--/ae:home-->'''
 
@@ -60,7 +60,7 @@ def destinations(P):
 <p style="{TXT}">We have no fixed routes. For each place, our guides cover the airports, permits, night rules and customs, with the official source of every fact and the date we checked it.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:32px 40px;margin:28px 0 0">{cols}</div>
 {ctry}
-<div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;margin:32px 0 0"><a href="/destinations/" style="font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase;color:#f3f5f8;border-bottom:1px solid rgba(243,245,248,0.4);padding-bottom:4px">All destinations and guides</a><span style="font-size:14px;color:#a3a9b1;font-style:italic">Any aircraft, any route, upon availability.</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;margin:32px 0 0"><a href="/destinations/" style="font-size:12.5px;letter-spacing:0.18em;text-transform:uppercase;color:#f3f5f8;border-bottom:1px solid rgba(243,245,248,0.4);padding-bottom:4px">All destinations and guides</a></div>
 </div></section><!--/ae:home-->'''
 
 def dates(P):

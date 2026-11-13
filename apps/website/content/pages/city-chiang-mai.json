@@ -2,7 +2,7 @@
  "path": "/cities/chiang-mai/",
  "type": "city",
  "region": "/regions/asia-pacific/",
- "draft": true,
+ "draft": false, "approved": "13 Nov 2026, Morten",
  "title": "Private jet charter to and from Chiang Mai",
  "description": "Private flights to and from Chiang Mai: Thailand's flight permit, slots, night limits, ground time and customs hours, from the Thailand AIP and the slot coordinator.",
  "eyebrow": "City guide · Chiang Mai",

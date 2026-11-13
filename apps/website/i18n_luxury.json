@@ -38,10 +38,10 @@
 "見積もりをお送りする前に、すべての運航会社を私たちの基準で確認します。"
 ],
 [
-"One all-in price and one invoice, with the operator named.",
-"ราคาเดียวรวมทุกอย่าง ใบแจ้งหนี้ใบเดียว พร้อมระบุชื่อผู้ให้บริการ",
-"一个全包价格，一张发票，并写明运营商。",
-"すべて込みの料金と1通の請求書。運航会社名も明記します。"
+"One fixed price for the agreed services, with the operator named.",
+"ราคาคงที่หนึ่งเดียวสำหรับบริการที่ตกลงกัน พร้อมระบุชื่อผู้ให้บริการ",
+"所约定服务一口价，并写明运营商。",
+"ご合意いただいたサービスは確定した一つの料金で。運航会社名も明記します。"
 ],
 [
 "Catering, cars, private terminal, passports and manifests arranged.",
@@ -206,10 +206,10 @@
 "お誕生日やお祝いに、機内でお花やケーキ、お好みの一本をご用意します。"
 ],
 [
-"Every request depends on the aircraft, the operator, the airport and local rules. Any cost is agreed with you before departure.",
-"ทุกคำขอขึ้นอยู่กับเครื่องบิน ผู้ให้บริการ สนามบิน และกฎท้องถิ่น ค่าใช้จ่ายใด ๆ จะตกลงกับท่านก่อนออกเดินทาง",
-"每项要求都取决于飞机、运营商、机场和当地规定。任何费用都会在出发前与您商定。",
-"ご要望は機材、運航会社、空港、現地の規則によります。費用が生じる場合は出発前にご相談します。"
+"Every request depends on the aircraft, the operator, the airport and local rules. The price for the agreed services is fixed before departure; any further cost is priced the same way, as your confirmation sets out.",
+"ทุกคำขอขึ้นอยู่กับเครื่องบิน ผู้ให้บริการ สนามบิน และกฎท้องถิ่น ราคาสำหรับบริการที่ตกลงกันจะกำหนดก่อนออกเดินทาง ส่วนค่าใช้จ่ายเพิ่มเติมคิดในลักษณะเดียวกันตามที่ระบุในใบยืนยันของท่าน",
+"每项要求都取决于飞机、运营商、机场和当地规定。所约定服务的价格在出发前确定；任何额外费用均按同样方式计价，详见您的确认书。",
+"ご要望は機材、運航会社、空港、現地の規則によります。ご合意いただいたサービスの料金は出発前に確定し、追加費用も同じ方法で計算します（確認書に記載）。"
 ],
 [
 "Any aircraft. Any hour. One advisor.",

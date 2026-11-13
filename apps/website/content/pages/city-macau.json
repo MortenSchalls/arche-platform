@@ -57,7 +57,7 @@
   "/regions/asia-pacific/",
   "/guides/operator-safety-audits/"
  ],
- "draft": true,
+ "draft": false, "approved": "13 Nov 2026, Morten",
  "type": "city",
  "region": "/regions/asia-pacific/"
 }

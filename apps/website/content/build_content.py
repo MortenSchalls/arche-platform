@@ -122,6 +122,7 @@ sup.s{font-size:12.5px;margin-left:2px}sup.s a{color:var(--accent)}
 .cta{margin:8px 0 0;text-align:center;padding:56px 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .cta .t{font:400 clamp(26px,3.2vw,38px)/1.2 Prata,Georgia,serif;color:var(--ink);margin:10px 0 14px}
 .cta p{max-width:620px;margin:0 auto 26px}
+.cta p.rule{margin:26px auto 0;font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
 .btn{display:inline-block;padding:16px 28px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(243,245,248,.4);color:var(--ink);margin:6px}
 .btn.p{background:linear-gradient(115deg,#f3f5f8 0%,#c9d2dc 45%,#f3f5f8 100%);color:#2b2e33;border-color:transparent}
 .btn:hover{text-decoration:none;filter:brightness(1.05)}
@@ -244,14 +245,15 @@ def page_html(p, F, S, P):
 <aside class="side">{glance}{srcs}</aside>
 </div>
 <section class="cta">
-<span class="eyebrow">Any aircraft · any route · upon availability</span>
+<span class="eyebrow">Archē Executive</span>
 <div class="t">Tell us the trip. We do the rest.</div>
 <p>We are a broker: we find the right aircraft for your trip, check the operator behind it and stay with you until you land.</p>
 <a class="btn p" href="/#top">Request a quote</a><a class="btn" href="{wa}">WhatsApp</a><a class="btn" href="mailto:{company.EMAIL}">{html.escape(company.EMAIL)}</a>
+<p class="rule">Any aircraft, any route, upon availability.</p>
 </section></div></main>
 <footer class="ft"><div class="wrap"><div class="fin">
 <div style="display:flex;flex-direction:column;align-items:center;gap:22px"><a class="brand" href="/" aria-label="Archē Executive home">{LOGO.format(w=110, h=27, id='lg2', s1=4, s2=2.4)}<span class="w" style="font-size:28px">ARCHĒ</span><span class="x">EXECUTIVE</span></a>
-<nav><a href="/#services">Services</a><a href="/#fleet">Aircraft</a><a href="/#journey">How it works</a><a href="/destinations/">Destinations</a><a href="/#contact">Contact</a><a href="/terms.html">Terms of business</a><a href="/privacy.html">Privacy</a></nav></div>
+<nav><a href="/#services">Services</a><a href="/#fleet">Aircraft</a><a href="/#journey">How it works</a><a href="/destinations/">Destinations</a><a href="/#contact">Contact</a><a href="/terms.html">Terms of business</a><a href="/privacy.html">Privacy</a><a href="/website-terms.html">Website terms</a></nav></div>
 <div class="g"><div><span class="k">Broker disclosure</span><p>Archē Executive acts solely as agent for its clients and does not own or operate any aircraft. All flights are operated by third-party air operators holding the appropriate Air Operator Certificate, who retain full operational control of each flight. The operator for your flight is named in your quotation and charter agreement before you confirm.</p></div>
 <div><span class="k">This page</span><p>Facts checked on {datetime.date.fromisoformat(checked).strftime('%-d %B %Y')} against the sources listed. Rules change; the operator confirms the current rules for your flight.</p><p>{html.escape(company.NAME)} · {html.escape(company.ADDRESS)}</p></div></div>
 <div class="b"><span>© {datetime.date.today().year} Archē Executive</span><span>Singapore · Worldwide</span></div>

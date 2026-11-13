@@ -114,7 +114,7 @@ def build():
               '<span>I agree that my details are used to answer this request. <a href="/privacy.html" style="color:#c6cbd2;text-decoration:underline">Privacy notice</a></span></label>')
     i = s.index('<button onClick="{{ submit }}"'); j = s.index("</button>", i) + len("</button>")
     s = s[:j] + notice + s[j:]
-    cb = '<span style="font-size:14px;color:#c6cbd2">An advisor calls back within 15 minutes.</span>'
+    cb = '<span style="font-size:14px;color:#c6cbd2">An advisor calls back within the hour.</span>'
     assert s.count(cb) == 1
     s = s.replace(cb, cb + '<label style="display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.6;color:{{ cbConsentFg }};cursor:pointer">'
                   '<input type="checkbox" checked="{{ cbConsent }}" onChange="{{ onCbConsent }}" style="margin:3px 0 0;accent-color:#a9bdd4;flex:none">'
@@ -210,6 +210,7 @@ window.archeSend = function (data) {
     import luxury; luxury.run()   # home page: services in detail, on board, statement (30 Oct 2026)
     import seo_security; seo_security.run()   # search, speed, security headers, statistics (26 Oct 2026)
     import pages; pages.run()   # one page per menu item, all four languages (30 Oct 2026)
+    import legal_footer; legal_footer.run()   # the site footer on the legal pages too (13 Nov 2026)
     import nav; nav.run()   # one fixed top menu on every page, watermark, home hero photo (30 Oct 2026)
     import self_fonts; self_fonts.run()   # fonts from our own site, never from a font service (12 Nov 2026)
     if not BANGKOK_OFFICE:
