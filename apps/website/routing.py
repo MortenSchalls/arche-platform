@@ -4,8 +4,9 @@
 Archē's own copy of the routing rules used on the Navoryx site (severance rule: a copy kept here, nothing read from that
 site; docs/SEVERANCE.md). Routes avoid airspace that EU, UK, US and Swiss-registered aircraft cannot use or that the EASA
 Conflict Zone Information Bulletins tell operators not to enter (bulletins on Russia, Ukraine, Iran, Iraq, Syria, Lebanon,
-Jordan, Yemen, Afghanistan, Pakistan's western provinces, Sudan, Libya, Mali, Somalia, the waters of the Persian Gulf and
-the Gulf of Oman west of 58 E, and the south-west of Saudi Arabia; checked 10 Nov 2026). Belarus is avoided with Russia and
+Jordan, Yemen, Sudan, Libya, Mali, Somalia, the waters of the Persian Gulf and
+the Gulf of Oman west of 58 E, and the south-west of Saudi Arabia; checked 10 Nov 2026; Afghanistan and Pakistan's western provinces only below FL320 and FL260, which business jets cruise
+above, so routes may cross them, checked 13 Nov 2026). Belarus is avoided with Russia and
 Ukraine. Routes also keep off the high ground of the Himalaya and the Tibetan plateau (13 Nov 2026). No country is named on the site ("routed around restricted airspace").
 
 The areas are drawn coarsely (about one degree) and routes are built from a small set of corridor points, so distances are
@@ -51,11 +52,11 @@ AREAS = {
         (12.4, 43.3), (16.4, 42.7), (18.4, 41.6), (19.5, 42.5), (19.5, 47.0), (19.0, 52.0), (16.6, 53.1), (15.0, 50.5),
         (13.6, 47.8), (12.6, 45.0),
     ],
-    "afpak": [  # Afghanistan, Balochistan and Khyber Pakhtunkhwa
-        (37.4, 74.9), (38.5, 71.3), (37.2, 67.8), (37.4, 66.5), (35.9, 64.5), (35.6, 62.3), (34.0, 61.0), (31.4, 61.8),
-        (29.9, 60.9), (27.2, 63.3), (25.3, 61.7), (25.0, 66.6), (27.8, 67.6), (29.4, 70.5), (31.5, 71.3), (33.8, 72.2),
-        (35.0, 73.3), (36.9, 73.7),
-    ],
+    # Afghanistan and Pakistan's western provinces are NOT closed: EASA's bulletins only advise against flying below FL320
+    # over Afghanistan (CZIB-2017-08R19, 24 Jul 2026) and below FL260 over Baluchistan and Khyber Pakhtunkhwa (CZIB-2018-02R21,
+    # 24 Jul 2026); business jets cruise above both, and the corridor Caspian - Turkmenistan - Afghanistan - Pakistan - India
+    # is the one airlines favour between Europe and India or South-East Asia (OPSGROUP, 18 Nov 2024; Reuters flight-tracking
+    # report, 23 Aug 2024). Removed as a closed area 13 Nov 2026 (Morten: "use historical data to ensure we do not make mistakes").
     "sudan_lib": [(22.0, 25.0), (31.6, 25.0), (32.9, 12.0), (23.5, 11.5), (19.5, 16.0), (15.6, 23.0), (10.0, 23.0),
                   (8.6, 24.2), (9.5, 30.0), (11.9, 33.2), (12.6, 36.1), (15.5, 36.6), (18.0, 38.6), (22.0, 36.9)],
     "mali": [(25.0, -4.8), (19.1, 4.3), (15.0, 3.6), (14.3, 0.2), (15.3, -4.4), (11.0, -6.0), (12.1, -11.4), (14.8, -12.2),
@@ -93,8 +94,9 @@ NODES = {
     # had gone via Singapore, Lagos to Auckland had no route)
     "per": (-31.94, 115.97), "mru": (-20.43, 57.68),
     # south of the Himalaya to South-East Asia and round the Tibetan plateau (added 13 Nov 2026 with the high ground):
-    # northern India, Kolkata and the Bay of Bengal, Yangon, Kunming and Chengdu, and Lahore for Central Asia to India
-    "lhe": (31.5, 74.4), "ccu": (22.65, 88.45), "bay": (17.0, 88.0), "rgn": (16.9, 96.1), "kmg": (25.1, 102.9), "ctu": (30.6, 104.0),
+    # northern India, Kolkata and the Bay of Bengal, Yangon, Kunming and Chengdu, and Lahore for Central Asia to India;
+    # Mary (Turkmenistan) and Kabul for the Caspian - Afghanistan - Pakistan corridor east of the Iranian border
+    "lhe": (31.5, 74.4), "mary": (37.6, 61.8), "kbl": (34.6, 69.2), "ccu": (22.65, 88.45), "bay": (17.0, 88.0), "rgn": (16.9, 96.1), "kmg": (25.1, 102.9), "ctu": (30.6, 104.0),
 }
 # named fuel-stop airports outside the areas (none in the Gulf while its bulletins are active), plus Archē's city pages
 # outside the Gulf (added by tools/routes.py)
