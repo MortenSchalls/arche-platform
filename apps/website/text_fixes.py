@@ -164,16 +164,17 @@ def page(s):
 
 # ---- cabin drawings carry no words; this line under the aircraft finder says what they show (translated below)
 DRAWINGS_NOTE = ("Cabin drawings are our own and drawn to scale, with a 1.80 m person for comparison. "
-                 "Seats, range and cabin figures are the makers' published figures; the aircraft are examples for reference only.")
+                 "Range and cabin figures are the makers' published figures; seats show the usual layout and the certified maximum, "
+                 "and the seats in each aircraft are confirmed in your quote. The aircraft are examples for reference only.")
 NEW_ROWS.append([DRAWINGS_NOTE,
-    "ภาพตัดห้องโดยสารจัดทำโดยเราและวาดตามสัดส่วนจริง โดยมีคนสูง 1.80 ม. ไว้เปรียบเทียบ จำนวนที่นั่ง พิสัยบิน และขนาดห้องโดยสารเป็นตัวเลขที่ผู้ผลิตเผยแพร่ เครื่องบินที่แสดงเป็นเพียงตัวอย่างเพื่ออ้างอิง",
-    "客舱剖面图由我们自行绘制，按真实比例呈现，并以一位身高 1.80 米的人作对比。座位数、航程和客舱数据均为制造商公布的数据；所列机型仅为参考示例。",
-    "キャビン断面図は当社が実寸比で作成したもので、比較のため身長 1.80 m の人物を描いています。座席数、航続距離、キャビン寸法はメーカー公表値です。掲載機種は参考例です。"])
+    "ภาพตัดห้องโดยสารจัดทำโดยเราและวาดตามสัดส่วนจริง โดยมีคนสูง 1.80 ม. ไว้เปรียบเทียบ พิสัยบินและขนาดห้องโดยสารเป็นตัวเลขที่ผู้ผลิตเผยแพร่ จำนวนที่นั่งแสดงรูปแบบที่พบทั่วไปและจำนวนสูงสุดที่ได้รับการรับรอง โดยจะยืนยันจำนวนที่นั่งของแต่ละลำในใบเสนอราคา เครื่องบินที่แสดงเป็นเพียงตัวอย่างเพื่ออ้างอิง",
+    "客舱剖面图由我们自行绘制，按真实比例呈现，并以一位身高 1.80 米的人作对比。航程和客舱数据为制造商公布的数据；座位数显示常见布局及认证最大座位数，每架飞机的座位数将在报价中确认。所列机型仅为参考示例。",
+    "キャビン断面図は当社が実寸比で作成したもので、比較のため身長 1.80 m の人物を描いています。航続距離とキャビン寸法はメーカー公表値です。座席数は一般的なレイアウトと認証上の最大数で、各機の座席数はお見積りで確認します。掲載機種は参考例です。"])
 
 _page2 = page
 def page(s):
     s = _page2(s)
-    end = "describe the market in general, not guaranteed availability.</p>"
+    end = "and the operator confirms them in your quote.</p>"
     assert s.count(end) == 1
     return s.replace(end, end + f'\n    <p style="margin:12px 0 0;font-size:12px;color:#a3a9b1;max-width:760px;line-height:1.7">{DRAWINGS_NOTE}</p>')
 

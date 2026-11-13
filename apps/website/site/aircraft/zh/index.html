@@ -41,8 +41,8 @@ section:not(#top) h2{font-size:clamp(30px,4.3vw,62px) !important;line-height:1.0
   .ar-trio{padding-bottom:200px !important}
 }
 /* 5. one fine metallic detail: section labels and dividers */
-section span[style*="uppercase"][style*="0.16em"], .ar-trio .ar-k{background:linear-gradient(100deg,#eef2f6 0%,#ffffff 25%,#b9c5d2 55%,#e4ebf2 80%,#ffffff 100%);-webkit-background-clip:text;background-clip:text;color:transparent !important;display:inline-flex;align-items:center;gap:14px}
-section span[style*="uppercase"][style*="0.16em"]::before, .ar-trio .ar-k::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,rgba(185,197,210,0),#dfe6ee);flex:none}
+section span[style*="uppercase"][style*="0.16em"], .ar-trio .ar-k{background:linear-gradient(100deg,#eef2f6 0%,#ffffff 25%,#b9c5d2 55%,#e4ebf2 80%,#ffffff 100%);-webkit-background-clip:text;background-clip:text;color:transparent !important;display:inline-flex;align-items:baseline;gap:14px}
+section span[style*="uppercase"][style*="0.16em"]::before, .ar-trio .ar-k::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,rgba(185,197,210,0),#dfe6ee);flex:none;position:relative;top:-.33em}   /* the text sets the baseline (a label that wraps keeps its first line level with the others); the line is drawn at mid-height beside it (13 Nov 2026) */
 [style*="border-image"]{border-image:linear-gradient(90deg,rgba(185,197,210,0) 0%,rgba(223,230,238,.55) 35%,rgba(255,255,255,.75) 50%,rgba(223,230,238,.55) 65%,rgba(185,197,210,0) 100%) 1 !important}
 </style>
 <style id="arche-breaks-css">
@@ -157,43 +157,43 @@ div:has(> #why-photo), .ar-moved{display:none !important}
       <div data-dc-tpl="251" style="grid-column: span 2; display: flex; flex-direction: column; gap: 32px; min-width: 0px;">
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-cj3" data-filled="" shape="rect" fit="cover" placeholder="Cessna Citation CJ3 Gen2 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-cj3" shape="rect" fit="cover" placeholder="Cessna Citation CJ3 Gen2 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: block; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-phenom300" data-filled="" shape="rect" fit="cover" placeholder="Embraer Phenom 300E · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-phenom300" shape="rect" fit="cover" placeholder="Embraer Phenom 300E · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-pc24" data-filled="" shape="rect" fit="cover" placeholder="Pilatus PC-24 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-pc24" shape="rect" fit="cover" placeholder="Pilatus PC-24 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-xls" data-filled="" shape="rect" fit="cover" placeholder="Cessna Citation XLS Gen2 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-xls" shape="rect" fit="cover" placeholder="Cessna Citation XLS Gen2 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-cl350" data-filled="" shape="rect" fit="cover" placeholder="Bombardier Challenger 350 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-cl350" shape="rect" fit="cover" placeholder="Bombardier Challenger 350 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-cl650" data-filled="" shape="rect" fit="cover" placeholder="Bombardier Challenger 650 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-cl650" shape="rect" fit="cover" placeholder="Bombardier Challenger 650 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-f8x" data-filled="" shape="rect" fit="cover" placeholder="Dassault Falcon 8X · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-f8x" shape="rect" fit="cover" placeholder="Dassault Falcon 8X · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-g550" data-filled="" shape="rect" fit="cover" placeholder="Gulfstream G550 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-g550" shape="rect" fit="cover" placeholder="Gulfstream G550 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-g650" data-filled="" shape="rect" fit="cover" placeholder="Gulfstream G650ER · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-g650" shape="rect" fit="cover" placeholder="Gulfstream G650ER · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
           <div data-dc-tpl="253" style="display: none; position: relative; width: 100%; aspect-ratio: 16 / 9; background: transparent;">
-            <image-slot data-dc-tpl="254" id="ac-g7500" data-filled="" shape="rect" fit="cover" placeholder="Bombardier Global 7500 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view"></image-slot>
+            <image-slot data-dc-tpl="254" id="ac-g7500" shape="rect" fit="cover" placeholder="Bombardier Global 7500 · 16:9 landscape · min 2400 × 1350 px · side or ¾ view" data-filled=""></image-slot>
           </div>
         
         <div data-dc-tpl="255" style="display: flex; flex-direction: column; gap: 14px;">
@@ -208,16 +208,16 @@ div:has(> #why-photo), .ar-moved{display:none !important}
           <div data-dc-tpl="262" style="padding: 20px 20px 0px 0px; display: flex; flex-direction: column; gap: 8px;"><span data-dc-tpl="263" style="font-size: 11.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212); text-transform: uppercase;">乘客人数</span><span data-dc-tpl="264" style="font-size: 20px; color: rgb(243, 245, 248);"><span class="sc-interp">最多 10 名乘客</span></span></div><div data-dc-tpl="265" style="padding: 20px 20px 0px 0px; display: flex; flex-direction: column; gap: 8px;"><span data-dc-tpl="266" style="font-size: 11.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212); text-transform: uppercase;">航程</span><span data-dc-tpl="267" style="font-size: 20px; color: rgb(243, 245, 248);"><span class="sc-interp">3,723 km</span></span></div><div data-dc-tpl="268" style="padding: 20px 20px 0px 0px; display: flex; flex-direction: column; gap: 8px;"><span data-dc-tpl="269" style="font-size: 11.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212); text-transform: uppercase;">客舱</span><span data-dc-tpl="270" style="font-size: 20px; color: rgb(243, 245, 248);"><span class="sc-interp">高 1.50 米</span></span></div><div data-dc-tpl="271" style="padding: 20px 20px 0px 0px; display: flex; flex-direction: column; gap: 8px;"><span data-dc-tpl="272" style="font-size: 11.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212); text-transform: uppercase;">直飞示例</span><span data-dc-tpl="273" style="font-size: 20px; color: rgb(243, 245, 248);"><span class="sc-interp">曼谷 – 香港</span></span></div>
         </div>
         <div data-dc-tpl="274" style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding: 14px 0px; border-top: 1px solid rgba(243, 245, 248, 0.12); border-image: linear-gradient(90deg, rgba(243, 245, 248, 0) 0%, rgba(243, 245, 248, 0.34) 50%, rgba(243, 245, 248, 0) 100%) 1 / 1 / 0 stretch; border-bottom: 1px solid rgba(243, 245, 248, 0.12);">
-          <span data-dc-tpl="275" style="font-size: 11.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212); text-transform: uppercase;">区域包机供应</span>
-          <span data-dc-tpl="276" style="font-size: 15px; color: rgb(243, 245, 248);"><span class="sc-interp">按您的日期核实可用性</span></span>
+          <span data-dc-tpl="275" style="font-size: 11.5px; letter-spacing: 0.16em; color: rgb(169, 189, 212); text-transform: uppercase;">可用性</span>
+          <span data-dc-tpl="276" style="font-size: 15px; color: rgb(243, 245, 248);"><span class="sc-interp">按您的日期核实</span></span>
         </div>
         <div data-dc-tpl="277" style="display: flex; justify-content: flex-end;">
           <a data-dc-tpl="278" href="/contact/zh/#top" style="background: linear-gradient(120deg, rgb(214, 222, 232) 0%, rgb(255, 255, 255) 22%, rgb(185, 197, 210) 45%, rgb(125, 138, 153) 60%, rgb(223, 230, 238) 80%, rgb(255, 255, 255) 100%) 0% 50% / 220% 100%; transition: background-position 0.9s, box-shadow 0.4s; box-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px inset; color: rgb(49, 52, 58); border: 0px; padding: 0px 32px; min-height: 56px; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center;">查询可用情况</a>
         </div>
       </div>
     </div>
-    <p data-dc-tpl="279" style="margin: 56px 0px 0px; font-size: 12px; color: rgb(177, 182, 189); max-width: 760px; line-height: 1.7;">所示飞机均为推荐，视可用情况提供。Archē Executive 不拥有或持有其中任何飞机。规格仅供参考：航程为制造商在轻载条件下的数据，座位数基于常见客舱布局。实际数据取决于客舱配置、载荷、风况及备份油量，并由运营商在报价中确认。区域供应说明参考 Asian Sky Group 的《2025 亚太包机报告》及《2025 年末公务机机队报告》，仅反映整体市场情况，不代表保证可用。</p>
-    <p data-dc-tpl="280" style="margin: 12px 0px 0px; font-size: 12px; color: rgb(177, 182, 189); max-width: 760px; line-height: 1.7;">客舱剖面图由我们自行绘制，按真实比例呈现，并以一位身高 1.80 米的人作对比。座位数、航程和客舱数据均为制造商公布的数据；所列机型仅为参考示例。</p>
+    <p data-dc-tpl="279" style="margin: 56px 0px 0px; font-size: 12px; color: rgb(177, 182, 189); max-width: 760px; line-height: 1.7;">所示飞机均为推荐，视可用情况提供。Archē Executive 不拥有或持有其中任何飞机。规格仅供参考：航程为制造商在轻载条件下的数据。实际数据取决于客舱配置、载荷、风况及备份油量，并由运营商在报价中确认。</p>
+    <p data-dc-tpl="280" style="margin: 12px 0px 0px; font-size: 12px; color: rgb(177, 182, 189); max-width: 760px; line-height: 1.7;">客舱剖面图由我们自行绘制，按真实比例呈现，并以一位身高 1.80 米的人作对比。航程和客舱数据为制造商公布的数据；座位数显示常见布局及认证最大座位数，每架飞机的座位数将在报价中确认。所列机型仅为参考示例。</p>
   </div></section><div class="ar-band" role="img" aria-label="每一处细节，皆已妥帖安排。" data-ar="journey" style="background-image: url(&quot;img/why-photo.webp&quot;);"><p>每一处细节，皆已妥帖安排。</p></div><!--ae:home--><!--/ae:home--><!--ae:home--><!--/ae:home--><div class="ar-band" role="img" aria-label="一个电话，随时待命。" data-ar="contact" style="background-image: url(&quot;img/break-3.webp&quot;);"><p>一个电话，随时待命。</p></div><!--ae:lux--><section id="statement" data-ae="lux" style="border-top:1px solid rgba(243,245,248,0.12)"><div style="max-width:1440px;margin:0 auto;padding:clamp(56px,6vw,96px) 40px;box-sizing:border-box;text-align:center">
 <span style="font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;color:#a9bdd4">Archē Executive</span>
 <p style="margin:18px auto 0;max-width:900px;font-family:Prata,Georgia,serif;font-size:clamp(32px,5vw,68px);line-height:1.15;letter-spacing:0.01em;color:#f3f5f8">Any aircraft. Any hour. One advisor.</p>
@@ -603,7 +603,7 @@ html:is(:lang(zh),:lang(ja)) em{font-style:normal}
           <div style="padding:20px 20px 0 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:9px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase;font-size:11.5px">Passengers</span><span style="font-size:20px;color:#f3f5f8">{{ ac.pax }}</span></div><div style="padding:20px 20px 0 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:9px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase;font-size:11.5px">Range</span><span style="font-size:20px;color:#f3f5f8">{{ ac.range }}</span></div><div style="padding:20px 20px 0 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:9px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase;font-size:11.5px">Cabin</span><span style="font-size:20px;color:#f3f5f8">{{ ac.cabin }}</span></div><div style="padding:20px 20px 0 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:9px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase;font-size:11.5px">Nonstop example</span><span style="font-size:20px;color:#f3f5f8">{{ ac.route }}</span></div>
         </div>
         <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:14px 0;border-top:1px solid rgba(243,245,248,0.12);border-image:linear-gradient(90deg,rgba(243,245,248,0) 0%,rgba(243,245,248,0.34) 50%,rgba(243,245,248,0) 100%) 1;border-bottom:1px solid rgba(243,245,248,0.12)">
-          <span style="font-size:11.5px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase">Regional charter supply</span>
+          <span style="font-size:11.5px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase">Availability</span>
           <span style="font-size:15px;color:#f3f5f8">{{ ac.supply }}</span>
         </div>
         <div style="display:flex;justify-content:flex-end">
@@ -611,8 +611,8 @@ html:is(:lang(zh),:lang(ja)) em{font-style:normal}
         </div>
       </div>
     </div>
-    <p style="margin:56px 0 0;font-size:12px;color:#b1b6bd;max-width:760px;line-height:1.7">All aircraft shown are suggestions, offered upon availability. Archē Executive does not own or hold any of these aircraft. Specifications are indicative: range is the manufacturer's figure with a light load, and seating reflects common cabin layouts. Real figures depend on configuration, payload, winds and reserves, and the operator confirms them in your quote. Regional supply notes draw on Asian Sky Group's Asia-Pacific Charter Report 2025 and Business Jet Fleet Report YE 2025, and describe the market in general, not guaranteed availability.</p>
-    <p style="margin:12px 0 0;font-size:12px;color:#b1b6bd;max-width:760px;line-height:1.7">Cabin drawings are our own and drawn to scale, with a 1.80 m person for comparison. Seats, range and cabin figures are the makers' published figures; the aircraft are examples for reference only.</p>
+    <p style="margin:56px 0 0;font-size:12px;color:#b1b6bd;max-width:760px;line-height:1.7">All aircraft shown are suggestions, offered upon availability. Archē Executive does not own or hold any of these aircraft. Specifications are indicative: range is the manufacturer's figure with a light load. Real figures depend on configuration, payload, winds and reserves, and the operator confirms them in your quote.</p>
+    <p style="margin:12px 0 0;font-size:12px;color:#b1b6bd;max-width:760px;line-height:1.7">Cabin drawings are our own and drawn to scale, with a 1.80 m person for comparison. Range and cabin figures are the makers' published figures; seats show the usual layout and the certified maximum, and the seats in each aircraft are confirmed in your quote. The aircraft are examples for reference only.</p>
   </div>
 </section>
 
@@ -794,24 +794,24 @@ class Component extends DCLogic {
 
   cats = [
     { name: 'Light jet', pax: 7, range: 3700, aircraft: [
-      { id: 'cj3', name: 'Cessna Citation CJ3 Gen2', pax: 'Up to 9 occupants', rangeKm: 3778, cabin: '1.45 m high', route: 'Singapore – Bangkok', supply: 'Availability checked for your dates', desc: 'An economical choice for small groups on short regional flights; the maker lists up to 9 occupants.' },
-      { id: 'phenom300', name: 'Embraer Phenom 300E', pax: 'Up to 10 passengers', rangeKm: 3723, cabin: '1.50 m high', route: 'Bangkok – Hong Kong', supply: 'Availability checked for your dates', desc: 'Described by Embraer as the best-selling light jet for more than a decade: quick and roomy for its size.' },
-      { id: 'pc24', name: 'Pilatus PC-24', pax: 'Up to 11 passengers', rangeKm: 3704, cabin: 'Flat floor, 1.55 m high', route: 'Singapore – Bali', supply: 'Availability checked for your dates', desc: 'Built by Pilatus for paved and unpaved runways with short-field performance, which opens up smaller island and resort airfields.' },
+      { id: 'cj3', name: 'Cessna Citation CJ3 Gen2', pax: 'Up to 9 occupants', rangeKm: 3778, cabin: '1.45 m high', route: 'Singapore – Bangkok', supply: 'Checked for your dates', desc: 'An economical choice for small groups on short regional flights; the maker lists up to 9 occupants.' },
+      { id: 'phenom300', name: 'Embraer Phenom 300E', pax: 'Up to 10 passengers', rangeKm: 3723, cabin: '1.50 m high', route: 'Bangkok – Hong Kong', supply: 'Checked for your dates', desc: 'Described by Embraer as the best-selling light jet for more than a decade: quick and roomy for its size.' },
+      { id: 'pc24', name: 'Pilatus PC-24', pax: 'Up to 11 passengers', rangeKm: 3704, cabin: 'Flat floor, 1.55 m high', route: 'Singapore – Bali', supply: 'Checked for your dates', desc: 'Built by Pilatus for paved and unpaved runways with short-field performance, which opens up smaller island and resort airfields.' },
     ]},
     { name: 'Midsize jet', pax: 9, range: 3900, aircraft: [
-      { id: 'xls', name: 'Cessna Citation XLS Gen2', pax: 'Up to 9 passengers', rangeKm: 3889, cabin: 'Stand-up, 1.73 m', route: 'Bangkok – Phuket – Singapore', supply: 'Availability checked for your dates', desc: 'A 1.73 m high cabin on the proven 560XL airframe.' },
+      { id: 'xls', name: 'Cessna Citation XLS Gen2', pax: 'Up to 9 passengers', rangeKm: 3889, cabin: 'Stand-up, 1.73 m', route: 'Bangkok – Phuket – Singapore', supply: 'Checked for your dates', desc: 'A 1.73 m high cabin on the proven 560XL airframe.' },
     ]},
     { name: 'Super-midsize', pax: 9, range: 5900, aircraft: [
-      { id: 'cl350', name: 'Bombardier Challenger 350', pax: 'Up to 10 passengers', rangeKm: 5926, cabin: 'Stand-up, 2.19 m wide', route: 'Singapore – Tokyo', supply: 'Availability checked for your dates', desc: 'A 2.19 m wide cabin with enough range for long regional flights without a fuel stop.' },
+      { id: 'cl350', name: 'Bombardier Challenger 350', pax: 'Up to 10 passengers', rangeKm: 5926, cabin: 'Stand-up, 2.19 m wide', route: 'Singapore – Tokyo', supply: 'Checked for your dates', desc: 'A 2.19 m wide cabin with enough range for long regional flights without a fuel stop.' },
     ]},
     { name: 'Heavy jet', pax: 14, range: 11900, aircraft: [
-      { id: 'cl650', name: 'Bombardier Challenger 650', pax: 'Up to 12 passengers', rangeKm: 7408, cabin: 'Stand-up, 2.41 m wide', route: 'Singapore – Sydney (in good conditions)', supply: 'Availability checked for your dates', desc: 'A 2.41 m wide cabin for groups who want room to work, dine and rest on longer flights.' },
-      { id: 'f8x', name: 'Dassault Falcon 8X', pax: 'Up to 16 passengers', rangeKm: 11945, cabin: 'Stand-up, 1.88 m', route: 'Singapore – London', supply: 'Availability checked for your dates', desc: 'Three engines, long range and steep approaches of up to 6 degrees, which open London City and similar airports.' },
+      { id: 'cl650', name: 'Bombardier Challenger 650', pax: 'Up to 12 passengers', rangeKm: 7408, cabin: 'Stand-up, 2.41 m wide', route: 'Singapore – Sydney (in good conditions)', supply: 'Checked for your dates', desc: 'A 2.41 m wide cabin for groups who want room to work, dine and rest on longer flights.' },
+      { id: 'f8x', name: 'Dassault Falcon 8X', pax: 'Up to 16 passengers', rangeKm: 11945, cabin: 'Stand-up, 1.88 m', route: 'Singapore – London', supply: 'Checked for your dates', desc: 'Three engines, long range and steep approaches of up to 6 degrees, which open London City and similar airports.' },
     ]},
     { name: 'Ultra-long-range', pax: 17, range: 14300, aircraft: [
-      { id: 'g550', name: 'Gulfstream G550', pax: 'Up to 19 passengers', rangeKm: 12501, cabin: 'Stand-up, 1.88 m', route: 'Bangkok – Geneva', supply: 'Availability checked for your dates', desc: 'Seats up to 19 and sleeps up to 8; Gulfstream calls it one of the most dependable business jets available.' },
-      { id: 'g650', name: 'Gulfstream G650ER', pax: 'Up to 19 passengers', rangeKm: 13890, cabin: 'Stand-up, 1.91 m', route: 'Singapore – San Francisco (ER)', supply: 'Availability checked for your dates', desc: 'Long-range cruise at Mach 0.85 and high-speed cruise at Mach 0.90; up to 10 passengers in a sleeping layout.' },
-      { id: 'g7500', name: 'Bombardier Global 7500', pax: 'Up to 19 passengers', rangeKm: 14260, cabin: 'Four living spaces, principal suite', route: 'Hong Kong – New York', supply: 'Availability checked for your dates', desc: 'Four living spaces, an optional principal suite with a full-size bed, and a dedicated crew suite.' },
+      { id: 'g550', name: 'Gulfstream G550', pax: 'Usually 13–14 seats · certified for up to 19', rangeKm: 12501, cabin: 'Stand-up, 1.88 m', route: 'Bangkok – Geneva', supply: 'Checked for your dates', desc: 'Sleeps up to 8; Gulfstream calls it one of the most dependable business jets available.' },
+      { id: 'g650', name: 'Gulfstream G650ER', pax: 'Usually 13–14 seats · certified for up to 19', rangeKm: 13890, cabin: 'Stand-up, 1.91 m', route: 'Singapore – San Francisco (ER)', supply: 'Checked for your dates', desc: 'Long-range cruise at Mach 0.85 and high-speed cruise at Mach 0.90; up to 10 passengers in a sleeping layout.' },
+      { id: 'g7500', name: 'Bombardier Global 7500', pax: 'Usually 13–14 seats · certified for up to 19', rangeKm: 14260, cabin: 'Four living spaces, principal suite', route: 'Hong Kong – New York', supply: 'Checked for your dates', desc: 'Four living spaces, an optional principal suite with a full-size bed, and a dedicated crew suite.' },
     ]},
   ];
 
@@ -993,7 +993,7 @@ class Component extends DCLogic {
 
       steps: this.steps.map((st, i) => ({
         num: String(i + 1).padStart(2, '0'), title: st.title, when: st.when,
-        slotId: 'journey-' + (i + 1), display: i === s.stepIdx ? 'block' : 'none',
+        slotId: ['journey-1', 'journey-2', 'step-3', 'journey-4', 'step-5'][i],   // photos that match each step (Morten, 13 Nov 2026) display: i === s.stepIdx ? 'block' : 'none',
         slotLabel: 'Step ' + (i + 1) + ' · ' + st.title + ' · 4:3 · min 1600 × 1200 px' + (st.photo ? ' · ' + st.photo : ''),
         line: i === s.stepIdx ? '#a9bdd4' : 'transparent', opacity: i === s.stepIdx ? 1 : 0.5,
         onClick: () => this.setState({ stepIdx: i }),

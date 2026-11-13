@@ -218,6 +218,7 @@ window.archeSend = function (data) {
     import pages; pages.run()   # one page per menu item, all four languages (30 Oct 2026)
     import legal_footer; legal_footer.run()   # the site footer on the legal pages too (13 Nov 2026)
     import nav; nav.run()   # one fixed top menu on every page, watermark, home hero photo (30 Oct 2026)
+    import align_cards; align_cards.run()   # cards in a row share their text lines (13 Nov 2026)
     import journey_map; journey_map.run()   # journey map on Destinations with the aircraft guide models (13 Nov 2026)
     import self_fonts; self_fonts.run()   # fonts from our own site, never from a font service (12 Nov 2026)
     if not BANGKOK_OFFICE:

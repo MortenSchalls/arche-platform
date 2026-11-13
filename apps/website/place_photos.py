@@ -33,6 +33,13 @@ PLACES_2 = {
     "journey-1":        ("2269862643", (1600, 1200), (0.62, 0.45)),   # client calling to book, daytime office (replaces the 20 Oct journey-1)
 }
 
+# How it works, matched to the steps (Morten, 13 Nov 2026: "now step 5 says you fly, but picture shows an arrival"):
+# step 3 "You confirm" is the cabin table with the laptop, step 5 "You fly" the wing above the clouds (same licensed originals)
+PLACES_3 = {
+    "step-3":           ("2282607115", (1600, 1200), (0.50, 0.55)),
+    "step-5":           ("1052491134", (1600, 1200), (0.50, 0.42)),
+}
+
 def place(src_dir, out_dir, places=None):
     Image.MAX_IMAGE_PIXELS = None
     for slot, (sid, (w, h), (fx, fy)) in (places or PLACES).items():

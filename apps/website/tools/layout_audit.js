@@ -6,6 +6,8 @@
 //   sideways  - the page scrolls sideways
 //   tiny      - visible text under 10 px on screen
 //   contrast  - text on a solid background under 4.5:1 (3:1 for 24 px+, or 18.5 px+ at weight 700)
+//   misaligned - cards side by side in one row (same top and height) whose texts (label, title, line ...) do not sit
+//               on the same baseline in each card, e.g. titles jumping up and down over photos (Morten, 13 Nov 2026)
 // Writes apps/website/audit/layout.json with the hash of the built pages; check_site.py fails if the stamp is
 // missing, failed or older than the build.
 // Run: NODE_PATH=$(npm root -g) node apps/website/tools/layout_audit.js      (serves site/ itself)
@@ -67,6 +69,26 @@ function inspect() {
     if (a.el===b.el||a.fx!==b.fx||a.el.contains(b.el)||b.el.contains(a.el)) continue;
     const ox=Math.min(a.x2,b.x2)-Math.max(a.x1,b.x1), oy=Math.min(a.y2,b.y2)-Math.max(a.y1,b.y1);
     if (ox>2&&oy>Math.min(a.h,b.h)*0.25) out.push(['overlap',`"${a.t}" / "${b.t}"`]); }
+  // misaligned: cards of the same kind side by side in one row (same top and height) whose texts (first line of the
+  // 1st, 2nd, 3rd ... text element, e.g. label, title, line) do not start at the same height in each card
+  const textTops=card=>{ const o=[], seenEl=new Set(); const w=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);
+    while (w.nextNode()) { const n=w.currentNode, el=n.parentElement; if (!n.textContent.trim()||!el||skip(el)||!vis(el)||seenEl.has(el)) continue; seenEl.add(el);
+      const r=document.createRange(); r.selectNodeContents(n); const b=[...r.getClientRects()].find(b=>b.width>=1&&b.height>=1); if (!b) continue;
+      // where the first line actually sits: its baseline (a zero-size marker at the start of the text), so a Latin
+      // line and a Thai, Chinese or Japanese line on the same baseline count as level
+      const mk=document.createElement('span'); mk.style.cssText='display:inline-block;width:0;height:0;vertical-align:baseline;padding:0;margin:0;border:0';
+      const wrap=document.createElement('span'); n.parentNode.insertBefore(wrap,n); wrap.appendChild(n); wrap.insertBefore(mk,n);   // inside an inline wrapper, so a flex label still puts the marker on the text line
+      const top=mk.getBoundingClientRect().top; mk.remove(); wrap.parentNode.insertBefore(n,wrap); wrap.remove();
+      o.push({top, fs:getComputedStyle(el).fontSize+(el.closest('button,[type=submit]')?'btn':'')}); }
+    return o; };
+  document.querySelectorAll('body *').forEach(p=>{ if (skip(p)||!vis(p)) return; const kids=[...p.children].filter(k=>vis(k)&&!skip(k)); if (kids.length<2) return;
+    const rows=new Map(); for (const k of kids) { const b=k.getBoundingClientRect(); if (b.width<120||b.height<80) continue;
+      const key=Math.round(b.top)+'|'+Math.round(b.height); if (!rows.has(key)) rows.set(key,[]); rows.get(key).push([k,b]); }
+    for (const row of rows.values()) { if (row.length<2) continue;
+      const groups={}; for (const [k,b] of row) { const t=textTops(k); if (!t.length) continue; const key=k.tagName+'|'+k.className+'|'+t[0].fs; (groups[key]=groups[key]||[]).push({b,t}); }
+      for (const g of Object.values(groups)) { if (g.length<2) continue; const n=Math.min(...g.map(x=>x.t.length));
+        for (let q=0;q<n;q++) { if (new Set(g.map(x=>x.t[q].fs)).size>1) break; const offs=g.map(x=>x.t[q].top-x.b.top);
+          if (Math.max(...offs)-Math.min(...offs)>2) { out.push(['misaligned',`text ${q+1} starts at ${offs.map(v=>Math.round(v)).join('/')} px in a row of ${g.length} cards: "${label(g[0].b===undefined?p:row[0][0])}"`]); break; } } } } });
   if (document.documentElement.scrollWidth>W+1) out.push(['sideways',`page ${document.documentElement.scrollWidth}px wide`]);
   return [...new Map(out.map(x=>[x.join('|'),x])).values()];
 }

@@ -72,8 +72,8 @@ section:not(#top) h2{font-size:clamp(30px,4.3vw,62px) !important;line-height:1.0
   .ar-trio{padding-bottom:200px !important}
 }
 /* 5. one fine metallic detail: section labels and dividers */
-section span[style*="uppercase"][style*="0.16em"], .ar-trio .ar-k{background:%(metal)s;-webkit-background-clip:text;background-clip:text;color:transparent !important;display:inline-flex;align-items:center;gap:14px}
-section span[style*="uppercase"][style*="0.16em"]::before, .ar-trio .ar-k::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,rgba(185,197,210,0),#dfe6ee);flex:none}
+section span[style*="uppercase"][style*="0.16em"], .ar-trio .ar-k{background:%(metal)s;-webkit-background-clip:text;background-clip:text;color:transparent !important;display:inline-flex;align-items:baseline;gap:14px}
+section span[style*="uppercase"][style*="0.16em"]::before, .ar-trio .ar-k::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,rgba(185,197,210,0),#dfe6ee);flex:none;position:relative;top:-.33em}   /* the text sets the baseline (a label that wraps keeps its first line level with the others); the line is drawn at mid-height beside it (13 Nov 2026) */
 [style*="border-image"]{border-image:linear-gradient(90deg,rgba(185,197,210,0) 0%,rgba(223,230,238,.55) 35%,rgba(255,255,255,.75) 50%,rgba(223,230,238,.55) 65%,rgba(185,197,210,0) 100%) 1 !important}
 </style>
 """.replace("%(metal)s", METAL)

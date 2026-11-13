@@ -6,7 +6,7 @@ site; docs/SEVERANCE.md). Routes avoid airspace that EU, UK, US and Swiss-regist
 Conflict Zone Information Bulletins tell operators not to enter (bulletins on Russia, Ukraine, Iran, Iraq, Syria, Lebanon,
 Jordan, Yemen, Afghanistan, Pakistan's western provinces, Sudan, Libya, Mali, Somalia, the waters of the Persian Gulf and
 the Gulf of Oman west of 58 E, and the south-west of Saudi Arabia; checked 10 Nov 2026). Belarus is avoided with Russia and
-Ukraine. No country is named on the site ("routed around restricted airspace").
+Ukraine. Routes also keep off the high ground of the Himalaya and the Tibetan plateau (13 Nov 2026). No country is named on the site ("routed around restricted airspace").
 
 The areas are drawn coarsely (about one degree) and routes are built from a small set of corridor points, so distances are
 approximate and only for planning; the operator plans each flight. Per aircraft, the same rules as Navoryx: nonstop when the
@@ -19,6 +19,9 @@ import heapq
 import math
 
 R_NM = 3440.065
+OFF_PATH = 600      # ... and the stop lies within 600 nm of the routed journey (12% of it on the longest journeys), unless
+                    # the journey with it is at most 5% longer (a great circle over the far south passes no airport)
+ON_THE_WAY = 1.15   # the journey with its fuel stop is at most 15% longer than the routed journey (13 Nov 2026)
 LEG = 0.96          # a leg with a fuel stop stays within 96% of the published range (Navoryx: 5,900 of 6,163 nm)
 
 AREAS = {
@@ -58,6 +61,12 @@ AREAS = {
     "mali": [(25.0, -4.8), (19.1, 4.3), (15.0, 3.6), (14.3, 0.2), (15.3, -4.4), (11.0, -6.0), (12.1, -11.4), (14.8, -12.2),
              (15.5, -11.0), (15.4, -5.4), (25.0, -6.6)],
     "somalia": [(11.9, 43.2), (11.9, 51.4), (2.0, 46.0), (-1.7, 41.6), (2.0, 41.0), (4.2, 41.9), (8.0, 47.9), (9.0, 44.0)],
+    # not restricted airspace but high ground: the Himalaya, Karakoram and the Tibetan plateau. Flights between Europe or the
+    # Gulf and South-East Asia keep south of the Himalaya, and flights to north Asia go round the plateau to the north
+    # (Morten, 13 Nov 2026: "they tend to go south of Himalayas, not north ... most realistic flight paths for all routes")
+    "high_ground": [(35.6, 73.4), (34.2, 75.3), (32.6, 76.9), (30.6, 79.0), (29.1, 80.9), (28.4, 84.0), (28.0, 87.0),
+                    (27.9, 89.2), (27.6, 92.0), (28.1, 95.5), (28.4, 97.5), (27.6, 99.0), (29.4, 101.4), (32.0, 102.4),
+                    (34.4, 101.2), (36.4, 98.0), (37.6, 93.0), (37.2, 88.0), (36.6, 82.0), (36.8, 77.0)],
 }
 
 # corridor points used when the direct path is not open (lat, lon); a name is shown only for fuel stops
@@ -83,6 +92,9 @@ NODES = {
     # Indian Ocean fuel stops (added 8 Nov 2026 by the route audit with Auckland and Honolulu: New Zealand to South Africa
     # had gone via Singapore, Lagos to Auckland had no route)
     "per": (-31.94, 115.97), "mru": (-20.43, 57.68),
+    # south of the Himalaya to South-East Asia and round the Tibetan plateau (added 13 Nov 2026 with the high ground):
+    # northern India, Kolkata and the Bay of Bengal, Yangon, Kunming and Chengdu, and Lahore for Central Asia to India
+    "lhe": (31.5, 74.4), "ccu": (22.65, 88.45), "bay": (17.0, 88.0), "rgn": (16.9, 96.1), "kmg": (25.1, 102.9), "ctu": (30.6, 104.0),
 }
 # named fuel-stop airports outside the areas (none in the Gulf while its bulletins are active), plus Archē's city pages
 # outside the Gulf (added by tools/routes.py)
@@ -127,12 +139,17 @@ def inside(pt, poly):
     return c
 
 
+SKIP = set()   # areas left out for a comparison run (tools/routes.py: was the bend for restricted airspace or for high ground?)
+
+
 def blocked(a, b, ends=()):
     """True if the great circle a-b passes through any area. The first and last 120 nm next to a city on the coast of the
     Gulf are allowed (arrivals and departures)."""
     pts = gc_points(a, b)
     for p in pts:
         for k, poly in AREAS.items():
+            if k in SKIP:
+                continue
             if inside(p, poly):
                 if k == "gulf_water" and any(gc_nm(p, e) < 120 for e in ends):
                     continue
@@ -145,7 +162,7 @@ _SP = {}
 
 
 def shortest(a_geo, b_geo, extra=None):
-    key = (tuple(a_geo), tuple(b_geo))
+    key = (tuple(a_geo), tuple(b_geo), tuple(sorted(SKIP)))
     if not extra and key in _SP:
         return _SP[key]
     r = _shortest(a_geo, b_geo, extra)
@@ -177,7 +194,7 @@ def _shortest(a_geo, b_geo, extra=None):
         for m in keys:
             if m in seen:
                 continue
-            key = (nodes[k], nodes[m], ends if (nodes[k] in ends or nodes[m] in ends) else ())
+            key = (nodes[k], nodes[m], ends if (nodes[k] in ends or nodes[m] in ends) else (), tuple(sorted(SKIP)))
             if key not in cache:
                 cache[key] = None if blocked(nodes[k], nodes[m], ends) else gc_nm(nodes[k], nodes[m])
             e = cache[key]
@@ -198,6 +215,31 @@ def _shortest(a_geo, b_geo, extra=None):
     return dist["__b"], path[::-1]
 
 
+def why_bent(path_nm, a, b, legs=None):
+    """0 = straight, 1 = round restricted airspace, 2 = round high ground, 3 = both. legs: [(from, to, nm), ...]."""
+    legs = legs or [(a, b, path_nm)]
+    rest = terr = False
+    for x, y, nm in legs:
+        SKIP.add("high_ground")
+        try:
+            open_ = shortest(x, y)
+        finally:
+            SKIP.discard("high_ground")
+        o = open_[0] if open_ else nm
+        rest = rest or o > gc_nm(x, y) * 1.02
+        terr = terr or nm > o * 1.02
+    return (1 if rest else 0) + (2 if terr else 0)
+
+
+def near_path(g, pts):
+    """Distance in nm from point g to the nearest point of the routed path (sampled along each leg)."""
+    best = 1e9
+    for x, y in zip(pts, pts[1:]):
+        for p in gc_points(x, y, 60):
+            best = min(best, gc_nm(g, p))
+    return best
+
+
 def plan_pair(a, b, stops, ranges):
     """Routes between a and b for each published range. stops: {name: (lat, lon)}. Returns
     {"direct": nm, "route": [nm, points, detour] or None, "via": {range: [stop name, nm, legs, points, detour] or 0 or None}}
@@ -211,7 +253,7 @@ def plan_pair(a, b, stops, ranges):
         r1, r2 = shortest(a, g), shortest(g, b)
         if r1 and r2:
             legs[name] = (r1, r2, g)
-    out = {"direct": direct, "route": [r[0], r[1], r[0] > direct * 1.02] if r else None, "via": {}}
+    out = {"direct": direct, "route": [r[0], r[1], why_bent(r[0], a, b)] if r else None, "via": {}}
     for rng in ranges:
         if r and r[0] <= rng:
             out["via"][rng] = 0
@@ -223,7 +265,11 @@ def plan_pair(a, b, stops, ranges):
             tot = r1[0] + r2[0]
             if min(r1[0], r2[0]) < 0.15 * tot:
                 continue
+            if r and (tot > r[0] * ON_THE_WAY or (tot > r[0] * 1.05 and near_path(g, r[1]) > max(OFF_PATH, 0.12 * r[0]))):   # a stop off the way (London to Singapore via Almaty) is not a realistic plan
+                continue
             if best is None or tot < best[1]:
-                best = [name, tot, [r1[0], r2[0]], r1[1] + r2[1][1:], r1[0] > gc_nm(a, g) * 1.02 or r2[0] > gc_nm(g, b) * 1.02]
+                best = [name, tot, [r1[0], r2[0]], r1[1] + r2[1][1:], (a, g, r1[0], g, b, r2[0])]
+        if best:
+            x = best[4]; best[4] = why_bent(0, a, b, [(x[0], x[1], x[2]), (x[3], x[4], x[5])])
         out["via"][rng] = best
     return out

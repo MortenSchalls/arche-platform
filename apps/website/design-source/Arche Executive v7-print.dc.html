@@ -360,7 +360,7 @@ section{break-inside:avoid}
           <div style="padding:20px 20px 0 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:9px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase;font-size:11.5px">Passengers</span><span style="font-size:20px;color:#f3f5f8">{{ ac.pax }}</span></div><div style="padding:20px 20px 0 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:9px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase;font-size:11.5px">Range</span><span style="font-size:20px;color:#f3f5f8">{{ ac.range }}</span></div><div style="padding:20px 20px 0 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:9px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase;font-size:11.5px">Cabin</span><span style="font-size:20px;color:#f3f5f8">{{ ac.cabin }}</span></div><div style="padding:20px 20px 0 0;display:flex;flex-direction:column;gap:8px"><span style="font-size:9px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase;font-size:11.5px">Nonstop example</span><span style="font-size:20px;color:#f3f5f8">{{ ac.route }}</span></div>
         </div>
         <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:14px 0;border-top:1px solid rgba(243,245,248,0.12);border-image:linear-gradient(90deg,rgba(243,245,248,0) 0%,rgba(243,245,248,0.34) 50%,rgba(243,245,248,0) 100%) 1;border-bottom:1px solid rgba(243,245,248,0.12)">
-          <span style="font-size:11.5px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase">Regional charter supply</span>
+          <span style="font-size:11.5px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase">Availability</span>
           <span style="font-size:15px;color:#f3f5f8">{{ ac.supply }}</span>
         </div>
         <div style="display:flex;justify-content:flex-end">
@@ -368,7 +368,7 @@ section{break-inside:avoid}
         </div>
       </div>
     </div>
-    <p style="margin:56px 0 0;font-size:12px;color:#a3a9b1;max-width:760px;line-height:1.7">All aircraft shown are suggestions, offered upon availability. Arche Executive does not own or hold any of these aircraft. Specifications are indicative: range is the manufacturer's figure with a light load, and seating reflects common cabin layouts. Real figures depend on configuration, payload, winds and reserves, and the operator confirms them in your quote. Regional supply notes draw on Asian Sky Group's Asia-Pacific Charter Report 2025 and Business Jet Fleet Report YE 2025, and describe the market in general, not guaranteed availability.</p>
+    <p style="margin:56px 0 0;font-size:12px;color:#a3a9b1;max-width:760px;line-height:1.7">All aircraft shown are suggestions, offered upon availability. Arche Executive does not own or hold any of these aircraft. Specifications are indicative: range is the manufacturer's figure with a light load. Real figures depend on configuration, payload, winds and reserves, and the operator confirms them in your quote.</p>
   </div>
 </section>
 
@@ -545,24 +545,24 @@ class Component extends DCLogic {
 
   cats = [
     { name: 'Light jet', pax: 7, range: 3700, aircraft: [
-      { id: 'cj3', name: 'Cessna Citation CJ3 Gen2', pax: 'Up to 9 occupants', rangeKm: 3778, cabin: '1.45 m high', route: 'Singapore – Bangkok', supply: 'Availability checked for your dates', desc: 'An economical choice for small groups on short regional flights; the maker lists up to 9 occupants.' },
-      { id: 'phenom300', name: 'Embraer Phenom 300E', pax: 'Up to 10 passengers', rangeKm: 3723, cabin: '1.50 m high', route: 'Bangkok – Hong Kong', supply: 'Availability checked for your dates', desc: 'Described by Embraer as the best-selling light jet for more than a decade: quick and roomy for its size.' },
-      { id: 'pc24', name: 'Pilatus PC-24', pax: 'Up to 11 passengers', rangeKm: 3704, cabin: 'Flat floor, 1.55 m high', route: 'Singapore – Bali', supply: 'Availability checked for your dates', desc: 'Built by Pilatus for paved and unpaved runways with short-field performance, which opens up smaller island and resort airfields.' },
+      { id: 'cj3', name: 'Cessna Citation CJ3 Gen2', pax: 'Up to 9 occupants', rangeKm: 3778, cabin: '1.45 m high', route: 'Singapore – Bangkok', supply: 'Checked for your dates', desc: 'An economical choice for small groups on short regional flights; the maker lists up to 9 occupants.' },
+      { id: 'phenom300', name: 'Embraer Phenom 300E', pax: 'Up to 10 passengers', rangeKm: 3723, cabin: '1.50 m high', route: 'Bangkok – Hong Kong', supply: 'Checked for your dates', desc: 'Described by Embraer as the best-selling light jet for more than a decade: quick and roomy for its size.' },
+      { id: 'pc24', name: 'Pilatus PC-24', pax: 'Up to 11 passengers', rangeKm: 3704, cabin: 'Flat floor, 1.55 m high', route: 'Singapore – Bali', supply: 'Checked for your dates', desc: 'Built by Pilatus for paved and unpaved runways with short-field performance, which opens up smaller island and resort airfields.' },
     ]},
     { name: 'Midsize jet', pax: 9, range: 3900, aircraft: [
-      { id: 'xls', name: 'Cessna Citation XLS Gen2', pax: 'Up to 9 passengers', rangeKm: 3889, cabin: 'Stand-up, 1.73 m', route: 'Bangkok – Phuket – Singapore', supply: 'Availability checked for your dates', desc: 'A 1.73 m high cabin on the proven 560XL airframe.' },
+      { id: 'xls', name: 'Cessna Citation XLS Gen2', pax: 'Up to 9 passengers', rangeKm: 3889, cabin: 'Stand-up, 1.73 m', route: 'Bangkok – Phuket – Singapore', supply: 'Checked for your dates', desc: 'A 1.73 m high cabin on the proven 560XL airframe.' },
     ]},
     { name: 'Super-midsize', pax: 9, range: 5900, aircraft: [
-      { id: 'cl350', name: 'Bombardier Challenger 350', pax: 'Up to 10 passengers', rangeKm: 5926, cabin: 'Stand-up, 2.19 m wide', route: 'Singapore – Tokyo', supply: 'Availability checked for your dates', desc: 'A 2.19 m wide cabin with enough range for long regional flights without a fuel stop.' },
+      { id: 'cl350', name: 'Bombardier Challenger 350', pax: 'Up to 10 passengers', rangeKm: 5926, cabin: 'Stand-up, 2.19 m wide', route: 'Singapore – Tokyo', supply: 'Checked for your dates', desc: 'A 2.19 m wide cabin with enough range for long regional flights without a fuel stop.' },
     ]},
     { name: 'Heavy jet', pax: 14, range: 11900, aircraft: [
-      { id: 'cl650', name: 'Bombardier Challenger 650', pax: 'Up to 12 passengers', rangeKm: 7408, cabin: 'Stand-up, 2.41 m wide', route: 'Singapore – Sydney (in good conditions)', supply: 'Availability checked for your dates', desc: 'A 2.41 m wide cabin for groups who want room to work, dine and rest on longer flights.' },
-      { id: 'f8x', name: 'Dassault Falcon 8X', pax: 'Up to 16 passengers', rangeKm: 11945, cabin: 'Stand-up, 1.88 m', route: 'Singapore – London', supply: 'Availability checked for your dates', desc: 'Three engines, long range and steep approaches of up to 6 degrees, which open London City and similar airports.' },
+      { id: 'cl650', name: 'Bombardier Challenger 650', pax: 'Up to 12 passengers', rangeKm: 7408, cabin: 'Stand-up, 2.41 m wide', route: 'Singapore – Sydney (in good conditions)', supply: 'Checked for your dates', desc: 'A 2.41 m wide cabin for groups who want room to work, dine and rest on longer flights.' },
+      { id: 'f8x', name: 'Dassault Falcon 8X', pax: 'Up to 16 passengers', rangeKm: 11945, cabin: 'Stand-up, 1.88 m', route: 'Singapore – London', supply: 'Checked for your dates', desc: 'Three engines, long range and steep approaches of up to 6 degrees, which open London City and similar airports.' },
     ]},
     { name: 'Ultra-long-range', pax: 17, range: 14300, aircraft: [
-      { id: 'g550', name: 'Gulfstream G550', pax: 'Up to 19 passengers', rangeKm: 12501, cabin: 'Stand-up, 1.88 m', route: 'Bangkok – Geneva', supply: 'Availability checked for your dates', desc: 'Seats up to 19 and sleeps up to 8; Gulfstream calls it one of the most dependable business jets available.' },
-      { id: 'g650', name: 'Gulfstream G650ER', pax: 'Up to 19 passengers', rangeKm: 13890, cabin: 'Stand-up, 1.91 m', route: 'Singapore – San Francisco (ER)', supply: 'Availability checked for your dates', desc: 'Long-range cruise at Mach 0.85 and high-speed cruise at Mach 0.90; up to 10 passengers in a sleeping layout.' },
-      { id: 'g7500', name: 'Bombardier Global 7500', pax: 'Up to 19 passengers', rangeKm: 14260, cabin: 'Four living spaces, principal suite', route: 'Hong Kong – New York', supply: 'Availability checked for your dates', desc: 'Four living spaces, an optional principal suite with a full-size bed, and a dedicated crew suite.' },
+      { id: 'g550', name: 'Gulfstream G550', pax: 'Usually 13–14 seats · certified for up to 19', rangeKm: 12501, cabin: 'Stand-up, 1.88 m', route: 'Bangkok – Geneva', supply: 'Checked for your dates', desc: 'Sleeps up to 8; Gulfstream calls it one of the most dependable business jets available.' },
+      { id: 'g650', name: 'Gulfstream G650ER', pax: 'Usually 13–14 seats · certified for up to 19', rangeKm: 13890, cabin: 'Stand-up, 1.91 m', route: 'Singapore – San Francisco (ER)', supply: 'Checked for your dates', desc: 'Long-range cruise at Mach 0.85 and high-speed cruise at Mach 0.90; up to 10 passengers in a sleeping layout.' },
+      { id: 'g7500', name: 'Bombardier Global 7500', pax: 'Usually 13–14 seats · certified for up to 19', rangeKm: 14260, cabin: 'Four living spaces, principal suite', route: 'Hong Kong – New York', supply: 'Checked for your dates', desc: 'Four living spaces, an optional principal suite with a full-size bed, and a dedicated crew suite.' },
     ]},
   ];
 
@@ -739,7 +739,7 @@ class Component extends DCLogic {
 
       steps: this.steps.map((st, i) => ({
         num: String(i + 1).padStart(2, '0'), title: st.title, when: st.when,
-        slotId: 'journey-' + (i + 1), display: i === s.stepIdx ? 'block' : 'none',
+        slotId: ['journey-1', 'journey-2', 'step-3', 'journey-4', 'step-5'][i],   // photos that match each step (Morten, 13 Nov 2026) display: i === s.stepIdx ? 'block' : 'none',
         slotLabel: 'Step ' + (i + 1) + ' · ' + st.title + ' · 4:3 · min 1600 × 1200 px' + (st.photo ? ' · ' + st.photo : ''),
         line: i === s.stepIdx ? '#a9bdd4' : 'transparent', opacity: i === s.stepIdx ? 1 : 0.5,
         onClick: () => this.setState({ stepIdx: i }),
