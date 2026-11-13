@@ -61,8 +61,9 @@ window.__jmTap = tap;
 var anim = 0;
 function fly(d){ cancelAnimationFrame(anim); var len = route.getTotalLength ? route.getTotalLength() : 0; if (!len) return;
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ route.style.strokeDasharray = ''; spark.setAttribute('cx', -10); return; }
-  route.style.strokeDasharray = len; route.style.strokeDashoffset = len; var t0 = performance.now(), dur = 1400;
-  var step = function(t){ var f = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - f, 3); route.style.strokeDashoffset = len * (1 - e);
+  var k = svg.getBoundingClientRect().width / W, L = len * k;   // the line keeps its width on screen (non-scaling stroke), so its dashes are measured in screen pixels
+  route.style.strokeDasharray = L + ' ' + L; route.style.strokeDashoffset = L; var t0 = performance.now(), dur = 1600;
+  var step = function(t){ var f = Math.min(1, (t - t0) / dur), e = 0.5 - Math.cos(Math.PI * f) / 2;   // even speed through the middle, gentle start and finish route.style.strokeDashoffset = L * (1 - e);
     var pt = route.getPointAtLength(len * e); spark.setAttribute('cx', pt.x); spark.setAttribute('cy', pt.y);
     if (f < 1) anim = requestAnimationFrame(step); else { spark.setAttribute('cx', -10); route.style.strokeDasharray = ''; } };
   anim = requestAnimationFrame(step); }
