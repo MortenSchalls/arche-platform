@@ -129,8 +129,12 @@ html[data-ae-page="home"] #top .hero-content p{color:#e2e6ea!important}
 .ae-wm{position:fixed;left:0;right:0;top:88px;bottom:0;z-index:900;pointer-events:none;display:flex;align-items:center;justify-content:center}
 /* the original proportions of the home hero: jet 63% of the compass width, its tail on the compass ring */
 .ae-wm>i{position:relative;display:block;width:min(100vw - 32px,100vh - 150px,1440px);aspect-ratio:1}
-.ae-wm>i::before{content:"";position:absolute;inset:0;background:url(/assets/compass-rose.svg) center/contain no-repeat;opacity:0.075}
-.ae-wm>i::after{content:"";position:absolute;left:18.5%;top:-2.6%;width:63%;aspect-ratio:2252/887;background:url(/assets/jet-line-watermark-wide.webp) center/contain no-repeat;opacity:0.11}
+.ae-wm>i::before{content:"";position:absolute;inset:0;background:url(/assets/compass-rose.svg) center/contain no-repeat;opacity:0.11;animation:ae-spin 240s linear infinite;will-change:transform}
+/* the compass rose turns like the Navoryx compass, one turn in 240 s; the jet stays still; still for reduced motion (Morten, 13 Nov 2026) */
+@keyframes ae-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.ae-wm>i::before{animation:none}}
+.ae-wm>i::after{content:"";position:absolute;left:18.5%;top:-2.6%;width:63%;aspect-ratio:2252/887;background:url(/assets/jet-line-watermark-wide.webp) center/contain no-repeat;opacity:0.15}
+/* a bit more present (Morten, 13 Nov 2026: "make my watermark and compass a bit more dominant"): compass .075 -> .11, jet .11 -> .15 */
 @media print{.ae-wm{display:none}}
 """
 
