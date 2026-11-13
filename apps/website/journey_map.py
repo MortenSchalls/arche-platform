@@ -5,8 +5,9 @@ Archē's own map, built here from Archē's own data (severance rule: nothing is 
 - places: every city page, at its main airport (content/map_places.json, OurAirports, public domain)
 - aircraft: the ten models of the aircraft guide, range and cruise speed from published sources (content/aircraft_perf.json)
 - coastlines: Natural Earth 1:110m, public domain (content/world.json, tools/worldmap.mjs)
-Tap or choose where you start and where you go: the map draws the great-circle route and shows, for each aircraft in the
-guide, whether it flies the distance nonstop and an estimated flight time, with how it is calculated and the sources.
+Tap where you start and where you go: the map draws the route around restricted airspace (routing.py, the Navoryx rules)
+and shows the guide's aircraft that fly it nonstop or with one fuel stop, with an estimated flight time and one suggested
+aircraft in the guide's green, with how it is calculated and the sources.
 "Request a quote for this journey" opens the quote form with both places filled in. Places are those with a page only,
 so nothing sanctioned can appear (the pages are already checked against content/excluded.json).
 The map's city names are placed by the script and checked by tools/journey_test.js (no overlaps, at least 30 of 37
@@ -49,7 +50,7 @@ def section(places, ac):
 .jm table{{width:100%;border-collapse:collapse;font-size:15px}}
 .jm th,.jm td{{text-align:left;padding:9px 10px 9px 0;border-bottom:1px solid var(--line);vertical-align:top}}
 .jm th{{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:400}}
-.jm td.n{{white-space:nowrap}}.jm .cat{{display:block;font-size:13px;color:var(--muted)}}
+.jm td.n{{white-space:nowrap}}.jm tr.best td{{color:#39ff8f}}.jm tr.best .cat{{color:#39ff8f;opacity:.8}}.jm .tag{{display:inline-block;margin-left:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:1px solid #39ff8f;padding:2px 6px;vertical-align:2px}}.jm .cat{{display:block;font-size:13px;color:var(--muted)}}
 .jm .acts{{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 0}}
 .jm .how{{margin:22px 0 0;font-size:14px;color:var(--muted)}}.jm .how summary{{cursor:pointer;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;font-size:12.5px}}
 .jm .how li{{margin:6px 0}}
@@ -61,7 +62,7 @@ def section(places, ac):
 <p class="hint" id="jm-hint">Tap where you start, then where you are going; a tap picks the nearest place. A third tap starts a new journey. On a phone, swipe the map sideways.</p>
 <div class="out" id="jm-out" aria-live="polite"></div>
 <details class="how" id="jm-how"><summary>How we calculate</summary>
-<p>Distance is the great-circle distance between the main airports of the two places. Flight time is that distance at the published cruise speed, plus 30 minutes for climb and descent, in still air; a journey longer than the published range adds about an hour for each fuel stop, and an aircraft that would need more than two stops is shown as not suited. These are estimates: the real range and time depend on passengers, luggage, weather, winds, the airports and the routing, and the operator confirms them for your trip. Published ranges assume standard reserves.</p>
+<p>Distance is measured between the main airports of the two places along an approximate route around airspace that the aircraft we arrange do not use: closed to aircraft registered in the EU, the UK, the US and Switzerland, or where the European Union Aviation Safety Agency's conflict-zone bulletins advise operators not to fly (checked 10 November 2026). An aircraft flies it nonstop when that distance is within its published range; otherwise it needs a fuel stop at a named airport (none in the Gulf while its bulletins apply), with each leg within 96% of the published range. Only aircraft that need no more than one fuel stop are shown. Flight time is the distance at the published cruise speed plus 24 minutes, and 1 hour 18 minutes for a fuel stop, in still air. The suggested aircraft flies it with the fewest stops and has the most spacious cabin among those of the right size for the length of the trip. These are estimates: the real range and time depend on passengers, luggage, weather, winds, the airports and the routing, and the operator confirms them for your trip.</p>
 <ul>{srcs}<li>Airport positions: <a href="{html.escape(pl[1])}" rel="noopener">{html.escape(pl[0])}</a>, read {_d(pl[2])}. Coastlines: Natural Earth (public domain).</li></ul>
 </details>
 <script src="/journey.js" defer></script>
@@ -76,13 +77,13 @@ var R = Math.PI / 180, NM = 3440.065;
 function gc(a, b){ var f1 = a.lat*R, f2 = b.lat*R, dl = (b.lon-a.lon)*R;
   var h = Math.sin((f2-f1)/2)*Math.sin((f2-f1)/2) + Math.cos(f1)*Math.cos(f2)*Math.sin(dl/2)*Math.sin(dl/2);
   return 2 * NM * Math.asin(Math.min(1, Math.sqrt(h))); }
-function path(a, b){ var f1=a.lat*R, l1=a.lon*R, f2=b.lat*R, l2=b.lon*R, d = gc(a,b)/NM, s = '', prev = null, n = 96;
-  for (var i = 0; i <= n; i++){ var t = i/n, A = Math.sin((1-t)*d)/Math.sin(d), B = Math.sin(t*d)/Math.sin(d);
+function seg(a, b, out){ var f1=a[0]*R, l1=a[1]*R, f2=b[0]*R, l2=b[1]*R, d = gc({lat:a[0],lon:a[1]},{lat:b[0],lon:b[1]})/NM, n = Math.max(2, Math.ceil(d * NM / 60));
+  for (var i = out.length ? 1 : 0; i <= n; i++){ var t = i/n, A = d ? Math.sin((1-t)*d)/Math.sin(d) : 1-t, B = d ? Math.sin(t*d)/Math.sin(d) : t;
     var x = A*Math.cos(f1)*Math.cos(l1) + B*Math.cos(f2)*Math.cos(l2), y = A*Math.cos(f1)*Math.sin(l1) + B*Math.cos(f2)*Math.sin(l2), z = A*Math.sin(f1) + B*Math.sin(f2);
-    var lat = Math.atan2(z, Math.sqrt(x*x+y*y))/R, lon = Math.atan2(y, x)/R, p = P(lon, lat);
-    var jump = prev !== null && Math.abs(wrap(lon) - wrap(prev)) > 180;
-    s += (i === 0 || jump ? 'M' : 'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); prev = lon; }
-  return s; }
+    var lat = Math.atan2(z, Math.sqrt(x*x+y*y))/R, lon = Math.atan2(y, x)/R, q = P(lon, lat), prev = out[out.length - 1];
+    out.push([q[0], q[1], !prev || Math.abs(wrap(lon) - prev[3]) > 180, wrap(lon)]); } }
+function samples(pts){ var out = []; for (var i = 0; i + 1 < pts.length; i++) seg(pts[i], pts[i + 1], out); return out; }
+function dOf(S, upto){ var s = ''; for (var i = 0; i < upto && i < S.length; i++) s += (S[i][2] ? 'M' : 'L') + S[i][0].toFixed(1) + ' ' + S[i][1].toFixed(1); return s; }
 var ns = 'http://www.w3.org/2000/svg', el = function(n, a){ var e = document.createElementNS(ns, n); for (var k in a) e.setAttribute(k, a[k]); return e; };
 var box = document.getElementById('jm-map'); if (!box) return;
 var stage = document.createElement('div'); stage.className = 'stage'; box.appendChild(stage);
@@ -128,13 +129,14 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(place); pl
 function tap(i){ if (sel.length >= 2) sel = []; if (sel.length === 1 && sel[0] === i) return; sel.push(i); draw(); }
 window.__jmTap = tap;
 var anim = 0;
-function fly(d){ cancelAnimationFrame(anim); var len = route.getTotalLength ? route.getTotalLength() : 0; if (!len) return;
-  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ route.style.strokeDasharray = ''; spark.setAttribute('cx', -10); return; }
-  var k = svg.getBoundingClientRect().width / W, L = len * k;   // the line keeps its width on screen (non-scaling stroke), so its dashes are measured in screen pixels
-  route.style.strokeDasharray = L + ' ' + L; route.style.strokeDashoffset = L; var t0 = performance.now(), dur = 1600;
-  var step = function(t){ var f = Math.min(1, (t - t0) / dur), e = 0.5 - Math.cos(Math.PI * f) / 2;   // even speed through the middle, gentle start and finish route.style.strokeDashoffset = L * (1 - e);
-    var pt = route.getPointAtLength(len * e); spark.setAttribute('cx', pt.x); spark.setAttribute('cy', pt.y);
-    if (f < 1) anim = requestAnimationFrame(step); else { spark.setAttribute('cx', -10); route.style.strokeDasharray = ''; } };
+function fly(S){ cancelAnimationFrame(anim);
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ route.setAttribute('d', dOf(S, S.length)); spark.setAttribute('cx', -10); return; }
+  var t0 = performance.now(), dur = 1800, n = S.length;
+  var step = function(t){ var f = Math.min(1, (t - t0) / dur), e = 0.5 - Math.cos(Math.PI * f) / 2, x = e * (n - 1), k = Math.floor(x), r = x - k;
+    var d = dOf(S, k + 1), a = S[k], b = S[Math.min(n - 1, k + 1)], hx = a[0], hy = a[1];
+    if (b && !b[2]){ hx = a[0] + (b[0] - a[0]) * r; hy = a[1] + (b[1] - a[1]) * r; d += 'L' + hx.toFixed(1) + ' ' + hy.toFixed(1); }
+    route.setAttribute('d', d); spark.setAttribute('cx', hx); spark.setAttribute('cy', hy);   // the line follows the moving point
+    if (f < 1) anim = requestAnimationFrame(step); else { route.setAttribute('d', dOf(S, n)); spark.setAttribute('cx', -10); } };
   anim = requestAnimationFrame(step); }
 function hm(h){ var m = Math.round(h * 4) * 15, hh = Math.floor(m / 60), mm = m % 60; return 'about ' + hh + ' h' + (mm ? ' ' + mm + ' min' : ''); }
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -143,15 +145,23 @@ function draw(){
   sel.forEach(function(i){ rings.appendChild(el('circle', {cx: XY[i][0], cy: XY[i][1], r: 7, 'class': 'ring'})); document.getElementById('jm-p' + i).classList.add('on'); labels[i].classList.add('on'); });
   place();
   if (sel.length < 2){ cancelAnimationFrame(anim); spark.setAttribute('cx', -10); route.setAttribute('d', ''); out.innerHTML = sel.length ? '<p class="d">From ' + esc(D.places[sel[0]].name) + '. Now choose where you are going.</p>' : ''; return; }
-  var a = D.places[sel[0]], b = D.places[sel[1]], nm = gc(a, b), km = nm * 1.852;
-  route.setAttribute('d', path(a, b)); fly();
+  var a = D.places[sel[0]], b = D.places[sel[1]], ia = D.rp.indexOf(a.path), ib = D.rp.indexOf(b.path), rev = ia > ib;
+  var rt = D.routes[Math.min(ia, ib) + '|' + Math.max(ia, ib)], flip = function(ps){ return rev ? ps.slice().reverse() : ps; };
+  var opts = D.ac.map(function(m){ var v = rt.v[String(m.range_nm)]; if (v === null || v === undefined) return null;   // more than one fuel stop: not shown
+    var nm = v === 0 ? rt.r[0] : v[1], stop = v === 0 ? null : v[0];
+    return {m: m, nm: nm, stop: stop, h: nm / m.kt + 0.4 + (stop ? 1.3 : 0), pts: flip(v === 0 ? rt.r[1] : v[3]), detour: v === 0 ? rt.r[2] : v[4]}; }).filter(Boolean);
+  var t = rt.r ? rt.r[0] / 459 + 0.4 : 99, band = t <= 3 ? ['Light jet', 'Midsize jet', 'Super-midsize'] : t <= 6 ? ['Super-midsize', 'Heavy jet'] : ['Heavy jet', 'Ultra-long-range'];
+  var big = function(x, y){ return y.m.cabin - x.m.cabin; }, non = opts.filter(function(o){ return !o.stop; });
+  var best = non.filter(function(o){ return band.indexOf(o.m.cat) >= 0; }).sort(big)[0] || non.slice().sort(big)[0] || opts.slice().sort(function(x, y){ return x.h - y.h; })[0];
+  opts.sort(function(x, y){ return (y === best) - (x === best) || (!!x.stop - !!y.stop) || x.h - y.h; });
+  route.setAttribute('d', ''); fly(samples(best.pts));
   var mid = (XY[sel[0]][0] + XY[sel[1]][0]) / 2 / W; if (box.scrollWidth > box.clientWidth) box.scrollLeft = mid * box.scrollWidth - box.clientWidth / 2;
-  var rows = D.ac.map(function(m){ var stops = nm <= m.range_nm ? 0 : Math.ceil(nm / m.range_nm) - 1, h = nm / m.kt + 0.5 + stops;
-    var st = stops > 2 ? 'Not suited: more than two fuel stops' : stops ? (stops === 1 ? 'One fuel stop' : 'Two fuel stops') : 'Nonstop';
-    return '<tr><td>' + esc(m.name) + '<span class="cat">' + esc(m.cat) + '</span></td><td>' + st + '</td><td class="n">' + (stops > 2 ? '–' : hm(h)) + '</td></tr>'; }).join('');
+  var rows = opts.map(function(o){ var on = o === best;
+    return '<tr' + (on ? ' class="best"' : '') + '><td>' + esc(o.m.name) + (on ? ' <span class="tag">Suggested</span>' : '') + '<span class="cat">' + esc(o.m.cat) + '</span></td><td>' + (o.stop ? 'One fuel stop, ' + esc(o.stop) : 'Nonstop') + '</td><td class="n">' + hm(o.h) + '</td></tr>'; }).join('');
+  var nmS = Math.round(best.nm), km = Math.round(best.nm * 1.852);
   var q = '/?from=' + encodeURIComponent(a.name) + '&to=' + encodeURIComponent(b.name) + '#top';
-  out.innerHTML = '<p class="r">' + esc(a.name) + ' to ' + esc(b.name) + '</p><p class="d">' + Math.round(nm).toLocaleString('en') + ' nm (' + Math.round(km).toLocaleString('en') + ' km), great-circle distance.</p>' +
-    '<p class="d">Ten example aircraft, for reference only. We are not limited to these types and models: we find whatever fits your trip, upon availability.</p>' +
+  out.innerHTML = '<p class="r">' + esc(a.name) + ' to ' + esc(b.name) + '</p><p class="d">' + nmS.toLocaleString('en') + ' nm (' + km.toLocaleString('en') + ' km)' + (best.stop ? ' with a fuel stop in ' + esc(best.stop) : '') + (best.detour ? ', routed around restricted airspace' : '') + '. Suggested: ' + esc(best.m.name) + ', the most spacious cabin among the aircraft that fly it ' + (best.stop ? 'with one fuel stop' : 'nonstop') + ' for a trip of this length.</p>' +
+    '<p class="d">Example aircraft from our guide that fly it nonstop or with one fuel stop, for reference only. We are not limited to these types and models: we find whatever fits your trip, upon availability.</p>' +
     '<table><thead><tr><th scope="col">Aircraft</th><th scope="col">Nonstop or stops</th><th scope="col">Estimated time</th></tr></thead><tbody>' + rows + '</tbody></table>' +
     '<div class="acts"><a class="btn p" href="' + q + '">Request a quote for this journey</a><a class="btn" href="' + esc(a.path) + '">' + esc(a.name) + ' guide</a><a class="btn" href="' + esc(b.path) + '">' + esc(b.name) + ' guide</a></div>' +
     '<p class="hint">Estimates only; see How we calculate. Any aircraft, any route, upon availability.</p>';
@@ -163,11 +173,14 @@ def run():
     places = json.load(open(os.path.join(C, "map_places.json"), encoding="utf-8"))
     ac = json.load(open(os.path.join(C, "aircraft_perf.json"), encoding="utf-8"))
     world = json.load(open(os.path.join(C, "world.json"), encoding="utf-8"))
+    routes = json.load(open(os.path.join(C, "routes.json"), encoding="utf-8"))   # tools/routes.py: the Navoryx routing rules, per aircraft
+    from cabin_sections import SOURCES as CAB   # cabin height and width (m) of each aircraft in the guide
     import company
     pub = [p for p in places["places"] if not (company.LAUNCHED and p.get("draft"))]
     places = dict(places, places=pub)
     data = {"world": world, "places": [{k: p[k] for k in ("name", "path", "lat", "lon")} for p in pub],
-            "ac": [{k: m[k] for k in ("name", "cat", "range_nm", "kt")} for m in ac["models"]]}
+            "ac": [dict({k: m[k] for k in ("name", "cat", "range_nm", "kt")}, cabin=round(CAB[m["id"]][0] * CAB[m["id"]][1], 3)) for m in ac["models"]],
+            "rp": routes["places"], "routes": routes["routes"]}
     open(os.path.join(SITE, "journey.js"), "w", encoding="utf-8").write(JS.replace("__DATA__", json.dumps(data, ensure_ascii=False, separators=(",", ":"))))
     t = open(PAGE, encoding="utf-8").read()
     t = re.sub(r"<!--ae:jm-->.*?<!--/ae:jm-->", "", t, flags=re.S)

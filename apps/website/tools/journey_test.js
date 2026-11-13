@@ -11,15 +11,22 @@ let fail = 0; const ok = (n, c, x) => { console.log((c ? 'PASS ' : 'FAIL ') + n 
     ok(w + ' no drop-down lists, map only', (await p.$$('#planner select')).length === 0);
     const click = async n => { const i = names.indexOf(n); await p.evaluate(i => document.getElementById('jm-p' + i).scrollIntoView({block: 'center', inline: 'center'}), i);
       const b = await p.locator('#jm-p' + i).boundingBox(); await p.mouse.click(b.x + b.width / 2, b.y + b.height / 2); };
-    await click('Singapore'); await click('Tokyo'); await p.waitForTimeout(1600);
+    await click('Singapore'); await click('Tokyo'); await p.waitForTimeout(700);
+    const mid = await p.evaluate(() => { const r = document.querySelector('.jm .route'), s = document.querySelector('.jm .spark'), d = r.getAttribute('d'), m = d.match(/([\d.]+) ([\d.]+)$/);
+      return {head: [+m[1], +m[2]], dot: [+s.getAttribute('cx'), +s.getAttribute('cy')], part: r.getTotalLength()}; });
+    ok(w + ' mid-flight the line ends at the moving point', Math.hypot(mid.head[0] - mid.dot[0], mid.head[1] - mid.dot[1]) < 1 && mid.dot[0] > 0, mid);
+    await p.waitForTimeout(1500);
     const shown = await p.evaluate(() => [...document.querySelectorAll('.jm .lb')].filter(x => x.style.display !== 'none').map(x => x.getBoundingClientRect()));
     const overl = shown.some((a, i) => shown.some((b, j) => j > i && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top));
     ok(w + ' city names do not overlap (' + shown.length + ' of 37 shown)', !overl && shown.length >= 30, shown.length);
     ok(w + ' route is the guide green', (await p.evaluate(() => getComputedStyle(document.querySelector('.jm .route')).stroke)) === 'rgb(57, 255, 143)');
     const t = await p.textContent('#jm-out');
     ok(w + ' Singapore to Tokyo about 2,880 nm', /2,8\d\d nm/.test(t), t.slice(0, 80));
-    ok(w + ' ten aircraft listed', (await p.$$('#jm-out tbody tr')).length === 10);
-    ok(w + ' Challenger 350 nonstop, CJ3 one stop', /Challenger 300 \/ 350Super-midsizeNonstop/.test(t) && /CJ3\+Light jetOne fuel stop/.test(t), t);
+    const rows = await p.$$eval('#jm-out tbody tr', rs => rs.map(r => [r.className, r.textContent]));
+    ok(w + ' only aircraft with at most one fuel stop', rows.length >= 1 && rows.every(r => /Nonstop|One fuel stop/.test(r[1])), rows);
+    ok(w + ' one suggested aircraft, first, in the guide green, nonstop', rows[0][0] === 'best' && rows.filter(r => r[0] === 'best').length === 1 && /Nonstop/.test(rows[0][1])
+      && (await p.$eval('#jm-out tr.best td', e => getComputedStyle(e).color)) === 'rgb(57, 255, 143)', rows[0]);
+    ok(w + ' Singapore to Tokyo suggests a heavy or ultra-long-range jet', /Heavy jet|Ultra-long-range/.test(rows[0][1]), rows[0][1]);
     ok(w + ' route drawn', (await p.getAttribute('.jm .route', 'd')).length > 50);
     ok(w + ' no sideways page scroll', await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await p.screenshot({path: '/tmp/claude-0/-home-claude/3678dbf8-f26a-505b-b9f6-0376a0bfbc99/scratchpad/jm2_' + w + '.png'});

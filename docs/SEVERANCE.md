@@ -29,6 +29,8 @@ never named on the Navoryx website or in its emails, and the Navoryx website doe
 
 Not a tie: each site's journey map is built on its own, from its own data and public sources (Natural Earth
 coastlines, published aircraft figures, public airport positions); no code or data is read from the other site (13 Nov 2026).
+The routing rules (restricted areas, corridor points, fuel stops) are a copy in each repository: Navoryx `src/routing.py`,
+Archē `apps/website/routing.py`; when the conflict-zone bulletins change, each side updates its own copy.
 
 ## After severing
 Run every check and test on both sides (`check_site.py`, `check_all_revised.py` and the portal tests for Archē;
