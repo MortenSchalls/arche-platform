@@ -22,11 +22,16 @@ Every picture on archeaviation.com, where it came from and on what terms. Nothin
 | ac-g550 | Aircraft finder: G550 | 2400 × 1350 | Cabin cross-section drawing, to scale, 1.80 m figure, no words (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): GlobalAir.com, G550 specifications (6 ft 2 in × 7 ft 4 in). |
 | ac-g650 | Aircraft finder: G650 | 2400 × 1350 | Cabin cross-section drawing, to scale, 1.80 m figure, no words (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): GlobalSecurity.org, G650 (6 ft 5 in × 8 ft 6 in); replace with a Gulfstream sheet if one is found. |
 | ac-g7500 | Aircraft finder: Global 7500 | 2400 × 1350 | Cabin cross-section drawing, to scale, 1.80 m figure, no words (`cabin_sections.py`) | ✅ | Archē's own artwork, 20 Oct 2026. Figures (height × width): Bombardier Global 7500 factsheet (1.88 × 2.44 m). |
-| journey-1 | How it works, step 1: Tell us the trip | 1600 × 1200 | Man on the phone on the airstair | ✅ | iStock 896761630, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| journey-1 | How it works, step 1: Tell us the trip | 1600 × 1200 | Client calling to book, daytime office (replaced the airstair photo 21 Oct 2026) | ⚠️ licence to confirm | now iStock 2269862643 (21 Oct 2026 batch), Morten to confirm; earlier iStock 896761630, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | journey-2 | Step 2: We source and vet | 1600 × 1200 | Engine close-up | ✅ | iStock 2208749758, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | journey-3 | Step 3: You confirm | 1600 × 1200 | Jet at sunset | ✅ | iStock 1085767446, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | journey-4 | Step 4: We handle the details | 1600 × 1200 | Car to the aircraft, bags carried | ✅ | iStock 2277753697, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | journey-5 | Step 5: You fly | 1600 × 1200 | Passengers boarding | ✅ | iStock 888729764, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
+| break-1 | Home: photo break 1 | 2560 × 1100 | Wing above clouds at sunrise | ⚠️ licence to confirm | iStock 1052491134 (batch of 21 Oct 2026, originals in "iStock photos 2026-10-21"); Morten to confirm the purchase |
+| break-3 | Home: photo break 3 | 2560 × 1100 | Business jet taxiing at sunset | ⚠️ licence to confirm | iStock 2294478738 (21 Oct 2026 batch); Morten to confirm |
+| trio-1 | Home: row of three, Vetted operators | 1200 × 1200 | Pilot's walk-around under the wing | ⚠️ licence to confirm | iStock 79339787 (21 Oct 2026 batch); Morten to confirm |
+| trio-2 | Home: row of three, One fixed price | 1200 × 1200 | Cabin table, laptop and glass | ⚠️ licence to confirm | iStock 2282607115 (21 Oct 2026 batch); Morten to confirm |
+| trio-3 | Home: row of three, Any hour | 1200 × 1200 | Phone call at night, city lights | ⚠️ licence to confirm | iStock 2266443854 (21 Oct 2026 batch); Morten to confirm |
 | advisor-portrait | Contact (removed) | — | No photo: plain contact panel instead | ✅ | Removed 20 Oct 2026 (Morten). Slot kept in the Design file only. |
 | office-singapore | Contact: Singapore office | 1920 × 1080 | Marina Bay and Merlion at dusk | ✅ | iStock 495760087, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
 | office-bangkok | Contact: Bangkok office | 1920 × 1080 | Bangkok skyline at dusk | ✅ | iStock 871569534, standard licence, bought by Morten 20 Oct 2026. Receipt with Morten; original in Arche Executive/Website/iStock photos 2026-10-20. |
@@ -41,3 +46,10 @@ Every picture on archeaviation.com, where it came from and on what terms. Nothin
 3. **Manufacturer media:** often press use only, so get written permission for marketing.
 4. **AI-made by Archē:** allowed under the tool's terms. Never presented as a specific aircraft type, a real person or a real office. Mark generic cabin images "Illustration".
 5. **Archē's own photos and artwork.**
+
+## Still needed (13 Nov 2026)
+One licensed landscape photo per place page, 2400 × 1350 or larger, daylight, no readable aircraft registration, no people's faces in close-up, no logos; saved as `apps/website/images/places/<path with dashes>.webp` (for example `cities-tokyo.webp`). Pages without one show the plain hero. 53 pages:
+- Regions (6): Africa, Asia-Pacific, Europe, Latin America, Middle East, North America.
+- Countries (10): India, Indonesia, Japan, Malaysia, Maldives, South Korea, Sri Lanka, Taiwan, Thailand, Vietnam.
+- Cities (37): Auckland, Bali, Bangkok, Buenos Aires, Cape Town, Chiang Mai, Doha, Dubai, Geneva, Hong Kong, Johannesburg, Kuala Lumpur, Lagos, London, Los Angeles, Macau, Marrakech, Mexico City, Miami, Milan, Mumbai, Nassau, New York, Nice, Palm Beach, Paris, Phuket, Riyadh, San Francisco, São Paulo, Seoul, Singapore, Sydney, Taipei, Tokyo, Warsaw, Washington.
+Airport, guide and service pages (12) need none.
