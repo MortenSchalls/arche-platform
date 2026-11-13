@@ -1,216 +1,218 @@
 {
- "_why": "Range and cruise speed of the aircraft in the aircraft guide, for the journey map on Destinations (Morten, 13 Nov 2026: 'for the map, use the models we have in our aircraft interactive guide'). Published figures only, each with its source and the date checked. Mach figures are turned into knots at cruise height in the standard atmosphere (Mach 1 = 573.8 kt above 36,000 ft). The map shows each model by the exact variant its figures belong to ('label'); cabin height and width (m) rank the suggestion and carry their own source.",
- "checked": "2026-11-13",
- "models": [
-  {
-   "id": "cj3",
-   "name": "Cessna Citation CJ3 / CJ3+",
-   "cat": "Light jet",
-   "range_nm": 2040,
-   "kt": 416,
-   "basis": "maximum cruise 416 kt",
-   "source": [
-    "Textron Aviation, Citation CJ3 Gen2",
-    "https://cessna.txtav.com/CJ3-Gen2",
-    "2026-11-13"
-   ],
-   "label": "Cessna Citation CJ3 Gen2",
-   "cabin_h": 1.45,
-   "cabin_w": 1.47,
-   "cabin_source": [
-    "GlobalAir.com, Citation CJ3 Gen 2 specifications",
-    "https://www.globalair.com/aircraft-specifications/cessna/citation-cj3-gen-2-specifications/1804",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "phenom300",
-   "name": "Embraer Phenom 300",
-   "cat": "Light jet",
-   "range_nm": 2010,
-   "kt": 464,
-   "basis": "high-speed cruise 464 kt",
-   "source": [
-    "Embraer, Phenom 300E brochure 2025",
-    "https://www.embraer.com/media/kvajetsu/114-2025-brochure-phenom-300e-17-fb-eletronic-low.pdf",
-    "2026-11-13"
-   ],
-   "label": "Embraer Phenom 300E",
-   "cabin_h": 1.5,
-   "cabin_w": 1.55,
-   "cabin_source": [
-    "Embraer, Phenom 300E brochure 2025 (cross-section drawing)",
-    "https://www.embraer.com/media/kvajetsu/114-2025-brochure-phenom-300e-17-fb-eletronic-low.pdf",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "pc24",
-   "name": "Pilatus PC-24",
-   "cat": "Light jet",
-   "range_nm": 2000,
-   "kt": 440,
-   "basis": "maximum cruise 440 kt; range with 6 passengers",
-   "source": [
-    "Pilatus, PC-24 Just the Facts",
-    "https://www.pilatus-aircraft.com/assets/files/PC-24-Just-The-Facts_2026-05-22-083119_osoc.pdf",
-    "2026-11-13"
-   ],
-   "label": "Pilatus PC-24",
-   "cabin_h": 1.55,
-   "cabin_w": 1.69,
-   "cabin_source": [
-    "Pilatus, PC-24 Just the Facts",
-    "https://www.pilatus-aircraft.com/assets/files/PC-24-Just-The-Facts_2026-05-22-083119_osoc.pdf",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "xls",
-   "name": "Cessna Citation Excel / XLS",
-   "cat": "Midsize jet",
-   "range_nm": 2100,
-   "kt": 441,
-   "basis": "top speed 441 kt",
-   "source": [
-    "Flying, Citation XLS Gen2 achieves FAA certification",
-    "https://flyingmag.com/textrons-cessna-citation-xls-gen2-achieves-faa-certification",
-    "2026-11-13"
-   ],
-   "label": "Cessna Citation XLS Gen2",
-   "cabin_h": 1.73,
-   "cabin_w": 1.68,
-   "cabin_source": [
-    "GlobalAir.com, Citation XLS Gen 2",
-    "https://www.globalair.com/aircraft-for-sale/citation-xls-gen-2",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "cl350",
-   "name": "Bombardier Challenger 300 / 350",
-   "cat": "Super-midsize",
-   "range_nm": 3200,
-   "kt": 459,
-   "basis": "typical cruise Mach 0.80",
-   "source": [
-    "Bombardier, Challenger 350 factsheet",
-    "https://businessaircraft.bombardier.com/sites/default/files/2024-04/Challenger350-factsheet.pdf",
-    "2026-11-13"
-   ],
-   "label": "Bombardier Challenger 350",
-   "cabin_h": 1.83,
-   "cabin_w": 2.19,
-   "cabin_source": [
-    "Bombardier, Challenger 350 factsheet",
-    "https://businessaircraft.bombardier.com/sites/default/files/2024-04/Challenger350-factsheet.pdf",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "cl650",
-   "name": "Bombardier Challenger 650",
-   "cat": "Heavy jet",
-   "range_nm": 4000,
-   "kt": 459,
-   "basis": "typical cruise Mach 0.80",
-   "source": [
-    "Bombardier, Challenger 650 factsheet",
-    "https://bombardier.com/sites/default/files/2024-04/Challenger650-factsheet.pdf",
-    "2026-11-13"
-   ],
-   "label": "Bombardier Challenger 650",
-   "cabin_h": 1.83,
-   "cabin_w": 2.41,
-   "cabin_source": [
-    "Bombardier, Challenger 650 factsheet",
-    "https://bombardier.com/sites/default/files/2024-04/Challenger650-factsheet.pdf",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "f8x",
-   "name": "Dassault Falcon 8X",
-   "cat": "Heavy jet",
-   "range_nm": 6450,
-   "kt": 459,
-   "basis": "range quoted at Mach 0.80",
-   "source": [
-    "Dassault Falcon, Falcon 8X backgrounder",
-    "https://www.dassaultfalcon.com/news/falcon-8x/",
-    "2026-11-13"
-   ],
-   "label": "Dassault Falcon 8X",
-   "cabin_h": 1.88,
-   "cabin_w": 2.34,
-   "cabin_source": [
-    "Dassault Falcon, Falcon 8X backgrounder",
-    "https://www.dassaultfalcon.com/news/falcon-8x/",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "g550",
-   "name": "Gulfstream G550",
-   "cat": "Ultra-long-range",
-   "range_nm": 6750,
-   "kt": 459,
-   "basis": "range quoted at Mach 0.80",
-   "source": [
-    "Gulfstream release, Gulfstream delivers 600th G550 (23 Dec 2019)",
-    "https://www.airframer.com/news/release/gulfstream-delivers-600th-g550",
-    "2026-11-13"
-   ],
-   "label": "Gulfstream G550",
-   "cabin_h": 1.88,
-   "cabin_w": 2.24,
-   "cabin_source": [
-    "GlobalAir.com, G550 specifications",
-    "https://www.globalair.com/aircraft-specifications/gulfstream-aerospace/g550-specifications/1050",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "g650",
-   "name": "Gulfstream G650 / G650ER",
-   "cat": "Ultra-long-range",
-   "range_nm": 7500,
-   "kt": 488,
-   "basis": "G650ER range quoted at Mach 0.85",
-   "source": [
-    "AIN, Gulfstream's 7,500-nm G650ER enters service",
-    "https://ainonline.com/aviation-news/business-aviation/2014-11-18/gulfstreams-7500-nm-g650er-enters-service",
-    "2026-11-13"
-   ],
-   "label": "Gulfstream G650ER",
-   "cabin_h": 1.91,
-   "cabin_w": 2.49,
-   "cabin_source": [
-    "Aviation Week, Aircraft overview: Gulfstream G650 / G650ER (finished cabin 6 ft 3 in by 8 ft 2 in)",
-    "https://aviationweek.com/business-aviation/aircraft-overview/aircraft-overview-gulfstream-g650-g650er",
-    "2026-11-13"
-   ]
-  },
-  {
-   "id": "g7500",
-   "name": "Bombardier Global 7500",
-   "cat": "Ultra-long-range",
-   "range_nm": 7700,
-   "kt": 488,
-   "basis": "typical cruise Mach 0.85",
-   "source": [
-    "Bombardier, Global 7500 factsheet",
-    "https://bombardier.com/sites/default/files/2024-04/Global7500-factsheet.pdf",
-    "2026-11-13"
-   ],
-   "label": "Bombardier Global 7500",
-   "cabin_h": 1.88,
-   "cabin_w": 2.44,
-   "cabin_source": [
-    "Bombardier, Global 7500 factsheet",
-    "https://bombardier.com/sites/default/files/2024-04/Global7500-factsheet.pdf",
-    "2026-11-13"
-   ]
-  }
- ]
+  "_why": "Range and cruise speed of the aircraft in the aircraft guide, for the journey map on Destinations (Morten, 13 Nov 2026: 'for the map, use the models we have in our aircraft interactive guide'). Published figures only, each with its source and the date checked. Mach figures are turned into knots at cruise height in the standard atmosphere (Mach 1 = 573.8 kt above 36,000 ft). The map shows each model by the exact variant its figures belong to ('label'); cabin height and width (m) rank the suggestion and carry their own source.",
+  "checked": "2026-11-13",
+  "models": [
+    {
+      "id": "cj3",
+      "name": "Cessna Citation CJ3 / CJ3+",
+      "cat": "Light jet",
+      "range_nm": 2040,
+      "kt": 416,
+      "basis": "maximum cruise 416 kt",
+      "source": [
+        "Textron Aviation, Citation CJ3 Gen2",
+        "https://cessna.txtav.com/CJ3-Gen2",
+        "2026-11-13"
+      ],
+      "label": "Cessna Citation CJ3 Gen2",
+      "cabin_h": 1.45,
+      "cabin_w": 1.47,
+      "cabin_source": [
+        "GlobalAir.com, Citation CJ3 Gen 2 specifications",
+        "https://www.globalair.com/aircraft-specifications/cessna/citation-cj3-gen-2-specifications/1804",
+        "2026-11-13"
+      ]
+    },
+    {
+      "id": "phenom300",
+      "name": "Embraer Phenom 300",
+      "cat": "Light jet",
+      "range_nm": 2010,
+      "kt": 464,
+      "basis": "high-speed cruise 464 kt",
+      "source": [
+        "Embraer, Phenom 300E brochure 2025",
+        "https://www.embraer.com/media/kvajetsu/114-2025-brochure-phenom-300e-17-fb-eletronic-low.pdf",
+        "2026-11-13"
+      ],
+      "label": "Embraer Phenom 300E",
+      "cabin_h": 1.5,
+      "cabin_w": 1.55,
+      "cabin_source": [
+        "Embraer, Phenom 300E brochure 2025 (cross-section drawing)",
+        "https://www.embraer.com/media/kvajetsu/114-2025-brochure-phenom-300e-17-fb-eletronic-low.pdf",
+        "2026-11-13"
+      ]
+    },
+    {
+      "id": "pc24",
+      "name": "Pilatus PC-24",
+      "cat": "Light jet",
+      "range_nm": 2000,
+      "kt": 440,
+      "basis": "maximum cruise 440 kt; range with 6 passengers",
+      "source": [
+        "Pilatus, PC-24 Just the Facts",
+        "https://www.pilatus-aircraft.com/assets/files/PC-24-Just-The-Facts_2026-05-22-083119_osoc.pdf",
+        "2026-11-13"
+      ],
+      "label": "Pilatus PC-24",
+      "cabin_h": 1.55,
+      "cabin_w": 1.69,
+      "cabin_source": [
+        "Pilatus, PC-24 Just the Facts",
+        "https://www.pilatus-aircraft.com/assets/files/PC-24-Just-The-Facts_2026-05-22-083119_osoc.pdf",
+        "2026-11-13"
+      ]
+    },
+    {
+      "id": "xls",
+      "name": "Cessna Citation Excel / XLS",
+      "cat": "Midsize jet",
+      "range_nm": 2100,
+      "kt": 441,
+      "basis": "top speed 441 kt",
+      "source": [
+        "Flying, Citation XLS Gen2 achieves FAA certification",
+        "https://flyingmag.com/textrons-cessna-citation-xls-gen2-achieves-faa-certification",
+        "2026-11-13"
+      ],
+      "label": "Cessna Citation XLS Gen2",
+      "cabin_h": 1.73,
+      "cabin_w": 1.68,
+      "cabin_source": [
+        "GlobalAir.com, Citation XLS Gen 2",
+        "https://www.globalair.com/aircraft-for-sale/citation-xls-gen-2",
+        "2026-11-13"
+      ]
+    },
+    {
+      "id": "cl350",
+      "name": "Bombardier Challenger 300 / 350",
+      "cat": "Super-midsize",
+      "range_nm": 3200,
+      "kt": 459,
+      "basis": "typical cruise Mach 0.80",
+      "source": [
+        "Bombardier, Challenger 350 factsheet",
+        "https://businessaircraft.bombardier.com/sites/default/files/2024-04/Challenger350-factsheet.pdf",
+        "2026-11-13"
+      ],
+      "label": "Bombardier Challenger 350",
+      "cabin_h": 1.83,
+      "cabin_w": 2.19,
+      "cabin_source": [
+        "Bombardier, Challenger 350 factsheet",
+        "https://businessaircraft.bombardier.com/sites/default/files/2024-04/Challenger350-factsheet.pdf",
+        "2026-11-13"
+      ]
+    },
+    {
+      "id": "cl650",
+      "name": "Bombardier Challenger 650",
+      "cat": "Heavy jet",
+      "range_nm": 4000,
+      "kt": 459,
+      "basis": "typical cruise Mach 0.80",
+      "source": [
+        "Bombardier, Challenger 650 factsheet",
+        "https://bombardier.com/sites/default/files/2024-04/Challenger650-factsheet.pdf",
+        "2026-11-13"
+      ],
+      "label": "Bombardier Challenger 650",
+      "cabin_h": 1.83,
+      "cabin_w": 2.41,
+      "cabin_source": [
+        "Bombardier, Challenger 650 factsheet",
+        "https://bombardier.com/sites/default/files/2024-04/Challenger650-factsheet.pdf",
+        "2026-11-13"
+      ]
+    },
+    {
+      "id": "f8x",
+      "name": "Dassault Falcon 8X",
+      "cat": "Heavy jet",
+      "range_nm": 6450,
+      "kt": 459,
+      "basis": "range quoted at Mach 0.80",
+      "source": [
+        "Dassault Falcon, Falcon 8X backgrounder",
+        "https://www.dassaultfalcon.com/news/falcon-8x/",
+        "2026-11-13"
+      ],
+      "label": "Dassault Falcon 8X",
+      "cabin_h": 1.88,
+      "cabin_w": 2.34,
+      "cabin_source": [
+        "Dassault Falcon, Falcon 8X backgrounder",
+        "https://www.dassaultfalcon.com/news/falcon-8x/",
+        "2026-11-13"
+      ]
+    },
+    {
+      "id": "g550",
+      "name": "Gulfstream G550",
+      "cat": "Ultra-long-range",
+      "range_nm": 6750,
+      "kt": 459,
+      "basis": "range quoted at Mach 0.80",
+      "source": [
+        "Gulfstream release, Gulfstream delivers 600th G550 (23 Dec 2019)",
+        "https://www.airframer.com/news/release/gulfstream-delivers-600th-g550",
+        "2026-11-13"
+      ],
+      "label": "Gulfstream G550",
+      "cabin_h": 1.88,
+      "cabin_w": 2.24,
+      "cabin_source": [
+        "GlobalAir.com, G550 specifications",
+        "https://www.globalair.com/aircraft-specifications/gulfstream-aerospace/g550-specifications/1050",
+        "2026-11-13"
+      ]
+    },
+    {
+      "id": "g650",
+      "name": "Gulfstream G650 / G650ER",
+      "cat": "Ultra-long-range",
+      "range_nm": 7500,
+      "kt": 488,
+      "basis": "G650ER range quoted at Mach 0.85",
+      "source": [
+        "AIN, Gulfstream's 7,500-nm G650ER enters service",
+        "https://ainonline.com/aviation-news/business-aviation/2014-11-18/gulfstreams-7500-nm-g650er-enters-service",
+        "2026-11-13"
+      ],
+      "label": "Gulfstream G650ER",
+      "cabin_h": 1.91,
+      "cabin_w": 2.49,
+      "cabin_source": [
+        "Aviation Week, Aircraft overview: Gulfstream G650 / G650ER (finished cabin 6 ft 3 in by 8 ft 2 in)",
+        "https://aviationweek.com/business-aviation/aircraft-overview/aircraft-overview-gulfstream-g650-g650er",
+        "2026-11-13"
+      ],
+      "cabin_l": 14.27
+    },
+    {
+      "id": "g7500",
+      "name": "Bombardier Global 7500",
+      "cat": "Ultra-long-range",
+      "range_nm": 7700,
+      "kt": 488,
+      "basis": "typical cruise Mach 0.85",
+      "source": [
+        "Bombardier, Global 7500 factsheet",
+        "https://bombardier.com/sites/default/files/2024-04/Global7500-factsheet.pdf",
+        "2026-11-13"
+      ],
+      "label": "Bombardier Global 7500",
+      "cabin_h": 1.88,
+      "cabin_w": 2.44,
+      "cabin_source": [
+        "Bombardier, Global 7500 factsheet",
+        "https://bombardier.com/sites/default/files/2024-04/Global7500-factsheet.pdf",
+        "2026-11-13"
+      ],
+      "cabin_l": 16.59
+    }
+  ]
 }
