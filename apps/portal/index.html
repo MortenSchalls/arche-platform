@@ -352,6 +352,7 @@ h2::before{content:"";display:inline-block;width:3px;height:.9em;background:var(
 .kpi{border-top:2px solid var(--line)}
 .who select,.themesel{width:auto!important;max-width:170px;height:32px!important;font-size:12px!important;padding:4px 26px 4px 8px!important}
 .who{flex-wrap:nowrap}
+.who .signout{background:transparent;color:var(--hdr-ink);border:1px solid var(--hdr-line);height:32px;padding:4px 10px;font:inherit;font-size:12px;letter-spacing:.06em;cursor:pointer;white-space:nowrap}
 
 .stack > .btn,.panel > .btn{align-self:flex-start}
 td .btn,.bar .btn{white-space:nowrap}
@@ -581,7 +582,15 @@ async function boot(){
   }
   decideRole(); render();
 }
-function bootFail(msg){ $("main").innerHTML = `<div class="panel empty"><p><b>The portal could not open here.</b></p><p class="small">${esc(msg || "Sign in again, or ask the Director to approve your access.")}</p><div class="row" style="justify-content:center;margin-top:10px"><button class="btn primary" type="button" onclick="location.reload()">Try again</button></div></div>`; }
+function bootFail(msg){ $("main").innerHTML = `<div class="panel empty"><p><b>The portal could not open here.</b></p><p class="small">${esc(msg || "Sign in again, or ask the Director to approve your access.")}</p><div class="row" style="justify-content:center;margin-top:10px"><button class="btn primary" type="button" onclick="location.reload()">Try again</button><button class="btn" type="button" onclick="signOutNow()">Sign out</button></div></div>`; }
+/* Sign out (Morten, 14 Nov 2026: "cannot sign out as Steen, so crete a sign out button on the portal"): ends the sign-in on
+   this device only (another person's other devices stay signed in), clears what this browser kept of it and returns to the
+   sign-in screen. Shown in the top bar on every screen (in Menu on a phone) and on the screen shown when the portal cannot open. */
+async function signOutNow(){
+  try { if (window.__sb && window.__sb.auth) await window.__sb.auth.signOut({scope: "local"}); } catch(e){}
+  try { localStorage.removeItem("arche.pwlogin"); Object.keys(localStorage).filter(k => /^sb-.*-auth-token/.test(k)).forEach(k => localStorage.removeItem(k)); sessionStorage.clear(); } catch(e){}
+  location.replace(location.pathname);
+}
 /* never leave someone on "Opening the portal…" (Morten, 28 Oct 2026: a broker could not open the portal; that is lost revenue).
    If opening stops on an error, or is still not done after 15 seconds, the page says so and offers Try again; one automatic retry. */
 function bootGuard(err){
@@ -659,7 +668,7 @@ function renderNow(){
   const roleLabel = {owner:"Director", ops:"Operations", broker:"Broker", pending:"Awaiting access", inactive:"Access ended"}[acting()] || "";
   const th = S.theme || "light";
   const themeSel = `<select id="themeSel" class="themesel" aria-label="Colour theme" title="Day is easier on the eyes in daylight and long sessions; Night for low light"><option value="light" ${th === "light" ? "selected" : ""}>Day</option><option value="dark" ${th === "dark" ? "selected" : ""}>Night</option><option value="system" ${th === "system" ? "selected" : ""}>Follow device</option></select>`;
-  $("who").innerHTML = themeSel + `<span class="rolechip">${esc(roleLabel)}${S.preview ? " · preview" : ""}</span>` + (S.role === "owner" ? `<select id="previewSel" aria-label="Preview the portal as" style="width:auto;padding:4px 8px;font-size:12px;background:transparent;color:var(--brand-ink);border-color:rgba(233,238,244,.4)"><option value="">Director view</option><option value="ops" ${S.preview==="ops"?"selected":""}>Preview: operations</option><option value="broker" ${S.preview==="broker"?"selected":""}>Preview: broker</option></select> <a href="#" data-act="website" style="color:var(--brand-ink);font-size:12px;border:1px solid rgba(233,238,244,.4);padding:4px 8px;text-decoration:none;white-space:nowrap" title="Opens the locked archeaviation.com without the Vercel login">Website ↗</a>` : "");
+  $("who").innerHTML = themeSel + `<span class="rolechip">${esc(roleLabel)}${S.preview ? " · preview" : ""}</span>` + (S.role === "owner" ? `<select id="previewSel" aria-label="Preview the portal as" style="width:auto;padding:4px 8px;font-size:12px;background:transparent;color:var(--brand-ink);border-color:rgba(233,238,244,.4)"><option value="">Director view</option><option value="ops" ${S.preview==="ops"?"selected":""}>Preview: operations</option><option value="broker" ${S.preview==="broker"?"selected":""}>Preview: broker</option></select> <a href="#" data-act="website" style="color:var(--brand-ink);font-size:12px;border:1px solid rgba(233,238,244,.4);padding:4px 8px;text-decoration:none;white-space:nowrap" title="Opens the locked archeaviation.com without the Vercel login">Website ↗</a>` : "") + `<button type="button" class="signout" data-act="signout" title="Signed in as ${esc(S.myName || "")}. Sign out on this device">Sign out</button>`;
   if (S.editing) return;
   if (S.view === "conf" && document.activeElement && document.activeElement.closest && document.activeElement.closest("#confForm")) return;                                       // keep an open form intact while someone types; lists refresh when it closes
   const v = S.view, r = acting();
@@ -1057,6 +1066,7 @@ async function act(a, el){
     if (a === "sigPreview") { S.sigPrev = S.sigPrev === t.did ? null : t.did; render(); return; }
     if (a === "sigCopy") { const m = sigText(t, !!(t.st && t.st.sigSentAt)); try { await navigator.clipboard.writeText(`To: ${m.to}\n${m.cc ? "Cc: " + m.cc + "\n" : ""}Subject: ${m.subject}\n\n${m.body}`); toast("Email copied: paste it into your mailbox and attach the PDF."); } catch(e){ S.sigPrev = t.did; render(); toast("Copy is blocked here: the email is shown below to select and copy."); } return; }
     if (a === "menu") { S.menuOpen = !S.menuOpen; renderShell(navItems()); return; }
+    if (a === "signout") { await signOutNow(); return; }
     if (a === "purgeAsk") { S.purgeAsk = true; render(); return; }
     if (a === "purgeNo") { S.purgeAsk = false; render(); return; }
     if (a === "purgeYes") { purgeExamples(el); return; }

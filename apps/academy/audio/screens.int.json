@@ -6136,12 +6136,12 @@
   ]
  },
  {
-  "key": "ed3d8e48",
+  "key": "844666c5",
   "kind": "lesson",
   "where": "sys screen 3",
   "text": [
    "Systems training: the Archē portal",
-   "S.2 Phone use and colour theme",
+   "S.2 Phone use, colour theme and signing out",
    "The portal works one-handed on a phone: the main sections at the bottom, everything else under Menu.",
    "Who uses it: Everyone",
    "How it works",
@@ -6149,26 +6149,28 @@
    "Press Menu at the top for every other section. Choosing a section closes the menu.",
    "Each screen has its own address, so the phone's Back button and bookmarks work, and a link to a trip opens that trip.",
    "Colour theme: choose Day, Night or Follow device in the header (under Menu on a phone). Your choice is remembered on that device.",
+   "Sign out: press Sign out in the header (under Menu on a phone). It signs you out on this device only and returns to the sign-in screen. Point at it to see whose sign-in is open.",
    "Try it in the test version, as Test Broker",
    "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar.",
    "If something goes wrong",
    "I cannot find a sectionPress Menu at the top. Sections you do not have access to are not shown.",
    "A wide table or diagram is cut offSwipe it sideways.",
+   "The portal opened as someone else (for example after opening another person's invitation link)Press Sign out, or Not you? Sign out on the password screen, then sign in with your own email. Never open a sign-in link meant for someone else.",
    "Tips",
    "Add the portal to your home screen from the browser's share menu for one-tap access.",
    "If your eyes tire late in the day, switch to Night."
   ],
   "say": [
    "Systems training, the ar Kay portal.",
-   "Phone use and colour theme.",
+   "Phone use, colour theme and signing out.",
    "The portal works one-handed on a phone, the main sections at the bottom, everything else under Menu.",
    "Who uses it, Everyone.",
    "How it works.",
-   "The bar at the bottom holds your main sections. A red number shows how many things are waiting there. Press Menu at the top for every other section. Choosing a section closes the menu. Each screen has its own address, so the phone's Back button and bookmarks work, and a link to a trip opens that trip. Colour theme, choose Day, Night or Follow device in the header, under Menu on a phone. Your choice is remembered on that device.",
+   "The bar at the bottom holds your main sections. A red number shows how many things are waiting there. Press Menu at the top for every other section. Choosing a section closes the menu. Each screen has its own address, so the phone's Back button and bookmarks work, and a link to a trip opens that trip. Colour theme, choose Day, Night or Follow device in the header, under Menu on a phone. Your choice is remembered on that device. Sign out, press Sign out in the header, under Menu on a phone. It signs you out on this device only and returns to the sign-in screen. Point at it to see whose sign-in is open.",
    "Try it in the test version, as Test Broker.",
    "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar.",
    "If something goes wrong.",
-   "I cannot find a section. Press Menu at the top. Sections you do not have access to are not shown. A wide table or diagram is cut off. Swipe it sideways.",
+   "I cannot find a section. Press Menu at the top. Sections you do not have access to are not shown. A wide table or diagram is cut off. Swipe it sideways. The portal opened as someone else, for example after opening another person's invitation link. Press Sign out, or Not you? Sign out on the password screen, then sign in with your own email. Never open a sign-in link meant for someone else.",
    "Tips.",
    "Add the portal to your home screen from the browser's share menu for one-tap access. If your eyes tire late in the day, switch to Night."
   ]
@@ -7284,18 +7286,18 @@
   ]
  },
  {
-  "key": "88d1fa44",
+  "key": "c6003cbb",
   "kind": "question",
   "where": "sys check question 2",
   "text": [
-   "Phone use and colour theme: I cannot find a section. What do you do?",
+   "Phone use, colour theme and signing out: I cannot find a section. What do you do?",
    "aThe text typed is not a known airport. Type a city or code and pick one of the suggestions.",
    "bPress Menu at the top. Sections you do not have access to are not shown.",
    "cIt is your own trip. Another person the Director has mandated handles it.",
    "dPoints update at each round, every 3 hours."
   ],
   "say": [
-   "Phone use and colour theme, I cannot find a section. What do you do?",
+   "Phone use, colour theme and signing out, I cannot find a section. What do you do?",
    "A. The text typed is not a known airport. Type a city or code and pick one of the suggestions. B. Press Menu at the top. Sections you do not have access to are not shown. C. It is your own trip. Another person the Director has mandated handles it. D. Points update at each round, every 3 hours."
   ]
  },

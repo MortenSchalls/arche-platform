@@ -93,7 +93,8 @@
       <p>${reset ? "Choose a new password that only you know" : temp ? "You signed in with a temporary password. Choose a password that only you know" : "Set a password that only you know"}: at least 10 characters. From now on you sign in with your email and this password.</p>
       <input id="spA" type="password" autocomplete="new-password" placeholder="New password" aria-label="New password">
       <input id="spB" type="password" autocomplete="new-password" placeholder="New password again" aria-label="New password again">
-      <button type="button" id="spGo">Save and continue</button><p class="msg" id="spMsg" aria-live="polite"></p></div>`;
+      <button type="button" id="spGo">Save and continue</button><p class="msg" id="spMsg" aria-live="polite"></p>
+      <p style="margin:14px 0 0;font-size:13px">Signed in as ${email.replace(/[<>&"]/g, "")}. Not you? <button type="button" id="spOut" style="width:auto;height:auto;margin:0;padding:0;background:none;border:0;color:#f3f5f8;text-decoration:underline;text-transform:none;letter-spacing:0;font-size:13px">Sign out</button></p></div>`;
     (document.body ? Promise.resolve() : new Promise(r => addEventListener("DOMContentLoaded", r))).then(() => document.body.appendChild(box));
     box.addEventListener("click", async e => {
       if (e.target.id !== "spGo") return;
@@ -114,6 +115,12 @@
       try { localStorage.removeItem("arche.pwlogin"); } catch (err) {}
       if (reset) { history.replaceState(null, "", location.pathname); }
       location.reload();
+    });
+    box.addEventListener("click", async e => {
+      if (e.target.id !== "spOut") return;
+      try { await sb.auth.signOut({ scope: "local" }); } catch (err) {}
+      try { localStorage.removeItem("arche.pwlogin"); sessionStorage.clear(); } catch (err) {}
+      location.replace(location.pathname);
     });
     box.addEventListener("click", async e => {
       if (e.target.id !== "spNew") return;

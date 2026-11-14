@@ -885,14 +885,15 @@
   },
   {
    "id": "phone",
-   "title": "Phone use and colour theme",
+   "title": "Phone use, colour theme and signing out",
    "who": "Everyone",
    "purpose": "The portal works one-handed on a phone: the main sections at the bottom, everything else under Menu.",
    "steps": [
     "The bar at the bottom holds your main sections. A red number shows how many things are waiting there.",
     "Press Menu at the top for every other section. Choosing a section closes the menu.",
     "Each screen has its own address, so the phone's Back button and bookmarks work, and a link to a trip opens that trip.",
-    "Colour theme: choose Day, Night or Follow device in the header (under Menu on a phone). Your choice is remembered on that device."
+    "Colour theme: choose Day, Night or Follow device in the header (under Menu on a phone). Your choice is remembered on that device.",
+    "Sign out: press Sign out in the header (under Menu on a phone). It signs you out on this device only and returns to the sign-in screen. Point at it to see whose sign-in is open."
    ],
    "trouble": [
     [
@@ -902,6 +903,10 @@
     [
      "A wide table or diagram is cut off",
      "Swipe it sideways."
+    ],
+    [
+     "The portal opened as someone else (for example after opening another person's invitation link)",
+     "Press Sign out, or Not you? Sign out on the password screen, then sign in with your own email. Never open a sign-in link meant for someone else."
     ]
    ],
    "tips": [
