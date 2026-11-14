@@ -27,6 +27,6 @@ for i, a in enumerate(P):
             "v": {str(k): (0 if v == 0 else None if v is None else [v[0], round(v[1]), [round(x) for x in v[2]],
                                                                     [[round(x, 1), round(y, 1)] for x, y in v[3]], v[4]])
                   for k, v in r["via"].items()}}
-json.dump({"built": datetime.date.today().isoformat(), "areas_checked": "10 Nov 2026 (EASA conflict-zone bulletins; Russia closed to EU, UK, US and Swiss-registered aircraft)",
+json.dump({"built": datetime.date.today().isoformat(), "areas_checked": routing.SHARED["checked"] + " (docs/AIRSPACE.json, shared with the Navoryx site)",
            "places": [p["path"] for p in P], "routes": out}, open(os.path.join(C, "routes.json"), "w"), separators=(",", ":"))
 print(len(out), "routes in", round(time.time() - t0), "s")

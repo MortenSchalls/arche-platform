@@ -1,0 +1,1145 @@
+{
+ "title": "Airspace and route rules shared by both journey maps",
+ "note": "Kept identical in navoryx-website and arche-platform (docs/AIRSPACE.json, a copy in each; severance rule, docs/SEVERANCE.md). Each site's routing reads its closed areas, the arrival and departure allowances and the corridor references from its own copy. Any change is made in both repositories in the same piece of work, with both route checks run (Morten 13 Nov 2026: \"work with Arche website to ensure we share data and rules for the map\"). 'checked' is the last look at EASA's list, 'changed' the last change to the areas; each item gives the bulletin, its revision, its validity, its recommendation and the areas it closes. Only an all-levels recommendation closes an area; a lowest-level bulletin is crossed at cruise.",
+ "checked": "2026-11-13",
+ "changed": "2026-11-13",
+ "source": [
+  "EASA Conflict Zone Information Bulletins, active list (CSV export)",
+  "https://www.easa.europa.eu/en/domains/air-operations/czibs/export?page=&_format=csv"
+ ],
+ "items": [
+  {
+   "subject": "Russia (closure to Swiss-registered aircraft) and Belarus",
+   "ref": "Russian closure since 28 Feb 2022; EASA CZIB-2025-01 R3",
+   "valid_until": "2027-01-31",
+   "rule": "closed, all levels",
+   "areas": [
+    "north",
+    "north_e"
+   ]
+  },
+  {
+   "subject": "Ukraine",
+   "ref": "CZIB-2022-01R14",
+   "valid_until": "2027-01-31",
+   "rule": "closed, all levels",
+   "areas": [
+    "north"
+   ]
+  },
+  {
+   "subject": "Iran",
+   "ref": "CZIB-2026-04-R2",
+   "valid_until": "2026-11-16",
+   "rule": "closed, all levels",
+   "areas": [
+    "mideast"
+   ]
+  },
+  {
+   "subject": "Iraq",
+   "ref": "CZIB-2026-05-R2",
+   "valid_until": "2026-11-16",
+   "rule": "closed, all levels",
+   "areas": [
+    "mideast"
+   ]
+  },
+  {
+   "subject": "Lebanon",
+   "ref": "CZIB-2026-06-R2",
+   "valid_until": "2026-11-16",
+   "rule": "closed, all levels (Beirut by sea only)",
+   "areas": [
+    "mideast"
+   ]
+  },
+  {
+   "subject": "Syria",
+   "ref": "CZIB-2017-03R20",
+   "valid_until": "2026-11-30",
+   "rule": "closed west of a line, below FL260 east of it; avoided whole",
+   "areas": [
+    "mideast"
+   ]
+  },
+  {
+   "subject": "Jordan and Israel",
+   "ref": "CZIB-2026-08-R3 (Jordan); CZIB-2026-07R3 (caution over Israel and its neighbours)",
+   "valid_until": "2026-11-16",
+   "rule": "caution only; planned around, as the published Europe-Asia corridors do (they pass over Egypt, not the Levant: references OPS, WEGO)",
+   "areas": [
+    "levant"
+   ]
+  },
+  {
+   "subject": "Persian Gulf and Gulf of Oman waters",
+   "ref": "CZIB-2026-07R3",
+   "valid_until": "2026-11-16",
+   "rule": "closed over the water (Gulf of Oman west of 58 E), arrivals and departures allowed",
+   "areas": [
+    "gulf_water"
+   ]
+  },
+  {
+   "subject": "Saudi Arabia, two areas of FIR Jeddah",
+   "ref": "CZIB-2026-09-R1",
+   "valid_until": "2026-11-16",
+   "rule": "closed, all levels, in the south (Yemen border to Taif and Madinah) and the east (Kuwait boundary through Riyadh to the Doha boundary); drawn from the description",
+   "areas": [
+    "saudi_s",
+    "saudi_e"
+   ]
+  },
+  {
+   "subject": "Yemen",
+   "ref": "CZIB-2017-07R20",
+   "valid_until": "2027-04-30",
+   "rule": "closed, all levels",
+   "areas": [
+    "south_arabia"
+   ]
+  },
+  {
+   "subject": "Sudan",
+   "ref": "CZIB-2023-01R8",
+   "valid_until": "2027-01-31",
+   "rule": "closed, all levels",
+   "areas": [
+    "sudan"
+   ]
+  },
+  {
+   "subject": "Afghanistan",
+   "ref": "CZIB-2017-08R19",
+   "valid_until": "2027-01-31",
+   "rule": "not below FL320: crossed at cruise",
+   "areas": []
+  },
+  {
+   "subject": "Pakistan, Baluchistan and Khyber Pakhtunkhwa",
+   "ref": "CZIB-2018-02R21",
+   "valid_until": "2027-01-31",
+   "rule": "not below FL260: crossed at cruise",
+   "areas": []
+  },
+  {
+   "subject": "Libya",
+   "ref": "CZIB-2017-02R20",
+   "valid_until": "2027-01-31",
+   "rule": "not below FL320: crossed at cruise",
+   "areas": []
+  },
+  {
+   "subject": "Mali",
+   "ref": "CZIB-2017-01R21",
+   "valid_until": "2027-04-30",
+   "rule": "not below FL260: crossed at cruise",
+   "areas": []
+  },
+  {
+   "subject": "Somalia",
+   "ref": "CZIB-2017-05R20",
+   "valid_until": "2027-04-30",
+   "rule": "not at or below FL260: crossed at cruise",
+   "areas": []
+  },
+  {
+   "subject": "High ground: the Himalaya, Karakoram and the Tibetan plateau (not a bulletin)",
+   "ref": "terrain (13 Nov 2026)",
+   "valid_until": "2099-12-31",
+   "rule": "not crossed on a normal plan: Europe and the Gulf to South and South-East Asia keep south of it, north Asia goes round it",
+   "areas": [
+    "high_ground"
+   ]
+  }
+ ],
+ "exempt_nm": {
+  "gulf_water": 120,
+  "saudi_e": 160,
+  "saudi_s": 160
+ },
+ "areas": {
+  "north": [
+   [
+    69.8,
+    28.0
+   ],
+   [
+    60.5,
+    27.5
+   ],
+   [
+    57.5,
+    27.3
+   ],
+   [
+    56.0,
+    26.5
+   ],
+   [
+    53.9,
+    23.4
+   ],
+   [
+    51.5,
+    23.6
+   ],
+   [
+    50.4,
+    24.0
+   ],
+   [
+    48.4,
+    22.1
+   ],
+   [
+    47.9,
+    26.6
+   ],
+   [
+    45.3,
+    28.2
+   ],
+   [
+    45.2,
+    29.8
+   ],
+   [
+    44.3,
+    33.3
+   ],
+   [
+    44.6,
+    36.6
+   ],
+   [
+    43.4,
+    39.9
+   ],
+   [
+    42.0,
+    43.5
+   ],
+   [
+    41.2,
+    47.8
+   ],
+   [
+    42.6,
+    48.2
+   ],
+   [
+    44.7,
+    47.3
+   ],
+   [
+    46.4,
+    49.2
+   ],
+   [
+    48.1,
+    46.6
+   ],
+   [
+    50.5,
+    47.6
+   ],
+   [
+    51.2,
+    51.5
+   ],
+   [
+    50.8,
+    55.5
+   ],
+   [
+    51.4,
+    61.6
+   ],
+   [
+    50.6,
+    73.4
+   ],
+   [
+    51.7,
+    77.9
+   ],
+   [
+    50.0,
+    83.5
+   ],
+   [
+    49.2,
+    87.4
+   ],
+   [
+    50.6,
+    92.0
+   ],
+   [
+    50.0,
+    98.0
+   ],
+   [
+    49.8,
+    108.0
+   ],
+   [
+    49.6,
+    114.5
+   ],
+   [
+    53.4,
+    119.8
+   ],
+   [
+    52.5,
+    125.6
+   ],
+   [
+    49.4,
+    127.6
+   ],
+   [
+    47.6,
+    131.0
+   ],
+   [
+    48.4,
+    134.9
+   ],
+   [
+    45.2,
+    133.1
+   ],
+   [
+    42.3,
+    130.6
+   ],
+   [
+    43.6,
+    135.5
+   ],
+   [
+    46.5,
+    138.5
+   ],
+   [
+    50.0,
+    140.6
+   ],
+   [
+    52.0,
+    141.5
+   ],
+   [
+    45.8,
+    142.0
+   ],
+   [
+    43.2,
+    145.7
+   ],
+   [
+    44.5,
+    147.5
+   ],
+   [
+    50.5,
+    156.0
+   ],
+   [
+    55.0,
+    162.0
+   ],
+   [
+    59.5,
+    166.0
+   ],
+   [
+    61.5,
+    180.0
+   ],
+   [
+    82.0,
+    180.0
+   ],
+   [
+    82.0,
+    60.0
+   ],
+   [
+    82.0,
+    28.0
+   ]
+  ],
+  "north_e": [
+   [
+    61.5,
+    -180.0
+   ],
+   [
+    65.0,
+    -168.5
+   ],
+   [
+    68.0,
+    -168.5
+   ],
+   [
+    72.5,
+    -168.5
+   ],
+   [
+    82.0,
+    -168.5
+   ],
+   [
+    82.0,
+    -180.0
+   ]
+  ],
+  "mideast": [
+   [
+    33.1,
+    35.1
+   ],
+   [
+    34.6,
+    35.8
+   ],
+   [
+    36.0,
+    35.8
+   ],
+   [
+    36.6,
+    36.2
+   ],
+   [
+    36.8,
+    38.0
+   ],
+   [
+    37.1,
+    42.3
+   ],
+   [
+    37.3,
+    44.8
+   ],
+   [
+    39.0,
+    44.3
+   ],
+   [
+    39.8,
+    44.8
+   ],
+   [
+    38.9,
+    46.5
+   ],
+   [
+    39.6,
+    47.9
+   ],
+   [
+    38.4,
+    48.9
+   ],
+   [
+    37.4,
+    49.1
+   ],
+   [
+    36.6,
+    52.0
+   ],
+   [
+    37.0,
+    54.0
+   ],
+   [
+    37.4,
+    57.3
+   ],
+   [
+    37.8,
+    59.5
+   ],
+   [
+    36.6,
+    61.2
+   ],
+   [
+    34.0,
+    61.0
+   ],
+   [
+    31.4,
+    61.8
+   ],
+   [
+    29.9,
+    60.9
+   ],
+   [
+    27.2,
+    63.3
+   ],
+   [
+    25.3,
+    61.7
+   ],
+   [
+    25.3,
+    58.8
+   ],
+   [
+    26.6,
+    56.6
+   ],
+   [
+    27.1,
+    55.6
+   ],
+   [
+    27.4,
+    52.8
+   ],
+   [
+    28.9,
+    50.8
+   ],
+   [
+    29.9,
+    48.6
+   ],
+   [
+    29.1,
+    46.6
+   ],
+   [
+    31.9,
+    40.4
+   ],
+   [
+    32.2,
+    39.2
+   ],
+   [
+    33.4,
+    38.8
+   ],
+   [
+    32.3,
+    36.8
+   ],
+   [
+    32.7,
+    35.8
+   ],
+   [
+    33.1,
+    35.8
+   ]
+  ],
+  "gulf_water": [
+   [
+    29.9,
+    48.6
+   ],
+   [
+    28.9,
+    50.8
+   ],
+   [
+    27.4,
+    52.8
+   ],
+   [
+    27.1,
+    55.6
+   ],
+   [
+    26.6,
+    56.6
+   ],
+   [
+    25.3,
+    58.0
+   ],
+   [
+    24.3,
+    58.0
+   ],
+   [
+    24.9,
+    57.0
+   ],
+   [
+    25.9,
+    56.6
+   ],
+   [
+    26.2,
+    56.1
+   ],
+   [
+    25.6,
+    55.5
+   ],
+   [
+    24.9,
+    54.4
+   ],
+   [
+    24.7,
+    53.3
+   ],
+   [
+    24.3,
+    51.9
+   ],
+   [
+    25.9,
+    51.9
+   ],
+   [
+    26.4,
+    51.4
+   ],
+   [
+    26.3,
+    50.9
+   ],
+   [
+    25.0,
+    50.9
+   ],
+   [
+    25.8,
+    50.2
+   ],
+   [
+    27.0,
+    49.8
+   ],
+   [
+    28.3,
+    48.8
+   ],
+   [
+    29.0,
+    48.3
+   ]
+  ],
+  "south_arabia": [
+   [
+    12.4,
+    43.3
+   ],
+   [
+    16.4,
+    42.7
+   ],
+   [
+    18.4,
+    41.6
+   ],
+   [
+    19.5,
+    42.5
+   ],
+   [
+    19.5,
+    47.0
+   ],
+   [
+    19.0,
+    52.0
+   ],
+   [
+    16.6,
+    53.1
+   ],
+   [
+    15.0,
+    50.5
+   ],
+   [
+    13.6,
+    47.8
+   ],
+   [
+    12.6,
+    45.0
+   ]
+  ],
+  "sudan": [
+   [
+    22.0,
+    24.9
+   ],
+   [
+    22.0,
+    36.9
+   ],
+   [
+    18.0,
+    38.6
+   ],
+   [
+    15.5,
+    36.6
+   ],
+   [
+    12.6,
+    36.1
+   ],
+   [
+    12.2,
+    34.1
+   ],
+   [
+    10.0,
+    33.9
+   ],
+   [
+    9.8,
+    32.5
+   ],
+   [
+    10.3,
+    31.0
+   ],
+   [
+    9.6,
+    29.5
+   ],
+   [
+    9.6,
+    27.0
+   ],
+   [
+    10.0,
+    25.0
+   ],
+   [
+    9.5,
+    23.5
+   ],
+   [
+    15.6,
+    23.0
+   ],
+   [
+    19.9,
+    24.0
+   ]
+  ],
+  "saudi_s": [
+   [
+    25.2,
+    36.4
+   ],
+   [
+    25.3,
+    37.4
+   ],
+   [
+    25.0,
+    40.5
+   ],
+   [
+    23.9,
+    43.5
+   ],
+   [
+    23.2,
+    46.5
+   ],
+   [
+    22.6,
+    49.5
+   ],
+   [
+    22.4,
+    52.5
+   ],
+   [
+    22.7,
+    55.2
+   ],
+   [
+    19.0,
+    52.0
+   ],
+   [
+    17.4,
+    47.0
+   ],
+   [
+    17.4,
+    44.0
+   ],
+   [
+    16.4,
+    42.8
+   ],
+   [
+    16.4,
+    41.0
+   ],
+   [
+    20.0,
+    38.8
+   ],
+   [
+    22.0,
+    38.0
+   ]
+  ],
+  "saudi_e": [
+   [
+    29.2,
+    45.4
+   ],
+   [
+    26.5,
+    45.3
+   ],
+   [
+    24.6,
+    46.1
+   ],
+   [
+    23.9,
+    48.5
+   ],
+   [
+    24.3,
+    51.1
+   ],
+   [
+    25.0,
+    50.9
+   ],
+   [
+    26.0,
+    50.1
+   ],
+   [
+    27.0,
+    49.7
+   ],
+   [
+    28.4,
+    48.6
+   ],
+   [
+    29.1,
+    47.7
+   ],
+   [
+    29.1,
+    46.6
+   ]
+  ],
+  "high_ground": [
+   [
+    35.6,
+    73.4
+   ],
+   [
+    34.2,
+    75.3
+   ],
+   [
+    32.6,
+    76.9
+   ],
+   [
+    30.6,
+    79.0
+   ],
+   [
+    29.1,
+    80.9
+   ],
+   [
+    28.4,
+    84.0
+   ],
+   [
+    28.0,
+    87.0
+   ],
+   [
+    27.9,
+    89.2
+   ],
+   [
+    27.6,
+    92.0
+   ],
+   [
+    28.1,
+    95.5
+   ],
+   [
+    28.4,
+    97.5
+   ],
+   [
+    27.6,
+    99.0
+   ],
+   [
+    29.4,
+    101.4
+   ],
+   [
+    32.0,
+    102.4
+   ],
+   [
+    34.4,
+    101.2
+   ],
+   [
+    36.4,
+    98.0
+   ],
+   [
+    37.6,
+    93.0
+   ],
+   [
+    37.2,
+    88.0
+   ],
+   [
+    36.6,
+    82.0
+   ],
+   [
+    36.8,
+    77.0
+   ]
+  ],
+  "levant": [
+   [
+    33.3,
+    35.1
+   ],
+   [
+    32.7,
+    35.8
+   ],
+   [
+    32.3,
+    36.8
+   ],
+   [
+    33.4,
+    38.8
+   ],
+   [
+    32.2,
+    39.2
+   ],
+   [
+    31.5,
+    37.0
+   ],
+   [
+    30.5,
+    37.7
+   ],
+   [
+    29.4,
+    36.0
+   ],
+   [
+    29.2,
+    34.95
+   ],
+   [
+    29.5,
+    34.9
+   ],
+   [
+    31.3,
+    34.2
+   ],
+   [
+    32.0,
+    34.75
+   ]
+  ]
+ },
+ "references": {
+  "note": "What flights between these regions are reported to do, with sources. Every route between the cities named must keep to each rule: 'pass' lists alternatives, each a set of boxes the route must all touch; 'never' lists boxes it must not touch; 'max_lat' caps its latitude. Each site maps the city names to its own places and leaves out names it does not have.",
+  "sources": {
+   "OPS": [
+    "OPSGROUP, Dodging Danger: The Three Routes Through the Middle East, 18 Nov 2024",
+    "https://ops.group/blog/dodging-danger-the-three-routes-through-the-middle-east/",
+    "2026-11-13"
+   ],
+   "REU": [
+    "Reuters (via ThePrint), Airlines fly over Afghanistan as Middle East becomes the greater risk, 23 Aug 2024",
+    "https://theprint.in/world/airlines-fly-over-afghanistan-as-middle-east-becomes-the-greater-risk/2234881/",
+    "2026-11-13"
+   ],
+   "EASA": [
+    "EASA Conflict Zone Information Bulletins (CSV export)",
+    "https://www.easa.europa.eu/en/domains/air-operations/czibs/export?page=&_format=csv",
+    "2026-11-13"
+   ],
+   "WEGO": [
+    "Wego, How Europe-Asia flights are being rerouted around the Middle East (2026)",
+    "https://blog.wego.com/how-flights-between-europe-and-asia-are-being-rerouted-around-the-middle-east-in-2026/",
+    "2026-11-13"
+   ],
+   "FIN": [
+    "Finnair, Avoiding Russian airspace",
+    "https://finnair.com/en/bluewings/world-of-finnair/avoiding-russian-airspace--from-a-shortcut-to-a-detour-2553644",
+    "2026-11-13"
+   ]
+  },
+  "boxes": {
+   "caspian": [
+    36.5,
+    44.5,
+    46,
+    64
+   ],
+   "south_asia": [
+    8,
+    34,
+    64,
+    93
+   ],
+   "central_asia": [
+    37,
+    52,
+    56,
+    95
+   ],
+   "egypt": [
+    22,
+    32,
+    25,
+    36
+   ],
+   "arabia_sea": [
+    10,
+    25,
+    50,
+    73
+   ],
+   "himalaya_north": [
+    33,
+    90,
+    75,
+    100
+   ]
+  },
+  "groups": {
+   "europe": [
+    "London",
+    "Paris",
+    "Geneva",
+    "Milan",
+    "Nice",
+    "Nice and Cannes",
+    "The Riviera and Monaco",
+    "Warsaw"
+   ],
+   "south_asia_sea": [
+    "Mumbai",
+    "Singapore",
+    "Bangkok",
+    "Kuala Lumpur",
+    "Phuket",
+    "Bali",
+    "Chiang Mai"
+   ],
+   "north_asia": [
+    "Tokyo",
+    "Seoul"
+   ],
+   "gulf": [
+    "Dubai",
+    "Doha",
+    "Riyadh"
+   ],
+   "sea": [
+    "Singapore",
+    "Bangkok",
+    "Kuala Lumpur",
+    "Phuket",
+    "Bali"
+   ]
+  },
+  "rules": [
+   {
+    "name": "Europe to South Asia and South-East Asia takes the northern corridor (Caspian, then Pakistan or India) or the southern one (Egypt, Arabia, the Arabian Sea), south of the Himalaya",
+    "between": [
+     "europe",
+     "south_asia_sea"
+    ],
+    "pass": [
+     [
+      "caspian",
+      "south_asia"
+     ],
+     [
+      "egypt",
+      "arabia_sea"
+     ]
+    ],
+    "never": [
+     "himalaya_north"
+    ],
+    "src": [
+     "OPS",
+     "REU",
+     "WEGO"
+    ]
+   },
+   {
+    "name": "Europe to Japan and Korea crosses the Caspian and Central Asia",
+    "between": [
+     "europe",
+     "north_asia"
+    ],
+    "pass": [
+     [
+      "caspian",
+      "central_asia"
+     ]
+    ],
+    "src": [
+     "WEGO",
+     "FIN"
+    ]
+   },
+   {
+    "name": "The Gulf to South-East Asia goes out over the Arabian Sea and India, never north of 30 N",
+    "between": [
+     "gulf",
+     "sea"
+    ],
+    "max_lat": 30,
+    "src": [
+     "EASA",
+     "WEGO"
+    ]
+   }
+  ]
+ }
+}

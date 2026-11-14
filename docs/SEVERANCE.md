@@ -20,7 +20,8 @@ This file is kept identical in arche-platform and navoryx-website. A change is m
 | Places | `docs/PLACES.json` (copy in each repository); both checks compare against it | `SHARED_SITE = False` in `apps/website/company.py` (Archē) and `config.py` (Navoryx): the places check stops; each keeps its last copy as its own list |
 | Place facts | `docs/SHARED-FACTS.json`: checked public facts with official sources, exported by `scripts/export_shared_facts.py` (Archē) and copied into navoryx-website | Stop the export; the Navoryx copy stays and is Navoryx's own from then on (the sources are official, not Archē's) |
 | Investor relations | The Navoryx investor page files access requests into the portal (`/api/ir`, `api/_nx/ir.mjs`, `docs/IR-PORTAL-CONTRACT.md`); the investor list and access records are in the portal database (Director only) | 1. Export the investor-relations records (investor list, access requests with screening results, code and opening log) to an encrypted file for the Navoryx Director. 2. Navoryx: clear `PORTAL_IR_URL` and `PORTAL_IR_KEY` in Vercel; the site then gives codes only to `IR_ALLOWLIST` addresses (built in). 3. Archē: remove `NAVORYX_IR_KEY` in Vercel; after the handover is confirmed, delete the investor records (keeping what the law requires). |
-| Scheduled tasks | The daily Navoryx city task also updates `docs/PLACES.json` in arche-platform | Remove step 3b's arche-platform part from that task's prompt |
+| Airspace and route rules | `docs/AIRSPACE.json` (copy in each repository): every EASA bulletin with its revision, the closed areas, the high ground, arrival and departure allowances and the published corridor references; Navoryx `src/routing.py` and Archē `apps/website/routing.py` read their own copy, and both route checks (`tools/route_reference.py`) apply its rules. Changed in both repositories in the same piece of work (Morten, 13 Nov 2026: "work with Arche website to ensure we share data and rules for the map") | Stop copying: each side keeps its last copy as its own and updates it from EASA itself |
+| Scheduled tasks | The daily Navoryx city task also updates `docs/PLACES.json` and `docs/AIRSPACE.json` in arche-platform (and rebuilds Archē's map routes when the airspace changes) | Remove the arche-platform parts (steps 3b and 3c) from that task's prompt |
 | Accounts | One GitHub owner and one Vercel account hold both (the Vercel daily deployment limit is shared) | Transfer the repository and the Vercel projects to the new owner's accounts; domains, mailboxes and keys are already separate per business |
 
 ## Never shared
@@ -29,8 +30,7 @@ never named on the Navoryx website or in its emails, and the Navoryx website doe
 
 Not a tie: each site's journey map is built on its own, from its own data and public sources (Natural Earth
 coastlines, published aircraft figures, public airport positions); no code or data is read from the other site (13 Nov 2026).
-The routing rules (restricted areas, corridor points, fuel stops) are a copy in each repository: Navoryx `src/routing.py`,
-Archē `apps/website/routing.py`; when the conflict-zone bulletins change, each side updates its own copy.
+Corridor points and fuel stops stay each site's own; the airspace rules they route around are the shared copy above.
 
 ## After severing
 Run every check and test on both sides (`check_site.py`, `check_all_revised.py` and the portal tests for Archē;

@@ -29,19 +29,16 @@ R = json.load(open(os.path.join(HERE, "content", "routes.json")))
 P = [p.split("/")[2] for p in R["places"]]
 IX = {p: i for i, p in enumerate(P)}
 
-EUROPE = ["london", "paris", "geneva", "milan", "nice", "warsaw"]
-SOUTH_ASIA_SEA = ["mumbai", "singapore", "bangkok", "kuala-lumpur", "phuket", "bali", "chiang-mai"]
-NORTH_ASIA = ["tokyo", "seoul"]
-GULF = ["dubai", "doha", "riyadh"]
-SEA = ["singapore", "bangkok", "kuala-lumpur", "phuket", "bali"]
-
-def box(la1, la2, lo1, lo2):
-    return lambda p: la1 <= p[0] <= la2 and lo1 <= p[1] <= lo2
-CASPIAN = box(36.5, 44.5, 46, 64)            # Caucasus, Caspian, Turkmenistan
-SOUTH_ASIA = box(8, 34, 64, 93)              # Afghanistan (south), Pakistan, India, Bay of Bengal
-CENTRAL_ASIA = box(37, 52, 56, 95)           # Turkmenistan, Uzbekistan, Kazakhstan, western China
-EGYPT = box(22, 32, 25, 36)                  # Egypt and the Red Sea
-ARABIA_SEA = box(10, 25, 50, 73)             # southern Arabia, Oman and the Arabian Sea
+# the corridor rules and their sources are shared with the Navoryx site (docs/AIRSPACE.json "references", a copy in each
+# repository, 13 Nov 2026); places are matched by name, and names this site has no page for are left out
+REF = routing.SHARED["references"]
+_PL = json.load(open(os.path.join(HERE, "content", "map_places.json"), encoding="utf-8"))["places"]
+_BYNAME = {p["name"]: p["path"].split("/")[2] for p in _PL}
+def group(name):
+    return [_BYNAME[n] for n in REF["groups"][name] if n in _BYNAME]
+def box(b):
+    return lambda p: b[0] <= p[0] <= b[1] and b[2] <= p[1] <= b[3]
+BOX = {k: box(v) for k, v in REF["boxes"].items()}
 
 def samples(pts):
     out = []
@@ -64,16 +61,19 @@ def rule(name, pairs, test, src):
             checked += 1
             if not test(samples(pts)): fails.append(f"{a}-{b}{' (with a fuel stop)' if k else ''}: {name} [{src}]")
 
-rule("Europe to South Asia and South-East Asia takes the northern corridor (Caspian, then Pakistan or India) or the southern one (Egypt, Arabia, the Arabian Sea), south of the Himalaya",
-     [(e, a) for e in EUROPE for a in SOUTH_ASIA_SEA],
-     lambda S: ((any(CASPIAN(p) for p in S) and any(SOUTH_ASIA(p) for p in S)) or (any(EGYPT(p) for p in S) and any(ARABIA_SEA(p) for p in S)))
-               and not any(p[0] > 33 and 75 < p[1] < 100 for p in S), "OPS, REU, WEGO")
-rule("Europe to Japan and Korea crosses the Caspian and Central Asia",
-     [(e, a) for e in EUROPE for a in NORTH_ASIA],
-     lambda S: any(CASPIAN(p) for p in S) and any(CENTRAL_ASIA(p) for p in S), "WEGO, FIN")
-rule("the Gulf to South-East Asia goes out over the Arabian Sea and India, never north of 30 N",
-     [(g, a) for g in GULF for a in SEA],
-     lambda S: max(p[0] for p in S) <= 30, "EASA, WEGO")
+def shared(r):
+    def test(S):
+        ok = True
+        if "pass" in r:
+            ok = any(all(any(BOX[x](p) for p in S) for x in alt) for alt in r["pass"])
+        if ok and "never" in r:
+            ok = not any(BOX[x](p) for x in r["never"] for p in S)
+        if ok and "max_lat" in r:
+            ok = max(p[0] for p in S) <= r["max_lat"]
+        return ok
+    return test
+for _r in REF["rules"]:
+    rule(_r["name"], [(a, b) for a in group(_r["between"][0]) for b in group(_r["between"][1]) if a != b], shared(_r), ", ".join(_r["src"]))
 rule("no route enters Iran or Iraq",
      [(a, b) for a in P for b in P if IX[a] < IX[b]],
      lambda S: not any(routing.inside(p, routing.AREAS["mideast"]) for p in S), "EASA")
