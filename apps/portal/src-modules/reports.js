@@ -66,6 +66,7 @@
 
   function vReports(){
     if (S.oplibAll === undefined) loadOplib().then(() => { if (S.view === "reports") render(); });
+    if (S.routelibAll === undefined) loadRoutelib().then(() => { if (S.view === "reports") render(); });
     const {rows} = data(), ms = months(12);
     const booked = rows.filter(r => BOOKED.includes(r.stageKey));
     const byMonth = ms.map(m => { const rs = booked.filter(r => mkey(r).slice(0, 7) === m); return {label: mLabel(m), v: rs.reduce((a, r) => a + r.price, 0), note: `${rs.length} booking${rs.length === 1 ? "" : "s"} · gross profit ${usd(rs.reduce((a, r) => a + r.gp, 0))}`}; });
@@ -92,7 +93,7 @@
       </div>
       <div class="panel stack" style="margin-top:16px"><h2>Download reports</h2>
         <p class="small muted">Excel: one file with every report as a sheet. CSV opens in Excel, Numbers or Google Sheets. PDF: opens a print view; choose "Save as PDF". Client email and phone, and prospect contacts, are not exported.</p>
-        <div class="row"><button class="btn primary" type="button" data-rep="xlsx|all">Excel: all reports</button><button class="btn" type="button" data-rep="pdf|all">PDF: all reports</button></div>
+        <div class="row"><button class="btn primary" type="button" data-rep="xlsx|all">Excel: all reports</button><button class="btn" type="button" data-rep="pdf|all">PDF: all reports</button><button class="btn" type="button" data-rep="json|routelib" title="For the website's journey map: put the file in apps/website/content/ and rebuild">Route library for the website</button></div>
         <table class="tbl"><thead><tr><th>Report</th><th>Rows</th><th>Download</th></tr></thead><tbody>
         ${REPORTS.map(R => `<tr><td><b>${esc(R.title)}</b><br><span class="small muted">${esc(R.about)}</span></td><td>${R.rows(rows).length}</td><td><div class="row" style="gap:6px"><button class="btn small" type="button" data-rep="csv|${R.id}">CSV</button><button class="btn small" type="button" data-rep="xlsx|${R.id}">Excel</button><button class="btn small" type="button" data-rep="pdf|${R.id}">PDF</button></div></td></tr>`).join("")}
         </tbody></table></div>`;
@@ -111,6 +112,8 @@
       cols: [C("Reference", r => r.ref), C("Trip id", r => r.id), C("Stage", r => r.stage), C("Client", r => r.client), C("KYC", r => r.kyc), C("Screened", r => r.screened), C("Screening result", r => r.screenResult), C("Lists", r => r.lists), C("Red items", r => r.red), C("Amber open", r => r.amber), C("Insurance verified", r => r.insVerified), C("Safety audit", r => r.audit), C("Operator", r => r.operator)]},
     {id: "oplib", title: "Operator library", about: "Each operator's trips, terms and insurance on file (no client data).", rows: () => opRows(),
       cols: [C("Operator", r => r.name), C("Trips", r => r.trips), C("Flown", r => r.flown), C("Cancelled", r => r.cancelled), C("Average margin %", r => r.margin), C("Registrations", r => r.regs), C("Insurer", r => r.insurer), C("Insurance expiry", r => r.expiry), C("Last booking", r => r.last)]},
+    {id: "routelib", title: "Route library", about: "Legs our clients have flown, by airport pair: filed routes, block times and fuel stops (no client data, no prices).", rows: () => routeRows(),
+      cols: [C("From", r => r.from), C("To", r => r.to), C("Legs flown", r => r.n), C("Usual block time", r => r.block), C("Fuel stops", r => r.stops), C("Aircraft", r => r.aircraft), C("Latest filed route", r => r.route), C("Last month flown", r => r.month)]},
   ];
   function commRows(){
     const out = [], bids = Object.keys(S.status || {});
@@ -124,6 +127,20 @@
       return {name: o.name, trips: tr.length, flown: tr.filter(x => x.outcome === "flown").length, cancelled: tr.filter(x => x.outcome === "cancelled").length, margin: ms.length ? Math.round(ms.reduce((a, b) => a + b, 0) / ms.length * 10) / 10 : "",
         regs: (o.regs || []).join("; "), insurer: ((o.last || {}).ins || {}).insurer || "", expiry: ((o.last || {}).ins || {}).expiry || "", last: String((o.last || {}).at || "").slice(0, 10)}; }).sort((a, b) => b.trips - a.trips);
   }
+  /* route library (Morten, 14 Nov 2026: "no outside IP, we need to create this ourselves"): per airport pair, from intel 'routelib' */
+  const median = xs => { const v = xs.filter(x => x > 0).sort((a, b) => a - b); return v.length ? v[Math.floor((v.length - 1) / 2)] : null; };
+  const hm = m => m == null ? "" : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")} min`;
+  function routePairs(){
+    const P = ((S.routelibAll || {}).pairs) || {};
+    return Object.entries(P).map(([k, es]) => { const [from, to] = k.split("-"), st = {}; es.forEach(e => { if (e.stop) st[e.stop] = (st[e.stop] || 0) + 1; });
+      const last = es.filter(e => e.route).slice(-1)[0] || {};
+      return {from, to, n: es.length, blockMin: median(es.map(e => e.block || 0)), stops: st, aircraft: [...new Set(es.map(e => e.aircraft).filter(Boolean))], route: last.route || "", month: es.map(e => e.month).filter(Boolean).sort().slice(-1)[0] || ""}; });
+  }
+  function routeRows(){ return routePairs().map(r => ({...r, block: hm(r.blockMin), stops: Object.entries(r.stops).map(([k, n]) => `${k} (${n})`).join("; "), aircraft: r.aircraft.join("; ")})).sort((a, b) => b.n - a.n); }
+  // for the website's journey map (apps/website/content/flown_routes.json): legs flown, usual block time and fuel stops per pair
+  window.routelibExport = function(){ const out = {}; for (const r of routePairs()) out[`${r.from}-${r.to}`] = {legs: r.n, block_min: r.blockMin, stops: r.stops, last_month: r.month};
+    return {built: new Date().toISOString().slice(0, 10), note: "Archē's own route library: legs flown by our clients (no client data, no prices). Exported from the portal, Reports.", pairs: out}; };
+  async function loadRoutelib(){ if (S.routelibAll !== undefined) return; S.routelibAll = null; try { const g = await S.db.doc("intel/routelib").get(); S.routelibAll = g.exists ? g.data() : {pairs: {}}; } catch(e){ S.routelibAll = {pairs: {}}; } }
   async function loadOplib(){ if (S.oplibAll !== undefined) return; S.oplibAll = null; try { const g = await S.db.doc("intel/oplib").get(); S.oplibAll = g.exists ? g.data() : {ops: {}}; } catch(e){ S.oplibAll = {ops: {}}; } }
 
   /* ---- writers ---- */
@@ -175,6 +192,8 @@
     const b = e.target.closest && e.target.closest("[data-rep]"); if (!b || !canSee()) return; e.preventDefault();
     const [fmt, id] = b.dataset.rep.split("|"), date = new Date().toISOString().slice(0, 10);
     if (id === "all" || id === "oplib") await loadOplib();
+    if (id === "all" || id === "routelib") await loadRoutelib();
+    if (fmt === "json") { save(`flown_routes.json`, new Blob([JSON.stringify(routelibExport(), null, 1)], {type: "application/json"})); if (typeof audit === "function") audit("Report downloaded", "Route library for the website · JSON"); return; }
     const {rows} = data(), list = id === "all" ? REPORTS : REPORTS.filter(R => R.id === id); if (!list.length) return;
     if (fmt === "csv") save(`arche-${list[0].id}-${date}.csv`, new Blob([toCsv(table(list[0], rows))], {type: "text/csv;charset=utf-8"}));
     else if (fmt === "xlsx") save(`arche-${id === "all" ? "reports" : list[0].id}-${date}.xlsx`, xlsx(list.map(R => [R.title, table(R, rows)])));

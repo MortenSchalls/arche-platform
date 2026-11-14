@@ -19,14 +19,15 @@ ranges = sorted({m["range_nm"] for m in AC})
 t0 = time.time(); out = {}
 for i, a in enumerate(P):
     for b in P[i + 1:]:
-        r = routing.plan_pair((a["lat"], a["lon"]), (b["lat"], b["lon"]), stops, ranges)
+        r = routing.plan_pair((a["lat"], a["lon"]), (b["lat"], b["lon"]), stops, ranges,
+                              check=lambda pts, x=a["name"], y=b["name"]: routing.keeps_corridors(x, y, pts))
         rt = r["route"]
         out[f"{i}|{P.index(b)}"] = {
             "d": round(r["direct"]),
-            "r": [round(rt[0]), [[round(x, 1), round(y, 1)] for x, y in rt[1]], rt[2]] if rt else None,
+            "r": [round(rt[0]), [[round(x, 2), round(y, 2)] for x, y in rt[1]], rt[2]] if rt else None,
             "v": {str(k): (0 if v == 0 else None if v is None else [v[0], round(v[1]), [round(x) for x in v[2]],
-                                                                    [[round(x, 1), round(y, 1)] for x, y in v[3]], v[4]])
+                                                                    [[round(x, 2), round(y, 2)] for x, y in v[3]], v[4]])
                   for k, v in r["via"].items()}}
-json.dump({"built": datetime.date.today().isoformat(), "areas_checked": routing.SHARED["checked"] + " (docs/AIRSPACE.json, shared with the Navoryx site)",
+json.dump({"built": datetime.date.today().isoformat(), "areas_checked": "docs/AIRSPACE.json, shared with the Navoryx site (EASA bulletins checked 13 Nov 2026)",
            "places": [p["path"] for p in P], "routes": out}, open(os.path.join(C, "routes.json"), "w"), separators=(",", ":"))
 print(len(out), "routes in", round(time.time() - t0), "s")

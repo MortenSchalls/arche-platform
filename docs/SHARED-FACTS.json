@@ -1,6 +1,6 @@
 {
  "_why": "Copy of the checked place facts for the other public website (Morten, 9 Nov 2026: research once, used by both; \"important is that we have the option to sever the ties between each if needed ie. sale, exit or closing the business without harming any data or flow\"). Writes docs/SHARED-FACTS.json: the facts, airport rules and official sources behind every place in docs/PLACES.json. It is a copy, never a link: the other website keeps its own copy and builds from it alone, so stopping this export changes nothing there (docs/SEVERANCE.md). Only public, official-source facts go in: no client, broker, operator, supplier or investor data. Run: python3 scripts/export_shared_facts.py",
- "exported": "2026-11-13",
+ "exported": "2026-11-14",
  "places": [
   {
    "place": "Auckland",
@@ -512,63 +512,61 @@
     }
    },
    "airports": {
-    "VTBS": {
-     "icao": "VTBS",
-     "iata": "BKK",
-     "name": "Bangkok/ Suvarnabhumi International Airport",
+    "VTBD": {
+     "icao": "VTBD",
+     "iata": "DMK",
+     "name": "Bangkok/ Don Mueang International Airport",
      "city": "Bangkok",
      "country": "TH",
-     "status": "partial",
-     "checked": "2026-11-11",
+     "status": "verified",
+     "checked": "2026-11-13",
      "rules": {
       "runway": {
-       "v": "three runways; the two longest, 01/19 and 02L/20R, are each 4,000 m long and 60 m wide",
-       "longest_m": 4000,
-       "src": "th-aip-vtbs",
-       "quote": "01 | 014.42° | 4000 x 60 ... 02L | 014.00° | 4000 x 60"
+       "v": "two runways; the longest, 03L/21R, is 3,700 m long and 60 m wide",
+       "longest_m": 3700,
+       "src": "th-aip-vtbd",
+       "quote": "03L: 3700 x 60 m; 21R: 3700 x 60 m; 03R: 3500 x 45 m"
       },
       "customs": {
        "v": "customs and immigration open 24 hours",
        "h24": true,
-       "src": "th-aip-vtbs",
+       "src": "th-aip-vtbd",
        "quote": "Customs and immigration: H24"
       },
       "hours": {
        "v": "open 24 hours",
-       "src": "th-aip-vtbs",
-       "quote": "Aerodrome operator: H24"
+       "src": "th-aip-vtbd",
+       "quote": "Aerodrome Operator: H24"
       },
       "handling": {
-       "v": "ground handling by WFS Bangkok Air Ground Handling (BFS Ground) and Thai Airways International; no business aviation terminal is named in the AIP",
-       "src": "th-aip-vtbs",
-       "quote": "Worldwide Flight Services Bangkok Air Ground Handling Co., Ltd. (BFS Ground); Thai Airways International Public Co.Ltd. (TG)"
+       "v": "MJETS Limited is listed as handling agent for private aircraft only, alongside AOT Ground Aviation Services (AOTGA)",
+       "src": "th-aip-vtbd",
+       "quote": "MJETS LIMITED ... Private Aircraft only; AOT GROUND AVIATION SERVICES CO., LTD. (AOTGA)"
       },
       "slots": {
-       "v": "Level 3 (coordinated) airport: slots are coordinated by CAAT and non-scheduled flights must obtain a slot (business aviation applies with a General Aviation Clearance Request, GCR); for Winter 2026/27 CAAT's capacity notice says private operations will not be accommodated at BKK (use DMK)",
+       "v": "Level 3 (coordinated) airport: slots are coordinated by CAAT and non-scheduled flights must obtain a slot (business aviation applies with a General Aviation Clearance Request, GCR)",
        "src": "th-aip-gen12",
-       "quote": "L3 | BKK/VTBS | Coordination | CAAT; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport.",
-       "season_w26": {
-        "v": "Winter 2026/27 (25 Oct 2026 - 27 Mar 2027): CAAT capacity notice says private operations cannot be accommodated at BKK; aircraft ground time must not exceed 12 hours for scheduled and non-scheduled carriers",
-        "src": "caat-nac-bkk-w26",
-        "quote": "2) PRIVATE OPERATIONS WILL NOT BE ABLE TO BE ACCOMMODATED. ... AIRCRAFT GROUND TIME MUST NOT EXCEED 12 HOURS FOR BOTH SCHEDULED AND NON-SCHEDULED CARRIERS OPERATING AT BKK.",
-        "valid": [
-         "2026-10-25",
-         "2027-03-27"
-        ]
-       }
+       "quote": "L3 | DMK/VTBD | Coordination | CAAT; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
       },
       "permits": {
        "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
        "src": "th-aip-gen12",
        "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
+      },
+      "noise": {
+       "v": "reverse thrust above idle not to be used 18:00-22:00 UTC (01:00-05:00 local) on landing, except for safety; set departure noise abatement procedures for all take-offs",
+       "src": "th-aip-vtbd",
+       "quote": "Reverse thrust above idle shall not be used between 1800 and 2200 UTC. Except for safety reason."
+      },
+      "max_aircraft": {
+       "v": "Airbus A380 and Boeing 747-8 may use the airport under the special procedures in AD 2.23 (designated runway, taxi routes and weight limits)",
+       "src": "th-aip-vtbd",
+       "quote": "Before Airbus A380 and Boeing 747-8 aircraft may use Don Mueang International Airport, all airlines must comprehend"
       }
      },
      "missing": [
-      "curfew",
-      "ppr (no airport PPR text found in AD 2.1-2.19; AD 2.20 not read)",
-      "max_aircraft",
-      "noise",
-      "notable"
+      "curfew (AD 2.20-2.23 of the 14 May 2026 edition state no night restriction and do not say there is none)",
+      "ppr (AD 2.20 gives PPR only for test flights, 24 hours ahead)"
      ]
     },
     "VTBU": {
@@ -621,53 +619,67 @@
       "notable"
      ]
     },
-    "VTBD": {
-     "icao": "VTBD",
-     "iata": "DMK",
-     "name": "Bangkok/ Don Mueang International Airport",
+    "VTBS": {
+     "icao": "VTBS",
+     "iata": "BKK",
+     "name": "Bangkok/ Suvarnabhumi International Airport",
      "city": "Bangkok",
      "country": "TH",
-     "status": "partial",
-     "checked": "2026-11-11",
+     "status": "verified",
+     "checked": "2026-11-13",
      "rules": {
       "runway": {
-       "v": "two runways; the longest, 03L/21R, is 3,700 m long and 60 m wide",
-       "longest_m": 3700,
-       "src": "th-aip-vtbd",
-       "quote": "03L: 3700 x 60 m; 21R: 3700 x 60 m; 03R: 3500 x 45 m"
+       "v": "three runways; the two longest, 01/19 and 02L/20R, are each 4,000 m long and 60 m wide",
+       "longest_m": 4000,
+       "src": "th-aip-vtbs",
+       "quote": "01 | 014.42° | 4000 x 60 ... 02L | 014.00° | 4000 x 60"
       },
       "customs": {
        "v": "customs and immigration open 24 hours",
        "h24": true,
-       "src": "th-aip-vtbd",
+       "src": "th-aip-vtbs",
        "quote": "Customs and immigration: H24"
       },
       "hours": {
        "v": "open 24 hours",
-       "src": "th-aip-vtbd",
-       "quote": "Aerodrome Operator: H24"
+       "src": "th-aip-vtbs",
+       "quote": "Aerodrome operator: H24"
       },
       "handling": {
-       "v": "MJETS Limited is listed as handling agent for private aircraft only, alongside AOT Ground Aviation Services (AOTGA)",
-       "src": "th-aip-vtbd",
-       "quote": "MJETS LIMITED ... Private Aircraft only; AOT GROUND AVIATION SERVICES CO., LTD. (AOTGA)"
+       "v": "ground handling by WFS Bangkok Air Ground Handling (BFS Ground) and Thai Airways International; no business aviation terminal is named in the AIP",
+       "src": "th-aip-vtbs",
+       "quote": "Worldwide Flight Services Bangkok Air Ground Handling Co., Ltd. (BFS Ground); Thai Airways International Public Co.Ltd. (TG)"
       },
       "slots": {
-       "v": "Level 3 (coordinated) airport: slots are coordinated by CAAT and non-scheduled flights must obtain a slot (business aviation applies with a General Aviation Clearance Request, GCR)",
+       "v": "Level 3 (coordinated) airport: slots are coordinated by CAAT and non-scheduled flights must obtain a slot (business aviation applies with a General Aviation Clearance Request, GCR); for Winter 2026/27 CAAT's capacity notice says private operations will not be accommodated at BKK (use DMK)",
        "src": "th-aip-gen12",
-       "quote": "L3 | DMK/VTBD | Coordination | CAAT; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport."
+       "quote": "L3 | BKK/VTBS | Coordination | CAAT; Applicants requesting approval for non-scheduled flight permission must obtain slots for Level 2 and Level 3 Airport.",
+       "season_w26": {
+        "v": "Winter 2026/27 (25 Oct 2026 - 27 Mar 2027): CAAT capacity notice says private operations cannot be accommodated at BKK; aircraft ground time must not exceed 12 hours for scheduled and non-scheduled carriers",
+        "src": "caat-nac-bkk-w26",
+        "quote": "2) PRIVATE OPERATIONS WILL NOT BE ABLE TO BE ACCOMMODATED. ... AIRCRAFT GROUND TIME MUST NOT EXCEED 12 HOURS FOR BOTH SCHEDULED AND NON-SCHEDULED CARRIERS OPERATING AT BKK.",
+        "valid": [
+         "2026-10-25",
+         "2027-03-27"
+        ]
+       }
       },
       "permits": {
        "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
        "src": "th-aip-gen12",
        "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
+      },
+      "noise": {
+       "v": "reverse thrust limited to idle 19:00-23:00 UTC (02:00-06:00 local) on landing, unless safety requires more; noise abatement take-off with thrust reduction at 1,500 ft and acceleration at 3,000 ft",
+       "src": "th-aip-vtbs",
+       "quote": "limit the use of reverse thrust to idle between 1900 to 2300 UTC."
       }
      },
      "missing": [
-      "curfew",
-      "ppr (no airport PPR text found in AD 2.1-2.19; AD 2.20 not read)",
-      "max_aircraft",
-      "noise"
+      "curfew (AD 2.20-2.23 of the 14 May 2026 edition state no night restriction and do not say there is none)",
+      "ppr (AD 2.20 has no PPR for general aviation)",
+      "max_aircraft (only taxilane limits, e.g. T8-T12 up to code E)",
+      "notable"
      ]
     }
    }
@@ -1229,6 +1241,62 @@
     }
    },
    "airports": {
+    "OMDW": {
+     "icao": "OMDW",
+     "iata": "DWC",
+     "name": "Dubai World Central - Al Maktoum International Airport",
+     "city": "Dubai",
+     "country": "AE",
+     "status": "partial",
+     "checked": "2026-11-12",
+     "rules": {
+      "runway": {
+       "v": "runway 12/30, 4,500 m long and 60 m wide",
+       "longest_m": 4500,
+       "src": "uae-aip-omdw-adc",
+       "quote": "RWY 12 119° 4500 x 60 850/F/A/X/T 30 299° 4500 x 60 850/F/A/X/T"
+      },
+      "slots": {
+       "v": "every general aviation flight needs landing permit approval from the Dubai Civil Aviation Authority (DCAA) and an airport slot from the slot coordinator ACL; Dubai World Central is a coordinated (Level 3) airport",
+       "src": "omdw-cou-ga-w25",
+       "quote": "No GA Operator is permitted to operate to or from the Airport without first obtaining landing permit approval from the DCAA and an Airport Slot from ACL."
+      },
+      "max_aircraft": {
+       "v": "no size limit is stated; operators of the largest aircraft (code F) must apply for schedule clearance at least 72 hours before arrival",
+       "src": "omdw-cou-ga-w25",
+       "quote": "GA Operators using \"code F\" aircraft must apply for schedule clearance at least seventy-two (72) hours prior to the intended arrival at the Airport."
+      },
+      "handling": {
+       "v": "general aviation operators must contract one of the five FBOs before using the airport: ExecuJet, DC Aviation-Al Futtaim, Jet Aviation, Falcon Elite and Jetex",
+       "src": "omdw-cou-ga-w25",
+       "quote": "ExecuJet, DC Aviation-Al Futtaim, Jet Aviation, Falcon Elite and Jetex flight support are fixed base Operators"
+      },
+      "noise": {
+       "v": "Chapter 2 (older, noisier) aircraft may not operate; the airport may prohibit or restrict some aircraft types during noise-sensitive hours (hours not defined)",
+       "src": "omdw-cou-ga-w25",
+       "quote": "Chapter 2 Aircraft are prohibited from operating at the Airport."
+      },
+      "permits": {
+       "v": "every general aviation flight needs landing permit approval from the Dubai Civil Aviation Authority (DCAA), applied for through its online portal, as well as an ACL slot",
+       "src": "omdw-cou-ga-w25",
+       "quote": "No GA Operator is permitted to operate to or from the Airport without first obtaining landing permit approval from the DCAA"
+      },
+      "catering": {
+       "v": "in-flight catering must come from Emirates Flight Catering; buying on-board catering from airport outlets or third-party suppliers is prohibited",
+       "src": "omdw-cou-ga-w25",
+       "quote": "Any in-flight catering requirements shall be addressed to Emirates Flight Catering."
+      }
+     },
+     "missing": [
+      "location",
+      "customs",
+      "curfew (open 24 hours, but noise-sensitive hours are not defined and no explicit no-curfew statement)",
+      "ppr",
+      "AIP AD 2.20 local regulations",
+      "geo",
+      "hours"
+     ]
+    },
     "OMDB": {
      "icao": "OMDB",
      "iata": "DXB",
@@ -1285,62 +1353,6 @@
       "curfew (AIP AD 2.20 and 2.21 state no night restriction and no 'no curfew' statement; GA restricted periods exist, see notes)",
       "ppr (no PPR beyond the ACL slot and DCAA landing permission already recorded)",
       "GA restricted periods (arrival/departure split not certain from the extracted table; a person must check the PDF)"
-     ]
-    },
-    "OMDW": {
-     "icao": "OMDW",
-     "iata": "DWC",
-     "name": "Dubai World Central - Al Maktoum International Airport",
-     "city": "Dubai",
-     "country": "AE",
-     "status": "partial",
-     "checked": "2026-11-12",
-     "rules": {
-      "runway": {
-       "v": "runway 12/30, 4,500 m long and 60 m wide",
-       "longest_m": 4500,
-       "src": "uae-aip-omdw-adc",
-       "quote": "RWY 12 119° 4500 x 60 850/F/A/X/T 30 299° 4500 x 60 850/F/A/X/T"
-      },
-      "slots": {
-       "v": "every general aviation flight needs landing permit approval from the Dubai Civil Aviation Authority (DCAA) and an airport slot from the slot coordinator ACL; Dubai World Central is a coordinated (Level 3) airport",
-       "src": "omdw-cou-ga-w25",
-       "quote": "No GA Operator is permitted to operate to or from the Airport without first obtaining landing permit approval from the DCAA and an Airport Slot from ACL."
-      },
-      "max_aircraft": {
-       "v": "no size limit is stated; operators of the largest aircraft (code F) must apply for schedule clearance at least 72 hours before arrival",
-       "src": "omdw-cou-ga-w25",
-       "quote": "GA Operators using \"code F\" aircraft must apply for schedule clearance at least seventy-two (72) hours prior to the intended arrival at the Airport."
-      },
-      "handling": {
-       "v": "general aviation operators must contract one of the five FBOs before using the airport: ExecuJet, DC Aviation-Al Futtaim, Jet Aviation, Falcon Elite and Jetex",
-       "src": "omdw-cou-ga-w25",
-       "quote": "ExecuJet, DC Aviation-Al Futtaim, Jet Aviation, Falcon Elite and Jetex flight support are fixed base Operators"
-      },
-      "noise": {
-       "v": "Chapter 2 (older, noisier) aircraft may not operate; the airport may prohibit or restrict some aircraft types during noise-sensitive hours (hours not defined)",
-       "src": "omdw-cou-ga-w25",
-       "quote": "Chapter 2 Aircraft are prohibited from operating at the Airport."
-      },
-      "permits": {
-       "v": "every general aviation flight needs landing permit approval from the Dubai Civil Aviation Authority (DCAA), applied for through its online portal, as well as an ACL slot",
-       "src": "omdw-cou-ga-w25",
-       "quote": "No GA Operator is permitted to operate to or from the Airport without first obtaining landing permit approval from the DCAA"
-      },
-      "catering": {
-       "v": "in-flight catering must come from Emirates Flight Catering; buying on-board catering from airport outlets or third-party suppliers is prohibited",
-       "src": "omdw-cou-ga-w25",
-       "quote": "Any in-flight catering requirements shall be addressed to Emirates Flight Catering."
-      }
-     },
-     "missing": [
-      "location",
-      "customs",
-      "curfew (open 24 hours, but noise-sensitive hours are not defined and no explicit no-curfew statement)",
-      "ppr",
-      "AIP AD 2.20 local regulations",
-      "geo",
-      "hours"
      ]
     }
    }
@@ -2102,57 +2114,6 @@
     }
    },
    "airports": {
-    "WMKK": {
-     "icao": "WMKK",
-     "iata": null,
-     "name": "Kuala Lumpur International Airport (KL International / Sepang)",
-     "city": "Kuala Lumpur",
-     "country": "MY",
-     "status": "verified",
-     "checked": "2026-11-10",
-     "rules": {
-      "customs": {
-       "v": "customs and immigration open 24 hours",
-       "src": "my-aip-wmkk",
-       "h24": true,
-       "quote": "Customs and immigration: H24"
-      },
-      "hours": {
-       "v": "open 24 hours",
-       "src": "my-aip-wmkk",
-       "quote": "AD Operator: H24 ... ATS: H24"
-      },
-      "handling": {
-       "v": "handling services 24 hours, by prior arrangement with the aerodrome administration (no agents named)",
-       "src": "my-aip-wmkk-2026-10",
-       "quote": "Handling services available H 24 & by prior arrangement with the aerodrome administration."
-      },
-      "slots": {
-       "v": "under civil non-scheduled flights, the AIP says airlines must get slot time confirmation from National Slot Coordination Malaysia (NSCM) before applying to CAAM; it says 'airlines' and does not mention private aircraft separately",
-       "src": "my-aip-gen12",
-       "quote": "All airlines operating to all airports in Malaysia must contact National Slot Coordination Malaysia (NSCM) for slot time confirmation in IATA SCR format before submitting to CAAM"
-      },
-      "permits": {
-       "v": "non-scheduled flights need prior permission through NOSAS or AEROFILE; apply at least 3 working days ahead or approval may not be processed in time",
-       "src": "my-aip-gen12",
-       "quote": "Prior permission must be sought and obtained either by NOSAS or AEROFILE system.; Flight approval might not be processed in time if the application is less than three (3) working days."
-      },
-      "runway": {
-       "v": "three runways: 14L/32R 4,019 m x 60 m, 14R/32L 4,000 m x 60 m and 15/33 3,960 m x 60 m (AIP SUP 17/26, effective 19 Mar 2026)",
-       "longest_m": 4019,
-       "src": "wmkk-caam-esup-26-17",
-       "quote": "14L ... 4019 x 60 ... 14R ... 4000 x 60 ... 15 ... 3960 x 60 (AD 2.12 table cells)"
-      }
-     },
-     "missing": [
-      "iata (not stated in the AIP)",
-      "curfew",
-      "ppr",
-      "max_aircraft",
-      "noise",
-      "handling agent names"
-     ]
-    },
     "WMSA": {
      "icao": "WMSA",
      "iata": null,
@@ -2215,6 +2176,57 @@
       "iata (not stated in the AIP)",
       "curfew (no night restriction for business aviation stated)",
       "ppr (aircraft)",
+      "handling agent names"
+     ]
+    },
+    "WMKK": {
+     "icao": "WMKK",
+     "iata": null,
+     "name": "Kuala Lumpur International Airport (KL International / Sepang)",
+     "city": "Kuala Lumpur",
+     "country": "MY",
+     "status": "verified",
+     "checked": "2026-11-10",
+     "rules": {
+      "customs": {
+       "v": "customs and immigration open 24 hours",
+       "src": "my-aip-wmkk",
+       "h24": true,
+       "quote": "Customs and immigration: H24"
+      },
+      "hours": {
+       "v": "open 24 hours",
+       "src": "my-aip-wmkk",
+       "quote": "AD Operator: H24 ... ATS: H24"
+      },
+      "handling": {
+       "v": "handling services 24 hours, by prior arrangement with the aerodrome administration (no agents named)",
+       "src": "my-aip-wmkk-2026-10",
+       "quote": "Handling services available H 24 & by prior arrangement with the aerodrome administration."
+      },
+      "slots": {
+       "v": "under civil non-scheduled flights, the AIP says airlines must get slot time confirmation from National Slot Coordination Malaysia (NSCM) before applying to CAAM; it says 'airlines' and does not mention private aircraft separately",
+       "src": "my-aip-gen12",
+       "quote": "All airlines operating to all airports in Malaysia must contact National Slot Coordination Malaysia (NSCM) for slot time confirmation in IATA SCR format before submitting to CAAM"
+      },
+      "permits": {
+       "v": "non-scheduled flights need prior permission through NOSAS or AEROFILE; apply at least 3 working days ahead or approval may not be processed in time",
+       "src": "my-aip-gen12",
+       "quote": "Prior permission must be sought and obtained either by NOSAS or AEROFILE system.; Flight approval might not be processed in time if the application is less than three (3) working days."
+      },
+      "runway": {
+       "v": "three runways: 14L/32R 4,019 m x 60 m, 14R/32L 4,000 m x 60 m and 15/33 3,960 m x 60 m (AIP SUP 17/26, effective 19 Mar 2026)",
+       "longest_m": 4019,
+       "src": "wmkk-caam-esup-26-17",
+       "quote": "14L ... 4019 x 60 ... 14R ... 4000 x 60 ... 15 ... 3960 x 60 (AD 2.12 table cells)"
+      }
+     },
+     "missing": [
+      "iata (not stated in the AIP)",
+      "curfew",
+      "ppr",
+      "max_aircraft",
+      "noise",
       "handling agent names"
      ]
     }
@@ -2450,90 +2462,70 @@
     }
    },
    "airports": {
-    "EGKB": {
-     "icao": "EGKB",
-     "iata": "BQH",
-     "name": "London Biggin Hill Airport",
+    "EGGW": {
+     "icao": "EGGW",
+     "iata": "LTN",
+     "name": "London Luton Airport",
      "city": "London",
      "country": "GB",
      "status": "partial",
      "checked": "2026-11-12",
      "rules": {
       "runway": {
-       "v": "runway 03/21, 1,806 m long and 45 m wide",
-       "src": "bqh-specs",
-       "longest_m": 1806,
-       "quote": "21/03 ... 1,806m x 45m"
+       "v": "one runway, 2.16 km long",
+       "src": "lla-runway-2026",
+       "longest_m": 2160,
+       "quote": "Work on the 2.16km runway commenced each night at 00:01 and completed by 05:45"
       },
       "hours": {
-       "v": "open 06:30 to 23:00 on weekdays and 08:00 to 22:00 at weekends and on public holidays",
-       "src": "bqh-specs",
-       "hours_local": {
-        "weekday": [
-         [
-          "06:30",
-          "23:00"
-         ]
-        ],
-        "weekend_public_holiday": [
-         [
-          "08:00",
-          "22:00"
-         ]
-        ]
-       },
-       "quote": "0630 – 2300hrs (local time) ... 0800 – 2200hrs (local time)"
+       "v": "open 24 hours",
+       "src": "lla-noise-faq",
+       "quote": "LLA holds a 24 hour licence to operate and there is no ban on night flights."
       },
       "curfew": {
-       "v": "closed outside 06:30-23:00 on weekdays and 08:00-22:00 at weekends and on public holidays",
-       "src": "bromley-bqh",
+       "v": "no night ban (24-hour licence), but a night quota period 23:30-06:00 local time with movement limits and quota counts; older-generation jets are not allowed at night",
        "windows_local": [
         [
-         "23:00",
-         "06:30"
+         "23:30",
+         "06:00"
         ]
        ],
-       "windows_local_weekend": [
-        [
-         "22:00",
-         "08:00"
-        ]
-       ],
-       "quote": "Monday - Friday 06:30 - 23:00 ... Saturday, Sunday and public holidays 08:00 - 22:00"
-      },
-      "slots": {
-       "v": "no runway slots required",
-       "src": "bqh-ops",
-       "quote": "no runway slots required"
-      },
-      "ppr": {
-       "v": "all movements without a flight plan must be pre-notified to air traffic control",
-       "src": "bqh-ga",
-       "quote": "introducing a requirement for all non-flight planned aircraft movements to be pre-notified to Air Traffic Control"
-      },
-      "handling": {
-       "v": "two full-service FBOs: Biggin Hill Executive Handling (co-located with UK Border Force) and JETEX London",
-       "src": "egkb-op-fbo-2026",
-       "names": [
-        "Biggin Hill Executive Handling",
-        "JETEX London"
-       ],
-       "quote": "Biggin Hill Executive Handling is co-located with UK Border Force, allowing for the smoothest and swiftest border clearance"
-      },
-      "max_aircraft": {
-       "v": "pavement strength PCN 45/F/C/X/U; fire cover category 6 (no weight limit stated)",
-       "src": "bqh-specs",
-       "quote": "PCN 45/F/C/X/U"
+       "approval": true,
+       "src": "acl-ltn-lr1",
+       "quote": "Night Quota Period: 2330 – 0600 local time. Departures 2315 – 0545 local time (inclusive) Arrivals 2330 – 0600 local time (inclusive)"
       },
       "noise": {
-       "v": "jets must be ICAO Chapter 3 or better; only Chapter 4 aircraft 06:30-07:00; IFR jet departures follow the noise preferential route at no more than 185 knots",
-       "src": "bqh-noise",
-       "quote": "We restrict the period between 06:30 and 07:00 hours to Chapter 4 certified aircraft"
+       "v": "night flights are controlled through lower noise violation limits, movement limits and a quota count system",
+       "src": "lla-night-noise",
+       "quote": "Each specific aircraft type is assigned Quota points based on how noisy it is."
+      },
+      "slots": {
+       "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator (ACL)",
+       "src": "acl-faqs",
+       "context": "Listed by ACL among UK Level 3 (coordinated) airports; ACL Luton page: 'London Luton Airport was formally declared as Level 3 effective Summer 2013.'",
+       "quote": "London Luton (LTN)"
+      },
+      "handling": {
+       "v": "business aviation handled by Signature Flight Support (two sites) and Harrods Aviation",
+       "src": "lla-bizav",
+       "names": [
+        "Signature Flight Support",
+        "Harrods Aviation"
+       ],
+       "quote": "Harrods Aviation is the leading London-based business aviation service provider."
+      },
+      "ppr": {
+       "v": "every fixed-wing flight needs Prior Permission to Operate (a PPO time) from the slot coordinator ACL, requested by the operator's authorised handling agent (or the operator's own ACL account); arriving flights must have it before leaving their origin; no fixed notice period, request as early as possible",
+       "src": "eggw-ppo5",
+       "quote": "All fixed wing aircraft flights at London Luton Airport (LLAO) are required to secure Prior Permission to Operate."
       }
      },
      "missing": [
-      "customs hours",
-      "ppr lead time"
+      "geo",
+      "location",
+      "runway designation, width and exact length in m",
+      "customs",
+      "max_aircraft"
      ]
     },
     "EGLF": {
@@ -2623,70 +2615,90 @@
       "customs hours"
      ]
     },
-    "EGGW": {
-     "icao": "EGGW",
-     "iata": "LTN",
-     "name": "London Luton Airport",
+    "EGKB": {
+     "icao": "EGKB",
+     "iata": "BQH",
+     "name": "London Biggin Hill Airport",
      "city": "London",
      "country": "GB",
      "status": "partial",
      "checked": "2026-11-12",
      "rules": {
       "runway": {
-       "v": "one runway, 2.16 km long",
-       "src": "lla-runway-2026",
-       "longest_m": 2160,
-       "quote": "Work on the 2.16km runway commenced each night at 00:01 and completed by 05:45"
+       "v": "runway 03/21, 1,806 m long and 45 m wide",
+       "src": "bqh-specs",
+       "longest_m": 1806,
+       "quote": "21/03 ... 1,806m x 45m"
       },
       "hours": {
-       "v": "open 24 hours",
-       "src": "lla-noise-faq",
-       "quote": "LLA holds a 24 hour licence to operate and there is no ban on night flights."
+       "v": "open 06:30 to 23:00 on weekdays and 08:00 to 22:00 at weekends and on public holidays",
+       "src": "bqh-specs",
+       "hours_local": {
+        "weekday": [
+         [
+          "06:30",
+          "23:00"
+         ]
+        ],
+        "weekend_public_holiday": [
+         [
+          "08:00",
+          "22:00"
+         ]
+        ]
+       },
+       "quote": "0630 – 2300hrs (local time) ... 0800 – 2200hrs (local time)"
       },
       "curfew": {
-       "v": "no night ban (24-hour licence), but a night quota period 23:30-06:00 local time with movement limits and quota counts; older-generation jets are not allowed at night",
+       "v": "closed outside 06:30-23:00 on weekdays and 08:00-22:00 at weekends and on public holidays",
+       "src": "bromley-bqh",
        "windows_local": [
         [
-         "23:30",
-         "06:00"
+         "23:00",
+         "06:30"
         ]
        ],
-       "approval": true,
-       "src": "acl-ltn-lr1",
-       "quote": "Night Quota Period: 2330 – 0600 local time. Departures 2315 – 0545 local time (inclusive) Arrivals 2330 – 0600 local time (inclusive)"
-      },
-      "noise": {
-       "v": "night flights are controlled through lower noise violation limits, movement limits and a quota count system",
-       "src": "lla-night-noise",
-       "quote": "Each specific aircraft type is assigned Quota points based on how noisy it is."
+       "windows_local_weekend": [
+        [
+         "22:00",
+         "08:00"
+        ]
+       ],
+       "quote": "Monday - Friday 06:30 - 23:00 ... Saturday, Sunday and public holidays 08:00 - 22:00"
       },
       "slots": {
-       "v": "a fully coordinated (Level 3) airport, so slots are allocated by the UK slot coordinator (ACL)",
-       "src": "acl-faqs",
-       "context": "Listed by ACL among UK Level 3 (coordinated) airports; ACL Luton page: 'London Luton Airport was formally declared as Level 3 effective Summer 2013.'",
-       "quote": "London Luton (LTN)"
-      },
-      "handling": {
-       "v": "business aviation handled by Signature Flight Support (two sites) and Harrods Aviation",
-       "src": "lla-bizav",
-       "names": [
-        "Signature Flight Support",
-        "Harrods Aviation"
-       ],
-       "quote": "Harrods Aviation is the leading London-based business aviation service provider."
+       "v": "no runway slots required",
+       "src": "bqh-ops",
+       "quote": "no runway slots required"
       },
       "ppr": {
-       "v": "every fixed-wing flight needs Prior Permission to Operate (a PPO time) from the slot coordinator ACL, requested by the operator's authorised handling agent (or the operator's own ACL account); arriving flights must have it before leaving their origin; no fixed notice period, request as early as possible",
-       "src": "eggw-ppo5",
-       "quote": "All fixed wing aircraft flights at London Luton Airport (LLAO) are required to secure Prior Permission to Operate."
+       "v": "all movements without a flight plan must be pre-notified to air traffic control",
+       "src": "bqh-ga",
+       "quote": "introducing a requirement for all non-flight planned aircraft movements to be pre-notified to Air Traffic Control"
+      },
+      "handling": {
+       "v": "two full-service FBOs: Biggin Hill Executive Handling (co-located with UK Border Force) and JETEX London",
+       "src": "egkb-op-fbo-2026",
+       "names": [
+        "Biggin Hill Executive Handling",
+        "JETEX London"
+       ],
+       "quote": "Biggin Hill Executive Handling is co-located with UK Border Force, allowing for the smoothest and swiftest border clearance"
+      },
+      "max_aircraft": {
+       "v": "pavement strength PCN 45/F/C/X/U; fire cover category 6 (no weight limit stated)",
+       "src": "bqh-specs",
+       "quote": "PCN 45/F/C/X/U"
+      },
+      "noise": {
+       "v": "jets must be ICAO Chapter 3 or better; only Chapter 4 aircraft 06:30-07:00; IFR jet departures follow the noise preferential route at no more than 185 knots",
+       "src": "bqh-noise",
+       "quote": "We restrict the period between 06:30 and 07:00 hours to Chapter 4 certified aircraft"
       }
      },
      "missing": [
-      "geo",
-      "location",
-      "runway designation, width and exact length in m",
-      "customs",
-      "max_aircraft"
+      "customs hours",
+      "ppr lead time"
      ]
     }
    }
@@ -3200,6 +3212,59 @@
     }
    },
    "airports": {
+    "KOPF": {
+     "icao": "KOPF",
+     "iata": null,
+     "name": "Miami-Opa locka Executive Airport",
+     "city": "Miami",
+     "country": "US",
+     "status": "verified",
+     "checked": "2026-10-28",
+     "rules": {
+      "runway": {
+       "v": "three runways; the longest, 9L/27R, is 8,002 ft (about 2,439 m) long and 150 ft (about 46 m) wide; 9R/27L 6,800 ft and 12/30 4,309 ft",
+       "longest_m": 2439,
+       "src": "kopf-mdad-facts",
+       "quote": "OPF has one of the longest general aviation runways in the country at 8,002 feet."
+      },
+      "hours": {
+       "v": "airport attended 24 hours, 7 days; control tower 07:00–23:00 local",
+       "src": "kopf-mdad-facts",
+       "quote": "Attended continuously."
+      },
+      "customs": {
+       "v": "CBP clears arriving aircraft 7 days a week, 09:00–24:00 Eastern Time; aircraft must block at the CBP ramp; contact CBP no less than 1 hour and no more than 24 hours before arrival",
+       "h24": false,
+       "hours_local": [
+        [
+         "09:00",
+         "24:00"
+        ]
+       ],
+       "src": "kopf-cbp-ga",
+       "quote": "7 days per week, 0900-2400"
+      },
+      "noise": {
+       "v": "noise-sensitive airport; turbine and large aircraft are asked to use NBAA noise abatement profiles; flight training only for aircraft of 40,000 lb maximum take-off weight or less, and only 07:00–21:00",
+       "src": "kopf-mdad-facts",
+       "quote": "Aircraft operators of turbine and large aircraft are requested to use NBAA recommended Noise Abatement Profiles."
+      },
+      "handling": {
+       "v": "the operator lists Atlantic Aviation, Fontainebleau Aviation and Signature Flight Support",
+       "src": "kopf-mdad-facts",
+       "quote": "Atlantic Aviation, Fontainebleau Aviation, and Signature Flight Support"
+      }
+     },
+     "missing": [
+      "iata",
+      "curfew (no statement either way)",
+      "slots",
+      "ppr",
+      "max_aircraft",
+      "fuel",
+      "Chart Supplement entry"
+     ]
+    },
     "KMIA": {
      "icao": "KMIA",
      "iata": "MIA",
@@ -3256,59 +3321,6 @@
       "curfew (no statement either way)",
       "handling (FBO name: one airport page says Signature Flight Support operates the GAC, the other says the Aviation Department; confirm)",
       "slots"
-     ]
-    },
-    "KOPF": {
-     "icao": "KOPF",
-     "iata": null,
-     "name": "Miami-Opa locka Executive Airport",
-     "city": "Miami",
-     "country": "US",
-     "status": "verified",
-     "checked": "2026-10-28",
-     "rules": {
-      "runway": {
-       "v": "three runways; the longest, 9L/27R, is 8,002 ft (about 2,439 m) long and 150 ft (about 46 m) wide; 9R/27L 6,800 ft and 12/30 4,309 ft",
-       "longest_m": 2439,
-       "src": "kopf-mdad-facts",
-       "quote": "OPF has one of the longest general aviation runways in the country at 8,002 feet."
-      },
-      "hours": {
-       "v": "airport attended 24 hours, 7 days; control tower 07:00–23:00 local",
-       "src": "kopf-mdad-facts",
-       "quote": "Attended continuously."
-      },
-      "customs": {
-       "v": "CBP clears arriving aircraft 7 days a week, 09:00–24:00 Eastern Time; aircraft must block at the CBP ramp; contact CBP no less than 1 hour and no more than 24 hours before arrival",
-       "h24": false,
-       "hours_local": [
-        [
-         "09:00",
-         "24:00"
-        ]
-       ],
-       "src": "kopf-cbp-ga",
-       "quote": "7 days per week, 0900-2400"
-      },
-      "noise": {
-       "v": "noise-sensitive airport; turbine and large aircraft are asked to use NBAA noise abatement profiles; flight training only for aircraft of 40,000 lb maximum take-off weight or less, and only 07:00–21:00",
-       "src": "kopf-mdad-facts",
-       "quote": "Aircraft operators of turbine and large aircraft are requested to use NBAA recommended Noise Abatement Profiles."
-      },
-      "handling": {
-       "v": "the operator lists Atlantic Aviation, Fontainebleau Aviation and Signature Flight Support",
-       "src": "kopf-mdad-facts",
-       "quote": "Atlantic Aviation, Fontainebleau Aviation, and Signature Flight Support"
-      }
-     },
-     "missing": [
-      "iata",
-      "curfew (no statement either way)",
-      "slots",
-      "ppr",
-      "max_aircraft",
-      "fuel",
-      "Chart Supplement entry"
      ]
     }
    }
@@ -3581,42 +3593,6 @@
     }
    },
    "airports": {
-    "VIDP": {
-     "icao": "VIDP",
-     "iata": "DEL",
-     "name": "Indira Gandhi International Airport",
-     "city": "Delhi",
-     "country": "IN",
-     "status": "partial",
-     "checked": "2026-11-10",
-     "rules": {
-      "customs": {
-       "v": "customs and immigration 24 hours",
-       "src": "in-aip-vidp",
-       "h24": true,
-       "quote": "H24"
-      },
-      "ppr": {
-       "v": "non-scheduled flights need a valid Delhi Approach Arrival Clearance Number (DACN), applied for from the airport's operations control centre",
-       "src": "in-aip-vidp",
-       "quote": "Non-Sked flights not permitted to operate at IGI Airport without a valid Delhi APCH ARR CLR NR (DACN)"
-      },
-      "runway": {
-       "v": "four runways: 11R/29L 4,430 m x 60 m, 11L/29R 4,400 m x 45 m, 10/28 3,813 m x 45 m, 09/27 2,816 m x 45 m",
-       "longest_m": 4430,
-       "src": "vidp-dial-factsheet",
-       "quote": "11L-29R (4400m / 45 Meter Width) 11R-29L (4430m / 60 Meter Width) 10-28 (3813 m / 45 m) 09-27 (2816 m / 45 m)"
-      }
-     },
-     "missing": [
-      "curfew",
-      "slots",
-      "max_aircraft",
-      "handling",
-      "hours (only aerodrome office hours stated)",
-      "noise"
-     ]
-    },
     "VABB": {
      "icao": "VABB",
      "iata": "BOM",
@@ -3657,6 +3633,42 @@
      "missing": [
       "curfew",
       "max_aircraft",
+      "hours (only aerodrome office hours stated)",
+      "noise"
+     ]
+    },
+    "VIDP": {
+     "icao": "VIDP",
+     "iata": "DEL",
+     "name": "Indira Gandhi International Airport",
+     "city": "Delhi",
+     "country": "IN",
+     "status": "partial",
+     "checked": "2026-11-10",
+     "rules": {
+      "customs": {
+       "v": "customs and immigration 24 hours",
+       "src": "in-aip-vidp",
+       "h24": true,
+       "quote": "H24"
+      },
+      "ppr": {
+       "v": "non-scheduled flights need a valid Delhi Approach Arrival Clearance Number (DACN), applied for from the airport's operations control centre",
+       "src": "in-aip-vidp",
+       "quote": "Non-Sked flights not permitted to operate at IGI Airport without a valid Delhi APCH ARR CLR NR (DACN)"
+      },
+      "runway": {
+       "v": "four runways: 11R/29L 4,430 m x 60 m, 11L/29R 4,400 m x 45 m, 10/28 3,813 m x 45 m, 09/27 2,816 m x 45 m",
+       "longest_m": 4430,
+       "src": "vidp-dial-factsheet",
+       "quote": "11L-29R (4400m / 45 Meter Width) 11R-29L (4430m / 60 Meter Width) 10-28 (3813 m / 45 m) 09-27 (2816 m / 45 m)"
+      }
+     },
+     "missing": [
+      "curfew",
+      "slots",
+      "max_aircraft",
+      "handling",
       "hours (only aerodrome office hours stated)",
       "noise"
      ]
@@ -4047,7 +4059,7 @@
      "city": "West Palm Beach",
      "country": "US",
      "status": "partial",
-     "checked": "2026-11-11",
+     "checked": "2026-11-13",
      "rules": {
       "runway": {
        "v": "three runways in the FAA AIP: 10L/28R 10,001 ft x 150 ft (about 3,048 m x 46 m), 14/32 6,931 x 150 ft, 10R/28L 3,214 x 75 ft; runway 10R/28L is not available for scheduled air carriers with more than 9 seats or unscheduled ones with 31 seats or more",
@@ -4473,6 +4485,67 @@
     }
    },
    "airports": {
+    "VTSP": {
+     "icao": "VTSP",
+     "iata": "HKT",
+     "name": "Phuket/ Phuket International Airport",
+     "city": "Phuket",
+     "country": "TH",
+     "status": "verified",
+     "checked": "2026-11-13",
+     "rules": {
+      "runway": {
+       "v": "one runway, 09/27, 45 m wide; 3,000 m long from runway 09 and 3,100 m from runway 27",
+       "longest_m": 3100,
+       "src": "th-aip-vtsp",
+       "quote": "RWY 09: length 3000, width 45; RWY 27: length 3100, width 45"
+      },
+      "customs": {
+       "v": "customs and immigration open 24 hours",
+       "h24": true,
+       "src": "th-aip-vtsp",
+       "quote": "Customs and immigration: H24"
+      },
+      "hours": {
+       "v": "open 24 hours",
+       "src": "th-aip-vtsp",
+       "quote": "Aerodrome Operator: H24"
+      },
+      "handling": {
+       "v": "Siam Land Private Jet Terminal (private aircraft only); Siam Land Flying is listed as handling agent for private aircraft",
+       "src": "th-aip-vtsp",
+       "quote": "Siam Land Private Jet Terminal (Private Aircraft only)"
+      },
+      "slots": {
+       "v": "private jets must fly to the time slot approved by the Slot Coordination Committee, within 2 hours early or late",
+       "src": "th-aip-vtsp",
+       "quote": "shall commence the flight in accordance with the approved time slot by the Slot Coordination Committee. If the flight is delay or arrive early, it should not more than 2 hours."
+      },
+      "ppr": {
+       "v": "private jets need permission from the Civil Aviation Authority of Thailand and a ground handling agent, and the airport must be told at least 3 workdays before arrival",
+       "src": "th-aip-vtsp",
+       "quote": "Aircraft owner/operator or PIC shall inform The Airports of Thailand Public Company Limited at least three (3) workdays before the arrival aircraft"
+      },
+      "max_aircraft": {
+       "v": "stands 51 to 54 and Apron E (remote, overnight parking) are for private aircraft only",
+       "src": "th-aip-vtsp",
+       "quote": "Remote parking (for private aircraft only)"
+      },
+      "noise": {
+       "v": "no noise abatement procedures listed",
+       "src": "th-aip-vtsp",
+       "quote": "NIL"
+      },
+      "permits": {
+       "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
+       "src": "th-aip-gen12",
+       "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
+      }
+     },
+     "missing": [
+      "curfew (AD 2.20-2.23 of the 14 May 2026 edition state no night restriction and do not say there is none)"
+     ]
+    },
     "VTSG": {
      "icao": "VTSG",
      "iata": "KBV",
@@ -4531,67 +4604,6 @@
       "max_aircraft",
       "handling agent names",
       "business-aviation terminal"
-     ]
-    },
-    "VTSP": {
-     "icao": "VTSP",
-     "iata": "HKT",
-     "name": "Phuket/ Phuket International Airport",
-     "city": "Phuket",
-     "country": "TH",
-     "status": "partial",
-     "checked": "2026-11-10",
-     "rules": {
-      "runway": {
-       "v": "one runway, 09/27, 45 m wide; 3,000 m long from runway 09 and 3,100 m from runway 27",
-       "longest_m": 3100,
-       "src": "th-aip-vtsp",
-       "quote": "RWY 09: length 3000, width 45; RWY 27: length 3100, width 45"
-      },
-      "customs": {
-       "v": "customs and immigration open 24 hours",
-       "h24": true,
-       "src": "th-aip-vtsp",
-       "quote": "Customs and immigration: H24"
-      },
-      "hours": {
-       "v": "open 24 hours",
-       "src": "th-aip-vtsp",
-       "quote": "Aerodrome Operator: H24"
-      },
-      "handling": {
-       "v": "Siam Land Private Jet Terminal (private aircraft only); Siam Land Flying is listed as handling agent for private aircraft",
-       "src": "th-aip-vtsp",
-       "quote": "Siam Land Private Jet Terminal (Private Aircraft only)"
-      },
-      "slots": {
-       "v": "private jets must fly to the time slot approved by the Slot Coordination Committee, within 2 hours early or late",
-       "src": "th-aip-vtsp",
-       "quote": "shall commence the flight in accordance with the approved time slot by the Slot Coordination Committee. If the flight is delay or arrive early, it should not more than 2 hours."
-      },
-      "ppr": {
-       "v": "private jets need permission from the Civil Aviation Authority of Thailand and a ground handling agent, and the airport must be told at least 3 workdays before arrival",
-       "src": "th-aip-vtsp",
-       "quote": "Aircraft owner/operator or PIC shall inform The Airports of Thailand Public Company Limited at least three (3) workdays before the arrival aircraft"
-      },
-      "max_aircraft": {
-       "v": "stands 51 to 54 and Apron E (remote, overnight parking) are for private aircraft only",
-       "src": "th-aip-vtsp",
-       "quote": "Remote parking (for private aircraft only)"
-      },
-      "noise": {
-       "v": "no noise abatement procedures listed",
-       "src": "th-aip-vtsp",
-       "quote": "NIL"
-      },
-      "permits": {
-       "v": "non-scheduled flights (including private flights) need a flight permit from CAAT's Flight Permit Division, applied for at least 3 business days ahead through the online system (FPOS)",
-       "src": "th-aip-gen12",
-       "quote": "The application must be submitted to the Flight Permit Division at least three (3) business days in advance"
-      }
-     },
-     "missing": [
-      "curfew"
      ]
     },
     "VTSM": {
@@ -4849,6 +4861,76 @@
       "fuel"
      ]
     },
+    "KOAK": {
+     "icao": "KOAK",
+     "iata": "OAK",
+     "name": "Oakland International Airport",
+     "city": "Oakland",
+     "country": "US",
+     "status": "verified",
+     "checked": "2026-11-03",
+     "rules": {
+      "runway": {
+       "v": "four runways (15/33, 12/30, 10R/28L, 10L/28R); the longest size shown on the FAA diagram is 10,520 ft x 150 ft (about 3,206 m x 46 m)",
+       "longest_m": 3206,
+       "src": "koak-faa-apd",
+       "quote": "10520 X 150"
+      },
+      "customs": {
+       "v": "CBP arrival inspections generally 7 days a week, 08:30-15:30; CBP office weekdays 06:00-18:00 and weekends 08:00-16:00 Pacific Time; permission to land must be requested at least 24 hours before arrival; outside these hours contact Westbay Cargo",
+       "h24": false,
+       "hours_local": [
+        [
+         "08:30",
+         "15:30"
+        ]
+       ],
+       "src": "koak-cbp-ga",
+       "quote": "generally available 7 days per week, 0830-1530"
+      },
+      "ppr": {
+       "v": "for international arrivals, CBP permission to land at least 24 hours in advance",
+       "src": "koak-cbp-ga",
+       "quote": "at least 24 hours in advance of the anticipated arrival time"
+      },
+      "hours": {
+       "v": "airport attended all months, all days, all hours (24 hours)",
+       "src": "koak-faa-aip-ca",
+       "quote": "All Months, All Days, All Hours"
+      },
+      "fuel": {
+       "v": "fuel types 100LL and Jet A",
+       "src": "koak-faa-aip-ca",
+       "quote": "100LL A"
+      },
+      "noise": {
+       "v": "preferential runway use program 22:00-06:00 (preferred arrival 28L, departures 10R or 28R); a 24-hour noise abatement procedure applies to turbojet and turbofan aircraft (avoid departing 28L/28R or landing 10R/10L); procedures do not apply in emergencies or when runway 12/30 is closed",
+       "src": "koak-faa-aip-ca",
+       "quote": "PREFERENTIAL RWY USE PROGRAM IN EFFECT 2200-0600."
+      },
+      "curfew": {
+       "v": "no ban found; voluntary noise abatement programme 22:00-07:00 Monday to Saturday and 22:00-08:00 Sunday; the airport prefers jets to depart runway 30",
+       "windows_local": [
+        [
+         "22:00",
+         "07:00"
+        ]
+       ],
+       "voluntary": true,
+       "src": "koak-faa-flightdeck",
+       "quote": "Oakland Airport has a voluntary noise abatement program from Monday-Saturday between 2200L-0700L"
+      },
+      "handling": {
+       "v": "two FBOs listed by the airport: KaiserAir, Inc. and Signature Aviation; Signature services are available 24 hours a day",
+       "src": "koak-fbo",
+       "quote": "Signature Aviation is a fixed-base operator with services available 24 hours a day."
+      }
+     },
+     "missing": [
+      "slots",
+      "max_aircraft"
+     ]
+    },
     "KSJC": {
      "icao": "KSJC",
      "iata": "SJC",
@@ -4921,76 +5003,6 @@
      "missing": [
       "customs (newer CBP fact sheet of 9 Feb 2026 not opened)",
       "slots"
-     ]
-    },
-    "KOAK": {
-     "icao": "KOAK",
-     "iata": "OAK",
-     "name": "Oakland International Airport",
-     "city": "Oakland",
-     "country": "US",
-     "status": "verified",
-     "checked": "2026-11-03",
-     "rules": {
-      "runway": {
-       "v": "four runways (15/33, 12/30, 10R/28L, 10L/28R); the longest size shown on the FAA diagram is 10,520 ft x 150 ft (about 3,206 m x 46 m)",
-       "longest_m": 3206,
-       "src": "koak-faa-apd",
-       "quote": "10520 X 150"
-      },
-      "customs": {
-       "v": "CBP arrival inspections generally 7 days a week, 08:30-15:30; CBP office weekdays 06:00-18:00 and weekends 08:00-16:00 Pacific Time; permission to land must be requested at least 24 hours before arrival; outside these hours contact Westbay Cargo",
-       "h24": false,
-       "hours_local": [
-        [
-         "08:30",
-         "15:30"
-        ]
-       ],
-       "src": "koak-cbp-ga",
-       "quote": "generally available 7 days per week, 0830-1530"
-      },
-      "ppr": {
-       "v": "for international arrivals, CBP permission to land at least 24 hours in advance",
-       "src": "koak-cbp-ga",
-       "quote": "at least 24 hours in advance of the anticipated arrival time"
-      },
-      "hours": {
-       "v": "airport attended all months, all days, all hours (24 hours)",
-       "src": "koak-faa-aip-ca",
-       "quote": "All Months, All Days, All Hours"
-      },
-      "fuel": {
-       "v": "fuel types 100LL and Jet A",
-       "src": "koak-faa-aip-ca",
-       "quote": "100LL A"
-      },
-      "noise": {
-       "v": "preferential runway use program 22:00-06:00 (preferred arrival 28L, departures 10R or 28R); a 24-hour noise abatement procedure applies to turbojet and turbofan aircraft (avoid departing 28L/28R or landing 10R/10L); procedures do not apply in emergencies or when runway 12/30 is closed",
-       "src": "koak-faa-aip-ca",
-       "quote": "PREFERENTIAL RWY USE PROGRAM IN EFFECT 2200-0600."
-      },
-      "curfew": {
-       "v": "no ban found; voluntary noise abatement programme 22:00-07:00 Monday to Saturday and 22:00-08:00 Sunday; the airport prefers jets to depart runway 30",
-       "windows_local": [
-        [
-         "22:00",
-         "07:00"
-        ]
-       ],
-       "voluntary": true,
-       "src": "koak-faa-flightdeck",
-       "quote": "Oakland Airport has a voluntary noise abatement program from Monday-Saturday between 2200L-0700L"
-      },
-      "handling": {
-       "v": "two FBOs listed by the airport: KaiserAir, Inc. and Signature Aviation; Signature services are available 24 hours a day",
-       "src": "koak-fbo",
-       "quote": "Signature Aviation is a fixed-base operator with services available 24 hours a day."
-      }
-     },
-     "missing": [
-      "slots",
-      "max_aircraft"
      ]
     }
    }
@@ -5375,7 +5387,7 @@
      "city": "Seoul",
      "country": "KR",
      "status": "partial",
-     "checked": "2026-11-11",
+     "checked": "2026-11-13",
      "rules": {
       "runway": {
        "v": "four runways; the longest, 16L/34R, is 4,000 m long and 60 m wide",
@@ -5403,14 +5415,22 @@
        "v": "no hangar space for visiting aircraft; no handling agents named",
        "src": "kr-aip-rksi",
        "quote": "Not available"
+      },
+      "noise": {
+       "v": "noise abatement take-off procedures by altitude (thrust reduction at 1,500 ft and acceleration at 1,000 ft above the aerodrome recommended, by procedure); no night hours given",
+       "src": "kr-aip-rksi",
+       "quote": "Thrust reduction at 1 500 ft above aerodrome elevation recommended."
+      },
+      "max_aircraft": {
+       "v": "ICAO code F aircraft (Airbus A380 size) operate, with taxi speed limits on taxiways A, B, M and N; some stands are limited to code D",
+       "src": "kr-aip-rksi",
+       "quote": "ICAO Code F aircraft should taxi at speed of less than 30 kt on TWY A, B, M and N"
       }
      },
      "missing": [
       "iata (AIP page does not state it)",
-      "curfew (AD 2.21 not in the text read)",
-      "noise",
+      "curfew (AD 2.20-2.21 of the 8 Jan 2026 package state no night restriction and do not say there is none)",
       "ppr",
-      "max_aircraft",
       "handling agent / business aviation terminal names"
      ]
     }
@@ -5537,6 +5557,58 @@
     }
    },
    "airports": {
+    "WSSL": {
+     "icao": "WSSL",
+     "iata": null,
+     "name": "Seletar Airport",
+     "city": "Singapore",
+     "country": "SG",
+     "status": "verified",
+     "checked": "2026-10-27",
+     "rules": {
+      "runway": {
+       "v": "One runway, 03/21, 1,836 m × 46 m",
+       "longest_m": 1836,
+       "src": "sg-aip-wssl"
+      },
+      "curfew": {
+       "v": "No flights 22:00–07:00 Singapore time (14:00–23:00 UTC), except medical evacuation and emergency flights",
+       "windows_local": [
+        [
+         "22:00",
+         "07:00"
+        ]
+       ],
+       "src": "sg-aip-wssl"
+      },
+      "customs": {
+       "v": "Customs and immigration open 24 hours; non-scheduled flights clear at the Seletar Business Aviation Centre",
+       "h24": true,
+       "src": "sg-aip-wssl"
+      },
+      "max_aircraft": {
+       "v": "Largest stands take up to a Boeing 757-200 without winglets",
+       "src": "sg-aip-wssl"
+      },
+      "handling": {
+       "v": "Every arriving and departing aircraft must appoint a licensed ground handling agent",
+       "required": true,
+       "src": "sg-aip-wssl"
+      },
+      "noise": {
+       "v": "Subsonic jets need a noise certificate to ICAO Annex 16, Volume I, Chapter 3 or equivalent",
+       "src": "sg-aip-wssl"
+      },
+      "fuel": {
+       "v": "07:30–22:00 Monday to Friday; 08:30–17:30 weekends and public holidays (Singapore time)",
+       "src": "sg-aip-wssl"
+      }
+     },
+     "missing": [
+      "slots",
+      "ppr"
+     ]
+    },
     "WSSS": {
      "icao": "WSSS",
      "iata": null,
@@ -5589,58 +5661,6 @@
       "iata",
       "curfew (AIP AD 2.20/2.21 state no curfew and do not state that there is none)",
       "handling (AIP AD 2.4 names no ground handlers; no official CAG page found)"
-     ]
-    },
-    "WSSL": {
-     "icao": "WSSL",
-     "iata": null,
-     "name": "Seletar Airport",
-     "city": "Singapore",
-     "country": "SG",
-     "status": "verified",
-     "checked": "2026-10-27",
-     "rules": {
-      "runway": {
-       "v": "One runway, 03/21, 1,836 m × 46 m",
-       "longest_m": 1836,
-       "src": "sg-aip-wssl"
-      },
-      "curfew": {
-       "v": "No flights 22:00–07:00 Singapore time (14:00–23:00 UTC), except medical evacuation and emergency flights",
-       "windows_local": [
-        [
-         "22:00",
-         "07:00"
-        ]
-       ],
-       "src": "sg-aip-wssl"
-      },
-      "customs": {
-       "v": "Customs and immigration open 24 hours; non-scheduled flights clear at the Seletar Business Aviation Centre",
-       "h24": true,
-       "src": "sg-aip-wssl"
-      },
-      "max_aircraft": {
-       "v": "Largest stands take up to a Boeing 757-200 without winglets",
-       "src": "sg-aip-wssl"
-      },
-      "handling": {
-       "v": "Every arriving and departing aircraft must appoint a licensed ground handling agent",
-       "required": true,
-       "src": "sg-aip-wssl"
-      },
-      "noise": {
-       "v": "Subsonic jets need a noise certificate to ICAO Annex 16, Volume I, Chapter 3 or equivalent",
-       "src": "sg-aip-wssl"
-      },
-      "fuel": {
-       "v": "07:30–22:00 Monday to Friday; 08:30–17:30 weekends and public holidays (Singapore time)",
-       "src": "sg-aip-wssl"
-      }
-     },
-     "missing": [
-      "slots",
-      "ppr"
      ]
     }
    }
@@ -5936,57 +5956,6 @@
     }
    },
    "airports": {
-    "RCTP": {
-     "icao": "RCTP",
-     "iata": null,
-     "name": "Taiwan Taoyuan International Airport",
-     "city": "Taipei",
-     "country": "TW",
-     "status": "partial",
-     "checked": "2026-11-11",
-     "rules": {
-      "runway": {
-       "v": "two runways; the longest, 05R/23L, is 3,800 m long and 60 m wide",
-       "src": "tw-aip-rctp-2026-08",
-       "longest_m": 3800,
-       "quote": "3800 x 60"
-      },
-      "customs": {
-       "v": "customs and immigration 24 hours",
-       "src": "tw-aip-rctp-2026-08",
-       "h24": true,
-       "quote": "H24"
-      },
-      "hours": {
-       "v": "open 24 hours",
-       "src": "tw-aip-rctp-2026-08",
-       "quote": "H24"
-      },
-      "handling": {
-       "v": "hangar space for visiting aircraft by arrangement with operating airlines; no handling agents named",
-       "src": "tw-aip-rctp-2026-08",
-       "quote": "By arrangement with operating airlines."
-      },
-      "noise": {
-       "v": "no engine tests from 00:00 to 06:00 local time (1600-2200 UTC) unless authorised",
-       "src": "tw-aip-rctp",
-       "quote": "from 1600 to 2200 UTC"
-      },
-      "permits": {
-       "v": "private flights need a permit from the CAA, applied for like non-scheduled flights: file with the CAA 2 working days before entry or exit; foreign passenger or cargo charters file at least 10 working days before departure and may not fly before CAA approval; ETA/EOBT notice 48 hours ahead for customs, immigration and health (AIP GEN 1.2, 2023 edition, newest found)",
-       "src": "tw-aip-gen12",
-       "quote": "must obtain a permit from the CAA"
-      }
-     },
-     "missing": [
-      "iata (AIP page does not state it)",
-      "curfew (none stated; AIP does not say there is none)",
-      "slots",
-      "ppr",
-      "max_aircraft (only stand/taxiway wingspan limits stated)",
-      "handling agent / business aviation terminal names"
-     ]
-    },
     "RCSS": {
      "icao": "RCSS",
      "iata": null,
@@ -6047,6 +6016,57 @@
       "ppr",
       "max_aircraft",
       "handling agent names"
+     ]
+    },
+    "RCTP": {
+     "icao": "RCTP",
+     "iata": null,
+     "name": "Taiwan Taoyuan International Airport",
+     "city": "Taipei",
+     "country": "TW",
+     "status": "partial",
+     "checked": "2026-11-11",
+     "rules": {
+      "runway": {
+       "v": "two runways; the longest, 05R/23L, is 3,800 m long and 60 m wide",
+       "src": "tw-aip-rctp-2026-08",
+       "longest_m": 3800,
+       "quote": "3800 x 60"
+      },
+      "customs": {
+       "v": "customs and immigration 24 hours",
+       "src": "tw-aip-rctp-2026-08",
+       "h24": true,
+       "quote": "H24"
+      },
+      "hours": {
+       "v": "open 24 hours",
+       "src": "tw-aip-rctp-2026-08",
+       "quote": "H24"
+      },
+      "handling": {
+       "v": "hangar space for visiting aircraft by arrangement with operating airlines; no handling agents named",
+       "src": "tw-aip-rctp-2026-08",
+       "quote": "By arrangement with operating airlines."
+      },
+      "noise": {
+       "v": "no engine tests from 00:00 to 06:00 local time (1600-2200 UTC) unless authorised",
+       "src": "tw-aip-rctp",
+       "quote": "from 1600 to 2200 UTC"
+      },
+      "permits": {
+       "v": "private flights need a permit from the CAA, applied for like non-scheduled flights: file with the CAA 2 working days before entry or exit; foreign passenger or cargo charters file at least 10 working days before departure and may not fly before CAA approval; ETA/EOBT notice 48 hours ahead for customs, immigration and health (AIP GEN 1.2, 2023 edition, newest found)",
+       "src": "tw-aip-gen12",
+       "quote": "must obtain a permit from the CAA"
+      }
+     },
+     "missing": [
+      "iata (AIP page does not state it)",
+      "curfew (none stated; AIP does not say there is none)",
+      "slots",
+      "ppr",
+      "max_aircraft (only stand/taxiway wingspan limits stated)",
+      "handling agent / business aviation terminal names"
      ]
     }
    }
@@ -7607,7 +7627,7 @@
    "title": "Korea eAIP, AD 2 RKSI Seoul/Incheon INTL (package 8 Jan 2026; no effective date printed on page)",
    "url": "https://aim.koca.go.kr/eaipPub/Package/2026-01-08/html/eAIP/KR-AD-2.RKSI-en-GB.html?amdt=show",
    "publisher": "Korea Office of Civil Aviation, MOLIT",
-   "checked": "2026-10-27"
+   "checked": "2026-11-13"
   },
   "kr-aip-rkss": {
    "title": "Korea eAIP, AD 2 RKSS Seoul/Gimpo International (package 19 Feb 2025 AIRAC; no effective date printed on page)",
@@ -8093,13 +8113,13 @@
    "title": "Thailand eAIP, AD 2 VTBD Bangkok/Don Mueang (AIRAC effective 14 May 2026)",
    "url": "https://aip.caat.or.th/2026-05-14-AIRAC/html/eAIP/VT-AD-2.VTBD-en-GB.html",
    "publisher": "Civil Aviation Authority of Thailand (CAAT)",
-   "checked": "2026-10-27"
+   "checked": "2026-11-13"
   },
   "th-aip-vtbs": {
    "title": "Thailand eAIP, AD 2 VTBS Bangkok/Suvarnabhumi (AIRAC effective 14 May 2026)",
    "url": "https://aip.caat.or.th/2026-05-14-AIRAC/html/eAIP/VT-AD-2.VTBS-en-GB.html",
    "publisher": "Civil Aviation Authority of Thailand (CAAT)",
-   "checked": "2026-10-27"
+   "checked": "2026-11-13"
   },
   "th-aip-vtbu": {
    "title": "Thailand eAIP, AD 2 VTBU Rayong/U-Tapao (AIRAC effective 17 Apr 2025)",
@@ -8135,7 +8155,7 @@
    "title": "Thailand eAIP, AD 2 VTSP Phuket (AIRAC effective 14 May 2026)",
    "url": "https://aip.caat.or.th/2026-05-14-AIRAC/html/eAIP/VT-AD-2.VTSP-en-GB.html",
    "publisher": "Civil Aviation Authority of Thailand (CAAT)",
-   "checked": "2026-11-07"
+   "checked": "2026-11-13"
   },
   "tw-aip-gen12": {
    "title": "Taipei FIR eAIP, GEN 1.2 Entry, transit and departure of aircraft (AIP AMDT 02-23, 9 Mar 2023)",

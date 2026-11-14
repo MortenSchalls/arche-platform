@@ -1143,7 +1143,7 @@
   ]
  },
  "stops": {
-  "note": "A fuel stop on the way is preferred (Morten 13 Nov 2026, Arche map: a London to Singapore stop at Almaty was off the published corridors): a stop counts as on the way when the journey with it is at most 'on_the_way' times the routed journey and, if more than 'free_within' times longer, the stop lies within 'near_route_nm' of the routed path, or 'near_route_share' of its length on the longest journeys. Another stop is used only when no stop on the way works (ocean and far-south journeys, where no airport lies near the straight path). The stop is always at least 'min_share_from_end' of the journey from either end.",
+  "note": "A fuel stop on the way is preferred (Morten 13 Nov 2026, Arche map: a London to Singapore stop at Almaty was off the published corridors): a stop counts as on the way when the journey with it is at most 'on_the_way' times the routed journey and, if more than 'free_within' times longer, the stop lies within 'near_route_nm' of the routed path, or 'near_route_share' of its length on the longest journeys. Another stop is used only when no stop on the way works (ocean and far-south journeys, where no airport lies near the straight path). The stop is always at least 'min_share_from_end' of the journey from either end. A route with a stop that leaves the published corridors (\"references\") is not offered.",
   "on_the_way": 1.15,
   "free_within": 1.05,
   "near_route_nm": 600,

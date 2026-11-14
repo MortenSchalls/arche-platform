@@ -4937,7 +4937,7 @@
   ]
  },
  {
-  "key": "708d077f",
+  "key": "121c2ea2",
   "kind": "lesson",
   "where": "m11 screen 5",
   "text": [
@@ -4946,6 +4946,7 @@
    "A trip is not finished when the aircraft takes off. The broker owns the trip from the first enquiry to the last landing and the follow-up after it: nobody else takes it over. The Director, or a person the Director has mandated, only does the four-eyes check. A file is closed only when every step below is done.",
    "Follow the trip to the last leg",
    "Watch every leg in the portal under Flight following: departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times.",
+   "After the flight, record under Route flown, for each leg, the route the operator filed (from its flight plan), the actual off-block and on-block times in UTC and any fuel stop. The portal adds them to Archē's own route library, with no client details and no prices; the website's journey map shows the trips our clients have flown on a city pair, and until a pair has been flown its route is shown as an indicative route along the published corridors. Never take routes or tracks from flight-tracking services.",
    "Tell the client at once about any delay, diversion or change, with what happens next (Module 11.3).",
    "The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. The Director, or a person the Director has mandated, then records the flight.",
    "Follow up with the client",
@@ -4963,7 +4964,7 @@
    "After the flight.",
    "A trip is not finished when the aircraft takes off. The broker owns the trip from the first enquiry to the last landing and the follow-up after it, nobody else takes it over. The Director, or a person the Director has mandated, only does the four-eyes check. A file is closed only when every step below is done.",
    "Follow the trip to the last leg.",
-   "Watch every leg in the portal under Flight following, departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times. Tell the client at once about any delay, diversion or change, with what happens next, Module 11, section 3. The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. The Director, or a person the Director has mandated, then records the flight.",
+   "Watch every leg in the portal under Flight following, departed, landed, delayed, diverted or cancelled, with the local time. The operator or its trip support gives the times. After the flight, record under Route flown, for each leg, the route the operator filed, from its flight plan, the actual off-block and on-block times in U T C and any fuel stop. The portal adds them to ar Kay's own route library, with no client details and no prices, the website's journey map shows the trips our clients have flown on a city pair, and until a pair has been flown its route is shown as an indicative route along the published corridors. Never take routes or tracks from flight-tracking services. Tell the client at once about any delay, diversion or change, with what happens next, Module 11, section 3. The trip counts as flown only when the last leg has landed and the passengers have left the aircraft. The Director, or a person the Director has mandated, then records the flight.",
    "Follow up with the client.",
    "Within 24 hours of the last landing, the broker calls or messages the client or the assistant personally, was everything as promised, and is anything still open. Log it in the portal, Aftercare. At the same time, send the client the rating request from the portal, template B, section 9. It asks for a score from 1 to 5 for the trip overall, the aircraft, the crew and the broker, and for any comment. The client answers with one click from the email, nothing is required. Record the answer in the portal when it arrives. A score of 3 or less, or any complaint, starts service recovery, the broker calls the client within 1 working day, the Director is told the same day, and anything about the operator is recorded for the operator scorecard. Ratings feed the broker's service score and the operator scorecard in Control, so we book the operators our clients rate highest. Never publish a client's rating or words without the client's written consent, and never write, offer a reward for or edit a review.",
    "Settle and close.",
@@ -6813,7 +6814,7 @@
   ]
  },
  {
-  "key": "ecafff4d",
+  "key": "d7693864",
   "kind": "lesson",
   "where": "sys screen 20",
   "text": [
@@ -6826,14 +6827,17 @@
    "For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note.",
    "Tell the client at once about any delay, diversion or cancellation.",
    "When every leg has landed and the client has paid, the Director presses Last leg landed: record flight. The trip moves to Flown and aftercare opens for the broker.",
+   "After the flight, under Route flown, enter for each leg the route the operator filed (from its flight plan), the actual off-block and on-block times in UTC and any fuel stop, then press Save route flown. The trip's broker or the Director does this; it adds the legs to Archē's own route library (no client details, no prices).",
    "Try it in the test version, as Test Broker",
    "On a confirmed trip, set the first leg to Departed with a time and a short note.",
    "If something goes wrong",
    "The record-flight button does not appearEvery leg must be Landed or Cancelled, and the client payment must be recorded first.",
    "I cannot change a legOnly the trip's broker and the Director edit leg status.",
+   "Where do I get the filed route?Ask the operator or its trip support for the route in the ATC flight plan (item 15) or the flight log, and copy it as given. Never take a route or track from a flight-tracking website.",
    "Tips",
    "Take times from the operator's movement message, never estimate.",
-   "Keep notes short and factual: the broker reads them before calling the client."
+   "Keep notes short and factual: the broker reads them before calling the client.",
+   "Block times are in UTC, from the operator's movement message or flight log, so flights across time zones are measured right."
   ],
   "say": [
    "Systems training, the ar Kay portal.",
@@ -6841,13 +6845,13 @@
    "The broker who owns the trip follows it until the last passenger has landed, so the client hears about a change from us first.",
    "Who uses it, The trip's broker, who owns the trip to the last landing, the Director, or a person the Director has mandated, records the flight.",
    "How it works.",
-   "Open the trip. The Flight following panel appears once the confirmation is issued. For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note. Tell the client at once about any delay, diversion or cancellation. When every leg has landed and the client has paid, the Director presses Last leg landed, record flight. The trip moves to Flown and aftercare opens for the broker.",
+   "Open the trip. The Flight following panel appears once the confirmation is issued. For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note. Tell the client at once about any delay, diversion or cancellation. When every leg has landed and the client has paid, the Director presses Last leg landed, record flight. The trip moves to Flown and aftercare opens for the broker. After the flight, under Route flown, enter for each leg the route the operator filed, from its flight plan, the actual off-block and on-block times in U T C and any fuel stop, then press Save route flown. The trip's broker or the Director does this, it adds the legs to ar Kay's own route library, no client details, no prices.",
    "Try it in the test version, as Test Broker.",
    "On a confirmed trip, set the first leg to Departed with a time and a short note.",
    "If something goes wrong.",
-   "The record-flight button does not appear. Every leg must be Landed or Cancelled, and the client payment must be recorded first. I cannot change a leg. Only the trip's broker and the Director edit leg status.",
+   "The record-flight button does not appear. Every leg must be Landed or Cancelled, and the client payment must be recorded first. I cannot change a leg. Only the trip's broker and the Director edit leg status. Where do I get the filed route? Ask the operator or its trip support for the route in the A T C flight plan, item 15, or the flight log, and copy it as given. Never take a route or track from a flight-tracking website.",
    "Tips.",
-   "Take times from the operator's movement message, never estimate. Keep notes short and factual, the broker reads them before calling the client."
+   "Take times from the operator's movement message, never estimate. Keep notes short and factual, the broker reads them before calling the client. Block times are in U T C, from the operator's movement message or flight log, so flights across time zones are measured right."
   ]
  },
  {

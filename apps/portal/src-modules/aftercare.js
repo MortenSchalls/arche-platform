@@ -73,6 +73,49 @@ function followBlock(t){
     ${done && !st.flownDate ? `<p class="small">All legs landed${st.clientPaid ? "" : "; record the client payment first, then the flight"}.</p>` : ""}</div>`;
 }
 
+/* route flown: Archē's own route library (Morten, 14 Nov 2026: "no outside IP, we need to create this ourselves and we can
+   use data available"). After the flight the trip's broker (or the Director) records, per leg, the route the operator filed,
+   the actual off-block and on-block times in UTC and any fuel stop. The server adds them to intel 'routelib' from the trip
+   itself (api/oplib.mjs, action "routes"): no client names or contact details, no prices. Never from flight-tracking sites. */
+function flownOf(t){ const f = ((t.d || {}).flown || {}).legs || []; return legsOf(t).map((l, i) => f[i] || {}); }
+function blockMin(x){ const a = Date.parse((x || {}).off || ""), b = Date.parse((x || {}).on || ""); return isFinite(a) && isFinite(b) ? Math.round((b - a) / 60000) : null; }
+function blockTxt(x){ const m = blockMin(x); return m == null ? "" : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")} min`; }
+function routeBlock(t){
+  if (!["issued","clientPaid","flown"].includes(t.stage)) return "";
+  const legs = legsOf(t); if (!legs.length) return "";
+  const can = (t.bid === S.uid || S.isOwner) && !S.preview, f = flownOf(t), fl = (t.d || {}).flown || {};
+  const rows = legs.map((l, i) => { const x = f[i] || {};
+    if (!can) return `<p class="small"><b>${esc(l.from)} → ${esc(l.to)}</b>: ${x.route ? `<span class="mono">${esc(x.route)}</span>` : `<span class="muted">route not recorded yet</span>`}${blockTxt(x) ? ` · block ${blockTxt(x)}` : ""}${x.stop ? ` · fuel stop ${esc(x.stop)}` : ""}</p>`;
+    return `<div class="stack" style="border-top:1px solid var(--line);padding-top:8px"><b class="small">${esc(l.from)} → ${esc(l.to)}</b><div class="fgrid">
+      <label class="f wide" for="rf_r${i}">Route filed by the operator<textarea id="rf_r${i}" rows="2" maxlength="600" placeholder="As in the flight plan">${esc(x.route || "")}</textarea><span class="small muted">From the operator's flight plan (item 15) or flight log, copied as given.</span></label>
+      <label class="f" for="rf_off${i}">Off block (UTC)<input id="rf_off${i}" type="datetime-local" value="${esc((x.off || "").slice(0, 16))}"><span class="small muted">When the aircraft moved off, from the operator.</span></label>
+      <label class="f" for="rf_on${i}">On block (UTC)<input id="rf_on${i}" type="datetime-local" value="${esc((x.on || "").slice(0, 16))}"><span class="small muted">When it parked at the destination.</span></label>
+      <label class="f" for="rf_s${i}">Fuel stop (ICAO, if any)<input id="rf_s${i}" maxlength="4" value="${esc(x.stop || "")}" placeholder="Empty if nonstop"><span class="small muted">The airport where the aircraft stopped for fuel.</span></label></div></div>`; }).join("");
+  return `<div class="panel stack" id="routePanel"><h3 style="margin:0">Route flown</h3><p class="small muted">After the flight, record each leg's filed route, the actual block times in UTC and any fuel stop (manual 11.5). They build Archē's own route library, with no client details and no prices; the website's journey map uses the routes our clients have flown. Never take routes or tracks from flight-tracking websites.</p>${rows}
+    ${can ? `<div class="row"><button class="btn small" type="button" data-ac="routeSave">Save route flown</button>${fl.at ? `<span class="small muted">Saved ${fmtT(fl.at)}</span>` : ""}</div>` : ""}</div>`;
+}
+/* one trip's route-library entries (the server builds the same from the database: api/oplib.mjs routeEntries; tests compare) */
+window.routelibEntries = function(t){
+  const d = t.d || {}, st = t.st || {}, q = d.quote || {}, f = flownOf(t), ref = st.ref || t.did;
+  return legsOf(t).map((l, i) => { const x = f[i] || {}, m = blockMin(x);
+    return {ref, leg: i, from: String(l.from || "").toUpperCase(), to: String(l.to || "").toUpperCase(), month: String(l.date || "").slice(0, 7), aircraft: q.aircraft || "", category: (d.trip || {}).category || "",
+      route: x.route || "", stop: x.stop || "", block: m != null && m > 0 && m < 1440 ? m : null}; }).filter(e => e.from && e.to && (e.route || e.block));
+};
+window.routelibMerge = function(lib, entries){
+  const L = {pairs: {}, ...(lib || {})}; L.pairs = {...(L.pairs || {})};
+  for (const e of entries) { const k = `${e.from}-${e.to}`, cur = L.pairs[k] || [];
+    L.pairs[k] = [...cur.filter(x => !(x.ref === e.ref && x.leg === e.leg)), e].slice(-100); }
+  L.updatedAt = new Date().toISOString(); return L;
+};
+async function routelibSave(t){
+  try {
+    if (!window.__sb || window.__TEST_AS) { const g = await S.db.doc("intel/routelib").get(); await S.db.doc("intel/routelib").set(routelibMerge(g.exists ? g.data() : {}, routelibEntries(t))); return; }
+    const sess = (await window.__sb.auth.getSession()).data.session;
+    await fetch("/api/oplib", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({action: "routes", bid: t.bid, did: t.did})});
+  } catch(e){ console.warn("routelib", e); }
+}
+window.routelibSave = routelibSave;
+
 /* aftercare: follow-up, rating, service recovery, debrief, closing */
 function aftercareBlock(t){
   const a = acStatus(t); if (!a) return "";
@@ -286,7 +329,7 @@ function afterHead(h, add){ if (!add) return h; const i = h.indexOf('<div class=
     return head + trTabs() + (t === "rp" ? rpView() : cardsView());
   };
   const _tripFile = tripFile;
-  tripFile = function(t){ const h = _tripFile(t); const add = followBlock(t) + aftercareBlock(t); return add ? h.replace(`<div><h3>History</h3>`, `<div id="secAfter">` + add + `</div><div><h3>History</h3>`) : h; };
+  tripFile = function(t){ const h = _tripFile(t); const add = followBlock(t) + routeBlock(t) + aftercareBlock(t); return add ? h.replace(`<div><h3>History</h3>`, `<div id="secAfter">` + add + `</div><div><h3>History</h3>`) : h; };
   const _vToday = vToday; vToday = function(){ return afterHead(_vToday(), acTaskPanel(true)); };
   const _vHome = vHome; vHome = function(){ return afterHead(_vHome(), acTaskPanel(acting() !== "broker" && isStaff())); };
   const _vControl = vControl; vControl = function(){ return _vControl() + scorecards(); };
@@ -335,6 +378,15 @@ document.addEventListener("click", async e => {
         await statusWrite(t, patch, a === "legFlown" ? "Last leg landed; trip flown" : `Flight following: ${changed || "times updated"}`);
         if (a === "legFlown") audit("Flight recorded", `${(t.st || {}).ref || t.did} · ${patch.flownDate}`);
         toast(a === "legFlown" ? "Flight recorded. Aftercare opens for the broker." : "Leg status saved."); return; }
+      if (a === "routeSave") {
+        const legs = legsOf(t).map((l, i) => { const r = (($("rf_r" + i) || {}).value || "").toUpperCase().replace(/\s+/g, " ").trim().slice(0, 600), off = ($("rf_off" + i) || {}).value || "", on = ($("rf_on" + i) || {}).value || "", s = (($("rf_s" + i) || {}).value || "").toUpperCase().trim();
+          return {route: r, off: off ? off.slice(0, 16) + ":00Z" : "", on: on ? on.slice(0, 16) + ":00Z" : "", stop: s}; });
+        const badS = legs.findIndex(x => x.stop && !/^[A-Z]{4}$/.test(x.stop)); if (badS >= 0) { toast(`Leg ${badS + 1}: the fuel stop is a four-letter ICAO code, or empty.`); return; }
+        const badT = legs.findIndex(x => x.off && x.on && !(blockMin(x) > 0 && blockMin(x) < 1440)); if (badT >= 0) { toast(`Leg ${badT + 1}: on block must be after off block, within 24 hours.`); return; }
+        const flown = {legs, at: now(), by: S.uid};
+        await deskWrite(t, {flown}, "Route flown recorded");
+        await routelibSave({...t, d: {...t.d, flown}});   // the saved route, not a copy that may not have arrived back yet
+        toast("Route flown saved to the route library."); return; }
       if (a === "fuSave") { const fu = {ch: $("ac_ch").value, note: ($("ac_nt").value || "").trim().slice(0, 300), at: now(), by: S.uid}; await deskWrite(t, {followUp: fu}, `Follow-up logged (${fu.ch})`); toast("Follow-up logged."); return; }
       if (a === "rateCopy") { const u = new URL(rateMail(t).replace(/^mailto:/, "https://x/")); const txt = `To: ${(t.d.client || {}).email || ""}\nSubject: ${u.searchParams.get("subject")}\n\n${u.searchParams.get("body")}`; try { await navigator.clipboard.writeText(txt); toast("Email text copied. Paste it into a new email to the client and send."); } catch(err){ toast("Could not copy here."); } if (!t.d.ratingReq) await deskWrite(t, {ratingReq: {at: now(), by: S.uid}}, "Rating request copied for email"); return; }
       if (a === "rateSent") { if (!(t.d.client && t.d.client.email)) toast("No client email on the trip: add it in the email before sending."); setTimeout(async () => { try { await deskWrite(t, {ratingReq: {at: now(), by: S.uid}}, "Rating request emailed"); } catch(err){} }, 50); return; }

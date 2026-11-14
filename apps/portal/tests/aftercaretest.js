@@ -30,6 +30,24 @@ await p.selectOption('#rt_o','2');await p.selectOption('#rt_a','3');await p.fill
 ok('a score of 3 or less starts service recovery',/Service recovery/.test(await p.textContent('#main')));
 await p.fill('#rc_n','Called the client, credit on the next trip agreed');await p.click('[data-ac="recSave"]');await p.waitForTimeout(500);
 ok('service recovery recorded',await p.evaluate(d=>!!tripById(d).d.recovery,did));
+// route flown and the route library (Morten, 14 Nov 2026: "no outside IP, we need to create this ourselves")
+await p.evaluate(d=>{S.view='trips';S.sel=d;render();},did);await p.waitForTimeout(400);
+ok('trip file shows Route flown',/Route flown/.test(await p.textContent('#main')));
+await p.fill('#rf_r0','dct  vjr r469 dct');await p.fill('#rf_off0',day(-2)+'T05:00');await p.fill('#rf_on0',day(-2)+'T03:00');await p.click('[data-ac="routeSave"]');await p.waitForTimeout(600);
+ok('on block before off block is refused',await p.evaluate(d=>!tripById(d).d.flown,did));
+await p.fill('#rf_on0',day(-2)+'T07:25');await p.fill('#rf_s0','xx');await p.click('[data-ac="routeSave"]');await p.waitForTimeout(600);
+ok('a fuel stop that is not an ICAO code is refused',await p.evaluate(d=>!tripById(d).d.flown,did));
+await p.fill('#rf_s0','');await p.click('[data-ac="routeSave"]');await p.waitForTimeout(900);
+const rl=await p.evaluate(async()=>{const g=await S.db.doc('intel/routelib').get();return g.exists?g.data():null;});
+const re0=rl&&rl.pairs&&(rl.pairs['WSSS-VTBD']||[])[0];
+ok('route library entry saved: route as filed, block time in minutes',!!re0&&re0.route==='DCT VJR R469 DCT'&&re0.block===145&&re0.stop===''&&re0.aircraft==='Legacy 600',rl);
+{const {routeEntries}=await import('../api/oplib.mjs');const tt=await p.evaluate(d=>{const t=tripById(d);return {d:t.d,st:t.st};},did);
+ok('the server builds the same entries as the portal',JSON.stringify(routeEntries(tt.d,tt.st,did))===JSON.stringify(rl.pairs['WSSS-VTBD']),{server:routeEntries(tt.d,tt.st,did),portal:rl.pairs['WSSS-VTBD']});}
+ok('no client name, email or price in the route library',!/Carla|carla@|40000|43957/.test(JSON.stringify(rl)));
+await p.evaluate(()=>{S.view='reports';render();});await p.waitForTimeout(800);
+ok('Reports lists the route library and the website export',/Route library/.test(await p.textContent('#main'))&&!!(await p.$('[data-rep="json|routelib"]')));
+{const ex=await p.evaluate(async()=>{S.routelibAll=undefined;await new Promise(r=>setTimeout(r,50));const g=await S.db.doc('intel/routelib').get();S.routelibAll=g.data();return routelibExport();});
+ok('the website export gives legs and usual block time per pair',ex.pairs['WSSS-VTBD']&&ex.pairs['WSSS-VTBD'].legs===1&&ex.pairs['WSSS-VTBD'].block_min===145,ex);}
 await p.evaluate(()=>{S.view='control';render();});await p.waitForTimeout(500);
 ok('Control shows the operator scorecard',/Operator scorecard/.test(await p.textContent('#main'))&&/Example Jet Operator/.test(await p.textContent('#main')));
 await p.evaluate(()=>{S.view='training';S.trTab='cards';render();});await p.waitForTimeout(500);

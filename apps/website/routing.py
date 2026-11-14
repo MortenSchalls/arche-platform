@@ -1,37 +1,37 @@
 """Approximate routing for the journey map on Destinations (Morten, 13 Nov 2026: "only show aircraft that have a maximum of
 1 fuel stop for the trips we show, and use the rules for the flights shown as we use in Navoryx").
 
-The closed areas, high ground, allowances and corridor references come from docs/AIRSPACE.json, shared with the Navoryx
-site as a copy (13 Nov 2026): every active EASA Conflict Zone Information Bulletin with its revision and the areas it
-closes (only an all-levels recommendation closes an area; Afghanistan, Libya, western Pakistan, Mali and Somalia are crossed
-at cruise), Russia's closure to EU, UK, US and Swiss-registered aircraft, the two Saudi areas of CZIB-2026-09-R1, Jordan and
-Israel planned around as the published corridors do, and the high ground of the Himalaya and the Tibetan plateau. No
-country is named on the site ("routed around restricted airspace").
+The airspace rules are shared with the Navoryx site as a copy kept here (docs/AIRSPACE.json; severance rule, nothing read
+from that site; docs/SEVERANCE.md): every EASA Conflict Zone Information Bulletin with its revision and validity, the areas
+it closes, the arrival and departure allowances, the high ground and the published corridor references. Only an all-levels
+recommendation closes an area (checked 13 Nov 2026: Russia, closed to EU, UK, US and Swiss-registered aircraft, with
+Belarus; Ukraine; Iran; Iraq; Lebanon; Syria; Yemen; Sudan; the Persian Gulf and Gulf of Oman waters; two Saudi areas;
+Jordan and Israel planned around as the published corridors do). Bulletins that only set a lowest level (Afghanistan and
+Libya FL320; western Pakistan, Mali and Somalia FL260) are crossed at cruise, as airline traffic does. Routes keep off the
+Himalaya and the Tibetan plateau. No country is named on the site.
 
 The areas are drawn coarsely (about one degree) and routes are built from a small set of corridor points, so distances are
 approximate and only for planning; the operator plans each flight. Per aircraft, the same rules as Navoryx: nonstop when the
 routed distance is within the published range; otherwise one fuel stop at a named airport (none in the Gulf while its
 bulletins are active), each leg within 96% of the published range (Navoryx: 5,900 of 6,163 nm), the quickest stop at least 15%
-of the journey from either end. More than one stop: the aircraft is not shown. Time: distance at cruise speed + 0.4 h, and
-1.3 h for a fuel stop. The bulletins change: re-check them with the weekly upkeep and adjust AREAS (and the Navoryx copy).
+of the journey from either end, a stop on the way preferred (docs/AIRSPACE.json "stops"). More than one stop: the aircraft is not shown. Time: distance at cruise speed + 0.4 h, and
+1.3 h for a fuel stop. The bulletins change: the shared file is updated in both repositories in the same piece of work, and the routes rebuilt.
 """
 import heapq
 import math
 
 R_NM = 3440.065
-OFF_PATH = 600      # ... and the stop lies within 600 nm of the routed journey (12% of it on the longest journeys), unless
-                    # the journey with it is at most 5% longer (a great circle over the far south passes no airport)
-ON_THE_WAY = 1.15   # the journey with its fuel stop is at most 15% longer than the routed journey (13 Nov 2026)
 LEG = 0.96          # a leg with a fuel stop stays within 96% of the published range (Navoryx: 5,900 of 6,163 nm)
 
-# closed areas, the high ground and arrival/departure allowances: read from docs/AIRSPACE.json, the copy of the airspace rules
-# this site shares with the Navoryx website (Morten 13 Nov 2026: "work with Arche website to ensure we share data and rules
-# for the map"; severance rule: a copy in each repository, nothing read from the other site)
+# closed areas, high ground and arrival/departure allowances: read from docs/AIRSPACE.json, the copy of the airspace rules this
+# site shares with the other website (Morten, 14 Nov 2026: "apply same rules to Navoryx"; severance rule, docs/SEVERANCE.md).
+# Only an all-levels bulletin closes an area; a lowest-level bulletin (Afghanistan, Libya FL320; western Pakistan, Mali,
+# Somalia FL260) is crossed at cruise.
 import json as _json, os as _os
-SHARED = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "docs", "AIRSPACE.json"),
-                         encoding="utf-8"))
+SHARED = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "docs", "AIRSPACE.json"), encoding="utf-8"))
 AREAS = {k: [tuple(p) for p in v] for k, v in SHARED["areas"].items()}
-EXEMPT = SHARED["exempt_nm"]
+EXEMPT = SHARED["exempt_nm"]          # nm next to an airport inside an area, allowed for arrivals and departures
+STOP_RULE = SHARED["stops"]           # a fuel stop on the way is preferred
 
 # corridor points used when the direct path is not open (lat, lon); a name is shown only for fuel stops
 NODES = {
@@ -59,9 +59,7 @@ NODES = {
     # south of the Himalaya to South-East Asia and round the Tibetan plateau (added 13 Nov 2026 with the high ground):
     # northern India, Kolkata and the Bay of Bengal, Yangon, Kunming and Chengdu, and Lahore for Central Asia to India;
     # Mary (Turkmenistan) and Kabul for the Caspian - Afghanistan - Pakistan corridor east of the Iranian border
-    # across Saudi Arabia between the two areas of CZIB-2026-09-R1 and round Oman (13 Nov 2026, as on the Navoryx copy)
-    "tabuk": (28.4, 36.6), "hail": (27.4, 41.7), "sau_c": (24.2, 45.0), "rub": (23.4, 50.5), "salwa": (23.7, 49.5),
-    "oman_c": (21.0, 57.0),
+    "tabuk": (28.4, 36.6), "hail": (27.4, 41.7), "sau_c": (24.2, 45.0), "rub": (23.4, 50.5), "salwa": (23.7, 49.5), "oman_c": (21.0, 57.0), "dhaka": (23.8, 90.4),
     "lhe": (31.5, 74.4), "mary": (37.6, 61.8), "kbl": (34.6, 69.2), "ccu": (22.65, 88.45), "bay": (17.0, 88.0), "rgn": (16.9, 96.1), "kmg": (25.1, 102.9), "ctu": (30.6, 104.0),
 }
 # named fuel-stop airports outside the areas (none in the Gulf while its bulletins are active), plus Archē's city pages
@@ -111,15 +109,15 @@ SKIP = set()   # areas left out for a comparison run (tools/routes.py: was the b
 
 
 def blocked(a, b, ends=()):
-    """True if the great circle a-b passes through any area. Near a city, the allowance in docs/AIRSPACE.json (exempt_nm) lets
-    arrivals and departures cross the Gulf waters or leave a Saudi area by the shortest way."""
-    pts = gc_points(a, b, 15)
+    """True if the great circle a-b passes through any area. Next to a city inside an area (the Gulf waters, the Saudi areas)
+    the first and last miles given in docs/AIRSPACE.json "exempt_nm" are allowed (arrivals and departures)."""
+    pts = gc_points(a, b, 15)          # fine sampling, as the other site: a coarse one let routes graze the closed area over Iran
     for p in pts:
         for k, poly in AREAS.items():
             if k in SKIP:
                 continue
             if inside(p, poly):
-                if k in EXEMPT and any(gc_nm(p, e) < EXEMPT[k] for e in ends):   # arrivals and departures; out of the area by the shortest way
+                if k in EXEMPT and any(gc_nm(p, e) < EXEMPT[k] for e in ends):   # arrivals and departures
                     continue
                 return True
     return False
@@ -162,9 +160,10 @@ def _shortest(a_geo, b_geo, extra=None):
         for m in keys:
             if m in seen:
                 continue
-            key = (nodes[k], nodes[m], ends if (nodes[k] in ends or nodes[m] in ends) else (), tuple(sorted(SKIP)))
+            near = ends if (nodes[k] in ends or nodes[m] in ends) else ()   # the arrival/departure allowance only on a route's first and last leg
+            key = (nodes[k], nodes[m], near, tuple(sorted(SKIP)))
             if key not in cache:
-                cache[key] = None if blocked(nodes[k], nodes[m], ends) else gc_nm(nodes[k], nodes[m])
+                cache[key] = None if blocked(nodes[k], nodes[m], near) else gc_nm(nodes[k], nodes[m])   # same allowance as the key (was: always the ends, so a leg allowed once stayed open for every route)
             e = cache[key]
             if e is None:
                 continue
@@ -208,7 +207,42 @@ def near_path(g, pts):
     return best
 
 
-def plan_pair(a, b, stops, ranges):
+def on_the_way(g, tot, r):
+    """True if a stop at g, making the journey tot nm, lies on the way of the routed journey r (docs/AIRSPACE.json "stops")."""
+    if not r:
+        return True
+    if tot > r[0] * STOP_RULE["on_the_way"]:
+        return False
+    if tot <= r[0] * STOP_RULE["free_within"]:
+        return True
+    return near_path(g, r[1]) <= max(STOP_RULE["near_route_nm"], STOP_RULE["near_route_share"] * r[0])
+
+
+def keeps_corridors(name_a, name_b, pts):
+    """True if a route between two places keeps to the published corridors in docs/AIRSPACE.json "references" (the same rules
+    tools/route_reference.py checks), or if no rule covers the pair."""
+    REF = SHARED["references"]
+    box = lambda k: (lambda p, b=REF["boxes"][k]: b[0] <= p[0] <= b[1] and b[2] <= p[1] <= b[3])
+    S = None
+    for rule in REF["rules"]:
+        g1, g2 = (REF["groups"][g] for g in rule["between"])
+        if not ((name_a in g1 and name_b in g2) or (name_b in g1 and name_a in g2)):
+            continue
+        if S is None:
+            S = [p for x, y in zip(pts, pts[1:]) for p in gc_points(tuple(x), tuple(y), 60)]
+        ok = True
+        if "pass" in rule:
+            ok = any(all(any(box(k)(p) for p in S) for k in alt) for alt in rule["pass"])
+        if ok and "never" in rule:
+            ok = not any(box(k)(p) for k in rule["never"] for p in S)
+        if ok and "max_lat" in rule:
+            ok = max(p[0] for p in S) <= rule["max_lat"]
+        if not ok:
+            return False
+    return True
+
+
+def plan_pair(a, b, stops, ranges, check=None):
     """Routes between a and b for each published range. stops: {name: (lat, lon)}. Returns
     {"direct": nm, "route": [nm, points, detour] or None, "via": {range: [stop name, nm, legs, points, detour] or 0 or None}}
     0 = nonstop, None = more than one fuel stop."""
@@ -231,13 +265,16 @@ def plan_pair(a, b, stops, ranges):
             if r1[0] > rng * LEG or r2[0] > rng * LEG:
                 continue
             tot = r1[0] + r2[0]
-            if min(r1[0], r2[0]) < 0.15 * tot:
+            if min(r1[0], r2[0]) < STOP_RULE["min_share_from_end"] * tot:
                 continue
-            if r and (tot > r[0] * ON_THE_WAY or (tot > r[0] * 1.05 and near_path(g, r[1]) > max(OFF_PATH, 0.12 * r[0]))):   # a stop off the way (London to Singapore via Almaty) is not a realistic plan
+            # a stop on the way is preferred (London to Singapore via Almaty is not); another only if none on the way works
+            if check and not check(r1[1] + r2[1][1:]):   # a stop route that leaves the published corridors is not offered
                 continue
-            if best is None or tot < best[1]:
-                best = [name, tot, [r1[0], r2[0]], r1[1] + r2[1][1:], (a, g, r1[0], g, b, r2[0])]
+            way = on_the_way(g, tot, r)
+            if best is None or (way, -tot) > (best[5], -best[1]):
+                best = [name, tot, [r1[0], r2[0]], r1[1] + r2[1][1:], (a, g, r1[0], g, b, r2[0]), way]
         if best:
+            best.pop()
             x = best[4]; best[4] = why_bent(0, a, b, [(x[0], x[1], x[2]), (x[3], x[4], x[5])])
         out["via"][rng] = best
     return out

@@ -713,7 +713,8 @@
     "Open the trip. The Flight following panel appears once the confirmation is issued.",
     "For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note.",
     "Tell the client at once about any delay, diversion or cancellation.",
-    "When every leg has landed and the client has paid, the Director presses Last leg landed: record flight. The trip moves to Flown and aftercare opens for the broker."
+    "When every leg has landed and the client has paid, the Director presses Last leg landed: record flight. The trip moves to Flown and aftercare opens for the broker.",
+    "After the flight, under Route flown, enter for each leg the route the operator filed (from its flight plan), the actual off-block and on-block times in UTC and any fuel stop, then press Save route flown. The trip's broker or the Director does this; it adds the legs to Archē's own route library (no client details, no prices)."
    ],
    "trouble": [
     [
@@ -723,11 +724,16 @@
     [
      "I cannot change a leg",
      "Only the trip's broker and the Director edit leg status."
+    ],
+    [
+     "Where do I get the filed route?",
+     "Ask the operator or its trip support for the route in the ATC flight plan (item 15) or the flight log, and copy it as given. Never take a route or track from a flight-tracking website."
     ]
    ],
    "tips": [
     "Take times from the operator's movement message, never estimate.",
-    "Keep notes short and factual: the broker reads them before calling the client."
+    "Keep notes short and factual: the broker reads them before calling the client.",
+    "Block times are in UTC, from the operator's movement message or flight log, so flights across time zones are measured right."
    ],
    "try": [
     "broker",

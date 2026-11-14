@@ -62,7 +62,7 @@ def section(places, ac):
 <p class="hint" id="jm-hint">A third tap starts a new journey. On a phone, swipe the map sideways.</p>
 <div class="out" id="jm-out" aria-live="polite"></div>
 <details class="how" id="jm-how"><summary>How we calculate</summary>
-<p>Distance is measured between the main airports of the two places along an approximate route that avoids airspace closed to aircraft registered in the EU, the UK, the US and Switzerland, and the conflict zones where the European Union Aviation Safety Agency's bulletins advise operators not to fly (checked 10 November 2026). Where a bulletin only advises against flying below a set height that business jets cruise above, the route may cross that airspace at cruise height, as airline flights between Europe and South Asia do (checked 13 November 2026). It also keeps off the high ground of the Himalaya and the Tibetan plateau: journeys from Europe or the Gulf to South-East Asia pass south of it, and journeys to north Asia go round it. An aircraft is shown as nonstop when that distance is within its published range: the maker's figure, flown in standard conditions with the reserves and load the maker states, which a full cabin, headwinds or a demanding airport can reduce. Otherwise it needs a fuel stop at a named airport on the way (none in the Gulf while its bulletins apply): each leg within 96% of the published range, and the stop on the way: the journey with it no more than 15% longer, and, if more than 5% longer, the stop within 600 nm of the route (12% of the distance on the longest journeys). Only aircraft that need no more than one fuel stop are shown. Flight time is the distance at the published cruise speed plus 24 minutes, and 1 hour 18 minutes for a fuel stop, in still air. The suggested aircraft needs the fewest stops and has the largest cabin (height by width) among the aircraft of the right size for the trip: light jets to super-midsize up to about three hours, super-midsize and heavy jets up to about six, heavy and ultra-long-range jets beyond; on journeys over about eleven hours, the longest cabin among those. Each aircraft is shown by the variant its figures belong to. These are estimates for planning: the operator confirms the aircraft, the route and the time for your trip.</p>
+<p>Distance is measured between the main airports of the two places along an approximate route that avoids airspace closed to aircraft registered in the EU, the UK, the US and Switzerland, and the conflict zones where the European Union Aviation Safety Agency's bulletins advise operators not to fly (checked 10 November 2026). Where a bulletin only advises against flying below a set height that business jets cruise above, the route may cross that airspace at cruise height, as airline flights between Europe and South Asia do (checked 13 November 2026). The line is an indicative route along the published corridors, not a flight plan: the operator plans the actual route on the day. Where our clients have flown a pair, the map also shows how many legs and the usual block time, from our own records of the routes filed and flown. It also keeps off the high ground of the Himalaya and the Tibetan plateau: journeys from Europe or the Gulf to South-East Asia pass south of it, and journeys to north Asia go round it. An aircraft is shown as nonstop when that distance is within its published range: the maker's figure, flown in standard conditions with the reserves and load the maker states, which a full cabin, headwinds or a demanding airport can reduce. Otherwise it needs a fuel stop at a named airport on the way (none in the Gulf while its bulletins apply): each leg within 96% of the published range, and the stop on the way: the journey with it no more than 15% longer, and, if more than 5% longer, the stop within 600 nm of the route (12% of the distance on the longest journeys). Only aircraft that need no more than one fuel stop are shown. Flight time is the distance at the published cruise speed plus 24 minutes, and 1 hour 18 minutes for a fuel stop, in still air. The suggested aircraft needs the fewest stops and has the largest cabin (height by width) among the aircraft of the right size for the trip: light jets to super-midsize up to about three hours, super-midsize and heavy jets up to about six, heavy and ultra-long-range jets beyond; on journeys over about eleven hours, the longest cabin among those. Each aircraft is shown by the variant its figures belong to. These are estimates for planning: the operator confirms the aircraft, the route and the time for your trip.</p>
 <ul>{srcs}<li>Airport positions: <a href="{html.escape(pl[1])}" rel="noopener">{html.escape(pl[0])}</a>, read {_d(pl[2])}. Coastlines: Natural Earth (public domain).</li></ul>
 </details>
 <script src="/journey.js" defer></script>
@@ -159,8 +159,15 @@ function draw(){
   var rows = opts.map(function(o){ var on = o === best;
     return '<tr' + (on ? ' class="best"' : '') + '><td>' + esc(o.m.name) + (on ? ' <span class="tag">Suggested</span>' : '') + '<span class="cat">' + esc(o.m.cat) + '</span></td><td>' + (o.stop ? 'One fuel stop, ' + esc(o.stop) : 'Nonstop') + '</td><td class="n">' + hm(o.h) + '</td></tr>'; }).join('');
   var nmS = Math.round(best.nm), km = Math.round(best.nm * 1.852);
+  function flownLine(a, b){   // our own flown trips on this pair (route library), or the indicative-route line
+    var ia = D.icao[D.places.indexOf(a)], ib = D.icao[D.places.indexOf(b)], f = D.flown[ia + '-' + ib] || D.flown[ib + '-' + ia];
+    if (!f) return '<p class="d">Indicative route along the published corridors; the operator plans the actual route on the day.</p>';
+    var st = Object.keys(f.stops || {}), bt = f.block ? Math.floor(f.block / 60) + ' h ' + ('0' + f.block % 60).slice(-2) + ' min' : '';
+    return '<p class="d">Flown by our clients: ' + f.legs + ' leg' + (f.legs === 1 ? '' : 's') + (bt ? ', usual block time ' + bt : '') + (st.length ? ', fuel stop at ' + st.map(esc).join(' or ') : '') + '. The line shows the indicative route along the published corridors.</p>';
+  }
   var q = '/?from=' + encodeURIComponent(a.name) + '&to=' + encodeURIComponent(b.name) + '#top';
   out.innerHTML = '<p class="r">' + esc(a.name) + ' to ' + esc(b.name) + '</p><p class="d">' + nmS.toLocaleString('en') + ' nm (' + km.toLocaleString('en') + ' km)' + (best.stop ? ' with a fuel stop in ' + esc(best.stop) : '') + (['', ', routed around restricted airspace', ', routed around the Himalaya', ', routed around restricted airspace and the Himalaya'][+best.detour || 0] || '') + '. Suggested: ' + esc(best.m.name) + ', ' + (t > 11 && best.m.len ? 'the longest cabin' : 'the largest cabin') + ' among the right-sized example aircraft that fly it ' + (best.stop ? 'with one fuel stop' : 'nonstop') + '.</p>' +
+    flownLine(a, b) +
     '<p class="d">Example aircraft from our guide that fly it nonstop or with one fuel stop, for reference only. We are not limited to these types and models: we find whatever fits your trip, upon availability.</p>' +
     '<table><thead><tr><th scope="col">Aircraft</th><th scope="col">Nonstop or stops</th><th scope="col">Estimated time</th></tr></thead><tbody>' + rows + '</tbody></table>' +
     '<div class="acts"><a class="btn p" href="' + q + '">Request a quote for this journey</a><a class="btn" href="' + esc(a.path) + '">' + esc(a.name) + ' guide</a><a class="btn" href="' + esc(b.path) + '">' + esc(b.name) + ' guide</a></div>' +
@@ -168,6 +175,17 @@ function draw(){
 }
 })();
 """
+
+def flown():
+    """Archē's own route library, exported from the portal (Reports > Route library for the website): legs our clients have
+    flown per airport pair, usual block time and fuel stops (Morten, 14 Nov 2026: "no outside IP, we need to create this
+    ourselves"). Empty until trips have been flown; then the map shows them for that pair."""
+    p = os.path.join(C, "flown_routes.json")
+    if not os.path.exists(p):
+        return {}
+    pairs = json.load(open(p, encoding="utf-8")).get("pairs", {})
+    return {k: {"legs": int(v.get("legs") or 0), "block": v.get("block_min"), "stops": v.get("stops") or {}} for k, v in pairs.items() if int(v.get("legs") or 0) > 0}
+
 
 def run():
     places = json.load(open(os.path.join(C, "map_places.json"), encoding="utf-8"))
@@ -179,7 +197,7 @@ def run():
     places = dict(places, places=pub)
     data = {"world": world, "places": [{k: p[k] for k in ("name", "path", "lat", "lon")} for p in pub],
             "ac": [{"name": m["label"], "cat": m["cat"], "range_nm": m["range_nm"], "kt": m["kt"], "cabin": round(m["cabin_h"] * m["cabin_w"], 3), "len": m.get("cabin_l", 0)} for m in ac["models"]],
-            "rp": routes["places"], "routes": routes["routes"]}
+            "rp": routes["places"], "routes": routes["routes"], "icao": [p.get("icao", "") for p in pub], "flown": flown()}
     open(os.path.join(SITE, "journey.js"), "w", encoding="utf-8").write(JS.replace("__DATA__", json.dumps(data, ensure_ascii=False, separators=(",", ":"))))
     t = open(PAGE, encoding="utf-8").read()
     t = re.sub(r"<!--ae:jm-->.*?<!--/ae:jm-->", "", t, flags=re.S)
