@@ -2,7 +2,7 @@
  "title": "Airspace and route rules shared by both journey maps",
  "note": "Kept identical in navoryx-website and arche-platform (docs/AIRSPACE.json, a copy in each; severance rule, docs/SEVERANCE.md). Each site's routing reads its closed areas, the arrival and departure allowances and the corridor references from its own copy. Any change is made in both repositories in the same piece of work, with both route checks run (Morten 13 Nov 2026: \"work with Arche website to ensure we share data and rules for the map\"). 'checked' is the last look at EASA's list, 'changed' the last change to the areas; each item gives the bulletin, its revision, its validity, its recommendation and the areas it closes. Only an all-levels recommendation closes an area; a lowest-level bulletin is crossed at cruise.",
  "checked": "2026-11-13",
- "changed": "2026-11-13",
+ "changed": "2026-11-14",
  "source": [
   "EASA Conflict Zone Information Bulletins, active list (CSV export)",
   "https://www.easa.europa.eu/en/domains/air-operations/czibs/export?page=&_format=csv"
@@ -1141,5 +1141,13 @@
     ]
    }
   ]
+ },
+ "stops": {
+  "note": "A fuel stop on the way is preferred (Morten 13 Nov 2026, Arche map: a London to Singapore stop at Almaty was off the published corridors): a stop counts as on the way when the journey with it is at most 'on_the_way' times the routed journey and, if more than 'free_within' times longer, the stop lies within 'near_route_nm' of the routed path, or 'near_route_share' of its length on the longest journeys. Another stop is used only when no stop on the way works (ocean and far-south journeys, where no airport lies near the straight path). The stop is always at least 'min_share_from_end' of the journey from either end.",
+  "on_the_way": 1.15,
+  "free_within": 1.05,
+  "near_route_nm": 600,
+  "near_route_share": 0.12,
+  "min_share_from_end": 0.15
  }
 }
