@@ -9,8 +9,8 @@ VERSION = "2026-11-16.1"  # 1.1 and Schedule 1: commission is a share of the Arc
 s = (HERE / "agreement" / "agreement-source.html").read_text(encoding="utf-8")
 s = re.sub(r"<h1>.*?</h1>\s*", "", s, count=1)
 s = re.sub(r'<p class="sub">.*?</p>\s*', "", s, count=1)
-s = s.replace("(UEN 202652508N), whose registered office is at [●], Singapore", "(UEN {{UEN}}), whose registered office is at {{OFFICE}}", 1)
-s = s.replace("is registered in Singapore, UEN 202652508N, registered office [●].", "is registered in Singapore, UEN {{UEN}}, registered office {{OFFICE}}.", 1)
+s = s.replace("(UEN 202652508N), whose registered office is at 20 Collyer Quay, #09-01, Singapore 049319", "(UEN {{UEN}}), whose registered office is at {{OFFICE}}", 1)
+s = s.replace("is registered in Singapore, UEN 202652508N, registered office 20 Collyer Quay, #09-01, Singapore 049319.", "is registered in Singapore, UEN {{UEN}}, registered office {{OFFICE}}.", 1)
 s = s.replace("[privacy email]", "{{PRIVACY}}")
 a = s.index("<h2>Schedule 2: Consultant details</h2>"); b = s.index("<h2>Schedule 4:")
 main, tail = s[:a], s[b:]

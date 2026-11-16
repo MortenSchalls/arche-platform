@@ -18,7 +18,7 @@ const OFFER_HTML = `<p class="lead"><b>Build your own private aviation business 
 <h3>Your path to your first booking</h3><p>Everything happens here in the portal. There is no paperwork by email. Follow the steps below; we look forward to welcoming you to Archē Executive.</p>`;
 
 const AGR_S2 = [["consultant","Consultant (name, or company name and registration number)"],["individual","Individual performing the services (if a company)"],["address","Address"],["territory","Territory (country of residence and work)"],["email","Email for notices"],["taxReg","Tax registration in the Territory (if any)"]];
-function agrFill(html, c){ const co = c || {}; return html.replaceAll("{{UEN}}", esc(co.reg || "202652508N")).replaceAll("{{OFFICE}}", esc((co.address || "").replace(/\s*\n\s*/g, ", "))).replaceAll("{{PRIVACY}}", esc(co.privacy || "")); }
+function agrFill(html, c){ const co = c || {}; return html.replaceAll("{{UEN}}", esc(co.reg || "202652508N")).replaceAll("{{OFFICE}}", esc((co.address || "20 Collyer Quay, #09-01, Singapore 049319").replace(/\s*\n\s*/g, ", "))).replaceAll("{{PRIVACY}}", esc(co.privacy || "")); }
 function agrRender(a, opts){   // the full agreement, as signed or to be signed
   const o = opts || {}, d = a.details || {}, co = a.company || S.company || {};
   const s2 = `<h2>Schedule 2: Consultant details</h2><div class="tbl"><table><tr><th>Item</th><th>Details</th></tr>${AGR_S2.map(([k, l]) => `<tr><td>${l}</td><td>${o.form ? `<input id="ag_${k}" value="${esc(d[k] || "")}" aria-label="${esc(l)}" ${k === "individual" || k === "taxReg" ? "" : "required"}>` : esc(d[k] || "–")}</td></tr>`).join("")}
