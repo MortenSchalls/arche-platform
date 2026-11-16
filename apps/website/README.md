@@ -17,4 +17,4 @@ Vercel environment variables for this project: `SUPABASE_URL`, `SUPABASE_PUBLISH
 - Certificates CERT. 01–04 "Pending confirmation"
 - Jurisdictional notices (Singapore CAAS, Thailand CAAT wording)
 - Services photo "Private Charter" still shows a stock-photo watermark: replace the image
-- Privacy notice: [registration number], [registered address], [privacy contact email], [date], legal review
+- Privacy notice: legal review (registration number, registered address, privacy email and date are filled in from company.py and site_fixes.py; UEN 202652508N since 16 Nov 2026)
