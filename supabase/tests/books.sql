@@ -89,7 +89,11 @@ do $$ begin
 end $$;
 do $$ begin if not exists (select 1 from storage.buckets where id = 'books' and not public) then raise exception 'private receipts bucket missing'; end if; end $$;
 -- 0025: account 4000 is the Archē fee and the trip posting says so
-do $$ begin if (select name from public.acct_accounts where code = '4000') <> 'Archē fee (9% of booking value)' then raise exception 'account 4000 not renamed'; end if;
+do $$ begin if (select name from public.acct_accounts where code = '4000') <> 'Archē fee (agency revenue, 9% of booking value)' then raise exception 'account 4000 not renamed'; end if;
   if not exists (select 1 from public.acct_journal where memo like 'Archē fee earned, trip flown:%') then raise exception 'no Archē fee posting'; end if; end $$;
+
+-- 0026: best-practice accounts (supervisor reward in cost of sales, 5600 insurance only)
+do $$ begin if not exists (select 1 from public.acct_accounts where code = '5020' and grp = 'Cost of sales' and kind = 'expense') then raise exception '5020 supervisor reward missing'; end if;
+  if (select name from public.acct_accounts where code = '5600') <> 'Insurance' then raise exception '5600 not renamed'; end if; end $$;
 
 \echo 'books.sql: all checks passed'

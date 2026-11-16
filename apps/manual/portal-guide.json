@@ -50,7 +50,7 @@
    "who": "Brokers; the Director, or a person the Director has mandated",
    "purpose": "Your opening page, the only start page: every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
    "steps": [
-    "Read the progress tiles: standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum.",
+    "Read the progress tiles: standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added this month.",
     "Work Your tasks from the top. Red dots are urgent: an overdue lead, a trip returned at authorisation, a payment due.",
     "Tap a task to open the lead or trip it refers to.",
     "Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score."
@@ -259,6 +259,7 @@
     "The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.",
     "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Archē-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.",
     "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.",
+    "KYC record: under the KYC tick, enter the date the client was checked and how (and our own reference if you have one), then Save KYC record. Never type an ID, passport or bank number; the portal refuses anything that looks like one. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match. Otherwise check again: an out-of-date check stops authorisation and issue.",
     "Create the payment request in our payment provider and enter its reference on the trip.",
     "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field."
    ],
@@ -270,6 +271,10 @@
     [
      "The trip came back as Returned",
      "Read the Director's note at the top of the trip, fix it and send again."
+    ],
+    [
+     "The trip says the KYC must be done again",
+     "The last check is over 12 months old, or the payer, country or name changed, or screening found a possible match. Check the client again and save a new KYC record."
     ]
    ],
    "tips": [
@@ -414,7 +419,7 @@
    "tips": [
     "My leads are prospects from research (48 hours for first contact). A client who asks directly, by the website, phone, email or messaging, is an enquiry: contact them within 15 minutes.",
     "Contact new leads the same day: the 48-hour clock starts at assignment.",
-    "Every organisation you add earns points and a bigger share of new leads; ten a month is the minimum, not the target.",
+    "Every organisation you add earns points; brokers who score highest get new leads a little sooner. It is a scoring measure, not a target or a minimum.",
     "Anyone who opts out is Do not contact at once, for everyone."
    ],
    "try": [
@@ -623,7 +628,7 @@
    "steps": [
     "Terms: Archē fee, standard booking value, commission rates.",
     "Company details: printed on every confirmation; needed before the first issue.",
-    "Prospect assignment and incentives: contact times, limits, minimum adds, extra lead share, leaderboard visibility.",
+    "Prospect assignment and incentives: contact times, limits, the adds level for lead priority, extra lead share, leaderboard visibility.",
     "Backup: download a full copy at any time; the nightly backup runs by itself: every table and every stored file (documents, registries, the research agent's key, the sanctions index), encrypted and kept 90 days.",
     "AI spend: this month's spend of the portal AI (the Assistant, trip co-pilot, roleplay lab and briefing) against the monthly cap you set here. At the cap the AI pauses until the next month. The research agent uses no AI key and costs nothing here."
    ],
@@ -1385,8 +1390,8 @@
    "No first contact was logged within 48 hours of assignment, or no follow-up within 14 days. The lead moves with its full history. Log every contact in the portal to keep your leads."
   ],
   [
-   "How many prospects must I add?",
-   "At least 10 organisations a month, each with the public source where you found it. Adding more earns points and a bigger share of new leads."
+   "How many prospects should I add?",
+   "There is no minimum and no target. Add every organisation you find, each with the public source. Ten or more a month raises your score, and the highest scores get new leads a little sooner."
   ],
   [
    "Do I get a fee for prospects I add?",

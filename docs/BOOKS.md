@@ -107,7 +107,7 @@ books alone (AES-256 with `BACKUP_PASSPHRASE`) as the artifact `books-backup-<ru
    `BOOKS_ORIGIN` = the portal address passkeys are bound to.
 3. Supabase, Authentication: multi-factor (TOTP) on.
 4. Optional: `ANTHROPIC_API_KEY` for the AI review and receipt reading.
-5. Run `supabase/migrations/0024_books_auto.sql` after 0023, then `supabase/migrations/0025_books_fee.sql` (account 4000 named the Archē fee, 16 Nov 2026).
+5. Run `supabase/migrations/0024_books_auto.sql` after 0023, then `supabase/migrations/0025_books_fee.sql` (account 4000 named the Archē fee, 16 Nov 2026), then `supabase/migrations/0026_books_accounts.sql` (accounting best practice, 16 Nov 2026: Archē is the client's agent, so revenue is the net Archē fee recognised when the trip is flown; client money stays a liability; cost of sales is broker commission, the new 5020 supervisor reward and introducer fees, so Gross profit is revenue less cost of sales, the standard SFRS(I) 1-1 line; 5600 is insurance only, software in 5300).
 6. Optional, for the Wise feed: in Wise Business, Settings, API tokens, create a **read-only** token and put it in
    Vercel as `WISE_TOKEN`.
 7. In Books: add a passkey or the authenticator app, load the budget, set the UEN and year end.
@@ -115,7 +115,7 @@ books alone (AES-256 with `BACKUP_PASSPHRASE`) as the artifact `books-backup-<ru
 ## Tests
 `node apps/portal/tests/books.test.mjs` (ledger, tax, advice, CSV, bank, budget, AI facts, passkeys, server gates),
 `node apps/portal/tests/books.auto.test.mjs` (matching, checks, currencies, receipts, repeats, undo, Wise),
-`sh scripts/test_books_sql.sh` (the database, 0023, 0024 and 0025 on a throwaway Postgres: posting, refusals, immutability, trip Archē fee,
+`sh scripts/test_books_sql.sh` (the database, 0023 to 0026 on a throwaway Postgres: posting, refusals, immutability, trip Archē fee,
 reversal, hash chain, access, restore), `node apps/portal/tests/bookstest.js` (screens, To do, "post anyway", lock, 390 px,
 brokers excluded). All four run in the Portal checks.
 

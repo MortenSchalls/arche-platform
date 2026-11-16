@@ -772,6 +772,85 @@ function commissionFor(bid){
   return out;
 }
 
+/* ---------- KYC record and the 12-month refresh (CLAUDE.md KYC/KYB; Morten, 16 Nov 2026: "yes build, but ensure we have
+   all aligned with our privacy policy") ----------
+   On the trip the broker records when the person or company who signs and pays was identified, how, and the portal's own
+   reference. No ID, passport or bank numbers are stored (Data Protection Policy, "KYC/KYB and sanctions screening
+   results": results only, kept with the booking for 5 years after the relationship ends); a reference that looks like
+   one is refused. The record is reused on the client's next trips until 12 months after the check, unless something
+   changed: a new payer, another country or name, or a possible sanctions match. Then the check is done again before the
+   booking can be authorised or issued. A trip with the KYC tick but no record yet (older trips) is asked for one. */
+const KYC_MONTHS = 12;
+const KYC_HOW = [["id", "Identity document seen (no copy or number kept here)"], ["registry", "Company registry, owners and signatory checked"], ["service", "Identity check service result"], ["inperson", "Met in person with the document"]];
+const kycKey = c => String((c && (c.company || c.name)) || "").toLowerCase().replace(/\s+/g, " ").trim();
+const kycLow = s => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
+function kycDue(rec){
+  if (!rec || !/^\d{4}-\d{2}-\d{2}$/.test(rec.checkedAt || "")) return "";
+  const d = new Date(rec.checkedAt + "T00:00:00Z"); d.setUTCMonth(d.getUTCMonth() + KYC_MONTHS); return d.toISOString().slice(0, 10);
+}
+const kycRefOk = s => !/\d{6,}/.test(String(s || "").replace(/[\s.\/-]/g, ""));   // our own reference, never an ID or account number
+function kycPrior(t){
+  const k = kycKey((t.d || {}).client); if (!k) return null;
+  let best = null;
+  for (const x of allTrips()) {
+    if (x.did === t.did) continue;
+    const r = (x.d || {}).kycRec; if (!r || !r.checkedAt || kycKey(x.d.client) !== k) continue;
+    if (!best || r.checkedAt > best.rec.checkedAt) best = {rec: r, ref: (x.st || {}).ref || x.did, did: x.did};
+  }
+  return best;
+}
+function kycChanges(rec, t){
+  const c = (t.d || {}).client || {}, out = []; if (!rec) return out;
+  if (kycLow(rec.payer) !== kycLow(c.payer)) out.push(c.payer ? "a new payer" : "the payer changed");
+  if (rec.country && c.country && kycLow(rec.country) !== kycLow(c.country)) out.push("another country");
+  if (rec.name && kycLow(rec.name) !== kycKey(c)) out.push("another name");
+  const sc = (t.st || {}).screen; if (sc && sc.outcome === "possible match") out.push("a possible sanctions match");
+  return out;
+}
+function kycState(t){
+  const rec = (t.d || {}).kycRec || null, today = now().slice(0, 10), due = kycDue(rec);
+  if (!rec) return {ok: false, rec: null, prior: kycPrior(t), why: "no KYC record (date and how the client was checked)"};
+  if (due && due <= today) return {ok: false, rec, due, why: `KYC from ${fmtD(rec.checkedAt)} is more than 12 months old: check again`};
+  const ch = kycChanges(rec, t); if (ch.length) return {ok: false, rec, due, why: `KYC must be done again: ${ch.join(", ")}`};
+  return {ok: true, rec, due, soon: due && due <= new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10)};
+}
+// what stops authorisation or issue (null when the record is fine)
+function kycBlockReason(t){ const s = kycState(t); return s.ok ? null : s.why; }
+
+function kycBlock(t, canEdit){
+  const s = kycState(t), rec = s.rec, c = (t.d || {}).client || {};
+  const head = s.ok
+    ? `<div class="note ${s.soon ? "warn" : "ok"} small">KYC on file: checked ${fmtD(rec.checkedAt)} (${esc((KYC_HOW.find(h => h[0] === rec.how) || [0, rec.how || ""])[1])})${rec.ref ? `, reference ${esc(rec.ref)}` : ""}${rec.reusedFrom ? `, from trip ${esc(rec.reusedFrom)}` : ""}. Valid to ${fmtD(s.due)}${s.soon ? ": refresh it soon" : ""}.</div>`
+    : `<div class="note warn small">${esc(s.why[0].toUpperCase() + s.why.slice(1))}.</div>`;
+  if (!canEdit) return `<div id="kycRec" style="margin:6px 0 8px">${head}</div>`;
+  const p = s.prior, pOk = p && kycDue(p.rec) > now().slice(0, 10) && !kycChanges(p.rec, t).length;
+  const reuse = !rec && pOk ? `<p class="small" style="margin:6px 0">${esc(c.company || c.name)} was checked on ${fmtD(p.rec.checkedAt)} (trip ${esc(p.ref)}), valid to ${fmtD(kycDue(p.rec))}. <button class="btn small" type="button" data-kyc="reuse" data-did="${t.did}">Use that check</button></p>` : "";
+  return `<div id="kycRec" style="margin:6px 0 8px">${head}${reuse}
+    <details class="small"${rec && s.ok ? "" : " open"}><summary>${rec ? "Record a new check" : "Record the KYC check"}</summary>
+    <div class="row" style="margin-top:6px"><label class="f" for="kyc_at" style="max-width:170px">Checked on<input id="kyc_at" type="date" value="${esc(now().slice(0, 10))}"></label>
+    <label class="f" for="kyc_how" style="max-width:340px">How<select id="kyc_how">${KYC_HOW.map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join("")}</select></label>
+    <label class="f" for="kyc_ref" style="max-width:220px">Our reference (optional)<input id="kyc_ref" placeholder="e.g. KYC-2026-0147" maxlength="40"></label>
+    <button class="btn small" type="button" data-kyc="save" data-did="${t.did}">Save KYC record</button></div>
+    <p class="muted" style="margin:6px 0 0">Never type an ID, passport or bank number here. The record keeps only the date, how, our reference, the name, country and payer it covers; it is kept with the booking as the privacy policy says. It is reused for this client until 12 months after the check, unless the payer, country or name changes or screening finds a possible match.</p></details></div>`;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-kyc]"); if (!b) return; e.preventDefault();
+  const t = tripById(b.dataset.did); if (!t) return;
+  const c = (t.d || {}).client || {}, base = {name: kycKey(c), country: c.country || "", payer: c.payer || "", by: S.uid, at: now()};
+  let rec;
+  if (b.dataset.kyc === "reuse") {
+    const p = kycPrior(t); if (!p) { toast("No earlier check found."); return; }
+    rec = {...p.rec, ...base, checkedAt: p.rec.checkedAt, how: p.rec.how, ref: p.rec.ref || "", reusedFrom: p.ref};
+  } else {
+    const at = ($("kyc_at") || {}).value || "", how = ($("kyc_how") || {}).value || "", ref = (($("kyc_ref") || {}).value || "").trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(at) || at > now().slice(0, 10)) { toast("Enter the date of the check (not in the future)."); return; }
+    if (!kycRefOk(ref)) { toast("That looks like an ID, passport or bank number. Use our own reference only."); return; }
+    rec = {...base, checkedAt: at, how, ref};
+  }
+  try { await deskWrite(t, {kycRec: rec, checks: {...(t.d.checks || {}), kyc: true}}, `KYC record: checked ${rec.checkedAt}${rec.reusedFrom ? " (from " + rec.reusedFrom + ")" : ""}`); audit("KYC recorded", `${(t.st || {}).ref || t.did} · ${rec.checkedAt}`); toast("KYC record saved."); render(); }
+  catch(err){ toast("Could not save."); }
+});
+
 /* ---------- boot ---------- */
 async function boot(){
   if (!window.__arche || !__arche.use) { bootFail(); return; }
@@ -1024,9 +1103,10 @@ function tripFile(t){
     ${["flown","cancelled"].includes(t.stage) ? "" : aiBlock(t)}
     ${typeof safetyBlock === "function" ? safetyBlock(t) : ""}<div id="secChecks"><h3>Pre-issue checks</h3>${BROKER_CHECKS.map(([k, l]) => `<label class="check" for="ck_${k}"><input type="checkbox" id="ck_${k}" data-ck="${k}" ${checks[k] ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>${l}</span></label>`).join("")}
       <label class="check" for="ck_kyc"><input type="checkbox" id="ck_kyc" data-ck="kyc" ${checks.kyc || st.kyc ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>Charterer KYC and sanctions screening done and recorded (manual 3.1 and 3.2)</span>${st.kyc ? `<span class="who-ticks">checked at authorisation</span>` : ""}</label>
+      ${typeof kycBlock === "function" ? kycBlock(t, canBrokerEdit) : ""}
       <label class="f" for="ck_payref" style="margin-top:6px">Client payment request reference (created in our payment provider)<input id="ck_payref" data-payref="1" value="${esc((t.d || {}).payRef || st.paynodeRef || "")}" ${canBrokerEdit ? "" : "disabled"}></label></div>
     <div id="secDocs"><h3>Documents</h3>${docs.length ? `<ul class="small">${docs.map(x => `<li><a href="/_blob/${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.name)}</a> <span class="muted">· ${esc(x.kind || "")} · ${fmtD(x.at)}</span></li>`).join("")}</ul>` : `<p class="small muted">No documents yet.</p>`}
-      ${canBrokerEdit ? `<div class="row"><select id="docKind" style="width:auto" aria-label="Document type"><option>Operator quote</option><option>AOC</option><option>Insurance certificate</option><option>Operator contract</option><option>Safety audit</option><option>Client KYC</option><option>Passport</option><option>Trip risk screen</option><option>Client safety disclosure</option><option>Other</option></select><input type="file" id="docFile" style="width:auto"><button class="btn small" type="button" data-act="upload">Attach</button></div><p class="small muted">Documents stay in the portal. Never send passports or contracts by email or chat.</p>` : ""}</div>
+      ${canBrokerEdit ? `<div class="row"><select id="docKind" style="width:auto" aria-label="Document type"><option>Operator quote</option><option>AOC</option><option>Insurance certificate</option><option>Operator contract</option><option>Safety audit</option><option>Passport</option><option>Trip risk screen</option><option>Client safety disclosure</option><option>Other</option></select><input type="file" id="docFile" style="width:auto"><button class="btn small" type="button" data-act="upload">Attach</button></div><p class="small muted">Documents stay in the portal. Never send passports or contracts by email or chat.</p>` : ""}</div>
     ${canBrokerEdit ? `<div class="row" id="secSend"><button class="btn" type="button" data-act="edit">Edit enquiry and quote</button><button class="btn primary" type="button" data-act="submit" ${submitReady(d) ? "" : "disabled"}>Send for authorisation</button>${t.stage === "enquiry" || t.stage === "quoted" ? `<button class="btn danger" type="button" data-act="withdraw">Withdraw</button>` : ""}</div>${submitReady(d) ? "" : (typeof sendMissingNote === "function" ? sendMissingNote(t) : `<p class="small muted">To send for authorisation: client name, at least one leg, operator price and all seven checks.</p>`)}` : ""}
     ${ops}
     <div><h3>History</h3><div class="hist">${historyOf(t).map(h => `<div><span class="muted mono">${fmtT(h.t)}</span><span>${esc(h.a)} <span class="muted">· ${esc(h.by === "ops" ? "Authorisation" : nm(h.by))}</span></span></div>`).join("") || `<p class="small muted">No history yet.</p>`}</div></div>
@@ -1212,7 +1292,7 @@ function vRules(){
   <li>Clients, trips and documents belong to Archē Executive. Do not copy them out of the portal.</li>
   <li>Commission is paid only on trips booked, paid and flown through the portal.</li>
   <li>Make first contact with every new lead within ${cfgA().firstTouchHours} hours, and follow up at least every ${cfgA().followUpDays} days. Log every contact here. A lead with no contact in time moves to another broker, with its history.</li>
-  <li>Add at least ${cfgA().minAddsPerMonth} new organisations a month in My leads, with the public source. The first broker to add an organisation works it first, and every organisation you add or update earns points and a bigger share of new leads. No separate fee is paid: commission rewards the booking.</li>
+  <li>Add the organisations you find in My leads, with the public source (a scoring measure, not a target: ${cfgA().minAddsPerMonth} or more a month gives you new leads a little sooner). The first broker to add an organisation works it first, and every organisation you add or update earns points and a bigger share of new leads. No separate fee is paid: commission rewards the booking.</li>
   <li>Organisations and business contacts only. No private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact, for everyone, for good.</li>
   <li>Nobody confirms, prices or records payment on their own booking.</li></ol></div>`;
 }
@@ -1368,7 +1448,7 @@ async function act(a, el){
       const patch = {opPrice:op, direct:dc, price:(typeof tripPrice === "function" ? tripPrice(t, op, dc) : priceOf(op, dc)), paynodeRef:pn, pay:!!pn, kyc, state: t.st && t.st.state === "returned" ? "review" : (t.st && t.st.state) || "review"};
       if (a === "issue") {
         const missing = [];
-        if (!op) missing.push("operator price"); if (!kyc) missing.push("KYC"); if (typeof screenOk === "function" && !screenOk(t, t.st || {})) missing.push("sanctions screening record (no match, or the Director's decision)"); if (!pn) missing.push("payment request reference");
+        if (!op) missing.push("operator price"); if (!kyc) missing.push("KYC"); if (typeof kycBlockReason === "function") { const kw = kycBlockReason(t); if (kw) missing.push(kw); } if (typeof screenOk === "function" && !screenOk(t, t.st || {})) missing.push("sanctions screening record (no match, or the Director's decision)"); if (!pn) missing.push("payment request reference");
         BROKER_CHECKS.forEach(([k, l]) => { if (!(t.d.checks || {})[k]) missing.push(l.split(" (")[0].split(";")[0]); });
         if (missing.length) { toast("Cannot issue. Missing: " + missing.join(", ")); return; }
         const dt = new Date(), ref = "AE-" + String(dt.getFullYear()).slice(2) + String(dt.getMonth() + 1).padStart(2, "0") + String(dt.getDate()).padStart(2, "0") + "-" + String(Math.floor(Math.random() * 900) + 100);
@@ -1697,7 +1777,7 @@ function vLeads(){
   return `<div class="head"><div><h1>My leads</h1><p class="muted small">Organisations assigned to you, and the ones you add. Log every contact here. Contact new leads within ${c.firstTouchHours} hours and follow up at least every ${c.followUpDays} days, or the lead moves to another broker.</p></div>
     <div class="row"><button class="btn primary" type="button" data-act="myNew">Add a prospect</button></div></div>${typeof contactBatchBlock === "function" ? contactBatchBlock() : ""}
   <div class="kpis"><div class="kpi"><div class="l">Added this month</div><div class="v">${st.adds} of ${st.min}</div></div><div class="kpi"><div class="l">Due within 24 hours</div><div class="v">${st.due}</div></div><div class="kpi"><div class="l">Points this month</div><div class="v">${st.points}${st.rank ? ` · #${st.rank} of ${st.of}` : ""}</div></div></div>
-  ${st.adds < st.min && +now().slice(8, 10) >= 15 ? `<div class="note warn small" style="margin-bottom:12px">You have added ${st.adds} of the ${st.min} organisations required this month. Brokers below the minimum get new leads later in the month.</div>` : ""}
+  ${st.adds < st.min && +now().slice(8, 10) >= 15 ? `<div class="note info small" style="margin-bottom:12px">You have added ${st.adds} organisations this month. Brokers who add ${st.min} or more get new leads a little sooner; it is a score, not a target.</div>` : ""}
   <div class="grid2"><div class="stack"><div class="panel guard"><div class="list">${all.length ? all.map(l => `<div class="item" tabindex="0" data-psel="${l.id}" aria-selected="${S.pSel === l.id}"><div class="t">${esc(l.org)}${l.own ? ' <span class="tag">Added by you</span>' : ""}</div><div class="row" style="gap:6px;justify-content:flex-end">${dueChip(l)}${l.own && !l.imported ? `<span class="chip c-review">Being checked</span>` : leadChip(l.status || "assigned")}</div><div class="s">${esc(l.segment)} · ${esc(l.country || "")}</div><div></div></div>`).join("") : `<div class="empty"><p><b>No leads yet.</b></p><p class="small">Archē Executive assigns organisations to you here. Add the ones you know too.</p></div>`}</div></div>${board}</div>
   <div>${S.myNew ? myProspectForm() : sel ? `<div class="panel stack guard"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(sel.org)}</h2>${leadChip(sel.status || "assigned")}</div>
     <p class="small muted">${esc(sel.segment)} · ${esc(pLoc(sel))}${sel.reason ? " · " + esc(sel.reason) : ""}</p>
@@ -2256,7 +2336,7 @@ async function saveConfDraft(){
 async function issueConf(btn){
   const t = tripById(S.sel); const st = t.st || {};
   if (ownTrip(t)) { toast("A person the Director has mandated must issue your own trip."); return; }
-  const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by the Director"); if (!st.kyc) missing.push("KYC"); if (typeof screenOk === "function" && !screenOk(t, st)) missing.push("sanctions screening record"); if (!st.paynodeRef) missing.push("payment request reference");
+  const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by the Director"); if (!st.kyc) missing.push("KYC"); if (typeof kycBlockReason === "function") { const kw = kycBlockReason(t); if (kw) missing.push(kw); } if (typeof screenOk === "function" && !screenOk(t, st)) missing.push("sanctions screening record"); if (!st.paynodeRef) missing.push("payment request reference");
   if (missing.length) { toast("Save these on the trip first: " + missing.join(", ")); return; }
   const rev = st.confIssued ? (st.confRev || 1) + 1 : 1;
   const ref = st.ref || CONF.newRef(CONF.todayISO());
@@ -4045,7 +4125,7 @@ function apChecks(t){
   const bc = BROKER_CHECKS.filter(([k]) => chk[k]).length;
   out.push([bc === BROKER_CHECKS.length, `Broker checks ${bc} of ${BROKER_CHECKS.length}`]);
   out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by the Director" : "Operator price not confirmed by the Director"]);
-  out.push([!!st.kyc, st.kyc ? "KYC done" : "KYC not done"]);
+  { const kw = typeof kycBlockReason === "function" ? kycBlockReason(t) : null; out.push([!!st.kyc && !kw, !st.kyc ? "KYC not done" : kw ? kw[0].toUpperCase() + kw.slice(1) : "KYC done and current"]); }
   { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
   out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Archē fee ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
@@ -4517,7 +4597,7 @@ function bkReports(){
 function bkRows(xs){ return xs.map(x => `<tr><td>${esc(x.code || "")} ${esc(x.name)}</td><td class="n">${bkMoney(x.amount)}</td></tr>`).join(""); }
 function bkRepHtml(type, o){
   if (type === "pl") return `<h2>Profit and loss ${esc(o.from)} to ${esc(o.to)}</h2><table><tbody><tr><th scope=row colspan=2>Income</th></tr>${bkRows(o.income)}<tr><td><b>Total income</b></td><td class="n"><b>${bkMoney(o.totalIncome)}</b></td></tr>
-    <tr><th scope=row colspan=2>Costs</th></tr>${bkRows(o.expenses)}<tr><td><b>Gross profit</b> (income less cost of sales)</td><td class="n">${bkMoney(o.grossProfit)}</td></tr><tr><td><b>Profit before tax</b></td><td class="n">${bkMoney(o.profitBeforeTax)}</td></tr><tr><td><b>Profit</b></td><td class="n"><b>${bkMoney(o.profit)}</b></td></tr></tbody></table>`;
+    <tr><th scope=row colspan=2>Costs</th></tr>${bkRows(o.expenses)}<tr><td><b>Gross profit</b> (revenue less cost of sales: commission, supervisor reward and introducer fees)</td><td class="n">${bkMoney(o.grossProfit)}</td></tr><tr><td><b>Profit before tax</b></td><td class="n">${bkMoney(o.profitBeforeTax)}</td></tr><tr><td><b>Profit</b></td><td class="n"><b>${bkMoney(o.profit)}</b></td></tr></tbody></table>`;
   if (type === "bs") return `<h2>Balance sheet at ${esc(o.at)}</h2><table><tbody><tr><th scope=row colspan=2>Assets</th></tr>${bkRows(o.assets)}<tr><td><b>Total assets</b></td><td class="n"><b>${bkMoney(o.totalAssets)}</b></td></tr>
     <tr><th scope=row colspan=2>Liabilities</th></tr>${bkRows(o.liabilities)}<tr><td><b>Total liabilities</b></td><td class="n">${bkMoney(o.totalLiabilities)}</td></tr><tr><th scope=row colspan=2>Equity</th></tr>${bkRows(o.equity)}
     <tr><td>Profit of earlier years</td><td class="n">${bkMoney(o.earlierProfit)}</td></tr><tr><td>Profit this year</td><td class="n">${bkMoney(o.yearProfit)}</td></tr><tr><td><b>Total equity</b></td><td class="n"><b>${bkMoney(o.totalEquity)}</b></td></tr></tbody></table><p class="small ${o.balanced ? "muted" : ""}">${o.balanced ? "Assets equal liabilities plus equity." : "Does not balance: check Advice."}</p>`;

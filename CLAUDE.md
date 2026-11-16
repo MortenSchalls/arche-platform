@@ -44,6 +44,7 @@ Read this before changing anything. These are business rules set by the owner, M
 
 ## Writing
 - Plain, short English. Say "Archē Executive" in branded text; the legal name is Arche Aviation Pte. Ltd., UEN 202652508N, incorporated 16 Nov 2026 (Morten the only shareholder).
+- Owners (Morten, 16 Nov 2026: "owners are legally me only, but for the unofficial day to day talk it is me and my wife as we are married and that alone makes her co-owner"): in legal and company documents (registers, agreements, budget, plan) Morten is the only shareholder; in day-to-day wording, the portal and Books, "the two owners" are Morten and his wife Chayanun.
 - Archē is a Singapore company and stays Singaporean until the Bangkok office opens: no Bangkok office, Bangkok address or Thai phone number on the website, in signatures, offers, agreements or client documents (Morten, 26 Oct 2026). Thai routes and airports are fine. The website switch is `BANGKOK_OFFICE` in `apps/website/build.py`.
 - The Word manual is the master. Change the manual first, then rebuild the academies from it.
 - The external academy must contain nothing Archē-internal; `apps/academy/build/ext.js` fails the build if it does.
@@ -81,3 +82,4 @@ Read this before changing anything. These are business rules set by the owner, M
 ## Before you finish a change
 Run `python3 scripts/check_all_revised.py` and the tests for every part you changed (see README), and say what you ran.
 Update `docs/ARCHE-HANDOVER.md` (the file a new chat starts from) and the copy in the claude.ai project at `arche/arche-handover.md` at the end of each working session.
+When a piece of work also touches navoryx-website (Morten, 16 Nov 2026: "work across chats with Navoryx to update this, i need handovers updated on each chat if we work across"), update the Navoryx handover too (the copy in `Navoryx Executive/Latest Revisions` on Morten's Mac, and note it for the Navoryx project copy) and say in both handovers what changed on the other side.

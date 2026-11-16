@@ -11,7 +11,7 @@ const A = [
   { code: "1000", name: "Bank", kind: "asset", grp: "Cash and bank" }, { code: "1100", name: "Client account", kind: "asset", grp: "Cash and bank" },
   { code: "2100", name: "Client money", kind: "liability", grp: "Client money" }, { code: "2400", name: "Tax payable", kind: "liability", grp: "Tax" },
   { code: "3000", name: "Share capital", kind: "equity", grp: "Equity" }, { code: "3100", name: "Retained", kind: "equity", grp: "Equity" }, { code: "3300", name: "Dividends", kind: "equity", grp: "Equity" },
-  { code: "4000", name: "Archē fee (9% of booking value)", kind: "income", grp: "Revenue" }, { code: "5000", name: "Commission", kind: "expense", grp: "Cost of sales" },
+  { code: "4000", name: "Archē fee (agency revenue, 9% of booking value)", kind: "income", grp: "Revenue" }, { code: "5000", name: "Commission", kind: "expense", grp: "Cost of sales" },
   { code: "5900", name: "Other", kind: "expense", grp: "Operating costs" }, { code: "7000", name: "Tax", kind: "expense", grp: "Tax" }];
 let jid = 0; const J = [], L = [];
 const post = (date, lines) => { jid++; J.push({ id: jid, jdate: date }); for (const [account, debit, credit] of lines) L.push({ journal_id: jid, jdate: date, account, debit, credit }); };

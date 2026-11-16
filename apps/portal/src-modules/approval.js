@@ -25,7 +25,7 @@ function apChecks(t){
   const bc = BROKER_CHECKS.filter(([k]) => chk[k]).length;
   out.push([bc === BROKER_CHECKS.length, `Broker checks ${bc} of ${BROKER_CHECKS.length}`]);
   out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by the Director" : "Operator price not confirmed by the Director"]);
-  out.push([!!st.kyc, st.kyc ? "KYC done" : "KYC not done"]);
+  { const kw = typeof kycBlockReason === "function" ? kycBlockReason(t) : null; out.push([!!st.kyc && !kw, !st.kyc ? "KYC not done" : kw ? kw[0].toUpperCase() + kw.slice(1) : "KYC done and current"]); }
   { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
   out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Archē fee ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);

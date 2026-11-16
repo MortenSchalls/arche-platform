@@ -91,6 +91,15 @@ I['A104'] = 'Wife\u2019s share of Morten\u2019s dividend (his personal split)'
 I['C104'] = ('Morten 16 Nov 2026: Morten is the only shareholder (100 shares). The company pays the whole dividend to him; '
              'he shares it with his wife personally. Her 50% is shown so he can see the split; it is not a company payment.')
 C['A15'] = 'Cash ties to profit: dividends + year-10 cash = net profit + starting funds (USD)'
+# 6. No senior-broker override (Morten, 16 Nov 2026: "no, we are using supervisors instead"): V2 and V3 pay supervisors
+#    (row 70) and no override or team leads; V1 keeps its locked team-lead layer.
+I['B93'] = 0
+I['A93'] = "Senior-broker override (% of the Archē fee on brokers' bookings): not used"
+I['C93'] = ('Morten 16 Nov 2026: "no, we are using supervisors instead". 0 in V2 and V3; supervisors are paid the supervisor '
+            'reward (rows 161-163). No broker document offers an override.')
+I['C92'] = 'Kept at 1 so V2 and V3 have no salaried team leads either; the override itself is 0 (row 93).'
+for ws in (AU, AV):
+    ws['A18'] = '=IF(Inputs!$B$3=1,"Team leads (from Year 5)","Team leads / senior-broker override (none: supervisors instead)")'
 S = wb['Summary']
 for ws in (AU, AV):
     ws['A31'] = ('=IF(Inputs!$B$101=1,"Dividends paid to the shareholder, Morten (quarterly)",'

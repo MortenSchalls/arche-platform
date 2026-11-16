@@ -25,7 +25,7 @@ launch blockers are closed, and the portal holds only the team's own and test da
 | Empty-leg alerts: email, routes | Website alert form, with its own consent tick | Send alerts and news the person asked for | Portal | Until they unsubscribe |
 | Website statistics: page, referrer or campaign, country and city (from the network address, not stored), device type, sections reached, organisation link code | Our own script, no cookies; nothing when Do Not Track or Global Privacy Control is on | Improve the site; follow up our own outreach to organisations | Portal | 13 months |
 | Bookings: client, payer and travellers (names, contact, travel document details the operator and authorities need), trip details, confirmation, payments recorded (no bank numbers) | Brokers in the portal | Arrange and look after the trip; contract; accounts | Portal; shared with the operator, handlers and authorities for that flight; payment provider | 5 years after the trip (accounting records, Companies Act s.199; also covers AML record-keeping) |
-| KYC/KYB and sanctions screening results | Portal booking step; screening against official lists | Legal duties (CDSA, TSOFA; sanctions) | Portal (results only; no ID or bank numbers stored by Archē) | 5 years after the relationship ends |
+| KYC/KYB and sanctions screening results | Portal booking step; screening against official lists | Legal duties (CDSA, TSOFA; sanctions) | Portal, with the booking: results only (date of the check, how it was done, our own reference, and the name, country and payer it covers); no ID, passport or bank numbers and no copies of identity documents stored by Archē; reused for 12 months unless the payer, country or name changes or screening finds a possible match | 5 years after the relationship ends |
 | Business contacts (prospects): name, role, work email or phone, where found | Research from the organisation's own pages or a licensed database | Introduce our services to organisations | Portal (opening is logged; brokers see only their own leads) | Deleted at once on opt-out (one-way code kept); after 12 months without contact |
 | Brokers: application, identity checks, agreement, academy progress and assessments, commission and payouts | Join flow, portal, academy | Contract, training, pay | Portal | Agreement term plus 5 years |
 | Navoryx investor-relations records (Director only) | Navoryx investor page via `/api/ir` | Held for the Navoryx company as its data intermediary (Part D) | Portal | As Navoryx instructs (its policy: 12 months without contact) |
@@ -105,7 +105,8 @@ Keep a PDF of every DPA with the date accepted in the company folder.
 
 ### A9. KYC, sanctions and reports
 Screening of client, payer and travellers on every trip; results used only for the booking decision and kept with the
-booking. A possible match is held for the Director, never answered differently (no tipping off). Suspicious
+booking. Identity checks are recorded as results only (date, how, our reference) and refreshed 12 months after the check,
+or at once when the payer, country or name changes or screening finds a possible match (portal KYC record, 16 Nov 2026). A possible match is held for the Director, never answered differently (no tipping off). Suspicious
 transactions to the STRO (CDSA s.45); terrorism-financing information to the Police (TSOFA).
 
 ### A10. Complaints
