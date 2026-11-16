@@ -8,7 +8,7 @@ One project for everything Archē Executive runs online. Archē is said ar-KAY.
 | Broker portal | `apps/portal` | portal.archeaviation.com | Runs on Supabase + Vercel (arche-platform-sandy.vercel.app); claude.ai copy kept as fallback |
 | Academies | `apps/academy` | academy.archeaviation.com | Internal and external editions, built from the manual |
 | Charter confirmation | `apps/charter-confirmation` | inside the portal | Offline form v6; the portal has its own built-in version |
-| Master Training Manual | `apps/manual` | (Word/PDF, not online) | v3.8; the Word file is the master, the academies are built from it |
+| Master Training Manual | `apps/manual` | (Word/PDF, not online) | v3.21 (file still named v3_8); the Word file is the master, the academies are built from it |
 
 Company: Arche Aviation Pte. Ltd. (Singapore). Brand spelling: Archē. Domain and Microsoft 365 email: GoDaddy.
 
@@ -34,4 +34,4 @@ Company: Arche Aviation Pte. Ltd. (Singapore). Brand spelling: Archē. Domain an
 - Portal tests: serve `apps/portal` on port 8765 (`python3 -m http.server 8765`), rebuild the test version (`python3 build_test.py`) and run the scripts in `apps/portal/tests`. Screen tests run on the test version or `tests/fake-supabase.js`, with example data only. The ones in "Portal checks" (`.github/workflows/checks.yml`) run on every push; `tests/audit.js` checks every page at 390 px.
 
 ## Test version of the portal
-`apps/portal/test.html` is the portal with an in-browser stand-in database and example data only: no sign-in, switch between Test Owner, Test Operations and Test Broker in the orange bar, data kept in that browser only, Reset wipes it. AI features do not work there (no real sign-in), so it costs nothing. Rebuild it after every change to `index.html`: `cd apps/portal && python3 build_test.py`.
+`apps/portal/test.html` is the portal with an in-browser stand-in database and example data only: no sign-in, switch between Test Director, Test Broker, Test Broker 2 and a new candidate in the orange bar, data kept in that browser only, Reset wipes it. AI features do not work there (no real sign-in), so it costs nothing. Rebuild it after every change to `index.html`: `cd apps/portal && python3 build_test.py`.

@@ -984,7 +984,7 @@ class Component extends DCLogic {
 
       steps: this.steps.map((st, i) => ({
         num: String(i + 1).padStart(2, '0'), title: st.title, when: st.when,
-        slotId: ['journey-1', 'journey-2', 'step-3', 'journey-4', 'step-5'][i],   // photos that match each step (Morten, 13 Nov 2026) display: i === s.stepIdx ? 'block' : 'none',
+        slotId: ['journey-1', 'journey-2', 'step-3', 'journey-4', 'step-5'][i],   
         slotLabel: 'Step ' + (i + 1) + ' · ' + st.title + ' · 4:3 · min 1600 × 1200 px' + (st.photo ? ' · ' + st.photo : ''),
         line: i === s.stepIdx ? '#a9bdd4' : 'transparent', opacity: i === s.stepIdx ? 1 : 0.5,
         onClick: () => this.setState({ stepIdx: i }),

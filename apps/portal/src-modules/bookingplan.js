@@ -73,7 +73,7 @@
     if (!(b.contract && b.contract.matches)) out.push("the operator's contract checked against the operator terms on this trip");
     const vd = validDate || ((t.d.conf || {}).valid || {}).date;
     if (b.holdUntil && vd && vd > b.holdUntil.slice(0, 10)) out.push(`the offer expiry (${fmtD(vd)}) set no later than the operator's hold (${fmtD(b.holdUntil)})`);
-    if (!marginOk(t)) out.push("the price at the trip's fee (save the operations panel again)");
+    if (!marginOk(t)) out.push("the price at the trip's fee (save the trip's price again)");
     return out;
   };
 

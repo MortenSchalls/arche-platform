@@ -229,7 +229,7 @@ function supTextPanel(){
 /* the supervisor's pay: a setting the Director fills in when decided */
 function supPayPanel(){
   const t = S.terms || {}, set = t.supRate != null && t.supRate !== "", v = set ? +(Number(t.supRate) * 100).toFixed(2) : "";
-  return `<div class="panel" id="supPay" style="margin-bottom:16px"><h2>Supervisor pay</h2><p class="small muted">Archē rewards supervisors separately; it is never taken from the supervised broker's commission (Morten, 8 Nov 2026). The reward is ${supRate() ? `${supPts(supRate())} of the Archē fee on each booking approved in the first 6 months of a broker the supervisor is named for, and after that only on a booking the Director puts under their supervision (on the trip), on top of their own commission` : "set to 0, so no reward is recorded"}. A change applies to bookings approved from then on; agree it with supervisors in writing first.</p>
+  return `<div class="panel" id="supPay" style="margin-bottom:16px"><h2>Supervisor pay</h2><p class="small muted">Archē rewards supervisors separately; it is never taken from the supervised broker's commission (Morten, 8 Nov 2026). The reward is ${supRate() ? `${supPts(supRate())} of the Archē fee on each booking approved in the first 6 months of a broker the supervisor is named for, and after that only on a booking the Director puts under their supervision (on the trip), on top of their own commission` : "set to 0, so no reward is recorded"}. A change applies to bookings approved from then on. The 3 points are in the agreement (Schedule 1), so a different figure needs a written change signed by both sides (clause 9.2) before you save it here.</p>
     <div class="row"><label class="f" for="supRateIn" style="max-width:220px">Points of the Archē fee<input id="supRateIn" type="number" min="0" max="10" step="0.5" value="${v}" placeholder="to be agreed"></label><button class="btn small primary" type="button" data-suprate="save">Save</button>${set ? `<button class="btn small" type="button" data-suprate="reset">Back to the agreement (${supPts(SUP_RATE)})</button>` : ""}</div></div>`;
 }
 document.addEventListener("click", async e => {
@@ -334,7 +334,7 @@ document.addEventListener("click", async e => {
   const b = e.target.closest("[data-supfo]"); if (!b || !S.isOwner) return; e.preventDefault();
   const t = tripById(b.dataset.supfo), why = (($("sf_why") || {}).value || "").trim(); if (!t) return;
   if (why.length < 5) { toast("Write which rule was broken."); return; }
-  try { await statusWrite(t, {supShare: {...t.st.supShare, forfeited: {at: now(), by: S.uid, reason: why}}}, `Supervision share forfeited: ${why}`); audit("Supervisor reward forfeited", `${(t.st || {}).ref || t.did} · ${nm(t.st.supShare.uid)} · ${why}`); toast("Forfeited: no reward on this booking."); } catch(err){ toast("Could not save."); }
+  try { await statusWrite(t, {supShare: {...t.st.supShare, forfeited: {at: now(), by: S.uid, reason: why}}}, `Supervisor reward forfeited: ${why}`); audit("Supervisor reward forfeited", `${(t.st || {}).ref || t.did} · ${nm(t.st.supShare.uid)} · ${why}`); toast("Forfeited: no reward on this booking."); } catch(err){ toast("Could not save."); }
 });
 /* supervisors who are not staff: read the trips that pay them a share (SQL 0016) */
 setInterval(() => {

@@ -8,7 +8,7 @@ Status: ☐ to do · ◐ waiting on someone · ☑ done
 | | Item | Waiting on | Notes |
 |---|---|---|---|
 | ◐ | Phone and WhatsApp numbers | Morten (package) | Thai number: AIS SME business mobile plan in mind; maybe AIS Cloud BizCall or Teams Phone for one 24/7 number ringing several phones. The +65 charter desk number needs a Singapore provider. |
-| ◐ | Legal entity, registration number, office addresses | Morten (package) | Footer, contact section, privacy notice, terms page. |
+| ☑ | Legal entity, registration number, office addresses | Morten (package) | Arche Aviation Pte. Ltd., UEN 202652508N, 20 Collyer Quay, #09-01, Singapore 049319 (16 Nov 2026): footer, contact section, privacy notice, terms pages, agreement and signature. |
 | ☑ | Contact email on archeaviation.com | Morten | contact@archeaviation.com on every page, the privacy notice and as bookings and privacy email in Settings (26 Oct 2026). msj@ is only for what concerns Morten himself. |
 | ◐ | Native-speaker check of Thai, Chinese and Japanese | Morten | All text, including rows added 20 Oct (`apps/website/text_fixes.py`) and the photo-break lines and "What every trip includes" row added 21 Oct (`apps/website/sections.py`). |
 | ◐ | Choose the payment provider (Paynode removed everywhere 26 Oct 2026; not available to Asian companies): fast client collection and same-day operator payment, never paying operators before client money arrives | Morten (24 Oct: Archē stays standalone, so its own account after incorporation, Wise preferred; not Novaryx's account) | Project doc payment-flow-replacing-paynode-2026-10-23. Rule, contract B5, terms page and portal change together. |

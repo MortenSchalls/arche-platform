@@ -43,11 +43,21 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  T=await o.evaluate(()=>window.__T);await o.close();o=await open(OWN,T);
  const c2=await o.evaluate(([a,b2])=>[commissionFor(a)['2026-11'],commissionFor(b2)['2026-11']],[B1,B2]);
  ok('forfeited: supervisor gets nothing, broker still 1,093.50', !c2[1]&&Math.abs(c2[0].comm-1093.5)<0.01);
+ // agreement 4.2 / Schedule 1: complete only when the operator is paid too; counted in the month it became complete
+ {const Tc=JSON.parse(JSON.stringify(T));Tc.trip_status[0].data.operatorPaid=false;await o.close();o=await open(OWN,Tc);
+  ok('not complete before the operator is paid: no commission yet', !(await o.evaluate(a=>commissionFor(a)['2026-11'],B1)));
+  Tc.trip_status[0].data={...Tc.trip_status[0].data,operatorPaid:true,clientPaidDate:'2026-11-03',operatorPaidDate:'2026-12-02'};await o.close();o=await open(OWN,Tc);
+  const cc=await o.evaluate(a=>commissionFor(a),B1);
+  ok('counted in the month it became complete (December)', !cc['2026-11']&&cc['2026-12']&&Math.abs(cc['2026-12'].comm-1093.5)<0.01);
+  Tc.trip_status[0].data.extraCosts=[{text:'De-icing',cost:2850,client:3132,fm:false}];await o.close();o=await open(OWN,Tc);
+  const cu=await o.evaluate(a=>commissionFor(a)['2026-12'],B1);
+  ok('counted by Client Price incl. costs beyond the price: 48,132 / 45,000 units', Math.abs(cu.units-48132/45000)<1e-6);
+  await o.close();o=await open(OWN,T);}
  // owner as supervisor
  const T2=JSON.parse(JSON.stringify(T0));T2.profiles[1].data.supervisor=OWN;await o.close();o=await open(OWN,T2);
  await o.evaluate(async()=>{await apWrite(tripById('t1'),'approved','');});await o.waitForTimeout(400);T=await o.evaluate(()=>window.__T);
  ok('owner supervises: no reward recorded', !T.trip_status[0].data.supShare);
- T.trip_status[0].data={...T.trip_status[0].data,state:'flown',flownDate:'2026-11-05',clientPaid:true};await o.close();o=await open(OWN,T);
+ T.trip_status[0].data={...T.trip_status[0].data,state:'flown',flownDate:'2026-11-05',clientPaid:true,operatorPaid:true};await o.close();o=await open(OWN,T);
  const c3=await o.evaluate(([a,b2])=>[commissionFor(a)['2026-11'],commissionFor(b2)['2026-11']],[B1,B2]);
  ok('owner-supervised: broker 1,093.50, no member reward', Math.abs(c3[0].comm-1093.5)<0.01&&!c3[1]);
  // not supervised: full 27%

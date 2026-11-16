@@ -390,10 +390,9 @@ const newRef = (iso) => "AE-" + iso.slice(2,4)+iso.slice(5,7)+iso.slice(8,10) + 
 const blankCk = () => ({never:false,risk:false,kyc:false,aoc:false,ins:false,audit:false,route:false,terms:false,pay:false});
 function blankBooking(keep){
   const t = todayISO();
-  return { example:false, ref:newRef(t), issueDate:t, btype:"charter", valid:{date:addDaysISO(t,1),time:"18:00",tz:"Bangkok (UTC+7)"},
+  return { example:false, ref:newRef(t), issueDate:t, btype:"charter", valid:{date:addDaysISO(t,1),time:"18:00",tz:"Singapore (UTC+8)"},
     adv: keep&&keep.adv ? keep.adv : {name:"",phone:""},
     broker: keep&&keep.broker ? keep.broker : {name:"",address:"",reg:"",email:"",phone:"",web:""},
-    bank: keep&&keep.bank ? keep.bank : {name:"",bank:"",swift:"",acc:"",cur:"USD"},
     charterer:{name:"",address:"",contact:"",kyc:"",email:"",phone:"",lead:""},
     ac:{cat:"Heavy jet",type:"",reg:"",yom:"",seats:"",ca:"Included",wifi:"Not available",audit:""}, op:{name:"",aoc:"",state:""},
     legs:[{date:"",from:"",to:"",etd:"",pax:"",pos:false}],
@@ -407,11 +406,11 @@ function exampleBooking(){
   const b = blankBooking();
   const d1 = addDaysISO(b.issueDate, 24), d2 = addDaysISO(b.issueDate, 29);
   return Object.assign(b, { example:true,
-    adv:{name:"Example Advisor",phone:"+66 00 000 0000"},
+    adv:{name:"Example Advisor",phone:"+65 0000 0000"},
     charterer:{name:"Example Family Office Ltd",address:"Level 12, 1 Example Street\nSingapore 000000",contact:"Jane Example",kyc:"KYC-EX-0001",email:"jane@example.com",phone:"+65 0000 0000",lead:"Jane Example"},
     ac:{cat:"Ultra-long-range jet",type:"Bombardier Global XRS",reg:"HB-EXA",yom:"2011",seats:"13",ca:"Included",wifi:"Available, charged under A7",audit:"ARGUS Platinum"},
     op:{name:"Example Operator SA",aoc:"CH.AOC.0000",state:"Switzerland"},
-    legs:[{date:addDaysISO(d1,-1),from:"LSGG",to:"WSSS",etd:"",pax:"0",pos:true},{date:d1,from:"WSSS",to:"VTBD",etd:"10:30",pax:"6",pos:false},{date:addDaysISO(d1,2),from:"VTBD",to:"VTSP",etd:"09:00",pax:"6",pos:false},{date:d2,from:"VTSP",to:"WSSS",etd:"15:00",pax:"6",pos:false}],
+    legs:[{date:addDaysISO(d1,-1),from:"LSGG",to:"WSSS",etd:"",pax:"0",pos:true},{date:d1,from:"WSSS",to:"VTBD",etd:"10:30",pax:"6",pos:false},{date:addDaysISO(d1,2),from:"VTBD",to:"WMKK",etd:"09:00",pax:"6",pos:false},{date:d2,from:"WMKK",to:"WSSS",etd:"15:00",pax:"6",pos:false}],
     price:"187913", opNet:"171000", items:{flight:"159913",pos:"18000",tax:"10000",other:""},
     sign:{oName:"",oTitle:"",cName:"Jane Example",cTitle:"Director"} });
 }
@@ -487,7 +486,7 @@ function checks(cc){
   if (cc.margin!==null && cc.price){
     if (cc.price < cc.target) { const r = S.feeEx && S.feeEx.pct > 0 ? S.feeEx.pct : PRICING.rate; err.push(`The Archē fee is ${(cc.margin/cc.price*100).toFixed(2)}%, below ${(r*100).toFixed(1).replace(/\.0$/,"")}%${S.feeEx ? " (the fee the Director set for this trip)" : ""}. That price is ${usd(cc.target)} (operator price and direct costs ÷ ${(1-r).toFixed(2)}). Another fee only by the Director's decision.`); }
   }
-  const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance on file",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Payment request created"};
+  const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance checked: USD 50M (jet) or 25M (turboprop), every flight date, this aircraft and route, confirmed with the insurer",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Payment request created"};
   Object.keys(ckLabels).forEach(k=>{ if(!S.ck[k]) missing.push(ckLabels[k]); });
   return {err,warn,missing};
 }
@@ -523,7 +522,7 @@ function renderLegs(){
 $("addLeg").addEventListener("click",()=>{ const last=S.legs[S.legs.length-1]||{}; S.legs.push({date:last.date||"",from:last.to||"",to:"",etd:"",pax:last.pax||"",pos:false}); renderLegs(); update(); });
 $("useAsMine").addEventListener("click",()=>{ S.example=false; fillForm(); update(); flash("Marked as a real booking. Check every field before issuing."); });
 $("startBlank").addEventListener("click",()=>{ S=blankBooking(); fillForm(); update(); flash("Blank booking ready."); });
-$("newBooking").addEventListener("click",()=>{ const keep=S.example?null:{broker:S.broker,bank:S.bank,adv:S.adv,sign:S.sign}; S=blankBooking(keep); fillForm(); update(); flash("New booking started. Your company, bank and advisor details were kept."); });
+$("newBooking").addEventListener("click",()=>{ const keep=S.example?null:{broker:S.broker,adv:S.adv,sign:S.sign}; S=blankBooking(keep); fillForm(); update(); flash("New booking started. Your company, bank and advisor details were kept."); });
 
 /* ---------- Preview ---------- */
 const v = (s,label) => String(s||"").trim() ? esc(s) : `<span class="gap">${esc(label)}</span>`;

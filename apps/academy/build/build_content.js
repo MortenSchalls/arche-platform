@@ -187,7 +187,7 @@ MODS.m13.secs.forEach(s => { const i = s.b.findIndex(x => x.p === "Model answer"
 MODS.m13.secs.forEach(s => { if (s.b[0] && s.b[0].p) s.b[0].p = s.b[0].p.replace(/^Situation\.\s*/, ""); s.b.unshift({p:"Work out how you would handle this trip before you open the model answer."}); });
 MODS.m13.secs.push({h:"Spot the problem", b:[{p:"The twelve spot-the-problem trips are in the trip risk screen lab after Module 2. Go back to it any time to practise."}]});
 MODS.m14.secs = MODS.m14.secs.filter(s => !/^14\.1/.test(s.h));
-MODS.m14.secs.unshift({h:"The written exam", b:[{p:"The written exam follows this module. It draws questions from every module check in your path. To pass you need 80% or more, and every question on a critical rule must be right."},{p:"After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the Director, and 10 supervised bookings. The Director, signs your training record when all stages are complete."}]});
+MODS.m14.secs.unshift({h:"The written exam", b:[{p:"The written exam follows this module. It draws questions from every module check in your path. To pass you need 80% or more, and every question on a critical rule must be right."},{p:"After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the Director, and 10 supervised bookings. The Director signs your training record when all stages are complete."}]});
 
 /* Systems training: the Arche portal (Morten, 7 Nov 2026: "include full systems training in the academy for Arche only,
    Avinode is separate for now"). Stage 3, after the written exam; internal edition only (ext.js removes it).

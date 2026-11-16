@@ -1,7 +1,6 @@
 /* One top menu on every page (nav.py, 30 Oct 2026) */
 .ae-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(40,43,48,0.86);-webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%);border-bottom:1px solid rgba(243,245,248,0.10);font-family:'Hanken Grotesk',system-ui,sans-serif}
-/* the logo sits exactly in the middle of the screen, over the watermark aircraft, on every page and width (Morten, 13 Nov 2026):
-   two equal sides around it, each holding its own menu items */
+
 .ae-nav-bar{max-width:1520px;margin:0 auto;padding:10px 40px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:28px;box-sizing:border-box}
 .ae-nav .ae-nav-bar{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important}   /* the page template sets header > div to auto 1fr on phones */
 .ae-nav-side{display:flex;align-items:center;gap:28px;min-width:0;grid-row:1}.ae-nav-side.l{grid-column:1}.ae-nav-side.r{grid-column:3;justify-content:flex-end}
@@ -41,7 +40,7 @@ html{scroll-padding-top:96px}
 .ae-nav-pad{height:96px}
 @media (max-width:600px){.ae-nav-pad{height:72px}}
 @media print{.ae-nav{position:static}}
-/* home: the cabin photo as the hero (Morten, 30 Oct 2026) */
+
 html[data-ae-page="home"] #top{background:linear-gradient(180deg,rgba(36,38,43,0.55) 0%,rgba(36,38,43,0.30) 38%,rgba(36,38,43,0.55) 70%,rgba(59,63,70,0.96) 100%),url(/img/why-photo.webp) center/cover no-repeat!important}
 html[data-ae-page="home"] #top .hero-content p{color:#e2e6ea!important}
 @media (max-width:900px){html[data-ae-page="home"] #top{background:linear-gradient(180deg,rgba(36,38,43,0.55) 0%,rgba(36,38,43,0.30) 38%,rgba(36,38,43,0.55) 70%,rgba(59,63,70,0.96) 100%),url(/img/why-photo-m.webp) center/cover no-repeat!important}}
@@ -51,11 +50,11 @@ html[data-ae-page="home"] #top .hero-content p{color:#e2e6ea!important}
 /* the original proportions of the home hero: jet 63% of the compass width, its tail on the compass ring */
 .ae-wm>i{position:relative;display:block;width:min(100vw - 32px,100vh - 150px,1440px);aspect-ratio:1}
 .ae-wm>i::before{content:"";position:absolute;inset:0;background:url(/assets/compass-rose.svg) center/contain no-repeat;opacity:0.11;animation:ae-spin 240s linear infinite;will-change:transform}
-/* the compass rose turns like the Navoryx compass, one turn in 240 s; the jet stays still; still for reduced motion (Morten, 13 Nov 2026) */
+
 @keyframes ae-spin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.ae-wm>i::before{animation:none}}
 .ae-wm>i::after{content:"";position:absolute;left:18.5%;top:-2.6%;width:63%;aspect-ratio:2252/887;background:url(/assets/jet-line-watermark-wide.webp) center/contain no-repeat;opacity:0.15}
-/* a bit more present (Morten, 13 Nov 2026: "make my watermark and compass a bit more dominant"): compass .075 -> .11, jet .11 -> .15 */
+
 @media print{.ae-wm{display:none}}
 /* type system (nav.py) */
 body,#dc-root,#dc-prerender{font-weight:400}

@@ -57,7 +57,7 @@ push(box('Critical errors (any one stops certification and is reviewed by the Di
  '7. Personal data sent outside Avinode, the CRM or the operator.']));
 push(sp());
 push(H2('Training records and refresher training'));
-push(P('The Director, or the Director once appointed, keeps a training record for each person: modules completed, exam scores, trips shadowed, practical exam result, supervised bookings and sign-off date. Records are kept for as long as the person works for Arche and for the period our record-keeping rule sets after they leave. Everyone repeats the written exam once a year, and attends a refresher when a rule in this manual changes.'));
+push(P('The Director keeps a training record for each person: modules completed, exam scores, trips shadowed, practical exam result, supervised bookings and sign-off date. Records are kept for as long as the person works for Arche and for the period our record-keeping rule sets after they leave. Everyone repeats the written exam once a year, and attends a refresher when a rule in this manual changes.'));
 push(H2('How long it takes'));
 push(P('These are planning estimates for a full-time trainee with no aviation background. They depend on how many enquiries come in during shadowing and supervision, and are reviewed after the first trainees.'));
 push(T([['Stage',5640],['Broker',4000]],[

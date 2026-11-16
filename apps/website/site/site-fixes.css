@@ -37,8 +37,7 @@ section#top + section { padding-top: clamp(72px, 8vw, 120px) !important; padding
 section#services, section#why, section#why + section { padding-bottom: clamp(64px, 7vw, 112px) !important; }
 section#fleet, section#journey, section#contact { padding-top: clamp(64px, 7vw, 104px) !important; padding-bottom: clamp(64px, 7vw, 104px) !important; }
 
-/* Phone layout, 31 Oct 2026 (Morten: "a 1-1 of the browser version"): photo-led hero with a slim
-   quote form, rows of three become swipeable rows like the desktop, one 20px gutter throughout. */
+
 @media (max-width: 760px) {
   #services, #why, #discover > div, #dates > div, #statement > div, footer > div, section#top + section { padding-left: 20px !important; padding-right: 20px !important; }
 

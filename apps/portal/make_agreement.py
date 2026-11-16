@@ -11,7 +11,7 @@ s = re.sub(r"<h1>.*?</h1>\s*", "", s, count=1)
 s = re.sub(r'<p class="sub">.*?</p>\s*', "", s, count=1)
 s = s.replace("(UEN 202652508N), whose registered office is at 20 Collyer Quay, #09-01, Singapore 049319", "(UEN {{UEN}}), whose registered office is at {{OFFICE}}", 1)
 s = s.replace("is registered in Singapore, UEN 202652508N, registered office 20 Collyer Quay, #09-01, Singapore 049319.", "is registered in Singapore, UEN {{UEN}}, registered office {{OFFICE}}.", 1)
-s = s.replace("[privacy email]", "{{PRIVACY}}")
+s = s.replace("privacy@archeaviation.com.", "{{PRIVACY}}.", 1)
 a = s.index("<h2>Schedule 2: Consultant details</h2>"); b = s.index("<h2>Schedule 4:")
 main, tail = s[:a], s[b:]
 assert "[●]" not in main and "[●]" not in tail, "unfilled placeholder left in the agreement"

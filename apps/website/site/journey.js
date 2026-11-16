@@ -81,7 +81,7 @@ function draw(){
     var nm = v === 0 ? rt.r[0] : v[1], stop = v === 0 ? null : v[0];
     return {m: m, nm: nm, stop: stop, h: nm / m.kt + 0.4 + (stop ? 1.3 : 0), pts: flip(v === 0 ? rt.r[1] : v[3]), detour: v === 0 ? rt.r[2] : v[4]}; }).filter(Boolean);
   var t = rt.r ? rt.r[0] / 459 + 0.4 : 99, band = t <= 3 ? ['Light jet', 'Midsize jet', 'Super-midsize'] : t <= 6 ? ['Super-midsize', 'Heavy jet'] : ['Heavy jet', 'Ultra-long-range'];
-  var big = function(x, y){ return (t > 11 ? y.m.len - x.m.len : 0) || y.m.cabin - x.m.cabin; }, non = opts.filter(function(o){ return !o.stop; });   // over 11 h the longest cabin (Morten 13 Nov 2026: more Global 7500)
+  var big = function(x, y){ return (t > 11 ? y.m.len - x.m.len : 0) || y.m.cabin - x.m.cabin; }, non = opts.filter(function(o){ return !o.stop; });   
   var best = non.filter(function(o){ return band.indexOf(o.m.cat) >= 0; }).sort(big)[0] || non.slice().sort(big)[0] || opts.slice().sort(function(x, y){ return x.h - y.h; })[0];
   opts.sort(function(x, y){ return (y === best) - (x === best) || (!!x.stop - !!y.stop) || x.h - y.h; });
   route.setAttribute('d', ''); fly(samples(best.pts));

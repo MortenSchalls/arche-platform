@@ -71,6 +71,8 @@ else:
     L = json.load(open(stamp))
     if L["site_hash"] != h.hexdigest(): problems.append("layout audit is older than the built pages: run it again")
     elif L["findings"]: problems.append(f"layout audit found {len(L['findings'])} problems (apps/website/audit/layout.json)")
+import strip_notes
+for f in strip_notes.left(): problems.append(f"{f}: internal note (a person or the other business) left in a served file; strip_notes.py")
 for n in notes: print("NOTE:", n)
 # launch blockers that only a person can close (launch_blockers.py, Morten 9 Nov 2026)
 from launch_blockers import launch_blockers

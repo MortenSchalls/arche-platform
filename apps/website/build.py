@@ -223,6 +223,7 @@ window.archeSend = function (data) {
     import self_fonts; self_fonts.run()   # fonts from our own site, never from a font service (12 Nov 2026)
     if not BANGKOK_OFFICE:
         import no_bangkok_photo; no_bangkok_photo.run()   # no hidden Bangkok office photo either (12 Nov 2026)
+    import strip_notes; strip_notes.run()   # no internal notes (people, the other business) in served files (16 Nov 2026)
     import portal_preview; portal_preview.run()   # private copy of the site for the owner inside the portal (30 Oct 2026)
 
 

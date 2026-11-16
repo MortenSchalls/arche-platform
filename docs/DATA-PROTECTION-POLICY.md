@@ -122,9 +122,9 @@ to the PDPA and to report any loss or misuse within 24 hours). Access ends the d
 
 | # | Topic | Requirement | What we have | Still needed | Who | Risk after action |
 |---|---|---|---|---|---|---|
-| 1 | Company | Notice names the organisation | Name in notice; UEN pending | Register; set UEN | Morten | Low |
+| 1 | Company | Notice names the organisation | Arche Aviation Pte. Ltd., UEN 202652508N, registered office 20 Collyer Quay, #09-01, Singapore 049319, in the notice (16 Nov 2026) | — | — | Low |
 | 2 | DPO | PDPA s.11(3)-(5) | Morten appointed 9 Nov 2026; privacy@ live; role on the Privacy page | — | — | Low |
-| 3 | DPO on BizFile+ | ACRA | Not possible before UEN | File after registration (B1) | Morten | Low |
+| 3 | DPO on BizFile+ | ACRA | Company registered 16 Nov 2026; filing now possible | File on BizFile+ (B1) | Morten | Low |
 | 4 | Written policy | s.12 | This document | Approve; annual review | Morten | Low |
 | 5 | Public notice | s.20; GDPR Art. 13 | Privacy notice, 16 sections (9 Nov 2026) | Approve | Morten | Low |
 | 6 | Consent | s.14 | Tick on every form; server refuses without it | — | — | Low |

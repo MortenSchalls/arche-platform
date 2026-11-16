@@ -573,6 +573,7 @@
     "Approve or decline requests to join (Onboarding page), and send the agreement once the qualification checklist is complete.",
     "Invitations (Team): invite a person by name and email; the list shows each one's joining progress and log. Everyone who has a login and is not yet on the team has a Remind button (marked Quiet when there has been no activity for 3 days). Press it to see that person's complete email exactly as it will be sent: their name and address, their next step as their joining stands at that moment, your name, and their own sign-in link. Send this reminder sends that email to that one person; nothing goes out until you press it. The link works once and only for a short time: if you wait, press Make again. The reminder says that Archē Executive launches in December. It is signed with your name; if your profile has no name yet, the screen asks for it once (Save my name) and makes the email again. Replies come to you.",
     "You authorise every trip by default. In Team, tick May authorise to mandate someone else (never for their own trips), or give supervisor rights; every decision is logged with your name.",
+    "Supervision (Team > Supervision and supervisor rights): name the supervisor for each new broker. Supervisor pay shows the reward in the agreement, 3 points of the Archē fee, paid by Archē from its own share on each booking approved in the broker's first 6 months; the broker's commission is never reduced and owners never earn it. A different figure needs a written change to the agreement signed by both sides first. After the first 6 months, open a trip and use Put this booking under supervision: choose the supervisor and write why; 3 points go to them when the booking is approved. Remove takes it off before approval. On any booking you can forfeit the reward if a step the supervisor approved broke the rules.",
     "When someone leaves, open their file in Onboarding and press End engagement: 30 days' notice, by agreement or for breach. Access ends on the end date, open enquiries go back to the pool and prospects back into rotation.",
     "Client handover (agreement clause 8.5): the leaving file lists the broker's clients from their trips. Name a successor for each and press Hand over. The successor gets the client as an own lead with the trip history and a call due within 48 hours; the leaving broker sees a task to introduce the successor personally before the end date. Tick Introduced when done; the file shows Contacted when the successor logs the first call.",
     "You can take clients yourself: choose Me as the successor, or press Hand all to me.",
@@ -587,6 +588,10 @@
     [
      "The successor's call shows overdue",
      "Ask the successor to call today and log it on the lead; reassign if they cannot."
+    ],
+    [
+     "A supervisor's reward is missing on a booking",
+     "It is recorded at approval: the broker must be supervised and in their first 6 months, or you must have put the booking under supervision before approving it."
     ]
    ],
    "tips": [

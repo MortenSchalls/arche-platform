@@ -42,6 +42,9 @@ const prune = o => {
 prune(O);
 for (const M of Object.values(O.MODS)) for (const S of M.secs) { const i = S.b.findIndex(x => x && x.h3 && x.h3.startsWith("Arche sponsorship")); if (i >= 0) { let j = i + 1; while (j < S.b.length && !S.b[j].h3 && !S.b[j].links && !S.b[j].p) j++; S.b.splice(i, j - i); log.push('removed Arche sponsorship of external courses'); } }
 
+// 14.2: Part 1 (the Arche portal in the academy) is internal; the external edition keeps Avinode and the payment platform
+for (const M of Object.values(O.MODS)) for (const S of M.secs) { const i = S.b.findIndex(x => x && x.h3 && /^Part 1: The Arch.? portal/.test(x.h3)); if (i >= 0) { S.b.splice(i, 2); const k = S.b.findIndex(x => x && x.p === "Systems training is stage 3, after the written exam. It has two parts."); if (k >= 0) S.b[k] = {p: "Systems training is stage 3, after the written exam: your company's booking system, Avinode and the payment platform."}; const h = S.b.findIndex(x => x && x.h3 && /^Part 2: /.test(x.h3)); if (h >= 0) S.b[h] = {h3: "Avinode and the payment platform"}; log.push('removed 14.2 Part 1 (the internal portal step)'); } }
+
 /* ---- 2. passages rewritten as general practice ---- */
 const EXACT = {
  "Director": "Senior manager",
@@ -122,7 +125,7 @@ const OVR = [
 ];
 /* ---- 3. general wording: the company and its manager ---- */
 const RX = [
- [/\bArche Executive's\b/g, "your company's"], [/\bArche's\b/g, "your company's"], [/\bArche Executive\b/g, "your company"], [/\bArche\b/g, "your company"],
+ [/\bArche Executive's\b/g, "your company's"], [/\bArche's\b/g, "your company's"], [/\bArche Executive\b/g, "your company"], [/\bArche\b/g, "your company"], [/\bThe your company\b/g, "Your company's"], [/\bthe your company\b/g, "your company's"], [/\ban your company\b/g, "a company"],
  [/\bPart A\b/g, "the booking terms"], [/\bPart B\b/g, "the standard conditions"],
  [/\bDirector, or a person the Director has mandated\b/g, "Manager"], [/\b[Tt]he Director, or a person the Director has mandated,?/g, m => m[0] === "T" ? "Your manager" : "your manager"], [/\ba person the Director has mandated\b/g, "a person your manager has mandated"], [/\bthe Director's\b/g, "your manager's"], [/\bThe Director's\b/g, "Your manager's"], [/\bthe Director\b/g, "your manager"], [/\bThe Director\b/g, "Your manager"], [/\bDirector approval\b/g, "manager approval"], [/\bDirector decision\b/g, "manager decision"], [/\bthe Director included\b/g, "managers included"], [/\bThe owner, or the director once appointed,?/g, "Your manager"], [/\bthe owner, or the director once appointed,?/g, "your manager"], [/\bYour supervisor or the owner\b/g, "Your supervisor or manager"], [/\bThe owner, or a person the owner has mandated,?/g, "Your manager"], [/\bthe owner, or a person the owner has mandated,?/g, "your manager"], [/\bOwner, or a person the owner has mandated\b/g, "Manager"], [/(?<!aircraft |beneficial )\bthe owner's\b/g, "your manager's"], [/(?<!aircraft |beneficial )\bThe owner's\b/g, "Your manager's"], [/(?<!aircraft |beneficial )\bthe owner\b(?! of)/g, "your manager"], [/(?<!aircraft |beneficial )\bThe owner\b(?! of)/g, "Your manager"], [/\bthe director once appointed\b/g, "your manager"], [/\bThe director's\b/g, "Your manager's"], [/\bthe director's\b/g, "your manager's"], [/\bThe director\b/g, "Your manager"], [/\bthe director\b/g, "your manager"],
  [/\bDirector(?!s)\b/g, "Manager"], [/(?<!['’]s )\bdirector(?!s)\b/g, "manager"],

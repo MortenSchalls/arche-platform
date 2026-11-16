@@ -91,5 +91,16 @@ I['A104'] = 'Wife\u2019s share of Morten\u2019s dividend (his personal split)'
 I['C104'] = ('Morten 16 Nov 2026: Morten is the only shareholder (100 shares). The company pays the whole dividend to him; '
              'he shares it with his wife personally. Her 50% is shown so he can see the split; it is not a company payment.')
 C['A15'] = 'Cash ties to profit: dividends + year-10 cash = net profit + starting funds (USD)'
+S = wb['Summary']
+for ws in (AU, AV):
+    ws['A31'] = ('=IF(Inputs!$B$101=1,"Dividends paid to the shareholder, Morten (quarterly)",'
+                 '"Dividends paid to the shareholder, Morten (monthly safe draw)")')
+    ws['A59'] = 'Morten\u2019s part of his dividend (his personal split)'
+    ws['A60'] = 'His wife\u2019s part of Morten\u2019s dividend (his personal split)'
+S['A10'] = '  Morten\u2019s part (personal split)'; S['A11'] = '  His wife\u2019s part (personal split)'
+S['A27'] = '  Morten\u2019s part'; S['A28'] = '  his wife\u2019s part'
+MU['A68'] = 'Morten\u2019s part of his dividend (USD)'; MU['A69'] = 'His wife\u2019s part of Morten\u2019s dividend (USD)'
+MV['A68'] = '="Morten\u2019s part of his dividend ("&Inputs!$B$144&")"'
+MV['A69'] = '="His wife\u2019s part of Morten\u2019s dividend ("&Inputs!$B$144&")"'
 wb.save(out)
 print('saved', out)
