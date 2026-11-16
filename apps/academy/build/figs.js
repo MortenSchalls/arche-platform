@@ -92,9 +92,9 @@ const FIGS = (() => {
       cap:"Each check narrows the field. Any other operator only if the Director has approved it after the checks in 8.3.", say:"Funnel. From all quotes received, keep operators whose aircraft is on their AOC operations specifications, whose insurance covers commercial passengers, with ARGUS Platinum or Platinum Elite, WYVERN Wingman or IS-BAO Stage 2 or 3, and who are not banned or sanctioned. What remains is the shortlist for the client."};
   };
 
-  F.price = () => ({html: `<div class="fg-price"><p class="fg-h">Right: divide by 0.91</p><div class="pbar"><span class="c" style="flex:91">Arche cost 100,000 = 91%</span><span class="m" style="flex:9">9%</span></div><p class="res">Client price 109,891 · margin 9,891 = 9.0%</p>
-    <p class="fg-h">Wrong: add 9%</p><div class="pbar"><span class="c" style="flex:91">Arche cost 100,000</span><span class="m bad" style="flex:8.26"></span></div><p class="res">Client price 109,000 · margin 9,000 = only 8.26%</p></div>`,
-    cap:"The margin is 9% of the client price, so divide the cost by 0.91 and round up.", say:"Two bars. Right: an Arche cost of 100,000 divided by 0.91 gives a client price of 109,891, and the margin of 9,891 is 9 percent of the price. Wrong: adding 9 percent gives 109,000, and the margin of 9,000 is only 8.26 percent of the price."});
+  F.price = () => ({html: `<div class="fg-price"><p class="fg-h">Right: divide by 0.91</p><div class="pbar"><span class="c" style="flex:91">Arche cost 100,000 = 91%</span><span class="m" style="flex:9">9%</span></div><p class="res">Client price 109,891 · Arche fee 9,891 = 9.0%</p>
+    <p class="fg-h">Wrong: add 9%</p><div class="pbar"><span class="c" style="flex:91">Arche cost 100,000</span><span class="m bad" style="flex:8.26"></span></div><p class="res">Client price 109,000 · fee 9,000 = only 8.26%</p></div>`,
+    cap:"The Arche fee is 9% of the client price, so divide the cost by 0.91 and round up.", say:"Two bars. Right: an Arche cost of 100,000 divided by 0.91 gives a client price of 109,891, and the Arche fee of 9,891 is 9 percent of the price. Wrong: adding 9 percent gives 109,000, and the fee of 9,000 is only 8.26 percent of the price."});
 
   F.ex = () => {
     const r = [["A. One-way",100000,109891],["B. Multi-leg",180000,197803],["D. With supplier item",61200,67253]], f = n => n.toLocaleString("en-US");
@@ -103,8 +103,8 @@ const FIGS = (() => {
   };
 
   F.money = () => ({html: `<div class="fg-flow">${node("Client","pays the request")}${to()}${node("Payment provider","holds client funds","key")}${to()}${node("Operator","paid on its terms")}</div>
-    <div class="fg-down"><div class="fg-to v" aria-hidden="true"></div>${node("Arche account","only the margin")}<span class="fg-aside">Citi Singapore (being set up)</span></div>`,
-    cap:"Operator money never passes through Arche's own account.", say:"Diagram. The client pays the payment request. The payment account holds the funds and the operator is paid on its terms. Only Arche's margin moves to Arche's own account at Citi Singapore."});
+    <div class="fg-down"><div class="fg-to v" aria-hidden="true"></div>${node("Arche account","only the Arche fee")}<span class="fg-aside">Citi Singapore (being set up)</span></div>`,
+    cap:"Operator money never passes through Arche's own account.", say:"Diagram. The client pays the payment request. The payment account holds the funds and the operator is paid on its terms. Only the Arche fee moves to Arche's own account at Citi Singapore."});
 
   F.day = () => {
     const s = [["Before","details to operator, permits and slots confirmed, trip brief sent"],["From 48 h","watch the forecast, warn early"],["Day of flight","track the flight, update the client first"],["Within 72 hours","charge every cost beyond the price, close the file"]];

@@ -71,6 +71,6 @@ const said=await p3.evaluate(()=>__said);const badSay=said.filter(x=>/[·\/()%;"
 console.log('spoken lines',said.length,'with symbols',badSay.length);badSay.slice(0,8).forEach(x=>console.log('  >',x));
 await p3.screenshot({path:'chk_mobile_dark.png'});
 ok(p3.errs.length===0,'audio errors '+p3.errs);
-if(process.env.T!=='t_ext.html'){const sp=await p3.evaluate(()=>['See Module 2.4 and Appendix G.7.','Margin 9% (USD 16,913).','Check 14 CFR Part 295 and 1.5% interest.'].map(__AUD.speakable));console.log(sp.join('\n'));}
+if(process.env.T!=='t_ext.html'){const sp=await p3.evaluate(()=>['See Module 2.4 and Appendix G.7.','Fee 9% (USD 16,913).','Check 14 CFR Part 295 and 1.5% interest.'].map(__AUD.speakable));console.log(sp.join('\n'));}
 await b.close();
 console.log(fails.length?'FAILS:\n'+fails.join('\n'):'ALL CHECKS PASSED');})();

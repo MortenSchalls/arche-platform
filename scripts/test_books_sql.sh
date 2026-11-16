@@ -1,5 +1,5 @@
 #!/bin/sh
-# Runs supabase/migrations/0023_books.sql, 0024_books_auto.sql and supabase/tests/books.sql on a throwaway local Postgres (example data only).
+# Runs supabase/migrations/0023_books.sql, 0024_books_auto.sql, 0025_books_fee.sql and supabase/tests/books.sql on a throwaway local Postgres (example data only).
 set -e
 ROOT=$(cd "$(dirname "$0")/.." && pwd); BIN=${PGBIN:-/usr/lib/postgresql/16/bin}; D=$(mktemp -d); PORT=${PGPORT_TEST:-55432}
 chmod 777 "$D"; RUN() { if [ "$(id -u)" = 0 ]; then su postgres -c "$*"; else sh -c "$*"; fi; }
@@ -16,4 +16,6 @@ RUN "$P -f $ROOT/supabase/migrations/0023_books.sql" >/dev/null
 RUN "$P -f $ROOT/supabase/migrations/0023_books.sql" >/dev/null   # safe to run twice
 RUN "$P -f $ROOT/supabase/migrations/0024_books_auto.sql" >/dev/null
 RUN "$P -f $ROOT/supabase/migrations/0024_books_auto.sql" >/dev/null   # safe to run twice
+RUN "$P -f $ROOT/supabase/migrations/0025_books_fee.sql" >/dev/null
+RUN "$P -f $ROOT/supabase/migrations/0025_books_fee.sql" >/dev/null   # safe to run twice
 RUN "$P -f $ROOT/supabase/tests/books.sql"

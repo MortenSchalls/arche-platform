@@ -814,18 +814,18 @@
   ]
  },
  {
-  "key": "ab662f4a",
+  "key": "c89345ef",
   "kind": "lesson",
   "where": "m2 screen 4",
   "text": [
    "Where we may and may not sell",
    "2.3 Our contract position",
-   "All bookings run through Avinode, and all client and operator payments run through our payment account, so that only Archē's margin enters Archē's own account. Use only the approved Archē charter confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms."
+   "All bookings run through Avinode, and all client and operator payments run through our payment account, so that only the Archē fee enters Archē's own account. Use only the approved Archē charter confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms."
   ],
   "say": [
    "Where we may and may not sell.",
    "Our contract position.",
-   "All bookings run through Avinode, and all client and operator payments run through our payment account, so that only ar Kay's margin enters ar Kay's own account. Use only the approved ar Kay charter confirmation, Part A Key Booking Terms and Part B Standard Conditions, never your own wording, and never agree to change liability, cancellation or payment terms."
+   "All bookings run through Avinode, and all client and operator payments run through our payment account, so that only the ar Kay fee enters ar Kay's own account. Use only the approved ar Kay charter confirmation, Part A Key Booking Terms and Part B Standard Conditions, never your own wording, and never agree to change liability, cancellation or payment terms."
   ]
  },
  {
@@ -1680,18 +1680,18 @@
   ]
  },
  {
-  "key": "82d4b5cf",
+  "key": "810190fd",
   "kind": "lesson",
   "where": "m1 screen 4",
   "text": [
    "Archē Executive and the broker's role",
    "1.3 How we earn",
-   "Our margin is 9% of the price the client pays (Module 9). The operator receives the rest from our payment account. Only our margin flows into Archē's own bank account."
+   "Archē charges a fixed fee of 9% of the price the client pays (Module 9). The operator receives the rest from our payment account. Only the Archē fee flows into Archē's own bank account."
   ],
   "say": [
    "ar Kay Executive and the broker's role.",
    "How we earn.",
-   "Our margin is 9 percent of the price the client pays, Module 9. The operator receives the rest from our payment account. Only our margin flows into ar Kay's own bank account."
+   "ar Kay charges a fixed fee of 9 percent of the price the client pays, Module 9. The operator receives the rest from our payment account. Only the ar Kay fee flows into ar Kay's own bank account."
   ]
  },
  {
@@ -1782,14 +1782,14 @@
   ]
  },
  {
-  "key": "5883a1bf",
+  "key": "a5fe8753",
   "kind": "keypoints",
   "where": "m1 screen 9",
   "text": [
    "Archē Executive and the broker's role",
    "Key points",
    "Before the module check, try to say each point in your own words.",
-   "We sell whole-aircraft charters and empty legs at a 9% margin.",
+   "We sell whole-aircraft charters and empty legs with a fixed 9% Archē fee.",
    "Never sell a flight before an operator has confirmed it in writing.",
    "First contact within 48 hours and follow-up every 14 days, or the lead moves on."
   ],
@@ -1797,7 +1797,7 @@
    "ar Kay Executive and the broker's role.",
    "Key points.",
    "Before the module check, try to say each point in your own words.",
-   "We sell whole-aircraft charters and empty legs at a 9 percent margin. Never sell a flight before an operator has confirmed it in writing. First contact within 48 hours and follow-up every 14 days, or the lead moves on."
+   "We sell whole-aircraft charters and empty legs with a fixed 9 percent ar Kay fee. Never sell a flight before an operator has confirmed it in writing. First contact within 48 hours and follow-up every 14 days, or the lead moves on."
   ]
  },
  {
@@ -3988,7 +3988,7 @@
   ]
  },
  {
-  "key": "148aa00e",
+  "key": "326306e4",
   "kind": "lesson",
   "where": "m9 screen 3",
   "text": [
@@ -3999,58 +3999,58 @@
    "List them in the quote as \"charged after the flight\"; Part A, A7 of the confirmation covers them without naming examples, which leaves less room for dispute.",
    "If the client asks how much, ask the operator for its best estimate in writing and pass it on as the operator's estimate, never as a fixed price.",
    "Charge each cost like the price, cost ÷ 0.91, rounded up, through a payment request. It is due when the operator or supplier wants payment, and no later than 72 hours after the service. Anything asked for during the trip is arranged only once paid.",
-   "Only costs on the B13 list are charged at cost, without margin: costs after the first departure from an event that could not be foreseen then, such as an in-flight diversion for weather, air traffic control or an airspace closure. De-icing and anything foreseeable at departure are never on that list.",
+   "Only costs on the B13 list are charged at cost, without the Archē fee: costs after the first departure from an event that could not be foreseen then, such as an in-flight diversion for weather, air traffic control or an airspace closure. De-icing and anything foreseeable at departure are never on that list.",
    "A card is held on every trip for costs expected during it, and charged for anything unpaid when due. There is no separate deposit."
   ],
   "say": [
    "Pricing and quoting.",
    "Costs that cannot be fixed before the flight.",
    "Some costs depend on the day, de-icing, extra parking or hangar time, extra crew nights after a schedule change, late catering, Wi-Fi data use, changing airport or passenger taxes, and permit fees for late changes. Treat them the same way every time.",
-   "Never put a number on them unless the operator or supplier has given it in writing. List them in the quote as charged after the flight, Part A, A7 of the confirmation covers them without naming examples, which leaves less room for dispute. If the client asks how much, ask the operator for its best estimate in writing and pass it on as the operator's estimate, never as a fixed price. Charge each cost like the price, cost divided by 0.91, rounded up, through a payment request. It is due when the operator or supplier wants payment, and no later than 72 hours after the service. Anything asked for during the trip is arranged only once paid. Only costs on the B13 list are charged at cost, without margin, costs after the first departure from an event that could not be foreseen then, such as an in-flight diversion for weather, air traffic control or an airspace closure. De-icing and anything foreseeable at departure are never on that list. A card is held on every trip for costs expected during it, and charged for anything unpaid when due. There is no separate deposit."
+   "Never put a number on them unless the operator or supplier has given it in writing. List them in the quote as charged after the flight, Part A, A7 of the confirmation covers them without naming examples, which leaves less room for dispute. If the client asks how much, ask the operator for its best estimate in writing and pass it on as the operator's estimate, never as a fixed price. Charge each cost like the price, cost divided by 0.91, rounded up, through a payment request. It is due when the operator or supplier wants payment, and no later than 72 hours after the service. Anything asked for during the trip is arranged only once paid. Only costs on the B13 list are charged at cost, without the ar Kay fee, costs after the first departure from an event that could not be foreseen then, such as an in-flight diversion for weather, air traffic control or an airspace closure. De-icing and anything foreseeable at departure are never on that list. A card is held on every trip for costs expected during it, and charged for anything unpaid when due. There is no separate deposit."
   ]
  },
  {
-  "key": "564f552b",
+  "key": "78be9e4c",
   "kind": "lesson",
   "where": "m9 screen 4",
   "text": [
    "Pricing and quoting",
    "9.3 The Archē price formula",
-   "Our margin is 9% of the price the client pays. Because it is a share of the selling price, divide the cost by 0.91; do not add 9% to the cost.",
-   "Right: divide by 0.91Archē cost 100,000 = 91%9%Client price 109,891 · margin 9,891 = 9.0% Wrong: add 9%Archē cost 100,000Client price 109,000 · margin 9,000 = only 8.26%The margin is 9% of the client price, so divide the cost by 0.91 and round up.",
-   "Price formulaArchē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writingClient price = Archē cost ÷ 0.91 Archē margin = client price − Archē cost = 9% of the client priceNot included: costs charged after the flight (9.2), also cost ÷ 0.91, and card payment costs, charged as set out in the confirmation"
+   "Archē charges a fixed fee of 9% of the total booking value, the price the client pays. Because the fee is a share of the selling price, divide the cost by 0.91; do not add 9% to the cost.",
+   "Right: divide by 0.91Archē cost 100,000 = 91%9%Client price 109,891 · Archē fee 9,891 = 9.0% Wrong: add 9%Archē cost 100,000Client price 109,000 · fee 9,000 = only 8.26%The Archē fee is 9% of the client price, so divide the cost by 0.91 and round up.",
+   "Price formulaArchē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writingClient price = Archē cost ÷ 0.91 Archē fee = client price − Archē cost = 9% of the client priceNot included: costs charged after the flight (9.2), also cost ÷ 0.91, and card payment costs, charged as set out in the confirmation"
   ],
   "say": [
    "Pricing and quoting.",
    "The ar Kay price formula.",
-   "Our margin is 9 percent of the price the client pays. Because it is a share of the selling price, divide the cost by 0.91, do not add 9 percent to the cost.",
-   "Two bars. Right, an ar Kay cost of 100,000 divided by 0.91 gives a client price of 109,891, and the margin of 9,891 is 9 percent of the price. Wrong, adding 9 percent gives 109,000, and the margin of 9,000 is only 8.26 percent of the price.",
-   "Price formula. ar Kay cost = operator all-in price, including positioning legs, plus supplier items ar Kay buys for the client, confirmed in writing. Client price = ar Kay cost divided by 0.91 ar Kay margin = client price − ar Kay cost = 9 percent of the client price. Not included, costs charged after the flight, 9, section 2, also cost divided by 0.91, and card payment costs, charged as set out in the confirmation."
+   "ar Kay charges a fixed fee of 9 percent of the total booking value, the price the client pays. Because the fee is a share of the selling price, divide the cost by 0.91, do not add 9 percent to the cost.",
+   "Two bars. Right, an ar Kay cost of 100,000 divided by 0.91 gives a client price of 109,891, and the ar Kay fee of 9,891 is 9 percent of the price. Wrong, adding 9 percent gives 109,000, and the fee of 9,000 is only 8.26 percent of the price.",
+   "Price formula. ar Kay cost = operator all-in price, including positioning legs, plus supplier items ar Kay buys for the client, confirmed in writing. Client price = ar Kay cost divided by 0.91 ar Kay fee = client price − ar Kay cost = 9 percent of the client price. Not included, costs charged after the flight, 9, section 2, also cost divided by 0.91, and card payment costs, charged as set out in the confirmation."
   ]
  },
  {
-  "key": "6c640dbd",
+  "key": "675865d4",
   "kind": "lesson",
   "where": "m9 screen 5",
   "text": [
    "Pricing and quoting",
    "9.4 Worked examples",
-   "A. One-way: operator all-in 100,000Client price 100,000 ÷ 0.91 = 109,890.11, rounded up to 109,891; margin 9,891",
-   "Wrong method: 100,000 + 9% = 109,000Margin 9,000 = only 8.26% of the price",
-   "B. Multi-leg: three legs quoted by one operator, all-in 180,000 including positioningPrice on the total: 197,803; margin 17,803. Never price legs separately if the operator quotes the trip as one",
+   "A. One-way: operator all-in 100,000Client price 100,000 ÷ 0.91 = 109,890.11, rounded up to 109,891; Archē fee 9,891",
+   "Wrong method: 100,000 + 9% = 109,000Fee 9,000 = only 8.26% of the price",
+   "B. Multi-leg: three legs quoted by one operator, all-in 180,000 including positioningPrice on the total: 197,803; Archē fee 17,803. Never price legs separately if the operator quotes the trip as one",
    "C. Shared positioning: operator lowers its price from 100,000 to 92,000 because the empty return is soldNew client price 101,099 if the client is not yet contracted; if already contracted, the confirmation decides who benefits",
-   "D. Supplier item: ground transport quoted 1,200 in writing; operator all-in 60,000Archē cost 61,200; client price 67,253; margin 6,053",
+   "D. Supplier item: ground transport quoted 1,200 in writing; operator all-in 60,000Archē cost 61,200; client price 67,253; Archē fee 6,053",
    "E. Currency: operator quotes in EUR, client pays in USDConvert the operator price with the payment provider exchange rate on the day of the quote; state the quote currency and that it is fixed only after payment",
-   "F. Post-flight: de-icing invoiced by the operator at 2,850Charge 2,850 ÷ 0.91 = 3,131.87, rounded up to 3,132, through a payment request; margin 282",
-   "G. In-flight diversion for weather: extra handling 1,400On the B13 list: charge 1,400 at cost, no margin",
-   "Margins below 9% need the Director's approval before the quote is sent. Round client prices up, never down.",
+   "F. Post-flight: de-icing invoiced by the operator at 2,850Charge 2,850 ÷ 0.91 = 3,131.87, rounded up to 3,132, through a payment request; Archē fee 282",
+   "G. In-flight diversion for weather: extra handling 1,400On the B13 list: charge 1,400 at cost, no Archē fee",
+   "The fee is 9% on every booking. A different fee on a booking is the exception, only by the Director's decision before the quote is sent, with the reason recorded. Round client prices up, never down.",
    "A. One-waycost 100,000price 109,891B. Multi-legcost 180,000price 197,803D. With supplier itemcost 61,200price 67,253Cost and client price for three of the worked examples (USD)."
   ],
   "say": [
    "Pricing and quoting.",
    "Worked examples.",
-   "A. One-way, operator all-in 100,000. Client price 100,000 divided by 0.91 = 109,890.11, rounded up to 109,891, margin 9,891. Wrong method, 100,000 plus 9 percent = 109,000. Margin 9,000 = only 8.26 percent of the price. B. Multi-leg, three legs quoted by one operator, all-in 180,000 including positioning. Price on the total, 197,803, margin 17,803. Never price legs separately if the operator quotes the trip as one. C. Shared positioning, operator lowers its price from 100,000 to 92,000 because the empty return is sold. New client price 101,099 if the client is not yet contracted, if already contracted, the confirmation decides who benefits. D. Supplier item, ground transport quoted 1,200 in writing, operator all-in 60,000. ar Kay cost 61,200, client price 67,253, margin 6,053. E. Currency, operator quotes in E U R, client pays in U S dollars. Convert the operator price with the payment provider exchange rate on the day of the quote, state the quote currency and that it is fixed only after payment. F. Post-flight, de-icing invoiced by the operator at 2,850. Charge 2,850 divided by 0.91 = 3,131.87, rounded up to 3,132, through a payment request, margin 282. G. In-flight diversion for weather, extra handling 1,400. On the B13 list, charge 1,400 at cost, no margin.",
-   "Margins below 9 percent need the Director's approval before the quote is sent. Round client prices up, never down.",
+   "A. One-way, operator all-in 100,000. Client price 100,000 divided by 0.91 = 109,890.11, rounded up to 109,891, ar Kay fee 9,891. Wrong method, 100,000 plus 9 percent = 109,000. Fee 9,000 = only 8.26 percent of the price. B. Multi-leg, three legs quoted by one operator, all-in 180,000 including positioning. Price on the total, 197,803, ar Kay fee 17,803. Never price legs separately if the operator quotes the trip as one. C. Shared positioning, operator lowers its price from 100,000 to 92,000 because the empty return is sold. New client price 101,099 if the client is not yet contracted, if already contracted, the confirmation decides who benefits. D. Supplier item, ground transport quoted 1,200 in writing, operator all-in 60,000. ar Kay cost 61,200, client price 67,253, ar Kay fee 6,053. E. Currency, operator quotes in E U R, client pays in U S dollars. Convert the operator price with the payment provider exchange rate on the day of the quote, state the quote currency and that it is fixed only after payment. F. Post-flight, de-icing invoiced by the operator at 2,850. Charge 2,850 divided by 0.91 = 3,131.87, rounded up to 3,132, through a payment request, ar Kay fee 282. G. In-flight diversion for weather, extra handling 1,400. On the B13 list, charge 1,400 at cost, no ar Kay fee.",
+   "The fee is 9 percent on every booking. A different fee on a booking is the exception, only by the Director's decision before the quote is sent, with the reason recorded. Round client prices up, never down.",
    "Bar chart of three worked examples. One-way, cost 100,000, price 109,891. Multi-leg, cost 180,000, price 197,803. With a supplier item, cost 61,200, price 67,253."
   ]
  },
@@ -4070,7 +4070,7 @@
   ]
  },
  {
-  "key": "88278a5e",
+  "key": "2d4ead08",
   "kind": "lesson",
   "where": "m9 screen 7",
   "text": [
@@ -4078,13 +4078,13 @@
    "9.6 Presenting the quote",
    "Send the quote from Avinode, using the quote email template in Appendix B: aircraft type and year, seats, operator, schedule in local time, price, inclusions, the items charged after the flight and the expiry.",
    "Say \"tail to be confirmed\" if the aircraft is not yet fixed, and confirm it before the contract.",
-   "Never show the operator's price or our margin to the client.",
+   "Never show the operator's price or the Archē fee to the client.",
    "Quotes expire with the operator quote; re-confirm price and availability before sending the contract."
   ],
   "say": [
    "Pricing and quoting.",
    "Presenting the quote.",
-   "Send the quote from Avinode, using the quote email template in Appendix B, aircraft type and year, seats, operator, schedule in local time, price, inclusions, the items charged after the flight and the expiry. Say tail to be confirmed if the aircraft is not yet fixed, and confirm it before the contract. Never show the operator's price or our margin to the client. Quotes expire with the operator quote, re-confirm price and availability before sending the contract."
+   "Send the quote from Avinode, using the quote email template in Appendix B, aircraft type and year, seats, operator, schedule in local time, price, inclusions, the items charged after the flight and the expiry. Say tail to be confirmed if the aircraft is not yet fixed, and confirm it before the contract. Never show the operator's price or the ar Kay fee to the client. Quotes expire with the operator quote, re-confirm price and availability before sending the contract."
   ]
  },
  {
@@ -4107,7 +4107,7 @@
   ]
  },
  {
-  "key": "3671b814",
+  "key": "43b76965",
   "kind": "lesson",
   "where": "m9 screen 9",
   "text": [
@@ -4115,7 +4115,7 @@
    "9.8 Pricing client requests and operational extras",
    "Every client request and operational extra is charged in one of three ways. Agree which with the operator or the supplier in writing before the confirmation is issued.",
    "Included in the charter priceThe operator includes it in its all-in quote, for example standard catering or handlingNothing extra: it is part of the operator price",
-   "Fixed priceA supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal feeLike any supplier item Archē buys, it carries the 9% margin: supplier price ÷ 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away",
+   "Fixed priceA supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal feeLike any supplier item Archē buys, it carries the 9% Archē fee: supplier price ÷ 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away",
    "After the flightThe amount depends on the day: de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi useNo number before the flight (Module 9.2). Charged like the price, cost ÷ 0.91, rounded up, through a payment request; due when the operator or supplier wants payment and no later than 72 hours after the service (Part A, A7). Only B13 costs are at cost",
    "Worked example: an operator all-in price of USD 100,000 gives a charter price of 109,891. The client adds a car at arrival, quoted in writing at 1,200: the fixed line is 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319. Total payable: 111,210. The deposit stays at 25% of the charter price: 27,473. The balance of 83,737 is due 7 days before departure. Winter de-icing is listed as charged after the flight, cost ÷ 0.91."
   ],
@@ -4123,7 +4123,7 @@
    "Pricing and quoting.",
    "Pricing client requests and operational extras.",
    "Every client request and operational extra is charged in one of three ways. Agree which with the operator or the supplier in writing before the confirmation is issued.",
-   "Included in the charter price. when to use it, The operator includes it in its all-in quote, for example standard catering or handling. price and payment, Nothing extra, it is part of the operator price. Fixed price. when to use it, A supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal fee. price and payment, Like any supplier item ar Kay buys, it carries the 9 percent margin, supplier price divided by 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away. After the flight. when to use it, The amount depends on the day, de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi use. price and payment, No number before the flight, Module 9, section 2. Charged like the price, cost divided by 0.91, rounded up, through a payment request, due when the operator or supplier wants payment and no later than 72 hours after the service, Part A, A7. Only B13 costs are at cost.",
+   "Included in the charter price. when to use it, The operator includes it in its all-in quote, for example standard catering or handling. price and payment, Nothing extra, it is part of the operator price. Fixed price. when to use it, A supplier or the operator quotes it in writing before booking, for example a car, flowers or a private terminal fee. price and payment, Like any supplier item ar Kay buys, it carries the 9 percent ar Kay fee, supplier price divided by 0.91, rounded up. It is its own line on the confirmation and is paid with the balance, or with the full price when departure is less than 7 days away. After the flight. when to use it, The amount depends on the day, de-icing, extra parking or hangarage, out-of-hours fees, crew nights after a change, Wi-Fi use. price and payment, No number before the flight, Module 9, section 2. Charged like the price, cost divided by 0.91, rounded up, through a payment request, due when the operator or supplier wants payment and no later than 72 hours after the service, Part A, A7. Only B13 costs are at cost.",
    "Worked example, an operator all-in price of 100,000 U S dollars gives a charter price of 109,891. The client adds a car at arrival, quoted in writing at 1,200, the fixed line is 1,200 divided by 0.91 = 1,318.68, rounded up to 1,319. Total payable, 111,210. The deposit stays at 25 percent of the charter price, 27,473. The balance of 83,737 is due 7 days before departure. Winter de-icing is listed as charged after the flight, cost divided by 0.91."
   ]
  },
@@ -4224,41 +4224,41 @@
   ]
  },
  {
-  "key": "8541f3d3",
+  "key": "ac69baba",
   "kind": "question",
   "where": "m9 check question 3",
   "text": [
-   "Which items carry the 9% margin?",
+   "Which items carry the 9% Archē fee?",
    "aEvery cost, after the flight included, except the B13 list",
    "bOnly the operator price and confirmed supplier items",
    "cOnly the operator price",
    "dOnly extras"
   ],
   "say": [
-   "Which items carry the 9 percent margin?",
+   "Which items carry the 9 percent ar Kay fee?",
    "A. Every cost, after the flight included, except the B13 list. B. Only the operator price and confirmed supplier items. C. Only the operator price. D. Only extras."
   ]
  },
  {
-  "key": "9dd7999e",
+  "key": "93b0359d",
   "kind": "feedback",
   "where": "m9 check question 3",
   "text": [
-   "Right. The 9% margin applies to the operator price and to confirmed supplier items Archē buys."
+   "Right. The 9% Archē fee applies to the operator price and to confirmed supplier items Archē buys."
   ],
   "say": [
-   "Right. The 9 percent margin applies to the operator price and to confirmed supplier items ar Kay buys."
+   "Right. The 9 percent ar Kay fee applies to the operator price and to confirmed supplier items ar Kay buys."
   ]
  },
  {
-  "key": "63732cd9",
+  "key": "a214ea3c",
   "kind": "feedback",
   "where": "m9 check question 3",
   "text": [
-   "Not quite. The 9% margin applies to the operator price and to confirmed supplier items Archē buys."
+   "Not quite. The 9% Archē fee applies to the operator price and to confirmed supplier items Archē buys."
   ],
   "say": [
-   "Not quite. The 9 percent margin applies to the operator price and to confirmed supplier items ar Kay buys."
+   "Not quite. The 9 percent ar Kay fee applies to the operator price and to confirmed supplier items ar Kay buys."
   ]
  },
  {
@@ -4354,25 +4354,25 @@
   ]
  },
  {
-  "key": "51983984",
+  "key": "473080f1",
   "kind": "feedback",
   "where": "m9 check question 6",
   "text": [
-   "Right. Fixed supplier items carry the 9% margin like any item Archē buys: 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319."
+   "Right. Fixed supplier items carry the 9% Archē fee like any item Archē buys: 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319."
   ],
   "say": [
-   "Right. Fixed supplier items carry the 9 percent margin like any item ar Kay buys, 1,200 divided by 0.91 = 1,318.68, rounded up to 1,319."
+   "Right. Fixed supplier items carry the 9 percent ar Kay fee like any item ar Kay buys, 1,200 divided by 0.91 = 1,318.68, rounded up to 1,319."
   ]
  },
  {
-  "key": "43e13739",
+  "key": "9a732d06",
   "kind": "feedback",
   "where": "m9 check question 6",
   "text": [
-   "Not quite. Fixed supplier items carry the 9% margin like any item Archē buys: 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319."
+   "Not quite. Fixed supplier items carry the 9% Archē fee like any item Archē buys: 1,200 ÷ 0.91 = 1,318.68, rounded up to 1,319."
   ],
   "say": [
-   "Not quite. Fixed supplier items carry the 9 percent margin like any item ar Kay buys, 1,200 divided by 0.91 = 1,318.68, rounded up to 1,319."
+   "Not quite. Fixed supplier items carry the 9 percent ar Kay fee like any item ar Kay buys, 1,200 divided by 0.91 = 1,318.68, rounded up to 1,319."
   ]
  },
  {
@@ -4485,7 +4485,7 @@
   ]
  },
  {
-  "key": "e23c6a73",
+  "key": "969ef70d",
   "kind": "lesson",
   "where": "m10 screen 3",
   "text": [
@@ -4496,9 +4496,9 @@
    "3Client signs and pays through a payment request from our payment provider (bank transfer, card or instant payment); the money is recorded when it has clearedPayment provider, portal",
    "4Operator contract signed, only once the client money held covers what the operator wants at signing and its cancellation charge from then onAvinode",
    "5Operator paid from the payment account, only from cleared client money, never more than has been received and never more than the operator pricePayment provider, portal",
-   "6Archē's margin is transferred to Archē's operating account at Citi Singapore (account being set up)Citi Singapore",
-   "Only our margin enters Archē's own bank account. Operator money never passes through it.",
-   "Clientpays the requestPayment providerholds client fundsOperatorpaid on its terms Archē accountonly the marginCiti Singapore (being set up)Operator money never passes through Archē's own account.",
+   "6The Archē fee is transferred to Archē's operating account at Citi Singapore (account being set up)Citi Singapore",
+   "Only the Archē fee enters Archē's own bank account. Operator money never passes through it.",
+   "Clientpays the requestPayment providerholds client fundsOperatorpaid on its terms Archē accountonly the Archē feeCiti Singapore (being set up)Operator money never passes through Archē's own account.",
    "The rule behind the order: Archē never pre-funds. At every moment the client money held covers what Archē would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, the Director, or a person the Director has mandated, cancels with the operator before the operator's next charge starts; the portal shows that date on Today.",
    "Deadlines the portal watches",
    "Payment reminders: when the Director has switched them on, the client gets an email 3 days and 1 day before each payment in the schedule, until the money has cleared.",
@@ -4510,9 +4510,9 @@
   "say": [
    "Contract, payment and settlement.",
    "How money moves.",
-   "1. what happens, Request to Book sent on Avinode, the operator holds the aircraft until a stated time, its contract is received and checked against the terms in the portal. where, Avinode, portal. 2. what happens, Charter confirmation issued, with this booking's payment schedule and cancellation charges, the offer ends before the operator's hold does. where, Portal. 3. what happens, Client signs and pays through a payment request from our payment provider, bank transfer, card or instant payment, the money is recorded when it has cleared. where, Payment provider, portal. 4. what happens, Operator contract signed, only once the client money held covers what the operator wants at signing and its cancellation charge from then on. where, Avinode. 5. what happens, Operator paid from the payment account, only from cleared client money, never more than has been received and never more than the operator price. where, Payment provider, portal. 6. what happens, ar Kay's margin is transferred to ar Kay's operating account at Citi Singapore, account being set up. where, Citi Singapore.",
-   "Only our margin enters ar Kay's own bank account. Operator money never passes through it.",
-   "Diagram. The client pays the payment request. The payment account holds the funds and the operator is paid on its terms. Only ar Kay's margin moves to ar Kay's own account at Citi Singapore.",
+   "1. what happens, Request to Book sent on Avinode, the operator holds the aircraft until a stated time, its contract is received and checked against the terms in the portal. where, Avinode, portal. 2. what happens, Charter confirmation issued, with this booking's payment schedule and cancellation charges, the offer ends before the operator's hold does. where, Portal. 3. what happens, Client signs and pays through a payment request from our payment provider, bank transfer, card or instant payment, the money is recorded when it has cleared. where, Payment provider, portal. 4. what happens, Operator contract signed, only once the client money held covers what the operator wants at signing and its cancellation charge from then on. where, Avinode. 5. what happens, Operator paid from the payment account, only from cleared client money, never more than has been received and never more than the operator price. where, Payment provider, portal. 6. what happens, The ar Kay fee is transferred to ar Kay's operating account at Citi Singapore, account being set up. where, Citi Singapore.",
+   "Only the ar Kay fee enters ar Kay's own bank account. Operator money never passes through it.",
+   "Diagram. The client pays the payment request. The payment account holds the funds and the operator is paid on its terms. Only the ar Kay fee moves to ar Kay's own account at Citi Singapore.",
    "The rule behind the order, ar Kay never pre-funds. At every moment the client money held covers what ar Kay would owe the operator if the trip were cancelled then. If a client payment is missing on its due date, the Director, or a person the Director has mandated, cancels with the operator before the operator's next charge starts, the portal shows that date on Today.",
    "Deadlines the portal watches.",
    "Payment reminders, when the Director has switched them on, the client gets an email 3 days and 1 day before each payment in the schedule, until the money has cleared. Client payment overdue, an urgent alert to the Director at once, the next person is added if nobody acts. Unsigned offer past its validity, it lapses by itself. Confirm the operator's hold before accepting a signature or money, or close it. Critical, operator deadline, the highest alert, from 12 hours before the operator's charge or payment rises on a booking whose operator contract is signed, while the client money does not cover it or the operator is not paid, everyone involved, the Director, the trip's broker, gets a phone alert every 10 minutes day and night, an email every hour and a red bar on every page, until the money clears, the operator is paid or the booking is cancelled. ar Kay is liable from that moment. Cancelling is one click by the Director or a person the Director has mandated, never automatic, cancel on Avinode first and get the operator's written charge, enter it, then send. The portal sends the client the notice with the A9 charge and records the cancellation."
@@ -4551,7 +4551,7 @@
   ]
  },
  {
-  "key": "ffb4a330",
+  "key": "87e8334f",
   "kind": "lesson",
   "where": "m10 screen 6",
   "text": [
@@ -4563,12 +4563,12 @@
    "Card payments can be disputed later: keep the signed confirmation and proof of the flight in the file.",
    "Keep the booking file for the period set by Archē's record-keeping rule.",
    "Separate duties: the person who sold a trip never issues its confirmation or records its payments; a second person does.",
-   "Margin: 9% of the client price is the minimum. A different margin on a trip, higher or lower, is only for special circumstances and only by the Director's decision, with the reason recorded in the portal."
+   "Archē fee: a fixed 9% of the client price on every booking. A different fee on a booking, higher or lower, is the exception, only at the Director's discretion, with the reason recorded in the portal."
   ],
   "say": [
    "Contract, payment and settlement.",
    "Financial controls.",
-   "No credit, every flight is paid in full as agreed before departure. Check the payment account every day, payments received, payments to operators and refunds match the bookings. Currency, the quote states its currency, a price in another currency is fixed only once paid. Card payments can be disputed later, keep the signed confirmation and proof of the flight in the file. Keep the booking file for the period set by ar Kay's record-keeping rule. Separate duties, the person who sold a trip never issues its confirmation or records its payments, a second person does. Margin, 9 percent of the client price is the minimum. A different margin on a trip, higher or lower, is only for special circumstances and only by the Director's decision, with the reason recorded in the portal."
+   "No credit, every flight is paid in full as agreed before departure. Check the payment account every day, payments received, payments to operators and refunds match the bookings. Currency, the quote states its currency, a price in another currency is fixed only once paid. Card payments can be disputed later, keep the signed confirmation and proof of the flight in the file. Keep the booking file for the period set by ar Kay's record-keeping rule. Separate duties, the person who sold a trip never issues its confirmation or records its payments, a second person does. ar Kay fee, a fixed 9 percent of the client price on every booking. A different fee on a booking, higher or lower, is the exception, only at the Director's discretion, with the reason recorded in the portal."
   ]
  },
  {
@@ -4621,7 +4621,7 @@
   ]
  },
  {
-  "key": "24762ea8",
+  "key": "d75dc090",
   "kind": "keypoints",
   "where": "m10 screen 9",
   "text": [
@@ -4629,7 +4629,7 @@
    "Key points",
    "Before the module check, try to say each point in your own words.",
    "Our terms are never softer than the operator's.",
-   "Client money and operator money run through a payment request; only our margin reaches Archē's account.",
+   "Client money and operator money run through a payment request; only the Archē fee reaches Archē's account.",
    "No flight departs until paid in full.",
    "Deposit 25% (at least USD 2,500); balance 7 days before; under 7 days, pay in full on signature."
   ],
@@ -4637,7 +4637,7 @@
    "Contract, payment and settlement.",
    "Key points.",
    "Before the module check, try to say each point in your own words.",
-   "Our terms are never softer than the operator's. Client money and operator money run through a payment request, only our margin reaches ar Kay's account. No flight departs until paid in full. Deposit 25 percent, at least 2,500 U S dollars, balance 7 days before, under 7 days, pay in full on signature."
+   "Our terms are never softer than the operator's. Client money and operator money run through a payment request, only the ar Kay fee reaches ar Kay's account. No flight departs until paid in full. Deposit 25 percent, at least 2,500 U S dollars, balance 7 days before, under 7 days, pay in full on signature."
   ]
  },
  {
@@ -4695,41 +4695,41 @@
   ]
  },
  {
-  "key": "a84100a9",
+  "key": "694846a8",
   "kind": "feedback",
   "where": "m10 check question 2",
   "text": [
-   "Right. Clients pay through a payment request and operators are paid from our payment account. Only Archē's margin reaches Archē's own account."
+   "Right. Clients pay through a payment request and operators are paid from our payment account. Only the Archē fee reaches Archē's own account."
   ],
   "say": [
-   "Right. Clients pay through a payment request and operators are paid from our payment account. Only ar Kay's margin reaches ar Kay's own account."
+   "Right. Clients pay through a payment request and operators are paid from our payment account. Only the ar Kay fee reaches ar Kay's own account."
   ]
  },
  {
-  "key": "2a972e0a",
+  "key": "ada1adcd",
   "kind": "feedback",
   "where": "m10 check question 2",
   "text": [
-   "Not quite. Clients pay through a payment request and operators are paid from our payment account. Only Archē's margin reaches Archē's own account."
+   "Not quite. Clients pay through a payment request and operators are paid from our payment account. Only the Archē fee reaches Archē's own account."
   ],
   "say": [
-   "Not quite. Clients pay through a payment request and operators are paid from our payment account. Only ar Kay's margin reaches ar Kay's own account."
+   "Not quite. Clients pay through a payment request and operators are paid from our payment account. Only the ar Kay fee reaches ar Kay's own account."
   ]
  },
  {
-  "key": "75c9d86f",
+  "key": "c614903c",
   "kind": "question",
   "where": "m10 check question 3",
   "text": [
    "Which money enters Archē's Citi account?",
    "aFull client payment",
-   "bOnly Archē's margin",
+   "bOnly the Archē fee",
    "cOperator payment",
    "dNothing"
   ],
   "say": [
    "Which money enters ar Kay's Citi account?",
-   "A. Full client payment. B. Only ar Kay's margin. C. Operator payment. D. Nothing."
+   "A. Full client payment. B. Only the ar Kay fee. C. Operator payment. D. Nothing."
   ]
  },
  {
@@ -5344,7 +5344,7 @@
   ]
  },
  {
-  "key": "a13c06dc",
+  "key": "b8530881",
   "kind": "lesson",
   "where": "m12 screen 6",
   "text": [
@@ -5352,14 +5352,14 @@
    "12.5 Negotiating with clients",
    "New enquiryQualifiedQuotedWonLost? Record the reason: price, aircraft, timing, no decision. It shows what to fix.Every enquiry moves through the pipeline in the CRM.",
    "Sell value, not discounts: aircraft, operator safety, service and certainty.",
-   "Offer two or three options at different prices rather than cutting the margin.",
-   "Below 9% needs the Director's approval (Module 9)."
+   "Offer two or three options at different prices rather than cutting the fee.",
+   "The fee is 9%; any other fee is the Director's decision (Module 9)."
   ],
   "say": [
    "Selling and account management.",
    "Negotiating with clients.",
    "Funnel, new enquiry, qualified, quoted, won. For every lost enquiry, record the reason, such as price, aircraft, timing or no decision.",
-   "Sell value, not discounts, aircraft, operator safety, service and certainty. Offer two or three options at different prices rather than cutting the margin. Below 9 percent needs the Director's approval, Module 9."
+   "Sell value, not discounts, aircraft, operator safety, service and certainty. Offer two or three options at different prices rather than cutting the fee. The fee is 9 percent, any other fee is the Director's decision, Module 9."
   ]
  },
  {
@@ -5420,19 +5420,19 @@
   ]
  },
  {
-  "key": "49d2cde3",
+  "key": "259ddcdb",
   "kind": "question",
   "where": "m12 check question 2",
   "text": [
    "A client says another broker is cheaper. First step?",
-   "aCut our margin",
+   "aCut our fee",
    "bCompare like for like",
    "cCriticise the other broker",
    "dEnd the call"
   ],
   "say": [
    "A client says another broker is cheaper. First step?",
-   "A. Cut our margin. B. Compare like for like. C. Criticise the other broker. D. End the call."
+   "A. Cut our fee. B. Compare like for like. C. Criticise the other broker. D. End the call."
   ]
  },
  {
@@ -5458,41 +5458,41 @@
   ]
  },
  {
-  "key": "49366f47",
+  "key": "b0bef94f",
   "kind": "question",
   "where": "m12 check question 3",
   "text": [
    "A client says the price is too high. What is the best first answer?",
-   "aCut the margin at once",
+   "aCut the fee at once",
    "bOffer two or three aircraft options at different prices",
    "cCriticise the operator",
    "dEnd the call"
   ],
   "say": [
    "A client says the price is too high. What is the best first answer?",
-   "A. Cut the margin at once. B. Offer two or three aircraft options at different prices. C. Criticise the operator. D. End the call."
+   "A. Cut the fee at once. B. Offer two or three aircraft options at different prices. C. Criticise the operator. D. End the call."
   ]
  },
  {
-  "key": "caa2de50",
+  "key": "f2bc256a",
   "kind": "feedback",
   "where": "m12 check question 3",
   "text": [
-   "Right. Offer options at different prices and sell the value, rather than cutting the margin."
+   "Right. Offer options at different prices and sell the value, rather than cutting the fee."
   ],
   "say": [
-   "Right. Offer options at different prices and sell the value, rather than cutting the margin."
+   "Right. Offer options at different prices and sell the value, rather than cutting the fee."
   ]
  },
  {
-  "key": "b46f0533",
+  "key": "ec549ae3",
   "kind": "feedback",
   "where": "m12 check question 3",
   "text": [
-   "Not quite. Offer options at different prices and sell the value, rather than cutting the margin."
+   "Not quite. Offer options at different prices and sell the value, rather than cutting the fee."
   ],
   "say": [
-   "Not quite. Offer options at different prices and sell the value, rather than cutting the margin."
+   "Not quite. Offer options at different prices and sell the value, rather than cutting the fee."
   ]
  },
  {
@@ -5823,7 +5823,7 @@
   ]
  },
  {
-  "key": "00e209ae",
+  "key": "4e639c22",
   "kind": "lesson",
   "where": "m14 screen 5",
   "text": [
@@ -5837,7 +5837,7 @@
    "AOG: the booked aircraft is unserviceable 6 hours before departureCalm, facts first; the operator's written replacement options; extra cost approved by the Director, never promised on the call (Module 11.3)",
    "The assistant refuses the 25% deposit and wants to pay after the flightExplain the booking terms (Module 10.6) and why the operator must be secured; offer card or bank payment options; no exceptions without the Director",
    "The principal insists on a domestic leg on a foreign-registered aircraftExplain cabotage in plain words; offer a local operator for that leg or a new routing; never sell it (Module 2.4)",
-   "\"Another broker quoted 15% less\"Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; margin below 9% only with Director approval (Module 12.5)",
+   "\"Another broker quoted 15% less\"Compare like for like (aircraft, year, operator, rating, inclusions); offer two or three options; a fee other than 9% only by the Director's decision (Module 12.5)",
    "A passenger is added on the dayNames to the operator at once; permits, insurance and seats confirmed in writing before you agree",
    "The client wants to bring a dog to a strict-entry countryDestination rules and the operator's written acceptance first; offer a route and airport that work (Appendix G.4)",
    "De-icing delays departure and the client is angry about the chargeSafety is the crew's decision; it is charged like the price, cost ÷ 0.91, as the confirmation says (Module 9.2)",
@@ -5861,7 +5861,7 @@
    "Knowing the rules is not enough, U H N W clients and their assistants test a broker's calm and judgement under pressure. The lab practises this out loud. Your supervisor or the Director plays the client, the assistant or the operator, the trainee does not see the script. Each session takes about 30 minutes and covers two or three scenarios.",
    "Stage 4, shadowing, two practice sessions, recorded on the scoring sheet but not graded. Stage 5, practical exam, one scored session with the Director. Pass, 70 or more out of 100, and neither critical point broken. Annual refresher, one session for every certified broker.",
    "Scenario bank.",
-   "A O G, the booked aircraft is unserviceable 6 hours before departure. Calm, facts first, the operator's written replacement options, extra cost approved by the Director, never promised on the call, Module 11, section 3. The assistant refuses the 25 percent deposit and wants to pay after the flight. Explain the booking terms, Module 10, section 6, and why the operator must be secured, offer card or bank payment options, no exceptions without the Director. The principal insists on a domestic leg on a foreign-registered aircraft. Explain cabotage in plain words, offer a local operator for that leg or a new routing, never sell it, Module 2, section 4. Another broker quoted 15 percent less. Compare like for like, aircraft, year, operator, rating, inclusions, offer two or three options, margin below 9 percent only with Director approval, Module 12, section 5. A passenger is added on the day. Names to the operator at once, permits, insurance and seats confirmed in writing before you agree. The client wants to bring a dog to a strict-entry country. Destination rules and the operator's written acceptance first, offer a route and airport that work, Appendix G, section 4. De-icing delays departure and the client is angry about the charge. Safety is the crew's decision, it is charged like the price, cost divided by 0.91, as the confirmation says, Module 9, section 2. The client asks to pay into a personal account or sends new bank details by chat. Stop, payment request only, treat as fraud until proven otherwise, Module 3, section 5. The client asks to leave a passenger's name off the manifest. Refuse politely, tell the Director, Module 2, section 4. Screening shows a possible sanctions match on the payer. Pause without accusing, say you need a short internal check, tell the Director, Module 3, section 2. The client demands a guaranteed departure time in winter. Promise only what the operator confirms in writing, explain de-icing and slots, Module 6, section 4. Complaint after the flight about catering and a late car. Listen, apologise for the experience, agree what happens and by when, record it, service recovery steps in Module 11, section 4.",
+   "A O G, the booked aircraft is unserviceable 6 hours before departure. Calm, facts first, the operator's written replacement options, extra cost approved by the Director, never promised on the call, Module 11, section 3. The assistant refuses the 25 percent deposit and wants to pay after the flight. Explain the booking terms, Module 10, section 6, and why the operator must be secured, offer card or bank payment options, no exceptions without the Director. The principal insists on a domestic leg on a foreign-registered aircraft. Explain cabotage in plain words, offer a local operator for that leg or a new routing, never sell it, Module 2, section 4. Another broker quoted 15 percent less. Compare like for like, aircraft, year, operator, rating, inclusions, offer two or three options, a fee other than 9 percent only by the Director's decision, Module 12, section 5. A passenger is added on the day. Names to the operator at once, permits, insurance and seats confirmed in writing before you agree. The client wants to bring a dog to a strict-entry country. Destination rules and the operator's written acceptance first, offer a route and airport that work, Appendix G, section 4. De-icing delays departure and the client is angry about the charge. Safety is the crew's decision, it is charged like the price, cost divided by 0.91, as the confirmation says, Module 9, section 2. The client asks to pay into a personal account or sends new bank details by chat. Stop, payment request only, treat as fraud until proven otherwise, Module 3, section 5. The client asks to leave a passenger's name off the manifest. Refuse politely, tell the Director, Module 2, section 4. Screening shows a possible sanctions match on the payer. Pause without accusing, say you need a short internal check, tell the Director, Module 3, section 2. The client demands a guaranteed departure time in winter. Promise only what the operator confirms in writing, explain de-icing and slots, Module 6, section 4. Complaint after the flight about catering and a late car. Listen, apologise for the experience, agree what happens and by when, record it, service recovery steps in Module 11, section 4.",
    "Scoring sheet.",
    "Calm and courteous under pressure. 20. Correct rule, explained in plain words. points, 30. critical, Yes, a wrong rule fails the lab. Options offered instead of a flat no. 20. No promise the operator has not confirmed in writing. points, pass or fail. critical, Yes, any such promise fails the lab. Escalates when the rules say so. 15. Written follow-up within 1 hour. 15.",
    "Template B, section 10 is the printable scoring sheet. The Director may add new scenarios at any time, they go into the bank and into the A I practice partner."
@@ -6214,7 +6214,7 @@
   ]
  },
  {
-  "key": "7c60d18b",
+  "key": "127b3817",
   "kind": "lesson",
   "where": "sys screen 5",
   "text": [
@@ -6224,7 +6224,7 @@
    "Who uses it: Everyone",
    "How it works",
    "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
-   "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A different margin only by the Director's decision, with the reason recorded.",
+   "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: the Archē fee is a fixed 9% of what the client pays. A different fee on a booking is the exception, only at the Director's discretion, with the reason recorded.",
    "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
    "Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost ÷ 0.91, through a payment request: due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list (unforeseeable costs after departure, such as an in-flight diversion) is at cost; de-icing never is. A card is held on every trip; anything asked for during the trip is arranged only once paid.",
    "Clients pay only through a payment request. Never print, store or send bank details.",
@@ -6238,7 +6238,7 @@
    "If something goes wrong",
    "A client asks for our bank detailsNever send them. The client pays through the payment request you create.",
    "A client wants to fly in 3 daysFull payment is due at once, before the operator is paid. Create the payment request straight away.",
-   "You want to offer a client less than the 9% marginAsk the Director first: any other margin is the Director's decision, with the reason recorded.",
+   "You want to charge a client a fee other than 9%Ask the Director first: any other fee is the Director's decision, with the reason recorded.",
    "A client rates the trip 3 or lowerStart service recovery: call the client, find out what went wrong and tell the Director.",
    "A happy client offers a reviewQuote it publicly only with their written consent, and never reward reviews.",
    "Tips",
@@ -6250,11 +6250,11 @@
    "The business rules the portal enforces. Know them before your first enquiry.",
    "Who uses it, Everyone.",
    "How it works.",
-   "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in U S dollars. Client price =, operator price plus direct trip costs, divided by 0.91, rounded up, ar Kay keeps 9 percent of what the client pays. A different margin only by the Director's decision, with the reason recorded. Deposit 25 percent of the charter price, at least 2,500, U S dollars on signature, the balance 7 days before the first departure, full payment at once if departure is less than 7 days away. Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost divided by 0.91, through a payment request, due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list, unforeseeable costs after departure, such as an in-flight diversion, is at cost, de-icing never is. A card is held on every trip, anything asked for during the trip is arranged only once paid. Clients pay only through a payment request. Never print, store or send bank details. The Director, or a person the Director has mandated, authorises every booking before a confirmation is issued, a price change afterwards sends it back. Four-eyes, nobody prices, authorises, issues or records payment on their own trip, the Director included. Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the Director, or a person the Director has mandated. Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request, a score of 3 or less starts service recovery. Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews.",
+   "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in U S dollars. Client price =, operator price plus direct trip costs, divided by 0.91, rounded up, the ar Kay fee is a fixed 9 percent of what the client pays. A different fee on a booking is the exception, only at the Director's discretion, with the reason recorded. Deposit 25 percent of the charter price, at least 2,500, U S dollars on signature, the balance 7 days before the first departure, full payment at once if departure is less than 7 days away. Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost divided by 0.91, through a payment request, due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list, unforeseeable costs after departure, such as an in-flight diversion, is at cost, de-icing never is. A card is held on every trip, anything asked for during the trip is arranged only once paid. Clients pay only through a payment request. Never print, store or send bank details. The Director, or a person the Director has mandated, authorises every booking before a confirmation is issued, a price change afterwards sends it back. Four-eyes, nobody prices, authorises, issues or records payment on their own trip, the Director included. Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the Director, or a person the Director has mandated. Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request, a score of 3 or less starts service recovery. Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews.",
    "Try it in the test version, as Test Broker.",
    "Make a test enquiry with an operator price of 30,000 U S dollars and check the client price, 30,000 divided by 0.91, rounded up, is 32,968 U S dollars.",
    "If something goes wrong.",
-   "A client asks for our bank details. Never send them. The client pays through the payment request you create. A client wants to fly in 3 days. Full payment is due at once, before the operator is paid. Create the payment request straight away. You want to offer a client less than the 9 percent margin. Ask the Director first, any other margin is the Director's decision, with the reason recorded. A client rates the trip 3 or lower. Start service recovery, call the client, find out what went wrong and tell the Director. A happy client offers a review. Quote it publicly only with their written consent, and never reward reviews.",
+   "A client asks for our bank details. Never send them. The client pays through the payment request you create. A client wants to fly in 3 days. Full payment is due at once, before the operator is paid. Create the payment request straight away. You want to charge a client a fee other than 9 percent. Ask the Director first, any other fee is the Director's decision, with the reason recorded. A client rates the trip 3 or lower. Start service recovery, call the client, find out what went wrong and tell the Director. A happy client offers a review. Quote it publicly only with their written consent, and never reward reviews.",
    "Tips.",
    "If you are unsure about a rule, ask the co-pilot or Help before you send the trip for authorisation."
   ]
@@ -6857,7 +6857,7 @@
   ]
  },
  {
-  "key": "f0d7b75d",
+  "key": "76501ba2",
   "kind": "lesson",
   "where": "sys screen 21",
   "text": [
@@ -6868,14 +6868,14 @@
    "How it works",
    "The Director records the date the client payment cleared in the payment account.",
    "The Director records the operator payment.",
-   "Costs beyond the price (Booking with the operator, A7): enter what it is and its cost; the portal charges it like the price, cost ÷ 0.91, or at cost when you tick the B13 list. Send the client a payment request at once; it is due when the operator wants payment and no later than 72 hours after the service. The margin counts towards commission.",
+   "Costs beyond the price (Booking with the operator, A7): enter what it is and its cost; the portal charges it like the price, cost ÷ 0.91, or at cost when you tick the B13 list. Send the client a payment request at once; it is due when the operator wants payment and no later than 72 hours after the service. The Archē fee on it counts towards commission.",
    "After the last leg, the Director records the flight date.",
    "Commission appears in the month the trip flew, paid by the 15th of the next month; the Director marks it paid.",
    "Try it in the test version, as Test Director",
    "As Test Director, record the client payment and the flight, then switch to Test Broker and see the commission.",
    "If something goes wrong",
    "My trip flew but no commissionThe client payment has not been recorded, or the flight date has not. Ask the Director.",
-   "Commission seems lowCommission is a share of gross profit, including the margin on fixed-price extras and on costs charged after the flight; only B13 costs, charged at cost, carry no margin.",
+   "Commission seems lowCommission is a share of the Archē fee, including the fee on fixed-price extras and on costs charged after the flight; only B13 costs, charged at cost, carry no fee.",
    "Tips",
    "Chase unpaid confirmations after 5 days: the Control page flags them.",
    "Record flights the day they happen, so Today stays true."
@@ -6886,11 +6886,11 @@
    "Record money and flights so commission is right and on time.",
    "Who uses it, The Director, or a person the Director has mandated, records, everyone sees their own commission.",
    "How it works.",
-   "The Director records the date the client payment cleared in the payment account. The Director records the operator payment. Costs beyond the price, Booking with the operator, A7, enter what it is and its cost, the portal charges it like the price, cost divided by 0.91, or at cost when you tick the B13 list. Send the client a payment request at once, it is due when the operator wants payment and no later than 72 hours after the service. The margin counts towards commission. After the last leg, the Director records the flight date. Commission appears in the month the trip flew, paid by the 15th of the next month, the Director marks it paid.",
+   "The Director records the date the client payment cleared in the payment account. The Director records the operator payment. Costs beyond the price, Booking with the operator, A7, enter what it is and its cost, the portal charges it like the price, cost divided by 0.91, or at cost when you tick the B13 list. Send the client a payment request at once, it is due when the operator wants payment and no later than 72 hours after the service. The ar Kay fee on it counts towards commission. After the last leg, the Director records the flight date. Commission appears in the month the trip flew, paid by the 15th of the next month, the Director marks it paid.",
    "Try it in the test version, as Test Director.",
    "As Test Director, record the client payment and the flight, then switch to Test Broker and see the commission.",
    "If something goes wrong.",
-   "My trip flew but no commission. The client payment has not been recorded, or the flight date has not. Ask the Director. Commission seems low. Commission is a share of gross profit, including the margin on fixed-price extras and on costs charged after the flight, only B13 costs, charged at cost, carry no margin.",
+   "My trip flew but no commission. The client payment has not been recorded, or the flight date has not. Ask the Director. Commission seems low. Commission is a share of the ar Kay fee, including the fee on fixed-price extras and on costs charged after the flight, only B13 costs, charged at cost, carry no fee.",
    "Tips.",
    "Chase unpaid confirmations after 5 days, the Control page flags them. Record flights the day they happen, so Today stays true."
   ]

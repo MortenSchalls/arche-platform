@@ -120,7 +120,7 @@ m2:{ intro:"Arche sells worldwide, so we meet many sets of rules. This module gi
   {olist:["That Arche Executive acts as a charter broker and not as the operator.","The operator's full legal name as shown on its AOC, and any trading name it uses.","The aircraft type, registration and year of manufacture, or \"type or similar\" until the tail is fixed.","The total price, what it includes, and every item that may be charged after the flight and how.","The passenger insurance the operator carries, as confirmed by the operator, and whether Arche itself holds liability insurance."]},
   {links:[L.p295,L.nbaaCG]}]},
  {h:"2.3 Our contract position", b:[
-  {p:"All bookings run through Avinode, and all client and operator payments run through our payment account, so that only Arche's margin enters Arche's own account. Use only the approved Arche charter confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms."}]},
+  {p:"All bookings run through Avinode, and all client and operator payments run through our payment account, so that only the Arche fee enters Arche's own account. Use only the approved Arche charter confirmation (Part A Key Booking Terms and Part B Standard Conditions), never your own wording, and never agree to change liability, cancellation or payment terms."}]},
  {h:"2.4 Flights we never sell", b:[
   {table:{cols:["Never sell","Why","What to do"],rows:[
    ["A flight by an operator without a commercial AOC, or on an aircraft not listed on its AOC","Illegal charter: uninsured and unsafe","Reject; report to the Director"],

@@ -1,6 +1,6 @@
 {
- "site_hash": "8fe266310f5391c5009c2da7602e1977a39789ec58417f86f93cfbc6eed24add",
- "checked": "2026-11-14T02:11:34.637Z",
+ "site_hash": "358ee924d085c72967e3d1ac50c6cd40b95a10c9338b90b01fe65cab84ece8bd",
+ "checked": "2026-11-15T23:51:49.830Z",
  "pages": 89,
  "widths": [
   1920,
@@ -10,5 +10,12 @@
   800,
   390
  ],
- "findings": []
+ "findings": [
+  {
+   "page": "/contact/th/",
+   "width": 390,
+   "kind": "sideways",
+   "what": "page 406px wide"
+  }
+ ]
 }

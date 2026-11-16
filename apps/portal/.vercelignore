@@ -1,0 +1,11 @@
+# Files that are only for building and testing the portal are not deployed, so nobody can download them from
+# portal.archeaviation.com (Morten, 16 Nov 2026: "ensure the live portal still is only accessible with log in, no one
+# outside the environment should be able to see this"). The portal itself carries the same code inside index.html.
+tests/
+src-modules/
+agreement/
+make_agreement.py
+make_academy.py
+build_test.py
+*.py
+# The example-data test version (test.html, academy.test.html, platform.test.js) stays until Morten decides on it.

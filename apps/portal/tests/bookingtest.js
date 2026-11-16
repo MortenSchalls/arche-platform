@@ -155,18 +155,18 @@ t=await trip();ok('terms taken from the library; aircraft and route must be conf
 // margin: 9% floor in Settings, the owner's own margin on one trip
 await as('Test Director');
 const floor=await p.evaluate(async()=>{S.view='settings';render();await new Promise(r=>setTimeout(r,500));const m=document.getElementById('t_m');if(!m)return 'no form';m.value='8';document.getElementById('termsForm').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));await new Promise(r=>setTimeout(r,500));return S.terms.margin;});
-ok('Settings refuses a margin below 9%',floor===0.09&&/cannot be below 9%/.test(lastToast()),[floor,lastToast()]);
+ok('Settings refuses an Archē fee below 9%',floor===0.09&&/cannot be below 9%/.test(lastToast()),[floor,lastToast()]);
 await p.evaluate(()=>{const t=allTrips().find(x=>x.d.client&&x.d.client.name==='Anna Example');S.sel=t.did;S.view='trips';render();});await p.waitForTimeout(600);
 const r2=await p.evaluate(async()=>{const t=tripById(S.sel);await statusWrite(t,{state:'review',confIssued:null},'test: back to review');await new Promise(r=>setTimeout(r,600));render();await new Promise(r=>setTimeout(r,400));return !!document.getElementById('bk_mp');});
-ok('the owner can set another margin on the trip',r2);
+ok('the Director can set another fee on the trip',r2);
 await p.evaluate(()=>{document.querySelector('#secBook details').open=true;});await p.fill('#bk_mp','12');await p.fill('#bk_mr','Example: repeat client, owner decision');await p.click('[data-bka="margin"]');await p.waitForTimeout(800);
-t=await trip();ok('trip margin 12%: price recomputed, reason kept',t.st.marginEx&&Math.abs(t.st.marginEx.pct-0.12)<1e-9&&t.st.price===Math.ceil(90000/0.88),t.st);
+t=await trip();ok('trip fee 12%: price recomputed, reason kept',t.st.marginEx&&Math.abs(t.st.marginEx.pct-0.12)<1e-9&&t.st.price===Math.ceil(90000/0.88),t.st);
 await shot('9-owner-margin','#secBook');
-ok('the approval card shows the owner\'s margin as decided',await p.evaluate(()=>apChecks(tripById(S.sel)).some(x=>x[0]&&/set by the Director/.test(x[1]))));
+ok('the approval card shows the Director\'s fee as decided',await p.evaluate(()=>apChecks(tripById(S.sel)).some(x=>x[0]&&/set by the Director/.test(x[1]))));
 await as('Test Operations');await p.evaluate(did=>{S.sel=did;S.view='trips';render();},did);await p.waitForTimeout(600);
-ok('operations cannot set a margin',!await p.$('#bk_mp'));
+ok('operations cannot set a fee',!await p.$('#bk_mp'));
 await p.fill('#o_op','90000');await p.click('[data-act="opsSave"]');await p.waitForTimeout(800);
-t=await trip();ok('operations saving again keeps the owner\'s margin',t.st.price===Math.ceil(90000/0.88),t.st.price);
+t=await trip();ok('operations saving again keeps the Director\'s fee',t.st.price===Math.ceil(90000/0.88),t.st.price);
 // the critical operator-deadline alert: the deadline arithmetic, and the red bar on every page for everyone involved
 await p.evaluate(async did=>{const t=tripById(did);await statusWrite(t,{state:'issued',confIssued:{rev:1,at:now(),data:{}},signed:{at:now()},book:{...(t.st.book||{}),signedAt:now()},receipts:[{date:new Date().toISOString().slice(0,10),amount:45000}],payouts:[{date:new Date().toISOString().slice(0,10),amount:45000}],clientPaid:false,operatorPaid:false},'test: re-issued, half paid');},did);await p.waitForTimeout(800);
 const ag=await p.evaluate(did=>{const t=tripById(did);const leg=t.d.trip.legs[0];const dep=Date.parse(leg.date+'T'+leg.time+':00Z');const at10=dep-10*864e5;return {before:aogOf(t,at10-13*3600e3),in:aogOf(t,at10-11*3600e3),after:aogOf(t,at10+3600e3)};},did);

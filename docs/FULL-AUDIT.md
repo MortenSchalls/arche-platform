@@ -18,7 +18,7 @@ says the same thing, in facts and figures, not only words:
 Search for every old wording and every contradicting figure (`git grep`), including code comments shown to users.
 
 ## 2. Facts and numbers
-Margin 9% (÷ 0.91), deposit 25% / USD 2,500, balance 7 days, response times (15 minutes, 1 hour, 48 hours for research
+Archē fee 9% of the client price (÷ 0.91), deposit 25% / USD 2,500, balance 7 days, response times (15 minutes, 1 hour, 48 hours for research
 leads, 24-hour follow-up), commission terms, insurance minimums, KYC refresh 12 months, contact deletion 12 months:
 the same in every place. Worked examples recomputed. Dates and version numbers current and consistent.
 

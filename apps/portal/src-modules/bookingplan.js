@@ -73,7 +73,7 @@
     if (!(b.contract && b.contract.matches)) out.push("the operator's contract checked against the operator terms on this trip");
     const vd = validDate || ((t.d.conf || {}).valid || {}).date;
     if (b.holdUntil && vd && vd > b.holdUntil.slice(0, 10)) out.push(`the offer expiry (${fmtD(vd)}) set no later than the operator's hold (${fmtD(b.holdUntil)})`);
-    if (!marginOk(t)) out.push("the price at the trip's margin (save the operations panel again)");
+    if (!marginOk(t)) out.push("the price at the trip's fee (save the operations panel again)");
     return out;
   };
 
@@ -268,7 +268,7 @@
     // margin
     const ex = st.marginEx, pct = f.P ? (f.P - f.O - f.D) / f.P * 100 : 0;
     const marg = `<p class="small" style="margin:8px 0 4px"><b>Margin</b> ${f.P ? `${pct.toFixed(1)}% · ${usd(f.P - f.O - f.D)}` : ""}${ex ? ` <span class="chip c-review">Set by the Director: ${(num(ex.pct) * 100).toFixed(1)}%</span> <span class="muted">${esc(ex.reason)} (${esc(fmtT(ex.at))})</span>` : ` <span class="muted">(${(S.terms.margin * 100).toFixed(0)}%, the rule)</span>`}</p>
-      ${own && !issued ? `<details class="small"><summary>Director: another margin on this trip (special circumstances)</summary><div class="fgrid"><label class="f" for="bk_mp">Margin for this trip (%)<input id="bk_mp" inputmode="decimal" value="${ex ? (num(ex.pct) * 100).toFixed(1) : ""}"></label><label class="f wide" for="bk_mr">Reason (kept in the audit log)<input id="bk_mr" value="${esc(ex ? ex.reason : "")}"></label></div><div class="row"><button class="btn small primary" type="button" data-bka="margin">Save the margin</button>${ex ? `<button class="btn small" type="button" data-bka="marginOff">Back to ${(S.terms.margin * 100).toFixed(0)}%</button>` : ""}</div></details>` : ""}`;
+      ${own && !issued ? `<details class="small"><summary>Director: another fee on this trip (the exception)</summary><div class="fgrid"><label class="f" for="bk_mp">Archē fee for this trip (%)<input id="bk_mp" inputmode="decimal" value="${ex ? (num(ex.pct) * 100).toFixed(1) : ""}"></label><label class="f wide" for="bk_mr">Reason (kept in the audit log)<input id="bk_mr" value="${esc(ex ? ex.reason : "")}"></label></div><div class="row"><button class="btn small primary" type="button" data-bka="margin">Save the fee</button>${ex ? `<button class="btn small" type="button" data-bka="marginOff">Back to ${(S.terms.margin * 100).toFixed(0)}%</button>` : ""}</div></details>` : ""}`;
     // after issue
     const dToday = today(), cumDue = BP.dueBy(pl.sched, dToday);
     const schedRows = pl.sched.map((x, i, all) => { const due = x.due === "signature" ? "On signature" : (i === all.length - 1 ? "Balance by " : "By ") + fmtD(x.due);
@@ -390,11 +390,11 @@
     const b = e.target.closest && e.target.closest("#secBook [data-bka]"); if (!b) return;
     const t = tripById(S.sel); if (!t) return; const a = b.dataset.bka, st = t.st || {};
     if (a.startsWith("margin")) { if (!(S.isOwner && acting() === "owner")) return;
-      try { if (a === "marginOff") { await stWrite(t, {marginEx: null, price: priceOf(st.opPrice, st.direct)}, "Margin back to the rule"); audit("Trip margin back to the rule", st.ref || t.did); toast("Back to the rule."); return; }
+      try { if (a === "marginOff") { await stWrite(t, {marginEx: null, price: priceOf(st.opPrice, st.direct)}, "Fee back to the rule (9%)"); audit("Trip fee back to the rule", st.ref || t.did); toast("Back to the rule."); return; }
         const pct = num(($("bk_mp") || {}).value) / 100, why = (($("bk_mr") || {}).value || "").trim();
-        if (!(pct > 0 && pct < 0.5)) { toast("Enter the margin in percent, e.g. 8 or 12."); return; } if (why.length < 10) { toast("Write the reason (at least 10 characters)."); return; }
+        if (!(pct > 0 && pct < 0.5)) { toast("Enter the fee in percent, e.g. 8 or 12."); return; } if (why.length < 10) { toast("Write the reason (at least 10 characters)."); return; }
         const ex = {pct, reason: why, by: S.uid, at: now()}, price = tripPrice({st: {marginEx: ex}}, st.opPrice, st.direct);
-        await stWrite(t, {marginEx: ex, price}, `Margin for this trip set by the Director: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip margin set by the Director", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Margin ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
+        await stWrite(t, {marginEx: ex, price}, `Archē fee for this trip set by the Director: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip fee set by the Director", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Archē fee ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
       return; }
     if (!staffOn(t)) { toast("Another person the Director has mandated, must do this on your own trip."); return; }
     try {
@@ -465,7 +465,7 @@
     return `<div class="panel tbl" style="margin-bottom:16px"><h2>Operator library</h2><p class="small muted">Saved from every issued, flown and cancelled booking: each operator's cancellation and payment terms, insurance, aircraft, routes and prices. Archē's own know-how: no client details. Brokers are offered the terms on file for the next trip.</p>
       ${!S.oplibAll ? `<p class="small muted">Loading…</p>` : ops.length ? `<table class="small"><thead><tr><th scope=col>Operator</th><th scope=col>Trips</th><th scope=col>Cancellation</th><th scope=col>Payment</th><th scope=col>Insurance</th><th scope=col>Last</th></tr></thead><tbody>${ops.map(o => { const l = o.last || {}, i = l.ins || {}, tr = o.trips || [];
         const flown = tr.filter(x => x.outcome === "flown").length, avgM = tr.length ? (tr.reduce((a, x) => a + num(x.marginPct), 0) / tr.length).toFixed(1) : "–";
-        return `<tr><td>${esc(o.name)}<br><span class="muted">${esc((o.regs || []).join(", "))}</span></td><td>${tr.length} <span class="muted">(${flown} flown, margin ${avgM}%)</span></td><td>${(l.terms || {}).cancelNone ? "none stated" : esc(fmtRows((l.terms || {}).cancel))}</td><td>${esc(fmtRows((l.terms || {}).pay))}</td><td>${esc(i.insurer || "–")}${i.expiry ? `<br><span class="${i.expiry < today() ? "" : "muted"}">to ${esc(fmtD(i.expiry))}</span>` : ""}</td><td>${esc(fmtD(l.at))}<br><span class="muted">${esc(l.ref || "")}</span></td></tr>`; }).join("")}</tbody></table>` : `<p class="small">Empty until the first booking with operator terms is issued.</p>`}</div>`;
+        return `<tr><td>${esc(o.name)}<br><span class="muted">${esc((o.regs || []).join(", "))}</span></td><td>${tr.length} <span class="muted">(${flown} flown, fee ${avgM}%)</span></td><td>${(l.terms || {}).cancelNone ? "none stated" : esc(fmtRows((l.terms || {}).cancel))}</td><td>${esc(fmtRows((l.terms || {}).pay))}</td><td>${esc(i.insurer || "–")}${i.expiry ? `<br><span class="${i.expiry < today() ? "" : "muted"}">to ${esc(fmtD(i.expiry))}</span>` : ""}</td><td>${esc(fmtD(l.at))}<br><span class="muted">${esc(l.ref || "")}</span></td></tr>`; }).join("")}</tbody></table>` : `<p class="small">Empty until the first booking with operator terms is issued.</p>`}</div>`;
   }
   window.oplibPanel = libPanel;
   if (typeof ALERT_EVENTS === "object") ALERT_EVENTS.money = "Booking money: client payment overdue, offer lapsed (critical operator-deadline alerts reach everyone involved anyway)";
@@ -488,8 +488,8 @@
   });
   // the Director's approval card: margin by the rule (or the Director's own decision), operator terms complete
   if (typeof apChecks === "function") { const _apc = apChecks; apChecks = function(t){
-    const out = _apc(t).filter(x => !/^Margin /.test(x[1])), st = t.st || {}, f = apFigures(t), ex = st.marginEx;
-    out.push(ex ? [true, `Margin ${(f.pct * 100).toFixed(1)}%, set by the Director: ${ex.reason}`] : [marginOk(t) && f.pct >= S.terms.margin - 0.0005, `Margin ${(f.pct * 100).toFixed(1)}%${f.pct >= S.terms.margin - 0.0005 ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
+    const out = _apc(t).filter(x => !/^Archē fee /.test(x[1])), st = t.st || {}, f = apFigures(t), ex = st.marginEx;
+    out.push(ex ? [true, `Archē fee ${(f.pct * 100).toFixed(1)}%, set by the Director: ${ex.reason}`] : [marginOk(t) && f.pct >= S.terms.margin - 0.0005, `Archē fee ${(f.pct * 100).toFixed(1)}%${f.pct >= S.terms.margin - 0.0005 ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
     const nd = opTermsNeeds(t.d), rd = opTermsBreaches(t.d); out.push([!nd.length && !rd.length, rd.length ? "Operator terms or insurance: red item" : nd.length ? "Operator terms or insurance incomplete" : "Operator terms and insurance complete"]);
     return out; }; }
   const _vControl = vControl; vControl = function(){ return _vControl() + libPanel(); };

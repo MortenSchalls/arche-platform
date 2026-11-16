@@ -3,7 +3,7 @@
 // The server is faked here (example data only); the real server is tested in tests/books.test.mjs and the SQL in supabase/tests/books.sql.
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const ctx=await b.newContext({viewport:{width:1300,height:1000},acceptDownloads:true});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
 let fail=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fail++;};
-const A=[['1000','Bank: operating account','asset','Cash and bank'],['1100','Client payment account (client money)','asset','Cash and bank'],['2100','Client money held for trips','liability','Client money'],['3000','Share capital','equity','Equity'],['4000','Charter brokerage margin','income','Revenue'],['5000','Broker commission','expense','Cost of sales'],['5900','Office and other operating costs','expense','Operating costs']].map(([code,name,kind,grp])=>({code,name,kind,grp,active:true}));
+const A=[['1000','Bank: operating account','asset','Cash and bank'],['1100','Client payment account (client money)','asset','Cash and bank'],['2100','Client money held for trips','liability','Client money'],['3000','Share capital','equity','Equity'],['4000','Archē fee (9% of booking value)','income','Revenue'],['5000','Broker commission','expense','Cost of sales'],['5900','Office and other operating costs','expense','Operating costs']].map(([code,name,kind,grp])=>({code,name,kind,grp,active:true}));
 let unlocked=false, posted=null, seen=[], matchCalls=[], recPost=null, postAll=null;
 await p.route('**/api/books',async r=>{const body=JSON.parse(r.request().postData()||'{}');seen.push(body.mode);const h=r.request().headers();const j=x=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(x)});
   if(body.mode==='unlockTotp'){unlocked=true;return j({session:'S'.repeat(43)});}
@@ -11,7 +11,7 @@ await p.route('**/api/books',async r=>{const body=JSON.parse(r.request().postDat
   if(!h['x-books-session'])return r.fulfill({status:401,contentType:'application/json',body:JSON.stringify({error:'locked'})});
   if(body.mode==='accounts')return j({accounts:A});
   if(body.mode==='overview')return j({entity:'Arche Aviation Pte. Ltd.',fy:{start:'2026-11-01',end:'2027-10-31'},pl:{totalIncome:9000,profit:6570},bs:{},bva:null,advice:[{sev:'high',area:'Books',text:'Example advice <b>not markup</b>',who:'You decide',src:''},{sev:'low',area:'Tax',text:'Set aside tax.',who:'Your accountant confirms',src:'https://www.iras.gov.sg/'}],errors:[],unmatched:1,chainOk:true,entries:5,settings:{},cash:[{code:'1000',name:'Bank: operating account',amount:25770},{code:'1100',name:'Client payment account (client money)',amount:9000}]});
-  if(body.mode==='journal')return j({rows:[{id:4,jdate:'2026-12-10',memo:'Margin earned, trip flown: AE-EX-1',kind:'auto',lines:[{account:'2100',debit:9000,credit:0},{account:'4000',debit:0,credit:9000}]}],from:'2026-11-01',to:'2026-12-31'});
+  if(body.mode==='journal')return j({rows:[{id:4,jdate:'2026-12-10',memo:'Archē fee earned, trip flown: AE-EX-1',kind:'auto',lines:[{account:'2100',debit:9000,credit:0},{account:'4000',debit:0,credit:9000}]}],from:'2026-11-01',to:'2026-12-31'});
   if(body.mode==='drafts')return j({rows:[]});
   if(body.mode==='todo')return j({count:5,bank:[{id:'abcdef1234567890abcdef',bank_account:'1010',bdate:'2026-12-10',amount:-20,amount_usd:-20,currency:'USD',description:'Card transaction of 20.00 USD issued by Example Software Inc',journal_id:null,status:'suggested',suggestion:{account:'5900',why:'Last time "example software" went to this account'}},
       {id:'0123456789abcdef0123',bank_account:'1020',bdate:'2026-12-09',amount:-135,amount_usd:-100,currency:'SGD',fx_source:'ECB reference rate 2026-12-09',description:'Sent money to Example Supplier',journal_id:null,status:'suggested',suggestion:{receipt:'rc-1',why:'Pays the bill from Example Supplier of 2026-12-01'}}],
@@ -26,7 +26,7 @@ await p.route('**/api/books',async r=>{const body=JSON.parse(r.request().postDat
   if(body.mode==='recurring')return j({rows:[{id:'rp1',memo:'Office rent',active:true,next_date:'2027-01-01',every_months:1}]});
   if(body.mode==='post'){posted=body.entry;return j({ok:true,id:7});}
   if(body.mode==='bankLines')return j({rows:[{id:'abcdef1234567890abcdef',bank_account:'1010',bdate:'2026-12-02',amount:100000,description:'Received money from Example Client',journal_id:null}]});
-  if(body.mode==='report')return j({type:'pl',report:{from:'2026-11-01',to:'2026-12-31',income:[{code:'4000',name:'Charter brokerage margin',amount:9000}],expenses:[{code:'5000',name:'Broker commission',amount:2430}],totalIncome:9000,grossProfit:6570,profitBeforeTax:6570,profit:6570}});
+  if(body.mode==='report')return j({type:'pl',report:{from:'2026-11-01',to:'2026-12-31',income:[{code:'4000',name:'Archē fee (9% of booking value)',amount:9000}],expenses:[{code:'5000',name:'Broker commission',amount:2430}],totalIncome:9000,grossProfit:6570,profitBeforeTax:6570,profit:6570}});
   if(body.mode==='settings')return j({settings:{fyEnd:'2027-10-31'}});
   if(body.mode==='passkeys')return j({rows:[],totp:true});
   if(body.mode==='members')return j({owners:2,rows:[]});

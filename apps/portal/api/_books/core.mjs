@@ -108,7 +108,7 @@ export function advice(f) {
   if (clientAccount + 0.005 < clientMoney) add("high", "Client money", `The client payment account holds ${usd(clientAccount)}, less than the ${usd(clientMoney)} of client money the trips say is held. Find the difference before paying anyone (CLAUDE.md: Archē never pre-funds).`, "You");
   const exp3 = monthlyAverage(acc, lines, today, 3, "expense");
   if (exp3 > 0) { const months = cash / exp3; if (months < 1) add("high", "Cash", `Operating cash ${usd(cash)} covers under one month of running costs (${usd(exp3)} a month on average over the last three months). The budget's rule keeps one month in hand before any dividend.`); else if (months < 3) add("med", "Cash", `Operating cash covers about ${months.toFixed(1)} months of running costs.`); }
-  // margin against the 9% rule
+  // the Archē fee against the 9% rule
   const pl = profitAndLoss(acc, lines, f.fyStart || today.slice(0, 4) + "-01-01", today);
   // dividends: only out of profits (Companies Act s.403); keep the cash floor
   const retained = r2(-(b["3100"] || 0) - (b["3300"] || 0) + pl.profit + profitAndLoss(acc, lines, "0000-01-01", prevDay(f.fyStart || today.slice(0, 4) + "-01-01")).profit);
@@ -142,7 +142,7 @@ export function advice(f) {
       add(good ? "low" : "med", "Budget", `${r.name}: ${usd(r.actual)} against ${usd(r.budget)} in the budget this year (${r.diff > 0 ? "+" : ""}${usd(r.diff)}, ${r.pct}%).${good ? "" : " Look at the cause before it repeats."}`);
     }
     const mg = pl.totalIncome && (f.grossBooked || 0) ? pl.totalIncome / f.grossBooked : null;
-    if (mg != null && mg < 0.0899) add("med", "Margin", `Margin earned is ${(mg * 100).toFixed(1)}% of what clients paid, under the 9% rule. Check the trips priced below it had your recorded approval.`);
+    if (mg != null && mg < 0.0899) add("med", "Archē fee", `The Archē fee earned is ${(mg * 100).toFixed(1)}% of what clients paid, under the 9% rule. Check the trips priced below it had your recorded approval.`);
   } else add("low", "Budget", "No budget loaded yet. Import the locked budget in Budget to see actual against plan.");
   if ((f.cancelledWithMoney || []).length) add("med", "Client money", `${f.cancelledWithMoney.length} cancelled trip${f.cancelledWithMoney.length > 1 ? "s" : ""} still hold client money (${f.cancelledWithMoney.map(c => c.ref + " " + usd(c.amount)).join(", ")}). Record the refund or the cancellation fee kept (account 4100) by hand.`, "You or the bookkeeper");
   if ((f.bankUnmatched || 0) > 0) add("med", "Bank", `${f.bankUnmatched} bank line${f.bankUnmatched > 1 ? "s are" : " is"} not matched to an entry yet.`, "You or the bookkeeper");
@@ -232,7 +232,7 @@ export function aiFacts(f) {
 export const AI_SYSTEM = "You review the books of a small Singapore private company for its two owners. You only advise: you cannot post, pay, file, " +
   "approve or change anything, and you never say that you have. Using only the figures given, list up to 8 concrete, lawful suggestions to raise the " +
   "company's value and keep tax efficient (Singapore corporate tax, start-up and partial exemptions, one-tier dividends, GST, deductions and capital " +
-  "allowances, cash and working capital, margin, cost control). For each: what to look at, why, the likely effect, and who should confirm it (the " +
+  "allowances, cash and working capital, the Archē fee, cost control). For each: what to look at, why, the likely effect, and who should confirm it (the " +
   "accountant for tax or law). Never suggest anything that hides income, backdates, or misstates the accounts. Plain short English, a numbered list, no links, no code, no markup.";
 export function cleanAiText(t) { return String(t || "").replace(/<[^>]*>/g, "").replace(/\]\([^)]*\)/g, "]").replace(/https?:\/\/\S+/g, "").replace(/[ \t]{2,}/g, " ").slice(0, 6000); }
 

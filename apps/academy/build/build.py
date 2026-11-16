@@ -51,9 +51,16 @@ EXT_TEXT = [
  ("escalate to the Director","escalate to your manager"),
  ("Work alone on the booking ramp (Module 1)","Work alone on live bookings, building up to more complex trips"),
  ("Arche cost","Broker cost"),("an Arche cost","a broker cost"),("An Arche cost","A broker cost"),
- ('${node("Arche account","only the margin")}<span class="fg-aside">Citi Singapore (being set up)</span>','${node("Broker account","only the margin")}'),
+ ('${node("Arche account","only the Arche fee")}<span class="fg-aside">Citi Singapore (being set up)</span>',"${node(\"Broker account\",\"only the broker's fee\")}"),
  ("Operator money never passes through Arche's own account.","Operator money never passes through the broker's own account."),
- ("Only Arche's margin moves to Arche's own account at Citi Singapore.","Only the broker's margin moves to the broker's own account."),
+ ("Only the Arche fee moves to Arche's own account at Citi Singapore.","Only the broker's fee moves to the broker's own account."),
+ ("Client price 109,891 · Arche fee 9,891 = 9.0%","Client price 109,891 · fee 9,891 = 9.0%"),
+ ("<span>Arche fee</span>","<span>Your fee</span>"),
+ ("`Arche fee ${(mg/pr*100).toFixed(2)}% is below 9%. Only the Director can set another fee.`","`Fee ${(mg/pr*100).toFixed(2)}% is below 9%. Needs your manager's approval.`"),
+ ('"Arche fee 9%"','"Fee 9%"'),
+ ("Below that the Arche fee is under 9%: a critical error unless the Director has set another fee.","Below that the fee is under 9%: a critical error without your manager's approval."),
+ ("The Arche fee is 9% of the client price, so divide","A fee of 9% of the client price means you divide"),
+ ("and the Arche fee of 9,891 is 9 percent","and the fee of 9,891 is 9 percent"),
 ]
 import json
 CAP = {"cat_tp":"Turboprop: Pilatus PC-12NG","cat_light":"Light jet: Embraer Phenom 300","cat_mid":"Midsize jet: Learjet 60","cat_smid":"Super-midsize jet: Bombardier Challenger 350","cat_heavy":"Heavy jet: Dassault Falcon 900LX","cat_ulr":"Ultra-long-range jet: Bombardier Global 7500","cat_vip":"VIP airliner: Boeing Business Jet","fam_g650":"Gulfstream G650ER","fam_f8x":"Dassault Falcon 8X","cabin_lt":"Light jet cabin: Embraer Phenom 300","cabin_lg":"Super-midsize cabin: Hawker 4000","cabin_ulr":"Ultra-long-range cabin: Bombardier Global 7500","deice":"De-icing a wing before departure"}

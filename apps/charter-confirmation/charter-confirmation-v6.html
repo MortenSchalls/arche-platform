@@ -287,7 +287,7 @@ const PART_A = [
    "Every cost beyond the price is charged the same way as the price: the cost divided by 0.91.",
    "Costs known before departure are added to the balance.",
    "Anything asked for during the Trip is arranged only once paid. The Charterer's signatory, or a person the Charterer names in writing, may approve it.",
-   "Other costs arising during the Trip are charged the same way. Only the costs listed in B13 are charged at cost, without margin.",
+   "Other costs arising during the Trip are charged the same way. Only the costs listed in B13 are charged at cost, without the Archē fee.",
    "Each cost is due when the Operator or supplier requires payment, and no later than 72 hours after the service is delivered, whichever is earlier.",
    "Archē Executive may hold an amount on the Charterer's card for costs expected during the Trip, and charge the card for any cost not paid when due. The hold is released once everything is settled.",
    "While any amount is overdue, Archē Executive may stop arranging further services until it is paid."]},
@@ -347,7 +347,7 @@ const PART_B = [
    "In addition, the Charterer pays costs already committed, such as positioning, crew, handling, catering and permits.",
    "Archē Executive may set money already received against these charges.",
    "Archē Executive may end the contract at once if the Charterer fails to pay, breaches B6 or B7, or becomes insolvent. A9 charges then apply."]},
- {n:"B13",t:"Events outside a party's control.",p:"Neither party is responsible for failure caused by events it cannot reasonably control, such as weather, natural disaster, epidemic, war, terrorism, unrest, strikes, government or airport action, or the loss of a permit. If the Trip cannot start for such a reason, Archē Executive returns what it has received, less unrecoverable costs already paid to the Operator. Costs are charged at cost, without margin, only where they arise after the first departure from one of these events that could not be foreseen at that departure: an in-flight diversion or re-routing for weather, air traffic control or an airspace closure; volcanic ash or another natural event; an epidemic or health measures; war, terrorism or unrest; a strike by anyone other than the Operator's or Archē Executive's own staff; or an airport closure, a curfew, or a permit withdrawn for a reason not caused by the Charterer. Only these costs:",items:[
+ {n:"B13",t:"Events outside a party's control.",p:"Neither party is responsible for failure caused by events it cannot reasonably control, such as weather, natural disaster, epidemic, war, terrorism, unrest, strikes, government or airport action, or the loss of a permit. If the Trip cannot start for such a reason, Archē Executive returns what it has received, less unrecoverable costs already paid to the Operator. Costs are charged at cost, without the Archē fee, only where they arise after the first departure from one of these events that could not be foreseen at that departure: an in-flight diversion or re-routing for weather, air traffic control or an airspace closure; volcanic ash or another natural event; an epidemic or health measures; war, terrorism or unrest; a strike by anyone other than the Operator's or Archē Executive's own staff; or an airport closure, a curfew, or a permit withdrawn for a reason not caused by the Charterer. Only these costs:",items:[
    "diversion landing, handling and parking;",
    "extra fuel and flight time;",
    "crew hotels and extra crew duty;",
@@ -484,7 +484,7 @@ function checks(cc){
   if (cc.itemsUsed && Math.round(cc.itemsSum)!==Math.round(cc.price)) err.push(`The price breakdown adds up to ${usd(cc.itemsSum)}, not the charter price of ${usd(cc.price)}.`);
   const yom=num(S.ac.yom); if (yom && cc.first){ const age=+cc.first.slice(0,4)-yom; if(age>20) warn.push(`The aircraft will be ${age} years old at departure. Mention it to the client.`); }
   if (cc.margin!==null && cc.price){
-    if (cc.price < cc.target) err.push(`Margin is ${(cc.margin/cc.price*100).toFixed(2)}%, below ${Math.round(PRICING.rate*100)}%. The ${Math.round(PRICING.rate*100)}% price is ${usd(cc.target)} (operator price ÷ ${(1-PRICING.rate).toFixed(2)}). Below that needs director approval.`);
+    if (cc.price < cc.target) err.push(`The Archē fee is ${(cc.margin/cc.price*100).toFixed(2)}%, below ${Math.round(PRICING.rate*100)}%. The ${Math.round(PRICING.rate*100)}% price is ${usd(cc.target)} (operator price ÷ ${(1-PRICING.rate).toFixed(2)}). Another fee only by the Director's decision.`);
   }
   const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance on file",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Payment request created"};
   Object.keys(ckLabels).forEach(k=>{ if(!S.ck[k]) missing.push(ckLabels[k]); });
@@ -599,10 +599,10 @@ function update(){
     ${cc.itemsUsed?`<span>Breakdown total</span><span class="${Math.round(cc.itemsSum)===Math.round(cc.price)?"good":"bad"}">${usd(cc.itemsSum)}</span>`:""}` : `<span>Enter the price to see the deposit and balance.</span><span></span>`;
   if (cc.margin!==null && cc.price){
     const pct=cc.margin/cc.price*100; const cls = cc.price<cc.target?"bad":"good";
-    $("margin").innerHTML = `<span>Archē Executive margin</span><span class="${cls}">${usd(cc.margin)} (${pct.toFixed(2)}%)</span>
+    $("margin").innerHTML = `<span>Archē fee</span><span class="${cls}">${usd(cc.margin)} (${pct.toFixed(2)}%)</span>
       <span>Price at 9% (operator price ÷ 0.91)</span><span>${usd(cc.target)}</span>
       <span>Counts toward the booking ramp as</span><span>${(cc.price/PRICING.unit).toFixed(1)} units (1 unit = USD 45,000 billed)</span>`;
-  } else $("margin").innerHTML = `<span>Enter the Operator price to check the margin.</span><span></span>`;
+  } else $("margin").innerHTML = `<span>Enter the Operator price to check the Archē fee.</span><span></span>`;
   const issues=[...ch.err.map(t=>["err","Fix",t]),...ch.warn.map(t=>["warn","Check",t])];
   if (ch.missing.length) issues.push(["warn","Missing",ch.missing.join(" · ")]);
   $("issues").innerHTML = issues.map(([c,b,t])=>`<div class="issue ${c}"><b>${b}</b><span>${esc(t)}</span></div>`).join("");

@@ -30,11 +30,11 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  // costs beyond the price (Morten, 12 Nov 2026): cost ÷ 0.91 counts towards commission; a B13 cost at cost adds nothing
  {const Tx=JSON.parse(JSON.stringify(T));Tx.trip_status[0].data.extraCosts=[{text:'De-icing',cost:2850,client:3132,fm:false},{text:'Diversion handling',cost:1400,client:1400,fm:true}];await o.close();o=await open(OWN,Tx);
   const cx=await o.evaluate(a=>commissionFor(a)['2026-11'],B1);
-  ok('after-flight margin earns commission: (4,050 + 282) x 27% = 1,169.64', Math.abs(cx.comm-1169.64)<0.01&&Math.abs(cx.gp-4332)<0.01);
+  ok('after-flight Archē fee earns commission: (4,050 + 282) x 27% = 1,169.64', Math.abs(cx.comm-1169.64)<0.01&&Math.abs(cx.gp-4332)<0.01);
   await o.close();o=await open(OWN,T);}
  await o.evaluate(()=>{S.view='trips';S.sel='t1';render();});await o.waitForTimeout(300);
  ok('trip shows the supervisor reward', (await o.textContent('#main')).includes('Supervisor reward'));
- await o.fill('#sf_why','Approved a quote below the 9% margin');await o.click('[data-supfo="t1"]');await o.waitForTimeout(500);
+ await o.fill('#sf_why','Approved a quote below the 9% fee');await o.click('[data-supfo="t1"]');await o.waitForTimeout(500);
  T=await o.evaluate(()=>window.__T);await o.close();o=await open(OWN,T);
  const c2=await o.evaluate(([a,b2])=>[commissionFor(a)['2026-11'],commissionFor(b2)['2026-11']],[B1,B2]);
  ok('forfeited: supervisor gets nothing, broker still 1,093.50', !c2[1]&&Math.abs(c2[0].comm-1093.5)<0.01);

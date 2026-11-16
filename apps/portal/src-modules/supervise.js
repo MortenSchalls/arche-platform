@@ -205,7 +205,7 @@ function supText(id){
     approve: "Approve bookings: you approve bookings before the confirmation is issued, never your own trips.",
     train: "Train: in Training → Live training you share your own screen in the portal with the people you choose, follow the training syllabus and mark lessons done. Talk over the phone or Teams at the same time. Contact details are hidden on the shared screen. You also see the team's training results."
   };
-  const pay = supRate() > 0 ? `Pay: ${supPts(supRate())} of the gross profit on each booking approved while a broker you supervise is supervised and you are named as their supervisor, on top of your own commission. I can forfeit it on a booking where a step you approved broke the rules.`
+  const pay = supRate() > 0 ? `Pay: ${supPts(supRate())} of the Archē fee on each booking approved while a broker you supervise is supervised and you are named as their supervisor, on top of your own commission. I can forfeit it on a booking where a step you approved broke the rules.`
     : "Pay for supervising: to be agreed with me in writing.";
   return `Hi ${first},
 
@@ -229,8 +229,8 @@ function supTextPanel(){
 /* the supervisor's pay: a setting the Director fills in when decided */
 function supPayPanel(){
   const t = S.terms || {}, set = t.supRate != null && t.supRate !== "", v = set ? +(Number(t.supRate) * 100).toFixed(2) : "";
-  return `<div class="panel" id="supPay" style="margin-bottom:16px"><h2>Supervisor pay</h2><p class="small muted">Archē rewards supervisors separately; it is never taken from the supervised broker's commission (Morten, 8 Nov 2026). The reward is to be agreed: ${set && supRate() ? `now ${supPts(supRate())} of the gross profit on each booking approved while a broker you supervise is supervised and you are named as their supervisor, on top of your own commission` : "until it is set here, no reward is recorded"}. A change applies to bookings approved from then on; agree it with supervisors in writing first.</p>
-    <div class="row"><label class="f" for="supRateIn" style="max-width:220px">Points of gross profit<input id="supRateIn" type="number" min="0" max="10" step="0.5" value="${v}" placeholder="to be agreed"></label><button class="btn small primary" type="button" data-suprate="save">Save</button>${set ? `<button class="btn small" type="button" data-suprate="reset">Back to the agreement (${supPts(SUP_RATE)})</button>` : ""}</div></div>`;
+  return `<div class="panel" id="supPay" style="margin-bottom:16px"><h2>Supervisor pay</h2><p class="small muted">Archē rewards supervisors separately; it is never taken from the supervised broker's commission (Morten, 8 Nov 2026). The reward is to be agreed: ${set && supRate() ? `now ${supPts(supRate())} of the Archē fee on each booking approved while a broker you supervise is supervised and you are named as their supervisor, on top of your own commission` : "until it is set here, no reward is recorded"}. A change applies to bookings approved from then on; agree it with supervisors in writing first.</p>
+    <div class="row"><label class="f" for="supRateIn" style="max-width:220px">Points of the Archē fee<input id="supRateIn" type="number" min="0" max="10" step="0.5" value="${v}" placeholder="to be agreed"></label><button class="btn small primary" type="button" data-suprate="save">Save</button>${set ? `<button class="btn small" type="button" data-suprate="reset">Back to the agreement (${supPts(SUP_RATE)})</button>` : ""}</div></div>`;
 }
 document.addEventListener("click", async e => {
   const b = e.target.closest && e.target.closest("[data-suptext],[data-supcopy],[data-supclose],[data-suprate]"); if (!b || !S.isOwner) return;
@@ -268,7 +268,7 @@ setInterval(() => {
 }, 2500);
 
 /* ---------- Supervision share (Schedule 1; Morten, 26 Oct 2026) ----------
-   While someone is supervised and has a named supervisor, 3 points of the gross profit on each booking approved in
+   While someone is supervised and has a named supervisor, 3 points of the Archē fee on each booking approved in
    that time go to the supervisor (to Archē when an owner supervises). Recorded on the trip at approval. The Director can
    forfeit a supervisor's share on a booking where they approved a step that broke the rules. No automatic end:
    it stops when supervision is switched off. */

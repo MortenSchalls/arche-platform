@@ -27,7 +27,7 @@ for an hour. Every unlock, entry, export and change goes to the Books log.
 - Double entry, chart of accounts 1000–7000 (`supabase/migrations/0023_books.sql`).
 - The money steps post by themselves, in the database, the moment they are recorded: client payment received
   (Dr client payment account / Cr client money held), operator paid (Dr client money / Cr client payment account),
-  trip flown (what is left of the client money becomes margin, trued up if a later payment arrives), broker commission
+  trip flown (what is left of the client money becomes the Archē fee, account 4000, trued up if a later payment arrives), broker commission
   paid (Dr commission / Cr bank). A posting that fails is listed under Advice and never holds up the portal.
 - Posted entries can never be changed or deleted (database triggers); a mistake is corrected by a reversal.
 - Every entry carries a fingerprint (SHA-256) of itself and the entry before; Settings, Check the ledger proves
@@ -78,8 +78,8 @@ do this without mistakes, and even if there should be mistakes, it will be caugh
 
 ## Reports, budget and tax
 Profit and loss, balance sheet, trial balance, cash flow, budget against actual, general ledger and a tax estimate,
-each downloadable as CSV (formula-safe). The budget is the locked V2 budget of 8 Nov 2026
-(`Arche_Aviation_Books_Budget_V2_2026-11-08.json` in Final versions), loaded once with the month that is month 1.
+each downloadable as CSV (formula-safe). The budget is the V2 budget of 16 Nov 2026
+(`Arche_Aviation_Books_Budget_V2_2026-11-16.json` in Final versions), loaded once with the month that is month 1.
 Tax estimate: 17%, start-up exemption (first three YAs), partial exemption, YA 2026 rebate, ECI within 3 months,
 annual return within 7 months, dividends only out of profits, GST threshold S$1M, with the IRAS sources. Every tax
 figure is an estimate for the accountant to confirm; nothing is filed from Books.
@@ -107,7 +107,7 @@ books alone (AES-256 with `BACKUP_PASSPHRASE`) as the artifact `books-backup-<ru
    `BOOKS_ORIGIN` = the portal address passkeys are bound to.
 3. Supabase, Authentication: multi-factor (TOTP) on.
 4. Optional: `ANTHROPIC_API_KEY` for the AI review and receipt reading.
-5. Run `supabase/migrations/0024_books_auto.sql` after 0023.
+5. Run `supabase/migrations/0024_books_auto.sql` after 0023, then `supabase/migrations/0025_books_fee.sql` (account 4000 named the Archē fee, 16 Nov 2026).
 6. Optional, for the Wise feed: in Wise Business, Settings, API tokens, create a **read-only** token and put it in
    Vercel as `WISE_TOKEN`.
 7. In Books: add a passkey or the authenticator app, load the budget, set the UEN and year end.
@@ -115,7 +115,7 @@ books alone (AES-256 with `BACKUP_PASSPHRASE`) as the artifact `books-backup-<ru
 ## Tests
 `node apps/portal/tests/books.test.mjs` (ledger, tax, advice, CSV, bank, budget, AI facts, passkeys, server gates),
 `node apps/portal/tests/books.auto.test.mjs` (matching, checks, currencies, receipts, repeats, undo, Wise),
-`sh scripts/test_books_sql.sh` (the database, 0023 and 0024 on a throwaway Postgres: posting, refusals, immutability, trip margin,
+`sh scripts/test_books_sql.sh` (the database, 0023, 0024 and 0025 on a throwaway Postgres: posting, refusals, immutability, trip Archē fee,
 reversal, hash chain, access, restore), `node apps/portal/tests/bookstest.js` (screens, To do, "post anyway", lock, 390 px,
 brokers excluded). All four run in the Portal checks.
 

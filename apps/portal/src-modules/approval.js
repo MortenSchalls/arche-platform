@@ -28,7 +28,7 @@ function apChecks(t){
   out.push([!!st.kyc, st.kyc ? "KYC done" : "KYC not done"]);
   { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
   out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
-  const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Margin ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
+  const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Archē fee ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
   if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, authorisation confirmed ${usd(f.op)}`]);
   if (f.days !== null) out.push([f.days >= 2, f.days < 0 ? "Departure date has passed" : `Departs in ${f.days} day${f.days === 1 ? "" : "s"}${f.days < 7 ? ": full payment on signature" : ""}`]);
   return out;
@@ -73,7 +73,7 @@ function apTripBlock(t){
   todayDecisions = function(){
     const out = _td(); if (!apOn()) return out;
     const keep = out.filter(h => !/Trip waiting for authorisation/.test(h) || !allTrips().some(t => apNeeds(t) && h.includes(`data-open="${t.bid}|${t.did}"`)));
-    const ap = allTrips().filter(apNeeds).map(t => { const f = apFigures(t), c = t.d.client || {}; return `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p><b>Approve booking:</b> ${esc(c.company || c.name || "")} · ${usd(f.price)} · margin ${(f.pct * 100).toFixed(1)}%${f.days !== null ? ` · departs in ${f.days} d` : ""}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#apList">See the card below</a></p></div></div>`; });
+    const ap = allTrips().filter(apNeeds).map(t => { const f = apFigures(t), c = t.d.client || {}; return `<div class="flag"><span class="sev high" aria-hidden="true"></span><div><p><b>Approve booking:</b> ${esc(c.company || c.name || "")} · ${usd(f.price)} · Archē fee ${(f.pct * 100).toFixed(1)}%${f.days !== null ? ` · departs in ${f.days} d` : ""}</p><p class="small muted">${esc(nm(t.bid))} · <a href="#apList">See the card below</a></p></div></div>`; });
     return ap.concat(keep.map(h => h.replace(/<p>Trip waiting for authorisation:/, "<p><b>To authorise:</b>")));
   };
   const _vT = vToday; vToday = function(){ return afterHead(_vT(), `<div id="apList">${apPanel()}</div>`); };

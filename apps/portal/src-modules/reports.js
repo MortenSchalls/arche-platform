@@ -69,7 +69,7 @@
     if (S.routelibAll === undefined) loadRoutelib().then(() => { if (S.view === "reports") render(); });
     const {rows} = data(), ms = months(12);
     const booked = rows.filter(r => BOOKED.includes(r.stageKey));
-    const byMonth = ms.map(m => { const rs = booked.filter(r => mkey(r).slice(0, 7) === m); return {label: mLabel(m), v: rs.reduce((a, r) => a + r.price, 0), note: `${rs.length} booking${rs.length === 1 ? "" : "s"} · gross profit ${usd(rs.reduce((a, r) => a + r.gp, 0))}`}; });
+    const byMonth = ms.map(m => { const rs = booked.filter(r => mkey(r).slice(0, 7) === m); return {label: mLabel(m), v: rs.reduce((a, r) => a + r.price, 0), note: `${rs.length} booking${rs.length === 1 ? "" : "s"} · Archē fee ${usd(rs.reduce((a, r) => a + r.gp, 0))}`}; });
     const gpMonth = ms.map(m => { const rs = booked.filter(r => mkey(r).slice(0, 7) === m); return {label: mLabel(m), v: rs.reduce((a, r) => a + r.gp, 0), note: `${rs.length} booking${rs.length === 1 ? "" : "s"}`}; });
     const order = ["enquiry", "quoted", "review", "returned", "issued", "clientPaid", "flown"];
     const pipe = order.map(s => { const rs = rows.filter(r => r.stageKey === s); return {label: STAGES[s], v: rs.length, note: usd(rs.reduce((a, r) => a + r.price, 0))}; });
@@ -82,14 +82,14 @@
     const unpaidOp = rows.filter(r => r.clientPaid && !r.operatorPaid).length, scrGap = open.filter(r => r.screenResult === "not screened").length;
     const kpi = (l, v, s) => `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div>${s ? `<div class="small muted">${s}</div>` : ""}</div>`;
     return `<div class="head"><div><h1>Reports</h1><p class="muted small">Charts for a quick overview; hover a bar for the details. Download any report below as CSV, as one Excel file, or print it to PDF.</p></div></div>
-      <div class="kpis">${kpi("Booked this year", usd(ytd.reduce((a, r) => a + r.price, 0)), `${ytd.length} bookings`)}${kpi("Gross profit this year", usd(ytd.reduce((a, r) => a + r.gp, 0)), "")}${kpi("Won of closed", winPct === null ? "–" : winPct + "%", `${won.length} of ${closed.length}`)}${kpi("Open pipeline", usd(open.reduce((a, r) => a + r.price, 0)), `${open.length} trips`)}</div>
+      <div class="kpis">${kpi("Booked this year", usd(ytd.reduce((a, r) => a + r.price, 0)), `${ytd.length} bookings`)}${kpi("Archē fee this year", usd(ytd.reduce((a, r) => a + r.gp, 0)), "")}${kpi("Won of closed", winPct === null ? "–" : winPct + "%", `${won.length} of ${closed.length}`)}${kpi("Open pipeline", usd(open.reduce((a, r) => a + r.price, 0)), `${open.length} trips`)}</div>
       <div class="grid2">
         <div class="panel"><h2>Booked value by month</h2><p class="small muted">Confirmed, paid and flown trips, by first flight date. Last 12 months.</p>${vbars(byMonth, v => "USD " + k(v))}</div>
-        <div class="panel"><h2>Gross profit by month</h2><p class="small muted">Price less operator price and direct costs.</p>${vbars(gpMonth, v => "USD " + k(v))}</div>
+        <div class="panel"><h2>Archē fee by month</h2><p class="small muted">Price less operator price and direct costs (9% of the price unless the Director set another fee).</p>${vbars(gpMonth, v => "USD " + k(v))}</div>
         <div class="panel"><h2>Trips by stage</h2>${hbars(pipe, v => String(v))}</div>
         <div class="panel"><h2>Open trips: trip checks</h2>${stack(health)}
           <p class="small" style="margin-top:10px">${scrGap ? `${scrGap} open trip${scrGap === 1 ? "" : "s"} not screened yet. ` : ""}${unpaidOp ? `${unpaidOp} paid by the client, operator not paid yet.` : ""}</p>
-          <h3 style="margin-top:14px">Gross profit by broker, this year</h3>${hbars(byBroker, v => usd(v))}</div>
+          <h3 style="margin-top:14px">Archē fee by broker, this year</h3>${hbars(byBroker, v => usd(v))}</div>
       </div>
       <div class="panel stack" style="margin-top:16px"><h2>Download reports</h2>
         <p class="small muted">Excel: one file with every report as a sheet. CSV opens in Excel, Numbers or Google Sheets. PDF: opens a print view; choose "Save as PDF". Client email and phone, and prospect contacts, are not exported.</p>
@@ -102,12 +102,12 @@
   /* ---- report definitions: [header, value] columns ---- */
   const C = (h, f) => [h, f];
   const REPORTS = [
-    {id: "trips", title: "Trips", about: "Every trip with stage, route, operator, price and gross profit.", rows: rs => rs,
-      cols: [C("Reference", r => r.ref), C("Trip id", r => r.id), C("Stage", r => r.stage), C("Broker", r => r.broker), C("Client", r => r.client), C("First flight", r => r.first), C("Route", r => r.route), C("Operator", r => r.operator), C("Aircraft", r => r.aircraft), C("Registration", r => r.tail), C("Client price USD", r => r.price), C("Operator price USD", r => r.opPrice), C("Direct costs USD", r => r.direct), C("Gross profit USD", r => r.gp), C("Created", r => r.created)]},
+    {id: "trips", title: "Trips", about: "Every trip with stage, route, operator, price and Archē fee.", rows: rs => rs,
+      cols: [C("Reference", r => r.ref), C("Trip id", r => r.id), C("Stage", r => r.stage), C("Broker", r => r.broker), C("Client", r => r.client), C("First flight", r => r.first), C("Route", r => r.route), C("Operator", r => r.operator), C("Aircraft", r => r.aircraft), C("Registration", r => r.tail), C("Client price USD", r => r.price), C("Operator price USD", r => r.opPrice), C("Direct costs USD", r => r.direct), C("Archē fee USD", r => r.gp), C("Created", r => r.created)]},
     {id: "payments", title: "Payments", about: "Booked trips: client paid, operator paid, flown.", rows: rs => rs.filter(r => BOOKED.includes(r.stageKey)),
-      cols: [C("Reference", r => r.ref), C("Client", r => r.client), C("First flight", r => r.first), C("Client price USD", r => r.price), C("Client paid", r => r.clientPaid), C("Operator price USD", r => r.opPrice), C("Operator paid", r => r.operatorPaid), C("Flown", r => r.flown), C("Gross profit USD", r => r.gp)]},
-    {id: "commission", title: "Commission", about: "Per broker and month flown: standard bookings, gross profit and commission.", rows: () => commRows(),
-      cols: [C("Broker", r => r.broker), C("Month", r => r.month), C("Bookings", r => r.trips), C("Standard bookings", r => Math.round(r.units * 100) / 100), C("Gross profit USD", r => Math.round(r.gp)), C("Commission USD", r => Math.round(r.comm * 100) / 100)]},
+      cols: [C("Reference", r => r.ref), C("Client", r => r.client), C("First flight", r => r.first), C("Client price USD", r => r.price), C("Client paid", r => r.clientPaid), C("Operator price USD", r => r.opPrice), C("Operator paid", r => r.operatorPaid), C("Flown", r => r.flown), C("Archē fee USD", r => r.gp)]},
+    {id: "commission", title: "Commission", about: "Per broker and month flown: standard bookings, Archē fee and commission.", rows: () => commRows(),
+      cols: [C("Broker", r => r.broker), C("Month", r => r.month), C("Bookings", r => r.trips), C("Standard bookings", r => Math.round(r.units * 100) / 100), C("Archē fee USD", r => Math.round(r.gp)), C("Commission USD", r => Math.round(r.comm * 100) / 100)]},
     {id: "compliance", title: "Compliance", about: "KYC, sanctions screening, trip checks, insurance and audit per trip.", rows: rs => rs.filter(r => r.stageKey !== "cancelled"),
       cols: [C("Reference", r => r.ref), C("Trip id", r => r.id), C("Stage", r => r.stage), C("Client", r => r.client), C("KYC", r => r.kyc), C("Screened", r => r.screened), C("Screening result", r => r.screenResult), C("Lists", r => r.lists), C("Red items", r => r.red), C("Amber open", r => r.amber), C("Insurance verified", r => r.insVerified), C("Safety audit", r => r.audit), C("Operator", r => r.operator)]},
     {id: "oplib", title: "Operator library", about: "Each operator's trips, terms and insurance on file (no client data).", rows: () => opRows(),

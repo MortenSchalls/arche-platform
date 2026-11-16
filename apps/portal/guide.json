@@ -90,7 +90,7 @@
     "Restart a cold prospect's rotation, mark it Do not contact, or open it to assign it yourself.",
     "Check Prospect rotation: last round, what moved and the figures per broker. Use Preview to see the next round, Run now to run it.",
     "Check Running in the background: sanctions screen, prospect rotation, research agent and nightly backup.",
-    "Use the analytics: gross profit from trips flown over six months, this month's funnel and confirmed trips by broker."
+    "Use the analytics: the Archē fee from trips flown over six months, this month's funnel and confirmed trips by broker."
    ],
    "trouble": [
     [
@@ -359,7 +359,7 @@
    "steps": [
     "The Director records the date the client payment cleared in the payment account.",
     "The Director records the operator payment.",
-    "Costs beyond the price (Booking with the operator, A7): enter what it is and its cost; the portal charges it like the price, cost ÷ 0.91, or at cost when you tick the B13 list. Send the client a payment request at once; it is due when the operator wants payment and no later than 72 hours after the service. The margin counts towards commission.",
+    "Costs beyond the price (Booking with the operator, A7): enter what it is and its cost; the portal charges it like the price, cost ÷ 0.91, or at cost when you tick the B13 list. Send the client a payment request at once; it is due when the operator wants payment and no later than 72 hours after the service. The Archē fee on it counts towards commission.",
     "After the last leg, the Director records the flight date.",
     "Commission appears in the month the trip flew, paid by the 15th of the next month; the Director marks it paid."
    ],
@@ -370,7 +370,7 @@
     ],
     [
      "Commission seems low",
-     "Commission is a share of gross profit, including the margin on fixed-price extras and on costs charged after the flight; only B13 costs, charged at cost, carry no margin."
+     "Commission is a share of the Archē fee, including the fee on fixed-price extras and on costs charged after the flight; only B13 costs, charged at cost, carry no fee."
     ]
    ],
    "tips": [
@@ -601,7 +601,7 @@
    "who": "Director",
    "purpose": "Charts for a quick overview and every report to download.",
    "steps": [
-    "Open Reports. The charts show booked value and gross profit by month, trips by stage, open trips by red, amber and clear trip checks, and gross profit by broker; hover a bar for the details.",
+    "Open Reports. The charts show booked value and the Archē fee by month, trips by stage, open trips by red, amber and clear trip checks, and the Archē fee by broker; hover a bar for the details.",
     "Download a report: Trips, Payments, Commission, Compliance (KYC, sanctions screening, trip checks, insurance, audit) or Operator library, as CSV, as one Excel file with every report, or as a print view to save as PDF.",
     "Client email and phone and prospect contact details are never exported. Every download is logged in the access log."
    ],
@@ -615,7 +615,7 @@
    "who": "Director",
    "purpose": "Commercial terms, company details, assignment rules and backup.",
    "steps": [
-    "Terms: margin, standard booking value, commission rates.",
+    "Terms: Archē fee, standard booking value, commission rates.",
     "Company details: printed on every confirmation; needed before the first issue.",
     "Prospect assignment and incentives: contact times, limits, minimum adds, extra lead share, leaderboard visibility.",
     "Backup: download a full copy at any time; the nightly backup runs by itself: every table and every stored file (documents, registries, the research agent's key, the sanctions index), encrypted and kept 90 days.",
@@ -958,7 +958,7 @@
    "purpose": "The business rules the portal enforces. Know them before your first enquiry.",
    "steps": [
     "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
-    "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: Archē keeps 9% of what the client pays. A different margin only by the Director's decision, with the reason recorded.",
+    "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: the Archē fee is a fixed 9% of what the client pays. A different fee on a booking is the exception, only at the Director's discretion, with the reason recorded.",
     "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
     "Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost ÷ 0.91, through a payment request: due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list (unforeseeable costs after departure, such as an in-flight diversion) is at cost; de-icing never is. A card is held on every trip; anything asked for during the trip is arranged only once paid.",
     "Clients pay only through a payment request. Never print, store or send bank details.",
@@ -978,8 +978,8 @@
      "Full payment is due at once, before the operator is paid. Create the payment request straight away."
     ],
     [
-     "You want to offer a client less than the 9% margin",
-     "Ask the Director first: any other margin is the Director's decision, with the reason recorded."
+     "You want to charge a client a fee other than 9%",
+     "Ask the Director first: any other fee is the Director's decision, with the reason recorded."
     ],
     [
      "A client rates the trip 3 or lower",
@@ -1328,7 +1328,7 @@
     "Every field has a ? beside it: tap it for one plain sentence on what to put there; tap again to close it. Books is in Beta: it is in use and improves step by step.",
     "Open it and unlock it with a second step after your normal sign-in: a passkey (Face ID, Touch ID or Windows Hello) or the 6-digit code from your authenticator app. It locks itself after 15 minutes without use and after 8 hours at most.",
     "To do opens first. Each item needs one choice: a bank line (the suggested account is already chosen: press Put it in the books, and leave Do the same next time ticked so the next one goes in by itself), a receipt to check, a draft to post.",
-    "Client payments, operator payments, the margin when a trip is flown and paid commission post by themselves. Wise lines arrive by themselves; import Citi as a CSV in Bank. A line already in the books (a trip payment, a transfer) is linked, never posted twice. Singapore dollars are turned into US dollars at the ECB rate of the day.",
+    "Client payments, operator payments, the Archē fee when a trip is flown and paid commission post by themselves. Wise lines arrive by themselves; import Citi as a CSV in Bank. A line already in the books (a trip payment, a transfer) is linked, never posted twice. Singapore dollars are turned into US dollars at the ECB rate of the day.",
     "Receipts and bills: take photos through the month and add them all at once (Add receipts or bills), or one at a time. The AI reads each. The clear ones appear in one list: untick any that are wrong and press Post the ticked receipts once; each still goes through every check. The rest you check one by one. When the bank pays a bill, it is marked paid by itself.",
     "Before anything goes in, Books checks it: a closed period, a dividend above the profits, a possible double, an unusual amount, a bank below zero. A warning shows the reason and needs I checked: post anyway; nothing automatic goes ahead with a warning.",
     "Undo any entry in Transactions: the reversing entry stays on record and the bank line or bill goes back to To do. In Bank, Your rules, a rule can be stopped, or undone with everything it posted. In Settings an owner closes a finished period.",
@@ -1363,7 +1363,7 @@
  "faq": [
   [
    "How is the client price calculated?",
-   "Operator all-in price plus direct trip costs, divided by 0.91 and rounded up. Archē's margin is 9% of the price the client pays. A lower margin needs the Director's approval."
+   "Operator all-in price plus direct trip costs, divided by 0.91 and rounded up. The Archē fee is a fixed 9% of the price the client pays. Any other fee is the Director's decision."
   ],
   [
    "When does the client pay?",
