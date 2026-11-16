@@ -205,7 +205,7 @@ function supText(id){
     approve: "Approve bookings: you approve bookings before the confirmation is issued, never your own trips.",
     train: "Train: in Training → Live training you share your own screen in the portal with the people you choose, follow the training syllabus and mark lessons done. Talk over the phone or Teams at the same time. Contact details are hidden on the shared screen. You also see the team's training results."
   };
-  const pay = supRate() > 0 ? `Pay: ${supPts(supRate())} of the Archē fee on each booking approved while a broker you supervise is supervised and you are named as their supervisor, on top of your own commission. I can forfeit it on a booking where a step you approved broke the rules.`
+  const pay = supRate() > 0 ? `Pay: ${supPts(supRate())} of the Archē fee on each booking approved in the first 6 months of a broker you are named to supervise, and on any later booking I put under your supervision, on top of your own commission. Archē pays it from its own share. I can forfeit it on a booking where a step you approved broke the rules.`
     : "Pay for supervising: to be agreed with me in writing.";
   return `Hi ${first},
 
@@ -229,7 +229,7 @@ function supTextPanel(){
 /* the supervisor's pay: a setting the Director fills in when decided */
 function supPayPanel(){
   const t = S.terms || {}, set = t.supRate != null && t.supRate !== "", v = set ? +(Number(t.supRate) * 100).toFixed(2) : "";
-  return `<div class="panel" id="supPay" style="margin-bottom:16px"><h2>Supervisor pay</h2><p class="small muted">Archē rewards supervisors separately; it is never taken from the supervised broker's commission (Morten, 8 Nov 2026). The reward is to be agreed: ${set && supRate() ? `now ${supPts(supRate())} of the Archē fee on each booking approved while a broker you supervise is supervised and you are named as their supervisor, on top of your own commission` : "until it is set here, no reward is recorded"}. A change applies to bookings approved from then on; agree it with supervisors in writing first.</p>
+  return `<div class="panel" id="supPay" style="margin-bottom:16px"><h2>Supervisor pay</h2><p class="small muted">Archē rewards supervisors separately; it is never taken from the supervised broker's commission (Morten, 8 Nov 2026). The reward is ${supRate() ? `${supPts(supRate())} of the Archē fee on each booking approved in the first 6 months of a broker the supervisor is named for, and after that only on a booking the Director puts under their supervision (on the trip), on top of their own commission` : "set to 0, so no reward is recorded"}. A change applies to bookings approved from then on; agree it with supervisors in writing first.</p>
     <div class="row"><label class="f" for="supRateIn" style="max-width:220px">Points of the Archē fee<input id="supRateIn" type="number" min="0" max="10" step="0.5" value="${v}" placeholder="to be agreed"></label><button class="btn small primary" type="button" data-suprate="save">Save</button>${set ? `<button class="btn small" type="button" data-suprate="reset">Back to the agreement (${supPts(SUP_RATE)})</button>` : ""}</div></div>`;
 }
 document.addEventListener("click", async e => {
@@ -242,7 +242,7 @@ document.addEventListener("click", async e => {
     const val = raw === null || raw === "" ? null : Number(raw) / 100;
     if (val !== null && !(val >= 0 && val <= 0.1)) { toast("Use 0 to 10 points."); return; }
     const t = {...(S.terms || {})}; if (val === null) delete t.supRate; else t.supRate = val;
-    try { await S.db.doc("config/terms").set(t); S.terms = t; audit("Supervisor pay changed", val === null ? "back to: to be agreed" : val ? supPts(val) : "0: to be agreed"); toast("Saved."); render(); } catch(err){ toast("Could not save."); }
+    try { await S.db.doc("config/terms").set(t); S.terms = t; audit("Supervisor pay changed", val === null ? `back to the agreement: ${supPts(SUP_RATE)}` : val ? supPts(val) : "0: to be agreed"); toast("Saved."); render(); } catch(err){ toast("Could not save."); }
   }
 });
 document.addEventListener("change", async e => {
@@ -267,21 +267,28 @@ setInterval(() => {
   if (canRight("assess") && !S.subs["join"]) watchCol("join", snap => { S.joins = {}; snap.docs.forEach(d => S.joins[d.id] = d.data()); render(); });
 }, 2500);
 
-/* ---------- Supervision share (Schedule 1; Morten, 26 Oct 2026) ----------
-   While someone is supervised and has a named supervisor, 3 points of the Archē fee on each booking approved in
-   that time go to the supervisor (to Archē when an owner supervises). Recorded on the trip at approval. The Director can
-   forfeit a supervisor's share on a booking where they approved a step that broke the rules. No automatic end:
-   it stops when supervision is switched off. */
-const SUP_RATE = 0;   // supervisor reward to be agreed (Morten, 8 Nov 2026: never taken from the supervised broker's commission); the Director sets it in Team (terms.supRate)
+/* ---------- Supervisor reward (Schedule 1; Morten, 16 Nov 2026: "only each broker first 6 months, after that we need a
+   way to control per event only") ----------
+   3 points of the Archē fee on each booking approved in a broker's first 6 months (from their start date) go to the named
+   supervisor, paid by Archē from its own share, never from the broker's commission (Morten, 8 Nov 2026). After the
+   6 months only per event: the Director puts a single booking under a named supervisor's care, with the reason, and the
+   reward is due on that booking alone. The Director supervising earns nothing. Recorded on the trip at approval; the
+   Director can forfeit it on a booking where a step the supervisor approved broke the rules. */
+const SUP_RATE = 0.03;   // 3 points of the Archē fee (Morten, 16 Nov 2026); the Director can change it in Team (terms.supRate)
+const SUP_MONTHS = 6;    // the reward runs for a broker's first 6 months; after that only on bookings put under supervision
+function supFirstMonths(r){ const st = r && (r.since || (r.onboarding || {}).issuedAt); if (!st) return false; const s = new Date(st); if (isNaN(s)) return false; const end = new Date(s); end.setMonth(end.getMonth() + SUP_MONTHS); return new Date() < end; }
 const supRate = () => { const v = (S.terms || {}).supRate; return v == null || v === "" || !isFinite(Number(v)) ? SUP_RATE : Math.max(0, Math.min(0.1, Number(v))); };
 // 0 points = to be agreed: no share is recorded
 const supPts = r => `${+(r * 100).toFixed(2)} point${r === 0.01 ? "" : "s"}`;
 function ownerIds(){ return [...new Set([...(S.isOwner ? [S.uid] : []), ...Object.entries(S.roster || {}).filter(([, p]) => p.role === "owner").map(([id]) => id)])]; }
-function supShareFor(bid){
-  const r = rosterOf(bid); if (!r || !r.supervised || !r.supervisor || r.supervisor === bid) return null;
-  const sup = r.supervisor, sr = (S.roster || {})[sup], isOwnerSup = ownerIds().includes(sup) || (sr && sr.role === "owner");
-  if (isOwnerSup || !supRate()) return null;   // owners earn no reward; nobody earns one until it is set
-  return {uid: sup, rate: supRate(), toArche: !!isOwnerSup, at: now()};
+function supShareFor(bid, t){
+  if (!supRate()) return null;
+  const isOwnerUid = u => ownerIds().includes(u) || (((S.roster || {})[u] || {}).role === "owner");
+  const ev = t && t.st && t.st.supEvent;   // a booking the Director put under supervision (after the first 6 months)
+  if (ev && ev.uid && ev.uid !== bid && !isOwnerUid(ev.uid)) return {uid: ev.uid, rate: supRate(), toArche: false, event: true, reason: ev.reason || "", at: now()};
+  const r = rosterOf(bid); if (!r || !r.supervised || !r.supervisor || r.supervisor === bid || !supFirstMonths(r)) return null;
+  if (isOwnerUid(r.supervisor)) return null;   // the Director supervising earns nothing
+  return {uid: r.supervisor, rate: supRate(), toArche: false, at: now()};
 }
 function supCandidates(id){
   const owners = ownerIds().map(o => [o, o === S.uid ? (S.myName || "You") + " (Director)" : nm(o) + " (Director)"]);
@@ -299,10 +306,28 @@ document.addEventListener("change", async e => {
   try { await S.db.doc("roster/" + id).update({supervisor: v}); (S.roster[id] || {}).supervisor = v; audit(v ? "Supervisor named" : "Supervisor removed", `${nm(id)}${v ? " · " + nm(v) : ""}`); toast("Saved."); render(); } catch(err){ toast("Could not save."); }
 });
 /* on the trip: who gets the share, and the Director's forfeit */
+function supEventBlock(t){
+  // after a broker's first 6 months: the Director can put this booking under a named supervisor (per event)
+  if (!t || !S.isOwner || S.preview || (t.st || {}).supShare || ((t.st || {}).approval || {}).state === "approved") return "";
+  const r = rosterOf(t.bid), ev = (t.st || {}).supEvent; if (!r || r.role === "owner" || (supFirstMonths(r) && !ev)) return "";
+  const c = supCandidates(t.bid).filter(([o]) => !ownerIds().includes(o));
+  if (ev) return `<div class="note info small"><b>Under supervision on this booking:</b> ${esc(nm(ev.uid))} (${esc(ev.reason || "")}). ${supPts(supRate())} of the Archē fee goes to them when the booking is approved. <button class="btn small" type="button" data-supev="clear" data-did="${t.did}">Remove</button></div>`;
+  if (!c.length) return "";
+  return `<details class="note small"><summary>Put this booking under supervision (the broker is past their first 6 months)</summary><div class="row" style="margin-top:6px"><select id="se_uid" aria-label="Supervisor for this booking" style="width:auto">${c.map(([o, n]) => `<option value="${o}">${esc(n)}</option>`).join("")}</select><input id="se_why" placeholder="Why this booking (for the record)" style="max-width:320px"><button class="btn small" type="button" data-supev="set" data-did="${t.did}">Save</button></div><p class="muted" style="margin:6px 0 0">The supervisor earns ${supPts(supRate())} of the Archē fee on this booking, paid by Archē; the broker's commission does not change.</p></details>`;
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest && e.target.closest("[data-supev]"); if (!b || !S.isOwner) return; e.preventDefault();
+  const t = tripById(b.dataset.did); if (!t) return;
+  if (b.dataset.supev === "clear") { try { await statusWrite(t, {supEvent: null}, "Booking no longer under supervision"); audit("Booking supervision removed", (t.st || {}).ref || t.did); toast("Removed."); render(); } catch(err){ toast("Could not save."); } return; }
+  const uid = (($("se_uid") || {}).value || ""), why = (($("se_why") || {}).value || "").trim();
+  if (!uid) { toast("Choose the supervisor."); return; } if (why.length < 5) { toast("Write why this booking is supervised."); return; }
+  try { await statusWrite(t, {supEvent: {uid, reason: why, at: now(), by: S.uid}}, `Put under supervision: ${nm(uid)} (${why})`); audit("Booking put under supervision", `${(t.st || {}).ref || t.did} · ${nm(uid)} · ${why}`); toast("Saved."); render(); } catch(err){ toast("Could not save."); }
+});
 function supShareBlock(t){
-  const sh = t && t.st && t.st.supShare; if (!sh || !(isStaff() || sh.uid === S.uid) || S.preview) return "";
+  const ev = supEventBlock(t);
+  const sh = t && t.st && t.st.supShare; if (!sh || !(isStaff() || sh.uid === S.uid) || S.preview) return ev;
   const gp = num(t.st.price) - num(t.st.opPrice) - num(t.st.direct), amt = gp * num(sh.rate == null ? SUP_RATE : sh.rate);
-  return `<div class="note ${sh.forfeited ? "bad" : "info"} small"><b>Supervisor reward</b> (${supPts(num(sh.rate == null ? SUP_RATE : sh.rate))}, ${usd(amt)}): ${sh.toArche ? "stays with Archē (the Director supervised)" : sh.forfeited ? `forfeited ${fmtT(sh.forfeited.at)}: ${esc(sh.forfeited.reason || "")}` : `to ${esc(nm(sh.uid))}`}.
+  return ev + `<div class="note ${sh.forfeited ? "bad" : "info"} small"><b>Supervisor reward</b> (${supPts(num(sh.rate == null ? SUP_RATE : sh.rate))}, ${usd(amt)}): ${sh.toArche ? "stays with Archē (the Director supervised)" : sh.forfeited ? `forfeited ${fmtT(sh.forfeited.at)}: ${esc(sh.forfeited.reason || "")}` : `to ${esc(nm(sh.uid))}`}.
     ${S.isOwner && !sh.toArche && !sh.forfeited ? `<div class="row" style="margin-top:6px"><input id="sf_why" placeholder="Rule broken (for the record)" style="max-width:320px"><button class="btn small danger" type="button" data-supfo="${t.did}">Forfeit the reward</button></div>` : ""}</div>`;
 }
 document.addEventListener("click", async e => {

@@ -1,9 +1,10 @@
-// Supervision (Morten, 8 Nov 2026): the supervised broker always keeps the full commission; a supervisor reward is paid
-// by Archē only once the owner has set it (to be agreed), never to an owner; forfeit on a rule breach. Example data only.
+// Supervision (Morten, 8 and 16 Nov 2026): the supervised broker always keeps the full commission; a supervisor reward of
+// 3 points of the Archē fee is paid by Archē on the broker's trips in the first 6 months, after that only on a booking the
+// Director names (per event); never to an owner; forfeit on a rule breach. Example data only.
 const {chromium}=require('playwright');const fs=require('fs');
 const OWN='00000000-0000-0000-0000-00000000000a',B1='00000000-0000-0000-0000-0000000000b1',B2='00000000-0000-0000-0000-0000000000b2';
 const ago=d=>new Date(Date.now()-d*864e5).toISOString();
-const T0={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:B1,role:'broker',active:true,contract_name:'Example Junior',supervised:true,data:{roster:true,supervisor:B2,onboarding:{issuedAt:ago(40)}}},{id:B2,role:'broker',active:true,contract_name:'Example Senior',data:{roster:true,rights:{supervise:true},onboarding:{issuedAt:ago(400)}}}],
+const T0={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},{id:B1,role:'broker',active:true,contract_name:'Example Junior',supervised:true,data:{roster:true,supervisor:B2,onboarding:{issuedAt:ago(200)}}},{id:B2,role:'broker',active:true,contract_name:'Example Senior',data:{roster:true,rights:{supervise:true},onboarding:{issuedAt:ago(400)}}}],
  config:[{key:'terms',value:{margin:0.09,unit:45000,threshold:8,rate1:0.27,rate2:0.35,ownerApproval:true}}],intel:[],
  trips:[{owner_id:B1,id:'t1',data:{client:{name:'Example Client'},stage:'submitted',created:ago(5),quote:{opPrice:40000,direct:950},trip:{legs:[{from:'VTBS',to:'WSSS',date:'2026-12-01'}]},checks:{}}}],
  trip_status:[{owner_id:B1,id:'t1',data:{state:'review',ref:'AE-EX-1',opPrice:40000,direct:950,price:45000,kyc:true,paynodeRef:'PN',history:[]}}],
@@ -16,11 +17,15 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(300);
  ok('Team: supervisor named per supervised person', await o.evaluate(id=>document.querySelector(`[data-supby="${id}"]`).value,B1)===B2);
  await o.evaluate(async()=>{await apWrite(tripById('t1'),'approved','');});await o.waitForTimeout(400);
- ok('reward not set yet: nothing recorded at approval', !(await o.evaluate(()=>window.__T)).trip_status[0].data.supShare);
- await o.close();T0.config[0].value.supRate=0.03;T0.trip_status[0].data.state='review';delete T0.trip_status[0].data.approval;o=await open(OWN,T0);
+ ok('after the first 6 months: nothing recorded at approval', !(await o.evaluate(()=>window.__T)).trip_status[0].data.supShare);
+ {const Te=JSON.parse(JSON.stringify(T0));Te.trip_status[0].data.supEvent={uid:B2,reason:'New route type',at:ago(1),by:OWN};await o.close();o=await open(OWN,Te);
+  await o.evaluate(async()=>{await apWrite(tripById('t1'),'approved','');});await o.waitForTimeout(400);
+  const se=(await o.evaluate(()=>window.__T)).trip_status[0].data.supShare;
+  ok('after 6 months, a booking the Director names: 3 points to the named supervisor', se&&se.uid===B2&&se.rate===0.03&&se.event);}
+ await o.close();T0.profiles[1].data.onboarding.issuedAt=ago(40);T0.trip_status[0].data.state='review';delete T0.trip_status[0].data.approval;o=await open(OWN,T0);
  await o.evaluate(async()=>{await apWrite(tripById('t1'),'approved','');});await o.waitForTimeout(400);
  let T=await o.evaluate(()=>window.__T);const sh=T.trip_status[0].data.supShare;
- ok('reward set to 3 points: recorded at approval, to the supervisor', sh&&sh.uid===B2&&sh.rate===0.03&&!sh.toArche);
+ ok('first 6 months, 3 points by default: recorded at approval, to the supervisor', sh&&sh.uid===B2&&sh.rate===0.03&&!sh.toArche);
  // flown and paid
  T.trip_status[0].data={...T.trip_status[0].data,state:'flown',flownDate:'2026-11-05',clientPaid:true,operatorPaid:true};await o.close();
  o=await open(OWN,T);
@@ -49,5 +54,19 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  const T3=JSON.parse(JSON.stringify(T0));T3.profiles[1].supervised=false;await o.close();o=await open(OWN,T3);
  await o.evaluate(async()=>{await apWrite(tripById('t1'),'approved','');});await o.waitForTimeout(400);T=await o.evaluate(()=>window.__T);
  ok('released broker: no share recorded', !T.trip_status[0].data.supShare);
+ // per event, from the trip screen (Morten, 16 Nov 2026: "after that we need a way to control per event only")
+ {const T4=JSON.parse(JSON.stringify(T0));T4.profiles[1].data.onboarding.issuedAt=ago(200);await o.close();o=await open(OWN,T4);
+  await o.evaluate(()=>{S.view='trips';S.sel='t1';render();});await o.waitForTimeout(300);
+  const m=await o.textContent('#main');ok('past 6 months: the Director can put the booking under supervision',m.includes('Put this booking under supervision'));
+  await o.evaluate(()=>document.querySelector('#se_uid').closest('details').open=true);
+  await o.selectOption('#se_uid',B2);await o.click('[data-supev="set"]');await o.waitForTimeout(400);
+  ok('a reason is required',!(await o.evaluate(()=>window.__T)).trip_status[0].data.supEvent);
+  await o.fill('#se_why','First Africa trip');await o.click('[data-supev="set"]');await o.waitForTimeout(400);
+  let T5=await o.evaluate(()=>window.__T);const ev=T5.trip_status[0].data.supEvent;
+  ok('saved on the booking: supervisor, reason, by the Director',ev&&ev.uid===B2&&ev.reason==='First Africa trip'&&ev.by===OWN);
+  await o.evaluate(async()=>{await apWrite(tripById('t1'),'approved','');});await o.waitForTimeout(400);
+  T5=await o.evaluate(()=>window.__T);const s5=T5.trip_status[0].data.supShare;
+  ok('approved: 3 points recorded for that booking only',s5&&s5.uid===B2&&s5.event&&s5.rate===0.03);
+  const b=await open(B1,T5);ok('the broker cannot set it',!(await b.textContent('#main')).includes('Put this booking under supervision'));await b.close();}
  await o.close();
  console.log('ERRORS',JSON.stringify(errs));await b.close();for(const f of fs.readdirSync('.').filter(f=>f.startsWith('t_h_')))fs.unlinkSync(f);})();

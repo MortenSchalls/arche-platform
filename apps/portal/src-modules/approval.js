@@ -82,7 +82,7 @@ function apTripBlock(t){
 })();
 async function apWrite(t, state, note){
   const f = apFigures(t);
-  const sh = state === "approved" && typeof supShareFor === "function" ? supShareFor(t.bid) : null;
+  const sh = state === "approved" && typeof supShareFor === "function" ? supShareFor(t.bid, t) : null;
   await statusWrite(t, {approval: {state, at: now(), by: S.uid, note: note || "", price: f.price, opPrice: f.op}, ...(sh ? {supShare: sh} : {}), ...(state === "changes" ? {state: "returned", note} : {})}, state === "approved" ? `Approved by ${S.isOwner ? "the Director" : nm(S.uid) + " (supervisor)"} at ${usd(f.price)}` : `The Director asked for changes: ${note}`);
   audit(state === "approved" ? "Booking approved" : "Booking returned at authorisation", `${nm(t.bid)} · ${(t.d.client && (t.d.client.company || t.d.client.name)) || t.did} · ${usd(f.price)}`);
 }
