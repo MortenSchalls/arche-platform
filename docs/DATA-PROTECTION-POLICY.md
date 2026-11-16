@@ -9,8 +9,8 @@ Owner: the Data Protection Officer, Morten Schalls Jørgensen (appointed 9 Novem
 appears by role and address only: privacy@archeaviation.com (an alias on contact@archeaviation.com, 26 Oct 2026). Review this
 policy at least once a year, and whenever a new form, processor, country or purpose is added.
 
-Company: Arche Executive Pte. Ltd. once registered. Until then the website stays unlaunched
-(`company.LAUNCHED = False`) and the portal holds only the team's own and test data.
+Company: Arche Aviation Pte. Ltd. (UEN 202652508N, registered 16 November 2026), trading as Archē Executive. The website stays unlaunched (`company.LAUNCHED = False`) until the
+launch blockers are closed, and the portal holds only the team's own and test data until then.
 
 ---
 
@@ -144,7 +144,7 @@ to the PDPA and to report any loss or misuse within 24 hours). Access ends the d
 | 20 | Website terms | UCTA s.2(1) carve-out; Singapore law | Website terms of use | Approve | Morten | Low |
 
 ### B1. BizFile+ DPO filing (after registration)
-1. bizfile.gov.sg, log in with Singpass, select Arche Executive Pte. Ltd.
+1. bizfile.gov.sg, log in with Singpass, select Arche Aviation Pte. Ltd.
 2. e-Services → Update Company Information → Update Data Protection Officer information (ACRA passes it to the PDPC).
 3. Enter the DPO's business contact privacy@archeaviation.com; the name is filed there, not on the website.
 4. No fee. Keep the acknowledgement in the company folder.
@@ -162,7 +162,7 @@ a year each; check current prices) and name them in the Privacy notice; or (b) r
 signed off by Morten. Recommendation: (a), the same as for Navoryx; one provider can often serve both companies.
 
 ## Part D: Data intermediary agreement with the Navoryx company (draft heads of terms)
-- Arche Executive Pte. Ltd. keeps the Navoryx investor-relations records only on Navoryx's instructions and for its
+- Arche Aviation Pte. Ltd. keeps the Navoryx investor-relations records only on Navoryx's instructions and for its
   stated purposes (access decisions, sanctions screening, access log).
 - Protection to the PDPA s.24 standard; access for the Director only; no investor names in shared logs.
 - Retention as Navoryx instructs; on request or when the agreement ends, the records are exported whole to Navoryx

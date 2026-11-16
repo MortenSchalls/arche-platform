@@ -15,7 +15,7 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&famil
 def head_tags():
     org = {"@context": "https://schema.org", "@graph": [
         {"@type": "Organization", "@id": SITE_URL + "/#org", "name": "Archē Executive", "alternateName": "Arche Executive",
-         "legalName": "Arche Executive Pte. Ltd.", "url": SITE_URL + "/", "logo": SITE_URL + "/assets/arche-executive-logo.png",
+         "legalName": "Arche Aviation Pte. Ltd.", "url": SITE_URL + "/", "logo": SITE_URL + "/assets/arche-executive-logo.png",
          "description": DESC, "areaServed": ["Singapore", "Thailand", "Asia-Pacific", "Worldwide"],
          "knowsAbout": ["Private jet charter", "Business aviation", "Aircraft charter brokerage", "Aviation advisory"]},
         {"@type": "Service", "@id": SITE_URL + "/#charter", "serviceType": "Private jet charter", "provider": {"@id": SITE_URL + "/#org"},

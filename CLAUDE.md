@@ -43,7 +43,7 @@ Read this before changing anything. These are business rules set by the owner, M
 - Any outbound message or action that cannot be undone needs a person to confirm it. Do not connect an e-signature service unless Morten asks.
 
 ## Writing
-- Plain, short English. Say "Archē Executive" in branded text; the legal name is Arche Executive Pte. Ltd.
+- Plain, short English. Say "Archē Executive" in branded text; the legal name is Arche Aviation Pte. Ltd., UEN 202652508N, incorporated 16 Nov 2026 (Morten the only shareholder).
 - Archē is a Singapore company and stays Singaporean until the Bangkok office opens: no Bangkok office, Bangkok address or Thai phone number on the website, in signatures, offers, agreements or client documents (Morten, 26 Oct 2026). Thai routes and airports are fine. The website switch is `BANGKOK_OFFICE` in `apps/website/build.py`.
 - The Word manual is the master. Change the manual first, then rebuild the academies from it.
 - The external academy must contain nothing Archē-internal; `apps/academy/build/ext.js` fails the build if it does.

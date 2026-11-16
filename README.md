@@ -10,7 +10,7 @@ One project for everything Archē Executive runs online. Archē is said ar-KAY.
 | Charter confirmation | `apps/charter-confirmation` | inside the portal | Offline form v6; the portal has its own built-in version |
 | Master Training Manual | `apps/manual` | (Word/PDF, not online) | v3.8; the Word file is the master, the academies are built from it |
 
-Company: Arche Executive Pte. Ltd. (Singapore). Brand spelling: Archē. Domain and Microsoft 365 email: GoDaddy.
+Company: Arche Aviation Pte. Ltd. (Singapore). Brand spelling: Archē. Domain and Microsoft 365 email: GoDaddy.
 
 ## Where it will run
 

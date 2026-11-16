@@ -1,7 +1,7 @@
 """Spelling, brand and translation fixes applied by build.py (Morten, 20 Oct 2026).
 
 The Design file stays the master for layout; these fixes are applied on top of it at build time.
-  - brand: "Archē Executive" in visible text (the legal name "Arche Executive Pte. Ltd." is left alone)
+  - brand: "Archē Executive" in visible text (the legal name "Arche Aviation Pte. Ltd." is left alone)
   - typos in the Why Archē card 01
   - translations (TH / ZH-Hans / JA) for text that was changed in the Design file after translation, and for new text
   - a few translation corrections

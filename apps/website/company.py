@@ -1,10 +1,10 @@
 """Company details on the website (Morten, 26 Oct 2026). Change them here only; build.py applies them on every build.
-UEN: add the registration number when corporate services sends it, then run  python3 apps/website/company.py"""
+Registered 16 Nov 2026 as Arche Aviation Pte. Ltd., UEN 202652508N (Morten: "we are LIVE"); trading as Archē Executive."""
 import os
 HERE = os.path.dirname(os.path.abspath(__file__))
-NAME = "Arche Executive Pte. Ltd."
+NAME = "Arche Aviation Pte. Ltd."
 ADDRESS = "20 Collyer Quay, #09-01, Singapore 049319"
-UEN = ""   # registration number, e.g. "202612345A"
+UEN = "202652508N"   # ACRA registration, incorporated 16 Nov 2026 (statutory registers from the corporate secretary)
 EMAIL = "contact@archeaviation.com"   # public enquiry address (Morten, 26 Oct 2026; was charter@archeexecutive.com)
 PRIVACY = "privacy@archeaviation.com"   # data protection requests (alias on contact@, 26 Oct 2026)
 PHONE = ""       # Singapore business number, e.g. "+65 6123 4567"; also used for WhatsApp. Until set, the site shows a placeholder and check_site.py fails

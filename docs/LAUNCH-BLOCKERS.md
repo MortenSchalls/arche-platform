@@ -10,9 +10,8 @@ commit. Never remove one to get a pass.
 
 | # | Item | Done when | Rule or source | Who |
 |---|---|---|---|---|
-| 1 | Company | Arche Executive Pte. Ltd. registered; UEN in `company.py` | Notice names the responsible organisation | Morten |
 | 2 | Phone | Singapore business number in `company.py` | Website contact routes | Morten |
-| 3 | DPO on BizFile+ | Morten is the DPO (appointed 9 Nov 2026; shown by role and privacy@archeaviation.com only); filed on BizFile+ after registration, acknowledgement kept | PDPA s.11(3)-(5); ACRA BizFile+ | Morten |
+| 3 | DPO on BizFile+ | Morten is the DPO (appointed 9 Nov 2026; shown by role and privacy@archeaviation.com only); filed on BizFile+ now that the company is registered, acknowledgement kept | PDPA s.11(3)-(5); ACRA BizFile+ | Morten |
 | 4 | Approvals | Privacy notice, Website terms of use, Terms of business and `docs/DATA-PROTECTION-POLICY.md` (drafted 9 Nov 2026) approved, or reviewed by counsel | PDPA s.12, s.20 | Morten |
 | 5 | Vercel Pro with 2FA | Archē on a Pro team, DPA accepted, 2FA on Vercel and the other accounts | Vercel DPA only on Pro/Enterprise; Hobby is non-commercial | Morten (purchase) |
 | 6 | Processor agreements | DPAs saved: Vercel, Supabase (region checked), Resend, Anthropic, GitHub, mail provider | PDPA s.24, s.26; GDPR Art. 28, 46 | Morten |
@@ -24,6 +23,10 @@ commit. Never remove one to get a pass.
 Closed 9 Nov 2026 (built and tested on staging): consent tick on the quote, call-back and empty-leg alert forms (the
 server refuses an enquiry without it); written Data Protection Policy and compliance register drafted (approval in
 item 4); BizFile+ DPO filing folded into item 3.
+
+Closed 16 Nov 2026 (Morten sent the statutory registers: "Congratulations, we are LIVE!!!!"): item 1, the company,
+registered as Arche Aviation Pte. Ltd., UEN 202652508N, incorporated 16 November 2026; the UEN is set in `company.py`
+and the legal name is used on every page, agreement and document (trading as Archē Executive).
 
 Then: set `company.LAUNCHED = True` (the build refuses while any item is open), release staging to main, turn off the
 Vercel login for the website's production address, and submit the sitemap to the search engines.
