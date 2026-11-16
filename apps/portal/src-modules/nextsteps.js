@@ -84,19 +84,19 @@
       {title: "Checks and documents", who: "Broker", items: C},
       {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", false]], note: cf.err.length ? cf.err.join(" ") : ""},
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
-      {title: "Authorisation", who: "Operations", items: [
+      {title: "Authorisation", who: "Director or a mandated person", items: [
         [num(st.opPrice) > 0, "Operator price confirmed on Avinode, then Save", "el|o_op", true],
         [!!st.kyc, "Charterer KYC recorded, then Save", "el|o_kyc", true],
         [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening: Screen names now, then Save this screening record", "el|scr_names_" + t.did, true],
         [!!st.paynodeRef, "Payment request reference, then Save", "el|o_pn", true],
         ...(ap ? [[typeof apState === "function" && apState(t).ok, "Director approval (the Director approves on Today or on this trip)", "sec|secOps", true]] : []),
         [issued, "Confirmation issued", "conf", true]]},
-      {title: "Signature and payment", who: "Broker and operations", items: [
+      {title: "Signature and payment", who: "Broker, then the Director or a mandated person", items: [
         [!!st.sigSentAt || !!st.signed, "Confirmation sent to the charterer for signature", "sec|secSig", true],
         [!!st.signed, "Signed confirmation saved", "sec|secSig", true],
         [!!st.clientPaid, "Client payment recorded", "sec|secOps", true],
         [!!st.operatorPaid, "Operator paid", "sec|secOps", true]]},
-      {title: "Flight and follow-up", who: "Operations and broker", items: [
+      {title: "Flight and follow-up", who: "Broker", items: [
         [!!st.flownDate, "Last leg flown and recorded", "sec|secOps", true],
         [!!d.followUp, "Broker follow-up within 24 hours of landing", "sec|secAfter", true],
         [!!d.ratingReq, "Rating request sent to the client", "sec|secAfter", true]]}

@@ -186,7 +186,7 @@ const RP_SC = [
  ["aog","AOG: the booked aircraft is unserviceable 6 hours before departure","Operator's written replacement options; extra cost approved by the Director, never promised on the call (11.3)"],
  ["deposit","The assistant refuses the 25% deposit and wants to pay after the flight","Explain the booking terms (10.6); card or bank payment options; no exception without the Director"],
  ["cabotage","The principal insists on a domestic leg on a foreign-registered aircraft","Explain cabotage plainly; local operator for that leg or a new routing; never sell it (2.4)"],
- ["cheaper","“Another broker quoted 15% less”","Compare like for like; two or three options; below 9% only with Director approval (12.6)"],
+ ["cheaper","“Another broker quoted 15% less”","Compare like for like; two or three options; the fee is 9%, any other fee only by the Director's decision (12.5)"],
  ["addpax","A passenger is added on the day","Names to the operator at once; permits, insurance and seats confirmed in writing first"],
  ["pet","The client wants to bring a dog to a strict-entry country","Destination rules and the operator's written acceptance first (G.4)"],
  ["deice","De-icing delays departure and the client is angry about the charge","Safety is the crew's decision; charged after the flight like the price, cost ÷ 0.91, as the confirmation says (9.2)"],

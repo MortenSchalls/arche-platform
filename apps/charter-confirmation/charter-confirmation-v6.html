@@ -241,7 +241,7 @@ fieldset.internal .calc{background:var(--panel)}
 
     <fieldset class="internal">
       <legend>INTERNAL CHECKS (NEVER PRINTED)</legend>
-      <label class="full">Operator price (USD, what Archē Executive pays)<input id="opNet" type="number" min="0" step="100" data-k="opNet" data-req="Operator price (internal)"></label>
+      <label class="full">Operator price and direct costs (USD, what Archē Executive pays)<input id="opNet" type="number" min="0" step="100" data-k="opNet" data-req="Operator price (internal)"></label>
       <div class="calc" id="margin"></div>
       <p class="hint full" style="margin-top:4px"><b>Before issuing</b></p>
       <label class="check full"><input type="checkbox" id="ck8" data-k="ck.never"> Trip checked against the never-sell list (Module 2.4): no illegal charter, cabotage confirmed, US and EU rules met</label>
@@ -601,7 +601,7 @@ function update(){
   if (cc.margin!==null && cc.price){
     const pct=cc.margin/cc.price*100; const cls = cc.price<cc.target?"bad":"good";
     $("margin").innerHTML = `<span>Archē fee</span><span class="${cls}">${usd(cc.margin)} (${pct.toFixed(2)}%)</span>
-      <span>Price at 9% (operator price ÷ 0.91)</span><span>${usd(cc.target)}</span>
+      <span>Price at the Archē fee (operator price and direct costs ÷ 0.91)</span><span>${usd(cc.target)}</span>
       <span>Counts toward the booking ramp as</span><span>${(cc.price/PRICING.unit).toFixed(1)} units (1 unit = USD 45,000 billed)</span>`;
   } else $("margin").innerHTML = `<span>Enter the Operator price to check the Archē fee.</span><span></span>`;
   const issues=[...ch.err.map(t=>["err","Fix",t]),...ch.warn.map(t=>["warn","Check",t])];

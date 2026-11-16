@@ -3557,7 +3557,7 @@ const RP_SC = [
  ["aog","AOG: the booked aircraft is unserviceable 6 hours before departure","Operator's written replacement options; extra cost approved by the Director, never promised on the call (11.3)"],
  ["deposit","The assistant refuses the 25% deposit and wants to pay after the flight","Explain the booking terms (10.6); card or bank payment options; no exception without the Director"],
  ["cabotage","The principal insists on a domestic leg on a foreign-registered aircraft","Explain cabotage plainly; local operator for that leg or a new routing; never sell it (2.4)"],
- ["cheaper","“Another broker quoted 15% less”","Compare like for like; two or three options; below 9% only with Director approval (12.6)"],
+ ["cheaper","“Another broker quoted 15% less”","Compare like for like; two or three options; the fee is 9%, any other fee only by the Director's decision (12.5)"],
  ["addpax","A passenger is added on the day","Names to the operator at once; permits, insurance and seats confirmed in writing first"],
  ["pet","The client wants to bring a dog to a strict-entry country","Destination rules and the operator's written acceptance first (G.4)"],
  ["deice","De-icing delays departure and the client is angry about the charge","Safety is the crew's decision; charged after the flight like the price, cost ÷ 0.91, as the confirmation says (9.2)"],
@@ -6688,19 +6688,19 @@ function vOnboarding(){
       {title: "Checks and documents", who: "Broker", items: C},
       {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", false]], note: cf.err.length ? cf.err.join(" ") : ""},
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
-      {title: "Authorisation", who: "Operations", items: [
+      {title: "Authorisation", who: "Director or a mandated person", items: [
         [num(st.opPrice) > 0, "Operator price confirmed on Avinode, then Save", "el|o_op", true],
         [!!st.kyc, "Charterer KYC recorded, then Save", "el|o_kyc", true],
         [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening: Screen names now, then Save this screening record", "el|scr_names_" + t.did, true],
         [!!st.paynodeRef, "Payment request reference, then Save", "el|o_pn", true],
         ...(ap ? [[typeof apState === "function" && apState(t).ok, "Director approval (the Director approves on Today or on this trip)", "sec|secOps", true]] : []),
         [issued, "Confirmation issued", "conf", true]]},
-      {title: "Signature and payment", who: "Broker and operations", items: [
+      {title: "Signature and payment", who: "Broker, then the Director or a mandated person", items: [
         [!!st.sigSentAt || !!st.signed, "Confirmation sent to the charterer for signature", "sec|secSig", true],
         [!!st.signed, "Signed confirmation saved", "sec|secSig", true],
         [!!st.clientPaid, "Client payment recorded", "sec|secOps", true],
         [!!st.operatorPaid, "Operator paid", "sec|secOps", true]]},
-      {title: "Flight and follow-up", who: "Operations and broker", items: [
+      {title: "Flight and follow-up", who: "Broker", items: [
         [!!st.flownDate, "Last leg flown and recorded", "sec|secOps", true],
         [!!d.followUp, "Broker follow-up within 24 hours of landing", "sec|secAfter", true],
         [!!d.ratingReq, "Rating request sent to the client", "sec|secAfter", true]]}
