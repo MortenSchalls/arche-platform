@@ -292,8 +292,8 @@ const PART_A = [
    "Archē Executive may hold an amount on the Charterer's card for costs expected during the Trip, and charge the card for any cost not paid when due. The hold is released once everything is settled.",
    "While any amount is overdue, Archē Executive may stop arranging further services until it is paid."]},
  {n:"A8",t:"Cabin rules.",p:"Smoking and animals are allowed only where the confirmation says so, and with the Operator's written approval for animals."},
- {n:"A9",t:"Cancelling.",p:"Notice must be in writing. The charge depends on how long before the first scheduled departure Archē Executive receives it.",cancel:true,after:"The Charterer pays the higher of two amounts: the charge on this scale, or the Operator's own cancellation charge plus Archē Executive's brokerage fee. The Operator's cancellation terms are shown in the confirmation's remarks."},
- {n:"A10",t:"Archē Executive's liability.",p:"Archē Executive answers only for its own brokerage service. Its liability for a charter is capped at the brokerage fee it earns on that charter. Claims about the flight itself lie against the Operator."},
+ {n:"A9",t:"Cancelling.",p:"Notice must be in writing. The charge depends on how long before the first scheduled departure Archē Executive receives it.",cancel:true,after:"The Charterer pays the higher of two amounts: the charge on this scale, or the Operator's own cancellation charge plus the Archē fee. The Operator's cancellation terms are shown in the confirmation's remarks."},
+ {n:"A10",t:"Archē Executive's liability.",p:"Archē Executive answers only for its own brokerage service. Its liability for a charter is capped at the Archē fee it earns on that charter. Claims about the flight itself lie against the Operator."},
  {n:"A11",t:"Signature.",p:"The Charterer signs for itself and for everyone travelling, and accepts Parts A and B."}
 ];
 const CANCEL = [["More than 14 days",25],["7 to 14 days",40],["72 hours to under 7 days",65],["24 hours to under 72 hours",85],["Under 24 hours, or no-show",100]];
@@ -355,7 +355,7 @@ const PART_B = [
    "new permits."],after:"De-icing and anti-icing, anything foreseeable at departure, and anything caused by the Charterer or those travelling, their requests and changes, or late documents or payment, are charged under A7. The aircraft's technical condition is the Operator's matter. These costs remain payable by the Charterer on the due dates in A7. Only the costs listed here are charged at cost; any other cost is charged under A7."},
  {n:"B14",t:"Liability.",items:[
    "Archē Executive performs its brokerage service with reasonable skill and care.",
-   "For each Confirmation, Archē Executive's total liability is capped at the brokerage fee it earns on that Trip.",
+   "For each Confirmation, Archē Executive's total liability is capped at the Archē fee it earns on that Trip.",
    "Archē Executive is not responsible for what the Operator does or fails to do, including accidents, injury, death, loss of property, delay or cancellation. Such claims are made against the Operator under its conditions of carriage and aviation law.",
    "Neither party is liable for indirect or consequential loss, or for loss of profit or opportunity.",
    "The Charterer holds Archē Executive harmless against loss caused by the Charterer or anyone travelling, including damage to the aircraft and penalties from missing or wrong documents.",
@@ -412,7 +412,7 @@ function exampleBooking(){
     ac:{cat:"Ultra-long-range jet",type:"Bombardier Global XRS",reg:"HB-EXA",yom:"2011",seats:"13",ca:"Included",wifi:"Available, charged under A7",audit:"ARGUS Platinum"},
     op:{name:"Example Operator SA",aoc:"CH.AOC.0000",state:"Switzerland"},
     legs:[{date:addDaysISO(d1,-1),from:"LSGG",to:"WSSS",etd:"",pax:"0",pos:true},{date:d1,from:"WSSS",to:"VTBD",etd:"10:30",pax:"6",pos:false},{date:addDaysISO(d1,2),from:"VTBD",to:"VTSP",etd:"09:00",pax:"6",pos:false},{date:d2,from:"VTSP",to:"WSSS",etd:"15:00",pax:"6",pos:false}],
-    price:"183871", opNet:"171000", items:{flight:"155871",pos:"18000",tax:"10000",other:""},
+    price:"187913", opNet:"171000", items:{flight:"159913",pos:"18000",tax:"10000",other:""},
     sign:{oName:"",oTitle:"",cName:"Jane Example",cTitle:"Director"} });
 }
 let S;
@@ -446,7 +446,8 @@ function calc(){
   const itemsSum = ["flight","pos","tax","other"].reduce((a,k)=>a+num(S.items[k]),0);
   const opNet = num(S.opNet);
   const margin = opNet>0 ? price-opNet : null;
-  const target = opNet>0 ? Math.ceil(opNet/(1-PRICING.rate)) : 0;
+  const rate = S.feeEx && S.feeEx.pct > 0 ? S.feeEx.pct : PRICING.rate;   // the trip's own fee when the Director set one (the exception)
+  const target = opNet>0 ? Math.ceil(opNet/(1-rate)) : 0;
   return {price, first, days, full, deposit, balance, balanceDue, card, itemsUsed, itemsSum, opNet, margin, target};
 }
 
@@ -484,7 +485,7 @@ function checks(cc){
   if (cc.itemsUsed && Math.round(cc.itemsSum)!==Math.round(cc.price)) err.push(`The price breakdown adds up to ${usd(cc.itemsSum)}, not the charter price of ${usd(cc.price)}.`);
   const yom=num(S.ac.yom); if (yom && cc.first){ const age=+cc.first.slice(0,4)-yom; if(age>20) warn.push(`The aircraft will be ${age} years old at departure. Mention it to the client.`); }
   if (cc.margin!==null && cc.price){
-    if (cc.price < cc.target) err.push(`The Archē fee is ${(cc.margin/cc.price*100).toFixed(2)}%, below ${Math.round(PRICING.rate*100)}%. The ${Math.round(PRICING.rate*100)}% price is ${usd(cc.target)} (operator price ÷ ${(1-PRICING.rate).toFixed(2)}). Another fee only by the Director's decision.`);
+    if (cc.price < cc.target) { const r = S.feeEx && S.feeEx.pct > 0 ? S.feeEx.pct : PRICING.rate; err.push(`The Archē fee is ${(cc.margin/cc.price*100).toFixed(2)}%, below ${(r*100).toFixed(1).replace(/\.0$/,"")}%${S.feeEx ? " (the fee the Director set for this trip)" : ""}. That price is ${usd(cc.target)} (operator price and direct costs ÷ ${(1-r).toFixed(2)}). Another fee only by the Director's decision.`); }
   }
   const ckLabels={never:"Never-sell list checked",risk:"Trip risk screen recorded, no red open",kyc:"KYC and sanctions screening",aoc:"Operator AOC on file",ins:"Operator insurance on file",audit:"Safety audit checked",route:"Routing and permits checked",terms:"Operator terms checked against A3 and A9",pay:"Payment request created"};
   Object.keys(ckLabels).forEach(k=>{ if(!S.ck[k]) missing.push(ckLabels[k]); });

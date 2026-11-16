@@ -82,7 +82,7 @@
       {title: "Client and trip", who: "Broker", items: A},
       {title: "Operator quote", who: "Broker", items: B},
       {title: "Checks and documents", who: "Broker", items: C},
-      {title: "Confirmation details", who: "Broker or operations", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", false]], note: cf.err.length ? cf.err.join(" ") : ""},
+      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", false]], note: cf.err.length ? cf.err.join(" ") : ""},
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
       {title: "Authorisation", who: "Operations", items: [
         [num(st.opPrice) > 0, "Operator price confirmed on Avinode, then Save", "el|o_op", true],

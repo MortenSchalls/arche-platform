@@ -209,7 +209,7 @@
     ]
    ],
    "tips": [
-    "Never round down and never quote below 9% without the Director's approval.",
+    "Never round down. The fee is 9%; any other fee is the Director's decision, recorded before the quote is sent.",
     "Re-confirm availability and price with the operator before the offer expires."
    ],
    "try": [

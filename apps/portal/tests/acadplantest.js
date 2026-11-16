@@ -28,7 +28,7 @@ for(const w of [390,1300]){
   const top=await p.evaluate(()=>{const n=document.getElementById('obNext');if(!n)return null;const a=n.querySelector('a');return {t:n.innerText,y:n.getBoundingClientRect().top+scrollY,href:a&&a.getAttribute('href'),target:a&&a.target};});
   ok(w+': "Your next step" at the top of the joining page',top&&/Your next step: start the Archē Broker Academy\. Module 0 · Aviation for brokers · about 21 min/.test(top.t)&&top.y<700,top);
   ok(w+': Start the academy opens in the same tab, no second sign-in wording',top&&/Start the academy/i.test(top.t)&&top.href==='academy.test.html'&&!top.target&&!/Sign in to the academy/.test(await p.textContent('#main')),top);
-  ok(w+': the offer is open on the first visit',/up to 35% of the profit/.test(await p.textContent('#main')));
+  ok(w+': the offer is open on the first visit',/up to 35% of the Archē fee/.test(await p.textContent('#main')));
   ok(w+': no sideways scroll on the joining page',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await p.click('#obNext a');await p.waitForTimeout(3500);
   ok(w+': academy opened in the same tab',/academy\.test\.html/.test(p.url()),p.url());
@@ -40,7 +40,7 @@ for(const w of [390,1300]){
   await p.goto('http://localhost:8765/test.html?as=candidate');await p.waitForTimeout(3500);
   const top2=await p.evaluate(()=>{const n=document.getElementById('obNext');const a=n&&n.querySelector('a');return n&&{t:n.innerText,href:a&&a.getAttribute('href')};});
   ok(w+': back on the joining page: Continue where you left off, Module 1 and its length',top2&&/continue the Archē Broker Academy\. Module 1 · Archē Executive and the broker's role · about 12 min · 1 of 19 done/.test(top2.t)&&/Continue where you left off/i.test(top2.t)&&top2.href==='academy.test.html#m1',top2);
-  ok(w+': the offer has folded away; Read the offer opens it',!/up to 35% of the profit/.test(await p.textContent('#main'))&&!!(await p.$('[data-agr="offer"]')));
+  ok(w+': the offer has folded away; Read the offer opens it',!/up to 35% of the Archē fee/.test(await p.textContent('#main'))&&!!(await p.$('[data-agr="offer"]')));
   await p.click('#obNext a');await p.waitForTimeout(3000);
   ok(w+': Continue opens Module 1 directly',/#m1$/.test(p.url())&&/Archē Executive and the broker's role/.test(await p.evaluate(()=>document.getElementById('view').innerText)),p.url());
   ok(w+': no sideways scroll in the academy',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));

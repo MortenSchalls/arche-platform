@@ -24,14 +24,14 @@ def style(dst, srccell):
 # 1. Archē fee: one input, fixed 9% of total booking value
 I['A6'] = 'Archē fee (% of total booking value, fixed)'
 I['C6'] = ('V1: 7.0% (locked plan of 8 Oct 2026).  |  V2 and V3: Archē charges a fixed fee of 9% of the total booking value '
-           '(the price the client pays = operator price + direct trip costs ÷ 0.91), Inputs B96. Morten 16 Nov 2026: '
+           '(the price the client pays = (operator price + direct trip costs) ÷ 0.91), Inputs B96. Morten 16 Nov 2026: '
            '"we do not calculate margin of 9%, but charge 9% fixed".')
 I['F6'] = '=B96'; I['G6'] = '=B96'
 I['A95'] = 'Archē fee (Versions 2 and 3)'
 I['A96'] = 'Archē fee (% of total booking value, fixed)'
 I['B96'] = 0.09
-I['C96'] = ('Morten 16 Nov 2026: a fixed 9% of the total booking value on every booking (client price = operator price + '
-            'direct trip costs ÷ 0.91). A different rate on a trip only by Morten\'s decision with the reason recorded '
+I['C96'] = ('Morten 16 Nov 2026: a fixed 9% of the total booking value on every booking (client price = (operator price + '
+            'direct trip costs) ÷ 0.91). A different rate on a trip only by Morten\'s decision with the reason recorded '
             '(rule of 29 Oct 2026); the budget uses 9% throughout.')
 for r in (97, 98):
     for c in 'ABC': I[f'{c}{r}'] = None
@@ -40,7 +40,7 @@ for r in (97, 98):
 rows = [
     (151, 'Software per user (Morten, 16 Nov 2026)', None, None),
     (152, 'Avinode subscription (USD per month, includes one user)', 740, 'Avinode offer of 26 Oct 2026: Starter Broker USD 740 a month (launch plan B1).'),
-    (153, 'Avinode extra user (USD per month)', 118, 'Avinode offer of 26 Oct 2026: USD 118 per extra user a month. One user per broker and one for the Director (launch plan B4).'),
+    (153, 'Avinode extra user (USD per month)', 118, 'Avinode offer of 26 Oct 2026: USD 118 per extra user a month. One user per broker plus the Director, from month 1 (the owner is the Director until one is appointed). V2 and V3 only; V1 stays the locked plan.'),
     (154, 'Microsoft 365 mailbox (USD per person per month)', 6, 'Assumption (Morten did not give the price): Microsoft 365 Email Essentials from GoDaddy, USD 1.99 a month in the first year (GoDaddy US, Oct 2026); the renewal price is not published, so USD 6 is used. One mailbox per broker, the Director and every staff member.'),
     (156, 'Broker commission (Versions 2 and 3)', None, None),
     (157, 'Commission on the first standard bookings each month (% of the Archē fee)', 0.27, 'Broker agreement Schedule 1 and the commission offer: 27% of the Archē fee on the first 8 standard bookings in the month.'),
@@ -129,13 +129,13 @@ for col in range(2, 122):
     MU[f'{x}21'] = f2
 
 # 5. Software line: Monthly USD row 63, into row 24; Annual row 21
-MU['A63'] = 'Software: Avinode (one user per broker and the Director) and Microsoft 365 (one mailbox per person)'
+MU['A63'] = 'Software: Avinode (one user per broker and the Director) and Microsoft 365 (one mailbox per person); V2 and V3 only, V1 stays the locked plan'
 MV['A63'] = MU['A63'].value
 style(MU['A63'], MU['A61']); style(MV['A63'], MV['A61'])
 for col in range(2, 122):
     x = L(col)
-    MU[f'{x}63'] = (f'=IF(({x}7+IF({x}14>0,1,0))>0,Inputs!$B$152+Inputs!$B$153*MAX(0,{x}7+IF({x}14>0,1,0)-1),0)'
-                    f'+({x}55+{x}60)*Inputs!$B$154')
+    MU[f'{x}63'] = (f'=IF(Inputs!$B$3=1,0,Inputs!$B$152+Inputs!$B$153*{x}7'
+                    f'+({x}55+{x}60+IF({x}14>0,0,1))*Inputs!$B$154)')
     style(MU[f'{x}63'], MU[f'{x}61'])
     MV[f'{x}63'] = f"='Monthly USD'!{x}63*Inputs!$B$143"; style(MV[f'{x}63'], MV[f'{x}61'])
     yr = (col - 2) // 12; ac = L(yr + 2)
@@ -168,9 +168,9 @@ V['A2'] = ('Snapshot of all three versions with the inputs of 16 Nov 2026 (broke
 new = [
     ('Summary 10-year net profit = sum of its years = Annual', '=IF(AND(ABS(Summary!L8-SUM(Summary!B8:K8))<1,ABS(Summary!L8-Annual!L29)<1),"OK","CHECK")', None),
     ('V1/V2/V3 page: each 10-year total = sum of its years', '=IF(AND(ABS(\'V1 vs V2 vs V3\'!L18-SUM(\'V1 vs V2 vs V3\'!B18:K18))<1,ABS(\'V1 vs V2 vs V3\'!L37-SUM(\'V1 vs V2 vs V3\'!B37:K37))<1,ABS(\'V1 vs V2 vs V3\'!L56-SUM(\'V1 vs V2 vs V3\'!B56:K56))<1),"OK","CHECK")', None),
-    ('V1/V2/V3 page = live figures for the version in Inputs B3 (10-year net)', '=IF(ABS(CHOOSE(Inputs!$B$3,\'V1 vs V2 vs V3\'!L18,\'V1 vs V2 vs V3\'!L37,\'V1 vs V2 vs V3\'!L56)-Annual!L29)<Inputs!$B$143*2,"OK","CHECK (snapshot older than the inputs)")', None),
+    ('V1/V2/V3 page = live figures for the version in Inputs B3 (10-year net)', '=IF(ABS(CHOOSE(Inputs!$B$3,\'V1 vs V2 vs V3\'!L18,\'V1 vs V2 vs V3\'!L37,\'V1 vs V2 vs V3\'!L56)-Annual!L29)<Inputs!$B$143*5,"OK","CHECK (snapshot older than the inputs)")', None),
     ('Cash ties to profit: dividends + year-10 cash = net profit + paid-up capital (USD)', '=IF(ABS(SUM(\'Annual USD\'!B31:K31)+\'Annual USD\'!K30-SUM(\'Annual USD\'!B29:K29)-Inputs!$B$53)<5,"OK","CHECK")', None),
-    ('Software line present when brokers are active (Year 1)', '=IF(AND(\'Annual USD\'!B6>0,\'Annual USD\'!B21>Inputs!$B$50),"OK","CHECK")', None),
+    ('Software line present when brokers are active (Year 1; V1 has none)', '=IF(Inputs!$B$3=1,"OK",IF(AND(\'Annual USD\'!B6>0,\'Annual USD\'!B21>Inputs!$B$50),"OK","CHECK"))', None),
 ]
 C['A12'] = None; C['B12'] = None
 base = 12
@@ -184,5 +184,21 @@ for r in range(base + len(new), base + len(new) + 3):
         C[f'A{r}'] = None
 C[f'A{note_row}'] = ('Each check is calculated by Excel itself. If the status bar shows "Calculate", press Cmd + = (Mac) or F9 (Windows). '
                      'Revised 16 Nov 2026: Archē fee 9% of booking value, software per user, corrected totals.')
+
+# 9. labels that name the fee follow Inputs B6 (V1 is 7%); A33; C21/C138 wording; the snapshot shows both bonus pools
+FEE = '="Archē fee ("&TEXT(Inputs!$B$6,"0%")&" of booking value)"'
+for ws, cell in ((S, 'A6'), (AV, 'A8'), (AU, 'A8'), (MV, 'A18'), (MU, 'A18')):
+    ws[cell] = FEE
+for ws in (AV, AU):
+    ws['A33'] = 'Archē fee per broker per year (plan hiring trigger: USD 220,000)'
+I['C21'] = 'V1: 3 consultants per broker.  |  V2: no consultants (Morten 19 Oct 2026).  |  V3: 3 consultants per broker hired on the V1 hiring schedule (Monthly row 62), same pay, ramp, office seat and attrition as V1; brokers follow the broker plan on commission.'
+c138 = str(I['C138'].value or '')
+I['C138'] = c138.replace('about 1% of world charter demand, to be seen.', 'about 1–1.5% of the world charter market (business plan), to be seen.')
+for top in (6, 25, 44):
+    V[f'A{top+10}'] = 'Bonus pools (Director kicker and staff profit pool)'
+for top in (63, 82):
+    V[f'A{top+10}'] = 'Bonus pools (Director kicker and staff profit pool)'
+V['A7'] = 'Archē fee (7% of booking value)'; V['A26'] = 'Archē fee (9% of booking value)'; V['A45'] = 'Archē fee (9% of booking value)'
+V['A64'] = 'Archē fee'; V['A83'] = 'Archē fee'
 wb.save(out)
 print('saved', out)

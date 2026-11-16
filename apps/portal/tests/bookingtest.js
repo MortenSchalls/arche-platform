@@ -80,7 +80,7 @@ tx=await p.textContent('#main');
 ok('operations sees "Booking with the operator"',/Booking with the operator/.test(tx));
 ok('before issuing: Request to Book, hold, contract and check are listed',/Request to Book sent on Avinode/.test(await p.textContent('#secBook'))&&/operator's contract attached/.test(await p.textContent('#secBook')));
 ok('issuing is blocked without them',await p.evaluate(()=>bookNeeds(tripById(S.sel)).length>=3));
-const now16=new Date(Date.now()+60e3).toISOString().slice(0,16), hold=new Date(Date.now()+3*864e5).toISOString().slice(0,16);
+const now16=new Date(Date.now()+60e3).toISOString().slice(0,16), hold=new Date(Date.now()+3*864e5).toISOString().slice(0,10)+"T12:00";
 await fill('bk_rtb',now16);await fill('bk_hold',hold);
 await p.evaluate(async()=>{const t=tripById(S.sel);await deskWrite(t,{docs:[...t.d.docs,{id:'x5',name:'contract.pdf',kind:'Operator contract',at:now()}]},'test');});await p.waitForTimeout(600);
 await p.check('#secBook [data-bkc]');await p.waitForTimeout(600);

@@ -5301,14 +5301,14 @@
   ]
  },
  {
-  "key": "e49ff9d7",
+  "key": "35ea45d5",
   "kind": "lesson",
   "where": "m12 screen 4",
   "text": [
    "Selling and account management",
    "12.3 Common objections",
    "\"Another broker is cheaper.\"Compare the same aircraft, age, operator rating and inclusions; if like for like, ask the Director whether we can match.",
-   "\"Why can't you fix the price for everything?\"Some costs depend on the day; we list them and charge only what the operator invoices, with receipts.",
+   "\"Why can't you fix the price for everything?\"Some costs depend on the day; we list them, and each is charged like the price, cost ÷ 0.91, through a payment request when it arises. Only the B13 list is charged at cost.",
    "\"Can we pay later?\"No flight departs until paid in full; our secure payment link makes paying quick.",
    "\"Just add two friends on the domestic leg.\"Only if the operator confirms in writing that the law allows it.",
    "\"Why do you need my passport?\"The law and the operator require it for every passenger; it is stored securely and used only for the flight."
@@ -5316,7 +5316,7 @@
   "say": [
    "Selling and account management.",
    "Common objections.",
-   "Another broker is cheaper. Compare the same aircraft, age, operator rating and inclusions, if like for like, ask the Director whether we can match. Why can't you fix the price for everything? Some costs depend on the day, we list them and charge only what the operator invoices, with receipts. Can we pay later? No flight departs until paid in full, our secure payment link makes paying quick. Just add two friends on the domestic leg. Only if the operator confirms in writing that the law allows it. Why do you need my passport? The law and the operator require it for every passenger, it is stored securely and used only for the flight."
+   "Another broker is cheaper. Compare the same aircraft, age, operator rating and inclusions, if like for like, ask the Director whether we can match. Why can't you fix the price for everything? Some costs depend on the day, we list them, and each is charged like the price, cost divided by 0.91, through a payment request when it arises. Only the B13 list is charged at cost. Can we pay later? No flight departs until paid in full, our secure payment link makes paying quick. Just add two friends on the domestic leg. Only if the operator confirms in writing that the law allows it. Why do you need my passport? The law and the operator require it for every passenger, it is stored securely and used only for the flight."
   ]
  },
  {
@@ -6501,7 +6501,7 @@
   ]
  },
  {
-  "key": "516aefc3",
+  "key": "3345ecc2",
   "kind": "lesson",
   "where": "sys screen 12",
   "text": [
@@ -6522,7 +6522,7 @@
    "The price looks too high or lowCheck you entered the all-in operator price, including positioning, and no extras twice.",
    "The Director changed my operator priceThe Director, or a person the Director has mandated, confirms the price on Avinode; the confirmed figure is used and the difference is flagged.",
    "Tips",
-   "Never round down and never quote below 9% without the Director's approval.",
+   "Never round down. The fee is 9%; any other fee is the Director's decision, recorded before the quote is sent.",
    "Re-confirm availability and price with the operator before the offer expires."
   ],
   "say": [
@@ -6537,7 +6537,7 @@
    "If something goes wrong.",
    "The price looks too high or low. Check you entered the all-in operator price, including positioning, and no extras twice. The Director changed my operator price. The Director, or a person the Director has mandated, confirms the price on Avinode, the confirmed figure is used and the difference is flagged.",
    "Tips.",
-   "Never round down and never quote below 9 percent without the Director's approval. Re-confirm availability and price with the operator before the offer expires."
+   "Never round down. The fee is 9 percent, any other fee is the Director's decision, recorded before the quote is sent. Re-confirm availability and price with the operator before the offer expires."
   ]
  },
  {
