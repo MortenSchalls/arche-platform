@@ -4921,5 +4921,112 @@
   "v": "largest stands (bays 3-8) take up to code E aircraft; bays 9, 12, 15, 19, 20L, 20R up to code C",
   "src": "caat-nac-cnx-w26",
   "quote": "Up to A/C Code E (Bay 3 - 8); Up to A/C Code C (Bay 9, 12, 15, 19, 20L, 20R)"
+ },
+ "ev.dxb_sevens_2026": {
+  "v": "28–29 November 2026",
+  "src": "worldrugby-svns-2027",
+  "quote": "Dubai: \"28-29 November\""
+ },
+ "ev.sgp_sevens_2027": {
+  "v": "30–31 January 2027",
+  "src": "worldrugby-svns-2027",
+  "quote": "Singapore: \"30-31 January, 2027\""
+ },
+ "ev.nyc_sevens_2027": {
+  "v": "13–14 March 2027",
+  "src": "worldrugby-svns-2027",
+  "quote": "New York: \"13-14 March\""
+ },
+ "ev.lon_marathon_2027": {
+  "v": "24–25 April 2027",
+  "src": "lme-london-marathon-2027",
+  "quote": "Taking place on Saturday 24 and Sunday 25 April 2027"
+ },
+ "ev.lon_chelsea_2027": {
+  "v": "18–22 May 2027",
+  "src": "rhs-shows-2027",
+  "quote": "RHS Chelsea Flower Show, 18 - 22 May 2027"
+ },
+ "gov.civil": {
+  "v": "it applies only to civil aircraft, not to state aircraft",
+  "src": "un-chicago-1944",
+  "quote": "This Convention shall be applicable only to civil aircraft, and shall not be applicable to state aircraft."
+ },
+ "gov.state": {
+  "v": "aircraft used in military, customs and police services are deemed to be state aircraft",
+  "src": "un-chicago-1944",
+  "quote": "Aircraft used in military, customs and police services shall be deemed to be state aircraft."
+ },
+ "gov.state_auth": {
+  "v": "no state aircraft may fly over or land in another State without that State's authorisation",
+  "src": "un-chicago-1944",
+  "quote": "No state aircraft of a contracting State shall fly over the territory of another State or land thereon without authorization"
+ },
+ "gov.sg_dip": {
+  "v": "foreign state aircraft landing at or flying over Singapore need diplomatic clearance from the Ministry of Foreign Affairs, unless otherwise agreed",
+  "src": "sg-aip-gen12-2025",
+  "quote": "all Foreign State aircraft intending to land at or overfly Singapore are to obtain diplomatic clearance"
+ },
+ "gov.sg_dip_days": {
+  "v": "at least 14 days' notice",
+  "src": "sg-aip-gen12-2025",
+  "quote": "The application is to be made giving at least 14 days' notice."
+ },
+ "gov.sg_who": {
+  "v": "only the operator or an authorised agency may apply for permission to operate a non-scheduled flight",
+  "src": "sg-aip-gen12-2025",
+  "quote": "Only the operator or authorised agency may apply for permission to operate a non-scheduled flight."
+ },
+ "gov.sg_days": {
+  "v": "at least 3 working days before the aircraft arrives or departs for a normal permit, or at least 24 hours before the flight for an express permit",
+  "src": "sg-aip-gen12-2025",
+  "quote": "at least 3 working days prior to the aircraft's arrival or departure ... at least 24 hours before the proposed flight"
+ },
+ "gov.th_who": {
+  "v": "the embassy sends a note verbale to the Ministry of Foreign Affairs asking for diplomatic flight clearance",
+  "src": "th-mfa-dipclear",
+  "quote": "The Embassy submits a Note Verbale requesting the diplomatic flight clearance."
+ },
+ "gov.th_days": {
+  "v": "at least 30 working days before the planned date of entry or arrival",
+  "src": "th-mfa-dipclear",
+  "quote": "at least thirty (30) working days prior to the proposed date of entry into/arrival"
+ },
+ "phnl.icao": {
+  "v": "PHNL",
+  "src": "phnl-faa-aip-hi"
+ },
+ "phnl.geo": {
+  "v": [
+   21.31782,
+   -157.92025
+  ],
+  "src": "phnl-faa-aip-hi",
+  "quote": "2.2.1 Reference Point: 21-19-04.169N / 157-55-12.901W"
+ },
+ "phnl.location": {
+  "v": "3 miles north-west of Honolulu",
+  "src": "phnl-faa-aip-hi",
+  "quote": "2.2.2 From City: 3 miles NW of HONOLULU, HI"
+ },
+ "phnl.runway": {
+  "v": "a longest runway, 08L/26R, of 12,360 × 200 ft (about 3,767 m)",
+  "src": "phnl-faa-aip-hi",
+  "quote": "12360 ft x 200 ft"
+ },
+ "phnl.hours": {
+  "v": "attended at all hours, every day of the year",
+  "src": "phnl-faa-aip-hi",
+  "quote": "All Months, All Days, All Hours"
+ },
+ "phnl.customs": {
+  "v": "customs (CBP) clearance for private flights 7 days a week, 24 hours a day",
+  "src": "phnl-cbp-ga",
+  "quote": "7 days per week, 24 hours per day"
+ },
+ "phnl.permits": {
+  "v": "a flight from abroad asks CBP for permission to land at least two hours before arrival",
+  "src": "phnl-cbp-ga",
+  "quote": "at least two hours in advance of the anticipated arrival time"
  }
 }

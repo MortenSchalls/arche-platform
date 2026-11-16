@@ -1,0 +1,68 @@
+{
+ "path": "/needs/government-and-delegation-flights/",
+ "type": "need",
+ "draft": true,
+ "title": "Government and delegation flights: the permits that apply",
+ "description": "Chartering an aircraft for a delegation: civil or state flight, who applies for the permits and how far ahead, from the Chicago Convention and official pages.",
+ "eyebrow": "Services · Government and delegations",
+ "h1": "Government and delegation flights",
+ "lead": "Ministries, agencies and official delegations charter aircraft for the same reasons as companies: the timetable is theirs, the route is direct and the group travels together. The difference is in the paperwork, and it decides how early the planning starts.",
+ "glance": [
+  ["State aircraft", "gov.state"],
+  ["Singapore, state aircraft", "gov.sg_dip_days"],
+  ["Thailand, diplomatic clearance", "gov.th_days"]
+ ],
+ "sections": [
+  {
+   "h": "Civil flight or state flight",
+   "p": [
+    "The rules start with the Chicago Convention: {{gov.civil}}. Under the same article, {{gov.state}}, and {{gov.state_auth}}.",
+    "A delegation that charters an aircraft from a licensed operator usually travels on a civil, non-scheduled flight, with permits applied for by the operator. Whether a particular flight is treated as a state flight is decided by the government sending it and by the countries it visits, not by us or the operator. We ask at the start, because the answer changes who applies, to whom and how early."
+   ]
+  },
+  {
+   "h": "Singapore",
+   "p": [
+    "For a civil charter, {{gov.sg_who}}. The application is due {{gov.sg_days}}.",
+    "For a state aircraft the route is different: {{gov.sg_dip}}, with {{gov.sg_dip_days}}."
+   ]
+  },
+  {
+   "h": "Thailand",
+   "p": [
+    "Where a flight needs diplomatic flight clearance, {{gov.th_who}}. The request is due {{gov.th_days}}, so a delegation visit is planned weeks ahead, not days."
+   ]
+  },
+  {
+   "h": "Everywhere else",
+   "p": [
+    "Each country sets its own procedure and lead time, and some ask for both an aviation permit and a diplomatic note. We read the rules of every country on the route, including any country where the aircraft stops, before we send a quote, and list in it what is needed and by when.",
+    "This page explains the rules as the authorities publish them; it is not legal advice. The authority of each country on the route has the final word."
+   ]
+  },
+  {
+   "h": "How we plan a government or delegation flight",
+   "p": [
+    "Tell us the route, the dates, how many people are travelling and whether the flight is to be treated as a state flight. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, check the client and payer as the law requires, and agree with the operator who applies for each permit. Your broker stays with the trip from the first enquiry to the last landing. Any aircraft, any route, upon availability."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Is a chartered aircraft carrying a minister a state aircraft?",
+   "a": "Not by itself. Under the Chicago Convention, {{gov.state}}. How a particular flight is treated is decided by the governments concerned, so we ask before the permits are applied for."
+  },
+  {
+   "q": "How early should a delegation flight be booked?",
+   "a": "As early as you can. In Singapore, a state aircraft needs {{gov.sg_dip_days}}; in Thailand, a diplomatic clearance request is due {{gov.th_days}}."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/guides/cabotage/",
+  "/guides/operator-safety-audits/"
+ ]
+}

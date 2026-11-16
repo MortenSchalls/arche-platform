@@ -1,0 +1,66 @@
+{
+ "path": "/needs/group-and-sports-team-charter/",
+ "type": "need",
+ "draft": true,
+ "title": "Group and sports team charter: one aircraft for the party",
+ "description": "Chartering an aircraft for a team, a company group or a large party: touring within one country, permits for each landing and the luggage, from official sources.",
+ "eyebrow": "Services · Groups and teams",
+ "h1": "Group and sports team charter",
+ "lead": "A team, a company group or a large family party can travel on one aircraft, on its own timetable, with its luggage and equipment on board. The rules that matter most are about where the aircraft may carry the group, and they are settled before the quote.",
+ "glance": [
+  ["Flights within one country", "cab.art7"],
+  ["Singapore permit", "gov.sg_days"]
+ ],
+ "sections": [
+  {
+   "h": "Why groups charter",
+   "p": [
+    "A season of away games, a roadshow or an incentive trip often means several cities in a few days. On a chartered aircraft the group leaves together, at the time it chooses, from the airport closest to where it is, and the luggage stays with the party.",
+    "Groups come in every size. We match the aircraft to the number of seats, the length of each leg and the luggage the group carries, and say in the quote what the aircraft can take."
+   ]
+  },
+  {
+   "h": "Touring within one country",
+   "p": [
+    "A tour with several stops in the same country raises one rule above all. Under {{cab.icao.ref}}, {{cab.art7}}. In the United States, for example, {{cab.us}}.",
+    "So the operator for the domestic legs is chosen for the country, not only for the aircraft. We plan the whole tour before we quote, so every leg is flown by an operator allowed to fly it."
+   ]
+  },
+  {
+   "h": "Permits for each landing",
+   "p": [
+    "Every international landing needs the permits the country asks for, applied for by the operator. In Singapore, for example, {{gov.sg_who}}; the application is due {{gov.sg_days}}. If the schedule changes late, after a cup draw or a fixture move, tell us at once: each country sets how late it accepts a change."
+   ]
+  },
+  {
+   "h": "Luggage and equipment",
+   "p": [
+    "Sports kit, bicycles, golf bags and broadcast equipment take space and weight. Tell us what the group carries, with sizes and weights where you have them; the operator confirms that it fits the hold and the aircraft's limits before the trip is confirmed."
+   ]
+  },
+  {
+   "h": "How we plan a group or team flight",
+   "p": [
+    "Tell us the route, the dates, how many people are travelling and what they carry. We find aircraft from licensed operators, check each operator against our safety standard before you see a quote, and name the operator in your quote and agreement. Your broker stays with the trip from the first enquiry to the last landing. Any aircraft, any route, upon availability."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can one foreign aircraft fly our team between cities in the same country?",
+   "a": "Often not. Under {{cab.icao.ref}}, {{cab.art7}}. We plan the domestic legs with an operator allowed to fly them."
+  },
+  {
+   "q": "Can we bring all our equipment?",
+   "a": "Tell us what you carry. The operator confirms that it fits the hold and the aircraft's limits before the trip is confirmed."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/guides/cabotage/",
+  "/guides/empty-legs/"
+ ]
+}

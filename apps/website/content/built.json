@@ -72,7 +72,7 @@
  {
   "path": "/cities/dubai/",
   "draft": false,
-  "words": 551
+  "words": 556
  },
  {
   "path": "/cities/geneva/",
@@ -83,6 +83,11 @@
   "path": "/cities/hong-kong/",
   "draft": false,
   "words": 530
+ },
+ {
+  "path": "/cities/honolulu/",
+  "draft": true,
+  "words": 551
  },
  {
   "path": "/cities/johannesburg/",
@@ -102,7 +107,7 @@
  {
   "path": "/cities/london/",
   "draft": false,
-  "words": 588
+  "words": 605
  },
  {
   "path": "/cities/los-angeles/",
@@ -147,7 +152,7 @@
  {
   "path": "/cities/new-york/",
   "draft": false,
-  "words": 627
+  "words": 633
  },
  {
   "path": "/cities/nice/",
@@ -192,7 +197,7 @@
  {
   "path": "/cities/singapore/",
   "draft": false,
-  "words": 529
+  "words": 534
  },
  {
   "path": "/cities/sydney/",
@@ -288,6 +293,16 @@
   "path": "/needs/flying-with-pets/",
   "draft": false,
   "words": 854
+ },
+ {
+  "path": "/needs/government-and-delegation-flights/",
+  "draft": true,
+  "words": 652
+ },
+ {
+  "path": "/needs/group-and-sports-team-charter/",
+  "draft": true,
+  "words": 673
  },
  {
   "path": "/regions/africa/",

@@ -200,6 +200,46 @@
    "venue": "across Singapore",
    "start": "2027-01-21",
    "end": "2027-01-31"
+  },
+  {
+   "key": "ev.dxb_sevens_2026",
+   "city": "dubai",
+   "name": "Dubai Sevens",
+   "venue": "",
+   "start": "2026-11-28",
+   "end": "2026-11-29"
+  },
+  {
+   "key": "ev.sgp_sevens_2027",
+   "city": "singapore",
+   "name": "Singapore Sevens",
+   "venue": "",
+   "start": "2027-01-30",
+   "end": "2027-01-31"
+  },
+  {
+   "key": "ev.nyc_sevens_2027",
+   "city": "new-york",
+   "name": "New York Sevens",
+   "venue": "",
+   "start": "2027-03-13",
+   "end": "2027-03-14"
+  },
+  {
+   "key": "ev.lon_marathon_2027",
+   "city": "london",
+   "name": "London Marathon",
+   "venue": "",
+   "start": "2027-04-24",
+   "end": "2027-04-25"
+  },
+  {
+   "key": "ev.lon_chelsea_2027",
+   "city": "london",
+   "name": "RHS Chelsea Flower Show",
+   "venue": "at the Royal Hospital Chelsea",
+   "start": "2027-05-18",
+   "end": "2027-05-22"
   }
  ]
 }

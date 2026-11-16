@@ -1,0 +1,63 @@
+{
+ "path": "/cities/honolulu/",
+ "title": "Private jet charter to and from Honolulu",
+ "description": "Private flights to and from Honolulu: Daniel K. Inouye International Airport's hours, customs and runways, from FAA and US customs sources, with the date we checked.",
+ "eyebrow": "City guide · Honolulu",
+ "h1": "Private flights to and from Honolulu",
+ "lead": "Honolulu's main airport, Daniel K. Inouye International, is open around the clock and clears private flights from abroad at any hour. What it means for your trip, from official sources.",
+ "glance": [
+  ["Airport", "phnl.icao"],
+  ["Opening", "phnl.hours"],
+  ["Customs", "phnl.customs"]
+ ],
+ "sections": [
+  {
+   "h": "Daniel K. Inouye International",
+   "p": [
+    "The airport lies {{phnl.location}}. It is {{phnl.hours}}, and has {{phnl.runway}}."
+   ]
+  },
+  {
+   "h": "Arriving from abroad",
+   "p": [
+    "There is {{phnl.customs}}. For an international arrival, {{phnl.permits}}; the operator and its handling agent arrange this as part of the flight plan.",
+    "Every person travelling needs a valid passport and any visa or travel authorisation the United States asks for. Your trip brief names where private flights are handled and the contact on the ground."
+   ]
+  },
+  {
+   "h": "Flying on from Honolulu within the United States",
+   "p": [
+    "A flight from Honolulu to another US airport, such as Los Angeles, is a domestic leg. Under US law, {{cab.us}}. In practice a domestic leg is flown by a US operator, or planned so that it stays within the rules; our cabotage guide explains why."
+   ]
+  },
+  {
+   "h": "How we plan a private flight to or from Honolulu",
+   "p": [
+    "Tell us where you are flying from or to, when, and how many people are travelling. Flights to Hawaii from Asia and the Pacific are long over water, so we look at the aircraft's range and any fuel stop first, find aircraft from licensed operators, and check each operator before you see a quote. Any aircraft, any route, upon availability.",
+    "Airport rules change at short notice. The operator and its handling agent confirm the current rules for your flight before departure; every fact on this page shows its official source and the date we checked it."
+   ]
+  }
+ ],
+ "faq": [
+  {
+   "q": "Can a private jet land in Honolulu at night?",
+   "a": "The airport is {{phnl.hours}}, and there is {{phnl.customs}}."
+  },
+  {
+   "q": "Can a foreign aircraft fly me from Honolulu to the US mainland?",
+   "a": "Usually not: {{cab.us}}. We plan the domestic leg with an operator allowed to fly it."
+  },
+  {
+   "q": "Does Archē Executive operate the flight?",
+   "a": "No. We are a broker. A licensed operator flies every trip, and it is named in your quote and charter agreement before you confirm."
+  }
+ ],
+ "related": [
+  "/regions/north-america/",
+  "/cities/los-angeles/",
+  "/guides/cabotage/"
+ ],
+ "draft": true,
+ "type": "city",
+ "region": "/regions/north-america/"
+}

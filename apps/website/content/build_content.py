@@ -140,6 +140,7 @@ footer .bl{text-align:right;padding:0 0 28px;font-size:12.5px;letter-spacing:.16
 .hub .grid a{display:block;border:1px solid var(--line);background:rgba(243,245,248,.03);padding:20px 22px;color:var(--text)}.hub .grid a.ph{padding:0 0 20px}.hub .grid a.ph i{display:block;aspect-ratio:16/9;background:center/cover no-repeat;margin-bottom:16px}.hub .grid a.ph b,.hub .grid a.ph span{margin:0 22px;display:block}.hub .grid a:hover{text-decoration:none;border-color:var(--accent)}
 .hub .grid b{display:block;color:var(--ink);font:400 19px/1.3 Prata,Georgia,serif;margin-bottom:6px}.hub .grid span{font-size:14.5px;line-height:1.55;display:block}
 .draft{display:inline-block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid #d9a441;color:#e8c27a;padding:2px 8px;margin-bottom:8px}
+.grid b .draft{margin:0 4px 0 0;padding:0 6px;font-style:normal;line-height:1.3;vertical-align:.15em}
 .testbar{position:fixed;left:0;right:0;bottom:0;z-index:9;background:#d9a441;color:#2b2e33;font:600 12px/1.4 'Hanken Grotesk',sans-serif;letter-spacing:.06em;text-align:center;padding:6px 12px}
 @media (max-width:1000px){.cols{grid-template-columns:1fr}.side{position:static}}
 @media (max-width:760px){.wrap{padding:0 16px}header.top .bar{grid-template-columns:auto 1fr;padding:16px 0}.brand{grid-column:1/-1;grid-row:2;justify-self:center}.nav-r a.tel{display:none}.brand .w{font-size:30px}body{font-size:16px}.card{padding:22px}.btn{display:block;margin:10px 0}}
@@ -300,7 +301,8 @@ def site_nav(on):
 
 GROUPS = [("region", "Regions"), ("country", "Countries and territories"), ("city", "Cities"), ("airport", "Airports"), ("need", "Services"), ("guide", "Guides")]
 def hub(F, S, pub, verbose=True):
-    """/destinations/: every published page, grouped. On the test website drafts are listed with a Draft mark."""
+    """/destinations/: every published page, grouped. On the test website drafts are listed with a Draft mark, inside the
+    card title so the card keeps its two text rows (align_cards.py subgrid; a separate mark overlapped the title)."""
     out = os.path.join(SITE, "destinations", "index.html")
     if not pub:
         if os.path.exists(out): os.remove(out)
@@ -309,7 +311,7 @@ def hub(F, S, pub, verbose=True):
     for t, name in GROUPS:
         xs = sorted([p for p in pub if p["type"] == t], key=lambda p: p["h1"])
         if not xs: continue
-        cards = "".join(f'<a href="{p["path"]}"{" class=ph" if photo(p) else ""}>{("<i style=background-image:url(" + photo(p) + ")></i>") if photo(p) else ""}{"" if company.LAUNCHED or not p.get("draft") else "<em class=draft>Draft</em>"}<b>{html.escape(p["h1"])}</b><span>{html.escape(fill(p["lead"], F, S, [], plain=True))}</span></a>' for p in xs)
+        cards = "".join(f'<a href="{p["path"]}"{" class=ph" if photo(p) else ""}>{("<i style=background-image:url(" + photo(p) + ")></i>") if photo(p) else ""}<b>{"" if company.LAUNCHED or not p.get("draft") else "<em class=draft>Draft</em> "}{html.escape(p["h1"])}</b><span>{html.escape(fill(p["lead"], F, S, [], plain=True))}</span></a>' for p in xs)
         secs.append(f'<h2 id="{t}">{name}</h2><div class="grid">{cards}</div>')
     p = {"path": "/destinations/", "type": "hub", "title": "Private jet destinations, airports and guides", "draft": False,
          "description": "Guides to private flights by region, city and airport, and how charter works, each checked against official sources with the date it was checked.",
