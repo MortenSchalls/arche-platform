@@ -12,7 +12,7 @@ commit. Never remove one to get a pass.
 |---|---|---|---|---|
 | 2 | Phone | Singapore business number in `company.py` | Website contact routes | Morten |
 | 4 | Approvals | (Privacy notice and Website terms of use approved by Morten 17 Nov 2026) Terms of business and `docs/DATA-PROTECTION-POLICY.md` (drafted 9 Nov 2026) approved, or reviewed by counsel | PDPA s.12, s.20 | Morten |
-| 5 | Vercel Pro with 2FA | Archē on a Pro team, DPA accepted, 2FA on Vercel and the other accounts | Vercel DPA only on Pro/Enterprise; Hobby is non-commercial | Morten (purchase) |
+| 5 | 2FA on the other accounts | 2FA on Supabase, GitHub, Resend, Anthropic and the mailbox; Vercel DPA accepted (Vercel Pro and Vercel 2FA done: Morten, 17 Nov 2026) | Vercel DPA only on Pro/Enterprise; Hobby is non-commercial | Morten |
 | 6 | Processor agreements | DPAs saved: Vercel, Supabase (region checked), Resend, Anthropic, GitHub, mail provider | PDPA s.24, s.26; GDPR Art. 28, 46 | Morten |
 | 7 | Data intermediary agreement with Navoryx | Signed (heads of terms in the policy, Part D) | PDPA s.4(2), s.24; `docs/SEVERANCE.md` | Morten |
 | 8 | EU and UK representatives | Appointed and named in the Privacy notice, or a reasoned decision recorded (policy Part C) | GDPR / UK GDPR Art. 27 | Morten |
@@ -41,7 +41,7 @@ Preview gate, before Morten turns off the Vercel login for the website (`launch_
 
 | # | Item | Done when | Who |
 |---|---|---|---|
-| P1 | Vercel Pro with 2FA (part of 5) | The website runs on a Pro team (Hobby is non-commercial) with two-factor sign-in. Pro: Morten 17 Nov 2026; 2FA still to confirm | Morten |
+| P1 | Vercel Pro with 2FA (part of 5) | Done: Pro team and two-factor sign-in on Vercel (Morten, 17 Nov 2026: "is DONE") | — |
 | P2 | Privacy notice and website terms (part of 4) | Done: approved by Morten 17 Nov 2026 ("P2 approved") | — |
 
 The full launch still needs every item in the table above.

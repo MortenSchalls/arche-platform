@@ -13,7 +13,7 @@ def launch_blockers():
     if not company.PHONE: b.append("2 Phone: Singapore business number set in company.py (also used for WhatsApp)")
     b += [
         "4 Approve: Terms of business and the Data Protection Policy and compliance register (docs/DATA-PROTECTION-POLICY.md, drafted 9 Nov 2026), or have counsel review them (Privacy notice and Website terms of use approved by Morten 17 Nov 2026)",
-        "5 Vercel Pro team with two-factor sign-in (the Vercel DPA covers only Pro and Enterprise; Hobby is for non-commercial use); 2FA on Supabase, GitHub, Resend, Anthropic and the mailbox",
+        "5 Two-factor sign-in on Supabase, GitHub, Resend, Anthropic and the mailbox (Vercel Pro with two-factor sign-in done, Morten 17 Nov 2026)",
         "6 Data processing agreements accepted and a copy saved: Vercel (Pro), Supabase (region checked), Resend, Anthropic, GitHub and the mail provider (policy A6)",
         "7 Data intermediary agreement with the Navoryx company signed (heads of terms: policy Part D)",
         "8 EU and UK representatives appointed and named in the Privacy notice, or a reasoned decision not to recorded and signed off (policy Part C)",
@@ -26,7 +26,7 @@ def launch_blockers():
 def preview_blockers():
     """The public preview (company.PREVIEW, Morten 17 Nov 2026: "ok for me, do it and show me") collects no personal data:
     every form is the email address. Before Morten turns off the Vercel login for the website, these must be done.
-    Done: P2 privacy notice and website terms approved (Morten, 17 Nov 2026: "P2 approved")."""
+    Done: P2 privacy notice and website terms approved (Morten, 17 Nov 2026: "P2 approved"); P1 Vercel Pro with
+    two-factor sign-in (Morten, 17 Nov 2026: "is DONE"). Nothing is left: the Vercel login for the website may come off."""
     return [
-        "P1 (part of 5) Two-factor sign-in on Vercel confirmed (the team is on Pro: Morten, 17 Nov 2026)",
     ]
