@@ -33,7 +33,7 @@ Morten Schalls Joergensen as the company's DPO from 16 Nov 2026 (filed with the 
 ## Public preview (Morten, 17 Nov 2026: "ok for me, do it and show me")
 
 The banks and Avinode need a website before the launch. `company.PREVIEW = True` builds the public preview
-(`apps/website/preview.py`): a red "REMOVE BEFORE FLIGHT" tag hanging from the Archē logo, one opening line with the
+(`apps/website/preview.py`): a red "REMOVE BEFORE FLIGHT" tag hooked on the Archē name in the top bar, one opening line with the
 enquiry email at the bottom of the screen, every form replaced by the email address (no personal data collected),
 drafts left out, search engines still shut out. `check_site.py` fails if any form is left.
 

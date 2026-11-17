@@ -2,8 +2,8 @@
 early because the banks and Avinode require a website, with a "Remove before flight" tag and the forms off).
 
 With company.PREVIEW = True (and company.LAUNCHED = False) every built page gets:
-  - a small red "REMOVE BEFORE FLIGHT" tag hanging below the top bar at the top of the page (our own drawing, CSS only,
-    no script); it scrolls away with the page and is removed at launch, as the tag is before a flight;
+  - a small red "REMOVE BEFORE FLIGHT" tag hooked on the Archē name in the top bar (Morten, 17 Nov 2026: "attached to the name"), at a slight angle, tilted
+    left, 30% larger than first drawn, so it stays with the bar while the page scrolls (Morten, 17 Nov 2026); our own drawing, CSS only, no script; it is removed at launch, as the tag is before a flight;
   - one quiet line fixed at the bottom of the screen: Archē Executive opens for bookings soon, with the enquiry email;
   - no form that collects personal data: the quote form's details step becomes "Email this request" (a mail link with
     the trip filled in, sent by the visitor's own mail program), the call-back field becomes the email address, the
@@ -45,14 +45,15 @@ ROWS = [   # runtime translations for the text inside the page's forms (same tab
 
 CSS = """
 /* Public preview before the launch (preview.py, 17 Nov 2026): removed at launch */
-.ae-rbf{position:absolute;top:90px;left:calc(50% + 40px);z-index:950;width:30px;height:180px;pointer-events:none;transform:rotate(9deg);transform-origin:50% 0}
+.ae-nav-brand{position:relative}
+.ae-rbf{position:absolute;top:calc(100% + 4px);left:calc(100% - 14px);z-index:2;width:30px;height:180px;pointer-events:none;transform:rotate(9deg) scale(1.3);transform-origin:50% 0}
 .ae-rbf::before{content:"";position:absolute;left:50%;top:-14px;width:18px;height:18px;margin-left:-9px;border:2px solid #b9c0c8;border-radius:50%;box-sizing:border-box}
 .ae-rbf b{position:absolute;inset:6px 0 0;display:flex;align-items:center;justify-content:center;background:#b3121f;border-radius:2px;box-shadow:0 6px 16px rgba(0,0,0,0.35);outline:1px dashed rgba(255,255,255,0.45);outline-offset:-4px;writing-mode:vertical-rl;transform:rotate(180deg);font:700 11px/1 'Hanken Grotesk',system-ui,sans-serif;letter-spacing:0.12em;color:#fff;white-space:nowrap}
 .ae-pv{position:fixed;left:0;right:0;bottom:0;z-index:1001;padding:10px 20px;background:rgba(40,43,48,0.96);border-top:1px solid rgba(243,245,248,0.12);text-align:center;font:400 13.5px/1.5 'Hanken Grotesk',system-ui,sans-serif;color:#c6cbd2}
 .ae-pv a{color:#f3f5f8;text-decoration:underline;text-underline-offset:3px}
 html body{padding-bottom:46px!important}
 .side{position:static!important}   /* the page's side box stays in place during the preview, so the opening line never covers it */
-@media (max-width:600px){.ae-rbf{top:92px;left:calc(50% + 34px);width:24px;height:140px}.ae-rbf b{font-size:9px}.ae-pv{padding:9px 16px;font-size:13px}html body{padding-bottom:64px!important}}
+@media (max-width:600px){.ae-rbf{top:calc(100% + 2px);left:calc(100% - 12px);width:24px;height:140px}.ae-rbf b{font-size:9px}.ae-pv{padding:9px 16px;font-size:13px}html body{padding-bottom:64px!important}}
 @media print{.ae-rbf,.ae-pv{display:none}}
 """
 
@@ -126,7 +127,7 @@ def run(verbose=True):
             t = re.sub(r"<!--ae:preview-->.*?<!--/ae:preview-->", "", t, flags=re.S)
             m = re.search(r'<html[^>]*\blang="([a-z]{2})', t); lang = m.group(1) if m else "en"
             t, n = forms(t); changed += n
-            t = t.replace("<!--/ae:nav-->", "<!--/ae:nav-->" + TAG, 1)
+            t = t.replace('<span class="x">EXECUTIVE</span></a>', '<span class="x">EXECUTIVE</span>' + TAG + '</a>', 1)   # hung from the name in the top bar
             t = t.replace("</body>", strip(lang) + "</body>", 1)
             open(p, "w", encoding="utf-8").write(t); pages += 1
     if verbose: print(f"  preview: tag and opening line on {pages} pages; {changed} forms replaced by the email address")
