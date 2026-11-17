@@ -27,7 +27,7 @@ Closed 16 Nov 2026 (Morten sent the statutory registers: "Congratulations, we ar
 registered as Arche Aviation Pte. Ltd., UEN 202652508N, incorporated 16 November 2026; the UEN is set in `company.py`
 and the legal name is used on every page, agreement and document (trading as Archē Executive).
 
-Closed 17 Nov 2026: item 3, the Data Protection Officer on BizFile+. Morten checked BizFile+ on 17 Nov 2026: it lists
+Closed 17 Nov 2026: item 3, the Data Protection Officer on BizFile+. Seen 17 Nov 2026 in the company information on the CorporateServices.com dashboard (Ottavia, the ACRA filing agent): it lists
 Morten Schalls Joergensen as the company's DPO from 16 Nov 2026 (filed with the incorporation).
 
 Then: set `company.LAUNCHED = True` (the build refuses while any item is open), release staging to main, turn off the
