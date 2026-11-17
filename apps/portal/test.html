@@ -731,6 +731,16 @@ const acting = () => S.preview || S.role;               // owner can preview the
 
 /* ---------- pricing and commission ---------- */
 function priceOf(op, direct){ const cost = num(op) + num(direct); return cost > 0 ? Math.ceil(cost / (1 - S.terms.margin)) : 0; }
+// Payment and conversion costs are direct trip costs, inside the price (Morten, 17 Nov 2026: "YES"): converting the client's
+// money into the operator's currency when the operator quotes in another currency than USD, and the card fee when the client
+// pays by card. Rates until the payment provider is agreed: config/terms payFx and payCard.
+const PAY_RATES = () => ({fx: num(S.terms.payFx) || 0.004, card: num(S.terms.payCard) || 0.036});
+function payCostOf(op, own, cur, byCard){
+  const r = PAY_RATES(), o = num(op), fx = cur && cur !== "USD" && o > 0 ? Math.ceil(o * r.fx) : 0;
+  const base = o + num(own) + fx, m = S.terms.margin;
+  const card = byCard && base > 0 ? Math.ceil(base * r.card / (1 - m - r.card)) : 0;   // card fee = card rate x the client price
+  return {fx, card, total: fx + card};
+}
 function stageOf(d, st){
   if (st && st.state) {
     if (st.state === "returned" && d && d.submittedAt && d.submittedAt > (st.updatedAt || "")) return "review";
@@ -1325,7 +1335,8 @@ function openEditor(t){
       <label class="f" for="q_av">Avinode trip ID<input id="q_av" value="${esc(q.avinode || "")}"></label>
       ${curFields(q)}
       <label class="f" for="q_pr">Operator price (USD)<input id="q_pr" inputmode="decimal" value="${esc(q.opPrice || "")}"></label>
-      <label class="f" for="q_dc">Direct trip costs not in the operator price (USD)<input id="q_dc" inputmode="decimal" value="${esc(q.direct || "")}"></label></div>
+      <label class="f" for="q_dc">Direct trip costs not in the operator price (USD)<input id="q_dc" inputmode="decimal" value="${esc(q.directOwn ?? q.direct ?? "")}"></label>
+      <label class="check" for="q_card"><input type="checkbox" id="q_card" ${q.card ? "checked" : ""}><span>The client pays by card</span></label></div>
       <p class="note info small" id="pricePreview" style="margin-top:10px"></p></div>
     <div class="row"><button class="btn primary" type="submit">Save</button></div></form>`;
   updatePreview();
@@ -1339,8 +1350,11 @@ function legRow(l, i){ return `<div class="leg" data-leg="${i}">
   <button class="btn small" type="button" data-act="delLeg" aria-label="Remove leg">Remove</button></div>`; }
 function updatePreview(){
   const p = $("pricePreview"); if (!p) return;
-  const op = num($("q_pr").value), dc = num($("q_dc").value), pr = priceOf(op, dc);
-  p.textContent = pr ? `Client price ${usd(pr)} · Archē fee ${usd(pr - op - dc)} (${(S.terms.margin * 100).toFixed(0)}% of the client price).` : "Enter the operator price to see the client price.";
+  const cur = ($("q_cur") || {}).value || "USD", amt = num(($("q_amt") || {}).value), rate = num(($("q_rate") || {}).value);
+  const op = cur !== "USD" && amt && rate ? Math.ceil(amt * rate) : num($("q_pr").value), own = num($("q_dc").value);
+  const pc = payCostOf(op, own, cur, ($("q_card") || {}).checked), dc = own + pc.total, pr = priceOf(op, dc);
+  const pcTxt = pc.total ? ` Payment and conversion costs ${usd(pc.total)} (${[pc.fx ? `conversion ${usd(pc.fx)}` : "", pc.card ? `card ${usd(pc.card)}` : ""].filter(Boolean).join(", ")}) are added to the direct trip costs.` : "";
+  p.textContent = pr ? `Client price ${usd(pr)} · Archē fee ${usd(pr - op - dc)} (${(S.terms.margin * 100).toFixed(0)}% of the client price).${pcTxt}` : "Enter the operator price to see the client price.";
 }
 async function saveEditor(f){
   const bid = f.dataset.bid, did = f.dataset.did || newId("t");
@@ -1349,6 +1363,7 @@ async function saveEditor(f){
   if (APT.list) { for (const [i, l] of legs.entries()) for (const k of ["from", "to"]) { if (!l[k] || APT.by[l[k]]) continue; const hit = aptSearch(l[k]).find(h => h.a.iata === l[k]); if (hit) l[k] = hit.a.icao; else { toast(`Leg ${i + 1}: choose the ${k === "from" ? "departure" : "arrival"} airport from the list (type a city, airport name or code).`); return; } } }
   const cur = $("q_cur").value, quote = {operator:$("q_op").value.trim(), opCountry:($("q_oc") || {}).value || "", aircraft:$("q_ac").value.trim(), tail:$("q_tl").value.trim().toUpperCase(), avinode:$("q_av").value.trim(), opPrice:num($("q_pr").value), direct:num($("q_dc").value), cur};
   if (cur !== "USD") { quote.curAmt = num($("q_amt").value); quote.rate = num($("q_rate").value); if (!quote.curAmt || !quote.rate) { toast(`Enter the ${cur} amount and the rate used, or choose USD.`); return; } quote.opPrice = Math.ceil(quote.curAmt * quote.rate); quote.rateAt = ((prev.quote || {}).rate === quote.rate && (prev.quote || {}).rateAt) || now(); }
+  { const pc = payCostOf(quote.opPrice, quote.direct, cur, $("q_card").checked); quote.directOwn = quote.direct; quote.card = $("q_card").checked; quote.payFx = pc.fx; quote.payCard = pc.card; quote.direct = quote.direct + pc.total; }
   const body = {...JSON.parse(JSON.stringify(prev)), created: prev.created || now(), updated: now(),
     client:{name:$("e_cn").value.trim(), company:$("e_co").value.trim(), email:$("e_em").value.trim(), phone:$("e_ph").value.trim(), country:$("e_ct").value.trim(), payer:$("e_py").value.trim()},
     trip:{legs, category:$("e_cat").value, notes:$("e_nt").value.trim()}, quote,
@@ -1478,6 +1493,7 @@ async function uploadDoc(t){
 const RULES_TEXT = `You support brokers of Archē Executive (said ar-KAY), a charter brokerage registered in Singapore that sells whole-aircraft private charters worldwide on third-party operators. It is the broker, never the operator.
 House rules:
 - Archē charges a fixed fee of 9% of the price the client pays: client price = (operator price + direct trip costs) / 0.91, rounded up. A different fee on a booking is the exception, set only by the Director with the reason recorded.
+- Payment and conversion costs are direct trip costs inside the price: currency conversion (0.4% of the operator price) when the operator quotes in another currency than USD, and the card fee (3.6% of the client price) when the client pays by card. The confirmation shows one price; there is no card cost on top.
 - Every booking runs through Avinode. The client pays only through the payment request the broker sends from the portal. Never send or accept bank details by email, chat or messaging apps.
 - A charter confirmation is issued only after KYC and sanctions screening and the four-eyes approval by the Director or a person the Director has mandated.
 - Never sell: illegal charter (no valid AOC for commercial flights); cabotage (a foreign operator flying a domestic leg) unless the continuous journey is confirmed in writing by the operator; US domestic legs on non-US operators; intra-EU legs on non-EU operators without permission; per-seat sales; flights for sanctioned persons or embargoed places; operators on the EU Air Safety List; aircraft chartered or controlled by Russian nationals into the EU; medical or air-ambulance flights; travel packages without a licence; trips where passenger names are hidden.
@@ -1871,7 +1887,7 @@ const TERMS_VERSION = "Standard Conditions of Brokerage, version 1.2, November 2
 /* ---------- Fixed contract text ---------- */
 const PART_A = [
  {n:"A1",t:"Who does what.",p:"Archē Executive is the Charterer's broker. The Operator named in the confirmation holds the air operator certificate, operates the aircraft and carries the passengers under its own conditions of carriage. Archē Executive owns and operates no aircraft."},
- {n:"A2",t:"Price.",p:"The price is in USD and covers only what the confirmation lists. Taxes such as VAT, and bank and card charges, come on top."},
+ {n:"A2",t:"Price.",p:"The price is in USD and covers only what the confirmation lists. It includes the cost of converting currency for the operator and, if paid by card, the card charges. Taxes such as VAT, and the Charterer's own bank charges, come on top."},
  {n:"A3",t:"Securing the booking.",items:[
    "On signature: 25% of the price, with a minimum of USD 2,500.",
    "Balance: due 7 calendar days before the first scheduled departure, positioning included.",
@@ -2007,7 +2023,6 @@ function calc(){
   const balance = total - deposit;
   const balanceDue = first && !full ? addDaysISO(first, -7) : "";
   const sched = S.plan && (S.plan.sched || []).length ? S.plan.sched : null;   // this booking's schedule (A3), from the portal
-  const card = S.pay==="pn_card" ? total*num(S.cardPct)/100 : 0;
   const itemsUsed = ["flight","pos","tax","other"].some(k=>String(S.items[k]||"").trim()!=="");
   const itemsSum = ["flight","pos","tax","other"].reduce((a,k)=>a+num(S.items[k]),0);
   const opNet = num(S.opNet);
@@ -2015,8 +2030,8 @@ function calc(){
   const rate = S.feeEx && S.feeEx.pct > 0 ? S.feeEx.pct : PRICING.rate;   // the trip's own fee when the Director set one (the exception)
   const target = opNet>0 ? Math.ceil(opNet/(1-rate)) : 0;
   if (sched) { const sig = sched.filter(x=>x.due==="signature").reduce((a,x)=>a+x.amount,0), rest = sched.filter(x=>x.due!=="signature");
-    return {price, first, days, full: !rest.length, deposit: sig, balance: total - sig, balanceDue: rest.length ? rest[rest.length-1].due : "", sched, card, itemsUsed, itemsSum, opNet, margin, target, fixed, atCost, total}; }
-  return {price, first, days, full, deposit, balance, balanceDue, card, itemsUsed, itemsSum, opNet, margin, target, fixed, atCost, total};
+    return {price, first, days, full: !rest.length, deposit: sig, balance: total - sig, balanceDue: rest.length ? rest[rest.length-1].due : "", sched, itemsUsed, itemsSum, opNet, margin, target, fixed, atCost, total}; }
+  return {price, first, days, full, deposit, balance, balanceDue, itemsUsed, itemsSum, opNet, margin, target, fixed, atCost, total};
 }
 const schedLabel = (x, i, all) => x.due==="signature" ? (all.length===1 ? "Due on signature (full amount)" : "Due on signature") : `${i===all.length-1 ? "Balance due" : "Due"} by ${fmtDate(x.due)}`;
 const cancelRows = cc => S.plan && (S.plan.cancel || []).length ? S.plan.cancel.map(r=>[r.label, r.pctOfPrice+"%", usd(r.amount)]) : CANCEL.map(([b,p])=>[b, p+"%", cc.price?usd(cc.price*p/100):"–"]);
@@ -2049,7 +2064,6 @@ function checks(cc){
   if (S.valid.date && S.valid.date < todayISO()) warn.push("The offer expiry date has passed. Reconfirm the aircraft with the Operator.");
   if (S.valid.date && cc.first && S.valid.date > cc.first) err.push("The offer is valid until after the first departure.");
   if (S.opScale && !String(S.remarks||"").trim()) missing.push("The Operator's cancellation scale in remarks");
-  if (S.pay==="pn_card" && !num(S.cardPct)) missing.push("Card cost percentage");
   if (cc.itemsUsed && Math.round(cc.itemsSum)!==Math.round(cc.price)) err.push(`The price breakdown adds up to ${usd(cc.itemsSum)}, not the charter price of ${usd(cc.price)}.`);
   const yom=num(S.ac.yom); if (yom && cc.first){ const age=+cc.first.slice(0,4)-yom; if(age>20) warn.push(`The aircraft will be ${age} years old at departure. Mention it to the client.`); }
   if (cc.margin!==null && cc.price){
@@ -2098,8 +2112,7 @@ function renderPreview(cc, draft){
     ${cc.fixed?`<tr><td>Fixed-price requests and extras (listed below)</td><td class="num">${usd(cc.fixed)}</td></tr><tr><td><b>Total payable</b></td><td class="num"><b>${usd(cc.total)}</b></td></tr>`:""}
     ${cc.sched ? cc.sched.map((x,i,all)=>`<tr><td>${schedLabel(x,i,all)}</td><td class="num">${usd(x.amount)}</td></tr>`).join("") : `<tr><td>${cc.full?"Due on signature (full amount, departure within 7 days)":"Deposit due on signature (25% of the charter price, min. USD 2,500)"}</td><td class="num">${cc.price?usd(cc.deposit):"–"}</td></tr>
     ${cc.full?"":`<tr><td>Balance due by ${cc.balanceDue?fmtDate(cc.balanceDue):"–"}</td><td class="num">${cc.price?usd(cc.balance):"–"}</td></tr>`}`}
-    ${cc.card?`<tr><td>Card cost (${num(S.cardPct)}%), added for payment by card</td><td class="num">${usd(cc.card)}</td></tr>`:""}
-    <tr><td>Included</td><td>${esc(S.included||"As listed above")}<br><span style="color:var(--paper-muted)">Not included: taxes, bank and card charges, and the costs charged under A7.</span></td></tr></tbody></table>
+    <tr><td>Included</td><td>${esc(S.included||"As listed above")}<br><span style="color:var(--paper-muted)">Not included: taxes, the Charterer's own bank charges, and the costs charged under A7.</span></td></tr></tbody></table>
   <div class="payment"><div class="lbl" style="margin-bottom:5px">How to pay · ${esc(payLabel())}</div>
     <div class="grid"><span>Payment</span><span>Through the secure payment request we send you for this booking</span><span>Booking reference</span><span>${esc(S.ref)}</span></div>
     <div class="fraud">Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.</div></div>
@@ -2166,7 +2179,6 @@ function docDefinition(cc,logo){
   if(cc.sched) cc.sched.forEach((x,i,all)=>pay.push([schedLabel(x,i,all),usd(x.amount)]));
   else { pay.push([cc.full?"Due on signature (full amount, departure within 7 days)":"Deposit due on signature (25% of the charter price, min. USD 2,500)",cc.price?usd(cc.deposit):"–"]);
   if(!cc.full) pay.push([`Balance due by ${cc.balanceDue?fmtDate(cc.balanceDue):"–"}`,cc.price?usd(cc.balance):"–"]); }
-  if(cc.card) pay.push([`Card cost (${num(S.cardPct)}%), added if paid by card`,usd(cc.card)]);
   const sigCol=(title,name,title2)=>({stack:[label(title),{canvas:[{type:"line",x1:0,y1:22,x2:225,y2:22,lineWidth:0.8,lineColor:C.ink}]},{columns:[{text:[t(name,"name"),title2?", "+title2:""]},{text:"Date  ____________",color:C.muted,alignment:"right",width:"auto"}],margin:[0,5,0,0]}]});
   const content=[
     {columns:[logo?{image:logo,fit:[140,66]}:{text:"ARCHĒ EXECUTIVE",font:"Cz",color:"#FFFFFF",fontSize:16},{stack:[{text:"CHARTER CONFIRMATION",font:"Cz",fontSize:14,characterSpacing:1.4,color:"#FFFFFF",alignment:"right"},{text:t(S.ref,"reference"),bold:true,color:C.silver,alignment:"right",fontSize:9.5,margin:[0,3,0,0]},{text:("Issued "+fmtDate(S.issueDate)+(S.btype==="emptyleg"?" · Empty leg":"")).toUpperCase(),fontSize:6.6,color:"#C9D4E0",characterSpacing:1.1,alignment:"right",margin:[0,2,0,0]}],margin:[0,8,0,0]}],margin:[0,-34,0,24]},
@@ -2179,7 +2191,7 @@ function docDefinition(cc,logo){
     {table:{headerRows:1,widths:[20,58,40,"*","*",24,56],body:legsBody},layout:lineLayout},
     h("PRICE AND PAYMENT"),
     {table:{widths:["*",110],body:pay.map(([a,b,s])=>[{text:a,color:C.muted,margin:[s?10:0,0,0,0]},{text:b,alignment:"right",color:s?C.muted:C.ink}])},layout:kvLayout},
-    kv([["Included",{text:[S.included||"As listed above",{text:"\nNot included: taxes, bank and card charges, and the costs charged under A7.",color:C.muted}]}]]),
+    kv([["Included",{text:[S.included||"As listed above",{text:"\nNot included: taxes, the Charterer's own bank charges, and the costs charged under A7.",color:C.muted}]}]]),
     {table:{widths:["*"],body:[[{stack:[label("How to pay · "+payLabel()),{columns:[{width:95,stack:["Payment","Booking reference"],color:C.muted},{stack:["Through the secure payment request we send you for this booking",{text:S.ref,bold:true}]}]},{text:"Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.",color:C.warn,fontSize:7.6,margin:[0,5,0,0]}]}]]},layout:{hLineWidth:()=>0.6,vLineWidth:()=>0.6,hLineColor:()=>C.rule,vLineColor:()=>C.rule,paddingLeft:()=>9,paddingRight:()=>9,paddingTop:()=>7,paddingBottom:()=>7},margin:[0,7,0,0]},
     ...(()=>{ const bt={included:"Included",cost:"After the flight, cost ÷ 0.91",fixed:"Fixed price"}; const o=[];
       [["CLIENT REQUESTS",S.requests],["OPERATIONAL EXTRAS CHARGED TO THE CHARTERER",S.extras]].forEach(([title,list])=>{ if(!list||!list.length) return;
@@ -2251,7 +2263,7 @@ function confData(t, cf, opts){
     // trip checks already judged cabotage on the trip legs: a confirmed amber there is not asked again here (31 Oct 2026)
     tripCab: ((d.trip || {}).legs || []).map((l, i) => (d.acks || {})["cab|" + (i + 1)] ? l.from + "|" + l.to : null).filter(Boolean),
     tripLegs: ((d.trip || {}).legs || []).map(l => [l.from || "", l.to || "", l.date || ""].join("|")),
-    legs: cf.legs || [], price: price ? String(price) : "", pay: cf.pay || "pn_wire", cardPct: cf.cardPct || "", items: cf.items || {flight:"",pos:"",tax:"",other:""},
+    legs: cf.legs || [], price: price ? String(price) : "", pay: cf.pay || "pn_wire", items: cf.items || {flight:"",pos:"",tax:"",other:""},
     included: cf.included ?? DEFAULT_INCLUDED, smoking: !!cf.smoking, animals: !!cf.animals, opScale: !!cf.opScale, remarks: (cf.remarks || "") + (rev ? `${cf.remarks ? "\n" : ""}Revision ${rev}: replaces all earlier versions of this confirmation.` : ""),
     sign:{oName: co.signName || "", oTitle: co.signTitle || "", cName: cf.cName || "", cTitle: cf.cTitle || ""},
     opNet: (opP + dir) ? String(opP + dir) : "", ck, feeEx: st.marginEx ? {pct: num(st.marginEx.pct), reason: st.marginEx.reason || ""} : null,
@@ -2306,7 +2318,7 @@ function vConf(){
         <div><h3>Itinerary</h3><div class="tbl"><table><thead><tr><th scope=col>Date</th><th scope=col>ETD local</th><th scope=col>From</th><th scope=col>To</th><th scope=col class="n">Pax</th><th scope=col>Positioning</th>${edit ? "<th scope=col></th>" : ""}</tr></thead><tbody>
           ${cf.legs.map((l, i) => `<tr><td><input type="date" id="cl_${i}_date" data-cl="${i}.date" value="${esc(l.date)}" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} date"></td><td><input type="time" id="cl_${i}_etd" data-cl="${i}.etd" value="${esc(l.etd)}" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} time"></td><td><input id="cl_${i}_from" class="apt" data-cl="${i}.from" value="${esc(l.from)}" autocomplete="off" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} from: city, airport or ICAO" style="text-transform:uppercase;width:96px" title="${esc(aptName(l.from))}"></td><td><input id="cl_${i}_to" class="apt" data-cl="${i}.to" value="${esc(l.to)}" autocomplete="off" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} to: city, airport or ICAO" style="text-transform:uppercase;width:96px" title="${esc(aptName(l.to))}"></td><td><input id="cl_${i}_pax" data-cl="${i}.pax" value="${esc(l.pax)}" inputmode="numeric" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} passengers" style="width:64px"></td><td><input type="checkbox" id="cl_${i}_pos" data-cl="${i}.pos" ${l.pos ? "checked" : ""} ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} positioning"></td>${edit ? `<td><button class="btn small" type="button" data-act="confDelLeg" data-i="${i}">Remove</button></td>` : ""}</tr>`).join("")}
         </tbody></table></div>${edit ? `<button class="btn small" type="button" data-act="confAddLeg" style="margin-top:8px">Add leg</button>` : ""}</div>
-        <div><h3>Price and payment</h3><p class="small muted">Charter price ${usd(num(data.price))}, set by the portal at ${(S.terms.margin * 100).toFixed(0)}%. Breakdown is optional and must add up to the price.</p><div class="fgrid">${f("items.flight","Flight and crew (USD)")}${f("items.pos","Positioning (USD)")}${f("items.tax","Airport, handling and taxes (USD)")}${f("items.other","Other (USD)")}${f("pay","Payment through a payment request","select",[["pn_wire","Bank transfer (payment request)"],["pn_instant","Instant payment (payment request)"],["pn_card","Card (payment request, card cost added)"]])}${f("cardPct","Card cost (%)")}${f("included","Included","area")}</div></div>
+        <div><h3>Price and payment</h3><p class="small muted">Charter price ${usd(num(data.price))}, set by the portal at ${(S.terms.margin * 100).toFixed(0)}%. Breakdown is optional and must add up to the price.</p><div class="fgrid">${f("items.flight","Flight and crew (USD)")}${f("items.pos","Positioning (USD)")}${f("items.tax","Airport, handling and taxes (USD)")}${f("items.other","Other (USD)")}${f("pay","Payment through a payment request","select",[["pn_wire","Bank transfer (payment request)"],["pn_instant","Instant payment (payment request)"],["pn_card","Card (payment request, card charges in the price)"]])}${f("included","Included","area")}</div></div>
         <div><h3>On board and remarks</h3>${f("smoking","Smoking permitted","check")}${f("animals","Animals permitted with the Operator's written approval","check")}${f("opScale","The Operator's cancellation scale applies (write it in remarks)","check")}<div class="fgrid">${f("remarks","Remarks","area")}</div></div>
         ${edit ? `<p class="small muted" id="confSaved">Changes save automatically.</p>` : ""}
       </form>`}
@@ -2371,7 +2383,7 @@ async function confAI(btn){
   if (!sample) { toast("The AI check is not available in this view."); return; }
   const st = t.st || {}; const data = st.confIssued && !S.confRevise ? st.confIssued.data : confData(t, S.confDraft);
   const ev = CONF.evaluate(data);
-  const safe = {bookingType: data.btype, validUntil: data.valid, aircraft: data.ac, operator: data.op, legs: data.legs, price: data.price, operatorPriceIncludingDirectCosts: data.opNet, breakdown: data.items, payment: data.pay, cardPct: data.cardPct, included: data.included, smoking: data.smoking, animals: data.animals, operatorCancellationScale: data.opScale, remarks: data.remarks, chartererResidence: (t.d.client || {}).country, formChecks: ev.ch};
+  const safe = {bookingType: data.btype, validUntil: data.valid, aircraft: data.ac, operator: data.op, legs: data.legs, price: data.price, operatorPriceIncludingDirectCosts: data.opNet, breakdown: data.items, payment: data.pay, included: data.included, smoking: data.smoking, animals: data.animals, operatorCancellationScale: data.opScale, remarks: data.remarks, chartererResidence: (t.d.client || {}).country, formChecks: ev.ch};
   btn.disabled = true; out.hidden = false; out.textContent = "Thinking…";
   const prompt = `${RULES_TEXT}\n\nYou are checking a charter confirmation before the Director issues it. The form's own checks are included. Review it against our rules and give: 1) a verdict line (Ready, or Not ready); 2) anything that would make it wrong or risky: cabotage and domestic legs, routing that does not connect, positioning legs, passenger numbers against seats, aircraft age, safety audit standard, payment and card cost, offer validity against departure, empty-leg conditions, missing operator details; 3) disclosures the client must see. Under 220 words, bullet points. Client names and contact details are deliberately left out.\n\nConfirmation (JSON):\n${JSON.stringify(safe, null, 1)}`;
   try { await sample(prompt, {onText: ({text}) => { out.textContent = text; }}); }
@@ -3047,6 +3059,7 @@ document.addEventListener("change", async e => {
   if (e.target.id === "pAll") { const c = S.pChk || (S.pChk = new Set()); document.querySelectorAll("[data-pchk]").forEach(x => e.target.checked ? c.add(x.dataset.pchk) : c.delete(x.dataset.pchk)); render(); return; }
   if (e.target.id === "pSort") { S.pSort = e.target.value; S.pPage = 0; render(); return; }
   if (e.target.id === "tb") { S.tb = e.target.value; render(); return; }
+  if (e.target.id === "q_card") { updatePreview(); return; }
   if (e.target.id === "q_cur") { curSync(); return; }
   if (e.target.id === "sg_file") { const t = tripById(S.sel); if (t) sigSave(t); return; }
   if (e.target.dataset && e.target.dataset.launch) { const k = e.target.dataset.launch; try { await S.db.doc("config/launch").set({...(S.launch || {}), [k]: e.target.checked ? now() : null}); audit(e.target.checked ? "Launch item ticked" : "Launch item unticked", k); } catch(err){ toast("Could not save."); } return; }
@@ -3069,7 +3082,7 @@ function confField(e){
   else return false;
   refreshConfPreview(); clearTimeout(S.cft); S.cft = setTimeout(saveConfDraft, 900); return true;
 }
-document.addEventListener("input", e => { if (S.view === "conf" && e.target.closest && e.target.closest("#confForm") && e.target.type !== "checkbox" && e.target.tagName !== "SELECT") { confField(e); return; } if (e.target.id === "pf_q") { S.pPage = 0; S.pf.q = e.target.value; clearTimeout(S.qt); S.qt = setTimeout(render, 250); return; } if (e.target.id === "helpQ") { S.helpQ = e.target.value; clearTimeout(S.qt); S.qt = setTimeout(render, 300); return; } if (e.target.id === "tq") { S.tq = e.target.value; clearTimeout(S.qt); S.qt = setTimeout(render, 250); return; } if (e.target.id) S.dirty.add(e.target.id); if (e.target.id === "q_amt" || e.target.id === "q_rate") { curSync(); return; } if (e.target.id === "q_pr" || e.target.id === "q_dc") updatePreview(); });
+document.addEventListener("input", e => { if (S.view === "conf" && e.target.closest && e.target.closest("#confForm") && e.target.type !== "checkbox" && e.target.tagName !== "SELECT") { confField(e); return; } if (e.target.id === "pf_q") { S.pPage = 0; S.pf.q = e.target.value; clearTimeout(S.qt); S.qt = setTimeout(render, 250); return; } if (e.target.id === "helpQ") { S.helpQ = e.target.value; clearTimeout(S.qt); S.qt = setTimeout(render, 300); return; } if (e.target.id === "tq") { S.tq = e.target.value; clearTimeout(S.qt); S.qt = setTimeout(render, 250); return; } if (e.target.id) S.dirty.add(e.target.id); if (e.target.id === "q_amt" || e.target.id === "q_rate") { curSync(); return; } if (e.target.id === "q_pr" || e.target.id === "q_dc" || e.target.id === "q_amt" || e.target.id === "q_rate") updatePreview(); });
 document.addEventListener("copy", e => { if (S.role === "broker" && e.target.closest && (e.target.closest(".guard") || (document.getSelection().anchorNode && document.getSelection().anchorNode.parentElement && document.getSelection().anchorNode.parentElement.closest(".guard")))) { e.preventDefault(); toast("Client and lead details stay in the portal."); } });
 document.addEventListener("submit", async e => {
   e.preventDefault();
@@ -3169,7 +3182,6 @@ function sigText(t, reminder){
     ...(fixed.length ? [...fixed.map(x => `${x.cat}: ${x.text}: ${usd(xClient(x))}`), `Total: ${usd(total)}`] : []),
     ...(atCost.length ? ["Charged after the flight, under Part A, A7:", ...atCost.map(x => `- ${x.cat}: ${x.text}`)] : []),
     cc.sched && cc.sched.length > 2 ? `Payment: ${cc.sched.map((x, i) => `${usd(x.amount)} ${x.due === "signature" ? "on signature" : "by " + dl(x.due)}`).join("; ")} (see the payment schedule in the confirmation).` : cc.full ? `Payment: the full amount of ${usd(total)} on signature${cc.sched ? "" : " (departure is within 7 days)"}.` : `Payment: deposit of ${usd(cc.deposit)} on signature; balance of ${usd(cc.balance)} by ${dl(cc.balanceDue)}.`,
-    ...(data.pay === "pn_card" && num(data.cardPct) ? [`Card payment adds a card cost of ${data.cardPct}%.`] : []),
     "Payment is made only through the secure payment request you will receive from us. We never ask you to pay into a bank account by email or message; if you ever receive such a request, do not pay and call us.",
     "", "TO CONFIRM YOUR BOOKING", "1. Check the itinerary, aircraft, operator and price in the attached confirmation.", "2. Sign and date it where marked \"For the Charterer\".",
     `3. Return the signed PDF by reply to this email${valid ? " before " + valid : ""}. The aircraft is held for you until then${valid ? "" : " as stated in the confirmation"}.`,

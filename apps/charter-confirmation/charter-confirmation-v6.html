@@ -213,8 +213,7 @@ fieldset.internal .calc{background:var(--panel)}
       <legend>PRICE AND PAYMENT</legend>
       <label class="full">Charter price (USD, all-in as quoted)<input id="price" type="number" min="0" step="100" data-k="price" data-req="Charter price"></label>
       <div class="calc" id="calc"></div>
-      <label>Payment method (through a payment request)<select id="pay" data-k="pay"><option value="pn_wire">Bank transfer (payment request)</option><option value="pn_instant">Instant payment (payment request)</option><option value="pn_card">Card (payment request, card cost added)</option></select></label>
-      <label>Card cost (% if paid by card)<input id="cardPct" type="number" min="0" step="0.1" data-k="cardPct"></label>
+      <label>Payment method (through a payment request)<select id="pay" data-k="pay"><option value="pn_wire">Bank transfer (payment request)</option><option value="pn_instant">Instant payment (payment request)</option><option value="pn_card">Card (payment request, card charges in the price)</option></select></label>
       <p class="hint full" style="margin-top:4px"><b>Price breakdown</b> (optional; must add up to the charter price if used)</p>
       <label>Flight and crew<input id="itFlight" type="number" min="0" data-k="items.flight"></label>
       <label>Positioning<input id="itPos" type="number" min="0" data-k="items.pos"></label>
@@ -274,7 +273,7 @@ const TERMS_VERSION = "Standard Conditions of Brokerage, version 1.2, November 2
 /* ---------- Fixed contract text ---------- */
 const PART_A = [
  {n:"A1",t:"Who does what.",p:"Archē Executive is the Charterer's broker. The Operator named in the confirmation holds the air operator certificate, operates the aircraft and carries the passengers under its own conditions of carriage. Archē Executive owns and operates no aircraft."},
- {n:"A2",t:"Price.",p:"The price is in USD and covers only what the confirmation lists. Taxes such as VAT, and bank and card charges, come on top."},
+ {n:"A2",t:"Price.",p:"The price is in USD and covers only what the confirmation lists. It includes the cost of converting currency for the operator and, if paid by card, the card charges. Taxes such as VAT, and the Charterer's own bank charges, come on top."},
  {n:"A3",t:"Securing the booking.",items:[
    "On signature: 25% of the price, with a minimum of USD 2,500.",
    "Balance: due 7 calendar days before the first scheduled departure, positioning included.",
@@ -396,7 +395,7 @@ function blankBooking(keep){
     charterer:{name:"",address:"",contact:"",kyc:"",email:"",phone:"",lead:""},
     ac:{cat:"Heavy jet",type:"",reg:"",yom:"",seats:"",ca:"Included",wifi:"Not available",audit:""}, op:{name:"",aoc:"",state:""},
     legs:[{date:"",from:"",to:"",etd:"",pax:"",pos:false}],
-    price:"", pay:"pn_wire", cardPct:"", items:{flight:"",pos:"",tax:"",other:""},
+    price:"", pay:"pn_wire", items:{flight:"",pos:"",tax:"",other:""},
     included:"Aircraft, crew, fuel, landing, handling and navigation charges at the airports listed, standard catering.",
     smoking:false, animals:false, opScale:false, remarks:"",
     sign:{oName:keep&&keep.sign?keep.sign.oName:"",oTitle:keep&&keep.sign?keep.sign.oTitle:"",cName:"",cTitle:""},
@@ -440,14 +439,13 @@ function calc(){
   const deposit = full ? price : Math.min(price, Math.max(price*0.25, 2500));
   const balance = price - deposit;
   const balanceDue = first && !full ? addDaysISO(first, -7) : "";
-  const card = S.pay==="pn_card" ? price*num(S.cardPct)/100 : 0;
   const itemsUsed = ["flight","pos","tax","other"].some(k=>String(S.items[k]||"").trim()!=="");
   const itemsSum = ["flight","pos","tax","other"].reduce((a,k)=>a+num(S.items[k]),0);
   const opNet = num(S.opNet);
   const margin = opNet>0 ? price-opNet : null;
   const rate = S.feeEx && S.feeEx.pct > 0 ? S.feeEx.pct : PRICING.rate;   // the trip's own fee when the Director set one (the exception)
   const target = opNet>0 ? Math.ceil(opNet/(1-rate)) : 0;
-  return {price, first, days, full, deposit, balance, balanceDue, card, itemsUsed, itemsSum, opNet, margin, target};
+  return {price, first, days, full, deposit, balance, balanceDue, itemsUsed, itemsSum, opNet, margin, target};
 }
 
 function checks(cc){
@@ -480,7 +478,6 @@ function checks(cc){
   if (S.valid.date && S.valid.date < todayISO()) warn.push("The offer expiry date has passed. Reconfirm the aircraft with the Operator.");
   if (S.valid.date && cc.first && S.valid.date > cc.first) err.push("The offer is valid until after the first departure.");
   if (S.opScale && !String(S.remarks||"").trim()) missing.push("The Operator's cancellation scale in remarks");
-  if (S.pay==="pn_card" && !num(S.cardPct)) missing.push("Card cost percentage");
   if (cc.itemsUsed && Math.round(cc.itemsSum)!==Math.round(cc.price)) err.push(`The price breakdown adds up to ${usd(cc.itemsSum)}, not the charter price of ${usd(cc.price)}.`);
   const yom=num(S.ac.yom); if (yom && cc.first){ const age=+cc.first.slice(0,4)-yom; if(age>20) warn.push(`The aircraft will be ${age} years old at departure. Mention it to the client.`); }
   if (cc.margin!==null && cc.price){
@@ -558,8 +555,7 @@ function renderPreview(cc, draft){
     ${itemsRows?`<tr><td colspan="2" style="padding:0;border:none"><table>${itemsRows.replace(/<td>/g,'<td style="padding-left:18px;color:var(--paper-muted)">')}</table></td></tr>`:""}
     <tr><td>${cc.full?"Due on signature (full price, departure within 7 days)":"Deposit due on signature (25%, min. USD 2,500)"}</td><td class="num">${cc.price?usd(cc.deposit):"–"}</td></tr>
     ${cc.full?"":`<tr><td>Balance due by ${cc.balanceDue?fmtDate(cc.balanceDue):"–"}</td><td class="num">${cc.price?usd(cc.balance):"–"}</td></tr>`}
-    ${cc.card?`<tr><td>Card cost (${num(S.cardPct)}%), added for payment by card</td><td class="num">${usd(cc.card)}</td></tr>`:""}
-    <tr><td>Included</td><td>${esc(S.included||"As listed above")}<br><span style="color:var(--paper-muted)">Not included: taxes, bank and card charges, and the costs charged under A7.</span></td></tr></tbody></table>
+    <tr><td>Included</td><td>${esc(S.included||"As listed above")}<br><span style="color:var(--paper-muted)">Not included: taxes, the Charterer's own bank charges, and the costs charged under A7.</span></td></tr></tbody></table>
   <div class="payment"><div class="lbl" style="margin-bottom:5px">How to pay · ${esc(payLabel())}</div>
     <div class="grid"><span>Payment</span><span>Through the secure payment request we send you for this booking</span><span>Booking reference</span><span>${esc(S.ref)}</span></div>
     <div class="fraud">Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.</div></div>
@@ -653,7 +649,6 @@ function docDefinition(cc,logo){
   if(cc.itemsUsed) [["  Flight and crew","flight"],["  Positioning","pos"],["  Airport, handling and taxes","tax"],["  Other","other"]].forEach(([l,k])=>{ if(num(S.items[k])) pay.push([l,usd(num(S.items[k])),"sub"]); });
   pay.push([cc.full?"Due on signature (full price, departure within 7 days)":"Deposit due on signature (25%, min. USD 2,500)",cc.price?usd(cc.deposit):"–"]);
   if(!cc.full) pay.push([`Balance due by ${cc.balanceDue?fmtDate(cc.balanceDue):"–"}`,cc.price?usd(cc.balance):"–"]);
-  if(cc.card) pay.push([`Card cost (${num(S.cardPct)}%), added if paid by card`,usd(cc.card)]);
   const sigCol=(title,name,title2)=>({stack:[label(title),{canvas:[{type:"line",x1:0,y1:22,x2:225,y2:22,lineWidth:0.8,lineColor:C.ink}]},{columns:[{text:[t(name,"name"),title2?", "+title2:""]},{text:"Date  ____________",color:C.muted,alignment:"right",width:"auto"}],margin:[0,5,0,0]}]});
   const content=[
     {columns:[logo?{image:logo,fit:[140,66]}:{text:"ARCHĒ EXECUTIVE",font:"Cz",color:"#FFFFFF",fontSize:16},{stack:[{text:"CHARTER CONFIRMATION",font:"Cz",fontSize:14,characterSpacing:1.4,color:"#FFFFFF",alignment:"right"},{text:t(S.ref,"reference"),bold:true,color:C.silver,alignment:"right",fontSize:9.5,margin:[0,3,0,0]},{text:("Issued "+fmtDate(S.issueDate)+(S.btype==="emptyleg"?" · Empty leg":"")).toUpperCase(),fontSize:6.6,color:"#C9D4E0",characterSpacing:1.1,alignment:"right",margin:[0,2,0,0]}],margin:[0,8,0,0]}],margin:[0,-34,0,24]},
@@ -666,7 +661,7 @@ function docDefinition(cc,logo){
     {table:{headerRows:1,widths:[20,58,42,38,38,24,"*"],body:legsBody},layout:lineLayout},
     h("PRICE AND PAYMENT"),
     {table:{widths:["*",110],body:pay.map(([a,b,s])=>[{text:a,color:C.muted,margin:[s?10:0,0,0,0]},{text:b,alignment:"right",color:s?C.muted:C.ink}])},layout:kvLayout},
-    kv([["Included",{text:[S.included||"As listed above",{text:"\nNot included: taxes, bank and card charges, and the costs charged under A7.",color:C.muted}]}]]),
+    kv([["Included",{text:[S.included||"As listed above",{text:"\nNot included: taxes, the Charterer's own bank charges, and the costs charged under A7.",color:C.muted}]}]]),
     {table:{widths:["*"],body:[[{stack:[label("How to pay · "+payLabel()),{columns:[{width:95,stack:["Payment","Booking reference"],color:C.muted},{stack:["Through the secure payment request we send you for this booking",{text:S.ref,bold:true}]}]},{text:"Archē Executive never sends bank details by email, chat or messaging apps. If you receive payment details any other way, do not pay: call your advisor.",color:C.warn,fontSize:7.6,margin:[0,5,0,0]}]}]]},layout:{hLineWidth:()=>0.6,vLineWidth:()=>0.6,hLineColor:()=>C.rule,vLineColor:()=>C.rule,paddingLeft:()=>9,paddingRight:()=>9,paddingTop:()=>7,paddingBottom:()=>7},margin:[0,7,0,0]},
     h("ON BOARD AND REMARKS"),
     kv([["Smoking · Animals",`${S.smoking?"Smoking permitted":"No smoking"} · ${S.animals?"Animals permitted with the Operator's written approval":"No animals"}`],["Cancellation scale",S.opScale?"The Operator's scale in the remarks applies instead of A9":"Standard scale in A9"],["Remarks",S.remarks||"None"]])
