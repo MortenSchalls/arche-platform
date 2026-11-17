@@ -127,7 +127,7 @@ to the PDPA and to report any loss or misuse within 24 hours). Access ends the d
 | 2 | DPO | PDPA s.11(3)-(5) | Morten appointed 9 Nov 2026; privacy@ live; role on the Privacy page | — | — | Low |
 | 3 | DPO on BizFile+ | ACRA | Filed with the incorporation: CorporateServices.com company information lists Morten as DPO from 16 Nov 2026 (seen 17 Nov 2026; ACRA confirmation asked from Ottavia) | — | — | Low |
 | 4 | Written policy | s.12 | This document | Approve; annual review | Morten | Low |
-| 5 | Public notice | s.20; GDPR Art. 13 | Privacy notice, 16 sections (9 Nov 2026) | Approve | Morten | Low |
+| 5 | Public notice | s.20; GDPR Art. 13 | Privacy notice, 16 sections (9 Nov 2026); approved by Morten 17 Nov 2026 | — | — | Low |
 | 6 | Consent | s.14 | Tick on every form; server refuses without it | — | — | Low |
 | 7 | Access/correction | s.21-22 | A3 | Start the log | DPO | Low |
 | 8 | Retention | s.25 | A4; prospect deletion automated | Monthly routine after launch | DPO | Low |
@@ -142,7 +142,7 @@ to the PDPA and to report any loss or misuse within 24 hours). Access ends the d
 | 17 | Children | — | 18+; travel booked by a parent | — | — | Low |
 | 18 | Navoryx IR records | s.4(2) data intermediary | Director-only in the portal | **Agreement (Part D)** | Morten | Medium → Low |
 | 19 | Terms of business | Contract | Part B of the charter confirmation | Approve | Morten | Low |
-| 20 | Website terms | UCTA s.2(1) carve-out; Singapore law | Website terms of use | Approve | Morten | Low |
+| 20 | Website terms | UCTA s.2(1) carve-out; Singapore law | Website terms of use; approved by Morten 17 Nov 2026 | — | — | Low |
 
 ### B1. BizFile+ DPO filing (done: filed with the incorporation, DPO from 16 Nov 2026; checked 17 Nov 2026)
 For a later change of DPO:
