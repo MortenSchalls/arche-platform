@@ -193,7 +193,7 @@ def run():
     world = json.load(open(os.path.join(C, "world.json"), encoding="utf-8"))
     routes = json.load(open(os.path.join(C, "routes.json"), encoding="utf-8"))   # tools/routes.py: the Navoryx routing rules, per aircraft
     import company
-    pub = [p for p in places["places"] if not (company.LAUNCHED and p.get("draft"))]
+    pub = [p for p in places["places"] if not (company.PUBLIC and p.get("draft"))]
     places = dict(places, places=pub)
     data = {"world": world, "places": [{k: p[k] for k in ("name", "path", "lat", "lon")} for p in pub],
             "ac": [{"name": m["label"], "cat": m["cat"], "range_nm": m["range_nm"], "kt": m["kt"], "cabin": round(m["cabin_h"] * m["cabin_w"], 3), "len": m.get("cabin_l", 0)} for m in ac["models"]],

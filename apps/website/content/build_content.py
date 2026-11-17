@@ -242,7 +242,7 @@ def page_html(p, F, S, P):
 <p class="lead">{fill(p['lead'], F, S, refs)}</p>
 </div></div></section>
 <main><div class="wrap"><div class="cols{' one' if p.get('_main') else ''}">
-<article>{'' if company.LAUNCHED or not p.get('draft') else '<span class="draft">Draft · waiting for approval</span>'}{p.get('_main') or (''.join(body) + faq + related)}</article>
+<article>{'' if company.PUBLIC or not p.get('draft') else '<span class="draft">Draft · waiting for approval</span>'}{p.get('_main') or (''.join(body) + faq + related)}</article>
 <aside class="side">{glance}{srcs}</aside>
 </div>
 <section class="cta">
@@ -259,7 +259,7 @@ def page_html(p, F, S, P):
 <div><span class="k">This page</span><p>Facts checked on {datetime.date.fromisoformat(checked).strftime('%-d %B %Y')} against the sources listed. Rules change; the operator confirms the current rules for your flight.</p><p>{html.escape(company.NAME)}{(' · UEN ' + html.escape(company.UEN)) if company.UEN else ''} · {html.escape(company.ADDRESS)}</p></div></div>
 <div class="b"><span>© {datetime.date.today().year} Archē Executive</span><span>Singapore · Worldwide</span></div>
 </div><div class="bl"><a href="https://portal.archeaviation.com" rel="nofollow">Broker login</a></div></div></footer>
-{'' if company.LAUNCHED or not p.get('draft') else '<style>body{padding-bottom:34px}</style><div class="testbar">Draft · waiting for approval</div>'}
+{'' if company.PUBLIC or not p.get('draft') else '<style>body{padding-bottom:34px}</style><div class="testbar">Draft · waiting for approval</div>'}
 <script src="/track.js" defer></script>
 </body>
 </html>
@@ -311,7 +311,7 @@ def hub(F, S, pub, verbose=True):
     for t, name in GROUPS:
         xs = sorted([p for p in pub if p["type"] == t], key=lambda p: p["h1"])
         if not xs: continue
-        cards = "".join(f'<a href="{p["path"]}"{" class=ph" if photo(p) else ""}>{("<i style=background-image:url(" + photo(p) + ")></i>") if photo(p) else ""}<b>{"" if company.LAUNCHED or not p.get("draft") else "<em class=draft>Draft</em> "}{html.escape(p["h1"])}</b><span>{html.escape(fill(p["lead"], F, S, [], plain=True))}</span></a>' for p in xs)
+        cards = "".join(f'<a href="{p["path"]}"{" class=ph" if photo(p) else ""}>{("<i style=background-image:url(" + photo(p) + ")></i>") if photo(p) else ""}<b>{"" if company.PUBLIC or not p.get("draft") else "<em class=draft>Draft</em> "}{html.escape(p["h1"])}</b><span>{html.escape(fill(p["lead"], F, S, [], plain=True))}</span></a>' for p in xs)
         secs.append(f'<h2 id="{t}">{name}</h2><div class="grid">{cards}</div>')
     p = {"path": "/destinations/", "type": "hub", "title": "Private jet destinations, airports and guides", "draft": False,
          "description": "Guides to private flights by region, city and airport, and how charter works, each checked against official sources with the date it was checked.",
@@ -347,8 +347,8 @@ def run(verbose=True):
     paths = set(); built = []
     add_events(P)
     for p in P: check_page(p, F)
-    # launched: drafts are not published at all; test website: everything is built so Morten can use it in full
-    pub = [p for p in P if not (company.LAUNCHED and p.get("draft"))]
+    # launched or public preview (company.PUBLIC): drafts are not published at all; test website: everything is built so Morten can use it in full
+    pub = [p for p in P if not (company.PUBLIC and p.get("draft"))]
     for p in P:
         if p in pub: continue
         d = os.path.join(SITE, p["path"].strip("/"))

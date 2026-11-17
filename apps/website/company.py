@@ -16,6 +16,13 @@ WECHAT_ID = ""   # e.g. "ArcheExecutive" once the WeChat account exists; until t
 #   login is ever off. True (launch day): search engines welcome; only approved pages are built and linked; drafts
 #   are not published at all.
 LAUNCHED = False
+# Public preview before the launch (Morten, 17 Nov 2026: "ok for me, do it and show me"): the banks and Avinode need a
+#   website now. True: preview.py adds the "Remove before flight" tag and the opening line, and turns every form into
+#   the email address (no personal data collected); drafts are left out as at launch; search engines stay shut out
+#   (LAUNCHED = False). Public only once Morten turns off the Vercel login after the preview gate
+#   (launch_blockers.preview_blockers). At launch: PREVIEW = False, LAUNCHED = True.
+PREVIEW = True
+PUBLIC = LAUNCHED or PREVIEW   # drafts are not published (launched or preview)
 # Ties with the other public website (docs/SEVERANCE.md, Morten 9 Nov 2026): False on severance; nothing else changes.
 SHARED_SITE = True
 # Launch blockers: launch_blockers.py (record in docs/LAUNCH-BLOCKERS.md). build.py refuses to launch while any is open.

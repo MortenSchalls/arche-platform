@@ -35,8 +35,8 @@ for x in PL["places"]:
     if not x["arche"] or not x.get("navoryx"):
         if x.get("waiting"): notes.append(f"places: {x['place']} waiting: {x['waiting']}")
         else: problems.append(f"places: {x['place']} is on one website only, with no reason given")
-    if company.LAUNCHED and x["arche"] and all(mine.get(p, {}).get("draft") for p in x["arche"]):
-        problems.append(f"places: {x['place']}: every page is still a draft, so the launched site would not show it")
+    if company.PUBLIC and x["arche"] and all(mine.get(p, {}).get("draft") for p in x["arche"]):
+        (problems if company.LAUNCHED else notes).append(f"places: {x['place']}: every page is still a draft, so the {'launched site' if company.LAUNCHED else 'public preview'} does not show it")
 if company.SHARED_SITE:   # the copy for the other website must match the facts here (docs/SEVERANCE.md)
     import subprocess, tempfile
     tmp = os.path.join(tempfile.mkdtemp(), "f.json")
@@ -78,5 +78,11 @@ for n in notes: print("NOTE:", n)
 from launch_blockers import launch_blockers
 for b in launch_blockers():
     problems.append("launch blocker: " + b)
+# public preview (Morten, 17 Nov 2026): no form may collect a visitor's details; the Vercel login stays on until the gate is done
+import preview
+problems += preview.problems()
+if company.PREVIEW and not company.LAUNCHED:
+    from launch_blockers import preview_blockers
+    for x in preview_blockers(): print("PREVIEW GATE (keep the Vercel login on until done):", x)
 print("\n".join(problems) or "Website ready: no placeholders left.")
 sys.exit(1 if problems else 0)

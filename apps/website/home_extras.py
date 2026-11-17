@@ -21,7 +21,7 @@ LINE = "border-top:1px solid rgba(243,245,248,0.12)"
 
 def _pages():
     built = json.load(open(os.path.join(CONTENT, "built.json"))) if os.path.exists(os.path.join(CONTENT, "built.json")) else []
-    pub = {b["path"] for b in built if company.LAUNCHED is False or not b["draft"]}
+    pub = {b["path"] for b in built if company.PUBLIC is False or not b["draft"]}
     P = []
     for f in sorted(os.listdir(os.path.join(CONTENT, "pages"))):
         if not f.endswith(".json"): continue

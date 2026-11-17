@@ -21,3 +21,12 @@ def launch_blockers():
         "10 Launch day: test enquiries and test records deleted from the portal (policy A4)",
     ]
     return b
+
+
+def preview_blockers():
+    """The public preview (company.PREVIEW, Morten 17 Nov 2026: "ok for me, do it and show me") collects no personal data:
+    every form is the email address. Before Morten turns off the Vercel login for the website, these must be done."""
+    return [
+        "P1 (part of 5) Vercel Pro team with two-factor sign-in on Vercel (a commercial site may not run on the Hobby plan)",
+        "P2 (part of 4) Privacy notice and Website terms of use approved by Morten (an email to us is still personal data)",
+    ]

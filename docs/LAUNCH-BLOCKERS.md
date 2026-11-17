@@ -30,6 +30,22 @@ and the legal name is used on every page, agreement and document (trading as Arc
 Closed 17 Nov 2026: item 3, the Data Protection Officer on BizFile+. Seen 17 Nov 2026 in the company information on the CorporateServices.com dashboard (Ottavia, the ACRA filing agent): it lists
 Morten Schalls Joergensen as the company's DPO from 16 Nov 2026 (filed with the incorporation).
 
+## Public preview (Morten, 17 Nov 2026: "ok for me, do it and show me")
+
+The banks and Avinode need a website before the launch. `company.PREVIEW = True` builds the public preview
+(`apps/website/preview.py`): a red "REMOVE BEFORE FLIGHT" tag hanging from the Archē logo, one opening line with the
+enquiry email at the bottom of the screen, every form replaced by the email address (no personal data collected),
+drafts left out, search engines still shut out. `check_site.py` fails if any form is left.
+
+Preview gate, before Morten turns off the Vercel login for the website (`launch_blockers.preview_blockers`):
+
+| # | Item | Done when | Who |
+|---|---|---|---|
+| P1 | Vercel Pro with 2FA (part of 5) | The website runs on a Pro team (Hobby is non-commercial) with two-factor sign-in | Morten |
+| P2 | Privacy notice and website terms (part of 4) | Approved by Morten | Morten |
+
+The full launch still needs every item in the table above.
+
 Then: set `company.LAUNCHED = True` (the build refuses while any item is open), release staging to main, turn off the
 Vercel login for the website's production address, and submit the sitemap to the search engines.
 
