@@ -32,9 +32,9 @@ CSS = f"""
 #services>div:nth-child(2)>*>div:last-child{{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;grid-row:2/span 3;{SUB};row-gap:12px!important;padding:0 32px 32px}}
 .ar-trio .ar-g>figure{{{SUB};grid-row:span 3;row-gap:0!important}}
 .ar-trio .ar-g>figure>figcaption{{grid-row:2/span 2;{SUB};row-gap:0!important}}
-/* phones: the swiped rows are grids too, so the cards beside each other still share their lines */
+/* phones: the service cards stack one under the other; the swiped row of trip cards stays a grid, so the cards beside each other still share their lines */
 @media (max-width:760px){{
-#services>div:nth-child(2){{display:grid!important;grid-auto-flow:column;grid-auto-columns:80%;grid-template-columns:none!important}}
+#services>div:nth-child(2){{display:grid!important;grid-auto-flow:row;grid-template-columns:1fr!important;overflow:visible!important;margin:0!important;padding:0!important}}   /* one under the other (Morten, 17 Nov 2026: "Services on mobile is not ok") */
 .ar-trio .ar-g{{display:grid!important;grid-auto-flow:column;grid-auto-columns:76%;grid-template-columns:none!important}}
 #discover .ae-tile::before{{min-height:96px}}
 #discover .ae-tile>span:last-child{{padding:0 14px 14px}}

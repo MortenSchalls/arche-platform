@@ -71,10 +71,9 @@ section#fleet, section#journey, section#contact { padding-top: clamp(64px, 7vw, 
   #why > div:first-child > div:last-child { padding-top: 0 !important; font-size: 18px !important; gap: 16px !important; }
   #why > div[style*="grid"] { gap: 36px !important; margin-top: 48px !important; }
 
-  /* services: three cards side by side, swiped like a row */
-  #services > div:last-child { display: flex !important; gap: 12px !important; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 0 20px 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-  #services > div:last-child::-webkit-scrollbar { display: none; }
-  #services > div:last-child > div { flex: 0 0 80%; scroll-snap-align: center; }
+  /* services: the three cards one under the other, each whole on the screen (Morten, 17 Nov 2026: "Services on mobile
+     is not ok"; the swiped row cut the second card off at the edge) */
+  #services > div:last-child { gap: 12px !important; }   /* the grid itself: align_cards.py */
   #services > div:last-child > div > div:last-child { left: 22px !important; right: 22px !important; bottom: 24px !important; gap: 8px !important; }
   #services > div:last-child > div > div:last-child > span:nth-child(2) { font-size: 24px !important; }
   #services > div:last-child > div > div:last-child > span:nth-child(3) { font-size: 14px !important; line-height: 1.5 !important; }
@@ -128,3 +127,12 @@ section#top .hero-content > div:last-child:has(> div:nth-child(3):last-child inp
   section#top .hero-content > div:last-child:has(> div:nth-child(3):last-child input[type="date"]) > div:nth-child(2) > :nth-child(-n+4) { border-bottom: 1px solid rgba(243,245,248,.12); }
 }
 section#top .hero-content > div:last-child:has(> div:nth-child(3):last-child input[type="date"]) > div:nth-child(2) > :nth-child(5) > span { letter-spacing: .1em !important; white-space: nowrap; }
+
+/* aircraft finder: the passenger and distance sliders stay in view under the top bar while you scroll to the suggested
+   aircraft, so every change shows at once (Morten, 17 Nov 2026: "the aircraft finder to need to use sliders and scroll
+   down to see it changes, not ok") */
+#fleet div:has(> label > input[type="range"]) { position: sticky; top: 89px; z-index: 20; background: rgb(54, 58, 65); box-shadow: 0 0 0 100vmax rgb(54, 58, 65); clip-path: inset(0 -100vmax); }
+@media (max-width: 760px) {
+  #fleet div:has(> label > input[type="range"]) { top: 90px; padding: 14px 0 !important; gap: 14px !important; }
+  #fleet div:has(> label > input[type="range"]) > :not(:has(input[type="range"])) { display: none !important; }
+}

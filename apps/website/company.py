@@ -22,6 +22,9 @@ LAUNCHED = False
 #   (LAUNCHED = False). Public only once Morten turns off the Vercel login after the preview gate
 #   (launch_blockers.preview_blockers). At launch: PREVIEW = False, LAUNCHED = True.
 PREVIEW = True
+# Languages (Morten, 17 Nov 2026: "switch off all languages except English until we have had it checked with a
+#   translator"): False publishes English only (english_only.py); the Thai, Chinese and Japanese texts are kept for later.
+LANGUAGES_ON = False
 PUBLIC = LAUNCHED or PREVIEW   # drafts are not published (launched or preview)
 # Ties with the other public website (docs/SEVERANCE.md, Morten 9 Nov 2026): False on severance; nothing else changes.
 SHARED_SITE = True

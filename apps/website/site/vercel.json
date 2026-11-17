@@ -1,19 +1,6 @@
 {
  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- .",
- "rewrites": [
-  {
-   "source": "/th",
-   "destination": "/th.html"
-  },
-  {
-   "source": "/zh",
-   "destination": "/zh.html"
-  },
-  {
-   "source": "/ja",
-   "destination": "/ja.html"
-  }
- ],
+ "rewrites": [],
  "headers": [
   {
    "source": "/(.*)",
@@ -88,6 +75,23 @@
      "value": "noindex"
     }
    ]
+  }
+ ],
+ "redirects": [
+  {
+   "source": "/(th|zh|ja)",
+   "destination": "/",
+   "permanent": false
+  },
+  {
+   "source": "/:page/(th|zh|ja)",
+   "destination": "/:page/",
+   "permanent": false
+  },
+  {
+   "source": "/:page/(th|zh|ja)/",
+   "destination": "/:page/",
+   "permanent": false
   }
  ]
 }

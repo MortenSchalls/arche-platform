@@ -81,6 +81,8 @@ for b in launch_blockers():
 # public preview (Morten, 17 Nov 2026): no form may collect a visitor's details; the Vercel login stays on until the gate is done
 import preview
 problems += preview.problems()
+import english_only
+problems += english_only.problems()
 if company.PREVIEW and not company.LAUNCHED:
     from launch_blockers import preview_blockers
     for x in preview_blockers(): print("PREVIEW GATE (keep the Vercel login on until done):", x)
