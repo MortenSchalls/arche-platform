@@ -125,7 +125,7 @@ to the PDPA and to report any loss or misuse within 24 hours). Access ends the d
 |---|---|---|---|---|---|---|
 | 1 | Company | Notice names the organisation | Arche Aviation Pte. Ltd., UEN 202652508N, registered office 20 Collyer Quay, #09-01, Singapore 049319, in the notice (16 Nov 2026) | — | — | Low |
 | 2 | DPO | PDPA s.11(3)-(5) | Morten appointed 9 Nov 2026; privacy@ live; role on the Privacy page | — | — | Low |
-| 3 | DPO on BizFile+ | ACRA | Company registered 16 Nov 2026; filing now possible | File on BizFile+ (B1) | Morten | Low |
+| 3 | DPO on BizFile+ | ACRA | Filed with the incorporation: BizFile+ lists Morten as DPO from 16 Nov 2026 (checked 17 Nov 2026) | — | — | Low |
 | 4 | Written policy | s.12 | This document | Approve; annual review | Morten | Low |
 | 5 | Public notice | s.20; GDPR Art. 13 | Privacy notice, 16 sections (9 Nov 2026) | Approve | Morten | Low |
 | 6 | Consent | s.14 | Tick on every form; server refuses without it | — | — | Low |
@@ -144,7 +144,8 @@ to the PDPA and to report any loss or misuse within 24 hours). Access ends the d
 | 19 | Terms of business | Contract | Part B of the charter confirmation | Approve | Morten | Low |
 | 20 | Website terms | UCTA s.2(1) carve-out; Singapore law | Website terms of use | Approve | Morten | Low |
 
-### B1. BizFile+ DPO filing (after registration)
+### B1. BizFile+ DPO filing (done: filed with the incorporation, DPO from 16 Nov 2026; checked 17 Nov 2026)
+For a later change of DPO:
 1. bizfile.gov.sg, log in with Singpass, select Arche Aviation Pte. Ltd.
 2. e-Services → Update Company Information → Update Data Protection Officer information (ACRA passes it to the PDPC).
 3. Enter the DPO's business contact privacy@archeaviation.com; the name is filed there, not on the website.

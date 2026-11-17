@@ -12,7 +12,6 @@ def launch_blockers():
     if not company.UEN: b.append("1 Company: Arche Aviation Pte. Ltd. registered with ACRA and the UEN set in company.py")
     if not company.PHONE: b.append("2 Phone: Singapore business number set in company.py (also used for WhatsApp)")
     b += [
-        "3 Data Protection Officer (Morten, appointed 9 Nov 2026) filed on ACRA BizFile+ (the company is registered: UEN 202652508N, 16 Nov 2026) (policy B1)",
         "4 Approve: Privacy notice, Website terms of use, Terms of business and the Data Protection Policy and compliance register (docs/DATA-PROTECTION-POLICY.md, drafted 9 Nov 2026), or have counsel review them",
         "5 Vercel Pro team with two-factor sign-in (the Vercel DPA covers only Pro and Enterprise; Hobby is for non-commercial use); 2FA on Supabase, GitHub, Resend, Anthropic and the mailbox",
         "6 Data processing agreements accepted and a copy saved: Vercel (Pro), Supabase (region checked), Resend, Anthropic, GitHub and the mail provider (policy A6)",
