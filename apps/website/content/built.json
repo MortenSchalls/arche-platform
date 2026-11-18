@@ -85,6 +85,11 @@
   "words": 530
  },
  {
+  "path": "/cities/honolulu/",
+  "draft": false,
+  "words": 551
+ },
+ {
   "path": "/cities/johannesburg/",
   "draft": false,
   "words": 341
@@ -288,6 +293,16 @@
   "path": "/needs/flying-with-pets/",
   "draft": false,
   "words": 854
+ },
+ {
+  "path": "/needs/government-and-delegation-flights/",
+  "draft": false,
+  "words": 652
+ },
+ {
+  "path": "/needs/group-and-sports-team-charter/",
+  "draft": false,
+  "words": 673
  },
  {
   "path": "/regions/africa/",

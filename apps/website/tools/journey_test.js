@@ -7,7 +7,7 @@ let fail = 0; const ok = (n, c, x) => { console.log((c ? 'PASS ' : 'FAIL ') + n 
   for (const w of [1440, 390]) { const p = await b.newPage({viewport: {width: w, height: 900}}); p.on('pageerror', e => errs.push(e.message));
     await p.goto(U + '/destinations/'); await p.waitForTimeout(600);
     const names = await p.evaluate(() => [...document.querySelectorAll('.jm .lb')].map(x => x.textContent));
-    ok(w + ' every city page is a place (37)', names.length === 37, names.length);
+    ok(w + ' every city page is a place (38)', names.length === 38, names.length);
     ok(w + ' no drop-down lists, map only', (await p.$$('#planner select')).length === 0);
     const click = async n => { const i = names.indexOf(n); await p.evaluate(i => document.getElementById('jm-p' + i).scrollIntoView({block: 'center', inline: 'center'}), i);
       const b = await p.locator('#jm-p' + i).boundingBox(); await p.mouse.click(b.x + b.width / 2, b.y + b.height / 2); };
