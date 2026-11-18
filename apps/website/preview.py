@@ -5,9 +5,12 @@ With company.PREVIEW = True (and company.LAUNCHED = False) every built page gets
   - a small red "REMOVE BEFORE FLIGHT" tag hooked on the Archē name in the top bar (Morten, 17 Nov 2026: "attached to the name"), at a slight angle, tilted
     left, 30% larger than first drawn, so it stays with the bar while the page scrolls (Morten, 17 Nov 2026); our own drawing, CSS only, no script; it is removed at launch, as the tag is before a flight;
   - one quiet line fixed at the bottom of the screen: Archē Executive opens for bookings soon, with the enquiry email;
-  - no form that collects personal data: the quote form's details step becomes "Email this request" (a mail link with
-    the trip filled in, sent by the visitor's own mail program), the call-back field becomes the email address, the
-    empty-leg alert sign-up becomes a line with the email address, and the page's sender does nothing.
+  - no forms and no trip requests (Morten, 18 Nov 2026, after a test trip request arrived by email from the preview:
+    "only email should be through the contact@arche until we go live as we have agreed several times"): the quote form
+    (route, date, passengers) is replaced by "We are not taking trip requests yet. Bookings open with our launch." and
+    the plain address; the call-back and the empty-leg sign-up become a line with the address; "Request a quote"
+    buttons read "Contact us"; the journey map has no quote button; no email is written for the visitor; the page's
+    sender does nothing.
 Search engines stay shut out (noindex, robots closed: company.LAUNCHED = False) and drafts are not published
 (company.PUBLIC). The site goes public only when Morten turns off the Vercel login for the website after the preview
 gate items are done (launch_blockers.preview_blockers, docs/LAUNCH-BLOCKERS.md). At launch: PREVIEW = False, LAUNCHED = True.
@@ -71,38 +74,56 @@ def block(s, start):
         if depth == 0: return s[start:start + m.end()]
     raise ValueError("unclosed sc-if")
 
-PANEL = ('<div style="display:flex;justify-content:space-between;align-items:center;gap:16px 24px;padding:18px;flex-wrap:wrap">'
-         '<div style="display:flex;flex-direction:column;gap:6px;max-width:640px">'
-         '<span style="font-size:17px;color:#f3f5f8">Online requests open with our launch.</span>'
-         '<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Until then, send this trip by email and an advisor replies within the hour.</span></div>'
-         '<a href="{{ mailHref }}" style="display:inline-flex;align-items:center;min-height:52px;padding:0 28px;background:#f3f5f8;color:#31343a;'
-         'font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;text-decoration:none">Email this request</a></div>')
+NOTE = ('<div data-ae-preview="quote" style="display:flex;flex-direction:column;gap:6px;padding:18px 0;max-width:640px">'
+        '<span style="font-size:17px;color:#f3f5f8">We are not taking trip requests yet. Bookings open with our launch.</span>'
+        f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Until then, write to <a href="mailto:{MAIL}" style="color:#f3f5f8;'
+        f'text-decoration:underline;text-underline-offset:3px">{MAIL}</a></span></div>')
+
+def child_blocks(t, start):
+    """the direct child <div> blocks of the element whose open tag starts at `start` (divs only, as in the hero)"""
+    i = t.index(">", start) + 1; out = []; depth = 0; cs = None
+    for m in re.finditer(r"<div\b[^>]*>|</div>", t[i:]):
+        j = i + m.start()
+        if m.group(0).startswith("<div"):
+            if depth == 0: cs = j
+            depth += 1
+        else:
+            depth -= 1
+            if depth == 0: out.append((cs, i + m.end()))
+            if depth < 0: break
+    return out
+
+def quote_widget(t):
+    """Morten, 18 Nov 2026 (after a test trip request by email from the preview): "only email should be through the
+    contact@arche until we go live": the quote form (route, date, passengers) is taken out of the preview, in the
+    page template and in the pre-drawn copy, and replaced by a note with the plain address"""
+    n = 0; pos = 0
+    while True:
+        k = t.find('class="hero-content"', pos)
+        if k < 0: break
+        k = t.rfind("<", 0, k)
+        for a, b in child_blocks(t, k):
+            if 'City, airport or code' in t[a:b] or '{{ stepRoute }}' in t[a:b]:
+                t = t[:a] + NOTE + t[b:]; n += 1; break
+        pos = k + 20
+    return t, n
 
 def forms(t):
     n = 0
-    # quote form: keep the trip summary row, replace the contact fields, consent and send button
-    k = t.find('<sc-if value="{{ stepDetails }}">')
-    if k >= 0:
-        b = block(t, k)
-        e = b.index("Edit trip</button>"); e = b.index("</div>", e) + len("</div>")
-        t = t.replace(b, b[:e] + PANEL + "</sc-if>", 1); n += 1
-    a = "summary: this.summaryText(),"
-    if a in t:
-        t = t.replace(a, a + f" mailHref: 'mailto:{MAIL}?subject=' + encodeURIComponent('Trip request') + '&body=' + "
-                         "encodeURIComponent(this.summaryText() + '\\n\\nName:\\nPhone or email:\\n'),", 1)
+    t, c = quote_widget(t); n += c
     # call-back: the email address instead of the phone field
     k = t.find('<sc-if value="{{ cbOpen }}"')
     if k >= 0:
         b = block(t, k); head = b[:b.index(">") + 1]
-        t = t.replace(b, head + f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Call-backs open with our launch. Until then, email '
+        t = t.replace(b, head + f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Call-backs open with our launch. Until then, write to '
                          f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></span></sc-if>', 1); n += 1
     # the pre-drawn copy of the call-back (first paint and visitors without script) has its own phone field
     t, c = re.subn(r'<div[^>]*>\s*<input[^>]*placeholder="Your number".*?</label>',
-                   f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Call-backs open with our launch. Until then, email '
+                   f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Call-backs open with our launch. Until then, write to '
                    f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></span>', t, flags=re.S); n += c
     # empty-leg alerts sign-up
     t, c = re.subn(r"<form data-ae-alert\b.*?</form>",
-                   f'<p style="margin:0;font-size:15px;line-height:1.7;color:#c6cbd2">Empty-leg alerts start with our launch. Until then, email us the routes you fly: '
+                   f'<p style="margin:0;font-size:15px;line-height:1.7;color:#c6cbd2">Empty-leg alerts start with our launch. Until then, write to '
                    f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></p>', t, flags=re.S); n += c
     t = re.sub(r'<p data-ae-alert-msg[^>]*></p>', "", t)
     t = re.sub(r'<!--ae:home--><script data-ae="home">\s*document\.addEventListener\(\'submit\'.*?</script><!--/ae:home-->', "", t, flags=re.S)
@@ -116,6 +137,8 @@ def forms(t):
         t = t.replace("Call or message at any hour.", "Write at any hour; we reply within the hour.")
         t = t.replace("at any hour by phone, WhatsApp or email, or ask for a call back.", "by email; we reply within the hour.")
         t = t.replace("Reach us by phone, WhatsApp or email, or ask for a call back.", "Reach us by email; we reply within the hour.")
+    # no "Request a quote" while trip requests are not taken: the buttons read "Contact" (same page)
+    t, c = re.subn(r'(<a\b[^>]*>)Request a quote(</a>)', r'\1Contact us\2', t); n += c
     # the sender sends nothing
     t, c = re.subn(r"window\.archeSend = function \(data\) \{.*?\n\};", "window.archeSend = function () {};   // preview: no form sends (preview.py)", t, flags=re.S); n += c
     return t, n
@@ -144,7 +167,12 @@ def run(verbose=True):
             t = t.replace('<span class="x">EXECUTIVE</span></a>', '<span class="x">EXECUTIVE</span>' + TAG + '</a>', 1)   # hung from the name in the top bar
             t = t.replace("</body>", strip(lang) + "</body>", 1)
             open(p, "w", encoding="utf-8").write(t); pages += 1
-    if verbose: print(f"  preview: tag and opening line on {pages} pages; {changed} forms replaced by the email address")
+    jm = os.path.join(SITE, "journey.js")
+    if os.path.exists(jm):
+        j = open(jm, encoding="utf-8").read()
+        j2 = re.sub(r"<a class=\"btn p\" href=\"' \+ q \+ '\">Request a quote for this journey</a>", "", j)
+        if j2 != j: open(jm, "w", encoding="utf-8").write(j2); changed += 1
+    if verbose: print(f"  preview: tag and opening line on {pages} pages; {changed} forms and quote buttons taken out (email only)")
 
 def problems():
     """what check_site.py fails on while the preview is on: anything left that would send a visitor's details"""
@@ -158,7 +186,10 @@ def problems():
             p = os.path.join(root, fn); t = open(p, encoding="utf-8").read(); rel = os.path.relpath(p, SITE)
             for bad, why in (("/api/enquiry", "sends to the enquiry inbox"), ("data-ae-alert", "alert sign-up form"),
                              ('{{ onName }}', "quote form asks for a name"), ('{{ onCbPhone }}', "call-back asks for a phone number"),
-                             ('placeholder="Your number"', "call-back phone field (pre-drawn copy)")):
+                             ('placeholder="Your number"', "call-back phone field (pre-drawn copy)"),
+                             ('City, airport or code', "quote form asks for a route"), ("Get quotes", "quote form button"),
+                             ("mailHref", "a trip request email written for the visitor"), ("Email this request", "trip request email button"),
+                             (">Request a quote<", "Request a quote button"), ("quote for this journey", "journey map quote button")):
                 if bad in t: out.append(f"{rel}: {why} (preview: forms must be off)")
             if fn.endswith(".html") and "<body" in t and 'class="ae-nav"' in t and 'class="ae-rbf"' not in t:
                 out.append(f"{rel}: preview tag missing")
