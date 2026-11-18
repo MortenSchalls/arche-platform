@@ -77,8 +77,9 @@ def apply(s, out_dir, here):
 </urlset>
 ''')
     # keep the test address (*.vercel.app) out of search results; only archeaviation.com gets indexed
-    # build on Vercel only when the site itself changed (Morten, 9 Nov 2026: deployment storage near the free limit)
-    json.dump({"ignoreCommand": "git diff --quiet HEAD^ HEAD -- .",
+    # build on Vercel only when the site changed since the last deployment (Morten, 9 Nov 2026: deployment storage near the free limit;
+    # 18 Nov 2026: compare with VERCEL_GIT_PREVIOUS_SHA, as the portal does, so a release whose last commit is outside site/ still builds)
+    json.dump({"ignoreCommand": "if git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . 2>/dev/null; then exit 0; else exit 1; fi",
                "rewrites": [{"source": f"/{l}", "destination": f"/{l}.html"} for l in ("th", "zh", "ja")],
                "headers": [{"source": "/(.*)", "has": [{"type": "host", "value": ".*\\.vercel\\.app"}],
                             "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]},
