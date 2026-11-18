@@ -55,14 +55,14 @@ languages, the search-engine files and the draft pages all come back from `apps/
 |---|---|---|---|
 | `PHONE` | `""` | the Singapore number (item 2) | phone and WhatsApp links and the call-back wording, everywhere the placeholder was |
 | `PREVIEW` | `True` | `False` | quote, call-back and empty-leg forms with their consent ticks (sent to `/api/enquiry`); tag and opening line gone |
-| `LAUNCHED` | `False` | `True` | search engines let in: robots.txt, sitemap.xml, llms.txt, no noindex (the build refuses while any item above is open) |
+| `LAUNCHED` | `False` | `True` | search engines let in: robots.txt, sitemap.xml, no noindex (the build refuses while any item above is open) |
 | `LANGUAGES_ON` | `False` | stays `False` until the translator has checked Thai, Chinese and Japanese | the language menu and the other-language pages |
 | `WECHAT_ID` | `""` | only if Archē has a WeChat ID | the WeChat contact |
 
 **Rehearsal before switching.** `python3 apps/website/tools/launch_rehearsal.py` builds the launch site in a
 throw-away copy with these switches set (a test number if `PHONE` is still empty; the blocker stop lifted in the copy
 only), then checks it: build, check_site, layout audit on every page at six widths, logo test, nothing of the preview
-left, forms and consent ticks back, real number on phone and WhatsApp with no placeholder, robots/sitemap/llms present,
+left, forms and consent ticks back, real number on phone and WhatsApp with no placeholder, robots.txt and sitemap.xml present,
 no draft published, English only, every page opened in a browser without a script error, and the quote form reaching
 its details step. Exit 0 = ready. Run it again on launch day with the real number set.
 

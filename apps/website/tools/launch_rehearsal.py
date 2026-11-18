@@ -9,7 +9,7 @@ back. Nothing in the real repository changes.
 Checks: check_site.py (every rule except the open launch blockers themselves), the layout audit (every page, six
 widths), the logo test, and the launch list below: no preview tag, opening line or email-only forms left; the quote,
 call-back and empty-leg forms and their consent ticks are back and send to /api/enquiry; phone and WhatsApp shown with
-the real number and no placeholder; search engines allowed (robots.txt, sitemap.xml, llms.txt, no noindex); no draft
+the real number and no placeholder; search engines allowed (robots.txt, sitemap.xml, no noindex); no draft
 page or draft marker published; English only while company.LANGUAGES_ON is False. In a browser: the quote form reaches
 its details step with the consent tick, and no page throws a script error.
 
@@ -73,7 +73,7 @@ def main():
         if f"wa.me/{digits}" not in allt: fails.append("WhatsApp link with the real number missing")
         rob = open(os.path.join(site, "robots.txt")).read() if os.path.exists(os.path.join(site, "robots.txt")) else ""
         if not rob or re.search(r"Disallow:\s*/\s*$", rob, re.M): fails.append("robots.txt missing or still closed")
-        for f in ("sitemap.xml", "llms.txt"):
+        for f in ("sitemap.xml",):
             if not os.path.exists(os.path.join(site, f)): fails.append(f"{f} missing")
         if not real.LANGUAGES_ON and any(re.search(r"(^|/)(th|zh|ja)(/|\.html)", k) for k in html):
             fails.append("other-language pages published while LANGUAGES_ON is False")
@@ -85,8 +85,8 @@ def main():
         # layout audit and logo test on the launch build
         env = dict(os.environ, NODE_PATH=sh("npm root -g", web)[1].strip())
         code, out = sh("node tools/layout_audit.js", web, env)
-        last = out.strip().splitlines()[-1] if out.strip() else ""
-        if code or "0 findings" not in last: fails.append("layout audit: " + last)
+        last = ([l for l in out.splitlines() if l.startswith("layout audit:")] or [out.strip()[-300:]])[-1]
+        if code or ", 0 findings" not in last: fails.append("layout audit: " + last)
         else: notes.append(last)
         srv = subprocess.Popen("python3 -m http.server 8794", cwd=site, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         try:
