@@ -1,5 +1,5 @@
 {
- "_why": "Places on the journey map: every city page, placed at its main airport (coordinates from OurAirports, public domain, read 13 Nov 2026). Distances are great-circle between these points.",
+ "_why": "Places on the journey map: every city page, placed at its main airport (coordinates from OurAirports, public domain, read 13 Nov 2026). Distances are great-circle between these points. Honolulu (added 18 Nov 2026 when its page was approved) is placed at the airport reference point in the FAA US AIP (21-19-04.169N 157-55-12.901W), the source already on its page.",
  "source": [
   "OurAirports airports.csv (public domain)",
   "https://ourairports.com/data/",
@@ -84,6 +84,14 @@
    "icao": "VHHH",
    "lat": 22.312,
    "lon": 113.915,
+   "draft": false
+  },
+  {
+   "path": "/cities/honolulu/",
+   "name": "Honolulu",
+   "icao": "PHNL",
+   "lat": 21.318,
+   "lon": -157.92,
    "draft": false
   },
   {

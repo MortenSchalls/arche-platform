@@ -20,7 +20,6 @@ def launch_blockers():
         "9 Payment provider agreed (clients pay only through its secure payment request)",
         "10 Launch day: test enquiries and test records deleted from the portal (policy A4)",
         "11 Phone and WhatsApp answered: the Singapore number answered 24/7 and WhatsApp Business active on it, confirmed by Morten (the launch site says \"24/7 charter desk\", \"Call direct\" and \"Message on WhatsApp\")",
-        "12 Drafts decided: the Honolulu city page and the two Services drafts (government and delegation flights, group and sports team charter) approved by Morten, or left as drafts with Honolulu taken off the Archē side of docs/PLACES.json (with a waiting note, in both repositories), so check_site.py passes on the launch build",
     ]
     return b
 

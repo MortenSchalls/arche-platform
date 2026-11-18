@@ -19,7 +19,6 @@ commit. Never remove one to get a pass.
 | 9 | Payment provider | Agreed; clients pay only through its secure payment request | CLAUDE.md, Money | Morten |
 | 10 | Launch day: test data | Test enquiries and records deleted from the portal (after the form test in step 3 below) | Policy A4 | Morten |
 | 11 | Phone and WhatsApp answered | The number answered 24/7 and WhatsApp Business active on it (the launch site says "24/7 charter desk", "Call direct", "Message on WhatsApp") | Website contact routes | Morten |
-| 12 | Drafts decided | Honolulu city page and the two Services drafts (government and delegation flights, group and sports team charter) approved, or left as drafts with Honolulu off the Archē side of `docs/PLACES.json` (waiting note, both repositories); `check_site.py` fails on a launch build otherwise | Website content rule | Morten |
 
 Closed 9 Nov 2026 (built and tested on staging): consent tick on the quote, call-back and empty-leg alert forms (the
 form does not send without it, each form sends its real tick, and the server refuses an enquiry without consent;
@@ -75,7 +74,7 @@ in a browser every page HTTP 200 with no script error, the quote form at its det
 the call-back sending nothing without the tick and once with it. Exit 0 = ready (with the open blockers listed).
 
 Order on the day:
-1. Items 2 to 9, 11 and 12 closed and confirmed by Morten (code and this record in the same commit).
+1. Items 2 to 9 and 11 closed and confirmed by Morten (code and this record in the same commit).
 2. On staging: set `PHONE` and `PREVIEW = False`, keep `LAUNCHED = False`; run `python3 apps/website/build.py`, the
    layout audit (`NODE_PATH=$(npm root -g) node apps/website/tools/layout_audit.js`), `check_site.py`, the rehearsal
    and `scripts/check_all_revised.py`; commit `apps/website/site/` with `company.py` and `content/lastmod.json` (Vercel

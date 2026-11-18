@@ -57,7 +57,7 @@
   "/cities/los-angeles/",
   "/guides/cabotage/"
  ],
- "draft": true,
+ "draft": false, "approved": "18 Nov 2026, Morten",
  "type": "city",
  "region": "/regions/north-america/"
 }

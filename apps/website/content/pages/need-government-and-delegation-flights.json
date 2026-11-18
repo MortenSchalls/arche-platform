@@ -1,7 +1,7 @@
 {
  "path": "/needs/government-and-delegation-flights/",
  "type": "need",
- "draft": true,
+ "draft": false, "approved": "18 Nov 2026, Morten",
  "title": "Government and delegation flights: the permits that apply",
  "description": "Chartering an aircraft for a delegation: civil or state flight, who applies for the permits and how far ahead, from the Chicago Convention and official pages.",
  "eyebrow": "Services · Government and delegations",
