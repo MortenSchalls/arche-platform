@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url><loc>https://archeaviation.com/</loc><lastmod>2026-11-17</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/"/>
-    
-    
-    
-    
   </url>
   <url><loc>https://archeaviation.com/terms.html</loc><lastmod>2026-11-16</lastmod></url>
   <url><loc>https://archeaviation.com/privacy.html</loc><lastmod>2026-11-16</lastmod></url>
@@ -77,27 +72,11 @@
   <url><loc>https://archeaviation.com/airports/singapore-seletar/</loc><lastmod>2026-11-16</lastmod></url>
   <url><loc>https://archeaviation.com/destinations/</loc><lastmod>2026-11-18</lastmod></url>
   <url><loc>https://archeaviation.com/services/</loc><lastmod>2026-11-18</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/services/"/>
-    
-    
-    
   </url>
   <url><loc>https://archeaviation.com/aircraft/</loc><lastmod>2026-11-18</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/aircraft/"/>
-    
-    
-    
   </url>
   <url><loc>https://archeaviation.com/how-it-works/</loc><lastmod>2026-11-18</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/how-it-works/"/>
-    
-    
-    
   </url>
   <url><loc>https://archeaviation.com/contact/</loc><lastmod>2026-11-18</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://archeaviation.com/contact/"/>
-    
-    
-    
   </url>
   </urlset>
