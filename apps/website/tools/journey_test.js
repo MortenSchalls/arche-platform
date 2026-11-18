@@ -30,10 +30,13 @@ let fail = 0; const ok = (n, c, x) => { console.log((c ? 'PASS ' : 'FAIL ') + n 
     ok(w + ' route drawn', (await p.getAttribute('.jm .route', 'd')).length > 50);
     ok(w + ' no sideways page scroll', await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await p.screenshot({path: '/tmp/claude-0/-home-claude/3678dbf8-f26a-505b-b9f6-0376a0bfbc99/scratchpad/jm2_' + w + '.png'});
-    const q = await p.getAttribute('#jm-out a.btn.p', 'href'); ok(w + ' quote link carries the journey', q === '/?from=Singapore&to=Tokyo#top', q);
+    const pv = await p.evaluate(() => !!document.querySelector('.ae-rbf'));   // public preview: no trip requests, so no quote button
+    if (pv) ok(w + ' preview: no quote button on the map', !(await p.$('#jm-out a.btn.p')));
+    else { const q = await p.getAttribute('#jm-out a.btn.p', 'href'); ok(w + ' quote link carries the journey', q === '/?from=Singapore&to=Tokyo#top', q); }
     await p.close(); }
   const p = await b.newPage(); await p.goto(U + '/?from=Singapore&to=%3Cb%3ETokyo#top'); await p.waitForTimeout(1200);
   const v = await p.evaluate(() => [...document.querySelectorAll('input')].map(i => i.value).filter(Boolean));
-  ok('quote form filled, markup stripped', v[0] === 'Singapore' && v[1] === 'bTokyo', v);
+  if (await p.evaluate(() => !!document.querySelector('.ae-rbf'))) ok('preview: no quote form to fill', !v.includes('Singapore'), v);
+  else ok('quote form filled, markup stripped', v[0] === 'Singapore' && v[1] === 'bTokyo', v);
   ok('no script errors', errs.length === 0, errs);
   await b.close(); console.log(fail ? fail + ' FAILED' : 'journey map: all passed'); process.exit(fail ? 1 : 0); })();

@@ -35,7 +35,6 @@ ROWS = [   # runtime translations for the text inside the page's forms (same tab
      "ระหว่างนี้ ส่งรายละเอียดการเดินทางนี้ทางอีเมล แล้วที่ปรึกษาจะตอบกลับภายในหนึ่งชั่วโมง",
      "在此之前，请通过电子邮件发送此行程，顾问将在一小时内回复。",
      "それまでは、この旅程をメールでお送りください。アドバイザーが1時間以内にご返信します。"),
-    ("Email this request", "ส่งคำขอนี้ทางอีเมล", "通过电子邮件发送此需求", "このご依頼をメールで送る"),
     ("Call-backs open with our launch. Until then, email",
      "บริการโทรกลับจะเปิดเมื่อเราเปิดให้บริการ ระหว่างนี้ ส่งอีเมลถึง",
      "回电服务将于正式开业后开放。在此之前，请发送电子邮件至",
@@ -99,13 +98,13 @@ def quote_widget(t):
     page template and in the pre-drawn copy, and replaced by a note with the plain address"""
     n = 0; pos = 0
     while True:
-        k = t.find('class="hero-content"', pos)
-        if k < 0: break
-        k = t.rfind("<", 0, k)
+        c = t.find('class="hero-content"', pos)
+        if c < 0: break
+        k = t.rfind("<", 0, c)
         for a, b in child_blocks(t, k):
             if 'City, airport or code' in t[a:b] or '{{ stepRoute }}' in t[a:b]:
                 t = t[:a] + NOTE + t[b:]; n += 1; break
-        pos = k + 20
+        pos = c + 20   # past this element's class, which may come after a long style
     return t, n
 
 def forms(t):
@@ -183,6 +182,7 @@ def problems():
         for fn in files:
             if not fn.endswith((".html", ".js")): continue
             if fn == "track.js": continue   # statistics: only counts sent enquiries, sends no details itself
+            if fn == "i18n.js": continue   # the translation table: words for every language, not a form
             p = os.path.join(root, fn); t = open(p, encoding="utf-8").read(); rel = os.path.relpath(p, SITE)
             for bad, why in (("/api/enquiry", "sends to the enquiry inbox"), ("data-ae-alert", "alert sign-up form"),
                              ('{{ onName }}', "quote form asks for a name"), ('{{ onCbPhone }}', "call-back asks for a phone number"),

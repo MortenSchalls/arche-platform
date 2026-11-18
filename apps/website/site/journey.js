@@ -100,7 +100,7 @@ function draw(){
     flownLine(a, b) +
     '<p class="d">Example aircraft from our guide that fly it nonstop or with one fuel stop, for reference only. We are not limited to these types and models: we find whatever fits your trip, upon availability.</p>' +
     '<table><thead><tr><th scope="col">Aircraft</th><th scope="col">Nonstop or stops</th><th scope="col">Estimated time</th></tr></thead><tbody>' + rows + '</tbody></table>' +
-    '<div class="acts"><a class="btn p" href="' + q + '">Request a quote for this journey</a><a class="btn" href="' + esc(a.path) + '">' + esc(a.name) + ' guide</a><a class="btn" href="' + esc(b.path) + '">' + esc(b.name) + ' guide</a></div>' +
+    '<div class="acts"><a class="btn" href="' + esc(a.path) + '">' + esc(a.name) + ' guide</a><a class="btn" href="' + esc(b.path) + '">' + esc(b.name) + ' guide</a></div>' +
     '<p class="hint">Estimates only; see How we calculate. Any aircraft, any route, upon availability.</p>';
 }
 })();
