@@ -1311,7 +1311,7 @@
   "title": "ACL slot coordination, airport information: King Khalid International Airport (RUH), checked 31 Oct 2026",
   "url": "https://www.acl-uk.org/airport-info-details/?aid=73",
   "publisher": "Airport Coordination Limited (slot coordinator)",
-  "checked": "2026-10-31"
+  "checked": "2026-11-18"
  },
  "bh-aip-obbi": {
   "title": "AIP Kingdom of Bahrain and State of Qatar, AD 2 OBBI Bahrain International (AIRAC effective 4 Sep 2025) (not the current edition; current edition could not be opened)",
@@ -2319,7 +2319,7 @@
   "title": "Aeronautical Information, Ben Gurion Airport (operating limitations, slot coordination, private flights; no page date shown; checked 31 Oct 2026)",
   "url": "https://www.iaa.gov.il/en/about/aeronautical-information/",
   "publisher": "Israel Airports Authority",
-  "checked": "2026-11-06"
+  "checked": "2026-11-18"
  },
  "mo-aip-ad-2025-08": {
   "title": "AIP Macao Part 3 Aerodromes (AD), incl. AD 2 VMMC Macau International (file posted 12 Aug 2025; pages dated 2007 to 7 Aug 2025, latest AIRAC AMDT 02/25)",
@@ -2469,7 +2469,7 @@
   "title": "Dallas Love Field, International Arrivals & Customs page (no date shown; read 1 Nov 2026)",
   "url": "https://dallas-lovefield.com/airport-info/general-aviation/international-arrivals-and-customs",
   "publisher": "City of Dallas, Department of Aviation",
-  "checked": "2026-11-01"
+  "checked": "2026-11-18"
  },
  "khpn-rules": {
   "title": "Westchester County, Airport Rules & Regulations, Laws of Westchester County ch. 712 (PDF in 2026 folder, no date shown; read 1 Nov 2026)",
@@ -2505,7 +2505,7 @@
   "title": "FAA Chicago Executive (PWK) Know Before You Go sheet (no date shown) (checked 1 Nov 2026)",
   "url": "https://www.faa.gov/flight_deck/pilot_info/pwk.pdf",
   "publisher": "Federal Aviation Administration",
-  "checked": "2026-11-01"
+  "checked": "2026-11-18"
  },
  "kbed-faa-apd": {
   "title": "FAA d-TPP airport diagram, Laurence G Hanscom Fld (BED), AL-626, NE-1, 3 Sep 2026 to 1 Oct 2026 (checked 1 Nov 2026)",
@@ -3724,5 +3724,29 @@
   "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_29_OCT_2026/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.LFMD.pdf",
   "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
   "checked": "2026-11-17"
+ },
+ "kdal-masterplan-2025-12": {
+  "title": "Dallas Love Field Master Plan, Chapter 2 Inventory of Existing Conditions (FINAL, December 2025)",
+  "url": "https://www.dallas-lovefield.com/home/showpublisheddocument/3232/639040865863100000",
+  "publisher": "City of Dallas, Department of Aviation",
+  "checked": "2026-11-18"
+ },
+ "lira-adr-masterplan-2015": {
+  "title": "Aeroporti di Roma, Aeroporto G.B. Pastine di Ciampino, Masterplan, Relazione generale (June 2015, rev. 1), published on the Ministry of Environment EIA portal",
+  "url": "https://va.mite.gov.it/File/Documento/152785",
+  "publisher": "Aeroporti di Roma S.p.A. (airport operator), via Ministero dell'Ambiente e della Sicurezza Energetica",
+  "checked": "2026-11-18"
+ },
+ "oerk-ruh-w26-capdec": {
+  "title": "Riyadh Airports, W26 Capacity Declaration, Riyadh (RUH/OERK) King Khalid International Airport (Winter 2026 season, published April 2026)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2026/04/RUH-W26-Capacity-Declaration.pdf",
+  "publisher": "Riyadh Airports Company (hosted by Airport Coordination Limited)",
+  "checked": "2026-11-18"
+ },
+ "ypph-aic-h01-26": {
+  "title": "AIC H01/26 Perth Aerodrome (YPPH) 2026 Runway Maintenance Arrangements (effective 2 Jan 2026 2330 UTC; header says published 27 Oct 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/current/sup/a26-h01.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-18"
  }
 }

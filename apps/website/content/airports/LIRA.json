@@ -7,7 +7,7 @@
  "tz": "Europe/Rome",
  "tier": 1,
  "status": "partial",
- "checked": "2026-11-11",
+ "checked": "2026-11-18",
  "rules": {
   "curfew": {
    "v": "private and commercial flights only between 06:00 and 23:00 local; outside these hours PPRs are issued only for emergency, ambulance and state flights",
@@ -39,18 +39,24 @@
    "v": "a coordinated airport (slot allocation by Assoclearance)",
    "src": "enac-slot",
    "quote": "ha classificato come aeroporti coordinati gli scali di: ... Roma Ciampino"
+  },
+  "runway": {
+   "v": "one runway, 15/33, physical length 2,203 m (ADR Masterplan, June 2015; confirm against the current AIP)",
+   "longest_m": 2203,
+   "src": "lira-adr-masterplan-2015",
+   "quote": "L'aeroporto di Ciampino dispone oggi di una pista (15/33), di lunghezza fisica pari a 2.203 metri."
   }
  },
  "missing": [
   "iata",
   "geo",
   "location",
-  "runway",
+  "runway width and current AIP confirmation of the 2,203 m length",
   "customs",
   "hours (aerodrome)",
   "noise",
   "fuel",
   "deicing"
  ],
- "notes": "ENAV eAIP needs an ENAV account and could not be opened; ADR's passenger GA services page blocks automated reading. Facts come from ADR's Ciampino Airport Regulations (English translation, rev. 2, updated 16/10/2025; the Italian text prevails). The 61-movement cap is a daily cap on GA PPRs, filed under max_aircraft for want of a better key. Night limits at Ciampino have been the subject of court cases; re-check before quoting to clients. | 2026-10-31 run: ENAV eAIP not public. ADR's Ciampino Airport Manual page and 'Manuale di Aeroporto' PDF (PA-GENERALE rev 24, 2 Sep 2024) refuse automated reading (robots disallowed), so runway, aerodrome hours, fuel and de-icing stay missing. ADR Service Charter 2026 (on ENAC site) gives only passenger-terminal hours (departures 24h, arrivals 06:00-24:00) and '15 km dal centro di Roma'; not used as rules. | 2026-11-02 run: ADR pages (adr.it dogana page and Manuale di Aeroporto PDF) refused automated reading (robots_disallowed); ENAV eAIP not public. No change. | 2026-11-04 run: D.P.R. 476/99 (original text) sets the same 23:00-06:00 local national ban as the recorded ADR rule, so no change; ENAC's copy of the Ciampino technical document (Nov 2016) gives no runway dimensions, hours or customs. | 2026-11-06 run: ADR Ciampino Airport Regulations (rev. 16/10/2025) read again in full: no runway, aerodrome-hours, customs, de-icing or APU/noise text in the reader output (terminal hours 5.1.1 only). ADR noise-plan incentive page (https://www.adr.it/documents/d/guest/rumore-cia_azioni-adr-2025_eng, from 1 Jun 2025) concerns reduced charges for Chapter IV scheduled flights only; not recorded. ADR Manuale di Aeroporto PA-Parte Generale rev 43 (31 Jul 2026) refused (robots_disallowed). ENAV eAIP not public. No change. | 8 Nov 2026: nothing new. ENAC Carta dei servizi page links only the 2024 edition (Google Drive); Ministry of Environment EIA framework for the Ciampino masterplan (va.mite.gov.it/File/Documento/152820, 2015) names RWY 15/33 but gives no length. Could not be opened: https://www.adr.it/bsn-runway-safety-ciampino (robots_disallowed). | 11 Nov 2026: nothing new. Ministry of Environment EIA opinion n. 3346 (23 Apr 2020, va.mite.gov.it/File/Documento/406970) names runway 15/33 without length, hours or customs; document 161247 is a residents' committee submission (not official, not used). ENAV eAIP still needs an account; ADR pages refuse automated reading. No rule change."
+ "notes": "ENAV eAIP needs an ENAV account and could not be opened; ADR's passenger GA services page blocks automated reading. Facts come from ADR's Ciampino Airport Regulations (English translation, rev. 2, updated 16/10/2025; the Italian text prevails). The 61-movement cap is a daily cap on GA PPRs, filed under max_aircraft for want of a better key. Night limits at Ciampino have been the subject of court cases; re-check before quoting to clients. | 2026-10-31 run: ENAV eAIP not public. ADR's Ciampino Airport Manual page and 'Manuale di Aeroporto' PDF (PA-GENERALE rev 24, 2 Sep 2024) refuse automated reading (robots disallowed), so runway, aerodrome hours, fuel and de-icing stay missing. ADR Service Charter 2026 (on ENAC site) gives only passenger-terminal hours (departures 24h, arrivals 06:00-24:00) and '15 km dal centro di Roma'; not used as rules. | 2026-11-02 run: ADR pages (adr.it dogana page and Manuale di Aeroporto PDF) refused automated reading (robots_disallowed); ENAV eAIP not public. No change. | 2026-11-04 run: D.P.R. 476/99 (original text) sets the same 23:00-06:00 local national ban as the recorded ADR rule, so no change; ENAC's copy of the Ciampino technical document (Nov 2016) gives no runway dimensions, hours or customs. | 2026-11-06 run: ADR Ciampino Airport Regulations (rev. 16/10/2025) read again in full: no runway, aerodrome-hours, customs, de-icing or APU/noise text in the reader output (terminal hours 5.1.1 only). ADR noise-plan incentive page (https://www.adr.it/documents/d/guest/rumore-cia_azioni-adr-2025_eng, from 1 Jun 2025) concerns reduced charges for Chapter IV scheduled flights only; not recorded. ADR Manuale di Aeroporto PA-Parte Generale rev 43 (31 Jul 2026) refused (robots_disallowed). ENAV eAIP not public. No change. | 8 Nov 2026: nothing new. ENAC Carta dei servizi page links only the 2024 edition (Google Drive); Ministry of Environment EIA framework for the Ciampino masterplan (va.mite.gov.it/File/Documento/152820, 2015) names RWY 15/33 but gives no length. Could not be opened: https://www.adr.it/bsn-runway-safety-ciampino (robots_disallowed). | 11 Nov 2026: nothing new. Ministry of Environment EIA opinion n. 3346 (23 Apr 2020, va.mite.gov.it/File/Documento/406970) names runway 15/33 without length, hours or customs; document 161247 is a residents' committee submission (not official, not used). ENAV eAIP still needs an account; ADR pages refuse automated reading. No rule change. | 18 Nov 2026: runway added from ADR's Ciampino Masterplan general report (June 2015, rev. 1, published by the Ministry of Environment at va.mite.gov.it/File/Documento/152785): runway 15/33, physical length 2,203 m (strip 2,323 x 300 m; no runway width); a 2015 document, so confirm against the current AIP. It gives no aerodrome hours, customs or de-icing. Could not be opened: https://www.adr.it/it/pax-cia-servizi (robots_disallowed)."
 }
