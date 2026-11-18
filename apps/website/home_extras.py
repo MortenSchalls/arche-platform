@@ -104,7 +104,7 @@ document.addEventListener('submit', function (e) {
   var em = (f.email.value || '').trim(), m = document.querySelector('[data-ae-alert-msg]');
   if (!/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(em)) { if (m) m.textContent = 'Please enter a valid email.'; return; }
   if (!f.consent.checked) { if (m) m.textContent = 'Please tick the box to agree to the alerts.'; f.consent.focus(); return; }
-  window.archeSend && window.archeSend({ type: 'alert', email: em, route: f.route.value, website: f.website.value, lang: document.documentElement.lang || 'en' });
+  window.archeSend && window.archeSend({ type: 'alert', email: em, route: f.route.value, website: f.website.value, lang: document.documentElement.lang || 'en', consent: f.consent.checked === true });
   f.reset(); if (m) m.textContent = 'Thank you. We will email you when an empty leg fits. You can unsubscribe at any time.';
 });
 </script><!--/ae:home-->"""
@@ -121,8 +121,8 @@ OPTS_NEW = """      flownOpts: [['yes', 'Yes'], ['no', 'No, first time']].map(([
       })),
       newsOn: s.news, newsTick: s.news ? '✓' : '', newsBox: s.news ? '#f3f5f8' : 'transparent', toggleNews: () => this.setState({ news: !s.news }),
       replyVia: s.reply,"""
-SEND_OLD = "reply: s.reply, lang: s.lang });"
-SEND_NEW = "reply: s.reply, flown: s.flown, news: s.news, lang: s.lang });"
+SEND_OLD = "reply: s.reply, lang: s.lang, consent: !!s.consentQ });"
+SEND_NEW = "reply: s.reply, flown: s.flown, news: s.news, lang: s.lang, consent: !!s.consentQ });"
 UI_ANCHOR = '<button onClick="{{ submit }}"'
 UI_NEW = '''<!--ae:home--><div data-ae="home" style="grid-column:1/-1;display:flex;gap:14px 32px;flex-wrap:wrap;align-items:center;padding:12px 18px;border-top:1px solid rgba(243,245,248,0.12)">
           <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="font-size:11px;letter-spacing:0.16em;color:#a9bdd4;text-transform:uppercase">Flown privately before?</span>

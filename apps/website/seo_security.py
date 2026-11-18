@@ -64,7 +64,7 @@ def head(t, name):
                 n["address"] = {"@type": "PostalAddress", "streetAddress": street, "addressLocality": "Singapore", "postalCode": rest, "addressCountry": "SG"}
                 n["email"] = company.EMAIL
                 cp = {"@type": "ContactPoint", "contactType": "customer service", "email": company.EMAIL,
-                      "availableLanguage": ["English", "Thai", "Chinese", "Japanese"], "areaServed": "Worldwide",
+                      "availableLanguage": ["English", "Thai", "Chinese", "Japanese"] if getattr(company, "LANGUAGES_ON", True) else ["English"], "areaServed": "Worldwide",
                       "hoursAvailable": {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "00:00", "closes": "23:59"}}
                 if company.PHONE: n["telephone"] = cp["telephone"] = company.PHONE
                 n["contactPoint"] = [cp]

@@ -7,12 +7,12 @@ ADDRESS = "20 Collyer Quay, #09-01, Singapore 049319"
 UEN = "202652508N"   # ACRA registration, incorporated 16 Nov 2026 (statutory registers from the corporate secretary)
 EMAIL = "contact@archeaviation.com"   # public enquiry address (Morten, 26 Oct 2026; was charter@archeexecutive.com)
 PRIVACY = "privacy@archeaviation.com"   # data protection requests (alias on contact@, 26 Oct 2026)
-PHONE = ""       # Singapore business number, e.g. "+65 6123 4567"; also used for WhatsApp. Until set, the site shows a placeholder and check_site.py fails
+PHONE = ""       # Singapore business number, e.g. "+65 6123 4567"; also used for WhatsApp. Until set, the preview shows no phone or WhatsApp (email only) and launch blocker 2 stays open; check_site.py checks the format
 LINE_ID = ""     # e.g. "@archeexecutive" once the LINE Official Account exists; until then the LINE card is left out
 WECHAT_ID = ""   # e.g. "ArcheExecutive" once the WeChat account exists; until then the WeChat card is left out
 # The website switch (Morten, 27 Oct 2026: "ensure nothing is live before we switch the website on").
-# False (test website, behind Vercel Authentication): every page and draft is built and linked so Morten can use the
-#   whole site, but every page also says "noindex, nofollow" and robots.txt shuts search engines out, in case the
+# False (test website, behind Vercel Authentication): with PREVIEW = False every page and draft is built and linked so
+#   Morten can use the whole site (with PREVIEW = True drafts are left out, see PUBLIC); every page also says "noindex, nofollow" and robots.txt shuts search engines out, in case the
 #   login is ever off. True (launch day): search engines welcome; only approved pages are built and linked; drafts
 #   are not published at all.
 LAUNCHED = False

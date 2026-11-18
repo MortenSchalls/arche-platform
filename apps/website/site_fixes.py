@@ -3,7 +3,8 @@
 - Jurisdictional notice: factual Singapore wording instead of the placeholder (to be confirmed by counsel).
 - Payment line: "a secure payment link"; no payment provider is named on the site (Morten, 26 Oct 2026).
 - Phone, WhatsApp, LINE and WeChat come from company.py. Until a value is set, the LINE and WeChat cards are left out,
-  and the phone stays a placeholder that check_site.py reports, so the site is not made public with it.
+  and the phone stays a placeholder here; preview.py removes it from the preview (email only) and launch blocker 2
+  keeps the launch closed until the number is set.
 Run by build.py after company.py; can also be run on its own:  python3 apps/website/site_fixes.py"""
 import os, re, json
 import company

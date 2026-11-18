@@ -4,7 +4,7 @@ except English until we have had it checked with a translator").
 With company.LANGUAGES_ON = False, after every other step of the build:
   - the Thai, Chinese and Japanese pages are not published (site/th.html, zh.html, ja.html and <page>/th|zh|ja/);
   - the language menu (EN ▾) is taken out of the top bar on every page, and the page's own language buttons do nothing;
-  - the hreflang links to the other languages and their sitemap entries are removed;
+  - the hreflang links to the other languages, the link-preview language alternates and their sitemap entries are removed;
   - vercel.json sends any old /th, /zh or /ja address to the English page (temporary redirect, so the addresses can come
     back unchanged once the translations are checked).
 The translations themselves (i18n.js, langs.py, nav.py) are kept unchanged: setting LANGUAGES_ON = True brings them back.
@@ -36,13 +36,15 @@ def run(verbose=True):
             t = re.sub(r'<details class="ae-nav-lang">.*?</details>', "", t, flags=re.S)
             t = re.sub(r'<link rel="alternate" hreflang="(?:th|zh-Hans|zh|ja|x-default)" href="[^"]*">', "", t)
             t = re.sub(r'<link rel="alternate" hreflang="en" href="[^"]*">', "", t)
+            t = re.sub(r'\n?<meta property="og:locale:alternate" content="[^"]*">', "", t)
             t = t.replace("setLang(l) { if (window.__ARCHE_LANG", "setLang(l) { if (l !== 'en') return; if (window.__ARCHE_LANG")
             if t != o: open(p, "w", encoding="utf-8").write(t); pages += 1
     sm = os.path.join(SITE, "sitemap.xml")
     if os.path.exists(sm):
         x = open(sm, encoding="utf-8").read()
         x = re.sub(r"<url>(?:(?!</url>).)*?/(?:th|zh|ja)(?:/|\.html)?</loc>.*?</url>\s*", "", x, flags=re.S)
-        x = re.sub(r'<xhtml:link rel="alternate" hreflang="(?:th|zh-Hans|zh|ja|x-default)"[^>]*/>', "", x)
+        x = re.sub(r'<xhtml:link rel="alternate" hreflang="(?:th|zh-Hans|zh|ja|x-default|en)"[^>]*/>', "", x)
+        x = re.sub(r"\n\s*\n", "\n", x)
         open(sm, "w", encoding="utf-8").write(x)
     vj = os.path.join(SITE, "vercel.json")
     if os.path.exists(vj):
@@ -71,6 +73,7 @@ def problems():
                 t = open(os.path.join(root, fn), encoding="utf-8").read()
                 if 'class="ae-nav-lang"' in t: out.append(f"{os.path.join(rel, fn)}: language menu still shown")
                 if re.search(r'hreflang="(?:th|zh-Hans|ja)"', t): out.append(f"{os.path.join(rel, fn)}: links to another language")
+                if 'og:locale:alternate' in t: out.append(f"{os.path.join(rel, fn)}: offers another language to link previews")
     return out
 
 if __name__ == "__main__": run()

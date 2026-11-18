@@ -109,10 +109,10 @@ def build():
     # 2. forms send to /api/enquiry
     old_submit = "this.setState(ok ? { step: 'done', detailsError: false } : { detailsError: true });"
     assert s.count(old_submit) == 1
-    s = s.replace(old_submit, "if (ok) window.archeSend({ type: 'quote', trip: s.trip, legs: s.legs, returnDate: s.returnDate, pax: s.pax, name: s.name, reach: s.reach, reply: s.reply, lang: s.lang });\n        " + old_submit)
+    s = s.replace(old_submit, "if (ok) window.archeSend({ type: 'quote', trip: s.trip, legs: s.legs, returnDate: s.returnDate, pax: s.pax, name: s.name, reach: s.reach, reply: s.reply, lang: s.lang, consent: !!s.consentQ });\n        " + old_submit)
     old_cb = "cbSubmit: () => s.cbPhone.trim() && this.setState({ cbDone: true }),"
     assert s.count(old_cb) == 1
-    s = s.replace(old_cb, "cbSubmit: () => { if (!s.cbPhone.trim()) return; if (!s.cbConsent) { this.setState({ cbConsentErr: true }); return; } window.archeSend({ type: 'callback', phone: s.cbPhone, lang: s.lang }); this.setState({ cbDone: true }); },")
+    s = s.replace(old_cb, "cbSubmit: () => { if (!s.cbPhone.trim()) return; if (!s.cbConsent) { this.setState({ cbConsentErr: true }); return; } window.archeSend({ type: 'callback', phone: s.cbPhone, lang: s.lang, consent: !!s.cbConsent }); this.setState({ cbDone: true }); },")
 
     # 3. privacy line and broker login
     notice = ('<label style="display:flex;gap:10px;align-items:flex-start;margin:14px 0 0;font-size:12px;line-height:1.6;color:{{ consentFg }};cursor:pointer">'
@@ -164,7 +164,7 @@ def build():
     # 4. sender (plain script, after the page)
     s = s.replace("</body>", """<script>
 window.archeSend = function (data) {
-  try { fetch('/api/enquiry', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...data, page: location.pathname, consent: true }) }); } catch (e) {}
+  try { fetch('/api/enquiry', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...data, page: location.pathname, consent: data.consent === true }) }); } catch (e) {}
 };
 </script>
 </body>""")

@@ -96,6 +96,10 @@ def forms(t):
         b = block(t, k); head = b[:b.index(">") + 1]
         t = t.replace(b, head + f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Call-backs open with our launch. Until then, email '
                          f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></span></sc-if>', 1); n += 1
+    # the pre-drawn copy of the call-back (first paint and visitors without script) has its own phone field
+    t, c = re.subn(r'<div[^>]*>\s*<input[^>]*placeholder="Your number".*?</label>',
+                   f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Call-backs open with our launch. Until then, email '
+                   f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></span>', t, flags=re.S); n += c
     # empty-leg alerts sign-up
     t, c = re.subn(r"<form data-ae-alert\b.*?</form>",
                    f'<p style="margin:0;font-size:15px;line-height:1.7;color:#c6cbd2">Empty-leg alerts start with our launch. Until then, email us the routes you fly: '
@@ -153,7 +157,8 @@ def problems():
             if fn == "track.js": continue   # statistics: only counts sent enquiries, sends no details itself
             p = os.path.join(root, fn); t = open(p, encoding="utf-8").read(); rel = os.path.relpath(p, SITE)
             for bad, why in (("/api/enquiry", "sends to the enquiry inbox"), ("data-ae-alert", "alert sign-up form"),
-                             ('{{ onName }}', "quote form asks for a name"), ('{{ onCbPhone }}', "call-back asks for a phone number")):
+                             ('{{ onName }}', "quote form asks for a name"), ('{{ onCbPhone }}', "call-back asks for a phone number"),
+                             ('placeholder="Your number"', "call-back phone field (pre-drawn copy)")):
                 if bad in t: out.append(f"{rel}: {why} (preview: forms must be off)")
             if fn.endswith(".html") and "<body" in t and 'class="ae-nav"' in t and 'class="ae-rbf"' not in t:
                 out.append(f"{rel}: preview tag missing")
