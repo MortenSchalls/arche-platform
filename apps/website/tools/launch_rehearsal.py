@@ -133,7 +133,7 @@ for(const u of pages){const p=await b.newPage({viewport:{width:1280,height:900}}
 const p=await b.newPage({viewport:{width:1280,height:900}});await p.goto('http://localhost:8794/',{waitUntil:'networkidle'});await p.waitForTimeout(1200);
 try{await p.fill('section#top input >> nth=0','Singapore');await p.keyboard.press('Escape');await p.fill('section#top input >> nth=1','Tokyo');await p.keyboard.press('Escape');
  await p.click('text=Get quotes');await p.waitForTimeout(700);
- out.quote=await p.evaluate(()=>{const s=document.querySelector('section#top');return {name:!!s.querySelector('input[placeholder*="ame"], input[autocomplete="name"]')||/Your name|Full name/i.test(s.innerText),consent:!!s.querySelector('input[type=checkbox]'),email:/Online requests open/.test(s.innerText)}});
+ out.quote=await p.evaluate(()=>{const s=document.querySelector('section#top');return {name:[...s.querySelectorAll('span')].some(x=>/^name$/i.test(x.textContent.trim())&&x.parentElement.querySelector('input')),consent:!!s.querySelector('input[type=checkbox]'),email:/Online requests open/.test(s.innerText)}});
 }catch(e){out.quote={error:e.message}}
 // call-back on Contact: nothing sent without the tick; sent with consent true once ticked (request answered here, never sent on)
 try{const c=await b.newPage({viewport:{width:1280,height:900}});const sent=[];
