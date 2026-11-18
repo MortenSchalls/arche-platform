@@ -102,6 +102,16 @@ def forms(t):
                    f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></p>', t, flags=re.S); n += c
     t = re.sub(r'<p data-ae-alert-msg[^>]*></p>', "", t)
     t = re.sub(r'<!--ae:home--><script data-ae="home">\s*document\.addEventListener\(\'submit\'.*?</script><!--/ae:home-->', "", t, flags=re.S)
+    # no phone or WhatsApp until the Singapore number is set (company.PHONE): the placeholder number is never shown;
+    # email is the one way to reach us in the preview (Morten, 18 Nov 2026: contact channels in the teaser)
+    if not company.PHONE:
+        t, c = re.subn(r'<a\b[^>]*href="(?:tel:\+6500000000|https://wa\.me/6500000000)"[^>]*>.*?</a>', "", t, flags=re.S); n += c
+        t = t.replace("phone: '+65 0000 0000' }", "phone: '' }")
+        t = re.sub(r'<span[^>]*><span class="sc-interp">\+65 0000 0000</span></span>', "", t)
+        t = t.replace("Call, message or write to our private client desk, day or night, wherever you are.", "Write to our private client desk, day or night, wherever you are. We reply within the hour.")
+        t = t.replace("Call or message at any hour.", "Write at any hour; we reply within the hour.")
+        t = t.replace("at any hour by phone, WhatsApp or email, or ask for a call back.", "by email; we reply within the hour.")
+        t = t.replace("Reach us by phone, WhatsApp or email, or ask for a call back.", "Reach us by email; we reply within the hour.")
     # the sender sends nothing
     t, c = re.subn(r"window\.archeSend = function \(data\) \{.*?\n\};", "window.archeSend = function () {};   // preview: no form sends (preview.py)", t, flags=re.S); n += c
     return t, n
