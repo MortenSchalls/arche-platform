@@ -35,9 +35,10 @@ Morten Schalls Joergensen as the company's DPO from 16 Nov 2026 (filed with the 
 ## Public preview (Morten, 17 Nov 2026: "ok for me, do it and show me")
 
 The banks and Avinode need a website before the launch. `company.PREVIEW = True` builds the public preview
-(`apps/website/preview.py`): a red "REMOVE BEFORE FLIGHT" tag hooked on the Archē name in the top bar, one opening line with the
-enquiry email at the bottom of the screen, every form replaced by the email address (no personal data collected),
-drafts left out, search engines still shut out. `check_site.py` fails if any form is left.
+(`apps/website/preview.py`): one band under the top menu, "Archē Executive opens for bookings soon. Until then, write to"
+and the enquiry email (the REMOVE BEFORE FLIGHT tag was taken off on 19 Nov 2026), no forms and no trip requests (email
+to contact@ only; no quote form, quote buttons or ready-written email), drafts left out, search engines still shut out.
+`check_site.py` fails if any form, quote button or trip email is left.
 
 Preview gate, before Morten turns off the Vercel login for the website (`launch_blockers.preview_blockers`):
 
@@ -56,7 +57,7 @@ languages, the search-engine files and the draft pages all come back from `apps/
 | Switch in `company.py` | Preview | Launch | What it brings back |
 |---|---|---|---|
 | `PHONE` | `""` | the Singapore number, `+65 6123 4567` form (items 2 and 11) | phone and WhatsApp links, the header "24/7 charter desk", "Call direct", the call-back wording, the number in the business details for search engines |
-| `PREVIEW` | `True` | `False` | quote, call-back and empty-leg forms with their consent ticks (sent to `/api/enquiry`); tag and opening line gone |
+| `PREVIEW` | `True` | `False` | quote, call-back and empty-leg forms with their consent ticks (sent to `/api/enquiry`), "Request a quote" buttons and the journey map's quote button; the band under the top menu goes |
 | `LAUNCHED` | `False` | `True` | search engines let in: robots.txt open with the sitemap, sitemap.xml, no noindex on pages or in vercel.json (the build refuses while any item above is open) |
 | `LANGUAGES_ON` | `False` | stays `False` until the translator has checked Thai, Chinese and Japanese | the language menu, the other-language pages and their search and link-preview entries |
 | `LINE_ID`, `WECHAT_ID` | `""` | only once the account exists | the LINE or WeChat card; each card says "Thai and English." or "Mandarin and English.", so set the ID only when that language is covered too |

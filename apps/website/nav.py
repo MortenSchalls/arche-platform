@@ -82,7 +82,7 @@ def header(page, lang, langs_here):
             '</div></header><!--/ae:nav-->')
 
 CSS = """/* One top menu on every page (nav.py, 30 Oct 2026) */
-.ae-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(40,43,48,0.86);-webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%);border-bottom:1px solid rgba(243,245,248,0.10);font-family:'Hanken Grotesk',system-ui,sans-serif}
+.ae-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgb(40,43,48);border-bottom:1px solid rgba(243,245,248,0.10);font-family:'Hanken Grotesk',system-ui,sans-serif}
 /* the logo sits exactly in the middle of the screen, over the watermark aircraft, on every page and width (Morten, 13 Nov 2026):
    two equal sides around it, each holding its own menu items */
 .ae-nav-bar{max-width:1520px;margin:0 auto;padding:10px 40px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:28px;box-sizing:border-box}

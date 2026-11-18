@@ -2,9 +2,11 @@
 early because the banks and Avinode require a website, with a "Remove before flight" tag and the forms off).
 
 With company.PREVIEW = True (and company.LAUNCHED = False) every built page gets:
-  - a small red "REMOVE BEFORE FLIGHT" tag hooked on the Archē name in the top bar (Morten, 17 Nov 2026: "attached to the name"), at a slight angle, tilted
-    left, 30% larger than first drawn, so it stays with the bar while the page scrolls (Morten, 17 Nov 2026); our own drawing, CSS only, no script; it is removed at launch, as the tag is before a flight;
-  - one quiet line fixed at the bottom of the screen: Archē Executive opens for bookings soon, with the enquiry email;
+  - one band attached under the top menu, part of the fixed bar, on every page: "Archē Executive opens for bookings soon.
+    Until then, write to" and the address ("Opening soon. Write to" on phones). Until 19 Nov 2026 a red REMOVE BEFORE
+    FLIGHT tag hung from the name and the line sat at the bottom of the screen; Morten, 19 Nov 2026: "people don't
+    understand my remove before flight tag, so we need to remove it and move the notice on the bottom of the page to sit
+    under the top menu instead for visibility";
   - no forms and no trip requests (Morten, 18 Nov 2026, after a test trip request arrived by email from the preview:
     "only email should be through the contact@arche until we go live as we have agreed several times"): the quote form
     (route, date, passengers) is replaced by "We are not taking trip requests yet. Bookings open with our launch." and
@@ -46,23 +48,23 @@ ROWS = [   # runtime translations for the text inside the page's forms (same tab
 ]
 
 CSS = """
-/* Public preview before the launch (preview.py, 17 Nov 2026): removed at launch */
-.ae-nav-brand{position:relative}
-.ae-rbf{position:absolute;top:calc(100% + 4px);left:calc(100% - 14px);z-index:2;width:30px;height:180px;pointer-events:none;transform:rotate(9deg) scale(1.3);transform-origin:50% 0}
-.ae-rbf::before{content:"";position:absolute;left:50%;top:-14px;width:18px;height:18px;margin-left:-9px;border:2px solid #b9c0c8;border-radius:50%;box-sizing:border-box}
-.ae-rbf b{position:absolute;inset:6px 0 0;display:flex;align-items:center;justify-content:center;background:#b3121f;border-radius:2px;box-shadow:0 6px 16px rgba(0,0,0,0.35);outline:1px dashed rgba(255,255,255,0.45);outline-offset:-4px;writing-mode:vertical-rl;transform:rotate(180deg);font:700 11px/1 'Hanken Grotesk',system-ui,sans-serif;letter-spacing:0.12em;color:#fff;white-space:nowrap}
-.ae-pv{position:fixed;left:0;right:0;bottom:0;z-index:1001;padding:10px 20px;background:rgba(40,43,48,0.96);border-top:1px solid rgba(243,245,248,0.12);text-align:center;font:400 13.5px/1.5 'Hanken Grotesk',system-ui,sans-serif;color:#c6cbd2}
-.ae-pv a{color:#f3f5f8;text-decoration:underline;text-underline-offset:3px}
-html body{padding-bottom:46px!important}
-.side{position:static!important}   /* the page's side box stays in place during the preview, so the opening line never covers it */
-@media (max-width:600px){.ae-rbf{top:calc(100% + 2px);left:calc(100% - 12px);width:24px;height:140px}.ae-rbf b{font-size:9px}.ae-pv{padding:9px 16px;font-size:13px}html body{padding-bottom:64px!important}}
-@media print{.ae-rbf,.ae-pv{display:none}}
+/* Public preview before the launch (preview.py): removed at launch. One band attached under the top menu, part of the fixed bar, on every page (19 Nov 2026) */
+.ae-pv{display:block;padding:7px 16px;border-top:1px solid rgba(243,245,248,0.10);background:rgb(32,34,39);text-align:center;font:400 13.5px/21px 'Hanken Grotesk',system-ui,sans-serif;color:#e4e7eb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-pv a{color:#ffffff;text-decoration:underline;text-underline-offset:3px}
+.ae-pv .s{display:none}
+.ae-nav-pad{height:132px!important}
+html{scroll-padding-top:132px!important}
+.ae-wm{top:124px!important}
+.side{position:static!important}
+@media (max-width:600px){.ae-pv{font-size:13px;padding:7px 12px}.ae-pv .l{display:none}.ae-pv .s{display:inline}.ae-nav-pad{height:108px!important}html{scroll-padding-top:108px!important}}
+@media print{.ae-pv{display:none}}
 """
 
-TAG = '<!--ae:preview--><div class="ae-rbf" aria-hidden="true"><b>REMOVE BEFORE FLIGHT</b></div><!--/ae:preview-->'
 
 def strip(lang):
-    return (f'<!--ae:preview--><div class="ae-pv" role="note">{T["strip"].get(lang, T["strip"]["en"])} '
+    """the band under the top menu: the full sentence on a computer, a short one on a phone"""
+    long = T["strip"].get(lang, T["strip"]["en"])
+    return (f'<!--ae:preview--><div class="ae-pv" role="note"><span class="l">{long} </span><span class="s">Opening soon. Write to </span>'
             f'<a href="mailto:{MAIL}">{MAIL}</a></div><!--/ae:preview-->')
 
 def block(s, start):
@@ -75,7 +77,7 @@ def block(s, start):
 
 NOTE = ('<div data-ae-preview="quote" style="display:flex;flex-direction:column;gap:6px;padding:18px 0;max-width:640px">'
         '<span style="font-size:17px;color:#f3f5f8">We are not taking trip requests yet. Bookings open with our launch.</span>'
-        f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Until then, write to <a href="mailto:{MAIL}" style="color:#f3f5f8;'
+        f'<span style="font-size:14px;line-height:1.6;color:#d5d9de">Until then, write to <a href="mailto:{MAIL}" style="color:#f3f5f8;'
         f'text-decoration:underline;text-underline-offset:3px">{MAIL}</a></span></div>')
 
 def child_blocks(t, start):
@@ -114,15 +116,15 @@ def forms(t):
     k = t.find('<sc-if value="{{ cbOpen }}"')
     if k >= 0:
         b = block(t, k); head = b[:b.index(">") + 1]
-        t = t.replace(b, head + f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Call-backs open with our launch. Until then, write to '
+        t = t.replace(b, head + f'<span style="font-size:14px;line-height:1.6;color:#d5d9de">Call-backs open with our launch. Until then, write to '
                          f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></span></sc-if>', 1); n += 1
     # the pre-drawn copy of the call-back (first paint and visitors without script) has its own phone field
     t, c = re.subn(r'<div[^>]*>\s*<input[^>]*placeholder="Your number".*?</label>',
-                   f'<span style="font-size:14px;line-height:1.6;color:#c6cbd2">Call-backs open with our launch. Until then, write to '
+                   f'<span style="font-size:14px;line-height:1.6;color:#d5d9de">Call-backs open with our launch. Until then, write to '
                    f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></span>', t, flags=re.S); n += c
     # empty-leg alerts sign-up
     t, c = re.subn(r"<form data-ae-alert\b.*?</form>",
-                   f'<p style="margin:0;font-size:15px;line-height:1.7;color:#c6cbd2">Empty-leg alerts start with our launch. Until then, write to '
+                   f'<p style="margin:0;font-size:15px;line-height:1.7;color:#d5d9de">Empty-leg alerts start with our launch. Until then, write to '
                    f'<a href="mailto:{MAIL}" style="color:#f3f5f8;text-decoration:underline">{MAIL}</a></p>', t, flags=re.S); n += c
     t = re.sub(r'<p data-ae-alert-msg[^>]*></p>', "", t)
     t = re.sub(r'<!--ae:home--><script data-ae="home">\s*document\.addEventListener\(\'submit\'.*?</script><!--/ae:home-->', "", t, flags=re.S)
@@ -163,15 +165,15 @@ def run(verbose=True):
             t = re.sub(r"<!--ae:preview-->.*?<!--/ae:preview-->", "", t, flags=re.S)
             m = re.search(r'<html[^>]*\blang="([a-z]{2})', t); lang = m.group(1) if m else "en"
             t, n = forms(t); changed += n
-            t = t.replace('<span class="x">EXECUTIVE</span></a>', '<span class="x">EXECUTIVE</span>' + TAG + '</a>', 1)   # hung from the name in the top bar
-            t = t.replace("</body>", strip(lang) + "</body>", 1)
+            k = t.find('<header class="ae-nav"'); e = t.find("</header>", k)
+            if k >= 0 and e > k: t = t[:e] + strip(lang) + t[e:]   # inside the fixed top bar, under the menu
             open(p, "w", encoding="utf-8").write(t); pages += 1
     jm = os.path.join(SITE, "journey.js")
     if os.path.exists(jm):
         j = open(jm, encoding="utf-8").read()
         j2 = re.sub(r"<a class=\"btn p\" href=\"' \+ q \+ '\">Request a quote for this journey</a>", "", j)
         if j2 != j: open(jm, "w", encoding="utf-8").write(j2); changed += 1
-    if verbose: print(f"  preview: tag and opening line on {pages} pages; {changed} forms and quote buttons taken out (email only)")
+    if verbose: print(f"  preview: opening line under the top menu on {pages} pages; {changed} forms and quote buttons taken out (email only)")
 
 def problems():
     """what check_site.py fails on while the preview is on: anything left that would send a visitor's details"""
@@ -191,8 +193,9 @@ def problems():
                              ("mailHref", "a trip request email written for the visitor"), ("Email this request", "trip request email button"),
                              (">Request a quote<", "Request a quote button"), ("quote for this journey", "journey map quote button")):
                 if bad in t: out.append(f"{rel}: {why} (preview: forms must be off)")
-            if fn.endswith(".html") and "<body" in t and 'class="ae-nav"' in t and 'class="ae-rbf"' not in t:
-                out.append(f"{rel}: preview tag missing")
+            if fn.endswith(".html") and "<body" in t and 'class="ae-nav"' in t and 'class="ae-pv"' not in t:
+                out.append(f"{rel}: opening line under the top menu missing")
+            if 'class="ae-rbf"' in t: out.append(f"{rel}: the removed REMOVE BEFORE FLIGHT tag is back")
     return out
 
 if __name__ == "__main__": run()

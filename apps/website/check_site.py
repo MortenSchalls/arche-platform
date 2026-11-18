@@ -83,6 +83,8 @@ import preview
 problems += preview.problems()
 import english_only
 problems += english_only.problems()
+import readability
+problems += readability.problems()
 # the Singapore number in company.py, written as +65 and eight digits (the links are built as "+" and the digits, so
 # a number without +65 would publish a wrong country code on every phone and WhatsApp link; review 18 Nov 2026)
 if company.PHONE and not re.match(r"^\+65 [3689]\d{3} \d{4}$", company.PHONE):
