@@ -88,7 +88,8 @@ def main():
         last = ([l for l in out.splitlines() if l.startswith("layout audit:")] or [out.strip()[-300:]])[-1]
         if code or ", 0 findings" not in last: fails.append("layout audit: " + last)
         else: notes.append(last)
-        srv = subprocess.Popen("python3 -m http.server 8794", cwd=site, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run("pkill -f 'http.server 8794'", shell=True)
+        srv = subprocess.Popen(["python3", "-m", "http.server", "8794"], cwd=site, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         try:
             lt = open(os.path.join(web, "tools", "logo_center_test.js")).read().replace("localhost:8793", "localhost:8794")
             open(os.path.join(web, "tools", "logo_center_rehearsal.js"), "w").write(lt)
@@ -100,7 +101,7 @@ def main():
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const out={errors:[],quote:null};
 const pages=%s;
 for(const u of pages){const p=await b.newPage({viewport:{width:1280,height:900}});p.on('pageerror',e=>out.errors.push(u+': '+e.message));
- await p.goto('http://localhost:8794'+u,{waitUntil:'networkidle'}).catch(e=>out.errors.push(u+': '+e.message));await p.waitForTimeout(600);await p.close();}
+ const r=await p.goto('http://localhost:8794'+u,{waitUntil:'networkidle'}).catch(e=>{out.errors.push(u+': '+e.message);return null});if(r&&r.status()!==200)out.errors.push(u+': HTTP '+r.status());await p.waitForTimeout(600);await p.close();}
 const p=await b.newPage({viewport:{width:1280,height:900}});await p.goto('http://localhost:8794/',{waitUntil:'networkidle'});await p.waitForTimeout(1200);
 try{await p.fill('section#top input >> nth=0','Singapore');await p.keyboard.press('Escape');await p.fill('section#top input >> nth=1','Tokyo');await p.keyboard.press('Escape');
  await p.click('text=Get quotes');await p.waitForTimeout(700);
@@ -119,7 +120,7 @@ console.log(JSON.stringify(out));await b.close();})();
             except Exception as e:
                 fails.append("browser check did not run: " + out[-500:])
         finally:
-            srv.terminate()
+            srv.terminate(); srv.wait()
     print("LAUNCH REHEARSAL", "(test number " + phone + ")" if not real.PHONE else "")
     for n in notes: print("  ok  ", n)
     for f in fails: print("  FAIL", f)
