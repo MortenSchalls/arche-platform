@@ -141,7 +141,12 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   for (let i = steps.length - 1, later = false; i >= 0; i--) { if (steps[i].done) later = true; else if (later) { steps[i].done = true; steps[i].note = "done (no date recorded)"; } }
   const done = steps.filter(x => x.done).length, cur = steps.find(x => !x.done);
   const pct = Math.round(((done + (cur && cur.k === "academy" ? cur.part || 0 : 0)) / steps.length) * 100);
-  const label = cur ? `Step ${steps.indexOf(cur) + 1} of ${steps.length}: ${cur.t}${cur.note ? " (" + cur.note + ")" : ""}` : "Done: on the desk";
+  // the label names the step still to do, in words that cannot be read as done (Morten, 18 Nov 2026: "Step 5 of 9:
+  // Asked for assessment" was read as a request already sent)
+  const NEXT = { invited: "invite them", login: "they accept the invitation and sign in", offer: "they read the offer", academy: "they finish the Broker Academy",
+    request: "they ask for assessment", assessed: "the Director assesses and sends the agreement", signed: "they sign the agreement",
+    counter: "the Director countersigns and issues the package", desk: "they confirm the package" };
+  const label = cur ? `Next, step ${steps.indexOf(cur) + 1} of ${steps.length}: ${NEXT[cur.k] || cur.t}${cur.note ? " (" + cur.note + ")" : ""}` : "Done: on the desk";
   const log = [];
   // invitations: the list on Team, plus earlier ones found in the audit log (the list kept only the latest before 2 Nov 2026)
   const near = (a, b) => Math.abs(new Date(a) - new Date(b)) < 5 * 60e3;
