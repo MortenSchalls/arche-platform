@@ -1,6 +1,9 @@
 /* In-memory stand-in for supabase-js, for testing platform.js without a network. Example data only. */
 window.supabase = { createClient() {
   const T = window.__T = window.__T || {}; const subs = [];
+  /* live updates only for the tables in the realtime publication, as in Supabase (supabase/migrations: 0001, 0003 note,
+     0004, 0006, 0007, 0008, 0009, 0011, 0017); a test may pass window.__RT to change the list */
+  const RT = window.__RT || ["trips","trip_status","leads","prospects","config","profiles","join_requests","region_cards","website_enquiries","owner_prospects","rfqs","academy_progress","academy_records","enquiry_pool","agreements","step_requests","site_events"];
   const get = (r, k) => k.includes("->>") ? String(((r[k.split("->>")[0]] || {})[k.split("->>")[1]]) ?? "") : r[k];
   function q(table) {
     let rows = () => (T[table] = T[table] || []), filt = [], op = "select", payload = null, single = false, conflict = null, ord = null;
@@ -19,7 +22,7 @@ window.supabase = { createClient() {
       if (op === "upsert") { const i = rows().findIndex(r => conflict.every(c => r[c] === payload[c])); if (i >= 0) rows()[i] = { ...rows()[i], ...payload }; else rows().push(payload); }
       if (op === "update") rows().forEach((r, i) => { if (m(r)) rows()[i] = { ...r, ...payload, data: payload.data ? { ...payload.data } : r.data }; });
       if (op === "delete") T[table] = rows().filter(r => !m(r));
-      subs.filter(s => s.table === table).forEach(s => setTimeout(s.fn, 0));
+      if (RT.includes(table)) subs.filter(s => s.table === table).forEach(s => setTimeout(s.fn, 0));
       return { data: null, error: null };
     }
     return api;

@@ -212,6 +212,10 @@
     }
     listeners[table].add(fn); return () => listeners[table].delete(fn);
   }
+  /* after our own write, re-read the watchers of that table at once: not every table is in the realtime publication
+     (training_runs and roleplay_runs are not), and without this a saved step stayed invisible until a reload
+     (Morten, 19 Nov 2026: "clicking on start does not start thye training on booking practice") */
+  function poke(table) { const l = listeners[table]; if (!l) return; clearTimeout(l.timer); l.timer = setTimeout(() => l.forEach(f => f()), 60); }
 
   function docRef(path) {
     const rt = route(path);
@@ -229,6 +233,7 @@
         if (rt.kind === "enq") { const { error } = await sb.from(rt.table).update({ handled: !!data.handled, data: Object.fromEntries(Object.entries(data).filter(([k]) => !["at","consent","handled"].includes(k))) }).eq("id", rt.id); if (error) throw fail(error); return; }
         const { error } = await sb.from(rt.table).upsert(toRow(rt, data), { onConflict: conflictKey(rt) });
         if (error) throw fail(error);
+        poke(rt.table);
       },
       async update(patch) {
         const cur = await ref.get(); if (!cur.exists) throw Object.assign(new Error("Document does not exist"), { code: "not_found" });
@@ -237,6 +242,7 @@
       async delete() {
         if (rt.kind === "profile") { const { error } = await sb.from(rt.table).update({ active: false, data: {} }).eq("id", rt.id); if (error) throw fail(error); return; }
         const { error } = await where(sb.from(rt.table).delete(), rt, true); if (error) throw fail(error);
+        poke(rt.table);
       },
       onSnapshot(fn, onErr) {
         const run = () => ref.get().then(fn, e => onErr && onErr(e));
