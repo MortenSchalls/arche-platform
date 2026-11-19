@@ -1750,7 +1750,7 @@
   ]
  },
  {
-  "key": "ca2fe661",
+  "key": "f987159c",
   "kind": "lesson",
   "where": "m1 screen 8",
   "text": [
@@ -1762,7 +1762,7 @@
    "These leads are prospects from research, not clients who have asked for a trip. Make first contact with every new prospect lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the Director.",
    "A client who asks directly (website, phone, email or messaging) is an enquiry, not a lead: pick it up at once and contact the client within 15 minutes (Module 12.1).",
    "\"Not now\" leads are offered again after 90 days, to a different broker with a fresh approach.",
-   "Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically.",
+   "Add the organisations you find, each with the public source where you found it. This is a scoring measure, not a target: brokers who add ten or more a month score higher and get new leads a little sooner; nothing else depends on it. The first broker to add an organisation works it first. Duplicates are caught automatically.",
    "Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid: commission rewards the booking.",
    "Prospects are organisations and their business contacts only: no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is \"Do not contact\" for everyone, for good.",
    "These are the current settings. The Director can change them in the portal; its Portal rules page always shows the ones in force.",
@@ -1775,7 +1775,7 @@
    "The ar Kay portal, one place for everything.",
    "Every enquiry, quote, document, booking, payment record and commission for ar Kay lives in the ar Kay broker portal. Nothing is quoted, sold or paid outside it, and work done outside it earns no commission. The portal opens on Today, your progress this month, your place in the team and every outstanding task, most urgent first.",
    "Leads and prospects.",
-   "The portal assigns organisations to brokers automatically and fairly, by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week. These leads are prospects from research, not clients who have asked for a trip. Make first contact with every new prospect lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the Director. A client who asks directly, website, phone, email or messaging, is an enquiry, not a lead, pick it up at once and contact the client within 15 minutes, Module 12, section 1. Not now leads are offered again after 90 days, to a different broker with a fresh approach. Add at least 10 new organisations a month, each with the public source where you found it. The first broker to add an organisation works it first. Duplicates are caught automatically. Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid, commission rewards the booking. Prospects are organisations and their business contacts only, no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact for everyone, for good.",
+   "The portal assigns organisations to brokers automatically and fairly, by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week. These leads are prospects from research, not clients who have asked for a trip. Make first contact with every new prospect lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the Director. A client who asks directly, website, phone, email or messaging, is an enquiry, not a lead, pick it up at once and contact the client within 15 minutes, Module 12, section 1. Not now leads are offered again after 90 days, to a different broker with a fresh approach. Add the organisations you find, each with the public source where you found it. This is a scoring measure, not a target, brokers who add ten or more a month score higher and get new leads a little sooner, nothing else depends on it. The first broker to add an organisation works it first. Duplicates are caught automatically. Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid, commission rewards the booking. Prospects are organisations and their business contacts only, no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact for everyone, for good.",
    "These are the current settings. The Director can change them in the portal, its Portal rules page always shows the ones in force.",
    "Authorisation and separate duties.",
    "The broker completes K Y C and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for authorisation. The Director, or a person the Director has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip, another person the Director has mandated does it."
@@ -2044,7 +2044,7 @@
   ]
  },
  {
-  "key": "3c61eae6",
+  "key": "f31ff13a",
   "kind": "lesson",
   "where": "m3 screen 2",
   "text": [
@@ -2054,13 +2054,13 @@
    "CompanyRegistered name and number, country, registered address, directors, ultimate beneficial owners (25% or more, or control), authorised signatory and their IDCompany exists on its official register; signatory authorised",
    "Agent, assistant or family office booking for a principalAgent's identity and authority; principal's identity as aboveWho pays and who flies are known",
    "Payer different from clientPayer identity and the reasonDirector approval before acceptance",
-   "Record the KYC reference on the Archē charter confirmation. Repeat clients: refresh KYC at least once a year or when details change."
+   "Record the check on the trip in the portal (the date, how it was done and our own reference; never an ID, passport or bank number) and the KYC reference on the Archē charter confirmation. The portal reuses the check for the client's next trips until 12 months after it, and asks for it again at once when the payer, country or name changes or screening finds a possible match; a booking with an out-of-date check cannot be authorised or issued."
   ],
   "say": [
    "Compliance, K Y C, sanctions, fraud.",
    "Know your client, K Y C.",
    "Private individual. what we collect, Full name, date of birth, nationality, passport copy, residential address, contact details. check, Name matches passport, address plausible. Company. what we collect, Registered name and number, country, registered address, directors, ultimate beneficial owners, 25 percent or more, or control, authorised signatory and their I D. check, Company exists on its official register, signatory authorised. Agent, assistant or family office booking for a principal. what we collect, Agent's identity and authority, principal's identity as above. check, Who pays and who flies are known. Payer different from client. what we collect, Payer identity and the reason. check, Director approval before acceptance.",
-   "Record the K Y C reference on the ar Kay charter confirmation. Repeat clients, refresh K Y C at least once a year or when details change."
+   "Record the check on the trip in the portal, the date, how it was done and our own reference, never an I D, passport or bank number, and the K Y C reference on the ar Kay charter confirmation. The portal reuses the check for the client's next trips until 12 months after it, and asks for it again at once when the payer, country or name changes or screening finds a possible match, a booking with an out-of-date check cannot be authorised or issued."
   ]
  },
  {
@@ -4010,7 +4010,7 @@
   ]
  },
  {
-  "key": "78be9e4c",
+  "key": "6c0dbf05",
   "kind": "lesson",
   "where": "m9 screen 4",
   "text": [
@@ -4018,18 +4018,20 @@
    "9.3 The Archē price formula",
    "Archē charges a fixed fee of 9% of the total booking value, the price the client pays. Because the fee is a share of the selling price, divide the cost by 0.91; do not add 9% to the cost.",
    "Right: divide by 0.91Archē cost 100,000 = 91%9%Client price 109,891 · Archē fee 9,891 = 9.0% Wrong: add 9%Archē cost 100,000Client price 109,000 · fee 9,000 = only 8.26%The Archē fee is 9% of the client price, so divide the cost by 0.91 and round up.",
-   "Price formulaArchē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writingClient price = Archē cost ÷ 0.91 Archē fee = client price − Archē cost = 9% of the client priceNot included: costs charged after the flight (9.2), also cost ÷ 0.91, and card payment costs, charged as set out in the confirmation"
+   "Price formulaArchē cost = operator all-in price (including positioning legs) + supplier items Archē buys for the client, confirmed in writing + payment and conversion costs (below)Client price = Archē cost ÷ 0.91 Archē fee = client price − Archē cost = 9% of the client priceNot included: costs charged after the flight (9.2), also cost ÷ 0.91",
+   "Payment and conversion costs (Morten, 17 November 2026) are direct trip costs, inside the price like every other cost. When the operator quotes in another currency than USD, converting the client's money into that currency costs about 0.4% of the operator price. When the client pays by card, the card fee is about 3.6% of the client price. The portal adds both to the direct trip costs, so the client sees one price and the Archē fee stays 9% of it; the confirmation adds nothing for the card on top. The rates are the portal's until the payment provider is agreed."
   ],
   "say": [
    "Pricing and quoting.",
    "The ar Kay price formula.",
    "ar Kay charges a fixed fee of 9 percent of the total booking value, the price the client pays. Because the fee is a share of the selling price, divide the cost by 0.91, do not add 9 percent to the cost.",
    "Two bars. Right, an ar Kay cost of 100,000 divided by 0.91 gives a client price of 109,891, and the ar Kay fee of 9,891 is 9 percent of the price. Wrong, adding 9 percent gives 109,000, and the fee of 9,000 is only 8.26 percent of the price.",
-   "Price formula. ar Kay cost = operator all-in price, including positioning legs, plus supplier items ar Kay buys for the client, confirmed in writing. Client price = ar Kay cost divided by 0.91 ar Kay fee = client price − ar Kay cost = 9 percent of the client price. Not included, costs charged after the flight, 9, section 2, also cost divided by 0.91, and card payment costs, charged as set out in the confirmation."
+   "Price formula. ar Kay cost = operator all-in price, including positioning legs, plus supplier items ar Kay buys for the client, confirmed in writing plus payment and conversion costs, below. Client price = ar Kay cost divided by 0.91 ar Kay fee = client price − ar Kay cost = 9 percent of the client price. Not included, costs charged after the flight, 9, section 2, also cost divided by 0.91.",
+   "Payment and conversion costs, Morten, 17 November 2026, are direct trip costs, inside the price like every other cost. When the operator quotes in another currency than, U S dollars converting the client's money into that currency costs about 0.4 percent of the operator price. When the client pays by card, the card fee is about 3.6 percent of the client price. The portal adds both to the direct trip costs, so the client sees one price and the ar Kay fee stays 9 percent of it, the confirmation adds nothing for the card on top. The rates are the portal's until the payment provider is agreed."
   ]
  },
  {
-  "key": "675865d4",
+  "key": "3b5a32e2",
   "kind": "lesson",
   "where": "m9 screen 5",
   "text": [
@@ -4040,16 +4042,17 @@
    "B. Multi-leg: three legs quoted by one operator, all-in 180,000 including positioningPrice on the total: 197,803; Archē fee 17,803. Never price legs separately if the operator quotes the trip as one",
    "C. Shared positioning: operator lowers its price from 100,000 to 92,000 because the empty return is soldNew client price 101,099 if the client is not yet contracted; if already contracted, the confirmation decides who benefits",
    "D. Supplier item: ground transport quoted 1,200 in writing; operator all-in 60,000Archē cost 61,200; client price 67,253; Archē fee 6,053",
-   "E. Currency: operator quotes in EUR, client pays in USDConvert the operator price with the payment provider exchange rate on the day of the quote; state the quote currency and that it is fixed only after payment",
+   "E. Currency: operator quotes EUR 50,000; client pays in USD; rate 1.08Operator price 54,000; conversion 0.4% = 216; Archē cost 54,216; client price 59,579; Archē fee 5,363. State the quote currency and that it is fixed only after payment",
    "F. Post-flight: de-icing invoiced by the operator at 2,850Charge 2,850 ÷ 0.91 = 3,131.87, rounded up to 3,132, through a payment request; Archē fee 282",
    "G. In-flight diversion for weather: extra handling 1,400On the B13 list: charge 1,400 at cost, no Archē fee",
+   "H. Card: operator all-in 100,000; the client pays by cardCard fee 3.6% of the client price = 4,119, a direct trip cost; Archē cost 104,119; client price 114,417; Archē fee 10,298 (9%)",
    "The fee is 9% on every booking. A different fee on a booking is the exception, only by the Director's decision before the quote is sent, with the reason recorded. Round client prices up, never down.",
    "A. One-waycost 100,000price 109,891B. Multi-legcost 180,000price 197,803D. With supplier itemcost 61,200price 67,253Cost and client price for three of the worked examples (USD)."
   ],
   "say": [
    "Pricing and quoting.",
    "Worked examples.",
-   "A. One-way, operator all-in 100,000. Client price 100,000 divided by 0.91 = 109,890.11, rounded up to 109,891, ar Kay fee 9,891. Wrong method, 100,000 plus 9 percent = 109,000. Fee 9,000 = only 8.26 percent of the price. B. Multi-leg, three legs quoted by one operator, all-in 180,000 including positioning. Price on the total, 197,803, ar Kay fee 17,803. Never price legs separately if the operator quotes the trip as one. C. Shared positioning, operator lowers its price from 100,000 to 92,000 because the empty return is sold. New client price 101,099 if the client is not yet contracted, if already contracted, the confirmation decides who benefits. D. Supplier item, ground transport quoted 1,200 in writing, operator all-in 60,000. ar Kay cost 61,200, client price 67,253, ar Kay fee 6,053. E. Currency, operator quotes in E U R, client pays in U S dollars. Convert the operator price with the payment provider exchange rate on the day of the quote, state the quote currency and that it is fixed only after payment. F. Post-flight, de-icing invoiced by the operator at 2,850. Charge 2,850 divided by 0.91 = 3,131.87, rounded up to 3,132, through a payment request, ar Kay fee 282. G. In-flight diversion for weather, extra handling 1,400. On the B13 list, charge 1,400 at cost, no ar Kay fee.",
+   "A. One-way, operator all-in 100,000. Client price 100,000 divided by 0.91 = 109,890.11, rounded up to 109,891, ar Kay fee 9,891. Wrong method, 100,000 plus 9 percent = 109,000. Fee 9,000 = only 8.26 percent of the price. B. Multi-leg, three legs quoted by one operator, all-in 180,000 including positioning. Price on the total, 197,803, ar Kay fee 17,803. Never price legs separately if the operator quotes the trip as one. C. Shared positioning, operator lowers its price from 100,000 to 92,000 because the empty return is sold. New client price 101,099 if the client is not yet contracted, if already contracted, the confirmation decides who benefits. D. Supplier item, ground transport quoted 1,200 in writing, operator all-in 60,000. ar Kay cost 61,200, client price 67,253, ar Kay fee 6,053. E. Currency, operator quotes E U R 50,000, client pays in U S dollars, rate 1.08. Operator price 54,000, conversion 0.4 percent = 216, ar Kay cost 54,216, client price 59,579, ar Kay fee 5,363. State the quote currency and that it is fixed only after payment. F. Post-flight, de-icing invoiced by the operator at 2,850. Charge 2,850 divided by 0.91 = 3,131.87, rounded up to 3,132, through a payment request, ar Kay fee 282. G. In-flight diversion for weather, extra handling 1,400. On the B13 list, charge 1,400 at cost, no ar Kay fee. H. Card, operator all-in 100,000, the client pays by card. Card fee 3.6 percent of the client price = 4,119, a direct trip cost, ar Kay cost 104,119, client price 114,417, ar Kay fee 10,298, 9 percent.",
    "The fee is 9 percent on every booking. A different fee on a booking is the exception, only by the Director's decision before the quote is sent, with the reason recorded. Round client prices up, never down.",
    "Bar chart of three worked examples. One-way, cost 100,000, price 109,891. Multi-leg, cost 180,000, price 197,803. With a supplier item, cost 61,200, price 67,253."
   ]
@@ -5727,20 +5730,20 @@
   ]
  },
  {
-  "key": "5e9830a7",
+  "key": "5393d59f",
   "kind": "lesson",
   "where": "m14 screen 2",
   "text": [
    "Assessment and certification",
    "The written exam",
    "The written exam follows this module. It draws questions from every module check in your path. To pass you need 80% or more, and every question on a critical rule must be right.",
-   "After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the Director, and 10 supervised bookings. The Director, signs your training record when all stages are complete."
+   "After the exam: Avinode and payment system training, 8 shadowed trips, the practical exam with the Director, and 10 supervised bookings. The Director signs your training record when all stages are complete."
   ],
   "say": [
    "Assessment and certification.",
    "The written exam.",
    "The written exam follows this module. It draws questions from every module check in your path. To pass you need 80 percent or more, and every question on a critical rule must be right.",
-   "After the exam, Avinode and payment system training, 8 shadowed trips, the practical exam with the Director, and 10 supervised bookings. The Director, signs your training record when all stages are complete."
+   "After the exam, Avinode and payment system training, 8 shadowed trips, the practical exam with the Director, and 10 supervised bookings. The Director signs your training record when all stages are complete."
   ]
  },
  {
@@ -6214,7 +6217,7 @@
   ]
  },
  {
-  "key": "127b3817",
+  "key": "ffb129db",
   "kind": "lesson",
   "where": "sys screen 5",
   "text": [
@@ -6224,7 +6227,7 @@
    "Who uses it: Everyone",
    "How it works",
    "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in USD.",
-   "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: the Archē fee is a fixed 9% of what the client pays. A different fee on a booking is the exception, only at the Director's discretion, with the reason recorded.",
+   "Client price = (operator price + direct trip costs) ÷ 0.91, rounded up: the Archē fee is a fixed 9% of what the client pays. Direct trip costs include the payment and conversion costs (card fee, currency conversion). A different fee on a booking is the exception, only at the Director's discretion, with the reason recorded.",
    "Deposit 25% of the charter price, at least USD 2,500, on signature; the balance 7 days before the first departure; full payment at once if departure is less than 7 days away.",
    "Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost ÷ 0.91, through a payment request: due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list (unforeseeable costs after departure, such as an in-flight diversion) is at cost; de-icing never is. A card is held on every trip; anything asked for during the trip is arranged only once paid.",
    "Clients pay only through a payment request. Never print, store or send bank details.",
@@ -6250,7 +6253,7 @@
    "The business rules the portal enforces. Know them before your first enquiry.",
    "Who uses it, Everyone.",
    "How it works.",
-   "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in U S dollars. Client price =, operator price plus direct trip costs, divided by 0.91, rounded up, the ar Kay fee is a fixed 9 percent of what the client pays. A different fee on a booking is the exception, only at the Director's discretion, with the reason recorded. Deposit 25 percent of the charter price, at least 2,500, U S dollars on signature, the balance 7 days before the first departure, full payment at once if departure is less than 7 days away. Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost divided by 0.91, through a payment request, due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list, unforeseeable costs after departure, such as an in-flight diversion, is at cost, de-icing never is. A card is held on every trip, anything asked for during the trip is arranged only once paid. Clients pay only through a payment request. Never print, store or send bank details. The Director, or a person the Director has mandated, authorises every booking before a confirmation is issued, a price change afterwards sends it back. Four-eyes, nobody prices, authorises, issues or records payment on their own trip, the Director included. Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the Director, or a person the Director has mandated. Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request, a score of 3 or less starts service recovery. Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews.",
+   "Everything is enquired, quoted, booked and paid in the portal, and nowhere else. All figures are in U S dollars. Client price =, operator price plus direct trip costs, divided by 0.91, rounded up, the ar Kay fee is a fixed 9 percent of what the client pays. Direct trip costs include the payment and conversion costs, card fee, currency conversion. A different fee on a booking is the exception, only at the Director's discretion, with the reason recorded. Deposit 25 percent of the charter price, at least 2,500, U S dollars on signature, the balance 7 days before the first departure, full payment at once if departure is less than 7 days away. Costs known before departure go on the balance. Every cost during or after the trip is charged like the price, cost divided by 0.91, through a payment request, due when the operator or supplier wants payment, and no later than 72 hours after the service. Only the B13 list, unforeseeable costs after departure, such as an in-flight diversion, is at cost, de-icing never is. A card is held on every trip, anything asked for during the trip is arranged only once paid. Clients pay only through a payment request. Never print, store or send bank details. The Director, or a person the Director has mandated, authorises every booking before a confirmation is issued, a price change afterwards sends it back. Four-eyes, nobody prices, authorises, issues or records payment on their own trip, the Director included. Brokers set only enquiry, quoted, sent for authorisation or cancelled. Money stages are recorded by the Director, or a person the Director has mandated. Every flight is followed to the last landing. The broker follows up within 24 hours and sends a rating request, a score of 3 or less starts service recovery. Client ratings are quoted publicly only with the client's written consent. Never write, buy or reward reviews.",
    "Try it in the test version, as Test Broker.",
    "Make a test enquiry with an operator price of 30,000 U S dollars and check the client price, 30,000 divided by 0.91, rounded up, is 32,968 U S dollars.",
    "If something goes wrong.",
@@ -6298,7 +6301,7 @@
   ]
  },
  {
-  "key": "abd2f223",
+  "key": "3b0fb177",
   "kind": "lesson",
   "where": "sys screen 7",
   "text": [
@@ -6307,7 +6310,7 @@
    "Your opening page, the only start page: every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
    "Who uses it: Brokers; the Director, or a person the Director has mandated",
    "How it works",
-   "Read the progress tiles: standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum.",
+   "Read the progress tiles: standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added this month.",
    "Work Your tasks from the top. Red dots are urgent: an overdue lead, a trip returned at authorisation, a payment due.",
    "Tap a task to open the lead or trip it refers to.",
    "Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score.",
@@ -6328,7 +6331,7 @@
    "Your opening page, the only start page, every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
    "Who uses it, Brokers, the Director, or a person the Director has mandated.",
    "How it works.",
-   "Read the progress tiles, standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added against the minimum. Work Your tasks from the top. Red dots are urgent, an overdue lead, a trip returned at authorisation, a payment due. Tap a task to open the lead or trip it refers to. Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score.",
+   "Read the progress tiles, standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added this month. Work Your tasks from the top. Red dots are urgent, an overdue lead, a trip returned at authorisation, a payment due. Tap a task to open the lead or trip it refers to. Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score.",
    "Try it in the test version, as Test Broker.",
    "As Test Broker, open Today, work Your tasks from the top, then read Progress this month.",
    "If something goes wrong.",
@@ -6338,7 +6341,7 @@
   ]
  },
  {
-  "key": "cb7ec9ad",
+  "key": "71b4a290",
   "kind": "lesson",
   "where": "sys screen 8",
   "text": [
@@ -6361,7 +6364,7 @@
    "Tips",
    "My leads are prospects from research (48 hours for first contact). A client who asks directly, by the website, phone, email or messaging, is an enquiry: contact them within 15 minutes.",
    "Contact new leads the same day: the 48-hour clock starts at assignment.",
-   "Every organisation you add earns points and a bigger share of new leads; ten a month is the minimum, not the target.",
+   "Every organisation you add earns points; brokers who score highest get new leads a little sooner. It is a scoring measure, not a target or a minimum.",
    "Anyone who opts out is Do not contact at once, for everyone."
   ],
   "say": [
@@ -6376,7 +6379,7 @@
    "If something goes wrong.",
    "My new prospect says Being checked. It is checked for duplicates at the next round, within 3 hours. It says Already known. Another broker added it first, it stays with them. Keep adding new ones. A lead disappeared. It went cold and moved to another broker, or it was marked Do not contact.",
    "Tips.",
-   "My leads are prospects from research, 48 hours for first contact. A client who asks directly, by the website, phone, email or messaging, is an enquiry, contact them within 15 minutes. Contact new leads the same day, the 48-hour clock starts at assignment. Every organisation you add earns points and a bigger share of new leads, ten a month is the minimum, not the target. Anyone who opts out is Do not contact at once, for everyone."
+   "My leads are prospects from research, 48 hours for first contact. A client who asks directly, by the website, phone, email or messaging, is an enquiry, contact them within 15 minutes. Contact new leads the same day, the 48-hour clock starts at assignment. Every organisation you add earns points, brokers who score highest get new leads a little sooner. It is a scoring measure, not a target or a minimum. Anyone who opts out is Do not contact at once, for everyone."
   ]
  },
  {
@@ -6501,7 +6504,7 @@
   ]
  },
  {
-  "key": "3345ecc2",
+  "key": "e1acb44b",
   "kind": "lesson",
   "where": "sys screen 12",
   "text": [
@@ -6512,6 +6515,7 @@
    "How it works",
    "From Avinode, enter the operator's legal name as on its AOC, aircraft type, registration and Avinode trip ID.",
    "Enter the operator all-in price and any direct trip costs not in it (supplier items Archē buys).",
+   "Tick \"The client pays by card\" when the client will pay by card. The portal adds the payment and conversion costs to the direct trip costs: the card fee (3.6% of the client price) and, when the operator quotes in another currency than USD, the conversion (0.4% of the operator price). The preview shows them.",
    "Quoted in another currency: choose it; the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3% away from it.",
    "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.",
    "Save. The trip moves to Quoted.",
@@ -6531,7 +6535,7 @@
    "Record the operator's all-in quote so the portal sets the client price at 9 percent.",
    "Who uses it, Brokers.",
    "How it works.",
-   "From Avinode, enter the operator's legal name as on its A O C, aircraft type, registration and Avinode trip I D. Enter the operator all-in price and any direct trip costs not in it, supplier items ar Kay buys. Quoted in another currency, choose it, the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3 percent away from it. Read the price preview, client price =, operator price plus direct costs, divided by 0.91, rounded up. Save. The trip moves to Quoted. When you save, the portal checks in the background, the names against the sanctions lists, the operator against the E U Air Safety List, and a U S registration, N., against the F A A list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date.",
+   "From Avinode, enter the operator's legal name as on its A O C, aircraft type, registration and Avinode trip I D. Enter the operator all-in price and any direct trip costs not in it, supplier items ar Kay buys. Tick The client pays by card when the client will pay by card. The portal adds the payment and conversion costs to the direct trip costs, the card fee, 3.6 percent of the client price, and, when the operator quotes in another currency than, U S dollars the conversion, 0.4 percent of the operator price. The preview shows them. Quoted in another currency, choose it, the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3 percent away from it. Read the price preview, client price =, operator price plus direct costs, divided by 0.91, rounded up. Save. The trip moves to Quoted. When you save, the portal checks in the background, the names against the sanctions lists, the operator against the E U Air Safety List, and a U S registration, N., against the F A A list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date.",
    "Try it in the test version, as Test Broker.",
    "Enter an operator price of 20,000 U S dollars and check the client price, 20,000 divided by 0.91, rounded up, is 21,979 U S dollars.",
    "If something goes wrong.",
@@ -6659,7 +6663,7 @@
   ]
  },
  {
-  "key": "06d6c3b7",
+  "key": "8a929d97",
   "kind": "lesson",
   "where": "sys screen 16",
   "text": [
@@ -6671,6 +6675,7 @@
    "The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.",
    "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Archē-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.",
    "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.",
+   "KYC record: under the KYC tick, enter the date the client was checked and how (and our own reference if you have one), then Save KYC record. Never type an ID, passport or bank number; the portal refuses anything that looks like one. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match. Otherwise check again: an out-of-date check stops authorisation and issue.",
    "Create the payment request in our payment provider and enter its reference on the trip.",
    "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field.",
    "Try it in the test version, as Test Broker",
@@ -6678,6 +6683,7 @@
    "If something goes wrong",
    "Send for authorisation is greyed outOne of the required items is missing; the note under the button lists them.",
    "The trip came back as ReturnedRead the Director's note at the top of the trip, fix it and send again.",
+   "The trip says the KYC must be done againThe last check is over 12 months old, or the payer, country or name changed, or screening found a possible match. Check the client again and save a new KYC record.",
    "Tips",
    "Run the AI check before sending; it catches cabotage, permits and missing information.",
    "A trip returned twice costs the client's confidence: complete it the first time."
@@ -6688,11 +6694,11 @@
    "Hand the Director, or a person the Director has mandated, a complete, compliant trip.",
    "Who uses it, Brokers.",
    "How it works.",
-   "The portal sets six of the seven pre-issue checks itself, from the records you complete, never-sell list and trip risk screen from Trip checks, nothing red, every amber confirmed with the operator, A O C from Documents, the operator's A O C attached, safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand, complete the record and the tick follows, and a new red item takes it back. Only routing and permits, confirmed with the operator, is your own tick. Fill in Operator safety on the trip, the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as Safety audit. For an ar Kay-approved operator, choose it from the approved-operator list, the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record. Complete K Y C and save the sanctions screening record. The portal has already screened the client, company, payer and operator, reused from your save if under 48 hours old, otherwise screened when you open the trip, add the passengers, owners of 25 percent or more and the aircraft owner if not listed, then press Save. Create the payment request in our payment provider and enter its reference on the trip. Press Send for authorisation. The button opens only when the trip is complete, the panel Steps to book this trip lists what is still missing and takes you to each field.",
+   "The portal sets six of the seven pre-issue checks itself, from the records you complete, never-sell list and trip risk screen from Trip checks, nothing red, every amber confirmed with the operator, A O C from Documents, the operator's A O C attached, safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand, complete the record and the tick follows, and a new red item takes it back. Only routing and permits, confirmed with the operator, is your own tick. Fill in Operator safety on the trip, the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as Safety audit. For an ar Kay-approved operator, choose it from the approved-operator list, the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record. Complete K Y C and save the sanctions screening record. The portal has already screened the client, company, payer and operator, reused from your save if under 48 hours old, otherwise screened when you open the trip, add the passengers, owners of 25 percent or more and the aircraft owner if not listed, then press Save. K Y C record, under the K Y C tick, enter the date the client was checked and how, and our own reference if you have one, then Save K Y C record. Never type an I D, passport or bank number, the portal refuses anything that looks like one. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match. Otherwise check again, an out-of-date check stops authorisation and issue. Create the payment request in our payment provider and enter its reference on the trip. Press Send for authorisation. The button opens only when the trip is complete, the panel Steps to book this trip lists what is still missing and takes you to each field.",
    "Try it in the test version, as Test Broker.",
    "Complete the trip checks, tick K Y C, enter a payment request reference and press Send for authorisation.",
    "If something goes wrong.",
-   "Send for authorisation is greyed out. One of the required items is missing, the note under the button lists them. The trip came back as Returned. Read the Director's note at the top of the trip, fix it and send again.",
+   "Send for authorisation is greyed out. One of the required items is missing, the note under the button lists them. The trip came back as Returned. Read the Director's note at the top of the trip, fix it and send again. The trip says the K Y C must be done again. The last check is over 12 months old, or the payer, country or name changed, or screening found a possible match. Check the client again and save a new K Y C record.",
    "Tips.",
    "Run the A I check before sending, it catches cabotage, permits and missing information. A trip returned twice costs the client's confidence, complete it the first time."
   ]
@@ -7081,40 +7087,43 @@
   ]
  },
  {
-  "key": "4d33b4da",
+  "key": "34a08b43",
   "kind": "lesson",
   "where": "sys screen 27",
   "text": [
    "Systems training: the Archē portal",
    "S.26 Training in the portal",
-   "Booking practice, the roleplay lab and the regional cards. The portal course is now Systems training in the Archē Broker Academy.",
+   "Booking practice, the full trial booking, the roleplay lab and the regional cards. The portal course is now Systems training in the Archē Broker Academy.",
    "Who uses it: Everyone",
    "How it works",
    "Training opens Systems training in the academy and shows your progress there.",
-   "Booking practice: six exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer. Nothing is real and nothing counts toward commission.",
+   "Booking practice: seven exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer, and one full trial booking. Nothing is real and nothing counts toward commission.",
    "Work out the client price yourself: (operator price + direct costs) ÷ 0.91, rounded up. Tick the checks and decide: send for authorisation, or decline with the reason.",
    "Training authorisation reviews the file. Anything wrong comes back with the reason; fix it and submit again. You see the flight, the commission it would earn and your score out of 100.",
+   "The full trial booking (Singapore to Tokyo) goes on after authorisation, through every step after Avinode, each one checked and scored: the Request to Book and how long the operator holds the aircraft; the operator's own contract checked line by line against its quote and our insurance minimum, and not signed yet; the charter confirmation, the one client document, with this booking's payment schedule (the client pays earlier when the operator wants money earlier), its cancellation charges and an offer that ends no later than the operator's hold; the client signs and pays through the secure payment request; the operator's contract signed only once the client money covers what the operator wants, and the operator paid only from cleared client money, never from Archē's; the flight followed to the last landing with block times in UTC; the follow-up within 24 hours and the rating, where 3 or less starts service recovery.",
    "Try it in the test version, as Test Broker",
-   "Open Training, Booking practice, and start the first exercise.",
+   "Open Training, Booking practice, and start the full trial booking.",
    "If something goes wrong",
    "My practice run came backRead the red notes: each names the rule. Go back to that step, fix it and submit again.",
+   "A step of the full trial booking says Not rightThe note under it gives the rule and the right answer. Read it, then go on: the score keeps what you answered first.",
    "Tips",
    "Run each exercise until you score 80 or more.",
+   "Do the full trial booking before your first real booking.",
    "The Director sees everyone's training scores."
   ],
   "say": [
    "Systems training, the ar Kay portal.",
    "Training in the portal.",
-   "Booking practice, the roleplay lab and the regional cards. The portal course is now Systems training in the ar Kay Broker Academy.",
+   "Booking practice, the full trial booking, the roleplay lab and the regional cards. The portal course is now Systems training in the ar Kay Broker Academy.",
    "Who uses it, Everyone.",
    "How it works.",
-   "Training opens Systems training in the academy and shows your progress there. Booking practice, six exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer. Nothing is real and nothing counts toward commission. Work out the client price yourself, operator price plus direct costs, divided by 0.91, rounded up. Tick the checks and decide, send for authorisation, or decline with the reason. Training authorisation reviews the file. Anything wrong comes back with the reason, fix it and submit again. You see the flight, the commission it would earn and your score out of 100.",
+   "Training opens Systems training in the academy and shows your progress there. Booking practice, seven exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer, and one full trial booking. Nothing is real and nothing counts toward commission. Work out the client price yourself, operator price plus direct costs, divided by 0.91, rounded up. Tick the checks and decide, send for authorisation, or decline with the reason. Training authorisation reviews the file. Anything wrong comes back with the reason, fix it and submit again. You see the flight, the commission it would earn and your score out of 100. The full trial booking, Singapore to Tokyo, goes on after authorisation, through every step after Avinode, each one checked and scored, the Request to Book and how long the operator holds the aircraft, the operator's own contract checked line by line against its quote and our insurance minimum, and not signed yet, the charter confirmation, the one client document, with this booking's payment schedule, the client pays earlier when the operator wants money earlier, its cancellation charges and an offer that ends no later than the operator's hold, the client signs and pays through the secure payment request, the operator's contract signed only once the client money covers what the operator wants, and the operator paid only from cleared client money, never from ar Kay's, the flight followed to the last landing with block times in U T C, the follow-up within 24 hours and the rating, where 3 or less starts service recovery.",
    "Try it in the test version, as Test Broker.",
-   "Open Training, Booking practice, and start the first exercise.",
+   "Open Training, Booking practice, and start the full trial booking.",
    "If something goes wrong.",
-   "My practice run came back. Read the red notes, each names the rule. Go back to that step, fix it and submit again.",
+   "My practice run came back. Read the red notes, each names the rule. Go back to that step, fix it and submit again. A step of the full trial booking says Not right. The note under it gives the rule and the right answer. Read it, then go on, the score keeps what you answered first.",
    "Tips.",
-   "Run each exercise until you score 80 or more. The Director sees everyone's training scores."
+   "Run each exercise until you score 80 or more. Do the full trial booking before your first real booking. The Director sees everyone's training scores."
   ]
  },
  {

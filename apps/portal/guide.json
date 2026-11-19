@@ -1220,27 +1220,33 @@
    "id": "training",
    "title": "Training in the portal",
    "who": "Everyone",
-   "purpose": "Booking practice, the roleplay lab and the regional cards. The portal course is now Systems training in the Archē Broker Academy.",
+   "purpose": "Booking practice, the full trial booking, the roleplay lab and the regional cards. The portal course is now Systems training in the Archē Broker Academy.",
    "steps": [
     "Training opens Systems training in the academy and shows your progress there.",
-    "Booking practice: six exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer. Nothing is real and nothing counts toward commission.",
+    "Booking practice: seven exercises with training versions of Avinode and the payment system, from a first short booking to a winter long-haul flight and a red-flag payer, and one full trial booking. Nothing is real and nothing counts toward commission.",
     "Work out the client price yourself: (operator price + direct costs) ÷ 0.91, rounded up. Tick the checks and decide: send for authorisation, or decline with the reason.",
-    "Training authorisation reviews the file. Anything wrong comes back with the reason; fix it and submit again. You see the flight, the commission it would earn and your score out of 100."
+    "Training authorisation reviews the file. Anything wrong comes back with the reason; fix it and submit again. You see the flight, the commission it would earn and your score out of 100.",
+    "The full trial booking (Singapore to Tokyo) goes on after authorisation, through every step after Avinode, each one checked and scored: the Request to Book and how long the operator holds the aircraft; the operator's own contract checked line by line against its quote and our insurance minimum, and not signed yet; the charter confirmation, the one client document, with this booking's payment schedule (the client pays earlier when the operator wants money earlier), its cancellation charges and an offer that ends no later than the operator's hold; the client signs and pays through the secure payment request; the operator's contract signed only once the client money covers what the operator wants, and the operator paid only from cleared client money, never from Archē's; the flight followed to the last landing with block times in UTC; the follow-up within 24 hours and the rating, where 3 or less starts service recovery."
    ],
    "trouble": [
     [
      "My practice run came back",
      "Read the red notes: each names the rule. Go back to that step, fix it and submit again."
+    ],
+    [
+     "A step of the full trial booking says Not right",
+     "The note under it gives the rule and the right answer. Read it, then go on: the score keeps what you answered first."
     ]
    ],
    "tips": [
     "Run each exercise until you score 80 or more.",
+    "Do the full trial booking before your first real booking.",
     "The Director sees everyone's training scores."
    ],
    "n": "H.38",
    "try": [
     "broker",
-    "Open Training, Booking practice, and start the first exercise."
+    "Open Training, Booking practice, and start the full trial booking."
    ],
    "sys": 26
   },
