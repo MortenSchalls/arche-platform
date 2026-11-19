@@ -85,6 +85,15 @@ import english_only
 problems += english_only.problems()
 import readability
 problems += readability.problems()
+# nothing on a page may stop the finger from scrolling it (19 Nov 2026: iPhones froze on the service photos, whose
+# picture layer had touch-action:none); only the design tool's reframe layer (.spill, never shown on the site) keeps it
+for _root, _dirs, _files in os.walk(HERE):
+    if "portal-preview" in _root: continue
+    for _fn in _files:
+        if _fn.endswith((".html", ".css", ".js")):
+            _t = open(os.path.join(_root, _fn), encoding="utf-8").read()
+            _n = len(re.findall(r"touch-action:\s*none", _t)) - len(re.findall(r"\.spill\{[^}]*touch-action:none", _t))
+            if _n > 0: problems.append(f"{os.path.relpath(os.path.join(_root, _fn), HERE)}: touch-action:none would stop phones scrolling ({_n}x)")
 # the Singapore number in company.py, written as +65 and eight digits (the links are built as "+" and the digits, so
 # a number without +65 would publish a wrong country code on every phone and WhatsApp link; review 18 Nov 2026)
 if company.PHONE and not re.match(r"^\+65 [3689]\d{3} \d{4}$", company.PHONE):

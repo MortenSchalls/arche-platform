@@ -70,6 +70,17 @@ def build():
     EAGER_A = "          this._loadPending = true;\n          this._img.src = url;"
     assert slot.count(EAGER_A) == 1
     slot = slot.replace(EAGER_A, "          this._loadPending = true;\n          if (this.closest && this.closest('#fleet, #top, .ae-phead')) { this._img.loading = 'eager'; this._img.fetchPriority = this.closest('#fleet') && this.getBoundingClientRect().width ? 'high' : 'auto'; }\n          this._img.src = url;")
+    # phones could not scroll when the finger started on a photo (Morten, 19 Nov 2026: "Now it freezes here", the home
+    # service cards on an iPhone): the design tool's slot sets touch-action:none on its picture, for dragging in its
+    # reframe mode, which the public site never uses (editing needs the design tool). The picture lets the page scroll;
+    # the reframe layer keeps its own rule. The wheel listener is registered only where editing is possible, so the
+    # browser never waits for script before scrolling over a picture.
+    TA = "'  -webkit-user-drag:none;user-select:none;touch-action:none}' +"
+    assert slot.count(TA) == 1
+    slot = slot.replace(TA, "'  -webkit-user-drag:none;user-select:none;touch-action:pan-x pan-y pinch-zoom}' +")
+    WH = "this.addEventListener('wheel', (e) => {"
+    assert slot.count(WH) == 1
+    slot = slot.replace(WH, "if (window.omelette && window.omelette.writeFile) this.addEventListener('wheel', (e) => {")
     slot += """
 // warm the aircraft finder: once the page is idle, fetch every aircraft picture so moving the slider shows it at once
 (function(){ var go = function(){ fetch('image-slots.state.json').then(function(r){ return r.json(); }).then(function(s){
