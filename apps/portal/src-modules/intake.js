@@ -247,10 +247,12 @@ function assessBlock(id){
 document.addEventListener("change", async e => {
   const b = e.target; if (!b.dataset || !b.dataset.qa) return;
   if (!(S.isOwner || (typeof canRight === "function" && canRight("assess")))) return;
-  const id = b.dataset.uid, part = b.dataset.qa, cur = S.assess[id] || {};
-  const next = {...cur, [part]: {...(cur[part] || {}), [b.dataset.k]: b.checked}, at: now(), by: S.uid};
-  try { await S.db.doc("assess/" + id).set(next); S.assess[id] = next; audit("Assessment checklist", `${(S.joins[id] || {}).contractName || id}: ${part} ${b.dataset.k} ${b.checked ? "ticked" : "unticked"}`); render(); }
-  catch(err){ toast("Could not save. Run SQL 0015 if you have not."); b.checked = !b.checked; }
+  // updated at once, then saved, so quick ticks one after another all count (19 Nov 2026)
+  const id = b.dataset.uid, part = b.dataset.qa, cur = S.assess[id] || {}, on = b.checked;
+  const next = {...cur, [part]: {...(cur[part] || {}), [b.dataset.k]: on}, at: now(), by: S.uid};
+  S.assess[id] = next;
+  try { await S.db.doc("assess/" + id).set(S.assess[id]); audit("Assessment checklist", `${(S.joins[id] || {}).contractName || id}: ${part} ${b.dataset.k} ${on ? "ticked" : "unticked"}`); render(); }
+  catch(err){ S.assess[id] = cur; toast("Could not save. Run SQL 0015 if you have not."); b.checked = !on; render(); }
 });
 /* the agreement waits for the checklist */
 (function(){ const _ib = intakeBlock; intakeBlock = function(id){ const w = _ib(id); if (w) return w; const st = assessState(id); if (!st.ok) return st.flags ? "A red flag is ticked on the qualification checklist." : `Qualification checklist not complete (${st.min} of ${Object.keys(QUAL_MIN).length} minimum items).`; return ""; }; })();

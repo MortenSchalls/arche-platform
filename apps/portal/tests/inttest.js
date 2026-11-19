@@ -34,6 +34,17 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  await o.evaluate(id=>{const b=document.getElementById('qa_flags_salary_'+id);b.checked=true;b.dispatchEvent(new Event('change',{bubbles:true}));},C1);await o.waitForTimeout(300);
  ok('a red flag stops the agreement', /red flag/.test(await o.evaluate(id=>intakeBlock(id),C1)));
  await o.evaluate(id=>{const b=document.getElementById('qa_flags_salary_'+id);b.checked=false;b.dispatchEvent(new Event('change',{bubbles:true}));},C1);await o.waitForTimeout(300);
+ // assessment card (19 Nov 2026): Archē record, portal skills check, interview; the agreement waits for both parts
+ ok('Archē record, skills check and interview shown on the request', await o.evaluate(()=>{S.view='onboarding';render();const t=document.querySelector('#main').textContent;return t.includes('Archē record')&&t.includes('Portal skills check')&&t.includes('Interview');}));
+ ok('skills check not done: agreement held back', /Portal skills check not complete \(0 of 7/.test(await o.evaluate(id=>intakeBlock(id),C1)));
+ await o.evaluate(id=>{document.querySelectorAll('[data-qs][data-uid="'+id+'"]').forEach(b=>{b.checked=true;b.dispatchEvent(new Event('change',{bubbles:true}));});},C1);await o.waitForTimeout(600);
+ ok('skills ticked and saved', await o.evaluate(id=>Object.keys(ASK_SKILLS).every(k=>(S.assess[id].skills||{})[k]),C1));
+ ok('interview not done: agreement held back', /Interview not complete \(0 of 8/.test(await o.evaluate(id=>intakeBlock(id),C1)));
+ await o.evaluate(id=>{S.view='onboarding';render();document.querySelectorAll('[data-qi][data-uid="'+id+'"]').forEach(b=>{b.value='Example note on the answer';b.dispatchEvent(new Event('change',{bubbles:true}));});},C1);await o.waitForTimeout(800);
+ ok('interview notes saved', await o.evaluate(id=>Object.keys(ASK_INTERVIEW).every(k=>((S.assess[id].interview||{})[k]||'').length>3),C1));
+ ok('academy code checked: valid, changed and wrong-name codes caught', await o.evaluate(()=>{const p=JSON.stringify(['Example Candidate','broker','2026-11-17',[['m0',100],['exam',95]]]);const b=btoa(p).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');const code='AE2.'+b+'.'+acadFnv(p+ACAD_SALT);
+   const good=acadCodeCheck(code,'Example Candidate'), bad=acadCodeCheck(code.slice(0,-1)+(code.slice(-1)==='0'?'1':'0'),'Example Candidate'), other=acadCodeCheck(code,'Someone Else'), none=acadCodeCheck('','Example Candidate');
+   return good.ok&&good.msg==='valid'&&!bad.ok&&/check digits/.test(bad.msg)&&!other.ok&&/not the name/.test(other.msg)&&!none.ok;}));
  ok('all clear: agreement can go', await o.evaluate(id=>intakeBlock(id)==='',C1));
  ok('Team no longer carries joining and leaving', await o.evaluate(()=>{S.view='team';render();const t=document.querySelector('#main').textContent;return ![...document.querySelectorAll('#main h2')].some(h=>/Ready to sign brokers/.test(h.textContent))&&t.includes('request to join waiting');}));
  await o.evaluate(()=>{S.view='onboarding';render();});

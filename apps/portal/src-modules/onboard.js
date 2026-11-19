@@ -140,7 +140,7 @@ function vPending(){
 function obJoinCard(id, j){
   obLoadProg(id); agrWatchOwner();
   return `<div class="flag"><span class="sev low" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${esc(j.contractName)}</b> · ${esc(j.role)} · ${esc(j.base || "")}</p>
-    <p class="small muted">Academy code: <span class="mono">${esc(j.cert || "none")}</span> · Requested ${fmtD(j.at)}</p>
+    <p class="small muted">Academy code: ${j.cert ? `<span class="mono" style="word-break:break-all">${esc(String(j.cert).slice(0, 14))}…</span> (checked in the Archē record below)` : "none"} · Requested ${fmtD(j.at)}</p>
     <p class="small">${esc(obProgLine(S.obProg[id]))}</p>
     ${typeof intakeJoinExtras === "function" ? intakeJoinExtras(id, j) : ""}${agrOwnerBlock(id, j)}${S.agrView === id ? agrModal() : ""}</div></div>`;
 }
