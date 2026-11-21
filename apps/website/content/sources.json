@@ -3748,5 +3748,11 @@
   "url": "https://www.airservicesaustralia.com/aip/current/sup/a26-h01.pdf",
   "publisher": "Airservices Australia",
   "checked": "2026-11-18"
+ },
+ "co-dot-altfuel": {
+  "title": "Colorado DOT Division of Aeronautics, Voluntary Noise Abatement & Alternative Fuel Availability (page modified 24 Feb 2026)",
+  "url": "https://www.codot.gov/programs/aeronautics/unleaded-avgas-transition-hb1235-implementation/altfuelnoiseabatement",
+  "publisher": "Colorado Department of Transportation, Division of Aeronautics",
+  "checked": "2026-11-22"
  }
 }
