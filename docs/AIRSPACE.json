@@ -1,7 +1,7 @@
 {
  "title": "Airspace and route rules shared by both journey maps",
  "note": "Kept identical in navoryx-website and arche-platform (docs/AIRSPACE.json, a copy in each; severance rule, docs/SEVERANCE.md). Each site's routing reads its closed areas, the arrival and departure allowances and the corridor references from its own copy. Any change is made in both repositories in the same piece of work, with both route checks run (Morten 13 Nov 2026: \"work with Arche website to ensure we share data and rules for the map\"). 'checked' is the last look at EASA's list, 'changed' the last change to the areas; each item gives the bulletin, its revision, its validity, its recommendation and the areas it closes. Only an all-levels recommendation closes an area; a lowest-level bulletin is crossed at cruise.",
- "checked": "2026-11-19",
+ "checked": "2026-11-23",
  "changed": "2026-11-14",
  "source": [
   "EASA Conflict Zone Information Bulletins, active list (CSV export)",
@@ -65,7 +65,7 @@
   },
   {
    "subject": "Jordan and Israel",
-   "ref": "CZIB-2026-08-R3 (Jordan); CZIB-2026-07R3 (caution over Israel and its neighbours)",
+   "ref": "CZIB-2026-08-R3 (Jordan); CZIB-2026-07R4 (caution over Israel and its neighbours)",
    "valid_until": "2026-11-16",
    "rule": "caution only; planned around, as the published Europe-Asia corridors do (they pass over Egypt, not the Levant: references OPS, WEGO)",
    "areas": [
@@ -74,8 +74,8 @@
   },
   {
    "subject": "Persian Gulf and Gulf of Oman waters",
-   "ref": "CZIB-2026-07R3",
-   "valid_until": "2026-11-16",
+   "ref": "CZIB-2026-07R4",
+   "valid_until": "2027-01-31",
    "rule": "closed over the water (Gulf of Oman west of 58 E), arrivals and departures allowed",
    "areas": [
     "gulf_water"
