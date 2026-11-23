@@ -240,6 +240,22 @@
    "venue": "at the Royal Hospital Chelsea",
    "start": "2027-05-18",
    "end": "2027-05-22"
+  },
+  {
+   "key": "ev.syd_hobart_2026",
+   "city": "sydney",
+   "name": "Sydney to Hobart Yacht Race",
+   "venue": "start on Sydney Harbour",
+   "start": "2026-12-26",
+   "end": "2026-12-26"
+  },
+  {
+   "key": "ev.syd_eastershow_2027",
+   "city": "sydney",
+   "name": "Sydney Royal Easter Show",
+   "venue": "at Sydney Olympic Park",
+   "start": "2027-03-19",
+   "end": "2027-03-30"
   }
  ]
 }

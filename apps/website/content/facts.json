@@ -5028,5 +5028,15 @@
   "v": "a flight from abroad asks CBP for permission to land at least two hours before arrival",
   "src": "phnl-cbp-ga",
   "quote": "at least two hours in advance of the anticipated arrival time"
+ },
+ "ev.syd_hobart_2026": {
+  "v": "26 December 2026",
+  "src": "nsw-sydhobart-2026",
+  "quote": "Date: Saturday, 26 December 2026"
+ },
+ "ev.syd_eastershow_2027": {
+  "v": "19–30 March 2027",
+  "src": "ras-eastershow-2027",
+  "quote": "19–30 March 2027"
  }
 }

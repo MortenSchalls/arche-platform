@@ -3754,5 +3754,17 @@
   "url": "https://www.codot.gov/programs/aeronautics/unleaded-avgas-transition-hb1235-implementation/altfuelnoiseabatement",
   "publisher": "Colorado Department of Transportation, Division of Aeronautics",
   "checked": "2026-11-22"
+ },
+ "nsw-sydhobart-2026": {
+  "title": "NSW Government, Sydney to Hobart Yacht Race: Sydney Harbour major events (updated 16 Oct 2026; checked 24 Nov 2026)",
+  "url": "https://www.nsw.gov.au/driving-boating-and-transport/boating-and-marine/using-waterways-boating-and-transport-information/boating-on-sydney-harbour/sydney-harbour-major-events/rolex-sydney-to-hobart-yacht-race",
+  "publisher": "NSW Government",
+  "checked": "2026-11-24"
+ },
+ "ras-eastershow-2027": {
+  "title": "Royal Agricultural Society of NSW, Sydney Royal Easter Show home page (no page date shown; checked 24 Nov 2026)",
+  "url": "https://eastershow.com.au/",
+  "publisher": "Royal Agricultural Society of NSW",
+  "checked": "2026-11-24"
  }
 }
