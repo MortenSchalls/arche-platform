@@ -1,0 +1,59 @@
+{
+ "icao": "YPDN",
+ "iata": null,
+ "name": "Darwin International Airport",
+ "city": "Darwin",
+ "country": "AU",
+ "tz": "Australia/Darwin",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-24",
+ "rules": {
+  "runway": {
+   "v": "main runway 11/29, 45 m wide, 3,354 m; also 18/36, 30 m wide, 1,524 m, unlit (at night military or emergency only)",
+   "longest_m": 3354,
+   "src": "au-ersa-ypdn-rds",
+   "quote": "11 (4) 3354 (11004) 3444 (11299) (2.14%) 3354 (11004) 3354 (11004)"
+  },
+  "hours": {
+   "v": "civil airport open 24 hours (joint civil and military airfield, RAAF Base Darwin)",
+   "src": "au-ersa-ypdn-fac",
+   "quote": "Civil airport H24."
+  },
+  "customs": {
+   "v": "customs, immigration and biosecurity 24 hours with 2 hours notice (listed with the FBO entry)",
+   "h24": true,
+   "src": "au-ersa-ypdn-fac",
+   "quote": "MEDEVAC, Customs, Immigration and Biosecurity services AVBL H24 with 2HR PN for Civil and MIL ACFT."
+  },
+  "ppr": {
+   "v": "prior parking approval needed for the civil air transport apron; non-scheduled parking approved 24 hours ahead by Airport Coordination Australia (Mon-Fri 2200-0530 UTC)",
+   "src": "au-ersa-ypdn-fac",
+   "quote": "Prior PRKG approval is RQ for civil Air Transport APN."
+  },
+  "max_aircraft": {
+   "v": "northern GA apron limited to 15 m wingspan unless arranged with the duty operations officer; aircraft of 22,000-42,000 kg may reach the FBO apron with a pavement concession and approval",
+   "src": "au-ersa-ypdn-fac",
+   "quote": "PRKG on northern GA APN RESTR to ACFT with wingspan MAX 15M except by arrangement with Duty Operations Officer"
+  },
+  "fuel": {
+   "v": "Jet A-1 24 hours (hydrant on the air transport apron; Viva Energy tanker); Avgas by tanker 05:00-16:00 local, bowser 24 hours",
+   "src": "au-ersa-ypdn-fac",
+   "quote": "AIR BP/SHELL JET A1 (Air Transport APN), Hydrant Bays 1 to 8, 21 to 25: H24."
+  },
+  "noise": {
+   "v": "jets and turboprops over 25,000 kg keep runway heading to 2,000 ft unless on a SID; further procedures in AIP DAP",
+   "src": "au-ersa-ypdn-fac",
+   "quote": "Unless cleared via a SID, all JET and TURBOPROP ACFT above 25,000KG are to maintain RWY heading until 2,000FT AMSL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no curfew printed; the page states the civil airport is H24)",
+  "slots (only the apron parking approval through Airport Coordination Australia)",
+  "handling",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Good 24-hour gateway into Australia from Asia: customs with 2 hours notice. Civil and foreign military aircraft transiting RAAF Darwin need PPR with 72 hours notice from the Airbase Operations Centre. Read 24 Nov 2026 from Airservices Australia ERSA pages (FAC and RDS, the latest pages found). The Airservices amendment calendar shows ERSA 03 SEP 2026 in force and the next edition on 26 NOV 2026; an FAC or RDS page changed in those editions may not have surfaced, so re-check after 26 Nov 2026. The ERSA FAC runway line gives width only; lengths are the RDS take-off run available (TORA). The IATA code is not printed on these pages."
+}

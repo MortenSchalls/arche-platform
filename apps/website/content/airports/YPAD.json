@@ -1,0 +1,61 @@
+{
+ "icao": "YPAD",
+ "iata": null,
+ "name": "Adelaide Airport",
+ "city": "Adelaide",
+ "country": "AU",
+ "tz": "Australia/Adelaide",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-24",
+ "rules": {
+  "runway": {
+   "v": "main runway 05/23, 45 m wide, 3,100 m take-off run (landing 2,950 m on 05); also 12/30, 45 m wide, 1,652 m, not for aircraft above code C on take-off or code D on landing",
+   "longest_m": 3100,
+   "src": "au-ersa-ypad-rds",
+   "quote": "05 (4) 3100 (10170) 3204 (10512) (2.55%) 3160 (10367) 2950 (9678)"
+  },
+  "curfew": {
+   "v": "curfew 23:00 to 06:00 local; most flights are prohibited, with provision for emergency aircraft, some small jets, propeller aircraft and freight flights (the operator page does not say which small jets; the ERSA refers to AIP DAP)",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "adl-curfew-info",
+   "quote": "At Adelaide Airport, a curfew applies between 11pm and 6am."
+  },
+  "ppr": {
+   "v": "private and overnight parking must be approved by the Airside Operations Manager (phone 08 8154 9444); parking on the Terminal 2 apron hardstand, no tie-down points",
+   "src": "au-ersa-ypad-fac",
+   "quote": "Private and overnight parking must be approved by the Airside Operations Manager"
+  },
+  "max_aircraft": {
+   "v": "runway 12/30 not available above code C for take-off or code D for landing; taxiway R limited to 18 m wingspan; taxiways H and F1 code C at most; aircraft over 400 t on 05/23 need a pavement concession",
+   "src": "au-ersa-ypad-fac",
+   "quote": "RWY 12/30 Not AVBL to ACFT ABV Code C (TKOF) and Code D (Landing)."
+  },
+  "fuel": {
+   "v": "Jet A-1 24 hours (Mobil; Viva Energy, also Avgas); Air BP 1830-1330 UTC (Avgas, Jet A-1, Jet A-1 with FSII)",
+   "src": "au-ersa-ypad-fac",
+   "quote": "JET A1 only."
+  },
+  "noise": {
+   "v": "curfew and noise abatement procedures in AIP DAP; circuit training only 07:00-21:00 local (22:00 in daylight saving)",
+   "src": "au-ersa-ypad-fac",
+   "quote": "CURFEW applies - See AIP DAP Noise Abatement Procedures."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs (no customs line on the ERSA page)",
+  "curfew details (which small jets may operate; AIP DAP and the federal curfew page not read: infrastructure.gov.au refused automated reading)",
+  "slots",
+  "handling",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Curfew: confirm before planning a 23:00-06:00 movement whether the aircraft qualifies; the federal page could not be opened today. Read 24 Nov 2026 from Airservices Australia ERSA pages (FAC and RDS, the latest pages found). The Airservices amendment calendar shows ERSA 03 SEP 2026 in force and the next edition on 26 NOV 2026; an FAC or RDS page changed in those editions may not have surfaced, so re-check after 26 Nov 2026. The ERSA FAC runway line gives width only; lengths are the RDS take-off run available (TORA). The IATA code is not printed on these pages."
+}

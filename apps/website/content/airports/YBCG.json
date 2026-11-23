@@ -1,0 +1,65 @@
+{
+ "icao": "YBCG",
+ "iata": null,
+ "name": "Gold Coast Airport",
+ "city": "Gold Coast",
+ "country": "AU",
+ "tz": "Australia/Brisbane",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-24",
+ "rules": {
+  "runway": {
+   "v": "main runway 14/32, 45 m wide, up to 2,492 m take-off run (RWY 32; 2,342 m from 14; RWY 32 landing distance 2,042 m, threshold permanently displaced 300 m); also 17/35, 18 m wide, 582 m, for aircraft up to 5,700 kg",
+   "longest_m": 2492,
+   "src": "au-ersa-ybcg-rds",
+   "quote": "32 (4) 2492 (8176) 2552 (8373) (3.22%) 2492 (8176) 2042 (6699)"
+  },
+  "curfew": {
+   "v": "curfew 23:00 to 06:00 local (13:00 to 20:00 UTC) under the Air Navigation (Gold Coast Airport Curfew) Regulations 2018; aircraft over 34,000 kg MTOW may not take off or land; noise-certificated jets and propeller aircraft up to 34,000 kg MTOW are exempt; arrivals before 06:00 must hold or divert",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "au-infra-ool-curfew",
+   "quote": "Aircraft take-offs and landings are restricted at Gold Coast Airport between the hours of 11:00 pm and 6:00 am (local time)"
+  },
+  "ppr": {
+   "v": "no overnight parking for aircraft over 5,700 kg MTOW except airline flights; itinerant parking of 2 hours or less needs prior approval from airport management with one clear working day (Mon-Fri) notice",
+   "src": "au-ersa-ybcg-fac",
+   "quote": "Overnight parking is no longer AVBL for all aircraft above 5,700KG MTOW, except for RPT aircraft."
+  },
+  "max_aircraft": {
+   "v": "taxiways H, F and grass taxiway J not available above 5,700 kg; taxiway G needs pavement concessions above 5,700 kg",
+   "src": "au-ersa-ybcg-fac",
+   "quote": "not AVBL to ACFT ABV 5,700KG"
+  },
+  "hours": {
+   "v": "control tower 05:55 to 23:00 local (1955-1300 UTC) daily; outside tower hours the lower airspace becomes uncontrolled (Class G)",
+   "src": "au-ersa-ybcg-fac",
+   "quote": "1955-1300 UTC DLY"
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas: Air BP 07:00-16:00 local daily (after-hours call-out fee), Ampol 2100-0900 UTC daily, and the business aviation centre (after hours 24 h)",
+   "src": "au-ersa-ybcg-fac",
+   "quote": "0700-1600 Local MON-SUN"
+  },
+  "noise": {
+   "v": "curfew and noise abatement procedures apply (AIP DAP); circuit training not permitted 1200-2000 UTC (22:00-06:00 local)",
+   "src": "au-ersa-ybcg-fac",
+   "quote": "A Curfew and Noise Abatement Procedures apply. See AIP DAP."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs (no customs, immigration or quarantine line on the ERSA page)",
+  "slots (no slot rule for itinerant flights stated)",
+  "handling",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Overnight parking ban for aircraft over 5,700 kg matters for business jets: plan a drop-off and reposition. Curfew quotas (24 passenger-jet movements a year, 4 jet freight movements a week) are on the same government page. Read 24 Nov 2026 from Airservices Australia ERSA pages (FAC and RDS, the latest pages found). The Airservices amendment calendar shows ERSA 03 SEP 2026 in force and the next edition on 26 NOV 2026; an FAC or RDS page changed in those editions may not have surfaced, so re-check after 26 Nov 2026. The ERSA FAC runway line gives width only; lengths are the RDS take-off run available (TORA). The IATA code is not printed on these pages."
+}

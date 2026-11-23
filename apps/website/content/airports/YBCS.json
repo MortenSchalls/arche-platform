@@ -1,0 +1,53 @@
+{
+ "icao": "YBCS",
+ "iata": null,
+ "name": "Cairns Airport",
+ "city": "Cairns",
+ "country": "AU",
+ "tz": "Australia/Brisbane",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-24",
+ "rules": {
+  "runway": {
+   "v": "one runway, 15/33, 45 m wide, up to 3,196 m take-off run (RWY 33; 3,156 m from 15)",
+   "longest_m": 3196,
+   "src": "au-ersa-ybcs-rds",
+   "quote": "33 (4) 3196 (10485) 3256 (10682) (6.54%) 3196 (10485) 3156 (10354)"
+  },
+  "ppr": {
+   "v": "all non-airline aircraft over 5,700 kg need prior parking approval from Cairns Airport, 48 hours notice, phone 07 4080 6744 (24 hours), because of a critical shortage of apron space",
+   "src": "au-ersa-ybcs-fac",
+   "quote": "all non-RPT ACFT ABV 5,700KG and rotary wing"
+  },
+  "max_aircraft": {
+   "v": "aircraft with wingspan over 36 m must use the turn pads; several taxiways are weight-limited (A3 not above 23,000 kg, A4 not above 90,000 kg); GA apron taxilane wingspan limits are marked on site",
+   "src": "au-ersa-ybcs-fac",
+   "quote": "ACFT with wingspan ABV 36M must use turn pads at RWY ends."
+  },
+  "fuel": {
+   "v": "Jet A-1 24 hours on the airline aprons (Viva Energy); Air BP 2000-0800 UTC daily (Avgas, Jet A-1), after hours with 1 hour notice and a call-out fee; Viva on the GA apron Mon-Fri 1900-0800 UTC, Sat-Sun 1930-0800 UTC",
+   "src": "au-ersa-ybcs-fac",
+   "quote": "RPT domestic/international aprons H24. JET A1."
+  },
+  "noise": {
+   "v": "noise abatement procedures apply (AIP DAP); circuit training by jets and aircraft over 5,700 kg not permitted 22:00-07:00 local",
+   "src": "au-ersa-ybcs-fac",
+   "quote": "Circuit training by jet ACFT and other ACFT exceeding 5,700KG MTOW is not permitted BTN 2200-0700 Local."
+  },
+  "handling": {
+   "v": "marshalling is required for all charter and visiting aircraft on the domestic and international aprons; the airport does not provide it; two FBOs list 24-hour ground handling",
+   "src": "au-ersa-ybcs-fac",
+   "quote": "Aircraft marshalling is required for all charter and visiting aircraft using the Domestic and International aprons."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no aerodrome hours or curfew line on the ERSA page)",
+  "customs (only a phone number for international flights: 07 4052 3551/4052 3552; no hours)",
+  "slots",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Apron space is short: ask for parking 48 hours ahead for any jet over 5,700 kg. Rescue and fire cover CAT 8 H24. Handler names recorded on the ERSA page are not copied to the website. Read 24 Nov 2026 from Airservices Australia ERSA pages (FAC and RDS, the latest pages found). The Airservices amendment calendar shows ERSA 03 SEP 2026 in force and the next edition on 26 NOV 2026; an FAC or RDS page changed in those editions may not have surfaced, so re-check after 26 Nov 2026. The ERSA FAC runway line gives width only; lengths are the RDS take-off run available (TORA). The IATA code is not printed on these pages."
+}

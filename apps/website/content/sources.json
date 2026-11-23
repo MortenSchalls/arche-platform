@@ -3618,10 +3618,10 @@
   "checked": "2026-11-11"
  },
  "au-airservices-amdt-calendar": {
-  "title": "Airservices Australia, AIS document amendment calendar (ERSA editions 2026 and 2027)",
+  "title": "Airservices Australia, AIS document amendment calendar (ERSA editions 2026 and 2027; page modified 8 Oct 2026)",
   "url": "https://www.airservicesaustralia.com/industry-info/aeronautical-information-management/document-amendment-calendar/",
   "publisher": "Airservices Australia",
-  "checked": "2026-11-11"
+  "checked": "2026-11-24"
  },
  "ypph-operational-procedures": {
   "title": "Perth Airport, Operational Procedures page (no date shown, footer 2026)",
@@ -3765,6 +3765,114 @@
   "title": "Royal Agricultural Society of NSW, Sydney Royal Easter Show home page (no page date shown; checked 24 Nov 2026)",
   "url": "https://eastershow.com.au/",
   "publisher": "Royal Agricultural Society of NSW",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ybcg-fac": {
+  "title": "AIP Australia ERSA, FAC YBCG Gold Coast (page dated 12 Jun 2025; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/current/ersa/FAC_YBCG_12JUN2025.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ybcg-rds": {
+  "title": "AIP Australia ERSA, RDS YBCG Gold Coast runway distances (page dated 19 Mar 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YBCG_19MAR2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ybcs-fac": {
+  "title": "AIP Australia ERSA, FAC YBCS Cairns (page dated 19 Mar 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YBCS_19MAR2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ybcs-rds": {
+  "title": "AIP Australia ERSA, RDS YBCS Cairns runway distances (page dated 09 Jul 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YBCS_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ypad-fac": {
+  "title": "AIP Australia ERSA, FAC YPAD Adelaide (page dated 09 Jul 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YPAD_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ypad-rds": {
+  "title": "AIP Australia ERSA, RDS YPAD Adelaide runway distances (page dated 27 Nov 2025; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YPAD_27NOV2025.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ymhb-fac": {
+  "title": "AIP Australia ERSA, FAC YMHB Hobart (page dated 09 Jul 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YMHB_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ymhb-rds": {
+  "title": "AIP Australia ERSA, RDS YMHB Hobart runway distances (page dated 09 Jul 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YMHB_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ybhm-fac": {
+  "title": "AIP Australia ERSA, FAC YBHM Hamilton Island (page dated 27 Nov 2025; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YBHM_27NOV2025.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ybhm-rds": {
+  "title": "AIP Australia ERSA, RDS YBHM Hamilton Island runway distances (page dated 19 Mar 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YBHM_19MAR2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-yaye-fac": {
+  "title": "AIP Australia ERSA, FAC YAYE Ayers Rock (page dated 12 Jun 2025; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YAYE_12JUN2025.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-yaye-rds": {
+  "title": "AIP Australia ERSA, RDS YAYE Ayers Rock runway distances (page dated 27 Nov 2025; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YAYE_27NOV2025.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-yscb-fac": {
+  "title": "AIP Australia ERSA, FAC YSCB Canberra (page dated 09 Jul 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YSCB_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-yscb-rds": {
+  "title": "AIP Australia ERSA, RDS YSCB Canberra runway distances (page dated 27 Nov 2025; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YSCB_27NOV2025.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ypdn-fac": {
+  "title": "AIP Australia ERSA, FAC YPDN Darwin (page dated 19 Mar 2026; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YPDN_19MAR2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-ersa-ypdn-rds": {
+  "title": "AIP Australia ERSA, RDS YPDN Darwin runway distances (page dated 27 Nov 2025; latest page found; ERSA 03 SEP 2026 in force, next edition 26 NOV 2026) (checked 24 Nov 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/RDS_YPDN_27NOV2025.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-24"
+ },
+ "au-infra-ool-curfew": {
+  "title": "Curfew at Gold Coast Airport, overview (Air Navigation (Gold Coast Airport Curfew) Regulations 2018; no page date shown; checked 24 Nov 2026)",
+  "url": "https://infrastructure.gov.au/infrastructure-transport-vehicles/aviation/aviation-safety/aircraft-noise/airport-curfews/gold-coast/overview",
+  "publisher": "Australian Government, Department of Infrastructure, Transport, Regional Development, Communications, Sport and the Arts",
+  "checked": "2026-11-24"
+ },
+ "adl-curfew-info": {
+  "title": "Adelaide Airport, Curfew information (no page date shown; checked 24 Nov 2026)",
+  "url": "https://corporate.adelaideairport.com.au/community/curfew-information/",
+  "publisher": "Adelaide Airport Limited (airport operator)",
   "checked": "2026-11-24"
  }
 }

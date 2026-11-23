@@ -1,0 +1,54 @@
+{
+ "icao": "YBHM",
+ "iata": null,
+ "name": "Hamilton Island Airport",
+ "city": "Hamilton Island",
+ "country": "AU",
+ "tz": "Australia/Brisbane",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-24",
+ "rules": {
+  "runway": {
+   "v": "one runway, 14/32, 45 m wide, 1,766 m take-off run, 1,706 m landing",
+   "longest_m": 1766,
+   "src": "au-ersa-ybhm-rds",
+   "quote": "14 (3) 1766 (5794) 1841 (6040) (1.69%) 1766 (5794) 1706 (5597)"
+  },
+  "ppr": {
+   "v": "prior permission required; parking is limited (contact the airport operator); the airport does not provide marshalling",
+   "src": "au-ersa-ybhm-fac",
+   "quote": "1. PPR."
+  },
+  "hours": {
+   "v": "control tower 09:30 to 15:45 local (2330-0545 UTC) daily; outside those hours the airspace is Class G with a CTAF; rescue and fire cover CAT 7 2200-0545 UTC Tue-Sun, 2200-0645 UTC Mon",
+   "src": "au-ersa-ybhm-fac",
+   "quote": "TWR HR: Daily 2330-0545 UTC."
+  },
+  "max_aircraft": {
+   "v": "aircraft over 23,000 kg must use the runway turning nodes for 180-degree turns; no general size limit printed",
+   "src": "au-ersa-ybhm-fac",
+   "quote": "Due pavement disturbance ACFT ABV 23,000KG must use RWY turning nodes for 180DEG turns unless directed by ATC."
+  },
+  "fuel": {
+   "v": "Avgas and Jet A-1, prior notice required, 2130-0600 UTC, after-hours call-out fee",
+   "src": "au-ersa-ybhm-fac",
+   "quote": "PN required. Mobile 0412 936 177, AVGAS, JET A1."
+  },
+  "permits": {
+   "v": "aircraft carrying livestock or Class 1 explosives need prior approval from the airport operator",
+   "src": "au-ersa-ybhm-fac",
+   "quote": "ACFT carrying livestock or Dangerous Goods Class 1 explosives require prior approval from AD OPR."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (none printed on the ERSA page)",
+  "customs (no customs line on the ERSA page)",
+  "slots",
+  "handling",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Short runway (1,766 m): check performance for larger cabins. Windshear on approach to runway 14 in north-east to east-south-east winds of 15 kt or more. The ERSA page is dated 27 Nov 2025. Read 24 Nov 2026 from Airservices Australia ERSA pages (FAC and RDS, the latest pages found). The Airservices amendment calendar shows ERSA 03 SEP 2026 in force and the next edition on 26 NOV 2026; an FAC or RDS page changed in those editions may not have surfaced, so re-check after 26 Nov 2026. The ERSA FAC runway line gives width only; lengths are the RDS take-off run available (TORA). The IATA code is not printed on these pages."
+}

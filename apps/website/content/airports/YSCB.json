@@ -1,0 +1,53 @@
+{
+ "icao": "YSCB",
+ "iata": null,
+ "name": "Canberra Airport",
+ "city": "Canberra",
+ "country": "AU",
+ "tz": "Australia/Sydney",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-24",
+ "rules": {
+  "runway": {
+   "v": "main runway 17/35, 45 m wide, up to 3,283 m take-off run (RWY 35; 2,983 m from 17); also 12/30, 30 m wide, 1,679 m",
+   "longest_m": 3283,
+   "src": "au-ersa-yscb-rds",
+   "quote": "35 (4) 3283 (10771) 3343 (10968) (4.53%) 3283 (10771) 2683 (8802)"
+  },
+  "ppr": {
+   "v": "PPR for all parking on the Fairbairn apron, which GA aircraft over 24 m wingspan or 35,000 kg ramp weight must use; visiting charter aircraft must use an FBO or ground handler and be met and escorted; non-scheduled wide-body movements need prior approval",
+   "src": "au-ersa-yscb-fac",
+   "quote": "PPR for all parking on Fairbairn Apron."
+  },
+  "max_aircraft": {
+   "v": "GA apron bays 51-60 for 15-24 m wingspan, the rest for up to 12 m; aircraft over 5,700 kg use taxiway K only",
+   "src": "au-ersa-yscb-fac",
+   "quote": "Remainder of GA apron hardstand designated for ACFT with MAX wingspan 12M."
+  },
+  "hours": {
+   "v": "tower and approach 1945-1300 UTC daily; outside those hours the airspace becomes Class G",
+   "src": "au-ersa-yscb-fac",
+   "quote": "1945-1300 UTC DLY."
+  },
+  "fuel": {
+   "v": "Jet A-1 (Ampol, Shell) and Avgas by bowser; hot refuelling prohibited",
+   "src": "au-ersa-yscb-fac",
+   "quote": "Ampol - JET A1, Shell - JET A1, Aerorefuellers - AVGAS via bowser only."
+  },
+  "noise": {
+   "v": "noise abatement procedures apply (AIP DAP)",
+   "src": "au-ersa-yscb-fac",
+   "quote": "Noise Abatement Procedures (NAP) apply. Refer AIP DAP."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (none printed on the ERSA page)",
+  "customs (a handler lists customs/quarantine handling; no hours)",
+  "slots",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Most large business jets (over 24 m wingspan or 35 t) park on the Fairbairn apron with PPR. Crew need an Australian ASIC airside or must be escorted. Read 24 Nov 2026 from Airservices Australia ERSA pages (FAC and RDS, the latest pages found). The Airservices amendment calendar shows ERSA 03 SEP 2026 in force and the next edition on 26 NOV 2026; an FAC or RDS page changed in those editions may not have surfaced, so re-check after 26 Nov 2026. The ERSA FAC runway line gives width only; lengths are the RDS take-off run available (TORA). The IATA code is not printed on these pages."
+}

@@ -1,0 +1,54 @@
+{
+ "icao": "YMHB",
+ "iata": null,
+ "name": "Hobart International Airport",
+ "city": "Hobart",
+ "country": "AU",
+ "tz": "Australia/Hobart",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-24",
+ "rules": {
+  "runway": {
+   "v": "one runway, 12/30, 45 m wide, 2,727 m take-off run (landing 2,608 m on 12)",
+   "longest_m": 2727,
+   "src": "au-ersa-ymhb-rds",
+   "quote": "12 (4) 2727 (8947) 2787 (9144) (3.19%) 2727 (8947) 2608 (8556)"
+  },
+  "ppr": {
+   "v": "parking of visiting aircraft must be approved by Hobart Airport (request form on the airport website); wide-body parking needs prior approval",
+   "src": "au-ersa-ymhb-fac",
+   "quote": "PRKG of itinerant ACFT must be approved by Hobart Airport."
+  },
+  "hours": {
+   "v": "tower and approach 1950-1210 UTC daily (one hour earlier in daylight saving); outside those hours Melbourne Centre provides services and the airspace becomes Class G; GA apron daylight only",
+   "src": "au-ersa-ymhb-fac",
+   "quote": "TWR and APP HR: 1950-1210 UTC DLY (1HR earlier during HDS)."
+  },
+  "max_aircraft": {
+   "v": "taxiway K not available above 5,700 kg or 12 m wingspan; aircraft over 36,000 kg use turning nodes for 180-degree turns (Global Express and Gulfstream G650 among the listed exceptions)",
+   "src": "au-ersa-ymhb-fac",
+   "quote": "TWY K not AVBL for ACFT above 5,700KG MTOW or wingspan greater than 12M."
+  },
+  "fuel": {
+   "v": "Jet A-1 only, Air BP 1900-1000 UTC daily, 1 hour notice, after-hours call-out fee",
+   "src": "au-ersa-ymhb-fac",
+   "quote": "JET A1 only."
+  },
+  "noise": {
+   "v": "noise abatement procedures apply (AIP DAP)",
+   "src": "au-ersa-ymhb-fac",
+   "quote": "Noise Abatement Procedures (NAP) apply. Refer AIP DAP."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (no curfew line on the ERSA page)",
+  "customs (no customs line on the ERSA page)",
+  "slots",
+  "handling",
+  "deicing",
+  "catering"
+ ],
+ "notes": "The GA apron is usable in daylight only ('GA apron HJ only'); jets will normally park on the main apron with the airport's approval. Aircraft marshalling is the operator's responsibility. Read 24 Nov 2026 from Airservices Australia ERSA pages (FAC and RDS, the latest pages found). The Airservices amendment calendar shows ERSA 03 SEP 2026 in force and the next edition on 26 NOV 2026; an FAC or RDS page changed in those editions may not have surfaced, so re-check after 26 Nov 2026. The ERSA FAC runway line gives width only; lengths are the RDS take-off run available (TORA). The IATA code is not printed on these pages."
+}

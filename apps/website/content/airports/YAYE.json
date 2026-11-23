@@ -1,0 +1,54 @@
+{
+ "icao": "YAYE",
+ "iata": null,
+ "name": "Ayers Rock Airport",
+ "city": "Uluru",
+ "country": "AU",
+ "tz": "Australia/Darwin",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-24",
+ "rules": {
+  "runway": {
+   "v": "one runway, 13/31, 30 m wide, 2,599 m",
+   "longest_m": 2599,
+   "src": "au-ersa-yaye-rds",
+   "quote": "13 (3) 2599 (8527) 2659 (8724) (2.27%) 2599 (8527) 2599 (8527)"
+  },
+  "customs": {
+   "v": "no international clearance: direct international flights to or from the airport are not approved",
+   "h24": false,
+   "src": "au-ersa-yaye-fac",
+   "quote": "Direct INTL flights to/from AD not approved."
+  },
+  "ppr": {
+   "v": "PPR from the airport operator by email: 5 days notice for aircraft exceeding the pavement rating, 2 days for all others; parking is limited and needs 48 hours notice, with fees if later",
+   "src": "au-ersa-yaye-fac",
+   "quote": "2 days for all other ACFT."
+  },
+  "max_aircraft": {
+   "v": "GA apron only for aircraft under 5,700 kg with wingspan up to 15 m; larger aircraft with prior approval of the airport operator; aircraft over 22,700 kg use the turn pads",
+   "src": "au-ersa-yaye-fac",
+   "quote": "GA apron only AVBL to ACFT BLW 5,700KG MTOW with a wingspan not exceeding 15M."
+  },
+  "hours": {
+   "v": "radio (CA/GRS) 08:15 to 15:45 local (2245-0615 UTC) for airline operations; rescue and fire cover CAT 6 2230-0730 UTC Mon-Fri, 2230-0630 UTC Sat-Sun; after-hours airside access needs a call-out",
+   "src": "au-ersa-yaye-fac",
+   "quote": "OPR BTN 0815 – 1545 Local (2245 – 0615 UTC)"
+  },
+  "fuel": {
+   "v": "Jet A-1 by tanker and Avgas, 07:00 to 17:00 local (2130-0730 UTC)",
+   "src": "au-ersa-yaye-fac",
+   "quote": "2130-0730 UTC (0700-1700 ACST)."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew (none printed)",
+  "slots",
+  "handling (the operator does not provide marshalling)",
+  "deicing",
+  "catering"
+ ],
+ "notes": "International trips must clear Australian customs elsewhere first. Fuel only in daytime. The FAC page is dated 12 Jun 2025. Read 24 Nov 2026 from Airservices Australia ERSA pages (FAC and RDS, the latest pages found). The Airservices amendment calendar shows ERSA 03 SEP 2026 in force and the next edition on 26 NOV 2026; an FAC or RDS page changed in those editions may not have surfaced, so re-check after 26 Nov 2026. The ERSA FAC runway line gives width only; lengths are the RDS take-off run available (TORA). The IATA code is not printed on these pages."
+}
