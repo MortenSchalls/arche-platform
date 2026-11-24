@@ -1,0 +1,55 @@
+{
+ "icao": "LFPO",
+ "iata": null,
+ "name": "Paris-Orly",
+ "city": "Paris",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Three runways: 06/24 3,650 m x 45 m, 07/25 3,320 m x 45 m, 02/20 2,400 m x 45 m (June 2025 AIP copy). Runway 4 (north) closed until 17 Dec 2026.",
+   "longest_m": 3650,
+   "src": "fr-miac-lfpo",
+   "quote": "3650 x 45"
+  },
+  "curfew": {
+   "v": "Night curfew: no departure from the parking stand after 23:15 local (order of 4 July 2025); take-offs banned 23:30-06:00 local (June 2025 AIP copy). From 22:00 only the quietest aircraft may land or take off. Exemptions only for safety, security or public order.",
+   "windows_local": [
+    [
+     "23:15",
+     "06:00"
+    ]
+   ],
+   "src": "lfpo-ministry-curfew-2025",
+   "quote": "La redéfinition du couvre-feu nocturne, désormais fondé sur l'heure de départ du poste de stationnement (23h15)"
+  },
+  "noise": {
+   "v": "Partial curfew from 22:00 local: only the quietest aircraft may land and take off after 22:00.",
+   "src": "lfpo-ministry-curfew-2025",
+   "quote": "seuls les aéronefs les plus vertueux pourront atterrir et décoller après 22h"
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours (June 2025 AIP copy).",
+   "h24": true,
+   "src": "fr-miac-lfpo",
+   "quote": "Douanes et police / Customs and immigration H24"
+  },
+  "fuel": {
+   "v": "No fuelling 22:30-05:00 except by special arrangement with the fuel services (June 2025 AIP copy).",
+   "src": "fr-miac-lfpo",
+   "quote": "Not provided between 2230 and 0500, except special arrangement with local fuelling services."
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "handling",
+  "hours",
+  "current-edition AD 2 text"
+ ],
+ "notes": "Current AIP AD 2 LFPO (29 Oct 2026) could not be opened; runway, customs and fuel are from the DIRCAM copy of the AIP (AIRAC 06/25, 12 Jun 2025) and the curfew from the ministry's July 2025 press release. Exact current curfew hours (arrivals end, morning end) and the 22:00 quiet-aircraft list must be checked in the current AIP before quoting. Orly runway 4 (north) closed until 17 Dec 2026 inclusive (ministry, updated 12 Aug 2026). Orly is slot-coordinated (COHOR) but this was not verified in the source."
+}

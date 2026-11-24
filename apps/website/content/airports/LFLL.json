@@ -1,0 +1,60 @@
+{
+ "icao": "LFLL",
+ "iata": null,
+ "name": "Lyon-Saint Exupéry",
+ "city": "Lyon",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Longest runway 4,000 m x 45 m (17/35). AIP copy (2025): 17R/35L 4,000 m x 45 m, 17L/35R 2,670 m x 45 m.",
+   "longest_m": 4000,
+   "src": "lfll-operator-ba",
+   "quote": "Longest Hard surface Runway : 4000m * 45m"
+  },
+  "customs": {
+   "v": "Immigration and customs 24/7, no prior notice.",
+   "h24": true,
+   "src": "lfll-operator-ba",
+   "quote": "open 24/7, without special notice"
+  },
+  "fuel": {
+   "v": "Fuel 24 hours, 7 days.",
+   "src": "lfll-operator-ba",
+   "quote": "open 24 hours a day - 7 days a week"
+  },
+  "slots": {
+   "v": "Every IFR movement needs a prior slot request to COHOR (2025 AIP copy).",
+   "src": "fr-miac-lfll",
+   "quote": "Any IFR movement at LYON SAINT EXUPERY must be subject to a prior request from COHOR association."
+  },
+  "noise": {
+   "v": "Noisiest chapter 3 jets (cumulative margin under 13 EPNdB) may not land or take off 22:00-06:00 local (2025 AIP copy).",
+   "src": "fr-miac-lfll",
+   "quote": "to land between 2200 and 0600, touchdown local time,"
+  },
+  "handling": {
+   "v": "Handlers listed in the 2025 AIP copy; the airport also runs VINCI Airports Executive Handling.",
+   "names": [
+    "AIR FRANCE",
+    "AVIAPARTNER",
+    "EXECUTIVE HANDLING",
+    "SPACE EXECUTIVE HANDLING SERVICES",
+    "ALYZIA",
+    "ONET"
+   ],
+   "src": "fr-miac-lfll",
+   "quote": "SPACE EXECUTIVE HANDLING SERVICES"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "ppr",
+  "current-edition AD 2 text"
+ ],
+ "notes": "Current AIP AD 2 LFLL could not be opened (SIA edition pages failed). Runway, customs and fuel from the airport operator's business aviation page (2026); COHOR slots, night noise rule and handlers from the DIRCAM copy of the AIP (AIRAC 06/25, 12 Jun 2025) and must be rechecked. No full curfew was found; only the noisiest jets are barred at night."
+}

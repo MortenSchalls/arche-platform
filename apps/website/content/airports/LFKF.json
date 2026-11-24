@@ -1,0 +1,26 @@
+{
+ "icao": "LFKF",
+ "iata": null,
+ "name": "Figari Sud-Corse",
+ "city": "Figari",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-25",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "noise",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "No current official AD 2 page could be read. Tried: SIA eAIP_01_OCT_2026 Atlas-VAC AD-2.LFKF.pdf (site error); SIA eAIP_04_SEP_2025 html FR-AD-2.LFKF-fr-FR.html (site error, edition removed). Only a 18 Apr 2024 eAIP page opened; it is far too old to use and was not used. Search did not surface the 29 Oct 2026 PDF."
+}

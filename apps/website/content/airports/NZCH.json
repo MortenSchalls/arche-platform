@@ -1,0 +1,43 @@
+{
+ "icao": "NZCH",
+ "iata": null,
+ "name": "Christchurch International Airport",
+ "city": "Christchurch",
+ "country": "NZ",
+ "tz": "Pacific/Auckland",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "curfew": {
+   "v": "No curfew: the airport operates 24 hours a day, 7 days a week.",
+   "none": true,
+   "src": "nzch-operator-noise",
+   "quote": "Christchurch Airport is one of only two airports in New Zealand that can operate 24 hours a day, 7 days a week."
+  },
+  "hours": {
+   "v": "Airport open 24 hours.",
+   "src": "nzch-operator-noise",
+   "quote": "Christchurch Airport is required to operate 24 hours a day to support the economy of the region and New Zealand."
+  },
+  "customs": {
+   "v": "Christchurch is a Customs Place and MPI Place of First Arrival. Arrival must be in working hours; outside working hours needs approval at least 5 working days ahead. Passenger details to Customs at least 3 hours before departure. Working hours are not stated.",
+   "h24": false,
+   "src": "nz-customs-private",
+   "quote": "If you are arriving outside of working hours, you must get approval at least 5 working days in advance."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "fuel",
+  "handling",
+  "ppr",
+  "slots",
+  "noise",
+  "max_aircraft",
+  "deicing",
+  "catering"
+ ],
+ "notes": "AIP New Zealand could not be read (AD 2 PDFs return only the conditions-of-use page), so no runway data. 24-hour operation from Christchurch Airport's own noise page (no edition date). The airport is open 24 hours, but NZ Customs still wants arrivals in working hours unless approved 5 working days ahead."
+}

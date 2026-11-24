@@ -1,0 +1,55 @@
+{
+ "icao": "LEGE",
+ "iata": null,
+ "name": "Girona-Costa Brava Airport",
+ "city": "Girona",
+ "country": "ES",
+ "tz": "Europe/Madrid",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 01/19, 2,400 m × 45 m",
+   "longest_m": 2400,
+   "src": "es-aip-lege",
+   "quote": "2400 x 45"
+  },
+  "hours": {
+   "v": "Airport 24 hours; ATS, fuel and handling during airport hours",
+   "src": "es-aip-lege",
+   "quote": "H24."
+  },
+  "customs": {
+   "v": "Customs and immigration during airport hours (airport is H24)",
+   "h24": true,
+   "src": "es-aip-lege",
+   "quote": "HR AD."
+  },
+  "slots": {
+   "v": "Slot needed; request it with PPR at least 3 hours ahead to CECOA LEGE; no flights without clearance",
+   "src": "es-aip-lege",
+   "quote": "Request slot PPR 3 HR to CECOA LEGE."
+  },
+  "ppr": {
+   "v": "PPR 3 hours with the slot request",
+   "src": "es-aip-lege",
+   "quote": "Request slot PPR 3 HR to CECOA LEGE."
+  },
+  "handling": {
+   "v": "Handling agent mandatory for all operations, private flights included",
+   "src": "es-aip-lege",
+   "quote": "It is mandatory to have handling agent for all operations, non-commercial operations included"
+  },
+  "fuel": {
+   "v": "Jet A-1 and 100LL during airport hours",
+   "src": "es-aip-lege",
+   "quote": "100LL, JET A-1."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew"
+ ],
+ "notes": "Read AIP España AD 2-LEGE (HTML). The page shows WEF 16 Apr 2026, older than the 29 Oct 2026 cycle; it was the page served as current. Customs is 'HR AD' and the airport is H24, so customs follows the 24-hour airport. Business aviation is subject to declared capacity. No night curfew stated."
+}

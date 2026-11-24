@@ -1,0 +1,26 @@
+{
+ "icao": "LFKB",
+ "iata": null,
+ "name": "Bastia-Poretta",
+ "city": "Bastia",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-25",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "noise",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "No current official AD 2 page could be read. Tried: SIA eAIP_29_OCT_2026 Atlas-VAC AD-2.LFKB.pdf and eAIP_01_OCT_2026 Atlas-VAC AD-2.LFKB.pdf (permission request timed out, not sent; curl to the SIA host refused by the session proxy); SIA eAIP_29_OCT_2026 html FR-AD-2.LFKB-fr-FR.html (blocked, not sent); SIA eAIP_04_SEP_2025 html FR-AD-2.LFKB-fr-FR.html (site error, edition removed). Search did not surface the 29 Oct 2026 PDF. Re-run once the SIA site is allowed for this session."
+}

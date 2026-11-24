@@ -1,0 +1,71 @@
+{
+ "icao": "YBSU",
+ "iata": null,
+ "name": "Sunshine Coast Airport",
+ "city": "Maroochydore",
+ "country": "AU",
+ "tz": "Australia/Brisbane",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 13/31, 2,800 m × 45 m (RWY 13 TORA 2,625 m; RWY 31 LDA 2,450 m). RWY 18/36 decommissioned.",
+   "longest_m": 2800,
+   "src": "au-dap-ybsu-adc",
+   "quote": "2800 x 45; RWY 13 LDA / ASDA / TORA 2625M; RWY 31 LDA 2450M"
+  },
+  "curfew": {
+   "v": "Aircraft above 5,700 kg need prior approval from the airport operator to operate between 23:00 and 05:30 local (13:00–19:30 UTC).",
+   "windows_local": [
+    [
+     "23:00",
+     "05:30"
+    ]
+   ],
+   "approval": true,
+   "src": "au-ersa-ybsu",
+   "quote": "ACFT ABV 5,700KG RQ prior approval of AD OPR to OPR BTN HR of 2300 and 0530 Local."
+  },
+  "ppr": {
+   "v": "All non-RPT GA light jets and turbine aircraft need prior approval from the airport operator, 48 hours notice (security requirement).",
+   "src": "au-ersa-ybsu",
+   "quote": "Due to security requirements, all GA light jet and turbine ACFT which are not RPT, must obtain prior approval FM AD OPR ... To obtain such approval 48HR notice is required"
+  },
+  "hours": {
+   "v": "Tower 21:00–09:40 UTC daily (07:00–19:40 local); outside these hours the airspace is Class G. Rescue and firefighting daily 19:45–10:55 UTC except Monday (19:45–13:20 UTC).",
+   "src": "au-ersa-ybsu",
+   "quote": "2100-0940 UTC DLY"
+  },
+  "fuel": {
+   "v": "Jet A-1 by Viva Energy 19:00–10:00 UTC daily (05:00–20:00 local), 30 minutes prior notice; Avgas 24 hours by card bowser.",
+   "src": "au-ersa-ybsu",
+   "quote": "DLY 1900-1000 UTC ... JET A1 30 MIN PN"
+  },
+  "handling": {
+   "v": "FBOs listed: MachJet (H24), Swissport, Flight Options (H24). The airport operator does not provide marshalling.",
+   "names": [
+    "MachJet FBO",
+    "Swissport FBO",
+    "Flight Options FBO"
+   ],
+   "src": "au-ersa-ybsu",
+   "quote": "AD OPR does not provide marshalling services."
+  },
+  "noise": {
+   "v": "Noise abatement procedures apply (see AIP DAP).",
+   "src": "au-ersa-ybsu",
+   "quote": "Noise Abatement Procedures (NAP) apply. Refer AIP DAP."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "permits",
+  "deicing",
+  "catering",
+  "max_aircraft (taxiway wingspan limits: exact ERSA wording to re-read)"
+ ],
+ "notes": "Read ERSA FAC YBSU page dated 09 Jul 2026 (opened from the Airservices 'pending' folder; the same-dated file in the 'current' folder could not be opened) and the aerodrome chart dated 03 Sep 2026 (ERSA 03 Sep 2026 edition in force). The FAC page says nothing about customs or immigration, so international arrival is not confirmed here: check with Australian Border Force before quoting an international leg. Jets over 5,700 kg need operator approval for 23:00-05:30 local, and all non-scheduled jets need 48 h prior approval. The max_aircraft quote is the reader's rendering of the ERSA line, not a character-for-character copy; re-check before publishing it."
+}

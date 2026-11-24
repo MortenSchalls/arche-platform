@@ -3874,5 +3874,401 @@
   "url": "https://corporate.adelaideairport.com.au/community/curfew-information/",
   "publisher": "Adelaide Airport Limited (airport operator)",
   "checked": "2026-11-24"
+ },
+ "es-aip-lemg": {
+  "title": "AIP España AD 2-LEMG Málaga/Costa del Sol (AIRAC AMDT 09/26, effective 01 Oct 2026)",
+  "url": "https://aip.enaire.es/aip/contenido_AIP/AD/AD2/LEMG/LE_AD_2_LEMG_en.pdf",
+  "publisher": "ENAIRE (AIS España)",
+  "checked": "2026-11-25"
+ },
+ "es-aip-leal": {
+  "title": "AIP España AD 2-LEAL Alicante-Elche (AIRAC AMDT 09/26, effective 01 Oct 2026)",
+  "url": "https://aip.enaire.es/aip/contenido_AIP/AD/AD2/LEAL/LE_AD_2_LEAL_en.pdf",
+  "publisher": "ENAIRE (AIS España)",
+  "checked": "2026-11-25"
+ },
+ "es-aip-lege": {
+  "title": "AIP España AD 2-LEGE Girona (page shows effective 16 Apr 2026)",
+  "url": "https://aip.enaire.es/aip/contenido_AIP/AD/AD2/LEGE/LE_AD_2_LEGE_en.html",
+  "publisher": "ENAIRE (AIS España)",
+  "checked": "2026-11-25"
+ },
+ "es-aip-lemh": {
+  "title": "AIP España AD 2-LEMH Menorca (AIRAC AMDT 09/26, effective 01 Oct 2026)",
+  "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/LEMH/LE_AD_2_LEMH_en.html",
+  "publisher": "ENAIRE (AIS España)",
+  "checked": "2026-11-25"
+ },
+ "es-aip-gcts": {
+  "title": "AIP España AD 2-GCTS Tenerife Sur, Amendment 410/2026 pages (dated 03 Sep 2026; effective date not shown)",
+  "url": "https://aip.enaire.es/AIP/contenido_AMDT/LE_Amdt_2026_410_AD_2_GCTS_en.html",
+  "publisher": "ENAIRE (AIS España)",
+  "checked": "2026-11-25"
+ },
+ "es-aip-gclp": {
+  "title": "AIP España AD 2-GCLP Gran Canaria (page shows effective 01 Oct 2026)",
+  "url": "https://aip.enaire.es/AIP/contenido_AIP/AD/AD2/GCLP/LE_AD_2_GCLP_en.html",
+  "publisher": "ENAIRE (AIS España)",
+  "checked": "2026-11-25"
+ },
+ "pt-aip-lppr": {
+  "title": "eAIP Portugal AD 2 LPPR Porto (eAIP current edition, valid from 01 Oct 2026 per AD 0.6)",
+  "url": "https://ais.nav.pt/wp-content/uploads/AIS_Files/eAIP_Current/eAIP_Online/eAIP/html/eAIP/LP-AD-2.LPPR-en-PT.html",
+  "publisher": "NAV Portugal (AIS)",
+  "checked": "2026-11-25"
+ },
+ "pt-aip-lpma": {
+  "title": "eAIP Portugal AD 2 LPMA Madeira (eAIP current edition, valid from 01 Oct 2026 per AD 0.6)",
+  "url": "https://ais.nav.pt/wp-content/uploads/AIS_Files/eAIP_Current/eAIP_Online/eAIP/html/eAIP/LP-AD-2.LPMA-en-PT.html",
+  "publisher": "NAV Portugal (AIS)",
+  "checked": "2026-11-25"
+ },
+ "fr-aip-lfpn": {
+  "title": "AIP France AD 2 LFPN Paris Saclay Versailles, eAIP AIRAC 29 Oct 2026 (page valid from 01 Oct 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_29_OCT_2026/FRANCE/AIRAC-2026-10-29/html/eAIP/FR-AD-2.LFPN-fr-FR.html",
+  "publisher": "SIA France (DGAC)",
+  "checked": "2026-11-25"
+ },
+ "fr-aip-lfth": {
+  "title": "AIP France AD 2 LFTH Hyeres Le Palyvestre, eAIP AIRAC 06 Aug 2026 (older edition; effective 06 Aug 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_06_AUG_2026/FRANCE/AIRAC-2026-08-06/html/eAIP/FR-AD-2.LFTH-fr-FR.html",
+  "publisher": "SIA France (DGAC)",
+  "checked": "2026-11-25"
+ },
+ "fr-aip-lfly": {
+  "title": "AIP France AD 2 LFLY Lyon Bron, eAIP AIRAC 06 Aug 2026 (older edition; effective 06 Aug 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_06_AUG_2026/FRANCE/AIRAC-2026-08-06/html/eAIP/FR-AD-2.LFLY-fr-FR.html",
+  "publisher": "SIA France (DGAC)",
+  "checked": "2026-11-25"
+ },
+ "fr-aip-lfml": {
+  "title": "AIP France AD 2 LFML Marseille Provence, eAIP AIRAC 19 Mar 2026 (older edition; effective 19 Mar 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_19_MAR_2026/FRANCE/AIRAC-2026-03-19/html/eAIP/FR-AD-2.LFML-fr-FR.html",
+  "publisher": "SIA France (DGAC)",
+  "checked": "2026-11-25"
+ },
+ "fr-miac-lfll": {
+  "title": "MIAC 1 Lyon Saint Exupery, copy of AIP France AD 2 LFLL (latest page AIRAC AMDT 06/25, effective 12 Jun 2025; old edition)",
+  "url": "https://www.dircam.dsae.defense.gouv.fr/images/Stories/Doc/MIAC1/miac1_lyon_saint_exupery_lfll.pdf",
+  "publisher": "DIRCAM, French Ministry of the Armed Forces",
+  "checked": "2026-11-25"
+ },
+ "fr-miac-lfmt": {
+  "title": "MIAC 1 Montpellier, copy of AIP France AD 2 LFMT (pages AIRAC AMDT 09/21 to 04/25, latest effective 17 Apr 2025; old edition)",
+  "url": "https://www.dircam.dsae.defense.gouv.fr/images/Stories/Doc/MIAC1/miac1_montpellier_lfmt.pdf",
+  "publisher": "DIRCAM, French Ministry of the Armed Forces",
+  "checked": "2026-11-25"
+ },
+ "fr-miac-lfpo": {
+  "title": "MIAC 1 Paris Orly, copy of AIP France AD 2 LFPO (latest page AIRAC AMDT 06/25, effective 12 Jun 2025; old edition)",
+  "url": "https://www.dircam.dsae.defense.gouv.fr/images/Stories/Doc/MIAC1/miac1_paris_orly_lfpo.pdf",
+  "publisher": "DIRCAM, French Ministry of the Armed Forces",
+  "checked": "2026-11-25"
+ },
+ "lfpo-ministry-curfew-2025": {
+  "title": "Signature du nouvel arrete de restriction a l'aeroport d'Orly, press release (effective: order of 4 Jul 2025, published 10 Jul 2025)",
+  "url": "https://www.ecologie.gouv.fr/presse/signature-du-nouvel-arrete-restriction-laeroport-dorly",
+  "publisher": "French Ministry of Ecological Transition (DGAC)",
+  "checked": "2026-11-25"
+ },
+ "lfpo-ministry-rwy4": {
+  "title": "Aeroport Paris-Orly: fermeture piste 4 jusqu'au 17 decembre 2026 inclus (published 05 Jun 2026, updated 12 Aug 2026)",
+  "url": "https://www.ecologie.gouv.fr/politiques-publiques/aeroport-paris-orly-fermeture-piste-4-jusquau-17-decembre-2026-inclus",
+  "publisher": "French Ministry of Ecological Transition (DGAC)",
+  "checked": "2026-11-25"
+ },
+ "lfll-operator-ba": {
+  "title": "Lyon Aeroports business aviation, flight preparation LYS (no date shown; read 25 Nov 2026)",
+  "url": "https://businessaviation.lyonaeroports.com/en/flight-preparation-lys",
+  "publisher": "Aeroports de Lyon (VINCI Airports)",
+  "checked": "2026-11-25"
+ },
+ "lfmt-operator-pilot": {
+  "title": "Aeroport Montpellier Mediterranee, pilot information (page (c) 2026, no date shown; read 25 Nov 2026)",
+  "url": "https://www.montpellier.aeroport.fr/en/professionals/general-aviation/pilot-information",
+  "publisher": "Aeroport Montpellier Mediterranee",
+  "checked": "2026-11-25"
+ },
+ "lfmt-operator-ba": {
+  "title": "Aeroport Montpellier Mediterranee, business aviation (no date shown; read 25 Nov 2026)",
+  "url": "https://www.montpellier.aeroport.fr/en/professionals/general-aviation/business-aviation",
+  "publisher": "Aeroport Montpellier Mediterranee",
+  "checked": "2026-11-25"
+ },
+ "fr-vac-lfbo": {
+  "title": "SIA France, Atlas VAC AD 2 LFBO Toulouse-Blagnac text page, eAIP set effective 29 Oct 2026 (page AMDT 11/26) (effective 29 Oct 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_29_OCT_2026/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.LFBO.pdf",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-11-25"
+ },
+ "fr-aip-lflp": {
+  "title": "AIP France AD 2 LFLP Annecy Mont-Blanc, eAIP AIRAC 2026-10-29 (pages AIRAC AMDT 08/26 of 06 Aug 2026) (effective 29 Oct 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_29_OCT_2026/FRANCE/AIRAC-2026-10-29/pdf/FR-AD-2.LFLP-fr-FR.pdf",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-11-25"
+ },
+ "fr-aip-lfls": {
+  "title": "AIP France AD 2 LFLS Grenoble-Alpes-Isère, eAIP AIRAC 2026-10-29 (most pages AIRAC AMDT 08/26 of 06 Aug 2026) (effective 29 Oct 2026)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_29_OCT_2026/FRANCE/AIRAC-2026-10-29/pdf/FR-AD-2.LFLS-fr-FR.pdf",
+  "publisher": "Service de l'Information Aéronautique (SIA), DGAC France",
+  "checked": "2026-11-25"
+ },
+ "lszr-operator-hours": {
+  "title": "People's Airport St.Gallen-Altenrhein - Airport Information & Opening hours (web page, read 25 Nov 2026; no edition date shown)",
+  "url": "https://peoples.ch/business-aviation/facts-figures-lszr/airport-information-opening-hours",
+  "publisher": "Airport Altenrhein AG",
+  "checked": "2026-11-25"
+ },
+ "lszr-operator-customs": {
+  "title": "People's Airport St.Gallen-Altenrhein - Customs aerodrome LSZR (web page, read 25 Nov 2026)",
+  "url": "https://www.peoples.ch/business-aviation/facts-figures-lszr/customs-aerodrome",
+  "publisher": "Airport Altenrhein AG",
+  "checked": "2026-11-25"
+ },
+ "ch-aip-lsgs-2024": {
+  "title": "AIP Switzerland AD 2 LSGS Sion, AIRAC AMDT 006/2024 (effective 13 Jun 2024), copy hosted by the airport operator",
+  "url": "https://www.sionaeroport.ch/wp-content/uploads/2016/12/LS_AD_2_LSGS_en-12.pdf",
+  "publisher": "skyguide / FOCA (copy on Aéroport de Sion website)",
+  "checked": "2026-11-25"
+ },
+ "lsgs-operator-pilot-info": {
+  "title": "Aéroport de Sion - Pilot info (web page, read 25 Nov 2026)",
+  "url": "https://www.sionaeroport.ch/en/pilot-info",
+  "publisher": "Aéroport de Sion",
+  "checked": "2026-11-25"
+ },
+ "lsza-operator-ga": {
+  "title": "Lugano Airport - General Aviation (web page, read 25 Nov 2026)",
+  "url": "https://www.luganoairport.ch/en/business-partners-2/general-aviation/general-aviation",
+  "publisher": "Lugano Airport SA",
+  "checked": "2026-11-25"
+ },
+ "lsza-operator-vfr-ad-info": {
+  "title": "Lugano Airport - VFR AD INFO (aerodrome data page dated 25 Mar 2020; other pages 13 Jul 2023 and 26 Dec 2024)",
+  "url": "https://luganoairport.ch/wp-content/uploads/2025/08/VFR-AD-INFO.pdf",
+  "publisher": "Lugano Airport SA",
+  "checked": "2026-11-25"
+ },
+ "lsza-operator-qualification": {
+  "title": "Lugano Airport - Airport Qualification (web page, read 25 Nov 2026)",
+  "url": "https://luganoairport.ch/en/business-partners-2/flight-ground-operations/airport-qualification",
+  "publisher": "Lugano Airport SA",
+  "checked": "2026-11-25"
+ },
+ "lowi-operator-hours": {
+  "title": "Innsbruck Airport - Extension of operating hours (web page, read 25 Nov 2026)",
+  "url": "https://www.innsbruck-airport.com/en/residents-environment/informations/extension-of-operating-hours/",
+  "publisher": "Tiroler Flughafenbetriebsgesellschaft m.b.H.",
+  "checked": "2026-11-25"
+ },
+ "lowi-operator-faq-gac": {
+  "title": "Innsbruck Airport - FAQ General Aviation Center (PDF, undated, read 25 Nov 2026)",
+  "url": "https://bypass.innsbruck-airport.com/fileadmin/userdaten/bilder/business_aviation/wichtige-informationen/FAQ_GAC-en.pdf",
+  "publisher": "Tiroler Flughafenbetriebsgesellschaft m.b.H.",
+  "checked": "2026-11-25"
+ },
+ "lowi-operator-pilots": {
+  "title": "Innsbruck Airport - Pilots information (web page, read 25 Nov 2026)",
+  "url": "https://innsbruck-airport.com/en/business-aviation/aviation/pilots-information",
+  "publisher": "Tiroler Flughafenbetriebsgesellschaft m.b.H.",
+  "checked": "2026-11-25"
+ },
+ "lowk-operator-location": {
+  "title": "Klagenfurt Airport - Location Airport (web page, read 25 Nov 2026)",
+  "url": "https://www.klagenfurt-airport.at/en/company/standort-flughafen",
+  "publisher": "Kärntner Flughafen Betriebsgesellschaft m.b.H.",
+  "checked": "2026-11-25"
+ },
+ "lowk-operator-ga": {
+  "title": "Klagenfurt Airport - Business aviation / Aviation (web page, read 25 Nov 2026)",
+  "url": "https://www.klagenfurt-airport.at/en/business-aviation/aviation",
+  "publisher": "Kärntner Flughafen Betriebsgesellschaft m.b.H.",
+  "checked": "2026-11-25"
+ },
+ "limc-operator-tech": {
+  "title": "Milan Airports - Milano Malpensa data sheet (web page, read 25 Nov 2026)",
+  "url": "https://milanairports.com/en/our-airports/milano-malpensa",
+  "publisher": "SEA Società Esercizi Aeroportuali S.p.A.",
+  "checked": "2026-11-25"
+ },
+ "limc-operator-techdata": {
+  "title": "Milan Airports - Technical data (web page, read 25 Nov 2026)",
+  "url": "https://milanairports.com/en/group/technical-data",
+  "publisher": "SEA Società Esercizi Aeroportuali S.p.A.",
+  "checked": "2026-11-25"
+ },
+ "lirf-operator-runway-safety": {
+  "title": "Aeroporti di Roma - Runway safety (web page, read 25 Nov 2026)",
+  "url": "https://www.adr.it/web/aeroporti-di-roma-en/runway-safety",
+  "publisher": "Aeroporti di Roma S.p.A.",
+  "checked": "2026-11-25"
+ },
+ "lirn-operator-environment": {
+  "title": "Aeroporto Internazionale di Napoli - Environment (web page, read 25 Nov 2026)",
+  "url": "https://www.aeroportodinapoli.it/en/environment",
+  "publisher": "GESAC S.p.A.",
+  "checked": "2026-11-25"
+ },
+ "lieo-service-charter-2026": {
+  "title": "Olbia Costa Smeralda Airport Service Charter 2026 (information updated to 26 Mar 2026), published by ENAC",
+  "url": "https://www.enac.gov.it/app/uploads/2026/07/SERVICE-CHARTER-OLBIA-2026.pdf",
+  "publisher": "GEASAR S.p.A. / ENAC",
+  "checked": "2026-11-25"
+ },
+ "au-ersa-ybsu": {
+  "title": "AIP Australia ERSA, FAC YBSU Sunshine Coast (page dated 09 Jul 2026; ERSA edition in force 03 Sep 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/ersa/FAC_YBSU_09JUL2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-25"
+ },
+ "au-dap-ybsu-adc": {
+  "title": "AIP Australia DAP, YBSU Aerodrome Chart BSUAD01-188 (effective 03 Sep 2026)",
+  "url": "https://www.airservicesaustralia.com/aip/pending/dap/BSUAD01-188_03SEP2026.pdf",
+  "publisher": "Airservices Australia",
+  "checked": "2026-11-25"
+ },
+ "nzwn-operator-curfew": {
+  "title": "Wellington Airport Curfew (no edition date; read 25 Nov 2026)",
+  "url": "https://wellingtonairport.co.nz/community-hub/noise/wellington-airport-curfew",
+  "publisher": "Wellington International Airport Ltd",
+  "checked": "2026-11-25"
+ },
+ "nzch-operator-noise": {
+  "title": "Christchurch Airport, Mitigating our impact: noise (no edition date; read 25 Nov 2026)",
+  "url": "https://www.christchurchairport.co.nz/about-us/sustainability/noise/",
+  "publisher": "Christchurch International Airport Ltd",
+  "checked": "2026-11-25"
+ },
+ "nz-customs-private": {
+  "title": "NZ Customs, Private and non-scheduled flights (no edition date; read 25 Nov 2026)",
+  "url": "https://www.customs.govt.nz/personal/travel-to-and-from-nz/private-planes/",
+  "publisher": "New Zealand Customs Service",
+  "checked": "2026-11-25"
+ },
+ "fr-aip-pf-ntaa": {
+  "title": "AIP Polynésie française AD 2 NTAA Tahiti Faa'a (effective 09 Jul 2026, AIRAC 2026-07-09)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/media/dvd/eAIP_09_JUL_2026/PAC-P/AIRAC-2026-07-09/html/eAIP/FR-AD-2.NTAA-fr-FR.html",
+  "publisher": "SIA, DGAC France",
+  "checked": "2026-11-25"
+ },
+ "fr-aip-nc-nwww": {
+  "title": "AIP Nouvelle-Calédonie AD 2 NWWW Nouméa La Tontouta (effective 15 May 2025, AIRAC 2025-05-15; older edition)",
+  "url": "https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_15_MAY_2025/PAC-N/AIRAC-2025-05-15/html/eAIP/FR-AD-2.NWWW-fr-FR.html",
+  "publisher": "SIA, DGAC France",
+  "checked": "2026-11-25"
+ },
+ "us-aip-guam": {
+  "title": "US AIP Part 3 AD 2.0 Guam, PGUM (no effective date shown; read 25 Nov 2026)",
+  "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_guam.html",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-25"
+ },
+ "ie-aip-eick": {
+  "title": "AIP Ireland, EI AD 2 EICK Cork (page valid from 11 Jun 2026, AIRAC folder 2026-05-14; the AIRAC 06 Aug 2026 reissue could not be opened)",
+  "url": "https://www.airnav.ie/AIRAC_MAY_2026/2026-05-14-AIRAC/html/eAIP/EI-AD-2.EICK-en-IE.html",
+  "publisher": "AirNav Ireland",
+  "checked": "2026-11-25"
+ },
+ "egph-operator-airspace": {
+  "title": "Edinburgh Airport, Airspace information: transparency about airspace use and aircraft movements (April 2026)",
+  "url": "https://www.caa.co.uk/media/kypphyik/edinburgh-april-2026.pdf",
+  "publisher": "Edinburgh Airport (hosted by UK CAA)",
+  "checked": "2026-11-25"
+ },
+ "egcc-operator-ops": {
+  "title": "Manchester Airport, Airspace & Operations (page read 25 Nov 2026)",
+  "url": "https://manchesterairport.co.uk/community/living-near-the-airport/airspace-and-operations",
+  "publisher": "Manchester Airport plc",
+  "checked": "2026-11-25"
+ },
+ "egcc-acl-w26": {
+  "title": "Manchester Airport W26 Capacity Declaration (winter 2026/27 season, published Apr 2026)",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2026/04/MAN-W26-Capacity-Declaration.pdf",
+  "publisher": "Airport Coordination Limited (UK slot coordinator)",
+  "checked": "2026-11-25"
+ },
+ "egpf-operator-airspace": {
+  "title": "Glasgow Airport, Airspace information: transparency about airspace use and aircraft movements (April 2026)",
+  "url": "https://www.caa.co.uk/media/3guklitl/glasgow-april-2026.pdf",
+  "publisher": "Glasgow Airport (hosted by UK CAA)",
+  "checked": "2026-11-25"
+ },
+ "egpf-operator-cou": {
+  "title": "Glasgow Airport Conditions of Use including Airport Charges (effective 01 Jan 2026)",
+  "url": "https://www.glasgowairport.com/media/zpufxwjx/glal-conditions-of-use-2026.pdf",
+  "publisher": "Glasgow Airport Limited",
+  "checked": "2026-11-25"
+ },
+ "egjj-operator-manual": {
+  "title": "Jersey Aerodrome Manual, Version 7.0 (04 Jul 2025)",
+  "url": "https://cdn.ports.je/web/Jersey-Aerodrome-Manual.pdf",
+  "publisher": "Ports of Jersey",
+  "checked": "2026-11-25"
+ },
+ "egjj-operator-noise": {
+  "title": "JA-AOP-006 Procedures to Minimise Aircraft Noise and Air Pollution, Issue 4 (June 2022)",
+  "url": "https://cdn.ports.je/web/JA-AOP-006-Procedures-to-Minimise-Aircraft-Noise-Air-Pollution-2.pdf",
+  "publisher": "Ports of Jersey",
+  "checked": "2026-11-25"
+ },
+ "egjj-operator-tariff": {
+  "title": "Jersey Airport Tariffs 2026 (valid from 01 Jan 2026)",
+  "url": "https://cdn.ports.je/web/Jersey-Airport-Tariff-2026.pdf",
+  "publisher": "Ports of Jersey",
+  "checked": "2026-11-25"
+ },
+ "egjj-acl": {
+  "title": "ACL airport information, Jersey (page read 25 Nov 2026)",
+  "url": "https://www.acl-uk.org/airport-info-details/?aid=37",
+  "publisher": "Airport Coordination Limited",
+  "checked": "2026-11-25"
+ },
+ "egjb-operator-private": {
+  "title": "Guernsey Airport, Private Aviation (page read 25 Nov 2026)",
+  "url": "https://www.airport.gg/node/9",
+  "publisher": "Guernsey Ports / States of Guernsey",
+  "checked": "2026-11-25"
+ },
+ "egjb-acl": {
+  "title": "ACL airport information, Guernsey (page read 25 Nov 2026)",
+  "url": "https://www.acl-uk.org/airport-info-details/?aid=88",
+  "publisher": "Airport Coordination Limited",
+  "checked": "2026-11-25"
+ },
+ "eghh-operator-nap": {
+  "title": "Bournemouth Airport Noise Action Plan 2024, V3.0",
+  "url": "https://www.bournemouthairport.com/content/uploads/Bournemouth-Airport-Noise-Action-Plan-2024-FINAL-V3.0.pdf",
+  "publisher": "Bournemouth Airport",
+  "checked": "2026-11-25"
+ },
+ "eghh-operator-aoi31": {
+  "title": "Bournemouth Airport AOI 31 Out-of-Hours Extensions (header V3.0 Dec 2021; history to V3.3 May 2024)",
+  "url": "https://www.bournemouthairport.com/content/uploads/AOI_31_Out-of-Hours_Extensions.pdf",
+  "publisher": "Bournemouth Airport",
+  "checked": "2026-11-25"
+ },
+ "eghh-operator-charges": {
+  "title": "Bournemouth Airport Schedule of Charges and Terms of Use (valid 01 Apr 2026 to 31 Mar 2027)",
+  "url": "https://www.bournemouthairport.com/content/uploads/BIAL-Schedule-of-Charges-Terms-of-Use-FY27-1.pdf",
+  "publisher": "Bournemouth International Airport Ltd",
+  "checked": "2026-11-25"
+ },
+ "egtk-operator-info": {
+  "title": "London Oxford Airport, Airport information (page read 25 Nov 2026)",
+  "url": "https://www.oxfordairport.co.uk/business-aviation-3-4/",
+  "publisher": "London Oxford Airport",
+  "checked": "2026-11-25"
+ },
+ "egtk-operator-hours": {
+  "title": "London Oxford Airport, Opening Times (page read 25 Nov 2026)",
+  "url": "https://www.oxfordairport.co.uk/opening-times/",
+  "publisher": "London Oxford Airport",
+  "checked": "2026-11-25"
+ },
+ "egtk-operator-pilotguide": {
+  "title": "London Oxford Airport EGTK Pilot Guide, OXF ATS TECH D 085 v1.2 (01 Jun 2026)",
+  "url": "https://www.oxfordairport.co.uk/wp-content/uploads/2026/06/oxf_ats_tech_d_085_egtk_pilot_guide_v1.2.pdf",
+  "publisher": "London Oxford Airport",
+  "checked": "2026-11-25"
  }
 }

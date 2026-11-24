@@ -1,0 +1,62 @@
+{
+ "icao": "EICK",
+ "iata": null,
+ "name": "Cork Airport",
+ "city": "Cork",
+ "country": "IE",
+ "tz": "Europe/Dublin",
+ "status": "verified",
+ "rules": {
+  "runway": {
+   "v": "Main runway 16/34, 2,133 m × 45 m; second runway 07/25, 1,310 m × 45 m",
+   "longest_m": 2133,
+   "src": "ie-aip-eick",
+   "quote": "2133 x 45"
+  },
+  "hours": {
+   "v": "Aerodrome H24; closed on Christmas Day",
+   "src": "ie-aip-eick",
+   "quote": "Airport closed on Christmas Day. Exact HR advised by NOTAM"
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours, prior notice to the aerodrome operator",
+   "h24": true,
+   "src": "ie-aip-eick",
+   "quote": "H24 PN required to AD Operator"
+  },
+  "ppr": {
+   "v": "PPR for landing is mandatory; a flight plan is not PPR",
+   "src": "ie-aip-eick",
+   "quote": "Prior permission required (PPR) for landing is mandatory at Cork Airport."
+  },
+  "handling": {
+   "v": "Ground handling is compulsory for all aircraft",
+   "src": "ie-aip-eick",
+   "quote": "All aircraft must avail of ground handling."
+  },
+  "fuel": {
+   "v": "Jet A1 and Avgas 100LL; full facilities 05:30–22:00 local every day (AD 2.3 lists fuelling H24)",
+   "src": "ie-aip-eick",
+   "quote": "Full facilities are available daily 0530-2200HR local time all year."
+  },
+  "deicing": {
+   "v": "De-icing: contact Aerodrome Administration",
+   "src": "ie-aip-eick",
+   "quote": "Contact Aerodrome Administration"
+  },
+  "noise": {
+   "v": "CAT C/D departures straight ahead to 2,500 ft QNH before turning",
+   "src": "ie-aip-eick",
+   "quote": "must maintain straight ahead after take-off until passing 2500ft QNH before commencing turn."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "permits"
+ ],
+ "notes": "Read the Irish eAIP EI AD 2 EICK page valid from 11 Jun 2026 (AIRAC folder 2026-05-14). AIRAC Amendment 008/26 (effective 06 Aug 2026) reissued the EICK pages and changed AD 2.16 and AD 2.20; that edition could not be opened (permission not granted), and Amendment 009/26 (03 Sep 2026) makes no EICK change. Whether a later amendment in force on 25 Nov 2026 touches EICK was not checked. Re-check AD 2.20 (handling rule) against the current edition. No night restriction is listed in AD 2.20/2.21, but the AIP does not state 'no restriction', so curfew is left missing. Fuel hours conflict: AD 2.3 says fuelling H24, AD 2.4 says full facilities 05:30–22:00.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

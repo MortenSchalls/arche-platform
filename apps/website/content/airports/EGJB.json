@@ -1,0 +1,58 @@
+{
+ "icao": "EGJB",
+ "iata": null,
+ "name": "Guernsey Airport",
+ "city": "Guernsey",
+ "country": "GG",
+ "tz": "Europe/Guernsey",
+ "status": "partial",
+ "rules": {
+  "hours": {
+   "v": "Open 06:30–21:00 local all year (closed Christmas Day)",
+   "src": "egjb-operator-private",
+   "quote": "All year 0630 - 2100"
+  },
+  "curfew": {
+   "v": "Closed 21:00–06:30 local; extensions to 23:45 only for scheduled carriers",
+   "windows_local": [
+    [
+     "21:00",
+     "06:30"
+    ]
+   ],
+   "src": "egjb-acl",
+   "quote": "Extensions permitted until 2345L (scheduled carriers only – charges apply)."
+  },
+  "handling": {
+   "v": "Handling is mandatory; the two FBOs handle private flights and take GA slot requests",
+   "names": [
+    "Aiglle Flight Support",
+    "Aircraft Servicing Guernsey (ASG)"
+   ],
+   "src": "egjb-acl",
+   "quote": "Aircraft handling is mandatory."
+  },
+  "slots": {
+   "v": "Level 1; general and business aviation slot requests go to the FBOs",
+   "src": "egjb-acl",
+   "quote": "General and Business Aviation slot requests should be directed to the FBOs based at Guernsey Airport."
+  },
+  "customs": {
+   "v": "Customs and immigration apply on every inbound/outbound flight; paper GAR via the FBO (not by email or fax); customs hours not stated",
+   "h24": false,
+   "src": "egjb-operator-private",
+   "quote": "There are customs and immigration procedures if inbound to or outbound from Guernsey or Alderney Airports."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "ppr",
+  "fuel",
+  "noise",
+  "deicing"
+ ],
+ "notes": "UK NATS eAIP (nats-uk.ead-it.com) could not be opened in this run (proxy refused the host; WebFetch permission not granted), so no UK AIP AD 2 data was read. Read Guernsey Airport's Private Aviation page and ACL's Guernsey page. Open 06:30–21:00 all year; out-of-hours extensions are for scheduled carriers only, so plan private flights inside opening hours. Handling mandatory (two FBOs). GAR forms on paper to the FBO. Runway length not found on an official page read.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

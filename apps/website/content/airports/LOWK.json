@@ -1,0 +1,35 @@
+{
+ "icao": "LOWK",
+ "iata": null,
+ "name": "Klagenfurt Airport",
+ "city": "Klagenfurt",
+ "country": "AT",
+ "tz": "Europe/Vienna",
+ "status": "partial",
+ "rules": {
+  "runway": {
+   "v": "Runway 10/28, 2,720 m × 45 m, asphalt (plus a 710 m grass strip)",
+   "longest_m": 2720,
+   "src": "lowk-operator-location",
+   "quote": "2.720 m x 45 m"
+  },
+  "hours": {
+   "v": "Mon–Fri 05:45–23:30, Sat 05:45–22:00, Sun 07:00–23:30 local",
+   "src": "lowk-operator-ga",
+   "quote": "MO to FR: 05:45 a.m. to 11:30 p.m."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise"
+ ],
+ "notes": "Austro Control eAIP not opened (eaip.austrocontrol.at blocked in this run). Read Klagenfurt Airport location and business-aviation pages (no edition date). Customs and border-control hours not stated on these pages; the GAC offers escort through passport and customs control. The airport has published separate winter operating-hours notices before (Jan–Feb 2025), so check current NOTAM.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

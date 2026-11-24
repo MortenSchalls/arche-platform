@@ -1,0 +1,26 @@
+{
+ "icao": "LFBZ",
+ "iata": null,
+ "name": "Biarritz Pays Basque",
+ "city": "Biarritz",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-25",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "noise",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "No current official AD 2 page could be read. Searches for the SIA eAIP 29 Oct 2026 AD 2 LFBZ page found nothing; constructed SIA URLs were blocked (permission not answered) and curl to the SIA host was refused by the session proxy. A military MIAC 1 copy (DIRCAM) exists but was not used (not civil, edition not current)."
+}

@@ -1,0 +1,56 @@
+{
+ "icao": "LEMG",
+ "iata": null,
+ "name": "Málaga-Costa del Sol Airport",
+ "city": "Málaga",
+ "country": "ES",
+ "tz": "Europe/Madrid",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Two runways: 13/31 3,198 m × 45 m and 12/30 2,749 m × 45 m",
+   "longest_m": 3198,
+   "src": "es-aip-lemg",
+   "quote": "3198 x 45"
+  },
+  "hours": {
+   "v": "Airport open 24 hours; ATS, fuel and handling 24 hours",
+   "src": "es-aip-lemg",
+   "quote": "Airport H24."
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours",
+   "h24": true,
+   "src": "es-aip-lemg",
+   "quote": "Customs and Immigration H24."
+  },
+  "slots": {
+   "v": "Airport slot required for every flight, requested before the flight plan is sent; no slot, no flight",
+   "src": "es-aip-lemg",
+   "quote": "All flights wishing to operate at MÁLAGA/Costa del Sol must hold the appropriate airport slot."
+  },
+  "handling": {
+   "v": "All general and business aviation must use a ground handling agent",
+   "src": "es-aip-lemg",
+   "quote": "All General and Business Aviation aircraft must engage ground handling services"
+  },
+  "fuel": {
+   "v": "Jet A-1 and 100LL, 24 hours",
+   "src": "es-aip-lemg",
+   "quote": "CIV: 100LL, JET A-1."
+  },
+  "noise": {
+   "v": "At night only idle reverse thrust: winter 21:00–05:00 UTC (22:00–06:00 local), summer 20:00–04:00 UTC (22:00–06:00 local)",
+   "src": "es-aip-lemg",
+   "quote": "the reverse thrust may only be used when idling:"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "ppr"
+ ],
+ "notes": "Read AIP España AD 2-LEMG (PDF, AIRAC AMDT 09/26, WEF 01 Oct 2026; this was the edition served on 25 Nov 2026, the 29 Oct cycle was not shown). Open H24, no night curfew stated in AD 2. Slot is mandatory for all flights and flight plans more than 15 days ahead are not accepted. Handling agent mandatory for GA/business aviation. Not available for A350-1000. Times without (LT) in the Spanish AIP are UTC."
+}

@@ -1,0 +1,68 @@
+{
+ "icao": "EGTK",
+ "iata": null,
+ "name": "London Oxford Airport",
+ "city": "Oxford",
+ "country": "GB",
+ "tz": "Europe/London",
+ "status": "verified",
+ "rules": {
+  "runway": {
+   "v": "Main runway 01/19, 1,552 m × 30 m",
+   "longest_m": 1552,
+   "src": "egtk-operator-info",
+   "quote": "1552m (5092 ft.) x 30m Code 3C main runway"
+  },
+  "hours": {
+   "v": "Open 06:30–22:30 local, seven days a week",
+   "src": "egtk-operator-hours",
+   "quote": "London Oxford Airport is open from 06:30 to 22:30 seven days a week."
+  },
+  "curfew": {
+   "v": "Closed 22:30–06:30 local; extensions between 06:00 and 23:59 can be requested from Operations",
+   "windows_local": [
+    [
+     "22:30",
+     "06:30"
+    ]
+   ],
+   "approval": true,
+   "src": "egtk-operator-hours",
+   "quote": "Requests for extensions from 06:00 to 23:59 are accepted seven days a week via Operations"
+  },
+  "customs": {
+   "v": "Customs/immigration concession airport (GA Agreement); GAR via the UK Government portal 48 h to 2 h before departure (12 h for Ireland, Northern Ireland, Channel Islands, Isle of Man); no 24-hour customs stated",
+   "h24": false,
+   "src": "egtk-operator-info",
+   "quote": "UK Customs/Immigration Concession Airport ('GA Agreement')"
+  },
+  "ppr": {
+   "v": "Strict PPR; at least 30 minutes' notice to ATC; a flight plan is not PPR",
+   "src": "egtk-operator-pilotguide",
+   "quote": "Oxford operates a strict 'Prior Permission Required' (PPR) policy."
+  },
+  "slots": {
+   "v": "No slot limits",
+   "src": "egtk-operator-info",
+   "quote": "Unconstrained by slot limitations"
+  },
+  "fuel": {
+   "v": "Avgas and Jet A1",
+   "src": "egtk-operator-info",
+   "quote": "Avgas and Jet A1 available at pumps or from bowsers"
+  },
+  "noise": {
+   "v": "Runway 19: climb straight ahead to 1,000 ft QNH or 1.0 DME before turning right",
+   "src": "egtk-operator-pilotguide",
+   "quote": "climb straight ahead to 1000 FT QNH or 1.0 DME I OXF, whichever is the earliest, before turning right."
+  }
+ },
+ "missing": [
+  "iata",
+  "handling",
+  "deicing"
+ ],
+ "notes": "UK NATS eAIP (nats-uk.ead-it.com) could not be opened in this run (proxy refused the host; WebFetch permission not granted), so no UK AIP AD 2 data was read. Read London Oxford Airport's own pages and Pilot Guide v1.2 (01 Jun 2026). Note: the Airport information page says '06:30 – 22:30 opening hours (weekdays)', while the Opening Times page says seven days a week; confirm weekend hours with Operations. GAR window for customs: submit no earlier than 48 h and no later than 2 h before departure.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

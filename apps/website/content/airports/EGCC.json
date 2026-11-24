@@ -1,0 +1,35 @@
+{
+ "icao": "EGCC",
+ "iata": null,
+ "name": "Manchester Airport",
+ "city": "Manchester",
+ "country": "GB",
+ "tz": "Europe/London",
+ "status": "partial",
+ "rules": {
+  "hours": {
+   "v": "Open 24 hours",
+   "src": "egcc-operator-ops",
+   "quote": "Manchester Airport has operated on a 24-hour basis for over 60 years."
+  },
+  "noise": {
+   "v": "Night period 23:00–06:59 local (core 23:30–05:59) under a quota-count limit; no QC4 or noisier aircraft at night",
+   "src": "egcc-acl-w26",
+   "quote": "No QC4 or above aircraft will be permitted to operate during the night period 2300-0659 (Local)."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "UK NATS eAIP (nats-uk.ead-it.com) could not be opened in this run (proxy refused the host; WebFetch permission not granted), so no UK AIP AD 2 data was read. Airport says it runs 24 hours under its Night Noise Policy (the 2026 policy document itself was not opened). The ACL winter 2026/27 capacity declaration sets the night period 23:00–06:59 local with a quota budget (7,788 points; core 23:30–05:59, 3,000 points) and bars QC4 and above at night. Most business jets are low QC, but check the aircraft's QC for night slots. No runway length could be read from an official source.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

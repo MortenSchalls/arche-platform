@@ -1,0 +1,58 @@
+{
+ "icao": "LFTH",
+ "iata": null,
+ "name": "Toulon-Hyères",
+ "city": "Hyères",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Two runways: 05/23 2,121 m x 45 m, 13/31 1,809 m x 45 m.",
+   "longest_m": 2121,
+   "src": "fr-aip-lfth",
+   "quote": "05 051.00 (049) 2121 x 45 49 F/C/W/T"
+  },
+  "curfew": {
+   "v": "No civil flights 23:00-07:00 local.",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "src": "fr-aip-lfth",
+   "quote": "pas de vols civils entre 2300 et 0700 locales ;"
+  },
+  "customs": {
+   "v": "On request, 24 h notice and GENDEC. Non-Schengen: Mon-Sat 08:00-20:00, Sun 08:00-19:00 local (07:00-19:00 / 07:00-18:00 UTC). Schengen: 06:00-21:00 local (05:00-20:00 UTC). Local times given for winter.",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "20:00"
+    ]
+   ],
+   "src": "fr-aip-lfth",
+   "quote": "HOR UTC : LUN-SAM : 0700-1900, DIM : 0700-1800"
+  },
+  "ppr": {
+   "v": "Military aerodrome, military traffic first. Civil aircraft over 3.5 t or 10 passengers need permission from the civil concession holder by email: 4 h notice for EU, Swiss, US or Canadian operators, 24 h for others.",
+   "src": "fr-aip-lfth",
+   "quote": "Les demandes d'autorisation sont à adresser au concessionnaire civil (par E-mail CIV) avec les préavis suivants :"
+  },
+  "fuel": {
+   "v": "Jet A1 for civil aircraft (F34 military).",
+   "src": "fr-aip-lfth",
+   "quote": "JET A1 : 300 m3 - 850 à 1000 litres/min"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "handling"
+ ],
+ "notes": "Read AIP France AD 2 LFTH (Hyères Le Palyvestre), eAIP 06 Aug 2026 (older than the edition in force; the current page could not be opened). Military base with civil use: send the PPR and GENDEC early. Customs hours are given in UTC; summer local times are one hour later."
+}

@@ -1,0 +1,53 @@
+{
+ "icao": "LFLS",
+ "iata": null,
+ "name": "Grenoble-Alpes-Isère",
+ "city": "Grenoble",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Paved runway 09/27, 3,050 m × 45 m (plus grass 09R/27L 900 m × 50 m)",
+   "longest_m": 3050,
+   "src": "fr-aip-lfls",
+   "quote": "09 090.23 (088) 3050 x 45"
+  },
+  "hours": {
+   "v": "Aerodrome open Mon–Sat 07:00–21:00 local, Sun and holidays 08:00–21:00 local (Mon–Sat 0600-2000 UTC winter, 0500-1900 UTC summer); hours can be extended on request for private, official and commercial flights",
+   "src": "fr-aip-lfls",
+   "quote": "LUN-SAM 0600-2000 ; DIM et JF 0700-2000 MON-SAT 0600-2000 ; SUN and HOL 0700-2000"
+  },
+  "customs": {
+   "v": "Customs on prior notice: 24 hours Mon–Fri, 48 hours at weekends and public holidays",
+   "h24": false,
+   "src": "fr-aip-lfls",
+   "quote": "MON-FRI : PN 24HR"
+  },
+  "ppr": {
+   "v": "Prior permission for code C aircraft or larger, via business aviation (businessaviation@grenoble-airport.com); handling PPR 48 h for commercial flights",
+   "src": "fr-aip-lfls",
+   "quote": "PPR PN 48 HR for commercial flights."
+  },
+  "fuel": {
+   "v": "100LL and Jet A1 by truck",
+   "src": "fr-aip-lfls",
+   "quote": "Tank trucks : 100LL and JET A1"
+  },
+  "deicing": {
+   "v": "De-icing provided 15 Nov to 15 Apr (Type 1 and Type 2)",
+   "src": "fr-aip-lfls",
+   "quote": "Provided from 15/11 to 15/04"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "noise",
+  "handling"
+ ],
+ "notes": "Read the SIA eAIP AD 2 LFLS PDF in the 29 Oct 2026 set (most pages AIRAC AMDT 08/26, 06 Aug 2026). French AIP times are UTC in winter and one hour earlier in summer. No night ban is stated; the aerodrome is closed outside its hours unless extended on request. Customs works on notice only. Between 1 Dec and 30 Apr the aerodrome administrator runs the published schedule; from 1 May to 30 Nov there is a note on flights outside Schengen (check AD 2.3 before a non-Schengen trip). Emergency flights: OPS Business Aviation +33 (0)4 76 93 49 43."
+}

@@ -1,0 +1,68 @@
+{
+ "icao": "LPPR",
+ "iata": null,
+ "name": "Porto Airport (Francisco Sá Carneiro)",
+ "city": "Porto",
+ "country": "PT",
+ "tz": "Europe/Lisbon",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 17/35, 3,480 m × 45 m (LDA 3,180 m on 17, 3,330 m on 35)",
+   "longest_m": 3480,
+   "src": "pt-aip-lppr",
+   "quote": "3480x45"
+  },
+  "curfew": {
+   "v": "Take-off and landing banned by law 00:00–06:00 local (AIP: 00:00 (23:00)–06:00 (05:00)), except force majeure and a limited exception quota (11 daily, 70 weekly, 2,100 yearly); noisiest aircraft cannot be scheduled at night",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "pt-aip-lppr",
+   "quote": "Landing and/or take-off is forbidden by law between 00:00 (23:00) and 06:00 (05:00), except in cases of force majeure."
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours",
+   "h24": true,
+   "src": "pt-aip-lppr",
+   "quote": "H24"
+  },
+  "hours": {
+   "v": "Airport administration and ATS 24 hours",
+   "src": "pt-aip-lppr",
+   "quote": "* Through Airport Duty Manager"
+  },
+  "slots": {
+   "v": "Airport slot mandatory for all flights (see GEN 1.2)",
+   "src": "pt-aip-lppr",
+   "quote": "For Aerodrome Slot request see GEN 1.2 Mandatory for all flights."
+  },
+  "fuel": {
+   "v": "Jet A-1, 05:00–23:00; 23:00–05:00 on request",
+   "src": "pt-aip-lppr",
+   "quote": "05:00-23:00 (04:00-22:00)"
+  },
+  "handling": {
+   "v": "Handling 05:00–01:00; 01:00–05:00 on request. General aviation parks on remote stands with transport to the terminal",
+   "src": "pt-aip-lppr",
+   "quote": "05:00-01:00 (04:00-24:00)"
+  },
+  "noise": {
+   "v": "Aircraft allowed to land at night must not use reverse thrust after landing",
+   "src": "pt-aip-lppr",
+   "quote": "Aircraft authorised to land during the night period are strictly forbidden to reverse thrust right after landing;"
+  }
+ },
+ "missing": [
+  "iata",
+  "ppr",
+  "deicing"
+ ],
+ "notes": "Read NAV Portugal eAIP AD 2 LPPR (current eAIP, valid from 01 Oct 2026; the page itself shows no date). Night ban 00:00–06:00 local: Portugal is UTC+0 in winter, and the bracketed times match local in summer. Night movements only within the government exception quota, with a slot. AD 2.20 lists handling agents (read, not quoted): Groundforce, OMNI Handling, Portway (full handling), Sky Valet (supervision), LGSP and Safeport Executive (passenger assistance). No de-icing listed."
+}

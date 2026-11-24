@@ -1,0 +1,53 @@
+{
+ "icao": "LPMA",
+ "iata": null,
+ "name": "Madeira Airport (Cristiano Ronaldo)",
+ "city": "Funchal",
+ "country": "PT",
+ "tz": "Atlantic/Madeira",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "curfew": {
+   "v": "Take-off and landing banned by law 00:00–06:00 local (AIP: 00:00 (23:00)–06:00 (05:00)), except force majeure and a limited exception quota (31 daily, 80 weekly)",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "pt-aip-lpma",
+   "quote": "Landing and/or take-off is forbidden by law between 00:00 (23:00) and 06:00 (05:00), except in cases of force majeure."
+  },
+  "handling": {
+   "v": "Handling 04:30–00:30; 00:30–04:30 on request",
+   "src": "pt-aip-lpma",
+   "quote": "04:30-00:30 (03:30-23:30). On request 00:30-04:30 (23:30-03:30)."
+  },
+  "fuel": {
+   "v": "Jet A-1 and 100LL",
+   "src": "pt-aip-lpma",
+   "quote": "100 LL, JET A1"
+  },
+  "permits": {
+   "v": "Captain needs at least 200 hours as captain on type before Madeira training, recent Madeira experience, and daytime familiarity before night operations (operator training approved by ANAC)",
+   "src": "pt-aip-lpma",
+   "quote": "A captain can operate at night provided he has previously operated and got familiar with Madeira Airport during daytime."
+  },
+  "ppr": {
+   "v": "Flying club and delivery aircraft need 24 hours PPR",
+   "src": "pt-aip-lpma",
+   "quote": "24 hours PPR required."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "hours",
+  "slots"
+ ],
+ "notes": "Read NAV Portugal eAIP AD 2 LPMA (current eAIP, valid from 01 Oct 2026). Runway 05/23 length could not be read from the extracted table (only 2481 m with a footnote about 150 m pavement), so runway is left missing; customs hours were blank in the text read. Special airport: captain qualification and recent experience required, visual landings only, RWY 05 needs 5,000 m and RWY 23 7,000 m visibility, backtrack forbidden above 30 t MTOW. Slots via GEN 1.2.2. Madeira is UTC+0 in winter, so local = first time given; the bracketed times match local in summer."
+}

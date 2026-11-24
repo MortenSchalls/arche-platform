@@ -1,0 +1,30 @@
+{
+ "icao": "LIEO",
+ "iata": null,
+ "name": "Olbia Costa Smeralda Airport",
+ "city": "Olbia",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "status": "partial",
+ "rules": {
+  "handling": {
+   "v": "Private-flight handling runs 24 hours a day, 7 days a week, on a 10-hectare apron for private flights",
+   "src": "lieo-service-charter-2026",
+   "quote": "Handling operations are managed 24 hours a day, 7 days a week on a 10-hectare apron"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "fuel",
+  "noise"
+ ],
+ "notes": "Read the Olbia Service Charter 2026 (ENAC site, information updated to 26 Mar 2026). It gives the passenger terminal as open 05:00–23:00, which is not the aerodrome's operating hours, and says customs offices are in the arrivals area, without hours. ENAV AIP not opened (registration). No runway data from an official source.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

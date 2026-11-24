@@ -1,0 +1,58 @@
+{
+ "icao": "LSZA",
+ "iata": null,
+ "name": "Lugano Airport",
+ "city": "Lugano",
+ "country": "CH",
+ "tz": "Europe/Zurich",
+ "status": "partial",
+ "rules": {
+  "runway": {
+   "v": "One runway, 01/19, 1,415 m × 30 m, asphalt (declared distances shorter: 1,305 m and 1,135 m)",
+   "longest_m": 1415,
+   "src": "lsza-operator-vfr-ad-info",
+   "quote": "1415 x 30"
+  },
+  "hours": {
+   "v": "General aviation daily 08:00–12:00 and 13:30–20:00 local; handling office 07:30–12:00 and 13:30–20:00",
+   "src": "lsza-operator-ga",
+   "quote": "Monday – Sunday | 08.00 to 12.00 – 13.30 to 20.00 LT"
+  },
+  "curfew": {
+   "v": "No movements outside 07:00–22:00 local. 07:00–08:00, 12:00–13:30 and 20:00–22:00 only with PPR (aircraft over 3 t), asked 48 h ahead and not automatically granted.",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "src": "lsza-operator-ga",
+   "quote": "Special Authorization with PPR | from 07.00 to 22.00 LT"
+  },
+  "ppr": {
+   "v": "PPR by e-mail to the GA handling office at least 48 hours before ETD/ETA for operations outside normal hours",
+   "src": "lsza-operator-ga",
+   "quote": "Minimum 48 hours before ETD/ETA by e-mail to gahandling@luganoairport.ch"
+  },
+  "slots": {
+   "v": "No slot restriction",
+   "src": "lsza-operator-ga",
+   "quote": "No slot restriction"
+  },
+  "permits": {
+   "v": "All IFR and commercial VFR operations need a Lugano-specific qualification for operator and crew, sometimes also aircraft certification",
+   "src": "lsza-operator-qualification",
+   "quote": "All IFR and commercial VFR procedures require a specific qualification for operators and flight crews members"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "handling",
+  "fuel",
+  "noise"
+ ],
+ "notes": "Read Lugano Airport GA page, airport qualification page and the operator's VFR AD INFO PDF (aerodrome data page dated 25 Mar 2020: older, confirm with current AIP). Swiss AIP (skybriefing) not opened. Short runway in a valley; operator and crew must hold the Lugano qualification. Customs hours not confirmed.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

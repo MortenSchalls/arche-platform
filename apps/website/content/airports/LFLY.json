@@ -1,0 +1,53 @@
+{
+ "icao": "LFLY",
+ "iata": null,
+ "name": "Lyon-Bron",
+ "city": "Lyon",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 16/34, 1,820 m x 45 m, paved.",
+   "longest_m": 1820,
+   "src": "fr-aip-lfly",
+   "quote": "1820 x 45"
+  },
+  "customs": {
+   "v": "Customs on request only, 24 h notice: Mon-Fri, request ahead; for Sat, Sun and holidays ask before 17:00 on the last working day. Immigration through the PAF of Lyon Saint-Exupéry.",
+   "h24": false,
+   "src": "fr-aip-lfly",
+   "quote": "LUN - VEN : HX O/R PN 24 HR"
+  },
+  "hours": {
+   "v": "ATS Mon-Fri 06:30-22:30, Sat 08:00-22:30, Sun and holidays 08:00-21:00 local (UTC winter: 05:30-21:30, 07:00-21:30, 07:00-20:00).",
+   "src": "fr-aip-lfly",
+   "quote": "LUN-VEN : 0530-2130, SAM : 0700-2130, DIM et JF : 0700-2000"
+  },
+  "handling": {
+   "v": "Handling mandatory for aircraft over 3.5 t MTOW.",
+   "src": "fr-aip-lfly",
+   "quote": "MTOW > 3.5 t : assistance obligatoire."
+  },
+  "fuel": {
+   "v": "UL Aero Super+, 100LL, Jet A1. Fuel 07:30-23:30 local (06:30-22:30 UTC winter).",
+   "src": "fr-aip-lfly",
+   "quote": "UL AERO SUPER+ - 100 LL - JET A1 (Total Energies et Air BP)."
+  },
+  "max_aircraft": {
+   "v": "Stands C/D12 take a wingspan up to 36 m.",
+   "src": "fr-aip-lfly",
+   "quote": "Postes C/D12 : envergure maximum 36 m."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "noise"
+ ],
+ "notes": "Read AIP France AD 2 LFLY, eAIP 06 Aug 2026 (older than the edition in force; the 29 Oct 2026 page could not be opened). The source states no night ban; operations outside ATS hours not confirmed. AIP times are UTC in winter, one hour earlier in summer."
+}

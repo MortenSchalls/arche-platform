@@ -1,0 +1,25 @@
+{
+ "icao": "LICJ",
+ "iata": null,
+ "name": "Palermo Falcone Borsellino Airport",
+ "city": "Palermo",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "status": "unavailable",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise"
+ ],
+ "notes": "ENAV AIP not opened (registration). Tried the ENAC-published Palermo service charter 2026 (https://www.enac.gov.it/app/uploads/2026/10/CDS-2026-PALERMO.pdf), GESAP certification page (https://aeroportodipalermo.it/en/gesap-spa/certifications) and ENAC ordinance 05/2026 PMO (road traffic only): no runway, aerodrome hours or customs hours.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

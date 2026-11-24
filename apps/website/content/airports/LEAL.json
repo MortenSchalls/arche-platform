@@ -1,0 +1,52 @@
+{
+ "icao": "LEAL",
+ "iata": null,
+ "name": "Alicante-Elche Miguel Hernández Airport",
+ "city": "Alicante",
+ "country": "ES",
+ "tz": "Europe/Madrid",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 10/28, 3,000 m × 45 m",
+   "longest_m": 3000,
+   "src": "es-aip-leal",
+   "quote": "3000 x 45"
+  },
+  "hours": {
+   "v": "Airport, ATS, fuel and handling 24 hours",
+   "src": "es-aip-leal",
+   "quote": "Airport H24."
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours",
+   "h24": true,
+   "src": "es-aip-leal",
+   "quote": "Customs and Immigration H24."
+  },
+  "slots": {
+   "v": "Prior airport slot mandatory for all general and business aviation; requests accepted only up to 15 days ahead",
+   "src": "es-aip-leal",
+   "quote": "Mandatory application for prior airport slot clearance for all General and Business Aviation flights"
+  },
+  "fuel": {
+   "v": "Jet A-1 and 100LL, 24 hours",
+   "src": "es-aip-leal",
+   "quote": "Fuel types 100LL, JET A-1. (1)"
+  },
+  "noise": {
+   "v": "No engine tests above idle and no training flights 23:00–06:00 local",
+   "src": "es-aip-leal",
+   "quote": "Training flights are prohibited between 23:00 and 06:00 LT."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "ppr",
+  "handling"
+ ],
+ "notes": "Read AIP España AD 2-LEAL (PDF, AIRAC AMDT 09/26, WEF 01 Oct 2026). Open H24, no night curfew for jets stated (piston aircraft are restricted by schedule). Slot mandatory for GA/business aviation, accepted only 15 days ahead. The page also says a handling agent is required for all operations (AD 2.4), not quoted here."
+}

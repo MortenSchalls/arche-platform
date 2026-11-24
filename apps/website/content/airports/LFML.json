@@ -1,0 +1,59 @@
+{
+ "icao": "LFML",
+ "iata": null,
+ "name": "Marseille-Provence",
+ "city": "Marseille",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Two runways: 13L/31R 3,500 m x 45 m, 13R/31L 2,370 m x 45 m.",
+   "longest_m": 3500,
+   "src": "fr-aip-lfml",
+   "quote": "13L 134 (132) 3500 x 45 58 R/B/W/T"
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours.",
+   "h24": true,
+   "src": "fr-aip-lfml",
+   "quote": "Douanes et police / Customs and immigration H24"
+  },
+  "hours": {
+   "v": "ATS 24 hours.",
+   "src": "fr-aip-lfml",
+   "quote": "ATS H24"
+  },
+  "fuel": {
+   "v": "100LL and Jet A1.",
+   "src": "fr-aip-lfml",
+   "quote": "Fuel types: 100LL-JET A1"
+  },
+  "handling": {
+   "v": "Handlers listed in the AIP.",
+   "names": [
+    "AIR FRANCE",
+    "AVIAPARTNER",
+    "ALYZIA",
+    "ONET AIRPORT SERVICES MARSEILLE",
+    "JETEX"
+   ],
+   "src": "fr-aip-lfml",
+   "quote": "JETEX"
+  },
+  "noise": {
+   "v": "No full curfew. 22:00-06:00 local, noisier jets (chapter 3, cumulative margin under 10 EPNdB) and noisier turboprops (margin under 8 EPNdB) may not land or leave the stand.",
+   "src": "fr-aip-lfml",
+   "quote": "- land between 2200 and 0600, local time."
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "curfew (none stated; only noisier aircraft barred at night)"
+ ],
+ "notes": "Read AIP France AD 2 LFML, eAIP 19 Mar 2026 (older than the edition in force; the current page could not be opened). The night rule bars only noisier aircraft; modern business jets usually meet it, but check the aircraft's noise margin. Recheck against the current AIP before quoting."
+}

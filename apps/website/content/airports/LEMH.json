@@ -1,0 +1,73 @@
+{
+ "icao": "LEMH",
+ "iata": null,
+ "name": "Menorca Airport",
+ "city": "Mahón",
+ "country": "ES",
+ "tz": "Europe/Madrid",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 01/19, 2,550 m × 45 m (last 200 m of RWY 01 not usable; RWY 19 threshold displaced 200 m)",
+   "longest_m": 2550,
+   "src": "es-aip-lemh",
+   "quote": "2550 x 45"
+  },
+  "hours": {
+   "v": "Airport open winter 06:00–21:00 UTC (07:00–22:00 local), summer 05:00–22:30 UTC (07:00–00:30 local); can be extended 45 min (winter) or 25 min (summer) with PPR",
+   "src": "es-aip-lemh",
+   "quote": "I: 0600-2100; PS 45 MIN PPR."
+  },
+  "curfew": {
+   "v": "Airport closed outside its hours: winter closed 22:00–07:00 local (21:00–06:00 UTC); summer closed 00:30–07:00 local (22:30–05:00 UTC); short extension possible with PPR",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "approval": true,
+   "src": "es-aip-lemh",
+   "quote": "V: 0500-2230; PS 25 MIN PPR."
+  },
+  "customs": {
+   "v": "Customs and immigration during airport hours only",
+   "h24": false,
+   "hours_local": [
+    [
+     "07:00",
+     "22:00"
+    ]
+   ],
+   "src": "es-aip-lemh",
+   "quote": "HR AD."
+  },
+  "ppr": {
+   "v": "Opening extension after hours needs PPR",
+   "src": "es-aip-lemh",
+   "quote": "I: 0600-2100; PS 45 MIN PPR."
+  },
+  "handling": {
+   "v": "Handling agent mandatory for all general and business aviation",
+   "src": "es-aip-lemh",
+   "quote": "It is mandatory for all General and Business aviation operations to require the services of a ground handling agent."
+  },
+  "fuel": {
+   "v": "Jet A-1 and 100LL during airport hours",
+   "src": "es-aip-lemh",
+   "quote": "JET A-1, 100LL."
+  },
+  "noise": {
+   "v": "Reverse thrust above idle not allowed except for safety",
+   "src": "es-aip-lemh",
+   "quote": "Reverse power other than idle is not allowed, except for safety reasons."
+  }
+ },
+ "missing": [
+  "iata",
+  "slots"
+ ],
+ "notes": "Read AIP España AD 2-LEMH (HTML, AIRAC AMDT 09/26, WEF 01 Oct 2026 and AMDT 405/26). Not H24: winter hours 07:00–22:00 local, customs the same (hours_local given for winter). Hours are UTC in the AIP. Slot rule not stated on the page."
+}

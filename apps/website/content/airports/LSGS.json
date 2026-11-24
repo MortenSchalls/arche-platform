@@ -1,0 +1,79 @@
+{
+ "icao": "LSGS",
+ "iata": null,
+ "name": "Sion Airport",
+ "city": "Sion",
+ "country": "CH",
+ "tz": "Europe/Zurich",
+ "status": "verified",
+ "rules": {
+  "runway": {
+   "v": "Runway 07/25, 2,000 m × 40 m, asphalt (plus a 660 m grass strip, VFR only)",
+   "longest_m": 2000,
+   "src": "ch-aip-lsgs-2024",
+   "quote": "2000 x 40"
+  },
+  "hours": {
+   "v": "Oct–Mar: 07:00 UTC (08:00 local) to day/night limit, at the latest 19:00 UTC (20:00 local). Apr–Sep: 05:00 UTC (07:00 local) to day/night limit, at the latest 18:00 UTC (20:00 local).",
+   "src": "ch-aip-lsgs-2024",
+   "quote": "OCT-MAR: 0700 - HRH, MAX 1900"
+  },
+  "curfew": {
+   "v": "Closed outside opening hours; special permission needed. With PPR: winter 06:00–07:00 UTC (07:00–08:00 local, PPR by 16:00 UTC the day before) and day/night limit to 20:00 UTC (to 21:00 local, PPR by 11:00 UTC); summer 18:00–19:00 UTC (20:00–21:00 local, PPR by 10:00 UTC). Nothing 21:00–07:00 local without special permission.",
+   "windows_local": [
+    [
+     "21:00",
+     "07:00"
+    ]
+   ],
+   "approval": true,
+   "src": "lsgs-operator-pilot-info",
+   "quote": "Special permission is required for flights outside of the opening hours."
+  },
+  "ppr": {
+   "v": "PPR for the edge hours (see curfew)",
+   "src": "ch-aip-lsgs-2024",
+   "quote": "OCT-MAR: 0600 - 0700, PPR until 1600 the preceding day,"
+  },
+  "customs": {
+   "v": "Customs and immigration during aerodrome opening hours only",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "20:00"
+    ]
+   ],
+   "src": "ch-aip-lsgs-2024",
+   "quote": "AD OPR HR"
+  },
+  "handling": {
+   "v": "Handling agent mandatory for non-based aircraft over 3 t; no self-handling",
+   "names": [
+    "Aéroport de Sion",
+    "Signature Flight Support",
+    "Alpine Jet Services"
+   ],
+   "src": "lsgs-operator-pilot-info",
+   "quote": "For non-based aircraft with MTOM > 3 tons, a handling agent is mandatory. Self-handling is not allowed."
+  },
+  "fuel": {
+   "v": "Jet A1, AVGAS 100LL and UL91",
+   "src": "lsgs-operator-pilot-info",
+   "quote": "Jet A1, AVGAS 100LL, AVGAS UL91"
+  },
+  "noise": {
+   "v": "Mon–Sat 06:00–07:00, 11:00–12:00 and 17:00–19:00 local (winter; 05:00–06:00, 10:00–11:00, 16:00–18:00 UTC in summer) plus Sundays and holidays: several operations are banned, including noise category A and B and multi-engine aircraft (see AD 2.20). APU at most 15 min before departure and 10 min after arrival.",
+   "src": "ch-aip-lsgs-2024",
+   "quote": "a MAX of 15 MIN prior to ACFT DEP"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "deicing"
+ ],
+ "notes": "Read AIP Switzerland AD 2 LSGS, AMDT 006/2024 effective 13 Jun 2024, as hosted on the Sion airport site: an older edition, not the AIRAC in force; the current Swiss AIP (skybriefing) was not opened. Customs hours above are the winter opening hours (latest 20:00 local, earlier at sunset). The AD 2.20 noise windows need checking against the current AIP: the pilot-info page and AIP text differ in wording.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

@@ -1,0 +1,56 @@
+{
+ "icao": "GCLP",
+ "iata": null,
+ "name": "Gran Canaria Airport",
+ "city": "Gran Canaria",
+ "country": "ES",
+ "tz": "Atlantic/Canary",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Two parallel runways: 03L/21R 3,100 m × 45 m and 03R/21L 3,099 m × 45 m",
+   "longest_m": 3100,
+   "src": "es-aip-gclp",
+   "quote": "Runway designators do not correspond to the magnetic orientations."
+  },
+  "hours": {
+   "v": "Airport, ATS, fuel and handling 24 hours; no de-icing",
+   "src": "es-aip-gclp",
+   "quote": "H24 (1)."
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours",
+   "h24": true,
+   "src": "es-aip-gclp",
+   "quote": "H24."
+  },
+  "handling": {
+   "v": "All flights must have an authorised ground handling agent",
+   "src": "es-aip-gclp",
+   "quote": "All flights authorized to operate at the airport must have engaged an authorized ground Handling Agent,"
+  },
+  "ppr": {
+   "v": "Code F aircraft (A380/B747-8 size) need prior authorisation",
+   "src": "es-aip-gclp",
+   "quote": "The arrival or stop over of code letter F aircraft is not authorised if it has not received prior authorisation"
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas",
+   "src": "es-aip-gclp",
+   "quote": "CIV: JET A-1, AVGAS."
+  },
+  "noise": {
+   "v": "Engine run-ups only 06:00–23:00; at night only on prior request",
+   "src": "es-aip-gclp",
+   "quote": "Run-up testing will only be authorized between 06:00 and 23:00 hours at the TWY cleared by TWR:"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots"
+ ],
+ "notes": "Read AIP España AD 2-GCLP (HTML, page shows WEF 01 Oct 2026). H24, no night curfew stated. Winter parking limit: 'No new overnight stays requested as from 1 October are authorized for arrivals between 10:00 and 19:00 UTC, for both general aviation and commercial flights' (Friday-Saturday and Saturday-Sunday nights; no end date given). Check parking with the handler before quoting a weekend night-stop. Runway quote is the AD 2.12 remark; dimensions read from the table (3100 x 45). Slot rules not found in the part read."
+}

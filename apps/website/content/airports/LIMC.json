@@ -1,0 +1,35 @@
+{
+ "icao": "LIMC",
+ "iata": null,
+ "name": "Milan Malpensa Airport",
+ "city": "Milan",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "status": "partial",
+ "rules": {
+  "runway": {
+   "v": "Two parallel runways, 17L/35R and 17R/35L, each 3,920 m × 60 m, asphalt",
+   "longest_m": 3920,
+   "src": "limc-operator-techdata",
+   "quote": "3920 x 60"
+  },
+  "hours": {
+   "v": "Open 24 hours. Nightly runway closures for ground-light maintenance: 35R/17L 01:00–02:00 local (00:00–01:00 UTC), 35L/17R 02:00–03:00 local (01:00–02:00 UTC).",
+   "src": "limc-operator-tech",
+   "quote": "Operational hours: H24"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise"
+ ],
+ "notes": "Read SEA's Malpensa data sheet and technical data pages. ENAV AIP not opened (registration). H24 is stated, but the source does not say there are no night restrictions, so curfew is left missing. Customs hours and the Prime business-aviation terminal were not confirmed from an official page.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

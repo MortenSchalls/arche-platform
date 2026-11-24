@@ -1,0 +1,26 @@
+{
+ "icao": "LFBD",
+ "iata": null,
+ "name": "Bordeaux-Mérignac",
+ "city": "Bordeaux",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-25",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "noise",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "No current-edition official AD 2 page could be read. Tried: SIA eAIP_01_OCT_2026 Atlas-VAC AD-2.LFBD.pdf (site error); SIA documents/download/f/d/15070540 (empty when parsed). A French military MIAC 1 copy (DIRCAM, miac1_bordeaux_lfbd.pdf) opened but its AD 2 pages are dated 20 Feb 2025 and 12 Jun 2025 (not the edition in force, and not a civil source), so nothing was recorded from it. For reference only: it shows runways 05/23 3100 x 45 m and 11/29 2415 x 45 m, aerodrome, customs and ATS H24; confirm against the current SIA AD 2 before use."
+}

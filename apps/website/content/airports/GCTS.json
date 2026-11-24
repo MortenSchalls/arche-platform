@@ -1,0 +1,52 @@
+{
+ "icao": "GCTS",
+ "iata": null,
+ "name": "Tenerife Sur Airport",
+ "city": "Tenerife",
+ "country": "ES",
+ "tz": "Atlantic/Canary",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 07/25, 3,200 m × 45 m",
+   "longest_m": 3200,
+   "src": "es-aip-gcts",
+   "quote": "3200 x 45"
+  },
+  "hours": {
+   "v": "Airport 24 hours; ATS, fuel and handling during airport hours",
+   "src": "es-aip-gcts",
+   "quote": "H24."
+  },
+  "customs": {
+   "v": "Customs and immigration during airport hours (airport is H24)",
+   "h24": true,
+   "src": "es-aip-gcts",
+   "quote": "HR AD."
+  },
+  "handling": {
+   "v": "Handling agent mandatory for all general and business aviation",
+   "src": "es-aip-gcts",
+   "quote": "It is mandatory to have a handling agent for all General and Business Aviation operations."
+  },
+  "fuel": {
+   "v": "Jet A-1 only",
+   "src": "es-aip-gcts",
+   "quote": "JET A-1."
+  },
+  "noise": {
+   "v": "Night is 23:00–07:00 local; no test or training flights at night for code C or larger",
+   "src": "es-aip-gcts",
+   "quote": "VFR or IFR test or training flights are forbidden at night time for aircraft with code letter C or higher."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr"
+ ],
+ "notes": "The current AD 2-GCTS page could not be opened (fetch blocked); read the ENAIRE amendment 410/2026 pages for AD 2-GCTS (dated 03 Sep 2026, no effective date shown), so recheck the edition. H24, no night curfew stated. Avgas not listed."
+}

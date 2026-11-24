@@ -1,0 +1,31 @@
+{
+ "icao": "LIRF",
+ "iata": null,
+ "name": "Rome Fiumicino Leonardo da Vinci Airport",
+ "city": "Rome",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "status": "partial",
+ "rules": {
+  "permits": {
+   "v": "ADR states the airport accepts general aviation (including company/executive travel and air taxi) subject to the limits in AIP AD 2; ADR's general-aviation category excludes scheduled, charter and cargo commercial transport.",
+   "src": "lirf-operator-runway-safety",
+   "quote": "General Aviation activities do not include scheduled, charter or cargo commercial transport."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise"
+ ],
+ "notes": "ENAV AIP Italia not opened (registration required; ADR's own page says the same). ADR pages read gave no runway, hours or customs figures. Only ADR's general-aviation acceptance text was found. Check AIP AD 2 LIRF and NOTAM before quoting.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

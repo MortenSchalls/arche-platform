@@ -1,0 +1,54 @@
+{
+ "icao": "LFMT",
+ "iata": null,
+ "name": "Montpellier-Méditerranée",
+ "city": "Montpellier",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Main runway 12L/30R 2,600 m x 45 m; secondary 12R/30L 1,100 m x 30 m (not lit).",
+   "longest_m": 2600,
+   "src": "lfmt-operator-pilot",
+   "quote": "DIMENSIONS : 2600 x 45"
+  },
+  "customs": {
+   "v": "Customs and immigration 06:00-22:00 local (05:00-21:00 UTC winter), from the 2025 AIP copy.",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:00",
+     "22:00"
+    ]
+   ],
+   "src": "fr-miac-lfmt",
+   "quote": "0500-2100"
+  },
+  "hours": {
+   "v": "ATS 24 hours (2025 AIP copy).",
+   "src": "fr-miac-lfmt",
+   "quote": "H24"
+  },
+  "handling": {
+   "v": "Handling mandatory for aircraft over 6 t.",
+   "src": "lfmt-operator-ba",
+   "quote": "Assistance is mandatory for aircraft over 6 tons"
+  },
+  "fuel": {
+   "v": "100LL and Jet A1 (2025 AIP copy).",
+   "src": "fr-miac-lfmt",
+   "quote": "Carburants/Fuel grades : 100LL, JET A1 (CIV-MIL)"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "current-edition AD 2 text"
+ ],
+ "notes": "Current AIP AD 2 LFMT could not be opened. Runway and handling from the airport operator's pages (2026, which say they are for information only); customs, ATS and fuel from the DIRCAM copy of the AIP (pages up to AIRAC 04/25, 17 Apr 2025). No night ban found in the source read; only night training limits. Recheck customs hours in the current AIP."
+}

@@ -1,0 +1,25 @@
+{
+ "icao": "NVVV",
+ "iata": null,
+ "name": "Port Vila Bauerfield International Airport",
+ "city": "Port Vila",
+ "country": "VU",
+ "tz": "Pacific/Efate",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-25",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "fuel",
+  "handling",
+  "ppr",
+  "slots",
+  "noise"
+ ],
+ "notes": "No official source found. Searched for the Vanuatu AIP AD 2 NVVV, a Civil Aviation Authority of Vanuatu AIP download and the Airports Vanuatu Ltd website: only a Scribd copy, Wikipedia, trip-support and data sites came up, which are not allowed sources. Nothing was recorded. Ask the operator or the handler to confirm everything from the current Vanuatu AIP and NOTAMs."
+}

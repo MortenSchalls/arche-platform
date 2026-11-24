@@ -1,0 +1,66 @@
+{
+ "icao": "LFPN",
+ "iata": null,
+ "name": "Paris Saclay Versailles (Toussus-le-Noble)",
+ "city": "Paris",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Two runways: 07L/25R 1,100 m x 30 m, 07R/25L 1,050 m x 30 m.",
+   "longest_m": 1100,
+   "src": "fr-aip-lfpn",
+   "quote": "1100 x 30"
+  },
+  "curfew": {
+   "v": "Closed to all traffic 22:30-06:00 local (21:30-05:00 UTC in winter; same local time in summer). Also closed Sundays and holidays 1 Apr-30 Sep, 12:00-15:00 local, except medevac.",
+   "windows_local": [
+    [
+     "22:30",
+     "06:00"
+    ]
+   ],
+   "src": "fr-aip-lfpn",
+   "quote": "Aérodrome interdit à tout trafic de 2130-0500 (ETE - 1 HR)."
+  },
+  "customs": {
+   "v": "No flights to or from outside Schengen. Schengen flights only, within customs allowances.",
+   "h24": false,
+   "src": "fr-aip-lfpn",
+   "quote": "VOLS EXTRA SCHENGEN : interdits."
+  },
+  "hours": {
+   "v": "Tower 07:00-22:00 local (06:00-21:00 UTC winter). Outside these hours closed to visiting VFR and IFR aircraft unless DSAC Nord allows it.",
+   "src": "fr-aip-lfpn",
+   "quote": "TWR : 0600-2100."
+  },
+  "max_aircraft": {
+   "v": "Closed to aircraft over 12 t MTOW. Jets under IFR must meet noise chapter 3 or 4.",
+   "src": "fr-aip-lfpn",
+   "quote": "AD interdit aux ACFT dont la masse au décollage est supérieure à 12 t."
+  },
+  "fuel": {
+   "v": "100LL, Jet A1, Jet SAF, UL Aero Super+. Fuel 07:00-21:00 local (06:00-20:00 UTC winter), to 22:00 local on 4 h notice.",
+   "src": "fr-aip-lfpn",
+   "quote": "Carburants : 100 LL - JET A1 - JET SAF - UL AERO SUPER +"
+  },
+  "handling": {
+   "v": "Commercial assistance listed: Clean Aero Service, Air Affaires Assistance.",
+   "names": [
+    "CLEAN AERO SERVICE",
+    "AIR AFFAIRES ASSISTANCE"
+   ],
+   "src": "fr-aip-lfpn",
+   "quote": "CLEAN AERO SERVICE"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr"
+ ],
+ "notes": "Read AIP France AD 2 LFPN in the eAIP of 29 Oct 2026 (page valid from 01 Oct 2026). The AIP now names it Paris Saclay Versailles. Only light jets: 12 t MTOW limit, runways 1,100 m, no non-Schengen flights, no de-icing. AIP times are UTC in winter and one hour earlier in summer, so local times stay the same."
+}

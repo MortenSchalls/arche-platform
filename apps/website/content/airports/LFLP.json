@@ -1,0 +1,63 @@
+{
+ "icao": "LFLP",
+ "iata": null,
+ "name": "Annecy Mont-Blanc",
+ "city": "Annecy",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Paved runway 04/22, 1,630 m × 30 m (plus a grass strip 04R/22L 845 m × 60 m)",
+   "longest_m": 1630,
+   "src": "fr-aip-lflp",
+   "quote": "revêtue / paved 04 038.60 (036) 1630 x 30"
+  },
+  "hours": {
+   "v": "Aerodrome operator 08:00–19:00 local (0700-1800 UTC winter, 0600-1700 UTC summer). ATC 09:00–19:00 local (0800-1800 UTC winter); approach procedures not allowed outside ATS hours.",
+   "src": "fr-aip-lflp",
+   "quote": "1 Gestionnaire de l'AD / AD administration 0700-1800"
+  },
+  "customs": {
+   "v": "International flights allowed 08:00–20:00 local (0700-1900 UTC winter, 0600-1800 UTC summer), on conditions, with 24 h prior permission from the aerodrome operator",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "20:00"
+    ]
+   ],
+   "src": "fr-aip-lflp",
+   "quote": "INTERNATIONAL FLIGHTS AUTHORIZED 0700-1900"
+  },
+  "ppr": {
+   "v": "Prior permission 24 hours ahead from the aerodrome operator for international flights",
+   "src": "fr-aip-lflp",
+   "quote": "1 - PPR PN 24 HR from AD operator."
+  },
+  "handling": {
+   "v": "Handling must be requested on the MyHandling portal for any aircraft of 3 t or more, and for any aircraft at weekends from 1 Dec to 1 Apr",
+   "src": "fr-aip-lflp",
+   "quote": "any aircraft weighing more than 3t or more, for any aircraft over a WE from 1st of December till 1st of April."
+  },
+  "fuel": {
+   "v": "Fuelling 08:00–19:00 local (0700-1800 UTC winter); 100LL and Jet A1",
+   "src": "fr-aip-lflp",
+   "quote": "8 Avitaillement / Fueling 0700-1800"
+  },
+  "deicing": {
+   "v": "De-icing on request, 45 minutes' notice",
+   "src": "fr-aip-lflp",
+   "quote": "11 Dégivrage / De-icing Sur demande PN 45 minutes. On request PN 45 minutes."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "noise"
+ ],
+ "notes": "Read the SIA eAIP AD 2 LFLP PDF in the 29 Oct 2026 set (pages AIRAC AMDT 08/26, 06 Aug 2026). French AIP times are UTC in winter and one hour earlier in summer, so the local times above hold all year. No night ban is stated; the aerodrome is simply closed outside its hours. Short runway (1,630 m): heavy jets limited; commercial aircraft and those needing over 1,200 m take-off have special operating requirements and crew training (simulator or on-site for night/low ceiling). Winter weekend arrivals run under a COHOR facilitation scheme (AD 2.23, not quoted here, check before winter weekend trips)."
+}

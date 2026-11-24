@@ -1,0 +1,73 @@
+{
+ "icao": "LOWI",
+ "iata": null,
+ "name": "Innsbruck Airport",
+ "city": "Innsbruck",
+ "country": "AT",
+ "tz": "Europe/Vienna",
+ "status": "partial",
+ "rules": {
+  "hours": {
+   "v": "Operating hours 06:30–20:00 local daily",
+   "src": "lowi-operator-hours",
+   "quote": "The daily operating hours of Innsbruck Airport are from 06:30 local time to 20:00 local time."
+  },
+  "curfew": {
+   "v": "Closed 20:00–06:30 local. Exceptions for commercial flights: quiet props/turboprops (no louder than a Dash 8) 06:00–23:00, landings only 22:00–23:00; jets with landing noise below a Dash 8 may land 20:00–23:00. Dated extensions are listed by the airport.",
+   "windows_local": [
+    [
+     "20:00",
+     "06:30"
+    ]
+   ],
+   "src": "lowi-operator-hours",
+   "quote": "landings are permitted between 20:00 and 23:00 local time"
+  },
+  "customs": {
+   "v": "Border control during operating hours, only needed for non-Schengen flights; tell the GAC in advance if customs is needed",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:30",
+     "20:00"
+    ]
+   ],
+   "src": "lowi-operator-faq-gac",
+   "quote": "Border control: available during operating hours (only needed for non-Schengen flights)"
+  },
+  "slots": {
+   "v": "Slots required on Saturdays and Sundays in the winter season, and on 2 and 9 January",
+   "src": "lowi-operator-faq-gac",
+   "quote": "Slots: Required on day 6+7 during winter season and on 02+09 JAN only"
+  },
+  "ppr": {
+   "v": "No PPR needed",
+   "src": "lowi-operator-faq-gac",
+   "quote": "PPR: not needed"
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas via Air BP; pay by BP card, fuel release or cash only, no credit cards",
+   "src": "lowi-operator-faq-gac",
+   "quote": "Payment only with BP card, fuel release or cash – no credit card!"
+  },
+  "deicing": {
+   "v": "De-icing/anti-icing available, type 1 and 2",
+   "src": "lowi-operator-faq-gac",
+   "quote": "de-icing/anti-icing: available (type 1 and 2)"
+  },
+  "permits": {
+   "v": "Crew training needed before first use of the instrument approaches below 3,000 ft weather, and for any special approach or departure procedure",
+   "src": "lowi-operator-pilots",
+   "quote": "is required before first use of the instrument approach procedures in weather conditions of less than 3000 FT"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "handling",
+  "noise"
+ ],
+ "notes": "Austro Control eAIP not opened: the request to eaip.austrocontrol.at was blocked (permission not granted in this run). Read Innsbruck Airport's operating-hours page, GAC FAQ PDF (undated) and pilots-information page. Runway length not confirmed from a source read here. Winter weekend slots and the special-procedure crew training are the key planning points.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

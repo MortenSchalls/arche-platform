@@ -1,0 +1,44 @@
+{
+ "icao": "NZWN",
+ "iata": null,
+ "name": "Wellington International Airport",
+ "city": "Wellington",
+ "country": "NZ",
+ "tz": "Pacific/Auckland",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "curfew": {
+   "v": "Curfew 00:00–06:00 local for domestic flights and international departures; 01:00–06:00 local for international arrivals (11:00–17:00 / 12:00–17:00 UTC in NZDT summer). 30 minutes extra for unforeseen delays; curfew starts 60 minutes later in statutory holiday periods. Exempt: emergencies, medevac, Civil Defence, planned alternates (may not depart until curfew ends), heads of state and senior dignitaries.",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "src": "nzwn-operator-curfew",
+   "quote": "From 12am midnight to 6am ... From 1am to 6am"
+  },
+  "customs": {
+   "v": "Wellington is a Customs Place and MPI Place of First Arrival. Arrival must be in working hours; outside working hours needs approval at least 5 working days ahead. Passenger details to Customs at least 3 hours before departure. Working hours are not stated.",
+   "h24": false,
+   "src": "nz-customs-private",
+   "quote": "If you are arriving outside of working hours, you must get approval at least 5 working days in advance."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "hours",
+  "fuel",
+  "handling",
+  "ppr",
+  "slots",
+  "noise",
+  "max_aircraft",
+  "deicing",
+  "catering"
+ ],
+ "notes": "AIP New Zealand (aip.net.nz) could not be read: every AD 2 PDF link returns only the site's conditions-of-use page, so no runway or AD 2 data was recorded. Curfew from Wellington Airport's own curfew page; customs from NZ Customs Service private-planes page. Both pages carry no edition date. Short runway for long-range jets: confirm runway length and performance with the operator from the AIP."
+}

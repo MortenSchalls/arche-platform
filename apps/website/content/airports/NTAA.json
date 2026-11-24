@@ -1,0 +1,65 @@
+{
+ "icao": "NTAA",
+ "iata": null,
+ "name": "Tahiti Faa'a International Airport",
+ "city": "Papeete",
+ "country": "PF",
+ "tz": "Pacific/Tahiti",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 04/22, 3,420 m × 45 m, bituminous.",
+   "longest_m": 3420,
+   "src": "fr-aip-pf-ntaa",
+   "quote": "3420 x 45"
+  },
+  "hours": {
+   "v": "Aerodrome H24. ATC: Mon–Thu 16:30–05:30 UTC, Fri 16:45–06:15, Sat 16:45–07:00, Sun 17:30–06:30 UTC (Mon–Thu about 06:30–19:30 local).",
+   "src": "fr-aip-pf-ntaa",
+   "quote": "Gestionnaire de l'AD / AD administration | H24; ATC SKED : MON-THU : 1630-0530 FRI : 1645-0615 SAT : 1645-0700 SUN : 1730-0630"
+  },
+  "customs": {
+   "v": "Customs and immigration 24 hours.",
+   "h24": true,
+   "src": "fr-aip-pf-ntaa",
+   "quote": "Douanes et police / Customs and immigration | H24"
+  },
+  "handling": {
+   "v": "Handling is mandatory for every aircraft not based in French Polynesia; handling services H24. Agents listed: SOMSTAT (fuel), Air Tahiti Escale Internationale, TASC FBO.",
+   "names": [
+    "SOMSTAT",
+    "Air Tahiti Escale Internationale",
+    "TASC FBO (Tahiti Air Service et Conciergerie)"
+   ],
+   "src": "fr-aip-pf-ntaa",
+   "quote": "Mandatory handling for all ACFT not based in French Polynesia."
+  },
+  "fuel": {
+   "v": "Jet A-1, on request through SOMSTAT.",
+   "src": "fr-aip-pf-ntaa",
+   "quote": "JET A1 (see AD 2 NTAA.3.8 / SOMSTAT)"
+  },
+  "noise": {
+   "v": "No reverse thrust on landing between 05:00 and 16:00 UTC (19:00–06:00 local) unless safety requires it.",
+   "src": "fr-aip-pf-ntaa",
+   "quote": "reverse thrust or reversing of the propeller pitch are not to be used between 0500 and 1600 UTC"
+  },
+  "ppr": {
+   "v": "IFR training needs PPR 1 hour from the ATC manager. Push-back from stands P0–P3 is compulsory with guidance staff.",
+   "src": "fr-aip-pf-ntaa",
+   "quote": "PPR 1 HR from ATC manager"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "permits",
+  "max_aircraft",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read the AIP Polynésie française AD 2 NTAA page from the SIA eAIP of 09 Jul 2026 (AIRAC 2026-07-09), the newest edition found. No 29 Oct 2026 edition could be found or opened, so this may be superseded. The page states no curfew or slot rule. The airport is open H24 with customs H24; handling is compulsory for visiting aircraft."
+}

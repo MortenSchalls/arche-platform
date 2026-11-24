@@ -1,0 +1,51 @@
+{
+ "icao": "NWWW",
+ "iata": null,
+ "name": "Nouméa La Tontouta International Airport",
+ "city": "Nouméa",
+ "country": "NC",
+ "tz": "Pacific/Noumea",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "One runway, 11/29, 3,250 m × 45 m, paved, PCN 61.",
+   "longest_m": 3250,
+   "src": "fr-aip-nc-nwww",
+   "quote": "3250 x 45"
+  },
+  "hours": {
+   "v": "Aerodrome, ATS, fuel and handling H24.",
+   "src": "fr-aip-nc-nwww",
+   "quote": "Gestionnaire de l'AD / AD administration H24"
+  },
+  "customs": {
+   "v": "Police (immigration) H24; customs and biosecurity during the airport's commercial operation (hours not stated).",
+   "h24": false,
+   "src": "fr-aip-nc-nwww",
+   "quote": "Police : H24 - TEL : 35 12 19 ... Customs - TEL: 35 11 72, Biosecurity - TEL duty: 77 19 34: during commercial operation of AD"
+  },
+  "ppr": {
+   "v": "International flights must notify at least 24 hours before expected arrival (stand availability), except urgent flights, preferably by email to the CCI airport operations service and the BRIA.",
+   "src": "fr-aip-nc-nwww",
+   "quote": "international flights: at least 24 hours before their expected arrival, except urgent flights"
+  },
+  "fuel": {
+   "v": "Jet fuel (KER-TR0 / Jet A-1) H24.",
+   "src": "fr-aip-nc-nwww",
+   "quote": "KER-TR0 (CIV-MIL)-JET A1"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "noise",
+  "max_aircraft",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read the AIP Nouvelle-Calédonie AD 2 NWWW page from the SIA eAIP of 15 May 2025 (AIRAC 2025-05-15), the only edition found. It is old and may be superseded, so re-check before quoting. No curfew is stated; the noise section is empty. Give 24 h notice for international arrivals. Customs is tied to commercial operating hours, so a late arrival needs checking with the handler."
+}

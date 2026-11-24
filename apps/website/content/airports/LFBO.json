@@ -1,0 +1,50 @@
+{
+ "icao": "LFBO",
+ "iata": null,
+ "name": "Toulouse-Blagnac",
+ "city": "Toulouse",
+ "country": "FR",
+ "tz": "Europe/Paris",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "customs": {
+   "v": "Customs and police 24 hours",
+   "h24": true,
+   "src": "fr-vac-lfbo",
+   "quote": "9 - Douanes, Police / Customs, Police : H24."
+  },
+  "hours": {
+   "v": "Air traffic services 24 hours",
+   "src": "fr-vac-lfbo",
+   "quote": "2 - ATS : H24"
+  },
+  "handling": {
+   "v": "Ground handling compulsory for all commercial flights and for non-based business and general aviation flights; arrange with a handler before leaving the origin airport. Handlers listed: Air France, Aviapartner, Alyzia Province Toulouse, Jetex.",
+   "names": [
+    "Air France",
+    "Aviapartner",
+    "Alyzia Province Toulouse",
+    "Jetex"
+   ],
+   "src": "fr-vac-lfbo",
+   "quote": "For safety reasons, ground handling is compulsory for all commercial flights, as well as for non-based business and general aviation flights."
+  },
+  "fuel": {
+   "v": "Jet A1 from SASCA and from World Fuel Services",
+   "src": "fr-vac-lfbo",
+   "quote": "Carburants / Fuel : JET A1."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "slots",
+  "ppr",
+  "noise",
+  "deicing"
+ ],
+ "notes": "Read the SIA VAC text page for LFBO in the eAIP 29 Oct 2026 set (page AMDT 11/26). It gives services but no runway lengths; the full AD 2 (FR-AD-2.LFBO) could not be opened, so runway, night restrictions and noise rules are not recorded. Times in the French AIP are UTC in winter, one hour earlier in summer. Training flights are restricted (see AD 2 LFBO.21); the Golf apron is for based aircraft only."
+}

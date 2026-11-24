@@ -1,0 +1,25 @@
+{
+ "icao": "LIRQ",
+ "iata": null,
+ "name": "Florence Airport (Peretola)",
+ "city": "Florence",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "status": "unavailable",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise"
+ ],
+ "notes": "ENAV AIP not opened (registration). Tried the ENAC 2026 service charter (https://www.enac.gov.it/app/uploads/2026/07/Carta-Servizi-Firenze-ITA-2026.pdf): it gives only terminal opening for the public (from 04:00 until the last flight) and phone listings, no runway, aerodrome hours or customs hours. ENAC page https://www.enac.gov.it/node/35315/ holds only obstacle data. No Toscana Aeroporti operator page with aerodrome data was found.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

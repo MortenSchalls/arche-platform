@@ -1,0 +1,36 @@
+{
+ "icao": "EGPH",
+ "iata": null,
+ "name": "Edinburgh Airport",
+ "city": "Edinburgh",
+ "country": "GB",
+ "tz": "Europe/London",
+ "status": "partial",
+ "rules": {
+  "hours": {
+   "v": "Open 24 hours",
+   "src": "egph-operator-airspace",
+   "quote": "Edinburgh Airport is a 24-hour operational airport."
+  },
+  "curfew": {
+   "v": "No night flying restrictions at present (airport says it is reviewing night operations)",
+   "none": true,
+   "src": "egph-operator-airspace",
+   "quote": "There are currently no restrictions on night flying."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise",
+  "deicing"
+ ],
+ "notes": "UK NATS eAIP (nats-uk.ead-it.com) could not be opened in this run (proxy refused the host; WebFetch permission not granted), so no UK AIP AD 2 data was read. Read the airport's own April 2026 airspace transparency report (hosted on the CAA site): open 24 hours, no night flying restrictions, but the airport says it is reviewing night operations. The airport site confirms one runway, 06/24, but gives no length, so runway is listed as missing. Conditions of Use 2026/27 PDF could not be opened.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

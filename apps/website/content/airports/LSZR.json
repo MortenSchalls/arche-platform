@@ -1,0 +1,55 @@
+{
+ "icao": "LSZR",
+ "iata": null,
+ "name": "St. Gallen-Altenrhein Airport",
+ "city": "Altenrhein",
+ "country": "CH",
+ "tz": "Europe/Zurich",
+ "status": "verified",
+ "rules": {
+  "runway": {
+   "v": "Runway 10/28, concrete; TORA 1,455 m, LDA 1,400 m (TODA 1,515 m)",
+   "longest_m": 1455,
+   "src": "lszr-operator-hours",
+   "quote": "TORA 1455m"
+  },
+  "hours": {
+   "v": "IFR: Mon–Fri (incl. holidays) 06:30–12:00 and 13:30–21:00; Sat 07:30–12:00 and 13:30–20:00; Sun 10:00–12:00 and 13:30–20:00 local. Closed New Year's Day, Easter Sunday, Whit Sunday and Christmas Day.",
+   "src": "lszr-operator-hours",
+   "quote": "MON - FRI2) | 06:30 – 12:00 | 13:30 – 21:00"
+  },
+  "curfew": {
+   "v": "Closed outside the hours above, including a midday break 12:00–13:30 every day; extensions on request",
+   "windows_local": [
+    [
+     "21:00",
+     "06:30"
+    ],
+    [
+     "12:00",
+     "13:30"
+    ]
+   ],
+   "approval": true,
+   "src": "lszr-operator-hours",
+   "quote": "1) Extensions on request"
+  },
+  "customs": {
+   "v": "Customs airport with Schengen and non-Schengen immigration; international arrivals and direct departures allowed. Hours not stated.",
+   "h24": false,
+   "src": "lszr-operator-customs",
+   "quote": "international arrivals and direct departures to an international destination are allowed"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise"
+ ],
+ "notes": "Read People's Airport opening-hours and customs pages (no edition date). Swiss AIP not opened. Hours shown are the IFR hours (VFR hours are shorter); Saturday and Sunday close at 20:00. Midday closure 12:00–13:30 matters for scheduling. Short runway (LDA 1,400 m) limits larger jets.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

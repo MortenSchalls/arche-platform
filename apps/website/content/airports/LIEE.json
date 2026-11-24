@@ -1,0 +1,25 @@
+{
+ "icao": "LIEE",
+ "iata": null,
+ "name": "Cagliari Elmas Airport",
+ "city": "Cagliari",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "status": "unavailable",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise"
+ ],
+ "notes": "ENAV AIP not opened (registration). Tried the SOGAER Charter and Service Guide 2025 (https://www.sogaer.it/sites/default/files/CHARTER%20AND%20SERVICE%20GUIDE%202025.pdf): terminal doors 04:30–01:00 only, and Sogaerdyn named as handler for general aviation, no runway, aerodrome hours or customs hours. Not recorded as rules.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

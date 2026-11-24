@@ -1,0 +1,54 @@
+{
+ "icao": "EGJJ",
+ "iata": null,
+ "name": "Jersey Airport",
+ "city": "Jersey",
+ "country": "JE",
+ "tz": "Europe/Jersey",
+ "status": "partial",
+ "rules": {
+  "hours": {
+   "v": "Opens 07:00, closes 21:00 local in winter and 21:30 in summer, every day",
+   "src": "egjj-acl",
+   "quote": "Opens 0700 Local; Closes 2100 Local (Winter) / 2130 Local (Summer)."
+  },
+  "curfew": {
+   "v": "Closed outside opening hours (winter 21:00–07:00, summer 21:30–07:00 local); movements outside hours only in extenuating circumstances and pay out-of-hours dues",
+   "windows_local": [
+    [
+     "21:00",
+     "07:00"
+    ]
+   ],
+   "approval": true,
+   "src": "egjj-operator-tariff",
+   "quote": "For each arrival and each departure outside normal opening hours,"
+  },
+  "ppr": {
+   "v": "Check NOTAM for PPR requirements",
+   "src": "egjj-operator-manual",
+   "quote": "are required to check relevant NOTAM for PPR requirements."
+  },
+  "slots": {
+   "v": "IATA Level 2 (schedules facilitated) per ACL",
+   "src": "egjj-acl",
+   "quote": "IATA Designation"
+  },
+  "noise": {
+   "v": "No engine running or APU from airport close until 06:00 local without the Airport Authority's permission",
+   "src": "egjj-operator-noise",
+   "quote": "not permitted between normal airport close and 0600 local time"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "handling",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "UK NATS eAIP (nats-uk.ead-it.com) could not be opened in this run (proxy refused the host; WebFetch permission not granted), so no UK AIP AD 2 data was read. Read the Ports of Jersey Aerodrome Manual v7.0 (Jul 2025), noise procedure JA-AOP-006 (2022), the 2026 tariff and ACL's Jersey page. Hours are from ACL (the manual says hours are in the UK AIP). The manual's declared-distances table shows RWY 08 TORA 1705 m and RWY 26 TORA 1648 m, but the text could not be quoted word for word, so runway is listed as missing; confirm in the AIP. Out-of-hours dues are very high (the midnight–05:30 band is GBP 11,060 per movement). Customs not covered by the sources read.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

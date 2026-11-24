@@ -1,0 +1,59 @@
+{
+ "icao": "EGHH",
+ "iata": null,
+ "name": "Bournemouth Airport",
+ "city": "Bournemouth",
+ "country": "GB",
+ "tz": "Europe/London",
+ "status": "partial",
+ "rules": {
+  "runway": {
+   "v": "One runway, 08/26, 2,271 m long",
+   "longest_m": 2271,
+   "src": "eghh-operator-nap",
+   "quote": "The Airport's runway is 2,271 metres in length."
+  },
+  "hours": {
+   "v": "Normally open 06:30–21:30 local (changes by NOTAM)",
+   "src": "eghh-operator-aoi31",
+   "quote": "The normal operating hours of the Airport are 06:30 - 21:30."
+  },
+  "curfew": {
+   "v": "Outside 06:30–21:30 local, movements only with prior permission; out-of-hours charge 21:30–06:15; requests for 01:00–06:15 must be in before 21:30 and are not guaranteed",
+   "windows_local": [
+    [
+     "21:30",
+     "06:30"
+    ]
+   ],
+   "approval": true,
+   "src": "eghh-operator-aoi31",
+   "quote": "Outside of the notified operating hours, prior permission is required for all operations."
+  },
+  "ppr": {
+   "v": "PPR for every movement",
+   "src": "eghh-operator-charges",
+   "quote": "All aircraft movements at Bournemouth Airport are subject to Prior Permission Required (PPR)."
+  },
+  "handling": {
+   "v": "All GA aircraft must use an airport-approved handling agent, booked before arrival",
+   "src": "eghh-operator-charges",
+   "quote": "All GA aircraft are required to be handled by a Handling Agent approved by the Airport Company"
+  },
+  "noise": {
+   "v": "QC8 and QC16 aircraft banned at night; night quota budget 23:30–06:00 (3,100 points a year)",
+   "src": "eghh-operator-nap",
+   "quote": "Those aircraft that have a quota count of 8 or 16 are not permitted to operate at night."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "UK NATS eAIP (nats-uk.ead-it.com) could not be opened in this run (proxy refused the host; WebFetch permission not granted), so no UK AIP AD 2 data was read. Read Bournemouth's Noise Action Plan 2024 (runway 2,271 m, night quota), AOI 31 out-of-hours procedure (normal hours 06:30–21:30; header V3.0 Dec 2021, history to V3.3 May 2024) and the Schedule of Charges 2026/27 (PPR for all movements, out-of-hours GBP 1,359 per hour 21:30–06:15, approved handling agent required). Customs not covered by the sources read.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

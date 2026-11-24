@@ -1,0 +1,39 @@
+{
+ "icao": "EGPF",
+ "iata": null,
+ "name": "Glasgow Airport",
+ "city": "Glasgow",
+ "country": "GB",
+ "tz": "Europe/London",
+ "status": "partial",
+ "rules": {
+  "hours": {
+   "v": "Open 24 hours, 365 days",
+   "src": "egpf-operator-airspace",
+   "quote": "The airport is open 24 hours per day, 365 days per year."
+  },
+  "handling": {
+   "v": "Every flight, general aviation included, must use an airport-licensed handling agent (or agree self-handling licence terms)",
+   "src": "egpf-operator-cou",
+   "quote": "This is a requirement for all flights including general aviation, cargo, military and helicopter movements"
+  },
+  "noise": {
+   "v": "Jets not meeting Chapter 3 limits pay a 60% surcharge between 23:30 and 06:00 local; no night quota limits",
+   "src": "egpf-operator-cou",
+   "quote": "between 2330 and 0600 local time – 60%"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "fuel",
+  "deicing"
+ ],
+ "notes": "UK NATS eAIP (nats-uk.ead-it.com) could not be opened in this run (proxy refused the host; WebFetch permission not granted), so no UK AIP AD 2 data was read. Airport's April 2026 transparency report: open 24 hours, single runway 05/23 (no length given), and no night quota limits (not stated as 'no restrictions', so curfew left missing). Conditions of Use from 1 Jan 2026: an airport-licensed handling agent is required for all flights, including GA.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

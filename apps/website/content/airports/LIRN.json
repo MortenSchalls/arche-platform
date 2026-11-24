@@ -1,0 +1,30 @@
+{
+ "icao": "LIRN",
+ "iata": null,
+ "name": "Naples International Airport (Capodichino)",
+ "city": "Naples",
+ "country": "IT",
+ "tz": "Europe/Rome",
+ "status": "partial",
+ "rules": {
+  "noise": {
+   "v": "From 19:00 to 06:00 local, landings use RWY 24 (Casoria side), and night take-offs 23:00–06:00 too, when safe and tailwind is 5 kt or less",
+   "src": "lirn-operator-environment",
+   "quote": "during evening and night hours (19.00 – 06.00), all landings are to be operated from Casoria (RWY24)"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "curfew (operator pages conflict: 23:00-06:00 on one page, 22:30-03:30 in the site footer)"
+ ],
+ "notes": "GESAC Environment page read. Its footer gives a different closure (22:30–03:30, \"except for exceptional flight delays\"); confirm with AIP/NOTAM. ENAC said in Jul 2025 that runway works would start in November 2026, and press reports say the airport is closed for all of November 2026: not confirmed from an official notice, so check NOTAM before any November or early December trip. ENAV AIP not opened (registration). Night closure not recorded as a rule: the operator site states \"normally closed to air traffic from 23:00 to 06:00\" on one page and 22:30-03:30 in its footer; confirm by NOTAM.",
+ "tier": 2,
+ "checked": "2026-11-25"
+}

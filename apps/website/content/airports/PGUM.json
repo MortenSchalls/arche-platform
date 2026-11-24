@@ -1,0 +1,43 @@
+{
+ "icao": "PGUM",
+ "iata": null,
+ "name": "Guam A.B. Won Pat International Airport",
+ "city": "Tamuning",
+ "country": "GU",
+ "tz": "Pacific/Guam",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-25",
+ "rules": {
+  "runway": {
+   "v": "Two runways: 06L/24R 12,014 ft × 150 ft (3,662 m × 46 m); 06R/24L 10,014 ft × 150 ft (3,052 m × 46 m).",
+   "longest_m": 3662,
+   "src": "us-aip-guam",
+   "quote": "2.12.3 True Dimensions: 12014 ft x 150 ft"
+  },
+  "hours": {
+   "v": "Aerodrome attended at all hours.",
+   "src": "us-aip-guam",
+   "quote": "2.3.1 All Months, All Days, All Hours"
+  },
+  "fuel": {
+   "v": "100LL and Jet A-1.",
+   "src": "us-aip-guam",
+   "quote": "2.4.2 Fuel Types: 100LL A1"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "curfew",
+  "handling",
+  "ppr",
+  "slots",
+  "noise",
+  "permits",
+  "max_aircraft",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read the FAA US AIP Part 3 AD 2 Guam page (HTML; no edition or effective date shown on the page). It gives no curfew, PPR or slot rule for PGUM and no customs hours. The airport authority's Guam Customs page lists only a 24-hour duty supervisor phone line, which does not confirm 24-hour clearance. Guam has its own customs (Guam Customs and Quarantine Agency) as well as US CBP immigration: confirm the clearance times with the handler. The FAA Chart Supplement Pacific could not be found as a current official PDF."
+}
