@@ -3,7 +3,7 @@
 // Example data only. Run: node agent.test.mjs
 import { gzipSync } from "zlib";
 import { due, sessionOf } from "./agent.mjs";
-import { plan, importBatch, decode, names, excludedPlace, browserPager } from "./prospectagent.mjs";
+import { plan, importBatch, decode, names, excludedPlace, browserPager, parseRejection, mergeRetry } from "./prospectagent.mjs";
 import { keygen, seal, open } from "./agentcrypt.mjs";
 const ok = (k, v, x) => { console.log((v ? "PASS " : "FAIL ") + k + (v || x === undefined ? "" : "  -> " + JSON.stringify(x).slice(0, 400))); if (!v) process.exitCode = 1; };
 
@@ -238,3 +238,17 @@ ok("weekly: once on Monday, not again in the afternoon", !due({ on: true, freq: 
   const r = await importBatch(db, { focus: "x", orgs: [{ org: "Alpha Example Concierge", kind: "client", website: "https://alpha-example.test/", source: "https://alpha-example.test/gone" }] }, { fetchFn, lists, now: mon9, browser: null });
   const a = Object.values(db.D).find(v => v && v.org === "Alpha Example Concierge");
   ok("own website as the source when the source page does not open", a && a.source === "https://alpha-example.test/", r); }
+
+// second chance for organisations rejected only because a page could not be read (Morten, 24 Nov 2026)
+ok("rejection lines parsed: organisation, service partner at an airport, operator; other reasons never", JSON.stringify(parseRejection("Abdul Example: source page does not open or does not name the organisation")) === '{"org":"Abdul Example","kind":"org"}'
+  && parseRejection("Park Example Vienna (LOWW): source page does not open").icao === "LOWW" && parseRejection("Care Example (operator): source page does not open or does not name the operator").kind === "operator"
+  && parseRejection("Epsilon Example: excluded or sanctioned place (Iran)") === null && parseRejection("Mr John Example: looks like a private person, not an organisation") === null);
+{ let L = mergeRetry([], { failed: [{ org: "Omega Example", kind: "org" }], at: "t1" }); L = mergeRetry(L, { failed: [{ org: "Omega Example", kind: "org" }], at: "t2" });
+  ok("a second failure counts a try; added or known leaves the list; after three more tries it is dropped", L.length === 1 && L[0].tries === 1 && mergeRetry(L, { done: ["Omega Example"] }).length === 0 && mergeRetry(L, { known: ["omega example"] }).length === 0
+    && mergeRetry([{ org: "Old Example", kind: "org", tries: 3 }], { failed: [{ org: "Old Example", kind: "org" }] }).length === 0); }
+{ const db = mk({ ...base, "intel/retry": { items: [{ org: "Retry Example Club", kind: "org", tries: 0 }, { org: "Known Example Travel", kind: "org", tries: 0 }] } });
+  const p = await plan(db, mon9); ok("plan hands the second-chance list back, without names already in the list", p.retry.length === 1 && p.retry[0].org === "Retry Example Club", p.retry);
+  await importBatch(db, { focus: "x", orgs: [{ org: "Gone Example Ltd", kind: "client", source: "https://nowhere-example.test/" }, { org: "Epsilon Example", kind: "client", country: "Iran", source: "https://alpha-example.test/" },
+    { org: "Alpha Example Concierge", kind: "client", website: "https://alpha-example.test/", source: "https://alpha-example.test/about" }] }, { fetchFn, lists, now: mon9, browser: null });
+  const R = db.D["intel/retry"].items.map(x => x.org);
+  ok("import: an unreadable page goes on the list; a sanctioned place never does; an added one is not on it", R.includes("Gone Example Ltd") && R.includes("Retry Example Club") && !R.includes("Epsilon Example") && !R.includes("Alpha Example Concierge"), R); }

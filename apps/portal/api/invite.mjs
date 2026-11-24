@@ -309,6 +309,16 @@ export default async function handler(req, res) {
         const x = { email: u.email.toLowerCase(), name, at: u.created_at, first: u.created_at, sends: [], notInvited: true };
         extra.push(x); out[x.email] = await gather(u, x, pr);
       }
+      // team members too, so the Director can compare everyone's progress in one list (Morten, 24 Nov 2026: "As for
+      // Natalia, I want to se her in the list as the others for comparison reasons"); no reminders, no Send again, no Delete
+      const team = arr((await sb("/rest/v1/profiles?select=id,role,active,contract_name,data&active=eq.true&role=neq.owner")).body);
+      for (const pr of team.slice(0, 60)) {
+        const u = users.find(z => z.id === pr.id); if (!u || !u.email) continue;
+        const em = u.email.toLowerCase(); if (listed.has(em) || extra.some(e => e.email === em)) { if (out[em]) out[em].team = true; continue; }
+        const name = pr.contract_name || ((u.user_metadata || {}).name) || u.email.split("@")[0];
+        const x = { email: em, name, at: u.created_at, first: u.created_at, sends: [], notInvited: true, team: true };
+        extra.push(x); out[x.email] = await gather(u, x, pr);
+      }
       return res.status(200).json({ states: out, people, extra });
     }
 

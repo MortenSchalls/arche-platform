@@ -154,14 +154,15 @@ function obTeamCell(id, p){
 }
 
 /* the package itself */
-function obSigHtml(name, phone, mail){
+// role: the line under the name, the same signature for everyone (Morten, 24 Nov 2026: "ensure all email signatures are equal in all design, layout and wording")
+function obSigHtml(name, phone, mail, role = "INDEPENDENT BROKER"){
   const c = S.company || {}, e = s => esc(s || ""), web = (c.web || "archeaviation.com").replace(/^https?:\/\//, "").replace(/\/$/, "");
   const logo = c.sigLogo || "https://" + web + "/img/arche-email-logo.png";
   const p = "margin:0 0 6px 0";
   return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:'Hanken Grotesk',Helvetica,Arial,sans-serif;color:#2b2e33;max-width:560px">
 <tr><td style="padding:0 0 14px 0"><img src="${e(logo)}" width="120" alt="Archē Executive" style="display:block;border:0;width:120px;height:auto"></td></tr>
 <tr><td style="font-family:Georgia,'Times New Roman',serif;font-size:16px;color:#2b2e33;padding:0 0 2px 0">${e(name) || "[Your name]"}</td></tr>
-<tr><td style="font-size:12px;letter-spacing:.06em;color:#5a6068;padding:0 0 10px 0">INDEPENDENT BROKER &middot; ARCH&#274; EXECUTIVE</td></tr>
+<tr><td style="font-size:12px;letter-spacing:.06em;color:#5a6068;padding:0 0 10px 0">${e(role)} &middot; ARCH&#274; EXECUTIVE</td></tr>
 <tr><td style="border-top:1px solid #c9d1db;padding:10px 0 0 0;font-size:13px;line-height:20px;color:#2b2e33">M&nbsp; <a href="tel:${e((phone || "").replace(/[^+\d]/g, ""))}" style="color:#2b2e33;text-decoration:none">${e(phone) || "[Your direct phone]"}</a><br>E&nbsp; <a href="mailto:${e(mail)}" style="color:#2b2e33;text-decoration:none">${e(mail)}</a><br><a href="https://${e(web)}" style="color:#4d6a8c;text-decoration:none">${e(web)}</a></td></tr>
 <tr><td style="padding:16px 0 0 0;font-size:10px;line-height:14px;color:#5f646b">
 <p style="${p}">${e(c.name || "Arche Aviation Pte. Ltd.")} is registered in Singapore, UEN ${e(c.reg || "202652508N")}, registered office ${e((c.address || "20 Collyer Quay, #09-01, Singapore 049319").replace(/\s*\n\s*/g, ", "))}.</p>

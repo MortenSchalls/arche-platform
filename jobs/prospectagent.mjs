@@ -106,6 +106,25 @@ export function coveredFor(st, rows, S, now = new Date()) {
   const have = st.listSize === AIRPORTS.length ? [] : rows.filter(r => r.data.kind === "service" && S.cats.includes(r.data.category)).flatMap(r => r.data.airports || []);
   return { paused, covered: new Set([...(st.covered || []), ...have]) };
 }
+// ---- second chance (Morten, 24 Nov 2026: "Ensure you run all these so prior companies are added if they pass our
+// screening, so that no companies are left out") ----
+// An organisation rejected only because its page could not be read is not lost: it goes on intel/retry, the plan hands
+// it back to the researcher to find its home page and a page that names it, and the import checks it again like any
+// other. It leaves the list when added, when it turns out to be known, or after three more tries. Nothing else (excluded
+// places, marketplaces, private persons, sanctions) ever gets a second chance.
+export const RETRY_KEY = "intel/retry", RETRY_MAX_TRIES = 3, RETRY_PER_RUN = 40;
+export function parseRejection(line) {
+  const m = String(line || "").match(/^(.*?): (source page does not open[^]*)$/); if (!m) return null;
+  const name = m[1], a = name.match(/^(.*) \(([A-Z0-9]{4})\)$/), o = name.match(/^(.*) \(operator\)$/);
+  return a ? { org: a[1], kind: "service", icao: a[2] } : o ? { org: o[1], kind: "operator" } : { org: name, kind: "org" };
+}
+export function mergeRetry(items, { failed = [], done = [], known = [], at = "" } = {}) {
+  const key = x => normName(x.org) + "|" + (x.icao || ""), map = new Map((items || []).map(x => [key(x), { ...x }]));
+  const gone = new Set([...done, ...known].map(normName));
+  for (const f of failed) { const k = key(f), cur = map.get(k); map.set(k, cur ? { ...cur, tries: (cur.tries || 0) + 1, last: at } : { ...f, first: f.first || at, tries: f.tries || 0, last: at }); }
+  return [...map.values()].filter(x => !gone.has(normName(x.org)) && (x.tries || 0) <= RETRY_MAX_TRIES);
+}
+
 // ---- plan ----
 export async function plan(db, now = new Date()) {
   const agent = (await db.get("intel/agent")) || {}, status = (await db.get("intel/status")) || {};
@@ -131,6 +150,9 @@ export async function plan(db, now = new Date()) {
     profile: mine.filter(r => !r.data.profile && r.data.status !== "dnc").slice(0, LIMITS.profiles).map(r => ({ id: r.id, org: r.data.org, website: r.data.website || "", country: r.data.country || "" })) } : null;
   return { due: isDue, reason: !agent.on ? "The agent is off (Prospects > Research agent)." : isDue ? "Due." : "Not due in this session (morning from 06:00, afternoon from 13:00 Bangkok).", focus: [...new Set(Array.from({ length: FOCUS_PER_RUN }, (_, k) => FOC[(fi + k) % FOC.length]))].join("; "), opFocus: OP_FOCUS[ofi % OP_FOCUS.length],
     limits: LIMITS, segments: SEGMENTS, regions: REGIONS, known: rows.map(r => r.data.org).filter(Boolean), bare, suppliers, investors,
+    // organisations whose pages could not be read before: research each again (home page and a page that names it)
+    retry: (((await db.get(RETRY_KEY)) || {}).items || []).filter(x => !rows.some(r => normName(r.data.org) === normName(x.org))).slice(0, RETRY_PER_RUN)
+      .map(x => ({ org: x.org, kind: x.kind, ...(x.icao ? { icao: x.icao } : {}), tries: x.tries || 0 })),
     // operators from the registries with details still to find (country, website, certificate, fleet), oldest first
     opsToComplete: rows.filter(r => r.data.kind === "operator" && r.data.origin === "registry" && !r.data.completed && r.data.status !== "dnc")
       .sort((a, b) => String(a.data.added || "").localeCompare(String(b.data.added || ""))).slice(0, LIMITS.complete)
@@ -333,6 +355,11 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
     const a2 = (await db.get("intel/agent")) || agent;
     await db.set("intel/agent", { ...a2, state: "done", stateAt: nowIso, last: { at: nowIso, added: added.length + (prevLast.added || 0), operators: opsAdded.length + (prevLast.operators || 0), routes: updated + (prevLast.routes || 0), suppliers: svcAdded.length + (prevLast.suppliers || 0), suppliersLinked: svcMerged + (prevLast.suppliersLinked || 0), investors: batch.investors ? invAdded : null, rejected: rejected.length, held: held.length + invHeld, focus: clean(batch.focus, 160), note: note.slice(0, 600), reasons: rejected.slice(0, 30) } });
   }
+  if (!dry) {
+    const failed = [...rejected, ...svcRejected].map(parseRejection).filter(Boolean);
+    const cur = (await db.get(RETRY_KEY)) || {}, items = mergeRetry(cur.items, { failed, done: [...added, ...opsAdded, ...svcAdded], known: known.map(o => o.org), at: nowIso });
+    await db.set(RETRY_KEY, { items, updated: nowIso });
+  }
   if (browser) await browser.close();
   log(note); rejected.forEach(x => log("  rejected: " + x));
   return { added, known: known.map(o => clean(o.org, 160)), knownRoutes, viaBrowser: P.viaBrowser, operators: opsAdded, updated, suppliers: svcAdded, suppliersLinked: svcMerged, investors: { added: invAdded, profiled: invProfiled, rejected: invRejected, held: invHeld }, rejected, held, note };
@@ -425,6 +452,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     if (mode === "fix") {
       const raw0 = String(process.env.BATCH || "").trim(); if (!raw0.startsWith("S1.")) throw new Error("The clean-up must be sealed.");
       return fixRecords(db, open(raw0, keys.privateKey), { log: console.log, dry: process.env.DRY === "1" });
+    }
+    if (mode === "retry-seed") {
+      // one-off: the organisations rejected before 24 Nov 2026 only because a page could not be read (names from the
+      // import logs), put on the second-chance list
+      const list = decode(String(process.env.BATCH || "").trim()), rows = await db.all("prospects"), cur = (await db.get(RETRY_KEY)) || {};
+      const fresh = (Array.isArray(list) ? list : []).filter(x => x && x.org && !rows.some(r => normName(r.data.org) === normName(x.org)))
+        .map(x => ({ org: clean(x.org, 160), kind: ["org", "service", "operator"].includes(x.kind) ? x.kind : "org", ...(x.icao ? { icao: clean(x.icao, 4) } : {}), first: clean(x.first, 10) }));
+      const items = mergeRetry(cur.items, { failed: fresh.map(x => ({ ...x, tries: -1 })), at: new Date().toISOString() }).map(x => ({ ...x, tries: Math.max(0, x.tries || 0) }));
+      if (process.env.DRY !== "1") await db.set(RETRY_KEY, { items, updated: new Date().toISOString() });
+      return { note: `Second-chance list: ${items.length} organisations (${fresh.length} from the earlier rejections; ${(list || []).length - fresh.length} already in the list).` };
     }
     const raw = String(process.env.BATCH || "").trim();
     const batch = raw.startsWith("S1.") ? open(raw, keys.privateKey) : decode(raw);
