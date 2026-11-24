@@ -200,7 +200,7 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
   const write = async (rec, list) => { next++; const id = "p" + String(next).padStart(3, "0"); if (!dry) await db.set("prospects/" + id, rec); existing.add(normName(rec.org)); if (host(rec.website)) sites.add(host(rec.website)); list.push(rec.org); };
 
   // 1. organisations (clients and referral partners)
-  for (const o of (Array.isArray(batch.orgs) ? batch.orgs : []).slice(0, LIMITS.orgs)) {
+  for (const o of (Array.isArray(batch.orgs) ? batch.orgs : []).slice(0, LIMITS.orgs + RETRY_PER_RUN)) {   // second-chance organisations come on top of the limit
     const why = (o && o.kind !== "client" && o.kind !== "partner") ? "bad kind" : await common(o);
     if (why === "already known") { known.push(o); continue; }
     if (why) { rejected.push(`${clean(o && o.org, 60)}: ${why}`); continue; }
