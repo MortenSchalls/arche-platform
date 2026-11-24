@@ -110,7 +110,7 @@ books alone (AES-256 with `BACKUP_PASSPHRASE`) as the artifact `books-backup-<ru
 5. Run `supabase/migrations/0024_books_auto.sql` after 0023, then `supabase/migrations/0025_books_fee.sql` (account 4000 named the Archē fee, 16 Nov 2026), then `supabase/migrations/0026_books_accounts.sql` (accounting best practice, 16 Nov 2026: Archē is the client's agent, so revenue is the net Archē fee recognised when the trip is flown; client money stays a liability; cost of sales is broker commission, the new 5020 supervisor reward and introducer fees, so Gross profit is revenue less cost of sales, the standard SFRS(I) 1-1 line; 5600 is insurance only, software in 5300).
 6. Optional, for the Wise feed: in Wise Business, Settings, API tokens, create a **read-only** token and put it in
    Vercel as `WISE_TOKEN`.
-7. In Books: add a passkey or the authenticator app, load the budget, set the UEN and year end.
+7. In Books: add a passkey or the authenticator app and load the budget. The company's registered facts are filled in from the ACRA business profile of 16 Nov 2026 (`COMPANY` in `api/_books/handler.mjs`): UEN 202652508N, incorporated 16 Nov 2026, exempt private company, registered office, SSIC 52239 and 70209, share capital SGD 100 (100 ordinary shares, Morten), not GST-registered, financial year end 30 June (incorporation KYC summary), so the first financial year is 16 Nov 2026 to 30 Jun 2027, Year of Assessment 2028, the company's first. Saved settings win over these. Record the share capital payment as an entry when it reaches the company account (launch plan A3).
 
 ## Tests
 `node apps/portal/tests/books.test.mjs` (ledger, tax, advice, CSV, bank, budget, AI facts, passkeys, server gates),

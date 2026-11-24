@@ -85,14 +85,24 @@ async function books() {
   for (const l of lines) { l.jdate = (J[l.journal_id] || {}).jdate; l.debit = +l.debit; l.credit = +l.credit; }
   return { accounts, journal, lines };
 }
-async function settings() { return (await setting("company")) || {}; }
+// the company's registered facts, from the ACRA business profile of 16 Nov 2026 and the incorporation KYC summary
+// (financial year end 30 Jun; Morten, 24 Nov 2026: "update books with company info as well"). What the owners save in
+// Settings wins; these fill only what is still empty. No ID numbers or home addresses.
+export const COMPANY = { uen: "202652508N", incorporated: "2026-11-16", type: "Exempt private company limited by shares",
+  registeredOffice: "20 Collyer Quay, #09-01, Singapore 049319", ssic: "52239 Supporting services to air transport n.e.c. (primary); 70209 Management consultancy services n.e.c. (secondary)",
+  shareCapital: { issued: 100, paidUp: 100, shares: 100, currency: "SGD", type: "Ordinary", holder: "Morten Schalls Joergensen (100 shares)" },
+  fyEnd: "2027-06-30", gstRegistered: false, ya: 2028, yaIndex: 1, source: "ACRA business profile 16 Nov 2026; incorporation KYC summary (financial year end 2027-06-30)" };
+async function settings() { const s = (await setting("company")) || {}, out = { ...COMPANY, ...s };
+  for (const k of ["uen", "fyEnd", "ya"]) if (!s[k]) out[k] = COMPANY[k];
+  return out; }
 function fixStart(fyEnd) { if (!fyEnd) return null; const t = new Date(fyEnd + "T00:00:00Z"); t.setUTCFullYear(t.getUTCFullYear() - 1); t.setUTCDate(t.getUTCDate() + 1); return t.toISOString().slice(0, 10); }
 // the financial year that holds today, from the year end in Settings
 function currentFy(s, today) {
   if (!s.fyEnd) return { start: today.slice(0, 4) + "-01-01", end: today.slice(0, 4) + "-12-31" };
   let end = s.fyEnd; while (end < today) end = C.addMonths(end, 12);
   while (C.addMonths(end, -12) >= today) end = C.addMonths(end, -12);
-  return { start: fixStart(end), end };
+  const start = fixStart(end), inc = s.incorporated || COMPANY.incorporated;
+  return { start: inc && inc > start ? inc : start, end };   // the first financial year starts on the day of incorporation
 }
 
 export default async function handler(req, res) {
@@ -392,7 +402,7 @@ export default async function handler(req, res) {
       await log(me.id, "budget-import", { version, lines: clean.length, source: String(b.source || "").slice(0, 120) }); return res.json({ ok: true, lines: clean.length });
     }
     if (mode === "settings") {
-      if (b.set) { need("settings"); const x = b.set, cur = (await setting("company")) || {};
+      if (b.set) { need("settings"); const x = b.set, cur = await settings();
         const v = { ...cur, fyEnd: /^\d{4}-\d{2}-\d{2}$/.test(x.fyEnd || "") ? x.fyEnd : cur.fyEnd || null, sgdPerUsd: +x.sgdPerUsd > 0 && +x.sgdPerUsd < 10 ? +x.sgdPerUsd : cur.sgdPerUsd || null,
           sgdRateDate: String(x.sgdRateDate || cur.sgdRateDate || "").slice(0, 10), gstRegistered: !!x.gstRegistered, uen: String(x.uen || cur.uen || "").replace(/[^A-Z0-9]/gi, "").slice(0, 12),
           ya: +x.ya || cur.ya || null, yaIndex: Math.min(9, Math.max(1, +x.yaIndex || cur.yaIndex || 1)), aiCapUsd: +x.aiCapUsd >= 0 ? Math.min(100, +x.aiCapUsd) : (cur.aiCapUsd ?? 5) };

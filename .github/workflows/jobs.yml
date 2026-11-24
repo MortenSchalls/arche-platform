@@ -54,8 +54,8 @@ jobs:
       - name: Install
         working-directory: jobs
         run: npm install --no-audit --no-fund
-      - name: Browser for the audit registries
-        if: env.JOB == 'audits'
+      - name: Browser for the audit registries and for research pages that refuse a plain request
+        if: env.JOB == 'audits' || env.JOB == 'agent-import'
         working-directory: jobs
         run: npm install --no-save --no-audit --no-fund playwright@1.56.0 && npx playwright install --with-deps chromium
       - name: PDF reader (Singapore TSOFA list; official AOC lists)
@@ -65,6 +65,7 @@ jobs:
         working-directory: jobs
         run: |
           if [ "$JOB" = "rotation" ] && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then export FORCE=1; fi
+          if [ "$JOB" = "agent-import" ]; then export ARCHE_BROWSER=1; fi
           if [ "$JOB" = "operators-probe" ]; then node operators.mjs probe "$BATCH" "$KEY"; elif [ "$JOB" = "agent-plan" ]; then node prospectagent.mjs plan; elif [ "$JOB" = "agent-import" ]; then node prospectagent.mjs import; elif [ "$JOB" = "agent-report" ]; then node prospectagent.mjs report; elif [ "$JOB" = "agent-fix" ]; then node prospectagent.mjs fix; else node "$JOB.mjs"; fi
       - name: Encrypt backup
         if: env.JOB == 'backup'

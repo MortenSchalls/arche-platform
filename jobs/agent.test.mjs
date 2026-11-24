@@ -2,8 +2,8 @@
 // checks). Schedule, plan, and the import checks with an in-memory database, fake pages and a fake sanctions list.
 // Example data only. Run: node agent.test.mjs
 import { gzipSync } from "zlib";
-import { due } from "./agent.mjs";
-import { plan, importBatch, decode, names, excludedPlace } from "./prospectagent.mjs";
+import { due, sessionOf } from "./agent.mjs";
+import { plan, importBatch, decode, names, excludedPlace, browserPager } from "./prospectagent.mjs";
 import { keygen, seal, open } from "./agentcrypt.mjs";
 const ok = (k, v, x) => { console.log((v ? "PASS " : "FAIL ") + k + (v || x === undefined ? "" : "  -> " + JSON.stringify(x).slice(0, 400))); if (!v) process.exitCode = 1; };
 
@@ -70,7 +70,7 @@ const batch = { focus: "Example focus B",
   ok("organisation with a source page that names it is added, marked as the agent's", !!by("Alpha Example Concierge") && by("Alpha Example Concierge").batch === "Research agent 2026-11-09" && by("Alpha Example Concierge").addedBy === "research agent");
   ok("a source on another site that names the organisation counts", !!by("Beta Example Yachts"));
   ok("a source page that does not name the organisation is rejected", !by("Gamma Example Events") && /does not name/.test(rej("Gamma")), r.rejected);
-  ok("already known is rejected", /already known/.test(rej("Known Example Travel")));
+  ok("already known is not a rejection: it is counted as already in the list", !rej("Known Example Travel") && r.known.includes("Known Example Travel"), r);
   ok("excluded or sanctioned country is rejected", /excluded or sanctioned place/.test(rej("Epsilon")));
   ok("a marketplace as source is rejected", /marketplace/.test(rej("Zeta")));
   ok("a private person is rejected", /private person/.test(rej("Mr John")));
@@ -202,3 +202,39 @@ Object.assign(PAGES, {
   ok("jet operators added with the certificate from the authority's list; airlines and air ambulances left out", r.aocAdded >= 15 && P.some(x => x && x.kind === "operator" && /Netjets/i.test(x.org) && x.ops.aoc.authority === "UK CAA") && !P.some(x => x && /Air Ambulance|Wizz Air/i.test(x.org)), r);
   ok("an operator already listed gets its certificate confirmed, keeping only insurance to confirm", db.D["prospects/p030"].ops.aoc.number === "0851" && !db.D["prospects/p030"].ops.flags.some(f => /certificate and insurance/.test(f)));
   ok("helicopter operators go to the Helicopters section of service partners", r.heliAdded > 0 && P.some(x => x && x.kind === "service" && x.category === "Helicopter transfers" && x.aoc && x.aoc.authority === "UK CAA")); }
+
+// two sessions a day (Morten, 24 Nov 2026): morning from 06:00 and afternoon from 13:00 Bangkok
+ok("sessions: a morning run does not block the afternoon, a second afternoon run is not due", sessionOf("2026-11-09T00:30:00Z") === "2026-11-09am" && sessionOf("2026-11-09T07:00:00Z") === "2026-11-09pm"
+  && due({ on: true }, "2026-11-09T00:30:00Z", new Date("2026-11-09T07:30:00Z")) && !due({ on: true }, "2026-11-09T07:10:00Z", new Date("2026-11-09T09:00:00Z")));
+ok("weekly: once on Monday, not again in the afternoon", !due({ on: true, freq: "weekly" }, "2026-11-09T00:30:00Z", new Date("2026-11-09T07:30:00Z")));
+// the afternoon session gets the next focus areas
+{ const db = mk(base); await importBatch(db, { focus: "x", orgs: [] }, { fetchFn, lists, now: mon9, browser: null }); const f1 = db.D["intel/status"].focusIndex;
+  await importBatch(db, { focus: "x", orgs: [] }, { fetchFn, lists, now: new Date("2026-11-09T03:20:00Z"), browser: null }); const f2 = db.D["intel/status"].focusIndex;
+  await importBatch(db, { focus: "x", orgs: [] }, { fetchFn, lists, now: new Date("2026-11-09T07:30:00Z"), browser: null }); const f3 = db.D["intel/status"].focusIndex;
+  ok("focus moves on once per session (two batches in the morning keep it; the afternoon moves it)", f1 === f2 && f3 > f2, [f1, f2, f3]); }
+// already known: its contact routes go to the existing record when it has none, checked like any other route
+{ const db = mk(base);
+  const r = await importBatch(db, { focus: "x", orgs: [{ org: "Known Example Travel", kind: "client", website: "https://known-example.test", source: "https://known-example.test/contact",
+    avenues: [{ type: "contact", label: "Contact", url: "https://known-example.test/contact" }] }] }, { fetchFn, lists, now: mon9, browser: null });
+  ok("already known: routes added to the existing record, nothing new written, no rejection", db.D["prospects/p007"].avenues.length === 1 && r.knownRoutes === 1 && !r.rejected.length && !r.added.length, r); }
+// a real browser for pages that refuse the plain request; the page must still name the organisation; robot checks are never passed
+{ const BROWSER = { "https://blocked-example.test/about": "Omega Example Holdings is a family business in Riyadh. ".repeat(6),
+    "https://blocked-example.test/other": "Nothing about them here at all, only another company. ".repeat(6),
+    "https://challenge-example.test/": "Just a moment... Checking your browser before accessing the site." };
+  const fakeLaunch = async () => ({ newContext: async () => ({ newPage: async () => { let url = ""; return { goto: async u => { url = u; return { status: () => (BROWSER[u] ? 200 : 404) }; }, waitForTimeout: async () => {},
+    evaluate: async () => BROWSER[url] || "", close: async () => {} }; } }), close: async () => {} });
+  const br = browserPager({ launch: fakeLaunch, waitMs: 0 });
+  const db = mk(base);
+  const r = await importBatch(db, { focus: "x", orgs: [
+    { org: "Omega Example Holdings", kind: "client", source: "https://blocked-example.test/about" },
+    { org: "Psi Example Group", kind: "client", source: "https://blocked-example.test/other" },
+    { org: "Chi Example Club", kind: "client", source: "https://challenge-example.test/" }] }, { fetchFn, lists, now: mon9, browser: br });
+  const P = Object.values(db.D).map(v => v && v.org);
+  ok("a page that refuses the plain request is read in the browser and the organisation added", P.includes("Omega Example Holdings") && r.viaBrowser >= 1, r);
+  ok("in the browser too, a page that does not name the organisation is rejected", !P.includes("Psi Example Group") && r.rejected.some(x => x.startsWith("Psi")));
+  ok("a robot check is never worked around: rejected", !P.includes("Chi Example Club") && r.rejected.some(x => x.startsWith("Chi"))); }
+// the organisation's own website stands in for a source page that cannot be read, if the website names it
+{ const db = mk(base);
+  const r = await importBatch(db, { focus: "x", orgs: [{ org: "Alpha Example Concierge", kind: "client", website: "https://alpha-example.test/", source: "https://alpha-example.test/gone" }] }, { fetchFn, lists, now: mon9, browser: null });
+  const a = Object.values(db.D).find(v => v && v.org === "Alpha Example Concierge");
+  ok("own website as the source when the source page does not open", a && a.source === "https://alpha-example.test/", r); }

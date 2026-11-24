@@ -25,7 +25,7 @@ import { gunzipSync } from "zlib";
 import { connect } from "./lib/db.mjs";
 import { loadLists, screen } from "./lib/sanctions.mjs";
 import { vetContacts } from "./lib/contacts.mjs";
-import { due } from "./agent.mjs";
+import { due, sessionOf } from "./agent.mjs";
 import { FOCUS, OP_FOCUS, SEGMENTS, REGIONS, SANCTIONED, MARKETPLACES, normName, normUrl, host, vetAvenues, vetOperator } from "./intel.mjs";
 import { TRACKS, FOR, INV_FOCUS, INTERESTS, TICKETS, GEOS, vetInvestor, vetProfile, fitScore } from "./investors.mjs";
 import { CORE, SETS, AIRPORTS, GUEST_CATS, vetService } from "./services.mjs";
@@ -63,11 +63,40 @@ export function names(text, org, website) {
   if (words.length && words.every(w => text.includes(w))) return true;
   const h = host(website); return !!h && text.includes(h.split(".")[0]) && words.some(w => text.includes(w));
 }
-// pages are fetched once each; `seen` collects every address that opened and showed what it had to show
-function pager(fetchFn) {
-  const cache = new Map();
-  const get = async u => { const k = normUrl(u); if (!k) return null; if (!cache.has(k)) cache.set(k, await fetchPage(u, fetchFn)); return cache.get(k); };
-  return { get, cache };
+// A real browser for pages that refuse the plain request (Morten, 24 Nov 2026: "find a way to ensure the prospects are
+// real and as well that Arche can get through filters"): many real organisations' sites answer an automated request
+// with 403 or an empty shell that only fills in with scripts. The page is then opened once in Chromium, as a visitor's
+// browser would, and must still open and name the organisation; nothing else is relaxed. A page that shows a robot
+// check (captcha, "verify you are human") is never solved or worked around: it stays "does not open".
+const CHALLENGE = /captcha|verify (that )?you are (a )?human|are you a robot|checking your browser|just a moment\.\.\.|attention required|access denied|request blocked|unusual traffic/;
+export function browserPager({ launch, waitMs = 2500, max = 120 } = {}) {
+  let b = null, ctx = null, used = 0, failed = false;
+  const read = async url => {
+    if (failed || used >= max) return null;
+    try { const u = new URL(url); if (!/^https?:$/.test(u.protocol)) return null;
+      if (!b) { b = await launch(); ctx = await b.newContext({ locale: "en-US", viewport: { width: 1366, height: 900 } }); }
+      used++; const pg = await ctx.newPage();
+      try { const r = await pg.goto(u.href, { waitUntil: "domcontentloaded", timeout: 30000 }); if (r && r.status() >= 400) return null;
+        await pg.waitForTimeout(waitMs); const t = String(await pg.evaluate(() => (document.title || "") + " " + (document.body ? document.body.innerText : ""))).replace(/\s+/g, " ").toLowerCase();
+        if (t.length < 200 && CHALLENGE.test(t)) return null; if (CHALLENGE.test(t.slice(0, 400)) && t.length < 1500) return null;
+        return t.length > 40 ? t : null; }
+      finally { await pg.close().catch(() => {}); }
+    } catch (e) { if (!b) failed = true; return null; }
+  };
+  return { read, close: async () => { if (b) await b.close().catch(() => {}); }, get used() { return used; } };
+}
+async function defaultBrowser() {
+  if (process.env.ARCHE_BROWSER !== "1") return null;
+  try { const pw = await import("playwright"); return browserPager({ launch: () => pw.chromium.launch() }); } catch { return null; }
+}
+// pages are fetched once each; `seen` collects every address that opened and showed what it had to show; a page the
+// plain request cannot read is tried once in the browser, if one is available
+function pager(fetchFn, browser = null) {
+  const cache = new Map(); let viaBrowser = 0;
+  const get = async u => { const k = normUrl(u); if (!k) return null;
+    if (!cache.has(k)) { let t = await fetchPage(u, fetchFn); if ((!t || t.length < 200) && browser) { const b = await browser.read(u); if (b) { t = b; viaBrowser++; } } cache.set(k, t); }
+    return cache.get(k); };
+  return { get, cache, get viaBrowser() { return viaBrowser; } };
 }
 
 // supplier airports already done for a set: its progress record, plus (until the whole list has been covered once) every
@@ -100,7 +129,7 @@ export async function plan(db, now = new Date()) {
     focus: INV_FOCUS[(Number.isInteger(inv.focusIndex) ? inv.focusIndex : 0) % INV_FOCUS.length], tracks: TRACKS, for: FOR, interests: INTERESTS, tickets: TICKETS, geos: GEOS,
     known: [...mine.map(r => r.data.org), ...rows.map(r => r.data.org)].filter(Boolean),
     profile: mine.filter(r => !r.data.profile && r.data.status !== "dnc").slice(0, LIMITS.profiles).map(r => ({ id: r.id, org: r.data.org, website: r.data.website || "", country: r.data.country || "" })) } : null;
-  return { due: isDue, reason: !agent.on ? "The agent is off (Prospects > Research agent)." : isDue ? "Due." : "Not due today.", focus: [...new Set(Array.from({ length: FOCUS_PER_RUN }, (_, k) => FOC[(fi + k) % FOC.length]))].join("; "), opFocus: OP_FOCUS[ofi % OP_FOCUS.length],
+  return { due: isDue, reason: !agent.on ? "The agent is off (Prospects > Research agent)." : isDue ? "Due." : "Not due in this session (morning from 06:00, afternoon from 13:00 Bangkok).", focus: [...new Set(Array.from({ length: FOCUS_PER_RUN }, (_, k) => FOC[(fi + k) % FOC.length]))].join("; "), opFocus: OP_FOCUS[ofi % OP_FOCUS.length],
     limits: LIMITS, segments: SEGMENTS, regions: REGIONS, known: rows.map(r => r.data.org).filter(Boolean), bare, suppliers, investors,
     // operators from the registries with details still to find (country, website, certificate, fleet), oldest first
     opsToComplete: rows.filter(r => r.data.kind === "operator" && r.data.origin === "registry" && !r.data.completed && r.data.status !== "dnc")
@@ -109,14 +138,15 @@ export async function plan(db, now = new Date()) {
 }
 
 // ---- import ----
-export async function importBatch(db, batch, { fetchFn = fetch, lists = null, log = () => {}, dry = false, now = new Date() } = {}) {
+export async function importBatch(db, batch, { fetchFn = fetch, lists = null, log = () => {}, dry = false, now = new Date(), browser } = {}) {
+  if (browser === undefined) browser = await defaultBrowser();
   const nowIso = now.toISOString(), today = nowIso.slice(0, 10);
   const status = (await db.get("intel/status")) || {}, agent = (await db.get("intel/agent")) || {};
   const rows = await db.all("prospects");
   const existing = new Set(rows.map(r => normName(r.data.org))), sites = new Set(rows.map(r => host(r.data.website)).filter(Boolean));
   const optSet = new Set((await db.all("optouts")).map(r => r.id));
   let next = rows.reduce((m, r) => Math.max(m, parseInt(String(r.id).replace(/\D/g, ""), 10) || 0), 0);
-  const P = pager(fetchFn), seen = new Set(), rejected = [], added = [], opsAdded = [], held = [];
+  const P = pager(fetchFn, browser), seen = new Set(), rejected = [], added = [], opsAdded = [], held = [], known = [];
   if (!lists) lists = await loadLists(fetchFn, log);
   const opened = async (u, mustName, org, website) => { const t = await P.get(u); if (!t) return false; if (mustName && !names(t, org, website)) return false; seen.add(normUrl(u)); return true; };
   // every address an avenue or a contact points to: kept only if it opens (or is on the organisation's own site)
@@ -133,7 +163,10 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
     if ([o.source, o.website].some(u => u && MARKETPLACES.test(host(u)))) return "marketplace or broker site used as a source";
     const bad = excludedPlace(o); if (bad) return "excluded or sanctioned place (" + bad + ")";
     if (existing.has(normName(o.org)) || (host(o.website) && sites.has(host(o.website)))) return "already known";
-    if (!(await opened(o.source, true, o.org, o.website))) return "source page does not open or does not name the organisation";
+    if (!(await opened(o.source, true, o.org, o.website))) {
+      // the organisation's own website is the best proof that it exists: it stands in for a source page that cannot be read
+      if (o.website && o.website !== o.source && (await opened(o.website, true, o.org, o.website))) o.source = o.website;
+      else return "source page does not open or does not name the organisation"; }
     if (o.website && !(await opened(o.website, false))) o.website = "";
     return null;
   };
@@ -147,6 +180,7 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
   // 1. organisations (clients and referral partners)
   for (const o of (Array.isArray(batch.orgs) ? batch.orgs : []).slice(0, LIMITS.orgs)) {
     const why = (o && o.kind !== "client" && o.kind !== "partner") ? "bad kind" : await common(o);
+    if (why === "already known") { known.push(o); continue; }
     if (why) { rejected.push(`${clean(o && o.org, 60)}: ${why}`); continue; }
     await openAll(o.avenues, o.website, o.org); await openAll(o.contacts, o.website, o.org, true);
     const rec = { org: clean(o.org, 160), segment: SEGMENTS.includes(o.segment) ? o.segment : "Other", kind: o.kind, region: REGIONS.includes(o.region) ? o.region : "Global",
@@ -185,6 +219,16 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
     if (!dry) await db.set("prospects/" + id, { ...r.data, avenues: av, aiReviewed: nowIso }); updated++;
   }
 
+  // 3a. organisations found again that are already in the list: their contact routes are kept if the record has none,
+  // checked like any other route (Morten, 24 Nov 2026); they are not rejections
+  let knownRoutes = 0;
+  for (const o of known) {
+    const r = rows.find(x => normName(x.data.org) === normName(o.org) || (host(o.website) && host(x.data.website) === host(o.website)));
+    if (!r || (r.data.avenues || []).length || r.data.status === "dnc" || !(o.avenues || []).length) continue;
+    await openAll(o.avenues, r.data.website || o.website, r.data.org);
+    const av = vetAvenues(o.avenues, seen, r.data.website || o.website); if (!av.length) continue;
+    if (!dry) await db.set("prospects/" + r.id, { ...r.data, avenues: av, aiReviewed: nowIso }); r.data.avenues = av; updated++; knownRoutes++;
+  }
   // 3b. registry operators completed: only blank fields are filled, each from a page that opens and names the operator
   let opsCompleted = 0;
   for (const [id, o] of Object.entries(batch.opsComplete || {}).slice(0, LIMITS.complete)) {
@@ -278,19 +322,20 @@ export async function importBatch(db, batch, { fetchFn = fetch, lists = null, lo
   }
   const invNote = batch.investors ? ` Investors and partners (Director-only list): ${invAdded} added, ${invProfiled} profiles, ${invRejected} rejected${invHeld ? ", " + invHeld + " held for your decision" : ""}.` : "";
   const svcNote = (batch.suppliers ? ` Service partners: ${svcAdded.length} added, ${svcMerged} linked to more airports.` : "") + (batch.opsComplete ? ` Registry operators completed: ${opsCompleted}.` : "");
-  const note = `${dry ? "Dry run, nothing written. " : ""}Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${svcNote}${invNote}${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
+  const note = `${dry ? "Dry run, nothing written. " : ""}Research agent: ${added.length} organisations added${added.length ? " (" + added.slice(0, 6).join(", ") + (added.length > 6 ? "…" : "") + ")" : ""}, ${opsAdded.length} operators, contact routes for ${updated} existing; ${rejected.length} rejected by the checks${known.length ? `; ${known.length} already in the list (contact routes added to ${knownRoutes})` : ""}${P.viaBrowser ? `; ${P.viaBrowser} pages read in the browser` : ""}${held.length ? "; held for your decision (possible sanctions match): " + held.join(", ") : ""}.${svcNote}${invNote}${lists.failed.length ? " Sanctions lists not loaded: " + lists.failed.join(", ") + "." : ""}`;
   if (!dry) {
     const fi = Number.isInteger(status.focusIndex) ? status.focusIndex : 0, ofi = Number.isInteger(status.opFocusIndex) ? status.opFocusIndex : 0;
-    // a large run arrives in several batches the same morning: the focus moves on once a day, and the day's counts add up
-    const bkkDay = t => t ? new Date(Date.parse(t) + 7 * 36e5).toISOString().slice(0, 10) : "";
-    const again = bkkDay(status.lastRun) === bkkDay(nowIso), prevLast = again ? ((agent.last || {})) : {};
+    // a large run arrives in several batches in one session: the focus moves on once a session (morning, afternoon),
+    // and the session's counts add up
+    const again = !!status.lastRun && sessionOf(status.lastRun) === sessionOf(nowIso), prevLast = again ? ((agent.last || {})) : {};
     await db.set("intel/status", { ...status, lastRun: nowIso, lastAdded: added.length + (again ? status.lastAdded || 0 : 0), lastUpdated: updated + (again ? status.lastUpdated || 0 : 0), lastOperators: opsAdded.length + (again ? status.lastOperators || 0 : 0), totalProspects: rows.length + added.length + opsAdded.length + svcAdded.length,
       focusIndex: again ? fi : fi + FOCUS_PER_RUN, opFocusIndex: again ? ofi : ofi + 1, note, rejected: rejected.slice(0, 30), by: "research agent" });
     const a2 = (await db.get("intel/agent")) || agent;
     await db.set("intel/agent", { ...a2, state: "done", stateAt: nowIso, last: { at: nowIso, added: added.length + (prevLast.added || 0), operators: opsAdded.length + (prevLast.operators || 0), routes: updated + (prevLast.routes || 0), suppliers: svcAdded.length + (prevLast.suppliers || 0), suppliersLinked: svcMerged + (prevLast.suppliersLinked || 0), investors: batch.investors ? invAdded : null, rejected: rejected.length, held: held.length + invHeld, focus: clean(batch.focus, 160), note: note.slice(0, 600), reasons: rejected.slice(0, 30) } });
   }
+  if (browser) await browser.close();
   log(note); rejected.forEach(x => log("  rejected: " + x));
-  return { added, operators: opsAdded, updated, suppliers: svcAdded, suppliersLinked: svcMerged, investors: { added: invAdded, profiled: invProfiled, rejected: invRejected, held: invHeld }, rejected, held, note };
+  return { added, known: known.map(o => clean(o.org, 160)), knownRoutes, viaBrowser: P.viaBrowser, operators: opsAdded, updated, suppliers: svcAdded, suppliersLinked: svcMerged, investors: { added: invAdded, profiled: invProfiled, rejected: invRejected, held: invHeld }, rejected, held, note };
 }
 
 // one-off clean-up of supplier records (Morten, 9 Nov 2026): merge duplicates into one record per company with all its

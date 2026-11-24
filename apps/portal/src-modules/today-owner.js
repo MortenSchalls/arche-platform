@@ -119,7 +119,7 @@ const OWNER_TODO = [
     why:"The external academy is sold to outside brokers; nobody gets in until they have paid by card (Morten, 26 Oct 2026).",
     how:"Decide the price and the card payment provider (to be agreed; for example a card checkout such as Stripe). Claude then builds sign-up, card payment and access that opens only after payment, with receipts and refunds handled by the provider; no card details ever touch the portal."},
   {id:"research", sev:"low", title:"Switch on the research agent (when you want new prospects)", later:true,
-    why:"New prospects come from the research agent: a Claude scheduled task every morning, no AI key and no AI bill; every finding is checked before it goes in.",
+    why:"New prospects come from the research agent: a Claude scheduled task twice a day, morning and afternoon, no AI key and no AI bill; every finding is checked before it goes in.",
     how:"Prospects > Research agent: tick Agent on, choose how often and the focus areas, and press Save settings."},
   {id:"launch", sev:"low", due:"2026-12-01", title:"Launch day: make the website public", later:true,
     why:"archeaviation.com stays behind Vercel's login until you switch it on.",
