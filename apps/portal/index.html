@@ -6520,6 +6520,22 @@ const ASK_INFO = {
   questions: ["Engagement and expectations.", "Asks about supervision, the first six months, how commission is counted and paid, training and support.", "No questions at all. Write down anything you promise, so it is on record."]
 };
 function asInfo(k){ const i = ASK_INFO[k]; if (!i) return ""; return `<details class="small" style="margin:2px 0 8px 28px"><summary style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;list-style:none"><span aria-hidden="true" style="display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid currentColor;border-radius:50%;font:600 11px/1 serif;font-style:italic">i</span><span class="muted">For the assessor</span></summary><div style="margin:6px 0 0;padding:8px 10px;border-left:2px solid var(--line, #8888)"><p style="margin:0 0 4px"><b>What it tests:</b> ${esc(i[0])}</p><p style="margin:0 0 4px"><b>Correct or good:</b> ${esc(i[1])}</p><p style="margin:0"><b>Red flags:</b> ${esc(i[2])}</p></div></details>`; }
+/* the meeting in one natural flow, in person or on a video call (Morten, 25 Nov 2026: "Align portal and document so that
+   I can be present and follow a natural flow with Sandro. And he will do the booking flow and we'll go into q&a and
+   launch as well"): the booking flow is the full trial booking, and each skill is shown at its steps */
+const ASK_PLAN = [["Welcome and Archē record", 10], ["Booking flow: the full trial booking, the person at the keyboard", 40], ["Interview", 20], ["Q&A and launch", 15], ["Decision and next steps", 5]];
+const ASK_STEP = {enquiry: "steps 1-2 (brief, enquiry)", checks: "step 5 (checks)", quote: "step 4 (price)", kyc: "step 5 (checks) and step 10 (client signs and pays)",
+  safety: "step 3 (operator choice) and step 8 (operator contract)", authorise: "step 6 (authorisation) and step 11 (operator signed and paid)", aftercare: "steps 12-13 (flight following, follow-up and rating)"};
+const ASK_LAUNCH = {
+  commission: "Commission: up to 35% of the Archē fee, on a Completed Booking (flown, client paid, operator paid), counted in the month it completes, paid monthly",
+  supervision: "Supervision in the first six months: who supervises, which steps wait for an OK, how it ends",
+  leads: "Leads: the organisations on the list become their own leads at countersignature; first contact within 48 hours; data rules and opt-out",
+  tools: "Tools: Archē email, signature, meeting backgrounds, company WhatsApp, LINE and WeChat; the portal on the phone",
+  avinode: "Avinode: Archē's membership, the user licence and Avinode's own training; Booking practice until then",
+  launch: "Launch: website preview now, bookings open at launch (target 15 Dec 2026); what is still open (payment provider, Avinode)",
+  agreement: "Agreement walk-through: commission (4.2, Schedule 1), clients and earlier work (2.8), ending and client handover (8.x), Standards of Conduct",
+  next: "Next steps and dates agreed, and anything promised written down"
+};
 const ACAD_SALT = "ARCHE-CBT-2026-10";
 function acadFnv(s){ let h = 0x811c9dc5; for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8, "0"); }
 /* the academy's own completion-code check (academy page.html readCode), done here so the Director sees the result */
@@ -6567,12 +6583,17 @@ function asRecord(id, j){
 }
 function asSkillsInterview(id){
   const a = S.assess[id] || {}, s = asState(id), may = S.isOwner || (typeof canRight === "function" && canRight("assess"));
-  const skills = Object.entries(ASK_SKILLS).map(([k, l]) => `<label class="check" for="qs_${k}_${id}"><input type="checkbox" id="qs_${k}_${id}" data-qs="${k}" data-uid="${id}" ${(a.skills || {})[k] ? "checked" : ""} ${may ? "" : "disabled"}><span class="small">${esc(l)}</span></label>${asInfo(k)}`).join("");
+  const skills = Object.entries(ASK_SKILLS).map(([k, l]) => `<label class="check" for="qs_${k}_${id}"><input type="checkbox" id="qs_${k}_${id}" data-qs="${k}" data-uid="${id}" ${(a.skills || {})[k] ? "checked" : ""} ${may ? "" : "disabled"}><span class="small">${esc(l)}${ASK_STEP[k] ? ` <span class="muted">· trial booking ${esc(ASK_STEP[k])}</span>` : ""}</span></label>${asInfo(k)}`).join("");
   const qs = Object.entries(ASK_INTERVIEW).map(([k, q], i) => `<div class="wide"><label class="f" for="qi_${k}_${id}"><span class="small"><b>${i + 1}.</b> ${esc(q)}</span><textarea id="qi_${k}_${id}" rows="2" data-qi="${k}" data-uid="${id}" maxlength="1500" placeholder="Your note on the answer" ${may ? "" : "disabled"}>${esc((a.interview || {})[k] || "")}</textarea></label>${asInfo(k).replace('margin:2px 0 8px 28px', 'margin:4px 0 4px 0')}</div>`).join("");
-  return `<details class="small" style="margin:6px 0" ${s.sk === Object.keys(ASK_SKILLS).length ? "" : "open"}><summary><b>Portal skills check</b>: ${s.sk} of ${Object.keys(ASK_SKILLS).length} done</summary>
-      <p class="muted" style="margin:4px 0">On a video call, the person shares their screen and does each task in the test version (portal.archeaviation.com/test.html, example data only). Tick each task once done right.</p>${skills}</details>
+  const ln = a.launch || {}, lc = Object.keys(ASK_LAUNCH).filter(k => ln[k]).length;
+  const launch = Object.entries(ASK_LAUNCH).map(([k, l]) => `<label class="check" for="ql_${k}_${id}"><input type="checkbox" id="ql_${k}_${id}" data-ql="${k}" data-uid="${id}" ${ln[k] ? "checked" : ""} ${may ? "" : "disabled"}><span class="small">${esc(l)}</span></label>`).join("");
+  return `<p class="small muted" style="margin:6px 0">Meeting, about 90 minutes: ${ASK_PLAN.map(([t, m], i) => `${i + 1}. ${esc(t)} (${m} min)`).join(" · ")}.</p>
+    <details class="small" style="margin:6px 0" ${s.sk === Object.keys(ASK_SKILLS).length ? "" : "open"}><summary><b>Portal skills check</b>: ${s.sk} of ${Object.keys(ASK_SKILLS).length} done</summary>
+      <p class="muted" style="margin:4px 0">In person or on a video call, the person does the full trial booking in the test version while you watch: portal.archeaviation.com/test.html, Test Broker, Training, Booking practice, "Full trial booking: Singapore to Tokyo" (example data only, nothing is sent). Each task below shows at the steps named; tick it once done right, and use the (i) for what good looks like.</p>${skills}</details>
     <details class="small" style="margin:6px 0" ${s.iv === Object.keys(ASK_INTERVIEW).length ? "" : "open"}><summary><b>Interview</b>: ${s.iv} of ${Object.keys(ASK_INTERVIEW).length} answered</summary>
-      <p class="muted" style="margin:4px 0">Ask each question and write a short note on the answer. Notes save when you leave the field.</p><div class="fgrid">${qs}</div></details>`;
+      <p class="muted" style="margin:4px 0">Ask each question and write a short note on the answer. Notes save when you leave the field.</p><div class="fgrid">${qs}</div></details>
+    <details class="small" style="margin:6px 0" ${lc === Object.keys(ASK_LAUNCH).length ? "" : "open"}><summary><b>Q&amp;A and launch</b>: ${lc} of ${Object.keys(ASK_LAUNCH).length} covered</summary>
+      <p class="muted" style="margin:4px 0">Go through each topic and tick it once covered. A record of what was explained; it does not hold the agreement back.</p>${launch}</details>`;
 }
 // the record is updated at once and then saved, so quick ticks one after another all count (each builds on the last)
 async function asSave(id, change, line){
@@ -6582,9 +6603,10 @@ async function asSave(id, change, line){
   catch(e){ S.assess[id] = before; toast("Could not save. Run SQL 0015 if you have not."); render(); return false; }
 }
 document.addEventListener("change", async e => {
-  const b = e.target; if (!b.dataset || !(b.dataset.qs || b.dataset.qi)) return;
+  const b = e.target; if (!b.dataset || !(b.dataset.qs || b.dataset.qi || b.dataset.ql)) return;
   if (!(S.isOwner || (typeof canRight === "function" && canRight("assess")))) return;
   const id = b.dataset.uid, k = b.dataset.qs || b.dataset.qi;
+  if (b.dataset.ql) { const on = b.checked, kk = b.dataset.ql, ok = await asSave(id, cur => ({launch: {...(cur.launch || {}), [kk]: on}}), `Q&A and launch ${kk} ${on ? "covered" : "unticked"}`); if (!ok) b.checked = !on; return; }
   if (b.dataset.qs) { const on = b.checked, ok = await asSave(id, cur => ({skills: {...(cur.skills || {}), [k]: on}}), `skills ${k} ${on ? "ticked" : "unticked"}`); if (!ok) b.checked = !on; return; }
   const v = String(b.value || "").slice(0, 1500);
   if (v === (((S.assess[id] || {}).interview || {})[k] || "")) return;
