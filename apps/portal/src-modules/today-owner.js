@@ -26,7 +26,7 @@ const OWNER_TODO = [
   {id:"payments-live", sev:"high", title:"Client payments working: one test payment end to end", due:"2026-11-24",
     why:"The first client must be able to pay on day one.", how:"Run a small test payment and refund through the provider. Then tick client payments in Onboarding."},
   {id:"group1", sev:"med", title:"Sign group 1: 3 to 5 brokers", due:"2026-11-28",
-    why:"Launch is 1 December. Candidates can finish the academy and assessment before the company is ready.", how:"Onboarding: complete the checklists, send agreements once Ready to sign brokers is all ticked, countersign, issue the packages."},
+    why:"Launch is 1 December. Candidates can finish the academy and assessment before the company is ready.", how:"Onboarding: complete the checklists, send agreements (they can sign at once), countersign once Ready to sign brokers is all ticked, issue the packages."},
   {id:"aca", sev:"low", title:"Apply for Air Charter Association membership", due:"2026-12-15", later:true,
     why:"Its Seal of Accreditation is what peers show clients.", how:"Apply after launch with the company documents and references."},
   {id:"op-ratings", sev:"low", title:"Subscribe to operator safety ratings (Wyvern or ARGUS)", due:"2026-12-15", later:true,

@@ -5448,6 +5448,7 @@ function agrModal(){ const id = S.agrView; if (!id) return ""; const a = (S.agrs
   return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="copy">Download a copy</button><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html || agrRender(a)}</div>`; }
 async function agrCountersign(id){
   const j = S.joins[id], a = (S.agrs || {})[id]; if (!j || !a || a.status !== "signed") return;
+  { const why = typeof intakeCounterBlock === "function" ? intakeCounterBlock() : ""; if (why) { toast(why); return; } }
   const mail = (($("ob_mail_" + id) || {}).value || "").trim().toLowerCase();
   if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/.test(mail)) { toast("Enter the Archē email address you created for them."); return; }
   if (OB_WEBMAIL.test(mail)) { toast("Use their dedicated Archē address, not a personal one."); return; }
@@ -5623,7 +5624,7 @@ function vPending(){
   const s3 = step(4, "Assessment by the Director", a ? `<p class="small">Passed. Your agreement is ready.</p>` : `<p class="small">The Director assesses your training. If you pass, your agreement appears here to read and sign.</p>`, a ? "done" : S.myJoin ? "now" : "");
   const s4 = step(5, "Read and sign your agreement", a && a.status === "sent" ? `<p class="small">Read it in full, fill in your details and sign it here.</p><div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="open">Read and sign</button></div>`
     : a && a.status !== "sent" ? `<p class="small">Signed on ${fmtT(a.signedAt)}.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="open">View your agreement</button></div>` : `<p class="small muted">After your assessment.</p>`, a ? (a.status === "sent" ? "now" : "done") : "");
-  const s5 = step(6, "Countersignature and onboarding package", `<p class="small">Archē countersigns, creates your Archē email address and issues your onboarding package. Your portal opens straight after.</p>`, a && a.status === "signed" ? "now" : "");
+  const s5 = step(6, "Countersignature and onboarding package", `<p class="small">Archē countersigns, creates your Archē email address and issues your onboarding package. Your portal opens straight after. Before launch, you can sign at once; Archē countersigns when bookings open.</p>`, a && a.status === "signed" ? "now" : "");
   return `<div class="panel stack" style="max-width:720px"><h1>Join Archē Executive</h1><p class="muted">Everything happens here, from your first step to your first booking. Nothing is sent to you as a file by email.</p><div class="row"><button class="btn small" type="button" data-pr="open">My profile and password</button></div>${top}${s0}${s1}${s2}${s3}${s4}${s5}</div>`;
 }
 
@@ -6438,7 +6439,9 @@ document.addEventListener("click", e => {
 });
 
 /* ---------- Broker intake and leaving (Morten, 26 Oct 2026) ----------
-   - Ready to sign: no agreement is sent until company, bank, client payments and Avinode are ticked (insurance is
+   - Ready to sign: an agreement can be sent and signed at once, but Archē countersigns, which opens the desk, leads
+     and clients, only once company, bank, client payments and Avinode are ticked (Morten, 25 Nov 2026: "B", sign now,
+     start at launch; until then it was no agreement sent at all) (insurance is
      being arranged; the agreement's Insurance clause says so).
    - Supervision limit: at most N people supervised at once (default 6); others wait.
    - Country check: a candidate from a country Archē has no broker in needs a counsel check before the agreement.
@@ -6470,8 +6473,9 @@ function countryChecked(c){
   return Object.values(S.roster || {}).some(p => p.active !== false && p.role !== "owner" && countryKey(p.base) === k);
 }
 /* the check before an agreement goes out; returns a reason or "" */
+// countersigning opens the portal, the leads and the clients: only once Archē can take bookings
+function intakeCounterBlock(){ return intakeReady() ? "" : "Signed now, starting at launch: countersign once company, bank, client payments and Avinode are all ticked in Onboarding > Ready to sign brokers."; }
 function intakeBlock(id){
-  if (!intakeReady()) return "Not ready to sign brokers yet: tick company, bank, client payments and Avinode in Team > Ready to sign brokers.";
   const j = (S.joins || {})[id] || {};
   if (!countryChecked(j.base)) return `${j.base || "This country"} is new for Archē: tick the counsel check on the request first.`;
   if (supervisedNow() >= intakeCap()) return `Supervision is full (${supervisedNow()} of ${intakeCap()}). Release someone, or raise the limit in Team.`;
@@ -6493,7 +6497,7 @@ function intakeTeamPanel(){
     <p class="small muted">Candidates can register, read the offer and do the academy at any time. Agreements go out only when all four are ticked.</p>
     ${Object.entries(INTAKE_READY).map(([k, l]) => `<label class="check" for="ir_${k}"><input type="checkbox" id="ir_${k}" data-intake="ready" data-k="${k}" ${R[k] ? "checked" : ""}><span>${esc(l)}</span></label>`).join("")}
     <label class="check" for="ir_ins"><input type="checkbox" id="ir_ins" data-intake="ready" data-k="insurance" ${R.insurance ? "checked" : ""}><span>Insurance in place (optional now; when ticked, tell signed brokers in writing, as the agreement's Insurance clause promises)</span></label>
-    <p class="small">${intakeReady() ? `<span class="chip c-flown">Ready</span> Agreements can be sent.` : `<span class="chip c-review">Not ready</span> Agreements are held back.`}</p>
+    <p class="small">${intakeReady() ? `<span class="chip c-flown">Ready</span> Agreements can be sent and countersigned.` : `<span class="chip c-review">Not ready</span> Agreements can be sent and signed now; Archē countersigns, which opens the desk, leads and clients, only once all four are ticked.`}</p>
     <div class="row"><label class="f" for="ir_cap" style="max-width:280px">People in supervision at the same time (now ${n})<input id="ir_cap" type="number" min="1" max="50" value="${cap}"></label><button class="btn small" type="button" data-intake="cap">Save limit</button></div>
     ${leavers.length ? `<h3 style="margin:12px 0 4px">Leaving</h3>${leavers.map(([id, p]) => offboardCard(id, p)).join("")}` : ""}
     ${S.offboardId ? offboardForm(S.offboardId) : ""}</div>`;
@@ -8200,7 +8204,7 @@ const OWNER_TODO = [
   {id:"payments-live", sev:"high", title:"Client payments working: one test payment end to end", due:"2026-11-24",
     why:"The first client must be able to pay on day one.", how:"Run a small test payment and refund through the provider. Then tick client payments in Onboarding."},
   {id:"group1", sev:"med", title:"Sign group 1: 3 to 5 brokers", due:"2026-11-28",
-    why:"Launch is 1 December. Candidates can finish the academy and assessment before the company is ready.", how:"Onboarding: complete the checklists, send agreements once Ready to sign brokers is all ticked, countersign, issue the packages."},
+    why:"Launch is 1 December. Candidates can finish the academy and assessment before the company is ready.", how:"Onboarding: complete the checklists, send agreements (they can sign at once), countersign once Ready to sign brokers is all ticked, issue the packages."},
   {id:"aca", sev:"low", title:"Apply for Air Charter Association membership", due:"2026-12-15", later:true,
     why:"Its Seal of Accreditation is what peers show clients.", how:"Apply after launch with the company documents and references."},
   {id:"op-ratings", sev:"low", title:"Subscribe to operator safety ratings (Wyvern or ARGUS)", due:"2026-12-15", later:true,

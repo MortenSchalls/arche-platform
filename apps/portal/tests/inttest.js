@@ -22,7 +22,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  const toastOf=async(p,fn)=>p.evaluate(async f=>{let m='';const _t=toast;toast=x=>{m=x};try{await eval(f)}finally{toast=_t}return m;},fn);
  let o=await open(OWN,T0,'onboarding');
  ok('Onboarding: ready-to-sign panel with four ticks', (await o.textContent('#main')).includes('Ready to sign brokers') && (await o.$$('[data-intake=ready]')).length===5);
- let msg=await toastOf(o,`intakeBlock('${C1}')`); ok('not ready: agreement held back', /Not ready to sign/.test(await o.evaluate(id=>intakeBlock(id),C1)));
+ let msg=await toastOf(o,`intakeBlock('${C1}')`); ok('not ready: the agreement can be sent and signed, countersigning waits (sign now, start at launch)', !/Not ready/.test(await o.evaluate(id=>intakeBlock(id),C1)) && /countersign once company, bank, client payments and Avinode/.test(await o.evaluate(()=>intakeCounterBlock())));
  for(const k of ['company','bank','payments','avinode']){await o.click(`#ir_${k}`);await o.waitForTimeout(250);}
  ok('ticks saved', await o.evaluate(()=>intakeReady()));
  ok('new country: counsel check needed first', /new for Archē/.test(await o.evaluate(id=>intakeBlock(id),C1)) && (await o.textContent('#main')).includes('Counsel checked Newland'));
