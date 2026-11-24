@@ -6,7 +6,7 @@ const ago=d=>new Date(Date.now()-d*864e5).toISOString();
 const CO={name:'Example Company Pte. Ltd.',reg:'000000000X',address:'1 Example Street',email:'charter@example.com',privacy:'privacy@example.com',signName:'Example Director',signTitle:'Director',phone:'+65 0000 0000',web:'example.com'};
 const prof=(id,name,extra={})=>({id,role:'broker',active:true,contract_name:name,since:ago(60),base:'Exampleland',...extra.cols,data:{roster:true,onboarding:{issuedAt:ago(60)},...extra.data}});
 const T0={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{}},prof(B1,'Example Leaver',{cols:{supervised:true},data:{rights:{supervise:true}}}),prof(B2,'Example Junior',{cols:{supervised:true}}),{id:C1,role:null,active:false,contract_name:'',data:{}}],
- config:[{key:'terms',value:{margin:0.09,ownerApproval:true}},{key:'company',value:CO}],intel:[],
+ config:[{key:'terms',value:{margin:0.09,ownerApproval:true}},{key:'company',value:CO},{key:'intake',value:{}}],intel:[],
  trips:[{owner_id:B1,id:'t1',data:{client:{name:'Example Client'},stage:'submitted',created:ago(2),quote:{opPrice:40000,direct:1000},trip:{legs:[{from:'VTBS',to:'WSSS',date:'2026-12-01'}]},checks:{}}}],
  trip_status:[{owner_id:B1,id:'t1',data:{state:'review',opPrice:40000,direct:1000,price:45055,approval:{state:'approved',price:45055,opPrice:40000},history:[]}}],
  enquiry_pool:[{id:'p1',data:{status:'claimed',claimedBy:B1,legs:[]}}],enquiry_contacts:[],
@@ -21,10 +21,12 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
  const open=async(uid,T,view,w=1400)=>{const f=`t_i_${n++}.html`;fs.writeFileSync(f,page(uid,T));const p=await b.newPage({viewport:{width:w,height:900}});p.on('pageerror',e=>errs.push(uid.slice(-2)+': '+e.message));await p.goto('http://localhost:8765/'+f);await p.waitForTimeout(4500);if(view){await p.evaluate(v=>{S.view=v;render();},view);await p.waitForTimeout(500);}return p;};
  const toastOf=async(p,fn)=>p.evaluate(async f=>{let m='';const _t=toast;toast=x=>{m=x};try{await eval(f)}finally{toast=_t}return m;},fn);
  let o=await open(OWN,T0,'onboarding');
- ok('Onboarding: ready-to-sign panel with four ticks', (await o.textContent('#main')).includes('Ready to sign brokers') && (await o.$$('[data-intake=ready]')).length===5);
- let msg=await toastOf(o,`intakeBlock('${C1}')`); ok('not ready: the agreement can be sent and signed, countersigning waits (sign now, start at launch)', !/Not ready/.test(await o.evaluate(id=>intakeBlock(id),C1)) && /countersign once company, bank, client payments and Avinode/.test(await o.evaluate(()=>intakeCounterBlock())));
+ ok('Onboarding: ready-for-bookings panel with four ticks', (await o.textContent('#main')).includes('Ready for bookings') && (await o.$$('[data-intake=ready]')).length===5);
+ ok('not ready: agreements can be sent, signed and countersigned (Morten 25 Nov 2026), the booking steps wait', !/Not ready/.test(await o.evaluate(id=>intakeBlock(id),C1)) && await o.evaluate(()=>typeof intakeCounterBlock==='undefined') && /Bookings open at launch/.test(await o.evaluate(()=>intakeBookingBlock())));
+ for(const a of ['data-act="submit"','data-ap="ok"','data-act="confIssue"','data-act="issue"']){const m=await o.evaluate(async a=>{let m='',hit=false;const _t=toast;toast=x=>{m=x};const d=document.createElement('div');d.innerHTML=`<button ${a}>x</button>`;document.body.append(d);d.firstChild.addEventListener('click',()=>{hit=true});d.firstChild.click();toast=_t;d.remove();return hit?'':m;},a);ok(`not ready: ${a} stopped with the launch line`,/Bookings open at launch/.test(m));}
  for(const k of ['company','bank','payments','avinode']){await o.click(`#ir_${k}`);await o.waitForTimeout(250);}
  ok('ticks saved', await o.evaluate(()=>intakeReady()));
+ ok('ready: the booking steps open', (await o.evaluate(()=>intakeBookingBlock()))==='');
  ok('new country: counsel check needed first', /new for Archē/.test(await o.evaluate(id=>intakeBlock(id),C1)) && (await o.textContent('#main')).includes('Counsel checked Newland'));
  await o.click('[data-intake=country]');await o.waitForTimeout(300);
  ok('limit reached (2 supervised, limit set to 2): waiting list', await o.evaluate(async id=>{S.intake={...S.intake,cap:2};return /Supervision is full/.test(intakeBlock(id));},C1));
@@ -50,7 +52,7 @@ const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
    const good=acadCodeCheck(code,'Example Candidate'), bad=acadCodeCheck(code.slice(0,-1)+(code.slice(-1)==='0'?'1':'0'),'Example Candidate'), other=acadCodeCheck(code,'Someone Else'), none=acadCodeCheck('','Example Candidate');
    return good.ok&&good.msg==='valid'&&!bad.ok&&/check digits/.test(bad.msg)&&!other.ok&&/not the name/.test(other.msg)&&!none.ok;}));
  ok('all clear: agreement can go', await o.evaluate(id=>intakeBlock(id)==='',C1));
- ok('Team no longer carries joining and leaving', await o.evaluate(()=>{S.view='team';render();const t=document.querySelector('#main').textContent;return ![...document.querySelectorAll('#main h2')].some(h=>/Ready to sign brokers/.test(h.textContent))&&t.includes('request to join waiting');}));
+ ok('Team no longer carries joining and leaving', await o.evaluate(()=>{S.view='team';render();const t=document.querySelector('#main').textContent;return ![...document.querySelectorAll('#main h2')].some(h=>/Ready for bookings/.test(h.textContent))&&t.includes('request to join waiting');}));
  await o.evaluate(()=>{S.view='onboarding';render();});
  // leaving, one tick
  await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(300);await o.click(`[data-offboard="${B1}"]`);await o.waitForTimeout(300);await o.selectOption('#off_mode','agreed');await o.fill('#off_why','Example reason for ending');await o.click('#offForm button[type=submit]');await o.waitForTimeout(1200);

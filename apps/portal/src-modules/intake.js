@@ -1,7 +1,8 @@
 /* ---------- Broker intake and leaving (Morten, 26 Oct 2026) ----------
-   - Ready to sign: an agreement can be sent and signed at once, but Archē countersigns, which opens the desk, leads
-     and clients, only once company, bank, client payments and Avinode are ticked (Morten, 25 Nov 2026: "B", sign now,
-     start at launch; until then it was no agreement sent at all) (insurance is
+   - Ready for bookings: agreements are sent, signed and countersigned at once, and the portal opens; but nobody can send
+     a trip for authorisation, approve or issue until company, bank, client payments and Avinode are ticked (Morten,
+     25 Nov 2026: "Sandro to sign today and I countersign, and the blocker before we go live is controlled by portal";
+     before 25 Nov no agreement was sent until then) (insurance is
      being arranged; the agreement's Insurance clause says so).
    - Supervision limit: at most N people supervised at once (default 6); others wait.
    - Country check: a candidate from a country Archē has no broker in needs a counsel check before the agreement.
@@ -33,8 +34,13 @@ function countryChecked(c){
   return Object.values(S.roster || {}).some(p => p.active !== false && p.role !== "owner" && countryKey(p.base) === k);
 }
 /* the check before an agreement goes out; returns a reason or "" */
-// countersigning opens the portal, the leads and the clients: only once Archē can take bookings
-function intakeCounterBlock(){ return intakeReady() ? "" : "Signed now, starting at launch: countersign once company, bank, client payments and Avinode are all ticked in Onboarding > Ready to sign brokers."; }
+// the launch gate: no trip goes for authorisation, approval or issue before Archē can take bookings
+const INTAKE_GATE_MSG = "Bookings open at launch: company, bank, client payments and Avinode must all be ticked in Onboarding > Ready for bookings.";
+function intakeBookingBlock(){ return intakeReady() ? "" : INTAKE_GATE_MSG; }
+document.addEventListener("click", ev => {
+  const b = ev.target.closest && ev.target.closest('[data-act="submit"],[data-ap="ok"],[data-act="confIssue"],[data-act="issue"]'); if (!b) return;
+  const why = intakeBookingBlock(); if (why) { ev.stopImmediatePropagation(); ev.preventDefault(); toast(why); }
+}, true);
 function intakeBlock(id){
   const j = (S.joins || {})[id] || {};
   if (!countryChecked(j.base)) return `${j.base || "This country"} is new for Archē: tick the counsel check on the request first.`;
@@ -53,11 +59,11 @@ function intakeTeamPanel(){
   if (!S.isOwner || S.preview) return "";
   const R = intakeCfg().ready || {}, n = supervisedNow(), cap = intakeCap();
   const leavers = Object.entries(S.roster || {}).filter(([, p]) => p.offboard && !(p.offboard.closed));
-  return `<div class="panel" style="margin-bottom:16px" id="intakePanel"><h2>Ready to sign brokers</h2>
+  return `<div class="panel" style="margin-bottom:16px" id="intakePanel"><h2>Ready for bookings</h2>
     <p class="small muted">Candidates can register, read the offer and do the academy at any time. Agreements go out only when all four are ticked.</p>
     ${Object.entries(INTAKE_READY).map(([k, l]) => `<label class="check" for="ir_${k}"><input type="checkbox" id="ir_${k}" data-intake="ready" data-k="${k}" ${R[k] ? "checked" : ""}><span>${esc(l)}</span></label>`).join("")}
     <label class="check" for="ir_ins"><input type="checkbox" id="ir_ins" data-intake="ready" data-k="insurance" ${R.insurance ? "checked" : ""}><span>Insurance in place (optional now; when ticked, tell signed brokers in writing, as the agreement's Insurance clause promises)</span></label>
-    <p class="small">${intakeReady() ? `<span class="chip c-flown">Ready</span> Agreements can be sent and countersigned.` : `<span class="chip c-review">Not ready</span> Agreements can be sent and signed now; Archē countersigns, which opens the desk, leads and clients, only once all four are ticked.`}</p>
+    <p class="small">${intakeReady() ? `<span class="chip c-flown">Ready</span> Bookings are open.` : `<span class="chip c-review">Not ready</span> Agreements can be signed and countersigned now, and brokers get their portal; no trip can be sent for authorisation, approved or issued until all four are ticked.`}</p>
     <div class="row"><label class="f" for="ir_cap" style="max-width:280px">People in supervision at the same time (now ${n})<input id="ir_cap" type="number" min="1" max="50" value="${cap}"></label><button class="btn small" type="button" data-intake="cap">Save limit</button></div>
     ${leavers.length ? `<h3 style="margin:12px 0 4px">Leaving</h3>${leavers.map(([id, p]) => offboardCard(id, p)).join("")}` : ""}
     ${S.offboardId ? offboardForm(S.offboardId) : ""}</div>`;
