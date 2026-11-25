@@ -66,6 +66,7 @@ decision first, a consent banner, and an updated Privacy notice before it goes l
 | GitHub | 2FA; repository private; backups encrypted | Check 2FA |
 | Resend, Anthropic, mail provider | 2FA; keys only in Vercel variables | Check |
 | Portal | Every member signs in; brokers see only their own leads and trips; opening contacts logged; four-eyes on money | As built |
+| Stored files | A broker opens only their own uploads and the files of their own trips; record files for the Director and mandated staff; investor files for the Director alone; every file stored under its trip or record and checked before the portal says Saved | **Open**: SQL 0028 to run (found 25 Nov 2026: until then every member can open every stored file) |
 | Laptop / phone | Disk encryption, screen lock | Check |
 
 Secrets never go into repositories, chats or emails. No passport, ID or bank numbers in AI tools.

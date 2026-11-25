@@ -6343,7 +6343,7 @@
   ]
  },
  {
-  "key": "b22b40c7",
+  "key": "e694dafc",
   "kind": "lesson",
   "where": "sys screen 8",
   "text": [
@@ -6358,6 +6358,7 @@
    "Add or correct a contact route on any lead to keep the database current.",
    "Open an enquiry from a lead when the organisation has a trip.",
    "Write first message: beside each named contact with a work email, it opens your email with the first message written, saying where we found the details and with the opt-out line. Read it, change what you like, press Send yourself, then Contacted today.",
+   "Adding an organisation: a name or website already in the list shows at once; the region follows the country; the website is used as the source when you give no other page.",
    "Try it in the test version, as Test Broker",
    "As Test Broker, open My leads, open a lead and log a contact with a proper note.",
    "If something goes wrong",
@@ -6376,7 +6377,7 @@
    "Work the organisations assigned to you and add the ones you know.",
    "Who uses it, Brokers.",
    "How it works.",
-   "Open My leads. Leads are sorted by when contact is due. Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note. Add a prospect, organisation, segment, country, public source link, contact route and why they charter. Add or correct a contact route on any lead to keep the database current. Open an enquiry from a lead when the organisation has a trip. Write first message, beside each named contact with a work email, it opens your email with the first message written, saying where we found the details and with the opt-out line. Read it, change what you like, press Send yourself, then Contacted today.",
+   "Open My leads. Leads are sorted by when contact is due. Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note. Add a prospect, organisation, segment, country, public source link, contact route and why they charter. Add or correct a contact route on any lead to keep the database current. Open an enquiry from a lead when the organisation has a trip. Write first message, beside each named contact with a work email, it opens your email with the first message written, saying where we found the details and with the opt-out line. Read it, change what you like, press Send yourself, then Contacted today. Adding an organisation, a name or website already in the list shows at once, the region follows the country, the website is used as the source when you give no other page.",
    "Try it in the test version, as Test Broker.",
    "As Test Broker, open My leads, open a lead and log a contact with a proper note.",
    "If something goes wrong.",
@@ -6556,7 +6557,7 @@
   ]
  },
  {
-  "key": "0411dba8",
+  "key": "0c0568d1",
   "kind": "lesson",
   "where": "sys screen 13",
   "text": [
@@ -6572,6 +6573,7 @@
    "One record per company, with all its airports, contacts and routes. Airline ground handlers, airport companies, maintenance firms and software are not service partners.",
    "Suppliers are never assigned to brokers as leads.",
    "The research agent adds service partners every morning, airport by airport worldwide (141 business airports), each section with its own progress, then a refresh every 30 days. Each one is checked before it goes in.",
+   "Checks and documents (on every record): record the KYB check (KYC for a person) with its date and how it was done; the portal gives it a reference (KYB-2026-XXXX) and flags it after 12 months. Attach documents (AOC, insurance, agreement, register extract, NDA) under the record: each is stored with it, recorded with type, who and when, and shown Saved only after storage confirms it.",
    "Try it in the test version, as Test Broker",
    "Open Prospects, Service partners, choose Hotels, filter category Crew hotels, airport WSSL and open Example Crew Hotel: see its minutes and shuttle.",
    "If something goes wrong",
@@ -6588,7 +6590,7 @@
    "The suppliers we can book worldwide, charter operators, and service partners in their own sections.",
    "Who uses it, Brokers and the Director.",
    "How it works.",
-   "Prospects, Operators, charter operators from the ARGUS and WYVERN audit registries, read every morning, the official certificate lists of the aviation authorities, the U K C A A list first, more authorities follow, and the research agent. Each shows its list or registry, audit level, certificate, fleet and sanctions pre-screen. Filter operators by region, country, list or registry, audit level and Checks, Something to confirm or Nothing to confirm. Every operator shows what is still to confirm before the first booking, certificate and insurance for registry operators, insurance for those on an official list. Prospects, Service partners, one section per function, never mixed. Aviation services, F B Os and ground handlers, trip support, in-flight catering, at business airports worldwide, Hotels, crew hotels, and hotels and resorts for our clients, Ground transport, limousine and chauffeur, Helicopters, Yachts. Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle. Hotels and resorts for clients must show five-star or luxury standard on their own page or a recognised guide. Helicopter operators need an operator certificate, yacht charters are marked to confirm licence and insurance. One record per company, with all its airports, contacts and routes. Airline ground handlers, airport companies, maintenance firms and software are not service partners. Suppliers are never assigned to brokers as leads. The research agent adds service partners every morning, airport by airport worldwide, 141 business airports, each section with its own progress, then a refresh every 30 days. Each one is checked before it goes in.",
+   "Prospects, Operators, charter operators from the ARGUS and WYVERN audit registries, read every morning, the official certificate lists of the aviation authorities, the U K C A A list first, more authorities follow, and the research agent. Each shows its list or registry, audit level, certificate, fleet and sanctions pre-screen. Filter operators by region, country, list or registry, audit level and Checks, Something to confirm or Nothing to confirm. Every operator shows what is still to confirm before the first booking, certificate and insurance for registry operators, insurance for those on an official list. Prospects, Service partners, one section per function, never mixed. Aviation services, F B Os and ground handlers, trip support, in-flight catering, at business airports worldwide, Hotels, crew hotels, and hotels and resorts for our clients, Ground transport, limousine and chauffeur, Helicopters, Yachts. Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle. Hotels and resorts for clients must show five-star or luxury standard on their own page or a recognised guide. Helicopter operators need an operator certificate, yacht charters are marked to confirm licence and insurance. One record per company, with all its airports, contacts and routes. Airline ground handlers, airport companies, maintenance firms and software are not service partners. Suppliers are never assigned to brokers as leads. The research agent adds service partners every morning, airport by airport worldwide, 141 business airports, each section with its own progress, then a refresh every 30 days. Each one is checked before it goes in. Checks and documents, on every record, record the K Y B check, K Y C for a person, with its date and how it was done, the portal gives it a reference, K Y B-2026-X X X X, and flags it after 12 months. Attach documents, A O C, insurance, agreement, register extract, N D A, under the record, each is stored with it, recorded with type, who and when, and shown Saved only after storage confirms it.",
    "Try it in the test version, as Test Broker.",
    "Open Prospects, Service partners, choose Hotels, filter category Crew hotels, airport W S S L and open Example Crew Hotel, see its minutes and shuttle.",
    "If something goes wrong.",
@@ -6637,7 +6639,7 @@
   ]
  },
  {
-  "key": "70e9992d",
+  "key": "e9fb3379",
   "kind": "lesson",
   "where": "sys screen 15",
   "text": [
@@ -6655,6 +6657,7 @@
    "Attach does nothingChoose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved.",
    "A file shows Not foundStorage could not find the file. Upload it again under the same type; the new file is checked the same way.",
    "I cannot attach after sending for authorisationDocuments are locked with the trip. Send them to the Director, or a person the Director has mandated, through the portal; they attach them.",
+   "Who can open these files?You open your own uploads and the files of your own trips; the Director and mandated staff open all trip and record files; investor files are for the Director alone (SQL 0028).",
    "Tips",
    "Never send passports or contracts by email or chat apps.",
    "Name scanned files clearly before uploading."
@@ -6669,7 +6672,7 @@
    "Try it in the test version, as Test Broker.",
    "Attach a small P D F to your trip.",
    "If something goes wrong.",
-   "Attach does nothing. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved. A file shows Not found. Storage could not find the file. Upload it again under the same type, the new file is checked the same way. I cannot attach after sending for authorisation. Documents are locked with the trip. Send them to the Director, or a person the Director has mandated, through the portal, they attach them.",
+   "Attach does nothing. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved. A file shows Not found. Storage could not find the file. Upload it again under the same type, the new file is checked the same way. I cannot attach after sending for authorisation. Documents are locked with the trip. Send them to the Director, or a person the Director has mandated, through the portal, they attach them. Who can open these files? You open your own uploads and the files of your own trips, the Director and mandated staff open all trip and record files, investor files are for the Director alone, S Q L 0028.",
    "Tips.",
    "Never send passports or contracts by email or chat apps. Name scanned files clearly before uploading."
   ]

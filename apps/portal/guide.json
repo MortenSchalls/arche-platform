@@ -257,6 +257,10 @@
     [
      "I cannot attach after sending for authorisation",
      "Documents are locked with the trip. Send them to the Director, or a person the Director has mandated, through the portal; they attach them."
+    ],
+    [
+     "Who can open these files?",
+     "You open your own uploads and the files of your own trips; the Director and mandated staff open all trip and record files; investor files are for the Director alone (SQL 0028)."
     ]
    ],
    "tips": [
@@ -428,7 +432,8 @@
     "Add a prospect: organisation, segment, country, public source link, contact route and why they charter.",
     "Add or correct a contact route on any lead to keep the database current.",
     "Open an enquiry from a lead when the organisation has a trip.",
-    "Write first message: beside each named contact with a work email, it opens your email with the first message written, saying where we found the details and with the opt-out line. Read it, change what you like, press Send yourself, then Contacted today."
+    "Write first message: beside each named contact with a work email, it opens your email with the first message written, saying where we found the details and with the opt-out line. Read it, change what you like, press Send yourself, then Contacted today.",
+    "Adding an organisation: a name or website already in the list shows at once; the region follows the country; the website is used as the source when you give no other page."
    ],
    "trouble": [
     [
@@ -467,7 +472,9 @@
     "Open a prospect to see why, how to approach, contact routes, source, assignment history and the contact log.",
     "Assign it to a broker, or mark Do not contact.",
     "Add a prospect with its public source.",
-    "Research agent (Director): switch it on (it finds new organisations, charter operators, business-jet suppliers at business airports worldwide and, once a week, investors and partners for your private list), choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list) and press Save settings. A Claude scheduled task does the research twice a day when it is due, in the morning and in the afternoon, each time on the next focus areas, with no AI key and no AI bill. Nothing goes in until it passes every check: a public page that opens and names the organisation (the source page, or else the organisation's own website), organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen. A page that refuses an automated request is opened once more in a real browser, as a visitor would see it, and must still name the organisation; a robot check (captcha) is never worked around, so such an organisation stays out. An organisation turned away only because its page could not be read gets a second chance: the next sessions look for its home page and a page that names it and check it again, up to three more times, so no real organisation is left out (excluded or sanctioned places, marketplaces and private persons never get one). An organisation found again that is already in the list is not a rejection: its contact routes are added if its record has none. The panel shows the last run, what it added and what the checks rejected, with the reason."
+    "Research agent (Director): switch it on (it finds new organisations, charter operators, business-jet suppliers at business airports worldwide and, once a week, investors and partners for your private list), choose how often it runs (every day, Monday to Friday or once a week), list the focus areas one per line (empty uses the standard list) and press Save settings. A Claude scheduled task does the research twice a day when it is due, in the morning and in the afternoon, each time on the next focus areas, with no AI key and no AI bill. Nothing goes in until it passes every check: a public page that opens and names the organisation (the source page, or else the organisation's own website), organisations only, not already known, no excluded or sanctioned place, no marketplace or broker site, contacts only as the organisation publishes them on its own site, opt-outs respected, and a sanctions pre-screen. A page that refuses an automated request is opened once more in a real browser, as a visitor would see it, and must still name the organisation; a robot check (captcha) is never worked around, so such an organisation stays out. An organisation turned away only because its page could not be read gets a second chance: the next sessions look for its home page and a page that names it and check it again, up to three more times, so no real organisation is left out (excluded or sanctioned places, marketplaces and private persons never get one). An organisation found again that is already in the list is not a rejection: its contact routes are added if its record has none. The panel shows the last run, what it added and what the checks rejected, with the reason.",
+    "Checks and documents (on every record): record the KYB check (KYC for a person) with its date and how it was done; the portal gives it a reference (KYB-2026-XXXX) and flags it after 12 months. Attach documents (AOC, insurance, agreement, register extract, NDA) under the record: each is stored with it, recorded with type, who and when, and shown Saved only after storage confirms it.",
+    "Adding a prospect: a name or website already in the list shows at once; the region follows the country; the website is used as the source when you give no other page. Every field has a ? with one plain sentence."
    ],
    "trouble": [
     [
@@ -1121,7 +1128,8 @@
     "Crew hotels are listed only if they are at most 15 minutes from the airport and have their own airport shuttle. Hotels and resorts for clients must show five-star or luxury standard on their own page or a recognised guide. Helicopter operators need an operator certificate; yacht charters are marked to confirm licence and insurance.",
     "One record per company, with all its airports, contacts and routes. Airline ground handlers, airport companies, maintenance firms and software are not service partners.",
     "Suppliers are never assigned to brokers as leads.",
-    "The research agent adds service partners every morning, airport by airport worldwide (141 business airports), each section with its own progress, then a refresh every 30 days. Each one is checked before it goes in."
+    "The research agent adds service partners every morning, airport by airport worldwide (141 business airports), each section with its own progress, then a refresh every 30 days. Each one is checked before it goes in.",
+    "Checks and documents (on every record): record the KYB check (KYC for a person) with its date and how it was done; the portal gives it a reference (KYB-2026-XXXX) and flags it after 12 months. Attach documents (AOC, insurance, agreement, register extract, NDA) under the record: each is stored with it, recorded with type, who and when, and shown Saved only after storage confirms it."
    ],
    "trouble": [
     [
@@ -1355,7 +1363,8 @@
     "Prospects, Investors and partners: visible only to the Director; the database enforces it.",
     "Filter by potential, track, interest, industry and ticket size; each has a fit score with reasons.",
     "Add one, or use Import list: one organisation per line (Name | Track | Country). Names already in the list and personal names are skipped.",
-    "The research agent adds up to 12 investors or partners once a week for one focus area and completes up to 8 profiles, each checked before it goes in (public source that names the organisation, evidence, no excluded place, sanctions pre-screen). Their names travel sealed and never appear in GitHub logs."
+    "The research agent adds up to 12 investors or partners once a week for one focus area and completes up to 8 profiles, each checked before it goes in (public source that names the organisation, evidence, no excluded place, sanctions pre-screen). Their names travel sealed and never appear in GitHub logs.",
+    "Checks and documents (on every record): record the KYB check (KYC for a person) with its date and how it was done; the portal gives it a reference (KYB-2026-XXXX) and flags it after 12 months. Attach documents (AOC, insurance, agreement, register extract, NDA) under the record: each is stored with it, recorded with type, who and when, and shown Saved only after storage confirms it."
    ],
    "trouble": [
     [
