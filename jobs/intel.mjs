@@ -7,6 +7,7 @@
 //  - every organisation needs a public source URL that appeared in this run's web search results
 //  - no personal data, no guessed emails or phone numbers, no bought lists, no logins or scraping
 //  - never change status, assignment or history of existing prospects
+import { readFileSync } from "node:fs";
 import { connect } from "./lib/db.mjs";
 import { loadLists, screen } from "./lib/sanctions.mjs";
 import * as investors from "./investors.mjs";
@@ -134,7 +135,10 @@ export const OP_FOCUS = ["Singapore, Malaysia and Indonesia", "Thailand, Vietnam
   "United Arab Emirates, Qatar, Saudi Arabia and Bahrain", "Switzerland, Austria and Germany", "Malta, Cyprus, Italy and France",
   "United Kingdom, Ireland and the Netherlands", "United States and Canada", "Turkey and Greece", "South Africa and Kenya"];
 // comprehensively sanctioned or high-risk jurisdictions: operators based there are never added
-export const SANCTIONED = ["russia", "russian federation", "belarus", "iran", "north korea", "dprk", "syria", "cuba", "venezuela", "myanmar", "burma", "afghanistan", "crimea", "donetsk", "luhansk"];
+// plus every place in apps/website/content/excluded.json, the one list of excluded places (Iraq and the others were missing here; audit 25 Nov 2026)
+const EXCLUDED_JSON = JSON.parse(readFileSync(new URL("../apps/website/content/excluded.json", import.meta.url), "utf8"));
+export const SANCTIONED = [...new Set(["russia", "russian federation", "belarus", "iran", "north korea", "dprk", "syria", "cuba", "venezuela", "myanmar", "burma", "afghanistan", "crimea", "donetsk", "luhansk",
+  ...(EXCLUDED_JSON.countries || []).map(c => String(c).toLowerCase())])];
 // charter marketplaces and other brokers' sites are never a source (no scraping of boards, nothing copied out of Avinode)
 export const MARKETPLACES = /(^|\.)(avinode|jetvip|aircharterguide|charterhub|privatefly|fxair|lunajets|flyvictor|jetsmarter|flyxo|paramountbusinessjets|aircharterservice|evojets|stratosjets|jettly|villiers|mercuryjets|privatejetcharter|charterscanner|jetcharterhub)\.[a-z.]+$/i;
 const AUDITS = { argus: "ARGUS", wyvern: "Wyvern", "is-bah": "IS-BAH", isbah: "IS-BAH" };

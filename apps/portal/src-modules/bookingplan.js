@@ -267,7 +267,7 @@
       ${need.length && !issued ? `<div class="note warn small"><b>Before issuing:</b> ${need.map(esc).join(" · ")}</div>` : ""}`;
     // margin
     const ex = st.marginEx, pct = f.P ? (f.P - f.O - f.D) / f.P * 100 : 0;
-    const marg = `<p class="small" style="margin:8px 0 4px"><b>Margin</b> ${f.P ? `${pct.toFixed(1)}% · ${usd(f.P - f.O - f.D)}` : ""}${ex ? ` <span class="chip c-review">Set by the Director: ${(num(ex.pct) * 100).toFixed(1)}%</span> <span class="muted">${esc(ex.reason)} (${esc(fmtT(ex.at))})</span>` : ` <span class="muted">(${(S.terms.margin * 100).toFixed(0)}%, the rule)</span>`}</p>
+    const marg = `<p class="small" style="margin:8px 0 4px"><b>Archē fee</b> ${f.P ? `${pct.toFixed(1)}% · ${usd(f.P - f.O - f.D)}` : ""}${ex ? ` <span class="chip c-review">Set by the Director: ${(num(ex.pct) * 100).toFixed(1)}%</span> <span class="muted">${esc(ex.reason)} (${esc(fmtT(ex.at))})</span>` : ` <span class="muted">(${(S.terms.margin * 100).toFixed(0)}%, the rule)</span>`}</p>
       ${own && !issued ? `<details class="small"><summary>Director: another fee on this trip (the exception)</summary><div class="fgrid"><label class="f" for="bk_mp">Archē fee for this trip (%)<input id="bk_mp" inputmode="decimal" value="${ex ? (num(ex.pct) * 100).toFixed(1) : ""}"></label><label class="f wide" for="bk_mr">Reason (kept in the audit log)<input id="bk_mr" value="${esc(ex ? ex.reason : "")}"></label></div><div class="row"><button class="btn small primary" type="button" data-bka="margin">Save the fee</button>${ex ? `<button class="btn small" type="button" data-bka="marginOff">Back to ${(S.terms.margin * 100).toFixed(0)}%</button>` : ""}</div></details>` : ""}`;
     // after issue
     const dToday = today(), cumDue = BP.dueBy(pl.sched, dToday);
@@ -358,7 +358,7 @@
     S.cxIn = {did: t.did, open: true, ...cancelInputs(t)}; render(); });
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest('#secBook [data-bka="cancel"]'); if (!b) return; e.stopImmediatePropagation();
-    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another person the Director has mandated, must do this on your own trip."); return; }
+    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another person the Director has mandated, or the other owner, must do this on your own trip."); return; }
     const inp = cancelInputs(t); if (!inp.avinode) { toast("Cancel on Avinode first, then tick it."); return; }
     b.disabled = true;
     try {
@@ -396,7 +396,7 @@
         const ex = {pct, reason: why, by: S.uid, at: now()}, price = tripPrice({st: {marginEx: ex}}, st.opPrice, st.direct);
         await stWrite(t, {marginEx: ex, price}, `Archē fee for this trip set by the Director: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip fee set by the Director", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Archē fee ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
       return; }
-    if (!staffOn(t)) { toast("Another person the Director has mandated, must do this on your own trip."); return; }
+    if (!staffOn(t)) { toast("Another person the Director has mandated, or the other owner, must do this on your own trip."); return; }
     try {
       if (a === "doc") { const fl = ($("bkFile") || {}).files && $("bkFile").files[0]; if (!fl) { toast("Choose the contract file first."); return; }
         const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available here."); return; }

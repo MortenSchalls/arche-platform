@@ -36,7 +36,7 @@ const OWNER_TODO = [
     how:"Settings > Company details: legal name, registered address, bookings email (contact@archeaviation.com) and privacy email (privacy@archeaviation.com) are filled in already; add the UEN, signatory name and title, then press Save company details.", view:"settings",
     check: () => { const c = S.company || {}; return ["reg","address","email","privacy","signName","signTitle"].every(k => String(c[k] || "").trim()); }},
   {id:"sql-0006", sev:"high", title:"Run SQL: supplier quotes (0006)", sql:"0006", table:"rfqs",
-    why:"Operations request, compare and award quotes from FBOs, caterers and hotels in Supplier quotes.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+    why:"Brokers request, compare and award quotes from FBOs, caterers and hotels in Supplier quotes (someone else awards their own request).", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0007", sev:"high", title:"Run SQL: academy progress (0007)", sql:"0007", table:"academy_progress",
     why:"Saves each person's academy progress on their portal login, which you see when you assess them.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0008", sev:"high", title:"Run SQL: enquiry pool (0008)", sql:"0008", table:"enquiry_pool",

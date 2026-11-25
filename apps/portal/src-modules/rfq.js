@@ -4,7 +4,7 @@
      request  {ref, airport, category, trip, neededBy, terms, scope, status, createdBy, createdAt}
      suppliers[{pid, org, eligible, reasons, sentAt, sentBy}]   eligibility is checked when the request is made
      quotes[{pid, org, usd, original, validUntil, deviations, receivedAt, by}]   all amounts in USD
-     award {pid, org, usd, reason, by, at}   four-eyes: whoever made the request cannot award it (the Director exempt)
+     award {pid, org, usd, reason, by, at}   four-eyes: whoever made the request cannot award it (the Director included, Morten 31 Oct 2026)
      log[{t, by, note}]   append-only history
    Nothing is sent from the portal: a person copies the prepared message, sends it and marks it as sent.
    Staff only (owner and operations), enforced by the database rule in supabase/migrations/0006_rfqs.sql. */
@@ -78,7 +78,7 @@ Please quote in USD, itemised, with how long the quote is valid, by ${r.neededBy
 We found your details on your organisation's published pages. If you would rather not receive requests from us, reply and we will remove you.
 
 Kind regards,
-Archē Executive operations`;
+Archē Executive`;
 }
 function vQuotes(){
   if (!sqStaff()) return `<div class="panel empty"><p>Supplier quotes are for the Director.</p></div>`;
@@ -120,7 +120,7 @@ function sqForm(){
     <div class="row"><button class="btn primary" type="submit">Create request</button><button class="btn" type="button" data-rq="cancelNew">Cancel</button></div></form>`;
 }
 function sqDetail(r){
-  const st = r.status || "open", quotes = r.quotes || [], mine = r.createdBy === S.uid && !S.isOwner;
+  const st = r.status || "open", quotes = r.quotes || [], mine = r.createdBy === S.uid;
   const scored = quotes.map(q => ({q, s: sqScore(q, r, quotes)})).sort((a, b) => b.s.total - a.s.total);
   const sc = r.scope || {};
   return `<div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(r.ref)}</h2><span class="chip ${st === "awarded" ? "c-flown" : st === "cancelled" ? "c-returned" : "c-quoted"}">${SQ_STATUS[st]}</span></div>
@@ -171,7 +171,7 @@ document.addEventListener("click", async e => {
     await sqSet(id, {...r, suppliers: sup, log: sqLog(r, "Request sent to " + s.org)}); toast("Marked as sent."); return;
   }
   if (a === "award") {
-    if (r.createdBy === S.uid && !S.isOwner) { toast("You made this request, so someone else awards it."); return; }
+    if (r.createdBy === S.uid) { toast("You made this request, so someone else awards it (four eyes, the Director included)."); return; }
     const quotes = r.quotes || [], q = quotes.find(x => x.pid === el.dataset.pid); if (!q) return;
     const top = quotes.map(x => ({x, s: sqScore(x, r, quotes).total})).sort((m, n) => n.s - m.s)[0].x;
     const p = (S.prospects || {})[q.pid] || {};
@@ -212,7 +212,7 @@ document.addEventListener("submit", async e => {
     }
     if (f.id === "sqAwardForm") {
       const A = S.sqAward; if (!A || A.id !== id) return;
-      if (r.createdBy === S.uid && !S.isOwner) { toast("You made this request, so someone else awards it."); return; }
+      if (r.createdBy === S.uid) { toast("You made this request, so someone else awards it (four eyes, the Director included)."); return; }
       const reason = $("rq_ar").value.trim(); if (A.need && !reason) { toast("Write why you chose this supplier."); return; }
       { const q0 = (r.quotes || []).find(x => x.pid === A.pid) || {}; if (await gateHold("supplier", id + "-award-" + A.pid, "award", `Award ${r.ref} to ${A.org}${q0.usd ? ", " + usd(q0.usd) : ""}`, reason)) return; }
       const q = (r.quotes || []).find(x => x.pid === A.pid); if (!q) return;

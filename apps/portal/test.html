@@ -1184,13 +1184,13 @@ function vCommission(){
   for (const bid of bids) { const c = commissionFor(bid); for (const [m, v] of Object.entries(c)) rows.push({bid, m, ...v, paid: S.payouts[bid] && S.payouts[bid][m]}); }
   rows.sort((a, b) => b.m.localeCompare(a.m));
   const total = rows.reduce((s, r) => s + r.comm, 0), unpaid = rows.filter(r => !r.paid).reduce((s, r) => s + r.comm, 0);
-  return `<div class="head"><div><h1>${staff ? "Commission" : "My commission"}</h1><p class="muted small">Remote brokers: ${(S.terms.rate1*100).toFixed(0)}% of the Archē fee on the first ${S.terms.threshold} standard bookings (USD ${S.terms.unit.toLocaleString("en-US")} billed each) in a month, ${(S.terms.rate2*100).toFixed(0)}% after that. Counts only trips that have flown and been paid for, in the month they fly. Paid by the 15th of the next month.</p></div></div>
+  return `<div class="head"><div><h1>${staff ? "Commission" : "My commission"}</h1><p class="muted small">Brokers: ${(S.terms.rate1*100).toFixed(0)}% of the Archē fee on the first ${S.terms.threshold} standard bookings (USD ${S.terms.unit.toLocaleString("en-US")} billed each) in a month, ${(S.terms.rate2*100).toFixed(0)}% after that. Counts only completed bookings (flown, the client paid and the operator paid), in the month the booking became complete. Paid by the 15th of the next month.</p></div></div>
   <div class="kpis"><div class="kpi"><div class="l">Commission earned</div><div class="v">${usd(total)}</div></div><div class="kpi"><div class="l">Not yet paid out</div><div class="v">${usd(unpaid)}</div></div><div class="kpi"><div class="l">Trips counted</div><div class="v">${rows.reduce((s, r) => s + r.trips.length, 0)}</div></div></div>
   <div class="panel tbl">${rows.length ? `<table><thead><tr><th scope=col>Month flown</th>${staff ? "<th scope=col>Broker</th>" : ""}<th scope=col class="n">Trips</th><th scope=col class="n">Standard bookings</th><th scope=col class="n">Archē fee</th><th scope=col class="n">Commission</th><th scope=col>Status</th></tr></thead><tbody>
     ${rows.map(r => `<tr><td>${new Date(r.m + "-01T00:00:00").toLocaleDateString("en-GB",{month:"long",year:"numeric"})}</td>${staff ? `<td>${esc(nm(r.bid))}</td>` : ""}<td class="n">${r.trips.length}</td><td class="n">${r.units.toFixed(2)}</td><td class="n">${usd(r.gp)}</td><td class="n">${usd(r.comm)}</td>
       <td>${payCell(r, staff)}</td></tr>
       <tr><td colspan="${staff ? 7 : 6}" class="small muted">${r.trips.map(x => x.sup ? `${esc(x.ref || "")}: supervisor reward ${usd(x.comm)} on ${usd(x.gp)} Archē fee` : x.finder ? `${esc(x.ref)}: ${usd(x.comm)} on ${usd(x.gp)} Archē fee` : `${esc(x.ref || "")}: ${usd(x.price)} billed, ${usd(x.gp)} Archē fee, ${usd(x.comm)}`).join(" · ")}</td></tr>`).join("")}
-  </tbody></table>` : `<div class="empty"><p><b>No commission yet.</b></p><p class="small">Commission appears here automatically when a trip has flown and the client's payment has cleared.</p></div>`}</div>`;
+  </tbody></table>` : `<div class="empty"><p><b>No commission yet.</b></p><p class="small">Commission appears here automatically when a booking is complete: flown, the client's payment cleared and the operator paid.</p></div>`}</div>`;
 }
 
 /* ---------- control: monitoring flags ---------- */
@@ -1233,7 +1233,7 @@ function vControl(){
 /* ---------- team (owner) ---------- */
 function vTeam(){
   const joins = Object.entries(S.joins), ros = Object.entries(S.roster);
-  return `<div class="head"><div><h1>Team</h1><p class="muted small">New people complete the Broker Academy first, then ask for assessment. Assess them, create their Archē email, and approve only if they pass: that issues their onboarding package and opens the portal. New people sign in with a temporary password you create in Supabase (Authentication › Users › Add user, Auto Confirm User) and choose their own at first sign-in. End access the same day someone leaves.</p></div></div>
+  return `<div class="head"><div><h1>Team</h1><p class="muted small">Invite new people below: they choose their password from the email link, read the offer, complete the Broker Academy and ask for assessment. Assessment, agreements, countersigning and leaving are in Onboarding. End access the same day someone leaves.</p></div></div>
   ${joins.length ? `<div class="note info small" style="margin-bottom:12px">${joins.length} request${joins.length > 1 ? "s" : ""} to join waiting. <a href="#" data-view="onboarding">Open Onboarding</a></div>` : ""}
   <div><div class="panel tbl"><h2>People</h2><table><thead><tr><th scope=col>Name</th><th scope=col>Role</th><th scope=col>Works from</th><th scope=col>Since</th><th scope=col>Onboarding</th><th scope=col>Booking rights</th><th scope=col>Access</th></tr></thead><tbody>
   ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))} ${p.example ? '<span class="tag">Example</span>' : ""}</td><td>${esc(p.role)}</td><td>${esc(p.base || "")}</td><td>${fmtD(p.since)}</td><td>${obTeamCell(id, p)}</td><td>${p.role === "ops" ? "Mandated by the Director" : `<label class="check" style="margin:0"><input type="checkbox" data-book="${id}" ${p.book ? "checked" : ""}><span class="small">May authorise</span></label>`}</td><td>${p.active === false ? `<button class="btn small" type="button" data-reactivate="${id}">Restore</button>` : `<button class="btn small danger" type="button" data-offboard="${id}">${p.offboard ? "Leaving" : "End engagement"}</button>`}</td></tr>`).join("") || `<tr><td colspan="7" class="muted">Nobody approved yet.</td></tr>`}
@@ -1303,7 +1303,7 @@ function vRules(){
   <li>Every enquiry, quote, booking, payment and document for Archē Executive is made in this portal. Nothing is sold, quoted or paid outside it.</li>
   <li>Clients pay only through the secure payment request from our payment provider. Never send or accept bank details by email, chat or messaging apps.</li>
   <li>Only the Director, or a person the Director has mandated, issues a charter confirmation. A trip is confirmed when it shows a confirmation reference here.</li>
-  <li>The portal sets the price: operator price plus direct trip costs, at a ${(S.terms.margin*100).toFixed(0)}% margin. A lower price needs the Director's approval.</li>
+  <li>The portal sets the price: operator price plus direct trip costs, with the Archē fee, a fixed ${(S.terms.margin*100).toFixed(0)}% of the client price. A different fee only by the Director's decision on the trip, with the reason recorded.</li>
   <li>Clients, trips and documents belong to Archē Executive. Do not copy them out of the portal.</li>
   <li>Commission is paid only on trips booked, paid and flown through the portal.</li>
   <li>Make first contact with every new lead within ${cfgA().firstTouchHours} hours, and follow up at least every ${cfgA().followUpDays} days. Log every contact here. A lead with no contact in time moves to another broker, with its history.</li>
@@ -1462,7 +1462,7 @@ async function act(a, el){
       await deskWrite(t, {stage:"submitted", submittedAt: now()}, "Sent for authorisation"); toast("Sent for authorisation"); return; }
     if (a === "withdraw") { await deskWrite(t, {stage:"cancelled"}, "Withdrawn by broker"); toast("Trip withdrawn"); return; }
     if (a === "upload") { await uploadDoc(t); return; }
-    if (["opsSave","issue","return","clientPaid","operatorPaid","flown","cancelYes"].includes(a) && ownTrip(t)) { toast("Another person the Director has mandated, must do this on your own trip."); return; }
+    if (["opsSave","issue","return","clientPaid","operatorPaid","flown","cancelYes"].includes(a) && ownTrip(t)) { toast("Another person the Director has mandated, or the other owner, must do this on your own trip."); return; }
     if (a === "opsSave" || a === "issue") {
       const op = num($("o_op").value), dc = num($("o_dir").value), pn = $("o_pn").value.trim(), kyc = $("o_kyc").checked;
       const patch = {opPrice:op, direct:dc, price:(typeof tripPrice === "function" ? tripPrice(t, op, dc) : priceOf(op, dc)), paynodeRef:pn, pay:!!pn, kyc, state: t.st && t.st.state === "returned" ? "review" : (t.st && t.st.state) || "review"};
@@ -2726,7 +2726,7 @@ async function reviewAction(a, pid){
 function assignForm(){
   const c = cfgA();
   const f = (id, label, val, hint) => `<label class="f" for="${id}">${label}<input id="${id}" inputmode="decimal" value="${esc(val)}">${hint ? `<span class="small muted">${hint}</span>` : ""}</label>`;
-  return `<form id="assignForm" class="panel stack" style="max-width:640px;margin-top:16px"><h2>Prospect assignment and incentives</h2>
+  return `<form id="assignForm" class="panel stack" style="max-width:640px;margin-top:16px"><h2>Prospect assignment</h2>
   <p class="small muted">The assignment round runs automatically every 3 hours and whenever the portal is opened. It scores each broker on country and region fit, follow-up record, conversions and fair share, and keeps every prospect warm: no contact in time and it moves to the next broker with its history. Brokers see these rules in Portal rules.</p>
   <div class="fgrid">
     ${f("as_ft", "First contact due within (hours)", c.firstTouchHours)}
@@ -2763,7 +2763,7 @@ function vToday(){
   rv.forEach(([id, p]) => decisions.push(`<div class="flag"><span class="sev med" aria-hidden="true"></span><div style="flex:1"><p>${esc(p.org)} went cold with ${(p.history || []).filter(h => h.cold).length} brokers</p><p class="small muted">${esc(p.reviewReason || "")}</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-act="rvRestart" data-pid="${id}">Restart rotation</button><button class="btn small danger" type="button" data-act="rvDnc" data-pid="${id}">Do not contact</button><button class="btn small" type="button" data-act="rvOpen" data-pid="${id}">Open</button></div></div></div>`));
   }
   const m = run.metrics || {};
-  return `<div class="head"><div><h1>Today</h1><p class="muted small">Everything that needs you, in one place. The portal runs the rest: assignment, follow-up and backups. Daily prospect research is paused until go-live.</p></div></div>
+  return `<div class="head"><div><h1>Today</h1><p class="muted small">Everything that needs you, in one place. The portal runs the rest: assignment, follow-up, research and backups.</p></div></div>
   <div class="kpis"><div class="kpi"><div class="l">Needs your decision</div><div class="v">${decisions.length}</div></div><div class="kpi"><div class="l">Open pipeline</div><div class="v">${usd(pipe.reduce((a, t) => a + val(t), 0))}</div></div><div class="kpi"><div class="l">Weighted by win chance</div><div class="v">${usd(pipe.reduce((a, t) => a + val(t) * winScore(t) / 100, 0))}</div></div><div class="kpi"><div class="l">Prospects in rotation</div><div class="v">${Object.values(S.prospects).filter(p => p.assignedTo && !["dnc","review"].includes(p.status)).length} of ${Object.keys(S.prospects).length}</div></div></div>
   <div class="grid2"><div class="panel"><h2>Your decisions</h2>${decisions.join("") || `<div class="empty"><p><b>Nothing needs you right now.</b></p></div>`}</div>
   <div class="stack"><div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">Prospect rotation</h2><div class="row"><button class="btn small" type="button" data-act="enginePreview" ${S.engineBusy ? "disabled" : ""}>Preview</button><button class="btn small primary" type="button" data-act="engineRun" ${S.engineBusy ? "disabled" : ""}>Run now</button></div></div>
@@ -2851,7 +2851,7 @@ function tasksFor(bid, asOps){
       if (t.stage === "enquiry" && t0 - upd > 2 * day) add(1, `Quote ${nmC}: enquiry open ${Math.floor((t0 - upd) / day)} days`, op);
       if (t.stage === "quoted" && !submitReady(t.d)) add(2, `Finish the checks for ${nmC} and send for authorisation`, op);
       if (t.stage === "quoted" && t0 - upd > 5 * day) add(2, `Follow up ${nmC}: quote sent ${Math.floor((t0 - upd) / day)} days ago`, op); });
-    const st = myStats(); if (st.adds < st.min) add(3, `Add ${st.min - st.adds} more organisation${st.min - st.adds > 1 ? "s" : ""} this month (${st.adds} of ${st.min})`, `data-act="goAdd"`);
+    const st = myStats(); if (st.adds < st.min) add(3, `Optional: organisations you add this month ${st.adds} of ${st.min} (a score, not a target: ${st.min} or more gets new leads a little sooner)`, `data-act="goAdd"`);
   }
   if (asOps) {
     allTrips().forEach(t => { if (ownTrip(t)) return; const st = t.st || {}, nmC = esc((t.d.client && (t.d.client.company || t.d.client.name)) || "Client"), op = `data-open="${t.bid}|${t.did}" data-goto="queue"`;
@@ -3119,11 +3119,11 @@ document.addEventListener("submit", async e => {
   if (e.target.id === "termsForm") { const t = {margin:num($("t_m").value) / 100, unit:num($("t_u").value), threshold:num($("t_th").value), rate1:num($("t_r1").value) / 100, rate2:num($("t_r2").value) / 100, consultRate:S.terms.consultRate, cycleDays:Math.max(1, Math.round(num($("t_cy").value)) || 5)};
     if (!(t.margin > 0 && t.margin < 0.5 && t.unit > 0 && t.threshold > 0)) { toast("Check the values."); return; }
     if (t.margin < 0.09 - 1e-9) { toast("The Archē fee cannot be below 9% (Morten, 16 Nov 2026: a fixed 9%). A different fee on one trip is set on that trip, with the reason."); return; }
-    try { await S.db.doc("config/terms").set({...S.terms, ...t}); audit("Commercial terms changed", `margin ${(t.margin * 100).toFixed(2)}%, rates ${(t.rate1 * 100).toFixed(1)}% / ${(t.rate2 * 100).toFixed(1)}%`); toast("Terms saved"); } catch(err){ toast("Only the Director can change terms."); } return; }
+    try { await S.db.doc("config/terms").set({...S.terms, ...t}); audit("Commercial terms changed", `Archē fee ${(t.margin * 100).toFixed(2)}%, rates ${(t.rate1 * 100).toFixed(1)}% / ${(t.rate2 * 100).toFixed(1)}%`); toast("Terms saved"); } catch(err){ toast("Only the Director can change terms."); } return; }
 });
 /* ---------- v13: navigation shell, routing, badges, audit, signature, launch, restore ---------- */
 const PRIMARY = {owner:["today","trips","queue","prospects"], ops:["home","queue","trips","prospects"], broker:["home","trips","leads","commission"]};
-const SHORT = {today:"Today", trips:"Trips", queue:"Ops", quotes:"Quotes", prospects:"Prospects", home:"Home", leads:"Leads", commission:"Pay"};
+const SHORT = {today:"Today", trips:"Trips", queue:"Authorise", quotes:"Quotes", prospects:"Prospects", home:"Home", leads:"Leads", commission:"Pay"};
 function badges(){
   const b = {}, r = acting(), t0 = Date.now();
   try {
@@ -3633,7 +3633,7 @@ function trRunView(r){
     <label class="f" for="tr_why" style="max-width:420px">If declining, why<select id="tr_why"><option value="">Choose a reason</option><option value="payment" ${r.declineWhy === "payment" ? "selected" : ""}>The payer is in a country we cannot take payments from or pay to</option><option value="cabotage" ${r.declineWhy === "cabotage" ? "selected" : ""}>Illegal charter or cabotage</option><option value="safety" ${r.declineWhy === "safety" ? "selected" : ""}>No operator meets our safety standard</option><option value="other" ${r.declineWhy === "other" ? "selected" : ""}>Other</option></select></label>
     <div class="row"><button class="btn" type="button" data-tr="back">Back</button><button class="btn primary" type="button" data-tr="submit">Submit</button></div>`;
   if (st === 6) { const v = r.review || {crit:[], minor:[], ok:[]}, pass = !v.crit.length;
-    body = `<h3>Authorisation (training)</h3>${pass ? `<div class="note ok"><b>${trSc(r.sc).decline ? "Correctly stopped." : "Authorised."}</b></div>` : `<div class="note bad"><b>Returned to you.</b> Fix the points below and submit again. Each return costs the first-time bonus.</div>`}
+    body = `<h3>Authorisation (training)</h3>${pass ? `<div class="note ok"><b>${trSc(r.sc).decline ? "Correctly stopped." : "Authorised."}</b></div>` : `<div class="note bad"><b>Returned to you.</b> Fix the points below and submit again. Each return costs the first-time points.</div>`}
     ${v.crit.map(x => `<div class="note bad small">${esc(x)}</div>`).join("")}${v.minor.map(x => `<div class="note warn small">${esc(x)}</div>`).join("")}${v.ok.map(x => `<div class="note info small">${esc(x)}</div>`).join("")}
     <div class="row">${pass ? (trSc(r.sc).decline ? `<button class="btn primary" type="button" data-tr="finish">See your score</button>` : `<button class="btn primary" type="button" data-tr="next">See the confirmation</button>`) : `<button class="btn" type="button" data-tr="goto" data-to="2">Back to Avinode</button><button class="btn" type="button" data-tr="goto" data-to="3">Back to requests</button><button class="btn primary" type="button" data-tr="goto" data-to="5">Back to checks</button>`}</div>`; }
   if (st === 7) body = `<h3>Charter confirmation (training)</h3><p class="small muted">This is what the Director would issue. In training it is never issued: it carries a draft watermark and the reference ${esc(r.ref)}. Read it as the client would.</p>
@@ -5069,7 +5069,7 @@ document.addEventListener("submit", async e => {
      request  {ref, airport, category, trip, neededBy, terms, scope, status, createdBy, createdAt}
      suppliers[{pid, org, eligible, reasons, sentAt, sentBy}]   eligibility is checked when the request is made
      quotes[{pid, org, usd, original, validUntil, deviations, receivedAt, by}]   all amounts in USD
-     award {pid, org, usd, reason, by, at}   four-eyes: whoever made the request cannot award it (the Director exempt)
+     award {pid, org, usd, reason, by, at}   four-eyes: whoever made the request cannot award it (the Director included, Morten 31 Oct 2026)
      log[{t, by, note}]   append-only history
    Nothing is sent from the portal: a person copies the prepared message, sends it and marks it as sent.
    Staff only (owner and operations), enforced by the database rule in supabase/migrations/0006_rfqs.sql. */
@@ -5143,7 +5143,7 @@ Please quote in USD, itemised, with how long the quote is valid, by ${r.neededBy
 We found your details on your organisation's published pages. If you would rather not receive requests from us, reply and we will remove you.
 
 Kind regards,
-Archē Executive operations`;
+Archē Executive`;
 }
 function vQuotes(){
   if (!sqStaff()) return `<div class="panel empty"><p>Supplier quotes are for the Director.</p></div>`;
@@ -5185,7 +5185,7 @@ function sqForm(){
     <div class="row"><button class="btn primary" type="submit">Create request</button><button class="btn" type="button" data-rq="cancelNew">Cancel</button></div></form>`;
 }
 function sqDetail(r){
-  const st = r.status || "open", quotes = r.quotes || [], mine = r.createdBy === S.uid && !S.isOwner;
+  const st = r.status || "open", quotes = r.quotes || [], mine = r.createdBy === S.uid;
   const scored = quotes.map(q => ({q, s: sqScore(q, r, quotes)})).sort((a, b) => b.s.total - a.s.total);
   const sc = r.scope || {};
   return `<div class="panel stack"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(r.ref)}</h2><span class="chip ${st === "awarded" ? "c-flown" : st === "cancelled" ? "c-returned" : "c-quoted"}">${SQ_STATUS[st]}</span></div>
@@ -5236,7 +5236,7 @@ document.addEventListener("click", async e => {
     await sqSet(id, {...r, suppliers: sup, log: sqLog(r, "Request sent to " + s.org)}); toast("Marked as sent."); return;
   }
   if (a === "award") {
-    if (r.createdBy === S.uid && !S.isOwner) { toast("You made this request, so someone else awards it."); return; }
+    if (r.createdBy === S.uid) { toast("You made this request, so someone else awards it (four eyes, the Director included)."); return; }
     const quotes = r.quotes || [], q = quotes.find(x => x.pid === el.dataset.pid); if (!q) return;
     const top = quotes.map(x => ({x, s: sqScore(x, r, quotes).total})).sort((m, n) => n.s - m.s)[0].x;
     const p = (S.prospects || {})[q.pid] || {};
@@ -5277,7 +5277,7 @@ document.addEventListener("submit", async e => {
     }
     if (f.id === "sqAwardForm") {
       const A = S.sqAward; if (!A || A.id !== id) return;
-      if (r.createdBy === S.uid && !S.isOwner) { toast("You made this request, so someone else awards it."); return; }
+      if (r.createdBy === S.uid) { toast("You made this request, so someone else awards it (four eyes, the Director included)."); return; }
       const reason = $("rq_ar").value.trim(); if (A.need && !reason) { toast("Write why you chose this supplier."); return; }
       { const q0 = (r.quotes || []).find(x => x.pid === A.pid) || {}; if (await gateHold("supplier", id + "-award-" + A.pid, "award", `Award ${r.ref} to ${A.org}${q0.usd ? ", " + usd(q0.usd) : ""}`, reason)) return; }
       const q = (r.quotes || []).find(x => x.pid === A.pid); if (!q) return;
@@ -5854,7 +5854,7 @@ document.addEventListener("submit", async ev => {
    time. Requests live in step_requests (SQL 0011): the member can ask and amend while pending; only an owner decides.
    Until the SQL has run, nothing is gated and the Director's task list shows the SQL step. */
 const GATES = {
-  quote:    {who:"broker", label:"Quote to client", desc:"Each quote waits for your OK before it goes to the client, and cannot go to operations until approved."},
+  quote:    {who:"broker", label:"Quote to client", desc:"Each quote waits for your OK before it goes to the client, and cannot be sent for authorisation until approved."},
   take:     {who:"broker", label:"Taking an enquiry", desc:"Taking an enquiry from the pool waits for your OK. Your OK assigns it to them."},
   contact:  {who:"broker", label:"First contact with a new prospect", desc:"The planned first contact with each new lead (channel and message) waits for your OK."},
   pay:      {who:"ops", label:"Recording payments", desc:"Client and operator payments are recorded only after your OK."},
@@ -5960,7 +5960,7 @@ function supervisionPanel(){
     ${S.reqReady ? "" : `<div class="note info small">Step approval starts once the SQL step "supervised steps (0011)" above has run. Until then nothing is held back.</div>`}`;
   if (!ros.length) return head + `<p class="small muted">Nobody approved yet.</p></div>`;
   return head + `<table class="small"><thead><tr><th scope=col>Name</th><th scope=col>Supervised</th><th scope=col>Supervisor</th>${GATE_KEYS.map(k => `<th scope=col>${esc(GATES[k].label)}</th>`).join("")}<th scope=col>Supervisor rights</th></tr></thead><tbody>
-    ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Mandated by the Director" : p.role === "consultant" ? "Charter consultant" : "Broker")}</span>${S.rightsReady === false ? "" : supNameCell(id, p)}</td>
+    ${ros.map(([id, p]) => `<tr><td>${esc(p.contractName || nm(id))}<br><span class="muted">${esc(p.role === "ops" ? "Mandated by the Director" : p.role === "consultant" ? "Broker" : "Broker")}</span>${S.rightsReady === false ? "" : supNameCell(id, p)}</td>
       <td><label class="check" style="margin:0"><input type="checkbox" data-supall="${id}" ${p.supervised ? "checked" : ""}><span class="small">${p.supervised ? "Yes" : "No"}</span></label></td><td>${supAssignCell(id, p)}</td>
       ${GATE_KEYS.map(k => { if (!gateApplies(k, id)) return `<td class="muted">–</td>`; const s = gateStats(id, k), rel = !!(p.released || {})[k];
         return `<td>${!p.supervised ? `<span class="chip c-flown">Free</span>` : rel ? `<span class="chip c-flown">Released</span>` : `<span class="chip c-review">Needs your OK</span>`}<br><span class="muted">${s.ok} approved · ${s.ch} changes</span>${p.supervised ? `<br><button class="btn small" type="button" data-gate="${rel ? "resup" : "release"}" data-uid="${id}" data-key="${k}">${rel ? "Supervise again" : "Release"}</button>` : ""}</td>`; }).join("")}<td>${S.rightsReady === false ? `<span class="muted">After SQL 0012</span>` : rightsCells(id, p)}</td></tr>`).join("")}
@@ -6442,7 +6442,7 @@ document.addEventListener("click", e => {
 /* ---------- Broker intake and leaving (Morten, 26 Oct 2026) ----------
    - Ready for bookings: agreements are sent, signed and countersigned at once, and the portal opens; but nobody can send
      a trip for authorisation, approve or issue until company, bank, client payments and Avinode are ticked (Morten,
-     25 Nov 2026: "Sandro to sign today and I countersign, and the blocker before we go live is controlled by portal";
+     25 Nov 2026: "[the candidate] to sign today and I countersign, and the blocker before we go live is controlled by portal";
      before 25 Nov no agreement was sent until then) (insurance is
      being arranged; the agreement's Insurance clause says so).
    - Supervision limit: at most N people supervised at once (default 6); others wait.
@@ -6501,7 +6501,7 @@ function intakeTeamPanel(){
   const R = intakeCfg().ready || {}, n = supervisedNow(), cap = intakeCap();
   const leavers = Object.entries(S.roster || {}).filter(([, p]) => p.offboard && !(p.offboard.closed));
   return `<div class="panel" style="margin-bottom:16px" id="intakePanel"><h2>Ready for bookings</h2>
-    <p class="small muted">Candidates can register, read the offer and do the academy at any time. Agreements go out only when all four are ticked.</p>
+    <p class="small muted">Candidates can register, read the offer, do the academy, sign and be countersigned at any time. Sending a trip for authorisation, approving and issuing wait until all four are ticked.</p>
     ${Object.entries(INTAKE_READY).map(([k, l]) => `<label class="check" for="ir_${k}"><input type="checkbox" id="ir_${k}" data-intake="ready" data-k="${k}" ${R[k] ? "checked" : ""}><span>${esc(l)}</span></label>`).join("")}
     <label class="check" for="ir_ins"><input type="checkbox" id="ir_ins" data-intake="ready" data-k="insurance" ${R.insurance ? "checked" : ""}><span>Insurance in place (optional now; when ticked, tell signed brokers in writing, as the agreement's Insurance clause promises)</span></label>
     <p class="small">${intakeReady() ? `<span class="chip c-flown">Ready</span> Bookings are open.` : `<span class="chip c-review">Not ready</span> Agreements can be signed and countersigned now, and brokers get their portal; no trip can be sent for authorisation, approved or issued until all four are ticked.`}</p>
@@ -6710,7 +6710,7 @@ document.addEventListener("change", async e => {
 
 function vOnboarding(){
   const joins = Object.entries(S.joins || {});
-  return `<div class="head"><div><h1>Onboarding</h1><p class="muted small">Joining and leaving. People ask for assessment after the academy; tick the qualification checklist, then send the agreement once Archē is ready to sign. Ending an engagement is one tick here.</p></div></div>
+  return `<div class="head"><div><h1>Onboarding</h1><p class="muted small">Joining and leaving. People ask for assessment after the academy; tick the qualification checklist, the skills check and the interview, then send the agreement; bookings open once Ready for bookings is all ticked. Ending an engagement is one tick here.</p></div></div>
     <div class="panel" style="margin-bottom:16px"><h2>Waiting for assessment${joins.length ? ` (${joins.length})` : ""}</h2>${joins.length ? joins.map(([id, j]) => obJoinCard(id, j)).join("") : `<p class="muted small">No requests waiting.</p>`}</div>
     ${intakeTeamPanel()}`;
 }
@@ -6768,7 +6768,7 @@ const ASK_INFO = {
 };
 function asInfo(k){ const i = ASK_INFO[k]; if (!i) return ""; return `<details class="small" style="margin:2px 0 8px 28px"><summary style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;list-style:none"><span aria-hidden="true" style="display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid currentColor;border-radius:50%;font:600 11px/1 serif;font-style:italic">i</span><span class="muted">For the assessor</span></summary><div style="margin:6px 0 0;padding:8px 10px;border-left:2px solid var(--line, #8888)"><p style="margin:0 0 4px"><b>What it tests:</b> ${esc(i[0])}</p><p style="margin:0 0 4px"><b>Correct or good:</b> ${esc(i[1])}</p><p style="margin:0"><b>Red flags:</b> ${esc(i[2])}</p></div></details>`; }
 /* the meeting in one natural flow, in person or on a video call (Morten, 25 Nov 2026: "Align portal and document so that
-   I can be present and follow a natural flow with Sandro. And he will do the booking flow and we'll go into q&a and
+   I can be present and follow a natural flow with [the candidate]. And he will do the booking flow and we'll go into q&a and
    launch as well"): the booking flow is the full trial booking, and each skill is shown at its steps */
 const ASK_PLAN = [["Welcome and Archē record", 10], ["Booking flow: the full trial booking, the person at the keyboard", 40], ["Interview", 20], ["Q&A and launch", 15], ["Decision and next steps", 5]];
 const ASK_STEP = {enquiry: "steps 1-2 (brief, enquiry)", checks: "step 5 (checks)", quote: "step 4 (price)", kyc: "step 5 (checks) and step 10 (client signs and pays)",
@@ -8048,7 +8048,7 @@ document.addEventListener("change", async e => {
       {id: "f3", t: "Enquiries: the website and the enquiry pool", page: "pool", min: 20, show: ["Website enquiries arrive in the portal: reply within 15 minutes", "Open enquiries: taking an enquiry from the pool", "While you are supervised, some steps wait for the Director's OK"], check: "Where does a new website enquiry appear, and how fast do we reply?"},
       {id: "f4", t: "A trip: the form and the steps guide", page: "trips", min: 25, show: ["New enquiry: client, legs, aircraft category, operator quote", "Fields marked * are needed before authorisation", "\"Steps to book this trip\": what is done, what is missing, who does it", "Save often; the trip keeps its history"], check: "Create a practice trip in the test portal and read its steps list aloud."},
       {id: "f5", t: "Checks that stop a trip", page: "trips", min: 25, show: ["Trip checks: red stops the trip, amber must be confirmed in writing", "Sanctions, cabotage, night curfews and the never-sell list", "Operator safety: ARGUS Platinum or Platinum Elite, WYVERN Wingman or Wingman PRO, IS-BAO Stage 2 or 3", "Any other operator: an Archē-approved operator or the Director's approval; the safety line for the quote"], check: "Name the three accepted audits and what happens with any other operator."},
-      {id: "f6", t: "Sending to operations and the Director's OK", page: "queue", min: 15, show: ["\"Send for authorisation\" opens only when nothing is missing and nothing is red", "The Director issues the confirmation and records payments; brokers set only enquiry, quoted, submitted or cancelled", "Payment only through a secure payment request, never bank details"], check: "Who issues the confirmation, and may you issue your own trip?"},
+      {id: "f6", t: "Sending for authorisation and the Director's OK", page: "queue", min: 15, show: ["\"Send for authorisation\" opens only when nothing is missing and nothing is red", "The Director issues the confirmation and records payments; brokers set only enquiry, quoted, submitted or cancelled", "Payment only through a secure payment request, never bank details"], check: "Who issues the confirmation, and may you issue your own trip?"},
       {id: "f7", t: "Prospects and contacts: the data rules", page: "prospects", min: 20, show: ["Organisations first; named people only as business contacts from the organisation's own site or a licensed database", "Every first message says where we found the details and offers an opt-out", "An opt-out deletes the person's details at once; no export of contact details", "You see contacts only on your own leads; opening them is logged"], check: "What must every first message to a named contact include?"},
       {id: "f8", t: "Commission, training and the next steps", page: "commission", min: 15, show: ["Your commission page", "Training: the academy, its quizzes and the practice trips", "The test portal for practice on example data", "The plan for the next sessions (full syllabus)"], check: "Agree with the Director the first three academy modules to finish this week."}]},
     full: {t: "Full syllabus", lessons: [
@@ -8221,7 +8221,7 @@ const OWNER_TODO = [
     how:"Settings > Company details: legal name, registered address, bookings email (contact@archeaviation.com) and privacy email (privacy@archeaviation.com) are filled in already; add the UEN, signatory name and title, then press Save company details.", view:"settings",
     check: () => { const c = S.company || {}; return ["reg","address","email","privacy","signName","signTitle"].every(k => String(c[k] || "").trim()); }},
   {id:"sql-0006", sev:"high", title:"Run SQL: supplier quotes (0006)", sql:"0006", table:"rfqs",
-    why:"Operations request, compare and award quotes from FBOs, caterers and hotels in Supplier quotes.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
+    why:"Brokers request, compare and award quotes from FBOs, caterers and hotels in Supplier quotes (someone else awards their own request).", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0007", sev:"high", title:"Run SQL: academy progress (0007)", sql:"0007", table:"academy_progress",
     why:"Saves each person's academy progress on their portal login, which you see when you assess them.", how:"Supabase > SQL Editor > New query > paste > Run. Safe to run twice."},
   {id:"sql-0008", sev:"high", title:"Run SQL: enquiry pool (0008)", sql:"0008", table:"enquiry_pool",
@@ -8832,7 +8832,7 @@ function trustMatrix(){
   window.vProfile = function(){
     if (S.pr && S.pr.uid !== S.uid) S.pr = null;
     if (!S.pr) { load(); return `<div class="panel"><h1>My profile</h1><p class="small muted">Loading…</p></div>`; }
-    const p = S.pr, s = p.self || {}, role = {owner: "Director", ops: "Mandated by the Director", broker: "Broker", consultant: "Charter consultant"}[p.role] || "Joining";
+    const p = S.pr, s = p.self || {}, role = {owner: "Director", ops: "Mandated by the Director", broker: "Broker", consultant: "Broker"}[p.role] || "Joining";
     const f = (id, label, v, extra = "") => `<label class="f" for="${id}">${label}<input id="${id}" value="${esc(v || "")}" ${extra}></label>`;
     return `<div class="head"><div><h1>My profile</h1><p class="muted small">Your details at Archē Executive, and your password.</p></div>${acting() === "pending" ? `<div class="row"><button class="btn" type="button" data-pr="back">Back to joining</button></div>` : ""}</div>
       <div class="grid2"><div class="panel stack"><h2>What Archē holds</h2>
@@ -8845,8 +8845,8 @@ function trustMatrix(){
         <p class="small muted">To correct any of these, message the Director. Your name must match your passport.</p></div>
       <div class="stack"><form id="prForm" class="panel stack"><h2>Your contact details</h2><div class="fgrid">
           ${f("pr_pref", "Name you like to be called", s.preferredName, 'autocomplete="nickname"')}
-          ${f("pr_mob", "Mobile, with country code", s.mobile, 'type="tel" autocomplete="tel" placeholder="+66 81 234 5678"')}
-          ${f("pr_wa", "WhatsApp, if different", s.whatsapp, 'type="tel" placeholder="+66 81 234 5678"')}
+          ${f("pr_mob", "Mobile, with country code", s.mobile, 'type="tel" autocomplete="tel" placeholder="+65 6123 4567"')}
+          ${f("pr_wa", "WhatsApp, if different", s.whatsapp, 'type="tel" placeholder="+65 6123 4567"')}
           <label class="f" for="pr_tz">Your time zone<select id="pr_tz">${["", ...TZ].map(z => `<option value="${z}" ${s.timezone === z ? "selected" : ""}>${z ? z.replace("_", " ") : "Choose"}</option>`).join("")}</select></label>
           ${f("pr_lang", "Languages you work in", s.languages, 'placeholder="English, Thai"')}
           ${f("pr_av", "When you can usually be reached", s.availability, 'placeholder="Weekdays 09:00 to 18:00"')}</div>
@@ -8986,7 +8986,7 @@ function trustMatrix(){
       "Please pay through the secure payment request we sent you for this booking. If you have already paid, thank you, and please ignore this message.", "",
       "If the payment has not cleared by the due date, we may have to treat the booking as cancelled under A3, and the cancellation charges in A9 then apply.", "",
       `We never send bank details by email or message. If you receive payment details any other way, do not pay: call us on ${phone || "the number in your confirmation"}.`, "",
-      "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
+      "Kind regards,", "Archē Executive", email || ""].join("\n")};
   }
   function cancelText({name, ref, reason, missing, missingDue, charge, period, received, phone, email, noticeDate}){
     const diffAmt = n(received) - n(charge);
@@ -8998,7 +8998,7 @@ function trustMatrix(){
       `Cancellation charge under A9 (${period} before departure; the higher of the scale and the Operator's own charge plus our fee): ${money$(charge)}. Received from you: ${money$(received)}. ${money}`,
       "Costs already committed under B12 are invoiced separately with receipts, if there are any.", "",
       `If you believe this is wrong, call your advisor at once on ${phone || "the number in your confirmation"}.`, "",
-      "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
+      "Kind regards,", "Archē Executive", email || ""].join("\n")};
   }
   const BP = {OUR, rows, pctAt, cancelTable, schedule, dueBy, exposure, maySign, mayPay, nextStep, deadline, addDays, diff, BUFFER, reminderText, cancelText, REMIND_VERSION, longDate, money$};
   root.BP = BP;
@@ -9273,7 +9273,7 @@ function trustMatrix(){
       ${need.length && !issued ? `<div class="note warn small"><b>Before issuing:</b> ${need.map(esc).join(" · ")}</div>` : ""}`;
     // margin
     const ex = st.marginEx, pct = f.P ? (f.P - f.O - f.D) / f.P * 100 : 0;
-    const marg = `<p class="small" style="margin:8px 0 4px"><b>Margin</b> ${f.P ? `${pct.toFixed(1)}% · ${usd(f.P - f.O - f.D)}` : ""}${ex ? ` <span class="chip c-review">Set by the Director: ${(num(ex.pct) * 100).toFixed(1)}%</span> <span class="muted">${esc(ex.reason)} (${esc(fmtT(ex.at))})</span>` : ` <span class="muted">(${(S.terms.margin * 100).toFixed(0)}%, the rule)</span>`}</p>
+    const marg = `<p class="small" style="margin:8px 0 4px"><b>Archē fee</b> ${f.P ? `${pct.toFixed(1)}% · ${usd(f.P - f.O - f.D)}` : ""}${ex ? ` <span class="chip c-review">Set by the Director: ${(num(ex.pct) * 100).toFixed(1)}%</span> <span class="muted">${esc(ex.reason)} (${esc(fmtT(ex.at))})</span>` : ` <span class="muted">(${(S.terms.margin * 100).toFixed(0)}%, the rule)</span>`}</p>
       ${own && !issued ? `<details class="small"><summary>Director: another fee on this trip (the exception)</summary><div class="fgrid"><label class="f" for="bk_mp">Archē fee for this trip (%)<input id="bk_mp" inputmode="decimal" value="${ex ? (num(ex.pct) * 100).toFixed(1) : ""}"></label><label class="f wide" for="bk_mr">Reason (kept in the audit log)<input id="bk_mr" value="${esc(ex ? ex.reason : "")}"></label></div><div class="row"><button class="btn small primary" type="button" data-bka="margin">Save the fee</button>${ex ? `<button class="btn small" type="button" data-bka="marginOff">Back to ${(S.terms.margin * 100).toFixed(0)}%</button>` : ""}</div></details>` : ""}`;
     // after issue
     const dToday = today(), cumDue = BP.dueBy(pl.sched, dToday);
@@ -9364,7 +9364,7 @@ function trustMatrix(){
     S.cxIn = {did: t.did, open: true, ...cancelInputs(t)}; render(); });
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest('#secBook [data-bka="cancel"]'); if (!b) return; e.stopImmediatePropagation();
-    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another person the Director has mandated, must do this on your own trip."); return; }
+    const t = tripById(S.sel); if (!t || !staffOn(t)) { toast("Another person the Director has mandated, or the other owner, must do this on your own trip."); return; }
     const inp = cancelInputs(t); if (!inp.avinode) { toast("Cancel on Avinode first, then tick it."); return; }
     b.disabled = true;
     try {
@@ -9402,7 +9402,7 @@ function trustMatrix(){
         const ex = {pct, reason: why, by: S.uid, at: now()}, price = tripPrice({st: {marginEx: ex}}, st.opPrice, st.direct);
         await stWrite(t, {marginEx: ex, price}, `Archē fee for this trip set by the Director: ${(pct * 100).toFixed(1)}% (${why})`); audit("Trip fee set by the Director", `${st.ref || t.did} · ${(pct * 100).toFixed(1)}% · ${why.slice(0, 80)}`); toast(`Archē fee ${(pct * 100).toFixed(1)}%: price ${usd(price)}.`); } catch(err){ toast("Could not save."); }
       return; }
-    if (!staffOn(t)) { toast("Another person the Director has mandated, must do this on your own trip."); return; }
+    if (!staffOn(t)) { toast("Another person the Director has mandated, or the other owner, must do this on your own trip."); return; }
     try {
       if (a === "doc") { const fl = ($("bkFile") || {}).files && $("bkFile").files[0]; if (!fl) { toast("Choose the contract file first."); return; }
         const assets = await __arche.use("assets"); if (!assets) { toast("Document upload is not available here."); return; }

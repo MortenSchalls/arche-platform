@@ -1,7 +1,7 @@
 /* ---------- Broker intake and leaving (Morten, 26 Oct 2026) ----------
    - Ready for bookings: agreements are sent, signed and countersigned at once, and the portal opens; but nobody can send
      a trip for authorisation, approve or issue until company, bank, client payments and Avinode are ticked (Morten,
-     25 Nov 2026: "Sandro to sign today and I countersign, and the blocker before we go live is controlled by portal";
+     25 Nov 2026: "[the candidate] to sign today and I countersign, and the blocker before we go live is controlled by portal";
      before 25 Nov no agreement was sent until then) (insurance is
      being arranged; the agreement's Insurance clause says so).
    - Supervision limit: at most N people supervised at once (default 6); others wait.
@@ -60,7 +60,7 @@ function intakeTeamPanel(){
   const R = intakeCfg().ready || {}, n = supervisedNow(), cap = intakeCap();
   const leavers = Object.entries(S.roster || {}).filter(([, p]) => p.offboard && !(p.offboard.closed));
   return `<div class="panel" style="margin-bottom:16px" id="intakePanel"><h2>Ready for bookings</h2>
-    <p class="small muted">Candidates can register, read the offer and do the academy at any time. Agreements go out only when all four are ticked.</p>
+    <p class="small muted">Candidates can register, read the offer, do the academy, sign and be countersigned at any time. Sending a trip for authorisation, approving and issuing wait until all four are ticked.</p>
     ${Object.entries(INTAKE_READY).map(([k, l]) => `<label class="check" for="ir_${k}"><input type="checkbox" id="ir_${k}" data-intake="ready" data-k="${k}" ${R[k] ? "checked" : ""}><span>${esc(l)}</span></label>`).join("")}
     <label class="check" for="ir_ins"><input type="checkbox" id="ir_ins" data-intake="ready" data-k="insurance" ${R.insurance ? "checked" : ""}><span>Insurance in place (optional now; when ticked, tell signed brokers in writing, as the agreement's Insurance clause promises)</span></label>
     <p class="small">${intakeReady() ? `<span class="chip c-flown">Ready</span> Bookings are open.` : `<span class="chip c-review">Not ready</span> Agreements can be signed and countersigned now, and brokers get their portal; no trip can be sent for authorisation, approved or issued until all four are ticked.`}</p>
@@ -269,7 +269,7 @@ document.addEventListener("change", async e => {
 
 function vOnboarding(){
   const joins = Object.entries(S.joins || {});
-  return `<div class="head"><div><h1>Onboarding</h1><p class="muted small">Joining and leaving. People ask for assessment after the academy; tick the qualification checklist, then send the agreement once Archē is ready to sign. Ending an engagement is one tick here.</p></div></div>
+  return `<div class="head"><div><h1>Onboarding</h1><p class="muted small">Joining and leaving. People ask for assessment after the academy; tick the qualification checklist, the skills check and the interview, then send the agreement; bookings open once Ready for bookings is all ticked. Ending an engagement is one tick here.</p></div></div>
     <div class="panel" style="margin-bottom:16px"><h2>Waiting for assessment${joins.length ? ` (${joins.length})` : ""}</h2>${joins.length ? joins.map(([id, j]) => obJoinCard(id, j)).join("") : `<p class="muted small">No requests waiting.</p>`}</div>
     ${intakeTeamPanel()}`;
 }

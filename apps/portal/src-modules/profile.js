@@ -17,7 +17,7 @@
   window.vProfile = function(){
     if (S.pr && S.pr.uid !== S.uid) S.pr = null;
     if (!S.pr) { load(); return `<div class="panel"><h1>My profile</h1><p class="small muted">Loading…</p></div>`; }
-    const p = S.pr, s = p.self || {}, role = {owner: "Director", ops: "Mandated by the Director", broker: "Broker", consultant: "Charter consultant"}[p.role] || "Joining";
+    const p = S.pr, s = p.self || {}, role = {owner: "Director", ops: "Mandated by the Director", broker: "Broker", consultant: "Broker"}[p.role] || "Joining";
     const f = (id, label, v, extra = "") => `<label class="f" for="${id}">${label}<input id="${id}" value="${esc(v || "")}" ${extra}></label>`;
     return `<div class="head"><div><h1>My profile</h1><p class="muted small">Your details at Archē Executive, and your password.</p></div>${acting() === "pending" ? `<div class="row"><button class="btn" type="button" data-pr="back">Back to joining</button></div>` : ""}</div>
       <div class="grid2"><div class="panel stack"><h2>What Archē holds</h2>
@@ -30,8 +30,8 @@
         <p class="small muted">To correct any of these, message the Director. Your name must match your passport.</p></div>
       <div class="stack"><form id="prForm" class="panel stack"><h2>Your contact details</h2><div class="fgrid">
           ${f("pr_pref", "Name you like to be called", s.preferredName, 'autocomplete="nickname"')}
-          ${f("pr_mob", "Mobile, with country code", s.mobile, 'type="tel" autocomplete="tel" placeholder="+66 81 234 5678"')}
-          ${f("pr_wa", "WhatsApp, if different", s.whatsapp, 'type="tel" placeholder="+66 81 234 5678"')}
+          ${f("pr_mob", "Mobile, with country code", s.mobile, 'type="tel" autocomplete="tel" placeholder="+65 6123 4567"')}
+          ${f("pr_wa", "WhatsApp, if different", s.whatsapp, 'type="tel" placeholder="+65 6123 4567"')}
           <label class="f" for="pr_tz">Your time zone<select id="pr_tz">${["", ...TZ].map(z => `<option value="${z}" ${s.timezone === z ? "selected" : ""}>${z ? z.replace("_", " ") : "Choose"}</option>`).join("")}</select></label>
           ${f("pr_lang", "Languages you work in", s.languages, 'placeholder="English, Thai"')}
           ${f("pr_av", "When you can usually be reached", s.availability, 'placeholder="Weekdays 09:00 to 18:00"')}</div>

@@ -62,7 +62,7 @@
     ],
     [
      "Commission shows USD 0 although I have flown trips",
-     "Commission counts only trips that have flown and whose client payment has cleared. Ask the Director to record the payment."
+     "Commission counts only completed bookings: flown, the client's payment cleared and the operator paid (agreement 4.2). Ask the Director to record the payments."
     ],
     [
      "A task stays on the list after I did it",
@@ -1435,7 +1435,7 @@
   ],
   [
    "When is commission paid?",
-   "For trips that have flown and whose client payment has cleared, in the month of the flight, by the 15th of the next month."
+   "For completed bookings (flown, the client's payment cleared and the operator paid), counted in the month the booking became complete and paid by the 15th of the next month (agreement 4.2 and 4.3)."
   ],
   [
    "Who sees my leads and trips?",

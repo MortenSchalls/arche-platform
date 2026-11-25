@@ -108,7 +108,7 @@
       "Please pay through the secure payment request we sent you for this booking. If you have already paid, thank you, and please ignore this message.", "",
       "If the payment has not cleared by the due date, we may have to treat the booking as cancelled under A3, and the cancellation charges in A9 then apply.", "",
       `We never send bank details by email or message. If you receive payment details any other way, do not pay: call us on ${phone || "the number in your confirmation"}.`, "",
-      "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
+      "Kind regards,", "Archē Executive", email || ""].join("\n")};
   }
   function cancelText({name, ref, reason, missing, missingDue, charge, period, received, phone, email, noticeDate}){
     const diffAmt = n(received) - n(charge);
@@ -120,7 +120,7 @@
       `Cancellation charge under A9 (${period} before departure; the higher of the scale and the Operator's own charge plus our fee): ${money$(charge)}. Received from you: ${money$(received)}. ${money}`,
       "Costs already committed under B12 are invoiced separately with receipts, if there are any.", "",
       `If you believe this is wrong, call your advisor at once on ${phone || "the number in your confirmation"}.`, "",
-      "Kind regards,", "Archē Executive operations", email || ""].join("\n")};
+      "Kind regards,", "Archē Executive", email || ""].join("\n")};
   }
   const BP = {OUR, rows, pctAt, cancelTable, schedule, dueBy, exposure, maySign, mayPay, nextStep, deadline, addDays, diff, BUFFER, reminderText, cancelText, REMIND_VERSION, longDate, money$};
   root.BP = BP;

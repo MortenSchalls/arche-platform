@@ -278,6 +278,7 @@ const PART_A = [
    "On signature: 25% of the price, with a minimum of USD 2,500.",
    "Balance: due 7 calendar days before the first scheduled departure, positioning included.",
    "A booking made less than 7 days before departure: full price on signature.",
+   "If the Operator requires payment earlier, or its cancellation charges rise earlier, the dates and amounts in this confirmation's payment schedule apply.",
    "The booking is held only once cleared funds reach Archē Executive. Funds still missing on a due date let Archē Executive treat the booking as cancelled by the Charterer."]},
  {n:"A4",t:"Passenger details.",p:"Names and passport copies for everyone travelling come with the signed confirmation. Permit authorities may ask for more, or earlier, and the Charterer provides it at once."},
  {n:"A5",t:"One continuous journey.",p:"The aircraft cannot carry passengers between two airports in the same foreign country. A trip with several stops is flown as one continuous international journey on one passenger manifest. The full routing and passenger list are fixed at booking. Later changes need new permits and may be refused."},
@@ -597,7 +598,7 @@ function update(){
     const pct=cc.margin/cc.price*100; const cls = cc.price<cc.target?"bad":"good";
     $("margin").innerHTML = `<span>Archē fee</span><span class="${cls}">${usd(cc.margin)} (${pct.toFixed(2)}%)</span>
       <span>Price at the Archē fee (operator price and direct costs ÷ 0.91)</span><span>${usd(cc.target)}</span>
-      <span>Counts toward the booking ramp as</span><span>${(cc.price/PRICING.unit).toFixed(1)} units (1 unit = USD 45,000 billed)</span>`;
+      <span>Counts for commission as</span><span>${(cc.price/PRICING.unit).toFixed(1)} standard bookings (1 = USD 45,000 billed)</span>`;
   } else $("margin").innerHTML = `<span>Enter the Operator price to check the Archē fee.</span><span></span>`;
   const issues=[...ch.err.map(t=>["err","Fix",t]),...ch.warn.map(t=>["warn","Check",t])];
   if (ch.missing.length) issues.push(["warn","Missing",ch.missing.join(" · ")]);

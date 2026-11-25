@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     if (!who.ok) return res.status(401).json({ error: "Sign in again." });
     const me = await who.json(), self = cleanSelf((req.body || {}).self);
     const cur = await sb(`/rest/v1/profiles?select=data&id=eq.${me.id}`), row = (cur.body || [])[0];
-    if (!row) return res.status(404).json({ error: "No profile yet. Ask Archē operations." });
+    if (!row) return res.status(404).json({ error: "No profile yet. Ask the Director." });
     const data = { ...(row.data || {}), self: { ...((row.data || {}).self || {}), ...self, updatedAt: new Date().toISOString() } };
     const up = await sb(`/rest/v1/profiles?id=eq.${me.id}`, { method: "PATCH", headers: { prefer: "return=minimal" }, body: JSON.stringify({ data }) });
     if (!up.ok) return res.status(500).json({ error: "Could not save. Try again." });

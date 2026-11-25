@@ -48,7 +48,7 @@ const ASK_INFO = {
 };
 function asInfo(k){ const i = ASK_INFO[k]; if (!i) return ""; return `<details class="small" style="margin:2px 0 8px 28px"><summary style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;list-style:none"><span aria-hidden="true" style="display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid currentColor;border-radius:50%;font:600 11px/1 serif;font-style:italic">i</span><span class="muted">For the assessor</span></summary><div style="margin:6px 0 0;padding:8px 10px;border-left:2px solid var(--line, #8888)"><p style="margin:0 0 4px"><b>What it tests:</b> ${esc(i[0])}</p><p style="margin:0 0 4px"><b>Correct or good:</b> ${esc(i[1])}</p><p style="margin:0"><b>Red flags:</b> ${esc(i[2])}</p></div></details>`; }
 /* the meeting in one natural flow, in person or on a video call (Morten, 25 Nov 2026: "Align portal and document so that
-   I can be present and follow a natural flow with Sandro. And he will do the booking flow and we'll go into q&a and
+   I can be present and follow a natural flow with [the candidate]. And he will do the booking flow and we'll go into q&a and
    launch as well"): the booking flow is the full trial booking, and each skill is shown at its steps */
 const ASK_PLAN = [["Welcome and Archē record", 10], ["Booking flow: the full trial booking, the person at the keyboard", 40], ["Interview", 20], ["Q&A and launch", 15], ["Decision and next steps", 5]];
 const ASK_STEP = {enquiry: "steps 1-2 (brief, enquiry)", checks: "step 5 (checks)", quote: "step 4 (price)", kyc: "step 5 (checks) and step 10 (client signs and pays)",

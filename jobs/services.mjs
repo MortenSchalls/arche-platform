@@ -35,7 +35,7 @@ const EXTRA_NAMES = { KPBI: "Palm Beach International", TFFJ: "St Barthelemy Gus
 const KEEP = ["VDPP"];   // on the first list (Phnom Penh) and not in tier 1: kept
 export const AIRPORTS = [...Object.values(Q.tier1).flat(), ...KEEP].filter((x, i, all) => all.indexOf(x) === i)
   .map(icao => [icao, AP[icao] ? `${AP[icao][3] || AP[icao][2]} (${AP[icao][2]})` : (EXTRA_NAMES[icao] || icao)]);
-const SANCTIONED = ["russia", "belarus", "iran", "north korea", "syria", "cuba", "venezuela", "myanmar", "afghanistan", "crimea"];
+import { SANCTIONED } from "./intel.mjs";   // one list, read from excluded.json (audit 25 Nov 2026)
 const MARKETPLACES = /(^|\.)(avinode|jetvip|aircharterguide|charterhub|privatefly|fxair|lunajets|flyvictor|jetsmarter|flyxo|airnav|globalair|acukwik|booking|expedia|hotels|agoda|trip|tripadvisor|kayak|trivago|hotelscombined)\.[a-z.]+$/i;
 const clean = (v, n = 300) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, n);
 const normUrl = u => { try { const x = new URL(u); return (x.hostname.replace(/^www\./, "") + x.pathname.replace(/\/$/, "")).toLowerCase(); } catch { return ""; } };
