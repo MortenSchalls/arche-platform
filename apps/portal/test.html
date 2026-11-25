@@ -1102,7 +1102,7 @@ function tripFile(t){
     ${typeof tripNextBlock === "function" ? tripNextBlock(t) : ""}${gateTripNote(t)}${typeof tripChecksBlock === "function" ? tripChecksBlock(t) : ""}${typeof supShareBlock === "function" ? supShareBlock(t) : ""}${typeof tripContactsBlock === "function" ? tripContactsBlock(t) : ""}${t.stage === "returned" ? `<div class="note bad"><b>Returned at authorisation:</b> ${esc(st.note || "See the history below.")}</div>` : ""}
     <div class="row"><button class="btn" type="button" data-act="openConf">Charter confirmation${st.ref ? " · " + esc(st.ref) + (st.confRev ? " Rev " + st.confRev : "") : ""}</button>${st.confIssued ? `<span class="chip c-flown">Issued</span>` : (t.d.conf ? `<span class="chip c-review">Draft</span>` : "")}</div>
     <div id="secSig">${sigBlock(t)}</div>
-    ${locked && mine ? `<p class="lock">This trip is waiting for authorisation, or confirmed. Price, payment and documents are controlled by operations; ask them for any change.</p>` : ""}
+    ${locked && mine ? `<p class="lock">This trip is waiting for authorisation, or confirmed. Price, payment and documents are now with the Director, or a person the Director has mandated; ask them for any change.</p>` : ""}
     <div class="fgrid">
       <div class="${S.role === "broker" ? "guard" : ""}"><h3>Client</h3><p>${esc(c.name || "–")}${c.company ? `, ${esc(c.company)}` : ""}</p><p class="small muted">${esc(c.email || "")} ${esc(c.phone || "")}</p><p class="small muted">${c.country ? "Resident in " + esc(c.country) : ""}${c.payer ? " · Payer: " + esc(c.payer) : ""}</p></div>
       <div><h3>Trip</h3>${legs.length ? legs.map(l => `<p class="small"><b>${esc(l.from)} → ${esc(l.to)}</b> · ${fmtD(l.date)} ${esc(l.time || "")} · ${esc(l.pax || "?")} pax${APT.by[l.from] || APT.by[l.to] ? `<br><span class="muted">${esc(aptName(l.from) || l.from)} → ${esc(aptName(l.to) || l.to)}</span>` : ""}</p>`).join("") : `<p class="small muted">No legs yet</p>`}<p class="small muted">${esc(tr.category || "")}${tr.notes ? " · " + esc(tr.notes) : ""}</p></div>
@@ -10006,6 +10006,154 @@ document.addEventListener("click", async ev => {
       <div class="row"><a class="btn small primary" href="${AVB_URL}" target="_blank" rel="noopener noreferrer">Sign up for the free digital edition</a></div></div>`;
   }
   const _vTrainingRead = vTraining; vTraining = function(){ return afterHead(_vTrainingRead(), panel()); };
+})();
+/* ---------- Options for the client (Morten, 25 Nov 2026, peer proposal P2: "All") ----------
+   Next to the main quote a broker can hold up to two more aircraft for the same journey, so the client compares them side
+   by side (as on the client page). The main quote stays the one every check, the authorisation and the confirmation use;
+   "Make this the main option" swaps an alternative in, and the trip checks run on it at once. Each price is worked out the
+   same way as the main one: (operator price + direct trip costs, with conversion and card costs) ÷ 0.91. */
+(function(){
+  const ALT_MAX = 2;
+  function altPrice(a, q){ const own = num(a.direct), pc = payCostOf(a.opPrice, own, a.cur || "USD", !!q.card); return priceOf(a.opPrice, own + pc.total); }
+  function optionsBlock(t){
+    const d = t.d, q = d.quote || {}, alts = d.alts || [], r = acting();
+    const mine = t.bid === S.uid && (r === "broker" || (S.role === "owner" && !S.preview)), open = mine && !["review","issued","clientPaid","flown","cancelled"].includes(t.stage);
+    if (!num(q.opPrice) && !alts.length) return "";
+    const row = (o, main, i) => `<tr><td>${main ? `<span class="chip c-flown">Main</span>` : `<span class="chip">Option ${i + 2}</span>`}</td><td><b>${esc(o.aircraft || "–")}</b><br><span class="muted">${esc(o.operator || "–")}${o.opCountry ? ", " + esc(o.opCountry) : ""}</span></td><td>${esc(o.audit || (main ? "See Operator safety" : "–"))}</td><td class="mono">${usd(num(o.opPrice))}</td><td class="mono"><b>${usd(main ? priceOf(q.opPrice, q.direct) : altPrice(o, q))}</b></td>
+      <td>${!main && open ? `<div class="row" style="gap:6px"><button class="btn small" type="button" data-alt="main|${i}">Make this the main option</button><button class="btn small" type="button" data-alt="del|${i}">Remove</button></div>` : ""}</td></tr>`;
+    const form = S.altForm === t.did ? `<form id="altForm" class="fgrid" style="margin-top:8px">
+        <label class="f" for="al_op">Operator legal name, as on its AOC<input id="al_op" required></label>
+        <label class="f" for="al_oc">Operator's country<input id="al_oc"></label>
+        <label class="f" for="al_ac">Aircraft type<input id="al_ac" required></label>
+        <label class="f" for="al_au">Safety audit (e.g. ARGUS Platinum)<input id="al_au"></label>
+        <label class="f" for="al_pr">Operator price (USD)<input id="al_pr" inputmode="decimal" required></label>
+        <label class="f" for="al_dc">Direct trip costs not in the operator price (USD)<input id="al_dc" inputmode="decimal"></label>
+        <div class="row" style="grid-column:1/-1"><button class="btn primary small" type="submit">Add this option</button><button class="btn small" type="button" data-alt="cancel|0">Cancel</button></div></form>` : "";
+    return `<div id="secOptions"><h3>Options for the client</h3><p class="small muted">Up to three aircraft for the same journey, compared side by side. The main option is the one checked, authorised and confirmed; make another one main when the client chooses it, and its trip checks run at once.</p>
+      <div style="overflow-x:auto;max-width:100%"><table class="tbl small"><thead><tr><th scope=col></th><th scope=col>Aircraft and operator</th><th scope=col>Safety audit</th><th scope=col>Operator price</th><th scope=col>Client price</th><th scope=col></th></tr></thead><tbody>
+      ${num(q.opPrice) ? row(q, true, -1) : ""}${alts.map((a, i) => row(a, false, i)).join("")}</tbody></table></div>
+      <div class="row" style="margin-top:8px">${open && alts.length < ALT_MAX && !form ? `<button class="btn small" type="button" data-alt="add|0">Add an option</button>` : ""}${alts.length ? `<button class="btn small" type="button" data-alt="copy|0">Copy the options for the client</button>` : ""}</div>${form}</div>`;
+  }
+  function optionsText(t){
+    const d = t.d, q = d.quote || {}, legs = ((d.trip || {}).legs || []).map(l => `${l.from} to ${l.to}, ${fmtD(l.date)}`).join("; ");
+    const all = [{...q, price: priceOf(q.opPrice, q.direct)}, ...(d.alts || []).map(a => ({...a, price: altPrice(a, q)}))];
+    return [`Your options for ${legs}:`, ...all.map((o, i) => `${i + 1}. ${o.aircraft}, operated by ${o.operator}${o.audit ? " (" + o.audit + ")" : ""}: USD ${o.price.toLocaleString("en-US")}, all included as listed in the confirmation.`),
+      "Each option is held subject to availability. Tell me which you prefer and I will confirm it with the operator."].join("\n");
+  }
+  const _tf = tripFile;
+  tripFile = function(t){ const h = _tf(t), b = optionsBlock(t); if (!b) return h; const k = h.indexOf(`<div><h3>Price at `); return k < 0 ? h + b : h.slice(0, k) + b + h.slice(k); };
+  document.addEventListener("click", async ev => {
+    const b = ev.target.closest && ev.target.closest("[data-alt]"); if (!b) return; ev.preventDefault();
+    const t = tripById(S.sel); if (!t) return; const [a, iS] = b.dataset.alt.split("|"), i = +iS, alts = [...(t.d.alts || [])];
+    if (a === "add") { S.altForm = t.did; render(); return; }
+    if (a === "cancel") { S.altForm = null; render(); return; }
+    if (a === "copy") { try { await navigator.clipboard.writeText(optionsText(t)); toast("Options copied. Paste them into your email or WhatsApp to the client."); } catch(e){ toast("Could not copy here."); } return; }
+    if (a === "del") { alts.splice(i, 1); await deskWrite(t, {alts}, "Option removed"); toast("Option removed."); return; }
+    if (a === "main") { const q = t.d.quote || {}, alt = alts[i]; if (!alt) return;
+      const old = {operator: q.operator || "", opCountry: q.opCountry || "", aircraft: q.aircraft || "", audit: q.audit || "", opPrice: num(q.opPrice), direct: num(q.directOwn ?? q.direct)};
+      const own = num(alt.direct), pc = payCostOf(alt.opPrice, own, "USD", !!q.card);
+      const quote = {...q, operator: alt.operator, opCountry: alt.opCountry || "", aircraft: alt.aircraft, audit: alt.audit || "", tail: "", opPrice: num(alt.opPrice), directOwn: own, direct: own + pc.total, payFx: pc.fx, payCard: pc.card, cur: "USD"};
+      delete quote.curAmt; delete quote.rate; alts[i] = old;
+      await deskWrite(t, {quote, alts}, `Main option changed to ${alt.aircraft} (${alt.operator})`); toast("Main option changed. Its trip checks and operator safety now apply."); return; }
+  });
+  document.addEventListener("submit", async ev => {
+    if (ev.target.id !== "altForm") return; ev.preventDefault();
+    const t = tripById(S.sel); if (!t) return; const v = id => ($(id) || {}).value ? $(id).value.trim() : "";
+    const alt = {operator: v("al_op"), opCountry: v("al_oc"), aircraft: v("al_ac"), audit: v("al_au"), opPrice: num(v("al_pr")), direct: num(v("al_dc"))};
+    if (!alt.operator || !alt.aircraft || !alt.opPrice) { toast("Add the operator, aircraft and operator price."); return; }
+    const alts = [...(t.d.alts || []), alt].slice(0, ALT_MAX); S.altForm = null;
+    await deskWrite(t, {alts}, `Option added: ${alt.aircraft} (${alt.operator})`); toast("Option added.");
+  });
+  window.optionsText = optionsText;
+})();
+/* ---------- Email templates (Morten, 25 Nov 2026, peer proposal P5: "All") ----------
+   Ready-written emails at the moments brokers write most: the first message to a named business contact on a lead, the
+   options for a client, and a friendly chase when a client has not answered. Each opens in the broker's own mailbox
+   (Archē email) with everything filled in; the broker reads it, changes what they like and presses Send themselves.
+   Nothing is sent by the portal (CLAUDE.md: any outbound message needs a person). The first message always says where
+   we found the details and offers an opt-out (data rules). */
+(function(){
+  const meName = () => (S.roster[S.uid] || {}).contractName || S.myName || "";
+  const sign = () => ["Kind regards,", meName(), "Archē Executive", (S.myRoster || {}).archeMail || (((S.roster[S.uid] || {}).onboarding) || {}).email || ""].filter(Boolean).join("\n");
+  const host = u => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return ""; } };
+  const mail = (to, subject, body) => `mailto:${encodeURIComponent(to || "")}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  function firstMessage(rec, c){
+    const where = c.sourceType === "Licensed professional database" ? "a licensed professional database" : c.sourceType === "Business card or meeting" ? "the card you gave me" : host(c.source) ? `${host(c.source)}, ${rec.org || "your organisation"}'s own website` : "your organisation's website";
+    const body = [`Dear ${c.name || "Sir or Madam"},`, "",
+      `I am ${meName() || "a broker"} at Archē Executive, a private jet charter broker based in Singapore. We act for our clients as their agent: we source the right aircraft from audited operators worldwide, check every flight and look after the trip to the last landing.`, "",
+      `I am writing to you as ${c.role || "the person responsible for travel"} at ${rec.org || "your organisation"}. Two quick questions, if I may:`,
+      "1. When your team flies privately, which routes come up most often?", "2. Who arranges those flights today, and what would make it easier?", "",
+      "If it helps, I can send a sample quote for a trip you have coming up, with no obligation.", "",
+      `We found your details on ${where}. If you would rather not hear from us, reply "no thanks" and we will delete your details at once and not contact you again.`, "",
+      sign()].join("\n");
+    return mail(c.email, `Private jet charter for ${rec.org || "your team"}`, body);
+  }
+  function optionsMail(t){
+    const c = (t.d || {}).client || {}, txt = typeof optionsText === "function" ? optionsText(t) : "";
+    return mail(c.email, `Your aircraft options${((t.d.trip || {}).legs || [])[0] ? ", " + t.d.trip.legs[0].from + " to " + t.d.trip.legs[0].to : ""}`,
+      [`Dear ${c.name || "Sir or Madam"},`, "", "Thank you for your request. Here are the aircraft held for your journey:", "", txt, "", "Every operator is checked by us before we offer it: its certificate, safety audit, insurance and crew.", "", sign()].join("\n"));
+  }
+  function chaseMail(t){
+    const c = (t.d || {}).client || {}, l = ((t.d.trip || {}).legs || [])[0] || {};
+    return mail(c.email, `Your journey${l.from ? " " + l.from + " to " + l.to : ""}`,
+      [`Dear ${c.name || "Sir or Madam"},`, "", `I wanted to check you received the options for ${l.from ? l.from + " to " + l.to : "your journey"}${l.date ? " on " + fmtD(l.date) : ""}. Aircraft are held only for a short time, so let me know which you prefer, or if anything should change, and I will take care of it.`, "", sign()].join("\n"));
+  }
+  window.tplFirstMessage = firstMessage;
+  /* the first message beside each named contact on a lead, before "Contacted today" */
+  const _ct = contactsHtml;
+  contactsHtml = function(rec, where, id){
+    const h = _ct(rec, where, id); if (where !== "lead") return h;
+    return h.replace(/<button class="btn small" type="button" data-ct="touch" data-where="lead" data-id="([^"]*)" data-i="(\d+)">Contacted today<\/button>/g, (m, rid, i) => {
+      const c = (rec.contacts || [])[+i] || {}; return c.email ? `<a class="btn small" href="${esc(firstMessage(rec, c))}" title="Opens in your email with the first message written: where we found the details and the opt-out included. Read it, then press Send yourself.">Write first message</a>` + m : m; });
+  };
+  /* on the trip: the options and a chase, while the broker is quoting */
+  const _tf = tripFile;
+  tripFile = function(t){
+    const h = _tf(t), c = (t.d || {}).client || {}, mine = t.bid === S.uid && acting() !== "owner" || (S.role === "owner" && t.bid === S.uid && !S.preview);
+    if (!mine || !c.email || !["enquiry","quoted"].includes(t.stage) || !num((t.d.quote || {}).opPrice)) return h;
+    const b = `<div class="row" id="tplRow" style="margin-top:8px"><a class="btn small" href="${esc(optionsMail(t))}">Email the options to the client</a><a class="btn small" href="${esc(chaseMail(t))}">Write a friendly chase</a><span class="small muted">Opens in your email, written; you press Send.</span></div>`;
+    const k = h.indexOf(`<div><h3>Price at `); return k < 0 ? h + b : h.slice(0, k) + b + h.slice(k);
+  };
+})();
+/* ---------- Fill the quote from the operator's quote (Morten, 25 Nov 2026, peer proposal P3: "All") ----------
+   Leon and FL3XX bring Avinode quotes straight into the trip through Avinode's API, which Archē's Starter plan does not
+   include. Until then, the broker pastes the text of the operator's quote (from Avinode's quote page, its email or the
+   PDF) and the portal fills what it can recognise: price and currency, aircraft type, registration, operator and the
+   Avinode trip ID. The broker checks every field before saving; nothing is copied out of Avinode in bulk (data rules). */
+(function(){
+  const CUR = {"USD":"USD","US$":"USD","$":"USD","EUR":"EUR","€":"EUR","GBP":"GBP","£":"GBP","CHF":"CHF","SGD":"SGD","HKD":"HKD","AED":"AED","JPY":"JPY","THB":"THB","AUD":"AUD"};
+  const TYPES = /\b(Global\s?(?:7500|6500|6000|5500|5000|Express(?: XRS)?)|Challenger\s?\d{3}|Gulfstream\s?G?\d{3}(?:ER)?|G\d{3}(?:ER)?|Falcon\s?\d{1,4}[A-Z]{0,2}|Legacy\s?\d{3}|Praetor\s?\d{3}|Phenom\s?\d{3}E?|Citation\s?[A-Za-z0-9 ]{2,12}?(?=\b)|Learjet\s?\d{2}|Hawker\s?\d{3,4}[A-Z]{0,2}|King\s?Air\s?\d{3}|PC-?(?:12|24)|ACJ\s?\d{3}|BBJ\s?\d?|Embraer\s?Lineage\s?\d{4})\b/i;
+  const TAIL = /\b((?:[A-Z]{1,2}|\d[A-Z]|[A-Z]\d)-[A-Z0-9]{3,5}|N\d{1,5}[A-Z]{0,2})\b/g;
+  function parse(txt){
+    const s = String(txt || "").replace(/ /g, " "), out = {};
+    const pm = s.match(/(?:total|price|quote|amount|charter)[^\n\d]{0,40}?(USD|US\$|EUR|GBP|CHF|SGD|HKD|AED|JPY|THB|AUD|\$|€|£)\s?([\d.,' ]{3,})/i) || s.match(/(USD|US\$|EUR|GBP|CHF|SGD|HKD|AED|JPY|THB|AUD|€|£)\s?([\d][\d.,' ]{2,})/);
+    if (pm) { out.cur = CUR[pm[1].toUpperCase()] || CUR[pm[1]] || "USD"; const raw = pm[2].trim().replace(/[' ]/g, ""); const n = /,\d{2}$/.test(raw) && raw.includes(".") ? raw.replace(/\./g, "").replace(",", ".") : raw.replace(/,/g, ""); out.amount = Math.round(parseFloat(n)) || 0; }
+    const ty = s.match(TYPES); if (ty) out.aircraft = ty[1].replace(/\s+/g, " ").trim();
+    const op = s.match(/(?:operator|operated by|aoc holder)\s*[:\-]?\s*([A-Z][^\n,;]{2,60})/i); if (op) out.operator = op[1].trim();
+    const av = s.match(/(?:trip\s*(?:id|no\.?|number)|avinode[^\n\d]{0,20})\s*[:#]?\s*([A-Z0-9-]{5,20})/i); if (av) out.avinode = av[1];
+    const tails = [...s.matchAll(TAIL)].map(m => m[1]).filter(x => x !== out.avinode && !/^(AVN|USD|EUR|GBP|ID)/.test(x)); if (tails.length) out.tail = tails[0];
+    return out;
+  }
+  function fill(p){
+    const set = (id, v) => { const el = $(id); if (el && v !== undefined && v !== "" && !el.value) { el.value = v; el.classList.add("filled"); } };
+    set("q_op", p.operator); set("q_ac", p.aircraft); set("q_tl", p.tail); set("q_av", p.avinode);
+    if (p.amount) { if (p.cur && p.cur !== "USD" && $("q_cur")) { $("q_cur").value = p.cur; if (typeof curSync === "function") curSync(); set("q_amt", p.amount); } else set("q_pr", p.amount); }
+    if (typeof updatePreview === "function") try { updatePreview(); } catch (e) {}
+    return ["operator", "aircraft", "tail", "avinode", "amount"].filter(k => p[k]).length;
+  }
+  const _open = openEditor;
+  openEditor = function(t){
+    _open(t);
+    const h = [...document.querySelectorAll("#edForm h3")].find(x => x.textContent.trim() === "Operator quote"); if (!h || $("avPaste")) return;
+    h.insertAdjacentHTML("afterend", `<details class="small" id="avPasteBox" style="margin:4px 0 10px"><summary>Paste the operator's quote to fill the fields</summary>
+      <p class="small muted">Copy the text of the quote from Avinode, the operator's email or its PDF and paste it here. The portal fills the price and currency, aircraft type, registration, operator and Avinode trip ID it can find; check each field before saving.</p>
+      <textarea id="avPaste" rows="5" style="width:100%" aria-label="The operator's quote text"></textarea><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-act="avFill">Fill the fields</button></div></details>`);
+  };
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest && ev.target.closest('[data-act="avFill"]'); if (!b) return; ev.preventDefault(); ev.stopImmediatePropagation();
+    const n = fill(parse(($("avPaste") || {}).value)); toast(n ? `Filled ${n} field${n > 1 ? "s" : ""}. Check each one before saving.` : "Nothing recognised. Fill the fields by hand.");
+  }, true);
+  window.avParse = parse;
 })();
 /* ---------- The Director's menu in groups (Morten, 25 Nov 2026, peer proposal P7: "All") ----------
    On a computer the Director's 19 menu items sat in two rows; peers keep five to seven. The items now sit in six groups:

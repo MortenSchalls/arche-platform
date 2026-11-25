@@ -199,7 +199,9 @@
     "Quoted in another currency: choose it; the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3% away from it.",
     "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.",
     "Save. The trip moves to Quoted.",
-    "When you save, the portal checks in the background: the names against the sanctions lists, the operator against the EU Air Safety List, and a US registration (N…) against the FAA list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date."
+    "When you save, the portal checks in the background: the names against the sanctions lists, the operator against the EU Air Safety List, and a US registration (N…) against the FAA list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date.",
+    "Paste the operator's quote: open \"Paste the operator's quote to fill the fields\" in Operator quote, paste the text from Avinode, the operator's email or its PDF and press Fill the fields. The portal fills the price and currency, aircraft type, registration, operator and Avinode trip ID it recognises; check each field before saving.",
+    "Options for the client: in the trip file, Add an option holds up to two more aircraft for the same journey (operator, aircraft, safety audit, operator price, direct costs). Each is priced like the main quote. Copy the options for the client, or Email the options to the client, and when the client chooses one press Make this the main option: the main option is the one checked, authorised and confirmed."
    ],
    "trouble": [
     [
@@ -209,6 +211,10 @@
     [
      "The Director changed my operator price",
      "The Director, or a person the Director has mandated, confirms the price on Avinode; the confirmed figure is used and the difference is flagged."
+    ],
+    [
+     "Fill the fields filled nothing or the wrong value",
+     "The portal recognises common formats only. Fill or correct the fields by hand; nothing is saved until you press Save."
     ]
    ],
    "tips": [
@@ -403,7 +409,8 @@
     "Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note.",
     "Add a prospect: organisation, segment, country, public source link, contact route and why they charter.",
     "Add or correct a contact route on any lead to keep the database current.",
-    "Open an enquiry from a lead when the organisation has a trip."
+    "Open an enquiry from a lead when the organisation has a trip.",
+    "Write first message: beside each named contact with a work email, it opens your email with the first message written, saying where we found the details and with the opt-out line. Read it, change what you like, press Send yourself, then Contacted today."
    ],
    "trouble": [
     [
