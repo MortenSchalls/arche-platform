@@ -209,6 +209,26 @@ export async function closeTestEnquiries(sb, before, why) {
   if (rows.length) ck(await sb.from("audit_log").insert({ by: null, action: "Test website enquiries closed", detail: `${rows.length} received before ${before} (${why})` }), "audit");
   return { before, closed: rows.length, received: rows.map(r => String(r.at || "").slice(0, 10)) };
 }
+
+/* read only (Morten, 25 Nov 2026: "check log on Sandro and evaluate what is not working"): one person's activity in the last
+   N hours: audit lines by or about them, their trips and trip status, training runs, step requests, and every audit line
+   of the owners in the same window (the four-eyes side of a test booking). No emails; client contact fields are dropped. */
+async function activityLog(sb, u, hours){
+  const since = new Date(Date.now() - (hours || 12) * 36e5).toISOString(), uid = u.id;
+  const prof = (ck(await sb.from("profiles").select("id,contract_name,role,active"), "profiles") || []);
+  const name = (prof.find(p => p.id === uid) || {}).contract_name || "";
+  const owners = prof.filter(p => p.role === "owner").map(p => p.id);
+  const strip = d => { const x = JSON.parse(JSON.stringify(d || {})); if (x.client) { delete x.client.email; delete x.client.phone; } delete x.contacts; return x; };
+  const audit = ck(await sb.from("audit_log").select("t,by,action,detail").gte("t", since).order("t", { ascending: true }).limit(800), "audit") || [];
+  const mine = audit.filter(a => a.by === uid || (name && String(a.detail || "").includes(name.split(" ")[0])) || owners.includes(a.by))
+    .map(a => ({ t: a.t, who: a.by === uid ? "person" : owners.includes(a.by) ? "owner" : a.by ? "other" : "system", action: a.action, detail: String(a.detail || "").slice(0, 300) }));
+  const trips = (ck(await sb.from("trips").select("id,data,updated_at").eq("owner_id", uid), "trips") || []).filter(t => t.updated_at >= since);
+  const status = ck(await sb.from("trip_status").select("id,data,updated_at").eq("owner_id", uid), "trip_status") || [];
+  const runs = (ck(await sb.from("training_runs").select("id,data,updated_at").eq("owner_id", uid), "training_runs") || []).filter(r => r.updated_at >= since);
+  let steps = []; try { steps = (ck(await sb.from("step_requests").select("id,data,updated_at").eq("owner_id", uid), "step_requests") || []).filter(r => r.updated_at >= since); } catch (e) {}
+  return { name, since, audit: mine, trips: trips.map(t => ({ id: t.id, updated: t.updated_at, data: strip(t.data), status: (status.find(s => s.id === t.id) || {}).data || null })),
+    training: runs.map(r => ({ id: r.id, updated: r.updated_at, data: r.data })), stepRequests: steps.map(r => ({ id: r.id, data: r.data })) };
+}
 // the result also goes into a job annotation, which Claude reads through the GitHub API (the plain log is not reachable from its workspace)
 const note = o => { if (process.env.GITHUB_ACTIONS) console.log("::notice title=Admin result::" + JSON.stringify(o).replace(/%/g, "%25").replace(/\r?\n/g, " ")); };
 export async function main(env = process.env, sb) {
@@ -222,6 +242,7 @@ export async function main(env = process.env, sb) {
   if (action === "people-status") { const out = await peopleStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  if (action === "activity-log") { const u0 = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null; if (!u0) throw new Error("Nobody found"); const out = await activityLog(sb, u0, +(env.HOURS || 14)); console.log(JSON.stringify(out, null, 1)); const j = JSON.stringify(out); for (let i = 0; i < j.length; i += 3800) note({part: i / 3800 + 1, of: Math.ceil(j.length / 3800), text: j.slice(i, i + 3800)}); return out; }
   if (!["person-status", "reset-joining", "reset-next-login", "cancel-reset-next", "set-name"].includes(action)) throw new Error("Unknown action " + action);
   const u = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null;
   if (!email && !name) throw new Error("Give an email or a name");
