@@ -129,7 +129,7 @@
   });
   // on save: screen the names and record the result on the trip; red keeps the trip as an enquiry
   window.tcBeforeSave = async function(body, ids){
-    const c = body.client || {}, names = [c.name, c.company, c.payer, (body.quote || {}).operator].map(x => String(x || "").trim()).filter(x => x.length >= 3);
+    const c = body.client || {}, cf = body.conf || {}, names = [c.name, c.company, c.payer, cf.lead || (body.intake || {}).lead, cf.cName, (body.quote || {}).operator].map(x => String(x || "").trim()).filter((x, i, a) => x.length >= 3 && a.findIndex(y => y.toLowerCase() === x.toLowerCase()) === i);
     const prevNames = ((body.screen || {}).results || []).map(r => r.name).join("|");
     if (names.length && names.join("|") !== prevNames) {
       try { const j = await screenNames(names, ids ? {log: "trip", tripOwner: ids.bid, tripId: ids.did} : null); body.screen = {at: now(), lists: j.lists, listsAt: j.at, results: j.results, logId: j.logId || null, aslStates: j.aslStates || []}; }

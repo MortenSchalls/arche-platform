@@ -1,4 +1,5 @@
 // Archē-approved operators (manual 8.3, Morten 27 Oct 2026): twelve-month approval, per-trip checks, safety line, withdraw,
+const showQuote=async p=>{await p.evaluate(()=>{const b=document.querySelector('[data-act="edPart"][data-part="quote"]');if(b)b.click();});};
 // expiry before the last flight, suspension ends the approval. Example data only. Needs the test page on localhost:8765.
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1300,height:1000}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
 let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x)));if(!c)fails++;};
@@ -11,7 +12,7 @@ const needs=()=>p.evaluate(()=>{const t=tripById(S.sel);return safetyNeeds(t.d,t
 const newTrip=async(date)=>{await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);await p.click('[data-act="new"]');await p.waitForTimeout(800);
  await p.fill('#e_cn','Anna Example');await p.fill('#e_em','anna@example.com');await p.fill('#e_ct','Singapore');
  const leg=p.locator('.leg').first();await leg.locator('[data-l="from"]').fill('WSSS');await leg.locator('[data-l="to"]').fill('VTBD');await leg.locator('[data-l="date"]').fill(date);await leg.locator('[data-l="time"]').fill('10:00');await leg.locator('[data-l="pax"]').fill('4');
- await p.fill('#q_op','Example Regional Air Ltd');await p.selectOption('#q_oc','SG');await p.fill('#q_ac','Legacy 600');await p.fill('#q_tl','9V-XYZ');await p.fill('#q_pr','30000');
+ await showQuote(p);await p.fill('#q_op','Example Regional Air Ltd');await showQuote(p);await p.selectOption('#q_oc','SG');await showQuote(p);await p.fill('#q_ac','Legacy 600');await showQuote(p);await p.fill('#q_tl','9V-XYZ');await showQuote(p);await p.fill('#q_pr','30000');
  await p.click('#edForm button[type=submit]');await p.waitForTimeout(1800);
  await sel('sf_aud','isbao-1');await sel('sf_cls','jet');await sel('sf_2p','yes');await fill('sf_ins','60000000');await sel('sf_hist','clear');
  return p.evaluate(()=>S.sel);};

@@ -870,7 +870,7 @@ function tripFile(t){
   if (isStaff() && r !== "broker") ops = opsBlock(t);
   return `<div class="panel stack">
     <div class="head" style="margin:0"><div><h2>${esc(c.company || c.name || "New client")}</h2><p class="small muted">${st.ref ? `<span class="mono">${esc(st.ref)}</span> · ` : ""}Broker: ${esc(nm(t.bid))} · Opened ${fmtD(d.created)}</p></div><span class="chip c-${t.stage}">${STAGES[t.stage]}</span></div>
-    ${typeof tripNextBlock === "function" ? tripNextBlock(t) : ""}${gateTripNote(t)}${typeof tripChecksBlock === "function" ? tripChecksBlock(t) : ""}${typeof supShareBlock === "function" ? supShareBlock(t) : ""}${typeof tripContactsBlock === "function" ? tripContactsBlock(t) : ""}${t.stage === "returned" ? `<div class="note bad"><b>Returned at authorisation:</b> ${esc(st.note || "See the history below.")}</div>` : ""}
+    ${typeof tripNextBlock === "function" ? tripNextBlock(t) : ""}${canBrokerEdit && ["enquiry", "quoted", "returned"].includes(t.stage) && typeof avinodeBox === "function" ? avinodeBox(t) : ""}${gateTripNote(t)}${typeof tripChecksBlock === "function" ? tripChecksBlock(t) : ""}${typeof supShareBlock === "function" ? supShareBlock(t) : ""}${typeof tripContactsBlock === "function" ? tripContactsBlock(t) : ""}${t.stage === "returned" ? `<div class="note bad"><b>Returned at authorisation:</b> ${esc(st.note || "See the history below.")}</div>` : ""}
     <div class="row"><button class="btn" type="button" data-act="openConf">Charter confirmation${st.ref ? " · " + esc(st.ref) + (st.confRev ? " Rev " + st.confRev : "") : ""}</button>${st.confIssued ? `<span class="chip c-flown">Issued</span>` : (t.d.conf ? `<span class="chip c-review">Draft</span>` : "")}</div>
     <div id="secSig">${sigBlock(t)}</div>
     ${locked && mine ? `<p class="lock">This trip is waiting for authorisation, or confirmed. Price, payment and documents are now with the Director, or a person the Director has mandated; ask them for any change.</p>` : ""}
@@ -892,7 +892,7 @@ function tripFile(t){
       ${typeof kycBlock === "function" ? kycBlock(t, canBrokerEdit) : ""}
       <label class="f" for="ck_payref" style="margin-top:6px">Client payment request reference (created in our payment provider)<input id="ck_payref" data-payref="1" value="${esc((t.d || {}).payRef || st.paynodeRef || "")}" ${canBrokerEdit ? "" : "disabled"}></label></div>
     ${tripDocsPanel(t, canBrokerEdit)}
-    ${canBrokerEdit ? `<div class="row" id="secSend"><button class="btn" type="button" data-act="edit">Edit enquiry and quote</button><button class="btn primary" type="button" data-act="submit" ${submitReady(d) ? "" : "disabled"}>Send for authorisation</button>${t.stage === "enquiry" || t.stage === "quoted" ? `<button class="btn danger" type="button" data-act="withdraw">Withdraw</button>` : ""}</div>${submitReady(d) ? "" : (typeof sendMissingNote === "function" ? sendMissingNote(t) : `<p class="small muted">To send for authorisation: client name, at least one leg, operator price and all seven checks.</p>`)}` : ""}
+    ${canBrokerEdit ? `<div class="row" id="secSend"><button class="btn" type="button" data-act="edit">Edit client and trip</button><button class="btn" type="button" data-act="editQuote">${num((d.quote || {}).opPrice) > 0 ? "Edit the operator quote" : "Enter the operator quote"}</button><button class="btn primary" type="button" data-act="submit" ${submitReady(d) ? "" : "disabled"}>Send for authorisation</button>${t.stage === "enquiry" || t.stage === "quoted" ? `<button class="btn danger" type="button" data-act="withdraw">Withdraw</button>` : ""}</div>${submitReady(d) ? "" : (typeof sendMissingNote === "function" ? sendMissingNote(t) : `<p class="small muted">To send for authorisation: client name, at least one leg, operator price and all seven checks.</p>`)}` : ""}
     ${ops}
     <div><h3>History</h3><div class="hist">${historyOf(t).map(h => `<div><span class="muted mono">${fmtT(h.t)}</span><span>${esc(h.a)} <span class="muted">· ${esc(h.by === "ops" ? "Authorisation" : nm(h.by))}</span></span></div>`).join("") || `<p class="small muted">No history yet.</p>`}</div></div>
   </div>`;
@@ -1144,7 +1144,7 @@ async function saveEditor(f){
   { const pc = payCostOf(quote.opPrice, quote.direct, cur, $("q_card").checked); quote.directOwn = quote.direct; quote.card = $("q_card").checked; quote.payFx = pc.fx; quote.payCard = pc.card; quote.direct = quote.direct + pc.total; }
   const body = {...JSON.parse(JSON.stringify(prev)), created: prev.created || now(), updated: now(),
     client:{name:$("e_cn").value.trim(), company:$("e_co").value.trim(), email:$("e_em").value.trim(), phone:$("e_ph").value.trim(), country:$("e_ct").value.trim(), payer:$("e_py").value.trim()},
-    trip:{legs, category:$("e_cat").value, notes:$("e_nt").value.trim()}, quote,
+    trip:{legs, category:$("e_cat").value, notes:$("e_nt").value.trim()}, quote, intake: typeof intakeRead === "function" ? intakeRead(prev.intake) : (prev.intake || {}),
     stage: quote.opPrice > 0 ? "quoted" : "enquiry", checks: prev.checks || {}, docs: prev.docs || []};
   if (prev.stage === "submitted") body.stage = "submitted";
   /* filled in, not asked (workflow audit 25 Nov 2026): jet or turboprop follows the aircraft type until the broker changes it */
@@ -1155,7 +1155,7 @@ async function saveEditor(f){
   body.history = [...(prev.history || []), {t:now(), by:S.uid, a: prev.created ? (quote.opPrice && quote.opPrice !== (prev.quote || {}).opPrice ? `Quote updated: operator ${usd(quote.opPrice)}, client ${usd(priceOf(quote.opPrice, quote.direct))}` : "Enquiry updated") : "Enquiry opened"}];
   try { await S.db.collection(`desk/${bid}/deals`).doc(did).set(body);
     if (bid === S.uid && quote.opPrice > 0 && gated("quote")) { const fp = `${num(quote.opPrice)}|${num(quote.direct)}`, r = gateReq(S.uid, "quote", did); if (!(r && r.fp === fp && r.status !== "changes")) { try { await gateAsk("quote", did, fp, `${body.client.company || body.client.name || "Client"}: client price ${usd(priceOf(quote.opPrice, quote.direct))}`, `${legs.map(l => l.from + "→" + l.to + (l.date ? " " + l.date : "")).join(", ")}\nOperator ${quote.operator || "?"} ${quote.aircraft || ""}: ${usd(quote.opPrice)} + direct costs ${usd(quote.direct)}`, {tripBid: bid, tripDid: did}); } catch(e){} } }
-    S.editing = false; S.fromLead = null; S.fromPool = null; S.sel = did; S.view = "trips"; render(); toast("Saved"); }
+    S.editing = false; S.fromLead = null; S.fromPool = null; S.sel = did; S.view = "trips"; render(); toast(!prev.created && !(quote.opPrice > 0) ? "Enquiry saved. Next: copy the request and ask operators on Avinode." : "Saved"); }
   catch(e){ toast(e.code === "invalid_argument" ? "You do not have permission to save here." : "Could not save. Try again."); }
 }
 
@@ -1204,7 +1204,8 @@ async function act(a, el){
     if (a === "confDownload") { downloadConf(el); return; }
     if (a === "confRevise") { S.confRevise = true; S.confDraft = confDraftFrom(t); render(); return; }
     if (a === "confCancelRev") { S.confRevise = false; S.confDraft = null; render(); return; }
-    if (a === "confAddLeg") { const last = S.confDraft.legs[S.confDraft.legs.length - 1] || {}; S.confDraft.legs.push({date:last.date || "", from:last.to || "", to:"", etd:"", pax:last.pax || "", pos:false}); render(); refreshConfPreview(); clearTimeout(S.cft); S.cft = setTimeout(saveConfDraft, 900); return; }
+    if ((a === "confAddLeg" || a === "confDelLeg") && document.activeElement) document.activeElement.blur();   // the open form is kept while focused, so an added row showed only later (review 25 Nov 2026)
+    if (a === "confAddLeg") { const last = S.confDraft.legs[S.confDraft.legs.length - 1] || {}; S.confDraft.legs.push({date:last.date || "", from:last.to || "", to:"", etd:"", pax:"0", pos:true}); /* flown legs come from the trip; a leg added here is a positioning leg */ render(); refreshConfPreview(); clearTimeout(S.cft); S.cft = setTimeout(saveConfDraft, 900); return; }
     if (a === "confDelLeg") { const i = +el.dataset.i; if (S.confDraft.legs.length > 1) S.confDraft.legs.splice(i, 1); render(); refreshConfPreview(); clearTimeout(S.cft); S.cft = setTimeout(saveConfDraft, 900); return; }
     if (a === "rqAI") { rqAI(el); return; }
     if (a === "backup") { exportBackup(el); return; }
@@ -2042,14 +2043,17 @@ function confDraftFrom(t){
   if (!cf.items) cf.items = {flight:"", pos:"", tax:"", other:""};
   if (!cf.cat) cf.cat = ((t.d.trip || {}).category) || "Heavy jet";
   if (cf.included === undefined) cf.included = DEFAULT_INCLUDED;
-  const oc = (t.d.quote || {}).opCountry; if (!cf.state && oc && typeof APT !== "undefined") cf.state = (APT.cn || {})[oc] || oc;   // asked once, in the quote
+  const oc = (t.d.quote || {}).opCountry; if (oc && typeof APT !== "undefined") cf.state = (APT.cn || {})[oc] || oc;   // asked once, in the quote
   /* asked once (workflow audit 25 Nov 2026): what the broker already entered fills the confirmation */
   const q = t.d.quote || {}, s = t.d.safety || {}, c = t.d.client || {};
-  if (!cf.aoc && q.aoc) cf.aoc = q.aoc;
-  if (!cf.yom && q.yom) cf.yom = q.yom;
-  if (!cf.seats && q.seats) cf.seats = q.seats;
-  if (!cf.audit && s.audit && window.AUD_LABEL) cf.audit = (AUD_LABEL[s.audit] || "") + (s.expiry ? `, valid until ${fmtD(s.expiry)}` : "");
-  if (!cf.cName) cf.cName = c.company ? (c.name || "") : (c.name || "");
+  // shown locked on the confirmation, so they always follow where they come from (review 25 Nov 2026: an earlier copy stayed)
+  if (q.aoc) cf.aoc = q.aoc;
+  if (q.yom) cf.yom = q.yom;
+  if (q.seats) cf.seats = q.seats;
+  if ((t.d.kycRec || {}).checkedAt) cf.kyc = kycRecLine(t.d.kycRec);
+  if (s.audit && window.AUD_LABEL) cf.audit = (AUD_LABEL[s.audit] || "") + (s.expiry ? `, valid until ${fmtD(s.expiry)}` : "");
+  if (!cf.cName) cf.cName = c.name || "";
+  if (!cf.lead && (t.d.intake || {}).lead) cf.lead = t.d.intake.lead;   // asked once, at intake
   if (!cf.lead && !c.company) cf.lead = c.name || "";
   if (!cf.address && c.address) cf.address = c.address;
   if (!cf.pay) cf.pay = q.card ? "pn_card" : "pn_wire";   // the card choice is made once, in the quote
@@ -2063,7 +2067,8 @@ vConf = function(){
   let h = _vConfDerive(); const t = tripById(S.sel); if (!t || S.view !== "conf") return h;
   const q = t.d.quote || {}, s = t.d.safety || {}, from = {aoc: q.aoc && "the quote", yom: q.yom && "the quote", seats: q.seats && "the quote", state: q.opCountry && "the quote (operator's country)", audit: s.audit && "Operator safety", kyc: (t.d.kycRec || {}).checkedAt && "the KYC record"};
   for (const k in from) if (from[k]) h = h.replace(new RegExp(`(<(?:input|textarea)[^>]*id="cf_${k}")`), `$1 readonly aria-readonly="true" title="From ${from[k]}; change it there" style="background:var(--raised)"`);
-  (S.confDraft && S.confDraft.legs || []).forEach((l, i) => { if (!l.pos) ["date","etd","from","to","pax"].forEach(k => { h = h.replace(new RegExp(`(<input[^>]*id="cl_${i}_${k}")`), `$1 readonly title="From the trip; change the leg in Edit enquiry and quote" style="background:var(--raised)"`); }); });
+  (S.confDraft && S.confDraft.legs || []).forEach((l, i) => { if (!l.pos) { ["date","etd","from","to","pax"].forEach(k => { h = h.replace(new RegExp(`(<input[^>]*id="cl_${i}_${k}")`), `$1 readonly title="From the trip; change the leg in Edit client and trip" style="background:var(--raised)"`); });
+    h = h.replace(new RegExp(`(<input type="checkbox" id="cl_${i}_pos")`), `$1 disabled title="A leg of the trip"`).replace(new RegExp(`<button class="btn small" type="button" data-act="confDelLeg" data-i="${i}">Remove</button>`), `<span class="small muted" title="Change the legs in Edit client and trip">Trip leg</span>`); } });
   return h;
 };
 /* the KYC reference on the confirmation comes from the broker's KYC record, so it is not typed twice */
@@ -2072,7 +2077,7 @@ function confData(t, cf, opts){
   const d = t.d, st = t.st || {}, q = d.quote || {}, c = d.client || {}, co = S.company || {};
   const opP = num(st.opPrice ?? q.opPrice), dir = num(st.direct ?? q.direct);
   const price = st.price || priceOf(opP, dir);
-  const ck = {}; BROKER_CHECKS.forEach(([k]) => ck[k] = !!(d.checks || {})[k]); ck.kyc = !!st.kyc; ck.pay = !!st.pay;
+  const ck = {}; BROKER_CHECKS.forEach(([k]) => ck[k] = !!(d.checks || {})[k]); ck.kyc = !!st.kyc || (typeof kycState === "function" && kycState(t).ok); ck.pay = !!st.pay || !!d.payRef;   // the broker's records, taken over at Issue
   const rev = opts && opts.rev ? opts.rev : 0;
   return {example:false, ref: (opts && opts.ref) || st.ref || "AE-PROVISIONAL", issueDate: (opts && opts.issueDate) || (st.issuedAt ? st.issuedAt.slice(0, 10) : CONF.todayISO()), btype: cf.btype || "charter",
     valid: cf.valid, adv:{name: (S.roster[t.bid] || {}).contractName || (t.bid === S.uid ? (S.myName || "") : nm(t.bid)), phone: co.phone || ""},
@@ -2174,11 +2179,17 @@ async function issueConf(btn){
     if (!num(st.opPrice) && num(q.opPrice)) Object.assign(pre, {opPrice: num(q.opPrice), direct: num(q.direct), price: (typeof tripPrice === "function" ? tripPrice(t, num(q.opPrice), num(q.direct)) : priceOf(q.opPrice, q.direct))});
     if (!st.kyc && typeof kycState === "function" && kycState(t).ok) pre.kyc = true;
     if (!st.paynodeRef && t.d.payRef) Object.assign(pre, {paynodeRef: t.d.payRef, pay: true});
-    const L = (S.scr || {})[t.did] || (t.d.screen && t.d.screen.results ? t.d.screen : null);
-    if (typeof screenOk === "function" && !screenOk(t, st) && L && (L.results || []).length && L.results.every(r => r.result === "no match"))
-      pre.screen = {at: now(), by: S.uid, names: L.results.map(r => r.name), lists: L.lists, listsAt: L.at, stale: !!L.stale, logId: L.logId || null, outcome: "clear", hits: []};
-    if (Object.keys(pre).length) { await statusWrite(t, pre, "Authorisation taken over from the broker's records"); t = freshTrip(t); st = {...(t.st || {}), ...pre}; t = {...t, st}; } }
-  const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by the Director"); if (!st.kyc) missing.push("KYC"); if (typeof kycBlockReason === "function") { const kw = kycBlockReason(t); if (kw) missing.push(kw); } if (typeof screenOk === "function" && !screenOk(t, st)) missing.push("sanctions screening record"); if (!st.paynodeRef) missing.push("payment request reference");
+    let scrHit = false;
+    if (typeof screenOk === "function" && !screenOk(t, st) && typeof screenForIssue === "function") {
+      toast("Screening the names on the trip…"); const L = await screenForIssue(t);
+      if (L && L.results.every(r => r.result === "no match")) pre.screen = {at: now(), by: S.uid, names: L.results.map(r => r.name), lists: L.lists, listsAt: L.at, stale: !!L.stale, logId: L.logId || null, outcome: "clear", hits: [], fromBroker: !!L.fromBroker};
+      else if (L) scrHit = true;
+    }
+    // nothing is written yet: the takeover is saved with the issue, only when every check below passes
+    S.issuePre = pre; st = {...st, ...pre}; t = {...t, st};
+    if (scrHit) { toast("Sanctions screening: possible match. Record the screening on the trip; the Director decides before issue."); return; } }
+  const pre = S.issuePre || {}; S.issuePre = null;
+  const missing = []; if (!num(st.opPrice)) missing.push("operator price"); if (!st.kyc) missing.push("KYC"); if (typeof kycBlockReason === "function") { const kw = kycBlockReason(t); if (kw) missing.push(kw); } if (typeof screenOk === "function" && !screenOk(t, st)) missing.push("sanctions screening record"); if (!st.paynodeRef) missing.push("payment request reference");
   if (missing.length) { toast("Save these on the trip first: " + missing.join(", ")); return; }
   const rev = st.confIssued ? (st.confRev || 1) + 1 : 1;
   const ref = st.ref || CONF.newRef(CONF.todayISO());
@@ -2190,12 +2201,13 @@ async function issueConf(btn){
     let assetId = null;
     try { const blob = await CONF.pdf(data, false); const assets = await claude.use("assets"); if (assets) { const f = new File([blob], `${ref}${rev > 1 ? " Rev " + rev : ""} Archē Executive Charter Confirmation.pdf`, {type:"application/pdf"}); const r = await assets.upload(f, {folder: "trips/" + t.did}); assetId = r.id; } }
     catch(e){ console.warn("pdf", e); }
-    const patch = {ref, xsCost: xsCost(t.d), xsClient: xsFixed(t.d), confRev: rev, confIssued: {rev, at: now(), assetId, data}, confRevs: [...(st.confRevs || []), {rev, at: now(), assetId, by: S.uid}]};
+    const patch = {...pre, ref, xsCost: xsCost(t.d), xsClient: xsFixed(t.d), confRev: rev, confIssued: {rev, at: now(), assetId, data}, confRevs: [...(st.confRevs || []), {rev, at: now(), assetId, by: S.uid}]};
     if (rev > 1 && st.signed) { patch.signedRevs = [...(st.signedRevs || []), st.signed]; patch.signed = null; patch.sigSentAt = null; }   // a revision needs a new signature
     if (!st.issuedAt) Object.assign(patch, {state:"issued", issuedAt: now()});
     else if (["review","returned"].includes(st.state)) patch.state = "issued";
     await statusWrite(t, patch, rev > 1 ? `Confirmation ${ref} revision ${rev} issued` : `Confirmation ${ref} issued at ${usd(num(data.price))}`);
     audit(rev > 1 ? "Confirmation revision issued" : "Confirmation issued", `${ref}${rev > 1 ? " Rev " + rev : ""} · ${usd(num(data.price))}`);
+    if (pre.screen) audit("Sanctions screening recorded", `${ref} · no match · ${pre.screen.names.length} names · at issue${pre.screen.fromBroker ? " (broker's screen under 48 hours)" : ""}`);
     S.confRevise = false; toast(assetId ? `Confirmation ${ref} issued. PDF saved to the trip. Next: send it to the charterer for signature.` : `Confirmation ${ref} issued. The PDF could not be saved; download it from this screen.`);
   } catch(e){ toast("Could not issue. Try again."); }
   finally { btn.disabled = false; }
@@ -4138,10 +4150,12 @@ function apChecks(t){
   const st = t.st || {}, chk = t.d.checks || {}, f = apFigures(t), out = [];
   const bc = BROKER_CHECKS.filter(([k]) => chk[k]).length;
   out.push([bc === BROKER_CHECKS.length, `Broker checks ${bc} of ${BROKER_CHECKS.length}`]);
-  out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by the Director" : "Operator price not confirmed by the Director"]);
-  { const kw = typeof kycBlockReason === "function" ? kycBlockReason(t) : null; out.push([!!st.kyc && !kw, !st.kyc ? "KYC not done" : kw ? kw[0].toUpperCase() + kw.slice(1) : "KYC done and current"]); }
-  { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
-  out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
+  /* the broker's records, as the trip's Steps list reads them (review 25 Nov 2026); taken over at Issue */
+  { const q = t.d.quote || {}; out.push([!!(num(st.opPrice) || num(q.opPrice)), num(st.opPrice) ? "Operator price recorded at issue" : num(q.opPrice) ? "Operator price: the broker's quote (check it against Avinode)" : "No operator price"]); }
+  { const kw = typeof kycBlockReason === "function" ? kycBlockReason(t) : null, kOk = !!st.kyc || (typeof kycState === "function" && kycState(t).ok); out.push([kOk && !kw, !kOk ? "KYC not done" : kw ? kw[0].toUpperCase() + kw.slice(1) : "KYC done and current" + ((t.d.kycRec || {}).ref ? " (" + t.d.kycRec.ref + ")" : "")]); }
+  { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st), b = t.d.screen || {}, bOk = !ok && b.at && Date.now() - new Date(b.at).getTime() < 48 * 3600e3 && (b.results || []).length && b.results.every(r => r.result === "no match");
+    out.push([ok || !!bOk, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : bOk ? "Sanctions: the broker's screen found no match; screened again at issue if names changed" : "Sanctions screening: run at issue"]); }
+  out.push([!!(st.paynodeRef || t.d.payRef), st.paynodeRef || t.d.payRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Archē fee ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
   if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, authorisation confirmed ${usd(f.op)}`]);
   if (f.days !== null) out.push([f.days >= 2, f.days < 0 ? "Departure date has passed" : `Departs in ${f.days} day${f.days === 1 ? "" : "s"}${f.days < 7 ? ": full payment on signature" : ""}`]);
@@ -6430,7 +6444,8 @@ async function contactBatch(){
 /* ---------- 24-hour contacts on every trip ---------- */
 /* the broker has the operator's and the handler's numbers, so the broker fills them (workflow audit 25 Nov 2026); the
    operator's 24-hour desk is suggested from the last trip with the same operator */
-const c24Of = t => (t.st || {}).contacts24 || (t.d || {}).contacts24 || null;
+// whichever was saved last, the Director's or the broker's (review 25 Nov 2026: a later broker edit was hidden)
+const c24Of = t => { const a = (t.st || {}).contacts24, b = (t.d || {}).contacts24; return a && b ? (String(b.at || "") > String(a.at || "") ? b : a) : (a || b || null); };
 function c24Suggest(t){ const op = ((t.d.quote || {}).operator || "").toLowerCase(); if (!op) return ""; const prev = allTrips().filter(x => x.did !== t.did && ((x.d.quote || {}).operator || "").toLowerCase() === op && c24Of(x)).sort((a, b) => String(b.d.updated || "").localeCompare(String(a.d.updated || "")))[0]; return prev ? c24Of(prev).op : ""; }
 function tripContactsBlock(t){
   if (!t || !(isStaff() || t.bid === S.uid) || S.preview || ["cancelled"].includes(t.stage)) return "";
@@ -6892,7 +6907,7 @@ document.addEventListener("change", async e => {
 (function(){
   S.scr = S.scr || {};
   // the lead passenger and the charterer's signatory from the confirmation are screened too (workflow audit, 25 Nov 2026)
-  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}, cf = t.d.conf || {}; return [...new Set([c.name, c.company, c.payer, cf.lead, cf.cName, q.operator].map(x => x && String(x).trim()).filter(Boolean))]; };
+  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}, cf = t.d.conf || {}; return [...new Set([c.name, c.company, c.payer, cf.lead || (t.d.intake || {}).lead, cf.cName, q.operator].map(x => x && String(x).trim()).filter(Boolean))]; };
   // the broker's automatic screen (saved with the trip) is reused when it covers the same names and is under 48 hours old,
   // so operations does not run it again; operations adds passengers and owners and saves the record (31 Oct 2026)
   const brokerScreen = (t, names) => { const b = t.d.screen || {}; if (!b.at || !(b.results || []).length) return null;
@@ -6923,6 +6938,15 @@ document.addEventListener("change", async e => {
       <div class="row"><button class="btn small" type="button" data-scr="run|${esc(t.did)}">Screen names now</button>
       <a class="small" href="https://sanctionssearch.ofac.treas.gov/" target="_blank" rel="noopener">OFAC search</a> · <a class="small" href="https://www.sanctionsmap.eu/" target="_blank" rel="noopener">EU map</a> · <a class="small" href="https://search-uk-sanctions-list.service.gov.uk/" target="_blank" rel="noopener">UK list</a> · <a class="small" href="https://main.un.org/securitycouncil/content/un-sc-consolidated-list" target="_blank" rel="noopener">UN list</a></div>
       ${res}${rec}${decide}</div>`;
+  };
+  /* at Issue (review of 25 Nov 2026): a screen that covers every name on the trip now, from the server: the broker's screen
+     only when under 48 hours old and covering the names, otherwise a fresh screen; never the broker's copy as it stands */
+  window.screenForIssue = async function(t){
+    const names = tripNames(t), covers = L => L && L.results && names.every(n => L.results.some(r => key(r.name) === key(n)));
+    let L = S.scr[t.did]; if (covers(L) && !L.fromBroker) return L;
+    const b = brokerScreen(t, names); if (covers(b)) return b;
+    S.scr[t.did] = {}; await autoRun(t); L = S.scr[t.did];
+    return covers(L) ? L : null;
   };
   // screen automatically when operations opens a trip without a current record (no button press needed)
   async function autoRun(t){
@@ -7103,7 +7127,7 @@ document.addEventListener("change", async e => {
   });
   // on save: screen the names and record the result on the trip; red keeps the trip as an enquiry
   window.tcBeforeSave = async function(body, ids){
-    const c = body.client || {}, names = [c.name, c.company, c.payer, (body.quote || {}).operator].map(x => String(x || "").trim()).filter(x => x.length >= 3);
+    const c = body.client || {}, cf = body.conf || {}, names = [c.name, c.company, c.payer, cf.lead || (body.intake || {}).lead, cf.cName, (body.quote || {}).operator].map(x => String(x || "").trim()).filter((x, i, a) => x.length >= 3 && a.findIndex(y => y.toLowerCase() === x.toLowerCase()) === i);
     const prevNames = ((body.screen || {}).results || []).map(r => r.name).join("|");
     if (names.length && names.join("|") !== prevNames) {
       try { const j = await screenNames(names, ids ? {log: "trip", tripOwner: ids.bid, tripId: ids.did} : null); body.screen = {at: now(), lists: j.lists, listsAt: j.at, results: j.results, logId: j.logId || null, aslStates: j.aslStates || []}; }
@@ -7183,6 +7207,8 @@ document.addEventListener("change", async e => {
       const miss = [["from", "from"], ["to", "to"], ["date", "date"], ["time", "local time"], ["pax", "passengers"]].filter(([k]) => !has(l[k]));
       A.push([!miss.length, miss.length ? n + miss.map(m => m[1]).join(", ") : n + `${l.from} → ${l.to}, ${l.date} ${l.time}, ${l.pax} pax`, "leg|" + i + "|" + (miss[0] ? miss[0][0] : "from"), true]);
     });
+    { const n = typeof intakeCount === "function" ? intakeCount(d) : 6; A.push([n >= 6, n >= 6 ? "Intake checklist filled in" : `Intake checklist (${n} of 6): flexibility, luggage, pets, purpose, payment method, source`, "e_iflex", false]); }
+    B.push([!!d.avReqAt || num(q.opPrice) > 0, "Ask operators on Avinode: copy the ready-written request", "sec|secAvinode", false]);
     B.push([has(q.operator), "Operator legal name, as on its AOC", "q_op", true]);
     B.push([has(q.opCountry), "Operator's country (for the cabotage check)", "q_oc", true]);
     B.push([has(q.aircraft), "Aircraft type", "q_ac", true]);
@@ -7291,7 +7317,7 @@ document.addEventListener("change", async e => {
   function jump(go){
     const t = tripById(S.sel); if (!t) return;
     if (/^(e_|q_|leg\|)/.test(go)) {
-      openEditor(t);
+      openEditor(t, go.startsWith("q_") ? "quote" : "client");
       setTimeout(() => {
         let el;
         if (go.startsWith("leg|")) { const [, i, k] = go.split("|"); const row = document.querySelector(`.leg[data-leg="${i}"]`) || document.querySelector(".leg"); el = row && row.querySelector(`[data-l="${k}"]`); }
@@ -9397,7 +9423,7 @@ document.addEventListener("click", async ev => {
     let change = false;
     for (const k in auto) {
       if (auto[k] && !cur[k]) { next[k] = true; change = true; }
-      else if (!auto[k] && cur[k] && (k === "never" || k === "risk")) { next[k] = false; change = true; }   // a red item or open amber takes the tick back
+      else if (!auto[k] && cur[k] && (k === "never" || k === "risk" || k === "kyc")) { next[k] = false; change = true; }   // a red item, an open amber or a KYC record out of date takes the tick back
     }
     const sig = t.did + JSON.stringify(next);
     if (!change || S.acSync[t.did] === sig) return;
@@ -10028,6 +10054,8 @@ document.addEventListener("click", async ev => {
     const b = ev.target.closest && ev.target.closest("[data-dq]"); if (!b) return; ev.preventDefault();
     const k = $("docKind"), f = $("docFile"); if (!k || !f) return;
     k.value = b.dataset.dq; S.docQuick = true; f.value = ""; f.click();
+    // a cancelled picker leaves nothing armed: the next file chosen by hand waits for Attach (review 25 Nov 2026)
+    f.addEventListener("cancel", () => { S.docQuick = false; }, {once: true});
   });
   document.addEventListener("change", async ev => {
     if (ev.target.id !== "docFile" || !S.docQuick) return; S.docQuick = false;
@@ -10094,6 +10122,112 @@ uploadDoc = async function(t){
   const f = ($("docFile") || {}).files && $("docFile").files[0]; if (!f) { toast("Choose a file first."); return; }
   await saveTripDoc(t, f, ($("docKind") || {}).value || "Other");
 };
+/* ---------- Enquiry first, operator quote later (Sandro Steger's booking practice, 25 Nov 2026: "Could we separate the
+   first client section with the second operator section in the portal? And add in the Client Section the checklist of the
+   intake file ... 1. Write all Client details down ... with the Intake File 2. Start looking through Avinode ... 3. Go back
+   to our Portal to fill in the blanks regarding Operator, Price ...") ----------
+   The trip editor opens in one of two parts. "Client and trip" holds the client, the legs and the intake checklist of
+   manual Template B.1 (asked once, here, and used later: the lead passenger goes to the confirmation and to screening,
+   the payment method sets "the client pays by card"). Saving it gives the ready-written quote request for Avinode
+   (Template B.2, filled from the trip, with no client name). "Operator quote" is opened when the operators reply.
+   Both parts are one form: the part not shown keeps its values, so one Save stores both. */
+const INTAKE_SOURCES = ["", "Phone call", "Email", "Website", "WhatsApp, LINE or WeChat", "Referral", "Returning client", "From my leads", "Enquiry pool", "Other"];
+const INTAKE_FIELDS = [
+  ["lead", "e_ilead", "Lead passenger (if not the client)", "Name as on the passport"],
+  ["booker", "e_ibook", "Booker (if not the client): name and contact", "e.g. an assistant or office"],
+  ["flex", "e_iflex", "Flexibility on dates and times", "e.g. ±1 day, any time after 10:00"],
+  ["kids", "e_ikids", "Of the passengers: children and infants", "e.g. 1 child, 1 infant"],
+  ["nat", "e_inat", "Nationalities (for entry and permits)", "Countries only, never passport numbers"],
+  ["bags", "e_ibags", "Luggage and special items", "e.g. 2 golf bags, skis, oversize cases"],
+  ["pets", "e_ipets", "Pets", "Kind, size, travels in the cabin?"],
+  ["purpose", "e_ipurp", "Purpose of travel (if a permit needs it)", "e.g. leisure, business, government"],
+  ["budget", "e_ibudg", "Budget (USD, if the client gave one)", ""]];
+function intakeOf(d){ return (d && d.intake) || {}; }
+function intakeCount(d){ const i = intakeOf(d); return ["flex", "bags", "pets", "purpose", "pay", "source"].filter(k => String(i[k] || "").trim()).length; }
+function intakeRead(prev){
+  const o = {...(prev || {})};
+  INTAKE_FIELDS.forEach(([k, id]) => { const el = $(id); if (el) o[k] = el.value.trim(); });
+  const pm = $("e_ipay"), sr = $("e_isrc"); if (pm) o.pay = pm.value; if (sr) o.source = sr.value;
+  if (/\d{6,}/.test(String(o.nat || "").replace(/[\s.\/-]/g, ""))) o.nat = "";   // countries only, never a passport number
+  return o;
+}
+function intakeHtml(d){
+  const i = intakeOf(d), src = i.source || (S.fromLead ? "From my leads" : S.fromPool ? "Enquiry pool" : "");
+  return `<div id="secIntake"><h3>Intake checklist</h3><p class="small muted" style="margin:0 0 8px">Template B.1. Ask what you can on the first call; everything here is optional and used later (lead passenger on the confirmation and in screening, payment method in the price).</p><div class="fgrid">
+    ${INTAKE_FIELDS.map(([k, id, label, ph]) => `<label class="f${k === "bags" || k === "booker" ? " wide" : ""}" for="${id}">${esc(label)}<input id="${id}" value="${esc(i[k] || "")}" ${ph ? `placeholder="${esc(ph)}"` : ""} ${k === "budget" ? 'inputmode="decimal"' : ""}></label>`).join("")}
+    <label class="f" for="e_ipay">Payment method<select id="e_ipay">${["", "Bank transfer", "Card"].map(x => `<option ${i.pay === x ? "selected" : ""}>${x}</option>`).join("")}</select></label>
+    <label class="f" for="e_isrc">Source of enquiry<select id="e_isrc">${INTAKE_SOURCES.map(x => `<option ${src === x ? "selected" : ""}>${x}</option>`).join("")}</select></label></div>
+    <p class="small muted" style="margin:6px 0 0">KYC and the trip risk screen are on the trip once it is saved.</p></div>`;
+}
+/* Template B.2, filled from the trip: no client name, contact or nationality goes to operators */
+function avinodeRequest(d){
+  const tr = (d && d.trip) || {}, i = intakeOf(d), name = c => (typeof aptName === "function" && aptName(c)) || "";
+  const legs = (tr.legs || []).filter(l => l.from || l.to).map((l, n) => `Leg ${n + 1}: ${l.from || "?"}${name(l.from) ? " " + name(l.from) : ""} to ${l.to || "?"}${name(l.to) ? " " + name(l.to) : ""}, ${l.date ? fmtD(l.date) : "date to follow"}${l.time ? " " + l.time + " local" : ""}, ${l.pax || "?"} passenger${l.pax == 1 ? "" : "s"}`);
+  const extra = [tr.category ? "Aircraft category: " + tr.category : "", i.flex ? "Flexibility: " + i.flex : "", i.kids ? "Children and infants: " + i.kids : "", i.bags ? "Luggage and special items: " + i.bags : "", i.pets ? "Pets: " + i.pets : "", tr.notes ? "Requests: " + tr.notes : ""].filter(Boolean);
+  return "Please quote an all-in price for the trip below. Please list what is included and excluded (positioning, crew overnights, landing, handling and parking, navigation, catering, fuel and surcharges, taxes, de-icing, Wi-Fi, permits), the aircraft registration and year, your safety audit status, and the quote expiry. Please also confirm whether the trip is non-stop for this load and season, and any crew-duty or permit constraints.\n\n" + legs.join("\n") + (extra.length ? "\n" + extra.join("\n") : "");
+}
+function avinodeBox(t){
+  const d = t.d || {}, q = d.quote || {}, has = num(q.opPrice) > 0;
+  return `<details class="panel" id="secAvinode" style="padding:12px 16px;margin:8px 0" ${has ? "" : "open"}><summary style="cursor:pointer;list-style:revert"><b>Ask operators on Avinode</b> <span class="small muted">${has ? "(quote entered)" : d.avReqAt ? "(request copied " + esc(fmtT(d.avReqAt)) + ")" : "(next step)"}</span></summary>
+    <p class="small" style="margin:6px 0">Copy the request into Avinode and send it to the operators that fit. When they reply, press <b>Enter the operator quote</b> (or paste the operator's quote there).</p>
+    <pre class="small" id="avReqText" style="white-space:pre-wrap;user-select:all;background:var(--panel2,rgba(127,127,127,.08));padding:10px;border-radius:6px;margin:0 0 8px">${esc(avinodeRequest(d))}</pre>
+    <div class="row" style="gap:8px"><button class="btn small" type="button" data-act="avCopy">Copy the request</button><button class="btn small primary" type="button" data-act="editQuote">${has ? "Edit the operator quote" : "Enter the operator quote"}</button></div></details>`;
+}
+(function(){
+  const _open = openEditor;
+  openEditor = function(t, part){
+    _open(t);
+    const f = $("edForm"); if (!f) return;
+    const d = (t && t.d) || {}, isNew = !(t && t.did);
+    part = part || S.edPart || "client"; S.edPart = null;
+    const secs = [...f.children].filter(x => x.tagName === "DIV" && x.querySelector("h3"));
+    const byH = h => secs.find(x => (x.querySelector("h3") || {}).textContent === h);
+    const cli = byH("Client"), trip = byH("Trip"), quote = byH("Operator quote");
+    if (trip) trip.insertAdjacentHTML("afterend", intakeHtml(d));
+    const intake = $("secIntake");
+    // payment method decides "the client pays by card" unless the broker set it on the quote
+    const pm = $("e_ipay"), card = $("q_card");
+    if (card && pm && (d.quote || {}).card === undefined && intakeOf(d).pay === "Card") { card.checked = true; if (typeof updatePreview === "function") updatePreview(); }
+    if (pm && card) pm.addEventListener("change", () => { card.checked = pm.value === "Card"; if (typeof updatePreview === "function") updatePreview(); });
+    const h1 = f.querySelector("h1"), save = f.querySelector('button[type="submit"]');
+    f.dataset.part = part;
+    // a required field in the hidden part (e.g. the client name) opens that part instead of blocking Save in silence
+    f.addEventListener("invalid", ev => { const sec = ev.target.closest("#edForm > div[hidden]"); if (sec) { sec.hidden = false; toast("Fill in the client details first."); } }, true);
+    if (part === "quote") {
+      [cli, trip, intake].forEach(x => x && (x.hidden = true));
+      if (h1) h1.textContent = "Operator quote";
+      const c = d.client || {}, legs = ((d.trip || {}).legs || []).map(l => (l.from || "?") + "–" + (l.to || "?") + (l.date ? " " + fmtD(l.date) : "")).join(", ");
+      quote && quote.insertAdjacentHTML("beforebegin", `<p class="small" style="margin:0"><b>${esc(c.company || c.name || "Client")}</b> · ${esc(legs)} <button class="btn small" type="button" data-act="edPart" data-part="client">Edit client and trip</button></p>`);
+      if (save) save.textContent = "Save the quote";
+    } else {
+      if (quote) quote.hidden = true;
+      if (h1) h1.textContent = isNew ? "New enquiry" : "Client and trip";
+      if (save) { save.textContent = isNew ? "Save the enquiry" : "Save"; save.insertAdjacentHTML("afterend", `<span class="small muted" style="align-self:center">Next: ask operators on Avinode; the operator quote is entered when they reply.${isNew ? ` Already have the operator's reply? <button class="btn small" type="button" data-act="edPart" data-part="quote">Enter the operator quote now</button>` : ` <button class="btn small" type="button" data-act="edPart" data-part="quote">Operator quote</button>`}</span>`); }
+    }
+  };
+  document.addEventListener("click", async ev => {
+    const b = ev.target.closest && ev.target.closest('[data-act="edPart"],[data-act="editQuote"],[data-act="avCopy"]'); if (!b) return;
+    ev.preventDefault(); ev.stopImmediatePropagation();
+    const a = b.dataset.act;
+    if (a === "edPart") {   // switch part without losing what was typed: show the other sections
+      const f = $("edForm"); if (!f) return; const toQuote = b.dataset.part === "quote";
+      const secs = [...f.children].filter(x => x.tagName === "DIV" && (x.querySelector("h3") || x.id === "secIntake"));
+      secs.forEach(x => { const h = (x.querySelector("h3") || {}).textContent; x.hidden = toQuote ? h !== "Operator quote" : h === "Operator quote"; });
+      b.closest("p, span") && b.closest("p, span").remove(); f.dataset.part = toQuote ? "quote" : "client";
+      const h1 = f.querySelector("h1"); if (h1) h1.textContent = toQuote ? "Operator quote" : "Client and trip";
+      const s = f.querySelector('button[type="submit"]'); if (s) s.textContent = "Save";
+      window.scrollTo(0, 0); return;
+    }
+    const t = tripById(S.sel); if (!t) return;
+    if (a === "editQuote") { openEditor(t, "quote"); return; }
+    if (a === "avCopy") {
+      const txt = avinodeRequest(t.d);
+      try { await navigator.clipboard.writeText(txt); toast("Request copied: paste it into Avinode."); }
+      catch(e){ const el = $("avReqText"); if (el) { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } toast("Copy is blocked here: the request is selected below, copy it from there."); }
+      if (!t.d.avReqAt && t.bid === S.uid) { try { await deskWrite(t, {avReqAt: now()}, "Avinode quote request copied"); } catch(e){} }
+    }
+  }, true);
+})();
 /* ---------- The Director's menu in groups (Morten, 25 Nov 2026, peer proposal P7: "All") ----------
    On a computer the Director's 19 menu items sat in two rows; peers keep five to seven. The items now sit in six groups:
    Today, Trips, Clients and prospects, Team, Money, More. A group with one item is a plain button; the others open a short

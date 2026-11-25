@@ -154,7 +154,8 @@ async function contactBatch(){
 /* ---------- 24-hour contacts on every trip ---------- */
 /* the broker has the operator's and the handler's numbers, so the broker fills them (workflow audit 25 Nov 2026); the
    operator's 24-hour desk is suggested from the last trip with the same operator */
-const c24Of = t => (t.st || {}).contacts24 || (t.d || {}).contacts24 || null;
+// whichever was saved last, the Director's or the broker's (review 25 Nov 2026: a later broker edit was hidden)
+const c24Of = t => { const a = (t.st || {}).contacts24, b = (t.d || {}).contacts24; return a && b ? (String(b.at || "") > String(a.at || "") ? b : a) : (a || b || null); };
 function c24Suggest(t){ const op = ((t.d.quote || {}).operator || "").toLowerCase(); if (!op) return ""; const prev = allTrips().filter(x => x.did !== t.did && ((x.d.quote || {}).operator || "").toLowerCase() === op && c24Of(x)).sort((a, b) => String(b.d.updated || "").localeCompare(String(a.d.updated || "")))[0]; return prev ? c24Of(prev).op : ""; }
 function tripContactsBlock(t){
   if (!t || !(isStaff() || t.bid === S.uid) || S.preview || ["cancelled"].includes(t.stage)) return "";

@@ -17,6 +17,8 @@
     const b = ev.target.closest && ev.target.closest("[data-dq]"); if (!b) return; ev.preventDefault();
     const k = $("docKind"), f = $("docFile"); if (!k || !f) return;
     k.value = b.dataset.dq; S.docQuick = true; f.value = ""; f.click();
+    // a cancelled picker leaves nothing armed: the next file chosen by hand waits for Attach (review 25 Nov 2026)
+    f.addEventListener("cancel", () => { S.docQuick = false; }, {once: true});
   });
   document.addEventListener("change", async ev => {
     if (ev.target.id !== "docFile" || !S.docQuick) return; S.docQuick = false;

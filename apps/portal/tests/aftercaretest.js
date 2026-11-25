@@ -1,4 +1,5 @@
 // Aftercare after a flight: follow-up, rating request, rating, service recovery for a low score, flight following,
+const showQuote=async p=>{await p.evaluate(()=>{const b=document.querySelector('[data-act="edPart"][data-part="quote"]');if(b)b.click();});};
 // operator scorecard, regional cards. Runs on the test version (example data). Needs the test page on localhost:8765.
 // (Replaces the old actest.js, which ran on the retired claude.ai copy of the portal.)
 const {chromium}=require('playwright');
@@ -10,7 +11,7 @@ const day=n=>new Date(Date.now()+n*864e5).toISOString().slice(0,10);
 await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);await p.click('[data-act="new"]');await p.waitForTimeout(800);
 await p.fill('#e_cn','Carla Example');await p.fill('#e_em','carla@example.com');await p.fill('#e_ct','Singapore');
 {const leg=p.locator('.leg').first();await leg.locator('[data-l="from"]').fill('WSSS');await leg.locator('[data-l="to"]').fill('VTBD');await leg.locator('[data-l="date"]').fill(day(-2));await leg.locator('[data-l="time"]').fill('10:00');await leg.locator('[data-l="pax"]').fill('3');}
-await p.fill('#q_op','Example Jet Operator Ltd');await p.selectOption('#q_oc','SG');await p.fill('#q_ac','Legacy 600');await p.fill('#q_tl','9V-ABC');await p.fill('#q_pr','40000');
+await showQuote(p);await p.fill('#q_op','Example Jet Operator Ltd');await showQuote(p);await p.selectOption('#q_oc','SG');await showQuote(p);await p.fill('#q_ac','Legacy 600');await showQuote(p);await p.fill('#q_tl','9V-ABC');await showQuote(p);await p.fill('#q_pr','40000');
 await p.click('#edForm button[type=submit]');await p.waitForTimeout(1800);
 const did=await p.evaluate(()=>S.sel);
 await p.evaluate(async([d])=>{const t=tripById(S.sel);await deskWrite(t,{stage:'submitted',submittedAt:now()},'test: sent');await statusWrite(t,{state:'flown',ref:'AE-TEST-AC',price:43957,opPrice:40000,direct:0,issuedAt:now(),clientPaid:true,clientPaidDate:d,operatorPaid:true,operatorPaidDate:d,flownDate:d,legStatus:[{s:'land',set:now()}]},'test: flown');},[day(-2)]);

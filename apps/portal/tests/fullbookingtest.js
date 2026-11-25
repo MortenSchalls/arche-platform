@@ -1,4 +1,5 @@
 // The whole test booking in the test version, as broker then Director, from a new enquiry to an issued confirmation
+const showQuote=async p=>{await p.evaluate(()=>{const b=document.querySelector('[data-act="edPart"][data-part="quote"]');if(b)b.click();});};
 // (25 Nov 2026: the candidate's test booking stopped at several hidden steps). Example data only.
 const {chromium}=require('playwright');const fs=require('fs');
 fs.writeFileSync('/tmp/ex.pdf','%PDF-1.4 example');
@@ -14,7 +15,7 @@ await p.evaluate(()=>{S.view='trips';render()});await p.click('[data-act="new"]'
 const d=new Date(Date.now()+20*864e5).toISOString().slice(0,10);
 await p.fill('#e_cn','Example Walk Client');await p.fill('#e_em','walk@example.com');await p.fill('#e_ct','Singapore');
 await p.fill('.leg [data-l="from"]','WSSS');await p.fill('.leg [data-l="to"]','RJTT');await p.fill('.leg [data-l="date"]',d);await p.fill('.leg [data-l="time"]','09:00');await p.fill('.leg [data-l="pax"]','6');
-await p.fill('#q_op','Example Air AG');await p.selectOption('#q_oc','CH').catch(()=>{});await p.fill('#q_ac','Global 7500');await p.fill('#q_tl','9H-EXA');await p.fill('#q_pr','150000');
+await showQuote(p);await p.fill('#q_op','Example Air AG');await showQuote(p);await p.selectOption('#q_oc','CH').catch(()=>{});await showQuote(p);await p.fill('#q_ac','Global 7500');await showQuote(p);await p.fill('#q_tl','9H-EXA');await showQuote(p);await p.fill('#q_pr','150000');
 await st('save enquiry',async()=>{await p.click('#edForm button[type=submit]');await p.waitForTimeout(2500)});await next();
 await st('operator safety',async()=>{const opts=await p.$$eval('#sf_aud option',o=>o.map(x=>x.value+'='+x.textContent));log.push('   audit options: '+opts.join(' | ').slice(0,300));
   await p.selectOption('#sf_aud',{index:1});await p.waitForTimeout(400);await p.selectOption('#sf_cls','jet').catch(async()=>p.selectOption('#sf_cls',{index:1}));await p.waitForTimeout(400);
@@ -56,7 +57,7 @@ await next();
 
 const tid=await p.evaluate(()=>S.sel);
 await p.waitForTimeout(1200);
-await p.goto('http://localhost:8765/test.html?as=owner');await p.waitForTimeout(3500);
+p.on('pageerror',e=>log.push('PGERR '+e.message));await p.goto('http://localhost:8765/test.html?as=owner');await p.waitForTimeout(3500);
 await st('Director: open Authorisation',async()=>{await p.evaluate(()=>{S.view='queue';render()});await p.waitForTimeout(600)});
 log.push('   queue: '+(await p.evaluate(()=>document.querySelector('main').innerText.replace(/\s+/g,' ').slice(0,700))));
 const apBtns=await p.$$eval('[data-ap]',bs=>bs.map(b=>b.getAttribute('data-ap')+':'+b.innerText.slice(0,40)));log.push('   ap buttons: '+apBtns.join(' | '));
@@ -70,7 +71,6 @@ log.push('   after approve: '+(await p.evaluate(id=>{const t=allTrips().find(x=>
 log.push('   NEXT: '+(await p.evaluate(()=>document.getElementById('secNext').innerText.replace(/\s+/g,' '))));
 log.push('   prefilled: '+JSON.stringify(await p.evaluate(()=>({op:(document.getElementById('o_op')||{}).value,pn:(document.getElementById('o_pn')||{}).value,kyc:(document.getElementById('o_kyc')||{}).checked}))));
 log.push('   screen block: '+(await p.evaluate(id=>{const e=document.querySelector('[id^=scr_names_]');const box=e?e.closest('div'):null;return box?box.parentElement.innerText.replace(/\s+/g,' ').slice(0,400):'none'},tid)));
-await st('Director: Save (authorisation fields)',async()=>{await p.click('[data-act="opsSave"]');await p.waitForTimeout(1500)});
 log.push('   NEXT after save: '+(await p.evaluate(()=>document.getElementById('secNext').innerText.replace(/\s+/g,' '))));
 log.push('   book fields: '+(await p.evaluate(()=>{const s=document.getElementById('secBook');return s?[...s.querySelectorAll('input,select,button')].map(e=>(e.id||'')+'/'+[...e.attributes].filter(a=>a.name.startsWith('data-')).map(a=>a.name+'='+a.value).join(',')+'/'+e.type+'/'+((e.closest('label')||{}).innerText||e.innerText||'').replace(/\s+/g,' ').slice(0,60)).join('\n'):'none'})));
 const dtl=new Date(Date.now()+864e5).toISOString().slice(0,16), now16=new Date(Date.now()-36e5).toISOString().slice(0,16);
@@ -82,6 +82,7 @@ await st('Director: open confirmation',async()=>{await p.click('[data-act="openC
 log.push('   conf buttons: '+(await p.$$eval('main button',bs=>bs.map(b=>(b.dataset.act||Object.keys(b.dataset).join(','))+':'+b.innerText.trim().slice(0,40)).filter(x=>!/^:/.test(x)).join(' | '))).slice(0,900));
 log.push('   conf notes: '+(await p.evaluate(()=>[...document.querySelectorAll('main .note')].map(n=>n.innerText.replace(/\s+/g,' ').slice(0,200)).join(' || '))).slice(0,1200));
 log.push('   issue btn: '+JSON.stringify(await p.evaluate(()=>{const b=document.querySelector('[data-act="confIssue"]');return b?{disabled:b.disabled,title:b.title,vis:b.offsetParent!==null}:null})));
+log.push('   conf legs: '+JSON.stringify(await p.evaluate(()=>({tripLegRemove:!!document.querySelector('[data-act="confDelLeg"][data-i="0"]'),posLocked:!!(document.getElementById('cl_0_pos')||{}).disabled}))));
 await st('Director: issue confirmation',async()=>{await p.click('[data-act="confIssue"]',{timeout:5000});await p.waitForTimeout(8000)});
 log.push('   after issue: '+(await p.evaluate(id=>{const t=allTrips().find(x=>x.did===id);return t.stage+' ref '+(t.st||{}).ref+' confIssued '+!!(t.st||{}).confIssued},tid)));
 log.push('   NEXT after issue: '+(await p.evaluate(()=>{const n=document.getElementById('secNext');return n?n.innerText.replace(/\s+/g,' ').slice(0,900):'(no steps on this screen)'})));
@@ -89,8 +90,12 @@ await p.evaluate(id=>{S.view='trips';S.sel=id;render()},tid);await p.waitForTime
 log.push('   NEXT on trip: '+(await p.evaluate(()=>{const n=document.getElementById('secNext');return n?n.innerText.replace(/\s+/g,' ').slice(0,1200):'-'})));
 log.push('   sig block: '+(await p.evaluate(()=>{const n=document.getElementById('secSig');return n?n.innerText.replace(/\s+/g,' ').slice(0,600):'-'})));
 log.push('   trip buttons now: '+(await p.$$eval('main button',bs=>bs.map(b=>(b.dataset.act||b.dataset.bka||b.dataset.sig||Object.keys(b.dataset).join(','))+':'+b.innerText.trim().slice(0,40)).filter(x=>!/^:/.test(x)).join(' | '))).slice(0,1500));
-console.log(log.join('\n'));
+console.log(log.join('\n'));console.log('ERRS',JSON.stringify(errs));
 const fin=await p.evaluate(id=>{const t=allTrips().find(x=>x.did===id);return {stage:t.stage,ref:(t.st||{}).ref,issued:!!(t.st||{}).confIssued}},tid);
+const rec=await p.evaluate(id=>{const t=allTrips().find(x=>x.did===id),st=t.st||{};return {op:st.opPrice,kyc:st.kyc,pn:st.paynodeRef,scr:st.screen&&st.screen.outcome,names:(st.screen||{}).names||[],take:(st.history||[]).filter(h=>/taken over/.test(h.a)).length}},tid);
+log.push('   issue records: '+JSON.stringify(rec));
+if(!(rec.op>0&&rec.kyc&&rec.pn&&rec.scr==='clear'))log.push('ERR the broker\'s records were not taken over at issue');
+if(rec.take)log.push('ERR a separate takeover was written before issue');
 const bad=log.filter(l=>l.startsWith('ERR'));
 let fails=0;const ok=(k,v,x)=>{console.log((v?'PASS ':'FAIL ')+k+(v||x===undefined?'':' '+JSON.stringify(x)));if(!v)fails++;};
 ok('every step of the walk went through',!bad.length,bad);ok('the confirmation is issued with a reference',fin.issued&&/^AE-/.test(fin.ref||''),fin);

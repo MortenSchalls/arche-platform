@@ -24,10 +24,12 @@ function apChecks(t){
   const st = t.st || {}, chk = t.d.checks || {}, f = apFigures(t), out = [];
   const bc = BROKER_CHECKS.filter(([k]) => chk[k]).length;
   out.push([bc === BROKER_CHECKS.length, `Broker checks ${bc} of ${BROKER_CHECKS.length}`]);
-  out.push([!!num(st.opPrice), num(st.opPrice) ? "Operator price confirmed by the Director" : "Operator price not confirmed by the Director"]);
-  { const kw = typeof kycBlockReason === "function" ? kycBlockReason(t) : null; out.push([!!st.kyc && !kw, !st.kyc ? "KYC not done" : kw ? kw[0].toUpperCase() + kw.slice(1) : "KYC done and current"]); }
-  { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st); out.push([ok, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : "Sanctions screening not recorded"]); }
-  out.push([!!st.paynodeRef, st.paynodeRef ? "Payment request ready" : "Payment request not created"]);
+  /* the broker's records, as the trip's Steps list reads them (review 25 Nov 2026); taken over at Issue */
+  { const q = t.d.quote || {}; out.push([!!(num(st.opPrice) || num(q.opPrice)), num(st.opPrice) ? "Operator price recorded at issue" : num(q.opPrice) ? "Operator price: the broker's quote (check it against Avinode)" : "No operator price"]); }
+  { const kw = typeof kycBlockReason === "function" ? kycBlockReason(t) : null, kOk = !!st.kyc || (typeof kycState === "function" && kycState(t).ok); out.push([kOk && !kw, !kOk ? "KYC not done" : kw ? kw[0].toUpperCase() + kw.slice(1) : "KYC done and current" + ((t.d.kycRec || {}).ref ? " (" + t.d.kycRec.ref + ")" : "")]); }
+  { const sc = st.screen, ok = typeof screenOk === "function" && screenOk(t, st), b = t.d.screen || {}, bOk = !ok && b.at && Date.now() - new Date(b.at).getTime() < 48 * 3600e3 && (b.results || []).length && b.results.every(r => r.result === "no match");
+    out.push([ok || !!bOk, ok ? "Sanctions screening: no match" : sc && sc.outcome === "possible match" && !sc.ownerDecision ? "Sanctions: possible match, your decision" : bOk ? "Sanctions: the broker's screen found no match; screened again at issue if names changed" : "Sanctions screening: run at issue"]); }
+  out.push([!!(st.paynodeRef || t.d.payRef), st.paynodeRef || t.d.payRef ? "Payment request ready" : "Payment request not created"]);
   const okM = f.pct >= S.terms.margin - 0.0005; out.push([okM, `Archē fee ${(f.pct * 100).toFixed(1)}%${okM ? "" : `: below ${(S.terms.margin * 100).toFixed(0)}%`}`]);
   if (f.brokerOp && f.op && f.brokerOp !== f.op) out.push([false, `Broker quoted the operator at ${usd(f.brokerOp)}, authorisation confirmed ${usd(f.op)}`]);
   if (f.days !== null) out.push([f.days >= 2, f.days < 0 ? "Departure date has passed" : `Departs in ${f.days} day${f.days === 1 ? "" : "s"}${f.days < 7 ? ": full payment on signature" : ""}`]);

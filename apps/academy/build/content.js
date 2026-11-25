@@ -228,7 +228,7 @@ const LAB = [
 const BOOK = {
  brief:[
   ["Client enquiry","Meridian Family Office Pte Ltd (Singapore) asks for a heavy jet for 6 passengers: Singapore Changi 12 November, 10:00 to Bangkok (Don Mueang); 14 November, 11:00 Bangkok to Phuket; 17 November, 16:00 Phuket to Singapore Changi. Lead passenger: Daniel Tan."],
-  ["KYC file","KYC reference KYC-2026-0147, completed 15 October. All six passengers and the payer screened against the UN, OFAC, EU, UK and MAS lists: no match. The payer is the client itself. No PEPs, no minors, no pets."],
+  ["KYC file","KYB record in the portal, completed 15 October; the portal gave it the reference KYB-2026-0147. All six passengers and the payer screened against the UN, OFAC, EU, UK and MAS lists: no match. The payer is the client itself. No PEPs, no minors, no pets."],
   ["Operator quote (from Avinode)","Alpine Jet Services AG, trading as AlpineJets. AOC CH.AOC.1042 issued by Switzerland. Bombardier Global 6000, registration HB-JXA, built 2014, 13 seats, cabin attendant included. ARGUS Platinum. All-in price USD 171,000 including positioning from and back to Geneva, crew, fuel, landing, handling and permits. Quote valid until 20 October, 18:00 Bangkok time."],
   ["Operator email","\"We confirm Bangkok – Phuket is flown as part of one continuous international journey with the same 6 passengers, declared on the CAAT permit.\" AOC, operations specifications listing HB-JXA, and insurance certificate (commercial passenger liability) attached."],
   ["Client's assistant","\"Please just send your bank details by WhatsApp and we will wire the money today.\""]

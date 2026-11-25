@@ -34,6 +34,8 @@
       const miss = [["from", "from"], ["to", "to"], ["date", "date"], ["time", "local time"], ["pax", "passengers"]].filter(([k]) => !has(l[k]));
       A.push([!miss.length, miss.length ? n + miss.map(m => m[1]).join(", ") : n + `${l.from} → ${l.to}, ${l.date} ${l.time}, ${l.pax} pax`, "leg|" + i + "|" + (miss[0] ? miss[0][0] : "from"), true]);
     });
+    { const n = typeof intakeCount === "function" ? intakeCount(d) : 6; A.push([n >= 6, n >= 6 ? "Intake checklist filled in" : `Intake checklist (${n} of 6): flexibility, luggage, pets, purpose, payment method, source`, "e_iflex", false]); }
+    B.push([!!d.avReqAt || num(q.opPrice) > 0, "Ask operators on Avinode: copy the ready-written request", "sec|secAvinode", false]);
     B.push([has(q.operator), "Operator legal name, as on its AOC", "q_op", true]);
     B.push([has(q.opCountry), "Operator's country (for the cabotage check)", "q_oc", true]);
     B.push([has(q.aircraft), "Aircraft type", "q_ac", true]);
@@ -142,7 +144,7 @@
   function jump(go){
     const t = tripById(S.sel); if (!t) return;
     if (/^(e_|q_|leg\|)/.test(go)) {
-      openEditor(t);
+      openEditor(t, go.startsWith("q_") ? "quote" : "client");
       setTimeout(() => {
         let el;
         if (go.startsWith("leg|")) { const [, i, k] = go.split("|"); const row = document.querySelector(`.leg[data-leg="${i}"]`) || document.querySelector(".leg"); el = row && row.querySelector(`[data-l="${k}"]`); }

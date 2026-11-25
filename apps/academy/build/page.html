@@ -1060,7 +1060,7 @@ function markBook(B){
   const norm = s => String(s||"").trim().toLowerCase().replace(/\s+/g," ");
   add(!!B.risk, true, "Trip risk screen recorded", "Quoting without a trip risk screen is a critical error.");
   if (B.risk) add(B.risk === "amber", false, "Trip risk screen colour", "Amber: Bangkok – Phuket is a domestic leg on a Swiss aircraft, so the operator must confirm in writing before we quote. It did.");
-  add(norm(B.kyc) === "kyc-2026-0147" && B.ck.kyc, true, "KYC reference recorded and screening confirmed", "A contract without KYC and sanctions screening is a critical error. The reference is KYC-2026-0147.");
+  add(norm(B.kyc) === "kyb-2026-0147" && B.ck.kyc, true, "KYC reference recorded and screening confirmed", "A contract without KYC and sanctions screening is a critical error. The reference is KYB-2026-0147, set by the portal.");
   add(norm(B.cName).includes("meridian family office"), false, "Charterer name", "Meridian Family Office Pte Ltd.");
   add(norm(B.lead).includes("daniel tan"), false, "Lead passenger", "Daniel Tan.");
   add(norm(B.opName) === "alpine jet services ag", true, "Operator legal name as on the AOC", "Disclose the legal name, Alpine Jet Services AG, not the trading name AlpineJets. Missing disclosures are a critical error.");
@@ -1239,7 +1239,7 @@ const AUDIO = (() => {
     t = t.replace(/(\d)\s?%/g, "$1 percent").replace(/÷/g, " divided by ").replace(/(\d)\s?×/g, "$1 times").replace(/×/g, " times ");
     t = t.replace(/UTC\s?\+\s?(\d+)/g, "UTC plus $1").replace(/(\d\d:\d\d)Z\b/g, "$1 Zulu").replace(/\+/g, " plus ").replace(/&/g, " and ");
     t = t.replace(/\b([A-Z0-9]{1,2})-([A-Z0-9]{3,5})\b/g, (m,a,b) => /^\d+$/.test(a+b) ? m : spell(a) + ", " + spell(b));   // HB-JXA
-    t = t.replace(/\b([A-Za-z]+)[.-](\w+)[.-](\d+)\b/g, (m,a,b,c) => a + " " + b + " " + spell(c));                       // CH.AOC.1042, KYC-2026-0147
+    t = t.replace(/\b([A-Za-z]+)[.-](\w+)[.-](\d+)\b/g, (m,a,b,c) => a + " " + b + " " + spell(c));                       // CH.AOC.1042, KYB-2026-0147
     t = t.replace(/\b[A-Z]{2,5}s?\b/g, w => { const pl = /[A-Z]s$/.test(w), b = pl ? w.slice(0,-1) : w; return SAYABLE.has(b) || b === "I" || b === "A" ? w : spell(b) + (pl ? "s" : ""); });
     t = t.replace(/\b(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b/g, (m,d,mo) => d + " " + {Jan:"January",Feb:"February",Mar:"March",Apr:"April",May:"May",Jun:"June",Jul:"July",Aug:"August",Sep:"September",Oct:"October",Nov:"November",Dec:"December"}[mo]);
     t = t.replace(/\(([^()]*)\)/g, ", $1,");                                            // brackets become a short pause

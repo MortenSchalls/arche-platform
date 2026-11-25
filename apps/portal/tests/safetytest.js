@@ -1,4 +1,5 @@
 // Operator safety standard (manual 8.2/8.3): blocks, red items, director approval, suspension. Example data only. Needs the test page on localhost:8765.
+const showQuote=async p=>{await p.evaluate(()=>{const b=document.querySelector('[data-act="edPart"][data-part="quote"]');if(b)b.click();});};
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1300,height:1000}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
 const toasts=[];await p.exposeFunction('logT',t=>toasts.push(t));
 const hook=()=>p.evaluate(()=>{const o=window.toast;if(o.__h)return;const n=m=>{logT(m);o(m);};n.__h=1;window.toast=n;});
@@ -10,7 +11,7 @@ await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);
 await p.click('[data-act="new"]');await p.waitForTimeout(800);
 await p.fill('#e_cn','Anna Example');await p.fill('#e_em','anna@example.com');await p.fill('#e_ct','Singapore');
 const leg=p.locator('.leg').first();await leg.locator('[data-l="from"]').fill('WSSL');await leg.locator('[data-l="to"]').fill('VTSP');await leg.locator('[data-l="date"]').fill('2026-11-20');await leg.locator('[data-l="time"]').fill('10:00');await leg.locator('[data-l="pax"]').fill('4');
-await p.fill('#q_op','Example Jets Pte Ltd');await p.selectOption('#q_oc','SG');await p.fill('#q_ac','Challenger 650');await p.fill('#q_tl','9V-ABC');await p.fill('#q_pr','40000');
+await showQuote(p);await p.fill('#q_op','Example Jets Pte Ltd');await showQuote(p);await p.selectOption('#q_oc','SG');await showQuote(p);await p.fill('#q_ac','Challenger 650');await showQuote(p);await p.fill('#q_tl','9V-ABC');await showQuote(p);await p.fill('#q_pr','40000');
 await p.click('#edForm button[type=submit]');await p.waitForTimeout(1800);const did=await p.evaluate(()=>S.sel);
 console.log('A safety head:',await p.evaluate(()=>document.querySelector('#secSafety .note').innerText));
 console.log('B audit tick set by the portal, not by hand:',await p.isDisabled('#ck_audit'),!(await p.isChecked('#ck_audit')));

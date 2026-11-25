@@ -1,4 +1,5 @@
 // Booking with the operator (Morten, 29 Oct 2026): operator terms and insurance on every trip, the higher cancellation
+const showQuote=async p=>{await p.evaluate(()=>{const b=document.querySelector('[data-act="edPart"][data-part="quote"]');if(b)b.click();});};
 // charge, the client's schedule before the operator wants money, the operator paid only from client money, the
 // operator's contract signed only when covered, margin 9% unless the owner decides, the operator library. Example data
 // only. Needs the test page on localhost:8765.
@@ -19,7 +20,7 @@ await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);awa
 await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);await p.click('[data-act="new"]');await p.waitForTimeout(800);
 await p.fill('#e_cn','Anna Example');await p.fill('#e_em','anna@example.com');await p.fill('#e_ct','Singapore');
 {const leg=p.locator('.leg').first();await leg.locator('[data-l="from"]').fill('WSSS');await leg.locator('[data-l="to"]').fill('VTBD');await leg.locator('[data-l="date"]').fill(dep);await leg.locator('[data-l="time"]').fill('10:00');await leg.locator('[data-l="pax"]').fill('4');}
-await p.fill('#q_op','Example Charter Air Ltd');await p.selectOption('#q_oc','SG');await p.fill('#q_ac','Legacy 600');await p.fill('#q_tl','9V-XYZ');await p.fill('#q_pr','90000');
+await showQuote(p);await p.fill('#q_op','Example Charter Air Ltd');await showQuote(p);await p.selectOption('#q_oc','SG');await showQuote(p);await p.fill('#q_ac','Legacy 600');await showQuote(p);await p.fill('#q_tl','9V-XYZ');await showQuote(p);await p.fill('#q_pr','90000');
 await p.click('#edForm button[type=submit]');await p.waitForTimeout(1800);
 await p.evaluate(async([dep2])=>{const t=tripById(S.sel);const leg2={from:'VTBD',to:'WSSS',date:dep2,time:'10:00',pax:4};
   await deskWrite(t,{trip:{...t.d.trip,legs:[...t.d.trip.legs,leg2]},safety:{audit:'argus-plat',cls:'jet',twoPilots:'yes',ins:60000000,history:'clear',expiry:'2028-12-31',checkedAt:new Date().toISOString().slice(0,10),link:'https://example.com/registry'},
@@ -147,7 +148,7 @@ if(S_){await p.evaluate(()=>{S.view='control';render();});await p.waitForTimeout
 await as('Test Broker');await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);await p.click('[data-act="new"]');await p.waitForTimeout(800);
 await p.fill('#e_cn','Ben Example');await p.fill('#e_em','ben@example.com');await p.fill('#e_ct','Singapore');
 {const leg=p.locator('.leg').first();await leg.locator('[data-l="from"]').fill('WSSS');await leg.locator('[data-l="to"]').fill('VVTS');await leg.locator('[data-l="date"]').fill(dep);await leg.locator('[data-l="time"]').fill('09:00');await leg.locator('[data-l="pax"]').fill('2');}
-await p.fill('#q_op','Example Charter Air Ltd');await p.selectOption('#q_oc','SG');await p.fill('#q_ac','Legacy 600');await p.fill('#q_tl','9V-XYZ');await p.fill('#q_pr','50000');
+await showQuote(p);await p.fill('#q_op','Example Charter Air Ltd');await showQuote(p);await p.selectOption('#q_oc','SG');await showQuote(p);await p.fill('#q_ac','Legacy 600');await showQuote(p);await p.fill('#q_tl','9V-XYZ');await showQuote(p);await p.fill('#q_pr','50000');
 await p.click('#edForm button[type=submit]');await p.waitForTimeout(2000);
 ok('the library offers the terms on file',!!await p.$('[data-otlib]'));
 await p.click('[data-otlib]');await p.waitForTimeout(800);

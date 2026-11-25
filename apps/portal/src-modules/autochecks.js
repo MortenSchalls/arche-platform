@@ -27,7 +27,7 @@
     let change = false;
     for (const k in auto) {
       if (auto[k] && !cur[k]) { next[k] = true; change = true; }
-      else if (!auto[k] && cur[k] && (k === "never" || k === "risk")) { next[k] = false; change = true; }   // a red item or open amber takes the tick back
+      else if (!auto[k] && cur[k] && (k === "never" || k === "risk" || k === "kyc")) { next[k] = false; change = true; }   // a red item, an open amber or a KYC record out of date takes the tick back
     }
     const sig = t.did + JSON.stringify(next);
     if (!change || S.acSync[t.did] === sig) return;

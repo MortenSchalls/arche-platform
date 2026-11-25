@@ -8,7 +8,7 @@
 (function(){
   S.scr = S.scr || {};
   // the lead passenger and the charterer's signatory from the confirmation are screened too (workflow audit, 25 Nov 2026)
-  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}, cf = t.d.conf || {}; return [...new Set([c.name, c.company, c.payer, cf.lead, cf.cName, q.operator].map(x => x && String(x).trim()).filter(Boolean))]; };
+  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}, cf = t.d.conf || {}; return [...new Set([c.name, c.company, c.payer, cf.lead || (t.d.intake || {}).lead, cf.cName, q.operator].map(x => x && String(x).trim()).filter(Boolean))]; };
   // the broker's automatic screen (saved with the trip) is reused when it covers the same names and is under 48 hours old,
   // so operations does not run it again; operations adds passengers and owners and saves the record (31 Oct 2026)
   const brokerScreen = (t, names) => { const b = t.d.screen || {}; if (!b.at || !(b.results || []).length) return null;
@@ -39,6 +39,15 @@
       <div class="row"><button class="btn small" type="button" data-scr="run|${esc(t.did)}">Screen names now</button>
       <a class="small" href="https://sanctionssearch.ofac.treas.gov/" target="_blank" rel="noopener">OFAC search</a> · <a class="small" href="https://www.sanctionsmap.eu/" target="_blank" rel="noopener">EU map</a> · <a class="small" href="https://search-uk-sanctions-list.service.gov.uk/" target="_blank" rel="noopener">UK list</a> · <a class="small" href="https://main.un.org/securitycouncil/content/un-sc-consolidated-list" target="_blank" rel="noopener">UN list</a></div>
       ${res}${rec}${decide}</div>`;
+  };
+  /* at Issue (review of 25 Nov 2026): a screen that covers every name on the trip now, from the server: the broker's screen
+     only when under 48 hours old and covering the names, otherwise a fresh screen; never the broker's copy as it stands */
+  window.screenForIssue = async function(t){
+    const names = tripNames(t), covers = L => L && L.results && names.every(n => L.results.some(r => key(r.name) === key(n)));
+    let L = S.scr[t.did]; if (covers(L) && !L.fromBroker) return L;
+    const b = brokerScreen(t, names); if (covers(b)) return b;
+    S.scr[t.did] = {}; await autoRun(t); L = S.scr[t.did];
+    return covers(L) ? L : null;
   };
   // screen automatically when operations opens a trip without a current record (no button press needed)
   async function autoRun(t){
