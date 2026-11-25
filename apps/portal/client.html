@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2b2e33">
+<title>Your journeys · Archē Executive</title>
+<link rel="icon" href="img/arche-icon-192.png">
+<link rel="apple-touch-icon" href="img/arche-icon-180.png">
+<!-- Archē client page (Morten, 25 Nov 2026: "add a client log in feature best in class with stunning layout and design").
+     The client signs in with a link sent to their email, sees their journeys and does the four things that are theirs:
+     choose an option, sign the confirmation, pay through the payment request and give the passengers' names. Passport
+     numbers are never asked here or stored by Archē; they go to the operator. Their broker is one tap away.
+     ?demo=offer|pay|flying|done shows example data only (for design review and tests); nothing is sent or saved. -->
+<style>
+@font-face{font-family:Prata;src:url(fonts/prata-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-latin-300-normal.woff2) format("woff2");font-weight:300;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{
+  --night:#2b2e33; --night2:#34383e; --silver:#c6cbd2; --mist:#9aa1aa; --porcelain:#f4f5f7; --paper:#ffffff;
+  --ink:#1d2024; --text:#3b4047; --muted:#5d636b; --line:#dfe2e7; --route:#39ff8f; --route-ink:#0f7a45; --steel:#3f6f9e;
+  --display:Prata,Georgia,serif; --body:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--porcelain);color:var(--text);font:400 16px/1.6 var(--body)}
+a{color:var(--steel)}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--steel);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-left))}
+
+/* top bar: quiet */
+.top{background:var(--night);color:var(--porcelain)}
+.top .wrap{display:flex;align-items:center;gap:16px;height:64px}
+.top img{height:34px;width:auto}
+.top .who{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:14px;color:var(--silver)}
+.top .who button{background:none;border:1px solid #5a6068;color:var(--porcelain);padding:6px 12px;border-radius:2px;cursor:pointer;font-size:13px}
+
+/* the journey: the one bold element */
+.journey{position:relative;background:var(--night);color:var(--porcelain);overflow:hidden;padding:28px 0 36px}
+.journey::before{content:"";position:absolute;width:760px;height:760px;right:-180px;top:-210px;background:url(img/compass-rose.svg) center/contain no-repeat;opacity:.07}
+.journey .wrap{position:relative}
+.jtitle{font:400 15px var(--body);color:var(--silver);margin:0 0 6px}
+.cities{display:grid;grid-template-columns:1fr minmax(120px,2.2fr) 1fr;align-items:end;gap:12px}
+.city h1,.city p.c{font:400 clamp(34px,5.2vw,64px)/1.05 var(--display);color:#fff;margin:0;letter-spacing:.005em}
+.city .ap{font-size:14px;color:var(--silver);margin-top:8px}
+.city.to{text-align:right}
+.arc{position:relative;height:120px}
+.arc svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.arc .path{stroke:var(--route);stroke-width:1.6;fill:none;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 2.2s cubic-bezier(.6,.1,.2,1) .3s forwards}
+.arc .ghost{stroke:#5a6068;stroke-width:1;fill:none;stroke-dasharray:2 5}
+.arc .dot{fill:var(--route)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.facts{display:flex;flex-wrap:wrap;gap:10px 36px;margin-top:22px;padding-top:18px;border-top:1px solid #454a51}
+.facts div{min-width:120px}
+.facts dt{font-size:13px;color:var(--mist)}
+.facts dd{margin:2px 0 0;font-size:17px;color:#fff}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#fff;background:#3b4047;padding:5px 12px;border-radius:20px;margin-bottom:18px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--silver)}
+.status.live i{background:var(--route);box-shadow:0 0 0 0 rgba(57,255,143,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(57,255,143,0)}100%{box-shadow:0 0 0 0 rgba(57,255,143,0)}}
+
+/* the page under the journey */
+.page{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:40px;padding:36px 0 80px}
+section{margin-bottom:44px}
+h2{font:400 26px/1.25 var(--display);color:var(--ink);margin:0 0 6px}
+.lead{margin:0 0 18px;color:var(--muted);max-width:62ch}
+
+/* next step: one action at a time */
+.next{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--ink);padding:24px 26px;margin-bottom:44px}
+.next h2{font-size:24px}
+.next p{margin:0 0 16px;max-width:60ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-weight:500;font-size:15px;letter-spacing:.02em;cursor:pointer;text-decoration:none;border-radius:2px}
+.btn.quiet{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.small{font-size:14px}
+.muted{color:var(--muted)}
+
+/* options side by side */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.opt{background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column}
+.opt figure{margin:0;background:var(--night);aspect-ratio:16/9;overflow:hidden}
+.opt figure img{width:100%;height:100%;object-fit:cover;display:block}
+.opt .in{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.opt h3{font:400 21px/1.2 var(--display);color:var(--ink);margin:0}
+.opt .op{font-size:14px;color:var(--muted);margin-top:-4px}
+.opt dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:4px 0 0;font-size:14px}
+.opt dt{color:var(--muted)}
+.opt dd{margin:0;color:var(--ink)}
+.opt .price{font:400 26px var(--display);color:var(--ink);margin-top:auto;padding-top:10px;border-top:1px solid var(--line)}
+.opt .price small{display:block;font:400 13px var(--body);color:var(--muted)}
+.opt.chosen{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt .pick{margin-top:6px}
+
+/* legs: a real sequence, so the line runs down it */
+.legs{list-style:none;margin:0;padding:0;border-left:1px solid var(--silver);margin-left:7px}
+.legs li{position:relative;padding:0 0 26px 26px}
+.legs li::before{content:"";position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--porcelain);border:1px solid var(--ink)}
+.legs li.done::before{background:var(--ink)}
+.legs li.live::before{background:var(--route);border-color:var(--route-ink)}
+.legs h3{font:400 19px var(--display);color:var(--ink);margin:0}
+.legs .when{font-size:15px;color:var(--text)}
+.legs .meta{font-size:14px;color:var(--muted)}
+
+/* simple lists */
+.list{background:var(--paper);border:1px solid var(--line)}
+.list > div{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 18px;border-top:1px solid var(--line)}
+.list > div:first-child{border-top:0}
+.list .t{color:var(--ink)}
+.list .s{font-size:14px;color:var(--muted)}
+.paid{color:var(--route-ink);font-weight:500}
+
+/* side: the broker, and where the journey stands */
+.side{position:sticky;top:20px;align-self:start;display:flex;flex-direction:column;gap:20px}
+.card{background:var(--paper);border:1px solid var(--line);padding:22px}
+.broker{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center}
+.broker .av{width:56px;height:56px;border-radius:50%;background:var(--night);color:#fff;display:grid;place-items:center;font:400 20px var(--display)}
+.broker b{display:block;color:var(--ink);font-weight:500}
+.broker span{font-size:14px;color:var(--muted)}
+.reach{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.reach a{display:flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px}
+.reach a:hover{border-color:var(--ink)}
+.reach a.wide{grid-column:1/-1}
+.steps{list-style:none;margin:10px 0 0;padding:0}
+.steps li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:7px 0;font-size:15px;color:var(--muted)}
+.steps li b{font-weight:400}
+.steps li .m{width:12px;height:12px;border-radius:50%;border:1px solid var(--mist);margin-top:6px}
+.steps li.done{color:var(--ink)} .steps li.done .m{background:var(--ink);border-color:var(--ink)}
+.steps li.now{color:var(--ink);font-weight:500} .steps li.now .m{border:2px solid var(--ink)}
+.card h3{font:400 18px var(--display);color:var(--ink);margin:0}
+
+/* signing */
+.sheet{position:fixed;inset:0;background:rgba(29,32,36,.55);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.sheet.open{display:flex}
+@media (min-width:700px){.sheet{align-items:center}.sheet .panel{border:1px solid var(--line);border-top:3px solid var(--ink)}}
+.sheet .panel{background:var(--paper);width:100%;max-width:640px;max-height:92vh;overflow:auto;padding:28px;border-top:3px solid var(--ink)}
+.sheet h2{margin-bottom:12px}
+.field{display:block;margin:14px 0}
+.field span{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;height:48px;border:1px solid var(--silver);padding:0 14px;font:inherit;color:var(--ink);background:#fff;border-radius:2px}
+.sig{font:400 30px var(--display);color:var(--ink);border-bottom:1px solid var(--ink);min-height:52px;padding:6px 2px}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:15px;margin:14px 0}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--ink)}
+
+/* sign-in */
+.signin{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;background:var(--night)}
+.signin .art{position:relative;overflow:hidden;color:#fff;padding:56px;display:flex;flex-direction:column;justify-content:flex-end}
+.signin .art::before{content:"";position:absolute;width:900px;height:900px;left:-260px;top:-200px;background:url(img/compass-rose.svg) center/contain no-repeat;opacity:.09}
+.signin .art p.big{position:relative;font:400 clamp(30px,3.6vw,46px)/1.15 var(--display);margin:0;max-width:16ch}
+.signin .art p.s{position:relative;color:var(--silver);max-width:42ch}
+.signin .form{background:var(--porcelain);display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.signin .box{width:100%;max-width:380px}
+.signin .box img{height:40px;margin-bottom:28px;filter:brightness(0)}
+.note{font-size:14px;color:var(--muted);margin-top:16px}
+
+/* journeys list */
+.trips{display:grid;gap:14px}
+.trip{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);padding:20px 22px;text-decoration:none;color:inherit}
+.trip:hover{border-color:var(--ink)}
+.trip h3{font:400 22px var(--display);color:var(--ink);margin:0}
+.trip p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.tag{font-size:13px;padding:4px 10px;border:1px solid var(--line);white-space:nowrap;color:var(--ink)}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.foot{border-top:1px solid var(--line);padding:22px 0 40px;font-size:13px;color:var(--muted)}
+.bar{display:none}
+@media (max-width:900px){
+  .page{grid-template-columns:1fr;gap:0}
+  .side{position:static;margin-bottom:28px}
+  .signin{grid-template-columns:1fr}
+  .signin .art{min-height:38vh;padding:32px 24px}
+}
+@media (max-width:640px){
+  .cities{grid-template-columns:1fr 1fr;grid-template-areas:"f t" "a a"}
+  .city.from{grid-area:f} .city.to{grid-area:t} .arc{grid-area:a;height:56px;margin-top:14px}
+  .facts{gap:12px 24px} .facts div{min-width:40%}
+  .next{padding:20px}
+  .bar{display:block;position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:40}
+  .bar .btn{width:100%}
+  body.hasbar{padding-bottom:84px}
+}
+@media (prefers-reduced-motion:reduce){.arc .path{animation:none;stroke-dashoffset:0}.status.live i{animation:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ---------- example data (design review and tests only; never real client data) ---------- */
+const DEMO = {
+  client: {name: "Example Client", first: "Alex"},
+  broker: {name: "Example Broker", first: "Sam", phone: "+65 6123 4567", whatsapp: "6561234567", email: "sam.example@archeaviation.com"},
+  trips: [
+    {ref: "AE-2026-0418", title: "Singapore to Tokyo", from: {city: "Singapore", ap: "Seletar (WSSL)", lat: 1.42, lon: 103.87}, to: {city: "Tokyo", ap: "Haneda (RJTT)", lat: 35.55, lon: 139.78},
+     date: "2026-12-14", dep: "08:30", arr: "16:10", block: "6 h 40 min", pax: 7, nm: 2870,
+     options: [
+       {id: "a", aircraft: "Global 7500", op: "Operator A, Switzerland", img: "img/ac/ac-g7500.webp", seats: "Usually 13 to 14", cabin: "Cabin height 1.88 m", audit: "ARGUS Platinum", stops: "Nonstop", price: 168900},
+       {id: "b", aircraft: "Gulfstream G650ER", op: "Operator B, Hong Kong", img: "img/ac/ac-g650.webp", seats: "Usually 13 to 14", cabin: "Cabin height 1.91 m", audit: "WYVERN Wingman", stops: "Nonstop", price: 154300},
+       {id: "c", aircraft: "Challenger 650", op: "Operator C, Singapore", img: "img/ac/ac-cl650.webp", seats: "Up to 12", cabin: "Cabin height 1.83 m", audit: "IS-BAO Stage 3", stops: "Nonstop", price: 121700}],
+     legs: [{from: "Singapore Seletar", to: "Tokyo Haneda", date: "Mon 14 Dec 2026", dep: "08:30", arr: "16:10", tz: "local times", fbo: "Handled at both ends by the airport's business aviation terminal"}],
+     schedule: [{what: "On signature (25%)", amount: 42225, due: "When you sign"}, {what: "Balance", amount: 126675, due: "7 Dec 2026"}],
+     passengers: ["Example Passenger One", "Example Passenger Two"],
+     docs: [{t: "Charter confirmation", s: "Ready to sign"}, {t: "Operator's insurance certificate", s: "Checked 20 Nov 2026"}, {t: "Trip brief", s: "Sent 2 days before departure"}]},
+    {ref: "AE-2026-0377", title: "Bangkok to Malé", from: {city: "Bangkok"}, to: {city: "Malé"}, date: "2027-01-08", state: "Confirmed and paid"},
+    {ref: "AE-2026-0302", title: "Hong Kong to Singapore", from: {city: "Hong Kong"}, to: {city: "Singapore"}, date: "2026-10-22", state: "Flown"}]
+};
+const P = new URLSearchParams(location.search), MODE = P.get("demo"), VIEW = P.get("view") || (MODE ? "trip" : "signin");
+const $ = s => document.querySelector(s), esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]);
+const usd = n => "USD " + Math.round(n).toLocaleString("en-US");
+const S = {chosen: MODE === "offer" ? null : "a", signed: ["pay","flying","done"].includes(MODE), paid: ["flying","done"].includes(MODE), flying: MODE === "flying", done: MODE === "done"};
+
+/* the arc between the two cities: a great-circle feel, drawn once */
+function arc(){
+  return `<div class="arc" aria-hidden="true"><svg viewBox="0 0 400 120" preserveAspectRatio="none">
+    <path class="ghost" d="M4 112 Q200 -40 396 112"/>
+    <path class="path" d="M4 112 Q200 -40 396 112" style="--len:520"/>
+    <circle class="dot" cx="4" cy="112" r="3.5"/><circle class="dot" cx="396" cy="112" r="3.5"/>
+    ${S.flying ? `<circle class="dot" r="5"><animateMotion dur="9s" repeatCount="indefinite" path="M4 112 Q200 -40 396 112" keyPoints="0;0.62" keyTimes="0;1" calcMode="linear" fill="freeze"/></circle>` : ""}
+  </svg></div>`;
+}
+function topBar(){
+  return `<header class="top"><div class="wrap"><img src="img/arche-executive-logo.png" alt="Archē Executive">
+    <div class="who"><span>${esc(DEMO.client.name)}</span><button type="button" data-act="out">Sign out</button></div></div></header>`;
+}
+function journey(t){
+  const st = S.done ? ["", "Landed in Tokyo at 16:04"] : S.flying ? ["live", "In flight · about 2 h 30 min to Tokyo"] : S.paid ? ["", "Confirmed and paid"] : S.signed ? ["", "Signed · payment due"] : ["", "Your options are ready"];
+  const opt = t.options.find(o => o.id === S.chosen);
+  return `<div class="journey"><div class="wrap">
+    <span class="status ${st[0]}"><i></i>${esc(st[1])}</span>
+    <p class="jtitle">Journey ${esc(t.ref)}</p>
+    <div class="cities"><div class="city from"><h1>${esc(t.from.city)}</h1><div class="ap">${esc(t.from.ap)}</div></div>${arc()}<div class="city to"><p class="c">${esc(t.to.city)}</p><div class="ap">${esc(t.to.ap)}</div></div></div>
+    <dl class="facts"><div><dt>Date</dt><dd>Mon 14 Dec 2026</dd></div><div><dt>Departs</dt><dd>${esc(t.dep)} local</dd></div><div><dt>Arrives</dt><dd>${esc(t.arr)} local</dd></div><div><dt>Flight time</dt><dd>${esc(t.block)}</dd></div><div><dt>Guests</dt><dd>${t.pax}</dd></div>${opt ? `<div><dt>Aircraft</dt><dd>${esc(opt.aircraft)}</dd></div>` : ""}</dl>
+  </div></div>`;
+}
+function nextStep(t){
+  const opt = t.options.find(o => o.id === S.chosen);
+  if (!S.chosen) return `<div class="next"><h2>Choose your aircraft</h2><p>Three aircraft are held for your dates. Each one flies nonstop and has been checked by us: operator certificate, safety audit, insurance and crew. Compare them below and choose one; ${esc(DEMO.broker.first)} confirms it with the operator at once.</p><a class="btn" href="#options">Compare the options</a></div>`;
+  if (!S.signed) return `<div class="next"><h2>Sign your confirmation</h2><p>Your ${esc(opt.aircraft)} is held until 17:00 Singapore time tomorrow. Read the charter confirmation and sign it here; it takes about two minutes.</p><div class="row"><button class="btn" type="button" data-act="sign">Read and sign</button><button class="btn quiet" type="button" data-act="change">Choose another option</button></div></div>`;
+  if (!S.paid) return `<div class="next"><h2>Pay the first instalment</h2><p>${usd(t.schedule[0].amount)} secures the aircraft. You pay through our payment provider's secure page; we never ask for card or bank details by email or phone.</p><a class="btn" href="#pay" data-act="pay">Pay ${usd(t.schedule[0].amount)} securely</a></div>`;
+  if (S.flying) return `<div class="next"><h2>You are in the air</h2><p>Your flight left Seletar at 08:34. ${esc(DEMO.broker.first)} is following it to the last landing and will be in touch when you have arrived.</p></div>`;
+  if (S.done) return `<div class="next"><h2>Welcome to Tokyo</h2><p>How was your journey? One rating, from 1 to 5, helps us keep every flight at the same standard.</p><div class="row">${[1,2,3,4,5].map(n => `<button class="btn quiet" type="button" aria-label="Rate ${n} of 5">${n}</button>`).join("")}</div></div>`;
+  return `<div class="next"><h2>Add your guests</h2><p>The operator needs the names of everyone travelling for the permits. Add them here; passport details go to the operator directly and are never kept by Archē.</p><a class="btn" href="#guests">Add guests</a></div>`;
+}
+function options(t){
+  if (S.signed) return "";
+  return `<section id="options"><h2>Your options</h2><p class="lead">The price includes everything listed in the confirmation: the aircraft and crew, fuel, airport and handling charges, catering and our fee. Cabin drawings are to scale, beside a 1.80 m guest.</p>
+    <div class="opts">${t.options.map(o => `<article class="opt ${S.chosen === o.id ? "chosen" : ""}"><figure><img src="${esc(o.img)}" alt="Cross-section of the ${esc(o.aircraft)} cabin, to scale" loading="lazy"></figure><div class="in">
+      <h3>${esc(o.aircraft)}</h3><div class="op">${esc(o.op)}</div>
+      <dl><dt>Seats</dt><dd>${esc(o.seats)}</dd><dt>Cabin</dt><dd>${esc(o.cabin)}</dd><dt>Safety audit</dt><dd>${esc(o.audit)}</dd><dt>Route</dt><dd>${esc(o.stops)}, ${esc(t.block)}</dd></dl>
+      <div class="price">${usd(o.price)}<small>All included, for the whole journey</small></div>
+      <button class="btn ${S.chosen === o.id ? "" : "quiet"} pick" type="button" data-pick="${o.id}">${S.chosen === o.id ? "Chosen" : "Choose this aircraft"}</button></div></article>`).join("")}</div></section>`;
+}
+function itinerary(t){
+  return `<section id="itinerary"><h2>Your itinerary</h2><p class="lead">Times are local at each airport. The operator files the flight plan; we follow every leg to the last landing.</p>
+    <ol class="legs">${t.legs.map(l => `<li class="${S.done ? "done" : S.flying ? "live" : ""}"><h3>${esc(l.from)} to ${esc(l.to)}</h3><div class="when">${esc(l.date)}, departs ${esc(l.dep)}, arrives ${esc(l.arr)}</div><div class="meta">${esc(l.fbo)}</div></li>`).join("")}</ol></section>`;
+}
+function guests(t){
+  return `<section id="guests"><h2>Guests</h2><p class="lead">${t.pax} travelling. Names only here; the operator asks for passports directly and Archē never keeps passport numbers.</p>
+    <div class="list">${t.passengers.map(p => `<div><span class="t">${esc(p)}</span><span class="s">Added</span></div>`).join("")}<div><span class="s">${t.pax - t.passengers.length} more to add</span><button class="btn quiet" type="button" data-act="guest">Add a guest</button></div></div></section>`;
+}
+function payments(t){
+  return `<section id="pay"><h2>Payments</h2><p class="lead">One price for the whole journey. If the operator needs payment earlier, these dates follow its terms, as your confirmation says.</p>
+    <div class="list">${t.schedule.map((x, i) => `<div><span><span class="t">${esc(x.what)}</span><br><span class="s">${esc(x.due)}</span></span><span class="${S.paid && i === 0 ? "paid" : "t"}">${usd(x.amount)}${S.paid && i === 0 ? " paid" : ""}</span></div>`).join("")}</div></section>`;
+}
+function documents(t){
+  return `<section id="documents"><h2>Documents</h2><div class="list">${t.docs.map(d => `<div><span class="t">${esc(d.t)}</span><span class="s">${esc(S.signed && d.t === "Charter confirmation" ? "Signed" : d.s)}</span></div>`).join("")}</div></section>`;
+}
+function side(t){
+  const b = DEMO.broker, k = [["Choose an aircraft", !!S.chosen], ["Sign the confirmation", S.signed], ["Pay the first instalment", S.paid], ["Fly", S.done], ["Land and rate the journey", S.done]];
+  const now = k.findIndex(x => !x[1]);
+  return `<aside class="side"><div class="card"><div class="broker"><div class="av">${esc(b.first[0])}</div><div><b>${esc(b.name)}</b><span>Your broker, from your first request to your last landing</span></div></div>
+      <div class="reach"><a href="tel:${esc(b.phone.replace(/\s/g, ""))}">Call</a><a href="https://wa.me/${esc(b.whatsapp)}">WhatsApp</a><a class="wide" href="mailto:${esc(b.email)}">${esc(b.email)}</a></div></div>
+    <div class="card"><h3>Where your journey stands</h3><ol class="steps">${k.map((x, i) => `<li class="${x[1] ? "done" : i === now ? "now" : ""}"><span class="m" aria-hidden="true"></span><b>${esc(x[0])}${x[1] ? "<span class=\"sr\"> (done)</span>" : ""}</b></li>`).join("")}</ol></div></aside>`;
+}
+function signSheet(t){
+  const o = t.options.find(x => x.id === S.chosen) || t.options[0];
+  return `<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sgh"><div class="panel">
+    <h2 id="sgh">Sign your charter confirmation</h2>
+    <p class="small muted">${esc(t.ref)} · ${esc(o.aircraft)} · ${usd(o.price)}. The full confirmation opens below; Part B holds the terms.</p>
+    <p><a href="#" data-act="readconf">Read the charter confirmation (PDF)</a></p>
+    <label class="field"><span>Your full name, as you sign</span><input id="sgName" autocomplete="name" value=""></label>
+    <div class="sig" id="sgShow" aria-live="polite"></div>
+    <label class="check"><input type="checkbox" id="sgOk"><span>I have read the charter confirmation, including Part B, and I agree to it on behalf of the charterer.</span></label>
+    <p class="small muted">We record your name, the time and a fingerprint of the exact text you sign. You receive a copy by email.</p>
+    <div class="row"><button class="btn" type="button" data-act="dosign" id="sgGo" disabled>Sign</button><button class="btn quiet" type="button" data-act="close">Not now</button></div></div></div>`;
+}
+function vTrip(){
+  const t = DEMO.trips[0];
+  document.body.classList.add("hasbar");
+  const bar = !S.chosen ? ["#options", "Compare the options"] : !S.signed ? ["#", "Read and sign", "sign"] : !S.paid ? ["#pay", "Pay " + usd(t.schedule[0].amount) + " securely", "pay"] : null;
+  return topBar() + journey(t) + `<main class="wrap page"><div>${nextStep(t)}${options(t)}${itinerary(t)}${S.signed ? guests(t) : ""}${S.signed ? payments(t) : ""}${documents(t)}</div>${side(t)}</main>
+    <footer class="wrap foot">Archē Executive, Arche Aviation Pte. Ltd., Singapore. We arrange your flight as your agent; the operator named in your confirmation operates it under its own air operator certificate.</footer>
+    ${bar ? `<div class="bar"><a class="btn" href="${bar[1] ? bar[0] : "#"}" ${bar[2] ? `data-act="${bar[2]}"` : ""}>${esc(bar[1])}</a></div>` : ""}${signSheet(t)}`;
+}
+function vTrips(){
+  return topBar() + `<div class="journey" style="padding:34px 0 30px"><div class="wrap"><p class="jtitle">Good morning, ${esc(DEMO.client.first)}</p><p class="c" style="font:400 clamp(30px,4vw,46px)/1.1 var(--display);margin:0;color:#fff">Your journeys</p></div></div>
+    <main class="wrap" style="padding:32px 0 80px"><div class="trips">${DEMO.trips.map((t, i) => `<a class="trip" href="?demo=offer&view=trip"><div><h3>${esc(t.title)}</h3><p>${esc(t.ref)} · ${new Date(t.date + "T12:00:00Z").toLocaleDateString("en-GB", {weekday: "short", day: "numeric", month: "short", year: "numeric"})}</p></div><span class="tag">${esc(i === 0 ? "Options ready" : t.state)}</span></a>`).join("")}</div></main>`;
+}
+function vSignin(){
+  return `<div class="signin"><div class="art"><p class="big">Every journey you fly with us, in one place.</p><p class="s">Compare your options, sign, pay securely and follow each flight to the last landing. Your broker is one tap away.</p></div>
+    <div class="form"><form class="box" id="inForm"><img src="img/arche-executive-logo.png" alt="Archē Executive">
+      <h2>Sign in</h2><p class="muted small">We email you a link that signs you in on this device. No password to remember.</p>
+      <label class="field"><span>Your email address</span><input type="email" id="inMail" autocomplete="email" required></label>
+      <button class="btn" type="submit" style="width:100%">Email me a sign-in link</button>
+      <p class="note" id="inNote">Use the address your broker has for you. The link works once and for 1 hour.</p></form></div></div>`;
+}
+function render(){ $("#app").innerHTML = VIEW === "trips" ? vTrips() : VIEW === "trip" ? vTrip() : vSignin(); bind(); }
+function bind(){
+  const n = $("#sgName"), ok = $("#sgOk"), go = $("#sgGo");
+  if (n) { const upd = () => { $("#sgShow").textContent = n.value; go.disabled = !(n.value.trim().length > 3 && ok.checked); }; n.oninput = upd; ok.onchange = upd; }
+  const f = $("#inForm"); if (f) f.onsubmit = e => { e.preventDefault(); $("#inNote").textContent = "Check your email: a sign-in link is on its way to " + $("#inMail").value + "."; };
+}
+document.addEventListener("click", e => {
+  const p = e.target.closest("[data-pick]"); if (p) { S.chosen = p.dataset.pick; render(); location.hash = "#"; scrollTo({top: 0, behavior: "smooth"}); return; }
+  const a = e.target.closest("[data-act]"); if (!a) return; const k = a.dataset.act;
+  if (k === "sign") { e.preventDefault(); $("#sheet").classList.add("open"); $("#sgName").focus(); }
+  if (k === "close") $("#sheet").classList.remove("open");
+  if (k === "change") { S.chosen = null; render(); }
+  if (k === "dosign") { S.signed = true; render(); scrollTo({top: 0, behavior: "smooth"}); }
+  if (k === "readconf") e.preventDefault();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#sheet")) $("#sheet").classList.remove("open"); });
+render();
+</script>
+</body>
+</html>
