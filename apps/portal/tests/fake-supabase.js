@@ -35,6 +35,9 @@ window.supabase = { createClient() {
     rpc: async (fn) => (window.__MISSING_FN || []).includes(fn) ? { data: null, error: { code: "PGRST202", message: "Could not find the function public." + fn } } : { data: false, error: null },
     auth: { getSession: async () => ({ data: { session } }), onAuthStateChange() {}, signOut: async () => {} },
     channel() { const c = { on(_e, f, fn) { subs.push({ table: f.table, fn }); return c; }, subscribe() { return c; } }; return c; },
-    storage: { from() { return { upload: async () => ({ error: null }), createSignedUrl: async id => ({ data: { signedUrl: "data:text/plain,file" } }), remove: async () => ({}) }; } }
+    storage: { from() { const F = () => { try { return JSON.parse(localStorage.getItem("__files") || "{}"); } catch (e) { return {}; } }, put = o => localStorage.setItem("__files", JSON.stringify(o));
+      return { upload: async (path, blob) => { if (window.__UPLOAD_FAIL) return { error: { message: "storage unavailable" } }; const f = F(); if (!window.__UPLOAD_LOST) f[path] = (blob && blob.size) || 1; put(f); return { error: null }; },
+        list: async (folder, o = {}) => ({ data: Object.keys(F()).filter(k => k.slice(0, k.lastIndexOf("/")) === folder && (!o.search || k.slice(k.lastIndexOf("/") + 1).includes(o.search))).map(k => ({ name: k.slice(k.lastIndexOf("/") + 1), metadata: { size: F()[k] } })), error: null }),
+        createSignedUrl: async id => ({ data: { signedUrl: "data:text/plain,file" } }), remove: async ids => { const f = F(); (ids || []).forEach(i => delete f[i]); put(f); return {}; } }; } }
   };
 } };

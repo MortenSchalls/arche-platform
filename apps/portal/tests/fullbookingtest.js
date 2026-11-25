@@ -49,6 +49,7 @@ await st('broker: confirmation details',async()=>{await p.click('[data-act="open
   await p.waitForTimeout(2500);log.push('   draft: '+JSON.stringify(await p.evaluate(()=>({draft:S.confDraft&&{address:S.confDraft.address,yom:(S.confDraft.ac||{}).yom||S.confDraft.yom},saved:(tripById(S.sel).d.conf||null)&&Object.keys(tripById(S.sel).d.conf).slice(0,30),ids:[...document.querySelectorAll('[data-c]')].filter(e=>/address|lead|yom|seats|aoc|cName/.test(e.id)).map(e=>e.id+'='+e.value+(e.disabled?'(dis)':''))}))));log.push('   conf missing now: '+(await p.evaluate(()=>[...document.querySelectorAll('main .note')].map(n=>n.innerText.replace(/\s+/g,' ').slice(0,200)).join(' || '))));
   await p.click('[data-act="confBack"]');await p.waitForTimeout(800);});
 log.push('   checks: '+(await p.evaluate(()=>JSON.stringify(tripById(S.sel).d.checks))));
+await st('broker: 24-hour contacts',async()=>{await p.fill('#c24_op','Example Air ops desk +41 00 000 00 00');await p.fill('#c24_h','Example handler Seletar +65 6000 0000');await p.click('[data-intake="c24"]');await p.waitForTimeout(900);});
 await st('send for authorisation',async()=>{await p.click('[data-act="submit"]');await p.waitForTimeout(1500)});
 log.push('   stage: '+(await p.evaluate(()=>tripById(S.sel).stage)));
 await next();
@@ -77,7 +78,6 @@ await st('Director: Request to Book and hold',async()=>{await p.fill('#bk_rtb',n
 await st('attach Operator contract',async()=>{await p.setInputFiles('#bkFile','/tmp/ex.pdf');await p.click('[data-bka="doc"]');await p.waitForTimeout(1500);});
 await st('contract matches',async()=>{await p.check('[data-bkc]');await p.waitForTimeout(800);});
 log.push('   book after: '+(await p.evaluate(()=>{const s=document.getElementById('secBook');return s?s.innerText.replace(/\s+/g,' ').slice(0,700):''})));
-await st('Director: 24-hour contacts',async()=>{await p.fill('#c24_op','Example Air ops desk +41 00 000 00 00');await p.fill('#c24_h','Example handler Seletar +65 6000 0000');await p.click('[data-intake="c24"]');await p.waitForTimeout(900);});
 await st('Director: open confirmation',async()=>{await p.click('[data-act="openConf"]');await p.waitForTimeout(1500)});
 log.push('   conf buttons: '+(await p.$$eval('main button',bs=>bs.map(b=>(b.dataset.act||Object.keys(b.dataset).join(','))+':'+b.innerText.trim().slice(0,40)).filter(x=>!/^:/.test(x)).join(' | '))).slice(0,900));
 log.push('   conf notes: '+(await p.evaluate(()=>[...document.querySelectorAll('main .note')].map(n=>n.innerText.replace(/\s+/g,' ').slice(0,200)).join(' || '))).slice(0,1200));

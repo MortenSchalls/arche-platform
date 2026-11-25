@@ -152,9 +152,13 @@ async function contactBatch(){
   catch(e){ toast("Could not send. Try again."); }
 }
 /* ---------- 24-hour contacts on every trip ---------- */
+/* the broker has the operator's and the handler's numbers, so the broker fills them (workflow audit 25 Nov 2026); the
+   operator's 24-hour desk is suggested from the last trip with the same operator */
+const c24Of = t => (t.st || {}).contacts24 || (t.d || {}).contacts24 || null;
+function c24Suggest(t){ const op = ((t.d.quote || {}).operator || "").toLowerCase(); if (!op) return ""; const prev = allTrips().filter(x => x.did !== t.did && ((x.d.quote || {}).operator || "").toLowerCase() === op && c24Of(x)).sort((a, b) => String(b.d.updated || "").localeCompare(String(a.d.updated || "")))[0]; return prev ? c24Of(prev).op : ""; }
 function tripContactsBlock(t){
-  if (!t || !isStaff() || S.preview || ["cancelled"].includes(t.stage)) return "";
-  const st = t.st || {}, c = st.contacts24 || {};
+  if (!t || !(isStaff() || t.bid === S.uid) || S.preview || ["cancelled"].includes(t.stage)) return "";
+  const st = t.st || {}, c = c24Of(t) || {op: c24Suggest(t)};
   return `<div class="panel stack small" id="sec24" style="margin:8px 0"><h3 style="margin:0">24-hour contacts</h3><p class="muted" style="margin:0">Who the client and Archē call at night if the broker or the Director cannot be reached. Needed before the confirmation is issued.</p>
     <div class="fgrid"><label class="f" for="c24_op">Operator operations, 24 hours<input id="c24_op" value="${esc(c.op || "")}" placeholder="Name of desk and phone"></label><label class="f" for="c24_h">Handler at departure<input id="c24_h" value="${esc(c.handler || "")}" placeholder="Handler and phone"></label></div>
     <div class="row"><button class="btn small" type="button" data-intake="c24">Save contacts</button></div></div>`;
@@ -164,7 +168,7 @@ document.addEventListener("click", async e => {
   const a = b.dataset.intake;
   if (a === "leaveOk") { e.preventDefault(); if (!($("lv_ok") || {}).checked) { toast("Tick the box first."); return; } try { const body = {kind: "leaving", confirmedAt: now(), contractName: (S.myRoster || {}).contractName || ""}; await S.db.doc("join/" + S.uid).set(body); S.myLeave = body; toast("Confirmed. Thank you."); render(); } catch(err){ toast("Could not save. Try again."); } return; }
   if (a === "batch") { e.preventDefault(); contactBatch(); return; }
-  if (a === "c24") { e.preventDefault(); const t = tripById(S.sel); if (!t) return; const op = $("c24_op").value.trim(), h = $("c24_h").value.trim(); if (!op || !h) { toast("Fill in both."); return; } try { await statusWrite(t, {contacts24: {op, handler: h, at: now(), by: S.uid}}, "24-hour contacts saved"); toast("Saved."); } catch(err){ toast("Could not save."); } return; }
+  if (a === "c24") { e.preventDefault(); const t = tripById(S.sel); if (!t) return; const op = $("c24_op").value.trim(), h = $("c24_h").value.trim(); if (!op || !h) { toast("Fill in both."); return; } try { const rec = {op, handler: h, at: now(), by: S.uid}; if (isStaff() && acting() !== "broker") await statusWrite(t, {contacts24: rec}, "24-hour contacts saved"); else await deskWrite(t, {contacts24: rec}, "24-hour contacts saved"); toast("24-hour contacts saved."); render(); } catch(err){ toast("Could not save."); } return; }
   if (!S.isOwner) return; if (b.tagName !== "INPUT") e.preventDefault();
   if (a === "ready") { const R = {...(intakeCfg().ready || {})}; R[b.dataset.k] = b.checked ? {at: now(), by: S.uid} : undefined; Object.keys(R).forEach(k => R[k] === undefined && delete R[k]); return intakeSave({ready: R}, `${b.dataset.k} ${b.checked ? "ticked" : "unticked"}`); }
   if (a === "cap") { const c = Math.max(1, Math.min(50, +($("ir_cap") || {}).value || 6)); return intakeSave({cap: c}, `Supervision limit ${c}`); }
@@ -201,7 +205,7 @@ function leaveTodayFlags(){
 }
 
 /* the confirmation needs the 24-hour contacts */
-(function(){ if (typeof issueConf !== "function") return; const _ic2 = issueConf; issueConf = async function(btn){ const t = tripById(S.sel), c = t && t.st && t.st.contacts24; if (t && !(c && c.op && c.handler)) { toast("Add the 24-hour contacts (operator operations and handler) on the trip first."); return; } return _ic2(btn); }; })();
+(function(){ if (typeof issueConf !== "function") return; const _ic2 = issueConf; issueConf = async function(btn){ const t = tripById(S.sel), c = t && c24Of(t); if (t && !(c && c.op && c.handler)) { toast("Add the 24-hour contacts (operator operations and handler) on the trip first."); return; } return _ic2(btn); }; })();
 
 /* ---------- Onboarding page and qualification checklist (Morten, 26 Oct 2026) ----------
    Team stays about the team. Joining and leaving live on their own page: requests to join with the qualification

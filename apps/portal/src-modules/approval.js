@@ -41,7 +41,7 @@ function apCard(t, compact){
   const rows = [["Client", `${esc(c.company || c.name || "–")}${c.company && c.name ? ` <span class="muted">(${esc(c.name)})</span>` : ""}${c.country ? ` · ${esc(c.country)}` : ""}${c.payer ? `<br><span class="muted">Payer: ${esc(c.payer)}</span>` : ""}`],
     ["Trip", route || "–"], ["Aircraft", `${esc(q.aircraft || d.trip && d.trip.category || "–")}${q.tail ? ` · ${esc(q.tail)}` : ""}<br><span class="muted">${esc(q.operator || "Operator not set")}</span>`],
     ["Operator price", usd(f.op) + (f.dc ? ` + direct costs ${usd(f.dc)}` : "")], ["Client price", `<b>${usd(f.price)}</b>${f.nFixed ? ` + ${f.nFixed} fixed extra${f.nFixed > 1 ? "s" : ""} ${usd(f.fixedClient)}` : ""}${f.atCost ? ` · ${f.atCost} after the flight` : ""}`],
-    ["Archē margin", `<b>${usd(f.margin)}</b> (${(f.pct * 100).toFixed(1)}%)`],
+    ["Archē fee", `<b>${usd(f.margin)}</b> (${(f.pct * 100).toFixed(1)}%)`],
     ["Payment", `Deposit ${usd(f.deposit)}${f.balDue ? ` · balance ${usd(f.balance)} by ${fmtD(f.balDue)}` : " on signature"}`], ["Broker", `${esc(nm(t.bid))} · win ${winScore(t)}%`]];
   return `<div class="panel stack apcard" style="border-left:3px solid ${bad ? "var(--warn)" : "var(--ok)"}"><div class="row" style="justify-content:space-between"><h3 style="margin:0">${esc(c.company || c.name || "Trip")} · ${usd(f.price)}</h3><span class="row" style="gap:6px">${ageChip(t)}${s.changed ? `<span class="chip c-returned">Price changed</span>` : ""}<span class="chip ${bad ? "c-review" : "c-flown"}">${bad ? bad + " to check" : "All clear"}</span></span></div>
     <div class="tbl"><table class="small"><tbody>${rows.map(([k, v]) => `<tr><th scope="row" style="width:32%;font-weight:600">${k}</th><td>${v}</td></tr>`).join("")}</tbody></table></div>

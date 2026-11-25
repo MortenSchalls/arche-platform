@@ -69,7 +69,7 @@
     const {A, B} = brokerItems(d), out = [...A, ...B].filter(x => x[3] && !x[0]).map(x => x[1]);
     /* the confirmation details are the broker's to fill in (test booking 25 Nov 2026: they were "recommended", yet the
        confirmation cannot be issued without them, so the Director met them at the end) */
-    { const t = (typeof allTrips === "function" ? allTrips() : []).find(x => x.d === d); if (t) { const cf = confItems(t); if (cf.miss.length) out.push("on the confirmation: " + cf.miss.join(", ")); } }
+    { const t = (typeof allTrips === "function" ? allTrips() : []).find(x => x.d === d); if (t) { const cf = confItems(t); if (cf.miss.length) out.push("on the confirmation: " + cf.miss.join(", ")); const c = typeof c24Of === "function" ? c24Of(t) : null; if (!(c && c.op && c.handler)) out.push("the 24-hour contacts (operator operations and handler)"); } }
     const ck = d.checks || {}, open = BROKER_CHECKS.filter(([k]) => !ck[k]).length; if (open) out.push(`${open} pre-issue check${open > 1 ? "s" : ""}`);
     if (typeof tripBlockers === "function") { const {red, amberOpen} = tripBlockers(d, {}); if (red.length) out.push(`${red.length} red trip check${red.length > 1 ? "s" : ""}`); if (amberOpen.length) out.push(`${amberOpen.length} amber trip check${amberOpen.length > 1 ? "s" : ""} to confirm`); }
     return out;
@@ -85,17 +85,17 @@
       {title: "Client and trip", who: "Broker", items: A},
       {title: "Operator quote", who: "Broker", items: B},
       {title: "Checks and documents", who: "Broker", items: C},
-      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true]], note: cf.err.length ? cf.err.join(" ") : ""},
+      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true], [!!(typeof c24Of === "function" && c24Of(t) && c24Of(t).op && c24Of(t).handler), "24-hour contacts: the operator's operations desk and the handler at departure", "sec|sec24", true]], note: cf.err.length ? cf.err.join(" ") : ""},
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
       {title: "Authorisation", who: "Director or a mandated person", items: [
-        [num(st.opPrice) > 0, "Operator price checked against Avinode (filled in from the broker's quote)", "el|o_op", true],
-        [!!st.kyc, "The broker's KYC record checked (ticked from the broker's record)", "el|o_kyc", true],
-        [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening result checked (the broker's screening is reused)", "el|scr_names_" + t.did, true],
-        [!!st.paynodeRef, "Payment request reference checked (from the broker); then one Save records all four", "el|o_pn", true],
+        /* taken over from the broker's records at Issue; open only when the broker's record is missing (workflow audit 25 Nov 2026) */
+        [num(st.opPrice) > 0 || num((d.quote || {}).opPrice) > 0, "Operator price: the broker's quote (check it against Avinode; change it under Authorisation only if it differs)", "el|o_op", true],
+        [!!st.kyc || (typeof kycState === "function" && kycState(t).ok), "KYC: the broker's record" + (typeof kycState === "function" && !kycState(t).ok ? " is missing: " + kycState(t).why : ""), "el|o_kyc", true],
+        [(typeof screenOk === "function" ? screenOk(t, st) : !!st.screen) || !!(d.screen && (d.screen.results || []).length && d.screen.results.every(r => r.result === "no match")), "Sanctions screening: the broker's screening (a possible match is decided under Authorisation)", "el|scr_names_" + t.did, true],
+        [!!st.paynodeRef || !!d.payRef, "Payment request reference: from the broker", "el|o_pn", true],
         ...(ap ? [[typeof apState === "function" && apState(t).ok, "Director approval (the Director approves on Today or on this trip)", "sec|secOps", true]] : []),
         /* Booking with the operator: asked for only when Issue was pressed before (test booking 25 Nov 2026) */
         ...(!issued && typeof bookNeeds === "function" ? (() => { const n = bookNeeds(t); return [[!n.length, n.length ? "Booking with the operator: " + n.join("; ") : "Booking with the operator: Request to Book, hold and the operator's contract recorded", "sec|secBook", true]]; })() : []),
-        ...(!issued ? [[!!(st.contacts24 && st.contacts24.op && st.contacts24.handler), "24-hour contacts saved: operator operations and the handler at departure", "sec|sec24", true]] : []),
         [issued, "Confirmation issued", "conf", true]]},
       {title: "Signature and payment", who: "Broker, then the Director or a mandated person", items: [
         [!!st.sigSentAt || !!st.signed, "Confirmation sent to the charterer for signature", "sec|secSig", true],

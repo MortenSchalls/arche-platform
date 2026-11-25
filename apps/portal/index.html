@@ -566,6 +566,16 @@ function kycDue(rec){
   const d = new Date(rec.checkedAt + "T00:00:00Z"); d.setUTCMonth(d.getUTCMonth() + KYC_MONTHS); return d.toISOString().slice(0, 10);
 }
 const kycRefOk = s => !/\d{6,}/.test(String(s || "").replace(/[\s.\/-]/g, ""));   // our own reference, never an ID or account number
+/* the portal numbers every check itself (Morten, 25 Nov 2026: "automate the KYC/KYB reference, so numbering is generated
+   by us"): KYB for a company, KYC for a person, the year of the check and four characters the portal draws, e.g. KYB-2026-4F7A;
+   never a typed number, so no ID or account number can end up here */
+function kycNewRef(t, at){
+  const c = (t.d || {}).client || {}, used = new Set(allTrips().map(x => ((x.d || {}).kycRec || {}).ref).filter(Boolean));
+  const pre = (c.company ? "KYB" : "KYC") + "-" + String(at || now()).slice(0, 4) + "-";
+  let h = 0; const seed = t.did + "|" + now();
+  for (let i = 0; i < 40; i++) { for (const ch of seed + i) h = (h * 31 + ch.charCodeAt(0)) >>> 0; const r = pre + h.toString(36).toUpperCase().padStart(4, "0").slice(-4); if (!used.has(r)) return r; }
+  return pre + Date.now().toString(36).toUpperCase().slice(-4);
+}
 function kycPrior(t){
   const k = kycKey((t.d || {}).client); if (!k) return null;
   let best = null;
@@ -606,7 +616,7 @@ function kycBlock(t, canEdit){
     <details class="small"${rec && s.ok ? "" : " open"}><summary>${rec ? "Record a new check" : "Record the KYC check"}</summary>
     <div class="row" style="margin-top:6px"><label class="f" for="kyc_at" style="max-width:170px">Checked on<input id="kyc_at" type="date" value="${esc(now().slice(0, 10))}"></label>
     <label class="f" for="kyc_how" style="max-width:340px">How<select id="kyc_how">${KYC_HOW.map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join("")}</select></label>
-    <label class="f" for="kyc_ref" style="max-width:220px">Our reference (optional)<input id="kyc_ref" placeholder="e.g. KYC-2026-0147" maxlength="40"></label>
+    <p class="f muted" style="max-width:240px;margin:0">Reference<br><span class="mono">${(t.d.client || {}).company ? "KYB" : "KYC"}-…</span> set by the portal when you save</p>
     <button class="btn small" type="button" data-kyc="save" data-did="${t.did}">Save KYC record</button></div>
     <p class="muted" style="margin:6px 0 0">Never type an ID, passport or bank number here. The record keeps only the date, how, our reference, the name, country and payer it covers; it is kept with the booking as the privacy policy says. It is reused for this client until 12 months after the check, unless the payer, country or name changes or screening finds a possible match.</p></details></div>`;
 }
@@ -619,12 +629,11 @@ document.addEventListener("click", async e => {
     const p = kycPrior(t); if (!p) { toast("No earlier check found."); return; }
     rec = {...p.rec, ...base, checkedAt: p.rec.checkedAt, how: p.rec.how, ref: p.rec.ref || "", reusedFrom: p.ref};
   } else {
-    const at = ($("kyc_at") || {}).value || "", how = ($("kyc_how") || {}).value || "", ref = (($("kyc_ref") || {}).value || "").trim();
+    const at = ($("kyc_at") || {}).value || "", how = ($("kyc_how") || {}).value || "";
     if (!/^\d{4}-\d{2}-\d{2}$/.test(at) || at > now().slice(0, 10)) { toast("Enter the date of the check (not in the future)."); return; }
-    if (!kycRefOk(ref)) { toast("That looks like an ID, passport or bank number. Use our own reference only."); return; }
-    rec = {...base, checkedAt: at, how, ref};
+    rec = {...base, checkedAt: at, how, ref: kycNewRef(t, at)};
   }
-  try { await deskWrite(t, {kycRec: rec, checks: {...(t.d.checks || {}), kyc: true}}, `KYC record: checked ${rec.checkedAt}${rec.reusedFrom ? " (from " + rec.reusedFrom + ")" : ""}`); audit("KYC recorded", `${(t.st || {}).ref || t.did} · ${rec.checkedAt}`); toast("KYC record saved."); render(); }
+  try { await deskWrite(t, {kycRec: rec, checks: {...(t.d.checks || {}), kyc: true}}, `KYC record: checked ${rec.checkedAt}${rec.reusedFrom ? " (from " + rec.reusedFrom + ")" : ""}`); audit("KYC recorded", `${(t.st || {}).ref || t.did} · ${rec.checkedAt}`); toast(`KYC record saved: ${rec.ref || "reference from the earlier check"}.`); render(); }
   catch(err){ toast("Could not save."); }
 });
 
@@ -882,8 +891,7 @@ function tripFile(t){
       <label class="check" for="ck_kyc"><input type="checkbox" id="ck_kyc" data-ck="kyc" ${checks.kyc || st.kyc ? "checked" : ""} ${canBrokerEdit ? "" : "disabled"}><span>Charterer KYC and sanctions screening done and recorded (manual 3.1 and 3.2)</span>${st.kyc ? `<span class="who-ticks">checked at authorisation</span>` : ""}</label>
       ${typeof kycBlock === "function" ? kycBlock(t, canBrokerEdit) : ""}
       <label class="f" for="ck_payref" style="margin-top:6px">Client payment request reference (created in our payment provider)<input id="ck_payref" data-payref="1" value="${esc((t.d || {}).payRef || st.paynodeRef || "")}" ${canBrokerEdit ? "" : "disabled"}></label></div>
-    <div id="secDocs"><h3>Documents</h3>${docs.length ? `<ul class="small">${docs.map(x => `<li><a href="/_blob/${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.name)}</a> <span class="muted">· ${esc(x.kind || "")} · ${fmtD(x.at)}</span></li>`).join("")}</ul>` : `<p class="small muted">No documents yet.</p>`}
-      ${canBrokerEdit ? `<div class="row"><select id="docKind" style="width:auto" aria-label="Document type"><option>Operator quote</option><option>AOC</option><option>Insurance certificate</option><option>Operator contract</option><option>Safety audit</option><option>Passport</option><option>Trip risk screen</option><option>Client safety disclosure</option><option>Other</option></select><input type="file" id="docFile" style="width:auto"><button class="btn small" type="button" data-act="upload">Attach</button></div><p class="small muted">Documents stay in the portal. Never send passports or contracts by email or chat.</p>` : ""}</div>
+    ${tripDocsPanel(t, canBrokerEdit)}
     ${canBrokerEdit ? `<div class="row" id="secSend"><button class="btn" type="button" data-act="edit">Edit enquiry and quote</button><button class="btn primary" type="button" data-act="submit" ${submitReady(d) ? "" : "disabled"}>Send for authorisation</button>${t.stage === "enquiry" || t.stage === "quoted" ? `<button class="btn danger" type="button" data-act="withdraw">Withdraw</button>` : ""}</div>${submitReady(d) ? "" : (typeof sendMissingNote === "function" ? sendMissingNote(t) : `<p class="small muted">To send for authorisation: client name, at least one leg, operator price and all seven checks.</p>`)}` : ""}
     ${ops}
     <div><h3>History</h3><div class="hist">${historyOf(t).map(h => `<div><span class="muted mono">${fmtT(h.t)}</span><span>${esc(h.a)} <span class="muted">· ${esc(h.by === "ops" ? "Authorisation" : nm(h.by))}</span></span></div>`).join("") || `<p class="small muted">No history yet.</p>`}</div></div>
@@ -908,10 +916,10 @@ function opsBlock(t){
     <div class="fgrid">
       <label class="f" for="o_op">Operator price confirmed on Avinode (USD)<input id="o_op" inputmode="decimal" value="${esc(opPrice || "")}"></label>
       <label class="f" for="o_dir">Direct trip costs (USD)<input id="o_dir" inputmode="decimal" value="${esc(direct || 0)}"></label>
-      <label class="f" for="o_pn">Payment request reference (from the broker)<input id="o_pn" value="${esc(st.paynodeRef || (t.d || {}).payRef || "")}"></label>
+      <label class="f" for="o_pn">Payment request reference (from the broker)<input id="o_pn" value="${esc(st.paynodeRef || (t.d || {}).payRef || "")}" ${(t.d || {}).payRef ? `readonly title="From the broker's record on the trip; the broker changes it there"` : ""}></label>
     </div>
     ${typeof screenBlock === "function" ? screenBlock(t, st) : ""}
-    <label class="check" for="o_kyc"><input type="checkbox" id="o_kyc" ${st.kyc || ((t.d || {}).checks || {}).kyc ? "checked" : ""}><span>Broker's KYC checked: identity, company register, owners and source of funds (manual 3.1)</span></label>
+    <label class="check" for="o_kyc"><input type="checkbox" id="o_kyc" ${st.kyc || ((t.d || {}).checks || {}).kyc ? "checked" : ""} ${(t.d || {}).kycRec ? `disabled title="Set by the broker's KYC record"` : ""}><span>Broker's KYC checked: identity, company register, owners and source of funds (manual 3.1)${(t.d || {}).kycRec ? ` · record ${esc(t.d.kycRec.ref || "")}, checked ${fmtD(t.d.kycRec.checkedAt)}` : ""}</span></label>
     ${num(q.opPrice) && num(opPrice) && num(q.opPrice) !== num(opPrice) ? `<div class="note warn small">Broker entered ${usd(num(q.opPrice))} for the operator; you entered ${usd(num(opPrice))}. The confirmed figure is used.</div>` : ""}
     <div class="row"><button class="btn" type="button" data-act="opsSave">Save</button><button class="btn primary" type="button" data-act="openConf">Prepare confirmation</button><button class="btn danger" type="button" data-act="return">Return to broker</button></div>
     <label class="f" for="o_note">Note to the broker (needed to return)<textarea id="o_note"></textarea></label>` : ""}
@@ -1099,6 +1107,9 @@ function openEditor(t){
       <label class="f" for="q_oc">Operator's country (country of its AOC)<select id="q_oc"><option value="">Choose</option>${Object.entries(APT.cn || {}).sort((a, b) => a[1].localeCompare(b[1])).map(([k, v]) => `<option value="${k}" ${q.opCountry === k ? "selected" : ""}>${esc(v)}</option>`).join("")}</select></label>
       <label class="f" for="q_ac">Aircraft type<input id="q_ac" value="${esc(q.aircraft || "")}"></label>
       <label class="f" for="q_tl">Registration<input id="q_tl" value="${esc(q.tail || "")}"></label>
+      <label class="f" for="q_aoc">Operator's AOC number<input id="q_aoc" value="${esc(q.aoc || "")}" placeholder="From the quote or the AOC"></label>
+      <label class="f" for="q_yom">Year built<input id="q_yom" inputmode="numeric" maxlength="4" value="${esc(q.yom || "")}"></label>
+      <label class="f" for="q_seats">Passenger seats<input id="q_seats" inputmode="numeric" maxlength="2" value="${esc(q.seats || "")}"></label>
       <label class="f" for="q_av">Avinode trip ID<input id="q_av" value="${esc(q.avinode || "")}"></label>
       ${curFields(q)}
       <label class="f" for="q_pr">Operator price (USD)<input id="q_pr" inputmode="decimal" value="${esc(q.opPrice || "")}"></label>
@@ -1128,7 +1139,7 @@ async function saveEditor(f){
   const prev = (S.desks[bid] || {})[did] || {};
   const legs = [...f.querySelectorAll(".leg")].map(r => ({from:r.querySelector('[data-l="from"]').value.toUpperCase().trim(), to:r.querySelector('[data-l="to"]').value.toUpperCase().trim(), date:r.querySelector('[data-l="date"]').value, time:r.querySelector('[data-l="time"]').value, pax:r.querySelector('[data-l="pax"]').value})).filter(l => l.from || l.to || l.date);
   if (APT.list) { for (const [i, l] of legs.entries()) for (const k of ["from", "to"]) { if (!l[k] || APT.by[l[k]]) continue; const hit = aptSearch(l[k]).find(h => h.a.iata === l[k]); if (hit) l[k] = hit.a.icao; else { toast(`Leg ${i + 1}: choose the ${k === "from" ? "departure" : "arrival"} airport from the list (type a city, airport name or code).`); return; } } }
-  const cur = $("q_cur").value, quote = {operator:$("q_op").value.trim(), opCountry:($("q_oc") || {}).value || "", aircraft:$("q_ac").value.trim(), tail:$("q_tl").value.trim().toUpperCase(), avinode:$("q_av").value.trim(), opPrice:num($("q_pr").value), direct:num($("q_dc").value), cur};
+  const cur = $("q_cur").value, quote = {operator:$("q_op").value.trim(), opCountry:($("q_oc") || {}).value || "", aircraft:$("q_ac").value.trim(), tail:$("q_tl").value.trim().toUpperCase(), aoc:(($("q_aoc") || {}).value || "").trim(), yom:(($("q_yom") || {}).value || "").trim(), seats:(($("q_seats") || {}).value || "").trim(), avinode:$("q_av").value.trim(), opPrice:num($("q_pr").value), direct:num($("q_dc").value), cur};
   if (cur !== "USD") { quote.curAmt = num($("q_amt").value); quote.rate = num($("q_rate").value); if (!quote.curAmt || !quote.rate) { toast(`Enter the ${cur} amount and the rate used, or choose USD.`); return; } quote.opPrice = Math.ceil(quote.curAmt * quote.rate); quote.rateAt = ((prev.quote || {}).rate === quote.rate && (prev.quote || {}).rateAt) || now(); }
   { const pc = payCostOf(quote.opPrice, quote.direct, cur, $("q_card").checked); quote.directOwn = quote.direct; quote.card = $("q_card").checked; quote.payFx = pc.fx; quote.payCard = pc.card; quote.direct = quote.direct + pc.total; }
   const body = {...JSON.parse(JSON.stringify(prev)), created: prev.created || now(), updated: now(),
@@ -1136,6 +1147,8 @@ async function saveEditor(f){
     trip:{legs, category:$("e_cat").value, notes:$("e_nt").value.trim()}, quote,
     stage: quote.opPrice > 0 ? "quoted" : "enquiry", checks: prev.checks || {}, docs: prev.docs || []};
   if (prev.stage === "submitted") body.stage = "submitted";
+  /* filled in, not asked (workflow audit 25 Nov 2026): jet or turboprop follows the aircraft type until the broker changes it */
+  if (quote.aircraft && !((body.safety || {}).cls)) body.safety = {...(body.safety || {}), cls: /\b(PC-?12|King ?Air|TBM|Caravan|Piaggio|Avanti|Kodiak|Beech ?1900|Cheyenne|Conquest|M600|turboprop)\b/i.test(quote.aircraft) ? "turboprop" : "jet"};
   if (typeof tcBeforeSave === "function") await tcBeforeSave(body, {bid, did});
   if (!prev.created && S.fromLead) { body.prospectId = S.fromLead.pid; }
   if (!prev.created && S.fromPool) { body.poolId = S.fromPool.id; body.enquiryAt = S.fromPool.at; body.takenAt = S.fromPool.taken || null; if (S.fromPool.contactedAt) body.contactedAt = S.fromPool.contactedAt; }
@@ -1264,7 +1277,7 @@ async function act(a, el){
 async function uploadDoc(t){
   const f = $("docFile").files[0]; if (!f) { toast("Choose a file first."); return; }
   const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available for your access level."); return; }
-  try { const r = await assets.upload(f); const docs = [...(t.d.docs || []), {id:r.id, name:f.name, kind:$("docKind").value, at:now()}];
+  try { const r = await assets.upload(f); const docs = [...((freshTrip(t).d || t.d).docs || []), {id:r.id, name:f.name, kind:$("docKind").value, at:now()}];
     await deskWrite(t, {docs}, `Document attached: ${$("docKind").value}`); toast("Document attached"); }
   catch(e){ toast("Upload failed: " + (e && e.message ? e.message : "try again")); }
 }
@@ -2020,14 +2033,39 @@ const AC_CATS = ["Light jet","Midsize jet","Super-midsize jet","Heavy jet","Ultr
 const DEFAULT_INCLUDED = "Aircraft, crew, fuel, landing, handling and navigation charges at the airports listed, standard catering.";
 function confDraftFrom(t){
   const cf = JSON.parse(JSON.stringify(t.d.conf || {}));
-  if (!cf.legs || !cf.legs.length) cf.legs = (((t.d.trip || {}).legs) || []).map(l => ({date:l.date || "", from:l.from || "", to:l.to || "", etd:l.time || "", pax:l.pax || "", pos:false}));
+  /* the itinerary is the trip's (workflow audit 25 Nov 2026): flown legs always come from the trip, so a change there
+     reaches the confirmation; only positioning legs added here are the confirmation's own */
+  const tripLegs = (((t.d.trip || {}).legs) || []).map(l => ({date:l.date || "", from:l.from || "", to:l.to || "", etd:l.time || "", pax:l.pax || "", pos:false}));
+  const posLegs = (cf.legs || []).filter(l => l.pos);
+  cf.legs = posLegs.length ? [...tripLegs, ...posLegs].sort((a, b) => (a.date + (a.etd || "")).localeCompare(b.date + (b.etd || ""))) : tripLegs;
   if (!cf.valid) cf.valid = {date: CONF.addDaysISO(CONF.todayISO(), 1), time:"18:00", tz:"Singapore (UTC+8)"};
   if (!cf.items) cf.items = {flight:"", pos:"", tax:"", other:""};
   if (!cf.cat) cf.cat = ((t.d.trip || {}).category) || "Heavy jet";
   if (cf.included === undefined) cf.included = DEFAULT_INCLUDED;
   const oc = (t.d.quote || {}).opCountry; if (!cf.state && oc && typeof APT !== "undefined") cf.state = (APT.cn || {})[oc] || oc;   // asked once, in the quote
+  /* asked once (workflow audit 25 Nov 2026): what the broker already entered fills the confirmation */
+  const q = t.d.quote || {}, s = t.d.safety || {}, c = t.d.client || {};
+  if (!cf.aoc && q.aoc) cf.aoc = q.aoc;
+  if (!cf.yom && q.yom) cf.yom = q.yom;
+  if (!cf.seats && q.seats) cf.seats = q.seats;
+  if (!cf.audit && s.audit && window.AUD_LABEL) cf.audit = (AUD_LABEL[s.audit] || "") + (s.expiry ? `, valid until ${fmtD(s.expiry)}` : "");
+  if (!cf.cName) cf.cName = c.company ? (c.name || "") : (c.name || "");
+  if (!cf.lead && !c.company) cf.lead = c.name || "";
+  if (!cf.address && c.address) cf.address = c.address;
+  if (!cf.pay) cf.pay = q.card ? "pn_card" : "pn_wire";   // the card choice is made once, in the quote
+  if (!cf.cat && (t.d.trip || {}).category) cf.cat = t.d.trip.category;
   return cf;
 }
+/* fields on the confirmation that another step already holds are shown, not typed (workflow audit 25 Nov 2026):
+   change them where they come from; flown legs come from the trip, positioning legs stay editable here */
+const _vConfDerive = vConf;
+vConf = function(){
+  let h = _vConfDerive(); const t = tripById(S.sel); if (!t || S.view !== "conf") return h;
+  const q = t.d.quote || {}, s = t.d.safety || {}, from = {aoc: q.aoc && "the quote", yom: q.yom && "the quote", seats: q.seats && "the quote", state: q.opCountry && "the quote (operator's country)", audit: s.audit && "Operator safety", kyc: (t.d.kycRec || {}).checkedAt && "the KYC record"};
+  for (const k in from) if (from[k]) h = h.replace(new RegExp(`(<(?:input|textarea)[^>]*id="cf_${k}")`), `$1 readonly aria-readonly="true" title="From ${from[k]}; change it there" style="background:var(--raised)"`);
+  (S.confDraft && S.confDraft.legs || []).forEach((l, i) => { if (!l.pos) ["date","etd","from","to","pax"].forEach(k => { h = h.replace(new RegExp(`(<input[^>]*id="cl_${i}_${k}")`), `$1 readonly title="From the trip; change the leg in Edit enquiry and quote" style="background:var(--raised)"`); }); });
+  return h;
+};
 /* the KYC reference on the confirmation comes from the broker's KYC record, so it is not typed twice */
 function kycRecLine(r){ return r && r.checkedAt ? `Checked ${r.checkedAt}${r.how ? ", " + r.how : ""}${r.ref ? ", our ref. " + r.ref : ""}` : ""; }
 function confData(t, cf, opts){
@@ -2101,7 +2139,7 @@ function vConf(){
           ${cf.legs.map((l, i) => `<tr><td><input type="date" id="cl_${i}_date" data-cl="${i}.date" value="${esc(l.date)}" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} date"></td><td><input type="time" id="cl_${i}_etd" data-cl="${i}.etd" value="${esc(l.etd)}" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} time"></td><td><input id="cl_${i}_from" class="apt" data-cl="${i}.from" value="${esc(l.from)}" autocomplete="off" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} from: city, airport or ICAO" style="text-transform:uppercase;width:96px" title="${esc(aptName(l.from))}"></td><td><input id="cl_${i}_to" class="apt" data-cl="${i}.to" value="${esc(l.to)}" autocomplete="off" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} to: city, airport or ICAO" style="text-transform:uppercase;width:96px" title="${esc(aptName(l.to))}"></td><td><input id="cl_${i}_pax" data-cl="${i}.pax" value="${esc(l.pax)}" inputmode="numeric" ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} passengers" style="width:64px"></td><td><input type="checkbox" id="cl_${i}_pos" data-cl="${i}.pos" ${l.pos ? "checked" : ""} ${edit ? "" : "disabled"} aria-label="Leg ${i + 1} positioning"></td>${edit ? `<td><button class="btn small" type="button" data-act="confDelLeg" data-i="${i}">Remove</button></td>` : ""}</tr>`).join("")}
         </tbody></table></div>${edit ? `<button class="btn small" type="button" data-act="confAddLeg" style="margin-top:8px">Add leg</button>` : ""}</div>
         <div><h3>Price and payment</h3><p class="small muted">Charter price ${usd(num(data.price))}, set by the portal at ${(S.terms.margin * 100).toFixed(0)}%. Breakdown is optional and must add up to the price.</p><div class="fgrid">${f("items.flight","Flight and crew (USD)")}${f("items.pos","Positioning (USD)")}${f("items.tax","Airport, handling and taxes (USD)")}${f("items.other","Other (USD)")}${f("pay","Payment through a payment request","select",[["pn_wire","Bank transfer (payment request)"],["pn_instant","Instant payment (payment request)"],["pn_card","Card (payment request, card charges in the price)"]])}${f("included","Included","area")}</div></div>
-        <div><h3>On board and remarks</h3>${f("smoking","Smoking permitted","check")}${f("animals","Animals permitted with the Operator's written approval","check")}${f("opScale","The Operator's cancellation scale applies (write it in remarks)","check")}<div class="fgrid">${f("remarks","Remarks","area")}</div></div>
+        <div><h3>On board and remarks</h3>${f("smoking","Smoking permitted","check")}${f("animals","Animals permitted with the Operator's written approval","check")}${(t.d.opTerms ? "" : f("opScale","The Operator's cancellation scale applies (write it in remarks)","check"))}<div class="fgrid">${f("remarks","Remarks","area")}</div></div>
         ${edit ? `<p class="small muted" id="confSaved">Changes save automatically.</p>` : ""}
       </form>`}
     </div>
@@ -2128,8 +2166,18 @@ async function saveConfDraft(){
   catch(e){ toast("Could not save the confirmation."); }
 }
 async function issueConf(btn){
-  const t = tripById(S.sel); const st = t.st || {};
+  let t = tripById(S.sel); let st = t.st || {};
   if (ownTrip(t)) { toast("A person the Director has mandated must issue your own trip."); return; }
+  /* no separate Save at authorisation (workflow audit 25 Nov 2026): what the broker recorded is taken over at Issue,
+     the price from the quote, the KYC record, the payment request reference and the broker's clear screening */
+  { const q = t.d.quote || {}, pre = {};
+    if (!num(st.opPrice) && num(q.opPrice)) Object.assign(pre, {opPrice: num(q.opPrice), direct: num(q.direct), price: (typeof tripPrice === "function" ? tripPrice(t, num(q.opPrice), num(q.direct)) : priceOf(q.opPrice, q.direct))});
+    if (!st.kyc && typeof kycState === "function" && kycState(t).ok) pre.kyc = true;
+    if (!st.paynodeRef && t.d.payRef) Object.assign(pre, {paynodeRef: t.d.payRef, pay: true});
+    const L = (S.scr || {})[t.did] || (t.d.screen && t.d.screen.results ? t.d.screen : null);
+    if (typeof screenOk === "function" && !screenOk(t, st) && L && (L.results || []).length && L.results.every(r => r.result === "no match"))
+      pre.screen = {at: now(), by: S.uid, names: L.results.map(r => r.name), lists: L.lists, listsAt: L.at, stale: !!L.stale, logId: L.logId || null, outcome: "clear", hits: []};
+    if (Object.keys(pre).length) { await statusWrite(t, pre, "Authorisation taken over from the broker's records"); t = freshTrip(t); st = {...(t.st || {}), ...pre}; t = {...t, st}; } }
   const missing = []; if (!num(st.opPrice)) missing.push("operator price confirmed by the Director"); if (!st.kyc) missing.push("KYC"); if (typeof kycBlockReason === "function") { const kw = kycBlockReason(t); if (kw) missing.push(kw); } if (typeof screenOk === "function" && !screenOk(t, st)) missing.push("sanctions screening record"); if (!st.paynodeRef) missing.push("payment request reference");
   if (missing.length) { toast("Save these on the trip first: " + missing.join(", ")); return; }
   const rev = st.confIssued ? (st.confRev || 1) + 1 : 1;
@@ -2140,7 +2188,7 @@ async function issueConf(btn){
   try {
     await saveConfDraft();
     let assetId = null;
-    try { const blob = await CONF.pdf(data, false); const assets = await claude.use("assets"); if (assets) { const f = new File([blob], `${ref}${rev > 1 ? " Rev " + rev : ""} Archē Executive Charter Confirmation.pdf`, {type:"application/pdf"}); const r = await assets.upload(f); assetId = r.id; } }
+    try { const blob = await CONF.pdf(data, false); const assets = await claude.use("assets"); if (assets) { const f = new File([blob], `${ref}${rev > 1 ? " Rev " + rev : ""} Archē Executive Charter Confirmation.pdf`, {type:"application/pdf"}); const r = await assets.upload(f, {folder: "trips/" + t.did}); assetId = r.id; } }
     catch(e){ console.warn("pdf", e); }
     const patch = {ref, xsCost: xsCost(t.d), xsClient: xsFixed(t.d), confRev: rev, confIssued: {rev, at: now(), assetId, data}, confRevs: [...(st.confRevs || []), {rev, at: now(), assetId, by: S.uid}]};
     if (rev > 1 && st.signed) { patch.signedRevs = [...(st.signedRevs || []), st.signed]; patch.signed = null; patch.sigSentAt = null; }   // a revision needs a new signature
@@ -3010,7 +3058,7 @@ async function sigSave(t){
   if (!name) { toast("Enter who signed, then choose the file again."); $("sg_file").value = ""; return; }
   const assets = await claude.use("assets"); if (!assets) { toast("Uploads are not available in this view."); return; }
   toast("Saving the signed contract…");
-  try { const r = await assets.upload(f); await statusWrite(t, {signed: {at: now(), by: S.uid, name, assetId: r.id, file: f.name}}, `Signed contract saved (signed by ${name})`); audit("Signed contract saved", `${(t.st || {}).ref || t.did} · signed by ${name}`); toast("Signed contract saved. You can now record the payment."); if (S.isOwner) driveSync(false); }
+  try { const r = await assets.upload(f, {folder: "trips/" + t.did}); await statusWrite(t, {signed: {at: now(), by: S.uid, name, assetId: r.id, file: f.name, size: f.size}}, `Signed contract saved (signed by ${name})`); audit("Signed contract saved", `${(t.st || {}).ref || t.did} · signed by ${name}`); toast("Signed contract saved. You can now record the payment."); if (S.isOwner) driveSync(false); }
   catch(e){ toast("Could not save the file. Try again."); }
 }
 
@@ -4107,7 +4155,7 @@ function apCard(t, compact){
   const rows = [["Client", `${esc(c.company || c.name || "–")}${c.company && c.name ? ` <span class="muted">(${esc(c.name)})</span>` : ""}${c.country ? ` · ${esc(c.country)}` : ""}${c.payer ? `<br><span class="muted">Payer: ${esc(c.payer)}</span>` : ""}`],
     ["Trip", route || "–"], ["Aircraft", `${esc(q.aircraft || d.trip && d.trip.category || "–")}${q.tail ? ` · ${esc(q.tail)}` : ""}<br><span class="muted">${esc(q.operator || "Operator not set")}</span>`],
     ["Operator price", usd(f.op) + (f.dc ? ` + direct costs ${usd(f.dc)}` : "")], ["Client price", `<b>${usd(f.price)}</b>${f.nFixed ? ` + ${f.nFixed} fixed extra${f.nFixed > 1 ? "s" : ""} ${usd(f.fixedClient)}` : ""}${f.atCost ? ` · ${f.atCost} after the flight` : ""}`],
-    ["Archē margin", `<b>${usd(f.margin)}</b> (${(f.pct * 100).toFixed(1)}%)`],
+    ["Archē fee", `<b>${usd(f.margin)}</b> (${(f.pct * 100).toFixed(1)}%)`],
     ["Payment", `Deposit ${usd(f.deposit)}${f.balDue ? ` · balance ${usd(f.balance)} by ${fmtD(f.balDue)}` : " on signature"}`], ["Broker", `${esc(nm(t.bid))} · win ${winScore(t)}%`]];
   return `<div class="panel stack apcard" style="border-left:3px solid ${bad ? "var(--warn)" : "var(--ok)"}"><div class="row" style="justify-content:space-between"><h3 style="margin:0">${esc(c.company || c.name || "Trip")} · ${usd(f.price)}</h3><span class="row" style="gap:6px">${ageChip(t)}${s.changed ? `<span class="chip c-returned">Price changed</span>` : ""}<span class="chip ${bad ? "c-review" : "c-flown"}">${bad ? bad + " to check" : "All clear"}</span></span></div>
     <div class="tbl"><table class="small"><tbody>${rows.map(([k, v]) => `<tr><th scope="row" style="width:32%;font-weight:600">${k}</th><td>${v}</td></tr>`).join("")}</tbody></table></div>
@@ -6380,9 +6428,13 @@ async function contactBatch(){
   catch(e){ toast("Could not send. Try again."); }
 }
 /* ---------- 24-hour contacts on every trip ---------- */
+/* the broker has the operator's and the handler's numbers, so the broker fills them (workflow audit 25 Nov 2026); the
+   operator's 24-hour desk is suggested from the last trip with the same operator */
+const c24Of = t => (t.st || {}).contacts24 || (t.d || {}).contacts24 || null;
+function c24Suggest(t){ const op = ((t.d.quote || {}).operator || "").toLowerCase(); if (!op) return ""; const prev = allTrips().filter(x => x.did !== t.did && ((x.d.quote || {}).operator || "").toLowerCase() === op && c24Of(x)).sort((a, b) => String(b.d.updated || "").localeCompare(String(a.d.updated || "")))[0]; return prev ? c24Of(prev).op : ""; }
 function tripContactsBlock(t){
-  if (!t || !isStaff() || S.preview || ["cancelled"].includes(t.stage)) return "";
-  const st = t.st || {}, c = st.contacts24 || {};
+  if (!t || !(isStaff() || t.bid === S.uid) || S.preview || ["cancelled"].includes(t.stage)) return "";
+  const st = t.st || {}, c = c24Of(t) || {op: c24Suggest(t)};
   return `<div class="panel stack small" id="sec24" style="margin:8px 0"><h3 style="margin:0">24-hour contacts</h3><p class="muted" style="margin:0">Who the client and Archē call at night if the broker or the Director cannot be reached. Needed before the confirmation is issued.</p>
     <div class="fgrid"><label class="f" for="c24_op">Operator operations, 24 hours<input id="c24_op" value="${esc(c.op || "")}" placeholder="Name of desk and phone"></label><label class="f" for="c24_h">Handler at departure<input id="c24_h" value="${esc(c.handler || "")}" placeholder="Handler and phone"></label></div>
     <div class="row"><button class="btn small" type="button" data-intake="c24">Save contacts</button></div></div>`;
@@ -6392,7 +6444,7 @@ document.addEventListener("click", async e => {
   const a = b.dataset.intake;
   if (a === "leaveOk") { e.preventDefault(); if (!($("lv_ok") || {}).checked) { toast("Tick the box first."); return; } try { const body = {kind: "leaving", confirmedAt: now(), contractName: (S.myRoster || {}).contractName || ""}; await S.db.doc("join/" + S.uid).set(body); S.myLeave = body; toast("Confirmed. Thank you."); render(); } catch(err){ toast("Could not save. Try again."); } return; }
   if (a === "batch") { e.preventDefault(); contactBatch(); return; }
-  if (a === "c24") { e.preventDefault(); const t = tripById(S.sel); if (!t) return; const op = $("c24_op").value.trim(), h = $("c24_h").value.trim(); if (!op || !h) { toast("Fill in both."); return; } try { await statusWrite(t, {contacts24: {op, handler: h, at: now(), by: S.uid}}, "24-hour contacts saved"); toast("Saved."); } catch(err){ toast("Could not save."); } return; }
+  if (a === "c24") { e.preventDefault(); const t = tripById(S.sel); if (!t) return; const op = $("c24_op").value.trim(), h = $("c24_h").value.trim(); if (!op || !h) { toast("Fill in both."); return; } try { const rec = {op, handler: h, at: now(), by: S.uid}; if (isStaff() && acting() !== "broker") await statusWrite(t, {contacts24: rec}, "24-hour contacts saved"); else await deskWrite(t, {contacts24: rec}, "24-hour contacts saved"); toast("24-hour contacts saved."); render(); } catch(err){ toast("Could not save."); } return; }
   if (!S.isOwner) return; if (b.tagName !== "INPUT") e.preventDefault();
   if (a === "ready") { const R = {...(intakeCfg().ready || {})}; R[b.dataset.k] = b.checked ? {at: now(), by: S.uid} : undefined; Object.keys(R).forEach(k => R[k] === undefined && delete R[k]); return intakeSave({ready: R}, `${b.dataset.k} ${b.checked ? "ticked" : "unticked"}`); }
   if (a === "cap") { const c = Math.max(1, Math.min(50, +($("ir_cap") || {}).value || 6)); return intakeSave({cap: c}, `Supervision limit ${c}`); }
@@ -6429,7 +6481,7 @@ function leaveTodayFlags(){
 }
 
 /* the confirmation needs the 24-hour contacts */
-(function(){ if (typeof issueConf !== "function") return; const _ic2 = issueConf; issueConf = async function(btn){ const t = tripById(S.sel), c = t && t.st && t.st.contacts24; if (t && !(c && c.op && c.handler)) { toast("Add the 24-hour contacts (operator operations and handler) on the trip first."); return; } return _ic2(btn); }; })();
+(function(){ if (typeof issueConf !== "function") return; const _ic2 = issueConf; issueConf = async function(btn){ const t = tripById(S.sel), c = t && c24Of(t); if (t && !(c && c.op && c.handler)) { toast("Add the 24-hour contacts (operator operations and handler) on the trip first."); return; } return _ic2(btn); }; })();
 
 /* ---------- Onboarding page and qualification checklist (Morten, 26 Oct 2026) ----------
    Team stays about the team. Joining and leaving live on their own page: requests to join with the qualification
@@ -6839,7 +6891,8 @@ document.addEventListener("change", async e => {
    A possible match stops the booking: only the Director can record a decision after checking the details. */
 (function(){
   S.scr = S.scr || {};
-  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}; return [...new Set([c.name, c.company, c.payer, q.operator].filter(x => x && String(x).trim()))]; };
+  // the lead passenger and the charterer's signatory from the confirmation are screened too (workflow audit, 25 Nov 2026)
+  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}, cf = t.d.conf || {}; return [...new Set([c.name, c.company, c.payer, cf.lead, cf.cName, q.operator].map(x => x && String(x).trim()).filter(Boolean))]; };
   // the broker's automatic screen (saved with the trip) is reused when it covers the same names and is under 48 hours old,
   // so operations does not run it again; operations adds passengers and owners and saves the record (31 Oct 2026)
   const brokerScreen = (t, names) => { const b = t.d.screen || {}; if (!b.at || !(b.results || []).length) return null;
@@ -7014,8 +7067,9 @@ document.addEventListener("change", async e => {
     const d = t.d, {red, amberOpen, all} = tripBlockers(d, t.st), acks = d.acks || {};
     if (!all.length) return "";
     const mine = t.bid === S.uid, rel = (t.st || {}).sanctionsRelease;
-    const row = x => `<div class="flag tc-${x.sev}"><span class="sev ${DOT[x.sev]}" aria-hidden="true" style="${x.sev === "green" ? "background:#5fa37a" : x.sev === "grey" ? "background:#8a9099" : ""}"></span><div><p><b>${x.sev === "red" ? "Stop" : x.sev === "amber" ? "Confirm" : x.sev === "grey" ? "Not checked" : "Checked"}</b> · ${x.text}</p>
-      ${x.sev === "amber" ? (acks[x.key] ? `<p class="small muted">Confirmed with the operator by ${esc(nm(acks[x.key].by))}, ${esc(fmtT(acks[x.key].at))}: ${esc(acks[x.key].note || "")}</p>` : (mine || isStaff()) ? `<p class="small"><button class="btn small" type="button" data-tc="ack|${esc(t.bid)}|${esc(t.did)}|${esc(x.key)}">Confirmed with the operator</button></p>` : "") : ""}</div></div>`;
+    /* a confirmed amber item shows as done: green, "Confirmed", no button (25 Nov 2026: "never locked the clicking") */
+    const row = x => { const done = x.sev === "amber" && acks[x.key]; return `<div class="flag tc-${done ? "green" : x.sev}"><span class="sev ${DOT[done ? "green" : x.sev] || ""}" aria-hidden="true" style="${done || x.sev === "green" ? "background:#5fa37a" : x.sev === "grey" ? "background:#8a9099" : ""}"></span><div><p><b>${x.sev === "red" ? "Stop" : done ? "Confirmed ✓" : x.sev === "amber" ? "Confirm" : x.sev === "grey" ? "Not checked" : "Checked"}</b> · ${x.text}</p>
+      ${x.sev === "amber" ? (acks[x.key] ? `<p class="small muted">Confirmed with the operator by ${esc(nm(acks[x.key].by))}, ${esc(fmtT(acks[x.key].at))}: ${esc(acks[x.key].note || "")}</p>` : (mine || isStaff()) ? `<p class="small"><button class="btn small" type="button" data-tc="ack|${esc(t.bid)}|${esc(t.did)}|${esc(x.key)}">Confirmed with the operator</button></p>` : "") : ""}</div></div>`; };
     const nameRed = red.some(x => x.key.startsWith("name|"));
     const release = nameRed && S.isOwner && acting() === "owner" ? `<div class="fgrid"><label class="f wide" for="tc_rel">Owner: after checking dates of birth, nationality and addresses against the listing<input id="tc_rel" placeholder="e.g. different person: listed person born 1961, our client born 1985"></label></div><div class="row"><button class="btn small" type="button" data-tc="release|${esc(t.bid)}|${esc(t.did)}">Not the listed person: release</button></div>` : "";
     const head = red.length ? `<div class="note bad small"><b>This trip is stopped.</b> ${red.length} red item${red.length > 1 ? "s" : ""} below. It cannot go for authorisation, be approved or be issued until ${red.some(x => !x.key.startsWith("name|")) ? "the trip is changed" : "the Director releases it"}.</div>` : amberOpen.length ? `<div class="note warn small">${amberOpen.length} item${amberOpen.length > 1 ? "s" : ""} to confirm with the operator before the trip goes for authorisation.</div>` : "";
@@ -7164,7 +7218,7 @@ document.addEventListener("change", async e => {
     const {A, B} = brokerItems(d), out = [...A, ...B].filter(x => x[3] && !x[0]).map(x => x[1]);
     /* the confirmation details are the broker's to fill in (test booking 25 Nov 2026: they were "recommended", yet the
        confirmation cannot be issued without them, so the Director met them at the end) */
-    { const t = (typeof allTrips === "function" ? allTrips() : []).find(x => x.d === d); if (t) { const cf = confItems(t); if (cf.miss.length) out.push("on the confirmation: " + cf.miss.join(", ")); } }
+    { const t = (typeof allTrips === "function" ? allTrips() : []).find(x => x.d === d); if (t) { const cf = confItems(t); if (cf.miss.length) out.push("on the confirmation: " + cf.miss.join(", ")); const c = typeof c24Of === "function" ? c24Of(t) : null; if (!(c && c.op && c.handler)) out.push("the 24-hour contacts (operator operations and handler)"); } }
     const ck = d.checks || {}, open = BROKER_CHECKS.filter(([k]) => !ck[k]).length; if (open) out.push(`${open} pre-issue check${open > 1 ? "s" : ""}`);
     if (typeof tripBlockers === "function") { const {red, amberOpen} = tripBlockers(d, {}); if (red.length) out.push(`${red.length} red trip check${red.length > 1 ? "s" : ""}`); if (amberOpen.length) out.push(`${amberOpen.length} amber trip check${amberOpen.length > 1 ? "s" : ""} to confirm`); }
     return out;
@@ -7180,17 +7234,17 @@ document.addEventListener("change", async e => {
       {title: "Client and trip", who: "Broker", items: A},
       {title: "Operator quote", who: "Broker", items: B},
       {title: "Checks and documents", who: "Broker", items: C},
-      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true]], note: cf.err.length ? cf.err.join(" ") : ""},
+      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true], [!!(typeof c24Of === "function" && c24Of(t) && c24Of(t).op && c24Of(t).handler), "24-hour contacts: the operator's operations desk and the handler at departure", "sec|sec24", true]], note: cf.err.length ? cf.err.join(" ") : ""},
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
       {title: "Authorisation", who: "Director or a mandated person", items: [
-        [num(st.opPrice) > 0, "Operator price checked against Avinode (filled in from the broker's quote)", "el|o_op", true],
-        [!!st.kyc, "The broker's KYC record checked (ticked from the broker's record)", "el|o_kyc", true],
-        [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening result checked (the broker's screening is reused)", "el|scr_names_" + t.did, true],
-        [!!st.paynodeRef, "Payment request reference checked (from the broker); then one Save records all four", "el|o_pn", true],
+        /* taken over from the broker's records at Issue; open only when the broker's record is missing (workflow audit 25 Nov 2026) */
+        [num(st.opPrice) > 0 || num((d.quote || {}).opPrice) > 0, "Operator price: the broker's quote (check it against Avinode; change it under Authorisation only if it differs)", "el|o_op", true],
+        [!!st.kyc || (typeof kycState === "function" && kycState(t).ok), "KYC: the broker's record" + (typeof kycState === "function" && !kycState(t).ok ? " is missing: " + kycState(t).why : ""), "el|o_kyc", true],
+        [(typeof screenOk === "function" ? screenOk(t, st) : !!st.screen) || !!(d.screen && (d.screen.results || []).length && d.screen.results.every(r => r.result === "no match")), "Sanctions screening: the broker's screening (a possible match is decided under Authorisation)", "el|scr_names_" + t.did, true],
+        [!!st.paynodeRef || !!d.payRef, "Payment request reference: from the broker", "el|o_pn", true],
         ...(ap ? [[typeof apState === "function" && apState(t).ok, "Director approval (the Director approves on Today or on this trip)", "sec|secOps", true]] : []),
         /* Booking with the operator: asked for only when Issue was pressed before (test booking 25 Nov 2026) */
         ...(!issued && typeof bookNeeds === "function" ? (() => { const n = bookNeeds(t); return [[!n.length, n.length ? "Booking with the operator: " + n.join("; ") : "Booking with the operator: Request to Book, hold and the operator's contract recorded", "sec|secBook", true]]; })() : []),
-        ...(!issued ? [[!!(st.contacts24 && st.contacts24.op && st.contacts24.handler), "24-hour contacts saved: operator operations and the handler at departure", "sec|sec24", true]] : []),
         [issued, "Confirmation issued", "conf", true]]},
       {title: "Signature and payment", who: "Broker, then the Director or a mandated person", items: [
         [!!st.sigSentAt || !!st.signed, "Confirmation sent to the charterer for signature", "sec|secSig", true],
@@ -7312,6 +7366,7 @@ document.addEventListener("change", async e => {
 (function(){
   const T1 = {"argus-plat": "ARGUS Platinum", "argus-elite": "ARGUS Platinum Elite", "wyv-wingman": "WYVERN Wingman", "wyv-pro": "WYVERN Wingman PRO", "isbao-2": "IS-BAO Stage 2", "isbao-3": "IS-BAO Stage 3"};
   const T2 = {"argus-gold": "ARGUS Gold", "argus-goldcert": "ARGUS Gold Certified", "isbao-1": "IS-BAO Stage 1", "wyv-reg": "WYVERN Registered (no audit)", "other": "Another audit", "none": "No audit"};
+  window.AUD_LABEL = {...T1, ...T2};
   const LABEL = {...T1, ...T2};
   const MIN_INS = {jet: 50e6, turboprop: 25e6};
   const CREW = {cap: 3000, capType: 250, fo: 1000};
@@ -9203,8 +9258,7 @@ function trustMatrix(){
     if (!staffOn(t)) { toast("Another person the Director has mandated, or the other owner, must do this on your own trip."); return; }
     try {
       if (a === "doc") { const fl = ($("bkFile") || {}).files && $("bkFile").files[0]; if (!fl) { toast("Choose the contract file first."); return; }
-        const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available here."); return; }
-        const r = await assets.upload(fl); await deskWrite(t, {docs: [...(t.d.docs || []), {id: r.id, name: fl.name, kind: "Operator contract", at: now()}]}, "Document attached: Operator contract"); toast("Operator contract attached."); return; }
+        await saveTripDoc(t, fl, "Operator contract"); return; }
       const pl = bookingPlan(t), m = money(t), f = pl.f;
       if (a === "receipt") { if (st.confIssued && !st.signed) { toast("Save the signed confirmation first."); return; }
         const amt = num(($("bk_ra") || {}).value), d = ($("bk_rd") || {}).value; if (!(amt > 0) || !d) { toast("Enter the amount and the date it cleared."); return; }
@@ -9330,7 +9384,8 @@ document.addEventListener("click", async ev => {
     never: {from: "Trip checks", sec: "secTC", ok: tripOk},
     risk: {from: "Trip checks", sec: "secTC", ok: tripOk},
     aoc: {from: "Documents (AOC attached)", sec: "secDocs", ok: t => docOf(t.d, "AOC")},
-    audit: {from: "Operator safety", sec: "secSafety", ok: t => typeof safetyNeeds === "function" ? !safetyNeeds(t.d, t.st).length && !safetyBreaches(t.d).length : null}
+    audit: {from: "Operator safety", sec: "secSafety", ok: t => typeof safetyNeeds === "function" ? !safetyNeeds(t.d, t.st).length && !safetyBreaches(t.d).length : null},
+    kyc: {from: "the KYC record below", sec: "kycRec", ok: t => typeof kycState === "function" ? !!kycState(t).ok : null}   // workflow audit 25 Nov 2026: one KYC source
   };
   window.AUTO_CHECKS = Object.keys(AUTO).concat(["ins", "terms"]);
   window.autoTickState = function(t){ const out = {}; for (const k in AUTO) { const v = AUTO[k].ok(t); if (v !== null) out[k] = !!v; } return out; };
@@ -9359,6 +9414,7 @@ document.addEventListener("click", async ev => {
     else if (k === "aoc") { sec = "secDocs"; why = "Attach the operator's AOC under Documents; this box then ticks itself."; }
     else if (k === "audit") { sec = "secSafety"; const n = typeof safetyNeeds === "function" ? safetyNeeds(t.d, t.st) : []; why = n.length ? `Complete Operator safety (${n.length} open); this box then ticks itself.` : "Clear the item in Operator safety; this box then ticks itself."; }
     else if (k === "ins" || k === "terms") { sec = "secOpTerms"; why = "Fill in Operator terms and insurance; this box then ticks itself."; }
+    else if (k === "kyc") { sec = "kycRec"; why = (typeof kycState === "function" && kycState(t).why ? kycState(t).why + ". " : "") + "Save the KYC record just below; this box then ticks itself."; }
     return why ? `<span class="small" style="display:block;margin-top:3px;color:var(--text)">${esc(why)} <button class="btn small" type="button" data-ns="sec|${sec}">Go there</button></span>` : "";
   }
   const _tf = tripFile;
@@ -9953,6 +10009,91 @@ document.addEventListener("click", async ev => {
   }, true);
   window.avParse = parse;
 })();
+/* ---------- One tap per document still needed (workflow audit, Morten 25 Nov 2026: "smarter, not harder") ----------
+   Above the documents list, a button for each document the booking still needs (operator quote, AOC, insurance
+   certificate, safety audit evidence): one tap opens the file chooser and the file is attached under the right type at
+   once. No picking the type from a list first. */
+(function(){
+  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind), lockedStage = t => ["review","issued","clientPaid","flown","cancelled"].includes(t.stage);
+  const NEED = [["Operator quote", "the operator's quote"], ["AOC", "the AOC"], ["Insurance certificate", "the insurance certificate"], ["Safety audit", "the safety audit"]];
+  const _tf = tripFile;
+  tripFile = function(t){
+    const h = _tf(t); if (!t || !(t.bid === S.uid && !lockedStage(t)) && !(typeof staffOn === "function" && staffOn(t))) return h;
+    const miss = NEED.filter(([k]) => !docOf(t.d, k) && !(k === "Safety audit" && !((t.d.safety || {}).audit)));
+    if (!miss.length || h.indexOf('id="docKind"') < 0) return h;
+    const row = `<div class="row" id="docQuick" style="margin:4px 0 8px"><span class="small muted">Still needed:</span>${miss.map(([k, l]) => `<button class="btn small" type="button" data-dq="${esc(k)}">Attach ${esc(l)}</button>`).join("")}</div>`;
+    return h.replace('<div id="secDocs"><h3>Documents</h3>', '<div id="secDocs"><h3>Documents</h3>' + row);
+  };
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest && ev.target.closest("[data-dq]"); if (!b) return; ev.preventDefault();
+    const k = $("docKind"), f = $("docFile"); if (!k || !f) return;
+    k.value = b.dataset.dq; S.docQuick = true; f.value = ""; f.click();
+  });
+  document.addEventListener("change", async ev => {
+    if (ev.target.id !== "docFile" || !S.docQuick) return; S.docQuick = false;
+    const t = tripById(S.sel); if (t && ev.target.files[0]) await uploadDoc(t);
+  });
+})();
+/* ---------- Documents on every trip (Morten, 25 Nov 2026: "I need to ensure all documents uploaded are saved per
+   individual flight in the database, so all documents are easy to trace back ... there need to be a better confirmation")
+   ----------
+   Every file is stored under the trip it belongs to (uploader/trips/<trip>/<file>) and recorded on the trip with its type,
+   name, size, who added it and when. After an upload the portal reads the trip back and asks storage whether the file is
+   there; only then does it say "Saved". The trip's Documents panel lists every file of the booking in one place: the
+   broker's uploads, each issued charter confirmation and the signed contract, each with Open and a stored check (Saved,
+   Checking, Not found). Nothing is deleted from a trip: a wrong file is replaced by uploading the right one. */
+const DOC_KINDS = ["Operator quote", "AOC", "Insurance certificate", "Operator contract", "Safety audit", "Passport", "Trip risk screen", "Client safety disclosure", "Other"];
+function tripDocList(t){
+  const d = t.d || {}, st = t.st || {}, ref = st.ref || "", out = [];
+  (d.docs || []).forEach(x => x && x.id && out.push({...x, src: "trip"}));
+  (st.confRevs || (st.confIssued ? [st.confIssued] : [])).forEach(r => r && r.assetId && out.push({id: r.assetId, kind: "Charter confirmation", name: `${ref}${(r.rev || 1) > 1 ? " Rev " + r.rev : ""} Charter Confirmation.pdf`, at: r.at, by: r.by, src: "conf"}));
+  [...(st.signedRevs || []), ...(st.signed ? [st.signed] : [])].forEach(g => g && g.assetId && !out.some(o => o.id === g.assetId) && out.push({id: g.assetId, kind: "Signed contract", name: g.file || "Signed contract.pdf", at: g.at, by: g.by, src: "signed", signer: g.name || ""}));
+  return out.sort((a, b) => String(b.at || "").localeCompare(String(a.at || "")));
+}
+const docSize = n => !n ? "" : n < 1024 * 1024 ? Math.max(1, Math.round(n / 1024)) + " KB" : (n / 1048576).toFixed(1) + " MB";
+const DOC_STATE = {ok: ["ok", "Saved ✓"], missing: ["bad", "Not found: upload it again"], error: ["warn", "Could not check"], checking: ["", "Checking…"]};
+function docChip(id){ const s = (S.docChk || {})[id] || "checking", [c, l] = DOC_STATE[s] || DOC_STATE.checking; return `<span class="chip ${c === "ok" ? "c-flown" : c === "bad" ? "c-cancelled" : c === "warn" ? "c-review" : ""}" data-dchk="${esc(id)}">${l}</span>`; }
+async function docVerify(ids){
+  S.docChk = S.docChk || {}; const todo = ids.filter(id => !S.docChk[id] || S.docChk[id] === "error"); if (!todo.length) return;
+  let assets = null; try { assets = await claude.use("assets"); } catch(e){}
+  for (const id of todo) {
+    S.docChk[id] = "checking";
+    if (!assets || typeof assets.check !== "function") { S.docChk[id] = "error"; }
+    else { try { const r = await assets.check(id); S.docChk[id] = r && r.exists ? "ok" : "missing"; } catch(e){ S.docChk[id] = "error"; } }
+    document.querySelectorAll(`[data-dchk="${CSS.escape(id)}"]`).forEach(el => { el.outerHTML = docChip(id); });
+  }
+}
+function tripDocsPanel(t, canEdit){
+  const list = tripDocList(t);
+  if (list.length) setTimeout(() => docVerify(list.map(x => x.id)), 0);
+  const rows = list.map(x => `<tr><td>${esc(x.kind || "Other")}</td><td><a href="/_blob/${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.name || "file")}</a>${x.signer ? ` <span class="muted">· signed by ${esc(x.signer)}</span>` : ""}</td><td class="nowrap">${x.at ? esc(fmtT(x.at)) : ""}</td><td>${x.by ? esc(nm(x.by)) : ""}</td><td class="nowrap muted">${docSize(x.size)}</td><td>${docChip(x.id)}</td></tr>`).join("");
+  return `<div id="secDocs"><h3>Documents</h3>
+    ${list.length ? `<div style="overflow-x:auto;min-width:0"><table class="small" id="docTable"><thead><tr><th>Type</th><th>File</th><th>Added</th><th>By</th><th>Size</th><th>Stored</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <p class="small muted" style="margin:4px 0 8px">${list.length} file${list.length === 1 ? "" : "s"} on this booking${(t.st || {}).ref ? ` (${esc(t.st.ref)})` : ""}. Every file is kept with the trip; a wrong file is replaced by uploading the right one.</p>` : `<p class="small muted">No documents on this booking yet.</p>`}
+    ${canEdit ? `<div class="row"><select id="docKind" style="width:auto" aria-label="Document type">${DOC_KINDS.map(k => `<option>${esc(k)}</option>`).join("")}</select><input type="file" id="docFile" style="width:auto"><button class="btn small" type="button" data-act="upload">Attach</button></div><p class="small muted">Documents stay in the portal. Never send passports or contracts by email or chat.</p>` : ""}</div>`;
+}
+/* one way in for every file of a trip: stored under the trip, recorded, read back and checked */
+async function saveTripDoc(t, file, kind){
+  const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available for your access level."); return null; }
+  toast(`Uploading ${file.name}…`);
+  let r; try { r = await assets.upload(file, {folder: "trips/" + t.did}); }
+  catch(e){ toast(`Not saved: ${file.name} did not upload (${e && e.message ? e.message : "connection"}). Try again.`); return null; }
+  const rec = {id: r.id, name: file.name, kind, at: now(), by: S.uid, size: file.size || r.sizeBytes || 0, type: file.type || r.contentType || ""};
+  try { await deskWrite(t, {docs: [...((freshTrip(t).d || t.d).docs || []).filter(x => x.id !== rec.id), rec]}, `Document attached: ${kind} (${file.name})`); }
+  catch(e){ toast(`Not saved: ${file.name} uploaded but could not be recorded on the trip. Try again.`); return null; }
+  let back = false; for (let i = 0; i < 20 && !back; i++) { back = ((freshTrip(t).d || {}).docs || []).some(x => x.id === rec.id); if (!back) await new Promise(r => setTimeout(r, 250)); }
+  S.docChk = S.docChk || {}; delete S.docChk[rec.id];
+  let stored = false; try { stored = !!(assets.check && (await assets.check(rec.id)).exists); } catch(e){}
+  S.docChk[rec.id] = stored ? "ok" : "missing";
+  if (back && stored) { audit("Document saved", `${(t.st || {}).ref || t.did} · ${kind} · ${file.name}`); toast(`Saved ✓ ${kind}: ${file.name} is stored with this trip.`); }
+  else toast(`Check this file: ${file.name} ${back ? "is recorded but storage could not confirm it" : "could not be confirmed on the trip"}. Upload it again.`);
+  if (typeof render === "function") render();
+  return back && stored ? rec : null;
+}
+uploadDoc = async function(t){
+  const f = ($("docFile") || {}).files && $("docFile").files[0]; if (!f) { toast("Choose a file first."); return; }
+  await saveTripDoc(t, f, ($("docKind") || {}).value || "Other");
+};
 /* ---------- The Director's menu in groups (Morten, 25 Nov 2026, peer proposal P7: "All") ----------
    On a computer the Director's 19 menu items sat in two rows; peers keep five to seven. The items now sit in six groups:
    Today, Trips, Clients and prospects, Team, Money, More. A group with one item is a plain button; the others open a short

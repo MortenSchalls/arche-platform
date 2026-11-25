@@ -14,7 +14,8 @@
     never: {from: "Trip checks", sec: "secTC", ok: tripOk},
     risk: {from: "Trip checks", sec: "secTC", ok: tripOk},
     aoc: {from: "Documents (AOC attached)", sec: "secDocs", ok: t => docOf(t.d, "AOC")},
-    audit: {from: "Operator safety", sec: "secSafety", ok: t => typeof safetyNeeds === "function" ? !safetyNeeds(t.d, t.st).length && !safetyBreaches(t.d).length : null}
+    audit: {from: "Operator safety", sec: "secSafety", ok: t => typeof safetyNeeds === "function" ? !safetyNeeds(t.d, t.st).length && !safetyBreaches(t.d).length : null},
+    kyc: {from: "the KYC record below", sec: "kycRec", ok: t => typeof kycState === "function" ? !!kycState(t).ok : null}   // workflow audit 25 Nov 2026: one KYC source
   };
   window.AUTO_CHECKS = Object.keys(AUTO).concat(["ins", "terms"]);
   window.autoTickState = function(t){ const out = {}; for (const k in AUTO) { const v = AUTO[k].ok(t); if (v !== null) out[k] = !!v; } return out; };
@@ -43,6 +44,7 @@
     else if (k === "aoc") { sec = "secDocs"; why = "Attach the operator's AOC under Documents; this box then ticks itself."; }
     else if (k === "audit") { sec = "secSafety"; const n = typeof safetyNeeds === "function" ? safetyNeeds(t.d, t.st) : []; why = n.length ? `Complete Operator safety (${n.length} open); this box then ticks itself.` : "Clear the item in Operator safety; this box then ticks itself."; }
     else if (k === "ins" || k === "terms") { sec = "secOpTerms"; why = "Fill in Operator terms and insurance; this box then ticks itself."; }
+    else if (k === "kyc") { sec = "kycRec"; why = (typeof kycState === "function" && kycState(t).why ? kycState(t).why + ". " : "") + "Save the KYC record just below; this box then ticks itself."; }
     return why ? `<span class="small" style="display:block;margin-top:3px;color:var(--text)">${esc(why)} <button class="btn small" type="button" data-ns="sec|${sec}">Go there</button></span>` : "";
   }
   const _tf = tripFile;

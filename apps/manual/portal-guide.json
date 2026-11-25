@@ -232,16 +232,20 @@
    "n": "H.7",
    "title": "Documents",
    "who": "Brokers until the trip goes for authorisation",
-   "purpose": "Keep every document for the trip in one place, never in email.",
+   "purpose": "Keep every document of the booking with the trip, in one place, never in email, and see that each file is really saved.",
    "steps": [
-    "Open the trip, choose the document type and the file, and select Attach.",
-    "Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents.",
-    "Open any document from the trip file."
+    "Open the trip. Under Documents, Still needed shows a button for each document the booking needs (operator quote, AOC, insurance certificate, safety audit): press it and choose the file. For anything else choose the type and the file and select Attach.",
+    "The file is stored under the trip itself and recorded with its type, name, size, who added it and when. The portal then reads the trip back and checks storage; only then does it say Saved ✓. If storage cannot confirm the file you see Not found: upload it again.",
+    "The Documents table lists every file of the booking: your uploads, each issued charter confirmation and the signed contract. Open any of them from there, on any trip, also after the flight. Nothing is deleted from a trip: a wrong file is replaced by uploading the right one."
    ],
    "trouble": [
     [
      "Attach does nothing",
-     "Choose a file first. Large files take a few seconds."
+     "Choose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved."
+    ],
+    [
+     "A file shows Not found",
+     "Storage could not find the file. Upload it again under the same type; the new file is checked the same way."
     ],
     [
      "I cannot attach after sending for authorisation",
@@ -268,9 +272,9 @@
     "The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.",
     "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Archē-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.",
     "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.",
-    "KYC record: under the KYC tick, enter the date the client was checked and how (and our own reference if you have one), then Save KYC record. Never type an ID, passport or bank number; the portal refuses anything that looks like one. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match. Otherwise check again: an out-of-date check stops authorisation and issue.",
+    "KYC record: under the KYC tick, enter the date the client was checked and how, then Save KYC record. The portal gives the check its own reference (KYB-year-code for a company, KYC-year-code for a person, e.g. KYB-2026-4F7A); nobody types one, so no ID, passport or bank number can end up there. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match; the earlier reference is kept. Otherwise check again: an out-of-date check stops authorisation and issue.",
     "Create the payment request in our payment provider and enter its reference on the trip.",
-    "Fill in the confirmation details (Open confirmation): charterer address, signatory, lead passenger, the aircraft's year and seats and the operator's AOC number. They are needed before sending; the KYC reference comes from your KYC record.",
+    "Fill in the confirmation details (Open confirmation): charterer address, signatory and lead passenger. The aircraft's year and seats and the operator's AOC number come from the quote, the audit from the operator safety record, the KYC reference from your KYC record and the itinerary from the trip's legs: they show greyed out on the confirmation and are changed where they come from. Save the 24-hour contacts (the operator's operations desk and the handler at departure; the desk is suggested from your last trip with the same operator). All of this is needed before sending. The lead passenger and the signatory are screened with the other names.",
     "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field."
    ],
    "trouble": [
@@ -308,7 +312,7 @@
    "who": "The Director, or a person the Director has mandated",
    "purpose": "Check, confirm and record every trip that brokers send.",
    "steps": [
-    "The trip's Steps list shows everything still needed before Issue: the authorisation fields (filled in from the broker's records; one Save records them with the screening), approval, Booking with the operator (Request to Book, hold, the operator's contract attached and checked) and the 24-hour contacts.",
+    "The trip's Steps list shows everything still needed before Issue: approval and Booking with the operator (Request to Book, hold, the operator's contract attached and checked). The operator price, KYC, payment request reference and a clear screening are taken over from the broker's records when you issue; there is no separate Save. Fields the broker has recorded show greyed out under Authorisation.",
     "Open Authorisation; take the oldest trip waiting for authorisation.",
     "Confirm the operator price on Avinode, send Request to Book and enter direct trip costs.",
     "Check the KYC and sanctions screening record and the payment request reference the broker recorded.",

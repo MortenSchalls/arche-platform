@@ -58,12 +58,17 @@ HARNESS = """<script>
   var _fetch = window.fetch.bind(window);
   window.fetch = function(u, o){
     var url = String(u || "");
-    if (url.indexOf("/api/screen") >= 0) { var b = {}; try { b = JSON.parse((o || {}).body || "{}"); } catch (e) {}
+    var isScr = url.indexOf("/api/screen") >= 0, isAud = url.indexOf("/api/auditcheck") >= 0;
+    if (!isScr && !isAud) return _fetch(u, o);
+    // a test that answers these itself (page.route) wins; otherwise the stand-in answers
+    return _fetch(u, o).then(function(r){ return r.ok ? r : stand(); }, stand);
+    function stand(){
+    if (isScr) { var b = {}; try { b = JSON.parse((o || {}).body || "{}"); } catch (e) {}
       var at = new Date().toISOString(), body = {at: at, stale: false, lists: ["Test version: no lists read"], failed: [], aslStates: [], logged: false, logId: null,
         results: (b.names || []).map(function(n){ return {name: n, result: "no match", hits: []}; }), faa: {tails: {}, at: at}};
       return Promise.resolve(new Response(JSON.stringify(body), {status: 200, headers: {"content-type": "application/json"}})); }
-    if (url.indexOf("/api/auditcheck") >= 0) return Promise.resolve(new Response(JSON.stringify({error: "Test version: the audit registries are not read here; your own check is the proof."}), {status: 503, headers: {"content-type": "application/json"}}));
-    return _fetch(u, o);
+    return Promise.resolve(new Response(JSON.stringify({error: "Test version: the audit registries are not read here; your own check is the proof."}), {status: 503, headers: {"content-type": "application/json"}}));
+    }
   };
   var last = "";
   setInterval(function(){ try { var s = JSON.stringify(window.__T); if (s !== last) { localStorage.setItem(KEY, s); last = s; } } catch (e) {} }, 800);

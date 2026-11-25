@@ -1750,7 +1750,7 @@
   ]
  },
  {
-  "key": "f987159c",
+  "key": "6340e7e5",
   "kind": "lesson",
   "where": "m1 screen 8",
   "text": [
@@ -1763,7 +1763,7 @@
    "A client who asks directly (website, phone, email or messaging) is an enquiry, not a lead: pick it up at once and contact the client within 15 minutes (Module 12.1).",
    "\"Not now\" leads are offered again after 90 days, to a different broker with a fresh approach.",
    "Add the organisations you find, each with the public source where you found it. This is a scoring measure, not a target: brokers who add ten or more a month score higher and get new leads a little sooner; nothing else depends on it. The first broker to add an organisation works it first. Duplicates are caught automatically.",
-   "Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid: commission rewards the booking.",
+   "Adding and updating prospects earns points and a bigger share of new leads; ranks and the leaderboard are for the Director only. No separate fee is paid: commission rewards the booking.",
    "Prospects are organisations and their business contacts only: no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is \"Do not contact\" for everyone, for good.",
    "These are the current settings. The Director can change them in the portal; its Portal rules page always shows the ones in force.",
    "Authorisation and separate duties",
@@ -1775,7 +1775,7 @@
    "The ar Kay portal, one place for everything.",
    "Every enquiry, quote, document, booking, payment record and commission for ar Kay lives in the ar Kay broker portal. Nothing is quoted, sold or paid outside it, and work done outside it earns no commission. The portal opens on Today, your progress this month, your place in the team and every outstanding task, most urgent first.",
    "Leads and prospects.",
-   "The portal assigns organisations to brokers automatically and fairly, by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week. These leads are prospects from research, not clients who have asked for a trip. Make first contact with every new prospect lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the Director. A client who asks directly, website, phone, email or messaging, is an enquiry, not a lead, pick it up at once and contact the client within 15 minutes, Module 12, section 1. Not now leads are offered again after 90 days, to a different broker with a fresh approach. Add the organisations you find, each with the public source where you found it. This is a scoring measure, not a target, brokers who add ten or more a month score higher and get new leads a little sooner, nothing else depends on it. The first broker to add an organisation works it first. Duplicates are caught automatically. Adding and updating prospects earns points on the monthly leaderboard and a bigger share of new leads. No separate fee is paid, commission rewards the booking. Prospects are organisations and their business contacts only, no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact for everyone, for good.",
+   "The portal assigns organisations to brokers automatically and fairly, by country and region fit, follow-up record, conversions and fair share. Every active broker receives new leads every week. These leads are prospects from research, not clients who have asked for a trip. Make first contact with every new prospect lead within 48 hours and follow up at least every 14 days. Log every contact in the portal. A lead with no contact in time moves to the next broker with its full history. After three brokers it goes to the Director. A client who asks directly, website, phone, email or messaging, is an enquiry, not a lead, pick it up at once and contact the client within 15 minutes, Module 12, section 1. Not now leads are offered again after 90 days, to a different broker with a fresh approach. Add the organisations you find, each with the public source where you found it. This is a scoring measure, not a target, brokers who add ten or more a month score higher and get new leads a little sooner, nothing else depends on it. The first broker to add an organisation works it first. Duplicates are caught automatically. Adding and updating prospects earns points and a bigger share of new leads, ranks and the leaderboard are for the Director only. No separate fee is paid, commission rewards the booking. Prospects are organisations and their business contacts only, no private individuals, no bought lists, no scraping, and an opt-out in every message. Anyone who opts out is Do not contact for everyone, for good.",
    "These are the current settings. The Director can change them in the portal, its Portal rules page always shows the ones in force.",
    "Authorisation and separate duties.",
    "The broker completes K Y C and sanctions screening, creates the client's payment request and records its reference on the trip, then sends the complete trip for authorisation. The Director, or a person the Director has mandated, confirms the operator price on Avinode, approves the booking and issues the confirmation. Nobody checks, prices, approves, issues or records payment on their own trip, another person the Director has mandated does it."
@@ -6046,7 +6046,7 @@
   ]
  },
  {
-  "key": "9a2613d7",
+  "key": "6c3718bc",
   "kind": "intro",
   "where": "sys screen 1",
   "text": [
@@ -6061,7 +6061,7 @@
    "Joining, roles and access: The portal will not sign me in. What do you do?",
    "aUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the Director.",
    "bPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
-   "cOne of the required items is missing; the note under the button lists them.",
+   "cTicks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand.",
    "dAsk them to confirm in writing: the time we receive it decides the charge."
   ],
   "say": [
@@ -6072,7 +6072,7 @@
    "Warm-up.",
    "Take a guess before you start. Guessing first helps you notice the answer when you read it.",
    "Joining, roles and access, The portal will not sign me in. What do you do?",
-   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the Director. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. One of the required items is missing, the note under the button lists them. D. Ask them to confirm in writing, the time we receive it decides the charge."
+   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the Director. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. Ticks marked set by the portal tick themselves once their source is complete. Under each one the portal says what is missing, for example, confirm the amber items in Trip checks with the operator, with Go there. Only Routing, permits and continuous journey is ticked by hand. D. Ask them to confirm in writing, the time we receive it decides the charge."
   ]
  },
  {
@@ -6139,7 +6139,7 @@
   ]
  },
  {
-  "key": "844666c5",
+  "key": "b846074a",
   "kind": "lesson",
   "where": "sys screen 3",
   "text": [
@@ -6156,6 +6156,7 @@
    "Try it in the test version, as Test Broker",
    "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar.",
    "If something goes wrong",
+   "The Home Screen app asked me to sign in againOn waking, the app now waits for the network and tries your stored sign-in again (up to about 7 seconds, and again once back online) before it shows the sign-in screen. If it still asks, sign in once; Sign out is the only thing that ends a sign-in on purpose.",
    "I cannot find a sectionPress Menu at the top. Sections you do not have access to are not shown.",
    "A wide table or diagram is cut offSwipe it sideways.",
    "The portal opened as someone else (for example after opening another person's invitation link)Press Sign out, or Not you? Sign out on the password screen, then sign in with your own email. Never open a sign-in link meant for someone else.",
@@ -6173,7 +6174,7 @@
    "Try it in the test version, as Test Broker.",
    "Open the test version on your phone, switch between Day and Night, and find My leads in the bottom bar.",
    "If something goes wrong.",
-   "I cannot find a section. Press Menu at the top. Sections you do not have access to are not shown. A wide table or diagram is cut off. Swipe it sideways. The portal opened as someone else, for example after opening another person's invitation link. Press Sign out, or Not you? Sign out on the password screen, then sign in with your own email. Never open a sign-in link meant for someone else.",
+   "The Home Screen app asked me to sign in again. On waking, the app now waits for the network and tries your stored sign-in again, up to about 7 seconds, and again once back online, before it shows the sign-in screen. If it still asks, sign in once, Sign out is the only thing that ends a sign-in on purpose. I cannot find a section. Press Menu at the top. Sections you do not have access to are not shown. A wide table or diagram is cut off. Swipe it sideways. The portal opened as someone else, for example after opening another person's invitation link. Press Sign out, or Not you? Sign out on the password screen, then sign in with your own email. Never open a sign-in link meant for someone else.",
    "Tips.",
    "Add the portal to your home screen from the browser's share menu for one-tap access. If your eyes tire late in the day, switch to Night."
   ]
@@ -6301,24 +6302,25 @@
   ]
  },
  {
-  "key": "3b0fb177",
+  "key": "8e94a2e4",
   "kind": "lesson",
   "where": "sys screen 7",
   "text": [
    "Systems training: the Archē portal",
    "S.6 Today (brokers and the Director)",
-   "Your opening page, the only start page: every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
+   "Your opening page, the only start page: every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month.",
    "Who uses it: Brokers; the Director, or a person the Director has mandated",
    "How it works",
-   "Read the progress tiles: standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added this month.",
+   "Read the progress tiles: standard bookings this month, commission earned this month (completed bookings), quote-to-confirmation rate and prospects added this month.",
    "Work Your tasks from the top. Red dots are urgent: an overdue lead, a trip returned at authorisation, a payment due.",
    "Tap a task to open the lead or trip it refers to.",
-   "Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score.",
+   "Your own points show in My leads; ranks and the team comparison are for the Director only.",
+   "Open enquiries: press Client contacted as soon as you have spoken to or written to the client. It records the time against the 15-minute target; open the trip to keep it with the booking.",
    "Try it in the test version, as Test Broker",
    "As Test Broker, open Today: work Your tasks from the top, then read Progress this month.",
    "If something goes wrong",
-   "My rank shows a dashThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month.",
-   "Commission shows USD 0 although I have flown tripsCommission counts only trips that have flown and whose client payment has cleared. Ask the Director to record the payment.",
+   "My points show a dashPoints update at each assignment round, every 3 hours. They appear after the first round of the month.",
+   "Commission shows USD 0 although I have flown tripsCommission counts only completed bookings: flown, the client's payment cleared and the operator paid (agreement 4.2). Ask the Director to record the payments.",
    "A task stays on the list after I did itTasks clear when the portal sees the change: log the contact, update the trip or send it for authorisation.",
    "Tips",
    "Start every day on Today and clear the red items first.",
@@ -6328,20 +6330,20 @@
   "say": [
    "Systems training, the ar Kay portal.",
    "Today, brokers and the Director.",
-   "Your opening page, the only start page, every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month and your place in the team.",
+   "Your opening page, the only start page, every task for today, most urgent first, flights today and tomorrow, what waits on others, then your progress this month.",
    "Who uses it, Brokers, the Director, or a person the Director has mandated.",
    "How it works.",
-   "Read the progress tiles, standard bookings this month, commission earned this month, quote-to-confirmation rate, rank and prospects added this month. Work Your tasks from the top. Red dots are urgent, an overdue lead, a trip returned at authorisation, a payment due. Tap a task to open the lead or trip it refers to. Compare yourself with the team by points, confirmed trips, enquiries, prospects added or follow-up score.",
+   "Read the progress tiles, standard bookings this month, commission earned this month, completed bookings, quote-to-confirmation rate and prospects added this month. Work Your tasks from the top. Red dots are urgent, an overdue lead, a trip returned at authorisation, a payment due. Tap a task to open the lead or trip it refers to. Your own points show in My leads, ranks and the team comparison are for the Director only. Open enquiries, press Client contacted as soon as you have spoken to or written to the client. It records the time against the 15-minute target, open the trip to keep it with the booking.",
    "Try it in the test version, as Test Broker.",
    "As Test Broker, open Today, work Your tasks from the top, then read Progress this month.",
    "If something goes wrong.",
-   "My rank shows a dash. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month. Commission shows 0 U S dollars although I have flown trips. Commission counts only trips that have flown and whose client payment has cleared. Ask the Director to record the payment. A task stays on the list after I did it. Tasks clear when the portal sees the change, log the contact, update the trip or send it for authorisation.",
+   "My points show a dash. Points update at each assignment round, every 3 hours. They appear after the first round of the month. Commission shows 0 U S dollars although I have flown trips. Commission counts only completed bookings, flown, the client's payment cleared and the operator paid, agreement 4, section 2. Ask the Director to record the payments. A task stays on the list after I did it. Tasks clear when the portal sees the change, log the contact, update the trip or send it for authorisation.",
    "Tips.",
    "Start every day on Today and clear the red items first. Overdue leads move to another broker at the next round, a two-minute logged contact keeps the lead yours. Use the team comparison to see where you lose points, follow-up score is usually the quickest win."
   ]
  },
  {
-  "key": "71b4a290",
+  "key": "b22b40c7",
   "kind": "lesson",
   "where": "sys screen 8",
   "text": [
@@ -6355,6 +6357,7 @@
    "Add a prospect: organisation, segment, country, public source link, contact route and why they charter.",
    "Add or correct a contact route on any lead to keep the database current.",
    "Open an enquiry from a lead when the organisation has a trip.",
+   "Write first message: beside each named contact with a work email, it opens your email with the first message written, saying where we found the details and with the opt-out line. Read it, change what you like, press Send yourself, then Contacted today.",
    "Try it in the test version, as Test Broker",
    "As Test Broker, open My leads, open a lead and log a contact with a proper note.",
    "If something goes wrong",
@@ -6373,7 +6376,7 @@
    "Work the organisations assigned to you and add the ones you know.",
    "Who uses it, Brokers.",
    "How it works.",
-   "Open My leads. Leads are sorted by when contact is due. Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note. Add a prospect, organisation, segment, country, public source link, contact route and why they charter. Add or correct a contact route on any lead to keep the database current. Open an enquiry from a lead when the organisation has a trip.",
+   "Open My leads. Leads are sorted by when contact is due. Open a lead, read why them and how to approach, use a contact route, then log the contact with channel, outcome and a note. Add a prospect, organisation, segment, country, public source link, contact route and why they charter. Add or correct a contact route on any lead to keep the database current. Open an enquiry from a lead when the organisation has a trip. Write first message, beside each named contact with a work email, it opens your email with the first message written, saying where we found the details and with the opt-out line. Read it, change what you like, press Send yourself, then Contacted today.",
    "Try it in the test version, as Test Broker.",
    "As Test Broker, open My leads, open a lead and log a contact with a proper note.",
    "If something goes wrong.",
@@ -6422,7 +6425,7 @@
   ]
  },
  {
-  "key": "7800fc3e",
+  "key": "344bcfca",
   "kind": "lesson",
   "where": "sys screen 10",
   "text": [
@@ -6445,7 +6448,7 @@
    "Tips",
    "Type the city, not the airport: the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget.",
    "Write special requests in the notes: the portal turns many of them into suggested requests and extras.",
-   "Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts on the leaderboard."
+   "Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts in your points."
   ],
   "say": [
    "Systems training, the ar Kay portal.",
@@ -6459,7 +6462,7 @@
    "If something goes wrong.",
    "Save says choose the airport from the list. The text typed is not a known airport. Type a city or code and pick one of the suggestions. The airport I need is not offered. The list holds 7,009 airports suitable for jets. Type the four-letter ICAO code, if it is still missing, ask the Director, or a person the Director has mandated, as the runway may be too short for jets. Times look wrong. Times are local at the departure airport. Confirm the time zone with the client in writing.",
    "Tips.",
-   "Type the city, not the airport, the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget. Write special requests in the notes, the portal turns many of them into suggested requests and extras. Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts on the leaderboard."
+   "Type the city, not the airport, the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget. Write special requests in the notes, the portal turns many of them into suggested requests and extras. Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts in your points."
   ]
  },
  {
@@ -6504,7 +6507,7 @@
   ]
  },
  {
-  "key": "e1acb44b",
+  "key": "69e28442",
   "kind": "lesson",
   "where": "sys screen 12",
   "text": [
@@ -6520,11 +6523,14 @@
    "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.",
    "Save. The trip moves to Quoted.",
    "When you save, the portal checks in the background: the names against the sanctions lists, the operator against the EU Air Safety List, and a US registration (N…) against the FAA list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date.",
+   "Paste the operator's quote: open \"Paste the operator's quote to fill the fields\" in Operator quote, paste the text from Avinode, the operator's email or its PDF and press Fill the fields. The portal fills the price and currency, aircraft type, registration, operator and Avinode trip ID it recognises; check each field before saving.",
+   "Options for the client: in the trip file, Add an option holds up to two more aircraft for the same journey (operator, aircraft, safety audit, operator price, direct costs). Each is priced like the main quote. Copy the options for the client, or Email the options to the client, and when the client chooses one press Make this the main option: the main option is the one checked, authorised and confirmed.",
    "Try it in the test version, as Test Broker",
    "Enter an operator price of USD 20,000 and check the client price: 20,000 ÷ 0.91, rounded up, is USD 21,979.",
    "If something goes wrong",
    "The price looks too high or lowCheck you entered the all-in operator price, including positioning, and no extras twice.",
    "The Director changed my operator priceThe Director, or a person the Director has mandated, confirms the price on Avinode; the confirmed figure is used and the difference is flagged.",
+   "Fill the fields filled nothing or the wrong valueThe portal recognises common formats only. Fill or correct the fields by hand; nothing is saved until you press Save.",
    "Tips",
    "Never round down. The fee is 9%; any other fee is the Director's decision, recorded before the quote is sent.",
    "Re-confirm availability and price with the operator before the offer expires."
@@ -6535,11 +6541,11 @@
    "Record the operator's all-in quote so the portal sets the client price at 9 percent.",
    "Who uses it, Brokers.",
    "How it works.",
-   "From Avinode, enter the operator's legal name as on its A O C, aircraft type, registration and Avinode trip I D. Enter the operator all-in price and any direct trip costs not in it, supplier items ar Kay buys. Tick The client pays by card when the client will pay by card. The portal adds the payment and conversion costs to the direct trip costs, the card fee, 3.6 percent of the client price, and, when the operator quotes in another currency than, U S dollars the conversion, 0.4 percent of the operator price. The preview shows them. Quoted in another currency, choose it, the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3 percent away from it. Read the price preview, client price =, operator price plus direct costs, divided by 0.91, rounded up. Save. The trip moves to Quoted. When you save, the portal checks in the background, the names against the sanctions lists, the operator against the E U Air Safety List, and a U S registration, N., against the F A A list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date.",
+   "From Avinode, enter the operator's legal name as on its A O C, aircraft type, registration and Avinode trip I D. Enter the operator all-in price and any direct trip costs not in it, supplier items ar Kay buys. Tick The client pays by card when the client will pay by card. The portal adds the payment and conversion costs to the direct trip costs, the card fee, 3.6 percent of the client price, and, when the operator quotes in another currency than, U S dollars the conversion, 0.4 percent of the operator price. The preview shows them. Quoted in another currency, choose it, the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3 percent away from it. Read the price preview, client price =, operator price plus direct costs, divided by 0.91, rounded up. Save. The trip moves to Quoted. When you save, the portal checks in the background, the names against the sanctions lists, the operator against the E U Air Safety List, and a U S registration, N., against the F A A list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date. Paste the operator's quote, open Paste the operator's quote to fill the fields in Operator quote, paste the text from Avinode, the operator's email or its P D F and press Fill the fields. The portal fills the price and currency, aircraft type, registration, operator and Avinode trip I D it recognises, check each field before saving. Options for the client, in the trip file, Add an option holds up to two more aircraft for the same journey, operator, aircraft, safety audit, operator price, direct costs. Each is priced like the main quote. Copy the options for the client, or Email the options to the client, and when the client chooses one press Make this the main option, the main option is the one checked, authorised and confirmed.",
    "Try it in the test version, as Test Broker.",
    "Enter an operator price of 20,000 U S dollars and check the client price, 20,000 divided by 0.91, rounded up, is 21,979 U S dollars.",
    "If something goes wrong.",
-   "The price looks too high or low. Check you entered the all-in operator price, including positioning, and no extras twice. The Director changed my operator price. The Director, or a person the Director has mandated, confirms the price on Avinode, the confirmed figure is used and the difference is flagged.",
+   "The price looks too high or low. Check you entered the all-in operator price, including positioning, and no extras twice. The Director changed my operator price. The Director, or a person the Director has mandated, confirms the price on Avinode, the confirmed figure is used and the difference is flagged. Fill the fields filled nothing or the wrong value. The portal recognises common formats only. Fill or correct the fields by hand, nothing is saved until you press Save.",
    "Tips.",
    "Never round down. The fee is 9 percent, any other fee is the Director's decision, recorded before the quote is sent. Re-confirm availability and price with the operator before the offer expires."
   ]
@@ -6626,22 +6632,23 @@
   ]
  },
  {
-  "key": "fd75daa7",
+  "key": "70e9992d",
   "kind": "lesson",
   "where": "sys screen 15",
   "text": [
    "Systems training: the Archē portal",
    "S.14 Documents",
-   "Keep every document for the trip in one place, never in email.",
+   "Keep every document of the booking with the trip, in one place, never in email, and see that each file is really saved.",
    "Who uses it: Brokers until the trip goes for authorisation",
    "How it works",
-   "Open the trip, choose the document type and the file, and select Attach.",
-   "Attach the operator quote, AOC, insurance certificate, safety audit evidence and the client's KYC documents.",
-   "Open any document from the trip file.",
+   "Open the trip. Under Documents, Still needed shows a button for each document the booking needs (operator quote, AOC, insurance certificate, safety audit): press it and choose the file. For anything else choose the type and the file and select Attach.",
+   "The file is stored under the trip itself and recorded with its type, name, size, who added it and when. The portal then reads the trip back and checks storage; only then does it say Saved ✓. If storage cannot confirm the file you see Not found: upload it again.",
+   "The Documents table lists every file of the booking: your uploads, each issued charter confirmation and the signed contract. Open any of them from there, on any trip, also after the flight. Nothing is deleted from a trip: a wrong file is replaced by uploading the right one.",
    "Try it in the test version, as Test Broker",
    "Attach a small PDF to your trip.",
    "If something goes wrong",
-   "Attach does nothingChoose a file first. Large files take a few seconds.",
+   "Attach does nothingChoose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved.",
+   "A file shows Not foundStorage could not find the file. Upload it again under the same type; the new file is checked the same way.",
    "I cannot attach after sending for authorisationDocuments are locked with the trip. Send them to the Director, or a person the Director has mandated, through the portal; they attach them.",
    "Tips",
    "Never send passports or contracts by email or chat apps.",
@@ -6650,20 +6657,20 @@
   "say": [
    "Systems training, the ar Kay portal.",
    "Documents.",
-   "Keep every document for the trip in one place, never in email.",
+   "Keep every document of the booking with the trip, in one place, never in email, and see that each file is really saved.",
    "Who uses it, Brokers until the trip goes for authorisation.",
    "How it works.",
-   "Open the trip, choose the document type and the file, and select Attach. Attach the operator quote, A O C, insurance certificate, safety audit evidence and the client's K Y C documents. Open any document from the trip file.",
+   "Open the trip. Under Documents, Still needed shows a button for each document the booking needs, operator quote, A O C, insurance certificate, safety audit, press it and choose the file. For anything else choose the type and the file and select Attach. The file is stored under the trip itself and recorded with its type, name, size, who added it and when. The portal then reads the trip back and checks storage, only then does it say Saved ✓. If storage cannot confirm the file you see Not found, upload it again. The Documents table lists every file of the booking, your uploads, each issued charter confirmation and the signed contract. Open any of them from there, on any trip, also after the flight. Nothing is deleted from a trip, a wrong file is replaced by uploading the right one.",
    "Try it in the test version, as Test Broker.",
    "Attach a small P D F to your trip.",
    "If something goes wrong.",
-   "Attach does nothing. Choose a file first. Large files take a few seconds. I cannot attach after sending for authorisation. Documents are locked with the trip. Send them to the Director, or a person the Director has mandated, through the portal, they attach them.",
+   "Attach does nothing. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved. A file shows Not found. Storage could not find the file. Upload it again under the same type, the new file is checked the same way. I cannot attach after sending for authorisation. Documents are locked with the trip. Send them to the Director, or a person the Director has mandated, through the portal, they attach them.",
    "Tips.",
    "Never send passports or contracts by email or chat apps. Name scanned files clearly before uploading."
   ]
  },
  {
-  "key": "8a929d97",
+  "key": "9c6d5e6f",
   "kind": "lesson",
   "where": "sys screen 16",
   "text": [
@@ -6675,12 +6682,14 @@
    "The portal sets six of the seven pre-issue checks itself, from the records you complete: never-sell list and trip risk screen from Trip checks (nothing red, every amber confirmed with the operator), AOC from Documents (the operator's AOC attached), safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand; complete the record and the tick follows, and a new red item takes it back. Only routing and permits (confirmed with the operator) is your own tick.",
    "Fill in Operator safety on the trip: the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as \"Safety audit\". For an Archē-approved operator, choose it from the approved-operator list: the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record.",
    "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.",
-   "KYC record: under the KYC tick, enter the date the client was checked and how (and our own reference if you have one), then Save KYC record. Never type an ID, passport or bank number; the portal refuses anything that looks like one. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match. Otherwise check again: an out-of-date check stops authorisation and issue.",
+   "KYC record: under the KYC tick, enter the date the client was checked and how, then Save KYC record. The portal gives the check its own reference (KYB-year-code for a company, KYC-year-code for a person, e.g. KYB-2026-4F7A); nobody types one, so no ID, passport or bank number can end up there. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match; the earlier reference is kept. Otherwise check again: an out-of-date check stops authorisation and issue.",
    "Create the payment request in our payment provider and enter its reference on the trip.",
+   "Fill in the confirmation details (Open confirmation): charterer address, signatory and lead passenger. The aircraft's year and seats and the operator's AOC number come from the quote, the audit from the operator safety record, the KYC reference from your KYC record and the itinerary from the trip's legs: they show greyed out on the confirmation and are changed where they come from. Save the 24-hour contacts (the operator's operations desk and the handler at departure; the desk is suggested from your last trip with the same operator). All of this is needed before sending. The lead passenger and the signatory are screened with the other names.",
    "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field.",
    "Try it in the test version, as Test Broker",
    "Complete the trip checks, tick KYC, enter a payment request reference and press Send for authorisation.",
    "If something goes wrong",
+   "A pre-issue check cannot be tickedTicks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand.",
    "Send for authorisation is greyed outOne of the required items is missing; the note under the button lists them.",
    "The trip came back as ReturnedRead the Director's note at the top of the trip, fix it and send again.",
    "The trip says the KYC must be done againThe last check is over 12 months old, or the payer, country or name changed, or screening found a possible match. Check the client again and save a new KYC record.",
@@ -6694,17 +6703,17 @@
    "Hand the Director, or a person the Director has mandated, a complete, compliant trip.",
    "Who uses it, Brokers.",
    "How it works.",
-   "The portal sets six of the seven pre-issue checks itself, from the records you complete, never-sell list and trip risk screen from Trip checks, nothing red, every amber confirmed with the operator, A O C from Documents, the operator's A O C attached, safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand, complete the record and the tick follows, and a new red item takes it back. Only routing and permits, confirmed with the operator, is your own tick. Fill in Operator safety on the trip, the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as Safety audit. For an ar Kay-approved operator, choose it from the approved-operator list, the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record. Complete K Y C and save the sanctions screening record. The portal has already screened the client, company, payer and operator, reused from your save if under 48 hours old, otherwise screened when you open the trip, add the passengers, owners of 25 percent or more and the aircraft owner if not listed, then press Save. K Y C record, under the K Y C tick, enter the date the client was checked and how, and our own reference if you have one, then Save K Y C record. Never type an I D, passport or bank number, the portal refuses anything that looks like one. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match. Otherwise check again, an out-of-date check stops authorisation and issue. Create the payment request in our payment provider and enter its reference on the trip. Press Send for authorisation. The button opens only when the trip is complete, the panel Steps to book this trip lists what is still missing and takes you to each field.",
+   "The portal sets six of the seven pre-issue checks itself, from the records you complete, never-sell list and trip risk screen from Trip checks, nothing red, every amber confirmed with the operator, A O C from Documents, the operator's A O C attached, safety audit from Operator safety, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand, complete the record and the tick follows, and a new red item takes it back. Only routing and permits, confirmed with the operator, is your own tick. Fill in Operator safety on the trip, the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as Safety audit. For an ar Kay-approved operator, choose it from the approved-operator list, the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record. Complete K Y C and save the sanctions screening record. The portal has already screened the client, company, payer and operator, reused from your save if under 48 hours old, otherwise screened when you open the trip, add the passengers, owners of 25 percent or more and the aircraft owner if not listed, then press Save. K Y C record, under the K Y C tick, enter the date the client was checked and how, then Save K Y C record. The portal gives the check its own reference, K Y B-year-code for a company, K Y C-year-code for a person, for example K Y B-2026-4F7A, nobody types one, so no I D, passport or bank number can end up there. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match, the earlier reference is kept. Otherwise check again, an out-of-date check stops authorisation and issue. Create the payment request in our payment provider and enter its reference on the trip. Fill in the confirmation details, Open confirmation, charterer address, signatory and lead passenger. The aircraft's year and seats and the operator's A O C number come from the quote, the audit from the operator safety record, the K Y C reference from your K Y C record and the itinerary from the trip's legs, they show greyed out on the confirmation and are changed where they come from. Save the 24-hour contacts, the operator's operations desk and the handler at departure, the desk is suggested from your last trip with the same operator. All of this is needed before sending. The lead passenger and the signatory are screened with the other names. Press Send for authorisation. The button opens only when the trip is complete, the panel Steps to book this trip lists what is still missing and takes you to each field.",
    "Try it in the test version, as Test Broker.",
    "Complete the trip checks, tick K Y C, enter a payment request reference and press Send for authorisation.",
    "If something goes wrong.",
-   "Send for authorisation is greyed out. One of the required items is missing, the note under the button lists them. The trip came back as Returned. Read the Director's note at the top of the trip, fix it and send again. The trip says the K Y C must be done again. The last check is over 12 months old, or the payer, country or name changed, or screening found a possible match. Check the client again and save a new K Y C record.",
+   "A pre-issue check cannot be ticked. Ticks marked set by the portal tick themselves once their source is complete. Under each one the portal says what is missing, for example, confirm the amber items in Trip checks with the operator, with Go there. Only Routing, permits and continuous journey is ticked by hand. Send for authorisation is greyed out. One of the required items is missing, the note under the button lists them. The trip came back as Returned. Read the Director's note at the top of the trip, fix it and send again. The trip says the K Y C must be done again. The last check is over 12 months old, or the payer, country or name changed, or screening found a possible match. Check the client again and save a new K Y C record.",
    "Tips.",
    "Run the A I check before sending, it catches cabotage, permits and missing information. A trip returned twice costs the client's confidence, complete it the first time."
   ]
  },
  {
-  "key": "f9769f60",
+  "key": "8d7c704c",
   "kind": "lesson",
   "where": "sys screen 17",
   "text": [
@@ -6713,6 +6722,7 @@
    "Check, confirm and record every trip that brokers send.",
    "Who uses it: The Director, or a person the Director has mandated",
    "How it works",
+   "The trip's Steps list shows everything still needed before Issue: approval and Booking with the operator (Request to Book, hold, the operator's contract attached and checked). The operator price, KYC, payment request reference and a clear screening are taken over from the broker's records when you issue; there is no separate Save. Fields the broker has recorded show greyed out under Authorisation.",
    "Open Authorisation; take the oldest trip waiting for authorisation.",
    "Confirm the operator price on Avinode, send Request to Book and enter direct trip costs.",
    "Check the KYC and sanctions screening record and the payment request reference the broker recorded.",
@@ -6732,7 +6742,7 @@
    "Check, confirm and record every trip that brokers send.",
    "Who uses it, The Director, or a person the Director has mandated.",
    "How it works.",
-   "Open Authorisation, take the oldest trip waiting for authorisation. Confirm the operator price on Avinode, send Request to Book and enter direct trip costs. Check the K Y C and sanctions screening record and the payment request reference the broker recorded. Save. Approve the booking, then Prepare and issue confirmation, or Return to broker with a note.",
+   "The trip's Steps list shows everything still needed before Issue, approval and Booking with the operator, Request to Book, hold, the operator's contract attached and checked. The operator price, K Y C, payment request reference and a clear screening are taken over from the broker's records when you issue, there is no separate Save. Fields the broker has recorded show greyed out under Authorisation. Open Authorisation, take the oldest trip waiting for authorisation. Confirm the operator price on Avinode, send Request to Book and enter direct trip costs. Check the K Y C and sanctions screening record and the payment request reference the broker recorded. Save. Approve the booking, then Prepare and issue confirmation, or Return to broker with a note.",
    "Try it in the test version, as Test Director.",
    "As Test Director, open Authorisation and the trip you sent, see what the authoriser checks, then Return to broker with a note.",
    "If something goes wrong.",
@@ -6979,19 +6989,19 @@
   ]
  },
  {
-  "key": "3a85368f",
+  "key": "7e714b34",
   "kind": "lesson",
   "where": "sys screen 24",
   "text": [
    "Systems training: the Archē portal",
-   "S.23 Points and leaderboard",
+   "S.23 Points",
    "Make good habits visible and reward them.",
    "Who uses it: Brokers",
    "How it works",
    "Points this month: 3 per organisation added, 1 per lead contacted per day, 1 per contact route added or corrected (up to 20), 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold.",
-   "See your rank on Today and in My leads.",
+   "See your own points in My leads; ranks and the leaderboard are for the Director only (Morten, 25 Nov 2026).",
    "Try it in the test version, as Test Broker",
-   "On Today, find your points and your place in the team.",
+   "In My leads, find your points this month.",
    "If something goes wrong",
    "Points did not change after I logged a contactPoints update at each round, every 3 hours.",
    "Tips",
@@ -6999,13 +7009,13 @@
   ],
   "say": [
    "Systems training, the ar Kay portal.",
-   "Points and leaderboard.",
+   "Points.",
    "Make good habits visible and reward them.",
    "Who uses it, Brokers.",
    "How it works.",
-   "Points this month, 3 per organisation added, 1 per lead contacted per day, 1 per contact route added or corrected, up to 20, 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold. See your rank on Today and in My leads.",
+   "Points this month, 3 per organisation added, 1 per lead contacted per day, 1 per contact route added or corrected, up to 20, 10 per enquiry from a lead, 25 per trip flown, minus 3 when a lead goes cold. See your own points in My leads, ranks and the leaderboard are for the Director only, Morten, 25 November 2026.",
    "Try it in the test version, as Test Broker.",
-   "On Today, find your points and your place in the team.",
+   "In My leads, find your points this month.",
    "If something goes wrong.",
    "Points did not change after I logged a contact. Points update at each round, every 3 hours.",
    "Tips.",
@@ -7257,19 +7267,19 @@
   ]
  },
  {
-  "key": "4cd51988",
+  "key": "664dbf7b",
   "kind": "question",
   "where": "sys check question 1",
   "text": [
    "Joining, roles and access: The portal will not sign me in. What do you do?",
    "aUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the Director.",
    "bPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
-   "cOne of the required items is missing; the note under the button lists them.",
+   "cTicks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand.",
    "dAsk them to confirm in writing: the time we receive it decides the charge."
   ],
   "say": [
    "Joining, roles and access, The portal will not sign me in. What do you do?",
-   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the Director. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. One of the required items is missing, the note under the button lists them. D. Ask them to confirm in writing, the time we receive it decides the charge."
+   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the Director. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. Ticks marked set by the portal tick themselves once their source is complete. Under each one the portal says what is missing, for example, confirm the amber items in Trip checks with the operator, with Go there. Only Routing, permits and continuous journey is ticked by hand. D. Ask them to confirm in writing, the time we receive it decides the charge."
   ]
  },
  {
@@ -7295,41 +7305,41 @@
   ]
  },
  {
-  "key": "c6003cbb",
+  "key": "7238725c",
   "kind": "question",
   "where": "sys check question 2",
   "text": [
-   "Phone use, colour theme and signing out: I cannot find a section. What do you do?",
+   "Phone use, colour theme and signing out: The Home Screen app asked me to sign in again. What do you do?",
    "aThe text typed is not a known airport. Type a city or code and pick one of the suggestions.",
-   "bPress Menu at the top. Sections you do not have access to are not shown.",
+   "bOn waking, the app now waits for the network and tries your stored sign-in again (up to about 7 seconds, and again once back online) before it shows the sign-in screen. If it still asks, sign in once; Sign out is the only thing that ends a sign-in on purpose.",
    "cIt is your own trip. Another person the Director has mandated handles it.",
    "dPoints update at each round, every 3 hours."
   ],
   "say": [
-   "Phone use, colour theme and signing out, I cannot find a section. What do you do?",
-   "A. The text typed is not a known airport. Type a city or code and pick one of the suggestions. B. Press Menu at the top. Sections you do not have access to are not shown. C. It is your own trip. Another person the Director has mandated handles it. D. Points update at each round, every 3 hours."
+   "Phone use, colour theme and signing out, The Home Screen app asked me to sign in again. What do you do?",
+   "A. The text typed is not a known airport. Type a city or code and pick one of the suggestions. B. On waking, the app now waits for the network and tries your stored sign-in again, up to about 7 seconds, and again once back online, before it shows the sign-in screen. If it still asks, sign in once, Sign out is the only thing that ends a sign-in on purpose. C. It is your own trip. Another person the Director has mandated handles it. D. Points update at each round, every 3 hours."
   ]
  },
  {
-  "key": "3ba0e688",
+  "key": "70ba36dc",
   "kind": "feedback",
   "where": "sys check question 2",
   "text": [
-   "Right. Press Menu at the top. Sections you do not have access to are not shown."
+   "Right. On waking, the app now waits for the network and tries your stored sign-in again (up to about 7 seconds, and again once back online) before it shows the sign-in screen. If it still asks, sign in once; Sign out is the only thing that ends a sign-in on purpose."
   ],
   "say": [
-   "Right. Press Menu at the top. Sections you do not have access to are not shown."
+   "Right. On waking, the app now waits for the network and tries your stored sign-in again, up to about 7 seconds, and again once back online, before it shows the sign-in screen. If it still asks, sign in once, Sign out is the only thing that ends a sign-in on purpose."
   ]
  },
  {
-  "key": "794ede25",
+  "key": "30d52707",
   "kind": "feedback",
   "where": "sys check question 2",
   "text": [
-   "Not quite. Press Menu at the top. Sections you do not have access to are not shown."
+   "Not quite. On waking, the app now waits for the network and tries your stored sign-in again (up to about 7 seconds, and again once back online) before it shows the sign-in screen. If it still asks, sign in once; Sign out is the only thing that ends a sign-in on purpose."
   ],
   "say": [
-   "Not quite. Press Menu at the top. Sections you do not have access to are not shown."
+   "Not quite. On waking, the app now waits for the network and tries your stored sign-in again, up to about 7 seconds, and again once back online, before it shows the sign-in screen. If it still asks, sign in once, Sign out is the only thing that ends a sign-in on purpose."
   ]
  },
  {
@@ -7447,57 +7457,57 @@
   ]
  },
  {
-  "key": "9229ceed",
+  "key": "262a29cf",
   "kind": "question",
   "where": "sys check question 6",
   "text": [
-   "Today (brokers and the Director): My rank shows a dash. What do you do?",
+   "Today (brokers and the Director): My points show a dash. What do you do?",
    "aIt failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle.",
-   "bThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month.",
+   "bPoints update at each assignment round, every 3 hours. They appear after the first round of the month.",
    "cThe client payment has not been recorded, or the flight date has not. Ask the Director.",
    "dYour browser does not support speech input. Type instead; Chrome and Edge support it."
   ],
   "say": [
-   "Today, brokers and the Director, My rank shows a dash. What do you do?",
-   "A. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle. B. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month. C. The client payment has not been recorded, or the flight date has not. Ask the Director. D. Your browser does not support speech input. Type instead, Chrome and Edge support it."
+   "Today, brokers and the Director, My points show a dash. What do you do?",
+   "A. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle. B. Points update at each assignment round, every 3 hours. They appear after the first round of the month. C. The client payment has not been recorded, or the flight date has not. Ask the Director. D. Your browser does not support speech input. Type instead, Chrome and Edge support it."
   ]
  },
  {
-  "key": "61da0bc1",
+  "key": "50040f09",
   "kind": "feedback",
   "where": "sys check question 6",
   "text": [
-   "Right. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+   "Right. Points update at each assignment round, every 3 hours. They appear after the first round of the month."
   ],
   "say": [
-   "Right. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+   "Right. Points update at each assignment round, every 3 hours. They appear after the first round of the month."
   ]
  },
  {
-  "key": "d03c5ea2",
+  "key": "a8c33c98",
   "kind": "feedback",
   "where": "sys check question 6",
   "text": [
-   "Not quite. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+   "Not quite. Points update at each assignment round, every 3 hours. They appear after the first round of the month."
   ],
   "say": [
-   "Not quite. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+   "Not quite. Points update at each assignment round, every 3 hours. They appear after the first round of the month."
   ]
  },
  {
-  "key": "23984e89",
+  "key": "d4e4f011",
   "kind": "question",
   "where": "sys check question 7",
   "text": [
    "My leads and adding prospects: My new prospect says Being checked. What do you do?",
-   "aChoose a file first. Large files take a few seconds.",
+   "aChoose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved.",
    "bMore than 24 hours have passed since the last landing. Call the client now and log it.",
    "cIt is checked for duplicates at the next round, within 3 hours.",
    "dTell the Director; check the watchlist and the official source before quoting."
   ],
   "say": [
    "My leads and adding prospects, My new prospect says Being checked. What do you do?",
-   "A. Choose a file first. Large files take a few seconds. B. More than 24 hours have passed since the last landing. Call the client now and log it. C. It is checked for duplicates at the next round, within 3 hours. D. Tell the Director, check the watchlist and the official source before quoting."
+   "A. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved. B. More than 24 hours have passed since the last landing. Call the client now and log it. C. It is checked for duplicates at the next round, within 3 hours. D. Tell the Director, check the watchlist and the official source before quoting."
   ]
  },
  {
@@ -7523,19 +7533,19 @@
   ]
  },
  {
-  "key": "936fa055",
+  "key": "9e0c68b8",
   "kind": "question",
   "where": "sys check question 8",
   "text": [
    "Named business contacts and opt-outs: Save contact says Work email only. What do you do?",
-   "aOne of the required items is missing; the note under the button lists them.",
+   "aTicks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand.",
    "bAsk them to confirm in writing: the time we receive it decides the charge.",
    "cThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
    "dPersonal addresses like Gmail are not allowed. Use the work email or work phone."
   ],
   "say": [
    "Named business contacts and opt-outs, Save contact says Work email only. What do you do?",
-   "A. One of the required items is missing, the note under the button lists them. B. Ask them to confirm in writing, the time we receive it decides the charge. C. The broker is not ticked as Supervised in Team, or the trip is not flown yet. D. Personal addresses like Gmail are not allowed. Use the work email or work phone."
+   "A. Ticks marked set by the portal tick themselves once their source is complete. Under each one the portal says what is missing, for example, confirm the amber items in Trip checks with the operator, with Go there. Only Routing, permits and continuous journey is ticked by hand. B. Ask them to confirm in writing, the time we receive it decides the charge. C. The broker is not ticked as Supervised in Team, or the trip is not flown yet. D. Personal addresses like Gmail are not allowed. Use the work email or work phone."
   ]
  },
  {
@@ -7599,7 +7609,7 @@
   ]
  },
  {
-  "key": "d0f31e18",
+  "key": "988c304c",
   "kind": "question",
   "where": "sys check question 10",
   "text": [
@@ -7607,11 +7617,11 @@
    "aA required field or check is missing; the list shows which.",
    "bThe trip is with the Director for checking, or confirmed. Ask the Director to change it.",
    "cAllow Claude when asked, or in the artifact's Permissions menu.",
-   "dPress Menu at the top. Sections you do not have access to are not shown."
+   "dOn waking, the app now waits for the network and tries your stored sign-in again (up to about 7 seconds, and again once back online) before it shows the sign-in screen. If it still asks, sign in once; Sign out is the only thing that ends a sign-in on purpose."
   ],
   "say": [
    "Client requests and operational extras, I cannot edit the lines. What do you do?",
-   "A. A required field or check is missing, the list shows which. B. The trip is with the Director for checking, or confirmed. Ask the Director to change it. C. Allow Claude when asked, or in the artifact's Permissions menu. D. Press Menu at the top. Sections you do not have access to are not shown."
+   "A. A required field or check is missing, the list shows which. B. The trip is with the Director for checking, or confirmed. Ask the Director to change it. C. Allow Claude when asked, or in the artifact's Permissions menu. D. On waking, the app now waits for the network and tries your stored sign-in again, up to about 7 seconds, and again once back online, before it shows the sign-in screen. If it still asks, sign in once, Sign out is the only thing that ends a sign-in on purpose."
   ]
  },
  {
@@ -7751,79 +7761,79 @@
   ]
  },
  {
-  "key": "6739b323",
+  "key": "67f65113",
   "kind": "question",
   "where": "sys check question 14",
   "text": [
    "Documents: Attach does nothing. What do you do?",
    "aMore than 24 hours have passed since the last landing. Call the client now and log it.",
-   "bChoose a file first. Large files take a few seconds.",
+   "bChoose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved.",
    "cTell the Director; check the watchlist and the official source before quoting.",
-   "dThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+   "dPoints update at each assignment round, every 3 hours. They appear after the first round of the month."
   ],
   "say": [
    "Documents, Attach does nothing. What do you do?",
-   "A. More than 24 hours have passed since the last landing. Call the client now and log it. B. Choose a file first. Large files take a few seconds. C. Tell the Director, check the watchlist and the official source before quoting. D. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month."
+   "A. More than 24 hours have passed since the last landing. Call the client now and log it. B. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved. C. Tell the Director, check the watchlist and the official source before quoting. D. Points update at each assignment round, every 3 hours. They appear after the first round of the month."
   ]
  },
  {
-  "key": "f5ef221e",
+  "key": "432b22f8",
   "kind": "feedback",
   "where": "sys check question 14",
   "text": [
-   "Right. Choose a file first. Large files take a few seconds."
+   "Right. Choose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved."
   ],
   "say": [
-   "Right. Choose a file first. Large files take a few seconds."
+   "Right. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved."
   ]
  },
  {
-  "key": "41edb08f",
+  "key": "10342377",
   "kind": "feedback",
   "where": "sys check question 14",
   "text": [
-   "Not quite. Choose a file first. Large files take a few seconds."
+   "Not quite. Choose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved."
   ],
   "say": [
-   "Not quite. Choose a file first. Large files take a few seconds."
+   "Not quite. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved."
   ]
  },
  {
-  "key": "98e13c00",
+  "key": "b9b4035a",
   "kind": "question",
   "where": "sys check question 15",
   "text": [
-   "Pre-issue checks and sending for authorisation: Send for authorisation is greyed out. What do you do?",
+   "Pre-issue checks and sending for authorisation: A pre-issue check cannot be ticked. What do you do?",
    "aAsk them to confirm in writing: the time we receive it decides the charge.",
    "bThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
-   "cOne of the required items is missing; the note under the button lists them.",
+   "cTicks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand.",
    "dIt is checked for duplicates at the next round, within 3 hours."
   ],
   "say": [
-   "Pre-issue checks and sending for authorisation, Send for authorisation is greyed out. What do you do?",
-   "A. Ask them to confirm in writing, the time we receive it decides the charge. B. The broker is not ticked as Supervised in Team, or the trip is not flown yet. C. One of the required items is missing, the note under the button lists them. D. It is checked for duplicates at the next round, within 3 hours."
+   "Pre-issue checks and sending for authorisation, A pre-issue check cannot be ticked. What do you do?",
+   "A. Ask them to confirm in writing, the time we receive it decides the charge. B. The broker is not ticked as Supervised in Team, or the trip is not flown yet. C. Ticks marked set by the portal tick themselves once their source is complete. Under each one the portal says what is missing, for example, confirm the amber items in Trip checks with the operator, with Go there. Only Routing, permits and continuous journey is ticked by hand. D. It is checked for duplicates at the next round, within 3 hours."
   ]
  },
  {
-  "key": "248c6a0c",
+  "key": "ec8de7d7",
   "kind": "feedback",
   "where": "sys check question 15",
   "text": [
-   "Right. One of the required items is missing; the note under the button lists them."
+   "Right. Ticks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand."
   ],
   "say": [
-   "Right. One of the required items is missing, the note under the button lists them."
+   "Right. Ticks marked set by the portal tick themselves once their source is complete. Under each one the portal says what is missing, for example, confirm the amber items in Trip checks with the operator, with Go there. Only Routing, permits and continuous journey is ticked by hand."
   ]
  },
  {
-  "key": "9c1e52df",
+  "key": "436d6f94",
   "kind": "feedback",
   "where": "sys check question 15",
   "text": [
-   "Not quite. One of the required items is missing; the note under the button lists them."
+   "Not quite. Ticks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand."
   ],
   "say": [
-   "Not quite. One of the required items is missing, the note under the button lists them."
+   "Not quite. Ticks marked set by the portal tick themselves once their source is complete. Under each one the portal says what is missing, for example, confirm the amber items in Trip checks with the operator, with Go there. Only Routing, permits and continuous journey is ticked by hand."
   ]
  },
  {
@@ -7865,19 +7875,19 @@
   ]
  },
  {
-  "key": "fe9e498f",
+  "key": "bf333a13",
   "kind": "question",
   "where": "sys check question 17",
   "text": [
    "Charter confirmation: Issue is greyed out. What do you do?",
    "aA required field or check is missing; the list shows which.",
    "bAllow Claude when asked, or in the artifact's Permissions menu.",
-   "cPress Menu at the top. Sections you do not have access to are not shown.",
+   "cOn waking, the app now waits for the network and tries your stored sign-in again (up to about 7 seconds, and again once back online) before it shows the sign-in screen. If it still asks, sign in once; Sign out is the only thing that ends a sign-in on purpose.",
    "dThe text typed is not a known airport. Type a city or code and pick one of the suggestions."
   ],
   "say": [
    "Charter confirmation, Issue is greyed out. What do you do?",
-   "A. A required field or check is missing, the list shows which. B. Allow Claude when asked, or in the artifact's Permissions menu. C. Press Menu at the top. Sections you do not have access to are not shown. D. The text typed is not a known airport. Type a city or code and pick one of the suggestions."
+   "A. A required field or check is missing, the list shows which. B. Allow Claude when asked, or in the artifact's Permissions menu. C. On waking, the app now waits for the network and tries your stored sign-in again, up to about 7 seconds, and again once back online, before it shows the sign-in screen. If it still asks, sign in once, Sign out is the only thing that ends a sign-in on purpose. D. The text typed is not a known airport. Type a city or code and pick one of the suggestions."
   ]
  },
  {
@@ -8017,19 +8027,19 @@
   ]
  },
  {
-  "key": "8d32032f",
+  "key": "f941079f",
   "kind": "question",
   "where": "sys check question 21",
   "text": [
    "Aftercare, rating and service recovery: Follow-up shows as overdue. What do you do?",
    "aMore than 24 hours have passed since the last landing. Call the client now and log it.",
    "bTell the Director; check the watchlist and the official source before quoting.",
-   "cThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month.",
+   "cPoints update at each assignment round, every 3 hours. They appear after the first round of the month.",
    "dIt failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
   ],
   "say": [
    "Aftercare, rating and service recovery, Follow-up shows as overdue. What do you do?",
-   "A. More than 24 hours have passed since the last landing. Call the client now and log it. B. Tell the Director, check the watchlist and the official source before quoting. C. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month. D. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
+   "A. More than 24 hours have passed since the last landing. Call the client now and log it. B. Tell the Director, check the watchlist and the official source before quoting. C. Points update at each assignment round, every 3 hours. They appear after the first round of the month. D. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle."
   ]
  },
  {
@@ -8055,7 +8065,7 @@
   ]
  },
  {
-  "key": "4758d1eb",
+  "key": "8066ebab",
   "kind": "question",
   "where": "sys check question 22",
   "text": [
@@ -8063,11 +8073,11 @@
    "aThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
    "bAsk them to confirm in writing: the time we receive it decides the charge.",
    "cIt is checked for duplicates at the next round, within 3 hours.",
-   "dChoose a file first. Large files take a few seconds."
+   "dChoose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved."
   ],
   "say": [
    "Cancelling a trip, The client cancels by phone. What do you do?",
-   "A. The broker is not ticked as Supervised in Team, or the trip is not flown yet. B. Ask them to confirm in writing, the time we receive it decides the charge. C. It is checked for duplicates at the next round, within 3 hours. D. Choose a file first. Large files take a few seconds."
+   "A. The broker is not ticked as Supervised in Team, or the trip is not flown yet. B. Ask them to confirm in writing, the time we receive it decides the charge. C. It is checked for duplicates at the next round, within 3 hours. D. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved."
   ]
  },
  {
@@ -8093,19 +8103,19 @@
   ]
  },
  {
-  "key": "ed346c70",
+  "key": "d64598d9",
   "kind": "question",
   "where": "sys check question 23",
   "text": [
-   "Points and leaderboard: Points did not change after I logged a contact. What do you do?",
+   "Points: Points did not change after I logged a contact. What do you do?",
    "aUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the Director.",
    "bPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
    "cPoints update at each round, every 3 hours.",
-   "dOne of the required items is missing; the note under the button lists them."
+   "dTicks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand."
   ],
   "say": [
-   "Points and leaderboard, Points did not change after I logged a contact. What do you do?",
-   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the Director. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. Points update at each round, every 3 hours. D. One of the required items is missing, the note under the button lists them."
+   "Points, Points did not change after I logged a contact. What do you do?",
+   "A. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the Director. B. Personal addresses like Gmail are not allowed. Use the work email or work phone. C. Points update at each round, every 3 hours. D. Ticks marked set by the portal tick themselves once their source is complete. Under each one the portal says what is missing, for example, confirm the amber items in Trip checks with the operator, with Go there. Only Routing, permits and continuous journey is ticked by hand."
   ]
  },
  {
@@ -8131,19 +8141,19 @@
   ]
  },
  {
-  "key": "bc4edcf8",
+  "key": "daff1562",
   "kind": "question",
   "where": "sys check question 24",
   "text": [
    "AI assistant and co-pilot: The co-pilot asks for permission. What do you do?",
-   "aPress Menu at the top. Sections you do not have access to are not shown.",
+   "aOn waking, the app now waits for the network and tries your stored sign-in again (up to about 7 seconds, and again once back online) before it shows the sign-in screen. If it still asks, sign in once; Sign out is the only thing that ends a sign-in on purpose.",
    "bThe text typed is not a known airport. Type a city or code and pick one of the suggestions.",
    "cIt is your own trip. Another person the Director has mandated handles it.",
    "dAllow Claude when asked, or in the artifact's Permissions menu."
   ],
   "say": [
    "A I assistant and co-pilot, The co-pilot asks for permission. What do you do?",
-   "A. Press Menu at the top. Sections you do not have access to are not shown. B. The text typed is not a known airport. Type a city or code and pick one of the suggestions. C. It is your own trip. Another person the Director has mandated handles it. D. Allow Claude when asked, or in the artifact's Permissions menu."
+   "A. On waking, the app now waits for the network and tries your stored sign-in again, up to about 7 seconds, and again once back online, before it shows the sign-in screen. If it still asks, sign in once, Sign out is the only thing that ends a sign-in on purpose. B. The text typed is not a known airport. Type a city or code and pick one of the suggestions. C. It is your own trip. Another person the Director has mandated handles it. D. Allow Claude when asked, or in the artifact's Permissions menu."
   ]
  },
  {
@@ -8283,19 +8293,19 @@
   ]
  },
  {
-  "key": "c4bbb932",
+  "key": "e17ec7d8",
   "kind": "question",
   "where": "sys check question 28",
   "text": [
    "Regional cards: A card looks out of date. What do you do?",
-   "aThe leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month.",
+   "aPoints update at each assignment round, every 3 hours. They appear after the first round of the month.",
    "bIt failed a check: opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle.",
    "cThe client payment has not been recorded, or the flight date has not. Ask the Director.",
    "dTell the Director; check the watchlist and the official source before quoting."
   ],
   "say": [
    "Regional cards, A card looks out of date. What do you do?",
-   "A. The leaderboard updates at each assignment round, every 3 hours. It appears after the first round of the month. B. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle. C. The client payment has not been recorded, or the flight date has not. Ask the Director. D. Tell the Director, check the watchlist and the official source before quoting."
+   "A. Points update at each assignment round, every 3 hours. They appear after the first round of the month. B. It failed a check, opted out, possible sanctions match, sanctions check not run yet, or a crew hotel not shown within 15 minutes with a shuttle. C. The client payment has not been recorded, or the flight date has not. Ask the Director. D. Tell the Director, check the watchlist and the official source before quoting."
   ]
  },
  {
@@ -8321,19 +8331,19 @@
   ]
  },
  {
-  "key": "4964583e",
+  "key": "b2e6293e",
   "kind": "question",
   "where": "sys check question 29",
   "text": [
    "Post-trip debrief (supervised bookings): The debrief does not appear. What do you do?",
    "aThe broker is not ticked as Supervised in Team, or the trip is not flown yet.",
    "bIt is checked for duplicates at the next round, within 3 hours.",
-   "cChoose a file first. Large files take a few seconds.",
+   "cChoose a file first. Large files take a few seconds; the portal says Uploading and then Saved ✓ or Not saved.",
    "dMore than 24 hours have passed since the last landing. Call the client now and log it."
   ],
   "say": [
    "Post-trip debrief, supervised bookings, The debrief does not appear. What do you do?",
-   "A. The broker is not ticked as Supervised in Team, or the trip is not flown yet. B. It is checked for duplicates at the next round, within 3 hours. C. Choose a file first. Large files take a few seconds. D. More than 24 hours have passed since the last landing. Call the client now and log it."
+   "A. The broker is not ticked as Supervised in Team, or the trip is not flown yet. B. It is checked for duplicates at the next round, within 3 hours. C. Choose a file first. Large files take a few seconds, the portal says Uploading and then Saved ✓ or Not saved. D. More than 24 hours have passed since the last landing. Call the client now and log it."
   ]
  },
  {

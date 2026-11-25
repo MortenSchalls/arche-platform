@@ -19,11 +19,10 @@ const ok=(k,v,x)=>console.log((v?'PASS ':'FAIL ')+k+(v||x===undefined?'':' '+JSO
  ok('no record: authorisation is blocked', /no KYC record/.test(await p.evaluate(()=>kycBlockReason(tripById('t1')))));
  await p.evaluate(()=>{S.view='trips';S.sel='t1';render();});await p.waitForTimeout(300);
  ok('the trip asks for the KYC record', (await p.textContent('#main')).includes('Record the KYC check'));
- await p.fill('#kyc_ref','S1234567D');await p.click('[data-kyc="save"]');await p.waitForTimeout(400);
- ok('an ID-like number is refused', !(await p.evaluate(()=>window.__T)).trips[0].data.kycRec);
- await p.fill('#kyc_ref','KYC-EX-2');await p.click('[data-kyc="save"]');await p.waitForTimeout(400);
+ ok('no reference field to type in: the portal numbers the check', !(await p.$('#kyc_ref')));
+ await p.click('[data-kyc="save"]');await p.waitForTimeout(400);
  let T=await p.evaluate(()=>window.__T);const r=T.trips[0].data.kycRec;
- ok('saved: date, how, our reference, name, country and payer only', r&&r.checkedAt===new Date().toISOString().slice(0,10)&&r.ref==='KYC-EX-2'&&r.how==='id'&&r.name==='example family office ltd'&&!JSON.stringify({...r,by:0,at:0}).match(/passport|\d{6,}/i)&&T.trips[0].data.checks.kyc===true,r);
+ ok('saved: date, how, our reference, name, country and payer only', r&&r.checkedAt===new Date().toISOString().slice(0,10)&&/^KYB-\d{4}-[0-9A-Z]{4}$/.test(r.ref||'')&&r.how==='id'&&r.name==='example family office ltd'&&!JSON.stringify({...r,by:0,at:0}).match(/passport|\d{6,}/i)&&T.trips[0].data.checks.kyc===true,r);
  ok('a current record passes', await p.evaluate(()=>kycBlockReason(tripById('t1'))===null));
  await p.close();
  // reuse from the client's earlier trip

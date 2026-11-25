@@ -15,6 +15,16 @@ function kycDue(rec){
   const d = new Date(rec.checkedAt + "T00:00:00Z"); d.setUTCMonth(d.getUTCMonth() + KYC_MONTHS); return d.toISOString().slice(0, 10);
 }
 const kycRefOk = s => !/\d{6,}/.test(String(s || "").replace(/[\s.\/-]/g, ""));   // our own reference, never an ID or account number
+/* the portal numbers every check itself (Morten, 25 Nov 2026: "automate the KYC/KYB reference, so numbering is generated
+   by us"): KYB for a company, KYC for a person, the year of the check and four characters the portal draws, e.g. KYB-2026-4F7A;
+   never a typed number, so no ID or account number can end up here */
+function kycNewRef(t, at){
+  const c = (t.d || {}).client || {}, used = new Set(allTrips().map(x => ((x.d || {}).kycRec || {}).ref).filter(Boolean));
+  const pre = (c.company ? "KYB" : "KYC") + "-" + String(at || now()).slice(0, 4) + "-";
+  let h = 0; const seed = t.did + "|" + now();
+  for (let i = 0; i < 40; i++) { for (const ch of seed + i) h = (h * 31 + ch.charCodeAt(0)) >>> 0; const r = pre + h.toString(36).toUpperCase().padStart(4, "0").slice(-4); if (!used.has(r)) return r; }
+  return pre + Date.now().toString(36).toUpperCase().slice(-4);
+}
 function kycPrior(t){
   const k = kycKey((t.d || {}).client); if (!k) return null;
   let best = null;
@@ -55,7 +65,7 @@ function kycBlock(t, canEdit){
     <details class="small"${rec && s.ok ? "" : " open"}><summary>${rec ? "Record a new check" : "Record the KYC check"}</summary>
     <div class="row" style="margin-top:6px"><label class="f" for="kyc_at" style="max-width:170px">Checked on<input id="kyc_at" type="date" value="${esc(now().slice(0, 10))}"></label>
     <label class="f" for="kyc_how" style="max-width:340px">How<select id="kyc_how">${KYC_HOW.map(([k, l]) => `<option value="${k}">${esc(l)}</option>`).join("")}</select></label>
-    <label class="f" for="kyc_ref" style="max-width:220px">Our reference (optional)<input id="kyc_ref" placeholder="e.g. KYC-2026-0147" maxlength="40"></label>
+    <p class="f muted" style="max-width:240px;margin:0">Reference<br><span class="mono">${(t.d.client || {}).company ? "KYB" : "KYC"}-…</span> set by the portal when you save</p>
     <button class="btn small" type="button" data-kyc="save" data-did="${t.did}">Save KYC record</button></div>
     <p class="muted" style="margin:6px 0 0">Never type an ID, passport or bank number here. The record keeps only the date, how, our reference, the name, country and payer it covers; it is kept with the booking as the privacy policy says. It is reused for this client until 12 months after the check, unless the payer, country or name changes or screening finds a possible match.</p></details></div>`;
 }
@@ -68,11 +78,10 @@ document.addEventListener("click", async e => {
     const p = kycPrior(t); if (!p) { toast("No earlier check found."); return; }
     rec = {...p.rec, ...base, checkedAt: p.rec.checkedAt, how: p.rec.how, ref: p.rec.ref || "", reusedFrom: p.ref};
   } else {
-    const at = ($("kyc_at") || {}).value || "", how = ($("kyc_how") || {}).value || "", ref = (($("kyc_ref") || {}).value || "").trim();
+    const at = ($("kyc_at") || {}).value || "", how = ($("kyc_how") || {}).value || "";
     if (!/^\d{4}-\d{2}-\d{2}$/.test(at) || at > now().slice(0, 10)) { toast("Enter the date of the check (not in the future)."); return; }
-    if (!kycRefOk(ref)) { toast("That looks like an ID, passport or bank number. Use our own reference only."); return; }
-    rec = {...base, checkedAt: at, how, ref};
+    rec = {...base, checkedAt: at, how, ref: kycNewRef(t, at)};
   }
-  try { await deskWrite(t, {kycRec: rec, checks: {...(t.d.checks || {}), kyc: true}}, `KYC record: checked ${rec.checkedAt}${rec.reusedFrom ? " (from " + rec.reusedFrom + ")" : ""}`); audit("KYC recorded", `${(t.st || {}).ref || t.did} · ${rec.checkedAt}`); toast("KYC record saved."); render(); }
+  try { await deskWrite(t, {kycRec: rec, checks: {...(t.d.checks || {}), kyc: true}}, `KYC record: checked ${rec.checkedAt}${rec.reusedFrom ? " (from " + rec.reusedFrom + ")" : ""}`); audit("KYC recorded", `${(t.st || {}).ref || t.did} · ${rec.checkedAt}`); toast(`KYC record saved: ${rec.ref || "reference from the earlier check"}.`); render(); }
   catch(err){ toast("Could not save."); }
 });

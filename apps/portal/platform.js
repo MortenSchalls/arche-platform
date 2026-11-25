@@ -350,11 +350,22 @@
   /* ---------- files ---------- */
   const BUCKET = "portal-files";
   const assets = {
-    async upload(blob) {
+    // opts.folder files the upload under the trip it belongs to (uploader/trips/<trip>/<id>; the first folder stays the
+    // uploader's, as the storage rule in SQL 0002 requires)
+    async upload(blob, opts = {}) {
       const s = await ready; const id = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)).replace(/-/g, "");
-      const { error } = await sb.storage.from(BUCKET).upload(`${s.user.id}/${id}`, blob, { contentType: blob.type || "application/octet-stream" });
+      const sub = String(opts.folder || "").replace(/[^A-Za-z0-9_\/-]/g, "").replace(/^\/+|\/+$/g, "").replace(/\/{2,}/g, "/").slice(0, 80);
+      const path = `${s.user.id}/${sub ? sub + "/" : ""}${id}`;
+      const { error } = await sb.storage.from(BUCKET).upload(path, blob, { contentType: blob.type || "application/octet-stream" });
       if (error) throw fail(error);
-      return { id: `${s.user.id}/${id}`, url: "/_blob/" + encodeURIComponent(`${s.user.id}/${id}`), sizeBytes: blob.size, contentType: blob.type };
+      return { id: path, url: "/_blob/" + encodeURIComponent(path), sizeBytes: blob.size, contentType: blob.type };
+    },
+    // is the file really in storage? (the trip's Documents panel shows Saved only after this answers yes)
+    async check(id) {
+      const p = decodeURIComponent(String(id || "")), i = p.lastIndexOf("/"), folder = p.slice(0, i), name = p.slice(i + 1);
+      const { data, error } = await sb.storage.from(BUCKET).list(folder, { search: name, limit: 10 });
+      if (error) throw fail(error);
+      const o = (data || []).find(x => x.name === name); return o ? { exists: true, size: (o.metadata || {}).size || null } : { exists: false };
     },
     async list() { return { assets: [], usage: {} }; },
     async delete(id) { await sb.storage.from(BUCKET).remove([id]); }

@@ -14,6 +14,7 @@
 (function(){
   const T1 = {"argus-plat": "ARGUS Platinum", "argus-elite": "ARGUS Platinum Elite", "wyv-wingman": "WYVERN Wingman", "wyv-pro": "WYVERN Wingman PRO", "isbao-2": "IS-BAO Stage 2", "isbao-3": "IS-BAO Stage 3"};
   const T2 = {"argus-gold": "ARGUS Gold", "argus-goldcert": "ARGUS Gold Certified", "isbao-1": "IS-BAO Stage 1", "wyv-reg": "WYVERN Registered (no audit)", "other": "Another audit", "none": "No audit"};
+  window.AUD_LABEL = {...T1, ...T2};
   const LABEL = {...T1, ...T2};
   const MIN_INS = {jet: 50e6, turboprop: 25e6};
   const CREW = {cap: 3000, capType: 250, fo: 1000};

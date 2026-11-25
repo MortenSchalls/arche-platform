@@ -7,7 +7,8 @@
    A possible match stops the booking: only the Director can record a decision after checking the details. */
 (function(){
   S.scr = S.scr || {};
-  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}; return [...new Set([c.name, c.company, c.payer, q.operator].filter(x => x && String(x).trim()))]; };
+  // the lead passenger and the charterer's signatory from the confirmation are screened too (workflow audit, 25 Nov 2026)
+  const tripNames = t => { const c = t.d.client || {}, q = t.d.quote || {}, cf = t.d.conf || {}; return [...new Set([c.name, c.company, c.payer, cf.lead, cf.cName, q.operator].map(x => x && String(x).trim()).filter(Boolean))]; };
   // the broker's automatic screen (saved with the trip) is reused when it covers the same names and is under 48 hours old,
   // so operations does not run it again; operations adds passengers and owners and saves the record (31 Oct 2026)
   const brokerScreen = (t, names) => { const b = t.d.screen || {}; if (!b.at || !(b.results || []).length) return null;

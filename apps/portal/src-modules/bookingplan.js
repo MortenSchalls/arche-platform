@@ -399,8 +399,7 @@
     if (!staffOn(t)) { toast("Another person the Director has mandated, or the other owner, must do this on your own trip."); return; }
     try {
       if (a === "doc") { const fl = ($("bkFile") || {}).files && $("bkFile").files[0]; if (!fl) { toast("Choose the contract file first."); return; }
-        const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available here."); return; }
-        const r = await assets.upload(fl); await deskWrite(t, {docs: [...(t.d.docs || []), {id: r.id, name: fl.name, kind: "Operator contract", at: now()}]}, "Document attached: Operator contract"); toast("Operator contract attached."); return; }
+        await saveTripDoc(t, fl, "Operator contract"); return; }
       const pl = bookingPlan(t), m = money(t), f = pl.f;
       if (a === "receipt") { if (st.confIssued && !st.signed) { toast("Save the signed confirmation first."); return; }
         const amt = num(($("bk_ra") || {}).value), d = ($("bk_rd") || {}).value; if (!(amt > 0) || !d) { toast("Enter the amount and the date it cleared."); return; }
