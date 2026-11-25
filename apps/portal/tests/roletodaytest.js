@@ -1,7 +1,7 @@
 // Today for brokers and operations: first page, tasks, flights today/tomorrow, waiting, payments, pool; collapsible. Example data.
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,300)));if(!c)fails++;};
 const errs=[];
-async function open(as,w){const p=await b.newPage({viewport:{width:w||1300,height:1000}});p.on('pageerror',e=>errs.push(as+': '+e.message));await p.goto('http://localhost:8765/test.html?as='+as);await p.waitForTimeout(3000);return p;}
+async function open(as,w){const p=await b.newPage({viewport:{width:w||1300,height:1000}});p.on('pageerror',e=>errs.push(as+': '+e.message));await p.goto('http://localhost:8765/test.html?steps=all&as='+as);await p.waitForTimeout(3000);return p;}
 const tomorrow=new Date(Date.now()+864e5).toLocaleDateString('en-CA'), in10=new Date(Date.now()+10*864e5).toLocaleDateString('en-CA');
 // an example confirmed trip flying tomorrow (broker's), written into the example data
 const seed=async p=>p.evaluate(async([d1,d2])=>{const B='00000000-0000-4000-8000-0000000000a3';

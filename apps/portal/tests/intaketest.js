@@ -31,9 +31,11 @@ await p.fill('#q_op','Example Air AG');await p.fill('#q_ac','Global 7500');await
 await p.click('#edForm button[type=submit]');await p.waitForTimeout(2000);
 const t2=await p.evaluate(()=>{const t=tripById(S.sel);return {c:t.d.client.name,i:t.d.intake.lead,legs:t.d.trip.legs.length,op:t.d.quote.opPrice,card:t.d.quote.card,stage:t.stage}});
 ok('saving the quote keeps the client, trip and intake'+W,t2.c==='Example Intake'&&t2.i==='Example Lead'&&t2.legs===1&&t2.op===40000&&t2.card===true&&t2.stage==='quoted',t2);
+const aw=await p.evaluate(async()=>{const t=tripById(S.sel),b=t.d.quote.directOwn||0;const r={trip:{bid:t.bid,did:t.did},ref:'RQ-EX-1'};await sqAwardToTrip(r,{org:'Example Catering',usd:1000});await new Promise(r=>setTimeout(r,600));await sqAwardToTrip(r,{org:'Example Catering',usd:1000});await new Promise(r=>setTimeout(r,600));const q=tripById(S.sel).d.quote;return {b,a:q.directOwn,n:(tripById(S.sel).d.supplierCosts||[]).length}});
+ok('an awarded supplier quote goes into the direct trip costs once'+W,aw.a===aw.b+1000&&aw.n===1,aw);
 const lead=await p.evaluate(()=>confDraftFrom(tripById(S.sel)).lead);ok('lead passenger reaches the confirmation'+W,lead==='Example Lead',lead);
 const names=await p.evaluate(()=>{const b=document.querySelector('[id^="scr_names_"]');return b?b.value:''});
-await p.click('[data-act="openConf"]');await p.waitForTimeout(1200);
+await p.click('#tripStepBar [data-tstep="4"]');await p.waitForTimeout(400);await p.click('[data-act="openConf"]');await p.waitForTimeout(1200);
 ok('confirmation: a trip leg has no Remove and a locked positioning box'+W,await p.evaluate(()=>!document.querySelector('[data-act="confDelLeg"][data-i="0"]')&&!!(document.getElementById('cl_0_pos')||{}).disabled));
 await p.click('[data-act="confAddLeg"]',{timeout:5000});await p.waitForTimeout(600);
 const al=await p.evaluate(()=>({pos:S.confDraft.legs[S.confDraft.legs.length-1].pos,row:!!document.getElementById('cl_1_pos'),locked:!!(document.getElementById('cl_1_from')||{}).readOnly}));

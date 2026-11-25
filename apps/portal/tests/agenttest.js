@@ -7,7 +7,7 @@ const {chromium}=require('playwright');
 const b=await chromium.launch();const errs=[];
 for(const w of [390,1300]){
   const ctx=await b.newContext({viewport:{width:w,height:900}});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(w+': '+e.message));
-  await p.goto('http://localhost:8765/test.html?as=owner');await p.waitForTimeout(3500);
+  await p.goto('http://localhost:8765/test.html?steps=all&as=owner');await p.waitForTimeout(3500);
   await p.evaluate(()=>{S.view='prospects';S.pSec='sales';render();});await p.waitForTimeout(800);
   ok(w+': the Director sees the Research agent in Prospects',!!(await p.$('#agentBox'))&&/Research agent · off/.test(await p.textContent('#agentBox summary')));
   await p.evaluate(()=>{document.getElementById('agentBox').open=true;});await p.waitForTimeout(200);
@@ -30,7 +30,7 @@ for(const w of [390,1300]){
   ok(w+': no sideways scroll',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   await ctx.close();
   const c2=await b.newContext({viewport:{width:w,height:900}});const q=await c2.newPage();q.on('pageerror',e=>errs.push(w+' broker: '+e.message));
-  await q.goto('http://localhost:8765/test.html?as=broker');await q.waitForTimeout(3500);await q.evaluate(()=>{S.view='prospects';render();});await q.waitForTimeout(600);
+  await q.goto('http://localhost:8765/test.html?steps=all&as=broker');await q.waitForTimeout(3500);await q.evaluate(()=>{S.view='prospects';render();});await q.waitForTimeout(600);
   ok(w+': brokers do not see the agent',!(await q.$('#agentBox')));await c2.close();
 }
 ok('no page errors',errs.length===0,errs);console.log(fails?fails+' FAILED':'ALL PASS');await b.close();process.exit(fails?1:0)})();

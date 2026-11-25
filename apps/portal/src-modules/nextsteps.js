@@ -87,9 +87,9 @@
       {title: "Client and trip", who: "Broker", items: A},
       {title: "Operator quote", who: "Broker", items: B},
       {title: "Checks and documents", who: "Broker", items: C},
-      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true], [!!(typeof c24Of === "function" && c24Of(t) && c24Of(t).op && c24Of(t).handler), "24-hour contacts: the operator's operations desk and the handler at departure", "sec|sec24", true]], note: cf.err.length ? cf.err.join(" ") : ""},
+      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true], [!!((d.book || {}).rtbAt && (d.book || {}).holdUntil), "Request to Book sent on Avinode and the operator's hold recorded", "sec|secRtb", false], [!!(typeof c24Of === "function" && c24Of(t) && c24Of(t).op && c24Of(t).handler), "24-hour contacts: the operator's operations desk and the handler at departure", "sec|sec24", true]], note: cf.err.length ? cf.err.join(" ") : ""},
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
-      {title: "Authorisation", who: "Director or a mandated person", items: [
+      {title: "Authorise and issue", who: "Director or a mandated person", items: [
         /* taken over from the broker's records at Issue; open only when the broker's record is missing (workflow audit 25 Nov 2026) */
         [num(st.opPrice) > 0 || num((d.quote || {}).opPrice) > 0, "Operator price: the broker's quote (check it against Avinode; change it under Authorisation only if it differs)", "el|o_op", true],
         [!!st.kyc || (typeof kycState === "function" && kycState(t).ok), "KYC: the broker's record" + (typeof kycState === "function" && !kycState(t).ok ? " is missing: " + kycState(t).why : ""), "el|o_kyc", true],

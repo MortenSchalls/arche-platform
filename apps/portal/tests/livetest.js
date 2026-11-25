@@ -5,7 +5,7 @@ const stub=`window.__rtLib={createClient(){return{channel(name){const h={};const
 async function mk(who,as,w){const ctx=await b.newContext({viewport:{width:w,height:900}});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
  await p.exposeFunction('__relay',async(from,ev,payload)=>{if(ev==='dom')sizes.push(payload.z.length);for(const [k,o] of Object.entries(pages)) if(k!==from) await o.evaluate(([e,pl])=>window.__deliver&&window.__deliver(e,pl),[ev,payload]).catch(()=>{});});
  await p.addInitScript(`window.__who=${JSON.stringify(who)};`+stub);
- await p.goto('http://localhost:8765/test.html?as='+as);await p.waitForTimeout(2500);pages[who]=p;p.__errs=errs;return p;}
+ await p.goto('http://localhost:8765/test.html?steps=all&as='+as);await p.waitForTimeout(2500);pages[who]=p;p.__errs=errs;return p;}
 const M=await mk('morten','owner',1400), N=await mk('natalia','broker',390);
 await M.click('#lvShare');await M.waitForTimeout(800);
 const code=await M.evaluate(()=>window.__live.code);ok('sharer gets an 8-letter code',/^[A-Z2-9]{8}$/.test(code),code);

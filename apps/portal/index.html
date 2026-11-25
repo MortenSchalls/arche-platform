@@ -928,7 +928,7 @@ function opsBlock(t){
       <div class="row">
         ${!st.clientPaid ? (st.signed || !st.confIssued ? `<label class="f" for="o_cpd">Client payment cleared on<input type="date" id="o_cpd"></label><button class="btn small" type="button" data-act="clientPaid">Record client payment</button>` : `<p class="small muted">Record the client's payment once the signed contract is saved above.</p>`) : ""}
         ${st.clientPaid && !st.operatorPaid ? `<label class="f" for="o_opd">Operator paid from the payment account on<input type="date" id="o_opd"></label><button class="btn small" type="button" data-act="operatorPaid">Record operator payment</button>` : ""}
-        ${st.clientPaid && !st.flownDate ? `<label class="f" for="o_fl">Last leg flown on<input type="date" id="o_fl"></label><button class="btn small" type="button" data-act="flown">Record flight</button>` : ""}
+        ${st.clientPaid && !st.flownDate ? `<label class="f" for="o_fl">Last leg flown on<input type="date" id="o_fl" value="${esc((() => { try { const f = flownOf(t), n = legsOf(t).length, x = f[n - 1] || {}; return (x.on || "").slice(0, 10); } catch(e){ return ""; } })())}">${(() => { try { const f = flownOf(t), x = f[legsOf(t).length - 1] || {}; return x.on ? `<span class="small muted">From the broker's Route flown (on block, UTC)</span>` : ""; } catch(e){ return ""; } })()}</label><button class="btn small" type="button" data-act="flown">Record flight</button>` : ""}
       </div>` : ""}
     ${stage !== "cancelled" && stage !== "flown" ? `<div class="row"><button class="btn danger small" type="button" data-act="cancelAsk">Cancel trip</button></div><div id="cancelBox"></div>` : ""}
   </div>`;
@@ -3584,7 +3584,7 @@ const TB_Q = {
   ocLines: o => [["ac", "Aircraft and registration", `${o.type} · ${o.reg}`, "ok"], ["legs", "Leg, date and passengers", "As requested", "ok"],
     ["price", "Price", `${usd(o.price + 1800)}, including a handling surcharge of USD 1,800`, "bad", `The operator quoted ${usd(o.price)}. Ask it to correct the contract to its quote; never add the difference to the client price without telling the client.`],
     ["pay", "Payment terms", "30% when the contract is signed, 70% 10 days before departure", "ok", "Earlier than our 7 days, which is allowed: the client then pays earlier, and the confirmation prints this booking's own schedule (A3)."],
-    ["cancel", "Cancellation charges", "20% from signing, 50% under 14 days, 100% under 72 hours", "ok", "Allowed: the client pays the higher of our scale (A9) and the operator's charge plus our fee, shown on the confirmation."],
+    ["cancel", "Cancellation charges", "20% from signing, 50% under 14 days, 100% under 72 hours", "ok", "Allowed: the client pays the higher of our cancellation charges (A9) and the operator's charge plus our fee, shown on the confirmation."],
     ["ins", "Insurance certificate", "Passenger liability USD 25,000,000, valid past the flight date, aircraft on it", "bad", "A jet needs at least USD 50M (25M is the turboprop minimum). Ask for a certificate of at least USD 50M, valid on the flight date, with the aircraft and route covered, confirmed with the insurer or its broker."]],
   ocDec: [["sign", "Sign it now, so the aircraft is secured"], ["fix", "Ask the operator to correct the price to its quote and send a certificate of at least USD 50M confirmed with the insurer; record its terms; sign only once the client has signed and paid what the operator wants at that point"], ["pass", "Accept it and add the USD 1,800 to the client price"]],
   cfWhy: [["new", "The client is new to Archē"], ["op", "The operator wants 30% of its price when its contract is signed, and Archē never pre-funds the operator"], ["fee", "Archē's fee is higher on this trip"]],
@@ -5122,7 +5122,9 @@ document.addEventListener("submit", async e => {
       { const q0 = (r.quotes || []).find(x => x.pid === A.pid) || {}; if (await gateHold("supplier", id + "-award-" + A.pid, "award", `Award ${r.ref} to ${A.org}${q0.usd ? ", " + usd(q0.usd) : ""}`, reason)) return; }
       const q = (r.quotes || []).find(x => x.pid === A.pid); if (!q) return;
       await sqSet(id, {...r, status: "awarded", award: {pid: q.pid, org: q.org, usd: q.usd, reason: reason.slice(0, 300), by: S.uid, at: now()}, log: sqLog(r, `Awarded to ${q.org} for ${usd(q.usd)}${reason ? ": " + reason : ""}`)});
-      audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Authorisation."); return;
+      audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null;
+      let tail = ""; try { tail = typeof sqAwardToTrip === "function" ? await sqAwardToTrip(r, q) : ""; } catch(e){ tail = " Add the cost to the trip: it could not be added by itself."; }
+      toast("Awarded." + (tail || (r.trip ? "" : " No trip linked: add the cost to the trip yourself."))); return;
     }
   } catch (err) { toast(err.code === "permission_denied" ? "Supplier quotes are not set up yet (run 0006 in Supabase)." : "Could not save. Try again."); }
 });
@@ -7260,9 +7262,9 @@ document.addEventListener("change", async e => {
       {title: "Client and trip", who: "Broker", items: A},
       {title: "Operator quote", who: "Broker", items: B},
       {title: "Checks and documents", who: "Broker", items: C},
-      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true], [!!(typeof c24Of === "function" && c24Of(t) && c24Of(t).op && c24Of(t).handler), "24-hour contacts: the operator's operations desk and the handler at departure", "sec|sec24", true]], note: cf.err.length ? cf.err.join(" ") : ""},
+      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true], [!!((d.book || {}).rtbAt && (d.book || {}).holdUntil), "Request to Book sent on Avinode and the operator's hold recorded", "sec|secRtb", false], [!!(typeof c24Of === "function" && c24Of(t) && c24Of(t).op && c24Of(t).handler), "24-hour contacts: the operator's operations desk and the handler at departure", "sec|sec24", true]], note: cf.err.length ? cf.err.join(" ") : ""},
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
-      {title: "Authorisation", who: "Director or a mandated person", items: [
+      {title: "Authorise and issue", who: "Director or a mandated person", items: [
         /* taken over from the broker's records at Issue; open only when the broker's record is missing (workflow audit 25 Nov 2026) */
         [num(st.opPrice) > 0 || num((d.quote || {}).opPrice) > 0, "Operator price: the broker's quote (check it against Avinode; change it under Authorisation only if it differs)", "el|o_op", true],
         [!!st.kyc || (typeof kycState === "function" && kycState(t).ok), "KYC: the broker's record" + (typeof kycState === "function" && !kycState(t).ok ? " is missing: " + kycState(t).why : ""), "el|o_kyc", true],
@@ -8951,7 +8953,7 @@ function trustMatrix(){
 
   // ---------- operations before issue ----------
   window.bookNeeds = function(t, validDate){
-    const st = t.st || {}, b = st.book || {}, out = [];
+    const st = t.st || {}, b = {...((t.d || {}).book || {}), ...Object.fromEntries(Object.entries(st.book || {}).filter(([, v]) => v))}, out = [];   // the broker records Request to Book and the hold; the Director checks the contract
     if (!b.rtbAt) out.push("Request to Book sent on Avinode");
     if (!b.holdUntil) out.push("how long the operator holds the aircraft");
     if (!docOf(t.d, "Operator contract")) out.push("the operator's contract attached (document type Operator contract)");
@@ -9139,7 +9141,7 @@ function trustMatrix(){
   function bookBlock(t){
     if (!isStaff() || S.preview || !t.d.opTerms || !["review","issued","clientPaid","flown"].includes(t.stage)) return "";
     if (typeof ownTrip === "function" && ownTrip(t)) return "";
-    const st = t.st || {}, b = st.book || {}, issued = !!st.confIssued, pl = bookingPlan(t), m = money(t), f = pl.f;
+    const st = t.st || {}, b = {...((t.d || {}).book || {}), ...Object.fromEntries(Object.entries(st.book || {}).filter(([, v]) => v))}, issued = !!st.confIssued, pl = bookingPlan(t), m = money(t), f = pl.f;
     const own = S.isOwner && acting() === "owner", can = staffOn(t);
     const dt = v => { if (!v) return ""; const x = new Date(v); return isNaN(x) ? "" : new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 16); };   // shown in local time
     const need = bookNeeds(t);
@@ -9930,11 +9932,16 @@ document.addEventListener("click", async ev => {
     if (a === "copy") { try { await navigator.clipboard.writeText(optionsText(t)); toast("Options copied. Paste them into your email or WhatsApp to the client."); } catch(e){ toast("Could not copy here."); } return; }
     if (a === "del") { alts.splice(i, 1); await deskWrite(t, {alts}, "Option removed"); toast("Option removed."); return; }
     if (a === "main") { const q = t.d.quote || {}, alt = alts[i]; if (!alt) return;
-      const old = {operator: q.operator || "", opCountry: q.opCountry || "", aircraft: q.aircraft || "", audit: q.audit || "", opPrice: num(q.opPrice), direct: num(q.directOwn ?? q.direct)};
+      /* the operator's own records travel with it (duplicates, 25 Nov 2026): safety record, operator terms, AOC, year, seats
+         and registration go to the option it came from and come back when it is made main again; nothing typed twice */
+      const old = {operator: q.operator || "", opCountry: q.opCountry || "", aircraft: q.aircraft || "", audit: q.audit || "", opPrice: num(q.opPrice), direct: num(q.directOwn ?? q.direct), tail: q.tail || "", aoc: q.aoc || "", yom: q.yom || "", seats: q.seats || "", safety: t.d.safety || null, opTerms: t.d.opTerms || null};
+      const same = String(alt.operator || "").trim().toLowerCase() === String(q.operator || "").trim().toLowerCase();
       const own = num(alt.direct), pc = payCostOf(alt.opPrice, own, "USD", !!q.card);
-      const quote = {...q, operator: alt.operator, opCountry: alt.opCountry || "", aircraft: alt.aircraft, audit: alt.audit || "", tail: "", opPrice: num(alt.opPrice), directOwn: own, direct: own + pc.total, payFx: pc.fx, payCard: pc.card, cur: "USD"};
+      const quote = {...q, operator: alt.operator, opCountry: alt.opCountry || "", aircraft: alt.aircraft, audit: alt.audit || "", tail: alt.tail || "", aoc: alt.aoc || (same ? q.aoc || "" : ""), yom: alt.yom || "", seats: alt.seats || "", opPrice: num(alt.opPrice), directOwn: own, direct: own + pc.total, payFx: pc.fx, payCard: pc.card, cur: "USD"};
       delete quote.curAmt; delete quote.rate; alts[i] = old;
-      await deskWrite(t, {quote, alts}, `Main option changed to ${alt.aircraft} (${alt.operator})`); toast("Main option changed. Its trip checks and operator safety now apply."); return; }
+      const safety = alt.safety || (same ? {...(t.d.safety || {}), aircraft: alt.aircraft} : null), opTerms = alt.opTerms || (same ? t.d.opTerms || null : null);
+      await deskWrite(t, {quote, alts, safety, opTerms}, `Main option changed to ${alt.aircraft} (${alt.operator})`);
+      toast(safety && opTerms ? "Main option changed. Its operator safety record and terms came with it; check the aircraft details." : same ? "Main option changed. Same operator: its safety record and terms stay; check the aircraft details." : `Main option changed. ${alt.operator} needs its own operator safety record and terms (step 3).`); return; }
   });
   document.addEventListener("submit", async ev => {
     if (ev.target.id !== "altForm") return; ev.preventDefault();
@@ -10012,14 +10019,18 @@ document.addEventListener("click", async ev => {
     const op = s.match(/(?:operator|operated by|aoc holder)\s*[:\-]?\s*([A-Z][^\n,;]{2,60})/i); if (op) out.operator = op[1].trim();
     const av = s.match(/(?:trip\s*(?:id|no\.?|number)|avinode[^\n\d]{0,20})\s*[:#]?\s*([A-Z0-9-]{5,20})/i); if (av) out.avinode = av[1];
     const tails = [...s.matchAll(TAIL)].map(m => m[1]).filter(x => x !== out.avinode && !/^(AVN|USD|EUR|GBP|ID)/.test(x)); if (tails.length) out.tail = tails[0];
+    // asked once (duplicates, 25 Nov 2026): year built, seats and the AOC number go to the quote and from there to the confirmation
+    const yr = s.match(/(?:year(?: of manufacture| built)?|yom|built|manufactured)\s*[:\-]?\s*((?:19|20)\d{2})\b/i); if (yr) out.yom = yr[1];
+    const se = s.match(/(?:seats|passenger seats|max(?:imum)? (?:pax|passengers)|pax capacity|capacity)\s*[:\-]?\s*(\d{1,2})\b/i) || s.match(/\b(\d{1,2})\s*(?:seats|seater)\b/i); if (se) out.seats = se[1];
+    const ao = s.match(/\bAOC\s*(?:no\.?|number|nr\.?|#)?\s*[:\-]?\s*([A-Z0-9][A-Z0-9.\/-]{2,24})/i); if (ao && !/^holder$/i.test(ao[1])) out.aoc = ao[1].replace(/[.,]$/, "");
     return out;
   }
   function fill(p){
     const set = (id, v) => { const el = $(id); if (el && v !== undefined && v !== "" && !el.value) { el.value = v; el.classList.add("filled"); } };
-    set("q_op", p.operator); set("q_ac", p.aircraft); set("q_tl", p.tail); set("q_av", p.avinode);
+    set("q_op", p.operator); set("q_ac", p.aircraft); set("q_tl", p.tail); set("q_av", p.avinode); set("q_yom", p.yom); set("q_seats", p.seats); set("q_aoc", p.aoc);
     if (p.amount) { if (p.cur && p.cur !== "USD" && $("q_cur")) { $("q_cur").value = p.cur; if (typeof curSync === "function") curSync(); set("q_amt", p.amount); } else set("q_pr", p.amount); }
     if (typeof updatePreview === "function") try { updatePreview(); } catch (e) {}
-    return ["operator", "aircraft", "tail", "avinode", "amount"].filter(k => p[k]).length;
+    return ["operator", "aircraft", "tail", "avinode", "amount", "yom", "seats", "aoc"].filter(k => p[k]).length;
   }
   const _open = openEditor;
   openEditor = function(t){
@@ -10227,6 +10238,268 @@ function avinodeBox(t){
       if (!t.d.avReqAt && t.bid === S.uid) { try { await deskWrite(t, {avReqAt: now()}, "Avinode quote request copied"); } catch(e){} }
     }
   }, true);
+})();
+/* ---------- Request to Book by the broker (Morten, 25 Nov 2026: "Request to Book by the broker" in the duplicates to
+   remove) ----------
+   The broker sends Request to Book on Avinode, so the broker records it, with how long the operator holds the aircraft and
+   the operator's contract when it arrives, before sending for authorisation. The Director, or a person the Director has
+   mandated, only checks that the contract matches the operator terms (the four-eyes step) and can correct the dates.
+   Stored with the trip (d.book), as brokers cannot write the authorisation record. */
+function brokerBookBlock(t, can){
+  const b = (t.d || {}).book || {}, dt = v => { if (!v) return ""; const x = new Date(v); return isNaN(x) ? "" : new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 16); };
+  const hasC = (t.d.docs || []).some(x => x.kind === "Operator contract");
+  return `<div class="panel" id="secRtb" style="padding:14px 16px;margin:8px 0"><h3 style="margin-top:0">Request to Book</h3>
+    <p class="small muted" style="margin:0 0 6px">When the client accepts the quote, send Request to Book on Avinode and record it here. The Director checks the operator's contract against the operator terms before issue.</p>
+    <div class="fgrid"><label class="f" for="rb_rtb">Request to Book sent on Avinode<input type="datetime-local" id="rb_rtb" data-rb="rtbAt" value="${esc(dt(b.rtbAt))}" ${can ? "" : "disabled"}></label>
+    <label class="f" for="rb_hold">The operator holds the aircraft until<input type="datetime-local" id="rb_hold" data-rb="holdUntil" value="${esc(dt(b.holdUntil))}" ${can ? "" : "disabled"}></label></div>
+    <p class="small" style="margin:6px 0 0">${hasC ? "✓ The operator's contract is attached (Documents)." : `The operator's contract: ${can ? `<button class="btn small" type="button" data-dq="Operator contract">Attach the operator's contract</button>` : "not attached yet"}`}</p></div>`;
+}
+(function(){
+  const _tf = tripFile;
+  tripFile = function(t){
+    const h = _tf(t); if (!t || !(t.d || {}).quote || !num(t.d.quote.opPrice) || ["cancelled"].includes(t.stage)) return h;
+    const mine = t.bid === S.uid && !S.preview, can = mine && ["enquiry", "quoted", "returned"].includes(t.stage);
+    if (!mine && !(t.d.book || {}).rtbAt) return h;
+    return h.replace(`<div><h3>History</h3>`, brokerBookBlock(t, can) + `<div><h3>History</h3>`);
+  };
+  document.addEventListener("change", async ev => {
+    const el = ev.target.closest && ev.target.closest("[data-rb]"); if (!el) return;
+    const t = tripById(S.sel); if (!t || t.bid !== S.uid) return;
+    const v = el.value ? new Date(el.value).toISOString() : "";
+    try { await deskWrite(t, {book: {...(freshTrip(t).d.book || {}), [el.dataset.rb]: v, by: S.uid}}, el.dataset.rb === "rtbAt" ? "Request to Book sent on Avinode" : `The operator holds the aircraft until ${el.value.replace("T", " ")}`); toast("Saved."); }
+    catch(e){ toast("Could not save. Try again."); }
+  });
+})();
+/* ---------- Supplier quotes take the trip's facts, and an awarded quote goes into the trip's price (Morten, 25 Nov
+   2026: duplicates to remove, "supplier quote prefill") ----------
+   Choosing the trip on a new supplier request fills the service date, aircraft, passengers and times from the trip and
+   picks the trip's airport when it is in the list; the person checks and changes what differs. When a quote for a trip
+   is awarded before the confirmation is issued, its amount is added to the trip's direct trip costs (cost ÷ 0.91 like
+   every cost), once, with the request reference; after issue it is a cost beyond the price for the Director. */
+(function(){
+  document.addEventListener("change", ev => {
+    if (!ev.target || ev.target.id !== "rq_trip") return;
+    const tv = ev.target.value, t = tv ? allTrips().find(x => x.bid + "|" + x.did === tv) : null; if (!t) return;
+    const legs = ((t.d.trip || {}).legs || []), q = t.d.quote || {}, ap = $("rq_ap"), set = (id, v) => { const el = $(id); if (el && v && !el.value) { el.value = v; el.classList.add("filled"); } };
+    let leg = legs[0] || {};
+    if (ap) { const opts = [...ap.options].map(o => o.value).filter(Boolean); const hit = legs.find(l => opts.some(o => o.includes(l.to) || o.includes(l.from))); if (hit) { const o = opts.find(o => o.includes(hit.to)) || opts.find(o => o.includes(hit.from)); if (o && !ap.value) { ap.value = o; ap.dispatchEvent(new Event("change", {bubbles: true})); } leg = hit; } }
+    setTimeout(() => { set("rq_date", leg.date); set("rq_ac", q.aircraft); set("rq_pax", leg.pax); set("rq_dep", leg.time ? leg.time + " local" : ""); }, 60);
+  });
+  window.sqAwardToTrip = async function(r, q){
+    if (!r || !r.trip || !q) return "";
+    const t = allTrips().find(x => x.bid === r.trip.bid && x.did === r.trip.did); if (!t) return "";
+    const done = (t.d.supplierCosts || []).some(x => x.rq === r.ref); if (done) return "";
+    if ((t.st || {}).confIssued || !["enquiry", "quoted", "returned", "submitted", "review"].includes(t.stage)) return " The confirmation is issued: the Director adds it under Costs beyond the price.";
+    const qq = {...(t.d.quote || {})}, own = num(qq.directOwn ?? qq.direct) + num(q.usd), pc = payCostOf(num(qq.opPrice), own, qq.cur || "USD", !!qq.card);
+    Object.assign(qq, {directOwn: own, direct: own + pc.total, payFx: pc.fx, payCard: pc.card});
+    await deskWrite(t, {quote: qq, supplierCosts: [...(t.d.supplierCosts || []), {rq: r.ref, org: q.org, usd: num(q.usd), at: now(), by: S.uid}]}, `Supplier cost added to the direct trip costs: ${q.org} ${usd(num(q.usd))} (${r.ref})`);
+    return ` ${usd(num(q.usd))} added to the trip's direct trip costs.`;
+  };
+})();
+/* ---------- A ? with one plain sentence on every booking field and on our own words (Morten, 25 Nov 2026: "Some
+   wording is still ours, not the user's ("A9 scale", "four-eyes", "positioning legs") and needs a ? help line everywhere,
+   as in Books") ----------
+   Every field of the enquiry, the quote, the intake checklist, the trip file and the charter confirmation gets a ? that
+   opens one sentence in plain words, as in Books. Terms from our terms of business and the trade (A3, A7, A9, B13, AOC,
+   KYC, cabotage, positioning, Request to Book ...) get the same ? where they first appear in a block. Nothing else on the
+   page changes. */
+const FIELD_HELP = {
+  e_cn: "The person you deal with. For a company, the person who asked for the flight.",
+  e_co: "The company or family office that charters, if any. It is checked against the sanctions lists.",
+  e_em: "The client's email, for the quote and the confirmation.",
+  e_ph: "The client's phone, with the country code.",
+  e_ct: "Where the client lives. Needed for the sanctions check and the KYC.",
+  e_py: "Fill in only when someone else pays (a company, a relative). A different payer needs its own checks.",
+  e_cat: "The size of aircraft the client wants or the trip needs, for the Avinode search.",
+  e_nt: "Anything the client asked for: catering, cars, pets, children, allergies, special luggage. It goes into the Avinode request.",
+  e_ilead: "The person who travels and leads the group. Printed on the confirmation and screened.",
+  e_ibook: "An assistant or office that books for the client: name and how to reach them.",
+  e_iflex: "How far the dates or times may move. Operators can often quote lower with some room.",
+  e_ikids: "How many children and infants travel. Infants may need their own seat on some aircraft.",
+  e_inat: "The countries of the passports, for entry rules and permits. Countries only, never a passport number.",
+  e_ibags: "Golf bags, skis, bikes, oversize cases: they decide the aircraft size.",
+  e_ipets: "Kind, size and whether it travels in the cabin. Many countries need papers before arrival.",
+  e_ipurp: "Some permits ask why the flight is made (leisure, business, government).",
+  e_ibudg: "Only if the client gave one. It helps choose the aircraft; never shown to operators.",
+  e_ipay: "Card or bank transfer. Card adds the card fee to the price, and ticks it on the quote.",
+  e_isrc: "How the enquiry reached you. It counts in your figures and the reports.",
+  q_op: "The operator's legal name exactly as on its Air Operator Certificate (AOC), not its trading name.",
+  q_oc: "The country that issued the operator's AOC. Used for the cabotage check (domestic flights by foreign operators).",
+  q_ac: "The aircraft type in the operator's quote, e.g. Global 7500.",
+  q_tl: "The aircraft's registration, e.g. 9H-ABC. Used for tracking and the safety and insurance checks.",
+  q_aoc: "The number on the operator's Air Operator Certificate. Printed on the confirmation.",
+  q_yom: "The year the aircraft was built, from the quote. Printed on the confirmation.",
+  q_seats: "Passenger seats in this aircraft, from the quote. Checked against the passengers.",
+  q_av: "The trip number in Avinode, so the quote can be found again.",
+  q_cur: "The currency the operator quoted in. Converting adds 0.4% to the costs.",
+  q_amt: "The operator's price in its own currency.",
+  q_rate: "US dollars for one unit of that currency. The portal suggests the European Central Bank rate of the day.",
+  q_pr: "What the operator charges, all in, in US dollars. The client price is worked out from it.",
+  q_dc: "Costs Archē pays outside the operator's price (e.g. a supplier's catering). Charged like the price.",
+  q_card: "Ticked when the client pays by card. The card fee (3.6%) goes into the price, never on top.",
+  ck_payref: "The reference of the payment request made in our payment provider. Never a bank or card number.",
+  kyc_at: "The day you checked who the client is (and, for a company, its owners).",
+  kyc_how: "How you checked: e.g. passport seen on a video call, company register extract.",
+  c24_op: "The operator's operations desk, reachable day and night during the trip.",
+  c24_h: "The ground handler at the departure airport, reachable on the day.",
+  rb_rtb: "When you sent Request to Book on Avinode: the step that asks the operator to hold the aircraft for you.",
+  rb_hold: "Until when the operator keeps the aircraft for this client. The offer to the client must end before it.",
+  docKind: "What the file is. The portal uses the type to tick checks (AOC, insurance, safety audit).",
+  docFile: "Choose the file. It is stored with this trip and checked before the portal says Saved.",
+  cf_address: "The charterer's address as on the company register or ID, printed on the confirmation.",
+  cf_cName: "The person who signs the confirmation for the charterer.",
+  cf_lead: "The lead passenger's name as on the passport.",
+  cf_aoc: "From the quote. Change it there.",
+  cf_yom: "From the quote. Change it there.",
+  cf_seats: "From the quote. Change it there.",
+  cf_audit: "From Operator safety. Change it there.",
+  cf_kyc: "From the KYC record on the trip. Change it there.",
+  cf_state: "The country of the operator's AOC, from the quote.",
+  bk_rtb: "When Request to Book was sent on Avinode (asks the operator to hold the aircraft).",
+  bk_hold: "Until when the operator holds the aircraft for this client.",
+  o_op: "The operator's price as shown on Avinode. Change it only if it differs from the broker's quote.",
+  o_dir: "Direct trip costs Archē pays outside the operator's price.",
+  o_pn: "The payment request reference, from the broker's record.",
+  o_cpd: "The day the client's money arrived in our account, not the day it was sent.",
+  o_opd: "The day the operator was paid from the client money.",
+  o_fl: "The day the last leg landed. Filled from the broker's Route flown when recorded."
+};
+const GLOSS = [
+  [/\bA3\b/, "A3: the clause in our terms with this booking's payment dates."],
+  [/\bA7\b/, "A7: the clause in our terms on costs beyond the price, such as extra catering, charged like the price."],
+  [/\bA9\b/, "A9: the clause in our terms with the client's cancellation charges. The client pays the higher of ours and the operator's own plus our fee."],
+  [/\bB13\b/, "B13: costs after the first departure from something nobody could foresee then (such as a diversion), charged at cost."],
+  [/\bAOC\b/, "AOC: Air Operator Certificate, the licence that lets an operator fly paying passengers."],
+  [/\bKYB\b/, "KYB: knowing who a company is: its register entry, owners of 25% or more and who controls it."],
+  [/\bKYC\b/, "KYC: knowing who the client is, checked once and refreshed every 12 months or when something changes."],
+  [/\bcabotage\b/i, "Cabotage: a flight inside one country by a foreign operator, which most countries do not allow."],
+  [/\bpositioning\b/i, "Positioning: a flight without passengers, to bring the aircraft to the client or back to its base."],
+  [/\bRequest to Book\b/, "Request to Book: the step on Avinode that asks the operator to hold the aircraft for this client."],
+  [/\bfour[- ]eyes\b/i, "A second person checks: nobody prices, approves, issues or records money on their own trip."],
+  [/\bon block\b|\boff block\b/i, "Off block: the aircraft moves off its parking place. On block: it parks at the destination."],
+  [/\bArchē fee\b/, "Archē fee: a fixed 9% of what the client pays. Client price = (operator price + direct costs) ÷ 0.91."]
+];
+(function(){
+  let busy = false;
+  function addHelp(){
+    const main = $("main"); if (!main || busy) return; busy = true;
+    try {
+      main.querySelectorAll("label.f[for], label.check[for]").forEach(l => {
+        const id = l.getAttribute("for"), tip = FIELD_HELP[id]; if (!tip || l.dataset.fh) return; l.dataset.fh = "1";
+        const b = document.createElement("button"); b.type = "button"; b.className = "bkq fh"; b.setAttribute("aria-label", "What is this?"); b.dataset.fhq = id; b.textContent = "?";
+        const t = document.createElement("span"); t.className = "bkqt small"; t.hidden = true; t.id = "fh_" + id; t.textContent = tip;
+        const first = l.querySelector("input,select,textarea"); if (first) { l.insertBefore(b, first); l.insertBefore(t, first); } else { l.appendChild(b); l.appendChild(t); }
+      });
+      // our own words: a ? after the first one in each block of text
+      const blocks = main.querySelectorAll("#secTC p, #secTC li, #secSafety p, #secOpTerms p, #secBook p, #secAuth p, #secNext li, .ns-items li, #secChecks span, #secRtb p, #secAvinode p, .note, #confForm p, #routePanel p, #secAfter p");
+      let n = 0;
+      blocks.forEach(el => {
+        if (el.dataset.gl || n > 40) return; el.dataset.gl = "1";
+        const txt = el.textContent || "", hit = GLOSS.find(([re]) => re.test(txt)); if (!hit) return;
+        n++; const b = document.createElement("button"); b.type = "button"; b.className = "bkq fh"; b.setAttribute("aria-label", "What does this mean?"); b.textContent = "?";
+        const t = document.createElement("span"); t.className = "bkqt small"; t.hidden = true; t.textContent = hit[1];
+        el.appendChild(b); el.appendChild(t);
+      });
+    } finally { busy = false; }
+  }
+  let q = 0; const kick = () => { if (q) return; q = requestAnimationFrame(() => { q = 0; addHelp(); }); };
+  new MutationObserver(kick).observe(document.documentElement, {childList: true, subtree: true});
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest && ev.target.closest("button.fh"); if (!b) return;
+    ev.preventDefault(); ev.stopPropagation(); const t = b.nextElementSibling; if (t && t.classList.contains("bkqt")) t.hidden = !t.hidden;
+  }, true);
+})();
+/* ---------- The trip, one step at a time (Morten, 25 Nov 2026: "Fix this now ... The trip is one long page with about
+   12 panels ... Best in class is a guided path: one step on screen at a time, the next one unlocking when it is done ...
+   On a phone the long trip page is heavy") ----------
+   The trip file shows a bar of the eight booking steps and only the panels of the step chosen; it opens on the step that
+   is due. Done steps carry a tick, the step due is marked, later steps can still be opened to look ahead. The header, the
+   Steps list for the chosen step, the action row and the history (folded) stay on every step. "Show every section" puts
+   the whole file on one page again. A "Go there" in the Steps list opens the step that holds the field. */
+const TRIP_STEP_SHORT = ["Client and trip", "Operator quote", "Checks and documents", "Confirmation", "Send", "Authorise and issue", "Signature and payment", "Flight and follow-up"];
+const TRIP_STEP_OF_ID = {secRtb: "4", secAvinode: "2", secOptions: "2", secTC: "3", secSafety: "3", secOpTerms: "3", secChecks: "3", secDocs: "3", sec24: "4", secConfRow: "4", secBook: "6", secOps: "6 7 8", secSig: "7", secAfter: "8"};
+S.tripStep = S.tripStep || {}; S.tripAll = /[?&]steps=all\b/.test(location.search);
+function tripStepNow(t){ try { const s = tripSteps(t), i = s.findIndex(x => !x.done); return i < 0 ? 8 : i + 1; } catch(e){ return 1; } }
+function tripStepOf(el){
+  if (el.dataset && el.dataset.step) return el.dataset.step;
+  if (el.id === "secNext" || el.id === "secSend" || el.id === "tripStepBar" || el.classList.contains("head") || el.classList.contains("lock") || el.classList.contains("note")) return "all";
+  if (TRIP_STEP_OF_ID[el.id]) return TRIP_STEP_OF_ID[el.id];
+  for (const id in TRIP_STEP_OF_ID) if (el.querySelector("#" + id)) return TRIP_STEP_OF_ID[id];
+  if (el.querySelector('[data-act="openConf"]')) return "4";
+  const h = ((el.querySelector("h2, h3") || {}).textContent || "").trim();
+  if (/^(Client|Trip|Client requests|Operational extras)/.test(h)) return "1";
+  if (/^Price at|^Trip co-pilot|^AI/.test(h)) return "2";
+  if (/^History/.test(h)) return "hist";
+  return "all";
+}
+(function(){
+  const _tf = tripFile;
+  tripFile = function(t){
+    const html = _tf(t); if (!t || t.stage === "cancelled") return html;
+    const tpl = document.createElement("template"); tpl.innerHTML = html.trim();
+    const root = tpl.content.firstElementChild; if (!root) return html;
+    const steps = (() => { try { return tripSteps(t); } catch(e){ return []; } })();
+    const now = tripStepNow(t), cur = S.tripAll ? 0 : (S.tripStep[t.did] || now);
+    [...root.children].forEach(el => {
+      const s = tripStepOf(el);
+      if (s === "hist") { const d = document.createElement("details"); d.className = "trip-hist"; d.innerHTML = `<summary class="small" style="cursor:pointer">History</summary>`; el.querySelector("h3") && el.querySelector("h3").remove(); d.appendChild(el.cloneNode(true)); el.replaceWith(d); return; }
+      if (s === "all") return;
+      el.dataset.step = s;
+      if (cur && !s.split(" ").includes(String(cur))) el.hidden = true;
+    });
+    /* one "Authorise and issue" screen (Morten, 25 Nov 2026: "three Director screens for one decision"): the approval,
+       Booking with the operator and the check before Issue, in that order, under one heading */
+    { const ap = [...root.children].find(x => x.classList.contains("apcard") || /Approved by the Director|Waiting for the Director's approval/.test(x.textContent || "") && x.classList.contains("note"));
+      const book = root.querySelector("#secBook"), ops = root.querySelector("#secOps");
+      if (ops && !["issued", "clientPaid", "flown"].includes(t.stage)) {
+        const w = document.createElement("div"); w.id = "secAuth"; w.className = "panel stack"; w.dataset.step = "6"; w.style.background = "var(--raised)";
+        w.innerHTML = `<h2 style="margin:0">Authorise and issue</h2><p class="small muted" style="margin:0">Three parts, in order: approve the booking, book the aircraft with the operator, then check and issue. The broker's price, KYC, payment request and screening are taken over at Issue.</p>`;
+        const part = (n, el, title) => { if (!el) return; const h = el.querySelector("h2, h3"); if (h && title) h.textContent = title; const s = document.createElement("div"); s.innerHTML = `<p class="small" style="margin:8px 0 2px"><b>${n}.</b></p>`; w.appendChild(s.firstElementChild); el.hidden = false; delete el.dataset.step; w.appendChild(el); };
+        ops.replaceWith(w);
+        part(1, ap, null); part(2, book, "Book the aircraft with the operator"); part(3, ops, "Check and issue");
+        const pc = w.querySelector('#secOps [data-act="openConf"]'); if (pc) pc.textContent = "Open the confirmation and issue";
+        const sv = w.querySelector('#secOps [data-act="opsSave"]'); if (sv) sv.textContent = "Save a price change";
+        if (cur && cur !== 6) w.hidden = true;
+      }
+    }
+    // the step bar: done ticked, due step marked, the chosen one open
+    const bar = document.createElement("nav"); bar.id = "tripStepBar"; bar.className = "tstep"; bar.setAttribute("aria-label", "Booking steps");
+    bar.innerHTML = TRIP_STEP_SHORT.map((n, i) => { const k = i + 1, done = steps[i] && steps[i].done; return `<button type="button" class="tstep-b${done ? " done" : ""}${k === now ? " due" : ""}${k === cur ? " on" : ""}" data-tstep="${k}" aria-current="${k === cur ? "step" : "false"}"><span class="tstep-n">${done ? "✓" : k}</span><span class="tstep-t">${esc(n)}</span></button>`; }).join("")
+      + `<button type="button" class="tstep-all small" data-tstep="${S.tripAll ? "guided" : "all"}">${S.tripAll ? "One step at a time" : "Show every section"}</button>`;
+    const next = root.querySelector("#secNext"), head = root.querySelector(".head");
+    (next || head) ? (next || head).insertAdjacentElement(next ? "beforebegin" : "afterend", bar) : root.prepend(bar);
+    // the Steps list shows the chosen step only
+    if (next && cur) next.querySelectorAll(".ns-step").forEach((x, i) => { if (i + 1 !== cur) x.hidden = true; else x.classList.add("now"); });
+    if (cur && cur !== now && next) { const p = next.querySelector("p"); if (p) p.insertAdjacentHTML("afterend", `<p class="small muted" style="margin:2px 0 0">You are looking at step ${cur}. <button type="button" class="btn small" data-tstep="${now}">Back to the step due (${now})</button></p>`); }
+    return root.outerHTML;
+  };
+  document.addEventListener("click", ev => {
+    const b = ev.target.closest && ev.target.closest("[data-tstep]");
+    if (b) { ev.preventDefault(); const v = b.dataset.tstep, t = tripById(S.sel); if (!t) return;
+      if (v === "all") S.tripAll = true; else if (v === "guided") S.tripAll = false; else { S.tripAll = false; S.tripStep[t.did] = +v; }
+      render(); const bar = $("tripStepBar"); if (bar) { bar.scrollIntoView({block: "start"}); const on = bar.querySelector(".on"); if (on) on.scrollIntoView({inline: "center", block: "nearest"}); } return; }
+    // an approval card's "Open trip" goes straight to Authorise and issue
+    const o = ev.target.closest && ev.target.closest(".apcard [data-open]"); if (o) { const did = (o.dataset.open || "").split("|")[1]; if (did) { S.tripStep[did] = 6; S.tripAll = false; } }
+    // "Go there" to a field in another step: open that step first
+    const g = ev.target.closest && ev.target.closest("[data-ns]"); if (!g) return;
+    const go = g.dataset.ns, id = go.startsWith("sec|") || go.startsWith("el|") ? go.split("|")[1] : go.startsWith("doc|") ? "secDocs" : "";
+    const el = id && document.getElementById(id), sec = el && el.closest("[data-step][hidden]");
+    if (sec) { const t = tripById(S.sel); if (t) { S.tripStep[t.did] = +sec.dataset.step.split(" ")[0]; render(); } }
+  }, true);
+})();
+(function(){
+  const css = document.createElement("style");
+  css.textContent = `.tstep{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px;margin:4px 0 0;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.tstep-b{flex:0 0 auto;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:transparent;color:inherit;border-radius:999px;padding:6px 12px 6px 6px;font:inherit;font-size:13px;cursor:pointer;min-height:36px}
+.tstep-b .tstep-n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);font-size:12px}
+.tstep-b.done .tstep-n{background:var(--ok);border-color:var(--ok);color:#fff}
+.tstep-b.due{border-color:var(--steel)}.tstep-b.due .tstep-n{border-color:var(--steel);color:var(--steel)}
+.tstep-b.on{background:var(--steel);border-color:var(--steel);color:#fff}.tstep-b.on .tstep-n{border-color:#fff;color:#fff;background:transparent}
+.tstep-all{flex:0 0 auto;border:0;background:transparent;color:var(--steel);text-decoration:underline;cursor:pointer;padding:6px 8px;font:inherit;font-size:12px}
+.trip-hist>summary{padding:6px 0}
+[data-step][hidden],.ns-step[hidden]{display:none!important}
+@media (max-width:640px){.tstep-b .tstep-t{display:none}.tstep-b.on .tstep-t,.tstep-b.due .tstep-t{display:inline}}`;
+  document.head.appendChild(css);
 })();
 /* ---------- The Director's menu in groups (Morten, 25 Nov 2026, peer proposal P7: "All") ----------
    On a computer the Director's 19 menu items sat in two rows; peers keep five to seven. The items now sit in six groups:

@@ -12,7 +12,7 @@ const T0={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8').replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`).replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
 const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
 (async()=>{const b=await chromium.launch();const errs=[];let n=0;
- const open=async(uid,T)=>{const f=`t_h_${n++}.html`;fs.writeFileSync(f,page(uid,T));const p=await b.newPage({viewport:{width:1400,height:900}});p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/'+f);await p.waitForTimeout(4500);return p;};
+ const open=async(uid,T)=>{const f=`t_h_${n++}.html`;fs.writeFileSync(f,page(uid,T));const p=await b.newPage({viewport:{width:1400,height:900}});p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/'+f+'?steps=all');await p.waitForTimeout(4500);return p;};
  let o=await open(OWN,T0);
  await o.evaluate(()=>{S.view='team';render();});await o.waitForTimeout(300);
  ok('Team: supervisor named per supervised person', await o.evaluate(id=>document.querySelector(`[data-supby="${id}"]`).value,B1)===B2);

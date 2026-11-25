@@ -41,11 +41,16 @@
     if (a === "copy") { try { await navigator.clipboard.writeText(optionsText(t)); toast("Options copied. Paste them into your email or WhatsApp to the client."); } catch(e){ toast("Could not copy here."); } return; }
     if (a === "del") { alts.splice(i, 1); await deskWrite(t, {alts}, "Option removed"); toast("Option removed."); return; }
     if (a === "main") { const q = t.d.quote || {}, alt = alts[i]; if (!alt) return;
-      const old = {operator: q.operator || "", opCountry: q.opCountry || "", aircraft: q.aircraft || "", audit: q.audit || "", opPrice: num(q.opPrice), direct: num(q.directOwn ?? q.direct)};
+      /* the operator's own records travel with it (duplicates, 25 Nov 2026): safety record, operator terms, AOC, year, seats
+         and registration go to the option it came from and come back when it is made main again; nothing typed twice */
+      const old = {operator: q.operator || "", opCountry: q.opCountry || "", aircraft: q.aircraft || "", audit: q.audit || "", opPrice: num(q.opPrice), direct: num(q.directOwn ?? q.direct), tail: q.tail || "", aoc: q.aoc || "", yom: q.yom || "", seats: q.seats || "", safety: t.d.safety || null, opTerms: t.d.opTerms || null};
+      const same = String(alt.operator || "").trim().toLowerCase() === String(q.operator || "").trim().toLowerCase();
       const own = num(alt.direct), pc = payCostOf(alt.opPrice, own, "USD", !!q.card);
-      const quote = {...q, operator: alt.operator, opCountry: alt.opCountry || "", aircraft: alt.aircraft, audit: alt.audit || "", tail: "", opPrice: num(alt.opPrice), directOwn: own, direct: own + pc.total, payFx: pc.fx, payCard: pc.card, cur: "USD"};
+      const quote = {...q, operator: alt.operator, opCountry: alt.opCountry || "", aircraft: alt.aircraft, audit: alt.audit || "", tail: alt.tail || "", aoc: alt.aoc || (same ? q.aoc || "" : ""), yom: alt.yom || "", seats: alt.seats || "", opPrice: num(alt.opPrice), directOwn: own, direct: own + pc.total, payFx: pc.fx, payCard: pc.card, cur: "USD"};
       delete quote.curAmt; delete quote.rate; alts[i] = old;
-      await deskWrite(t, {quote, alts}, `Main option changed to ${alt.aircraft} (${alt.operator})`); toast("Main option changed. Its trip checks and operator safety now apply."); return; }
+      const safety = alt.safety || (same ? {...(t.d.safety || {}), aircraft: alt.aircraft} : null), opTerms = alt.opTerms || (same ? t.d.opTerms || null : null);
+      await deskWrite(t, {quote, alts, safety, opTerms}, `Main option changed to ${alt.aircraft} (${alt.operator})`);
+      toast(safety && opTerms ? "Main option changed. Its operator safety record and terms came with it; check the aircraft details." : same ? "Main option changed. Same operator: its safety record and terms stay; check the aircraft details." : `Main option changed. ${alt.operator} needs its own operator safety record and terms (step 3).`); return; }
   });
   document.addEventListener("submit", async ev => {
     if (ev.target.id !== "altForm") return; ev.preventDefault();

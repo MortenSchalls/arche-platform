@@ -1,7 +1,7 @@
 // Market reading on Training (Morten, 2 Nov 2026): AvBuyer free digital edition link with a sign-up note, for every role. Example data only.
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,200)));if(!c)fails++;};const errs=[];
 for(const as of ['broker','ops','owner']){const p=await b.newPage({viewport:{width:1300,height:1000}});p.on('pageerror',e=>errs.push(e.message));
- await p.goto('http://localhost:8765/test.html?as='+as);await p.waitForTimeout(3500);await p.evaluate(()=>{S.view='training';render();});await p.waitForTimeout(500);
+ await p.goto('http://localhost:8765/test.html?steps=all&as='+as);await p.waitForTimeout(3500);await p.evaluate(()=>{S.view='training';render();});await p.waitForTimeout(500);
  const r=await p.evaluate(()=>{const el=document.getElementById('readingPanel');if(!el)return null;const a=el.querySelector('a');return {t:el.innerText,href:a&&a.href,target:a&&a.target,rel:a&&a.rel};});
  ok(as+': AvBuyer panel on Training',!!r,r);
  ok(as+': link to the free digital edition, new tab, no referrer',r&&r.href==='https://www.avbuyer.com/magazines/avbuyer'&&r.target==='_blank'&&/noopener/.test(r.rel)&&/noreferrer/.test(r.rel),r);

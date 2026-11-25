@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');
 (async()=>{let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,300)));if(!c)fails++;};
 const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
-await p.goto('http://localhost:8765/test.html?as=broker');await p.waitForTimeout(3000);
+await p.goto('http://localhost:8765/test.html?steps=all&as=broker');await p.waitForTimeout(3000);
 const rule=()=>p.evaluate(()=>[...document.querySelectorAll('.ai-rule')].map(e=>e.innerText).join(' | '));
 await p.evaluate(()=>{const el=document.querySelector('[data-view="assistant"]');if(el)el.click();});await p.waitForTimeout(800);
 const a=await rule();ok('Assistant shows the AI rule',/outside provider/.test(a)&&/passport, ID or bank numbers/.test(a),a);

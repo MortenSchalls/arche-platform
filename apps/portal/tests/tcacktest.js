@@ -3,7 +3,7 @@ const showQuote=async p=>{await p.evaluate(()=>{const b=document.querySelector('
 // candidate's test booking, 25 Nov 2026: the item key was cut at the first '|'). Test version, example data only.
 const {chromium}=require('playwright');
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1366,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
-await p.goto('http://localhost:8765/test.html?as=broker');await p.waitForTimeout(3000);
+await p.goto('http://localhost:8765/test.html?steps=all&as=broker');await p.waitForTimeout(3000);
 await p.evaluate(()=>{S.view='trips';render()});await p.click('[data-act="new"]');await p.waitForTimeout(400);
 const d=new Date(Date.now()+20*864e5).toISOString().slice(0,10);
 await p.fill('#e_cn','Example Walk Client');await p.fill('#e_em','walk@example.com');await p.fill('#e_ct','Singapore');

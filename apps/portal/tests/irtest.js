@@ -6,7 +6,7 @@ const errs=[];const open=async(as,w)=>{const p=await b.newPage({viewport:{width:
   await p.route('**/api/ir',async r=>{const body=JSON.parse(r.request().postData()||'{}');p.bodies.push(body);
     if(body.action==='draft')return r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({subject:'Navoryx Executive: a private invitation',text:'Dear Ann,\n\nYou are invited to read our private investor briefing.\n\nKind regards,\nInvestor Relations'})});
     return r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,sent:'sent'})});});
-  await p.goto('http://localhost:8765/test.html?as='+as);await p.waitForTimeout(3500);
+  await p.goto('http://localhost:8765/test.html?steps=all&as='+as);await p.waitForTimeout(3500);
   await p.evaluate(()=>{window.__sb={auth:{getSession:async()=>({data:{session:{access_token:'example-token'}}})}};});
   if(as==='owner'){await p.evaluate(async()=>{const T='2026-11-04T08:00:00.000Z';
     await S.db.doc('owner/i001').set({org:'Example Family Office Ltd',track:'Family office or UHNW office',for:'Navoryx aircraft notes',country:'Singapore',status:'new',log:[],contacts:[{name:'Ann Example',role:'Principal',email:'ann@example-fo.com',source:'Business card or meeting',added:T}]});

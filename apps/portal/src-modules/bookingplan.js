@@ -66,7 +66,7 @@
 
   // ---------- operations before issue ----------
   window.bookNeeds = function(t, validDate){
-    const st = t.st || {}, b = st.book || {}, out = [];
+    const st = t.st || {}, b = {...((t.d || {}).book || {}), ...Object.fromEntries(Object.entries(st.book || {}).filter(([, v]) => v))}, out = [];   // the broker records Request to Book and the hold; the Director checks the contract
     if (!b.rtbAt) out.push("Request to Book sent on Avinode");
     if (!b.holdUntil) out.push("how long the operator holds the aircraft");
     if (!docOf(t.d, "Operator contract")) out.push("the operator's contract attached (document type Operator contract)");
@@ -254,7 +254,7 @@
   function bookBlock(t){
     if (!isStaff() || S.preview || !t.d.opTerms || !["review","issued","clientPaid","flown"].includes(t.stage)) return "";
     if (typeof ownTrip === "function" && ownTrip(t)) return "";
-    const st = t.st || {}, b = st.book || {}, issued = !!st.confIssued, pl = bookingPlan(t), m = money(t), f = pl.f;
+    const st = t.st || {}, b = {...((t.d || {}).book || {}), ...Object.fromEntries(Object.entries(st.book || {}).filter(([, v]) => v))}, issued = !!st.confIssued, pl = bookingPlan(t), m = money(t), f = pl.f;
     const own = S.isOwner && acting() === "owner", can = staffOn(t);
     const dt = v => { if (!v) return ""; const x = new Date(v); return isNaN(x) ? "" : new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 16); };   // shown in local time
     const need = bookNeeds(t);

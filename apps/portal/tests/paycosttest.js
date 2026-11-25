@@ -6,7 +6,7 @@ const T={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:{
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8').replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`).replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
 const ok=(k,v,x)=>console.log((v?'PASS ':'FAIL ')+k+(v||x===undefined?'':' '+JSON.stringify(x)));
 (async()=>{const b=await chromium.launch();const errs=[];const f='t_pc.html';fs.writeFileSync(f,page(OWN,T));
- const p=await b.newPage();p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/'+f);await p.waitForTimeout(4000);
+ const p=await b.newPage();p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/'+f+'?steps=all');await p.waitForTimeout(4000);
  const r=await p.evaluate(()=>({usd:payCostOf(100000,0,'USD',false),eur:payCostOf(54000,0,'EUR',false),card:payCostOf(100000,0,'USD',true),
    pEur:priceOf(54000,216),pCard:priceOf(100000,4119)}));
  ok('USD operator, bank transfer: no payment cost',r.usd.total===0,r.usd);

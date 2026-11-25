@@ -13,7 +13,7 @@ const T0={profiles:[{id:OWN,role:'owner',active:true,contract_name:'Owner',data:
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8').replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`).replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
 const ok=(k,v,x)=>console.log((v?'PASS ':'FAIL ')+k+(v||x===undefined?'':' '+JSON.stringify(x)));
 (async()=>{const b=await chromium.launch();const errs=[];let n=0;
- const open=async(uid,T)=>{const f=`t_k_${n++}.html`;fs.writeFileSync(f,page(uid,T));const p=await b.newPage({viewport:{width:1400,height:900}});p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/'+f);await p.waitForTimeout(4500);return p;};
+ const open=async(uid,T)=>{const f=`t_k_${n++}.html`;fs.writeFileSync(f,page(uid,T));const p=await b.newPage({viewport:{width:1400,height:900}});p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/'+f+'?steps=all');await p.waitForTimeout(4500);return p;};
  const T1=JSON.parse(JSON.stringify(T0));T1.trips=[trip('t1')];
  let p=await open(B1,T1);
  ok('no record: authorisation is blocked', /no KYC record/.test(await p.evaluate(()=>kycBlockReason(tripById('t1')))));

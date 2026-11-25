@@ -1,7 +1,7 @@
 // See as a person: the owner chooses a team member and sees their Today and leads, not the owner's own; read-only. Example data.
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,300)));if(!c)fails++;};
 const errs=[];const p=await b.newPage({viewport:{width:1300,height:1000}});p.on('pageerror',e=>errs.push(e.message));
-await p.goto('http://localhost:8765/test.html?as=owner');await p.waitForTimeout(3500);
+await p.goto('http://localhost:8765/test.html?steps=all&as=owner');await p.waitForTimeout(3500);
 const B=await p.evaluate(()=>Object.entries(S.roster).find(([,r])=>r.role==='broker'&&r.active!==false)[0]);
 await p.evaluate(async B=>{await S.db.doc(`leads/${B}/items/exl1`).set({org:'Example Family Office',segment:'Family office',country:'Singapore',status:'assigned',assignedAt:new Date().toISOString(),why:'Example reason',log:[]});},B);
 await p.waitForTimeout(800);await p.evaluate(()=>{S.view='today';render();});await p.waitForTimeout(400);

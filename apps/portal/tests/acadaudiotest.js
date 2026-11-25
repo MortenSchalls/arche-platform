@@ -18,7 +18,7 @@ for(const w of [1300,390]){
   const p=await b.newPage({viewport:{width:w,height:900}});p.on('pageerror',e=>errs.push(w+': '+e.message));
   await p.addInitScript(()=>{window.__spoken=[];try{const r=window.speechSynthesis;r.speak=u=>{window.__spoken.push(u.text);};const U=window.SpeechSynthesisUtterance;window.SpeechSynthesisUtterance=function(t){window.__spoken.push('new:'+t);return new U(t);};}catch(e){}
     try{localStorage.setItem('arche-cbt-audio-v2',JSON.stringify({on:false,rate:1,voice:'com.apple.voice.compact.en-GB.Daniel',picked:true,auto:true}));}catch(e){}});
-  await p.goto('http://localhost:8765/test.html?as=broker');await p.waitForTimeout(2000);
+  await p.goto('http://localhost:8765/test.html?steps=all&as=broker');await p.waitForTimeout(2000);
   await p.goto('http://localhost:8765/academy.test.html');await p.waitForTimeout(2500);
   if(await p.$('#nm')){await p.fill('#nm','Example Tester');await p.check('#nda');await p.click('text=Begin');await p.waitForTimeout(1000);}
   const before=await p.evaluate(()=>localStorage.getItem('arche-cbt-v1'));

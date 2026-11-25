@@ -15,14 +15,18 @@
     const op = s.match(/(?:operator|operated by|aoc holder)\s*[:\-]?\s*([A-Z][^\n,;]{2,60})/i); if (op) out.operator = op[1].trim();
     const av = s.match(/(?:trip\s*(?:id|no\.?|number)|avinode[^\n\d]{0,20})\s*[:#]?\s*([A-Z0-9-]{5,20})/i); if (av) out.avinode = av[1];
     const tails = [...s.matchAll(TAIL)].map(m => m[1]).filter(x => x !== out.avinode && !/^(AVN|USD|EUR|GBP|ID)/.test(x)); if (tails.length) out.tail = tails[0];
+    // asked once (duplicates, 25 Nov 2026): year built, seats and the AOC number go to the quote and from there to the confirmation
+    const yr = s.match(/(?:year(?: of manufacture| built)?|yom|built|manufactured)\s*[:\-]?\s*((?:19|20)\d{2})\b/i); if (yr) out.yom = yr[1];
+    const se = s.match(/(?:seats|passenger seats|max(?:imum)? (?:pax|passengers)|pax capacity|capacity)\s*[:\-]?\s*(\d{1,2})\b/i) || s.match(/\b(\d{1,2})\s*(?:seats|seater)\b/i); if (se) out.seats = se[1];
+    const ao = s.match(/\bAOC\s*(?:no\.?|number|nr\.?|#)?\s*[:\-]?\s*([A-Z0-9][A-Z0-9.\/-]{2,24})/i); if (ao && !/^holder$/i.test(ao[1])) out.aoc = ao[1].replace(/[.,]$/, "");
     return out;
   }
   function fill(p){
     const set = (id, v) => { const el = $(id); if (el && v !== undefined && v !== "" && !el.value) { el.value = v; el.classList.add("filled"); } };
-    set("q_op", p.operator); set("q_ac", p.aircraft); set("q_tl", p.tail); set("q_av", p.avinode);
+    set("q_op", p.operator); set("q_ac", p.aircraft); set("q_tl", p.tail); set("q_av", p.avinode); set("q_yom", p.yom); set("q_seats", p.seats); set("q_aoc", p.aoc);
     if (p.amount) { if (p.cur && p.cur !== "USD" && $("q_cur")) { $("q_cur").value = p.cur; if (typeof curSync === "function") curSync(); set("q_amt", p.amount); } else set("q_pr", p.amount); }
     if (typeof updatePreview === "function") try { updatePreview(); } catch (e) {}
-    return ["operator", "aircraft", "tail", "avinode", "amount"].filter(k => p[k]).length;
+    return ["operator", "aircraft", "tail", "avinode", "amount", "yom", "seats", "aoc"].filter(k => p[k]).length;
   }
   const _open = openEditor;
   openEditor = function(t){

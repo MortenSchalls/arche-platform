@@ -6,7 +6,7 @@ const hook=()=>p.evaluate(()=>{const o=window.toast;if(o.__h)return;const n=m=>{
 const as=async who=>{await p.selectOption('select',{label:who});await p.waitForTimeout(2500);await hook();};
 const sel=async(id,v)=>{await p.selectOption('#'+id,v);await p.waitForTimeout(400);};
 const fill=async(id,v)=>{await p.fill('#'+id,v);await p.dispatchEvent('#'+id,'change');await p.waitForTimeout(400);};
-await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await as('Test Broker');
+await p.goto('http://localhost:8765/test.html?steps=all');await p.waitForTimeout(3000);await as('Test Broker');
 await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);
 await p.click('[data-act="new"]');await p.waitForTimeout(800);
 await p.fill('#e_cn','Anna Example');await p.fill('#e_em','anna@example.com');await p.fill('#e_ct','Singapore');

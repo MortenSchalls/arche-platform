@@ -15,7 +15,7 @@ const lastToast=()=>toasts[toasts.length-1]||'';
 const trip=()=>p.evaluate(()=>{const t=tripById(S.sel);return {d:t.d,st:t.st||{},stage:t.stage};});
 const dep=new Date(Date.now()+40*864e5).toISOString().slice(0,10), dep2=new Date(Date.now()+41*864e5).toISOString().slice(0,10);
 const S_=process.env.SHOTS, shot=async(n,sel)=>{if(!S_)return;await p.setViewportSize({width:1300,height:2400});await p.waitForTimeout(400);const el=await p.$(sel);if(el)await el.screenshot({path:S_+'/'+n+'.png'});await p.setViewportSize({width:1300,height:1000});};
-await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await as('Test Broker');
+await p.goto('http://localhost:8765/test.html?steps=all');await p.waitForTimeout(3000);await as('Test Broker');
 // a trip with a complete operator safety record (tier 1), quote and documents
 await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);await p.click('[data-act="new"]');await p.waitForTimeout(800);
 await p.fill('#e_cn','Anna Example');await p.fill('#e_em','anna@example.com');await p.fill('#e_ct','Singapore');
@@ -34,16 +34,16 @@ ok('the insurance and terms ticks are automatic (disabled)',await p.evaluate(()=
 // cancellation: 15% from booking, 50% inside 30 days, 100% inside 7 days
 for(let i=0;i<3;i++){await p.click('[data-otadd="cancel"]');await p.waitForTimeout(400);}
 await p.selectOption('[data-otw="cancel|0"]','booking');await p.waitForTimeout(400);
-await p.fill('[data-otp="cancel|0"]','15');await p.dispatchEvent('[data-otp="cancel|0"]','change');await p.waitForTimeout(400);
-await p.fill('[data-otd="cancel|1"]','30');await p.dispatchEvent('[data-otd="cancel|1"]','change');await p.waitForTimeout(300);
-await p.fill('[data-otp="cancel|1"]','50');await p.dispatchEvent('[data-otp="cancel|1"]','change');await p.waitForTimeout(300);
-await p.fill('[data-otd="cancel|2"]','7');await p.dispatchEvent('[data-otd="cancel|2"]','change');await p.waitForTimeout(300);
-await p.fill('[data-otp="cancel|2"]','100');await p.dispatchEvent('[data-otp="cancel|2"]','change');await p.waitForTimeout(400);
+await p.fill('[data-otp="cancel|0"]','15');await p.dispatchEvent('[data-otp="cancel|0"]','change');await p.waitForTimeout(900);
+await p.fill('[data-otd="cancel|1"]','30');await p.dispatchEvent('[data-otd="cancel|1"]','change');await p.waitForTimeout(900);
+await p.fill('[data-otp="cancel|1"]','50');await p.dispatchEvent('[data-otp="cancel|1"]','change');await p.waitForTimeout(900);
+await p.fill('[data-otd="cancel|2"]','7');await p.dispatchEvent('[data-otd="cancel|2"]','change');await p.waitForTimeout(900);
+await p.fill('[data-otp="cancel|2"]','100');await p.dispatchEvent('[data-otp="cancel|2"]','change');await p.waitForTimeout(900);
 // payment: 50% when its contract is signed, 50% 10 days before
-await p.click('[data-otadd="pay"]');await p.waitForTimeout(400);await p.click('[data-otadd="pay"]');await p.waitForTimeout(400);
-await p.fill('[data-otp="pay|0"]','50');await p.dispatchEvent('[data-otp="pay|0"]','change');await p.waitForTimeout(300);
-await p.fill('[data-otd="pay|1"]','10');await p.dispatchEvent('[data-otd="pay|1"]','change');await p.waitForTimeout(300);
-await p.fill('[data-otp="pay|1"]','50');await p.dispatchEvent('[data-otp="pay|1"]','change');await p.waitForTimeout(400);
+await p.click('[data-otadd="pay"]');await p.waitForTimeout(900);await p.click('[data-otadd="pay"]');await p.waitForTimeout(900);
+await p.fill('[data-otp="pay|0"]','50');await p.dispatchEvent('[data-otp="pay|0"]','change');await p.waitForTimeout(900);
+await p.fill('[data-otd="pay|1"]','10');await p.dispatchEvent('[data-otd="pay|1"]','change');await p.waitForTimeout(900);
+await p.fill('[data-otp="pay|1"]','50');await p.dispatchEvent('[data-otp="pay|1"]','change');await p.waitForTimeout(900);
 t=await trip();
 ok('cancellation lines saved',JSON.stringify(t.d.opTerms.cancel.map(r=>[r.days,r.pct]))===JSON.stringify([['booking',15],[30,50],[7,100]]),t.d.opTerms.cancel);
 ok('payment lines saved, 100%',t.d.opTerms.pay.map(r=>r.pct).join()==='50,50'&&t.d.opTerms.pay[0].days==='booking'&&t.d.opTerms.pay[1].days===10,t.d.opTerms.pay);
@@ -78,7 +78,7 @@ await as('Test Operations');await p.evaluate(did=>{S.view='trips';S.sel=did;rend
 const did=await p.evaluate(()=>{const t=allTrips().find(x=>x.d.client&&x.d.client.name==='Anna Example');S.sel=t.did;S.view='trips';render();return t.did;});await p.waitForTimeout(800);
 await p.fill('#o_op','90000');await p.fill('#o_pn','PR-EXAMPLE-1');await p.check('#o_kyc');await p.click('[data-act="opsSave"]');await p.waitForTimeout(800);
 tx=await p.textContent('#main');
-ok('operations sees "Booking with the operator"',/Booking with the operator/.test(tx));
+ok('operations sees "Book the aircraft with the operator" under Authorise and issue',/Book the aircraft with the operator|Booking with the operator/.test(tx)&&/Authorise and issue/.test(tx));
 ok('before issuing: Request to Book, hold, contract and check are listed',/Request to Book sent on Avinode/.test(await p.textContent('#secBook'))&&/operator's contract attached/.test(await p.textContent('#secBook')));
 ok('issuing is blocked without them',await p.evaluate(()=>bookNeeds(tripById(S.sel)).length>=3));
 const now16=new Date(Date.now()+60e3).toISOString().slice(0,16), hold=new Date(Date.now()+3*864e5).toISOString().slice(0,10)+"T12:00";

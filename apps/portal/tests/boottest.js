@@ -1,7 +1,7 @@
 // Opening never hangs: an error while opening, or no answer for 15 s, retries once and then shows "Try again".
 // The sign-in screen is never interrupted. Example data only (test version with a slowed or broken stand-in database).
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x)));if(!c)fails++;};
-const page=async(init)=>{const p=await b.newPage();if(init)await p.addInitScript(init);let loads=0;p.on('framenavigated',f=>{if(f===p.mainFrame()&&!/#/.test(f.url()))loads++;});p.loads=()=>loads;await p.goto('http://localhost:8765/test.html?as=broker');return p;};
+const page=async(init)=>{const p=await b.newPage();if(init)await p.addInitScript(init);let loads=0;p.on('framenavigated',f=>{if(f===p.mainFrame()&&!/#/.test(f.url()))loads++;});p.loads=()=>loads;await p.goto('http://localhost:8765/test.html?steps=all&as=broker');return p;};
 // 1. normal opening: no retry, no message
 let p=await page();await p.waitForTimeout(4000);ok('normal opening shows the portal',await p.evaluate(()=>S.role==='broker'&&!document.getElementById('boot')));await p.close();
 // 2. opening fails with an error: one automatic retry, then Try again

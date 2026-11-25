@@ -6,7 +6,7 @@ await p.route('**/api/screen',async r=>{const j=JSON.parse(r.request().postData(
   if(j.tails&&!(j.names||[]).length)return r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({faa:{at:'2026-10-31T00:00:00Z',url:'x',tails:{N650EX:['Other Example Charter LLC','CL-650']}}})});
   const res=j.names.map(n=>/Quickrich/i.test(n)?{name:n,result:'alert',hits:[{listed:'quickrich example exchange',list:'MAS Investor Alert',kind:'alert'}]}:/Banned/i.test(n)?{name:n,result:'possible match',hits:[{listed:'example banned airways',list:'EU Air Safety List',kind:'aviation'}]}:{name:n,result:'no match',hits:[]});
   r.fulfill({status:200,contentType:'application/json',body:JSON.stringify({at:'2026-10-31T00:00:00Z',lists:['UN (100)','MAS Investor Alert (60)'],failed:[],aslStates:['Exampleland','Singapore'],results:res})});});
-await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);
+await p.goto('http://localhost:8765/test.html?steps=all');await p.waitForTimeout(3000);
 await p.selectOption('select',{label:'Test Broker'});await p.waitForTimeout(2500);
 await p.evaluate(()=>{S.fx={date:'2026-10-30',usdPer:{EUR:1.1172,SGD:0.7448}};S.view='trips';render();});await p.waitForTimeout(400);
 await p.click('[data-act="new"]');await p.waitForTimeout(800);

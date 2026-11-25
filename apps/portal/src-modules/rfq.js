@@ -217,7 +217,9 @@ document.addEventListener("submit", async e => {
       { const q0 = (r.quotes || []).find(x => x.pid === A.pid) || {}; if (await gateHold("supplier", id + "-award-" + A.pid, "award", `Award ${r.ref} to ${A.org}${q0.usd ? ", " + usd(q0.usd) : ""}`, reason)) return; }
       const q = (r.quotes || []).find(x => x.pid === A.pid); if (!q) return;
       await sqSet(id, {...r, status: "awarded", award: {pid: q.pid, org: q.org, usd: q.usd, reason: reason.slice(0, 300), by: S.uid, at: now()}, log: sqLog(r, `Awarded to ${q.org} for ${usd(q.usd)}${reason ? ": " + reason : ""}`)});
-      audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null; toast("Awarded. Add the cost to the trip in Authorisation."); return;
+      audit("Supplier quote awarded", `${r.ref} ${q.org} ${usd(q.usd)}`); S.sqAward = null;
+      let tail = ""; try { tail = typeof sqAwardToTrip === "function" ? await sqAwardToTrip(r, q) : ""; } catch(e){ tail = " Add the cost to the trip: it could not be added by itself."; }
+      toast("Awarded." + (tail || (r.trip ? "" : " No trip linked: add the cost to the trip yourself."))); return;
     }
   } catch (err) { toast(err.code === "permission_denied" ? "Supplier quotes are not set up yet (run 0006 in Supabase)." : "Could not save. Try again."); }
 });

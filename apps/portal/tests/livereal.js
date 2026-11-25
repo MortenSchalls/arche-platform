@@ -5,7 +5,7 @@ const pages={};const BRK="00000000-0000-4000-8000-0000000000a3";
 const stub=`window.__LIVE_TEST=1;addEventListener('DOMContentLoaded',()=>{const sb=window.__sb;if(!sb)return;sb.realtime={setAuth(){}};const orig=sb.channel.bind(sb);sb.channel=(name,o)=>{if(!/^train:/.test(name))return orig(name,o);const h={};const c={on(t,f,fn){(h[f.event]=h[f.event]||[]).push(fn);return c;},subscribe(cb){window.__deliver=(ev,p)=>(h[ev]||[]).forEach(fn=>fn({payload:p}));window.__topic=name;setTimeout(()=>cb('SUBSCRIBED'),50);return c;},send(m){window.__relay(window.__who,m.event,m.payload);}};return c;};sb.removeChannel=async()=>{};});`;
 async function mk(who,as){const ctx=await b.newContext({viewport:{width:1300,height:900}});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
  await p.exposeFunction('__relay',async(from,ev,payload)=>{for(const [k,o] of Object.entries(pages)) if(k!==from) await o.evaluate(([e,pl])=>window.__deliver&&window.__deliver(e,pl),[ev,payload]).catch(()=>{});});
- await p.addInitScript(`window.__who=${JSON.stringify(who)};`+stub);await p.goto('http://localhost:8765/test.html?as='+as);await p.waitForTimeout(2500);pages[who]=p;p.__errs=errs;return p;}
+ await p.addInitScript(`window.__who=${JSON.stringify(who)};`+stub);await p.goto('http://localhost:8765/test.html?steps=all&as='+as);await p.waitForTimeout(2500);pages[who]=p;p.__errs=errs;return p;}
 const M=await mk('owner','owner');
 // an example trip with a client email and phone, so masking can be checked
 await M.evaluate(()=>{S.view='training';S.trTab='live';render();});await M.waitForTimeout(800);

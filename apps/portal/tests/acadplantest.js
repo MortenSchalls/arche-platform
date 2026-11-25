@@ -24,7 +24,7 @@ const idx=fs.readFileSync(path.join(H,'index.html'),'utf8');ok('index.html carri
 const b=await chromium.launch();const errs=[];
 for(const w of [390,1300]){
   const ctx=await b.newContext({viewport:{width:w,height:900}});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(w+': '+e.message));
-  await p.goto('http://localhost:8765/test.html?as=candidate');await p.waitForTimeout(3500);
+  await p.goto('http://localhost:8765/test.html?steps=all&as=candidate');await p.waitForTimeout(3500);
   const top=await p.evaluate(()=>{const n=document.getElementById('obNext');if(!n)return null;const a=n.querySelector('a');return {t:n.innerText,y:n.getBoundingClientRect().top+scrollY,href:a&&a.getAttribute('href'),target:a&&a.target};});
   ok(w+': "Your next step" at the top of the joining page',top&&/Your next step: start the Archē Broker Academy\. Module 0 · Aviation for brokers · about 21 min/.test(top.t)&&top.y<700,top);
   ok(w+': Start the academy opens in the same tab, no second sign-in wording',top&&/Start the academy/i.test(top.t)&&top.href==='academy.test.html'&&!top.target&&!/Sign in to the academy/.test(await p.textContent('#main')),top);
@@ -37,7 +37,7 @@ for(const w of [390,1300]){
   ok(w+': academy visit recorded for the joining log',visit&&visit.count>=1&&visit.first&&visit.last&&visit.kind==='academy-visit',visit);
   // start, pass module 0 in the test data, go back to the joining page
   await p.evaluate(async()=>{const db=await __arche.use('db');const s=await __sb.auth.getSession();await db.doc('progress/'+s.data.session.user.id).set({v:1,name:'Example Tester',role:'broker',mods:{m0:{passed:true,best:100,attempts:1}},updated:new Date().toISOString()});});await p.waitForTimeout(1500);
-  await p.goto('http://localhost:8765/test.html?as=candidate');await p.waitForTimeout(3500);
+  await p.goto('http://localhost:8765/test.html?steps=all&as=candidate');await p.waitForTimeout(3500);
   const top2=await p.evaluate(()=>{const n=document.getElementById('obNext');const a=n&&n.querySelector('a');return n&&{t:n.innerText,href:a&&a.getAttribute('href')};});
   ok(w+': back on the joining page: Continue where you left off, Module 1 and its length',top2&&/continue the Archē Broker Academy\. Module 1 · Archē Executive and the broker's role · about 12 min · 1 of 19 done/.test(top2.t)&&/Continue where you left off/i.test(top2.t)&&top2.href==='academy.test.html#m1',top2);
   ok(w+': the offer has folded away; Read the offer opens it',!/up to 35% of the Archē fee/.test(await p.textContent('#main'))&&!!(await p.$('[data-agr="offer"]')));

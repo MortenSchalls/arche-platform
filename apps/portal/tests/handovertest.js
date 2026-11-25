@@ -3,7 +3,7 @@ const {chromium}=require('playwright');(async()=>{const b=await chromium.launch(
 let fail=0;const ok=(c,m,x)=>{console.log((c?'PASS ':'FAIL ')+m+(c||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,300)));if(!c)fail++;};
 const A3='00000000-0000-4000-8000-0000000000a3',A4='00000000-0000-4000-8000-0000000000a4';
 const as=async who=>{await p.selectOption('select',{label:who});await p.waitForTimeout(2500);};
-await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);
+await p.goto('http://localhost:8765/test.html?steps=all');await p.waitForTimeout(3000);
 await as('Test Director');
 await p.evaluate(async([B])=>{const n=new Date().toISOString();
   await S.db.doc(`desk/${B}/deals/h1`).set({client:{name:'Anna Example',company:'Example Holdings',email:'anna@example.com',phone:'+65 0000 0001',country:'Singapore'},trip:{legs:[{from:'WSSL',to:'VTSP',date:'2026-09-20',pax:4}]},quote:{operator:'Example Jets',opPrice:40000},created:n,updated:n});

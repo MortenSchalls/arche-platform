@@ -6425,7 +6425,7 @@
   ]
  },
  {
-  "key": "7c42286b",
+  "key": "52557b7f",
   "kind": "lesson",
   "where": "sys screen 10",
   "text": [
@@ -6434,6 +6434,7 @@
    "Capture the client and the trip once, with the intake checklist, and send operators the request on Avinode without typing it again.",
    "Who uses it: Brokers",
    "How it works",
+   "The trip file shows the eight booking steps as a bar at the top and only the step you are on: Client and trip, Operator quote, Checks and documents, Confirmation, Send, Authorise and issue, Signature and payment, Flight and follow-up. It opens on the step that is due; a tick shows the steps done. Tap another step to look at it, Back to the step due to return, or Show every section for the whole file on one page. Go there in the Steps list opens the step that holds the field.",
    "Choose New enquiry, or Open an enquiry from a lead. The enquiry shows only Client and trip: the operator quote comes later, when the operators reply.",
    "Enter the client: name, company, email, phone, country of residence and the payer if different.",
    "For each leg type a city, airport name or code (for example London) and pick the airport from the list. The portal stores the ICAO code and shows the airport name.",
@@ -6451,7 +6452,8 @@
    "Tips",
    "Type the city, not the airport: the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget.",
    "Write special requests in Requests and notes: they go into the Avinode request, and the portal turns many of them into suggested requests and extras.",
-   "Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts in your points."
+   "Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts in your points.",
+   "Every field has a ?: tap it for one plain sentence on what to enter. Our own words (A3, A9, B13, AOC, cabotage, positioning, Request to Book) have a ? where they appear."
   ],
   "say": [
    "Systems training, the ar Kay portal.",
@@ -6459,13 +6461,13 @@
    "Capture the client and the trip once, with the intake checklist, and send operators the request on Avinode without typing it again.",
    "Who uses it, Brokers.",
    "How it works.",
-   "Choose New enquiry, or Open an enquiry from a lead. The enquiry shows only Client and trip, the operator quote comes later, when the operators reply. Enter the client, name, company, email, phone, country of residence and the payer if different. For each leg type a city, airport name or code, for example London, and pick the airport from the list. The portal stores the ICAO code and shows the airport name. Add date, local time and passengers per leg, the aircraft category and any requests. Fill in the intake checklist, Template B, section 1, as far as the client can tell you, lead passenger, booker, flexibility, children and infants, nationalities, countries only, luggage and special items, pets, purpose of travel, budget, payment method and source of enquiry. All optional, each is used later, the lead passenger goes to the confirmation and the screening, the payment method sets The client pays by card. Save the enquiry. The trip appears under My trips as Enquiry, with Ask operators on Avinode, the quote request, Template B, section 2, written from the trip, without the client's name or contacts. Press Copy the request and paste it into Avinode. When the operators reply, press Enter the operator quote on the trip, H.6. Already have the reply on the first call? Press Enter the operator quote now in the enquiry.",
+   "The trip file shows the eight booking steps as a bar at the top and only the step you are on, Client and trip, Operator quote, Checks and documents, Confirmation, Send, Authorise and issue, Signature and payment, Flight and follow-up. It opens on the step that is due, a tick shows the steps done. Tap another step to look at it, Back to the step due to return, or Show every section for the whole file on one page. Go there in the Steps list opens the step that holds the field. Choose New enquiry, or Open an enquiry from a lead. The enquiry shows only Client and trip, the operator quote comes later, when the operators reply. Enter the client, name, company, email, phone, country of residence and the payer if different. For each leg type a city, airport name or code, for example London, and pick the airport from the list. The portal stores the ICAO code and shows the airport name. Add date, local time and passengers per leg, the aircraft category and any requests. Fill in the intake checklist, Template B, section 1, as far as the client can tell you, lead passenger, booker, flexibility, children and infants, nationalities, countries only, luggage and special items, pets, purpose of travel, budget, payment method and source of enquiry. All optional, each is used later, the lead passenger goes to the confirmation and the screening, the payment method sets The client pays by card. Save the enquiry. The trip appears under My trips as Enquiry, with Ask operators on Avinode, the quote request, Template B, section 2, written from the trip, without the client's name or contacts. Press Copy the request and paste it into Avinode. When the operators reply, press Enter the operator quote on the trip, H.6. Already have the reply on the first call? Press Enter the operator quote now in the enquiry.",
    "Try it in the test version, as Test Broker.",
    "Make a New enquiry, Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month.",
    "If something goes wrong.",
    "Save says choose the airport from the list. The text typed is not a known airport. Type a city or code and pick one of the suggestions. The airport I need is not offered. The list holds 7,009 airports suitable for jets. Type the four-letter ICAO code, if it is still missing, ask the Director, or a person the Director has mandated, as the runway may be too short for jets. Times look wrong. Times are local at the departure airport. Confirm the time zone with the client in writing. Save does nothing in Operator quote. A client detail is missing, the portal opens Client and trip to show it. Fill it in and save again.",
    "Tips.",
-   "Type the city, not the airport, the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget. Write special requests in Requests and notes, they go into the Avinode request, and the portal turns many of them into suggested requests and extras. Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts in your points."
+   "Type the city, not the airport, the list shows every suitable airport nearby, including business-aviation fields such as Biggin Hill or Le Bourget. Write special requests in Requests and notes, they go into the Avinode request, and the portal turns many of them into suggested requests and extras. Open enquiries from leads with Open an enquiry, so the trip is linked to the prospect and counts in your points. Every field has a ?, tap it for one plain sentence on what to enter. Our own words, A3, A9, B13, A O C, cabotage, positioning, Request to Book, have a ? where they appear."
   ]
  },
  {
@@ -6510,7 +6512,7 @@
   ]
  },
  {
-  "key": "9ebf5cf9",
+  "key": "b87c0b80",
   "kind": "lesson",
   "where": "sys screen 12",
   "text": [
@@ -6526,8 +6528,8 @@
    "Read the price preview: client price = (operator price + direct costs) ÷ 0.91, rounded up.",
    "Save. The trip moves to Quoted.",
    "When you save, the portal checks in the background: the names against the sanctions lists, the operator against the EU Air Safety List, and a US registration (N…) against the FAA list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date.",
-   "Paste the operator's quote: open \"Paste the operator's quote to fill the fields\" in Operator quote, paste the text from Avinode, the operator's email or its PDF and press Fill the fields. The portal fills the price and currency, aircraft type, registration, operator and Avinode trip ID it recognises; check each field before saving.",
-   "Options for the client: in the trip file, Add an option holds up to two more aircraft for the same journey (operator, aircraft, safety audit, operator price, direct costs). Each is priced like the main quote. Copy the options for the client, or Email the options to the client, and when the client chooses one press Make this the main option: the main option is the one checked, authorised and confirmed.",
+   "Paste the operator's quote: open \"Paste the operator's quote to fill the fields\" in Operator quote, paste the text from Avinode, the operator's email or its PDF and press Fill the fields. The portal fills the price and currency, aircraft type, registration, operator, Avinode trip ID, year built, passenger seats and AOC number it recognises; check each field before saving.",
+   "Options for the client: in the trip file, Add an option holds up to two more aircraft for the same journey (operator, aircraft, safety audit, operator price, direct costs). Each is priced like the main quote. Copy the options for the client, or Email the options to the client, and when the client chooses one press Make this the main option: the main option is the one checked, authorised and confirmed. The operator's safety record, operator terms, AOC number, year, seats and registration travel with its option: make it main again and they come back; a different operator needs its own safety record and terms.",
    "Try it in the test version, as Test Broker",
    "Enter an operator price of USD 20,000 and check the client price: 20,000 ÷ 0.91, rounded up, is USD 21,979.",
    "If something goes wrong",
@@ -6544,7 +6546,7 @@
    "Record the operator's all-in quote so the portal sets the client price at 9 percent.",
    "Who uses it, Brokers.",
    "How it works.",
-   "Press Enter the operator quote on the trip, or Edit the operator quote. Only the quote is shown, Edit client and trip goes back. From Avinode, enter the operator's legal name as on its A O C, aircraft type, registration, A O C number, year built, passenger seats and the Avinode trip I D. Enter the operator all-in price and any direct trip costs not in it, supplier items ar Kay buys. The client pays by card is ticked from the payment method in the intake checklist, change it here if needed. The portal adds the payment and conversion costs to the direct trip costs, the card fee, 3.6 percent of the client price, and, when the operator quotes in another currency than, U S dollars the conversion, 0.4 percent of the operator price. The preview shows them. Quoted in another currency, choose it, the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3 percent away from it. Read the price preview, client price =, operator price plus direct costs, divided by 0.91, rounded up. Save. The trip moves to Quoted. When you save, the portal checks in the background, the names against the sanctions lists, the operator against the E U Air Safety List, and a U S registration, N., against the F A A list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date. Paste the operator's quote, open Paste the operator's quote to fill the fields in Operator quote, paste the text from Avinode, the operator's email or its P D F and press Fill the fields. The portal fills the price and currency, aircraft type, registration, operator and Avinode trip I D it recognises, check each field before saving. Options for the client, in the trip file, Add an option holds up to two more aircraft for the same journey, operator, aircraft, safety audit, operator price, direct costs. Each is priced like the main quote. Copy the options for the client, or Email the options to the client, and when the client chooses one press Make this the main option, the main option is the one checked, authorised and confirmed.",
+   "Press Enter the operator quote on the trip, or Edit the operator quote. Only the quote is shown, Edit client and trip goes back. From Avinode, enter the operator's legal name as on its A O C, aircraft type, registration, A O C number, year built, passenger seats and the Avinode trip I D. Enter the operator all-in price and any direct trip costs not in it, supplier items ar Kay buys. The client pays by card is ticked from the payment method in the intake checklist, change it here if needed. The portal adds the payment and conversion costs to the direct trip costs, the card fee, 3.6 percent of the client price, and, when the operator quotes in another currency than, U S dollars the conversion, 0.4 percent of the operator price. The preview shows them. Quoted in another currency, choose it, the portal fills in the European Central Bank reference rate of the day and flags a rate more than 3 percent away from it. Read the price preview, client price =, operator price plus direct costs, divided by 0.91, rounded up. Save. The trip moves to Quoted. When you save, the portal checks in the background, the names against the sanctions lists, the operator against the E U Air Safety List, and a U S registration, N., against the F A A list of aircraft on each operator's charter certificate. Anything that does not match shows in Trip checks with the source and the date. Paste the operator's quote, open Paste the operator's quote to fill the fields in Operator quote, paste the text from Avinode, the operator's email or its P D F and press Fill the fields. The portal fills the price and currency, aircraft type, registration, operator, Avinode trip I D, year built, passenger seats and A O C number it recognises, check each field before saving. Options for the client, in the trip file, Add an option holds up to two more aircraft for the same journey, operator, aircraft, safety audit, operator price, direct costs. Each is priced like the main quote. Copy the options for the client, or Email the options to the client, and when the client chooses one press Make this the main option, the main option is the one checked, authorised and confirmed. The operator's safety record, operator terms, A O C number, year, seats and registration travel with its option, make it main again and they come back, a different operator needs its own safety record and terms.",
    "Try it in the test version, as Test Broker.",
    "Enter an operator price of 20,000 U S dollars and check the client price, 20,000 divided by 0.91, rounded up, is 21,979 U S dollars.",
    "If something goes wrong.",
@@ -6596,7 +6598,7 @@
   ]
  },
  {
-  "key": "46fc5adb",
+  "key": "ca6a6fb7",
   "kind": "lesson",
   "where": "sys screen 14",
   "text": [
@@ -6605,12 +6607,12 @@
    "Ask several suppliers at an airport for a quote, compare them on one screen and award one.",
    "Who uses it: Brokers and the Director",
    "How it works",
-   "Open Supplier quotes, New quote request. Choose the airport and service, the trip if there is one, when the quotes are needed and the terms.",
+   "Open Supplier quotes, New quote request. Choose the trip first if there is one: the service date, aircraft, passengers and time fill in from it, and the airport when it is in the list. Then the service, when the quotes are needed and the terms.",
    "Tick the suppliers to ask: only those that pass the checks can be picked.",
    "For each supplier, copy the prepared message, send it from your work email and press I have sent it.",
    "Record each quote in USD, with how long it is valid and any changes to our terms.",
    "Compare the scores and their reasons, then Award. Whoever made the request cannot award it, and a reason is needed if you do not choose the top score.",
-   "Add the awarded cost to the trip's direct trip costs.",
+   "For a trip not yet confirmed, the awarded amount is added to the trip's direct trip costs by itself, once, with the request reference (charged like the price). After the confirmation is issued, the Director adds it under Costs beyond the price.",
    "Try it in the test version, as Test Broker",
    "Make a crew-hotel quote request at WSSL, mark it sent and record a quote.",
    "If something goes wrong",
@@ -6625,7 +6627,7 @@
    "Ask several suppliers at an airport for a quote, compare them on one screen and award one.",
    "Who uses it, Brokers and the Director.",
    "How it works.",
-   "Open Supplier quotes, New quote request. Choose the airport and service, the trip if there is one, when the quotes are needed and the terms. Tick the suppliers to ask, only those that pass the checks can be picked. For each supplier, copy the prepared message, send it from your work email and press I have sent it. Record each quote in, U S dollars with how long it is valid and any changes to our terms. Compare the scores and their reasons, then Award. Whoever made the request cannot award it, and a reason is needed if you do not choose the top score. Add the awarded cost to the trip's direct trip costs.",
+   "Open Supplier quotes, New quote request. Choose the trip first if there is one, the service date, aircraft, passengers and time fill in from it, and the airport when it is in the list. Then the service, when the quotes are needed and the terms. Tick the suppliers to ask, only those that pass the checks can be picked. For each supplier, copy the prepared message, send it from your work email and press I have sent it. Record each quote in, U S dollars with how long it is valid and any changes to our terms. Compare the scores and their reasons, then Award. Whoever made the request cannot award it, and a reason is needed if you do not choose the top score. For a trip not yet confirmed, the awarded amount is added to the trip's direct trip costs by itself, once, with the request reference, charged like the price. After the confirmation is issued, the Director adds it under Costs beyond the price.",
    "Try it in the test version, as Test Broker.",
    "Make a crew-hotel quote request at W S S L, mark it sent and record a quote.",
    "If something goes wrong.",
@@ -6673,7 +6675,7 @@
   ]
  },
  {
-  "key": "2470b904",
+  "key": "18ddf87b",
   "kind": "lesson",
   "where": "sys screen 16",
   "text": [
@@ -6688,6 +6690,7 @@
    "KYC record: under the KYC tick, enter the date the client was checked and how, then Save KYC record. The portal gives the check its own reference (KYB-year-code for a company, KYC-year-code for a person, e.g. KYB-2026-4F7A); nobody types one, so no ID, passport or bank number can end up there. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match; the earlier reference is kept. Otherwise check again: an out-of-date check stops authorisation and issue.",
    "Create the payment request in our payment provider and enter its reference on the trip.",
    "Fill in the confirmation details (Open confirmation): charterer address, signatory and lead passenger. The aircraft's year and seats and the operator's AOC number come from the quote, the audit from the operator safety record, the KYC reference from your KYC record and the itinerary from the trip's legs: they show greyed out on the confirmation and are changed where they come from. Save the 24-hour contacts (the operator's operations desk and the handler at departure; the desk is suggested from your last trip with the same operator). All of this is needed before sending. The lead passenger and the signatory are screened with the other names.",
+   "Request to Book (step 4, Confirmation): when the client accepts the quote, send Request to Book on Avinode and record when you sent it and until when the operator holds the aircraft; attach the operator's contract when it arrives. The Director only checks that the contract matches the operator terms.",
    "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field.",
    "Try it in the test version, as Test Broker",
    "Complete the trip checks, save the KYC record, enter a payment request reference and press Send for authorisation.",
@@ -6706,7 +6709,7 @@
    "Hand the Director, or a person the Director has mandated, a complete, compliant trip.",
    "Who uses it, Brokers.",
    "How it works.",
-   "The portal sets the pre-issue checks itself, from the records you complete, never-sell list and trip risk screen from Trip checks, nothing red, every amber confirmed with the operator, A O C from Documents, the operator's A O C attached, safety audit from Operator safety, K Y C from your K Y C record, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand, complete the record and the tick follows, and a new red item, an open amber item or a K Y C record out of date takes it back. Only routing and permits, confirmed with the operator, is your own tick. Fill in Operator safety on the trip, the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as Safety audit. For an ar Kay-approved operator, choose it from the approved-operator list, the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record. The portal screens the client, company, payer, lead passenger, signatory and operator against the sanctions lists each time you save the trip. To add passengers, owners of 25 percent or more or the aircraft owner, list them under Sanctions screening and press Screen names now. K Y C record, under the K Y C tick, enter the date the client was checked and how, then Save K Y C record. The portal gives the check its own reference, K Y B-year-code for a company, K Y C-year-code for a person, for example K Y B-2026-4F7A, nobody types one, so no I D, passport or bank number can end up there. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match, the earlier reference is kept. Otherwise check again, an out-of-date check stops authorisation and issue. Create the payment request in our payment provider and enter its reference on the trip. Fill in the confirmation details, Open confirmation, charterer address, signatory and lead passenger. The aircraft's year and seats and the operator's A O C number come from the quote, the audit from the operator safety record, the K Y C reference from your K Y C record and the itinerary from the trip's legs, they show greyed out on the confirmation and are changed where they come from. Save the 24-hour contacts, the operator's operations desk and the handler at departure, the desk is suggested from your last trip with the same operator. All of this is needed before sending. The lead passenger and the signatory are screened with the other names. Press Send for authorisation. The button opens only when the trip is complete, the panel Steps to book this trip lists what is still missing and takes you to each field.",
+   "The portal sets the pre-issue checks itself, from the records you complete, never-sell list and trip risk screen from Trip checks, nothing red, every amber confirmed with the operator, A O C from Documents, the operator's A O C attached, safety audit from Operator safety, K Y C from your K Y C record, insurance and operator terms from Operator terms and insurance. You cannot tick them by hand, complete the record and the tick follows, and a new red item, an open amber item or a K Y C record out of date takes it back. Only routing and permits, confirmed with the operator, is your own tick. Fill in Operator safety on the trip, the audit the operator holds, the aircraft type, two pilots, the insurance amount and the five-year history. For an accepted audit, add its expiry date, the date you checked it in the auditor's registry and the link, and attach the evidence as Safety audit. For an ar Kay-approved operator, choose it from the approved-operator list, the portal checks the approval is valid on the last flight date. For any other operator, the Director approves the trip after the checks in 8.3. Your quote and the confirmation show the operator's safety status in one line. The safety-audit tick follows this record. The portal screens the client, company, payer, lead passenger, signatory and operator against the sanctions lists each time you save the trip. To add passengers, owners of 25 percent or more or the aircraft owner, list them under Sanctions screening and press Screen names now. K Y C record, under the K Y C tick, enter the date the client was checked and how, then Save K Y C record. The portal gives the check its own reference, K Y B-year-code for a company, K Y C-year-code for a person, for example K Y B-2026-4F7A, nobody types one, so no I D, passport or bank number can end up there. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match, the earlier reference is kept. Otherwise check again, an out-of-date check stops authorisation and issue. Create the payment request in our payment provider and enter its reference on the trip. Fill in the confirmation details, Open confirmation, charterer address, signatory and lead passenger. The aircraft's year and seats and the operator's A O C number come from the quote, the audit from the operator safety record, the K Y C reference from your K Y C record and the itinerary from the trip's legs, they show greyed out on the confirmation and are changed where they come from. Save the 24-hour contacts, the operator's operations desk and the handler at departure, the desk is suggested from your last trip with the same operator. All of this is needed before sending. The lead passenger and the signatory are screened with the other names. Request to Book, step 4, Confirmation, when the client accepts the quote, send Request to Book on Avinode and record when you sent it and until when the operator holds the aircraft, attach the operator's contract when it arrives. The Director only checks that the contract matches the operator terms. Press Send for authorisation. The button opens only when the trip is complete, the panel Steps to book this trip lists what is still missing and takes you to each field.",
    "Try it in the test version, as Test Broker.",
    "Complete the trip checks, save the K Y C record, enter a payment request reference and press Send for authorisation.",
    "If something goes wrong.",
@@ -6716,22 +6719,22 @@
   ]
  },
  {
-  "key": "0421c7f9",
+  "key": "6802c83c",
   "kind": "lesson",
   "where": "sys screen 17",
   "text": [
    "Systems training: the Archē portal",
-   "S.16 Authorisation",
+   "S.16 Authorise and issue",
    "Check, confirm and record every trip that brokers send.",
    "Who uses it: The Director, or a person the Director has mandated",
    "How it works",
-   "The trip's Steps list shows everything still needed before Issue: approval and Booking with the operator (Request to Book, hold, the operator's contract attached and checked). The operator price, KYC, payment request reference are taken over from the broker's records when you issue; there is no separate Save. Screening at Issue uses the broker's screen only if it is under 48 hours old and covers every name on the trip now; otherwise the portal screens the names again. A possible match stops the issue until you decide on the trip. Nothing is recorded unless the confirmation is issued. Fields the broker has recorded show greyed out under Authorisation.",
-   "Open the trip from Today or Authorisation; take the oldest trip waiting first. The approval card shows the broker's records: operator price (the broker's quote), KYC record and reference, screening and payment request.",
-   "Check the operator price on Avinode against the broker's quote. Change it under Authorisation only if it differs.",
-   "Approve the booking. Record Booking with the operator (Request to Book, hold, the operator's contract attached and checked).",
-   "Open the confirmation and press Issue; or Return to broker with a note.",
+   "Open the trip from Today or Authorisation; the approval card's Open trip goes straight to step 6, Authorise and issue. Everything for the decision is on that one screen, in three parts.",
+   "1. Approve: the card shows the broker's records (operator price from the quote, KYC record and reference, screening, payment request) and the price at the Archē fee. Check the operator price on Avinode against the broker's quote. Approve the booking, or Ask for changes with a note.",
+   "2. Book the aircraft with the operator: Request to Book and the hold come from the broker's record (correct them if needed); tick that the operator's contract matches the operator terms: cancellation charges, payment terms, aircraft and registration, itinerary and price.",
+   "3. Check and issue: change the operator price only if Avinode shows another figure (Save a price change), then Open the confirmation and issue. The broker's price, KYC, payment request and screening are taken over at Issue; screening uses the broker's screen only if it is under 48 hours old and covers every name, otherwise the names are screened again; a possible match stops it until you decide. Nothing is recorded unless the confirmation is issued.",
+   "Or Return to broker with a note.",
    "Try it in the test version, as Test Director",
-   "As Test Director, open Authorisation and the trip you sent: see what the authoriser checks, then Return to broker with a note.",
+   "As Test Director, open a trip waiting for authorisation and read the three parts of Authorise and issue, then Return to broker with a note.",
    "If something goes wrong",
    "I see a note instead of the Authorisation panelIt is your own trip. Another person the Director has mandated handles it.",
    "The broker's operator price differs from AvinodeUse the Avinode figure; the difference is flagged in Control.",
@@ -6741,13 +6744,13 @@
   ],
   "say": [
    "Systems training, the ar Kay portal.",
-   "Authorisation.",
+   "Authorise and issue.",
    "Check, confirm and record every trip that brokers send.",
    "Who uses it, The Director, or a person the Director has mandated.",
    "How it works.",
-   "The trip's Steps list shows everything still needed before Issue, approval and Booking with the operator, Request to Book, hold, the operator's contract attached and checked. The operator price, K Y C, payment request reference are taken over from the broker's records when you issue, there is no separate Save. Screening at Issue uses the broker's screen only if it is under 48 hours old and covers every name on the trip now, otherwise the portal screens the names again. A possible match stops the issue until you decide on the trip. Nothing is recorded unless the confirmation is issued. Fields the broker has recorded show greyed out under Authorisation. Open the trip from Today or Authorisation, take the oldest trip waiting first. The approval card shows the broker's records, operator price, the broker's quote, K Y C record and reference, screening and payment request. Check the operator price on Avinode against the broker's quote. Change it under Authorisation only if it differs. Approve the booking. Record Booking with the operator, Request to Book, hold, the operator's contract attached and checked. Open the confirmation and press Issue, or Return to broker with a note.",
+   "Open the trip from Today or Authorisation, the approval card's Open trip goes straight to step 6, Authorise and issue. Everything for the decision is on that one screen, in three parts. 1. Approve, the card shows the broker's records, operator price from the quote, K Y C record and reference, screening, payment request, and the price at the ar Kay fee. Check the operator price on Avinode against the broker's quote. Approve the booking, or Ask for changes with a note. 2. Book the aircraft with the operator, Request to Book and the hold come from the broker's record, correct them if needed, tick that the operator's contract matches the operator terms, cancellation charges, payment terms, aircraft and registration, itinerary and price. 3. Check and issue, change the operator price only if Avinode shows another figure, Save a price change, then Open the confirmation and issue. The broker's price, K Y C, payment request and screening are taken over at Issue, screening uses the broker's screen only if it is under 48 hours old and covers every name, otherwise the names are screened again, a possible match stops it until you decide. Nothing is recorded unless the confirmation is issued. Or Return to broker with a note.",
    "Try it in the test version, as Test Director.",
-   "As Test Director, open Authorisation and the trip you sent, see what the authoriser checks, then Return to broker with a note.",
+   "As Test Director, open a trip waiting for authorisation and read the three parts of Authorise and issue, then Return to broker with a note.",
    "If something goes wrong.",
    "I see a note instead of the Authorisation panel. It is your own trip. Another person the Director has mandated handles it. The broker's operator price differs from Avinode. Use the Avinode figure, the difference is flagged in Control.",
    "Tips.",
@@ -6835,7 +6838,7 @@
   ]
  },
  {
-  "key": "d7693864",
+  "key": "954a52fb",
   "kind": "lesson",
   "where": "sys screen 20",
   "text": [
@@ -6847,7 +6850,7 @@
    "Open the trip. The Flight following panel appears once the confirmation is issued.",
    "For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note.",
    "Tell the client at once about any delay, diversion or cancellation.",
-   "When every leg has landed and the client has paid, the Director presses Last leg landed: record flight. The trip moves to Flown and aftercare opens for the broker.",
+   "When every leg has landed and the client has paid, the Director presses Record flight; the date is filled from the Route flown when the broker has recorded it. The trip moves to Flown and aftercare opens for the broker.",
    "After the flight, under Route flown, enter for each leg the route the operator filed (from its flight plan), the actual off-block and on-block times in UTC and any fuel stop, then press Save route flown. The trip's broker or the Director does this; it adds the legs to Archē's own route library (no client details, no prices).",
    "Try it in the test version, as Test Broker",
    "On a confirmed trip, set the first leg to Departed with a time and a short note.",
@@ -6866,7 +6869,7 @@
    "The broker who owns the trip follows it until the last passenger has landed, so the client hears about a change from us first.",
    "Who uses it, The trip's broker, who owns the trip to the last landing, the Director, or a person the Director has mandated, records the flight.",
    "How it works.",
-   "Open the trip. The Flight following panel appears once the confirmation is issued. For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note. Tell the client at once about any delay, diversion or cancellation. When every leg has landed and the client has paid, the Director presses Last leg landed, record flight. The trip moves to Flown and aftercare opens for the broker. After the flight, under Route flown, enter for each leg the route the operator filed, from its flight plan, the actual off-block and on-block times in U T C and any fuel stop, then press Save route flown. The trip's broker or the Director does this, it adds the legs to ar Kay's own route library, no client details, no prices.",
+   "Open the trip. The Flight following panel appears once the confirmation is issued. For each leg, set Departed, Landed, Delayed, Diverted or Cancelled with the operator's local time and a short note. Tell the client at once about any delay, diversion or cancellation. When every leg has landed and the client has paid, the Director presses Record flight, the date is filled from the Route flown when the broker has recorded it. The trip moves to Flown and aftercare opens for the broker. After the flight, under Route flown, enter for each leg the route the operator filed, from its flight plan, the actual off-block and on-block times in U T C and any fuel stop, then press Save route flown. The trip's broker or the Director does this, it adds the legs to ar Kay's own route library, no client details, no prices.",
    "Try it in the test version, as Test Broker.",
    "On a confirmed trip, set the first leg to Departed with a time and a short note.",
    "If something goes wrong.",
@@ -6876,7 +6879,7 @@
   ]
  },
  {
-  "key": "76501ba2",
+  "key": "eeae1111",
   "kind": "lesson",
   "where": "sys screen 21",
   "text": [
@@ -6888,7 +6891,7 @@
    "The Director records the date the client payment cleared in the payment account.",
    "The Director records the operator payment.",
    "Costs beyond the price (Booking with the operator, A7): enter what it is and its cost; the portal charges it like the price, cost ÷ 0.91, or at cost when you tick the B13 list. Send the client a payment request at once; it is due when the operator wants payment and no later than 72 hours after the service. The Archē fee on it counts towards commission.",
-   "After the last leg, the Director records the flight date.",
+   "After the last leg, the Director records the flight date: it is filled from the broker's Route flown (on block, UTC) when recorded.",
    "Commission appears in the month the trip flew, paid by the 15th of the next month; the Director marks it paid.",
    "Try it in the test version, as Test Director",
    "As Test Director, record the client payment and the flight, then switch to Test Broker and see the commission.",
@@ -6905,7 +6908,7 @@
    "Record money and flights so commission is right and on time.",
    "Who uses it, The Director, or a person the Director has mandated, records, everyone sees their own commission.",
    "How it works.",
-   "The Director records the date the client payment cleared in the payment account. The Director records the operator payment. Costs beyond the price, Booking with the operator, A7, enter what it is and its cost, the portal charges it like the price, cost divided by 0.91, or at cost when you tick the B13 list. Send the client a payment request at once, it is due when the operator wants payment and no later than 72 hours after the service. The ar Kay fee on it counts towards commission. After the last leg, the Director records the flight date. Commission appears in the month the trip flew, paid by the 15th of the next month, the Director marks it paid.",
+   "The Director records the date the client payment cleared in the payment account. The Director records the operator payment. Costs beyond the price, Booking with the operator, A7, enter what it is and its cost, the portal charges it like the price, cost divided by 0.91, or at cost when you tick the B13 list. Send the client a payment request at once, it is due when the operator wants payment and no later than 72 hours after the service. The ar Kay fee on it counts towards commission. After the last leg, the Director records the flight date, it is filled from the broker's Route flown, on block, U T C, when recorded. Commission appears in the month the trip flew, paid by the 15th of the next month, the Director marks it paid.",
    "Try it in the test version, as Test Director.",
    "As Test Director, record the client payment and the flight, then switch to Test Broker and see the commission.",
    "If something goes wrong.",
@@ -7840,18 +7843,18 @@
   ]
  },
  {
-  "key": "5e39297e",
+  "key": "e752dd4e",
   "kind": "question",
   "where": "sys check question 16",
   "text": [
-   "Authorisation: I see a note instead of the Authorisation panel. What do you do?",
+   "Authorise and issue: I see a note instead of the Authorisation panel. What do you do?",
    "aPoints update at each round, every 3 hours.",
    "bUse the email address your invitation went to. A sign-in link works once and only for a short time: ask for a new one. Still stuck: press Forgot password? or ask the Director.",
    "cPersonal addresses like Gmail are not allowed. Use the work email or work phone.",
    "dIt is your own trip. Another person the Director has mandated handles it."
   ],
   "say": [
-   "Authorisation, I see a note instead of the Authorisation panel. What do you do?",
+   "Authorise and issue, I see a note instead of the Authorisation panel. What do you do?",
    "A. Points update at each round, every 3 hours. B. Use the email address your invitation went to. A sign-in link works once and only for a short time, ask for a new one. Still stuck, press Forgot password? or ask the Director. C. Personal addresses like Gmail are not allowed. Use the work email or work phone. D. It is your own trip. Another person the Director has mandated handles it."
   ]
  },

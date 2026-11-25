@@ -9,7 +9,7 @@ const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>
  .replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
 const ok=(k,v)=>console.log((v?'PASS ':'FAIL ')+k);
 (async()=>{const b=await chromium.launch();const errs=[];let n=0;
- const open=async(uid,T,w)=>{const f=`t_j_${n++}.html`;fs.writeFileSync(f,page(uid,T));const p=await b.newPage({viewport:{width:w,height:900}});p.on('pageerror',e=>errs.push(uid.slice(-1)+': '+e.message));await p.goto('http://localhost:8765/'+f);await p.waitForTimeout(2500);return p;};
+ const open=async(uid,T,w)=>{const f=`t_j_${n++}.html`;fs.writeFileSync(f,page(uid,T));const p=await b.newPage({viewport:{width:w,height:900}});p.on('pageerror',e=>errs.push(uid.slice(-1)+': '+e.message));await p.goto('http://localhost:8765/'+f+'?steps=all');await p.waitForTimeout(2500);return p;};
  let c=await open(NEW,base,390);
  ok('new person sees the steps and the join form', await c.evaluate(()=>S.role==='pending') && !!(await c.$('#joinForm')));
  ok('offer open by default for a new candidate', (await c.textContent('#main')).includes('up to 35% of the Archē fee') && (await c.textContent('#main')).includes('Why brokers choose Archē'));

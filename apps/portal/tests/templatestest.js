@@ -10,7 +10,7 @@ const T={profiles:[{id:B1,role:'broker',active:true,contract_name:'Example Broke
 const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>'+fs.readFileSync('index.html','utf8').replace('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>',`<script>window.__UID="${uid}";window.__T=${JSON.stringify(T)};</script><script src="tests/fake-supabase.js"></script>`).replace('https://cdn.jsdelivr.net/npm/pdfmake@0.2.12/build/pdfmake.min.js','lib/node_modules/pdfmake/build/pdfmake.min.js')+'</body></html>';
 let fails=0;const ok=(k,v,x)=>{console.log((v?'PASS ':'FAIL ')+k+(v||x===undefined?'':' '+JSON.stringify(x)));if(!v)fails++;};
 (async()=>{const b=await chromium.launch();const errs=[];const f='t_tpl.html';fs.writeFileSync(f,page(B1,T));
- const p=await b.newPage({viewport:{width:1280,height:900}});p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/'+f);await p.waitForTimeout(3500);
+ const p=await b.newPage({viewport:{width:1280,height:900}});p.on('pageerror',e=>errs.push(e.message));await p.goto('http://localhost:8765/'+f+'?steps=all');await p.waitForTimeout(3500);
  await p.evaluate(()=>{S.view='trips';S.sel='t1';render();});await p.waitForTimeout(400);
  const hrefs=await p.$$eval('#tplRow a',as=>as.map(a=>decodeURIComponent(a.getAttribute('href'))));
  ok('trip: options and chase open in email, addressed to the client',hrefs.length===2&&hrefs.every(h=>h.startsWith('mailto:client@example.com')),hrefs);

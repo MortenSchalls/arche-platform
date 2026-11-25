@@ -6,7 +6,7 @@ const {chromium}=require('playwright');
 (async()=>{const b=await chromium.launch();const errs=[];let fails=0;const ok=(k,v,x)=>{console.log((v?'PASS ':'FAIL ')+k+(v||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,300)));if(!v)fails++;};
 const p=await b.newPage({viewport:{width:1400,height:950}});p.on('pageerror',e=>errs.push(e.message));
 const as=async who=>{await p.selectOption('select',{label:who});await p.waitForTimeout(2500);};
-await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await as('Test Broker');
+await p.goto('http://localhost:8765/test.html?steps=all');await p.waitForTimeout(3000);await as('Test Broker');
 const day=n=>new Date(Date.now()+n*864e5).toISOString().slice(0,10);
 await p.evaluate(()=>{S.view='trips';render();});await p.waitForTimeout(400);await p.click('[data-act="new"]');await p.waitForTimeout(800);
 await p.fill('#e_cn','Carla Example');await p.fill('#e_em','carla@example.com');await p.fill('#e_ct','Singapore');

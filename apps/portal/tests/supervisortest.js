@@ -13,7 +13,7 @@ const page=(uid,T)=>'<!doctype html><html><head><meta charset=utf8></head><body>
 let fails=0;const ok=(k,v,x)=>{console.log((v?'PASS ':'FAIL ')+k+(v||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,300)));if(!v)fails++;};
 const rt=`(function(){const t=setInterval(()=>{const s=window.__sb;if(!s)return;clearInterval(t);s.realtime={setAuth(){}};s.channel=()=>{const c={on(){return c;},subscribe(cb){return c;},send(){}};return c;};s.removeChannel=async()=>{};},50);})();`;
 (async()=>{const b=await chromium.launch();const errs=[];let n=0;const files=[];
- const open=async(uid,T,w=1400,route)=>{const f=`t_sv_${n++}.html`;files.push(f);fs.writeFileSync(f,page(uid,T));const ctx=await b.newContext({viewport:{width:w,height:900}});if(route)await ctx.route('**/api/live',route);const p=await ctx.newPage();await p.addInitScript(rt);p.on('pageerror',e=>errs.push(uid.slice(-2)+': '+e.message));await p.goto('http://localhost:8765/'+f);await p.waitForTimeout(5500);return p;};
+ const open=async(uid,T,w=1400,route)=>{const f=`t_sv_${n++}.html`;files.push(f);fs.writeFileSync(f,page(uid,T));const ctx=await b.newContext({viewport:{width:w,height:900}});if(route)await ctx.route('**/api/live',route);const p=await ctx.newPage();await p.addInitScript(rt);p.on('pageerror',e=>errs.push(uid.slice(-2)+': '+e.message));await p.goto('http://localhost:8765/'+f+'?steps=all');await p.waitForTimeout(5500);return p;};
  // ---------- owner: the switch, the text, the pay ----------
  let p=await open(OWN,T0);
  await p.evaluate(()=>{S.view='team';render();});await p.waitForTimeout(600);

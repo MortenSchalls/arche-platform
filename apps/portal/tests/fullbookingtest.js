@@ -9,7 +9,7 @@ await p.exposeFunction('__tl',m=>log.push('   toast: '+m));
 await p.addInitScript(()=>{const i=setInterval(()=>{if(window.toast&&!window.__tw){window.__tw=1;const o=window.toast;window.toast=function(m){try{__tl(String(m))}catch(e){};return o.apply(this,arguments)}}},30)});
 const st=async(n,f)=>{try{await f();log.push('OK  '+n)}catch(e){log.push('ERR '+n+': '+e.message.split('\n')[0])}};
 const next=async()=>log.push('   next: '+(await p.evaluate(()=>{const n=document.getElementById('secNext');return n?n.innerText.replace(/\s+/g,' ').slice(0,260):'-'})));
-await p.goto('http://localhost:8765/test.html?as=broker');await p.waitForTimeout(3000);
+await p.goto('http://localhost:8765/test.html?steps=all&as=broker');await p.waitForTimeout(3000);
 await p.evaluate(()=>{try{window.__testArmed=1;}catch(e){}});
 await p.evaluate(()=>{S.view='trips';render()});await p.click('[data-act="new"]');await p.waitForTimeout(400);
 const d=new Date(Date.now()+20*864e5).toISOString().slice(0,10);
@@ -57,7 +57,7 @@ await next();
 
 const tid=await p.evaluate(()=>S.sel);
 await p.waitForTimeout(1200);
-p.on('pageerror',e=>log.push('PGERR '+e.message));await p.goto('http://localhost:8765/test.html?as=owner');await p.waitForTimeout(3500);
+p.on('pageerror',e=>log.push('PGERR '+e.message));await p.goto('http://localhost:8765/test.html?steps=all&as=owner');await p.waitForTimeout(3500);
 await st('Director: open Authorisation',async()=>{await p.evaluate(()=>{S.view='queue';render()});await p.waitForTimeout(600)});
 log.push('   queue: '+(await p.evaluate(()=>document.querySelector('main').innerText.replace(/\s+/g,' ').slice(0,700))));
 const apBtns=await p.$$eval('[data-ap]',bs=>bs.map(b=>b.getAttribute('data-ap')+':'+b.innerText.slice(0,40)));log.push('   ap buttons: '+apBtns.join(' | '));

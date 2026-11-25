@@ -1,6 +1,6 @@
 // My profile: every role has it; joining people reach it from their steps; contact details saved; password form checks. Example data.
 const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();let fails=0;const ok=(n,c,x)=>{console.log((c?'PASS ':'FAIL ')+n+(c||x===undefined?'':'  -> '+JSON.stringify(x).slice(0,300)));if(!c)fails++;};
-const errs=[];const open=async(as,w)=>{const p=await b.newPage({viewport:{width:w||1300,height:1000}});p.on('pageerror',e=>errs.push(as+': '+e.message));await p.goto('http://localhost:8765/test.html?as='+as);await p.waitForTimeout(3500);return p;};
+const errs=[];const open=async(as,w)=>{const p=await b.newPage({viewport:{width:w||1300,height:1000}});p.on('pageerror',e=>errs.push(as+': '+e.message));await p.goto('http://localhost:8765/test.html?steps=all&as='+as);await p.waitForTimeout(3500);return p;};
 for(const as of ['owner','ops','broker']){const p=await open(as);ok(as+': My profile in the menu',await p.evaluate(()=>navItems().some(i=>i[0]==='profile')));await p.close();}
 const p=await open('broker');await p.evaluate(()=>{S.view='profile';render();});await p.waitForTimeout(900);
 ok('shows what Archē holds and the editable details',await p.evaluate(()=>/What Archē holds[\s\S]*Name on your agreement/i.test(document.querySelector('#main').innerText)&&!!document.getElementById('pr_mob')));

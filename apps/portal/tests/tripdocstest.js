@@ -6,7 +6,7 @@ const {chromium}=require('playwright');const fs=require('fs');
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1366,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
 const toasts=[];await p.exposeFunction('__toast',m=>toasts.push(m));
 fs.writeFileSync('/tmp/ex-aoc.pdf','%PDF-1.4 example AOC');fs.writeFileSync('/tmp/ex-ins.pdf','%PDF-1.4 example insurance');
-await p.goto('http://localhost:8765/test.html?as=broker');await p.waitForTimeout(3000);
+await p.goto('http://localhost:8765/test.html?steps=all&as=broker');await p.waitForTimeout(3000);
 await p.evaluate(()=>{localStorage.removeItem('__files');const _t=toast;toast=m=>{window.__toast(m);_t(m);};S.view='trips';render()});await p.click('[data-act="new"]');await p.waitForTimeout(400);
 const d=new Date(Date.now()+20*864e5).toISOString().slice(0,10);
 await p.fill('#e_cn','Example Docs Client');await p.fill('#e_em','docs@example.com');await p.fill('#e_ct','Singapore');

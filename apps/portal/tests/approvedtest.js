@@ -16,7 +16,7 @@ const newTrip=async(date)=>{await p.evaluate(()=>{S.view='trips';render();});awa
  await p.click('#edForm button[type=submit]');await p.waitForTimeout(1800);
  await sel('sf_aud','isbao-1');await sel('sf_cls','jet');await sel('sf_2p','yes');await fill('sf_ins','60000000');await sel('sf_hist','clear');
  return p.evaluate(()=>S.sel);};
-await p.goto('http://localhost:8765/test.html');await p.waitForTimeout(3000);await as('Test Broker');
+await p.goto('http://localhost:8765/test.html?steps=all');await p.waitForTimeout(3000);await as('Test Broker');
 const d1=await newTrip('2026-11-20');
 let n=await needs();ok('unapproved operator: five checks, crew hours and the director needed',n.some(x=>/five checks/.test(x))&&n.some(x=>/crew hours/.test(x))&&n.some(x=>/Director's approval/.test(x)),n);
 ok('no client disclosure email asked any more',!n.some(x=>/disclosure|told in writing/i.test(x)),n);
