@@ -51,6 +51,20 @@ HARNESS = """<script>
   var seed = %(seed)s, T = null;
   try { T = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
   window.__T = T || seed;
+  /* the test version has no server: stand-ins for the checks the booking flow asks the server for, so a practice booking
+     runs to the end (25 Nov 2026, test booking with a candidate). Name screening answers "no match" for every name and
+     says it is the test version; the audit registries answer as unavailable, so the broker's own audit check is the proof,
+     as on the live portal when a registry cannot be read. Nothing is sent anywhere. */
+  var _fetch = window.fetch.bind(window);
+  window.fetch = function(u, o){
+    var url = String(u || "");
+    if (url.indexOf("/api/screen") >= 0) { var b = {}; try { b = JSON.parse((o || {}).body || "{}"); } catch (e) {}
+      var at = new Date().toISOString(), body = {at: at, stale: false, lists: ["Test version: no lists read"], failed: [], aslStates: [], logged: false, logId: null,
+        results: (b.names || []).map(function(n){ return {name: n, result: "no match", hits: []}; }), faa: {tails: {}, at: at}};
+      return Promise.resolve(new Response(JSON.stringify(body), {status: 200, headers: {"content-type": "application/json"}})); }
+    if (url.indexOf("/api/auditcheck") >= 0) return Promise.resolve(new Response(JSON.stringify({error: "Test version: the audit registries are not read here; your own check is the proof."}), {status: 503, headers: {"content-type": "application/json"}}));
+    return _fetch(u, o);
+  };
   var last = "";
   setInterval(function(){ try { var s = JSON.stringify(window.__T); if (s !== last) { localStorage.setItem(KEY, s); last = s; } } catch (e) {} }, 800);
   window.__testSwitch = function(r){ try { localStorage.setItem(KEY, JSON.stringify(window.__T)); } catch (e) {} try { localStorage.setItem(KEY + ".as", r); } catch (e) {} if (/[?&]as=/.test(location.search)) location.search = "?as=" + r; else location.reload(); };

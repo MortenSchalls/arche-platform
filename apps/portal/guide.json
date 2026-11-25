@@ -273,6 +273,10 @@
    ],
    "trouble": [
     [
+     "A pre-issue check cannot be ticked",
+     "Ticks marked \"set by the portal\" tick themselves once their source is complete. Under each one the portal says what is missing (for example: confirm the amber items in Trip checks with the operator) with Go there. Only Routing, permits and continuous journey is ticked by hand."
+    ],
+    [
      "Send for authorisation is greyed out",
      "One of the required items is missing; the note under the button lists them."
     ],

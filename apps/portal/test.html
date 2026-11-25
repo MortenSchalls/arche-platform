@@ -19,6 +19,20 @@
   var seed = {"profiles": [{"id": "00000000-0000-4000-8000-0000000000a1", "role": "owner", "active": true, "contract_name": "Test Director", "data": {}}, {"id": "00000000-0000-4000-8000-0000000000a2", "role": "ops", "active": true, "contract_name": "Test Operations", "base": "Bangkok", "data": {"roster": true, "example": true}}, {"id": "00000000-0000-4000-8000-0000000000a3", "role": "broker", "active": true, "contract_name": "Test Broker", "base": "Remote", "book": false, "data": {"roster": true, "example": true}}, {"id": "00000000-0000-4000-8000-0000000000a4", "role": "broker", "active": true, "contract_name": "Test Broker 2", "base": "Remote", "book": false, "data": {"roster": true, "example": true}}, {"id": "00000000-0000-4000-8000-0000000000a5", "role": null, "active": false, "contract_name": "", "data": {}}], "config": [{"key": "terms", "value": {"margin": 0.09, "unit": 45000, "threshold": 8, "rate1": 0.27, "rate2": 0.35, "consultRate": 0.1}}, {"key": "company", "value": {"name": "Example Company Pte. Ltd.", "reg": "000000000X", "address": "1 Example Street, Singapore 000000", "email": "charter@example.com", "phone": "+65 0000 0000", "web": "example.com", "signName": "Test Director", "signTitle": "Director", "privacy": "privacy@example.com"}}], "agreements": [], "enquiry_pool": [], "enquiry_contacts": [], "trips": [], "trip_status": [], "leads": [], "optouts": [], "rfqs": [], "audit_log": [], "owner_prospects": [], "prospects": [{"id": "p001", "data": {"org": "Example Family Office", "kind": "client", "status": "new", "segment": "Family office", "region": "Asia-Pacific", "country": "Singapore", "why": "Example prospect for testing.", "approach": "Example approach.", "source": "https://example.org/fo"}}, {"id": "p002", "data": {"org": "Example Air Operator", "kind": "operator", "segment": "Operator", "status": "new", "region": "Asia-Pacific", "country": "Singapore", "why": "Example operator for testing.", "approach": "Example.", "source": "https://example.org/op", "ops": {"aoc": {"authority": "CAAS", "source": ""}, "bases": ["WSSL"], "fleet": [{"type": "Example Jet", "count": 2}], "audits": [{"name": "ARGUS", "level": "Platinum", "year": "2025", "url": "https://example.org/argus"}], "safety": [], "tier": "A", "flags": [], "screen": {"country": "clear", "entity": "", "auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}}, {"id": "p003", "data": {"org": "Example FBO One", "kind": "service", "segment": "Service partner", "category": "FBO and ground handling", "airports": ["WSSL", "VTBD"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.org/fbo-one", "website": "https://example.org", "why": "Example.", "approach": "Example.", "isbah": {"level": "Stage 2", "year": "2025", "url": "https://example.org/isbah"}, "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}, "avenues": [{"type": "email", "label": "Operations desk", "url": "mailto:ops@example.org"}]}}, {"id": "p004", "data": {"org": "Example FBO Two", "kind": "service", "segment": "Service partner", "category": "FBO and ground handling", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.net/fbo-two", "website": "https://example.net", "why": "Example.", "approach": "Example.", "flags": ["No IS-BAH registration found: check handling standards before relying on them."], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}, {"id": "p005", "data": {"org": "Example Crew Hotel", "kind": "service", "segment": "Service partner", "category": "Crew hotels", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.com/hotel", "website": "https://example.com", "why": "Example.", "approach": "Example.", "hotel": {"type": "hotel", "minutes": 10, "minutesUrl": "https://example.com/hotel", "shuttle": "Own airport shuttle, 24/7", "shuttleUrl": "https://example.com/hotel"}, "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}, {"id": "p006", "data": {"org": "Example Flight Kitchen", "kind": "service", "segment": "Service partner", "category": "In-flight catering", "airports": ["WSSL"], "status": "new", "region": "Asia-Pacific", "country": "Singapore", "source": "https://example.org/kitchen", "why": "Example.", "approach": "Example.", "flags": [], "screen": {"auto": {"result": "no match", "at": "2026-10-20T05:00:00Z", "lists": ["OFAC", "UN", "EU", "UK"], "hits": []}}}}], "website_enquiries": [{"id": "w001", "at": "2026-10-25T01:30:00Z", "handled": false, "consent": true, "data": {"type": "quote", "legs": [{"from": "VTBD", "to": "WSSL", "date": "2026-11-06"}], "pax": "4", "name": "Example Website Client", "reach": "client@example.com", "reply": "email"}}]}, T = null;
   try { T = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) {}
   window.__T = T || seed;
+  /* the test version has no server: stand-ins for the checks the booking flow asks the server for, so a practice booking
+     runs to the end (25 Nov 2026, test booking with a candidate). Name screening answers "no match" for every name and
+     says it is the test version; the audit registries answer as unavailable, so the broker's own audit check is the proof,
+     as on the live portal when a registry cannot be read. Nothing is sent anywhere. */
+  var _fetch = window.fetch.bind(window);
+  window.fetch = function(u, o){
+    var url = String(u || "");
+    if (url.indexOf("/api/screen") >= 0) { var b = {}; try { b = JSON.parse((o || {}).body || "{}"); } catch (e) {}
+      var at = new Date().toISOString(), body = {at: at, stale: false, lists: ["Test version: no lists read"], failed: [], aslStates: [], logged: false, logId: null,
+        results: (b.names || []).map(function(n){ return {name: n, result: "no match", hits: []}; }), faa: {tails: {}, at: at}};
+      return Promise.resolve(new Response(JSON.stringify(body), {status: 200, headers: {"content-type": "application/json"}})); }
+    if (url.indexOf("/api/auditcheck") >= 0) return Promise.resolve(new Response(JSON.stringify({error: "Test version: the audit registries are not read here; your own check is the proof."}), {status: 503, headers: {"content-type": "application/json"}}));
+    return _fetch(u, o);
+  };
   var last = "";
   setInterval(function(){ try { var s = JSON.stringify(window.__T); if (s !== last) { localStorage.setItem(KEY, s); last = s; } } catch (e) {} }, 800);
   window.__testSwitch = function(r){ try { localStorage.setItem(KEY, JSON.stringify(window.__T)); } catch (e) {} try { localStorage.setItem(KEY + ".as", r); } catch (e) {} if (/[?&]as=/.test(location.search)) location.search = "?as=" + r; else location.reload(); };
@@ -7301,7 +7315,9 @@ document.addEventListener("change", async e => {
   }, true);
   document.addEventListener("click", async ev => {
     const b = ev.target.closest && ev.target.closest("[data-tc]"); if (!b) return; ev.preventDefault();
-    const [a, bid, did, key] = b.dataset.tc.split("|"); const t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
+    /* the item key itself holds "|" (e.g. "cab|1", "size|1|VTSP"): keep all of it. Before 25 Nov 2026 only its first part
+       was saved, so "Confirmed with the operator" never cleared the amber item and the two top pre-issue checks stayed unticked. */
+    const [a, bid, did, ...rest] = b.dataset.tc.split("|"), key = rest.join("|"); const t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
     if (a === "ack") {
       const acks = {...(t.d.acks || {}), [key]: {at: now(), by: S.uid, note: "confirmed with the operator"}};
       await deskWrite(t, {acks}, "Trip check confirmed with the operator: " + key.split("|")[0]); toast("Recorded."); return;
@@ -9565,14 +9581,27 @@ document.addEventListener("click", async ev => {
     deskWrite(t, {checks: next}, "Pre-issue checks updated by the portal").catch(() => { S.acSync[t.did] = null; });
   }
   window.autoChecksSync = sync;
+  /* why an automatic tick is not set yet, and where to go (25 Nov 2026: in the test booking the top two ticks could not be
+     ticked by hand and nothing said what would tick them) */
+  function whyNot(t, k){
+    let why = "", sec = "";
+    if (k === "never" || k === "risk") { const b = tripBlockers(t.d, t.st); sec = "secTC";
+      why = b.red.length ? `${b.red.length} red item${b.red.length > 1 ? "s" : ""} in Trip checks must be cleared first.` : b.amberOpen.length ? `Confirm ${b.amberOpen.length === 1 ? "the amber item" : "the " + b.amberOpen.length + " amber items"} in Trip checks with the operator, then press Confirmed with the operator on each; this box then ticks itself.` : ""; }
+    else if (k === "aoc") { sec = "secDocs"; why = "Attach the operator's AOC under Documents; this box then ticks itself."; }
+    else if (k === "audit") { sec = "secSafety"; const n = typeof safetyNeeds === "function" ? safetyNeeds(t.d, t.st) : []; why = n.length ? `Complete Operator safety (${n.length} open); this box then ticks itself.` : "Clear the item in Operator safety; this box then ticks itself."; }
+    else if (k === "ins" || k === "terms") { sec = "secOpTerms"; why = "Fill in Operator terms and insurance; this box then ticks itself."; }
+    return why ? `<span class="small" style="display:block;margin-top:3px;color:var(--text)">${esc(why)} <button class="btn small" type="button" data-ns="sec|${sec}">Go there</button></span>` : "";
+  }
   const _tf = tripFile;
   tripFile = function(t){
     let h = _tf(t); const auto = autoTickState(t);
     for (const k in AUTO) {
       if (!(k in auto)) continue;
       h = h.replace(new RegExp(`(<input type="checkbox" id="ck_${k}" data-ck="${k}")[^>]*>`), `$1 ${auto[k] ? "checked" : ""} disabled>`)
-           .replace(new RegExp(`(id="ck_${k}"[^]*?<span>)([^<]*)(</span>)`), `$1$2 <span class="muted">(set by the portal from ${AUTO[k].from})</span>$3`);
+           .replace(new RegExp(`(id="ck_${k}"[^]*?<span>)([^<]*)(</span>)`), `$1$2 <span class="muted">(set by the portal from ${AUTO[k].from})</span>${auto[k] ? "" : whyNot(t, k)}$3`);
     }
+    // ins and terms come from Operator terms and insurance (bookingplan.js): say so on the box itself, with the way there
+    ["ins", "terms"].forEach(k => { if (!(t.d.checks || {})[k] && !(typeof opTermsDone === "function" && opTermsDone(t.d))) h = h.replace(new RegExp(`(id="ck_${k}"[^]*?<span>[^<]*(?:<span class="muted">[^<]*</span>)?)(</span>)`), `$1${whyNot(t, k)}$2`); });
     setTimeout(() => sync(t), 0);
     return h;
   };

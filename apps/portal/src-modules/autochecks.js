@@ -34,14 +34,27 @@
     deskWrite(t, {checks: next}, "Pre-issue checks updated by the portal").catch(() => { S.acSync[t.did] = null; });
   }
   window.autoChecksSync = sync;
+  /* why an automatic tick is not set yet, and where to go (25 Nov 2026: in the test booking the top two ticks could not be
+     ticked by hand and nothing said what would tick them) */
+  function whyNot(t, k){
+    let why = "", sec = "";
+    if (k === "never" || k === "risk") { const b = tripBlockers(t.d, t.st); sec = "secTC";
+      why = b.red.length ? `${b.red.length} red item${b.red.length > 1 ? "s" : ""} in Trip checks must be cleared first.` : b.amberOpen.length ? `Confirm ${b.amberOpen.length === 1 ? "the amber item" : "the " + b.amberOpen.length + " amber items"} in Trip checks with the operator, then press Confirmed with the operator on each; this box then ticks itself.` : ""; }
+    else if (k === "aoc") { sec = "secDocs"; why = "Attach the operator's AOC under Documents; this box then ticks itself."; }
+    else if (k === "audit") { sec = "secSafety"; const n = typeof safetyNeeds === "function" ? safetyNeeds(t.d, t.st) : []; why = n.length ? `Complete Operator safety (${n.length} open); this box then ticks itself.` : "Clear the item in Operator safety; this box then ticks itself."; }
+    else if (k === "ins" || k === "terms") { sec = "secOpTerms"; why = "Fill in Operator terms and insurance; this box then ticks itself."; }
+    return why ? `<span class="small" style="display:block;margin-top:3px;color:var(--text)">${esc(why)} <button class="btn small" type="button" data-ns="sec|${sec}">Go there</button></span>` : "";
+  }
   const _tf = tripFile;
   tripFile = function(t){
     let h = _tf(t); const auto = autoTickState(t);
     for (const k in AUTO) {
       if (!(k in auto)) continue;
       h = h.replace(new RegExp(`(<input type="checkbox" id="ck_${k}" data-ck="${k}")[^>]*>`), `$1 ${auto[k] ? "checked" : ""} disabled>`)
-           .replace(new RegExp(`(id="ck_${k}"[^]*?<span>)([^<]*)(</span>)`), `$1$2 <span class="muted">(set by the portal from ${AUTO[k].from})</span>$3`);
+           .replace(new RegExp(`(id="ck_${k}"[^]*?<span>)([^<]*)(</span>)`), `$1$2 <span class="muted">(set by the portal from ${AUTO[k].from})</span>${auto[k] ? "" : whyNot(t, k)}$3`);
     }
+    // ins and terms come from Operator terms and insurance (bookingplan.js): say so on the box itself, with the way there
+    ["ins", "terms"].forEach(k => { if (!(t.d.checks || {})[k] && !(typeof opTermsDone === "function" && opTermsDone(t.d))) h = h.replace(new RegExp(`(id="ck_${k}"[^]*?<span>[^<]*(?:<span class="muted">[^<]*</span>)?)(</span>)`), `$1${whyNot(t, k)}$2`); });
     setTimeout(() => sync(t), 0);
     return h;
   };

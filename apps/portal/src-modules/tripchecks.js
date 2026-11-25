@@ -157,7 +157,9 @@
   }, true);
   document.addEventListener("click", async ev => {
     const b = ev.target.closest && ev.target.closest("[data-tc]"); if (!b) return; ev.preventDefault();
-    const [a, bid, did, key] = b.dataset.tc.split("|"); const t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
+    /* the item key itself holds "|" (e.g. "cab|1", "size|1|VTSP"): keep all of it. Before 25 Nov 2026 only its first part
+       was saved, so "Confirmed with the operator" never cleared the amber item and the two top pre-issue checks stayed unticked. */
+    const [a, bid, did, ...rest] = b.dataset.tc.split("|"), key = rest.join("|"); const t = allTrips().find(x => x.bid === bid && x.did === did); if (!t) return;
     if (a === "ack") {
       const acks = {...(t.d.acks || {}), [key]: {at: now(), by: S.uid, note: "confirmed with the operator"}};
       await deskWrite(t, {acks}, "Trip check confirmed with the operator: " + key.split("|")[0]); toast("Recorded."); return;
