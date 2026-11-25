@@ -1,0 +1,57 @@
+{
+ "icao": "LGSR",
+ "iata": "JTR",
+ "name": "Santorini (Thira) Airport",
+ "city": "Santorini",
+ "country": "GR",
+ "tz": "Europe/Athens",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "hours": {
+   "v": "airport open every day 05:45-22:45 local; terminal 04:00-23:00; may be extended on specific dates for individual flights",
+   "hours_local": [
+    [
+     "05:45",
+     "22:45"
+    ]
+   ],
+   "src": "jtr-airport-info",
+   "quote": "Every Day 05:45 – 22:45"
+  },
+  "slots": {
+   "v": "winter 2026/27: not coordinated (Level 1); summer 2027: coordinated (Level 3); GA/BA flights get slot allocation in summer",
+   "src": "hsca-airports-page",
+   "quote": "S27 Level: 3 – Coordinated",
+   "also": [
+    {
+     "src": "hsca-airport-levels",
+     "quote": "| 10 | JTR | LGSR | THIRA | Coordinated (Level 3) | Υes | Data collection by airport (Level 1) |"
+    }
+   ]
+  },
+  "ppr": {
+   "v": "GA/BA flights must obtain a parking authorisation number (PPR for apron clearance) from the operator",
+   "src": "jtr-ga",
+   "quote": "to obtain a parking authorization number (PPR - Prior Permission Required for Apron Clearance)"
+  },
+  "handling": {
+   "v": "all PPR requests go through a ground handler holding an HCAA category 1 licence",
+   "src": "jtr-ga",
+   "quote": "All PPR requests must be cleared through a Ground Handling Service Provider with a valid category 1 License by HCAA"
+  }
+ },
+ "missing": [
+  "runway",
+  "customs",
+  "curfew",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "No AIP page could be read (Greek eAIP AD 2 LGSR not found). Hours conflict on the operator's own site: the Airport information page and site footer show airport 'Every Day 05:45 – 22:45' and terminal 'Every Day 04:00 – 23:00' (recorded, no dates shown; probably winter 2026/27), while the GA page still shows 'Every Day 00:00 – 23:59'. Outside the hours is not recorded as a curfew because no source calls it one; check before any early or late slot. HSCA operating-hours PDF JTROPHRS.pdf read: S26 only (14 Sep to 24 Oct 2026, 00:00-23:59 UTC), expired. Fraport Greece W26 runway operating hours PDF (Version 2) refused by proxy (URL too long); PPR Handbook v11 PDF blocked (permission not answered), so lead time and ground-time rules are not recorded."
+}

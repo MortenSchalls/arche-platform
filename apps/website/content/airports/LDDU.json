@@ -1,0 +1,52 @@
+{
+ "icao": "LDDU",
+ "iata": "DBV",
+ "name": "Dubrovnik Airport Ruđer Bošković",
+ "city": "Dubrovnik",
+ "country": "HR",
+ "tz": "Europe/Zagreb",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 11/29, 3,230 m x 45 m",
+   "longest_m": 3230,
+   "src": "hr-dbv-technical-data",
+   "quote": "USS Length: 3230 m"
+  },
+  "hours": {
+   "v": "summer 06:00-23:00 local (04:00-21:00 UTC); winter 06:00-22:00 local (05:00-21:00 UTC)",
+   "src": "hr-dbv-technical-data",
+   "quote": "Summer opening hours: 0400 - 2100 UTC",
+   "also": [
+    {
+     "src": "hr-dbv-technical-data",
+     "quote": "Winter opening hours: 0500 - 2100 UTC"
+    }
+   ]
+  },
+  "slots": {
+   "v": "schedules facilitated (IATA Level 2) in the summer season, including general and business aviation; messages in IATA SSIM chapter 6 format (SMA/SCR) to the airport's schedule coordinator",
+   "src": "hr-dbv-technical-data",
+   "quote": "is a regulated airport (Level 2) during the summer flight schedule"
+  },
+  "permits": {
+   "v": "before take-off to Dubrovnik the captain must e-mail a general declaration with all passenger identity data to the airport's border control",
+   "src": "hr-dbv-border-notification",
+   "quote": "The Captain must transmit, prior to take off to DBV - LDDU, to e-mail adress:"
+  }
+ },
+ "missing": [
+  "customs",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Operator pages read (no page dates; footer © 2026). The technical-data page links an AIRAC 2025-02-20 eAIP document. Croatian eAIP: the latest public HTML found is AIRAC 4 Sep 2025; the AIRAC 29 Oct 2026 LDDU page was blocked (permission not answered), and Croatia Control's AIM page says the AIM Portal needs registration. Local times converted from UTC: summer CEST (UTC+2), winter CET (UTC+1). Outside opening hours is not recorded as a curfew because no source calls it one. The operator's GA handling page names its own team for arrivals but does not say handling is mandatory. Customs hours not stated."
+}

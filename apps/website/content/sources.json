@@ -4270,5 +4270,389 @@
   "url": "https://www.oxfordairport.co.uk/wp-content/uploads/2026/06/oxf_ats_tech_d_085_egtk_pilot_guide_v1.2.pdf",
   "publisher": "London Oxford Airport",
   "checked": "2026-11-25"
+ },
+ "nl-aip-ehrd": {
+  "title": "Netherlands eAIP, AD 2 EHRD Rotterdam (AIRAC AMDT 06-2026, effective 11 Jun 2026)",
+  "url": "https://eaip.lvnl.nl/web/eaip/AIRAC%20AMDT%2006-2026_2026_06_11/eAIP/EH-AD%202%20EHRD%201-en-GB.html",
+  "publisher": "LVNL (Air Traffic Control the Netherlands)",
+  "checked": "2026-11-26"
+ },
+ "be-aip-ebaw": {
+  "title": "Belgium eAIP, AD 2 EBAW Antwerpen/Deurne (eAIP_Next edition; no amendment date shown on the page; read 26 Nov 2026)",
+  "url": "https://ops.skeyes.be/html/belgocontrol_static/eaip/eAIP_Next/html/eAIP/EB-AD-2.EBAW-en-GB.html",
+  "publisher": "skeyes",
+  "checked": "2026-11-26"
+ },
+ "lu-aip-ellx": {
+  "title": "Belgium and Luxembourg eAIP, AD 2 ELLX Luxembourg (eAIP_Main edition; no amendment date shown on the page; read 26 Nov 2026)",
+  "url": "https://ops.skeyes.be/html/belgocontrol_static/eaip/eAIP_Main/html/eAIP/EB-AD-2.ELLX-en-GB.html",
+  "publisher": "skeyes",
+  "checked": "2026-11-26"
+ },
+ "dk-aip-ekrk": {
+  "title": "Denmark AIP, AD 2 EKRK Copenhagen/Roskilde (pages AIRAC AMDT 07/26, 9 Jul 2026, and AIRAC AMDT 09/26, 3 Sep 2026)",
+  "url": "https://aim.naviair.dk/media/files/mpr1wxcgzun/EK_AD_2_EKRK_en.pdf",
+  "publisher": "Naviair",
+  "checked": "2026-11-26"
+ },
+ "se-aip-essa": {
+  "title": "Sweden AIP, AD 2 ESSA Stockholm/Arlanda (LFV AIRAC AIP AMDT 3-2026 package, 14 May 2026; pages dated 12 Jun 2025 to 19 Mar 2026)",
+  "url": "https://aro.lfv.se/content/eaip/AIRAC%20AIP%20AMDT%203-2026_2026_05_14/documents/PDF/ES-AD%202%20ESSA%20STOCKHOLM-ARLANDA%201.pdf",
+  "publisher": "LFV",
+  "checked": "2026-11-26"
+ },
+ "fi-aip-efhk": {
+  "title": "Finland eAIP, AD 2 EFHK Helsinki-Vantaa (AIRAC AMDT 006-2025, effective 27 Nov 2025)",
+  "url": "https://www.ais.fi/eaip/006-2025_2025_11_27/eAIP/EF-AD 2 EFHK - HELSINKI-VANTAA 1-en-GB.html",
+  "publisher": "Fintraffic ANS (AIS Finland)",
+  "checked": "2026-11-26"
+ },
+ "eddh-ham-partner": {
+  "title": "Hamburg Airport, airline partner page 'Hamburg Airport' (no page date; page read 26 Nov 2026)",
+  "url": "https://www.hamburg-airport.de/en/corporate/b2b/airline-partner-metanavigation/hamburg-airport",
+  "publisher": "Flughafen Hamburg GmbH",
+  "checked": "2026-11-26"
+ },
+ "eddh-night-2026-07": {
+  "title": "Hamburg Airport, Nachtflugbeschränkungen: Flüge nach 23 Uhr im Juli 2026 (report dated 10 Aug 2026)",
+  "url": "https://www.hamburg-airport.de/resource/blob/94866/dcbbcac9616de93ce9c1cfefa4dae7cf/bericht-nachtflugbeschraenkung-2026-07-data.pdf",
+  "publisher": "Flughafen Hamburg GmbH",
+  "checked": "2026-11-26"
+ },
+ "eddl-hours": {
+  "title": "Düsseldorf Airport, Transparenz: Betriebszeiten (no page date; cites the October 2026 night-flight report; page read 26 Nov 2026)",
+  "url": "https://www.dus.com/de-de/konzern/nachbarn/transparenz/flugbetrieb/betriebszeiten",
+  "publisher": "Flughafen Düsseldorf GmbH",
+  "checked": "2026-11-26"
+ },
+ "eddl-runways": {
+  "title": "Düsseldorf Airport, Bahnsystem (no page date; page read 26 Nov 2026)",
+  "url": "https://www.dus.com/de-de/konzern/unternehmen/infrastruktur/bahnsystem",
+  "publisher": "Flughafen Düsseldorf GmbH",
+  "checked": "2026-11-26"
+ },
+ "eddl-ga": {
+  "title": "Düsseldorf Airport, General Aviation und Lufttaxi (no page date; page read 26 Nov 2026)",
+  "url": "https://www.dus.com/de-de/businesspartner/aviation/general-aviation",
+  "publisher": "Flughafen Düsseldorf GmbH",
+  "checked": "2026-11-26"
+ },
+ "edds-night-2023": {
+  "title": "Stuttgart Airport, Night flight restrictions (English leaflet, file dated 22 Feb 2023; read 26 Nov 2026)",
+  "url": "https://www.stuttgart-airport.com/media/309226/230222_nachtflugbeschraenkung_en.pdf",
+  "publisher": "Flughafen Stuttgart GmbH",
+  "checked": "2026-11-26"
+ },
+ "edds-facts": {
+  "title": "Stuttgart Airport, Facts and figures (no page date, figures to 2025; page read 26 Nov 2026)",
+  "url": "https://www.stuttgart-airport.com/en/company/airport-development/facts-and-figures",
+  "publisher": "Flughafen Stuttgart GmbH",
+  "checked": "2026-11-26"
+ },
+ "edds-gat": {
+  "title": "Stuttgart Airport, General Aviation Terminal (no page date, machine-translated English page; page read 26 Nov 2026)",
+  "url": "https://www.stuttgart-airport.com/en/business/air-traffic/general-aviation-terminal",
+  "publisher": "Flughafen Stuttgart GmbH",
+  "checked": "2026-11-26"
+ },
+ "edfe-bo-2025-de": {
+  "title": "Flugplatz Frankfurt-Egelsbach (EDFE), Flugplatzbenutzungsordnung, in force 25 Nov 2025 (German, v1.2)",
+  "url": "https://egelsbach-airport.com/wp-content/uploads/2025/12/EDFE-Benutzungsordnung-25-11-2025-FinalohneUnterschrift-DE-v1-2.pdf",
+  "publisher": "Hessische Flugplatz GmbH Egelsbach (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "edfe-bo-2025-en": {
+  "title": "Frankfurt-Egelsbach airport (EDFE), Airport Rules of Use (English; text says in force 25 Nov 2025, cover still reads valid from 01/02/2024)",
+  "url": "https://egelsbach-airport.com/wp-content/uploads/2025/11/EDFE-Benutzungsordnung-25-11-2025-FinalohneUnterschrift-EN.pdf",
+  "publisher": "Hessische Flugplatz GmbH Egelsbach (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "edfe-pilotinfo": {
+  "title": "Frankfurt-Egelsbach Airport, Pilot Info (page last modified 30 Oct 2026)",
+  "url": "https://egelsbach-airport.com/en/pilotinfo/",
+  "publisher": "Hessische Flugplatz GmbH Egelsbach (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "is-kef-aerodrome-manual-v13": {
+  "title": "Isavia, Aerodrome Manual - Keflavik Airport (FH700 01), version 13.0, published 29 Jun 2026",
+  "url": "https://eu-assets.contentstack.com/v3/assets/bltde8e98ee10782d85/blte6d05044e7c58f8f/6a428fce74904e674a3793c7/Aerodrome_Manual_-_Keflavik_Airport_v13.pdf",
+  "publisher": "Isavia (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "is-kef-airport-info": {
+  "title": "Keflavík Airport, Airport information (page read 26 Nov 2026)",
+  "url": "https://www.kefairport.com/corporate/airport-information",
+  "publisher": "Isavia (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "is-kef-airline-guide-2025": {
+  "title": "Isavia, Keflavík Airport Airline Guide (September 2025)",
+  "url": "https://eu-assets.contentstack.com/v3/assets/bltde8e98ee10782d85/blt5d48d95510da8690/6a3d0efdfe2276c5f7a63242/ISA-KEF-Airline_Guide-250626.pdf",
+  "publisher": "Isavia (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "hsca-airport-levels": {
+  "title": "HSCA, Airports Levels (published and last modified 14 Jun 2025; page read 26 Nov 2026)",
+  "url": "https://hsca.gr/airport-levels/",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-26"
+ },
+ "hsca-airports-page": {
+  "title": "HSCA, Airports (last modified 19 Nov 2026; page read 26 Nov 2026)",
+  "url": "https://hsca.gr/airports/",
+  "publisher": "Hellenic Slot Coordination Authority",
+  "checked": "2026-11-26"
+ },
+ "jtr-airport-info": {
+  "title": "Santorini Airport (JTR), Airport information (no page date; page read 26 Nov 2026)",
+  "url": "https://www.jtr-airport.gr/en/flights--more/airport-information",
+  "publisher": "Fraport Greece (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "jtr-ga": {
+  "title": "Santorini Airport, General Aviation page (no page date; page read 26 Nov 2026)",
+  "url": "https://www.jtr-airport.gr/en/category-detailed/ctg_id-583/nd_id-1636",
+  "publisher": "Fraport Greece (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "rho-ga": {
+  "title": "Rhodes Airport, General Aviation / Business Aviation page (no page date; page read 26 Nov 2026)",
+  "url": "https://www.rho-airport.gr/en/category-detailed/ctg_id-578/nd_id-1631",
+  "publisher": "Fraport Greece (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "cy-hermes-airport-facts": {
+  "title": "Hermes Airports, Airport Facts (no page date; page read 26 Nov 2026)",
+  "url": "https://www.hermesairports.com/corporate/doing-business-with-us/airport-facts/",
+  "publisher": "Hermes Airports (airport operator, Larnaka and Pafos)",
+  "checked": "2026-11-26"
+ },
+ "mt-aip-amdt-084-2026": {
+  "title": "AIP Malta, edition effective 6 Aug 2026 (AIRAC AMDT 084/2026); AD 2 LMML pages dated 14 May 2026 (AIRAC AMDT 082/2026)",
+  "url": "https://www.transport.gov.mt/Malta_AIP_EFF_06_AUG_2026.pdf-f11704",
+  "publisher": "Transport Malta / Malta Air Traffic Services (AIP Office)",
+  "checked": "2026-11-26"
+ },
+ "hr-dbv-technical-data": {
+  "title": "Dubrovnik Airport, Technical data (no page date; page read 26 Nov 2026)",
+  "url": "https://www.dbv.hr/en/technical-data/74",
+  "publisher": "Zračna luka Dubrovnik (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "hr-dbv-border-notification": {
+  "title": "Dubrovnik Airport, Border control notification (no page date; page read 26 Nov 2026)",
+  "url": "https://www.dbv.hr/en/border-control-notification/82",
+  "publisher": "Zračna luka Dubrovnik (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "hr-aip-ldsp-2025-09": {
+  "title": "AIP Croatia, AD 2 LDSP Split, eAIP package AIRAC 4 Sep 2025 (latest public HTML edition found)",
+  "url": "https://www.crocontrol.hr/UserDocsImages/AIS%20produkti/eAIP/2025-09-04-AIRAC/html/eAIP/LD-AD-2.LDSP-en-HR.html",
+  "publisher": "Croatia Control (Hrvatska kontrola zračne plovidbe)",
+  "checked": "2026-11-26"
+ },
+ "me-tiv-carriers-pilots": {
+  "title": "Airports of Montenegro, Tivat Airport: Information for carriers and pilots (last modified 3 Jun 2024)",
+  "url": "https://montenegroairports.com/en/tivat-airport/information-for-carriers-and-pilots/",
+  "publisher": "Airports of Montenegro (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "me-tiv-airport-services": {
+  "title": "Airports of Montenegro, Tivat Airport: Airport and ground handling services (last modified 16 Apr 2025)",
+  "url": "https://montenegroairports.com/en/tivat-airport/business-information/airport-services/",
+  "publisher": "Airports of Montenegro (airport operator)",
+  "checked": "2026-11-26"
+ },
+ "me-caa-lytv-safety-briefing": {
+  "title": "Civil Aviation Agency of Montenegro, LYTV Tivat safety briefing, Edition 1.0 (9 Mar 2023)",
+  "url": "https://caa.me/sites/default/files/lytv_safety_briefing_eng_final.pdf",
+  "publisher": "Civil Aviation Agency of Montenegro",
+  "checked": "2026-11-26"
+ },
+ "tr-aip-ltfj": {
+  "title": "AIP Turkey AD 2 LTFJ Istanbul Sabiha Gökçen, pages up to AIRAC AMDT 10/26 (01 Oct 2026)",
+  "url": "https://dhmi.gov.tr/AIPDocuments/LT_AD_2_LTFJ_en.pdf",
+  "publisher": "DHMI (General Directorate of State Airports Authority, Turkey)",
+  "checked": "2026-11-26"
+ },
+ "ltfj-dhmi-slot": {
+  "title": "DHMI slot coordination page, Sabiha Gökçen (SAW), no date (page read 26 Nov 2026)",
+  "url": "https://dhmi.gov.tr/Sayfalar/Slot/SAW.pdf",
+  "publisher": "DHMI (General Directorate of State Airports Authority, Turkey)",
+  "checked": "2026-11-26"
+ },
+ "tr-aip-ltfe": {
+  "title": "AIP Turkey AD 2 LTFE Milas-Bodrum, pages up to AIRAC AMDT 05/26 (14 May 2026)",
+  "url": "https://www.dhmi.gov.tr/AIPDocuments/LT_AD_2_LTFE_en.pdf",
+  "publisher": "DHMI (General Directorate of State Airports Authority, Turkey)",
+  "checked": "2026-11-26"
+ },
+ "tr-aip-ltai": {
+  "title": "AIP Turkey AD 2 LTAI Antalya, pages up to AIRAC AMDT 08/26 (06 Aug 2026)",
+  "url": "https://www.dhmi.gov.tr/AIPDocuments/LT_AD_2_LTAI_en.pdf",
+  "publisher": "DHMI (General Directorate of State Airports Authority, Turkey)",
+  "checked": "2026-11-26"
+ },
+ "uae-aip-omsj-adc": {
+  "title": "UAE AIP, OMSJ AD 2-21A Aerodrome Chart, Sharjah Intl (AIRAC 08/2026, effective 06 Aug 2026)",
+  "url": "https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2026-P08/graphics/OMSJ-AD-2-21A_2026-08.pdf",
+  "publisher": "General Civil Aviation Authority, UAE",
+  "checked": "2026-11-26"
+ },
+ "uae-aip-omrk-adc": {
+  "title": "UAE AIP, OMRK AD 2-21 Aerodrome Chart, Ras Al Khaimah Intl (AIRAC 01/2026, effective 22 Jan 2026)",
+  "url": "https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2025-P20/graphics/OMRK-AD-2-21_2026-01.pdf",
+  "publisher": "General Civil Aviation Authority, UAE",
+  "checked": "2026-11-26"
+ },
+ "uae-aip-omal-adc": {
+  "title": "UAE AIP, OMAL AD 2-21 Aerodrome Chart, Al Ain Intl (AIRAC 03/2026, effective 19 Mar 2026)",
+  "url": "https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2026-P02/graphics/OMAL-AD-2-21_2026-03.pdf",
+  "publisher": "General Civil Aviation Authority, UAE",
+  "checked": "2026-11-26"
+ },
+ "uae-aip-omfj-adc": {
+  "title": "UAE AIP, OMFJ AD 2-21 Aerodrome Chart, Fujairah Intl (chart file 2026-06, package 2026-P04; no AIRAC date on extracted page)",
+  "url": "https://www.gcaa.gov.ae/en/ais/AIPHtmlFiles/AIP/Current/AIRACs/2026-P04/graphics/OMFJ-AD-2-21_2026-06.pdf",
+  "publisher": "General Civil Aviation Authority, UAE",
+  "checked": "2026-11-26"
+ },
+ "om-eaip-ooms-2025": {
+  "title": "Oman eAIP AD 2 OOMS Muscat Intl, AIRAC AIP AMDT 02/25 edition (effective 15 May 2025)",
+  "url": "https://aim.caa.gov.om/eAIP_AMDT_02-25/final/2025-05-15-Non-AIRAC/html/eAIP/AD-2.OOMS-en-GB.html",
+  "publisher": "Civil Aviation Authority, Oman",
+  "checked": "2026-11-26"
+ },
+ "om-eaip-oosa-2025": {
+  "title": "Oman eAIP AD 2 OOSA Salalah Intl, AIRAC AIP AMDT 02/25 edition (effective 15 May 2025)",
+  "url": "https://aim.caa.gov.om/eAIP_AMDT_02-25/final/2025-05-15-Non-AIRAC/html/eAIP/AD-2.OOSA-en-GB.html",
+  "publisher": "Civil Aviation Authority, Oman",
+  "checked": "2026-11-26"
+ },
+ "oosa-adc-amdt3-25": {
+  "title": "AIP Oman AD 2.OOSA-19 Aerodrome Chart Salalah (AIRAC AIP AMDT 3-25, 07 Aug 2025)",
+  "url": "https://aim.caa.gov.om/eAIP_Oman/final/2026-09-03-Non-AIRAC/html/Document/OOSA/AERODROME%20CHART%20-%20ICAO.pdf",
+  "publisher": "Civil Aviation Authority, Oman",
+  "checked": "2026-11-26"
+ },
+ "jo-aip-ojaq": {
+  "title": "AIP Jordan AD 2 OJAQ Aqaba/King Hussein Intl, pages dated 01 Feb 2011 (AMDT 59/2011) to 01 Feb 2014 (AMDT 71/2014)",
+  "url": "https://carc.gov.jo/pdf/045251AD2%20OJAQ.pdf",
+  "publisher": "Civil Aviation Regulatory Commission, Jordan",
+  "checked": "2026-11-26"
+ },
+ "ojaq-carc-adc": {
+  "title": "AIP Jordan AD 2.24.1-1 Aerodrome Chart Aqaba/King Hussein (date printed '30 OCT 20', AIRAC AMDT partly illegible; magnetic variation 2025)",
+  "url": "https://carc.gov.jo/sites/default/files/inline-files/aerodrome-chart-icao-ojaq_1.pdf",
+  "publisher": "Civil Aviation Regulatory Commission, Jordan",
+  "checked": "2026-11-26"
+ },
+ "oema-tibah-aerodrome-manual": {
+  "title": "TIBAH Airports, Aerodrome Manual TIBAH-AIROPS-MAN-01, Prince Mohammad bin Abdulaziz International Airport, Revision 6.2 (1 Aug 2022, effective 31 Jan 2023)",
+  "url": "https://cms.tibahairports.com/files/1687184608_Aerodrome%20Manual%206.2.pdf",
+  "publisher": "TIBAH Airports Operation Co.",
+  "checked": "2026-11-26"
+ },
+ "oedf-daco-cou-2025": {
+  "title": "Condition of Use for King Fahd International Airport, Version 1 (published 9 Oct 2025, effective 60 days after publication)",
+  "url": "https://daco.sa/wp-content/uploads/2025/10/Condition-Of-Use.pdf",
+  "publisher": "Dammam Airports Company",
+  "checked": "2026-11-26"
+ },
+ "oedf-dmm-w26-capdec": {
+  "title": "Dammam Airports, Capacity Declaration for Winter Season 2026 (W26), dated 29 Apr 2026",
+  "url": "https://www.acl-uk.org/wp-content/uploads/2026/04/DMM-W26-Capacity-Declaration.pdf",
+  "publisher": "Dammam Airports Company (hosted by Airport Coordination Limited)",
+  "checked": "2026-11-26"
+ },
+ "oers-gaca-jetex-2025": {
+  "title": "GACA news: Jetex licensed for ground handling at Red Sea International Airport (16 Dec 2025)",
+  "url": "https://gaca.gov.sa/en/News/Jetex-ground-handling-at-Red-Sea-Airport",
+  "publisher": "General Authority of Civil Aviation (GACA), Saudi Arabia",
+  "checked": "2026-11-26"
+ },
+ "rjcc-hap-bj-cts": {
+  "title": "New Chitose Airport business aviation: ABOUT RJCC / CTS (page read 26 Nov 2026)",
+  "url": "https://www.hokkaido-airports.com/en/new-chitose/special/businessjet/cts/",
+  "publisher": "Hokkaido Airports Co., Ltd.",
+  "checked": "2026-11-26"
+ },
+ "rjff-mlit-committee-2026-09": {
+  "title": "第1回 福岡空港の機能向上に係る技術的検討委員会 事務局説明資料 (Sep 2026)",
+  "url": "https://www.mlit.go.jp/koku/content/002023058.pdf",
+  "publisher": "Civil Aviation Bureau, MLIT",
+  "checked": "2026-11-26"
+ },
+ "rjgg-centrair-outline": {
+  "title": "Chubu Centrair International Airport, Outline (page read 26 Nov 2026)",
+  "url": "https://www.centrair.jp/en/corporate/business/basic-information/outline.html",
+  "publisher": "Central Japan International Airport Co., Ltd.",
+  "checked": "2026-11-26"
+ },
+ "roah-mlit-kyoyo-kitei": {
+  "title": "那覇空港供用規程 (Naha Airport Operating Rules, amendment in force 25 Mar 2021)",
+  "url": "https://www.cab.mlit.go.jp/wcab/file/nahar3.3.25.pdf",
+  "publisher": "MLIT Osaka Regional Civil Aviation Bureau",
+  "checked": "2026-11-26"
+ },
+ "rjbe-kobe-city-airport": {
+  "title": "神戸市 神戸空港 (Kobe Airport overview, last updated 16 Sep 2026)",
+  "url": "https://www.city.kobe.lg.jp/a11380/kurashi/access/airport/index.html",
+  "publisher": "Kobe City (airport administrator)",
+  "checked": "2026-11-26"
+ },
+ "rjbe-kobe-city-privatejet": {
+  "title": "神戸市 神戸空港のビジネスジェット受入 (business jets at Kobe Airport, last updated 25 Oct 2024)",
+  "url": "https://www.city.kobe.lg.jp/a11380/kurashi/access/airport/privatejet.html",
+  "publisher": "Kobe City (airport administrator)",
+  "checked": "2026-11-26"
+ },
+ "rjbe-kobe-city-seigen": {
+  "title": "神戸空港周辺における建物等設置の制限について (building limits around Kobe Airport, undated; page read 26 Nov 2026)",
+  "url": "https://WWW.city.kobe.lg.jp/documents/3356/kobeairport-seigenhyoumen.pdf",
+  "publisher": "Kobe City Port and Harbor Bureau, Airport Coordination Division",
+  "checked": "2026-11-26"
+ },
+ "rjoo-mlit-congested-2024": {
+  "title": "混雑空港運航許可申請事案補足説明資料【大阪国際空港】 (19 Nov 2024)",
+  "url": "https://www.mlit.go.jp/common/001885225.pdf",
+  "publisher": "Civil Aviation Bureau, MLIT",
+  "checked": "2026-11-26"
+ },
+ "kr-aip-rkpc": {
+  "title": "Korea eAIP, AD 2 RKPC Jeju INTL (package 3 Apr 2025; no effective date printed on page)",
+  "url": "https://aim.koca.go.kr/eaipPub/Package/2025-04-03/html/eAIP/KR-AD-2.RKPC-en-GB.html",
+  "publisher": "Korea Office of Civil Aviation, MOLIT",
+  "checked": "2026-11-26"
+ },
+ "kr-aip-rkpk": {
+  "title": "Korea eAIP, AD 2 RKPK Gimhae INTL (package 24 Jul 2025; no effective date printed on page)",
+  "url": "https://aim.koca.go.kr/eaipPub/Package/2025-07-24/html/eAIP/KR-AD-2.RKPK-en-GB.html",
+  "publisher": "Korea Office of Civil Aviation, MOLIT",
+  "checked": "2026-11-26"
+ },
+ "zppp-operator-general": {
+  "title": "Kunming Airport, 机场概况 (airport overview) (page read 26 Nov 2026)",
+  "url": "https://km.ynairport.com/general.jhtml",
+  "publisher": "Yunnan Airport Group (Kunming Changshui International Airport)",
+  "checked": "2026-11-26"
+ },
+ "zsam-operator-about": {
+  "title": "Xiamen Gaoqi International Airport, 机场介绍 > 机场简介 (page read 26 Nov 2026)",
+  "url": "https://www.xiamenairport.com.cn/gywm/gywm.aspx",
+  "publisher": "Xiamen Gaoqi International Airport operator",
+  "checked": "2026-11-26"
+ },
+ "zjsy-operator-about": {
+  "title": "Sanya Phoenix International Airport, 机场介绍 (page read 26 Nov 2026)",
+  "url": "https://www.sanyaairport.com/jcjs.jhtml",
+  "publisher": "Sanya Phoenix International Airport",
+  "checked": "2026-11-26"
+ },
+ "zshc-operator-survey": {
+  "title": "Hangzhou Xiaoshan International Airport, 机场概况 (page read 26 Nov 2026)",
+  "url": "https://hzairport.com/survey/index.html",
+  "publisher": "Hangzhou Xiaoshan International Airport Co., Ltd.",
+  "checked": "2026-11-26"
  }
 }

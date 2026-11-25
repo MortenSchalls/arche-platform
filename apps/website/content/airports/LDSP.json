@@ -1,0 +1,66 @@
+{
+ "icao": "LDSP",
+ "iata": null,
+ "name": "Split Airport (Saint Jerome)",
+ "city": "Split",
+ "country": "HR",
+ "tz": "Europe/Zagreb",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 05/23, 2,550 m x 45 m",
+   "longest_m": 2550,
+   "src": "hr-aip-ldsp-2025-09",
+   "quote": "2550 x 45"
+  },
+  "hours": {
+   "v": "aerodrome operator hours 06:00-22:00 local all year (05:00-21:00 UTC in winter, 04:00-20:00 UTC in summer); ATS and fuelling H24",
+   "hours_local": [
+    [
+     "06:00",
+     "22:00"
+    ]
+   ],
+   "src": "hr-aip-ldsp-2025-09",
+   "quote": "0500-2100 (0400-2000)"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "hr-aip-ldsp-2025-09",
+   "quote": "H24"
+  },
+  "ppr": {
+   "v": "outside operator hours only with the aerodrome operator's approval, PPR sent via SITA by 21:00 local (20:00 UTC winter, 19:00 UTC summer)",
+   "src": "hr-aip-ldsp-2025-09",
+   "quote": "Outside AD HR SER, upon AD Operator approval only, PPR sent via SITA SPUAPXH till 2000 (1900)."
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas 100LL",
+   "src": "hr-aip-ldsp-2025-09",
+   "quote": "A1, AVGAS 100LL"
+  },
+  "deicing": {
+   "v": "one de-icing vehicle, maximum working height 16 m",
+   "src": "hr-aip-ldsp-2025-09",
+   "quote": "1 vehicle for de-iceing, MAX working height 16 M"
+  },
+  "noise": {
+   "v": "operators follow the aircraft maker's noise abatement procedures up to FL100",
+   "src": "hr-aip-ldsp-2025-09",
+   "quote": "Aircraft operators shall follow aircraft manufacturer's noise abatement recommended procedures up to FL 100"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "max_aircraft",
+  "handling",
+  "permits",
+  "catering"
+ ],
+ "notes": "Source is the Croatian eAIP AD 2 LDSP HTML from the AIRAC 4 Sep 2025 package, the latest public edition found; newer AIRAC pages (2026) were not reachable (Croatia Control's AIM Portal needs registration), so every rule here must be checked against the current AIP before use. The page shows no AIRAC date itself (taken from the URL). Reading the bracketed times as summer (UTC) is the Croatian AIP convention and matches Dubrovnik's operator figures; local conversion: CET UTC+1, CEST UTC+2. Taxiway limits: TWY B only for aircraft with outer main gear span under 9 m (and DH8C/DH8D); TWY B and TL1 not for code E. Flights with schedules approved in the EU 95/93 coordination process need no operator approval. Split operator website not found by search."
+}

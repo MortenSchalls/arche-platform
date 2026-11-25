@@ -1,0 +1,68 @@
+{
+ "icao": "LTFJ",
+ "iata": null,
+ "name": "Istanbul Sabiha Gökçen International Airport",
+ "city": "Istanbul",
+ "country": "TR",
+ "tz": "Europe/Istanbul",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways: 06R/24L 3,540 m x 60 m and 06L/24R 3,000 m x 45 m",
+   "longest_m": 3540,
+   "src": "tr-aip-ltfj",
+   "quote": "06R 064.10° 3540x60"
+  },
+  "hours": {
+   "v": "aerodrome administration, air traffic services, fuelling and handling 24 hours",
+   "src": "tr-aip-ltfj",
+   "quote": "1 AD Administration H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "tr-aip-ltfj",
+   "quote": "2 Customs and immigration H24"
+  },
+  "slots": {
+   "v": "charter and general aviation flights must operate in the airport's non-busy hours and keep to their slot time; slots are applied for from the DHMI slot coordination centre",
+   "src": "tr-aip-ltfj",
+   "quote": "Flights other than scheduled flights (Charter, general aviation and similar) shall be operated on non-busy hours"
+  },
+  "permits": {
+   "v": "technical landings and diversions to Sabiha Gökçen are not accepted",
+   "src": "tr-aip-ltfj",
+   "quote": "Technical landings and diverts to Sabiha Gökçen Airport shall not be accepted."
+  },
+  "max_aircraft": {
+   "v": "the general aviation apron centreline may be used under own power only by aircraft with a wingspan of up to 26.5 m; 27-31 m wingspan only on stand 61 via taxiway N",
+   "src": "tr-aip-ltfj",
+   "quote": "General Aviation (GAV) apron centerline can be used with own power only by aircraft which have max 26.5 M wingspan."
+  },
+  "ppr": {
+   "v": "hangar space for visiting aircraft is limited and needs prior permission",
+   "src": "tr-aip-ltfj",
+   "quote": "5 Hangar space for visiting aircraft Limited PPR"
+  },
+  "fuel": {
+   "v": "Jet A-1, through the fuelling services",
+   "src": "tr-aip-ltfj",
+   "quote": "2 Fuel/oil types Jet A1, Connect with fueling services"
+  },
+  "noise": {
+   "v": "departures by ICAO Chapter 3 aircraft fly noise abatement procedure NADP-2; Chapter 2 aircraft NADP-1 only",
+   "src": "tr-aip-ltfj",
+   "quote": "For departures any aircraft having compliance with the Noise Category ICAO ANNEX 16, Vol-1 Chapter 3 shall apply NADP-2"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "deicing",
+  "handling",
+  "general aviation parking"
+ ],
+ "notes": "Read DHMI AIP Turkey AD 2 LTFJ (English PDF): AD 2.3 page AIRAC AMDT 03/26 (19 Mar 2026), AD 2.4 AMDT 11/25 (27 Nov 2025), AD 2.12 AMDT 11/24 (26 Dec 2024), AD 2.20 AMDT 10/26 (1 Oct 2026) and 07/26. Only the first 100,000 of about 118,000 characters were read. All AD 2.3 services are H24; no curfew or night restriction is stated, so none is recorded. The DHMI slot page for SAW (ltfj-dhmi-slot, no date) lists the airport as 'Level 3 (SCR)' and says GA/BA flights with more than 24 hours ground time must coordinate with the ramp. The DHMI slot NOTAMs for W25/S26 close runway 06L/24R overnight for maintenance on set weekdays (UTC windows vary); check the current NOTAM before night operations. De-icing is arranged through the handling agent (AD 2.4), not quoted exactly. IATA code not printed in the AIP."
+}

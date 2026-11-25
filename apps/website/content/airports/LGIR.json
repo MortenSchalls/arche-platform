@@ -1,0 +1,44 @@
+{
+ "icao": "LGIR",
+ "iata": "HER",
+ "name": "Heraklion International Airport Nikos Kazantzakis",
+ "city": "Heraklion",
+ "country": "GR",
+ "tz": "Europe/Athens",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "hours": {
+   "v": "open 24/7 (slot coordinator's airport list; operator H.A.S.P.)",
+   "h24": true,
+   "src": "hsca-airports-page",
+   "quote": "Operating Hours: 24/7"
+  },
+  "slots": {
+   "v": "winter 2026/27: not coordinated (Level 1); summer 2027: coordinated (Level 3); GA/BA flights get slot allocation in summer",
+   "src": "hsca-airports-page",
+   "quote": "S27 Level: 3 – Coordinated",
+   "also": [
+    {
+     "src": "hsca-airport-levels",
+     "quote": "| 6 | HER | LGIR | HERAKLION | Coordinated (Level 3) | Υes | Data collection by airport (Level 1) |"
+    }
+   ]
+  }
+ },
+ "missing": [
+  "runway",
+  "customs",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "No AIP page could be read: Greek eAIP AD 2 LGIR at aisgr.hasp.gov.gr not returned by search (only third-party copies, not used). Operator page on ypa.gr (http://www.ypa.gr/en/our-airports/kratikos-aerolimenas-hrakleioy-n-kazantzakhs) was blocked (permission not answered). Facts from the Hellenic Slot Coordination Authority airports page (last modified 19 Nov 2026: 'W26 Level: 1 – Not Coordinated') and its levels table (14 Jun 2025; GA/BA allocation 'Υes'). IATA HER is printed in the HSCA table."
+}

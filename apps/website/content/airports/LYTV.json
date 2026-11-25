@@ -1,0 +1,38 @@
+{
+ "icao": "LYTV",
+ "iata": "TIV",
+ "name": "Tivat Airport",
+ "city": "Tivat",
+ "country": "ME",
+ "tz": "Europe/Podgorica",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 14/32, 2,500 m x 45 m, asphalt",
+   "longest_m": 2500,
+   "src": "me-tiv-carriers-pilots",
+   "quote": "| *Length*                                   | 2500 m         |"
+  },
+  "fuel": {
+   "v": "Jet A-1 available",
+   "src": "me-tiv-airport-services",
+   "quote": "Fuel type: JET A1."
+  }
+ },
+ "missing": [
+  "customs",
+  "curfew",
+  "hours",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "AIP for Montenegro is published by SMATSA (smatsa.rs/en/aip); no AD 2 LYTV page was found by search, and the constructed eAIP page (AIRAC 15 May 2025 path) was blocked (permission not answered). Operator's General Aviation page (https://montenegroairports.com/en/tivat-airport/general-aviation/) blocked (permission not answered). Operator page (3 Jun 2024) also lists a General Aviation apron, positions 8-14, each 20 m. Civil Aviation Agency LYTV safety briefing (Edition 1.0, 9 Mar 2023; IATA TIV printed in its header 'LY LYTV / TIVAT / TIV') warns of a short runway strip and no RESA on runway 32, backtracking on the runway for departure, visual-only landings on runway 14 in strong southerly wind, and says the aerodrome had no runway, taxiway or approach lighting; the 2024 operator page now lists approach lighting for both runways, so lighting and night use must be checked in the current AIP."
+}

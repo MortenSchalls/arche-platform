@@ -1,0 +1,54 @@
+{
+ "icao": "OJAQ",
+ "iata": null,
+ "name": "King Hussein International Airport",
+ "city": "Aqaba",
+ "country": "JO",
+ "tz": "Asia/Amman",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "runway 01/19, 3,000 m x 45 m, asphalt",
+   "longest_m": 3000,
+   "src": "ojaq-carc-adc",
+   "quote": "45×3000 ASPHALT FLEXIBLE"
+  },
+  "hours": {
+   "v": "aerodrome administration, fuelling and handling 24 hours (2011 AIP page)",
+   "src": "jo-aip-ojaq",
+   "quote": "1 Aerodrome Administration H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours (2011 AIP page)",
+   "h24": true,
+   "src": "jo-aip-ojaq",
+   "quote": "2 Customs and immigration H24"
+  },
+  "fuel": {
+   "v": "Jet A-1 only",
+   "src": "jo-aip-ojaq",
+   "quote": "Fuel : JET A1.only"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "jo-aip-ojaq",
+   "quote": "4 De-icing facilities Nil"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "jo-aip-ojaq",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "current AIP text edition (only 2011-2014 pages read)",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling"
+ ],
+ "notes": "The AD 2 OJAQ text read is old: CARC AIP pages dated 1 Feb 2011 (AMDT 59/2011) to 1 Feb 2014 (AMDT 71/2014), so hours, customs and fuel may have changed. The aerodrome chart AD 2.24.1-1 (carc.gov.jo, aerodrome-chart-icao-ojaq_1.pdf) shows runway 3000 x 45 with magnetic variation 2025; its date prints as '30 OCT 20' and 'AIRAC AMDT 3 / 2' (partly garbled in extraction). An older AD2_OJAQ_0.pdf (AMDT 49/2008) was not used. No curfew stated. AD 2.20 gives no PPR, GA or slot rules. IATA code not printed."
+}

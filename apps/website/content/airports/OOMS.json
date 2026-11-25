@@ -1,0 +1,58 @@
+{
+ "icao": "OOMS",
+ "iata": null,
+ "name": "Muscat International Airport",
+ "city": "Muscat",
+ "country": "OM",
+ "tz": "Asia/Muscat",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways: 08R/26L 4,080 m x 45 m and 08L/26R 4,000 m x 60 m",
+   "longest_m": 4080,
+   "src": "om-eaip-ooms-2025",
+   "quote": "4080 X 45"
+  },
+  "hours": {
+   "v": "aerodrome administration, fuelling and handling 24 hours",
+   "src": "om-eaip-ooms-2025",
+   "quote": "H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "om-eaip-ooms-2025",
+   "quote": "H24"
+  },
+  "ppr": {
+   "v": "non-scheduled and private flights need prior permission (PPR) 72 hours ahead",
+   "src": "om-eaip-ooms-2025",
+   "quote": "Non-scheduled and private flights PPR 72 hrs."
+  },
+  "fuel": {
+   "v": "Jet A-1",
+   "src": "om-eaip-ooms-2025",
+   "quote": "JET A1"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "om-eaip-ooms-2025",
+   "quote": "Nil"
+  },
+  "noise": {
+   "v": "landing on runway 08L between 20:00 and 06:00 local (16:00-02:00 UTC), reverse thrust may not exceed idle unless needed for safety",
+   "src": "om-eaip-ooms-2025",
+   "quote": "arrivals on RWY 08L between 1600 and 0200 UTC may not exceed idle reverse thrust."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "handling",
+  "general aviation parking"
+ ],
+ "notes": "Read Oman eAIP AD 2 OOMS (HTML) in the AIRAC AIP AMDT 02/25 edition (published 17 Apr 2025, effective 15 May 2025). A newer edition exists (AIRAC AIP AMDT 02/26, published 30 Apr 2026, https://aim.caa.gov.om/eAIP_Oman/final/2026-06-11/html/cover-en-GB.html) but its AD 2 OOMS page could not be opened (permission not answered); re-check before publishing. All AD 2.3 services are H24; no curfew stated. Stands are allocated by the airport company (OAMC). No instrument training flights 0300-0900 UTC for CAT A and B. Hangar space unavailable. Oman is UTC+4 with no daylight saving. IATA code not printed (MCT appears only as a navaid identifier)."
+}

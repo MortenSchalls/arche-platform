@@ -1,0 +1,34 @@
+{
+ "icao": "ZSHC",
+ "iata": null,
+ "name": "Hangzhou Xiaoshan International Airport",
+ "city": "Hangzhou",
+ "country": "CN",
+ "tz": "Asia/Shanghai",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "permits": {
+   "v": "a first-class aviation port of entry open to foreign countries (international arrivals and departures allowed); customs hours not stated",
+   "src": "zshc-operator-survey",
+   "quote": "对外开放的一类航空口岸"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "deicing",
+  "catering"
+ ],
+ "notes": "China eAIP (CAAC) not readable: search found only unofficial mirrors of the 2019 eAIP (ftp.yuuta.moe), not used. Read the operator's overview page hzairport.com/survey/index.html (no date shown): mentions a second runway but no lengths, hours, night rules or business aviation. Could not open: www.hzairport.com/en/survey/capability.html and /mobile/survey/index.html (https to http redirect loop), hzairport.com/about/index.html (robots.txt unreachable). IATA code not printed."
+}

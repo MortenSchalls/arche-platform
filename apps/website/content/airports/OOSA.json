@@ -1,0 +1,53 @@
+{
+ "icao": "OOSA",
+ "iata": null,
+ "name": "Salalah International Airport",
+ "city": "Salalah",
+ "country": "OM",
+ "tz": "Asia/Muscat",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "runway 07/25, 3,997 m x 60 m, asphalt",
+   "longest_m": 3997,
+   "src": "oosa-adc-amdt3-25",
+   "quote": "3997 x 60 Asphalt"
+  },
+  "hours": {
+   "v": "aerodrome administration 07:30-15:30 local, Sunday to Thursday (03:30-11:30 UTC), with a duty officer outside these hours; air traffic services, fuelling and handling 24 hours",
+   "src": "om-eaip-oosa-2025",
+   "quote": "0330 - 1130 (Sun - Thu)"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "om-eaip-oosa-2025",
+   "quote": "H24"
+  },
+  "fuel": {
+   "v": "Jet A-1 only (no Avgas)",
+   "src": "om-eaip-oosa-2025",
+   "quote": "JET A1/Nil"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "om-eaip-oosa-2025",
+   "quote": "NIL"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "om-eaip-oosa-2025",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling"
+ ],
+ "notes": "Read Oman eAIP AD 2 OOSA (HTML), AIRAC AIP AMDT 02/25 edition (effective 15 May 2025), and the aerodrome chart AD 2.OOSA-19, AIRAC AIP AMDT 3-25 (7 Aug 2025), served in the 2026-09-03 eAIP folder. A newer edition (AMDT 02/26) exists and its AD 2 OOSA text was not read. General aviation parking 'On request' (AD 2.20). No curfew stated. Oman is UTC+4 with no daylight saving. IATA code not printed."
+}

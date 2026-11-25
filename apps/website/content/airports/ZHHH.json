@@ -1,0 +1,29 @@
+{
+ "icao": "ZHHH",
+ "iata": null,
+ "name": "Wuhan Tianhe International Airport",
+ "city": "Wuhan",
+ "country": "CN",
+ "tz": "Asia/Shanghai",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-26",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Tried 26 Nov 2026: China eAIP (CAAC) not readable: search found only unofficial mirrors of the 2019 eAIP (ftp.yuuta.moe), not used. Operator site www.whairport.com (e.g. /thjcsy/) could not be opened: https to http redirect loop; nothing official read. CAAC AIP AD 2 should be obtained via a registered China eAIP account before any rule is recorded."
+}

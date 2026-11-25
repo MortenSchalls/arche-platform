@@ -1,0 +1,34 @@
+{
+ "icao": "OERS",
+ "iata": null,
+ "name": "Red Sea International Airport",
+ "city": "Red Sea (Tabuk Province)",
+ "country": "SA",
+ "tz": "Asia/Riyadh",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "handling": {
+   "v": "Jetex is licensed by GACA for ground handling and business aviation support (announced 16 Dec 2025)",
+   "src": "oers-gaca-jetex-2025",
+   "quote": "Jetex has been awarded a license to provide ground handling and business aviation support services at RSI."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "hours",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Only the GACA news item of 16 Dec 2025 (gaca.gov.sa/en/News/Jetex-ground-handling-at-Red-Sea-Airport) gave an official fact. No operator rules page, conditions of use or AIP page found; the Saudi eAIP (aimss.sans.com.sa) could not be opened. 'RSI' appears in the GACA item only as an abbreviation, not stated as the IATA code."
+}

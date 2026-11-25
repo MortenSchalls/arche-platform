@@ -1,0 +1,33 @@
+{
+ "icao": "OMSJ",
+ "iata": null,
+ "name": "Sharjah International Airport",
+ "city": "Sharjah",
+ "country": "AE",
+ "tz": "Asia/Dubai",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "runway 12/30, 4,060 m x 60 m",
+   "longest_m": 4060,
+   "src": "uae-aip-omsj-adc",
+   "quote": "4060 x 60"
+  }
+ },
+ "missing": [
+  "iata",
+  "hours",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise",
+  "permits",
+  "deicing"
+ ],
+ "notes": "Only the UAE AIP aerodrome chart could be read; the AD 2 text pages are not reachable through the research tool (GCAA AIP HTML/PDF text pages refused in earlier runs, and search surfaced no text page for this airport). Chart OMSJ AD 2-21A, AIRAC 08/2026 (effective 6 Aug 2026). An airport authority news item of 20 Jul 2017 calls Gama Aviation the sole ground service provider to general aviation at Sharjah; too old to record as a rule, confirm before use. Customs, hours, night rules, slots and handling are not verified. IATA code not printed on the chart."
+}

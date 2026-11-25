@@ -1,0 +1,41 @@
+{
+ "icao": "OEDF",
+ "iata": "DMM",
+ "name": "King Fahd International Airport",
+ "city": "Dammam",
+ "country": "SA",
+ "tz": "Asia/Riyadh",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "hours": {
+   "v": "open 24 hours a day, 7 days a week",
+   "src": "oedf-daco-cou-2025",
+   "quote": "The Airport is open for operations twenty-four (24) hours a day, seven (7) days a week."
+  },
+  "slots": {
+   "v": "Level 3 slot-coordinated airport (coordinator ACL): slots needed for all flights; ad hoc and charter flights only for users holding slots in the same season. General aviation requests, and requests at weekends, on holidays or at under 24 hours' notice, are decided by Dammam Airports; code F aircraft referred to Dammam Airports",
+   "src": "oedf-dmm-w26-capdec",
+   "quote": "General Aviation requests, diverted flights, slots requests during weekends, holidays or within less than 24 hours shall be managed and approved by Dammam Airports."
+  },
+  "handling": {
+   "v": "ground handling by third-party providers; users may self-handle under an agreement with Dammam Airports",
+   "src": "oedf-daco-cou-2025",
+   "quote": "The ground handling services are available through third party service providers."
+  }
+ },
+ "missing": [
+  "runway",
+  "customs",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read the Dammam Airports Company 'Condition of Use for King Fahd International Airport', Version 1, published 9 Oct 2025, effective 60 days after publication (daco.sa; first 100,000 of 109,671 characters), which states 'KFIA is a Slot coordinated airport (Level 3)' and that ad hoc and charter flights are only permitted for users holding slots in the same season; and the Dammam Airports W26 Capacity Declaration dated 29 Apr 2026 (hosted by ACL), which states 'Two (2) Runways 24H Operations' and the GA rule quoted. Neither gives runway lengths, customs hours or a night restriction. Saudi eAIP (aimss.sans.com.sa) could not be opened (permission not answered on the AMDT 02/26 page)."
+}

@@ -1,0 +1,54 @@
+{
+ "icao": "RJBE",
+ "iata": null,
+ "name": "Kobe Airport",
+ "city": "Kobe",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 2,500 m",
+   "longest_m": 2500,
+   "src": "rjbe-kobe-city-seigen",
+   "quote": "滑走路2,500m"
+  },
+  "hours": {
+   "v": "operating hours 07:00-23:00; managed by Kobe City, run by Kansai Airports Kobe since 1 Apr 2018",
+   "src": "rjbe-kobe-city-airport",
+   "quote": "7時～23時"
+  },
+  "curfew": {
+   "v": "no operations outside the airport's operating hours of 07:00-23:00 local",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "src": "rjbe-kobe-city-airport",
+   "quote": "7時～23時"
+  },
+  "customs": {
+   "v": "business jets: departures accepted 07:00-23:00; international arrivals only weekdays 08:30-17:00 (not weekends or public holidays). Flight plan to the CIQ agencies at least 3 days before departure (24 hours in urgent business cases) and 14 days before arrival (7 days in urgent business cases)",
+   "hours_local": "departures 07:00-23:00; arrivals Mon-Fri 08:30-17:00",
+   "src": "rjbe-kobe-city-privatejet",
+   "quote": "入国：平日の8時30分～17時00分（土日祝不可）"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read Kobe City (airport administrator) pages: Kobe Airport overview (last updated 16 Sep 2026; 運営時間 7時～23時; international scheduled flights planned around 2030), business/private jet page (last updated 25 Oct 2024) and the city's building-height limits leaflet (undated) for the 2,500 m runway. The Kobe Airport Promotion Council English leaflet (city.kobe.lg.jp/documents/39494/english.pdf) had unreadable digits and was not used. The MLIT business-jet procedures PDF could not be fetched."
+}

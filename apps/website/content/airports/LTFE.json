@@ -1,0 +1,58 @@
+{
+ "icao": "LTFE",
+ "iata": null,
+ "name": "Milas-Bodrum Airport",
+ "city": "Bodrum",
+ "country": "TR",
+ "tz": "Europe/Istanbul",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "runway 10L/28R 3,000 m x 45 m; runway 10R/28L (2,940 m x 45 m) is used as a taxiway by civil aircraft, as a runway only in emergencies or when 10L/28R is closed for maintenance",
+   "longest_m": 3000,
+   "src": "tr-aip-ltfe",
+   "quote": "10L 106.61° 3000x45 Concrete PCN 108 R/D/W/T"
+  },
+  "hours": {
+   "v": "aerodrome operator, air traffic services, fuelling and handling 24 hours",
+   "src": "tr-aip-ltfe",
+   "quote": "1 AD Operator H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "tr-aip-ltfe",
+   "quote": "2 Customs and immigration H24"
+  },
+  "fuel": {
+   "v": "Avgas 100LL and Jet A-1, by hydrant and tankers",
+   "src": "tr-aip-ltfe",
+   "quote": "2 Fuel and oil types Avgas-100 LL, Jet A1"
+  },
+  "deicing": {
+   "v": "no de-icing available",
+   "src": "tr-aip-ltfe",
+   "quote": "4 De-icing facilities Not Available"
+  },
+  "max_aircraft": {
+   "v": "general aviation parks on apron positions 25-58, maximum wingspan 31 m",
+   "src": "tr-aip-ltfe",
+   "quote": "Parking positions 25-58 on the Apron are used for General Aviation Aircraft (Max Span 31 M)."
+  },
+  "noise": {
+   "v": "at docking stands the APU must be off within 5 minutes of parking and may be started 15 minutes before estimated start-up; departures by Chapter 3 aircraft fly NADP-2",
+   "src": "tr-aip-ltfe",
+   "quote": "At docking stands, APU must be switched off within 5 min after parking"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling"
+ ],
+ "notes": "Read DHMI AIP Turkey AD 2 LTFE (English PDF): AD 2.3 page AIRAC AMDT 03/26 (19 Mar 2026), AD 2.4 AMDT 06/25 (12 Jun 2025), AD 2.12 page AMDT 11/24 or 01/24, AD 2.20 pages AMDT 04/26 and 05/26. All AD 2.3 services are H24; no curfew or night restriction is stated, so none is recorded. Hangar space for visiting aircraft 'Not Available'. Training landings and take-offs are not permitted 15 Apr-15 Oct (AD 2.20). Slot rules not stated in AD 2; the DHMI slot page for Bodrum was not read. IATA code not printed in the AIP."
+}

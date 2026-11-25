@@ -1,0 +1,33 @@
+{
+ "icao": "OMRK",
+ "iata": null,
+ "name": "Ras Al Khaimah International Airport",
+ "city": "Ras Al Khaimah",
+ "country": "AE",
+ "tz": "Asia/Dubai",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "runway 16/34, 3,760 m x 45 m, asphalt",
+   "longest_m": 3760,
+   "src": "uae-aip-omrk-adc",
+   "quote": "RWY 16 163° 3760 x 45 604/F/D/W/T Asphalt"
+  }
+ },
+ "missing": [
+  "iata",
+  "hours",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise",
+  "permits",
+  "deicing"
+ ],
+ "notes": "Only the UAE AIP aerodrome chart could be read; the AD 2 text pages are not reachable through the research tool (GCAA AIP HTML/PDF text pages refused in earlier runs, and search surfaced no text page for this airport). Chart OMRK AD 2-21, AIRAC 01/2026 (effective 22 Jan 2026); a newer chart may exist in later packages. Customs, hours, night rules, slots and handling are not verified. IATA code not printed on the chart."
+}

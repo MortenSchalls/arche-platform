@@ -1,0 +1,53 @@
+{
+ "icao": "RJFF",
+ "iata": null,
+ "name": "Fukuoka Airport",
+ "city": "Fukuoka",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways: A 2,800 m and B 2,500 m (B opened 20 Mar 2025)",
+   "longest_m": 2800,
+   "src": "rjff-mlit-committee-2026-09",
+   "quote": "（Ａ）２，８００ｍ"
+  },
+  "hours": {
+   "v": "operating hours 24 hours, but the hours of use are 07:00-22:00",
+   "src": "rjff-mlit-committee-2026-09",
+   "quote": "運用時間（利用時間）：２４時間（７:００～２２:００）"
+  },
+  "curfew": {
+   "v": "flights are used only 07:00-22:00 local (MLIT lists hours of use within the 24-hour operating hours); no flights 22:00-07:00 in practice",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "src": "rjff-mlit-committee-2026-09",
+   "quote": "運用時間（利用時間）：２４時間（７:００～２２:００）"
+  },
+  "slots": {
+   "v": "designated a congested airport under the Civil Aeronautics Act in 2016; slots are allocated through the schedule coordinator",
+   "src": "rjff-mlit-committee-2026-09",
+   "quote": "航空法上の「混雑空港」に指定。以後発着枠配分が発着調整事務局へ。"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read MLIT Civil Aviation Bureau, secretariat material for the 1st Technical Study Committee on Improving Fukuoka Airport's Functions (令和8年9月 / Sep 2026). It does not state whether movements outside 07:00-22:00 are banned or allowed by approval, nor customs hours or business-jet rules. An older MLIT Kyushu bureau study page (pa.qsr.mlit.go.jp) also gives 07:00-22:00 as actual hours of use (not used). The MLIT business-jet procedures PDF could not be fetched (permission not answered)."
+}

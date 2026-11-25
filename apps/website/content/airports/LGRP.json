@@ -1,0 +1,52 @@
+{
+ "icao": "LGRP",
+ "iata": "RHO",
+ "name": "Rhodes International Airport Diagoras",
+ "city": "Rhodes",
+ "country": "GR",
+ "tz": "Europe/Athens",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "hours": {
+   "v": "terminal and airport open 00:00-23:59 every day (round the clock)",
+   "h24": true,
+   "src": "rho-ga",
+   "quote": "Every Day 00:00 – 23:59"
+  },
+  "slots": {
+   "v": "winter 2026/27: not coordinated (Level 1); summer 2027: coordinated (Level 3); GA/BA flights get slot allocation in summer",
+   "src": "hsca-airports-page",
+   "quote": "S27 Level: 3 – Coordinated",
+   "also": [
+    {
+     "src": "hsca-airport-levels",
+     "quote": "| 15 | RHO | LGRP | RHODES | Coordinated (Level 3) | Υes | Data collection by airport (Level 1) |"
+    }
+   ]
+  },
+  "ppr": {
+   "v": "PPR (parking authorisation for apron clearance) mandatory for all general and business aviation flights",
+   "src": "rho-ga",
+   "quote": "It is mandatory for all flights in the category of General/Business Aviation (GA/BA), IFR/VFR, State, Military"
+  },
+  "handling": {
+   "v": "all PPR requests go through a ground handler holding an HCAA category 1 licence",
+   "src": "rho-ga",
+   "quote": "All PPR requests must be cleared through a Ground Handling Service Provider with a valid category 1 License by HCAA"
+  }
+ },
+ "missing": [
+  "runway",
+  "customs",
+  "curfew",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "No AIP page could be read (Greek eAIP AD 2 LGRP not found). Hours from the operator's GA page (no page date) and home page (same 'Every Day 00:00 – 23:59'). HSCA RHOOPHRS.pdf read: S26 only (14 Sep to 24 Oct 2026, 00:00-23:59 UTC), expired. Fraport Greece Rhodes profile page gives no runway length. Fraport Greece W26 runway hours PDF refused by proxy (URL too long); PPR Handbook v11 blocked (permission not answered)."
+}

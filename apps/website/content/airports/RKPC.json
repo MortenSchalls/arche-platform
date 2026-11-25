@@ -1,0 +1,60 @@
+{
+ "icao": "RKPC",
+ "iata": null,
+ "name": "Jeju International Airport",
+ "city": "Jeju",
+ "country": "KR",
+ "tz": "Asia/Seoul",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest, 07/25, is 3,180 m long and 45 m wide (13/31 is 1,900 m)",
+   "longest_m": 3180,
+   "src": "kr-aip-rkpc",
+   "quote": "3 180 × 45"
+  },
+  "hours": {
+   "v": "aerodrome and air traffic services open 24 hours; code F aircraft (A380 size) operate only 23:00 to 06:30 local time (1400-2130 UTC)",
+   "src": "kr-aip-rkpc",
+   "quote": "The code letter F aircraft operation time 1400 to 2130(UTC)"
+  },
+  "customs": {
+   "v": "customs and immigration as required by operations (HO)",
+   "h24": false,
+   "src": "kr-aip-rkpc",
+   "quote": "HO"
+  },
+  "handling": {
+   "v": "handling as required by operations (HO); general aviation aircraft are led by a follow-me vehicle or marshallers to the small-aircraft parking area",
+   "src": "kr-aip-rkpc",
+   "quote": "General aviation aircraft will be guided by the FOLLOW ME vehicle or marshallers to the parking area for small aircraft."
+  },
+  "fuel": {
+   "v": "Jet A-1 by truck or hydrant; fuelling as required by operations (HO)",
+   "src": "kr-aip-rkpc",
+   "quote": "Jet A-1"
+  },
+  "deicing": {
+   "v": "4 de-icing pads",
+   "src": "kr-aip-rkpc",
+   "quote": "4 pads"
+  },
+  "noise": {
+   "v": "all departures fly the ICAO noise abatement departure procedure one (NADP 1); delayed or reduced-flap approaches recommended",
+   "src": "kr-aip-rkpc",
+   "quote": "All departing aircraft should apply ICAO PANS-OPS(Doc.8168) Volume III Noise Abatement Departure Procedure One(NADP One)."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read Korea eAIP AD 2 RKPC Jeju INTL, package 3 Apr 2025 (latest package found by search; no effective date printed on the page). AD 2.20 also bans training flights and light sport / ultralight aircraft. The AIP states no night curfew for RKPC and no slot or PPR rule; those stay missing (not confirmed as none). IATA code not printed on the page read."
+}

@@ -1,0 +1,54 @@
+{
+ "icao": "EDDH",
+ "iata": null,
+ "name": "Hamburg Airport",
+ "city": "Hamburg",
+ "country": "DE",
+ "tz": "Europe/Berlin",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two crossing runways: 05/23 3,666 m and 15/33 3,250 m",
+   "longest_m": 3666,
+   "src": "eddh-ham-partner",
+   "quote": "With lengths of 3,250 meters (runway 15/33) and 3,666 meters (runway 05/23)"
+  },
+  "hours": {
+   "v": "flight operations 06:00-23:00 local",
+   "src": "eddh-ham-partner",
+   "quote": "Flight operations from 6:00 am to 11:00 pm"
+  },
+  "curfew": {
+   "v": "strict night restrictions from 23:00; only scheduled commercial flights with proven unavoidable delays may still operate until 24:00; from 00:00 to 06:00 only flights with a prior, paid exemption from the environment authority (BUKEA)",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "eddh-night-2026-07",
+   "quote": "In der Zeit von Mitternacht bis 6 Uhr morgens sind ausschließlich Flüge"
+  },
+  "slots": {
+   "v": "slot coordinated airport (level 3)",
+   "src": "eddh-ham-partner",
+   "quote": "Level 3 coordination, 60 minutes"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "ppr",
+  "handling",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "DFS AIP not read (not openable in earlier runs). Facts from the operator's airline-partner page (no page date) and its night-restriction report for July 2026 (dated 10 Aug 2026). The 23:00-24:00 delay allowance applies only to scheduled commercial flights, so a business jet needs the BUKEA exemption after 23:00 in practice. A separate general aviation terminal exists (operator's company portrait page), but customs hours and handling rules were not found in an official source."
+}

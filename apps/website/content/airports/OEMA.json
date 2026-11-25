@@ -1,0 +1,56 @@
+{
+ "icao": "OEMA",
+ "iata": null,
+ "name": "Prince Mohammad bin Abdulaziz International Airport",
+ "city": "Madinah",
+ "country": "SA",
+ "tz": "Asia/Riyadh",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest, 17/35, is 4,335 m x 60 m (18/36 is 3,050 m x 45 m)",
+   "longest_m": 4335,
+   "src": "oema-tibah-aerodrome-manual",
+   "quote": "4 335 x 60 M"
+  },
+  "hours": {
+   "v": "open 24 hours, 7 days a week",
+   "src": "oema-tibah-aerodrome-manual",
+   "quote": "PMIA Hours of operations is 24H/7Days"
+  },
+  "customs": {
+   "v": "customs and immigration around the clock",
+   "h24": true,
+   "src": "oema-tibah-aerodrome-manual",
+   "quote": "Customs and immigration H24"
+  },
+  "handling": {
+   "v": "general aviation handling by arrangement with Saudi Ground Services (SGS), HAVAS or Jet Aviation; two GA stands on the west side",
+   "src": "oema-tibah-aerodrome-manual",
+   "quote": "ACFT handling by arrangement with Saudi Ground Services (SGS), HAVAS and JET Aviation for General Aviation services."
+  },
+  "fuel": {
+   "v": "Jet A-1 available, fuelling around the clock",
+   "src": "oema-tibah-aerodrome-manual",
+   "quote": "JET A1 Aviation Fuel"
+  },
+  "max_aircraft": {
+   "v": "handles aircraft up to ICAO code 4F (code 4E when runway 17/35 is out of use, by NOTAM)",
+   "src": "oema-tibah-aerodrome-manual",
+   "quote": "can accommodate and handle types of aircraft in the category of up to Code 4F"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "noise",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read the airport operator's Aerodrome Manual TIBAH-AIROPS-MAN-01, Revision 6.2 (revision date 1 Aug 2022, effective 31 Jan 2023; the amendment record shows JAN 2022, so the dates are inconsistent), first 100,000 of about 500,000 characters only. This is an older document; re-check against the current Saudi eAIP before publishing. The Saudi eAIP (aimss.sans.com.sa) could not be opened: the known AMDT 02/26 OERK page URL was refused (permission not answered). The manual states no night restriction, PPR rule or GA slot rule; it says the airport serves all users unless closed by NOTAM. 'MED' appears only as an abbreviation for Medina, so the IATA code is left unrecorded."
+}

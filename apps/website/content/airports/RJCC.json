@@ -1,0 +1,42 @@
+{
+ "icao": "RJCC",
+ "iata": "CTS",
+ "name": "New Chitose Airport",
+ "city": "Sapporo",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways, 01R/19L and 01L/19R, each 3,000 m x 60 m",
+   "longest_m": 3000,
+   "src": "rjcc-hap-bj-cts",
+   "quote": "Runway dimensions: 3000m x 60m"
+  },
+  "hours": {
+   "v": "operating hours 24 hours; business aviation centre (HBAC) reception 08:00-20:00",
+   "src": "rjcc-hap-bj-cts",
+   "quote": "Operating hours: 24 hours"
+  },
+  "ppr": {
+   "v": "business aircraft centre use is applied for through the operator's portal; prior registration needed",
+   "src": "rjcc-hap-bj-cts",
+   "quote": "Applications are accepted through the portal site. Prior registration is required to apply."
+  }
+ },
+ "missing": [
+  "curfew",
+  "customs",
+  "slots",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read Hokkaido Airports' business aviation pages 'ABOUT RJCC / CTS' and FAQ (undated; read 26 Nov 2026). The FAQ says CIQ is included in the HBAC basic fee but CIQ must be contacted directly; no CIQ hours given; fuel bought separately from a fuel supplier. Night-time (22:00-07:00) slot limits are not stated by the operator or MLIT pages read; the MLIT Tokyo Regional Civil Aviation Bureau page (cab.mlit.go.jp/tcab/conditions/01_hokkaido/04.Shinchitose.pdf) shows runway A 3,000 m x 60 m but its hours field was unclear. The MLIT business-jet procedures PDF (mlit.go.jp/koku/content/001762020.pdf) could not be fetched (permission not answered)."
+}

@@ -1,0 +1,39 @@
+{
+ "icao": "ZSAM",
+ "iata": null,
+ "name": "Xiamen Gaoqi International Airport",
+ "city": "Xiamen",
+ "country": "CN",
+ "tz": "Asia/Shanghai",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 3,400 m long (width not stated)",
+   "longest_m": 3400,
+   "src": "zsam-operator-about",
+   "quote": "1条3400米长的跑道"
+  },
+  "max_aircraft": {
+   "v": "airfield code 4E, takes aircraft up to the Boeing 747-8",
+   "src": "zsam-operator-about",
+   "quote": "飞行区等级为4E级"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "China eAIP (CAAC) not readable: search found only unofficial mirrors of the 2019 eAIP (ftp.yuuta.moe), not used. Read the operator's 'about' page xiamenairport.com.cn/gywm/gywm.aspx (no date shown; footer copyright 2013-2016). It gives no hours, night rules, customs, slots or business aviation facts. IATA code not printed."
+}

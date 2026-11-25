@@ -1,0 +1,38 @@
+{
+ "icao": "RJGG",
+ "iata": "NGO",
+ "name": "Chubu Centrair International Airport",
+ "city": "Nagoya",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 18/36, 3,500 m x 60 m",
+   "longest_m": 3500,
+   "src": "rjgg-centrair-outline",
+   "quote": "3,500 m × 60 m 18/36"
+  },
+  "hours": {
+   "v": "open 24 hours a day",
+   "src": "rjgg-centrair-outline",
+   "quote": "24 hours a day"
+  }
+ },
+ "missing": [
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read Central Japan International Airport Co. 'Outline' page (undated, footer (c) 2019; read 26 Nov 2026), which prints 'NGO/RJGG'. The operator's business-jet pages (centrair.jp/en/corporate/business/business-jet/ and the Japanese feature page) failed at the site (client error). An MLIT page (mlit.go.jp/koku/15_hf_000034.html, 2012 figures) also states 3,500 m x 1 and 24 hours. A 24-hour airport is not recorded as 'no curfew' because no source says so in those words."
+}

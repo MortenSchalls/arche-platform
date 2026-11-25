@@ -1,0 +1,53 @@
+{
+ "icao": "RJOO",
+ "iata": null,
+ "name": "Osaka International Airport (Itami)",
+ "city": "Osaka",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways: A 1,828 m and B 3,000 m",
+   "longest_m": 3000,
+   "src": "rjoo-mlit-congested-2024",
+   "quote": "（Ｂ）3,000m"
+  },
+  "hours": {
+   "v": "operating hours 14 hours, 07:00-21:00",
+   "src": "rjoo-mlit-congested-2024",
+   "quote": "（7：00～21：00）"
+  },
+  "curfew": {
+   "v": "no operations outside the operating hours of 07:00-21:00 local",
+   "windows_local": [
+    [
+     "21:00",
+     "07:00"
+    ]
+   ],
+   "src": "rjoo-mlit-congested-2024",
+   "quote": "（7：00～21：00）"
+  },
+  "slots": {
+   "v": "congested airport: flights need an MLIT congested-airport operating permit; coordination standard of 370 movements a day (07:00-21:00) and 36 an hour",
+   "src": "rjoo-mlit-congested-2024",
+   "quote": "１日の発着回数"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read MLIT Civil Aviation Bureau 'Supplementary explanatory material for congested-airport operating permit applications, Osaka International Airport' (混雑空港運航許可申請事案補足説明資料【大阪国際空港】, 19 Nov 2024). It notes international flights ended when Kansai opened in Sep 1994; it says nothing on international business jets or customs. Jet and low-noise movement splits in the table could not be read clearly and are not recorded. The MLIT business-jet procedures PDF could not be fetched."
+}

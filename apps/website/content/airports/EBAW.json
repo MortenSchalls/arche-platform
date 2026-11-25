@@ -1,0 +1,80 @@
+{
+ "icao": "EBAW",
+ "iata": null,
+ "name": "Antwerp International Airport",
+ "city": "Antwerp",
+ "country": "BE",
+ "tz": "Europe/Brussels",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 11/29, 1,510 m long (1,502 m from the 29 end) and 45 m wide",
+   "longest_m": 1510,
+   "src": "be-aip-ebaw",
+   "quote": "1 510 x 45"
+  },
+  "hours": {
+   "v": "aerodrome open 05:30-22:00 UTC in winter and 04:30-21:00 UTC in summer, i.e. 06:30-23:00 local all year",
+   "src": "be-aip-ebaw",
+   "quote": "0530-2200 (0430-2100)"
+  },
+  "curfew": {
+   "v": "closed outside published hours (23:00-06:30 local); the AIP says it may occasionally open outside these hours under conditions (not fully shown on the page read), not for scheduled or diversion flights",
+   "windows_local": [
+    [
+     "23:00",
+     "06:30"
+    ]
+   ],
+   "src": "be-aip-ebaw",
+   "quote": "Occasionally the aerodrome may be opened outside the published hours with:"
+  },
+  "customs": {
+   "v": "customs and immigration for passengers 06:30-23:00 local; clearance outside these hours possible, fees depend on the officers needed",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:30",
+     "23:00"
+    ]
+   ],
+   "src": "be-aip-ebaw",
+   "quote": "Passengers: 0530-2200 (0430-2100)"
+  },
+  "handling": {
+   "v": "handling is compulsory for arriving passengers and crew of general aviation and business flights parked on apron 1 or at the general aviation terminal; flights without handling need prior notice",
+   "src": "be-aip-ebaw",
+   "quote": "Handling is compulsory for transport of arriving passengers and crew of general aviation and business flights,"
+  },
+  "max_aircraft": {
+   "v": "aircraft with a wingspan over 29 m can only use taxiways A and F and park only on apron 1",
+   "src": "be-aip-ebaw",
+   "quote": "Aircraft with wingspan exceeding 29M can only park on Apron 1."
+  },
+  "noise": {
+   "v": "aircraft must be noise certificated to ICAO Annex 16; reverse thrust kept to a minimum",
+   "src": "be-aip-ebaw",
+   "quote": "Aircraft operating to or from EBAW must be noise certificated according to ICAO Annex 16."
+  },
+  "fuel": {
+   "v": "Avgas 100LL and Jet A-1; fuelling 05:00-21:00 UTC (04:00-20:00 summer), i.e. 06:00-22:00 local",
+   "src": "be-aip-ebaw",
+   "quote": "AVGAS 100 LL and JET A1"
+  },
+  "deicing": {
+   "v": "de-icing available during aerodrome operator hours",
+   "src": "be-aip-ebaw",
+   "quote": "As AD Operator"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Belgian eAIP AD 2 EBAW, eAIP_Next edition (the page shows no amendment date; the Main edition URL for EBAW did not come up and was not opened). The conditions (points a-c) for opening outside published hours were not shown in the text read. Times read as UTC with summer times in brackets (Belgian AIP convention). Short runway (about 1.5 km): large-cabin jets may not be suitable."
+}

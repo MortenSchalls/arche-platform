@@ -1,0 +1,70 @@
+{
+ "icao": "ELLX",
+ "iata": null,
+ "name": "Luxembourg Airport",
+ "city": "Luxembourg",
+ "country": "LU",
+ "tz": "Europe/Luxembourg",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 06/24, 4,002 m long and 45 m wide",
+   "longest_m": 4002,
+   "src": "lu-aip-ellx",
+   "quote": "4 002 x 45"
+  },
+  "curfew": {
+   "v": "airport closed to traffic 22:00-05:00 UTC in winter and 21:00-04:00 UTC in summer, i.e. 23:00-06:00 local, except government flights; outside opening hours government, SAR, humanitarian and hospital flights need prior notice",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "src": "lu-aip-ellx",
+   "quote": "The airport is closed to traffic from 2200 to 0500 (2100 to 0400), except for government flights,"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "lu-aip-ellx",
+   "quote": "H24"
+  },
+  "handling": {
+   "v": "handling is mandatory, coordinated by the Business Aviation Center (open daily 05:00-22:00 UTC, 04:00-21:00 summer); standard time on the ground 72 hours; aircraft parked on apron P2 by default",
+   "src": "lu-aip-ellx",
+   "quote": "Except for cases listed in § 6.3, handling is mandatory and will be coordinated by Business Aviation Center:"
+  },
+  "max_aircraft": {
+   "v": "code F aircraft other than the B747-8F need special permission",
+   "src": "lu-aip-ellx",
+   "quote": "Aircraft code F other than B747-8F are subject to a special permission."
+  },
+  "noise": {
+   "v": "aircraft noise certified to ICAO Annex 16 Chapter 2 may not take off or land",
+   "src": "lu-aip-ellx",
+   "quote": "take-off and landing of aircraft noise certified according to the criteria of ICAO Annex 16, Chapter 2, are forbidden."
+  },
+  "fuel": {
+   "v": "Avgas 100LL and Jet A-1, fuelling H24",
+   "src": "lu-aip-ellx",
+   "quote": "AVGAS 100 LL and JET A1"
+  },
+  "deicing": {
+   "v": "de-icing available H24",
+   "src": "lu-aip-ellx",
+   "quote": "H24"
+  }
+ },
+ "missing": [
+  "iata",
+  "hours",
+  "slots",
+  "ppr",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Belgium and Luxembourg eAIP (skeyes) AD 2 ELLX, eAIP_Main edition; the page shows no amendment date. AD operator office hours (MON-FRI 0800-1600 UTC) are office hours, not airport opening, so 'hours' left missing; the night closure is recorded under curfew. Times read as UTC with summer times in brackets. AD 2.20 also says special permission requests go to the airport duty manager at least 72 hours ahead."
+}

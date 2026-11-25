@@ -1,0 +1,33 @@
+{
+ "icao": "OMAL",
+ "iata": null,
+ "name": "Al Ain International Airport",
+ "city": "Al Ain",
+ "country": "AE",
+ "tz": "Asia/Dubai",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "runway 01/19, 4,005 m x 45 m; back-track and 180° turns on the runway are not allowed",
+   "longest_m": 4005,
+   "src": "uae-aip-omal-adc",
+   "quote": "4005 x 45"
+  }
+ },
+ "missing": [
+  "iata",
+  "hours",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise",
+  "permits",
+  "deicing"
+ ],
+ "notes": "Only the UAE AIP aerodrome chart could be read; the AD 2 text pages are not reachable through the research tool (GCAA AIP HTML/PDF text pages refused in earlier runs, and search surfaced no text page for this airport). Chart OMAL AD 2-21, AIRAC 03/2026 (effective 19 Mar 2026). Remark on the chart: 'Back track and 180° turns on the runway not allowed.' Customs, hours, night rules, slots and handling are not verified. IATA code not printed on the chart."
+}

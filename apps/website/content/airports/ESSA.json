@@ -1,0 +1,64 @@
+{
+ "icao": "ESSA",
+ "iata": null,
+ "name": "Stockholm Arlanda Airport",
+ "city": "Stockholm",
+ "country": "SE",
+ "tz": "Europe/Stockholm",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "three runways: 01L/19R 3,301 m x 45 m; 01R/19L and 08/26 each 2,500 m x 45 m",
+   "longest_m": 3301,
+   "src": "se-aip-essa",
+   "quote": "01L 010.37° 3301 x 45"
+  },
+  "hours": {
+   "v": "aerodrome operating hours H24",
+   "src": "se-aip-essa",
+   "quote": "H24"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "se-aip-essa",
+   "quote": "H24 Direct transit area"
+  },
+  "slots": {
+   "v": "coordinated by Airport Coordination Sweden; only government, humanitarian and emergency flights and helicopters are exempt; slot approval does not replace the flight plan or handling request",
+   "src": "se-aip-essa",
+   "quote": "Changes or cancellations of SLOT requests must be communicated without delay."
+  },
+  "handling": {
+   "v": "all flights need a handling or self-handling agreement",
+   "src": "se-aip-essa",
+   "quote": "All flights to and from STOCKHOLM/Arlanda are subject to mandatory handling or self-handling agreements."
+  },
+  "noise": {
+   "v": "night runway limits: RWY 01R not available for landing 22:00-06:00 local; no more than idle reverse thrust in that period except for safety",
+   "src": "se-aip-essa",
+   "quote": "RWY 01R is not available for landing 2100-0500 (2000-0400)"
+  },
+  "fuel": {
+   "v": "Jet A-1",
+   "src": "se-aip-essa",
+   "quote": "Fuel: Jet A1"
+  },
+  "deicing": {
+   "v": "de-icing H24",
+   "src": "se-aip-essa",
+   "quote": "H24"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Swedish AIP AD 2 ESSA in the LFV AIRAC AIP AMDT 3-2026 package (14 May 2026; pages dated 12 Jun 2025 to 19 Mar 2026); a later package may be in force. No general night ban is stated (only night runway and reverse-thrust limits), so curfew is left missing rather than recorded as none. Times read as UTC with summer times in brackets."
+}

@@ -1,0 +1,68 @@
+{
+ "icao": "EFHK",
+ "iata": null,
+ "name": "Helsinki-Vantaa Airport",
+ "city": "Helsinki",
+ "country": "FI",
+ "tz": "Europe/Helsinki",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "three runways: 04R/22L 3,500 m, 04L/22R 3,060 m and 15/33 2,901 m, all 60 m wide",
+   "longest_m": 3500,
+   "src": "fi-aip-efhk",
+   "quote": "04R | 047.50 | 3500 x 60"
+  },
+  "hours": {
+   "v": "control tower H24",
+   "src": "fi-aip-efhk",
+   "quote": "TWR: H24"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "fi-aip-efhk",
+   "quote": "H24"
+  },
+  "slots": {
+   "v": "coordinated airport: a slot is needed for every arrival and departure (state, emergency and humanitarian flights exempt); other flights request it at least 3 hours ahead",
+   "src": "fi-aip-efhk",
+   "quote": "Helsinki-Vantaa airport is a coordinated airport."
+  },
+  "ppr": {
+   "v": "PPR for all aircraft not based at Helsinki-Vantaa, requested through a handling agent (not ATC); not needed when used as alternate or diversion",
+   "src": "fi-aip-efhk",
+   "quote": "The aerodrome is PPR (Prior Permission Required) for aircraft which are not based at Helsinki-Vantaa."
+  },
+  "handling": {
+   "v": "ground handling must be appointed in advance for all visiting business and general aviation aircraft",
+   "src": "fi-aip-efhk",
+   "quote": "Ground handling must be pre-appointed for all visiting business and general aviation aircraft."
+  },
+  "noise": {
+   "v": "noise abatement rules apply (night approach limits; idle reverse thrust only recommended)",
+   "src": "fi-aip-efhk",
+   "quote": "Pilots are recommended to avoid reverse thrust except idle thrust after landing."
+  },
+  "fuel": {
+   "v": "Jet A-1",
+   "src": "fi-aip-efhk",
+   "quote": "Fuel: JET A-1"
+  },
+  "deicing": {
+   "v": "de-icing H24",
+   "src": "fi-aip-efhk",
+   "quote": "H24"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "max_aircraft",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Finnish eAIP AD 2 EFHK, AIRAC AMDT 006-2025 (27 Nov 2025), the latest edition that search returned; 2026 amendments exist (AMDT 001-2026 of 22 Jan 2026 seen) but the EFHK page in them was not found, so check for changes. The aerodrome operator row reads 'HO'; the tower is H24. Only the first 100,000 characters of the page were read; no general night ban seen, so curfew left missing. Noise times are in UTC (Finland is UTC+2/+3)."
+}

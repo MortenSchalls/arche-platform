@@ -1,0 +1,33 @@
+{
+ "icao": "OMFJ",
+ "iata": null,
+ "name": "Fujairah International Airport",
+ "city": "Fujairah",
+ "country": "AE",
+ "tz": "Asia/Dubai",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "runway 11R/29L, 3,050 m x 45 m, is the runway in use; runway 11/29 (3,750 m x 45 m) is not operational and is used as a parallel taxiway",
+   "longest_m": 3050,
+   "src": "uae-aip-omfj-adc",
+   "quote": "Runway 11/29 is not operational. Used as a parallel taxiway due to operational requirements."
+  }
+ },
+ "missing": [
+  "iata",
+  "hours",
+  "customs",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "fuel",
+  "noise",
+  "permits",
+  "deicing"
+ ],
+ "notes": "Only the UAE AIP aerodrome chart could be read; the AD 2 text pages are not reachable through the research tool (GCAA AIP HTML/PDF text pages refused in earlier runs, and search surfaced no text page for this airport). Chart OMFJ AD 2-21 file dated 2026-06 in GCAA package 2026-P04; no AIRAC date printed on the extracted page. Runway table: 11R/29L '3050X45 M', 11/29 '3750X45 M'. longest_m gives the operational runway; confirm in AD 2.12 before publishing. Customs, hours, night rules, slots and handling are not verified. IATA code not printed on the chart."
+}

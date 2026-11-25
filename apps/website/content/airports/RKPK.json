@@ -1,0 +1,66 @@
+{
+ "icao": "RKPK",
+ "iata": null,
+ "name": "Gimhae International Airport",
+ "city": "Busan",
+ "country": "KR",
+ "tz": "Asia/Seoul",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longest, 18R/36L, is 3,200 m long and 60 m wide (18L/36R is 2,743 m)",
+   "longest_m": 3200,
+   "src": "kr-aip-rkpk",
+   "quote": "3 200 × 60"
+  },
+  "curfew": {
+   "v": "no civil take-offs or landings from 23:00 to 06:00 local time (1400-2100 UTC)",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "src": "kr-aip-rkpk",
+   "quote": "All civil aircraft take-off and landing are restricted from 1400 UTC to 2100 UTC,"
+  },
+  "hours": {
+   "v": "aerodrome operator 06:00 to 23:00 local time (2100-1400 UTC); air traffic services 24 hours; shared with a military air base",
+   "src": "kr-aip-rkpk",
+   "quote": "2100-1400 UTC"
+  },
+  "customs": {
+   "v": "customs and immigration as required by operations (HO)",
+   "h24": false,
+   "src": "kr-aip-rkpk",
+   "quote": "HO"
+  },
+  "fuel": {
+   "v": "Jet A-1 by hydrant, no time limitation stated",
+   "src": "kr-aip-rkpk",
+   "quote": "No limitation at any time service available."
+  },
+  "noise": {
+   "v": "idle reverse thrust only from 21:00 to 07:00 local time (1200-2200 UTC) after landing on runway 36L; NADP 1 departures; runway 36L preferred",
+   "src": "kr-aip-rkpk",
+   "quote": "Between 1200 UTC and 2200 UTC, pilots are requested to limit the use of reverse thrust to idle reverse"
+  },
+  "handling": {
+   "v": "handling as required by operations (HO) (no handling agents named)",
+   "src": "kr-aip-rkpk",
+   "quote": "HO"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read Korea eAIP AD 2 RKPK Gimhae INTL, package 24 Jul 2025 (latest package found by search; no effective date printed on the page). Joint civil and military airfield (ROKAF 5th Air Mobility Wing). AD 2.20 bans training flights and light sport / ultralight aircraft. No slot or PPR rule in the AIP page read. IATA code not printed on the page read."
+}

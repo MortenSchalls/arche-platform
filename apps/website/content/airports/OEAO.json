@@ -1,0 +1,29 @@
+{
+ "icao": "OEAO",
+ "iata": null,
+ "name": "AlUla International Airport (Prince Abdul Majeed bin Abdulaziz)",
+ "city": "AlUla",
+ "country": "SA",
+ "tz": "Asia/Riyadh",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-26",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "hours",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "No official source with airport rules could be read. Tried: Saudi eAIP (aimss.sans.com.sa, AMDT 02/26 path refused, permission not answered); Royal Commission for AlUla news of 29 Oct 2025 (https://www.rcu.gov.sa/en/media-resources/news-press/rcu-signs-partnership-with-alliance-aviation): a private aviation hangar to be run by Alliance Aviation Arabia, apron for 15 aircraft, no runway, hours or customs rules; GACA news of 6 Jan 2021 (https://gaca.gov.sa/web/en-gb/news/january-06-2021): capacity and history only. Nothing recorded as a rule."
+}

@@ -1,0 +1,70 @@
+{
+ "icao": "EDFE",
+ "iata": null,
+ "name": "Frankfurt-Egelsbach Airport",
+ "city": "Egelsbach",
+ "country": "DE",
+ "tz": "Europe/Berlin",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "asphalt runway 08/26, 1,400 m x 25 m, plus a 670 m grass runway",
+   "longest_m": 1400,
+   "src": "edfe-bo-2025-de",
+   "quote": "08 (082) 1.400 x 25 m"
+  },
+  "hours": {
+   "v": "summer 06:00 UTC to end of civil evening twilight (08:00 local to dusk), winter 07:00 UTC to dusk (08:00 local); with PPR from 07:00 local and from dusk until 19:00 UTC summer / 20:00 UTC winter (21:00 local)",
+   "src": "edfe-bo-2025-de",
+   "quote": "0600 bis ECET*/1900"
+  },
+  "curfew": {
+   "v": "closed 21:00-07:00 local; 07:00-08:00 and dusk-21:00 local need PPR; night flights need PPR requested by 12:00 UTC (summer) or 13:00 UTC (winter)",
+   "windows_local": [
+    [
+     "21:00",
+     "07:00"
+    ]
+   ],
+   "src": "edfe-bo-2025-de",
+   "quote": "0700 bis ECET*, 0600-0700 PPR, ECET* bis 2000 PPR, NACHTFLUG PPR bis 1300"
+  },
+  "customs": {
+   "v": "customs clearance during operating hours, including commercial goods; flights from non-Schengen countries must notify 48 hours ahead",
+   "h24": false,
+   "src": "edfe-bo-2025-de",
+   "quote": "Zollabfertigung Ja, während der Betriebszeiten; einschließlich Handelsware."
+  },
+  "ppr": {
+   "v": "PPR for early morning, after dusk and night flights; requests online any time; jet, turboprop and class B/C piston pilots must complete an online briefing",
+   "src": "edfe-pilotinfo",
+   "quote": "PPR Requests can be flexibly lodged anytime online."
+  },
+  "permits": {
+   "v": "non-Schengen flights: border clearance notice 48 hours in advance",
+   "src": "edfe-bo-2025-de",
+   "quote": "Anmeldung 48 Stunden vorher"
+  },
+  "handling": {
+   "v": "as a rule all aircraft handling is done by the airport operator; other providers need prior permission",
+   "src": "edfe-bo-2025-en",
+   "quote": "As a general rule, all aircraft handling is performed by the airport operator."
+  },
+  "fuel": {
+   "v": "aircraft may only be refuelled with the fuels offered by the airport operator",
+   "src": "edfe-bo-2025-en",
+   "quote": "Aircraft must only be refuelled using the aviation fuels offered by the airport operator."
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "max_aircraft",
+  "noise",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: the operator's Flugplatzbenutzungsordnung in force 25 Nov 2025 (German v1.2; English version also read, its cover still says valid from 01/02/2024) and the operator's Pilot Info page (modified 30 Oct 2026). DFS AIP not read. Times in the rules are UTC; local times derived (CEST/CET). Short runway (1.4 km): light and some midsize jets only; the rules also limit wingspan on parts of the taxiways and aprons (18 m on part of taxiway C)."
+}

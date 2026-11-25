@@ -1,0 +1,54 @@
+{
+ "icao": "BIKF",
+ "iata": null,
+ "name": "Keflavík International Airport",
+ "city": "Keflavík",
+ "country": "IS",
+ "tz": "Atlantic/Reykjavik",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways, 01/19 and 10/28; longest take-off run 3,065 m (runway 10/28)",
+   "longest_m": 3065,
+   "src": "is-kef-aerodrome-manual-v13",
+   "quote": "28 3065 3365 3065 3065 NIL"
+  },
+  "hours": {
+   "v": "open 24 hours every day of the year",
+   "h24": true,
+   "src": "is-kef-aerodrome-manual-v13",
+   "quote": "The aerodrome is a public aerodrome, operating 24 hours every day of the year."
+  },
+  "slots": {
+   "v": "fully slot-coordinated (IATA Level 3); general and business aviation follow the coordinator's GA/BA (GCR) guidelines",
+   "src": "is-kef-airport-info",
+   "quote": "Keflavík International Airport is a fully coordinated level 3 airport (SCR).",
+   "also": [
+    {
+     "src": "is-kef-airline-guide-2025",
+     "quote": "Keflavik Airport is a fully coordinated Level 3 airport (SCR)."
+    }
+   ]
+  },
+  "handling": {
+   "v": "the operator lists four FBO/service providers: Airport Associates, Iceland Jet Center, South Air, Iceland Aero Agents",
+   "src": "is-kef-airport-info",
+   "quote": "Iceland Jet Center"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "AIP Iceland AD 2 BIKF (eaip.isavia.is, AIRAC A 09/2026 effective 1 Oct 2026) could not be opened: the HTML page failed at the site (client error) in every form tried, and the Latin-1 encoded URL was blocked (permission not answered). Isavia AIP SUP 15/2026 (effective 14 May 2026) was read: terminal apron works for about three years from 26 May 2026, stands 1, 3 and 5 closed; it says nothing on GA/BA. Rules here come from the operator's Aerodrome Manual v13.0 (29 Jun 2026; declared distances section 6.10: RWY 10 TORA 3065 m, RWY 01/19 TORA 3054 m; night operations section states no restriction but is not a statement that there is none, so curfew stays missing) and the kefairport.com airport information page. The manual says runway physical data are in AIP AD 2.12, not read. Customs/immigration hours not stated in any page read."
+}

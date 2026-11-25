@@ -1,0 +1,59 @@
+{
+ "icao": "LTAI",
+ "iata": null,
+ "name": "Antalya Airport",
+ "city": "Antalya",
+ "country": "TR",
+ "tz": "Europe/Istanbul",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "three runways: 18C/36C and 18L/36R 3,400 m x 45 m, 18R/36L 2,990 m x 45 m",
+   "longest_m": 3400,
+   "src": "tr-aip-ltai",
+   "quote": "3400x45"
+  },
+  "hours": {
+   "v": "aerodrome operator, air traffic services, fuelling and handling 24 hours",
+   "src": "tr-aip-ltai",
+   "quote": "1 AD Operator H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "tr-aip-ltai",
+   "quote": "2 Customs and immigration H24"
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas 100/130",
+   "src": "tr-aip-ltai",
+   "quote": "2 Fuel and oil types Fuel types: Jet A1, Avgas 100/130 octane"
+  },
+  "deicing": {
+   "v": "de-icing available",
+   "src": "tr-aip-ltai",
+   "quote": "4 De-icing facilities De-icing service is available"
+  },
+  "max_aircraft": {
+   "v": "the orange and blue lanes on taxilanes A1, C1 and D1 are for aircraft with a wingspan of up to 36 m",
+   "src": "tr-aip-ltai",
+   "quote": "The orange and blue lanes on taxilanes A1, C1 and D1 are for aircraft with a wingspan of up to 36 M."
+  },
+  "noise": {
+   "v": "departures by ICAO Chapter 3 aircraft fly noise abatement procedure NADP-2",
+   "src": "tr-aip-ltai",
+   "quote": "For departures any aircraft having compliance with the Noise Category ICAO ANNEX 16, Vol-1 Chapter 3 shall apply NADP-2"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "general aviation parking"
+ ],
+ "notes": "Read DHMI AIP Turkey AD 2 LTAI (English PDF): AD 2.3 page AIRAC AMDT 03/26 (19 Mar 2026), AD 2.4 and AD 2.12 AMDT 02/26 (19 Feb 2026), AD 2.20 pages AMDT 11/25 to 08/26 (6 Aug 2026). Only the first 100,000 of about 120,000 characters were read. All AD 2.3 services are H24; no curfew or night restriction is stated, so none is recorded. Hangar space for visiting aircraft 'Not available'. The DHMI slot page for AYT (no date, https://dhmi.gov.tr/Sayfalar/Slot/AYT.pdf) says GA/BA flights with more than 24 hours ground time must coordinate with the ramp; it states no coordination level, so slots stay missing. IATA code not printed (AYT appears only as a navaid identifier)."
+}

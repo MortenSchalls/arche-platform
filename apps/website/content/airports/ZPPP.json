@@ -1,0 +1,39 @@
+{
+ "icao": "ZPPP",
+ "iata": null,
+ "name": "Kunming Changshui International Airport",
+ "city": "Kunming",
+ "country": "CN",
+ "tz": "Asia/Shanghai",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two independent runways, 4,000 m and 4,500 m long (widths not stated)",
+   "longest_m": 4500,
+   "src": "zppp-operator-general",
+   "quote": "已建成2条长度为4000米、4500米的独立运行跑道"
+  },
+  "max_aircraft": {
+   "v": "airfield planned to code 4F, able to take aircraft up to the A380",
+   "src": "zppp-operator-general",
+   "quote": "机场飞行区按照4F标准规划设计"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "China eAIP (CAAC) not readable: search found only unofficial mirrors of the 2019 eAIP (ftp.yuuta.moe), not used. Read the operator's overview page km.ynairport.com/general.jhtml (no date shown). It gives no hours, night rules, customs, slots or business aviation facts. IATA code not printed."
+}

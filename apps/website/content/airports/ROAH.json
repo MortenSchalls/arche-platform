@@ -1,0 +1,39 @@
+{
+ "icao": "ROAH",
+ "iata": null,
+ "name": "Naha Airport",
+ "city": "Naha (Okinawa)",
+ "country": "JP",
+ "tz": "Asia/Tokyo",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways: A 3,000 m x 45 m and B 2,700 m x 60 m",
+   "longest_m": 3000,
+   "src": "roah-mlit-kyoyo-kitei",
+   "quote": "Ａ滑走路 ３，０００ｍ×４５ｍ"
+  },
+  "hours": {
+   "v": "operating hours 24 hours; international area of the terminal open 06:00-22:00",
+   "src": "roah-mlit-kyoyo-kitei",
+   "quote": "那覇空港の運用時間 ２４時間"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read the Naha Airport Operating Rules (那覇空港供用規程) under Airport Act art. 12(1), latest amendment in force 25 Mar 2021, airport manager MLIT (Osaka Regional Civil Aviation Bureau, Naha Airport Office). It lists 23 small-aircraft stands but gives no business-jet rules or CIQ hours (international area '国際線エリア ６：００～２２：００'). An Okinawa Prefecture business-jet guide found in search was for Shimojishima Airport, not Naha (not used). The MLIT business-jet procedures PDF could not be fetched."
+}

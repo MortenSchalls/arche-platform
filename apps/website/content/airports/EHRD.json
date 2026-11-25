@@ -1,0 +1,78 @@
+{
+ "icao": "EHRD",
+ "iata": null,
+ "name": "Rotterdam The Hague Airport",
+ "city": "Rotterdam",
+ "country": "NL",
+ "tz": "Europe/Amsterdam",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 06/24, 2,199 m long and 45 m wide",
+   "longest_m": 2199,
+   "src": "nl-aip-ehrd",
+   "quote": "2199 x 45"
+  },
+  "hours": {
+   "v": "aerodrome open 06:00-22:00 UTC in winter and 05:00-21:00 UTC in summer, i.e. 07:00-23:00 local all year",
+   "src": "nl-aip-ehrd",
+   "quote": "0600-2200 (0500-2100)"
+  },
+  "curfew": {
+   "v": "closed 23:00-07:00 local; positioning flights may land 06:00-07:00 local; after a delay the airport authority can allow a landing until 24:00 UTC winter / 23:00 UTC summer (01:00 local)",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "src": "nl-aip-ehrd",
+   "quote": "In case of delay, permission can be granted by airport authority for landing till 2400 (2300)."
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "nl-aip-ehrd",
+   "quote": "H24"
+  },
+  "slots": {
+   "v": "a slot is needed before arrival for aircraft over 45,000 kg MTOM or with 20 seats or more",
+   "src": "nl-aip-ehrd",
+   "quote": "All aircraft with MTOM > 45000 KG and/or equipped with >= 20 seats have to obtain a slot prior to arrival."
+  },
+  "handling": {
+   "v": "ground handling is mandatory for all non-home-based general aviation and for all commercial aircraft",
+   "src": "nl-aip-ehrd",
+   "quote": "For security reasons ground handling is mandatory for all non-homebased general aviation."
+  },
+  "max_aircraft": {
+   "v": "aircraft of code letter D and E need special permission from the airport authority, regardless of any slot",
+   "src": "nl-aip-ehrd",
+   "quote": "Aircraft of aerodrome reference code letter D and E require special permission from airport authority"
+  },
+  "noise": {
+   "v": "Chapter 2 aircraft and noisy Chapter 3 aircraft are not allowed",
+   "src": "nl-aip-ehrd",
+   "quote": "Chapter 2 aircraft and noisy Chapter 3 aircraft are not allowed."
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas 100LL; Jet A-1 for general aviation Mon-Fri 05:00-22:00 UTC (04:00-21:00 summer), weekends 05:00-21:00 UTC (04:00-20:00 summer)",
+   "src": "nl-aip-ehrd",
+   "quote": "Fuel: JET A-1, AVGAS 100LL, Liquid hydrogen"
+  },
+  "deicing": {
+   "v": "de-icing available H24",
+   "src": "nl-aip-ehrd",
+   "quote": "H24"
+  }
+ },
+ "missing": [
+  "iata",
+  "ppr",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Netherlands eAIP AD 2 EHRD, AIRAC AMDT 06-2026 (11 Jun 2026), the latest edition that could be opened; a later amendment (AMDT 08-2026, 6 Aug 2026, exists per its chart files) could not be opened (fetch not permitted), so check for changes. Times read as UTC with summer times in brackets (Dutch AIP convention; GEN 2.1 not read). PPR in AD 2.20 applies only to training flights over 2,000 kg, so not recorded as a general rule."
+}

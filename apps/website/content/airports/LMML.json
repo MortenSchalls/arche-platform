@@ -1,0 +1,61 @@
+{
+ "icao": "LMML",
+ "iata": null,
+ "name": "Malta International Airport",
+ "city": "Luqa",
+ "country": "MT",
+ "tz": "Europe/Malta",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "main runway 13/31, 3,350 m x 58 m (second runway 05/23, 2,373 m x 45 m)",
+   "longest_m": 3350,
+   "src": "mt-aip-amdt-084-2026",
+   "quote": "13 134.74 3350 x 58 PCR 800"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "mt-aip-amdt-084-2026",
+   "quote": "Customs and Immigration H24"
+  },
+  "hours": {
+   "v": "handling and fuelling 24 hours; airport administration Mon-Fri 08:00-17:00 local",
+   "h24": true,
+   "src": "mt-aip-amdt-084-2026",
+   "quote": "MON – FRI: 0800 LT – 1700 LT"
+  },
+  "ppr": {
+   "v": "every flight needs prior notification to MIA Airport Operations; a filed flight plan is not permission to operate",
+   "src": "mt-aip-amdt-084-2026",
+   "quote": "All flights require prior notification to MIA Airport Operations."
+  },
+  "handling": {
+   "v": "operators requesting an airport slot are expected to name their preferred ground handler",
+   "src": "mt-aip-amdt-084-2026",
+   "quote": "Operators requesting an airport slot at MIA are expected to indicate their preferred ground handler."
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas 100LL",
+   "src": "mt-aip-amdt-084-2026",
+   "quote": "JET A1 and AVGAS 100LL"
+  },
+  "noise": {
+   "v": "engine ground runs at higher power not allowed 23:00-06:00 local; instrument approach training not allowed 00:00-05:00 local; runway preference 31 from 06:00 to 18:00 and 13 from 18:00 to 06:00 local",
+   "src": "mt-aip-amdt-084-2026",
+   "quote": "are not permitted between 2300 - 0600 LT"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "max_aircraft",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "AIP Malta read from the Transport Malta PDF effective 6 Aug 2026 (AIRAC AMDT 084/2026); AD 2 LMML pages dated 14 May 2026 (AMDT 082/2026), page 11 dated 6 Aug 2026. Transport Malta's AIP page lists a current edition effective 29 Oct 2026 and a future one effective 26 Nov 2026, but shows no link URL, so the newer editions were not read; check AD 2 LMML against them. No night curfew on movements found in AD 2.20-2.22 (only engine runs and training limits). AD 2.20 asks for an ATC slot only for some training and test flights; airport slot requests are covered in AD 2.5 (not recorded as a coordination level). IATA MLA not printed as a code (only inside SITA addresses)."
+}

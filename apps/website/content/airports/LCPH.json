@@ -1,0 +1,44 @@
+{
+ "icao": "LCPH",
+ "iata": null,
+ "name": "Pafos International Airport",
+ "city": "Paphos",
+ "country": "CY",
+ "tz": "Asia/Nicosia",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 11/29, 2,699 m",
+   "longest_m": 2699,
+   "src": "cy-hermes-airport-facts",
+   "quote": "One runway (11/29) - 2,699 meters"
+  },
+  "hours": {
+   "v": "operating 24/7",
+   "h24": true,
+   "src": "cy-hermes-airport-facts",
+   "quote": "Operating 24/7"
+  },
+  "slots": {
+   "v": "slot facilitated (IATA Level 2)",
+   "src": "cy-hermes-airport-facts",
+   "quote": "Slot Facilitated"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "AIP Cyprus AD 2 is not published openly online; no official copy found by search (only third-party copies, not used). Facts from the operator's Airport Facts page (no page date). Operator ground handling info page blocked (permission not answered). Hermes Local Ground Handling Rules V1 2023 (Larnaka) read: says nothing on GA/BA, hours or slots. IATA code not printed as a code in any page read."
+}

@@ -1,0 +1,50 @@
+{
+ "icao": "EDDS",
+ "iata": null,
+ "name": "Stuttgart Airport",
+ "city": "Stuttgart",
+ "country": "DE",
+ "tz": "Europe/Berlin",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "one runway, 3,345 m long and 45 m wide",
+   "longest_m": 3345,
+   "src": "edds-facts",
+   "quote": "Runway: 3,345 metres long, 45 metres wide"
+  },
+  "curfew": {
+   "v": "night restriction: no departures 23:00-06:00 and no arrivals 23:30-06:00 local; delayed landings allowed until midnight if scheduled before 23:30; flights with special permission from the aviation authority, emergency and diverted flights, and certain propeller aircraft are permitted",
+   "windows_local": [
+    [
+     "23:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "edds-night-2023",
+   "quote": "Departures between 11:00 p.m. and 6:00 a.m."
+  },
+  "handling": {
+   "v": "general aviation handling partner at the General Aviation Terminal: Kurz Aviation Service (the page does not say it is mandatory)",
+   "src": "edds-gat",
+   "quote": "an experienced handling partner for general aviation in Stuttgart"
+  }
+ },
+ "missing": [
+  "iata",
+  "hours",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "DFS AIP not read. Night rules from the operator's English leaflet (file dated 22 Feb 2023; still linked, check for a newer version); its layout is ambiguous about which list applies at night, so only the windows, the midnight delay rule and the exceptions are recorded. Runway from the operator's facts page; GAT page is a machine translation. Customs, slots and GA opening hours not found in an official source."
+}

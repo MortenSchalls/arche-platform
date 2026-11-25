@@ -1,0 +1,58 @@
+{
+ "icao": "EDDL",
+ "iata": null,
+ "name": "Düsseldorf Airport",
+ "city": "Düsseldorf",
+ "country": "DE",
+ "tz": "Europe/Berlin",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways: main (south) runway 3,000 m and north runway 2,700 m",
+   "longest_m": 3000,
+   "src": "eddl-runways",
+   "quote": "die 3.000 Meter langen, südlich gelegenen Hauptbahn"
+  },
+  "curfew": {
+   "v": "jets on the Chapter 3 bonus list may depart 06:00-22:00 and land 06:00-23:00 local; delayed landings until 23:30 without exemption; anything else needs an individual exemption from the air supervision office (Bezirksregierung Düsseldorf), granted very restrictively; propeller aircraft up to 9 t with a noise certificate may operate around the clock",
+   "windows_local": [
+    [
+     "22:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "eddl-hours",
+   "quote": "Verspätete Landungen dieser Flugzeuge sind ohne gesonderte Ausnahmegenehmigung bis 23:30 Uhr möglich."
+  },
+  "slots": {
+   "v": "coordinated airport with hourly limits on coordinated movements",
+   "src": "eddl-hours",
+   "quote": "Anzahl koordinierter Flugbewegungen pro Stunde: 43 oder 45/47"
+  },
+  "hours": {
+   "v": "General Aviation Terminal (Executive Terminal) open daily 05:30-23:00",
+   "src": "eddl-ga",
+   "quote": "täglich von 05:30 - 23:00"
+  },
+  "handling": {
+   "v": "the General Aviation Terminal is run by Jet Aviation, which also does aircraft guidance and fuelling; the terminal has security and passport control",
+   "src": "eddl-ga",
+   "quote": "Die komplette Verantwortung für den Betrieb"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "DFS AIP not read. Facts from the operator's pages (no page dates): operating hours/night rules, runway system and general aviation. Night window recorded from the jet departure limit (22:00); jet landings run to 23:00 (23:30 if delayed). Home-based airlines have extra allowances not relevant to charter. The GAT has passport control, but customs hours were not found in an official source. A Bundespolizei leaflet (1 Jun 2025) on non-EU arrivals is linked on the GA page but was not read."
+}

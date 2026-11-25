@@ -1,0 +1,79 @@
+{
+ "icao": "EKRK",
+ "iata": null,
+ "name": "Copenhagen Roskilde Airport",
+ "city": "Roskilde",
+ "country": "DK",
+ "tz": "Europe/Copenhagen",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-26",
+ "rules": {
+  "runway": {
+   "v": "two runways: 11/29, 1,799 m x 31 m, and 03/21, 1,500 m x 31 m",
+   "longest_m": 1799,
+   "src": "dk-aip-ekrk",
+   "quote": "11 116.3° GEO 1799 x 31 M"
+  },
+  "hours": {
+   "v": "aerodrome open 06:00-21:00 UTC in winter and 05:00-20:00 UTC in summer, i.e. 07:00-22:00 local all year",
+   "src": "dk-aip-ekrk",
+   "quote": "0600-2100 (0500-2000)."
+  },
+  "curfew": {
+   "v": "outside opening hours (22:00-07:00 local) all traffic needs prior permission, requested at least 1 hour before closing time",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "approval": true,
+   "src": "dk-aip-ekrk",
+   "quote": "Outside stated hours PPR for all traffic - submitted not later than 1 hour before closing time."
+  },
+  "customs": {
+   "v": "customs clearance and immigration H24 (an earlier edition adds 1 hour prior notice)",
+   "h24": true,
+   "src": "dk-aip-ekrk",
+   "quote": "Customs clearance and immigration H24."
+  },
+  "ppr": {
+   "v": "PPR for all traffic outside opening hours, at least 1 hour before closing time",
+   "src": "dk-aip-ekrk",
+   "quote": "Outside stated hours PPR for all traffic - submitted not later than 1 hour before closing time."
+  },
+  "handling": {
+   "v": "all aircraft above 3,000 kg must contact Roskilde Handling before arrival",
+   "src": "dk-aip-ekrk",
+   "quote": "It is mandatory for all aircraft above 3000 kg to contact"
+  },
+  "max_aircraft": {
+   "v": "code C aircraft with an outer main gear wheel span of 9 m or more are not permitted; some code C types are excluded",
+   "src": "dk-aip-ekrk",
+   "quote": "Code letter C aircraft with Outer Main Gear Wheel Span of 9 metres or more are not permitted at EKRK."
+  },
+  "noise": {
+   "v": "jet aircraft may operate only if noise certificated to ICAO Annex 16",
+   "src": "dk-aip-ekrk",
+   "quote": "Jet aircraft may operate only, if they are noise certificated according to ICAO Annex 16"
+  },
+  "fuel": {
+   "v": "Avgas 100LL and Jet A-1; self-service H24 for card holders",
+   "src": "dk-aip-ekrk",
+   "quote": "100LL, Jet A1"
+  },
+  "deicing": {
+   "v": "de-icing H24 with 1 hour prior notice",
+   "src": "dk-aip-ekrk",
+   "quote": "De-icing: H24. PN 1 HR."
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Danish AIP AD 2 EKRK, latest file found (pages AIRAC AMDT 07/26 of 9 Jul 2026 and 09/26 of 3 Sep 2026). The 1-hour customs prior notice was read in an older edition (AMDT 03/24-08/24) and not confirmed in the current text. Times read as UTC with summer times in brackets (Danish AIP convention). AD 2.20 lists specific code C types not allowed; check the type before booking. Short runways (1.8 km max)."
+}
