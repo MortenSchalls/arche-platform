@@ -6,7 +6,7 @@
    Steps list for the chosen step, the action row and the history (folded) stay on every step. "Show every section" puts
    the whole file on one page again. A "Go there" in the Steps list opens the step that holds the field. */
 const TRIP_STEP_SHORT = ["Client and trip", "Operator quote", "Checks and documents", "Confirmation", "Send", "Authorise and issue", "Signature and payment", "Flight and follow-up"];
-const TRIP_STEP_OF_ID = {secRtb: "4", secAvinode: "2", secOptions: "2", secTC: "3", secSafety: "3", secOpTerms: "3", secChecks: "3", secDocs: "3", sec24: "4", secConfRow: "4", secBook: "6", secOps: "6 7 8", secSig: "7", secAfter: "8"};
+const TRIP_STEP_OF_ID = {secRtb: "4", secAvinode: "2", secOptions: "2", secTC: "3", secSafety: "3", secOpTerms: "3", secChecks: "3", secDocs: "3", sec24: "4", secConfRow: "4", secBook: "6 7 8", secOps: "6 7 8", secSig: "7", secAfter: "8"};
 S.tripStep = S.tripStep || {}; S.tripAll = /[?&]steps=all\b/.test(location.search);
 function tripStepNow(t){ try { const s = tripSteps(t), i = s.findIndex(x => !x.done); return i < 0 ? 8 : i + 1; } catch(e){ return 1; } }
 function tripStepOf(el){
@@ -28,7 +28,8 @@ function tripStepOf(el){
     const tpl = document.createElement("template"); tpl.innerHTML = html.trim();
     const root = tpl.content.firstElementChild; if (!root) return html;
     const steps = (() => { try { return tripSteps(t); } catch(e){ return []; } })();
-    const now = tripStepNow(t), cur = S.tripAll ? 0 : (S.tripStep[t.did] || now);
+    // a step picked by hand holds until the step due moves on, then the page follows the step due (review 25 Nov 2026)
+    const now = tripStepNow(t), pick = S.tripStep[t.did], cur = S.tripAll ? 0 : (pick && pick.due === now ? pick.s : now);
     [...root.children].forEach(el => {
       const s = tripStepOf(el);
       if (s === "hist") { const d = document.createElement("details"); d.className = "trip-hist"; d.innerHTML = `<summary class="small" style="cursor:pointer">History</summary>`; el.querySelector("h3") && el.querySelector("h3").remove(); d.appendChild(el.cloneNode(true)); el.replaceWith(d); return; }
@@ -65,15 +66,15 @@ function tripStepOf(el){
   document.addEventListener("click", ev => {
     const b = ev.target.closest && ev.target.closest("[data-tstep]");
     if (b) { ev.preventDefault(); const v = b.dataset.tstep, t = tripById(S.sel); if (!t) return;
-      if (v === "all") S.tripAll = true; else if (v === "guided") S.tripAll = false; else { S.tripAll = false; S.tripStep[t.did] = +v; }
+      if (v === "all") S.tripAll = true; else if (v === "guided") S.tripAll = false; else { S.tripAll = false; S.tripStep[t.did] = {s: +v, due: tripStepNow(t)}; }
       render(); const bar = $("tripStepBar"); if (bar) { bar.scrollIntoView({block: "start"}); const on = bar.querySelector(".on"); if (on) on.scrollIntoView({inline: "center", block: "nearest"}); } return; }
     // an approval card's "Open trip" goes straight to Authorise and issue
-    const o = ev.target.closest && ev.target.closest(".apcard [data-open]"); if (o) { const did = (o.dataset.open || "").split("|")[1]; if (did) { S.tripStep[did] = 6; S.tripAll = false; } }
+    const o = ev.target.closest && ev.target.closest(".apcard [data-open]"); if (o) { const did = (o.dataset.open || "").split("|")[1]; if (did) { S.tripStep[did] = {s: 6, due: 6}; S.tripAll = false; } }
     // "Go there" to a field in another step: open that step first
     const g = ev.target.closest && ev.target.closest("[data-ns]"); if (!g) return;
     const go = g.dataset.ns, id = go.startsWith("sec|") || go.startsWith("el|") ? go.split("|")[1] : go.startsWith("doc|") ? "secDocs" : "";
     const el = id && document.getElementById(id), sec = el && el.closest("[data-step][hidden]");
-    if (sec) { const t = tripById(S.sel); if (t) { S.tripStep[t.did] = +sec.dataset.step.split(" ")[0]; render(); } }
+    if (sec) { const t = tripById(S.sel); if (t) { S.tripStep[t.did] = {s: +sec.dataset.step.split(" ")[0], due: tripStepNow(t)}; render(); } }
   }, true);
 })();
 (function(){

@@ -6426,7 +6426,7 @@
   ]
  },
  {
-  "key": "52557b7f",
+  "key": "8afd5ec3",
   "kind": "lesson",
   "where": "sys screen 10",
   "text": [
@@ -6440,8 +6440,8 @@
    "Enter the client: name, company, email, phone, country of residence and the payer if different.",
    "For each leg type a city, airport name or code (for example London) and pick the airport from the list. The portal stores the ICAO code and shows the airport name.",
    "Add date, local time and passengers per leg, the aircraft category and any requests.",
-   "Fill in the intake checklist (Template B.1) as far as the client can tell you: lead passenger, booker, flexibility, children and infants, nationalities (countries only), luggage and special items, pets, purpose of travel, budget, payment method and source of enquiry. All optional; each is used later: the lead passenger goes to the confirmation and the screening, the payment method sets \"The client pays by card\".",
-   "Save the enquiry. The trip appears under My trips as Enquiry, with Ask operators on Avinode: the quote request (Template B.2) written from the trip, without the client's name or contacts. Press Copy the request and paste it into Avinode.",
+   "Fill in the intake checklist (Template B.1) as far as the client can tell you: lead passenger, booker, flexibility, children and infants, nationalities (countries only), luggage and special items, pets, purpose of travel, budget, payment method, source of enquiry and what the operators need to know. All optional; each is used later: the lead passenger goes to the confirmation and the screening, the payment method sets \"The client pays by card\".",
+   "Save the enquiry. The trip appears under My trips as Enquiry, with Ask operators on Avinode: the quote request (Template B.2) written from the trip and from For the operators, without the client's name, contacts or your own notes. Press Copy the request and paste it into Avinode.",
    "When the operators reply, press Enter the operator quote on the trip (H.6). Already have the reply on the first call? Press Enter the operator quote now in the enquiry.",
    "Try it in the test version, as Test Broker",
    "Make a New enquiry: Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month.",
@@ -6462,7 +6462,7 @@
    "Capture the client and the trip once, with the intake checklist, and send operators the request on Avinode without typing it again.",
    "Who uses it, Brokers.",
    "How it works.",
-   "The trip file shows the eight booking steps as a bar at the top and only the step you are on, Client and trip, Operator quote, Checks and documents, Confirmation, Send, Authorise and issue, Signature and payment, Flight and follow-up. It opens on the step that is due, a tick shows the steps done. Tap another step to look at it, Back to the step due to return, or Show every section for the whole file on one page. Go there in the Steps list opens the step that holds the field. Choose New enquiry, or Open an enquiry from a lead. The enquiry shows only Client and trip, the operator quote comes later, when the operators reply. Enter the client, name, company, email, phone, country of residence and the payer if different. For each leg type a city, airport name or code, for example London, and pick the airport from the list. The portal stores the ICAO code and shows the airport name. Add date, local time and passengers per leg, the aircraft category and any requests. Fill in the intake checklist, Template B, section 1, as far as the client can tell you, lead passenger, booker, flexibility, children and infants, nationalities, countries only, luggage and special items, pets, purpose of travel, budget, payment method and source of enquiry. All optional, each is used later, the lead passenger goes to the confirmation and the screening, the payment method sets The client pays by card. Save the enquiry. The trip appears under My trips as Enquiry, with Ask operators on Avinode, the quote request, Template B, section 2, written from the trip, without the client's name or contacts. Press Copy the request and paste it into Avinode. When the operators reply, press Enter the operator quote on the trip, H.6. Already have the reply on the first call? Press Enter the operator quote now in the enquiry.",
+   "The trip file shows the eight booking steps as a bar at the top and only the step you are on, Client and trip, Operator quote, Checks and documents, Confirmation, Send, Authorise and issue, Signature and payment, Flight and follow-up. It opens on the step that is due, a tick shows the steps done. Tap another step to look at it, Back to the step due to return, or Show every section for the whole file on one page. Go there in the Steps list opens the step that holds the field. Choose New enquiry, or Open an enquiry from a lead. The enquiry shows only Client and trip, the operator quote comes later, when the operators reply. Enter the client, name, company, email, phone, country of residence and the payer if different. For each leg type a city, airport name or code, for example London, and pick the airport from the list. The portal stores the ICAO code and shows the airport name. Add date, local time and passengers per leg, the aircraft category and any requests. Fill in the intake checklist, Template B, section 1, as far as the client can tell you, lead passenger, booker, flexibility, children and infants, nationalities, countries only, luggage and special items, pets, purpose of travel, budget, payment method, source of enquiry and what the operators need to know. All optional, each is used later, the lead passenger goes to the confirmation and the screening, the payment method sets The client pays by card. Save the enquiry. The trip appears under My trips as Enquiry, with Ask operators on Avinode, the quote request, Template B, section 2, written from the trip and from For the operators, without the client's name, contacts or your own notes. Press Copy the request and paste it into Avinode. When the operators reply, press Enter the operator quote on the trip, H.6. Already have the reply on the first call? Press Enter the operator quote now in the enquiry.",
    "Try it in the test version, as Test Broker.",
    "Make a New enquiry, Singapore Seletar to Bangkok Don Mueang, 4 passengers, next month.",
    "If something goes wrong.",
@@ -6639,7 +6639,7 @@
   ]
  },
  {
-  "key": "e9fb3379",
+  "key": "5950f9d8",
   "kind": "lesson",
   "where": "sys screen 15",
   "text": [
@@ -6651,6 +6651,7 @@
    "Open the trip. Under Documents, Still needed shows a button for each document the booking needs (operator quote, AOC, insurance certificate, safety audit): press it and choose the file. For anything else choose the type and the file and select Attach.",
    "The file is stored under the trip itself and recorded with its type, name, size, who added it and when. The portal then reads the trip back and checks storage; only then does it say Saved ✓. If storage cannot confirm the file you see Not found: upload it again.",
    "The Documents table lists every file of the booking: your uploads, each issued charter confirmation and the signed contract. Open any of them from there, on any trip, also after the flight. Nothing is deleted from a trip: a wrong file is replaced by uploading the right one.",
+   "Operator documents (operator quote, AOC, insurance, safety audit, operator contract) carry the operator's name: when the client chooses another option, the old operator's files stay on the trip but no longer count for the new operator.",
    "Try it in the test version, as Test Broker",
    "Attach a small PDF to your trip.",
    "If something goes wrong",
@@ -6668,7 +6669,7 @@
    "Keep every document of the booking with the trip, in one place, never in email, and see that each file is really saved.",
    "Who uses it, Brokers until the trip goes for authorisation.",
    "How it works.",
-   "Open the trip. Under Documents, Still needed shows a button for each document the booking needs, operator quote, A O C, insurance certificate, safety audit, press it and choose the file. For anything else choose the type and the file and select Attach. The file is stored under the trip itself and recorded with its type, name, size, who added it and when. The portal then reads the trip back and checks storage, only then does it say Saved ✓. If storage cannot confirm the file you see Not found, upload it again. The Documents table lists every file of the booking, your uploads, each issued charter confirmation and the signed contract. Open any of them from there, on any trip, also after the flight. Nothing is deleted from a trip, a wrong file is replaced by uploading the right one.",
+   "Open the trip. Under Documents, Still needed shows a button for each document the booking needs, operator quote, A O C, insurance certificate, safety audit, press it and choose the file. For anything else choose the type and the file and select Attach. The file is stored under the trip itself and recorded with its type, name, size, who added it and when. The portal then reads the trip back and checks storage, only then does it say Saved ✓. If storage cannot confirm the file you see Not found, upload it again. The Documents table lists every file of the booking, your uploads, each issued charter confirmation and the signed contract. Open any of them from there, on any trip, also after the flight. Nothing is deleted from a trip, a wrong file is replaced by uploading the right one. Operator documents, operator quote, A O C, insurance, safety audit, operator contract, carry the operator's name, when the client chooses another option, the old operator's files stay on the trip but no longer count for the new operator.",
    "Try it in the test version, as Test Broker.",
    "Attach a small P D F to your trip.",
    "If something goes wrong.",

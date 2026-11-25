@@ -21,6 +21,7 @@
     const qq = {...(t.d.quote || {})}, own = num(qq.directOwn ?? qq.direct) + num(q.usd), pc = payCostOf(num(qq.opPrice), own, qq.cur || "USD", !!qq.card);
     Object.assign(qq, {directOwn: own, direct: own + pc.total, payFx: pc.fx, payCard: pc.card});
     await deskWrite(t, {quote: qq, supplierCosts: [...(t.d.supplierCosts || []), {rq: r.ref, org: q.org, usd: num(q.usd), at: now(), by: S.uid}]}, `Supplier cost added to the direct trip costs: ${q.org} ${usd(num(q.usd))} (${r.ref})`);
-    return ` ${usd(num(q.usd))} added to the trip's direct trip costs.`;
+    const sent = ["submitted", "review"].includes(t.stage), ap = ((t.st || {}).approval || {}).state === "approved";
+    return ` ${usd(num(q.usd))} added to the trip's direct trip costs: the client price is now ${usd(priceOf(num(qq.opPrice), qq.direct))}.${ap ? " The approval no longer matches the price: it goes back to the Director." : sent ? " The trip is with the Director: tell the broker." : " Tell the client before the confirmation."}`;
   };
 })();

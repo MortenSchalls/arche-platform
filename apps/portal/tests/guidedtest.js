@@ -32,6 +32,8 @@ await p.fill('#rb_rtb',now16);await p.press('#rb_rtb','Tab');await p.waitForTime
 const bk=await p.evaluate(()=>{const t=tripById(S.sel);return {b:t.d.book,need:bookNeeds(t)}});
 ok('the broker\'s Request to Book and hold are saved and count for the Director'+W,!!(bk.b&&bk.b.rtbAt&&bk.b.holdUntil)&&!bk.need.some(x=>/Request to Book|holds/.test(x)),bk);
 ok('a ? explains our own words'+W,await p.evaluate(()=>!!document.querySelector('#secRtb button.fh, #secNext button.fh, .note button.fh')));
+const c1=await p.evaluate(()=>document.querySelectorAll('button.fh').length);await p.waitForTimeout(3000);const c2=await p.evaluate(()=>document.querySelectorAll('button.fh').length);
+ok('the ? help does not keep growing'+W,c1>0&&c1===c2,{c1,c2});
 const h=await p.evaluate(()=>document.querySelector('main').scrollHeight);
 ok('no sideways scroll'+W,await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
 console.log('   page height'+W, h);

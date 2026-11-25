@@ -42,6 +42,7 @@ jobs:
           sh scripts/test_books_sql.sh
           sh scripts/test_gate_sql.sh
           sh scripts/test_files_sql.sh
+          for f in apps/portal/src-modules/*.js; do node --check "$f"; done
       - name: All or none (every related document revised together)
         run: python3 scripts/check_all_revised.py
       - name: Portal screens (test version, example data)

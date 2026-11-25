@@ -23,7 +23,7 @@
   const DAY = 864e5, today = () => new Date().toISOString().slice(0, 10);
   const normOp = s => String(s || "").toLowerCase().replace(/\b(ltd|limited|pte|llc|inc|co|corp|plc|sa|ag|gmbh)\b\.?/g, "").replace(/[^a-z0-9]+/g, " ").trim();
   const lastDate = d => (((d.trip || {}).legs) || []).map(l => l.date).filter(Boolean).sort().pop() || "";
-  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind);
+  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind && (!x.op || !(d.quote || {}).operator || x.op === d.quote.operator));   // an operator's documents count only for that operator (review 25 Nov 2026)
   const tripOf = d => { try { return allTrips().find(x => x.d === d) || null; } catch(e){ return null; } };
   const suspended = name => { const n = normOp(name); return n && ((S.opSusp || {}).list || []).find(x => normOp(x.name) === n) || null; };
   const longD = iso => iso ? new Date(iso + (iso.length === 10 ? "T00:00:00Z" : "")).toLocaleDateString("en-GB", {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"}) : "";

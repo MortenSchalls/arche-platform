@@ -18,7 +18,7 @@ const did=await p.evaluate(()=>S.sel);
 // one tap from Still needed
 {const [fc]=await Promise.all([p.waitForEvent('filechooser'),p.click('[data-dq="AOC"]')]);await fc.setFiles('/tmp/ex-aoc.pdf');}await p.waitForTimeout(2500);
 let rec=await p.evaluate(()=>(tripById(S.sel).d.docs||[]).find(x=>x.kind==='AOC'));
-ok('stored under the trip it belongs to',rec&&rec.id.includes('/trips/'+did+'/'),rec);
+ok('stored under the trip it belongs to',rec&&rec.id.includes('/trips/'+(await p.evaluate(()=>tripById(S.sel).bid))+'/'+did+'/'),rec);
 ok('recorded with name, size, who and when',rec&&rec.name==='ex-aoc.pdf'&&rec.size>0&&rec.by&&rec.at,rec);
 ok('the portal says Saved only after reading it back',toasts.some(m=>/^Saved ✓ AOC: ex-aoc\.pdf/.test(m)),toasts);
 let panel=await p.innerText('#secDocs');ok('the Documents panel lists it with Saved',/AOC/.test(panel)&&/ex-aoc\.pdf/.test(panel)&&/Saved ✓/i.test(panel)&&/You/.test(panel),panel);

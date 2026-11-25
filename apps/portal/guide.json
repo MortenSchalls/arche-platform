@@ -121,8 +121,8 @@
     "Enter the client: name, company, email, phone, country of residence and the payer if different.",
     "For each leg type a city, airport name or code (for example London) and pick the airport from the list. The portal stores the ICAO code and shows the airport name.",
     "Add date, local time and passengers per leg, the aircraft category and any requests.",
-    "Fill in the intake checklist (Template B.1) as far as the client can tell you: lead passenger, booker, flexibility, children and infants, nationalities (countries only), luggage and special items, pets, purpose of travel, budget, payment method and source of enquiry. All optional; each is used later: the lead passenger goes to the confirmation and the screening, the payment method sets \"The client pays by card\".",
-    "Save the enquiry. The trip appears under My trips as Enquiry, with Ask operators on Avinode: the quote request (Template B.2) written from the trip, without the client's name or contacts. Press Copy the request and paste it into Avinode.",
+    "Fill in the intake checklist (Template B.1) as far as the client can tell you: lead passenger, booker, flexibility, children and infants, nationalities (countries only), luggage and special items, pets, purpose of travel, budget, payment method, source of enquiry and what the operators need to know. All optional; each is used later: the lead passenger goes to the confirmation and the screening, the payment method sets \"The client pays by card\".",
+    "Save the enquiry. The trip appears under My trips as Enquiry, with Ask operators on Avinode: the quote request (Template B.2) written from the trip and from For the operators, without the client's name, contacts or your own notes. Press Copy the request and paste it into Avinode.",
     "When the operators reply, press Enter the operator quote on the trip (H.6). Already have the reply on the first call? Press Enter the operator quote now in the enquiry."
    ],
    "trouble": [
@@ -243,7 +243,8 @@
    "steps": [
     "Open the trip. Under Documents, Still needed shows a button for each document the booking needs (operator quote, AOC, insurance certificate, safety audit): press it and choose the file. For anything else choose the type and the file and select Attach.",
     "The file is stored under the trip itself and recorded with its type, name, size, who added it and when. The portal then reads the trip back and checks storage; only then does it say Saved ✓. If storage cannot confirm the file you see Not found: upload it again.",
-    "The Documents table lists every file of the booking: your uploads, each issued charter confirmation and the signed contract. Open any of them from there, on any trip, also after the flight. Nothing is deleted from a trip: a wrong file is replaced by uploading the right one."
+    "The Documents table lists every file of the booking: your uploads, each issued charter confirmation and the signed contract. Open any of them from there, on any trip, also after the flight. Nothing is deleted from a trip: a wrong file is replaced by uploading the right one.",
+    "Operator documents (operator quote, AOC, insurance, safety audit, operator contract) carry the operator's name: when the client chooses another option, the old operator's files stay on the trip but no longer count for the new operator."
    ],
    "trouble": [
     [

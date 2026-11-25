@@ -48,8 +48,9 @@
       const own = num(alt.direct), pc = payCostOf(alt.opPrice, own, "USD", !!q.card);
       const quote = {...q, operator: alt.operator, opCountry: alt.opCountry || "", aircraft: alt.aircraft, audit: alt.audit || "", tail: alt.tail || "", aoc: alt.aoc || (same ? q.aoc || "" : ""), yom: alt.yom || "", seats: alt.seats || "", opPrice: num(alt.opPrice), directOwn: own, direct: own + pc.total, payFx: pc.fx, payCard: pc.card, cur: "USD"};
       delete quote.curAmt; delete quote.rate; alts[i] = old;
+      const docs = (t.d.docs || []).map(x => x && !x.op && ["Operator quote", "AOC", "Insurance certificate", "Operator contract", "Safety audit"].includes(x.kind) && q.operator ? {...x, op: q.operator} : x);
       const safety = alt.safety || (same ? {...(t.d.safety || {}), aircraft: alt.aircraft} : null), opTerms = alt.opTerms || (same ? t.d.opTerms || null : null);
-      await deskWrite(t, {quote, alts, safety, opTerms}, `Main option changed to ${alt.aircraft} (${alt.operator})`);
+      await deskWrite(t, {quote, alts, safety, opTerms, docs}, `Main option changed to ${alt.aircraft} (${alt.operator})`);
       toast(safety && opTerms ? "Main option changed. Its operator safety record and terms came with it; check the aircraft details." : same ? "Main option changed. Same operator: its safety record and terms stay; check the aircraft details." : `Main option changed. ${alt.operator} needs its own operator safety record and terms (step 3).`); return; }
   });
   document.addEventListener("submit", async ev => {

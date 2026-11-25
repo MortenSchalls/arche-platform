@@ -42,6 +42,8 @@
   };
   /* at Issue (review of 25 Nov 2026): a screen that covers every name on the trip now, from the server: the broker's screen
      only when under 48 hours old and covering the names, otherwise a fresh screen; never the broker's copy as it stands */
+  // the broker's screen counts as done only when under 48 hours old and covering every name now (as at Issue)
+  window.screenBrokerOk = function(t){ const b = brokerScreen(t, tripNames(t)); return !!b && b.results.every(r => r.result === "no match"); };
   window.screenForIssue = async function(t){
     const names = tripNames(t), covers = L => L && L.results && names.every(n => L.results.some(r => key(r.name) === key(n)));
     let L = S.scr[t.did]; if (covers(L) && !L.fromBroker) return L;

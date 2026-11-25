@@ -92,6 +92,8 @@ log.push('   sig block: '+(await p.evaluate(()=>{const n=document.getElementById
 log.push('   trip buttons now: '+(await p.$$eval('main button',bs=>bs.map(b=>(b.dataset.act||b.dataset.bka||b.dataset.sig||Object.keys(b.dataset).join(','))+':'+b.innerText.trim().slice(0,40)).filter(x=>!/^:/.test(x)).join(' | '))).slice(0,1500));
 console.log(log.join('\n'));console.log('ERRS',JSON.stringify(errs));
 const fin=await p.evaluate(id=>{const t=allTrips().find(x=>x.did===id);return {stage:t.stage,ref:(t.st||{}).ref,issued:!!(t.st||{}).confIssued}},tid);
+const g=await p.evaluate(async id=>{S.tripAll=false;S.tripStep={};S.view='trips';S.sel=id;render();await new Promise(r=>setTimeout(r,500));const on=(document.querySelector('#tripStepBar .on')||{}).dataset;const b=document.getElementById('secBook');return {step:on&&on.tstep,book:!!b&&!b.closest('[hidden]')}},tid);
+log.push('   guided after issue: '+JSON.stringify(g));if(!g.book)log.push('ERR after issue the money panel is hidden on the step due');
 const rec=await p.evaluate(id=>{const t=allTrips().find(x=>x.did===id),st=t.st||{};return {op:st.opPrice,kyc:st.kyc,pn:st.paynodeRef,scr:st.screen&&st.screen.outcome,names:(st.screen||{}).names||[],take:(st.history||[]).filter(h=>/taken over/.test(h.a)).length}},tid);
 log.push('   issue records: '+JSON.stringify(rec));
 if(!(rec.op>0&&rec.kyc&&rec.pn&&rec.scr==='clear'))log.push('ERR the broker\'s records were not taken over at issue');

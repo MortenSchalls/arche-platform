@@ -19,7 +19,7 @@
 
   const has = v => v !== undefined && v !== null && String(v).trim() !== "";
   const isMine = t => t.bid === S.uid;
-  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind);
+  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind && (!x.op || !(d.quote || {}).operator || x.op === d.quote.operator));   // an operator's documents count only for that operator (review 25 Nov 2026)
   
   // what the broker must have in before the trip can go to operations; each item: [ok, text, jump, need]
   function brokerItems(d){
@@ -91,9 +91,9 @@
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
       {title: "Authorise and issue", who: "Director or a mandated person", items: [
         /* taken over from the broker's records at Issue; open only when the broker's record is missing (workflow audit 25 Nov 2026) */
-        [num(st.opPrice) > 0 || num((d.quote || {}).opPrice) > 0, "Operator price: the broker's quote (check it against Avinode; change it under Authorisation only if it differs)", "el|o_op", true],
+        [num(st.opPrice) > 0 || num((d.quote || {}).opPrice) > 0, "Operator price: the broker's quote (check it against Avinode; change it under Authorise and issue only if it differs)", "el|o_op", true],
         [!!st.kyc || (typeof kycState === "function" && kycState(t).ok), "KYC: the broker's record" + (typeof kycState === "function" && !kycState(t).ok ? " is missing: " + kycState(t).why : ""), "el|o_kyc", true],
-        [(typeof screenOk === "function" ? screenOk(t, st) : !!st.screen) || !!(d.screen && (d.screen.results || []).length && d.screen.results.every(r => r.result === "no match")), "Sanctions screening: the broker's screening (a possible match is decided under Authorisation)", "el|scr_names_" + t.did, true],
+        [(typeof screenOk === "function" ? screenOk(t, st) : !!st.screen) || (typeof screenBrokerOk === "function" && screenBrokerOk(t)), "Sanctions screening: the broker's screening (a possible match is decided under Authorise and issue)", "el|scr_names_" + t.did, true],
         [!!st.paynodeRef || !!d.payRef, "Payment request reference: from the broker", "el|o_pn", true],
         ...(ap ? [[typeof apState === "function" && apState(t).ok, "Director approval (the Director approves on Today or on this trip)", "sec|secOps", true]] : []),
         /* Booking with the operator: asked for only when Issue was pressed before (test booking 25 Nov 2026) */

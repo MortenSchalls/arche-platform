@@ -13,7 +13,8 @@ const FIELD_HELP = {
   e_ct: "Where the client lives. Needed for the sanctions check and the KYC.",
   e_py: "Fill in only when someone else pays (a company, a relative). A different payer needs its own checks.",
   e_cat: "The size of aircraft the client wants or the trip needs, for the Avinode search.",
-  e_nt: "Anything the client asked for: catering, cars, pets, children, allergies, special luggage. It goes into the Avinode request.",
+  e_nt: "Anything the client asked for: catering, cars, pets, special luggage. For you and the trip; it does not go to operators.",
+  e_iops: "What the operators need to know to quote, without names or health details. It goes into the Avinode request.",
   e_ilead: "The person who travels and leads the group. Printed on the confirmation and screened.",
   e_ibook: "An assistant or office that books for the client: name and how to reach them.",
   e_iflex: "How far the dates or times may move. Operators can often quote lower with some room.",
@@ -93,7 +94,7 @@ const GLOSS = [
         const first = l.querySelector("input,select,textarea"); if (first) { l.insertBefore(b, first); l.insertBefore(t, first); } else { l.appendChild(b); l.appendChild(t); }
       });
       // our own words: a ? after the first one in each block of text
-      const blocks = main.querySelectorAll("#secTC p, #secTC li, #secSafety p, #secOpTerms p, #secBook p, #secAuth p, #secNext li, .ns-items li, #secChecks span, #secRtb p, #secAvinode p, .note, #confForm p, #routePanel p, #secAfter p");
+      const blocks = [...main.querySelectorAll("#secTC p, #secTC li, #secSafety p, #secOpTerms p, #secBook p, #secAuth p, #secNext li, .ns-items li, #secChecks label.check > span, #secRtb p, #secAvinode p, .note, #confForm p, #routePanel p, #secAfter p")].filter(el => !el.closest(".bkqt, .fh") && !el.querySelector(".fh"));   // never on the help it added itself (review 25 Nov 2026: the page grew without end)
       let n = 0;
       blocks.forEach(el => {
         if (el.dataset.gl || n > 40) return; el.dataset.gl = "1";
@@ -104,8 +105,9 @@ const GLOSS = [
       });
     } finally { busy = false; }
   }
-  let q = 0; const kick = () => { if (q) return; q = requestAnimationFrame(() => { q = 0; addHelp(); }); };
-  new MutationObserver(kick).observe(document.documentElement, {childList: true, subtree: true});
+  let q = 0; const mo = new MutationObserver(() => kick());
+  const kick = () => { if (q) return; q = requestAnimationFrame(() => { q = 0; mo.disconnect(); try { addHelp(); } finally { mo.takeRecords(); mo.observe(document.documentElement, {childList: true, subtree: true}); } }); };
+  mo.observe(document.documentElement, {childList: true, subtree: true});
   document.addEventListener("click", ev => {
     const b = ev.target.closest && ev.target.closest("button.fh"); if (!b) return;
     ev.preventDefault(); ev.stopPropagation(); const t = b.nextElementSibling; if (t && t.classList.contains("bkqt")) t.hidden = !t.hidden;

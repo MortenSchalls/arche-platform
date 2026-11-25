@@ -3,7 +3,7 @@
    certificate, safety audit evidence): one tap opens the file chooser and the file is attached under the right type at
    once. No picking the type from a list first. */
 (function(){
-  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind), lockedStage = t => ["review","issued","clientPaid","flown","cancelled"].includes(t.stage);
+  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind && (!x.op || !(d.quote || {}).operator || x.op === d.quote.operator)), lockedStage = t => ["review","issued","clientPaid","flown","cancelled"].includes(t.stage);
   const NEED = [["Operator quote", "the operator's quote"], ["AOC", "the AOC"], ["Insurance certificate", "the insurance certificate"], ["Safety audit", "the safety audit"]];
   const _tf = tripFile;
   tripFile = function(t){

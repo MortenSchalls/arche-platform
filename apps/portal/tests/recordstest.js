@@ -27,6 +27,7 @@ ok('a ? on the prospect fields',await p.evaluate(()=>!!document.querySelector('l
 const iid=await p.evaluate(async()=>{let k=Object.keys(S.inv||{})[0];if(!k){k='i901';await invSet(k,{org:'Example Capital Pte Ltd',status:'new',track:'Strategic partner',for:'Whole platform'});await new Promise(r=>setTimeout(r,600));}return k});
 if(iid){await p.evaluate(id=>{S.view='prospects';S.pSec='inv';S.invSel=id;render()},iid);await p.waitForTimeout(800);ok('an investor record has Checks and documents',await p.isVisible('#recPanel'));
 await p.fill('#rc_how','company register extract');await p.click('[data-rc^="kyb|inv"]');await p.waitForTimeout(900);
+ok('no investor name in the shared audit log',await p.evaluate(()=>{const T=window.__T||{};const a=Object.entries(T).filter(([k])=>/audit/.test(k)).map(([,v])=>JSON.stringify(v)).join('');return a.length>0&&!/Example Capital/.test(a)}));
 ok('investor check gets a portal reference',await p.evaluate(id=>/^KYB-\d{4}-/.test(((S.inv[id]||{}).kyb||{}).ref||''),iid));}
 else console.log('   no example investor to check');
 ok('no page errors',!errs.length,errs);console.log(fails?'FAILED '+fails:'ALL PASS');await b.close();process.exit(fails?1:0);})();

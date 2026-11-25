@@ -17,7 +17,9 @@ let fails=0;const ok=(k,v,x)=>{console.log((v?'PASS ':'FAIL ')+k+(v||x===undefin
  ok('its client price is (50,000 + 1,000) ÷ 0.91 = 56,044',(await p.textContent('#secOptions')).includes('56,044'));
  const txt=await p.evaluate(()=>optionsText(tripById('t1')));ok('copy text lists both options with client prices',/1\. Example Jet One.*45,055/.test(txt)&&/2\. Example Jet Two.*56,044/.test(txt),txt);
  await p.evaluate(async()=>{const t=tripById('t1');await deskWrite(t,{safety:{audit:'argus-plat',aircraft:t.d.quote.aircraft},opTerms:{scale:[{pct:10}]}},'example safety');});await p.waitForTimeout(400);
+ await p.evaluate(async()=>{const t=tripById('t1');await deskWrite(t,{docs:[...(t.d.docs||[]),{id:'u/trips/x/t1/aoc',kind:'AOC',name:'aoc.pdf',at:now(),by:S.uid}]},'example AOC');});await p.waitForTimeout(400);
  await p.click('[data-alt="main|0"]');await p.waitForTimeout(600);
+ ok('the old operator\'s AOC does not count for the new main operator',await p.evaluate(()=>{const d=tripById('t1').d;return (d.docs||[]).some(x=>x.kind==='AOC'&&x.op&&x.op!==d.quote.operator)&&!(d.docs||[]).some(x=>x.kind==='AOC'&&(!x.op||x.op===d.quote.operator))}));
  const d=await p.evaluate(()=>tripById('t1').d);ok('making it main swaps the quote and keeps the old one as an option',d.quote.aircraft==='Example Jet Two'&&d.quote.opPrice===50000&&d.alts[0].aircraft==='Example Jet One'&&d.alts[0].opPrice===40000,{q:d.quote,a:d.alts});
  ok('the old operator\'s safety record and terms go with its option',!!(d.alts[0].safety&&d.alts[0].safety.audit==='argus-plat'&&d.alts[0].opTerms),d.alts[0]);
  await p.click('[data-alt="main|0"]');await p.waitForTimeout(600);

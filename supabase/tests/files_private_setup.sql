@@ -19,9 +19,9 @@ insert into auth.users values ('00000000-0000-0000-0000-00000000000a'), ('000000
 insert into public.trips values ('00000000-0000-0000-0000-00000000000a', 'tA', '{"docs":[]}'), ('00000000-0000-0000-0000-00000000000b', 'tB', '{}');
 insert into public.trip_status values ('00000000-0000-0000-0000-00000000000a', 'tA', '{"confIssued":{"assetId":"00000000-0000-0000-0000-00000000000d/oldconf"}}');
 insert into storage.objects values
- ('portal-files', '00000000-0000-0000-0000-00000000000a/trips/tA/aoc'),
- ('portal-files', '00000000-0000-0000-0000-00000000000b/trips/tB/passport'),
- ('portal-files', '00000000-0000-0000-0000-00000000000d/trips/tA/conf'),
+ ('portal-files', '00000000-0000-0000-0000-00000000000a/trips/00000000-0000-0000-0000-00000000000a/tA/aoc'),
+ ('portal-files', '00000000-0000-0000-0000-00000000000b/trips/00000000-0000-0000-0000-00000000000b/tB/passport'),
+ ('portal-files', '00000000-0000-0000-0000-00000000000d/trips/00000000-0000-0000-0000-00000000000a/tA/conf'),
  ('portal-files', '00000000-0000-0000-0000-00000000000d/oldconf'),
  ('portal-files', '00000000-0000-0000-0000-00000000000d/records/p001/register'),
  ('portal-files', '00000000-0000-0000-0000-00000000000d/investors/i001/nda');

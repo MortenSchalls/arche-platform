@@ -11,4 +11,7 @@ begin; select pg_temp.expect('00000000-0000-0000-0000-00000000000b', 'broker', 1
 begin; select pg_temp.expect('00000000-0000-0000-0000-00000000000c', 'ops', 5); commit;      -- staff: everything but investor files
 begin; select pg_temp.expect('00000000-0000-0000-0000-00000000000d', 'owner', 6); commit;    -- the Director: everything
 begin; select pg_temp.expect('00000000-0000-0000-0000-00000000000e', '', 0); commit;         -- not a member: nothing
+-- forged: broker B writes A's file paths and A's trip id into B's own trip row; still only B's own file
+insert into public.trips values ('00000000-0000-0000-0000-00000000000b', 'tA', '{"docs":[{"id":"00000000-0000-0000-0000-00000000000a/trips/00000000-0000-0000-0000-00000000000a/tA/aoc"},{"id":"00000000-0000-0000-0000-00000000000d/records/p001/register"},{"id":"00000000-0000-0000-0000-00000000000d/oldconf"}]}');
+begin; select pg_temp.expect('00000000-0000-0000-0000-00000000000b', 'broker', 1); commit;
 select public.files_private() as rule_in_place;

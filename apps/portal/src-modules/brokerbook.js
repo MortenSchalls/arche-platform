@@ -6,7 +6,7 @@
    Stored with the trip (d.book), as brokers cannot write the authorisation record. */
 function brokerBookBlock(t, can){
   const b = (t.d || {}).book || {}, dt = v => { if (!v) return ""; const x = new Date(v); return isNaN(x) ? "" : new Date(x.getTime() - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 16); };
-  const hasC = (t.d.docs || []).some(x => x.kind === "Operator contract");
+  const op = (t.d.quote || {}).operator, hasC = (t.d.docs || []).some(x => x.kind === "Operator contract" && (!x.op || !op || x.op === op));
   return `<div class="panel" id="secRtb" style="padding:14px 16px;margin:8px 0"><h3 style="margin-top:0">Request to Book</h3>
     <p class="small muted" style="margin:0 0 6px">When the client accepts the quote, send Request to Book on Avinode and record it here. The Director checks the operator's contract against the operator terms before issue.</p>
     <div class="fgrid"><label class="f" for="rb_rtb">Request to Book sent on Avinode<input type="datetime-local" id="rb_rtb" data-rb="rtbAt" value="${esc(dt(b.rtbAt))}" ${can ? "" : "disabled"}></label>

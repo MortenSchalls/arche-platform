@@ -6,6 +6,7 @@
    there; only then does it say "Saved". The trip's Documents panel lists every file of the booking in one place: the
    broker's uploads, each issued charter confirmation and the signed contract, each with Open and a stored check (Saved,
    Checking, Not found). Nothing is deleted from a trip: a wrong file is replaced by uploading the right one. */
+const OP_DOC_KINDS = ["Operator quote", "AOC", "Insurance certificate", "Operator contract", "Safety audit"];
 const DOC_KINDS = ["Operator quote", "AOC", "Insurance certificate", "Operator contract", "Safety audit", "Passport", "Trip risk screen", "Client safety disclosure", "Other"];
 function tripDocList(t){
   const d = t.d || {}, st = t.st || {}, ref = st.ref || "", out = [];
@@ -30,7 +31,7 @@ async function docVerify(ids){
 function tripDocsPanel(t, canEdit){
   const list = tripDocList(t);
   if (list.length) setTimeout(() => docVerify(list.map(x => x.id)), 0);
-  const rows = list.map(x => `<tr><td>${esc(x.kind || "Other")}</td><td><a href="/_blob/${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.name || "file")}</a>${x.signer ? ` <span class="muted">· signed by ${esc(x.signer)}</span>` : ""}</td><td class="nowrap">${x.at ? esc(fmtT(x.at)) : ""}</td><td>${x.by ? esc(nm(x.by)) : ""}</td><td class="nowrap muted">${docSize(x.size)}</td><td>${docChip(x.id)}</td></tr>`).join("");
+  const rows = list.map(x => `<tr><td>${esc(x.kind || "Other")}${x.op ? `<br><span class="muted">${esc(x.op)}</span>` : ""}</td><td><a href="/_blob/${encodeURIComponent(x.id)}" target="_blank" rel="noopener">${esc(x.name || "file")}</a>${x.signer ? ` <span class="muted">· signed by ${esc(x.signer)}</span>` : ""}</td><td class="nowrap">${x.at ? esc(fmtT(x.at)) : ""}</td><td>${x.by ? esc(nm(x.by)) : ""}</td><td class="nowrap muted">${docSize(x.size)}</td><td>${docChip(x.id)}</td></tr>`).join("");
   return `<div id="secDocs"><h3>Documents</h3>
     ${list.length ? `<div style="overflow-x:auto;min-width:0"><table class="small" id="docTable"><thead><tr><th>Type</th><th>File</th><th>Added</th><th>By</th><th>Size</th><th>Stored</th></tr></thead><tbody>${rows}</tbody></table></div>
       <p class="small muted" style="margin:4px 0 8px">${list.length} file${list.length === 1 ? "" : "s"} on this booking${(t.st || {}).ref ? ` (${esc(t.st.ref)})` : ""}. Every file is kept with the trip; a wrong file is replaced by uploading the right one.</p>` : `<p class="small muted">No documents on this booking yet.</p>`}
@@ -40,9 +41,10 @@ function tripDocsPanel(t, canEdit){
 async function saveTripDoc(t, file, kind){
   const assets = await claude.use("assets"); if (!assets) { toast("Document upload is not available for your access level."); return null; }
   toast(`Uploading ${file.name}…`);
-  let r; try { r = await assets.upload(file, {folder: "trips/" + t.did}); }
+  let r; try { r = await assets.upload(file, {folder: "trips/" + t.bid + "/" + t.did}); }
   catch(e){ toast(`Not saved: ${file.name} did not upload (${e && e.message ? e.message : "connection"}). Try again.`); return null; }
   const rec = {id: r.id, name: file.name, kind, at: now(), by: S.uid, size: file.size || r.sizeBytes || 0, type: file.type || r.contentType || ""};
+  if (OP_DOC_KINDS.includes(kind) && ((freshTrip(t).d || {}).quote || {}).operator) rec.op = freshTrip(t).d.quote.operator;   // whose document it is
   try { await deskWrite(t, {docs: [...((freshTrip(t).d || t.d).docs || []).filter(x => x.id !== rec.id), rec]}, `Document attached: ${kind} (${file.name})`); }
   catch(e){ toast(`Not saved: ${file.name} uploaded but could not be recorded on the trip. Try again.`); return null; }
   let back = false; for (let i = 0; i < 20 && !back; i++) { back = ((freshTrip(t).d || {}).docs || []).some(x => x.id === rec.id); if (!back) await new Promise(r => setTimeout(r, 250)); }

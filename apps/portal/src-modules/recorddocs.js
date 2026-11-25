@@ -45,9 +45,9 @@ async function recWrite(where, id, patch){
     if (a === "kyb") {
       const at = ($("rc_at") || {}).value || "", how = (($("rc_how") || {}).value || "").trim().slice(0, 200);
       if (!/^\d{4}-\d{2}-\d{2}$/.test(at) || at > now().slice(0, 10)) { toast("Enter the date of the check (not in the future)."); return; }
-      if (/\d{6,}/.test(how.replace(/[\s.\/-]/g, ""))) { toast("That looks like an ID or account number. Describe how it was checked, without numbers."); return; }
+      if (/\b[A-Z]\d{7}[A-Z]\b|\b[A-Z]{1,2}\d{7,9}\b|\b[A-Z]{2}\d{2}[A-Z0-9]{10,30}\b|\d{10,}/i.test(how.replace(/[\s-]/g, " "))) { toast("That looks like an ID, passport or account number. Describe how it was checked without it."); return; }   // a company number or a date is fine (review 25 Nov 2026)
       const person = where !== "inv" && p.kind === "client" && !p.segment, kyb = {ref: recRefNew(!person, at), checkedAt: at, how, by: S.uid, at: now()};
-      try { await recWrite(where, id, {kyb, kybLog: [...(p.kybLog || []), kyb]}); audit("Record check saved", `${p.org} · ${kyb.ref}`); toast(`Check recorded: ${kyb.ref}.`); render(); } catch(e){ toast("Could not save. Try again."); }
+      try { await recWrite(where, id, {kyb, kybLog: [...(p.kybLog || []), kyb]}); /* no investor names in the shared audit log */ audit("Record check saved", where === "inv" ? `investor record ${id} · ${kyb.ref}` : `${p.org} · ${kyb.ref}`); toast(`Check recorded: ${kyb.ref}.`); render(); } catch(e){ toast("Could not save. Try again."); }
       return;
     }
     if (a === "doc") {
@@ -59,7 +59,7 @@ async function recWrite(where, id, patch){
         await recWrite(where, id, {docs: [...(p.docs || []), rec]});
         let stored = false; try { stored = !!(assets.check && (await assets.check(rec.id)).exists); } catch(e){}
         S.docChk = S.docChk || {}; S.docChk[rec.id] = stored ? "ok" : "missing";
-        audit("Record document saved", `${p.org} · ${kind} · ${f.name}`);
+        audit("Record document saved", where === "inv" ? `investor record ${id} · ${kind}` : `${p.org} · ${kind} · ${f.name}`);
         toast(stored ? `Saved ✓ ${kind}: ${f.name} is stored with ${p.org}.` : `Check this file: ${f.name} could not be confirmed in storage. Upload it again.`); render();
       } catch(e){ toast(`Not saved: ${f.name} did not upload. Try again.`); }
       finally { b.disabled = false; }

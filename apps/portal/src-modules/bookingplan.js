@@ -21,7 +21,7 @@
   const today = () => new Date().toISOString().slice(0, 10);
   const lastDate = d => (((d.trip || {}).legs) || []).map(l => l.date).filter(Boolean).sort().pop() || "";
   const firstDate = d => (((d.trip || {}).legs) || []).map(l => l.date).filter(Boolean).sort()[0] || "";
-  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind);
+  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind && (!x.op || !(d.quote || {}).operator || x.op === d.quote.operator));   // an operator's documents count only for that operator (review 25 Nov 2026)
   const OT = d => d.opTerms || {};
   const lockedStage = t => ["review","issued","clientPaid","flown","cancelled"].includes(t.stage);
   const staffOn = t => isStaff() && acting() !== "broker" && !(typeof ownTrip === "function" && ownTrip(t));
@@ -67,8 +67,8 @@
   // ---------- operations before issue ----------
   window.bookNeeds = function(t, validDate){
     const st = t.st || {}, b = {...((t.d || {}).book || {}), ...Object.fromEntries(Object.entries(st.book || {}).filter(([, v]) => v))}, out = [];   // the broker records Request to Book and the hold; the Director checks the contract
-    if (!b.rtbAt) out.push("Request to Book sent on Avinode");
-    if (!b.holdUntil) out.push("how long the operator holds the aircraft");
+    if (!b.rtbAt) out.push("Request to Book sent on Avinode (the broker records it on step 4)");
+    if (!b.holdUntil) out.push("how long the operator holds the aircraft (the broker records it with Request to Book)");
     if (!docOf(t.d, "Operator contract")) out.push("the operator's contract attached (document type Operator contract)");
     if (!(b.contract && b.contract.matches)) out.push("the operator's contract checked against the operator terms on this trip");
     const vd = validDate || ((t.d.conf || {}).valid || {}).date;
@@ -260,8 +260,8 @@
     const need = bookNeeds(t);
     // before issue
     const pre = `<div class="fgrid">
-        <label class="f" for="bk_rtb">Request to Book sent on Avinode<input type="datetime-local" id="bk_rtb" data-bk="rtbAt" value="${esc(dt(b.rtbAt))}" ${can && !issued ? "" : "disabled"}></label>
-        <label class="f" for="bk_hold">The operator holds the aircraft until<input type="datetime-local" id="bk_hold" data-bk="holdUntil" value="${esc(dt(b.holdUntil))}" ${can && !issued ? "" : "disabled"}></label></div>
+        <label class="f" for="bk_rtb">Request to Book sent on Avinode${(t.d.book || {}).rtbAt ? " (from the broker; correct it only if wrong)" : ""}<input type="datetime-local" id="bk_rtb" data-bk="rtbAt" value="${esc(dt(b.rtbAt))}" ${can && !issued ? "" : "disabled"}></label>
+        <label class="f" for="bk_hold">The operator holds the aircraft until${(t.d.book || {}).holdUntil ? " (from the broker)" : ""}<input type="datetime-local" id="bk_hold" data-bk="holdUntil" value="${esc(dt(b.holdUntil))}" ${can && !issued ? "" : "disabled"}></label></div>
       ${can && !issued ? `<div class="row" style="gap:6px"><input type="file" id="bkFile" style="width:auto" aria-label="Operator contract file"><button class="btn small" type="button" data-bka="doc">Attach the operator's contract</button></div>` : ""}
       <label class="check"><input type="checkbox" data-bkc="1" ${b.contract && b.contract.matches ? "checked" : ""} ${can && !issued ? "" : "disabled"}><span>The operator's contract matches the operator terms on this trip: cancellation charges, payment terms, aircraft and registration, itinerary and price${b.contract && b.contract.matches ? ` <span class="muted">(${esc(nm(b.contract.by))}, ${esc(fmtT(b.contract.at))})</span>` : ""}</span></label>
       ${need.length && !issued ? `<div class="note warn small"><b>Before issuing:</b> ${need.map(esc).join(" · ")}</div>` : ""}`;

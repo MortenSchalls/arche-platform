@@ -8,7 +8,7 @@
    Only "route" (routing, permits and continuous journey confirmed with the operator) stays a person's tick.
    The tick is written to the trip when the record becomes complete, and taken back if a red item appears. */
 (function(){
-  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind);
+  const docOf = (d, kind) => (d.docs || []).some(x => x.kind === kind && (!x.op || !(d.quote || {}).operator || x.op === d.quote.operator));   // an operator's documents count only for that operator (review 25 Nov 2026)
   const tripOk = t => { if (typeof tripBlockers !== "function") return null; const b = tripBlockers(t.d, t.st); return !b.red.length && !b.amberOpen.length; };
   const AUTO = {
     never: {from: "Trip checks", sec: "secTC", ok: tripOk},
