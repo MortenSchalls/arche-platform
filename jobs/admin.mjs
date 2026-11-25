@@ -242,7 +242,7 @@ export async function main(env = process.env, sb) {
   if (action === "people-status") { const out = await peopleStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
-  if (action === "activity-log") { const u0 = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null; if (!u0) throw new Error("Nobody found"); const out = await activityLog(sb, u0, +(env.HOURS || 14)); console.log(JSON.stringify(out, null, 1)); const j = JSON.stringify(out); for (let i = 0; i < j.length; i += 3800) note({part: i / 3800 + 1, of: Math.ceil(j.length / 3800), text: j.slice(i, i + 3800)}); return out; }
+  if (action === "activity-log") { const u0 = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null; if (!u0) throw new Error("Nobody found"); const out = await activityLog(sb, u0, +(env.HOURS || 14)); console.log(JSON.stringify(out, null, 1)); const j = JSON.stringify(out); for (let i = 0; i < j.length; i += 2400) note({part: i / 2400 + 1, of: Math.ceil(j.length / 2400), text: j.slice(i, i + 2400)}); return out; }
   if (!["person-status", "reset-joining", "reset-next-login", "cancel-reset-next", "set-name"].includes(action)) throw new Error("Unknown action " + action);
   const u = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null;
   if (!email && !name) throw new Error("Give an email or a name");
