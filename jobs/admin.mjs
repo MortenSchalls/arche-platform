@@ -222,10 +222,10 @@ async function activityLog(sb, u, hours){
   const audit = ck(await sb.from("audit_log").select("t,by,action,detail").gte("t", since).order("t", { ascending: true }).limit(800), "audit") || [];
   const mine = audit.filter(a => a.by === uid || (name && String(a.detail || "").includes(name.split(" ")[0])) || owners.includes(a.by))
     .map(a => ({ t: a.t, who: a.by === uid ? "person" : owners.includes(a.by) ? "owner" : a.by ? "other" : "system", action: a.action, detail: String(a.detail || "").slice(0, 300) }));
-  const trips = (ck(await sb.from("trips").select("id,data,updated_at").eq("owner_id", uid), "trips") || []).filter(t => t.updated_at >= since);
+  const trips = (ck(await sb.from("trips").select("id,data,updated_at").eq("owner_id", uid), "trips") || []);   // updated_at is not touched on update, so every trip of the person
   const status = ck(await sb.from("trip_status").select("id,data,updated_at").eq("owner_id", uid), "trip_status") || [];
-  const runs = (ck(await sb.from("training_runs").select("id,data,updated_at").eq("owner_id", uid), "training_runs") || []).filter(r => r.updated_at >= since);
-  let steps = []; try { steps = (ck(await sb.from("step_requests").select("id,data,updated_at").eq("owner_id", uid), "step_requests") || []).filter(r => r.updated_at >= since); } catch (e) {}
+  const runs = (ck(await sb.from("training_runs").select("id,data,updated_at").eq("owner_id", uid), "training_runs") || []);
+  let steps = []; try { steps = (ck(await sb.from("step_requests").select("id,data,updated_at").eq("owner_id", uid), "step_requests") || []); } catch (e) {}
   return { name, since, audit: mine, trips: trips.map(t => ({ id: t.id, updated: t.updated_at, data: strip(t.data), status: (status.find(s => s.id === t.id) || {}).data || null })),
     training: runs.map(r => ({ id: r.id, updated: r.updated_at, data: r.data })), stepRequests: steps.map(r => ({ id: r.id, data: r.data })) };
 }
