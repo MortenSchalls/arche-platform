@@ -64,6 +64,30 @@
       <p class="small" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:6px">${parts.map(p => `<span><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${p.color};margin-right:5px;vertical-align:-1px"></span>${esc(p.label)} ${p.v}</span>`).join("")}</p>`;
   }
 
+  /* response time and conversion per broker, last 90 days (Morten, 25 Nov 2026, peer proposal P4; internal only):
+     minutes from taking an enquiry (or receiving it) to "Client contacted", against the 15-minute target;
+     quoted trips that became confirmed bookings */
+  function respStats(){
+    const since = Date.now() - 90 * 864e5, by = {};
+    allTrips().forEach(t => { const d = t.d || {}, st = t.st || {}; if (Date.parse(d.created || 0) < since) return;
+      const b = by[t.bid] || (by[t.bid] = {name: nm(t.bid), trips: 0, timed: [], quoted: 0, booked: 0});
+      b.trips++;
+      const from = Date.parse(d.takenAt || d.enquiryAt || ""), to = Date.parse(d.contactedAt || "");
+      if (!isNaN(from) && !isNaN(to) && to >= from) b.timed.push((to - from) / 60000);
+      if (num(d.quote && d.quote.opPrice)) b.quoted++;
+      if (st.issuedAt && st.state !== "cancelled") b.booked++; });
+    return Object.values(by).map(b => { const m = [...b.timed].sort((x, y) => x - y);
+      return {...b, median: m.length ? Math.round(m[Math.floor((m.length - 1) / 2)]) : null, within: m.length ? Math.round(100 * m.filter(x => x <= 15).length / m.length) : null, conv: b.quoted ? Math.round(100 * b.booked / b.quoted) : null}; })
+      .sort((x, y) => y.booked - x.booked || y.trips - x.trips);
+  }
+  function respPanel(){
+    if (!S.isOwner || S.preview) return "";
+    const rs = respStats();
+    return `<div class="panel stack" style="margin-top:16px;min-width:0;max-width:100%;overflow:hidden" id="respPanel"><h2>Response and conversion by broker, last 90 days</h2>
+      <p class="small muted">Response: minutes from taking an enquiry to "Client contacted" (Open enquiries), against the 15-minute target. Conversion: quoted trips that became confirmed bookings. For the Director; not shown to brokers.</p>
+      ${rs.length ? `<div style="overflow-x:auto;max-width:100%;min-width:0;width:100%"><table class="tbl small"><thead><tr><th scope=col>Broker</th><th scope=col>Trips</th><th scope=col>Median response</th><th scope=col>Within 15 min</th><th scope=col>Quoted</th><th scope=col>Booked</th><th scope=col>Quote to booking</th></tr></thead><tbody>
+      ${rs.map(b => `<tr><td>${esc(b.name)}</td><td>${b.trips}</td><td>${b.median === null ? "–" : b.median + " min"}</td><td>${b.within === null ? "–" : `<span class="chip ${b.within >= 90 ? "c-flown" : b.within >= 60 ? "c-review" : "c-returned"}">${b.within}%</span>`}</td><td>${b.quoted}</td><td>${b.booked}</td><td>${b.conv === null ? "–" : b.conv + "%"}</td></tr>`).join("")}</tbody></table></div>` : `<p class="small muted">No trips in the last 90 days.</p>`}</div>`;
+  }
   function vReports(){
     if (S.oplibAll === undefined) loadOplib().then(() => { if (S.view === "reports") render(); });
     if (S.routelibAll === undefined) loadRoutelib().then(() => { if (S.view === "reports") render(); });
@@ -91,6 +115,7 @@
           <p class="small" style="margin-top:10px">${scrGap ? `${scrGap} open trip${scrGap === 1 ? "" : "s"} not screened yet. ` : ""}${unpaidOp ? `${unpaidOp} paid by the client, operator not paid yet.` : ""}</p>
           <h3 style="margin-top:14px">Archē fee by broker, this year</h3>${hbars(byBroker, v => usd(v))}</div>
       </div>
+      ${respPanel()}
       <div class="panel stack" style="margin-top:16px"><h2>Download reports</h2>
         <p class="small muted">Excel: one file with every report as a sheet. CSV opens in Excel, Numbers or Google Sheets. PDF: opens a print view; choose "Save as PDF". Client email and phone, and prospect contacts, are not exported.</p>
         <div class="row"><button class="btn primary" type="button" data-rep="xlsx|all">Excel: all reports</button><button class="btn" type="button" data-rep="pdf|all">PDF: all reports</button><button class="btn" type="button" data-rep="json|routelib" title="For the website's journey map: put the file in apps/website/content/ and rebuild">Route library for the website</button></div>

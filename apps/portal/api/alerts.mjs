@@ -83,7 +83,7 @@ async function sendEmail(to, subject, text) {
 export async function sendClient(to, mail, company) {
   if (!process.env.RESEND_API_KEY) return "no-key";
   const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({ from: process.env.CLIENT_FROM || "Archē Executive <operations@archeaviation.com>", to: [to], ...(company ? { bcc: [company], reply_to: company } : {}), subject: mail.subject, text: mail.text }) });
+    body: JSON.stringify({ from: process.env.CLIENT_FROM || "Archē Executive <finance@archeaviation.com>", to: [to], ...(company ? { bcc: [company], reply_to: company } : {}), subject: mail.subject, text: mail.text }) });
   if (r.ok) return "ok";
   let m = ""; try { m = (await r.json()).message || ""; } catch (e) {}
   return `refused by Resend (${r.status}${m ? ": " + m.slice(0, 160) : ""})`;

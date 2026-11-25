@@ -11,8 +11,23 @@
 
   /* ---------- sign-in gate ---------- */
   let resolveReady; const ready = new Promise(r => (resolveReady = r));
+  /* a sign-in kept on this device (iOS Home Screen app, Morten 24 Nov 2026: logged out after opening the app): when the
+     app wakes the network may not be up yet, the token refresh fails once and the session reads as empty. If a stored
+     sign-in exists, try again (1 s, 2 s, 4 s, then when back online) before ever showing the sign-in screen. */
+  const storedSignIn = () => { try { return Object.keys(localStorage).some(k => /^sb-.*-auth-token$/.test(k) && localStorage.getItem(k)); } catch (e) { return false; } };
+  async function sessionWithRetry() {
+    let r = await sb.auth.getSession(); if (r.data.session || !storedSignIn()) return r;
+    for (const ms of [1000, 2000, 4000]) {
+      await new Promise(ok => setTimeout(ok, ms));
+      try { const x = await sb.auth.refreshSession(); if (x.data && x.data.session) return {data: {session: x.data.session}}; if (x.error && !/fetch|network|timeout|Failed|retry/i.test(x.error.message || "")) break; } catch (e) {}
+      r = await sb.auth.getSession(); if (r.data.session) return r;
+    }
+    if (!navigator.onLine) { await new Promise(ok => window.addEventListener("online", ok, {once: true})); return sessionWithRetry(); }
+    return r;
+  }
+  window.__sessionWithRetry = sessionWithRetry;
   async function gate() {
-    const { data } = await sb.auth.getSession();
+    const { data } = await sessionWithRetry();
     if (data.session) {
       // everyone signs in with their own password (Morten 23 and 25 Oct 2026): a temporary password, or a first
       // sign-in by email link, leads straight to choosing one; Microsoft sign-in does not need it

@@ -6,6 +6,7 @@
    S.terms.cycleDays days (default 5, set by the Director in Settings). Database rules: migration 0008. */
 const POOL_SRC = {website: "Website", email: "Charter email", phone: "Phone", other: "Other"};
 const cycleDays = () => Math.max(1, Math.round(num((S.terms || {}).cycleDays) || 5));
+try { S.poolContacted = JSON.parse(localStorage.getItem("arche.poolContacted") || "{}"); } catch (e) { S.poolContacted = {}; }
 function cycleDay(fromIso){ const t = Date.parse(fromIso || ""); return isNaN(t) ? 0 : Math.floor((Date.now() - t) / 86400000) + 1; }
 function cycleChip(t){
   if (!t || !t.d || ["clientPaid","flown","cancelled"].includes(t.stage)) return "";
@@ -65,7 +66,9 @@ function vOpenEnq(){
       return `<div class="flag"><span class="sev low" aria-hidden="true"></span><div style="flex:1;min-width:0"><p><b>${poolLegs(e)}</b> · ${esc(e.pax || "?")} pax</p>
       <p class="small">${c === undefined ? "Loading the client's details…" : c ? `${esc(c.name || "")}${c.company ? " · " + esc(c.company) : ""}<br>${esc(c.email || "")}${c.phone ? " · " + esc(c.phone) : ""}${c.reach ? " · " + esc(c.reach) : ""}${c.message ? `<br><span class="muted">${esc(c.message)}</span>` : ""}` : "Client details not available. Ask the Director."}</p>
       <p class="small muted">${e.how === "assigned" ? "Assigned to you" : "You took it"} ${fmtT(e.claimedAt)} · <span class="chip ${cycleDay(e.receivedAt) > cycleDays() ? "c-returned" : "c-quoted"}">Day ${cycleDay(e.receivedAt)} of ${cycleDays()}</span></p>
-      <div class="row" style="margin-top:6px">${hasTrip(id) ? `<span class="small">Trip opened.</span>` : `<button class="btn small primary" type="button" data-pool="trip|${id}">Open the trip</button>`}</div></div></div>`; }).join("") || `<p class="small muted">Nothing taken yet.</p>`}</div></div>`;
+      <div class="row" style="margin-top:6px">${(() => { const tr = allTrips().find(t => t.d.poolId === id && t.bid === S.uid), at = tr ? tr.d.contactedAt : (S.poolContacted || {})[id];
+        const done = at ? `<span class="small">Client contacted ${esc(fmtT(at))}${e.claimedAt ? ` · ${Math.max(0, Math.round((Date.parse(at) - Date.parse(e.claimedAt)) / 60000))} min after taking it` : ""}.</span>` : `<button class="btn small" type="button" data-pool="contacted|${id}" title="Records the time: the target is within 15 minutes of taking it">Client contacted</button>`;
+        return (tr ? `<span class="small">Trip opened.</span>` : `<button class="btn small primary" type="button" data-pool="trip|${id}">Open the trip</button>`) + done; })()}</div></div></div>`; }).join("") || `<p class="small muted">Nothing taken yet.</p>`}</div></div>`;
 }
 
 async function poolCreate(e, c, status, assignee){
@@ -82,8 +85,13 @@ document.addEventListener("click", async ev => {
   if (a === "cancelAdd") { S.poolAdd = false; render(); return; }
   try {
     if (a === "take") { { const e0 = (S.pool || {})[key] || {}; if (await gateHold("take", key, "take", `Take enquiry: ${poolLegs(e0).replace(/<[^>]+>/g, "")}`, e0.summary || e0.notes || "")) return; } const ok = await window.__poolTake(key); if (ok) { audit("Enquiry taken", key); toast("It's yours. Contact the client within 15 minutes."); } else toast("Another broker took it first."); render(); return; }
+    /* response time (Morten, 25 Nov 2026, peer proposal P4): one tap records when the client was contacted */
+    if (a === "contacted") { const tr = allTrips().find(t => t.d.poolId === key && t.bid === S.uid), at = now();
+      if (tr) { await deskWrite(tr, {contactedAt: at, takenAt: tr.d.takenAt || ((S.pool || {})[key] || {}).claimedAt || null}, "Client contacted"); }
+      else { S.poolContacted = {...(S.poolContacted || {}), [key]: at}; try { localStorage.setItem("arche.poolContacted", JSON.stringify(S.poolContacted)); } catch (e) {} }
+      toast("Recorded. Open the trip to keep it with the booking."); render(); return; }
     if (a === "trip") { const e = (S.pool || {})[key], c = (S.poolC || {})[key] || {}; if (!e) return;
-      S.fromPool = {id: key, at: e.receivedAt};
+      S.fromPool = {id: key, at: e.receivedAt, taken: e.claimedAt || null, contactedAt: S.poolContacted && S.poolContacted[key] || null};
       openEditor({bid: S.uid, did: "", d: {client: {name: c.name || "", company: c.company || "", email: c.email || "", phone: c.phone || ""}, trip: {legs: (e.legs || []).map(l => ({from: (l.from || "").toUpperCase(), to: (l.to || "").toUpperCase(), date: l.date || "", pax: e.pax || ""})), notes: [e.note, c.message].filter(Boolean).join("\n")}}}); return; }
     if (!S.isOwner) return;
     const sel = $("pa_" + key), who = sel ? sel.value : "";
