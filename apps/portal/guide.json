@@ -269,6 +269,7 @@
     "Complete KYC and save the sanctions screening record. The portal has already screened the client, company, payer and operator (reused from your save if under 48 hours old, otherwise screened when you open the trip): add the passengers, owners of 25% or more and the aircraft owner if not listed, then press Save.",
     "KYC record: under the KYC tick, enter the date the client was checked and how (and our own reference if you have one), then Save KYC record. Never type an ID, passport or bank number; the portal refuses anything that looks like one. For a returning client the portal offers Use that check while the last one is less than 12 months old and the payer, country and name are the same and screening found no possible match. Otherwise check again: an out-of-date check stops authorisation and issue.",
     "Create the payment request in our payment provider and enter its reference on the trip.",
+    "Fill in the confirmation details (Open confirmation): charterer address, signatory, lead passenger, the aircraft's year and seats and the operator's AOC number. They are needed before sending; the KYC reference comes from your KYC record.",
     "Press Send for authorisation. The button opens only when the trip is complete: the panel Steps to book this trip lists what is still missing and takes you to each field."
    ],
    "trouble": [
@@ -306,6 +307,7 @@
    "who": "The Director, or a person the Director has mandated",
    "purpose": "Check, confirm and record every trip that brokers send.",
    "steps": [
+    "The trip's Steps list shows everything still needed before Issue: the authorisation fields (filled in from the broker's records; one Save records them with the screening), approval, Booking with the operator (Request to Book, hold, the operator's contract attached and checked) and the 24-hour contacts.",
     "Open Authorisation; take the oldest trip waiting for authorisation.",
     "Confirm the operator price on Avinode, send Request to Book and enter direct trip costs.",
     "Check the KYC and sanctions screening record and the payment request reference the broker recorded.",

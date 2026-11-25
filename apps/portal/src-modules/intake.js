@@ -155,7 +155,7 @@ async function contactBatch(){
 function tripContactsBlock(t){
   if (!t || !isStaff() || S.preview || ["cancelled"].includes(t.stage)) return "";
   const st = t.st || {}, c = st.contacts24 || {};
-  return `<div class="panel stack small" style="margin:8px 0"><h3 style="margin:0">24-hour contacts</h3><p class="muted" style="margin:0">Who the client and Archē call at night if the broker or the Director cannot be reached. Needed before the confirmation is issued.</p>
+  return `<div class="panel stack small" id="sec24" style="margin:8px 0"><h3 style="margin:0">24-hour contacts</h3><p class="muted" style="margin:0">Who the client and Archē call at night if the broker or the Director cannot be reached. Needed before the confirmation is issued.</p>
     <div class="fgrid"><label class="f" for="c24_op">Operator operations, 24 hours<input id="c24_op" value="${esc(c.op || "")}" placeholder="Name of desk and phone"></label><label class="f" for="c24_h">Handler at departure<input id="c24_h" value="${esc(c.handler || "")}" placeholder="Handler and phone"></label></div>
     <div class="row"><button class="btn small" type="button" data-intake="c24">Save contacts</button></div></div>`;
 }

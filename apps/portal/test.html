@@ -1400,16 +1400,20 @@ async function saveEditor(f){
 
 /* ---------- actions ---------- */
 const tripById = did => allTrips().find(t => t.did === did);
+/* every write starts from the newest copy of the trip held in the portal, not from the copy the caller picked up earlier:
+   a write from an older copy undid later changes (test booking 25 Nov 2026: a confirmation draft and "Sent for
+   authorisation" were lost when an automatic tick was saved from a copy taken before them) */
+function freshTrip(t){ try { return allTrips().find(x => x.bid === t.bid && x.did === t.did) || t; } catch (e) { return t; } }
 async function deskWrite(t, patch, line){
-  const ref = S.db.collection(`desk/${t.bid}/deals`).doc(t.did);
-  const body = {...JSON.parse(JSON.stringify(t.d)), ...patch, updated: now()};
-  body.history = [...(t.d.history || []), {t:now(), by:S.uid, a:line}];
+  const ref = S.db.collection(`desk/${t.bid}/deals`).doc(t.did), cur = freshTrip(t);
+  const body = {...JSON.parse(JSON.stringify(cur.d || t.d)), ...patch, updated: now()};
+  body.history = [...((cur.d || t.d).history || []), {t:now(), by:S.uid, a:line}];
   await ref.set(body);
 }
 async function statusWrite(t, patch, line){
-  const ref = S.db.collection(`status/${t.bid}/deals`).doc(t.did);
-  const body = {...JSON.parse(JSON.stringify(t.st || {})), ...patch, updatedAt: now()};
-  body.history = [...((t.st && t.st.history) || []), {t:now(), by:"ops", a:line}];
+  const ref = S.db.collection(`status/${t.bid}/deals`).doc(t.did), cur = freshTrip(t);
+  const body = {...JSON.parse(JSON.stringify(cur.st || t.st || {})), ...patch, updatedAt: now()};
+  body.history = [...(((cur.st || t.st) && (cur.st || t.st).history) || []), {t:now(), by:"ops", a:line}];
   await ref.set(body);
 }
 async function act(a, el){
@@ -1432,7 +1436,8 @@ async function act(a, el){
     if (a === "bulkAssign" || a === "bulkDnc") { await bulkAction(a, el); return; }
     if (a === "bulkClear") { S.pChk = new Set(); render(); return; }
     if (a === "openConf") { S.prevView = S.view; S.view = "conf"; S.confDraft = null; S.confRevise = false; render(); window.scrollTo(0, 0); return; }
-    if (a === "confBack") { S.view = S.prevView && S.prevView !== "conf" ? S.prevView : "trips"; S.confDraft = null; S.confRevise = false; render(); return; }
+    if (a === "confBack") { if (S.cft) { clearTimeout(S.cft); S.cft = null; await saveConfDraft(); }   // keep what was typed in the last second
+      S.view = S.prevView && S.prevView !== "conf" ? S.prevView : "trips"; S.confDraft = null; S.confRevise = false; render(); return; }
     if (a === "confAI") { confAI(el); return; }
     if (a === "confIssue") { issueConf(el); return; }
     if (a === "confDownload") { downloadConf(el); return; }
@@ -1480,9 +1485,17 @@ async function act(a, el){
     if (a === "opsSave" || a === "issue") {
       const op = num($("o_op").value), dc = num($("o_dir").value), pn = $("o_pn").value.trim(), kyc = $("o_kyc").checked;
       const patch = {opPrice:op, direct:dc, price:(typeof tripPrice === "function" ? tripPrice(t, op, dc) : priceOf(op, dc)), paynodeRef:pn, pay:!!pn, kyc, state: t.st && t.st.state === "returned" ? "review" : (t.st && t.st.state) || "review"};
+      /* one Save for the whole authorisation (test booking 25 Nov 2026: the screening needed its own Save as well): the
+         screening shown in the block, the broker's own or a new one, is recorded with it */
+      const L = (S.scr || {})[t.did];
+      if (typeof screenOk === "function" && !screenOk(t, t.st || {}) && L && (L.results || []).length) {
+        const hit = L.results.some(r => r.result !== "no match");
+        patch.screen = {at: now(), by: S.uid, names: L.results.map(r => r.name), lists: L.lists, listsAt: L.at, stale: !!L.stale, logId: L.logId || null, outcome: hit ? "possible match" : "clear", hits: L.results.filter(r => r.result !== "no match").map(r => ({name: r.name, hits: r.hits}))};
+        audit("Sanctions screening recorded", `${(t.st || {}).ref || t.did} · ${hit ? "possible match" : "no match"} · ${patch.screen.names.length} names`); S.scr[t.did] = {};
+      }
       if (a === "issue") {
         const missing = [];
-        if (!op) missing.push("operator price"); if (!kyc) missing.push("KYC"); if (typeof kycBlockReason === "function") { const kw = kycBlockReason(t); if (kw) missing.push(kw); } if (typeof screenOk === "function" && !screenOk(t, t.st || {})) missing.push("sanctions screening record (no match, or the Director's decision)"); if (!pn) missing.push("payment request reference");
+        if (!op) missing.push("operator price"); if (!kyc) missing.push("KYC"); if (typeof kycBlockReason === "function") { const kw = kycBlockReason(t); if (kw) missing.push(kw); } if (typeof screenOk === "function" && !screenOk(t, {...(t.st || {}), ...(patch.screen ? {screen: patch.screen} : {})})) missing.push("sanctions screening record (no match, or the Director's decision)"); if (!pn) missing.push("payment request reference");
         BROKER_CHECKS.forEach(([k, l]) => { if (!(t.d.checks || {})[k]) missing.push(l.split(" (")[0].split(";")[0]); });
         if (missing.length) { toast("Cannot issue. Missing: " + missing.join(", ")); return; }
         const dt = new Date(), ref = "AE-" + String(dt.getFullYear()).slice(2) + String(dt.getMonth() + 1).padStart(2, "0") + String(dt.getDate()).padStart(2, "0") + "-" + String(Math.floor(Math.random() * 900) + 100);
@@ -2267,6 +2280,8 @@ function confDraftFrom(t){
   const oc = (t.d.quote || {}).opCountry; if (!cf.state && oc && typeof APT !== "undefined") cf.state = (APT.cn || {})[oc] || oc;   // asked once, in the quote
   return cf;
 }
+/* the KYC reference on the confirmation comes from the broker's KYC record, so it is not typed twice */
+function kycRecLine(r){ return r && r.checkedAt ? `Checked ${r.checkedAt}${r.how ? ", " + r.how : ""}${r.ref ? ", our ref. " + r.ref : ""}` : ""; }
 function confData(t, cf, opts){
   const d = t.d, st = t.st || {}, q = d.quote || {}, c = d.client || {}, co = S.company || {};
   const opP = num(st.opPrice ?? q.opPrice), dir = num(st.direct ?? q.direct);
@@ -2276,7 +2291,7 @@ function confData(t, cf, opts){
   return {example:false, ref: (opts && opts.ref) || st.ref || "AE-PROVISIONAL", issueDate: (opts && opts.issueDate) || (st.issuedAt ? st.issuedAt.slice(0, 10) : CONF.todayISO()), btype: cf.btype || "charter",
     valid: cf.valid, adv:{name: (S.roster[t.bid] || {}).contractName || (t.bid === S.uid ? (S.myName || "") : nm(t.bid)), phone: co.phone || ""},
     broker:{name: co.name || "", address: co.address || "", reg: co.reg || "", email: co.email || "", phone: co.phone || "", web: co.web || ""}, bank:{},
-    charterer:{name: c.company || c.name || "", address: cf.address || "", contact: c.company ? (c.name || "") : "", kyc: cf.kyc || "", email: c.email || "", phone: c.phone || "", lead: cf.lead || ""},
+    charterer:{name: c.company || c.name || "", address: cf.address || "", contact: c.company ? (c.name || "") : "", kyc: cf.kyc || kycRecLine(d.kycRec), email: c.email || "", phone: c.phone || "", lead: cf.lead || ""},
     ac:{cat: cf.cat || ((d.trip || {}).category) || "Heavy jet", type: q.aircraft || "", reg: q.tail || "", yom: cf.yom || "", seats: cf.seats || "", ca: cf.ca || "Included", wifi: cf.wifi || "Not available", audit: (typeof safetyLine === "function" && safetyLine(d, st)) || cf.audit || ""},
     op:{name: q.operator || "", aoc: cf.aoc || "", state: cf.state || (q.opCountry && typeof APT !== "undefined" ? ((APT.cn || {})[q.opCountry] || q.opCountry) : "")},
     // trip checks already judged cabotage on the trip legs: a confirmed amber there is not asked again here (31 Oct 2026)
@@ -2359,7 +2374,7 @@ function refreshConfPreview(){
   $("confPages").innerHTML = sheetsHtml(data, true); fitConfSheets();
 }
 async function saveConfDraft(){
-  const t = tripById(S.sel); if (!t || !confEditable(t)) return;
+  const t = tripById(S.sel); if (!t || !confEditable(t) || !S.confDraft) return;
   const body = {...JSON.parse(JSON.stringify(t.d)), conf: JSON.parse(JSON.stringify(S.confDraft)), updated: now()};
   try { await S.db.collection(`desk/${t.bid}/deals`).doc(t.did).set(body); const el = $("confSaved"); if (el) el.textContent = "Saved " + new Date().toLocaleTimeString("en-GB", {hour:"2-digit", minute:"2-digit"}); }
   catch(e){ toast("Could not save the confirmation."); }
@@ -6620,7 +6635,7 @@ async function contactBatch(){
 function tripContactsBlock(t){
   if (!t || !isStaff() || S.preview || ["cancelled"].includes(t.stage)) return "";
   const st = t.st || {}, c = st.contacts24 || {};
-  return `<div class="panel stack small" style="margin:8px 0"><h3 style="margin:0">24-hour contacts</h3><p class="muted" style="margin:0">Who the client and Archē call at night if the broker or the Director cannot be reached. Needed before the confirmation is issued.</p>
+  return `<div class="panel stack small" id="sec24" style="margin:8px 0"><h3 style="margin:0">24-hour contacts</h3><p class="muted" style="margin:0">Who the client and Archē call at night if the broker or the Director cannot be reached. Needed before the confirmation is issued.</p>
     <div class="fgrid"><label class="f" for="c24_op">Operator operations, 24 hours<input id="c24_op" value="${esc(c.op || "")}" placeholder="Name of desk and phone"></label><label class="f" for="c24_h">Handler at departure<input id="c24_h" value="${esc(c.handler || "")}" placeholder="Handler and phone"></label></div>
     <div class="row"><button class="btn small" type="button" data-intake="c24">Save contacts</button></div></div>`;
 }
@@ -7399,6 +7414,9 @@ document.addEventListener("change", async e => {
 
   window.sendNeeds = function(d){
     const {A, B} = brokerItems(d), out = [...A, ...B].filter(x => x[3] && !x[0]).map(x => x[1]);
+    /* the confirmation details are the broker's to fill in (test booking 25 Nov 2026: they were "recommended", yet the
+       confirmation cannot be issued without them, so the Director met them at the end) */
+    { const t = (typeof allTrips === "function" ? allTrips() : []).find(x => x.d === d); if (t) { const cf = confItems(t); if (cf.miss.length) out.push("on the confirmation: " + cf.miss.join(", ")); } }
     const ck = d.checks || {}, open = BROKER_CHECKS.filter(([k]) => !ck[k]).length; if (open) out.push(`${open} pre-issue check${open > 1 ? "s" : ""}`);
     if (typeof tripBlockers === "function") { const {red, amberOpen} = tripBlockers(d, {}); if (red.length) out.push(`${red.length} red trip check${red.length > 1 ? "s" : ""}`); if (amberOpen.length) out.push(`${amberOpen.length} amber trip check${amberOpen.length > 1 ? "s" : ""} to confirm`); }
     return out;
@@ -7414,14 +7432,17 @@ document.addEventListener("change", async e => {
       {title: "Client and trip", who: "Broker", items: A},
       {title: "Operator quote", who: "Broker", items: B},
       {title: "Checks and documents", who: "Broker", items: C},
-      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", false]], note: cf.err.length ? cf.err.join(" ") : ""},
+      {title: "Confirmation details", who: "Broker", items: [[!cf.miss.length, cf.miss.length ? `Still empty on the confirmation (${cf.miss.length}): ${cf.miss.slice(0, 5).join(", ")}${cf.miss.length > 5 ? "…" : ""}` : "Everything the confirmation needs is in", "conf", true]], note: cf.err.length ? cf.err.join(" ") : ""},
       {title: "Send for authorisation", who: "Broker", items: [[sent, sent ? "Sent for authorisation" + (d.submittedAt ? " " + fmtT(d.submittedAt) : "") : stage === "returned" ? "Returned at authorisation: fix the note and send again" : "Press Send for authorisation", "sec|secSend", true]]},
       {title: "Authorisation", who: "Director or a mandated person", items: [
-        [num(st.opPrice) > 0, "Operator price confirmed on Avinode, then Save", "el|o_op", true],
-        [!!st.kyc, "Charterer KYC recorded, then Save", "el|o_kyc", true],
-        [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening: Screen names now, then Save this screening record", "el|scr_names_" + t.did, true],
-        [!!st.paynodeRef, "Payment request reference, then Save", "el|o_pn", true],
+        [num(st.opPrice) > 0, "Operator price checked against Avinode (filled in from the broker's quote)", "el|o_op", true],
+        [!!st.kyc, "The broker's KYC record checked (ticked from the broker's record)", "el|o_kyc", true],
+        [typeof screenOk === "function" ? screenOk(t, st) : !!st.screen, "Sanctions screening result checked (the broker's screening is reused)", "el|scr_names_" + t.did, true],
+        [!!st.paynodeRef, "Payment request reference checked (from the broker); then one Save records all four", "el|o_pn", true],
         ...(ap ? [[typeof apState === "function" && apState(t).ok, "Director approval (the Director approves on Today or on this trip)", "sec|secOps", true]] : []),
+        /* Booking with the operator: asked for only when Issue was pressed before (test booking 25 Nov 2026) */
+        ...(!issued && typeof bookNeeds === "function" ? (() => { const n = bookNeeds(t); return [[!n.length, n.length ? "Booking with the operator: " + n.join("; ") : "Booking with the operator: Request to Book, hold and the operator's contract recorded", "sec|secBook", true]]; })() : []),
+        ...(!issued ? [[!!(st.contacts24 && st.contacts24.op && st.contacts24.handler), "24-hour contacts saved: operator operations and the handler at departure", "sec|sec24", true]] : []),
         [issued, "Confirmation issued", "conf", true]]},
       {title: "Signature and payment", who: "Broker, then the Director or a mandated person", items: [
         [!!st.sigSentAt || !!st.signed, "Confirmation sent to the charterer for signature", "sec|secSig", true],
