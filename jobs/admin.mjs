@@ -240,6 +240,12 @@ export async function main(env = process.env, sb) {
   if (action === "owner-to-joining") { const u0 = await findOwner(sb, email, name); if (!u0) throw new Error("No login found"); const r0 = await ownerToJoining(sb, u0, why), out = { email: mask(u0.email), ...r0, now: (await status(sb, u0)).step }; console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "joining-report") { const out = await joiningReport(sb); console.log(JSON.stringify(out, null, 1)); note({ invited: out.invited, report: out.report.map(r => ({ n: r.name, in: r.lastSignIn, pw: r.passwordSet, seen: r.portalLastSeen, offer: r.offerOpened, ac: typeof r.academy === "string" ? r.academy : { s: r.academy.started, last: r.academy.lastActivity, tried: r.academy.modulesTried, passed: r.academy.modulesPassed } })) }); return out; }
   if (action === "people-status") { const out = await peopleStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
+  // read only: are the Supabase SQL steps in place? (Morten, 26 Nov 2026: "SQL already run, check please")
+  if (action === "sql-status") {
+    const rpc = async f => { const { data, error } = await sb.rpc(f); return error ? { ran: !/PGRST202|not find the function|does not exist|42883/i.test((error.code || "") + " " + (error.message || "")), error: (error.code || "") + " " + (error.message || "").slice(0, 120) } : { ran: true, value: data }; };
+    const out = { "0027 launch gate (intake_ready)": await rpc("intake_ready"), "0028 files private (files_private)": await rpc("files_private") };
+    console.log(JSON.stringify(out, null, 1)); note(out); return out;
+  }
   if (action === "alerts-status") { const out = await alertsStatus(sb); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "leads-status") { const u0 = email ? await findUser(sb, email) : null, out = await leadsStatus(sb, u0); console.log(JSON.stringify(out, null, 1)); note(out); return out; }
   if (action === "activity-log") { const u0 = email ? await findUser(sb, email) : name ? await findByName(sb, name) : null; if (!u0) throw new Error("Nobody found"); const out = await activityLog(sb, u0, +(env.HOURS || 14)); console.log(JSON.stringify(out, null, 1)); const j = JSON.stringify(out); for (let i = 0; i < j.length; i += 2400) note({part: i / 2400 + 1, of: Math.ceil(j.length / 2400), text: j.slice(i, i + 2400)}); return out; }
