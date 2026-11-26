@@ -28,6 +28,7 @@ launch blockers are closed, and the portal holds only the team's own and test da
 | KYC/KYB and sanctions screening results | Portal booking step; screening against official lists | Legal duties (CDSA, TSOFA; sanctions) | Portal, with the booking: results only (date of the check, how it was done, our own reference, and the name, country and payer it covers); no ID, passport or bank numbers and no copies of identity documents stored by Archē; reused for 12 months unless the payer, country or name changes or screening finds a possible match | 5 years after the relationship ends |
 | Business contacts (prospects): name, role, work email or phone, where found | Research from the organisation's own pages or a licensed database | Introduce our services to organisations | Portal (opening is logged; brokers see only their own leads) | Deleted at once on opt-out (one-way code kept); after 12 months without contact |
 | Brokers: application, identity checks, agreement, academy progress and assessments, commission and payouts | Join flow, portal, academy | Contract, training, pay | Portal | Agreement term plus 5 years |
+| Broker applications by email (careers@, from the careers page): what the applicant sends, such as background and CV | The applicant, by email | Consider the application | Company mailbox; the portal once invited | 12 months after the last contact if no agreement follows, or sooner on request |
 | Navoryx investor-relations records (Director only) | Navoryx investor page via `/api/ir` | Held for the Navoryx company as its data intermediary (Part D) | Portal | As Navoryx instructs (its policy: 12 months without contact) |
 | Backups | Nightly job | Restore after loss | Encrypted pack in GitHub Actions | 90 days |
 
@@ -54,7 +55,8 @@ decision first, a consent banner, and an updated Privacy notice before it goes l
 
 ### A4. Retention and deletion (s.25)
 - **Monthly** (first working day): delete enquiries and call-backs 12 months after last contact, prospects' contacts
-  not reached in 12 months (the portal's rotation job already does this), statistics older than 13 months; keep
+  not reached in 12 months (the portal's rotation job already does this), broker applications by email with no agreement
+  12 months after last contact (careers@ in the company mailbox), statistics older than 13 months; keep
   bookings and checks for 5 years. Note the run in the log.
 - **Before the website launches**: delete all test enquiries and test records (launch blocker 12).
 

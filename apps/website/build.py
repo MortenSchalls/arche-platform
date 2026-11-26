@@ -136,7 +136,7 @@ def build():
     s = s.replace(cb, cb + '<label style="display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.6;color:{{ cbConsentFg }};cursor:pointer">'
                   '<input type="checkbox" checked="{{ cbConsent }}" onChange="{{ onCbConsent }}" style="margin:3px 0 0;accent-color:#a9bdd4;flex:none">'
                   '<span>I agree that my details are used to answer this request. <a href="/privacy.html" style="color:#c6cbd2;text-decoration:underline">Privacy notice</a></span></label>')
-    s = s.replace('<a href="#top">Privacy</a>', '<a href="/privacy.html">Privacy</a><a href="/website-terms.html">Website terms</a>')   # website terms of use, 9 Nov 2026
+    s = s.replace('<a href="#top">Privacy</a>', '<a href="/careers.html">Careers</a><a href="/privacy.html">Privacy</a><a href="/website-terms.html">Website terms</a>')   # website terms of use, 9 Nov 2026; careers, 26 Nov 2026
     assert s.count('<a href="#top">Terms of business</a>') == 1
     s = s.replace('<a href="#top">Terms of business</a>', '<a href="/terms.html">Terms of business</a>')
     login = f'<div style="max-width:1440px;margin:0 auto;padding:0 40px 28px;text-align:right"><a href="{PORTAL}" rel="nofollow" style="font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;color:#a3a9b1">Broker login</a></div>'
@@ -182,6 +182,7 @@ window.archeSend = function (data) {
     shutil.copy(os.path.join(HERE, "site-fixes.css"), OUT)
     shutil.copy(os.path.join(HERE, "privacy.html"), OUT)
     shutil.copy(os.path.join(HERE, "website-terms.html"), OUT)   # website terms of use (9 Nov 2026, PDPA review)
+    shutil.copy(os.path.join(HERE, "careers.html"), OUT)   # independent brokers apply by email (26 Nov 2026)
     subprocess.run([sys.executable, os.path.join(HERE, "make_terms.py")], check=True, cwd=HERE)   # Terms of business from the contract, Part B
     # hero drawing: wings 50% longer, tips about 2 cm (76 px) from the screen edge
     pass  # subprocess, sys imported at the top
@@ -215,7 +216,7 @@ window.archeSend = function (data) {
     print("built", os.path.join(OUT, "index.html"), len(s))
     if not BANGKOK_OFFICE:
         import singapore_only; singapore_only.run()
-    for f in ("privacy.html", "terms.html", "website-terms.html"):   # same lighter background on the legal pages
+    for f in ("privacy.html", "terms.html", "website-terms.html", "careers.html"):   # same lighter background on the legal pages
         fp = os.path.join(OUT, f)
         if os.path.exists(fp):   # read first: opening for writing empties the file (this emptied both pages until 26 Oct 2026)
             t = open(fp, encoding="utf-8").read()

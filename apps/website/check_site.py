@@ -50,7 +50,8 @@ if drafts: notes.append(f"{len(drafts)} city and country pages are drafts waitin
 LEGAL = {"privacy.html": ["Personal Data Protection Act 2012", "Data Protection Officer", "Do Not Call Registry", "Personal Data Protection Commission",
                           "standard contractual clauses", "thirty days", "Cookies", "How long we keep it", "Children"],
          "website-terms.html": ["Information, not an offer", "Liability", "death or personal injury", "laws of Singapore", "Privacy notice"],
-         "terms.html": ["B6", "Privacy notice", "Website terms of use"]}
+         "terms.html": ["B6", "Privacy notice", "Website terms of use"],
+         "careers.html": ["independent consultant, not as an employee", "careers@archeaviation.com", "Privacy notice", "Any aircraft, any route, upon availability."]}
 for f, need in LEGAL.items():
     fp = os.path.join(HERE, f)
     t = open(fp, encoding="utf-8").read() if os.path.exists(fp) else ""

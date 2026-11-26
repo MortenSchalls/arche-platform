@@ -8,6 +8,11 @@
 import { irHandler } from "./_nx/ir.mjs";
 const PORTAL = process.env.PORTAL_URL || "https://portal.archeaviation.com";
 const FROM = process.env.INVITE_FROM || "Archē Executive <welcome@archeaviation.com>";
+// invitations can go out in the company's name only (Morten, 26 Nov 2026: brokers invited without his name showing):
+// signed "Archē Executive", replies to careers@ (an alias of the company mailbox); the inviting Director still gets the BCC
+const CAREERS = process.env.CAREERS_EMAIL || "careers@archeaviation.com";
+// the sign-off: the sender's name over the company name, or the company name once
+const signOff = from => (from && from !== "Archē Executive" ? [from, "Archē Executive"] : ["Archē Executive"]);
 const EMAIL_RX = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i;
 const clean = (s, n) => String(s || "").replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, n);
 
@@ -17,12 +22,12 @@ export function inviteMail({ name, link, from, again }) {
     const text = [`Dear ${first || "colleague"},`, "", "Here is a new personal link to the Archē Executive broker portal. Open it and choose your password; you then continue where you left off.", "",
       link, "", "The link works once and only for a short time. If it no longer works, reply to this email and we will send a new one.", "",
       `Later, on any phone or computer: ${PORTAL} (sign in with this email address and your password; "Forgot password" is on the sign-in page).`, "",
-      "Kind regards,", from || "Archē Executive", "Archē Executive"].join("\n");
+      "Kind regards,", ...signOff(from)].join("\n");
     const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
     const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px"><p>Dear ${esc(first || "colleague")},</p><p>Here is a new personal link to the Archē Executive broker portal. Open it and choose your password; you then continue where you left off.</p>
 <p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">OPEN YOUR PORTAL</a></p>
 <p style="font-size:13px;color:#5b6067">The link works once and only for a short time. If it no longer works, reply to this email and we will send a new one.</p>
-<p style="font-size:13px">Later, on any phone or computer: <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a>. Sign in with this email address and your password; "Forgot password" is on the sign-in page.</p><p>Kind regards,<br>${esc(from || "Archē Executive")}<br>Archē Executive</p></div>`;
+<p style="font-size:13px">Later, on any phone or computer: <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a>. Sign in with this email address and your password; "Forgot password" is on the sign-in page.</p><p>Kind regards,<br>${signOff(from).map(esc).join("<br>")}</p></div>`;
     return { subject: "Your new link to the Archē Executive portal", text, html };
   }
   const text = [`Dear ${first || "colleague"},`, "",
@@ -37,7 +42,7 @@ export function inviteMail({ name, link, from, again }) {
     `- Your portal: ${PORTAL}`,
     `- The Archē Broker Academy: ${PORTAL}/academy.html`,
     "Sign in with this email address and the password you chose. Forgot it? Press \"Forgot password\" on the sign-in page.", "",
-    `Kind regards,`, from || "Archē Executive", "Archē Executive"].join("\n");
+    `Kind regards,`, ...signOff(from)].join("\n");
   const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
   const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px">
 <p>Dear ${esc(first || "colleague")},</p><p>Archē Executive is a private jet charter broker based in Singapore. We arrange the right aircraft for clients across Asia and worldwide, from any operator, on any route.</p>
@@ -48,7 +53,7 @@ export function inviteMail({ name, link, from, again }) {
 <p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">OPEN YOUR PORTAL</a></p>
 <p style="font-size:13px;color:#5b6067">The link works once and only for a short time. If it no longer works, reply to this email and we will send a new one.</p>
 <p style="font-size:13px"><b>Later, on any phone or computer:</b><br>Your portal: <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a><br>The Archē Broker Academy: <a href="${PORTAL}/academy.html">${PORTAL.replace(/^https:\/\//, "")}/academy.html</a><br>Sign in with this email address and the password you chose. Forgot it? Press "Forgot password" on the sign-in page.</p>
-<p>Kind regards,<br>${esc(from || "Archē Executive")}<br>Archē Executive</p></div>`;
+<p>Kind regards,<br>${signOff(from).map(esc).join("<br>")}</p></div>`;
   return { subject: "Your access to the Archē Executive broker portal", text, html };
 }
 
@@ -68,20 +73,21 @@ export function remindMail({ name, link, from, next, pwSet, started }) {
   const text = [`Dear ${first || "colleague"},`, "", lead, "", launch, "", nx, "You can stop and come back at any time; your progress is saved as you go.", "", how, "", link, "",
     "The link works once and only for a short time. Later, sign in at " + PORTAL + " with this email address and your password.", "",
     "If you have decided not to go ahead, just reply to this email and we will not send further reminders.", "",
-    "Kind regards,", from || "Archē Executive", "Archē Executive"].join("\n");
+    "Kind regards,", ...signOff(from)].join("\n");
   const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px"><p>Dear ${esc(first || "colleague")},</p><p>${esc(lead)}</p><p>${esc(launch)}</p>
 <p><b>${esc(nx)}</b><br>You can stop and come back at any time; your progress is saved as you go.</p><p>${esc(how)}</p>
 <p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">CONTINUE WHERE YOU LEFT OFF</a></p>
 <p style="font-size:13px;color:#5b6067">The link works once and only for a short time. Later, sign in at <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a> with this email address and your password.</p>
-<p style="font-size:13px;color:#5b6067">If you have decided not to go ahead, just reply to this email and we will not send further reminders.</p><p>Kind regards,<br>${esc(from || "Archē Executive")}<br>Archē Executive</p></div>`;
+<p style="font-size:13px;color:#5b6067">If you have decided not to go ahead, just reply to this email and we will not send further reminders.</p><p>Kind regards,<br>${signOff(from).map(esc).join("<br>")}</p></div>`;
   return { subject: "Your next step with Archē Executive", text, html };
 }
 export const REMIND_DAYS = 3;
 
-// the inviting owner gets a hidden copy (BCC) of every invitation (Morten, 28 Oct 2026) and the person's replies
-export function inviteRequest({ from, to, owner, mail }) {
+// the inviting owner gets a hidden copy (BCC) of every invitation (Morten, 28 Oct 2026) and the person's replies, unless the
+// invitation goes in the company's name: then replies go to careers@ (Morten, 26 Nov 2026), the BCC stays
+export function inviteRequest({ from, to, owner, mail, company = false }) {
   const o = owner && EMAIL_RX.test(owner) && owner.toLowerCase() !== to ? [owner] : undefined;
-  return { from, to: [to], bcc: o, reply_to: o, subject: mail.subject, text: mail.text, html: mail.html };
+  return { from, to: [to], bcc: o, reply_to: company ? [CAREERS] : o, subject: mail.subject, text: mail.text, html: mail.html };
 }
 async function sb(path, opt = {}) {
   const KEY = process.env.SUPABASE_SECRET_KEY;
@@ -197,7 +203,7 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   const remind = atJoin && user ? { due: quiet >= REMIND_DAYS, quiet, lastActive, sent: rem.length, lastSent: rem.length ? rem[rem.length - 1].at : null, next: nextStep,
     // the preview is the email exactly as it goes out (Morten, 9 Nov 2026), with the sender's own name; only the link is
     // made at the moment of sending (it works once and for a short time), so the preview says whose link goes there
-    preview: remindMail({ name: invite.name || um.name || "", link: `[${((invite.name || um.name || "").split(/\s+/)[0] || "Their")}'s own sign-in link: made when you press Send, works once]`, from: from || "Archē Executive", next: nextStep, pwSet, started: !!p }).text,
+    preview: remindMail({ name: invite.name || um.name || "", link: `[${((invite.name || um.name || "").split(/\s+/)[0] || "Their")}'s own sign-in link: made when you press Send, works once]`, from: invite.as === "company" ? "" : from, next: nextStep, pwSet, started: !!p }).text,
     to: invite.email || (user && user.email) || "", subject: "Your next step with Archē Executive" } : null;
   return { done, of: steps.length, pct, label, steps, log: log.slice(0, 150), lastSeen: signedIn, history: Array.isArray(authEvents) ? "full" : "partial", pwSet, alert, remind };
 }
@@ -272,8 +278,8 @@ export default async function handler(req, res) {
     if ((req.query || {}).nx === "ir") return await irHandler(req, res, { sb, owner });   // Navoryx investor relations (api/_nx/ir.mjs)
     const o = await owner(req); if (o.error) return res.status(o.code).json({ error: o.error });
     const { me, p } = o;
-    // the Director's own name signs every email (Morten, 10 Nov 2026: "complete with link and my name as agreed"): the
-    // contract name in Team, else the name on the sign-in account; never a placeholder
+    // the Director's own name signs the email (Morten, 10 Nov 2026: "complete with link and my name as agreed"), unless the
+    // invitation goes in Archē's name (26 Nov 2026): the contract name in Team, else the name on the sign-in account; never a placeholder
     const um0 = me.user_metadata || {}, senderName = String(p.contract_name || um0.name || um0.full_name || "").trim();
     if (req.method === "GET") {   // who has accepted (owners only)
       const cur = await sb("/rest/v1/intel?select=value&key=eq.invites"), list = (((cur.body || [])[0] || {}).value || {}).list || [];
@@ -333,6 +339,11 @@ export default async function handler(req, res) {
 
     const existing = await findUser(email);
     const remind = b.mode === "remind" || b.mode === "remindpreview", preview = b.mode === "remindpreview";
+    // in whose name it goes: the choice made now, else the one stored with the invitation (reminders follow the invitation)
+    const cur0 = await sb("/rest/v1/intel?select=value&key=eq.invites"), list0 = (((cur0.body || [])[0] || {}).value || {}).list || [];
+    const prev0 = list0.find(x => x.email === email) || {};
+    const asCo = b.as === "company" ? true : b.as === "me" ? false : prev0.as === "company";
+    const signer = asCo ? "" : senderName;
     if (remind) {
       if (!existing) return res.status(400).json({ error: "This person has no login yet. Use Send invitation." });
       const pwSet = !!((existing.user_metadata || {}).pw_set || ((existing.app_metadata || {}).provider === "azure"));
@@ -347,13 +358,13 @@ export default async function handler(req, res) {
         if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the link (" + gl.status + ")." }); }
       const prog = arrFirst((await sb(`/rest/v1/academy_progress?select=data&id=eq.${existing.id}`)).body);
       const pd = (prog && prog.data) || null;
-      if (preview) { const m = remindMail({ name, link, from: senderName, next: academyNext(pd), pwSet, started: !!pd });
-        return res.status(200).json({ ok: true, preview: true, to: email, subject: m.subject, text: m.text, link, made: new Date().toISOString(), noName: !senderName }); }
+      if (preview) { const m = remindMail({ name, link, from: signer, next: academyNext(pd), pwSet, started: !!pd });
+        return res.status(200).json({ ok: true, preview: true, to: email, subject: m.subject, text: m.text, link, made: new Date().toISOString(), noName: !asCo && !senderName, as: asCo ? "company" : "me", replyTo: asCo ? CAREERS : me.email }); }
       let sent = "not sent: RESEND_API_KEY missing in Vercel";
       if (process.env.RESEND_API_KEY) {
-        const m = remindMail({ name, link, from: senderName, next: academyNext(pd), pwSet, started: !!pd });
+        const m = remindMail({ name, link, from: signer, next: academyNext(pd), pwSet, started: !!pd });
         const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
-          body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m })) });
+          body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m, company: asCo })) });
         if (r.ok) sent = "sent"; else { let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {} sent = `not sent: refused by Resend (${r.status}${msg ? ": " + msg.slice(0, 120) : ""})`; }
       }
       const at = new Date().toISOString(), masked = email.replace(/^(.).*?(@.*)$/, "$1***$2");
@@ -371,12 +382,12 @@ export default async function handler(req, res) {
     const link = gl.body && (gl.body.action_link || (gl.body.properties || {}).action_link);
     if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the login (" + gl.status + ")." });
 
-    const ownerName = senderName;
+    const ownerName = signer;
     let sent = "not sent: RESEND_API_KEY missing in Vercel";
     if (process.env.RESEND_API_KEY) {
       const m = inviteMail({ name, link, from: ownerName, again });
       const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
-        body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m })) });
+        body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m, company: asCo })) });
       if (r.ok) sent = "sent"; else { let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {} sent = `not sent: refused by Resend (${r.status}${msg ? ": " + msg.slice(0, 120) : ""})`; }
     }
     const at = new Date().toISOString(), masked = email.replace(/^(.).*?(@.*)$/, "$1***$2");
@@ -384,8 +395,8 @@ export default async function handler(req, res) {
     // the list of invitations on Team (owner only)
     const cur = await sb("/rest/v1/intel?select=value&key=eq.invites"), list = (((cur.body || [])[0] || {}).value || {}).list || [];
     const prev = list.find(x => x.email === email) || {}, sends = [...(prev.sends || (prev.at ? [{ at: prev.at, sent: !!prev.sent }] : [])), { at, sent: sent === "sent" }].slice(-20);
-    const next = [{ email, name, at, first: prev.first || prev.at || at, sends, by: me.id, sent: sent === "sent" }, ...list.filter(x => x.email !== email)].slice(0, 100);
+    const next = [{ ...(prev.reminders ? { reminders: prev.reminders } : {}), email, name, at, first: prev.first || prev.at || at, sends, by: me.id, sent: sent === "sent", ...(asCo ? { as: "company" } : {}) }, ...list.filter(x => x.email !== email)].slice(0, 100);
     await sb("/rest/v1/intel?on_conflict=key", { method: "POST", headers: { prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify({ key: "invites", value: { list: next }, updated_at: at }) });
-    return res.status(200).json({ ok: true, sent, link, again: !!existing });
+    return res.status(200).json({ ok: true, sent, link, again: !!existing, as: asCo ? "company" : "me" });
   } catch (e) { return res.status(500).json({ error: "invite", detail: String(e.message || e).slice(0, 200) }); }
 }

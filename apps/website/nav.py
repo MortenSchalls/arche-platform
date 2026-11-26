@@ -152,6 +152,7 @@ def page_of(rel):
     if rel == "terms.html": return "terms", "en", lambda l: url("home", l) if l != "en" else "/terms.html"
     if rel == "privacy.html": return "privacy", "en", lambda l: url("home", l) if l != "en" else "/privacy.html"
     if rel == "website-terms.html": return "privacy", "en", lambda l: url("home", l) if l != "en" else "/website-terms.html"
+    if rel == "careers.html": return "privacy", "en", lambda l: url("home", l) if l != "en" else "/careers.html"
     page = "destinations" if parts[0] == "destinations" else "content"
     me = "/" + "/".join(parts[:-1]) + "/"
     return page, "en", lambda l: me if l == "en" else url("home", l)
@@ -194,6 +195,8 @@ def run(verbose=True):
             page, lang, here = page_of(rel)
             if rel == "website-terms.html" and 'name="description"' not in t:
                 t = t.replace("</head>", '<meta name="description" content="The terms for using the Archē Executive website: information, not an offer; links and sources; liability; Singapore law."><link rel="canonical" href="https://archeaviation.com/website-terms.html"></head>', 1)
+            if rel == "careers.html" and 'name="description"' not in t:
+                t = t.replace("</head>", '<meta name="description" content="Independent charter brokers: sell private jet charter with Archē Executive, keep up to 35% of the Archē fee with no cap, and apply by email."><link rel="canonical" href="https://archeaviation.com/careers.html"></head>', 1)
             if page == "privacy" and 'name="description"' not in t:   # search basics the privacy page lacked
                 t = t.replace("</head>", '<meta name="description" content="How Archē Executive uses the details you give us: what we keep, why, for how long, and how to ask us to delete them."><link rel="canonical" href="https://archeaviation.com/privacy.html"></head>', 1)
             t = speed(t, page, lang)

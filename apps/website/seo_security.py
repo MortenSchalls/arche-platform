@@ -107,7 +107,7 @@ def lastmod(path):
 def sitemap():
     alt = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{lang}" href="{BASE}{path}"/>' for path, lang in PAGES.values()) + f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{BASE}/"/>'
     urls = "".join(f"\n  <url><loc>{BASE}{path}</loc><lastmod>{lastmod(path)}</lastmod>{alt}\n  </url>" for path, lang in PAGES.values())
-    urls += "".join(f"\n  <url><loc>{BASE}/{p}</loc><lastmod>{lastmod('/' + p)}</lastmod></url>" for p in ("terms.html", "privacy.html", "website-terms.html"))
+    urls += "".join(f"\n  <url><loc>{BASE}/{p}</loc><lastmod>{lastmod('/' + p)}</lastmod></url>" for p in ("terms.html", "privacy.html", "website-terms.html", "careers.html"))
     built = os.path.join(HERE, "content", "built.json")   # verified content pages; drafts stay out until approved
     if os.path.exists(built):
         pub = [b for b in json.load(open(built)) if not b["draft"]]

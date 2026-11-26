@@ -4,7 +4,7 @@ footer menu and no company line. Run by build.py after the content pages: copies
 (and its styles, scoped to the footer) into the three legal pages, with the company line in place of "This page"."""
 import os, re
 HERE = os.path.dirname(os.path.abspath(__file__)); SITE = os.path.join(HERE, "site")
-PAGES = ["privacy.html", "terms.html", "website-terms.html"]
+PAGES = ["privacy.html", "terms.html", "website-terms.html", "careers.html"]
 SRC = os.path.join(SITE, "destinations", "index.html")
 
 def footer_and_css():

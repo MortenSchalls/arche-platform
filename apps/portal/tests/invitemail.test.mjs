@@ -10,6 +10,16 @@ ok("no Bangkok office or Thai phone number", !/bangkok|\+66/i.test(m.text + m.ht
 const rq = inviteRequest({ from: "Archē Executive <welcome@example.com>", to: "new.person@example.com", owner: "owner@example.com", mail: m });
 ok("the inviting owner gets a hidden copy (BCC) and the replies", JSON.stringify(rq.bcc) === '["owner@example.com"]' && JSON.stringify(rq.reply_to) === '["owner@example.com"]' && JSON.stringify(rq.to) === '["new.person@example.com"]');
 ok("no copy when the owner invites their own address", inviteRequest({ from: "x", to: "owner@example.com", owner: "owner@example.com", mail: m }).bcc === undefined);
+const rc = inviteRequest({ from: "x", to: "new.person@example.com", owner: "owner@example.com", mail: m, company: true });
+ok("in Archē's name: replies go to careers@, the inviting Director keeps the hidden copy", JSON.stringify(rc.reply_to) === '["careers@archeaviation.com"]' && JSON.stringify(rc.bcc) === '["owner@example.com"]');
+const mc = inviteMail({ name: "New Person", link: "https://example.com/one-time", from: "" });
+ok("in Archē's name: signed Archē Executive once, no person's name", /Kind regards,\nArchē Executive$/.test(mc.text) && !/Archē Executive\nArchē Executive/.test(mc.text) && mc.html.includes("Kind regards,<br>Archē Executive</p>"));
+const mn = inviteMail({ name: "New Person", link: "https://example.com/one-time", from: "Example Director" });
+ok("in the sender's name: their name over the company name", /Kind regards,\nExample Director\nArchē Executive$/.test(mn.text) && mn.html.includes("Example Director<br>Archē Executive"));
+const rmc = remindMail({ name: "A B", link: "x", from: "", next: null, pwSet: true });
+ok("reminder in Archē's name: company sign-off once", /Kind regards,\nArchē Executive$/.test(rmc.text));
+const jpc = joinProgress({ invite: { email: "a@example.com", name: "A B", as: "company" }, user: { id: "u", last_sign_in_at: "2026-11-01T00:00:00Z", user_metadata: { pw_set: true } }, from: "Example Director", now: new Date("2026-11-20T00:00:00Z") });
+ok("progress preview of an invitation in Archē's name has no Director name", !jpc.remind || !jpc.remind.preview || (!/Example Director/.test(jpc.remind.preview) && /Kind regards,\nArchē Executive$/.test(jpc.remind.preview)), jpc.remind && jpc.remind.preview);
 ok("not accepted: no login, or invited but never signed in", !inviteState(null).accepted && !inviteState({ id: "u" }).accepted && /not signed in/.test(inviteState({ id: "u" }).step));
 const acc = inviteState({ id: "u", last_sign_in_at: "2026-10-28T12:00:00Z" }, { active: false, data: {} }, null, null);
 ok("accepted: signed in, with the joining step", acc.accepted && acc.signedIn === "2026-10-28T12:00:00Z" && /offer, academy/.test(acc.step));
