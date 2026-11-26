@@ -52,6 +52,7 @@ const FIELD_HELP = {
   rb_hold: "Until when the operator keeps the aircraft for this client. The offer to the client must end before it.",
   docKind: "What the file is. The portal uses the type to tick checks (AOC, insurance, safety audit).",
   docFile: "Choose the file. It is stored with this trip and checked before the portal says Saved.",
+  cf_valid_tz: "The time zone of the offer's deadline, as the client reads it. The offset follows the offer date, summer time included.",
   cf_address: "The charterer's address as on the company register or ID, printed on the confirmation.",
   cf_cName: "The person who signs the confirmation for the charterer.",
   cf_lead: "The lead passenger's name as on the passport.",

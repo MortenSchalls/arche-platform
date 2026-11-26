@@ -2364,6 +2364,16 @@ function confEditable(t){
   if (isStaff() && r !== "broker") return !issued || S.confRevise;
   return t.bid === S.uid && !["review","issued","clientPaid","flown","cancelled"].includes(t.stage);
 }
+/* time zones for "Offer valid until" (Sandro's test booking, 26 Nov 2026: "a drag down option of the time zones"); the offset
+   is worked out for the offer date, so summer time is right */
+const CONF_TZ = [["Singapore","Asia/Singapore"],["Kuala Lumpur","Asia/Kuala_Lumpur"],["Bangkok","Asia/Bangkok"],["Jakarta","Asia/Jakarta"],["Manila","Asia/Manila"],["Hong Kong","Asia/Hong_Kong"],["Taipei","Asia/Taipei"],["Shanghai","Asia/Shanghai"],["Seoul","Asia/Seoul"],["Tokyo","Asia/Tokyo"],["Sydney","Australia/Sydney"],["Auckland","Pacific/Auckland"],["Delhi","Asia/Kolkata"],["Dubai","Asia/Dubai"],["Riyadh","Asia/Riyadh"],["Istanbul","Europe/Istanbul"],["Athens","Europe/Athens"],["Geneva","Europe/Zurich"],["Paris","Europe/Paris"],["London","Europe/London"],["Johannesburg","Africa/Johannesburg"],["New York","America/New_York"],["Chicago","America/Chicago"],["Los Angeles","America/Los_Angeles"],["Honolulu","Pacific/Honolulu"],["Mexico City","America/Mexico_City"],["São Paulo","America/Sao_Paulo"]];
+function confTzOptions(dateISO, cur){
+  const at = new Date((dateISO || new Date().toISOString().slice(0, 10)) + "T12:00:00Z");
+  const label = ([city, zone]) => { let off = "UTC"; try { off = new Intl.DateTimeFormat("en-GB", {timeZone: zone, timeZoneName: "shortOffset"}).formatToParts(at).find(x => x.type === "timeZoneName").value.replace("GMT", "UTC"); } catch(e){} return `${city} (${off === "UTC" ? "UTC+0" : off})`; };
+  const list = CONF_TZ.map(label);
+  if (cur && !list.includes(cur)) list.unshift(cur);
+  return list.map(x => [x, x]);
+}
 function vConf(){
   const t = tripById(S.sel); if (!t) { S.view = "trips"; return vTrips(); }
   if (!S.confDraft || S.confFor !== t.did) { S.confDraft = confDraftFrom(t); S.confFor = t.did; }
@@ -2397,7 +2407,7 @@ function vConf(){
       </div>
       ${showIssued ? "" : `<form id="confForm" class="panel stack" onsubmit="return false">
         ${edit ? "" : `<p class="lock">${t.bid === S.uid && !staff ? "This trip is waiting for authorisation. Only the person authorising it can change the confirmation now." : "Read only."}</p>`}
-        <div><h3>Booking</h3><div class="fgrid">${f("btype","Booking type","select",[["charter","Charter"],["emptyleg","Empty leg"]])}${f("valid.date","Offer valid until","date")}${f("valid.time","Time","time")}${f("valid.tz","Time zone")}</div></div>
+        <div><h3>Booking</h3><div class="fgrid">${f("btype","Booking type","select",[["charter","Charter"],["emptyleg","Empty leg"]])}${f("valid.date","Offer valid until","date")}${f("valid.time","Time","time")}${f("valid.tz","Time zone","select",confTzOptions((cf.valid || {}).date, (cf.valid || {}).tz))}</div></div>
         <div><h3>Charterer</h3><div class="fgrid">${f("address","Charterer address","area")}${f("kyc","KYC reference")}${f("lead","Lead passenger")}${f("cName","Charterer signatory")}${f("cTitle","Signatory title")}</div></div>
         <div><h3>Aircraft and operator</h3><div class="fgrid">${f("cat","Category","select",AC_CATS)}${f("yom","Year built")}${f("seats","Passenger seats")}${f("ca","Cabin attendant","select",["Included","Not included"])}${f("wifi","Wi-Fi","select",["Not available","Available, charged under A7","Available, included"])}${f("audit","Safety audit (e.g. ARGUS Platinum)")}${f("aoc","Operator AOC number")}${f("state","AOC state")}</div></div>
         <div><h3>Itinerary</h3><div class="tbl"><table><thead><tr><th scope=col>Date</th><th scope=col>ETD local</th><th scope=col>From</th><th scope=col>To</th><th scope=col class="n">Pax</th><th scope=col>Positioning</th>${edit ? "<th scope=col></th>" : ""}</tr></thead><tbody>
@@ -9684,6 +9694,10 @@ document.addEventListener("click", async ev => {
   };
   window.AUTO_CHECKS = Object.keys(AUTO).concat(["ins", "terms"]);
   window.autoTickState = function(t){ const out = {}; for (const k in AUTO) { const v = AUTO[k].ok(t); if (v !== null) out[k] = !!v; } return out; };
+  // ins and terms follow Operator terms and insurance whenever that record changes, also when it becomes complete through
+  // another section (insurance amount under Operator safety, the quote, an option swap): Sandro's test booking, 26 Nov 2026,
+  // showed every box ticked on screen while two were never saved, so "5 of 7" and no Send for authorisation
+  const termsTick = t => typeof opTermsDone === "function" ? !!opTermsDone(t.d) : null;
   const editable = t => (t.bid === S.uid || (typeof isStaff === "function" && isStaff())) && ["enquiry", "quoted", "returned"].includes(t.stage);
   S.acSync = S.acSync || {};
   function sync(t){
@@ -9694,6 +9708,8 @@ document.addEventListener("click", async ev => {
       if (auto[k] && !cur[k]) { next[k] = true; change = true; }
       else if (!auto[k] && cur[k] && (k === "never" || k === "risk" || k === "kyc")) { next[k] = false; change = true; }   // a red item, an open amber or a KYC record out of date takes the tick back
     }
+    const tt = termsTick(t);
+    if (tt !== null) ["ins", "terms"].forEach(k => { if (!!cur[k] !== tt) { next[k] = tt; change = true; } });
     const sig = t.did + JSON.stringify(next);
     if (!change || S.acSync[t.did] === sig) return;
     S.acSync[t.did] = sig;
@@ -10622,6 +10638,7 @@ const FIELD_HELP = {
   rb_hold: "Until when the operator keeps the aircraft for this client. The offer to the client must end before it.",
   docKind: "What the file is. The portal uses the type to tick checks (AOC, insurance, safety audit).",
   docFile: "Choose the file. It is stored with this trip and checked before the portal says Saved.",
+  cf_valid_tz: "The time zone of the offer's deadline, as the client reads it. The offset follows the offer date, summer time included.",
   cf_address: "The charterer's address as on the company register or ID, printed on the confirmation.",
   cf_cName: "The person who signs the confirmation for the charterer.",
   cf_lead: "The lead passenger's name as on the passport.",

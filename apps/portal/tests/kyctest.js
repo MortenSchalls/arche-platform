@@ -44,4 +44,13 @@ const ok=(k,v,x)=>console.log((v?'PASS ':'FAIL ')+k+(v||x===undefined?'':' '+JSO
  p=await open(OWN,T4);ok('a possible sanctions match means the check is done again', /possible sanctions match/.test(await p.evaluate(()=>kycBlockReason(tripById('t1')))));
  ok('the Director\'s approval list shows it', await p.evaluate(()=>apChecks(tripById('t1')).some(([v,l])=>!v&&/KYC must be done again/.test(l))));
  await p.close();
+ // Sandro's test booking 26 Nov 2026: Operator terms complete, yet ins/terms never saved, so '5 of 7' and no Send
+ const T5=JSON.parse(JSON.stringify(T0));T5.trips=[trip('t1',{checks:{route:true}})];
+ p=await open(B1,T5);await p.evaluate(()=>{window.opTermsDone=()=>true;S.acSync={};S.view='trips';S.sel='t1';render();});await p.waitForTimeout(900);
+ T=await p.evaluate(()=>window.__T);let ck=T.trips[0].data.checks||{};
+ ok('completed operator terms save the insurance and terms ticks', ck.ins===true&&ck.terms===true,ck);
+ await p.evaluate(()=>{window.opTermsDone=()=>false;S.acSync={};render();});await p.waitForTimeout(900);
+ T=await p.evaluate(()=>window.__T);ck=T.trips[0].data.checks||{};
+ ok('and take them back when the record is no longer complete', ck.ins===false&&ck.terms===false,ck);
+ await p.close();
  console.log('ERRORS',JSON.stringify(errs));await b.close();for(const f of fs.readdirSync('.').filter(f=>f.startsWith('t_k_')))fs.unlinkSync(f);})();

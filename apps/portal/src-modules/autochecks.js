@@ -19,6 +19,10 @@
   };
   window.AUTO_CHECKS = Object.keys(AUTO).concat(["ins", "terms"]);
   window.autoTickState = function(t){ const out = {}; for (const k in AUTO) { const v = AUTO[k].ok(t); if (v !== null) out[k] = !!v; } return out; };
+  // ins and terms follow Operator terms and insurance whenever that record changes, also when it becomes complete through
+  // another section (insurance amount under Operator safety, the quote, an option swap): Sandro's test booking, 26 Nov 2026,
+  // showed every box ticked on screen while two were never saved, so "5 of 7" and no Send for authorisation
+  const termsTick = t => typeof opTermsDone === "function" ? !!opTermsDone(t.d) : null;
   const editable = t => (t.bid === S.uid || (typeof isStaff === "function" && isStaff())) && ["enquiry", "quoted", "returned"].includes(t.stage);
   S.acSync = S.acSync || {};
   function sync(t){
@@ -29,6 +33,8 @@
       if (auto[k] && !cur[k]) { next[k] = true; change = true; }
       else if (!auto[k] && cur[k] && (k === "never" || k === "risk" || k === "kyc")) { next[k] = false; change = true; }   // a red item, an open amber or a KYC record out of date takes the tick back
     }
+    const tt = termsTick(t);
+    if (tt !== null) ["ins", "terms"].forEach(k => { if (!!cur[k] !== tt) { next[k] = tt; change = true; } });
     const sig = t.did + JSON.stringify(next);
     if (!change || S.acSync[t.did] === sig) return;
     S.acSync[t.did] = sig;
