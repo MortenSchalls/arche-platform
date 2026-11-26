@@ -1,0 +1,75 @@
+{
+ "icao": "WMKL",
+ "iata": null,
+ "name": "Langkawi International Airport",
+ "city": "Langkawi",
+ "country": "MY",
+ "tz": "Asia/Kuala_Lumpur",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 03/21, 3,813 m x 45 m; one-way use because of hilly terrain: take off on 21, land on 03",
+   "longest_m": 3813,
+   "src": "wmkl-caam-eaip-2026-05-19",
+   "quote": "3813 x 45"
+  },
+  "hours": {
+   "v": "aerodrome and air traffic services 07:00-23:00 local (23:00-15:00 UTC); operations after 23:00 local need 8 hours' prior notice to the handler (MASB) and CAAM",
+   "hours_local": [
+    [
+     "07:00",
+     "23:00"
+    ]
+   ],
+   "src": "wmkl-caam-eaip-2026-05-19",
+   "quote": "2300 - 1500; Operations beyond 1500 required 8 hours prior notice to:"
+  },
+  "ppr": {
+   "v": "operations after 23:00 local (15:00 UTC) need 8 hours' prior notice to MASB and CAAM",
+   "src": "wmkl-caam-eaip-2026-05-19",
+   "quote": "Operations beyond 1500 required 8 hours prior notice to:"
+  },
+  "customs": {
+   "v": "customs and immigration 06:00-23:00 local (22:00-15:00 UTC) and on request",
+   "hours_local": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "src": "wmkl-caam-eaip-2026-05-19",
+   "quote": "2200 - 1500 and upon request"
+  },
+  "handling": {
+   "v": "handling by Malaysia Airlines, 07:30-23:00 local (23:30-15:00 UTC)",
+   "src": "wmkl-caam-eaip-2026-05-19",
+   "quote": "2330 - 1500"
+  },
+  "fuel": {
+   "v": "Jet A1 (Petronas) 07:00-22:00 local (23:00-14:00 UTC) and on request; AVGAS on request",
+   "src": "wmkl-caam-eaip-2026-05-19",
+   "quote": "2300 - 1400 and upon request; JET A1; AVGAS"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "wmkl-caam-eaip-2026-05-19",
+   "quote": "AD 2.21 Noise abatement procedures: NIL"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "wmkl-caam-eaip-2026-05-19",
+   "quote": "De-icing: NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "permits",
+  "max_aircraft",
+  "catering"
+ ],
+ "notes": "Read Malaysia eAIP AD 2 WMKL, edition effective 19 May 2026 (complete). No curfew stated, but the aerodrome and ATS hours are 07:00-23:00 local and later operations need 8 hours' notice. AIP AMDT 03/26 (6 Aug 2026) made no WMKL change. Newest packages could not be opened (permission not answered): https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMKL-en-MS.html and the 2026-08-06-AIRAC page. IATA code not stated in the AIP. AIP times are UTC; local time is UTC+8 (Malaysia AIP GEN 2.1.2, eAIP 19 May 2026, source wmkp-caam-gen21-2026-05-19)."
+}

@@ -1,0 +1,55 @@
+{
+ "icao": "KPSP",
+ "iata": null,
+ "name": "Palm Springs International Airport",
+ "city": "Palm Springs",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways; the longer, 13R/31L, is 10,000 ft x 150 ft (about 3,048 m x 46 m); the other is 4,953 ft x 75 ft",
+   "longest_m": 3048,
+   "src": "kpsp-faa-ad-2612",
+   "quote": "10000X150"
+  },
+  "curfew": {
+   "v": "no curfew: the airport says federal law (Airport Noise and Capacity Act 1990) does not allow it to impose curfews on compliant aircraft",
+   "none": true,
+   "src": "kpsp-city-noise",
+   "quote": "Under the Airport Noise and Capacity Act of 1990, airports cannot impose curfews or restrict compliant aircraft operations."
+  },
+  "customs": {
+   "v": "CBP user-fee airport; arrival inspections 7 days a week 06:00-23:00 (office weekdays 08:00-17:00 Pacific); contact CBP at least one business day before arrival; permission valid +/-30 minutes; processing in the CBP general aviation facility; customs fee on all arrivals (schedule from the FBO)",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:00",
+     "23:00"
+    ]
+   ],
+   "src": "kpsp-cbp-ga",
+   "quote": "seven days per week, 0600-2300"
+  },
+  "ppr": {
+   "v": "for international arrivals, contact CBP at least one business day before arrival",
+   "src": "kpsp-cbp-ga",
+   "quote": "Pilots must secure permission to land by contacting CBP at least one business day in advance"
+  }
+ },
+ "missing": [
+  "iata",
+  "hours",
+  "slots",
+  "noise",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "deicing",
+  "catering",
+  "permits"
+ ],
+ "notes": "Runway from the FAA airport diagram for cycle 26 Nov-24 Dec 2026 (current); the labels are placed next to each runway, not tied to it in the text; ft to m conversion mine. Curfew statement from the City of Palm Springs airport noise page (last updated 10 Jun 2026). CBP fact sheet dated 29 May 2024 (KPSP-0524). FAA Chart Supplement and the FAA page faa.gov/psp (no rule content) gave no hours."
+}

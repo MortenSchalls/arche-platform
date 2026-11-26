@@ -1,0 +1,29 @@
+{
+ "icao": "VVCR",
+ "iata": null,
+ "name": "Cam Ranh International Airport",
+ "city": "Nha Trang",
+ "country": "VN",
+ "tz": "Asia/Ho_Chi_Minh",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-27",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "No official source could be read. The Vietnam AIP (VATM AIM / vnaic.vn) could not be opened: https://www.vnaic.vn/ blocked; the only indexed eAIP page (https://www.vnaic.vn/images/stories/vnaic.vn/SanPhamDichVu/AIPVietNam/AIP/2024-08-08-AIRAC/html/VV-cover-en-GB.html) shows no AIP content; CAAV page https://english.caa.gov.vn/doc-detail/aip-viet-nam-29078.htm only links to vnaic.vn. Operator (ACV) pages load by script and return no content: https://acv.vn/vi/cxr."
+}

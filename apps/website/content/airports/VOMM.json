@@ -1,0 +1,29 @@
+{
+ "icao": "VOMM",
+ "iata": null,
+ "name": "Chennai International Airport",
+ "city": "Chennai",
+ "country": "IN",
+ "tz": "Asia/Kolkata",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-27",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "India eAIP could not be read: https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html and https://aim-india.aai.aero/ were refused (permission request not answered); https://aim-india.aai.aero/eaip-v2/eAIP/EC-AD-2.1VOMM-en-GB.pdf redirects to aim-india.aai.aero.in, a host whose ownership is not verified, so it was not followed. No newer eAIP package could be checked. https://www.aai.aero/en/airports/chennai was refused (permission not answered); https://www.aai.aero/en/node/437302 blocked by robots. No official source read; nothing recorded."
+}

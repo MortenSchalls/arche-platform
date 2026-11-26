@@ -1,0 +1,29 @@
+{
+ "icao": "VTPH",
+ "iata": null,
+ "name": "Hua Hin Airport",
+ "city": "Hua Hin",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-27",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Status unavailable (27 Nov 2026): the VTPH pages read (12 Jun 2025 package) were replaced on 14 May, 11 Jun and 9 Jul 2026, and the current pages could not be opened, so no value is recorded until the current page is read. Values seen in the older page (to recheck, not used): runway 16/34 2,100 x 35 m; aerodrome 06:00-18:00 local; customs on request. Research notes: Read from the Thailand eAIP VT-AD-2.VTPH page of the 12 Jun 2025 AIRAC package (operator: Department of Airports). WARNING: the GEN 0.4 checklist in AIRAC AIP AMDT 08/26 (6 Aug 2026) shows VTPH pages 1-1 and 1-11 dated 9 Jul 2026, 1-2 to 1-5 dated 11 Jun 2026 and 1-7, 1-9 dated 14 May 2026, so these values may have changed and must be rechecked. Could not open: https://aip.caat.or.th/2026-08-06-AIRAC/html/eAIP/VT-AD-2.VTPH-en-GB.html and https://aip.caat.or.th/2026-09-03-AIRAC/html/eAIP/VT-AD-2.VTPH-en-GB.html (blocked), the 11 Jun 2026 and 9 Jul 2026 amendment PDFs and the complete 3 Sep 2026 AIP PDF (site error). No curfew is published; outside the hours above the aerodrome and ATS are closed."
+}

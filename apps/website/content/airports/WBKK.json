@@ -1,0 +1,56 @@
+{
+ "icao": "WBKK",
+ "iata": null,
+ "name": "Kota Kinabalu International Airport",
+ "city": "Kota Kinabalu",
+ "country": "MY",
+ "tz": "Asia/Kuching",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 02/20, 3,780 m x 45 m; closed every Tuesday and Wednesday 18:45-21:15 UTC (Wednesday and Thursday 02:45-05:15 local)",
+   "longest_m": 3780,
+   "src": "wbkk-caam-eaip-2026-05-19",
+   "quote": "RWY 02/20 closed every Tuesday 1845-2115. RWY 02/20 closed every Wednesday 1845-2115."
+  },
+  "hours": {
+   "v": "aerodrome and air traffic services open 24 hours (except the weekly runway closures)",
+   "src": "wbkk-caam-eaip-2026-05-19",
+   "quote": "AD Operator: H24 ... ATS: H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "wbkk-caam-eaip-2026-05-19",
+   "quote": "Customs and immigration: H24"
+  },
+  "handling": {
+   "v": "handling by prior arrangement with handling agents (none named); general aviation normally parks at remote Bays 16-19, Terminal 1",
+   "src": "wbkk-caam-eaip-2026-05-19",
+   "quote": "By prior arrangement with handling agents; General Aviation aircraft will normally be allocated in remote bays at Bay 16, Bay 17, Bay 18 and Bay 19 at Terminal 1."
+  },
+  "fuel": {
+   "v": "Jet A1; Petronas 05:00-21:00 local (21:00-13:00 UTC), Shell 05:00-20:30 local (21:00-12:30 UTC)",
+   "src": "wbkk-caam-eaip-2026-05-19",
+   "quote": "PETRONAS Refuelling: 2100 - 1300UTC; SHELL Refuelling: 2100 - 1230UTC"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "wbkk-caam-eaip-2026-05-19",
+   "quote": "AD 2.21 Noise abatement procedures: NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "permits",
+  "max_aircraft",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read Malaysia eAIP AD 2 WBKK, edition effective 19 May 2026 (read in two parts, through AD 2.21). No curfew or night rule stated. AIP AMDT 03/26 (6 Aug 2026) made no WBKK change. Newest packages could not be opened (permission not answered): https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WBKK-en-MS.html and the 2026-08-06-AIRAC page. IATA code not stated in the AIP. AIP times are UTC; local time is UTC+8 (Malaysia AIP GEN 2.1.2, eAIP 19 May 2026, source wmkp-caam-gen21-2026-05-19)."
+}

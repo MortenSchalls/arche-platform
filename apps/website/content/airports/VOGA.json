@@ -1,0 +1,29 @@
+{
+ "icao": "VOGA",
+ "iata": null,
+ "name": "Manohar International Airport (Mopa)",
+ "city": "Goa",
+ "country": "IN",
+ "tz": "Asia/Kolkata",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-27",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "India eAIP could not be read: https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html and https://aim-india.aai.aero/ were refused (permission request not answered); https://aim-india.aai.aero/eaip-v2/eAIP/EC-AD-2.1VOMM-en-GB.pdf redirects to aim-india.aai.aero.in, a host whose ownership is not verified, so it was not followed. No newer eAIP package could be checked. Operator page https://gmraero.com/goaairport.aspx read: no runway, hours or codes; it only mentions a 'Separate GA lounge for Non- schedule flight operations'. https://miagoaairport.com/tender (operator, GMR Goa International Airport Ltd) had no rule content. Nothing recorded."
+}

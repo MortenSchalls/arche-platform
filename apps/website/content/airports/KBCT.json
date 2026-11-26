@@ -1,0 +1,69 @@
+{
+ "icao": "KBCT",
+ "iata": null,
+ "name": "Boca Raton Airport",
+ "city": "Boca Raton, Florida",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 5/23, 6,276 ft x 150 ft (about 1,913 m) including displaced thresholds; take-off distance 6,276 ft both ways, landing distance 5,580 ft (rwy 5) and 5,898 ft (rwy 23)",
+   "longest_m": 1913,
+   "src": "kbct-faq",
+   "quote": "bring the total length to 6,276 feet long by 150 feet wide"
+  },
+  "curfew": {
+   "v": "voluntary night curfew 22:00-07:00 local",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "kbct-noise-pilots-2026-10",
+   "quote": "Night-Time VOLUNTARY CURFEW — 22:00 – 07:00"
+  },
+  "hours": {
+   "v": "public airport, open 24 hours; control tower 07:00-23:00 local (Palm Beach approach when closed)",
+   "src": "kbct-faq",
+   "quote": "required to be open for operations 24 hours a day"
+  },
+  "customs": {
+   "v": "CBP user-fee facility, 10:30-18:30 local Thursday to Monday, closed Tuesday and Wednesday; after-hours clearing on request by phone during business hours (USD 360 flat fee plus the regular fee)",
+   "h24": false,
+   "hours_local": [
+    [
+     "10:30",
+     "18:30"
+    ]
+   ],
+   "src": "kbct-customs-2026-11",
+   "quote": "10:30 AM – 6:30 PM"
+  },
+  "noise": {
+   "v": "voluntary noise abatement: no intersection take-offs, minimise reverse thrust, straight-in approaches discouraged; ATC instructions take precedence",
+   "src": "kbct-noise-pilots-2026-10",
+   "quote": "MINIMIZE REVERSE THRUST — use FULL runway"
+  },
+  "handling": {
+   "v": "two FBOs, Atlantic Aviation and Signature Aviation, 24-hour service; no public ramp, so every arrival uses an FBO",
+   "src": "kbct-pilots",
+   "quote": "Two Full-Service Fixed Based Operators (FBOs) offering 24-hour service"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Boca Raton Airport Authority pages read (customs page updated 23 Nov 2026). FAA airport diagram (Jul 2026) shows no runway length; current Chart Supplement could not be opened. No landing fee charged by the Authority. FAA identifier BCT."
+}

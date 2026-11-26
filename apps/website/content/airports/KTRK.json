@@ -1,0 +1,58 @@
+{
+ "icao": "KTRK",
+ "iata": null,
+ "name": "Truckee Tahoe Airport",
+ "city": "Truckee (Lake Tahoe)",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two runways, 11/29 7,000 ft x 100 ft (2,134 m x 30 m) and 02/20 4,650 ft x 75 ft",
+   "longest_m": 2134,
+   "src": "ktrk-flight-planning",
+   "quote": "Dimensions: 7000 x 100 ft. / 2134 x 30 m"
+  },
+  "curfew": {
+   "v": "voluntary no-fly curfew 22:00-07:00 local for arrivals and departures (Good Neighbor policy; Fly Quiet asks pilots not to fly then unless using Shoulder Hour Protocols)",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "ktrk-flight-planning",
+   "quote": "Voluntary NO FLY Curfew"
+  },
+  "ppr": {
+   "v": "runway 11/29 is rated 50,000 lb single wheel and 80,000 lb dual wheel; heavier aircraft need prior permission (runway 02/20: 35,000/50,000 lb)",
+   "src": "ktrk-flight-planning",
+   "quote": "Anything over 50/80 on 11/29 needs a PPR (Prior Permission Request)"
+  },
+  "hours": {
+   "v": "control tower 07:00-18:00 local in winter (1 Oct-14 Mar), 07:00-19:30 spring, 07:00-20:00 summer, 07:00-19:00 fall; FBO services daily 07:00-21:00",
+   "src": "ktrk-flight-planning",
+   "quote": "10/01 - 03/14, 07:00 - 18:00 local (Winter)"
+  },
+  "noise": {
+   "v": "noise abatement: best-angle climb for the first 500 ft then best rate, avoid residential areas, intersection departures discouraged; runway 2 is the preferred departure runway",
+   "src": "ktrk-procedures",
+   "quote": "Runway 2 is the preferred departure runway for noise abatement."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "deicing",
+  "permits",
+  "catering"
+ ],
+ "notes": "All rules from the Truckee Tahoe Airport District's own pages (Runway Information/flight planning, Procedures, Fly Quiet; undated). The Procedures page gives summer tower hours as 06/01-09/30 07:00-20:00, while the Runway Information page says 05/01-09/01; the winter hours agree. No customs statement found. FAA diagram AL-6021 surfaced only for old cycles (latest 2607) and was not read; Chart Supplement SW not opened. IATA not stated in an official source read (FAA identifier is TRK)."
+}

@@ -1,0 +1,62 @@
+{
+ "icao": "KBFI",
+ "iata": null,
+ "name": "Boeing Field/King County International Airport",
+ "city": "Seattle",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways; 14R/32L is 10,000 ft x 200 ft (about 3,048 m x 61 m); 14L/32R is 3,710 ft x 100 ft",
+   "longest_m": 3048,
+   "src": "kbfi-kc-about",
+   "quote": "10,000 feet by 200 feet"
+  },
+  "hours": {
+   "v": "control tower operates 24 hours; airport operations line 24 hours; administrative office 08:00-16:00 Mon-Fri",
+   "src": "kbfi-faa-kbyg",
+   "quote": "KBFI Tower Operates 24 Hours"
+  },
+  "customs": {
+   "v": "CBP arrival inspections 7 days a week, 08:00-16:00 Pacific; permission to land before leaving the foreign airport and at least 2 hours before arrival, valid +/-30 minutes; park on the ramp at location 4 in the blue customs box; processing in the FIS attached to the main terminal; after-hours service may incur Reimbursable Service Program fees",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "16:00"
+    ]
+   ],
+   "src": "kbfi-cbp-ga",
+   "quote": "7 days per week, 0800-1600"
+  },
+  "ppr": {
+   "v": "international arrivals: CBP permission at least 2 hours before arrival; no general aviation parking at the terminal: call Airport Operations before the flight to arrange parking",
+   "src": "kbfi-kc-pilot-info",
+   "quote": "There is no general aviation parking available at the terminal."
+  },
+  "fuel": {
+   "v": "Jet A and 100LL",
+   "src": "kbfi-kc-pilot-info",
+   "quote": "Fuel (Jet-A and 100LL)"
+  },
+  "handling": {
+   "v": "three FBOs; tenants listed: Skyservice, Modern Aviation, Signature Flight Support",
+   "src": "kbfi-kc-pilot-info",
+   "quote": "the airport has three Fixed Base Operators (FBOs) on the field that can accommodate all sizes of aircraft"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "noise",
+  "max_aircraft",
+  "deicing",
+  "catering",
+  "permits"
+ ],
+ "notes": "Runways, parking, fuel and FBOs from King County airport pages (undated, footer 2026). Tower hours from the FAA BFI pilot information sheet (undated). CBP fact sheet dated 7 Jun 2024 (KBFI-0624). King County lists 'Fly Quiet Flight Program' and 'Fly Quiet Procedures' documents but they could not be found to read, so noise and any night restraint are missing. BFI is not in the FAA AIP Washington page (only KPAE, KSEA, KGEG). FAA Chart Supplement could not be opened."
+}

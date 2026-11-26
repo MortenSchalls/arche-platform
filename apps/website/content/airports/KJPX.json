@@ -1,0 +1,53 @@
+{
+ "icao": "KJPX",
+ "iata": null,
+ "name": "East Hampton Town Airport",
+ "city": "East Hampton, New York (the Hamptons)",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "longest runway, 10/28, is 4,255 ft x 100 ft (about 1,297 m)",
+   "longest_m": 1297,
+   "src": "kjpx-faa-rnavz10-2603",
+   "quote": "4255 X 100"
+  },
+  "curfew": {
+   "v": "nighttime curfew 22:00-07:00 local (Town operating procedures; the memo does not say whether it is mandatory or voluntary, so treat it as mandatory until confirmed)",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "src": "kjpx-ops-memo-2026",
+   "quote": "Nighttime Curfew: 10pm to 7am."
+  },
+  "noise": {
+   "v": "helicopters fly the Town's noise abatement routes; limit engine run time on the ramp; APU at most 30 minutes, with penalties under Town Code Chapter 75",
+   "src": "kjpx-ops-memo-2026",
+   "quote": "Max APU run time 30 minutes."
+  },
+  "handling": {
+   "v": "the Town memo names Sound Aircraft Services (ramp frequency 122.85)",
+   "src": "kjpx-ops-memo-2026",
+   "quote": "When parking at Sound Aircraft Services"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Status and identifier: the Town's own memo (Rev. 19, 17 Jul 2026) and the FAA approach chart (Mar 2026) both use JPX (FAA identifier); the 4-letter KJPX was not confirmed in an FAA source read. The memo does not say whether the curfew is mandatory or voluntary, and Town Code Chapter 75 was not read. The Town's May 2022 private-use rules (PPR, 50,000 lb limit, operating hours, noisy-aircraft limits) are still on the Town site but were not recorded, as their current force could not be confirmed from an official source. Runway from the Mar 2026 RNAV chart (current cycle not surfaced). No customs source; FAA Chart Supplement and the Town 'Airport Information' PDF could not be opened."
+}

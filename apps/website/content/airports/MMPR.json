@@ -1,0 +1,41 @@
+{
+ "icao": "MMPR",
+ "iata": "PVR",
+ "name": "Puerto Vallarta International Airport",
+ "city": "Puerto Vallarta",
+ "country": "MX",
+ "tz": "America/Mexico_City",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway 04-22, 3,100 m x 45 m, asphalt",
+   "longest_m": 3100,
+   "src": "mmpr-gap-about-en",
+   "quote": "It has a runway of 3,100 meters long and 45 meters wide with 04-22 designation."
+  },
+  "handling": {
+   "v": "private aviation FBO Aerotron, inside the airport (separate general aviation terminal)",
+   "src": "mmpr-gap-private-terminal",
+   "quote": "Aerotron se encuentra localizado dentro de las instalaciones del propio aeropuerto"
+  },
+  "fuel": {
+   "v": "avgas and Jet A by truck",
+   "src": "mmpr-gap-private-terminal",
+   "quote": "los camiones Gas avión y Jet A"
+  }
+ },
+ "missing": [
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "noise",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "IATA PVR and ICAO MMPR from GAP's 'About the airport' page. Operator GAP. Mexico AIP AD 2 MMPR (aipmexico.seneam.gob.mx) not found by search and earlier runs found the site refuses automated reading. Airport tariff rules (Aeropuerto de Puerto Vallarta, DOF notice 15 Mar 2022, read via sidof.segob.gob.mx/notas/docFuente/5647413) say operating hours are those in the AIP and services outside them carry a 100% surcharge; no hours given, so not recorded. DOF page https://dof.gob.mx/nota_detalle.php?codigo=5763617&fecha=23%2F07%2F2025 refused (robots). Airport is in Jalisco (Central time, no DST)."
+}

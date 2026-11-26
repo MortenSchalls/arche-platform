@@ -1,0 +1,43 @@
+{
+ "icao": "KTRM",
+ "iata": null,
+ "name": "Jacqueline Cochran Regional Airport",
+ "city": "Thermal",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 17/35, is 8,500 ft x 150 ft (about 2,591 m x 46 m); crosswind 12/30 is 4,995 ft x 100 ft",
+   "longest_m": 2591,
+   "src": "ktrm-rc-airport-page",
+   "quote": "RWY 17/35 which is 8,500 ft. long, 150 ft. wide."
+  },
+  "fuel": {
+   "v": "Jet A and Avgas through the FBOs",
+   "src": "ktrm-rc-airport-page",
+   "quote": "You can get fuel (Jet A & AVGAS) through our FBO's."
+  },
+  "handling": {
+   "v": "FBOs named by the county: Atlantic Aviation North, Atlantic Aviation South, Desert Jet Center, Thermal Aviation; contact them for operating hours",
+   "src": "ktrm-rc-airport-page",
+   "quote": "Atlantic Aviation North"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "noise",
+  "max_aircraft",
+  "deicing",
+  "catering",
+  "permits"
+ ],
+ "notes": "Facts from the Riverside County airport page for TRM (undated). The county's 2024 RFP (ktrm-rc-rfp-2024) gives the same runway sizes, says the airport is Class E airspace on CTAF/UNICOM (accepted into the FAA Contract Tower Program) and mentions CBP service only 'if Customs and Border Protection (CBP) service is approved', so customs at TRM is not confirmed: treat as no customs until checked. No noise rules or curfew found on county pages. No FAA airport diagram for TRM found; FAA Chart Supplement could not be opened."
+}

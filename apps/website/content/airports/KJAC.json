@@ -1,0 +1,57 @@
+{
+ "icao": "KJAC",
+ "iata": "JAC",
+ "name": "Jackson Hole Airport",
+ "city": "Jackson",
+ "country": "US",
+ "tz": "America/Denver",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 01/19, 6,300 ft x 150 ft (about 1,920 m x 46 m); field elevation 6,451 ft; the FAA diagram warns of runway excursion risk from density altitude and runway length",
+   "longest_m": 1920,
+   "src": "kjac-faa-apd-2612",
+   "quote": "6300X150"
+  },
+  "curfew": {
+   "v": "voluntary curfew: all aircraft are asked not to land or take off 21:30-07:00 local, except emergency medical flights and approved irregular airline operations; it cannot be legally enforced but operators get a violation letter and a lower Fly Quiet score",
+   "windows_local": [
+    [
+     "21:30",
+     "07:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "kjac-noise",
+   "quote": "All aircraft are requested not to land or takeoff after 9:30 pm or before 7:00 am local time."
+  },
+  "noise": {
+   "v": "mandatory: only aircraft certified Stage III may operate, Stage 2 aircraft may not land, and no aircraft whose single-event noise level on approach exceeds 92 dBA; no flights below 3,000 ft AGL over Grand Teton National Park; runway 01 is the preferred arrival and runway 19 the preferred departure runway",
+   "src": "kjac-pilot-info",
+   "quote": "operation is limited to aircraft certified as Stage III."
+  },
+  "deicing": {
+   "v": "de-icing on pads off the movement area; crews must know their provider's de-icing frequency and call Ground 124.550 before taxiing from the pads",
+   "src": "kjac-pilot-info",
+   "quote": "Aircraft must leave the movement area to access the pads."
+  },
+  "handling": {
+   "v": "the airport refers general aviation to Jackson Hole Flight Services",
+   "src": "kjac-pilot-info",
+   "quote": "jacksonholeflightservices.com"
+  }
+ },
+ "missing": [
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "fuel",
+  "permits",
+  "catering"
+ ],
+ "notes": "Runway from the FAA airport diagram AL-504 for the current d-TPP cycle 26 Nov-24 Dec 2026. Curfew from the airport's Noise page (modified 10 Aug 2026; Fly Quiet update dated 19 Nov 2026); the Pilot Information page (modified 14 Jul 2026) words it as 'Private aircraft are requested to NOT LAND OR TAKEOFF between 2130 and 0700 local.' The airport notes limited fire protection and snow removal after hours. No official source on customs was found (the airport's pages do not mention it), so plan clearance at a port of entry first. Chart Supplement NW and NFDC (robots-blocked) not opened. IATA: the FAA diagram shows (JAC)."
+}

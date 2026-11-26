@@ -1,0 +1,44 @@
+{
+ "icao": "KACK",
+ "iata": null,
+ "name": "Nantucket Memorial Airport",
+ "city": "Nantucket, Massachusetts",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 6/24, is 6,303 ft x 150 ft (about 1,921 m)",
+   "longest_m": 1921,
+   "src": "kack-faa-ad-2612",
+   "quote": "6303X150"
+  },
+  "curfew": {
+   "v": "no night restrictions; the airport asks pilots to limit night operations after 23:00 local as a courtesy",
+   "none": true,
+   "src": "kack-rules-2026",
+   "quote": "There are no additional restrictions on Night Time Operations at the Airport."
+  },
+  "noise": {
+   "v": "pilots must follow the voluntary noise abatement policies adopted by the Airport Commission",
+   "src": "kack-rules-2026",
+   "quote": "Pilots shall observe all voluntary Noise Abatement policies adopted by the Airport Commission."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Rules and Regulations adopted 14 Jul 2026 read. No official source read on customs (no CBP fact sheet found for ACK) or on airport hours. Current Chart Supplement could not be opened. FAA identifier ACK."
+}

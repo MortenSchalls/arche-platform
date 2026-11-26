@@ -1,0 +1,67 @@
+{
+ "icao": "KBNA",
+ "iata": "BNA",
+ "name": "Nashville International Airport",
+ "city": "Nashville",
+ "country": "US",
+ "tz": "America/Chicago",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "four runways; longest 13/31, 11,030 ft x 150 ft (about 3,362 m x 46 m); parallels 02L/20R 7,704 ft, 02C/20C and 02R/20L 8,001 ft",
+   "longest_m": 3362,
+   "src": "kbna-faa-aip-tn",
+   "quote": "11030 ft x 150 ft"
+  },
+  "hours": {
+   "v": "airport open 24 hours, every day; control tower 24 hours",
+   "hours_local": [
+    [
+     "00:00",
+     "24:00"
+    ]
+   ],
+   "src": "kbna-faa-aip-tn",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "customs": {
+   "v": "CBP clears general aviation 15:00-21:00 Central time, 7 days a week (best window 18:00-21:00); office 14:00-22:00; ask CBP for permission to land during office hours at least 2 hours before leaving the foreign airport, arrival within +/-30 minutes",
+   "h24": false,
+   "hours_local": [
+    [
+     "15:00",
+     "21:00"
+    ]
+   ],
+   "src": "kbna-cbp-ga-2024-11",
+   "quote": "7 days per week, 1500-2100"
+  },
+  "noise": {
+   "v": "military and aircraft over 12,500 lb may not fly practice approaches; no practice approaches 23:00-07:00 local; no flight over the main terminal",
+   "src": "kbna-faa-aip-tn",
+   "quote": "PRAC APCH BTN 2300-0700 NA."
+  },
+  "max_aircraft": {
+   "v": "terminal apron taxilanes Z, Y1, Y2 and Y (between Y3 and Y4) closed to wingspans over 118 ft; no 180-degree turns on asphalt by aircraft over 12,500 lb",
+   "src": "kbna-faa-aip-tn",
+   "quote": "CLSD TO WINGSPAN MORE THAN 118 FT."
+  },
+  "fuel": {
+   "v": "100LL and Jet A",
+   "src": "kbna-faa-aip-tn",
+   "quote": "100LL A"
+  }
+ },
+ "missing": [
+  "curfew",
+  "slots",
+  "ppr",
+  "handling",
+  "deicing",
+  "permits",
+  "catering"
+ ],
+ "notes": "Runway, hours, fuel, size and noise remarks from the FAA US AIP Part 3 AD 2 Tennessee page (no amendment date shown). Customs from the CBP KBNA GA Airport Fact Sheet of 15 Nov 2024 (KBNA-1124, hours effective 17 Nov 2024); a newer sheet may exist. FAA Flight Deck page for BNA (last updated 9 Jun 2026, kbna-faa-flightdeck) confirms 'BNA ATCT Operates: 24 hours.' and no practice approaches or pattern work 23:00-07:00 local. No curfew statement found either way. PPR in the AIP applies to airline gate ramp entry and the Air National Guard, so not recorded. IATA: the FAA Flight Deck page title shows (BNA). Chart Supplement (aeronav.faa.gov) not opened."
+}

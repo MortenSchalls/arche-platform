@@ -1,0 +1,40 @@
+{
+ "icao": "KMVY",
+ "iata": null,
+ "name": "Martha's Vineyard Airport",
+ "city": "Martha's Vineyard (Vineyard Haven), Massachusetts",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 6/24, is 5,504 ft x 100 ft (about 1,678 m)",
+   "longest_m": 1678,
+   "src": "kmvy-faa-ad-2603",
+   "quote": "5504 X 100"
+  },
+  "curfew": {
+   "v": "no curfew: the airport is barred by federal law from restricting hours of operation; noise abatement is voluntary",
+   "none": true,
+   "src": "kmvy-noise-page",
+   "quote": "is prohibited by federal law from levying fines, restricting hours of operation, or restricting access"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Runway from the Mar 2026 FAA airport diagram (newest one search surfaced; current cycle could not be opened). MVY Rules and Regulations PDF (2026/07) and noise charts are image-only PDFs and could not be read. No official source read on customs or hours. FAA identifier MVY."
+}

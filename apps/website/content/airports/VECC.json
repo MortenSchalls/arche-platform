@@ -1,0 +1,29 @@
+{
+ "icao": "VECC",
+ "iata": null,
+ "name": "Netaji Subhas Chandra Bose International Airport",
+ "city": "Kolkata",
+ "country": "IN",
+ "tz": "Asia/Kolkata",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-27",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "India eAIP could not be read: https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html and https://aim-india.aai.aero/ were refused (permission request not answered); https://aim-india.aai.aero/eaip-v2/eAIP/EC-AD-2.1VOMM-en-GB.pdf redirects to aim-india.aai.aero.in, a host whose ownership is not verified, so it was not followed. No newer eAIP package could be checked. Only official page read was an AAI press release of 4 Jan 2018 on CAT III-B ILS for runway 01R; too old and no runway length, so not used. Search surfaced an archived eAIP page (aim-india.aai.aero/eAIP_Archive/21-03-2024/...VECC...), out of date and on the blocked host."
+}

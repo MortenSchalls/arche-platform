@@ -1,0 +1,45 @@
+{
+ "icao": "RPVM",
+ "iata": null,
+ "name": "Mactan-Cebu International Airport",
+ "city": "Cebu",
+ "country": "PH",
+ "tz": "Asia/Manila",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 04/22, 3,300 m x 45 m",
+   "longest_m": 3300,
+   "src": "rpvm-mciaa-datasheet",
+   "quote": "3,300 x 45 m (04 / 22)"
+  },
+  "hours": {
+   "v": "open 24 hours",
+   "hours_local": [
+    [
+     "00:00",
+     "24:00"
+    ]
+   ],
+   "src": "rpvm-mciaa-datasheet",
+   "quote": "24 hours"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "From the Mactan-Cebu International Airport Authority (MCIAA) data sheet (page last modified 26 Feb 2024). The Philippine eAIP (ais.caap.gov.ph) is a paid subscription and was not readable; GMCAC (mactancebuairport.com) advisory page returned no content. Customs, curfew and other rules not verified."
+}

@@ -1,0 +1,53 @@
+{
+ "icao": "KBZN",
+ "iata": "BZN",
+ "name": "Bozeman Yellowstone International Airport",
+ "city": "Bozeman",
+ "country": "US",
+ "tz": "America/Denver",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "main runway 12/30, 8,994 ft x 150 ft (about 2,741 m x 46 m); also 11/29 5,050 ft x 75 ft, 3/21 2,650 ft x 75 ft and a turf runway",
+   "longest_m": 2741,
+   "src": "kbzn-amp-2020-ch3",
+   "quote": "150' X 8,994'"
+  },
+  "customs": {
+   "v": "user fee airport; CBP office hours 09:00-17:00 Mountain time, closed Tuesday and Wednesday; appointments possible 24/7 subject to officer availability, outside office hours an extra USD 225 user fee; at least 2 hours' notice before arrival (no voicemail or fax)",
+   "h24": false,
+   "hours_local": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "src": "kbzn-cbp-port-3386",
+   "quote": "Regular office hours are 9:00AM - 5:00PM (closed Tuesday/Wednesday)."
+  },
+  "permits": {
+   "v": "customs user fee by aircraft weight: USD 850 for 12,501-30,000 lb and USD 1,200 for 30,001 lb or more maximum gross landed weight; 2 hours' notice",
+   "src": "kbzn-customs",
+   "quote": "(30,001 lbs MGLW or greater) = $1,200.00"
+  },
+  "noise": {
+   "v": "the airport runs a voluntary Good Neighbor Program for pilots; no mandatory measures stated",
+   "src": "kbzn-noise",
+   "quote": "The GAA has launched a voluntary Good Neighbor Program."
+  }
+ },
+ "missing": [
+  "curfew",
+  "hours",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Runway from the airport's 2020 Master Plan Update, Chapter 3 Facility Requirements (Figure 3-16, existing). The FAA airport diagram AL-59 (chart January 2025, cycle 19 Mar-16 Apr 2026, superseded; newest cycle did not surface) shows 8994 X 150, a DE-ICE pad and a U.S. CUSTOMS facility; not used as the source as it is superseded. Customs from the CBP port page 'Bozeman Yellowstone User Fee Airport, Montana 3386' (last modified 10 Jun 2024) and the airport's US Customs page (fees; it gives office hours as Thursday-Monday 09:00-17:00). No official statement on curfew or airport hours was found; FAA Flight Deck page for BZN (updated 5 Jun 2026) has no such data. Chart Supplement NW not opened. IATA: the airport uses BZN in its name and the FAA diagram shows BZN."
+}

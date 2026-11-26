@@ -1,0 +1,77 @@
+{
+ "icao": "CYTZ",
+ "iata": null,
+ "name": "Billy Bishop Toronto City Airport",
+ "city": "Toronto",
+ "country": "CA",
+ "tz": "America/Toronto",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "main runway 08-26, about 1,215.5 m x 45 m (3,988 ft x 150 ft); secondary runway 06-24, 750 m x 30 m; runway 15-33 decommissioned (now a taxiway)",
+   "longest_m": 1215,
+   "src": "cytz-pt-master-plan-2018",
+   "quote": "a length of 3,988 feet (1,215.5 metres) and a width of 150 feet (45 metres)"
+  },
+  "curfew": {
+   "v": "no take-offs or landings 23:00-06:45 local, medevac excepted (Tripartite Agreement)",
+   "windows_local": [
+    [
+     "23:00",
+     "06:45"
+    ]
+   ],
+   "src": "cytz-pt-noise-policies",
+   "quote": "prohibits any aircraft, other than Medevac, from taking off and landing between 11:00 p.m. and 6:45 a.m."
+  },
+  "max_aircraft": {
+   "v": "all jet aircraft are banned (medevac excepted), and certain types of propeller aircraft too; so no business jets",
+   "src": "cytz-pt-for-pilots",
+   "quote": "all jet aircraft (except MEDEVAC flights) and certain type of propeller aircraft are prohibited from utilizing the airport"
+  },
+  "noise": {
+   "v": "one of the most noise-restricted airports in North America; daily flight activity must stay within the federal noise contours; noise abatement, Good Neighbour and engine run-up procedures apply",
+   "src": "cytz-pt-noise-policies",
+   "quote": "Limits total daily flight activity to fall within federal noise contours"
+  },
+  "hours": {
+   "v": "airport hours 05:00-23:00 local daily (terminal); no aircraft movements outside published hours except medevac. Pilots should call the Airport Duty Manager before arrival",
+   "hours_local": [
+    [
+     "05:00",
+     "23:00"
+    ]
+   ],
+   "src": "cytz-pt-faqs",
+   "quote": "Billy Bishop Toronto City Airport's hours of operation are from 5:00 a.m. to 11:00 p.m. daily."
+  },
+  "customs": {
+   "v": "CBSA traveller service 08:00-23:59 local every day (in practice to 23:00, when the airport closes); services listed: AOE/90, AOE/15/SEAPL/90, NEXUS/AIR/90. Check with CBSA that the passenger count fits before a charter",
+   "hours_local": [
+    [
+     "08:00",
+     "23:59"
+    ]
+   ],
+   "src": "ca-cbsa-offices-csv-2026-11",
+   "quote": "08:00 / 23:59"
+  },
+  "handling": {
+   "v": "two FBOs named by the airport: Porter FBO and Stolport FBO",
+   "src": "cytz-pt-faqs",
+   "quote": "Porter FBO ... Stolport FBO"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Jet ban and curfew under the Tripartite Agreement (City of Toronto, Transport Canada, PortsToronto); the master plan adds the 28 NEF contour must stay within the official 1990 25 NEF contour. For Archē this means turboprop only (no business jets). Runway from the 2018 Master Plan (published 2019); check the CFS before a performance-critical trip. Customs from the CBSA open data file. CBSA open data file offices-bureaux-en.csv is undated; the old CBSA office pages say the directory moved to a new cloud server on 31 Mar 2026, so confirm hours with CBSA before a trip. The airport's 'For Pilots' page refers to the CFS, CAP and NOTAMs for published hours; CFS not freely online. PortsToronto 'facts' page (portstoronto.com/media-room/news/the-facts-about-the-billy-bishop-toronto-city-airport/) opened with no content."
+}

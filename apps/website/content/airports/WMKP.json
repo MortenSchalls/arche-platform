@@ -1,0 +1,64 @@
+{
+ "icao": "WMKP",
+ "iata": null,
+ "name": "Penang International Airport",
+ "city": "Penang",
+ "country": "MY",
+ "tz": "Asia/Kuala_Lumpur",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 04/22, 3,354 m x 46 m",
+   "longest_m": 3354,
+   "src": "wmkp-caam-eaip-2026-05-19",
+   "quote": "3354 x 46"
+  },
+  "hours": {
+   "v": "aerodrome and air traffic services open 24 hours",
+   "src": "wmkp-caam-eaip-2026-05-19",
+   "quote": "AD Operator: H24 ... ATS: H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "wmkp-caam-eaip-2026-05-19",
+   "quote": "Customs and immigration: H24"
+  },
+  "handling": {
+   "v": "handling 24 hours; agents named: AeroDarat Services, POS Aviation, Ground Team Red, Malindo Airways",
+   "src": "wmkp-caam-eaip-2026-05-19",
+   "quote": "H24 : AeroDarat Services Sdn Bhd and POS Aviation Sdn Bhd, Ground Team Red Sdn Bhd, Malindo Airways Sdn Bhd"
+  },
+  "fuel": {
+   "v": "AVGAS 100 and Jet A1 (Petronas hydrant and bowser, Shell bowser)",
+   "src": "wmkp-caam-eaip-2026-05-19",
+   "quote": "AVGAS 100, Jet A1"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "wmkp-caam-eaip-2026-05-19",
+   "quote": "AD 2.21 Noise abatement procedures: NIL"
+  },
+  "max_aircraft": {
+   "v": "a Boeing 747-8 or similar size aircraft parks at Bay 1 only; bays 21-23 take A330 and smaller (wingspan up to 60.3 m)",
+   "src": "wmkp-caam-eaip-2026-05-19",
+   "quote": "B748 or similar size aircraft type should be parked at Bay 1 only."
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "wmkp-caam-eaip-2026-05-19",
+   "quote": "De-icing: NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read Malaysia eAIP AD 2 WMKP, edition effective 19 May 2026 (complete through AD 2.24). No curfew or night rule stated; AD 2.21 noise NIL. Fuelling hours in AD 2.3 are garbled by database codes and were not recorded. AIP AMDT 03/26 (effective 6 Aug 2026) re-dated WMKP pages for AD 2.8/2.9 (taxiway/apron) and charts, not AD 2.12; WMKP has pavement-work supplements 16/26, 20/26, 23/26, 32/26. Newest packages could not be opened (permission not answered): https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WMKP-en-MS.html and the 2026-08-06-AIRAC page. IATA code not stated in the AIP. AIP times are UTC; local time is UTC+8 (Malaysia AIP GEN 2.1.2, eAIP 19 May 2026, source wmkp-caam-gen21-2026-05-19)."
+}

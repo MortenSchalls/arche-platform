@@ -1,0 +1,79 @@
+{
+ "icao": "VTSS",
+ "iata": null,
+ "name": "Hat Yai International Airport",
+ "city": "Hat Yai",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 08/26, 3,050 m x 45 m",
+   "longest_m": 3050,
+   "src": "vtbo-vtss-th-aip-amdt-08-26",
+   "quote": "3050 x 45"
+  },
+  "hours": {
+   "v": "aerodrome operator 06:00-24:00 local (2300-1700 UTC); air traffic services 24 hours",
+   "hours_local": [
+    [
+     "06:00",
+     "00:00"
+    ]
+   ],
+   "src": "vtbo-vtss-th-aip-amdt-08-26",
+   "quote": "2300-1700"
+  },
+  "curfew": {
+   "v": "operations outside aerodrome hours (00:00-06:00 local) need prior approval from the airport authority",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "approval": true,
+   "src": "vtss-th-aip-2026-05-14",
+   "quote": "Inform the airport authority, and approval must be received before such operation."
+  },
+  "customs": {
+   "v": "customs and immigration within aerodrome hours, 06:00-24:00 local",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:00",
+     "00:00"
+    ]
+   ],
+   "src": "vtss-th-aip-2026-05-14",
+   "quote": "Available within AD hours"
+  },
+  "fuel": {
+   "v": "Jet A-1 and AVGAS 100LL by PTT; fuelling 07:00-20:00 local (0000-1300 UTC), 20:00-07:00 on request 1 hour before landing",
+   "src": "vtbo-vtss-th-aip-amdt-08-26",
+   "quote": "AD 0000-1300, from 1300-2359 shall be requested 1 hrs. prior landing"
+  },
+  "handling": {
+   "v": "handling 06:00-21:00 local (2300-1400 UTC); 21:00-24:00 on request 3 hours before landing",
+   "src": "vtbo-vtss-th-aip-amdt-08-26",
+   "quote": "AD 2300-1400, from 1400-1700 shall be requested 3 hrs. prior landing."
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "vtss-th-aip-2026-05-14",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Operator Airports of Thailand (AOT). Hours, runway, fuel and handling from the replacement pages AD 2-VTSS-1-1 to 1-5 in AIRAC AIP AMDT 08/26 (6 Aug 2026); customs, AD 2.21 and AD 2.23 from the eAIP page of the 14 May 2026 package (same hours and runway). Newer packages exist (3 Sep 2026 seen) but their VTSS page could not be opened; amendment PDFs of 11 Jun, 9 Jul and 3 Sep 2026 failed. Stands: only some take code E. IATA not stated in the pages read."
+}

@@ -1,0 +1,68 @@
+{
+ "icao": "KAUS",
+ "iata": "AUS",
+ "name": "Austin-Bergstrom International Airport",
+ "city": "Austin",
+ "country": "US",
+ "tz": "America/Chicago",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two runways, 18R/36L 12,250 ft x 150 ft (about 3,734 m x 46 m) and 18L/36R 9,000 ft x 150 ft",
+   "longest_m": 3734,
+   "src": "kaus-faa-apd-2603",
+   "quote": "12250 X 150"
+  },
+  "curfew": {
+   "v": "no curfew; the airport says federal law limits its ability to restrict when aircraft operate",
+   "none": true,
+   "src": "kaus-noise-program",
+   "quote": "No. Federal law limits an airport's ability to restrict when aircraft may operate."
+  },
+  "hours": {
+   "v": "airport open 24 hours a day",
+   "hours_local": [
+    [
+     "00:00",
+     "24:00"
+    ]
+   ],
+   "src": "kaus-factsheet",
+   "quote": "funciona las 24 horas del día"
+  },
+  "customs": {
+   "v": "CBP arrival inspections 7 days a week 08:30-14:00 and 18:30-21:00 Central time; no landing permission 14:00-18:30; ask by phone at least 24 hours ahead (no email), arrival within +/-30 minutes; aircraft park at the FBO ramp and everyone is processed there",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:30",
+     "14:00"
+    ],
+    [
+     "18:30",
+     "21:00"
+    ]
+   ],
+   "src": "kaus-cbp-ga-2024-07",
+   "quote": "available seven days per week, from 0830-1400 and 1830-2100"
+  },
+  "permits": {
+   "v": "landing rights must be requested from CBP at least 24 hours before arrival, by phone only",
+   "src": "kaus-cbp-ga-2024-07",
+   "quote": "at least 24 hours in advance of the anticipated arrival time at KAUS"
+  }
+ },
+ "missing": [
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Runway from the FAA airport diagram AL-556 (chart January 2025, d-TPP cycle 19 Mar-16 Apr 2026; the newest cycle did not surface in search; the runways were renamed 18/36 from 17/35 and the airport's 2019 master plan data sheet still shows 17R/35L 12,250 ft and 17L/35R 9,000 ft). Customs from the CBP KAUS GA Airport Fact Sheet of 17 Jul 2024 (KAUS-0724); a newer sheet may exist. Curfew answer from the airport's Noise Program page (flyaustin.com, FAA outreach 2026). Hours from the City of Austin airport fact sheet (Spanish edition, undated). FAA US AIP Texas page (https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_texas.html) and Chart Supplement SC (https://aeronav.faa.gov/afd/29OCT2026/sc_271_29OCT2026.pdf) could not be opened (permission refused). IATA: the airport's fact sheet shows (AUS)."
+}

@@ -1,0 +1,57 @@
+{
+ "icao": "KFRG",
+ "iata": null,
+ "name": "Republic Airport",
+ "city": "Farmingdale, New York (Long Island)",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 14/32, is 6,833 ft x 150 ft (about 2,083 m)",
+   "longest_m": 2083,
+   "src": "kfrg-faa-ad-2612",
+   "quote": "6833X150"
+  },
+  "curfew": {
+   "v": "voluntary curfew 22:00-07:00 local (an earlier mandatory curfew was overturned in court)",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "kfrg-faq",
+   "quote": "The airport does have a voluntary curfew between 10pm and 7am."
+  },
+  "customs": {
+   "v": "CBP clears arriving aircraft 7 days a week, 08:00-23:00 local; e-mail CBP before leaving the foreign airport and at least 24 hours before arrival; general aviation aircraft at most 20 passengers unless approved beforehand",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "23:00"
+    ]
+   ],
+   "src": "kfrg-cbp-ga-2024-09",
+   "quote": "available 7 days per week, 0800-2300"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Owned by New York State and managed by NYSDOT. CBP fact sheet read is 11 Sep 2024; newer CBP versions (fact-sheet details page lists KFRG-0425 of 15 Apr 2025, and a Nov 2025 PDF) could not be opened, so confirm customs hours. Current Chart Supplement could not be opened. FAA identifier FRG."
+}

@@ -1,0 +1,65 @@
+{
+ "icao": "KCRQ",
+ "iata": null,
+ "name": "McClellan-Palomar Airport",
+ "city": "Carlsbad",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 06/24, 4,897 ft x 150 ft (about 1,493 m x 46 m)",
+   "longest_m": 1493,
+   "src": "kcrq-faa-ad-2601",
+   "quote": "4897 X 150"
+  },
+  "curfew": {
+   "v": "voluntary quiet hours only: jets 22:00-07:00, propeller aircraft 00:00-06:00 local (emergency, lifeguard and law enforcement excepted); the airport stays open 24 hours and no fines can be levied",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "kcrq-sdc-noise",
+   "quote": "Jet take-off and landing \"Quiet Hours\" 10:00 p.m. – 7:00 a.m."
+  },
+  "hours": {
+   "v": "airport open 24 hours a day, 365 days a year; when the tower is closed aircraft self-announce on CTAF",
+   "src": "kcrq-sdc-faq",
+   "quote": "the airport must remain open 24 hours a day, 365 days of the year"
+  },
+  "noise": {
+   "v": "jets depart on a 250 degree ground track north of Palomar Airport Road at best rate of climb until 1 mile offshore; runway 24 is the calm-wind runway; no jet training",
+   "src": "kcrq-sdc-noise",
+   "quote": "Jets fly 250 degrees ground track, north of Palomar Airport Road best rate of climb until 1 mile offshore."
+  },
+  "customs": {
+   "v": "user-fee customs daily 09:00-17:00 Pacific; overtime service by appointment; user fee by maximum take-off weight (2026 regular USD 110 up to 7,500 lb to USD 2,180 over 75,000 lb; aircraft for 15 or more passengers USD 2,905)",
+   "h24": false,
+   "hours_local": [
+    [
+     "09:00",
+     "17:00"
+    ]
+   ],
+   "src": "kcrq-sdc-customs",
+   "quote": "McClellan-Palomar Airport offers regular User Fee Customs Service daily between the hours of 9 a.m. and 5 p.m."
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "deicing",
+  "catering",
+  "permits"
+ ],
+ "notes": "Runway from the FAA airport diagram for cycle 22 Jan-19 Feb 2026 (newest found); ft to m conversion mine. Customs, noise and hours from County of San Diego (airport operator) pages, undated. The customs page also shows '24-HOUR SERVICE AVAILABLE' without explanation; overtime needs an appointment. No airline service at CRQ (county FAQ). FAA Chart Supplement could not be opened."
+}

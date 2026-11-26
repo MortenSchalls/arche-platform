@@ -1,0 +1,35 @@
+{
+ "icao": "VOHS",
+ "iata": null,
+ "name": "Rajiv Gandhi International Airport",
+ "city": "Hyderabad",
+ "country": "IN",
+ "tz": "Asia/Kolkata",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "main runway 09R/27L 4,260 m; secondary runway (Code E) 3,707 m; widths not given (operator figures, check against AIP AD 2.12)",
+   "longest_m": 4260,
+   "src": "vohs-ghial-factsheet",
+   "quote": "Primary runway 09R/27L is one of the longest in Asia with 4,260 metres of length."
+  }
+ },
+ "missing": [
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering",
+  "iata",
+  "hours"
+ ],
+ "notes": "India eAIP could not be read: https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html and https://aim-india.aai.aero/ were refused (permission request not answered); https://aim-india.aai.aero/eaip-v2/eAIP/EC-AD-2.1VOMM-en-GB.pdf redirects to aim-india.aai.aero.in, a host whose ownership is not verified, so it was not followed. No newer eAIP package could be checked. Runway and hours from the operator's (GMR Hyderabad) fact sheet (undated, figures FY 2023-24) and master-plan page. Customs: the fact sheet mentions only cargo customs ('24X7 Customs Operations' at the cargo terminal), not passenger customs, so not recorded. IATA code not stated on the pages read. Opening hours not recorded: the operator sentence about 24-hour operation refers to the standby runway, not a stated aerodrome schedule."
+}

@@ -1,0 +1,56 @@
+{
+ "icao": "WBGG",
+ "iata": null,
+ "name": "Kuching International Airport",
+ "city": "Kuching",
+ "country": "MY",
+ "tz": "Asia/Kuching",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "hours": {
+   "v": "aerodrome and air traffic services open 24 hours",
+   "src": "wbgg-caam-eaip-2026-05-19",
+   "quote": "AD Operator: H24 ... ATS: H24"
+  },
+  "customs": {
+   "v": "customs 07:00-01:00 local (23:00-17:00 UTC); immigration 24 hours",
+   "hours_local": [
+    [
+     "07:00",
+     "01:00"
+    ]
+   ],
+   "src": "wbgg-caam-eaip-2026-05-19",
+   "quote": "Customs: 2300 - 1700. Immigration: H24"
+  },
+  "fuel": {
+   "v": "Jet A1 by hydrant and bowser; Shell 04:45-00:00 local (20:45-16:00 UTC), Petronas 05:00-21:00 local (21:00-13:00 UTC)",
+   "src": "wbgg-caam-eaip-2026-05-19",
+   "quote": "Shell: 2045 - 1600. Petronas: 2100 - 1300; Fuel: Jet A1"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "wbgg-caam-eaip-2026-05-19",
+   "quote": "AD 2.21 Noise abatement procedures: NIL"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "wbgg-caam-eaip-2026-05-19",
+   "quote": "De-icing: NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "permits",
+  "max_aircraft",
+  "catering",
+  "runway",
+  "handling"
+ ],
+ "notes": "Read Malaysia eAIP AD 2 WBGG, edition effective 19 May 2026. AIP AMDT 03/26 (effective 6 Aug 2026) re-dated WBGG pages for AD 2.8/2.9, AD 2.12, AD 2.14/2.15 and arriving-aircraft parking, so the runway, apron and parking values may have changed; status kept partial until the newer page is read. Newest packages could not be opened (permission not answered): https://aip.caam.gov.my/aip/eAIP/2026-10-29-AIRAC/html/eAIP/WM-AD-2.WBGG-en-MS.html and the 2026-08-06-AIRAC page. No curfew or night rule stated. IATA code not stated in the AIP. AIP times are UTC; local time is UTC+8 (Malaysia AIP GEN 2.1.2, eAIP 19 May 2026, source wmkp-caam-gen21-2026-05-19). Runway and parking/handling (AD 2.8/2.9, AD 2.12) not recorded because the 6 Aug 2026 amendment replaced those pages; the 19 May 2026 edition showed runway 07/25 3,780 x 46 m (to recheck)."
+}

@@ -1,0 +1,29 @@
+{
+ "icao": "RCKH",
+ "iata": null,
+ "name": "Kaohsiung International Airport",
+ "city": "Kaohsiung",
+ "country": "TW",
+ "tz": "Asia/Taipei",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-27",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Status unavailable (27 Nov 2026): the RCKH pages read (AMDT 02/25 and 06/25) were partly replaced by AIRAC AIP AMDT 01/26 (19 Mar 2026), and the current AMDT 05/26 page could not be opened, so no value is recorded until the current page is read. Values seen in the older pages (to recheck, not used): runway 09/27 3,150 x 60 m; no movements 00:01-06:30 local except emergencies; customs H24. Research notes: Values read from the Taipei FIR eAIP AD 2 RCKH page of AIRAC AIP AMDT 02/25 (17 Apr 2025, English) and confirmed unchanged in the AMDT 06/25 page (25 Dec 2025, Chinese text: curfew 16:01-22:30 UTC, runway 3150 x 60, customs H24). The current package is AIRAC AIP AMDT 05/26 (29 Oct 2026; next AMDT 06/26 on 24 Dec 2026). AMDT 02/26 (14 May 2026) only changed the met equipment and the ADC for RCKH, but AMDT 01/26 (19 Mar 2026) replaced pages 4-6, 11, 13, 17-24 and 27, which could not be read: the current-package page was blocked (https://ais.caa.gov.tw/eaip/AIRAC%20AIP%20AMDT%2005-26_2026_10_29/eAIP/RC-AD%202%20RCKH%20...-en-GB.html) and the package index failed. Status partial until the AMDT 05/26 page is checked. IATA not stated in the pages read."
+}

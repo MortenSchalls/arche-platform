@@ -1,0 +1,43 @@
+{
+ "icao": "VNKT",
+ "iata": null,
+ "name": "Tribhuvan International Airport",
+ "city": "Kathmandu",
+ "country": "NP",
+ "tz": "Asia/Kathmandu",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 02/20, 3,074 m x 45 m",
+   "longest_m": 3074,
+   "src": "vnkt-np-aip-ad2",
+   "quote": "3074 x 45"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published",
+   "src": "vnkt-np-aip-ad2",
+   "quote": "NIL"
+  },
+  "deicing": {
+   "v": "no de-icing facilities",
+   "src": "vnkt-np-aip-ad2",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "hours",
+  "permits",
+  "catering",
+  "iata"
+ ],
+ "notes": "Read CAAN AIP Nepal AD 2 VNKT PDF (8th edition 1 Jul 2022, pages amended up to AMDT 07/2025; runway page AMDT 08/2022). Whether this is the latest version could not be checked: the e-AIP index https://e-aip.caanepal.gov.np/ was refused (permission not answered). AD 2.3 hours table did not extract cleanly: it shows 'SUN-THU 10:00 -17:00 LT (SUMMER), 10:00-1600 LT (WINTER), FRI 10:00-1500 LT' and several 'H24'/'As ATS' values, but which row (administration, customs, ATS) each belongs to is unclear, so hours and customs were not recorded. AD 2.4 fuel line reads Jet A-1 with an availability entry that looks garbled, so fuel not recorded. AD 2.20 local regulations is blank. ILS chart: circling not authorised at night. IATA code not stated in the AIP."
+}

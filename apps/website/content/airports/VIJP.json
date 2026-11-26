@@ -1,0 +1,45 @@
+{
+ "icao": "VIJP",
+ "iata": "JAI",
+ "name": "Jaipur International Airport",
+ "city": "Jaipur",
+ "country": "IN",
+ "tz": "Asia/Kolkata",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "slots": {
+   "v": "general aviation operators need a written slot confirmation from the airport operations control centre (AOCC) before any flight",
+   "src": "vijp-jial-cou-2024",
+   "quote": "No Operator shall operate to or from JIA without first obtaining written Slot confirmation from AOCC."
+  },
+  "ppr": {
+   "v": "landing and departure permission from the airport operator, slots requested at least 24 hours before; passenger name list to the GA team at least 24 hours before; ad hoc landings depend on parking and resources; approval at the operator's discretion",
+   "src": "vijp-jial-cou-2024",
+   "quote": "to obtain arrival or departure slots, at least 24hrs prior to operation"
+  },
+  "handling": {
+   "v": "ground handling only by agencies authorised and appointed by the airport operator (none named)",
+   "src": "vijp-jial-cou-2024",
+   "quote": "Ground Handling services shall be exclusively provided by authorised ground handling agencies appointed by JIAL"
+  },
+  "catering": {
+   "v": "flight catering only through agencies approved by the airport operator",
+   "src": "vijp-jial-cou-2024",
+   "quote": "approved/ authorised/ designated by JIAL"
+  }
+ },
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing"
+ ],
+ "notes": "India eAIP could not be read: https://aim-india.aai.aero/eaip/eaip-v2-04-2026/eAIP/IN-AD%202.1VIDP-en-GB.html and https://aim-india.aai.aero/ were refused (permission request not answered); https://aim-india.aai.aero/eaip-v2/eAIP/EC-AD-2.1VOMM-en-GB.pdf redirects to aim-india.aai.aero.in, a host whose ownership is not verified, so it was not followed. No newer eAIP package could be checked. Rules from the operator's Conditions of Use (Jaipur International Airport Ltd, version 1.1, effective 20 Nov 2024), clause 6.1, 5, 16.10 and Schedule 11 (General Aviation). Conditions of Use give no runway, hours, curfew or customs. IATA code from the operator's 'About Jaipur International Airport Limited' PDF ('IATA: JAI, ICAO: VIJP'). Operator press release of 25 Nov 2025 confirms CAT III ILS but no runway length."
+}

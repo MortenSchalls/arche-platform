@@ -1,0 +1,43 @@
+{
+ "icao": "CYYC",
+ "iata": null,
+ "name": "Calgary International Airport",
+ "city": "Calgary",
+ "country": "CA",
+ "tz": "America/Edmonton",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "three runways: 17L/35R 4,267 m (14,000 ft), 17R/35L 3,863 m (12,675 ft), 11-29 2,438 m (8,000 ft); widths not given",
+   "longest_m": 4267,
+   "src": "cyyc-caa-factsheet",
+   "quote": "4,267 metres"
+  },
+  "slots": {
+   "v": "every runway user needs a pre-approved arrival and departure slot from the Airport Reservation Office, booked in the Online Coordination System (OCS) or through an FBO; requests open 72 hours ahead (30 days for YYC-based GA/BA tenants); on time = within plus or minus 30 minutes. Exempt: medevac, military, customs, police, head of state, helicopters, emergency diversions",
+   "src": "cyyc-caa-aro",
+   "quote": "All users of YYC's runways will require a pre-approved arrival and departure slot prior to operation."
+  },
+  "customs": {
+   "v": "CBSA traveller service 24 hours, every day (airport of entry; US preclearance available)",
+   "h24": true,
+   "src": "ca-cbsa-offices-csv-2026-11",
+   "quote": "00:00 / 23:59"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "hours",
+  "ppr",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Runway lengths from the Calgary Airport Authority facts page (undated). Slots from the ARO page (undated); it does not name charters separately, so confirm with aro@yyc.com that a charter is treated as GA/BA. CBSA open data file offices-bureaux-en.csv is undated; the old CBSA office pages say the directory moved to a new cloud server on 31 Mar 2026, so confirm hours with CBSA before a trip. No official statement on night restrictions found: the noise management page and the 2026 Aviation Tariff (as at 1 Jan 2026) give no hours or curfew. FBO names not found on an official page. CFS not freely online; NAV CANADA ICAO Type A chart index (Oct 2026) lists CYYC runways but no lengths."
+}

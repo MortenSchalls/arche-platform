@@ -1,0 +1,49 @@
+{
+ "icao": "KBUR",
+ "iata": null,
+ "name": "Hollywood Burbank Airport",
+ "city": "Burbank",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer is 6,886 ft x 150 ft (about 2,099 m x 46 m); the other is 5,802 ft x 150 ft",
+   "longest_m": 2099,
+   "src": "kbur-faa-ad-2603",
+   "quote": "6886 X 150"
+  },
+  "curfew": {
+   "v": "no landings or take-offs 22:00-07:00 local under Noise Rule 9, except aircraft quiet enough to meet the rule's noise limits (82.2 dBA sideline per FAA AC 36-3, or 85.6 dBA flyover per Part 36 Appendix F as determined by the Airport Authority), scheduled air carriers complying with Rule 7, public and military aircraft, declared emergencies and weather alternates; a weather, mechanical or ATC delay allows operations only until 23:00. Fine USD 5,833 per unauthorised landing or take-off. Check each aircraft type's noise level before quoting a night movement",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "src": "kbur-bgpaa-noise-rules-2026",
+   "quote": "no aircraft may land at or take off from the Burbank-Glendale-Pasadena Airport between the hours of 10:00 p.m. and 7:00 a.m."
+  },
+  "noise": {
+   "v": "Stage 2 aircraft not certified Stage 3 may not operate at any time; no maintenance engine run-ups 22:00-07:00; jet operators other than air carriers use the NBAA noise abatement procedures. A separate voluntary curfew applies to scheduled commercial operations",
+   "src": "kbur-bgpaa-noise-rules-2026",
+   "quote": "Stage 2 aircraft not certified as Stage 3 are not permitted to fly at any time."
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "hours",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "deicing",
+  "catering",
+  "permits"
+ ],
+ "notes": "Night rule from the Burbank-Glendale-Pasadena Airport Authority Noise Rules (file New-Rules-4.1.26.pdf, posted April 2026, no adoption date on the document). The airport's voluntary curfew page says that curfew applies to scheduled commercial operations and that FAA denied a mandatory curfew. Runway sizes from the FAA airport diagram for cycle 19 Mar-16 Apr 2026 (no newer diagram link found); ft to m conversion mine. No official customs source found for BUR (no CBP GA fact sheet found). Blocked: https://aeronav.faa.gov/afd/29OCT2026/sw_126_29OCT2026.pdf, FAA Chart Supplement search page, https://www.hollywoodburbankairport.com/pages/noise-rules and /pages/voluntary-curfew. FAA Flight Deck page (faa.gov/bur, updated 9 Jun 2026) has no rule content."
+}

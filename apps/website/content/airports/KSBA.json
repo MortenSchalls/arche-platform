@@ -1,0 +1,54 @@
+{
+ "icao": "KSBA",
+ "iata": "SBA",
+ "name": "Santa Barbara Airport",
+ "city": "Santa Barbara",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "three runways; main runway 7/25, 6,052 ft x 150 ft (about 1,845 m x 46 m); 15R/33L 4,184 ft x 100 ft and 15L/33R 4,180 ft x 75 ft",
+   "longest_m": 1845,
+   "src": "ksba-faa-il7-2612",
+   "quote": "6052X150"
+  },
+  "hours": {
+   "v": "control tower 06:00-23:00 local; pilot-controlled lighting on CTAF 119.7 23:00-06:00; no airport curfew stated",
+   "src": "ksba-pilot-info",
+   "quote": "Tower open 6am-11pm local time"
+  },
+  "noise": {
+   "v": "voluntary noise abatement procedures for all aircraft when safe (runway 25 and 15L/15R); runway 25 arrivals encouraged to route over More Mesa Open Space",
+   "src": "ksba-noise-program",
+   "quote": "Voluntary Noise Abatement Procedures"
+  },
+  "fuel": {
+   "v": "Jet A and 100LL (Atlantic Aviation fuel farm); Signature self-service avgas for aircraft of 12,500 lb or less",
+   "src": "ksba-mp-inventory",
+   "quote": "Atlantic Aviation owns two 20,000-gallon Jet A fuel storage tanks and one (100LL) 12,000-gallon storage tank."
+  },
+  "handling": {
+   "v": "the airport lists Atlantic Aviation and Signature Flight Support as FBOs",
+   "src": "ksba-pilot-info",
+   "quote": "Signature Flight Support"
+  },
+  "permits": {
+   "v": "landing fee for aircraft not based at SBA over 10,000 lb maximum gross landing weight, separate from FBO fees",
+   "src": "ksba-pilot-info",
+   "quote": "SBA imposes a landing fee for aircraft not based at SBA that surpass 10,000 MGLW."
+  }
+ },
+ "missing": [
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Runway from the FAA ILS or LOC RWY 7 chart (Amdt 7, d-TPP cycle 26 Nov-24 Dec 2026), matching the airport's Pilot Information page (modified 24 Jun 2026). Noise from the airport's Aircraft Noise Advisory Program page (modified 30 Sep 2025); its 2019 FAQ says federal rules prohibit restricting operations at federally funded airports, but no source says 'no curfew' in so many words, so curfew is left missing. Fuel from Master Plan Chapter 1 Inventory (undated, about 2022). No customs statement found on the airport site. FAA US AIP California page does not list KSBA or KTRK. Chart Supplement SW not opened. IATA: the FAA chart shows (SBA)."
+}

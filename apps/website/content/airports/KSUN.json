@@ -1,0 +1,62 @@
+{
+ "icao": "KSUN",
+ "iata": null,
+ "name": "Friedman Memorial Airport",
+ "city": "Hailey (Sun Valley)",
+ "country": "US",
+ "tz": "America/Boise",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 13/31, 7,550 ft x 100 ft (about 2,301 m x 30 m)",
+   "longest_m": 2301,
+   "src": "ksun-faa-apd-2612",
+   "quote": "7550X100"
+  },
+  "curfew": {
+   "v": "voluntary: all operators are asked not to operate 23:00-07:00 local",
+   "windows_local": [
+    [
+     "23:00",
+     "07:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "ksun-noise-2023",
+   "quote": "All aircraft operators are asked not to operate between the hours of 2300 and 0700 (local time)"
+  },
+  "hours": {
+   "v": "control tower 07:00-23:00 (stated as Mountain Standard Time); airfield surface conditions not monitored 23:00-07:00; not recommended for night use or marginal weather by unfamiliar pilots (mountainous terrain)",
+   "src": "ksun-pilot-info",
+   "quote": "TOWER OPERATION HOURS: 7:00 AM – 11:00 PM Mountain Standard Time"
+  },
+  "max_aircraft": {
+   "v": "pavement strength: 65,000 lb single wheel, 95,000 lb dual wheel, 150,000 lb dual tandem",
+   "src": "ksun-pilot-info",
+   "quote": "Dual Wheel – 95,000 lbs."
+  },
+  "noise": {
+   "v": "voluntary noise abatement programme; avoid landing from the north over Hailey when safe",
+   "src": "ksun-pilot-info",
+   "quote": "Friedman Memorial Airport has a voluntary noise abatement program."
+  },
+  "handling": {
+   "v": "the airport names Atlantic Aviation as its FBO (self-service fuel enquiries)",
+   "src": "ksun-pilot-info",
+   "quote": "Atlantic Aviation"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "ppr",
+  "fuel",
+  "deicing",
+  "permits",
+  "catering"
+ ],
+ "notes": "Runway from the FAA airport diagram AL-6239 (Hailey, Friedman Meml) for the current d-TPP cycle 26 Nov-24 Dec 2026. Voluntary night request from the airport's Noise Abatement brochure (revised March 2023); other items from the airport's Pilot Information page (modified 22 Jan 2025). The briefed aircraft size or wingspan limit could not be confirmed from an official source: the pilot page gives only pavement strengths, and the master plan inventory PDF (http://iflysun.com/wp-content/uploads/2018/09/1.-SUN-MP-FINAL-Inventory-Chapter.pdf) looped on an http/https redirect. No customs statement found. Chart Supplement NW not opened."
+}

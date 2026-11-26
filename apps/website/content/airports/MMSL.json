@@ -1,0 +1,29 @@
+{
+ "icao": "MMSL",
+ "iata": null,
+ "name": "Cabo San Lucas International Airport",
+ "city": "Cabo San Lucas",
+ "country": "MX",
+ "tz": "America/Mazatlan",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-27",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Status unavailable (27 Nov 2026): the only official source read is the 2008 SCT permit SG 742 (runway 11-29, 2,133 x 45 m, daytime VFR only until instrument procedures and lighting were in place); it is 18 years old and may no longer be current, so nothing is recorded until the Mexico AIP AD 2 MMSL is read. Research notes: Not MMSD (Los Cabos, San José del Cabo). Holder: Aeropuerto Cabo San Lucas Internacional, S.A. de C.V. (permit SG 742, granted 10 Mar 2008, 30 years). The 2008 permit (condition 8.1) limited operations to daytime VFR ('continuarán siendo visuales (VMC) en horario diurno') until instrument procedures and lighting were in place, with a later day/night schedule possible on SCT approval; current status not verified, so not recorded as hours: treat as daylight only until confirmed. The Acuerdo of 4 Nov 2009 (DOF) declares the aerodrome international for non-scheduled national and international air transport, with migration, customs, health and security inspection; it gives no customs hours, so customs is listed as missing. No operator website found. Mexico AIP AD 2 MMSL (aipmexico.seneam.gob.mx) not tried (site refused automated reading in earlier runs). IATA not stated by an official source read."
+}

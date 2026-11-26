@@ -1,0 +1,42 @@
+{
+ "icao": "CYOW",
+ "iata": null,
+ "name": "Ottawa Macdonald-Cartier International Airport",
+ "city": "Ottawa",
+ "country": "CA",
+ "tz": "America/Toronto",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "customs": {
+   "v": "CBSA traveller service 24 hours, every day (airport of entry; US preclearance available)",
+   "h24": true,
+   "src": "ca-cbsa-offices-csv-2026-11",
+   "quote": "00:00 / 23:59"
+  },
+  "noise": {
+   "v": "published Noise Abatement Procedures apply and Transport Canada can enforce them; NAV CANADA picks the runway by wind, usually 07/25",
+   "src": "cyow-oiaa-noise",
+   "quote": "TC has the authority to enforce the published Noise Abatement Procedures (NAP)."
+  },
+  "handling": {
+   "v": "FBOs named by the airport: ExpressAir, Execaire (Innotech) Aviation, Skyservice Ottawa",
+   "src": "cyow-oiaa-air-service",
+   "quote": "aviation services and facilitate charters"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "hours",
+  "slots",
+  "ppr",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Runway lengths not verified: the airport's 'Our story' page gives only historic lengths (1961: 14/32 10,000 ft, 07/25 8,000 ft), not current data; 2018 Master Plan executive summary (https://Yow.ca/sites/yow.ca/files/site-specific/2018_ottawa_airport_master_plan_-_executive_summary_-_eng.pdf) failed to open; master plan page and runway news pages give no lengths; NAV CANADA ICAO Type A chart index (Oct 2026) lists 07/25 and 14/32 without lengths; CFS not freely online. No curfew or night rule stated on the noise page (not recorded as none). CBSA open data file offices-bureaux-en.csv is undated; the old CBSA office pages say the directory moved to a new cloud server on 31 Mar 2026, so confirm hours with CBSA before a trip. "
+}

@@ -1,0 +1,58 @@
+{
+ "icao": "VTBO",
+ "iata": null,
+ "name": "Trat Airport",
+ "city": "Trat",
+ "country": "TH",
+ "tz": "Asia/Bangkok",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "one runway, 05/23, 1,800 m x 45 m",
+   "longest_m": 1800,
+   "src": "vtbo-th-aip-amdt-02-26",
+   "quote": "1800x45"
+  },
+  "hours": {
+   "v": "aerodrome operator 06:00-22:00 local (2300-1500 UTC); air traffic services 06:00-18:00 local (2300-1100 UTC), other times 3 hours prior notice to ATC",
+   "hours_local": [
+    [
+     "06:00",
+     "22:00"
+    ]
+   ],
+   "src": "vtbo-vtss-th-aip-amdt-08-26",
+   "quote": "2300-1100 other this period 3 HR PN to ATC via AFS: VTBBZAZX"
+  },
+  "customs": {
+   "v": "no customs or immigration at the airport",
+   "h24": false,
+   "src": "vtbo-vtss-th-aip-amdt-08-26",
+   "quote": "NIL"
+  },
+  "fuel": {
+   "v": "Jet A-1 by BAFS, 08:00-19:00 local (0100-1200 UTC) or on request; one 8,000 L truck",
+   "src": "vtbo-vtss-th-aip-amdt-08-26",
+   "quote": "0100-1200 or available on Request"
+  },
+  "handling": {
+   "v": "handling 08:00-19:00 local (0100-1200 UTC) or on request",
+   "src": "vtbo-vtss-th-aip-amdt-08-26",
+   "quote": "0100-1200 or available on Request"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Operator Bangkok Airways. Hours, customs, fuel and handling from replacement page AD 2-VTBO-1-2 in AIRAC AIP AMDT 08/26 (6 Aug 2026); runway from AD 2.12 in AIRAC AIP AMDT 02/26 (19 Feb 2026). No curfew text published; the aerodrome is closed outside the operator hours. No customs, so international flights must clear elsewhere. Newer packages (3 Sep 2026) could not be opened."
+}

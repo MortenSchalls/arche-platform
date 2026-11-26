@@ -1,0 +1,51 @@
+{
+ "icao": "KBOS",
+ "iata": null,
+ "name": "General Edward Lawrence Logan International Airport",
+ "city": "Boston",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "six runways; the longest, 15R/33L, is 10,083 ft x 150 ft (about 3,073 m)",
+   "longest_m": 3073,
+   "src": "kbos-faa-aip-ma",
+   "quote": "10083 ft x 150 ft"
+  },
+  "hours": {
+   "v": "airport attended 24 hours, every day",
+   "src": "kbos-faa-aip-ma",
+   "quote": "2.3.1 All Months, All Days, All Hours"
+  },
+  "ppr": {
+   "v": "no overnight parking for non-tenant charter aircraft without Massport's prior permission",
+   "src": "kbos-faa-aip-ma",
+   "quote": "NO RON PARKING FOR NON-TENANT CHARTER AIRCRAFT WITHOUT PRIOR MASSPORT PERMISSION."
+  },
+  "noise": {
+   "v": "noise-sensitive area; noise abatement procedures, Massport noise office Mon-Fri 09:00-17:00 (617-561-1636)",
+   "src": "kbos-faa-aip-ma",
+   "quote": "NOISE ABATEMENT PROC MON-FRI 0900-1700 - 617-561-1636."
+  },
+  "fuel": {
+   "v": "100LL and Jet A",
+   "src": "kbos-faa-aip-ma",
+   "quote": "2.4.2 Fuel Types: 100LL A"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "max_aircraft",
+  "handling",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "FAA US AIP AD 2.0 Massachusetts HTML page read (no amendment date shown). Massport pages (noise FAQ, EDR noise chapter) were blocked by bot protection; CBP KBOS GA fact sheet (Dec 2025 PDF and details page) could not be read, so customs is not recorded. Current Chart Supplement could not be opened. FAA identifier BOS."
+}

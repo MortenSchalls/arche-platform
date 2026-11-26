@@ -1,0 +1,79 @@
+{
+ "icao": "KORD",
+ "iata": "ORD",
+ "name": "Chicago O'Hare International Airport",
+ "city": "Chicago",
+ "country": "US",
+ "tz": "America/Chicago",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "eight runways; longest 10L/28R, 13,000 ft x 150 ft (about 3,962 m x 46 m); others include 09R/27L 11,260 ft and 09C/27C 11,245 ft",
+   "longest_m": 3962,
+   "src": "kord-faa-aip-il",
+   "quote": "13000 ft x 150 ft"
+  },
+  "hours": {
+   "v": "airport open 24 hours, every day",
+   "hours_local": [
+    [
+     "00:00",
+     "24:00"
+    ]
+   ],
+   "src": "kord-faa-aip-il",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "customs": {
+   "v": "CBP general aviation inspections 08:00-16:00 Central time daily (passenger airline inspections 24 hours); landing rights through CBP O'Hare on (773) 686-2800",
+   "h24": false,
+   "hours_local": [
+    [
+     "08:00",
+     "16:00"
+    ]
+   ],
+   "src": "kord-cbp-port-3901",
+   "quote": "General Aviation Inspections: 8:00 a.m. – 4:00 p.m. (Central) Daily"
+  },
+  "slots": {
+   "v": "FAA order caps scheduled operations at 2,708 a day, 06:00-23:59 Central; charter, cargo and other unscheduled flights are fitted in first come, first serve and must be approved by the FAA Slot Administration and the ORD terminal",
+   "src": "kord-faa-order-2026-04",
+   "quote": "All requests must be submitted to and approved by the FAA Slot Administration"
+  },
+  "ppr": {
+   "v": "aircraft with a wingspan over 214 ft need 48 hours' prior permission from airport management (773-686-2255)",
+   "src": "kord-faa-aip-il",
+   "quote": "ACFT WITH WINGSPAN GREATER THAN 214 FT RQR 48 HRS PPR - 773-686-2255."
+  },
+  "max_aircraft": {
+   "v": "A380-800 operating constraints on runways, taxiways and ramps; B747-8 not authorised on runways 09R/27L, 09L/27R and 10R/28L",
+   "src": "kord-faa-aip-il",
+   "quote": "A380-800 OPR CONSTRAINTS EXIST ON RWYS, TWYS, & RAMPS."
+  },
+  "noise": {
+   "v": "noise abatement procedures 22:00-07:00 local; the Fly Quiet night runway plan is voluntary and advisory; jet engine run-ups need approval from Airfield Operations",
+   "src": "kord-faa-aip-il",
+   "quote": "NOISE ABATEMENT PROC IN EFFECT FM 2200 TO 0700; CTC AMGR - 773-686-2255."
+  },
+  "fuel": {
+   "v": "100LL and Jet A",
+   "src": "kord-faa-aip-il",
+   "quote": "100LL A"
+  },
+  "handling": {
+   "v": "the airport names Signature Flight Support as O'Hare's FBO",
+   "src": "kord-cda-fbo",
+   "quote": "Signature Flight Support is O'Hare's Fixed Base Operator (FBO)."
+  }
+ },
+ "missing": [
+  "curfew",
+  "deicing",
+  "permits",
+  "catering"
+ ],
+ "notes": "Runway, hours, fuel, PPR, size limits and noise from the FAA US AIP Part 3 AD 2 Illinois page (no amendment number or date shown on the page or in GEN 0.2). Customs from the CBP Chicago port 3901 page (located at O'Hare; last modified 19 Mar 2024); the newer CBP KORD GA fact sheet of 10 Nov 2025 (https://www.cbp.gov/sites/default/files/2025-11/KORD%20GA%20Airport%20Fact%20Sheet%2020251110.pdf) and the CBP KORD document page could not be opened (cbp.gov client error), so GA hours may have changed. Slots: FAA ORD order of 20 Apr 2026 (91 FR 21071, in force 17 May-24 Oct 2026) extended by the order of 10 Jul 2026 (2026-14147) to 30 Oct 2027 with all terms kept (kord-faa-order-ext-2026-07); Level 2 status and hours from the FAA notice of 9 Oct 2026 (faa-slots-fr-2026-10, read today: 'For ORD, from 0600 to 0000 Central Time (1100 to 0500 UTC)'). The order does not mention general aviation by name. No curfew: the Fly Quiet manual (kord-fq-manual-2026, page updated February 2026) calls the 22:00-07:00 runway plan voluntary and does not mention a curfew, but no source says 'no curfew', so curfew is left missing. Chart Supplement (aeronav.faa.gov) not opened. IATA: the code ORD is the one the FAA uses in the Federal Register notices."
+}

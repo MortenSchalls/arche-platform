@@ -1,0 +1,77 @@
+{
+ "icao": "KAPF",
+ "iata": null,
+ "name": "Naples Airport",
+ "city": "Naples, Florida",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 5/23, is 6,600 ft x 150 ft (about 2,012 m)",
+   "longest_m": 2012,
+   "src": "kapf-faa-ad-2607",
+   "quote": "6600 X 150"
+  },
+  "curfew": {
+   "v": "voluntary night curfew 22:00-07:00 local",
+   "windows_local": [
+    [
+     "22:00",
+     "07:00"
+    ]
+   ],
+   "voluntary": true,
+   "src": "kapf-faq",
+   "quote": "Voluntary nighttime curfew from 10 p.m. – 7 a.m."
+  },
+  "hours": {
+   "v": "public runways must remain open 24/7",
+   "src": "kapf-faq",
+   "quote": "are required to remain open 24/7"
+  },
+  "customs": {
+   "v": "CBP clears arriving aircraft 7 days a week, 11:00-18:30 local; at least 2 hours' notice and phone confirmation of arrival time; after-hours by arrangement with overtime fee",
+   "h24": false,
+   "hours_local": [
+    [
+     "11:00",
+     "18:30"
+    ]
+   ],
+   "src": "kapf-customs-2024-06",
+   "quote": "7 days a week, from 11:00 AM to 6:30 PM"
+  },
+  "max_aircraft": {
+   "v": "aircraft over 75,000 lb maximum gross weight are prohibited",
+   "src": "kapf-faq",
+   "quote": "Aircraft exceeding 75,000 pounds maximum gross weight are prohibited from operating at APF"
+  },
+  "noise": {
+   "v": "Stage 1 and Stage 2 jets banned; engine maintenance run-ups prohibited 22:00-07:00; runway 23 is the calm-wind arrival runway 22:00-06:00",
+   "src": "kapf-noise-measures",
+   "quote": "Ban on Stage 1 and Stage 2 jet aircraft, which are the noisiest classifications of jet aircraft."
+  },
+  "fuel": {
+   "v": "no full-service fuelling 21:30-06:30 local; self-service any time; Naples Aviation is the sole fuel provider",
+   "src": "kapf-noise-measures",
+   "quote": "No full service fueling between 9:30 PM to 6:30 AM."
+  },
+  "handling": {
+   "v": "Naples Aviation, the airport's FBO and sole fuel provider",
+   "src": "kapf-faq",
+   "quote": "the sole provider of fuel"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Naples Airport Authority pages read; customs hours from its 28 Jun 2024 notice (the U.S. Customs page, updated March 2022, gives notice rules and conflicting fee tables). CBP KAPF fact sheet (Oct 2025 PDF) could not be read. Runway from the Jul 2026 FAA diagram; the Authority warns FAA charts may lag its changes, and the current Chart Supplement could not be opened. FAA identifier APF."
+}

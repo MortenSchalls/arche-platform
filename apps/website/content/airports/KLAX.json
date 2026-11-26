@@ -1,0 +1,65 @@
+{
+ "icao": "KLAX",
+ "iata": "LAX",
+ "name": "Los Angeles International Airport",
+ "city": "Los Angeles",
+ "country": "US",
+ "tz": "America/Los_Angeles",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "four runways; the longest, 07L/25R, is 12,923 ft x 150 ft (about 3,939 m x 46 m); 07R/25L 11,095 x 200 ft, 06R/24L 10,885 x 150 ft, 06L/24R 8,926 x 150 ft",
+   "longest_m": 3939,
+   "src": "koak-faa-aip-ca",
+   "quote": "12923 ft x 150 ft"
+  },
+  "hours": {
+   "v": "airport attended all months, all days, all hours (24 hours); no curfew is stated in the FAA AIP or on LAWA's noise page",
+   "src": "koak-faa-aip-ca",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "noise": {
+   "v": "from midnight to 06:30 local all arrivals approach from over the ocean (unless ATC finds it unsafe); 22:00-07:00 ATC maximises use of the inner runways; no turns on westerly take-offs before crossing the shoreline; mounted engine run-ups banned 23:00-06:00",
+   "src": "klax-lawa-noise",
+   "quote": "From midnight to 6:30 a.m., all aircraft arriving at LAX must approach from over the ocean."
+  },
+  "customs": {
+   "v": "CBP general aviation service 7 days a week, 07:00-23:00 Pacific Time; permission to land must be obtained before leaving the foreign airport, valid +/-15 minutes of the ETA; all crew and passengers processed in the FIS facility, which is not connected to the main terminal",
+   "h24": false,
+   "hours_local": [
+    [
+     "07:00",
+     "23:00"
+    ]
+   ],
+   "src": "klax-cbp-ga",
+   "quote": "seven days per week, 0700-2300 (PT)"
+  },
+  "ppr": {
+   "v": "for international arrivals, CBP permission to land before departure from the foreign airport",
+   "src": "klax-cbp-ga",
+   "quote": "Pilots must secure permission to land by contacting CBP prior to departure from the foreign port or place."
+  },
+  "slots": {
+   "v": "IATA Level 2 (schedule-facilitated) airport; FAA reviews scheduled and other regularly conducted commercial operations 06:00-23:00 Pacific Time (13:00-06:00 UTC in summer); Summer 2027 season 28 Mar-30 Oct 2027. Ad hoc charter is not named",
+   "src": "faa-slots-fr-2026-10",
+   "quote": "FAA has designated EWR, LAX, ORD, and SFO as IATA Level 2 airports"
+  },
+  "fuel": {
+   "v": "Jet A available",
+   "src": "koak-faa-aip-ca",
+   "quote": "Fuel Types: A"
+  }
+ },
+ "missing": [
+  "curfew",
+  "max_aircraft",
+  "handling",
+  "deicing",
+  "catering",
+  "permits"
+ ],
+ "notes": "Runways, hours and fuel from the FAA US AIP Part 3 AD 2 California page (no edition date shown; read today). The AIP also says 'OVER-OCEAN APCHS UTILIZED 0000-0630'. No curfew is stated anywhere read, but no source says outright that there is none, so curfew is left missing. CBP fact sheet dated 15 Feb 2024 (KLAX-0224). Slots from the Federal Register notice of 9 Oct 2026; the 13:00-06:00 UTC figure there is for summer (PDT); in winter 06:00-23:00 PT is 14:00-07:00 UTC. IATA code LAX as written in that notice. FAA Chart Supplement could not be opened."
+}

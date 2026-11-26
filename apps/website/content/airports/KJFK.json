@@ -1,0 +1,55 @@
+{
+ "icao": "KJFK",
+ "iata": null,
+ "name": "John F. Kennedy International Airport",
+ "city": "New York",
+ "country": "US",
+ "tz": "America/New_York",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-27",
+ "rules": {
+  "runway": {
+   "v": "four runways; the longest, 13R/31L, is 14,511 ft x 200 ft (about 4,423 m)",
+   "longest_m": 4423,
+   "src": "kjfk-faa-aip-ny",
+   "quote": "2.12.3 True Dimensions: 14511 ft x 200 ft"
+  },
+  "hours": {
+   "v": "airport attended 24 hours, every day",
+   "src": "kjfk-faa-aip-ny",
+   "quote": "2.3.1 All Months, All Days, All Hours"
+  },
+  "slots": {
+   "v": "IATA Level 3 slot-controlled airport; FAA limits scheduled operations by an Order that runs to 28 Oct 2028; designated hours 06:00-23:00 local (10:00-03:00 UTC in summer time)",
+   "src": "faa-slots-fr-2026-10",
+   "quote": "FAA has designated JFK as an IATA Level 3 airport consistent with the Worldwide Slot Guideline (WSG)."
+  },
+  "ppr": {
+   "v": "special air traffic rule (14 CFR Part 93) for a high-density airport: a prior reservation is required",
+   "src": "kjfk-faa-aip-ny",
+   "quote": "SPECIAL AIR TFC RULES-PART 93 HIGH DENSITY ARPT. PROR RESERVATION REQUIRED."
+  },
+  "noise": {
+   "v": "Port Authority departure noise limit of 112 PNdB, measured at community monitors, with a USD 250 charge per violating departure at JFK; aeroplanes certificated over 75,000 lb must meet Stage 3, and types certificated after 1 Jan 2006 Stage 4",
+   "src": "kjfk-panynj-rules-2025",
+   "quote": "Noise produced by a departing aircraft shall not exceed 112 PNdB"
+  },
+  "fuel": {
+   "v": "100LL and Jet A",
+   "src": "kjfk-faa-aip-ny",
+   "quote": "2.4.2 Fuel Types: 100LL A"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "max_aircraft",
+  "handling",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "FAA US AIP AD 2.0 New York HTML page read (no amendment date shown on the page); the current Chart Supplement (29 Oct 2026 edition) could not be opened (constructed aeronav.faa.gov/afd/29OCT2026 URLs and the d-CS search page were refused). CBP JFK general aviation fact sheet (cbp.gov PDF of 18 Nov 2025 and the fact-sheet details page) could not be read, so customs hours are not recorded. No official source read states a curfew or its absence. FAA identifier JFK (no IATA code stated in a source read)."
+}
