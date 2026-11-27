@@ -8,7 +8,7 @@
 const FIELD_HELP = {
   inv_name: "The person's first and last name, as the invitation greets them.",
   inv_mail: "Where the personal link goes; they sign in with this address.",
-  inv_as: "Archē Executive: the email carries no person's name and replies go to careers@. You: your name signs it and replies come to you. Reminders follow the same choice.",
+  inv_as: "You (the default for now): your name signs it and replies come to you. Archē Executive: no person's name, replies go to careers@ (use it once that address works). Reminders follow the same choice.",
   e_cn: "The person you deal with. For a company, the person who asked for the flight.",
   e_co: "The company or family office that charters, if any. It is checked against the sanctions lists.",
   e_em: "The client's email, for the quote and the confirmation.",

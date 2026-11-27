@@ -4,6 +4,9 @@
    company domain. The person opens it, chooses a password and sees step 1, the offer. If the email cannot be sent, the
    owner gets the link to send by WhatsApp or another way. Recent invitations are listed (owner only, intel/invites). */
 (function(){
+  // the default signer of a new invitation: the Director's own name until the careers@ alias is confirmed working
+  // (Morten, 27 Nov 2026, at release: "Release, invites in my name"); then "company"
+  const INV_AS_DEFAULT = "me";
   function panel(){
     if (!S.isOwner || S.preview) return "";
     if (!S.subs["intel/invites"]) watchDoc("intel/invites", snap => { S.invites = snap.exists ? (snap.data() || {}).list || [] : []; S.invStAt = 0; render(); });
@@ -13,7 +16,7 @@
       <p class="small muted">They get an email with a personal link. They choose a password and start at step 1: the offer, then the academy, assessment and agreement.</p>
       <form id="joinInvForm" class="fgrid"><label class="f" for="inv_name">First and last name<input id="inv_name" autocomplete="off" required value="${esc((S.invForm || {}).name || "")}"></label>
         <label class="f" for="inv_mail">Email<input id="inv_mail" type="email" autocomplete="off" required value="${esc((S.invForm || {}).email || "")}"></label>
-        <label class="f" for="inv_as" style="grid-column:1/-1">Signed and answered by<select id="inv_as"><option value="company" ${(S.invAs || "company") === "company" ? "selected" : ""}>Archē Executive: no name, replies go to careers@archeaviation.com</option><option value="me" ${S.invAs === "me" ? "selected" : ""}>You: your name under the email, replies come to you</option></select></label>
+        <label class="f" for="inv_as" style="grid-column:1/-1">Signed and answered by<select id="inv_as"><option value="company" ${(S.invAs || INV_AS_DEFAULT) === "company" ? "selected" : ""}>Archē Executive: no name, replies go to careers@archeaviation.com</option><option value="me" ${(S.invAs || INV_AS_DEFAULT) === "me" ? "selected" : ""}>You: your name under the email, replies come to you</option></select></label>
         <div class="row" style="grid-column:1/-1"><button class="btn primary" type="submit" ${S.invBusy ? "disabled" : ""}>${S.invBusy ? "Sending…" : "Send invitation"}</button></div></form>
       ${r ? (r.ok ? `<div class="note ${r.sent === "sent" ? "info" : "warn"} small" id="invResult"><p><b>${r.sent === "sent" ? `Invitation emailed to ${esc(r.email)}.` : `Login created for ${esc(r.email)}, but the email was ${esc(r.sent)}.`}</b></p>
           <p>${r.sent === "sent" ? "If it does not arrive (check spam), send the link yourself:" : "Send this personal link yourself, by WhatsApp or email:"}</p>
@@ -77,11 +80,11 @@
   }
   async function send(again, mode, extra){
     const name = again ? again.name : ($("inv_name") || {}).value || "", email = again ? again.email : ($("inv_mail") || {}).value || "";
-    if (!again) S.invAs = (($("inv_as") || {}).value) || S.invAs || "company";
+    if (!again) S.invAs = (($("inv_as") || {}).value) || S.invAs || INV_AS_DEFAULT;
     S.invForm = {name, email}; S.invBusy = true; S.invRes = null; render();
     try {
       const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
-      const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim(), ...(mode ? {mode} : {}), ...(!again && !mode ? {as: S.invAs || "company"} : {}), ...(extra || {})})});
+      const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim(), ...(mode ? {mode} : {}), ...(!again && !mode ? {as: S.invAs || INV_AS_DEFAULT} : {}), ...(extra || {})})});
       const j = await r.json().catch(() => ({}));
       S.invRes = {...j, email: email.trim(), error: j.error || (r.ok ? "" : "The invitation service did not answer (" + r.status + ").")};
       if (j.ok && mode === "remind") { S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; (S.invRem || {})[email] = false; S.invRes = j.sent === "sent" ? null : S.invRes; toast(j.sent === "sent" ? (j.kind === "agreement" ? "Email sent to " + email + ": agreement ready to sign." : "Reminder sent to " + email + ".") : "Reminder not emailed (" + j.sent + "). Send the link yourself."); }
