@@ -1,0 +1,62 @@
+{
+ "icao": "MRLB",
+ "iata": null,
+ "name": "Daniel Oduber Quirós International Airport",
+ "city": "Liberia, Guanacaste",
+ "country": "CR",
+ "tz": "America/Costa_Rica",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway 07/25, 2,747 m x 45 m",
+   "longest_m": 2747,
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "2747 x 45"
+  },
+  "hours": {
+   "v": "airport, ATS, fuel and handling printed as 1200/0600 (UTC, i.e. 06:00-00:00 local); security H24 - see notes, a 2026 supplement changes these hours",
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "1200/0600"
+  },
+  "customs": {
+   "v": "customs and immigration printed as 1200/0600 (UTC, i.e. 06:00-00:00 local) in the 2022 AIP; changed by SUP 31/26 (not read)",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:00",
+     "00:00"
+    ]
+   ],
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "1200/0600"
+  },
+  "fuel": {
+   "v": "Avgas 100/130 and Jet A-1 on request",
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "AVGAS 100/130 y JET A-1 a solicitud"
+  },
+  "noise": {
+   "v": "no noise abatement procedures (AD 2.21 NIL)",
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "NIL"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Costa Rica AIP Part 3 AD (DGAC), 'PARTE-3-AD-AIRAC-28-19MAY22' (MRLB pages 19 MAY 22, AIRAC AMDT 28). The AD 2.3 table prints times without a zone; AIP times are taken as UTC (Costa Rica is UTC-6) - confirm. AIP SUP 31/26 (October 2026) 'MRLB AD 2.3 Horas de Funcionamiento' changes the hours but could not be opened: https://sub.dgac.go.cr/wp-content/uploads/2026/10/sa31_26ev.pdf (permission not granted in time). So the hours above may be out of date. Heavy and medium aircraft must be towed to 30 m from taxiway Alfa entry before departure (except stand 7). Spanish source; English is a translation."
+}

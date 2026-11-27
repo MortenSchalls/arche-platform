@@ -1,0 +1,60 @@
+{
+ "icao": "SUMU",
+ "iata": null,
+ "name": "Montevideo Carrasco International Airport (Gral. Cesáreo L. Berisso)",
+ "city": "Montevideo (Canelones), Uruguay",
+ "country": "UY",
+ "tz": "America/Montevideo",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 07/25, is 3,200 m x 45 m; 01/19 is 2,250 m x 45 m",
+   "longest_m": 3200,
+   "src": "sumu-uy-aip-ad2",
+   "quote": "3 200 x 45"
+  },
+  "hours": {
+   "v": "aerodrome operator open 24 hours",
+   "src": "sumu-uy-aip-ad2",
+   "quote": "AD Operator H24"
+  },
+  "customs": {
+   "v": "customs and immigration 24 hours",
+   "h24": true,
+   "src": "sumu-uy-aip-ad2",
+   "quote": "Customs and immigration H24"
+  },
+  "noise": {
+   "v": "at night (21:00-07:00 local, 00:00-10:00 UTC) take-offs must not overfly the city of Montevideo, except for emergency, traffic or weather; by day each aircraft's noise abatement procedure applies",
+   "src": "sumu-uy-aip-ad2",
+   "quote": "At night take-offs are not allowed to fly over the city of Montevideo, between 21:00 and 07:00 local time"
+  },
+  "fuel": {
+   "v": "Jet A-1 (DISA, 24 hours) and Avgas 100; suppliers DISA, NEXZUR S.A., SINATUS S.A.",
+   "src": "sumu-uy-aip-ad2",
+   "quote": "Fuelling JET A-1 - DISA: H24"
+  },
+  "ppr": {
+   "v": "parking: ask the airport operator's Operations Management before arrival which stand to use; the general aviation parking taxiway is only for aircraft up to 12,500 lb",
+   "src": "sumu-uy-aip-ad2",
+   "quote": "Users should in all cases, ask the Operations Management of the airport operator before the arrival of aircraft,"
+  },
+  "handling": {
+   "v": "ramp services by CANDYSUR SA; airport operator Puerta del Sur S.A.",
+   "src": "sumu-uy-aip-ad2",
+   "quote": "CANDYSUR SA"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "max_aircraft",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: DINACIA AIP Uruguay AD 2.9 SUMU (English), file of July 2026, pages dated 27 NOV 2025 to 09 JUL 2026 (latest), https://www.dinacia.gub.uy/sites/default/files/aip/2026-07/Ad2-9%20ing.pdf . The night rule is a noise routing rule, not a curfew; no curfew stated, so curfew is missing. No slot or PPR text found. Taxiway C limited to code C up to 36 m span (not an aerodrome size limit). Fire category CAT 09. The final ~18,000 characters of the PDF (charts section) were not read. IATA code not stated in the AIP."
+}

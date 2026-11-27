@@ -1,0 +1,68 @@
+{
+ "icao": "SKBO",
+ "iata": null,
+ "name": "El Dorado International Airport",
+ "city": "Bogotá",
+ "country": "CO",
+ "tz": "America/Bogota",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two parallel runways, 14L/32R and 14R/32L, each 3,800 m x 45 m asphalt",
+   "longest_m": 3800,
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "3800 x 45"
+  },
+  "hours": {
+   "v": "airport, ATS, fuel and security H24",
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "H24"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "H24"
+  },
+  "slots": {
+   "v": "all operations to be coordinated in good time with the slot office",
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "users are called upon to coordinate with enough time all their operations with the slot office."
+  },
+  "handling": {
+   "v": "general aviation, non-scheduled and charter flights must contract a handling company",
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "must contract a Handling service company for airport stopover."
+  },
+  "max_aircraft": {
+   "v": "piston aircraft and training flights not permitted; fixed-wing VFR arrivals prohibited",
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "The operation of piston aircraft is prohibited."
+  },
+  "noise": {
+   "v": "night runway-use scheme (times as printed, normally UTC: 0500-1159 = 00:00-06:59 local): set arrival/departure runways between 0500 and 1159, unrestricted 1200-0459 on 14L/32R; aircraft of noise QC 4 or more may not take off from 14L",
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "Between 0500 and 0959, arrivals using Runway 14L and departures using Runway 32R"
+  },
+  "fuel": {
+   "v": "Jet A1",
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "JET A1"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "skbo-co-aip-ad2-2411",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "ppr",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Colombia AIP AD 2 SKBO - Bogotá - El Dorado, Aerocivil, folder 'AIP AMDT VIGENTE', pages dated 28 NOV 2024, AIRAC AMDT 67/24. Only the first 100,000 of about 500,000 characters (AD 2.1-2.20 and part of AD 2.20 runway use) were read; AD 2.21 not reached. Runway-use times are printed without a zone; AIP times are normally UTC (Bogotá UTC-5) - confirm. No curfew stated in the part read. The QC 4 restriction quote: 'are not allowed to take off using Runway 14L'. IATA code not stated."
+}

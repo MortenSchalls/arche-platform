@@ -1,0 +1,76 @@
+{
+ "icao": "TNCA",
+ "iata": null,
+ "name": "Queen Beatrix International Airport (Reina Beatrix)",
+ "city": "Oranjestad, Aruba",
+ "country": "AW",
+ "tz": "America/Aruba",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 11/29, 2,828 m x 45 m",
+   "longest_m": 2828,
+   "src": "tnca-dc-aip-ad2",
+   "quote": "2828 x 45"
+  },
+  "hours": {
+   "v": "ATS, customs, fuel 11:00-03:00 UTC (07:00-23:00 local); AD administration and handling Mon-Fri 11:00-20:30 UTC (07:00-16:30 local); VFR flights not allowed between sunset and sunrise",
+   "hours_local": [
+    [
+     "07:00",
+     "23:00"
+    ]
+   ],
+   "src": "tnca-dc-aip-ad2",
+   "quote": "VFR Flights are not allowed between Sunset and Sunrise."
+  },
+  "customs": {
+   "v": "customs and immigration 11:00-03:00 UTC (07:00-23:00 local); US CBP preclearance for general aviation 13:00-23:00 UTC (09:00-19:00 local), 13:00-21:00 UTC during US daylight saving time, request 48 hours ahead",
+   "h24": false,
+   "hours_local": [
+    [
+     "07:00",
+     "23:00"
+    ]
+   ],
+   "src": "tnca-dc-aip-ad2",
+   "quote": "1100-0300 UTC"
+  },
+  "slots": {
+   "v": "all commercial aircraft, including cargo, need prior clearance/slot times from Aruba Airport Authority N.V., at least 7 days ahead; aircraft missing the slot are diverted to the alternate; no cargo slots Sat-Sun 14:00-23:59 UTC",
+   "src": "tnca-dc-aip-ad2",
+   "quote": "All commercial aircraft, including cargo aircraft, need prior clearance/slot-times from the Aruba Airport Authority N.V."
+  },
+  "noise": {
+   "v": "older ICAO Annex 16 Chapter 2 jets departing runway 11 keep runway heading to 6 DME BEA or 2,500 ft before turning",
+   "src": "tnca-dc-aip-ad2",
+   "quote": "Chapter 2"
+  },
+  "handling": {
+   "v": "general aviation terminal JET-TNCA, run by Aruba Airport Authority N.V., open 07:00-23:00 local; marshallers mandatory",
+   "src": "tnca-aaa-ga",
+   "quote": "07:00-23:00 LT or 11:00-03:00 UTC"
+  },
+  "fuel": {
+   "v": "AVGAS 100 and JET A1",
+   "src": "tnca-dc-aip-ad2",
+   "quote": "AVGAS 100, JET A1"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "tnca-dc-aip-ad2",
+   "quote": "N/A"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: AIP Dutch Caribbean (DC-ANSP) AD 2 TNCA html, publication folder 2024-08-08 (page shows no date); checked AIP Dutch Caribbean AIRAC AMDT 02-2025 (effective 17 Apr 2025): its checklist shows AD 2 TNCA pages dated 08 AUG 2024 or 20 FEB 2025, none changed in AMDT 02-25. The 20 FEB 2025 (AMDT 01-25) version of the TNCA page could not be opened: https://dc-ansp.org/eAIS/eAIP/AIRAC%20AMDT%2001-25_2025_02_20/eAIP/AD%202%20TNCA%20-%20ARUBA%201-en-US.html (permission not given), nor the eAIS index https://dc-ansp.org/eAIS/ ; so some TNCA values may have changed in Feb 2025 or in later 2025-2026 amendments not found. Also read Aruba Airport Authority General Aviation page. The AIP sets no night curfew; hours are the published ATS/customs hours (not called a curfew). Noise quote is shortened from the AD 2.21 text. Slot rule is worded for commercial aircraft; whether it applies to private flights is not stated. Local = UTC-4, no DST. IATA not stated in sources read."
+}

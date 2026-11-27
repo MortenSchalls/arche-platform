@@ -1,0 +1,57 @@
+{
+ "icao": "TJSJ",
+ "iata": null,
+ "name": "Luis Munoz Marin International Airport",
+ "city": "San Juan, Puerto Rico",
+ "country": "PR",
+ "tz": "America/Puerto_Rico",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 08/26, is 10,400 ft x 193 ft (about 3,170 m); 10/28 is 8,016 ft x 150 ft",
+   "longest_m": 3170,
+   "src": "tjsj-faa-aip-ad2",
+   "quote": "True Dimensions: 10400 ft x 193 ft"
+  },
+  "hours": {
+   "v": "aerodrome open 24 hours, every day",
+   "h24": true,
+   "src": "tjsj-faa-aip-ad2",
+   "quote": "All Months, All Days, All Hours"
+  },
+  "customs": {
+   "v": "CBP general aviation inspection 24 hours a day, 7 days a week; call CBP before leaving the foreign port and at least 2 hours before arrival; park at the CBP inspection area at the FBO",
+   "h24": true,
+   "src": "tjsj-cbp-ga-2024",
+   "quote": "7 days per week, 24 hours per day"
+  },
+  "ppr": {
+   "v": "all private and corporate aircraft must contact airport operations before arrival for FBO and ground handling information (787-253-0979); military aircraft PPR 72 hours ahead",
+   "src": "tjsj-faa-aip-ad2",
+   "quote": "ALL PVT AND CORPORATE AIRCRAFT MUST CONTACT ARPT OPS, BEFORE ARRIVAL, FOR FBOS & GROUND HANDLING INFO AT 787-253-0979."
+  },
+  "fuel": {
+   "v": "100 octane avgas and jet fuel (A+ / A++)",
+   "src": "tjsj-faa-aip-ad2",
+   "quote": "Fuel Types: 100 A+ A++"
+  },
+  "max_aircraft": {
+   "v": "taxiway J between J1 and J5 closed to aircraft with wingspan over 118 ft (no effect on business jets)",
+   "src": "tjsj-faa-aip-ad2",
+   "quote": "TWY J BTN J1 AND J5 (NOT INCLUDING J5) CLSD TO ACFT WITH GREATER THAN 118 FT WINGSPAN."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "handling",
+  "noise",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: FAA US AIP Part 3 AD 2 Puerto Rico HTML page (no edition or effective date shown on the page; FAA GEN 0 page also shows none) and CBP General Aviation Airport Fact Sheet TJSJ, publication TJSJ-0424, dated 17 Apr 2024 (the fact sheet says Eastern Time; Puerto Rico is UTC-4 Atlantic, no DST). A newer CBP page could not be opened: https://www.cbp.gov/document/general-aviation/san-juan-luis-munoz-marin-international-airport-tjsj-fact-sheet-details (site client error). FAA Chart Supplement page https://aeronav.faa.gov/afd/29OCT2026/se_487_29OCT2026.pdf and NFDC airport record https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId=SJU could not be opened (permission / robots). Runway 10,400 ft converted x 0.3048 = 3,169.9 m. AIP lists no curfew, slots or noise rules; base operations 1130-2000Z Mon-Fri relates to the Air National Guard side. IATA code not stated in the sources read."
+}

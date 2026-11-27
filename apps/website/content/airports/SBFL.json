@@ -1,0 +1,43 @@
+{
+ "icao": "SBFL",
+ "iata": null,
+ "name": "Florianópolis Hercílio Luz International Airport",
+ "city": "Florianópolis, Santa Catarina",
+ "country": "BR",
+ "tz": "America/Sao_Paulo",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 14/32, is 2,400 m x 45 m; 03/21 is 1,500 m x 45 m",
+   "longest_m": 2400,
+   "src": "sbfl-capacidade-w26",
+   "quote": "Pista 14x32 – dimensões: 2.400 x 45 metros;"
+  },
+  "hours": {
+   "v": "open 24 hours; runway capacity 20 movements per hour, every day",
+   "src": "sbfl-capacidade-w26",
+   "quote": "Horário de funcionamento: H24"
+  },
+  "ppr": {
+   "v": "general aviation parking for more than 1 hour only with approval of the Airport Coordination Centre (CCA), requested 48 hours ahead",
+   "src": "sbfl-capacidade-w26",
+   "quote": "Estacionamento disponível para Aviação Geral por mais de 01 hora de permanência, somente com autorização do Centro de Coordenação Aeroportuária, com antecedência de 48 horas."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: Floripa Airport (operator) 'Declaração de Capacidade de Infraestrutura Aeroportuária', season W26 (25/10/26 - 27/03/27), https://floripa-airport.com/assets/zurich-floripa-ptbr/media/content-page/blocks/files/Declara%C3%A7%C3%A3o%20de%20Capacidade%20W26%20-%20SBFL_FLN-v2.pdf . It mentions slot requests ('Planejamento: (solicitação de slots)') but states no coordination level, so slots are listed as missing. It lists runway 14/32 night works (about 00:40-05:20 local on listed dates, by NOTAM): temporary, not a rule. Apron: 28 code C stands, 2 code E stands; no maximum size stated. Not read: DECEA AISWEB https://aisweb.decea.mil.br/?i=aerodromos&codigo=SBFL (permission request timed out) and ROTAER PDF http://aisweb.decea.gov.br/downloads/rotaer/rotaer_completo.pdf (blocked); so customs/immigration hours, fuel and the AIP AD 2 text are not verified. IATA FLN appears only in the file name, not stated in the text, so iata left null. Status partial (not verified): only the operator capacity declaration read; customs and the AIP not read."
+}

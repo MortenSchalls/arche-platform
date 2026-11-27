@@ -1,0 +1,49 @@
+{
+ "icao": "MKJS",
+ "iata": null,
+ "name": "Sangster International Airport",
+ "city": "Montego Bay, Jamaica",
+ "country": "JM",
+ "tz": "America/Jamaica",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 07/25, 2,940 m declared length (take-off run up to 3,060 m on 07 with starter extension; landing 2,848 m on 07), 46 m wide",
+   "longest_m": 2940,
+   "src": "mkjs-mbj-facts",
+   "quote": "2940M"
+  },
+  "curfew": {
+   "v": "curfew 05:00-11:00 UTC (00:00-06:00 local)",
+   "windows_local": [
+    [
+     "00:00",
+     "06:00"
+    ]
+   ],
+   "src": "mkjs-mbj-facts",
+   "quote": "Curfew hrs- 0500z-1100z ( 12:00 am-6:00 am)"
+  },
+  "handling": {
+   "v": "FBO: IAM Jet Centre by Signature, east end of the airport, with immigration and customs on site",
+   "src": "mkjs-mbj-ga",
+   "quote": "V.I.P. mini-terminal features Immigration and Customs on site"
+  }
+ },
+ "missing": [
+  "iata",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: MBJ Airports Ltd 'Airport Facts & Statistics' page (no date) and 'General Aviation' and 'Customs' pages (no hours). Jamaica AIP is behind registration (JCAA AIM portal https://aim.jcaa.aero/client/register, per https://www.jcaa.gov.jm/aeronautical-information-management/), so the AIP AD 2 MKJS could not be read; curfew detail (ban vs approval, exemptions) not confirmed in the AIP. The page also lists a 46 m-wide '2,653M' figure labelled runway strip, which conflicts with the 2,940 m declared length; 2,940 m recorded. Jamaica UTC-5, no DST. Customs hours not stated."
+}

@@ -1,0 +1,56 @@
+{
+ "icao": "MROC",
+ "iata": null,
+ "name": "Juan Santamaría International Airport",
+ "city": "San José (Alajuela)",
+ "country": "CR",
+ "tz": "America/Costa_Rica",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway 07/25, 3,011 m x 45 m asphalt",
+   "longest_m": 3011,
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "3011 x 45"
+  },
+  "hours": {
+   "v": "airport, ATS, fuel and handling H24",
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "H24"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "H24"
+  },
+  "fuel": {
+   "v": "Avgas 100/130 and Jet A-1",
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "AVGAS 100/130 y JET A-1"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "NIL"
+  },
+  "noise": {
+   "v": "noise procedure for RWY 07 departures: keep runway heading at the best rate of climb to 4 DME and 5,500 ft, then turn right towards TIO VOR",
+   "src": "cr-aip-part3-ad-2205",
+   "quote": "Mantener rumbo de Pista con el régimen máximo de ascenso posible, hasta 4 DME y 5500 pies"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Costa Rica AIP Part 3 AD (DGAC), file 'PARTE-3-AD-AIRAC-28-19MAY22' (AIRAC AMDT 28, 19 MAY 2022; MROC AD 2.3 page dated 12 JUN 17, AD 2.12 area AMDT 26/27). This is the latest AIP edition found free on sub.dgac.go.cr; the AIP is otherwise sold by subscription, so a newer AMDT may exist. Known 2026 supplements not read: SUP 27/26 'MROC AD 2.20 Reglamentos de Tránsito Locales' (item 11) and SUP 28/26 'MROC AD 2.8' (https://sub.dgac.go.cr/wp-content/uploads/2026/09/sa27_26-MROC-2.20-ITEM-11.pdf, not opened). Marked partial because the AD 2.20 text read is older than these supplements. No curfew, slot or PPR rule seen in the 2022 text; aircraft over 25,000 lb may not make 180-degree turns on the runway unless ATS allows; parking only with marshaller. Spanish source; English is a translation."
+}

@@ -1,0 +1,60 @@
+{
+ "icao": "GMAD",
+ "iata": null,
+ "name": "Agadir Al Massira Airport",
+ "city": "Agadir",
+ "country": "MA",
+ "tz": "Africa/Casablanca",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 09/27, 3,200 m x 45 m",
+   "longest_m": 3200,
+   "src": "gmad-ma-aip-ad2",
+   "quote": "3200 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "gmad-ma-aip-ad2",
+   "quote": "H24"
+  },
+  "hours": {
+   "v": "ATS, fuel and handling H24; airport office Mon-Fri 08:30-16:30 local, H24 duty cover",
+   "src": "gmad-ma-aip-ad2",
+   "quote": "LUN-VEN : 0830-1630 (Heure locale)"
+  },
+  "handling": {
+   "v": "handling H24; agents listed: Swissport Maroc, RAM Handling",
+   "src": "gmad-ma-aip-ad2",
+   "quote": "H24"
+  },
+  "fuel": {
+   "v": "Jet A1 and Avgas 100LL, H24; payment in MAD or foreign currency",
+   "src": "gmad-ma-aip-ad2",
+   "quote": "JET A1 - AVGAS 100LL"
+  },
+  "deicing": {
+   "v": "no de-icing facilities",
+   "src": "gmad-ma-aip-ad2",
+   "quote": "NIL"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published (AD 2.21 NIL)",
+   "src": "gmad-ma-aip-ad2",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read Morocco AIP AD 2 GMAD (SIA Maroc / ONDA), https://siamaroc.onda.ma/eaip/AD/AD2GMAD.pdf; latest page date 16 MAY 2024, AIRAC AMDT 05/24 (other pages AMDT 05/20 to 04/24). The GMAD pages carry no amendment after 05/24 although later Moroccan AIRAC amendments exist; not cross-checked against AIRAC amendment lists. AD 2.20: aircraft without radio prohibited; overflight of zones GMP11 and GMP14 prohibited. No curfew, slot, PPR or size-limit text. IATA code not stated."
+}

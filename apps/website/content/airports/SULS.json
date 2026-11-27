@@ -1,0 +1,60 @@
+{
+ "icao": "SULS",
+ "iata": null,
+ "name": "Punta del Este Laguna del Sauce International Airport (C/C Carlos A. Curbelo)",
+ "city": "Maldonado (Punta del Este), Uruguay",
+ "country": "UY",
+ "tz": "America/Montevideo",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 08/26, is 2,133 m x 45 m; 01/19 is 1,600 m x 38 m",
+   "longest_m": 2133,
+   "src": "suls-uy-aip-ad2",
+   "quote": "2 133 x 45"
+  },
+  "hours": {
+   "v": "aerodrome operator open 24 hours",
+   "src": "suls-uy-aip-ad2",
+   "quote": "H24"
+  },
+  "customs": {
+   "v": "customs and immigration same hours as the aerodrome operator (24 hours)",
+   "h24": true,
+   "src": "suls-uy-aip-ad2",
+   "quote": "Igual que el Explotador del AD"
+  },
+  "noise": {
+   "v": "noise abatement on all departures; from runway 08 no right turn before 1,500 ft (450 m) altitude",
+   "src": "suls-uy-aip-ad2",
+   "quote": "los virajes a la derecha no podrán ser efectuados antes de alcanzar 1.500 FT (450 M) de altitud"
+  },
+  "max_aircraft": {
+   "v": "B787 limited to MTOM 169,400 kg; central apron code C only, some transit stands limited to 18 m or 20 m span",
+   "src": "suls-uy-aip-ad2",
+   "quote": "Limitado de operación MTOM 169400 KG."
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas 100/130, 24 hours",
+   "src": "suls-uy-aip-ad2",
+   "quote": "Igual que el Explotador del AD"
+  },
+  "handling": {
+   "v": "ground handling by the aerodrome operator",
+   "src": "suls-uy-aip-ad2",
+   "quote": "Igual que el Explotador del AD"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: DINACIA AIP Uruguay AD 2.5 SULS (Spanish), file of April 2026, latest page date 16 APR 2026, AIRAC AIP AMDT NR 08 on some pages, https://www.dinacia.gub.uy/sites/default/files/aip/2026-04/Ad2-5%20(6).pdf . High season 15 Dec - 15 Mar: 'Durante este período se prevén demoras en las operaciones especialmente los días viernes, domingos'; pilots get the expected departure delay from aerodrome operations before start-up (no formal slot or PPR rule stated, so listed as missing). Fuel quote refers to the H24 hours of the fuel service. No curfew stated. A newer July 2026 SULS file may exist (SUMU had a 2026-07 file); not found in search. IATA code not stated."
+}

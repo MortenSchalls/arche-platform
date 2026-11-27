@@ -1,0 +1,28 @@
+{
+ "icao": "TBPB",
+ "iata": "BGI",
+ "name": "Grantley Adams International Airport",
+ "city": "Bridgetown, Barbados",
+ "country": "BB",
+ "tz": "America/Barbados",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-28",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "No official open source with operating rules found. Tried: Barbados Air Navigation Services Department page https://www.gov.bb/Departments/air-navigation (contacts only, no AIP link); GAIA Inc. pages https://gaia.bb/general-information/corporate-info/ (states 'Airlines at GAIA (BGI)'; used for IATA) and https://gaia.bb/general-information/airport-facilities/ (no runway, hours or customs). Eastern Caribbean AIP (TTCAA) is login-only (https://caa.gov.tt/eastern-caribbean-eaip/); the valid-SUP list of 11 Aug 2026 has no TBPB aerodrome supplement. Barbados AIP not found online."
+}

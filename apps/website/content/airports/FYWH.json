@@ -1,0 +1,77 @@
+{
+ "icao": "FYWH",
+ "iata": null,
+ "name": "Hosea Kutako International Airport",
+ "city": "Windhoek",
+ "country": "NA",
+ "tz": "Africa/Windhoek",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 08/26, is 4,569 m x 45 m asphalt; 15/33 is 1,523 m x 30 m",
+   "longest_m": 4569,
+   "src": "fywh-ncaa-aip-ad",
+   "quote": "4569 x 45"
+  },
+  "hours": {
+   "v": "aerodrome open Mon-Sun 0300-1930 UTC (05:00-21:30 local); ATS and security H24",
+   "src": "fywh-ncaa-aip-ad",
+   "quote": "MON-SUN: 0300-1930"
+  },
+  "customs": {
+   "v": "customs and immigration as aerodrome hours: 0300-1930 UTC (05:00-21:30 local)",
+   "h24": false,
+   "hours_local": [
+    [
+     "05:00",
+     "21:30"
+    ]
+   ],
+   "src": "fywh-ncaa-aip-ad",
+   "quote": "Customs and immigration: As AD Administration"
+  },
+  "curfew": {
+   "v": "outside 0300-1930 UTC (21:30-05:00 local) operations need an application 48 hours ahead to the airport manager, with a surcharge of N$11,406 per hour (not for emergencies)",
+   "windows_local": [
+    [
+     "21:30",
+     "05:00"
+    ]
+   ],
+   "approval": true,
+   "src": "fywh-ncaa-aip-ad",
+   "quote": "Aircraft wishing to operate outside the operation hours should apply 48HR in advance to APM and a surcharge of N$11,406 per hour thereof will apply."
+  },
+  "noise": {
+   "v": "no noise abatement procedures listed",
+   "src": "fywh-ncaa-aip-ad",
+   "quote": "NIL"
+  },
+  "permits": {
+   "v": "an aircraft new to the airport must apply in writing through the Senior Airport Manager (new aircraft application form) and may operate only after NAC approval",
+   "src": "fywh-ncaa-aip-ad",
+   "quote": "may only operate the new aircraft upon approval by the NAC."
+  },
+  "fuel": {
+   "v": "Jet A-1",
+   "src": "fywh-ncaa-aip-ad",
+   "quote": "Jet A1"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "fywh-ncaa-aip-ad",
+   "quote": "De-icing: NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "catering"
+ ],
+ "notes": "Read: Namibia AIP Part AD (NCAA), cover 28 NOV 2024 AIRAC A03/2024 with amendments to A04/2026 (effective 26 NOV 2026); FYWH AD 2 pages mostly dated 26 NOV 2026 (AIRAC A04/2026) (https://www.ncaa.com.na/publications/aeronautical-information/aeronautical-information-publication/aips/Aerodrome.pdf). Hours 0300-1930 converted assuming UTC per AIP convention (Namibia UTC+2); the extract did not itself say UTC - confirm. Customs/handling/fuelling hours given as 'As AD Administration'. AD 2.20 also: 'No simultaneous movements of any aircraft type or code are permitted during night operations.' The 'curfew' entry is the after-hours approval rule, not a ban. Quotes were extracted by a summarising reader; the after-hours quote joins two consecutive source lines. Aerodrome certified by NCAA 05 Dec 2025 (AD 1.5). IATA code not stated."
+}

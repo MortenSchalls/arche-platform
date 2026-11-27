@@ -5266,5 +5266,197 @@
   "url": "https://www.gob.mx/cms/uploads/attachment/file/810300/cabo-san-lucas-04-11-2009-16032023.pdf",
   "publisher": "Gobierno de Mexico (DOF)",
   "checked": "2026-11-27"
+ },
+ "cr-aip-part3-ad-2205": {
+  "title": "AIP Costa Rica Parte 3 Aeródromos (AD), AIRAC AMDT 28, 19 MAY 2022",
+  "url": "https://sub.dgac.go.cr/wp-content/uploads/2022/05/PARTE-3-AD-AIRAC-28-19MAY22.pdf",
+  "publisher": "Dirección General de Aviación Civil, Costa Rica",
+  "checked": "2026-11-28"
+ },
+ "fale-atns-eaip-2022": {
+  "title": "AIP South Africa eAIP, AD 2 FALE King Shaka International, valid from 15 JAN 2022",
+  "url": "https://cad.atns.co.za/SmartAIM/EAipPackages/15-JAN-22/2022-01-15-000000/html/eAIP/FA-AD-2-FALE-en-US.html",
+  "publisher": "Air Traffic and Navigation Services (ATNS) South Africa",
+  "checked": "2026-11-28"
+ },
+ "fale-caa-aip-amdt-1-26": {
+  "title": "AIP South Africa, FA AD 2 FALE amendment pages, AMDT 1/26, 15 JAN 26",
+  "url": "https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALE_EN.pdf",
+  "publisher": "South African Civil Aviation Authority",
+  "checked": "2026-11-28"
+ },
+ "fywh-ncaa-aip-ad": {
+  "title": "AIP Namibia Part 3 Aerodromes, AD 2 FYWH, pages dated 26 NOV 2026 (AIRAC A04/2026)",
+  "url": "https://www.ncaa.com.na/publications/aeronautical-information/aeronautical-information-publication/aips/Aerodrome.pdf",
+  "publisher": "Namibia Civil Aviation Authority",
+  "checked": "2026-11-28"
+ },
+ "gmad-ma-aip-ad2": {
+  "title": "AIP Maroc AD 2 GMAD Agadir Al Massira (pages to AIRAC AMDT 05/24, 16 MAY 2024)",
+  "url": "https://siamaroc.onda.ma/eaip/AD/AD2GMAD.pdf",
+  "publisher": "SIA Maroc / ONDA (Office National Des Aéroports)",
+  "checked": "2026-11-28"
+ },
+ "gmmn-ma-aip-ad2": {
+  "title": "AIP Maroc AD 2 GMMN Casablanca Mohammed V (pages to AIRAC AMDT 03/26, 19 MAR 2026)",
+  "url": "https://siamaroc.onda.ma/eaip/ad/AD2GMMN.pdf",
+  "publisher": "SIA Maroc / ONDA (Office National Des Aéroports)",
+  "checked": "2026-11-28"
+ },
+ "gmtt-ma-aip-ad2": {
+  "title": "AIP Maroc AD 2 GMTT Tanger Ibn Battouta (pages to AIRAC AMDT 05/26, 14 MAY 2026)",
+  "url": "https://siamaroc.onda.ma/eaip/ad/AD2GMTT.pdf",
+  "publisher": "SIA Maroc / ONDA (Office National Des Aéroports)",
+  "checked": "2026-11-28"
+ },
+ "hryr-rac-eaip-2024": {
+  "title": "AIP Rwanda eAIP, AD 2 HRYR Kigali Intl, 1st edition 25 Jan 2024",
+  "url": "https://rac.co.rw/eAIP%20Rwanda/1ST%20EDITION_2024_01_25/eAIP/HR-AD%202%20HRYR-en-GB.html",
+  "publisher": "Rwanda Airports Company",
+  "checked": "2026-11-28"
+ },
+ "htkj-tcaa-aip-ad2-amdt12": {
+  "title": "AIP Tanzania AD 2 (Kilimanjaro), 2nd edition, AMDT NR 12 (no date shown, about 2018)",
+  "url": "https://tcaa.go.tz/ctrback/uploads/docId1521752741544.pdf",
+  "publisher": "Tanzania Civil Aviation Authority",
+  "checked": "2026-11-28"
+ },
+ "mbpv-tciaa-airport": {
+  "title": "Providenciales International Airport (no date shown)",
+  "url": "https://tciairports.com/airports/providenciales-international-airport",
+  "publisher": "Turks and Caicos Islands Airports Authority",
+  "checked": "2026-11-28"
+ },
+ "mdpc-pc-private": {
+  "title": "Punta Cana International Airport, Private Aviation (undated web page)",
+  "url": "https://puntacanainternationalairport.com/airport-services/private-aviation",
+  "publisher": "Grupo Puntacana",
+  "checked": "2026-11-28"
+ },
+ "mkjs-mbj-facts": {
+  "title": "MBJ Airports Ltd, Airport Facts & Statistics (undated web page)",
+  "url": "https://www.mbjairport.com/history-facts",
+  "publisher": "MBJ Airports Limited",
+  "checked": "2026-11-28"
+ },
+ "mkjs-mbj-ga": {
+  "title": "MBJ Airports Ltd, General Aviation (undated web page)",
+  "url": "https://www.mbjairport.com/general-aviation",
+  "publisher": "MBJ Airports Limited",
+  "checked": "2026-11-28"
+ },
+ "mmcz-asur-airports": {
+  "title": "ASUR - Our Airports (no date shown)",
+  "url": "https://www.asur.com.mx/nuestros-aeropuertos-0",
+  "publisher": "ASUR - Grupo Aeroportuario del Sureste (airport operator)",
+  "checked": "2026-11-28"
+ },
+ "mmgl-gap-about": {
+  "title": "Guadalajara - Sobre el aeropuerto (no date shown)",
+  "url": "https://aeropuertosgap.com.mx/es/guadalajara/sobre-el-aeropuerto.html",
+  "publisher": "Grupo Aeroportuario del Pacífico (airport operator)",
+  "checked": "2026-11-28"
+ },
+ "mmmy-oma-runway-2606": {
+  "title": "OMA Advances Modernization of Monterrey International Airport with Preventive Renovation of Its Main Runway (press release, 24 June 2026)",
+  "url": "https://news.oma.aero/news/oma-advances-modernization-of-monterrey-international-airport-with-preventive-renovation-of-its-main-runway-05c22-f8d04.html",
+  "publisher": "OMA - Grupo Aeroportuario Centro Norte (airport operator)",
+  "checked": "2026-11-28"
+ },
+ "mpto-pa-aip-ad21": {
+  "title": "AIP Panamá AD 2.1-MPTO Tocumen (AMDT AIRAC 8, 31 OCT 2024, with later page amendments)",
+  "url": "https://www.aeronautica.gob.pa/ais-aip/AIP PDF COMPLETO/1. AIP - Publicacion de Informacion Aeronautica/3. AD/AD 2.1-MPTO.pdf",
+  "publisher": "Autoridad Aeronáutica Civil de Panamá (AIS Panamá)",
+  "checked": "2026-11-28"
+ },
+ "mwcr-ky-aip-ad-2603": {
+  "title": "Cayman Islands AIP, Aerodrome section (AMDT 01/2024 28 NOV 2024 and AMDT 01/2026 19 MAR 2026)",
+  "url": "https://www.caymanairports.com/assets/documents/Aerodrome-Mar-19-2026-version-1-1773942870-TtYeOl.pdf",
+  "publisher": "Civil Aviation Authority of the Cayman Islands / Cayman Islands Airports Authority",
+  "checked": "2026-11-28"
+ },
+ "sbfl-capacidade-w26": {
+  "title": "Declaração de Capacidade de Infraestrutura Aeroportuária, Aeroporto Hercílio Luz (SBFL), temporada W26 (25/10/26 - 27/03/27)",
+  "url": "https://floripa-airport.com/assets/zurich-floripa-ptbr/media/content-page/blocks/files/Declara%C3%A7%C3%A3o%20de%20Capacidade%20W26%20-%20SBFL_FLN-v2.pdf",
+  "publisher": "Floripa Airport (Concessionária do Aeroporto Internacional de Florianópolis, airport operator)",
+  "checked": "2026-11-28"
+ },
+ "skbo-co-aip-ad2-2411": {
+  "title": "AIP Colombia AD 2 SKBO Bogotá El Dorado (AIRAC AMDT 67/24, 28 NOV 2024)",
+  "url": "https://www.aerocivil.gov.co/servicios-a-la-navegacion/servicio-de-informacion-aeronautica-ais/Documents/AIP%20AMDT%20VIGENTE/AD/AD%202%20SKBO%20-%20BOGOT%c3%81%20-%20EL%20DORADO.pdf",
+  "publisher": "Unidad Administrativa Especial de Aeronáutica Civil (Aerocivil), Colombia",
+  "checked": "2026-11-28"
+ },
+ "spjc-aip-sup-15-24": {
+  "title": "AIP Perú Suplemento AIP 15/24, Procedimientos de atenuación del ruido AD Intl Jorge Chávez SPJC, published 04 OCT 2024 (start date by NOTAM)",
+  "url": "https://cdn.www.gob.pe/uploads/document/file/8182482/6844677-suplemento-aip-15-2024-procedimientos-de-atenuacion-del-ruido-ad-intl-jorge-chavez-spjc.pdf",
+  "publisher": "CORPAC S.A. (Peru AIS)",
+  "checked": "2026-11-28"
+ },
+ "suls-uy-aip-ad2": {
+  "title": "AIP Uruguay AD 2.5 SULS Maldonado/Intl C/C Carlos A. Curbelo 'Laguna del Sauce' (Spanish), pages up to 16 APR 2026",
+  "url": "https://www.dinacia.gub.uy/sites/default/files/aip/2026-04/Ad2-5%20(6).pdf",
+  "publisher": "DINACIA (Dirección Nacional de Aviación Civil e Infraestructura Aeronáutica, Uruguay)",
+  "checked": "2026-11-28"
+ },
+ "sumu-uy-aip-ad2": {
+  "title": "AIP Uruguay AD 2.9 SUMU Montevideo/Intl of Carrasco (English), pages up to 09 JUL 2026",
+  "url": "https://www.dinacia.gub.uy/sites/default/files/aip/2026-07/Ad2-9%20ing.pdf",
+  "publisher": "DINACIA (Dirección Nacional de Aviación Civil e Infraestructura Aeronáutica, Uruguay)",
+  "checked": "2026-11-28"
+ },
+ "tapa-ec-aip-sup-43-25": {
+  "title": "Eastern Caribbean AIP SUP 43/25, Aerodrome Data Updated, V.C. Bird International Airport, 11 Nov 2025",
+  "url": "https://caa.gov.tt/wp-content/uploads/2025/11/AIP-SUP-43_25.pdf",
+  "publisher": "Trinidad and Tobago Civil Aviation Authority (Piarco AIS)",
+  "checked": "2026-11-28"
+ },
+ "tist-faa-aip-ad2": {
+  "title": "FAA US AIP Part 3, AD 2 Virgin Islands (HTML; no edition date shown on page)",
+  "url": "https://www.faa.gov/air_traffic/publications/atpubs/aip_html/part3_ad_2.0_virgin_islands.html",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-28"
+ },
+ "tjsj-cbp-ga-2024": {
+  "title": "CBP General Aviation Airport Fact Sheet, Luis Munoz Marin International Airport (TJSJ), TJSJ-0424, 17 Apr 2024",
+  "url": "https://www.cbp.gov/sites/default/files/assets/documents/2024-Apr/TJSJ%20GA%20Airport%20Fact%20Sheet%2020240417.pdf",
+  "publisher": "U.S. Customs and Border Protection",
+  "checked": "2026-11-28"
+ },
+ "tjsj-faa-aip-ad2": {
+  "title": "FAA US AIP Part 3, AD 2 Puerto Rico (HTML; no edition date shown on page)",
+  "url": "https://www.faa.gov/Air_traffic/publications/atpubs/aip_html/part3_ad_2.0_puerto_rico.html",
+  "publisher": "Federal Aviation Administration",
+  "checked": "2026-11-28"
+ },
+ "tnca-aaa-ga": {
+  "title": "Aruba Airport Authority, General Aviation (undated web page)",
+  "url": "https://airportaruba.com/general-aviation",
+  "publisher": "Aruba Airport Authority N.V.",
+  "checked": "2026-11-28"
+ },
+ "tnca-dc-aip-ad2": {
+  "title": "AIP Dutch Caribbean, AD 2 TNCA Aruba (publication 2024-08-08; checked against AIRAC AMDT 02-2025 effective 17 Apr 2025)",
+  "url": "https://dc-ansp.org/eAIS/eAIP-Publications/2024-08-08/eAIP/AD%202%20TNCA%20-%20ARUBA%201-en-US.html",
+  "publisher": "Dutch Caribbean Air Navigation Service Provider (DC-ANSP)",
+  "checked": "2026-11-28"
+ },
+ "tqpf-ec-aip-sup-24-26": {
+  "title": "Eastern Caribbean AIRAC AIP SUP 24/26, Aerodrome Chart, Obstacle Chart and Aerodrome Data, Clayton J. Lloyd International Airport, 10 Jun 2026, effective 9 Jul 2026",
+  "url": "https://caa.gov.tt/wp-content/uploads/2026/06/AIP-SUP-24_26.pdf",
+  "publisher": "Trinidad and Tobago Civil Aviation Authority (Piarco AIS)",
+  "checked": "2026-11-28"
+ },
+ "tupj-bviaa-hours-2022": {
+  "title": "Press release: Amended Operational Hours, Terrance B. Lettsome International Airport, 14 Feb 2022",
+  "url": "https://www.bvi.gov.vg/media-centre/amended-operational-hours-terrance-b-lettsome-international-airport",
+  "publisher": "BVI Airports Authority (Government of the Virgin Islands)",
+  "checked": "2026-11-28"
+ },
+ "tupj-ec-aip-sup-31-25": {
+  "title": "Eastern Caribbean AIP SUP 31/25, Terrance B. Lettsome International Airport aerodrome data, 9 Sep 2025",
+  "url": "https://caa.gov.tt/wp-content/uploads/2025/09/AIP-SUP-31_25.pdf",
+  "publisher": "Trinidad and Tobago Civil Aviation Authority (Piarco AIS)",
+  "checked": "2026-11-28"
  }
 }

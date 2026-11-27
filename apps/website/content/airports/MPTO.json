@@ -1,0 +1,60 @@
+{
+ "icao": "MPTO",
+ "iata": null,
+ "name": "Tocumen International Airport",
+ "city": "Panama City",
+ "country": "PA",
+ "tz": "America/Panama",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 03R/21L, is 3,050 m x 45 m concrete; 03L/21R is 2,682 m x 45 m asphalt",
+   "longest_m": 3050,
+   "src": "mpto-pa-aip-ad21",
+   "quote": "3050 x 45"
+  },
+  "hours": {
+   "v": "ATS, fuel and handling H24; airport administration Mon-Fri 1300-2130 UTC (08:00-16:30 local)",
+   "src": "mpto-pa-aip-ad21",
+   "quote": "H-24"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "mpto-pa-aip-ad21",
+   "quote": "H-24"
+  },
+  "noise": {
+   "v": "no overflight of the city below 5,000 ft until crossing the coast (24 h, turboprops and jets); from 0100 to 1100 UTC (20:00-06:00 local) no overflight of the city at any altitude",
+   "src": "mpto-pa-aip-ad21",
+   "quote": "En horario desde las 0100UTC hasta las 1100UTC, no se permitirá el sobrevuelo sobre la ciudad (a cualquier altitud)."
+  },
+  "fuel": {
+   "v": "Avgas and Jet A",
+   "src": "mpto-pa-aip-ad21",
+   "quote": "AVGAS , JET A"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "mpto-pa-aip-ad21",
+   "quote": "NIL"
+  },
+  "handling": {
+   "v": "stands on the general aviation apron are assigned by the airport management centre",
+   "src": "mpto-pa-aip-ad21",
+   "quote": "Los puestos de estacionamientos en la Plataforma de Aviación General serán asignados por el Centro de Gestión Aeroportuaria"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Panama AIP AD 2.1-MPTO, AAC Panama (aeronautica.gob.pa), pages AMDT AIRAC 8 of 31 OCT 24 with later pages to AMDT 02 and 04; and AIP AMDT 02-26 (effective 30 JUN 2026), which for MPTO only removes an obstacle and reissues chart/obstacle pages (no change to hours, runways or local rules seen; the AMDT text was not read past the first 100,000 characters). The noise wording is Spanish; English is a translation. Only the first half of AD 2.1-MPTO was read in detail. No curfew, slot or PPR rule seen in the part read. Self-powered pushback is prohibited. IATA code not stated."
+}

@@ -1,0 +1,33 @@
+{
+ "icao": "MDPC",
+ "iata": "PUJ",
+ "name": "Punta Cana International Airport",
+ "city": "Punta Cana, Dominican Republic",
+ "country": "DO",
+ "tz": "America/Santo_Domingo",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "handling": {
+   "v": "private aircraft use the Executive Terminal (FBO), operated by Grupo Puntacana; e-ticket form 24 hours ahead",
+   "src": "mdpc-pc-private",
+   "quote": "Operated by Grupo Puntacana"
+  }
+ },
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: Grupo Puntacana airport site 'Private Aviation' page (states 'Punta Cana International Airport (PUJ)', runways 09/27 and 08/26, IFR/VFR; no lengths, hours or customs) and its airport fact sheet PDF (undated, pre-2017; ramp 14 positions; no runway data). IDAC Dominican Republic AIP not found online. Runway lengths, hours, customs not available from an official open source."
+}

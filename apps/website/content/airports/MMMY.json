@@ -1,0 +1,35 @@
+{
+ "icao": "MMMY",
+ "iata": null,
+ "name": "Monterrey International Airport (General Mariano Escobedo)",
+ "city": "Monterrey, Nuevo León",
+ "country": "MX",
+ "tz": "America/Monterrey",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "main runway 3,000 m x 45 m; an auxiliary runway also exists (size not given)",
+   "longest_m": 3000,
+   "src": "mmmy-oma-runway-2606",
+   "quote": "measures 3,000 meters in length and 45 meters in width"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: OMA press release 'OMA Advances Modernization of Monterrey International Airport with Preventive Renovation of Its Main Runway', 24 June 2026 (news.oma.aero). Temporary works (not a rule): main runway renovation September-December 2026, mostly at night (about 00:00/00:15-06:00 local); auxiliary runway used meanwhile for compatible aircraft. Mexico AIP (SICT-AFAC-SENEAM) could not be read: https://www.seneam.gob.mx/AIPMEXICO/ is now a log-in page (account and two-factor needed); https://aipmexico.seneam.gob.mx/AIP/index.html and https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_0/AD_0.6.pdf refused automated access (robots.txt could not be read); http://www.sct.gob.mx/aip/ was not opened (permission not granted in time). So no AD 2 values for this airport. OMA general-aviation pages https://www.oma.aero/en/service/general-aviation/monterrey-g/technical-info.htm and https://www.oma.aero/en/service/general-aviation/monterrey-g/ failed (client error). The OMA FAQ page had no operating data. Slot status of MMMY not confirmed from an official source."
+}

@@ -1,0 +1,47 @@
+{
+ "icao": "TIST",
+ "iata": null,
+ "name": "Cyril E. King Airport",
+ "city": "Charlotte Amalie, St Thomas, US Virgin Islands",
+ "country": "VI",
+ "tz": "America/St_Thomas",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 7,000 ft x 150 ft (about 2,134 m)",
+   "longest_m": 2134,
+   "src": "tist-faa-aip-ad2",
+   "quote": "True Dimensions: 7000 ft x 150 ft"
+  },
+  "hours": {
+   "v": "aerodrome hours 07:00-23:00 every day as listed (the page does not say local or UTC); rescue and fire-fighting not available 23:00-06:00",
+   "src": "tist-faa-aip-ad2",
+   "quote": "All Months, All Days, 0700-2300 Hours"
+  },
+  "noise": {
+   "v": "noise sensitive area: avoid overflying Water Island, 2 NM south-east of the airport",
+   "src": "tist-faa-aip-ad2",
+   "quote": "NOISE SENSITIVE AREA: AVOID OVERFLIGHTS OF WATER ISLAND LOCATED 2 MI SE OF ARPT."
+  },
+  "fuel": {
+   "v": "100LL avgas and Jet A",
+   "src": "tist-faa-aip-ad2",
+   "quote": "100LL A"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: FAA US AIP Part 3 AD 2 Virgin Islands HTML page (no edition or effective date shown). The page also says 'ARFF UNAVBL 2300-0600'. Time reference of the 0700-2300 hours is not stated on the page, so no local window recorded. Customs not stated in the AIP; CBP fact sheet https://www.cbp.gov/sites/default/files/2025-12/tist_ga_airport_fact_sheet_20251230.pdf (also via cbp.gov without www) and CBP port page https://www.cbp.gov/about/contact/ports/charlotte-amalie-area-port-st-thomas-virgin-islands-5101 could not be opened (site client error). Runway 7,000 ft x 0.3048 = 2,133.6 m. No curfew, slots or PPR listed. IATA not stated in sources read. Status partial (not verified): customs hours not read and the AIP hours do not say local or UTC."
+}

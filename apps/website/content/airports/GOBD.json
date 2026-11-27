@@ -1,0 +1,29 @@
+{
+ "icao": "GOBD",
+ "iata": null,
+ "name": "Blaise Diagne International Airport",
+ "city": "Dakar (Diass)",
+ "country": "SN",
+ "tz": "Africa/Dakar",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-28",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "No official source with rules could be read. ASECNA eAIP https://aim.asecna.aero/ could not be opened (fetch permission request not answered / refused). ANACIM https://www.anacim.sn/IMG/pdf/dnaa.pdf read: says ASECNA provides air navigation service at AIBD, no aerodrome data. No LAS (operator) website with operational data found in search."
+}

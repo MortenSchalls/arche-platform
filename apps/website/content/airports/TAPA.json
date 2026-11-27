@@ -1,0 +1,34 @@
+{
+ "icao": "TAPA",
+ "iata": null,
+ "name": "V.C. Bird International Airport",
+ "city": "St John's, Antigua",
+ "country": "AG",
+ "tz": "America/Antigua",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "handling": {
+   "v": "all aircraft must use an approved ground handler; no self-handling (except approved airlines); corporate and private aircraft use Signature Flight Support at the disused runway 10 apron",
+   "src": "tapa-ec-aip-sup-43-25",
+   "quote": "All aircraft operating into and out of V.C. Bird International Airport shall utilise the services of one of the approved ground handling providers."
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "The base Eastern Caribbean AIP (7th edition, published by the Trinidad and Tobago CAA) is login-only: https://caa.gov.tt/eastern-caribbean-eaip/ ('you do not have permission to view this content'). Read only AIP SUP 43/25 'Aerodrome Data Updated' V.C. Bird (issued 11 Nov 2025, effective 251111 to PERM; header says 'effective unt 11 NOV 26'), listed as valid in the TTCAA list of valid AIP SUPs updated 11 Aug 2026. SUP 43/25 also states: 'Taxiway A available in daylight hours only and limited to aircraft 65,000 pounds or less and wingspan 30M or less.' Runway, hours, customs, curfew not available from an official open source. No Antigua and Barbuda Airport Authority page was read."
+}

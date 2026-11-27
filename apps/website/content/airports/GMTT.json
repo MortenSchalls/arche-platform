@@ -1,0 +1,56 @@
+{
+ "icao": "GMTT",
+ "iata": null,
+ "name": "Tangier Ibn Battouta Airport",
+ "city": "Tangier",
+ "country": "MA",
+ "tz": "Africa/Casablanca",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 3,500 m x 45 m",
+   "longest_m": 3500,
+   "src": "gmtt-ma-aip-ad2",
+   "quote": "3500 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "gmtt-ma-aip-ad2",
+   "quote": "H24"
+  },
+  "hours": {
+   "v": "ATS and fuel H24; handling 0400-0100 (AIP time, presumably UTC: 05:00-02:00 local), outside these hours on request; airport office Mon-Fri 08:30-16:30 local, H24 duty cover",
+   "src": "gmtt-ma-aip-ad2",
+   "quote": "0400-0100 / Outside these hours O/R"
+  },
+  "fuel": {
+   "v": "Jet A1 and Avgas 100LL, H24; payment in MAD or foreign currency, cards UVAIR, WFS, AVCARD, Multi Service, Colt",
+   "src": "gmtt-ma-aip-ad2",
+   "quote": "JET A1, AVGAS 100LL"
+  },
+  "deicing": {
+   "v": "no de-icing facilities",
+   "src": "gmtt-ma-aip-ad2",
+   "quote": "NIL"
+  },
+  "noise": {
+   "v": "no noise abatement procedures published (AD 2.21 NIL)",
+   "src": "gmtt-ma-aip-ad2",
+   "quote": "NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read Morocco AIP AD 2 GMTT (SIA Maroc / ONDA), https://siamaroc.onda.ma/eaip/ad/AD2GMTT.pdf; latest page date 14 MAY 2026, AIRAC AMDT 05/26 (other pages AMDT 08/21 to 13/25). AD 2.20: aircraft without radio prohibited; overflight of zones GMP19 and GMP20 prohibited. No curfew, slot, PPR or size-limit text. Handling hours row gives no time basis; Moroccan AIP hours are normally UTC, so local conversion (UTC+1) is an assumption. No handling agents named in AD 2.23. Bird hazard noted. IATA code not stated. An earlier attempt at the same URL timed out on a permission prompt before succeeding."
+}

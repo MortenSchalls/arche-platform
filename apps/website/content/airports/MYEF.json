@@ -1,0 +1,29 @@
+{
+ "icao": "MYEF",
+ "iata": null,
+ "name": "Exuma International Airport",
+ "city": "George Town, Exuma, Bahamas",
+ "country": "BS",
+ "tz": "America/Nassau",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-28",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "No official open source found. Bahamas AIP not found online (searched for Bahamas CAA / BANSA AIP). Department of Aviation site https://www.doabahamas.com/ could not be opened (permission not given). The Bahamas Ministry of Tourism page https://bahamas.com/vfr was read but is a tourism page, not an aviation authority or airport source, so not used (it gives only a general 'Normal hours for Customs are 9:00am-5:30pm daily, check with the airport' and no airport-specific data). The only BANSA site found was on a developer domain (bansa.do01.lux-medien.com), not used."
+}

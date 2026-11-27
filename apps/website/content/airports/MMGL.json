@@ -1,0 +1,34 @@
+{
+ "icao": "MMGL",
+ "iata": "GDL",
+ "name": "Guadalajara International Airport (Don Miguel Hidalgo y Costilla)",
+ "city": "Guadalajara, Jalisco",
+ "country": "MX",
+ "tz": "America/Mexico_City",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 10/28, is 4,000 m (13,123 ft); 02/20 is 1,818 m; widths not given",
+   "longest_m": 4000,
+   "src": "mmgl-gap-about",
+   "quote": "4,000 m 13,123 ft"
+  }
+ },
+ "missing": [
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: GAP 'Guadalajara - Sobre el aeropuerto' page (no date shown; footer 2015), which states 'código IATA: GDL' and the runway table. Mexico AIP (SICT-AFAC-SENEAM) could not be read: https://www.seneam.gob.mx/AIPMEXICO/ is now a log-in page (account and two-factor needed); https://aipmexico.seneam.gob.mx/AIP/index.html and https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_0/AD_0.6.pdf refused automated access (robots.txt could not be read); http://www.sct.gob.mx/aip/ was not opened (permission not granted in time). So no AD 2 values for this airport. GAP private aviation page https://www.aeropuertosgap.com.mx/es/guadalajara-3/private-aviation/1020-aviacion-privada.html failed (client error). Slot status of MMGL not confirmed from an official source."
+}

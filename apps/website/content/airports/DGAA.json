@@ -1,0 +1,29 @@
+{
+ "icao": "DGAA",
+ "iata": null,
+ "name": "Kotoka International Airport",
+ "city": "Accra",
+ "country": "GH",
+ "tz": "Africa/Accra",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-28",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "No official source with rules could be read. Searches found no openly published Ghana AIP AD 2 DGAA on GCAA sites. Ghana Airports Company page https://www.gacl.com.gh/kia-history/ read: history only (runway extended by 550 m in 1997-2005), no dimensions, hours or rules."
+}

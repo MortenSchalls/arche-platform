@@ -1,0 +1,60 @@
+{
+ "icao": "HRYR",
+ "iata": null,
+ "name": "Kigali International Airport",
+ "city": "Kigali",
+ "country": "RW",
+ "tz": "Africa/Kigali",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 10/28, 3,500 m x 45 m asphalt; RWY 10 take-off only and RWY 28 landing only, except with ATC authorisation",
+   "longest_m": 3500,
+   "src": "hryr-rac-eaip-2024",
+   "quote": "3500 x 45"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "hryr-rac-eaip-2024",
+   "quote": "Customs and immigration: H24"
+  },
+  "hours": {
+   "v": "ATS, fuelling, handling and security H24; AD administration office Mon-Fri 0700-1000 and 1100-1500 UTC (09:00-12:00 and 13:00-17:00 local)",
+   "src": "hryr-rac-eaip-2024",
+   "quote": "ATS: H24"
+  },
+  "handling": {
+   "v": "handling by RwandAir, H24",
+   "src": "hryr-rac-eaip-2024",
+   "quote": "H24:PN"
+  },
+  "fuel": {
+   "v": "Jet A-1, H24",
+   "src": "hryr-rac-eaip-2024",
+   "quote": "Fuel: JET A1"
+  },
+  "noise": {
+   "v": "no special noise procedures or movement limits",
+   "src": "hryr-rac-eaip-2024",
+   "quote": "No special procedures are set up with regard to limitations of aircraft movement."
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "hryr-rac-eaip-2024",
+   "quote": "De-icing: NIL"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: Rwanda eAIP, AD 2 HRYR, 1st edition 25 Jan 2024, published by Rwanda Airports Company (https://rac.co.rw/eAIP%20Rwanda/1ST%20EDITION_2024_01_25/eAIP/HR-AD%202%20HRYR-en-GB.html). The page shows no amendment number; no later edition found. AD admin hours converted assuming UTC (Rwanda UTC+2). No curfew stated (not recorded as 'none'). AD 2.20: training and technical test flights not allowed between sunset and sunrise unless authorised by the Chief of ATC; aircraft of 30 t AUW or more may not make half-turns on the runway. Handling 'H24:PN' (prior notice). Quotes extracted by a summarising reader. IATA code not stated."
+}

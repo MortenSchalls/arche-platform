@@ -1,0 +1,49 @@
+{
+ "icao": "MBPV",
+ "iata": "PLS",
+ "name": "Providenciales International Airport (Howard Hamilton International)",
+ "city": "Providenciales, Turks and Caicos Islands",
+ "country": "TC",
+ "tz": "America/Grand_Turk",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway 10/28, 9,200 ft x 150 ft (about 2,804 m)",
+   "longest_m": 2804,
+   "src": "mbpv-tciaa-airport",
+   "quote": "Runway: 10/28 – 9,200′ x 150′"
+  },
+  "hours": {
+   "v": "airport open 06:00-20:00 local",
+   "src": "mbpv-tciaa-airport",
+   "quote": "Opening Hours: 6 am – 8 pm"
+  },
+  "customs": {
+   "v": "customs and immigration 06:00-20:00 local",
+   "h24": false,
+   "hours_local": [
+    [
+     "06:00",
+     "20:00"
+    ]
+   ],
+   "src": "mbpv-tciaa-airport",
+   "quote": "Customs & Immigration: 6 am – 8 pm"
+  }
+ },
+ "missing": [
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: TCI Airports Authority page 'Providenciales International Airport' (https://tciairports.com/airports/providenciales-international-airport, no date shown), which states 'The Providenciales Airport IATA Code is PLS'. The same page also gives 9,199 ft (2,804 m) and, after the Phase I extension, 2,807 m, so lengths differ slightly; 9,200 ft x 0.3048 = 2,804 m used. The TCI AIP (https://tciairports.com/aeronautical-information-publication-aip) is password protected for subscribers only, so AD 2 could not be read. Whether night operations outside 06:00-20:00 are possible (and on what terms) is not stated."
+}

@@ -1,0 +1,29 @@
+{
+ "icao": "HTDA",
+ "iata": null,
+ "name": "Julius Nyerere International Airport",
+ "city": "Dar es Salaam",
+ "country": "TZ",
+ "tz": "Africa/Dar_es_Salaam",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-28",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "No official source with rules could be read. Tried: TCAA AIP page https://tcaa.go.tz/pages/aeronautical-information-publication-aip (no document links); TCAA AIP AD 2 extract https://tcaa.go.tz/ctrback/uploads/docId1521752741544.pdf (Kilimanjaro only); Tanzania Airports Authority JNIA page https://www.taa.go.tz/index.php/services/jnia (airport information section empty). Current Tanzania AIP is by request from TCAA AIS."
+}

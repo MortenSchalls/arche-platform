@@ -1,0 +1,56 @@
+{
+ "icao": "FALE",
+ "iata": null,
+ "name": "King Shaka International Airport",
+ "city": "Durban",
+ "country": "ZA",
+ "tz": "Africa/Johannesburg",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 06/24, 3,700 m x 60 m, asphalt",
+   "longest_m": 3700,
+   "src": "fale-atns-eaip-2022",
+   "quote": "3700 x 60"
+  },
+  "customs": {
+   "v": "customs and immigration H24",
+   "h24": true,
+   "src": "fale-atns-eaip-2022",
+   "quote": "Customs and immigration: H24"
+  },
+  "hours": {
+   "v": "aerodrome operator, ATS and handling H24",
+   "src": "fale-atns-eaip-2022",
+   "quote": "AD Operator: H24 ... ATS: H24 ... Handling: H24"
+  },
+  "fuel": {
+   "v": "Jet A-1 and Avgas 100; fuel operator Sky Tanking",
+   "src": "fale-atns-eaip-2022",
+   "quote": "Fuel grades: JET A1; AVGAS 100; AVTUR"
+  },
+  "deicing": {
+   "v": "no de-icing",
+   "src": "fale-atns-eaip-2022",
+   "quote": "De-icing: Not applicable"
+  },
+  "noise": {
+   "v": "noise and track monitored; Noise Abatement Departure Procedure 1; no engine tests or run-ups and no intersection take-offs 2000-0400 (AIP time, UTC = 22:00-06:00 local); minimise reverse thrust",
+   "src": "fale-caa-aip-amdt-1-26",
+   "quote": "No engine tests and run-ups between 2000 to 0400."
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "permits",
+  "catering"
+ ],
+ "notes": "Read: (1) SACAA AIP amendment page set FA AD 2 FALE, footer 'AMDT 1/26', '15 JAN 26' (https://caasanwebsitestorage.blob.core.windows.net/aip-ammendments/FA_AD_2_FALE_EN.pdf) - contains only AD 2.20-2.24 type pages (local regulations, noise abatement), not AD 2.3/2.12; (2) ATNS eAIP South Africa AD 2 FALE, 'valid from 15 JAN 2022' (cad.atns.co.za) for runway, hours, fuel, de-icing. Runway/hours/customs are therefore from the 2022 edition; no newer full AD 2 FALE page could be found, so status partial. AD 2.3 also says after-hours slots via O R Tambo AIS ('For slot after hours, operators to contact O R Tambo International AIS Unit') - this is an AIS briefing note, not an airport slot rule. AD 2.20 (2026): 'Intersection takeoffs will not be permitted between 2000 and 0400.' Times 2000-0400 assumed UTC per AIP convention (local = UTC+2); not stated on the page. No curfew stated. IATA code not stated in sources read. ACSA website not read."
+}

@@ -1,0 +1,71 @@
+{
+ "icao": "MWCR",
+ "iata": null,
+ "name": "Owen Roberts International Airport",
+ "city": "George Town, Grand Cayman",
+ "country": "KY",
+ "tz": "America/Cayman",
+ "tier": 2,
+ "status": "verified",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway 08/26, 2,398 m x 45 m, asphalt grooved; landing thresholds displaced (08 by 265 m, 26 by 124 m)",
+   "longest_m": 2398,
+   "src": "mwcr-ky-aip-ad-2603",
+   "quote": "2398 x 45 M"
+  },
+  "hours": {
+   "v": "ATS, AIS, fuel and handling 07:00-21:00 local (1200-0200 UTC); security H24; airport administration Mon-Fri 08:30-17:00",
+   "src": "mwcr-ky-aip-ad-2603",
+   "quote": "1200- 0200 UTC (0700-2100 LST)"
+  },
+  "curfew": {
+   "v": "outside 21:00-07:00 local only medevacs and delayed commercial air transport, up to 23:59 local, with prior approval from aocc@caymanairports.com; other non-scheduled flights outside hours only after prior approval",
+   "windows_local": [
+    [
+     "21:00",
+     "07:00"
+    ]
+   ],
+   "approval": true,
+   "src": "mwcr-ky-aip-ad-2603",
+   "quote": "Out of hours operations are restricted to Medevacs and delayed commercial air transport operators up to 23:59 LST"
+  },
+  "customs": {
+   "v": "customs Mon-Fri printed as 1330-0400 UTC (0830-1100 LST) - the two do not match (1330-0400 UTC is 08:30-23:00 local); Sat 08:30-16:30 local (1330-2130 UTC); on request outside hours for a charge; Sun and holidays special attendance charges all day. Immigration daily printed 1200-2300 UTC (0700-2130 LST), on request outside hours",
+   "h24": false,
+   "src": "mwcr-ky-aip-ad-2603",
+   "quote": "MON-FRI 1330-0400 UTC (0830-1100 LST)"
+  },
+  "slots": {
+   "v": "all flights except locally based general aviation need slot approval; non-scheduled operators submit slots through their nominated handling agent",
+   "src": "mwcr-ky-aip-ad-2603",
+   "quote": "Non-scheduled operators can submit slots through their nominated handling agent."
+  },
+  "handling": {
+   "v": "a nominated handling agent based at the airport is mandatory for all visiting aircraft, including diversions",
+   "src": "mwcr-ky-aip-ad-2603",
+   "quote": "A nominated handling agent is mandatory for all visiting aircraft"
+  },
+  "fuel": {
+   "v": "Jet A1 and Avgas 100LL; no aviation oils",
+   "src": "mwcr-ky-aip-ad-2603",
+   "quote": "Jet A1, AVGAS 100 LL, no aviation oils available."
+  },
+  "noise": {
+   "v": "no flights below 1,500 ft within 2,000 ft of the coast except take-off and landing; take-off from RWY 08 unless wind requires 26; between 0000-1200 UTC (19:00-07:00 local) climb on runway heading to 3,000 ft; no turns to final over George Town",
+   "src": "mwcr-ky-aip-ad-2603",
+   "quote": "Flights below 1500 FT, within 2000 FT of the coastline are prohibited, except for take-off and landing."
+  }
+ },
+ "missing": [
+  "ppr",
+  "max_aircraft",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "Read: Cayman Islands AIP Aerodrome section, Civil Aviation Authority, pages dated 28 NOV 2024 (AMDT 01/2024) and 19 MAR 2026 (AMDT 01/2026), published on caymanairports.com (file 'Aerodrome-Mar-19-2026-version-1'). The customs and immigration lines print UTC and local times that do not agree; confirm with the airport before relying on them. De-icing not stated. Slot requests for commercial air transport go to Airport Coordination Limited (ACL). IATA code not stated in the AIP."
+}

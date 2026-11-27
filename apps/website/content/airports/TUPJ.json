@@ -1,0 +1,49 @@
+{
+ "icao": "TUPJ",
+ "iata": null,
+ "name": "Terrance B. Lettsome International Airport (Beef Island)",
+ "city": "Beef Island, Tortola, British Virgin Islands",
+ "country": "VG",
+ "tz": "America/Tortola",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 07/25, 1,416 m x 30 m; displaced thresholds: landing distance 1,206 m both ways, take-off run 1,356 m (07) / 1,266 m (25)",
+   "longest_m": 1416,
+   "src": "tupj-ec-aip-sup-31-25",
+   "quote": "Runway 1416m x 30m"
+  },
+  "hours": {
+   "v": "airport open 07:00-22:00 local, the hours published in the AIP (BVI Airports Authority, from 14 Feb 2022)",
+   "hours_local": [
+    [
+     "07:00",
+     "22:00"
+    ]
+   ],
+   "src": "tupj-bviaa-hours-2022",
+   "quote": "7:00am to 10:00pm"
+  },
+  "ppr": {
+   "v": "the temporary PPR operation was ended on 14 Feb 2022",
+   "src": "tupj-bviaa-hours-2022",
+   "quote": "Prior Permission Required (PPR) operations"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: AIP SUP 31/25 (Eastern Caribbean AIP, TTCAA) TUPJ aerodrome data, issued 09 Sep 2025, 'Effective: 250909 to PERM' (header says 'effective unt 09 SEP 26'); BVI Government press releases by BVI Airports Authority: 14 Feb 2022 (hours 7am-10pm, reverting to AIP hours, PPR operations discontinued), plus older 19 Dec 2017, 4 Jan 2022 and 19 Jan 2022 releases (superseded). Also SUP 11/26 (24 Mar 2026, VFR procedures, marked DRAFT): no hours. Base AIP login-only (https://caa.gov.tt/eastern-caribbean-eaip/). Hours source is a 2022 press release, not the AIP itself: confirm. Whether operations outside 07:00-22:00 are possible on request is not stated, so no curfew recorded. Customs not found."
+}

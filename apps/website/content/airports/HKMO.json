@@ -1,0 +1,29 @@
+{
+ "icao": "HKMO",
+ "iata": null,
+ "name": "Moi International Airport",
+ "city": "Mombasa",
+ "country": "KE",
+ "tz": "Africa/Nairobi",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-28",
+ "rules": {},
+ "missing": [
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering",
+  "iata"
+ ],
+ "notes": "No official source with rules could be read. Kenya eAIP is subscription only (https://eaip.kcaa.or.ke/Home/Purchase text.html: 'available on an annual subscription basis', USD 255 overseas). Kenya Airports Authority pages: https://www.kaa.go.ke/airports/moi-international/ failed (client error); https://www.kaa.go.ke/moi-international-airport/ and https://kaa.go.ke/jomo-kenyatta-international/cargo-at-moi-international hold no runway/hours/rules (cargo handler KAHL named only)."
+}

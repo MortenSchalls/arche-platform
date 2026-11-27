@@ -1,0 +1,34 @@
+{
+ "icao": "SPJC",
+ "iata": null,
+ "name": "Lima Jorge Chávez International Airport",
+ "city": "Lima (Callao), Peru",
+ "country": "PE",
+ "tz": "America/Lima",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "noise": {
+   "v": "noise abatement departure procedure on runways 16L and 16R, day and night; jets and turboprops follow NADP 1 (ICAO Doc 8168) until the operator files its own procedure per type with DGAC. Start date was to be given by NOTAM",
+   "src": "spjc-aip-sup-15-24",
+   "quote": "tanto en horario nocturno como diurno"
+  }
+ },
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: CORPAC AIP Peru SUP 15/24 'Procedimientos de atenuación del ruido AD Intl Jorge Chávez SPJC', published 04 OCT 2024, replaces SUP AIP 04/23; start date 'se comunicará oportunamente mediante NOTAM' (in force not confirmed; AIP SUP 17/2025 of June 2025 lists it among current supplements). https://cdn.www.gob.pe/uploads/document/file/8182482/6844677-suplemento-aip-15-2024-procedimientos-de-atenuacion-del-ruido-ad-intl-jorge-chavez-spjc.pdf . Also read AIP SUP 17/2025 (runway 16L/34R closure works, 07 Jun - 01 Sep 2025, expired, temporary, not a rule) https://cdn.www.gob.pe/uploads/document/file/8183275/6845158-aip-sup-17_25.pdf ; it confirms two runways, 16L/34R and 16R/34L, but no lengths. Could not open: CORPAC eAIP AD 2 SPJC https://eaip-peru.corpac.gob.pe/eAIP/SP-AD%202%20SPJC%201-es-PE.html (robots.txt unreachable, tried twice); AIRAC AIP SUP 17/23 https://cdn.www.gob.pe/uploads/document/file/3900692/Sup%20AIRAC%20AIP%2017-23%20SPJC.pdf (client error); MTC news on the second runway https://www.gob.pe/institucion/mtc/noticias/737007-mtc-autoriza-el-funcionamiento-de-la-nueva-torre-de-control-y-segunda-pista-de-aterrizaje-del-aeropuerto-jorge-chavez (client error). Runway lengths, hours, customs and GA rules need the eAIP AD 2 SPJC."
+}

@@ -1,0 +1,35 @@
+{
+ "icao": "TQPF",
+ "iata": null,
+ "name": "Clayton J. Lloyd International Airport",
+ "city": "The Valley, Anguilla",
+ "country": "AI",
+ "tz": "America/Anguilla",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 11/29, 1,664 m x 30 m; displaced thresholds: take-off run 1,516 m (11) / 1,514 m (29), landing distance 1,366 m both ways",
+   "longest_m": 1664,
+   "src": "tqpf-ec-aip-sup-24-26",
+   "quote": "1664 x 30"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: AIRAC AIP SUP 24/26 (Eastern Caribbean AIP, TTCAA), dated 10 Jun 2026, effective 260709 to PERM, replacing SUP 29/24: aerodrome chart and data. It also states 'INSTRUMENT RESTRICTED BY NIGHT' and 'NUMEROUS POLES AND ANTENNAS IN VICINITY OF AERODROME'. Base Eastern Caribbean AIP is login-only (https://caa.gov.tt/eastern-caribbean-eaip/). Government of Anguilla airport page (https://www.gov.ai/ministry/micuhites-2/clayton-j-lloyd-international-airport) read: no hours, runway or customs. Note the short landing distance (1,366 m) limits larger jets."
+}

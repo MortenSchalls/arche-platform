@@ -1,0 +1,35 @@
+{
+ "icao": "HTKJ",
+ "iata": null,
+ "name": "Kilimanjaro International Airport",
+ "city": "Kilimanjaro (Arusha/Moshi)",
+ "country": "TZ",
+ "tz": "Africa/Dar_es_Salaam",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "one runway, 09/27, 3,600 m x 45 m",
+   "longest_m": 3600,
+   "src": "htkj-tcaa-aip-ad2-amdt12",
+   "quote": "09 0880  3600 x 45 PCN 64/F/A/W/T Tarmac"
+  }
+ },
+ "missing": [
+  "iata",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: Tanzania AIP AD 2 extract (TCAA), '2ND EDITION', 'AMDT NR 12', no effective date shown; file name suggests upload in 2018 (https://tcaa.go.tz/ctrback/uploads/docId1521752741544.pdf). This is old and may be superseded; the current Tanzania AIP AD 2 is not published openly (TCAA AIP page https://tcaa.go.tz/pages/aeronautical-information-publication-aip has no document links; refers to ais@tcaa.go.tz). In this extract AD 2.3 shows row labels without values and AD 2.20/2.21 only template text. AD 2.9 remark: 'all ACFT with AUW of 7 tonnes (7,000kg) and above are restricted to make a U turn on LDG/TAXIING RWY 09.' TCAA AIC 3/21 (KADCO security fee) read but has no rules for this list. KADCO website not found in search."
+}

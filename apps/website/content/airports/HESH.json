@@ -1,0 +1,29 @@
+{
+ "icao": "HESH",
+ "iata": null,
+ "name": "Sharm El Sheikh International Airport",
+ "city": "Sharm El Sheikh",
+ "country": "EG",
+ "tz": "Africa/Cairo",
+ "tier": 2,
+ "status": "unavailable",
+ "checked": "2026-11-28",
+ "rules": {},
+ "missing": [
+  "iata",
+  "runway",
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "max_aircraft",
+  "handling",
+  "noise",
+  "fuel",
+  "hours",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "No official source could be read. Egypt AIP (NANSC) is not openly published online. Tried: http://www.nansceg.net/notam.pdf (site error), http://www.nansceg.net/ais.html (listed by EUROCONTROL AIS Online as Egypt's AIS site; not permitted in this session), http://nansceg.net/AIS2.html (site error), https://www.civilaviation.gov.eg/Airport/GetAirportByType/ and https://www.civilaviation.gov.eg/Airport/getAirport/2 (Ministry of Civil Aviation; blocked by robots.txt). No Egyptian Airports Company official site found in search. Only unofficial pages (Wikipedia, trip-support, flight-sim AIP copies) were found; not used. Next step: obtain the Egypt AIP AD 2 via NANSC subscription or a licensed provider."
+}

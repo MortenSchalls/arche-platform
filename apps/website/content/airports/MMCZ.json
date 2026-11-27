@@ -1,0 +1,42 @@
+{
+ "icao": "MMCZ",
+ "iata": "CZM",
+ "name": "Cozumel International Airport",
+ "city": "Cozumel, Quintana Roo",
+ "country": "MX",
+ "tz": "America/Cancun",
+ "tier": 2,
+ "status": "partial",
+ "checked": "2026-11-28",
+ "rules": {
+  "runway": {
+   "v": "two runways; the longer, 11/29, is 2,700 m x 45 m (8,858 ft x 148 ft); 05/23 is 2,500 m x 45 m",
+   "longest_m": 2700,
+   "src": "mmcz-asur-airports",
+   "quote": "11-29 = 2,700 x 45 m (8,858 x 148 ft)"
+  },
+  "hours": {
+   "v": "operator lists operating hours as '2400' (same entry as Cancún; read as 24 hours, not confirmed by the AIP)",
+   "src": "mmcz-asur-airports",
+   "quote": "Operating hours: 2400"
+  },
+  "max_aircraft": {
+   "v": "largest aircraft listed by the operator: B767; runway capacity 22 movements per hour",
+   "src": "mmcz-asur-airports",
+   "quote": "Largest aircraft: B767"
+  }
+ },
+ "missing": [
+  "curfew",
+  "customs",
+  "slots",
+  "ppr",
+  "handling",
+  "noise",
+  "fuel",
+  "permits",
+  "deicing",
+  "catering"
+ ],
+ "notes": "Read: ASUR 'Our Airports' page (https://www.asur.com.mx/nuestros-aeropuertos-0, no date shown). The ASUR Cozumel aeronautical information PDF https://www.asur.com.mx/media/Conoce%20Asur/Aeropuertos/PIA%20Aeropuerto%20Cozumel.pdf could not be opened (permission not granted in time). Mexico AIP (SICT-AFAC-SENEAM) could not be read: https://www.seneam.gob.mx/AIPMEXICO/ is now a log-in page (account and two-factor needed); https://aipmexico.seneam.gob.mx/AIP/index.html and https://aipmexico.seneam.gob.mx/AIP/doc/AD/AD_0/AD_0.6.pdf refused automated access (robots.txt could not be read); http://www.sct.gob.mx/aip/ was not opened (permission not granted in time). So no AD 2 values for this airport. The '2400' hours entry is ambiguous; confirm H24 and customs hours with the AIP."
+}
