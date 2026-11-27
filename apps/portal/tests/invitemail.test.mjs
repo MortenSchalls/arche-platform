@@ -1,5 +1,5 @@
 // Invitation email: intro agreed with Morten 28 Oct 2026 (options A and B), joining steps, link, no Bangkok details. Example data only.
-import { inviteMail, inviteRequest, inviteState, joinProgress } from "../api/invite.mjs";
+import { agreementMail, inviteMail, inviteRequest, inviteState, joinProgress } from "../api/invite.mjs";
 const ok = (k, v) => { console.log((v ? "PASS " : "FAIL ") + k); if (!v) process.exitCode = 1; };
 const m = inviteMail({ name: "Example Person", link: "https://example.com/one-time", from: "Example Owner" });
 ok("greets by first name", m.text.startsWith("Dear Example,"));
@@ -111,3 +111,17 @@ for (const [label, o] of [["signed agreement", { agr: "signed" }], ["trips", { t
   ok(`delete refused (${label}): nothing removed, points to End engagement`, r.code === 409 && /End engagement/.test(r.error) && !f.calls.some(c => c[0] === "DELETE"), r);
 }
 { const f = fakeDb(); const r = await deleteInvitee({ email: "nobody@example.com", me: { id: "owner" }, api: f.api }); ok("delete: unknown email refused", r.code === 404 && !f.calls.some(c => c[0] === "DELETE")); }
+// agreement sent, not signed: the Director sees whether the person was emailed and can send "ready to sign" (27 Nov 2026)
+{
+  const am = agreementMail({ name: "New Person", link: "https://example.com/one-time", from: "", pwSet: true });
+  ok("agreement email: subject says ready to sign", /ready to sign/i.test(am.subject));
+  ok("agreement email: greets by first name, carries the link, company sign-off", /^Dear New,/.test(am.text) && am.text.includes("https://example.com/one-time") && /Kind regards,\nArchē Executive$/.test(am.text) && am.html.includes("READ AND SIGN"));
+  const base = { invite: { email: "new.person@example.com", name: "New Person", as: "company" }, user: { id: "u1", email: "new.person@example.com", last_sign_in_at: "2026-11-20T00:00:00Z", user_metadata: { pw_set: true } },
+    join: { data: { at: "2026-11-21T00:00:00Z" } }, agr: { data: { status: "sent", sentAt: "2026-11-25T00:00:00Z" } }, now: new Date("2026-11-27T00:00:00Z") };
+  const p1 = joinProgress(base);
+  ok("agreement sent: an email is offered, marked not sent yet", p1.remind && p1.remind.kind === "agreement" && !p1.remind.lastSent && /ready to sign/i.test(p1.remind.subject) && /Read and sign/.test(p1.remind.preview));
+  const p2 = joinProgress({ ...base, invite: { ...base.invite, reminders: [{ at: "2026-11-26T08:00:00Z", sent: true, kind: "agreement" }] } });
+  ok("once emailed: the date shows and the log says so", p2.remind.lastSent === "2026-11-26T08:00:00Z" && p2.log.some(l => /agreement ready to sign/.test(l.t)));
+  const p3 = joinProgress({ ...base, agr: { data: { status: "signed", sentAt: "2026-11-25T00:00:00Z", signedAt: "2026-11-26T00:00:00Z" } } });
+  ok("signed: no agreement email offered", !p3.remind);
+}

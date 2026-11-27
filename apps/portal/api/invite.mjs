@@ -82,6 +82,26 @@ export function remindMail({ name, link, from, next, pwSet, started }) {
   return { subject: "Your next step with Archē Executive", text, html };
 }
 export const REMIND_DAYS = 3;
+// the agreement is waiting for their signature: an email that tells them, with their sign-in link (Morten, 27 Nov 2026:
+// "how do i know he gets it, i dont even see if it is sent?"; sending the agreement only put it on their joining page)
+export function agreementMail({ name, link, from, pwSet }) {
+  const first = (name || "").split(/\s+/)[0] || "";
+  const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const lead = "Thank you for your assessment. Your consultancy agreement with Archē Executive is ready for you to read and sign.";
+  const how = pwSet === false ? "Open your personal link below and choose your password; your joining page then shows \"Read and sign your agreement\"."
+    : "Open your personal link below; it signs you in to your joining page, where \"Read and sign your agreement\" is waiting.";
+  const steps = "Fill in your details, tick the two boxes and type your full legal name to sign. We countersign straight after, and your onboarding package follows.";
+  const text = [`Dear ${first || "colleague"},`, "", lead, "", how, "", link, "", steps, "",
+    "The link works once and only for a short time. Later, sign in at " + PORTAL + " with this email address and your password.", "",
+    "If you have any question about the agreement, just reply to this email.", "",
+    "Kind regards,", ...signOff(from)].join("\n");
+  const html = `<div style="font:15px/1.6 Helvetica,Arial,sans-serif;color:#24262a;max-width:560px"><p>Dear ${esc(first || "colleague")},</p><p>${esc(lead)}</p><p>${esc(how)}</p>
+<p style="margin:24px 0"><a href="${esc(link)}" style="background:#34373d;color:#f3f5f8;padding:12px 22px;text-decoration:none;letter-spacing:.08em;font-size:13px">READ AND SIGN</a></p>
+<p>${esc(steps)}</p>
+<p style="font-size:13px;color:#5b6067">The link works once and only for a short time. Later, sign in at <a href="${PORTAL}">${PORTAL.replace(/^https:\/\//, "")}</a> with this email address and your password.</p>
+<p style="font-size:13px;color:#5b6067">If you have any question about the agreement, just reply to this email.</p><p>Kind regards,<br>${signOff(from).map(esc).join("<br>")}</p></div>`;
+  return { subject: "Your Archē Executive agreement is ready to sign", text, html };
+}
 
 // the inviting owner gets a hidden copy (BCC) of every invitation (Morten, 28 Oct 2026) and the person's replies, unless the
 // invitation goes in the company's name: then replies go to careers@ (Morten, 26 Nov 2026), the BCC stays
@@ -190,7 +210,7 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   if (av && av.fails) log.push({ at: av.lastFailAt || av.last, t: `${av.fails} failed password sign-in${av.fails > 1 ? "s" : ""} on the academy page before getting in` });
   // reminders sent from Team
   const rem = (invite.reminders || []).slice().sort((a, b) => String(a.at).localeCompare(String(b.at)));
-  rem.forEach(x => log.push({ at: x.at, t: "Reminder sent" + (x.sent ? "" : " (email not sent)") }));
+  rem.forEach(x => log.push({ at: x.at, t: (x.kind === "agreement" ? "Email: agreement ready to sign" : "Reminder sent") + (x.sent ? "" : " (email not sent)") }));
   log.sort((x, y) => String(y.at || "").localeCompare(String(x.at || "")));
   // a password never set: the person signed in by link but the "choose your password" step was not finished
   const um = (user && user.user_metadata) || {}, viaMs = ((user && user.app_metadata) || {}).provider === "azure";
@@ -200,7 +220,12 @@ export function joinProgress({ invite = {}, user = null, prof = null, join = nul
   const stamps = [invAt, ...sends.map(x => x.at), signedIn, p && (p.updated || null), av && av.last, offer && offer.data && offer.data.at, ...rem.map(x => x.at)].filter(Boolean).map(String).sort();
   const lastActive = stamps[stamps.length - 1] || null, quiet = lastActive ? Math.floor((now - new Date(lastActive)) / 864e5) : 0;
   const atJoin = !onTeam && !join && !a.status, nextStep = academyNext(p, role);
-  const remind = atJoin && user ? { due: quiet >= REMIND_DAYS, quiet, lastActive, sent: rem.length, lastSent: rem.length ? rem[rem.length - 1].at : null, next: nextStep,
+  const agrWait = !onTeam && a.status === "sent" && !a.signedAt;
+  const agrSent = rem.filter(x => x.kind === "agreement");
+  const remind = agrWait && user ? { kind: "agreement", due: !agrSent.length, quiet, lastActive, sent: agrSent.length, lastSent: agrSent.length ? agrSent[agrSent.length - 1].at : null, next: null,
+    preview: agreementMail({ name: invite.name || um.name || "", link: `[${((invite.name || um.name || "").split(/\s+/)[0] || "Their")}'s own sign-in link: made when you press Send, works once]`, from: invite.as === "company" ? "" : from, pwSet }).text,
+    to: invite.email || (user && user.email) || "", subject: "Your Archē Executive agreement is ready to sign" }
+    : atJoin && user ? { due: quiet >= REMIND_DAYS, quiet, lastActive, sent: rem.length, lastSent: rem.length ? rem[rem.length - 1].at : null, next: nextStep,
     // the preview is the email exactly as it goes out (Morten, 9 Nov 2026), with the sender's own name; only the link is
     // made at the moment of sending (it works once and for a short time), so the preview says whose link goes there
     preview: remindMail({ name: invite.name || um.name || "", link: `[${((invite.name || um.name || "").split(/\s+/)[0] || "Their")}'s own sign-in link: made when you press Send, works once]`, from: invite.as === "company" ? "" : from, next: nextStep, pwSet, started: !!p }).text,
@@ -358,22 +383,26 @@ export default async function handler(req, res) {
         if (!gl.ok || !link) return res.status(502).json({ error: "Could not create the link (" + gl.status + ")." }); }
       const prog = arrFirst((await sb(`/rest/v1/academy_progress?select=data&id=eq.${existing.id}`)).body);
       const pd = (prog && prog.data) || null;
-      if (preview) { const m = remindMail({ name, link, from: signer, next: academyNext(pd), pwSet, started: !!pd });
-        return res.status(200).json({ ok: true, preview: true, to: email, subject: m.subject, text: m.text, link, made: new Date().toISOString(), noName: !asCo && !senderName, as: asCo ? "company" : "me", replyTo: asCo ? CAREERS : me.email }); }
+      // agreement sent and not yet signed: the email says the agreement is ready to sign, not the academy step
+      const agrRow = arrFirst((await sb(`/rest/v1/agreements?select=data&id=eq.${existing.id}`)).body), ad = (agrRow && agrRow.data) || {};
+      const isAgr = ad.status === "sent" && !ad.signedAt;
+      const mailFor = () => isAgr ? agreementMail({ name, link, from: signer, pwSet }) : remindMail({ name, link, from: signer, next: academyNext(pd), pwSet, started: !!pd });
+      if (preview) { const m = mailFor();
+        return res.status(200).json({ ok: true, preview: true, kind: isAgr ? "agreement" : "academy", to: email, subject: m.subject, text: m.text, link, made: new Date().toISOString(), noName: !asCo && !senderName, as: asCo ? "company" : "me", replyTo: asCo ? CAREERS : me.email }); }
       let sent = "not sent: RESEND_API_KEY missing in Vercel";
       if (process.env.RESEND_API_KEY) {
-        const m = remindMail({ name, link, from: signer, next: academyNext(pd), pwSet, started: !!pd });
+        const m = mailFor();
         const r = await fetch("https://api.resend.com/emails", { method: "POST", headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, "content-type": "application/json" },
           body: JSON.stringify(inviteRequest({ from: FROM, to: email, owner: me.email, mail: m, company: asCo })) });
         if (r.ok) sent = "sent"; else { let msg = ""; try { msg = (await r.json()).message || ""; } catch (e) {} sent = `not sent: refused by Resend (${r.status}${msg ? ": " + msg.slice(0, 120) : ""})`; }
       }
       const at = new Date().toISOString(), masked = email.replace(/^(.).*?(@.*)$/, "$1***$2");
-      await sb("/rest/v1/audit_log", { method: "POST", headers: { prefer: "return=minimal" }, body: JSON.stringify({ by: me.id, action: "Joining reminder", detail: `${name} · ${masked} · email ${sent === "sent" ? "sent" : "not sent"}` }) });
+      await sb("/rest/v1/audit_log", { method: "POST", headers: { prefer: "return=minimal" }, body: JSON.stringify({ by: me.id, action: isAgr ? "Agreement email" : "Joining reminder", detail: `${name} · ${masked} · email ${sent === "sent" ? "sent" : "not sent"}` }) });
       const cur = await sb("/rest/v1/intel?select=value&key=eq.invites"), list = (((cur.body || [])[0] || {}).value || {}).list || [];
-      const next = list.map(x => x.email === email ? { ...x, reminders: [...(x.reminders || []), { at, sent: sent === "sent", by: me.id }].slice(-20) } : x);
-      if (!list.some(x => x.email === email)) next.unshift({ email, name, at: existing.created_at, first: existing.created_at, sends: [], notInvited: true, reminders: [{ at, sent: sent === "sent", by: me.id }] });
+      const next = list.map(x => x.email === email ? { ...x, reminders: [...(x.reminders || []), { at, sent: sent === "sent", by: me.id, ...(isAgr ? { kind: "agreement" } : {}) }].slice(-20) } : x);
+      if (!list.some(x => x.email === email)) next.unshift({ email, name, at: existing.created_at, first: existing.created_at, sends: [], notInvited: true, reminders: [{ at, sent: sent === "sent", by: me.id, ...(isAgr ? { kind: "agreement" } : {}) }] });
       await sb("/rest/v1/intel?on_conflict=key", { method: "POST", headers: { prefer: "resolution=merge-duplicates,return=minimal" }, body: JSON.stringify({ key: "invites", value: { list: next.slice(0, 100) }, updated_at: at }) });
-      return res.status(200).json({ ok: true, sent, link, remind: true });
+      return res.status(200).json({ ok: true, sent, link, remind: true, kind: isAgr ? "agreement" : "academy" });
     }
     // new person: an invitation; invited but never signed in: a fresh sign-in link; already signed in before (lost access,
     // link run out): a link to choose a new password, so "Send again" always works (Morten, 29 Oct 2026)

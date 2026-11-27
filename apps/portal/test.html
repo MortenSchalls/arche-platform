@@ -5544,7 +5544,7 @@ function agrOwnerBlock(id, j){
   if (!a) return `<div class="fgrid" style="margin-top:6px"><label class="f" for="ob_note_${id}">Assessment notes<input id="ob_note_${id}" autocomplete="off" placeholder="What you checked and the result"></label><label class="f" for="ag_start_${id}">Start date (optional)<input id="ag_start_${id}" type="date"></label></div>
     ${agrCoReady() ? "" : `<p class="small" style="color:var(--warn)">Fill in the company details in Settings first (legal name, UEN, address, bookings email, signatory and title). They go into the agreement.</p>`}
     <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="send|${id}" ${agrCoReady() ? "" : "disabled"}>Passed: send agreement</button>${S.isOwner ? `<button class="btn small" type="button" data-decline="${id}">Decline</button>` : ""}</div>`;
-  if (a.status === "sent") return `<p class="small">Assessment passed ${fmtD(a.assess && a.assess.at)}. Agreement sent ${fmtT(a.sentAt)}, waiting for their signature.</p><div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button><button class="btn small" type="button" data-agr="withdraw|${id}">Withdraw</button></div>`;
+  if (a.status === "sent") return `<p class="small">Assessment passed ${fmtD(a.assess && a.assess.at)}. Agreement sent ${fmtT(a.sentAt)}, waiting for their signature.</p>${typeof invAgrBlock === "function" ? invAgrBlock(id, j.contractName || "") : ""}<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button><button class="btn small" type="button" data-agr="withdraw|${id}">Withdraw</button></div>`;
   if (a.status === "signed") return `<p class="small"><b>Signed</b> by ${esc(a.signedName)} on ${fmtT(a.signedAt)}.</p>
     <div class="fgrid" style="margin-top:6px"><label class="f" for="ob_mail_${id}">Archē email address created for them<input id="ob_mail_${id}" type="email" autocomplete="off" value="${esc(obSuggestMail(j.contractName))}" placeholder="firstname.lastname@${esc(obDomain())}"></label></div><p class="small muted" style="margin:4px 0 0">Create this mailbox in GoDaddy first (Email & Office > Create New Email User, Email Essentials), with their own name as display name.</p>
     <div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button>${S.isOwner ? `<button class="btn small primary" type="button" data-approve="${id}">Countersign and issue onboarding package</button>` : `<span class="small muted">Waiting for the Director's countersignature.</span>`}</div>`;
@@ -5559,7 +5559,7 @@ function obSuggestMail(name){
 }
 function agrWatchOwner(){ if (S.agrOn || !(S.isOwner || (typeof canRight === "function" && canRight("assess")))) return; S.agrOn = true; watchCol("agr", snap => { S.agrs = {}; snap.docs.forEach(d => S.agrs[d.id] = d.data()); render(); }); }
 function agrModal(){ const id = S.agrView; if (!id) return ""; const a = (S.agrs || {})[id] || (id === S.uid ? S.myAgr : null); if (!a) return "";
-  return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="copy">Download a copy</button><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html || agrRender(a)}</div>`; }
+  return `<div class="panel stack" style="max-width:860px;margin:16px 0"><div class="row" style="justify-content:space-between"><h2>Agreement: ${esc(a.signedName || (S.joins[id] || {}).contractName || "")}</h2><div class="row"><button class="btn small" type="button" data-agr="copy">Download a copy</button><button class="btn small" type="button" data-agr="print">Print or save as PDF</button><button class="btn small" type="button" data-agr="closeview">Close</button></div></div>${a.html ? "" : `<p class="small muted">Not signed yet: the name and place below come from their request to join, as they will see them when they sign; they complete the rest of Schedule 2 themselves.</p>`}${a.html || agrRender({...a, details: {consultant: (S.joins[id] || {}).contractName || "", territory: (S.joins[id] || {}).base || "", ...(a.details || {})}})}</div>`; }
 async function agrCountersign(id){
   const j = S.joins[id], a = (S.agrs || {})[id]; if (!j || !a || a.status !== "signed") return;
   const mail = (($("ob_mail_" + id) || {}).value || "").trim().toLowerCase();
@@ -5598,7 +5598,7 @@ document.addEventListener("click", async ev => {
       if (!agrCoReady()) { toast("Fill in the company details in Settings first."); return; }
       { const why = typeof intakeBlock === "function" ? intakeBlock(id) : ""; if (why) { toast(why); return; } }
       await S.db.doc("agr/" + id).set({status: "sent", version: AGR_VERSION, sentAt: now(), sentBy: S.uid, start, assess: {notes: note, at: now(), by: S.uid}, company: {...S.company}});
-      audit(S.isOwner ? "Assessment passed; agreement sent" : "Assessment passed by supervisor; agreement sent", (S.joins[id] || {}).contractName || id); toast("Agreement sent. They read and sign it in the portal."); return; }
+      audit(S.isOwner ? "Assessment passed; agreement sent" : "Assessment passed by supervisor; agreement sent", (S.joins[id] || {}).contractName || id); toast("Agreement sent: it is on their joining page now. Email them from the request so they know."); return; }
     if (a === "withdraw") { await S.db.doc("agr/" + id).delete(); audit("Agreement withdrawn", (S.joins[id] || {}).contractName || id); toast("Withdrawn."); return; }
   } catch(err){ toast(err.code === "permission_denied" || err.code === "unknown_path" ? "Agreements are not set up yet (run 0009 in Supabase)." : "Could not save."); }
 });
@@ -8853,10 +8853,10 @@ function trustMatrix(){
       : P.error ? `<p class="note warn small">${esc(P.error)}</p>` : `<p class="muted">Preparing ${esc((x.name || x.email).split(/\s+/)[0])}'s email…</p>`;
     const noName = P.text && P.noName && P.as !== "company" ? `<div class="note warn small"><p>Your name is not on your profile yet, so this email would be signed "Archē Executive" only. Add the name you sign with; the email is then made again with it.</p>
       <div class="row"><label class="f" for="inv_myname">Your name<input id="inv_myname" autocomplete="name"></label><button class="btn small" type="button" data-inv="myname|${esc(x.email)}|${esc(x.name || "")}">Save my name</button></div></div>` : "";
-    return noName + `<div class="stack small" id="invRem_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}"><h3 style="margin:4px 0">Reminder to ${esc(x.name || x.email)}</h3>
+    return noName + `<div class="stack small" id="invRem_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}"><h3 style="margin:4px 0">${(P.kind || r.kind) === "agreement" ? "Email to " + esc(x.name || x.email) + ": agreement ready to sign" : "Reminder to " + esc(x.name || x.email)}</h3>
       <p class="muted">To: ${esc(P.to || r.to || x.email)} only. Subject: ${esc(P.subject || r.subject || "Your next step with Archē Executive")}. This is exactly the email that is sent, with ${esc((x.name || x.email).split(/\s+/)[0])}'s own sign-in link, as their joining stands now${P.made ? ` (${fmtT(P.made)})` : ""}. The link works once and only for a short time: if you wait, press Make again for a fresh one. Sent from Archē's welcome address${(P.as || x.as) === "company" ? `, signed Archē Executive with no name, as the invitation was; replies go to ${esc(P.replyTo || "careers@archeaviation.com")}` : "; replies come to you"}, and you get a hidden copy.${r.sent ? ` Reminded before: ${r.sent} time${r.sent > 1 ? "s" : ""}, last ${fmtT(r.lastSent)}.` : ""}</p>
       ${body}
-      <div class="row"><button class="btn small primary" type="button" data-inv="remindsend|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy || !P.text ? "disabled" : ""}>Send this reminder</button><button class="btn small" type="button" data-inv="remindmake|${esc(x.email)}|${esc(x.name || "")}">Make again</button><button class="btn small" type="button" data-inv="remind|${esc(x.email)}">Cancel</button></div></div>`;
+      <div class="row"><button class="btn small primary" type="button" data-inv="remindsend|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy || !P.text ? "disabled" : ""}>${(P.kind || r.kind) === "agreement" ? "Send this email" : "Send this reminder"}</button><button class="btn small" type="button" data-inv="remindmake|${esc(x.email)}|${esc(x.name || "")}">Make again</button><button class="btn small" type="button" data-inv="remind|${esc(x.email)}">Cancel</button></div></div>`;
   }
   async function remindPreview(email, name){
     S.invPrev = S.invPrev || {}; S.invPrev[email] = {}; render();
@@ -8888,7 +8888,7 @@ function trustMatrix(){
       const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim(), ...(mode ? {mode} : {}), ...(!again && !mode ? {as: S.invAs || "company"} : {}), ...(extra || {})})});
       const j = await r.json().catch(() => ({}));
       S.invRes = {...j, email: email.trim(), error: j.error || (r.ok ? "" : "The invitation service did not answer (" + r.status + ").")};
-      if (j.ok && mode === "remind") { S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; (S.invRem || {})[email] = false; S.invRes = j.sent === "sent" ? null : S.invRes; toast(j.sent === "sent" ? "Reminder sent to " + email + "." : "Reminder not emailed (" + j.sent + "). Send the link yourself."); }
+      if (j.ok && mode === "remind") { S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; (S.invRem || {})[email] = false; S.invRes = j.sent === "sent" ? null : S.invRes; toast(j.sent === "sent" ? (j.kind === "agreement" ? "Email sent to " + email + ": agreement ready to sign." : "Reminder sent to " + email + ".") : "Reminder not emailed (" + j.sent + "). Send the link yourself."); }
       else if (j.ok) { if (!again) S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; toast(j.sent === "sent" ? (again ? "New link sent to " + email + "." : "Invitation sent.") : "Login ready. Send the link yourself."); }
     } catch(e){ S.invRes = {ok: false, error: "The invitation service could not be reached. Try again."}; }
     S.invBusy = false; render();
@@ -8897,8 +8897,8 @@ function trustMatrix(){
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest("[data-inv]"); if (!b) return; e.preventDefault();
     if (b.dataset.inv.startsWith("log|")) { const em = b.dataset.inv.slice(4); S.invLog = S.invLog || {}; S.invLog[em] = !S.invLog[em]; if (S.invLog[em]) S.invStAt = 0; render(); return; }
-    if (b.dataset.inv.startsWith("remind|")) { const em = b.dataset.inv.slice(7); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em];
-      if (S.invRem[em]) { const x = [...(S.invites || []), ...(S.invExtra || [])].find(z => z.email === em); remindPreview(em, (x && x.name) || em); } else if (S.invPrev) delete S.invPrev[em]; render(); return; }
+    if (b.dataset.inv.startsWith("remind|")) { const [, em, nm0] = b.dataset.inv.split("|"); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em];
+      if (S.invRem[em]) { const x = [...(S.invites || []), ...(S.invExtra || [])].find(z => z.email === em); remindPreview(em, (x && x.name) || nm0 || em); } else if (S.invPrev) delete S.invPrev[em]; render(); return; }
     if (b.dataset.inv.startsWith("myname|")) { const [, email, name] = b.dataset.inv.split("|"), nm = (($("inv_myname") || {}).value || "").trim();
       try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
         const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({mode: "myname", myName: nm, email, name: name || email})});
@@ -8919,6 +8919,23 @@ function trustMatrix(){
     if (b.dataset.inv === "copy") { try { await navigator.clipboard.writeText(S.invLink || ""); toast("Link copied. Send it only to this person."); } catch(err){ prompt("Copy this personal link:", S.invLink || ""); } }
   });
   const _vTeamInv = vTeam; vTeam = function(){ return afterHead(_vTeamInv(), panel()); };
+  // Onboarding, agreement sent: whether the person has been emailed, and the email itself to check and send (Morten,
+  // 27 Nov 2026: "how do i know he gets it, i dont even see if it is sent?")
+  window.invAgrBlock = function(uid, name){
+    states();
+    const email = String(((S.peopleEmails || {})[uid] || {}).email || "").toLowerCase();
+    if (!email && !S.invStates) return `<p class="small muted" style="margin:6px 0 0">Checking whether they have been emailed…</p>`;
+    if (!email) return `<p class="small" style="color:var(--warn)">No email address on this request, so the portal cannot email them. They see the agreement when they next sign in.</p>`;
+    states();
+    const st = (S.invStates || {})[email], pg = st && st.progress, r = pg && pg.remind;
+    const x = {email, name};
+    const line = !st ? `<span class="muted">Checking whether ${esc(name.split(/\s+/)[0] || "they")} has been emailed…</span>`
+      : r && r.kind === "agreement" ? (r.lastSent ? `<span class="chip c-flown">Emailed</span> ${fmtT(r.lastSent)}${r.sent > 1 ? ` (${r.sent} times)` : ""}` : `<span class="chip c-enquiry">Not emailed yet</span> sending the agreement put it on their joining page only`)
+      : "";
+    const btn = r && r.kind === "agreement" ? ` <button class="btn small${r.lastSent ? "" : " primary"}" type="button" data-inv="remind|${esc(email)}|${esc(name)}" aria-expanded="${(S.invRem || {})[email] ? "true" : "false"}">${r.lastSent ? "Email again" : "Email " + esc(name.split(/\s+/)[0] || "them") + " the agreement"}</button>` : "";
+    const last = pg && pg.lastSeen ? ` <span class="muted">· last signed in ${fmtT(pg.lastSeen)}</span>` : "";
+    return `<p class="small" style="margin:6px 0 0">${line}${btn}${last}</p>${(S.invRem || {})[email] && r ? invRemind(x, pg) : ""}`;
+  };
 })();
 /* ---------- See as a person (Morten, 28 Oct 2026, training findings 1 and 2: "consistency between what the brokers see
    and what I see when I switch", "Natalia should have prospects assigned but she cannot see them") ----------

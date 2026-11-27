@@ -49,10 +49,10 @@
       : P.error ? `<p class="note warn small">${esc(P.error)}</p>` : `<p class="muted">Preparing ${esc((x.name || x.email).split(/\s+/)[0])}'s email…</p>`;
     const noName = P.text && P.noName && P.as !== "company" ? `<div class="note warn small"><p>Your name is not on your profile yet, so this email would be signed "Archē Executive" only. Add the name you sign with; the email is then made again with it.</p>
       <div class="row"><label class="f" for="inv_myname">Your name<input id="inv_myname" autocomplete="name"></label><button class="btn small" type="button" data-inv="myname|${esc(x.email)}|${esc(x.name || "")}">Save my name</button></div></div>` : "";
-    return noName + `<div class="stack small" id="invRem_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}"><h3 style="margin:4px 0">Reminder to ${esc(x.name || x.email)}</h3>
+    return noName + `<div class="stack small" id="invRem_${esc(x.email).replace(/[^a-z0-9]/gi, "_")}"><h3 style="margin:4px 0">${(P.kind || r.kind) === "agreement" ? "Email to " + esc(x.name || x.email) + ": agreement ready to sign" : "Reminder to " + esc(x.name || x.email)}</h3>
       <p class="muted">To: ${esc(P.to || r.to || x.email)} only. Subject: ${esc(P.subject || r.subject || "Your next step with Archē Executive")}. This is exactly the email that is sent, with ${esc((x.name || x.email).split(/\s+/)[0])}'s own sign-in link, as their joining stands now${P.made ? ` (${fmtT(P.made)})` : ""}. The link works once and only for a short time: if you wait, press Make again for a fresh one. Sent from Archē's welcome address${(P.as || x.as) === "company" ? `, signed Archē Executive with no name, as the invitation was; replies go to ${esc(P.replyTo || "careers@archeaviation.com")}` : "; replies come to you"}, and you get a hidden copy.${r.sent ? ` Reminded before: ${r.sent} time${r.sent > 1 ? "s" : ""}, last ${fmtT(r.lastSent)}.` : ""}</p>
       ${body}
-      <div class="row"><button class="btn small primary" type="button" data-inv="remindsend|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy || !P.text ? "disabled" : ""}>Send this reminder</button><button class="btn small" type="button" data-inv="remindmake|${esc(x.email)}|${esc(x.name || "")}">Make again</button><button class="btn small" type="button" data-inv="remind|${esc(x.email)}">Cancel</button></div></div>`;
+      <div class="row"><button class="btn small primary" type="button" data-inv="remindsend|${esc(x.email)}|${esc(x.name || "")}" ${S.invBusy || !P.text ? "disabled" : ""}>${(P.kind || r.kind) === "agreement" ? "Send this email" : "Send this reminder"}</button><button class="btn small" type="button" data-inv="remindmake|${esc(x.email)}|${esc(x.name || "")}">Make again</button><button class="btn small" type="button" data-inv="remind|${esc(x.email)}">Cancel</button></div></div>`;
   }
   async function remindPreview(email, name){
     S.invPrev = S.invPrev || {}; S.invPrev[email] = {}; render();
@@ -84,7 +84,7 @@
       const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({name: name.trim(), email: email.trim(), ...(mode ? {mode} : {}), ...(!again && !mode ? {as: S.invAs || "company"} : {}), ...(extra || {})})});
       const j = await r.json().catch(() => ({}));
       S.invRes = {...j, email: email.trim(), error: j.error || (r.ok ? "" : "The invitation service did not answer (" + r.status + ").")};
-      if (j.ok && mode === "remind") { S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; (S.invRem || {})[email] = false; S.invRes = j.sent === "sent" ? null : S.invRes; toast(j.sent === "sent" ? "Reminder sent to " + email + "." : "Reminder not emailed (" + j.sent + "). Send the link yourself."); }
+      if (j.ok && mode === "remind") { S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; (S.invRem || {})[email] = false; S.invRes = j.sent === "sent" ? null : S.invRes; toast(j.sent === "sent" ? (j.kind === "agreement" ? "Email sent to " + email + ": agreement ready to sign." : "Reminder sent to " + email + ".") : "Reminder not emailed (" + j.sent + "). Send the link yourself."); }
       else if (j.ok) { if (!again) S.invForm = null; S.invLink = j.link || ""; S.invStAt = 0; toast(j.sent === "sent" ? (again ? "New link sent to " + email + "." : "Invitation sent.") : "Login ready. Send the link yourself."); }
     } catch(e){ S.invRes = {ok: false, error: "The invitation service could not be reached. Try again."}; }
     S.invBusy = false; render();
@@ -93,8 +93,8 @@
   document.addEventListener("click", async e => {
     const b = e.target.closest && e.target.closest("[data-inv]"); if (!b) return; e.preventDefault();
     if (b.dataset.inv.startsWith("log|")) { const em = b.dataset.inv.slice(4); S.invLog = S.invLog || {}; S.invLog[em] = !S.invLog[em]; if (S.invLog[em]) S.invStAt = 0; render(); return; }
-    if (b.dataset.inv.startsWith("remind|")) { const em = b.dataset.inv.slice(7); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em];
-      if (S.invRem[em]) { const x = [...(S.invites || []), ...(S.invExtra || [])].find(z => z.email === em); remindPreview(em, (x && x.name) || em); } else if (S.invPrev) delete S.invPrev[em]; render(); return; }
+    if (b.dataset.inv.startsWith("remind|")) { const [, em, nm0] = b.dataset.inv.split("|"); S.invRem = S.invRem || {}; S.invRem[em] = !S.invRem[em];
+      if (S.invRem[em]) { const x = [...(S.invites || []), ...(S.invExtra || [])].find(z => z.email === em); remindPreview(em, (x && x.name) || nm0 || em); } else if (S.invPrev) delete S.invPrev[em]; render(); return; }
     if (b.dataset.inv.startsWith("myname|")) { const [, email, name] = b.dataset.inv.split("|"), nm = (($("inv_myname") || {}).value || "").trim();
       try { const sess = window.__sb ? (await window.__sb.auth.getSession()).data.session : null;
         const r = await fetch("/api/invite", {method: "POST", headers: {"content-type": "application/json", authorization: "Bearer " + ((sess || {}).access_token || "")}, body: JSON.stringify({mode: "myname", myName: nm, email, name: name || email})});
@@ -115,4 +115,21 @@
     if (b.dataset.inv === "copy") { try { await navigator.clipboard.writeText(S.invLink || ""); toast("Link copied. Send it only to this person."); } catch(err){ prompt("Copy this personal link:", S.invLink || ""); } }
   });
   const _vTeamInv = vTeam; vTeam = function(){ return afterHead(_vTeamInv(), panel()); };
+  // Onboarding, agreement sent: whether the person has been emailed, and the email itself to check and send (Morten,
+  // 27 Nov 2026: "how do i know he gets it, i dont even see if it is sent?")
+  window.invAgrBlock = function(uid, name){
+    states();
+    const email = String(((S.peopleEmails || {})[uid] || {}).email || "").toLowerCase();
+    if (!email && !S.invStates) return `<p class="small muted" style="margin:6px 0 0">Checking whether they have been emailed…</p>`;
+    if (!email) return `<p class="small" style="color:var(--warn)">No email address on this request, so the portal cannot email them. They see the agreement when they next sign in.</p>`;
+    states();
+    const st = (S.invStates || {})[email], pg = st && st.progress, r = pg && pg.remind;
+    const x = {email, name};
+    const line = !st ? `<span class="muted">Checking whether ${esc(name.split(/\s+/)[0] || "they")} has been emailed…</span>`
+      : r && r.kind === "agreement" ? (r.lastSent ? `<span class="chip c-flown">Emailed</span> ${fmtT(r.lastSent)}${r.sent > 1 ? ` (${r.sent} times)` : ""}` : `<span class="chip c-enquiry">Not emailed yet</span> sending the agreement put it on their joining page only`)
+      : "";
+    const btn = r && r.kind === "agreement" ? ` <button class="btn small${r.lastSent ? "" : " primary"}" type="button" data-inv="remind|${esc(email)}|${esc(name)}" aria-expanded="${(S.invRem || {})[email] ? "true" : "false"}">${r.lastSent ? "Email again" : "Email " + esc(name.split(/\s+/)[0] || "them") + " the agreement"}</button>` : "";
+    const last = pg && pg.lastSeen ? ` <span class="muted">· last signed in ${fmtT(pg.lastSeen)}</span>` : "";
+    return `<p class="small" style="margin:6px 0 0">${line}${btn}${last}</p>${(S.invRem || {})[email] && r ? invRemind(x, pg) : ""}`;
+  };
 })();
