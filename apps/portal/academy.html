@@ -582,11 +582,28 @@ function setSync(mode){
   el.textContent = mode === "sync" ? "Progress recorded" : mode === "local" ? "Saved on this device" : "Saved on this device";
   el.title = mode === "sync" ? "Your progress is saved to the Archē training records." : "Progress is kept in this browser. When you finish, send your completion code to the Director.";
 }
+/* Progress on two devices (Sunisa, 28 Nov 2026: computer at module 7, phone still at 5): a page left open on one device
+   kept its old state and, on its next answer, wrote it over the newer record. Now every write first reads the record and
+   keeps the best of both, and a page that comes back into view reads the record again. */
 function pushRemote(){
   if (!P.ref) return;
-  const body = JSON.parse(JSON.stringify(ST)); body.updated = new Date().toISOString();
-  P.chain = P.chain.then(() => P.ref.set(body)).then(() => setSync("sync")).catch(() => { P.ref = null; setSync("local"); });
+  P.chain = P.chain.then(() => P.ref.get()).then(snap => {
+    if (snap && snap.exists) { mergeRemote(snap.data()); saveLocal(); }
+    const body = JSON.parse(JSON.stringify(ST)); body.updated = new Date().toISOString();
+    return P.ref.set(body);
+  }).then(() => setSync("sync")).catch(() => { P.ref = null; setSync("local"); });
 }
+async function pullRemote(){
+  if (!P.ref) return;
+  try {
+    const snap = await P.ref.get(); if (!snap.exists) return;
+    const before = JSON.stringify(ST.mods); mergeRemote(snap.data()); saveLocal();
+    if (JSON.stringify(ST.mods) !== before) { renderMap(); if (!VIEW.id || VIEW.id === "home") route(); }
+  } catch(e) {}
+}
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") pullRemote(); });
+window.addEventListener("pageshow", e => { if (e.persisted) pullRemote(); });
+window.__acadSync = () => ({st: () => ST, P, save, isDone});   /* for tests/acadsynctest.js only */
 function save(){ ST.updated = new Date().toISOString(); saveLocal(); pushRemote(); }
 function mergeRemote(r){
   if (!r) return;
