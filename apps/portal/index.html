@@ -5286,7 +5286,7 @@ function agrOwnerBlock(id, j){
     <div class="row" style="margin-top:6px"><button class="btn small primary" type="button" data-agr="send|${id}" ${agrCoReady() ? "" : "disabled"}>Passed: send agreement</button>${S.isOwner ? `<button class="btn small" type="button" data-decline="${id}">Decline</button>` : ""}</div>`;
   if (a.status === "sent") return `<p class="small">Assessment passed ${fmtD(a.assess && a.assess.at)}. Agreement sent ${fmtT(a.sentAt)}, waiting for their signature.</p>${typeof invAgrBlock === "function" ? invAgrBlock(id, j.contractName || "") : ""}<div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button><button class="btn small" type="button" data-agr="withdraw|${id}">Withdraw</button></div>`;
   if (a.status === "signed") return `<p class="small"><b>Signed</b> by ${esc(a.signedName)} on ${fmtT(a.signedAt)}.</p>
-    <div class="fgrid" style="margin-top:6px"><label class="f" for="ob_mail_${id}">Archē email address created for them<input id="ob_mail_${id}" type="email" autocomplete="off" value="${esc(obSuggestMail(j.contractName))}" placeholder="firstname.lastname@${esc(obDomain())}"></label></div><p class="small muted" style="margin:4px 0 0">Create this mailbox in GoDaddy first (Email & Office > Create New Email User, Email Essentials), with their own name as display name.</p>
+    <div class="fgrid" style="margin-top:6px"><label class="f" for="ob_mail_${id}">Archē email address created for them<input id="ob_mail_${id}" type="email" autocomplete="off" value="${esc(obSuggestMail(j.contractName))}" placeholder="firstname.lastname@${esc(obDomain())}"></label></div><p class="small muted" style="margin:4px 0 0">Create this mailbox in GoDaddy first (Email & Office > Add user, Email Essentials), with their own name as display name, a temporary password, and their private email under "Send account info to": that is how they get their sign-in.</p>
     <div class="row" style="margin-top:6px"><button class="btn small" type="button" data-agr="view|${id}">View agreement</button>${S.isOwner ? `<button class="btn small primary" type="button" data-approve="${id}">Countersign and issue onboarding package</button>` : `<span class="small muted">Waiting for the Director's countersignature.</span>`}</div>`;
   return `<p class="small muted">Agreement ${esc(a.status)}.</p>`;
 }
@@ -5350,7 +5350,9 @@ document.addEventListener("click", async ev => {
       That activates the person and issues the onboarding package (roster: workEmail, onboarding).
    4. On first sign-in the portal shows only the package: Archē email, email signature (they type only their name and
       direct phone), Standards of Conduct, meeting backgrounds. Confirming it opens the desk.
-   Passwords are never part of the package: the email account's own set-up link sets the email password.
+   Passwords are never part of the package: the email service sends the new mailbox's sign-in (address and temporary
+   password) to the person's private email, set by the Director in GoDaddy "Send account info to" (Sandro, 28 Nov 2026:
+   "Where should the one time link appear?" - the package promised a set-up link that GoDaddy does not send).
    Confirmation is kept in train/<uid>/runs/onboarding (people see their own; owner and operations see everyone's). */
 const OB_CONDUCT = [
   ["Act for Archē", ["Present yourself as Archē Executive, never under your own brand or another company's.",
@@ -5532,7 +5534,7 @@ function vWelcome(){
   return `<div class="head"><div><h1>Welcome to Archē Executive${me.contractName ? ", " + esc(me.contractName.split(" ")[0]) : ""}</h1><p class="muted small">${confirmed ? `Your onboarding package. You confirmed it on ${fmtD(ack.ackAt)}; it stays here for reference.` : "You passed your assessment. Set up the items below and confirm at the end; your desk opens straight after."}</p></div></div>
   <div class="stack" style="max-width:760px">
   <div class="panel stack"><h2>1. Your Archē email</h2><p>Your address: <b class="mono">${esc(mail || "to be issued")}</b></p>
-    <p class="small">Use only this address for Archē business. Your email password comes separately, as a one-time set-up link from the email service. Archē never sends passwords in this package or by email. Turn on two-step verification when you first sign in.</p>
+    <p class="small">Use only this address for Archē business. Your sign-in details come separately, from the email service (Microsoft 365 from GoDaddy), to your private email address: your Archē address and a temporary password. Sign in at outlook.office.com, choose your own password straight away and turn on two-step verification. Nothing arrived? Check your spam folder, then ask the Director to send it again. Passwords are never part of this package.</p>
     <p class="small"><b>Messaging:</b> you are added to the Archē company accounts on WhatsApp, LINE and WeChat for clients, and to the Archē team groups on WhatsApp for everything internal. Use only these.</p>
     <p class="small muted">Your portal and academy login stays the one you already use. Never share any login.</p></div>
   <div class="panel stack"><h2>2. Your email signature</h2><p class="small">Type only your name and direct phone number. Everything else is fixed and must not be changed.</p>
